@@ -1,0 +1,123 @@
+<div class="row row-alley-2">
+    <div class="col-1-2">
+       <h4>Primary Contact for this Request</h4>
+       <a href="#" title="Select a different contact">
+           Select a different contact
+       </a>
+
+       <dl>
+           <dt>Name:</dt>
+           <dd>{{contact.name}}</dd>
+
+           <dt>Phone Number:</dt>
+           <dd>{{contact.phoneNumber}}</dd>
+
+           <dt>Email Address:</dt>
+           <dd>{{contact.emailAddress}}</dd>
+       </dl>
+
+       <a href="#" title="Add an Additional Contact for this Request">
+           Add an Additional Contact for this Request
+       </a>
+   </div>
+    <form class="form row row--alley-2" data-form="" name="newAddress" method="post" ng-submit="newAddress.$valid && continue()" enctype="mulitpart/form-data" novalidate>
+        <div class="col-1-2">
+            <fieldset>
+                <legend>Additional Information for this Request</legend>
+
+                <div class="form__field">
+                    <label>Customer Reference ID</label>
+                    <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
+                </div>
+
+                <div class="form__field">
+                    <label>Cost Center</label>
+                    <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
+                </div>
+                <div class="form__field">
+                    <label>Description</label>
+                    <textarea ng-model="serviceRequest.addtnlDescription"></textarea>
+                </div>
+                <div class="form__field">
+                    <label>Requested Effective Date of Change:</label>
+                    <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-1-2">
+            <fieldset>
+                <legend>New Address</legend>
+
+                <div class="form__field">
+                    <label>Address Name</label>
+                    <input type="text" ng-model="address.addName" value="" class="" />
+                </div>
+                <div class="form__field">
+                    <label>Store-front Name</label>
+                    <input type="text" ng-model="address.storeName" value="" class="" />
+                </div>
+                <div class="form__field form__field--required">
+                    <label>Address Line 1</label>
+                    <input type="text" ng-model="address.addrLine1" value="" class="" required />
+                </div>
+                <div class="form__field form__field--required">
+                    <label>Address Line 2</label>
+                    <input type="text" ng-model="address.addrLine2"  value="" class="" required />
+                </div>
+                <div class="form__field form__field--required">
+                    <label>City</label>
+                    <input type="text" ng-model="address.city" value="" class="" required />
+                </div>
+                <div class="form__field form__field--required">
+                    <label>Country</label>
+                    <select ng-model="address.country" required>
+                        <option value="">- select -</option>
+                        <option>United States</option>
+                    </select>
+                </div>
+                <div class="form__field form__field--required">
+                    <label>State</label>
+                    <select ng-model="address.state" required>
+                        <option value="">- select -</option>
+                        <option>Kentucky</option>
+                    </select>
+                </div>
+                <div class="form__field">
+                    <label>Zip</label>
+                    <input type="text" ng-model="address.zipCode" value="" class="" />
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="col-1">
+            <fieldset>
+                <legend>
+                    <a href="" ng-click="attachmentToggle()">
+                        <span class="icon icon--lxk-ui" ng-class="attachmentIsShown ? 'icon--toggle-up' : 'icon--toggle-down'"></span>
+                        Add Notes &amp; Attachments
+                    </a>
+                </legend>
+
+                <div class="form__field" ng-show="attachmentIsShown">
+                    <label></label>
+                    <textarea></textarea>
+                </div>
+
+                <div class="form__field" ng-show="attachmentIsShown">
+                    <input type="file"  />
+                    <small>
+                        Note:Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.
+                        Only a max of 2 files of max. 1 mb each can be attached.
+                    </small>
+                </div>
+            </fieldset>
+         </div>
+
+         <div class="row row--alley-2">
+            <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()">Back</button>
+            <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()">Cancel</button>
+            <button name="submit" class="col-1-3 btn btn--primary" type="submit">Continue</button>
+         </div>
+    </form>
+
+</div>

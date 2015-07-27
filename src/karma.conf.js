@@ -6,7 +6,9 @@ module.exports = function(config){
     files : [
         'client/js/libs/angular.min.js',
         'client/test/angular-mocks.js',
-        'client/**/*.js'
+        'client/js/**/*.js',
+        'client/hello/*.js',
+        'client/test/*.js'
     ],
 
     autoWatch : true,
