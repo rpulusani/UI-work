@@ -12,7 +12,7 @@ COPY src /src
 WORKDIR /src
 
 # Install app dependencies
-RUN npm install --production
+RUN npm update --production
 
 EXPOSE  8080
 CMD ["npm", "start"]
