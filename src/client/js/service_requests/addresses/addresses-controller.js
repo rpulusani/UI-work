@@ -1,5 +1,5 @@
  angular.module('mps')
-    .controller("AddressesController", ['$scope', '$location', function($scope, $location){
+.controller("AddressesController", ['$scope', '$location', function($scope, $location){
 
     $scope.continueForm = false;
 
@@ -43,7 +43,7 @@
     }
 
     $scope.save = function(){
-        alert("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
+        console("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
         return true;
     };
 
