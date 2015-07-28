@@ -7,7 +7,6 @@ module.exports = function(config){
         'client/js/libs/angular.min.js',
         'client/test/angular-mocks.js',
         'client/js/**/*.js',
-        'client/hello/*.js',
         'client/test/*.js'
     ],
 
