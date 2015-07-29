@@ -1,7 +1,9 @@
- angular.module('mps')
-.controller("AddressesController", ['$scope', '$location', function($scope, $location){
+angular.module('mps')
+.controller("AddressesController", ['$scope', '$location', 'Addresses',
+    function($scope, $location, Addresses){
 
     $scope.continueForm = false;
+    $scope.submitForm = false;
 
     $scope.contact = {
         name: '',
@@ -39,11 +41,16 @@
 
     $scope.continue = function(){
         $scope.continueForm = true;
+        // show request review message...
         return false;
     }
 
     $scope.save = function(){
-        console("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
+        console.log("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
+        $scope.submitForm = true;
+        // Addresses.save($scope.address, function(address) {
+        //     show request summery message...
+        // });
         return true;
     };
 
@@ -59,7 +66,11 @@
     };
 
     $scope.cancel = function(){
+<<<<<<< HEAD
         console.log("cancel");
+=======
+        console.log('cancel...');
+>>>>>>> tons.
         $location.path("/");
         return false;
     };

@@ -65,7 +65,6 @@
                     <label>Customer Reference ID</label>
                     <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
                 </div>
-
                 <div class="form__field">
                     <label>Cost Center</label>
                     <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
@@ -94,9 +93,11 @@
                 </div>
             </fieldset>
         </div>
+        <div ng-include="'/js/service_requests/addresses/confirm-cancel.html'"></div>
         <div class="col-1">
             <button name="back" class="btn btn--secondary" ng-click="back()">Back</button>
-            <button name="cancel" class="btn btn--secondary" ng-click="cancel()">Cancel</button>
+            <button name="cancel" class="btn btn--secondary"
+                    data-js="modalOpen" data-target="#cancel">Cancel</button>
             <button name="submit" class="btn btn--primary" type="submit">Continue</button>
         </div>
     </div>
