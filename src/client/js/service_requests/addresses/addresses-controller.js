@@ -71,11 +71,11 @@
 
     $scope.addresses = Addresses.query();
 
-    $scope.selectedAddress = null;
+    $scope.currentAddress = Addresses.currentAddress;
 
     $scope.getAddress = function(id){
-        var length = $scope.addressses.length,
-            addresses = $scope.addresses,
+        var addresses = $scope.addresses,
+            length = addresses.length,
             address = {};
         for(var i = 0; i < length; ++i) {
             if(addresses[i].id === id) {
@@ -87,19 +87,20 @@
     };
 
     $scope.cancelDelete = function(){
-        window.location = "#/service_requests/addresses";
+        Addresses.currentAddress = {};
+        window.location = "/#/service_requests/addresses";
         return false;
     };
 
     $scope.requestDelete = function(){
-        var addressId = $location.search().id;
-        console.log("Requested deletion of " + $scope.getAddress(addressId).addName);
+        console.log("Requested deletion of " + $scope.currentAddress.addName);
+        window.location = "/#/service_requests/addresses/delete/review";
         return false;
     };
 
     $scope.deleteAddress = function(id) {
-        $scope.selectedAddress = $scope.getAddress(id);
-        $location.path("#/service_requests/addresses/delete");
+        Addresses.currentAddress = $scope.getAddress(id);
+        window.location = "/#/service_requests/addresses/delete";
     };
 
 }])
@@ -141,7 +142,12 @@ function() {
         }
     ];
     return {
-        get: function(id) { return addresses[id]; },
-        query: function() { return addresses; }
+        get: function(id) {
+            return addresses[id];
+        },
+        query: function() {
+            return addresses;
+        },
+        currentAddress: {}
     };
 }]);

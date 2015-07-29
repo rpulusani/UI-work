@@ -3,25 +3,25 @@
         <h3>Address to be Deleted</h3>
         <dl class="row row--alley-2">
             <dt class="col-1-2">Address Name:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).addName"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.addName"></dd>
             <dt class="col-1-2">Store-front Name:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).storeName"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.storeName"></dd>
             <dt class="col-1-2">Address Line 1:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).addrLine1"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.addrLine1"></dd>
             <dt class="col-1-2">Address Line 2:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).addrLine2"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.addrLine2"></dd>
             <dt class="col-1-2">Country:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).country"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.country"></dd>
             <dt class="col-1-2">State / Province:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).state"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.state"></dd>
             <dt class="col-1-2">City:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).city"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.city"></dd>
             <dt class="col-1-2">County:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).county"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.county"></dd>
             <dt class="col-1-2">District:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).district"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.district"></dd>
             <dt class="col-1-2">Zip / Postal Code:</dt>
-            <dd class="col-1-2" ng-bind="getAddress(selectedAddress).zipCode"></dd>
+            <dd class="col-1-2" ng-bind="currentAddress.zipCode"></dd>
         </dl>
     </div>
     <div class="col-1-2">
@@ -54,6 +54,31 @@
                     <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
                 </div>
             </fieldset>
+            <div class="col-1">
+            <fieldset>
+                <legend>
+                    <a href="" ng-click="attachmentToggle()">
+                        <span class="icon icon--lxk-ui" ng-class="attachmentIsShown ? 'icon--toggle-up' : 'icon--toggle-down'"></span>
+                        Add Notes &amp; Attachments
+                    </a>
+                </legend>
+                <div ng-show="attachmentIsShown">
+                    <div class="form__field">
+                        <label>Notes</label>
+                        <textarea></textarea>
+                    </div>
+
+                    <div class="form__field">
+                        <label>Attach Files</label>
+                        <input type="file"  />
+                        <div class="form__field__helper-text">
+                            Note:Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.
+                            Only a max of 2 files of max. 1 mb each can be attached.
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+         </div>
         </form>
     </div>
     <div class="col-1">
