@@ -1,0 +1,39 @@
+.site-footer{
+    padding: @base-grid-v (4)*@base-grid-h;
+    border-top: 1px solid @color-n4;
+    background: @white;
+    .fn-clearfix();
+
+    .logo{
+        float: left;
+        border-right: 1px solid @color-n4;
+
+        img{
+            display: block;
+        }
+    }
+
+    .copyright{
+        float: left;
+        padding: @base-grid-v (2)*@base-grid-h;
+    }
+
+    .util-nav{
+        float: right;
+        padding: @base-grid-v 0;
+
+        ul{
+            list-style: none;
+
+            li{
+                float: left;
+                padding: 0 @base-grid-h;
+                border-right: 1px dotted @color-n4;
+
+                &:last-child{
+                    border-right: 0;
+                }
+            }
+        }
+    }
+}

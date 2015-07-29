@@ -1,0 +1,71 @@
+.site-header {
+  padding: 0 40px;
+  border-top: 5px solid #00c425;
+  border-bottom: 1px solid #a5a5aa;
+}
+.site-header:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.site-header .logo {
+  padding: 24px 0;
+  display: block;
+  float: left;
+}
+.site-header .logo img {
+  display: block;
+}
+.site-header .util-nav {
+  float: right;
+  padding: 12px 0;
+}
+.site-content:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.site-content .site-nav {
+  padding: 24px 40px;
+}
+.site-content .main-content {
+  border-left: 1px solid #a5a5aa;
+  padding: 24px 40px;
+  min-height: 300px;
+}
+.site-footer {
+  padding: 12px 40px;
+  border-top: 1px solid #a5a5aa;
+  background: #ffffff;
+}
+.site-footer:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.site-footer .logo {
+  float: left;
+  border-right: 1px solid #a5a5aa;
+}
+.site-footer .logo img {
+  display: block;
+}
+.site-footer .copyright {
+  float: left;
+  padding: 12px 20px;
+}
+.site-footer .util-nav {
+  float: right;
+  padding: 12px 0;
+}
+.site-footer .util-nav ul {
+  list-style: none;
+}
+.site-footer .util-nav ul li {
+  float: left;
+  padding: 0 10px;
+  border-right: 1px dotted #a5a5aa;
+}
+.site-footer .util-nav ul li:last-child {
+  border-right: 0;
+}

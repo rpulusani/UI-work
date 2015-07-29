@@ -4,14 +4,61 @@
     <title>Customer Portal &#8734;.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//www.lexmark.com/common/lxk-framework/css/lxk-framework.css" />
+    <link rel="stylesheet" href="/etc/styles/css/app.css" />
     <script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>
     <script src="//www.lexmark.com/common/lxk-framework/js/main-dev.js"></script>
   </head>
   <body>
-    <div class="container row">
-      <div ng-view class="col-1">
+    <div class="site-wrapper">
+      <nav class="site-header">
+        <a class="logo" href="/" title="Customer Portal"><img src="/etc/resources/img/lexmark-global-services-logo.png" alt="Lexmark Global Services" /></a>
+        <div class="util-nav">
+          <div class="dropdown" data-js="dropdown">
+            <button class="btn btn--small dropdown__trigger">Username <span class="dropdown__caret dropdown__caret--light"></span></button>
+            <div class="dropdown__menu">
+              <div class="dropdown__menu-inner">
+                <ul>
+                  <li><a href="#" title="User Preferences">Preferences</a></li>
+                  <li><a href="#" title="Administrator Options">User Administration</a></li>
+                  <li><a href="#" title="Log Off">Sign Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
 
+      <div class="site-content row">
+        <div class="col-1-5">
+          <nav class="site-nav">
+            <ul class="rail-navigation" data-js="railNav" data-label="Global Services">
+              <li><a href="#/service_requests/addresses/new" title="Service Request - New Address">New Address Request</a></li>
+              <li><a href="#" title="Do Moar Stuff">Moar Stuff</a></li>
+              <li><a href="#" title="Do Moar Stuff">Moar Stuff</a></li>
+              <li><a href="#" title="Do Moar Stuff">Moar Stuff</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-4-5">
+          <div class="main-content" ng-view></div>
+        </div>
       </div>
+
+      <nav class="site-footer">
+        <div class="logo"><img src="/etc/resources/img/square-logo-only.png" alt="Lexmark Logo" /></div>
+        <div class="copyright text--tiny">
+          <strong>Lexmark International, Inc.</strong> </br>
+          &copy;2015 All rights reserved.
+        </div>
+        <div class="util-nav text--small">
+          <ul>
+            <li><a href="http://www.lexmark.com" title="Lexmark Internation, Inc.">Lexmark.com</a></li>
+            <li><a href="#faq" title="Frequently Asked Questions">FAQ</a></li>
+            <li><a href="#help" title="Global Services Help Center">Get Help</a></li>
+            <li><a href="#contact" title="Get in touch with Lexmark">Contact Lexmark</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
 
     <script src="/js/libs/angular.min.js"></script>
