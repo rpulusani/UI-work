@@ -5,10 +5,15 @@ angular.module('mps')
         templateUrl: '/js/service_requests/addresses/address-new-form.html'
     };
 })
- 
 .directive('addressReview', function() {
     return {
         restrict: 'E',
         templateUrl: '/js/service_requests/addresses/review.html'
     };
+})
+.directive('addressNavigationButton', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/js/service_requests/addresses/address-navigation-button.html'
+    }
 });

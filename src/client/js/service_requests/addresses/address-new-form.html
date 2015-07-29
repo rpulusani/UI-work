@@ -93,12 +93,7 @@
                 </div>
             </fieldset>
         </div>
-        <div ng-include="'/js/service_requests/addresses/confirm-cancel.html'"></div>
-        <div class="col-1">
-            <button name="back" class="btn btn--secondary" ng-click="back()">Back</button>
-            <button name="cancel" class="btn btn--secondary"
-                    data-js="modalOpen" data-target="#cancel">Cancel</button>
-            <button name="submit" class="btn btn--primary" type="submit">Continue</button>
-        </div>
+
+        <address-navigation-button></address-navigation-button>
     </div>
 </form>
