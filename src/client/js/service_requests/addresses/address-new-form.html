@@ -15,9 +15,9 @@
                     <label>Address Line 1</label>
                     <input type="text" ng-model="address.addrLine1" value="" class="" required />
                 </div>
-                <div class="form__field form__field--required">
+                <div class="form__field">
                     <label>Address Line 2</label>
-                    <input type="text" ng-model="address.addrLine2"  value="" class="" required />
+                    <input type="text" ng-model="address.addrLine2"  value="" class="" />
                 </div>
                 <div class="form__field form__field--required">
                     <label>City</label>
@@ -37,9 +37,9 @@
                         <option>Kentucky</option>
                     </select>
                 </div>
-                <div class="form__field">
+                <div class="form__field form__field--required">
                     <label>Zip</label>
-                    <input type="text" ng-model="address.zipCode" value="" class="" />
+                    <input type="text" ng-model="address.zipCode" value="" class="" required />
                 </div>
             </fieldset>
         </div>
