@@ -1,0 +1,39 @@
+<div class="row row--alley-2">
+    <div class="col-1">
+        <h3>Addresses</h3>
+        <div>
+            <a href="#/service_requests/addresses/new">Add New Address Request</a>
+        </div>
+        <table class="table table--even table--responsive" data-js="responsive-table">
+            <thead>
+                <tr>
+                    <th>Address Name</th>
+                    <th>Store-front Name</th>
+                    <th>Address Line 1:</th>
+                    <th>Address Line 2:</th>
+                    <th>Country</th>
+                    <th>State / Province</th>
+                    <th>City</th>
+                    <th>County</th>
+                    <th>District</th>
+                    <th>Zip / Postal Code</th>
+                    <th>Actions</th>
+                </th>
+            <tbody ng-repeat="address in addresses">
+                <tr>
+                    <td>{{address.addName}}</td>
+                    <td>{{address.storeName}}</td>
+                    <td>{{address.addrLine1}}</td>
+                    <td>{{address.addrLine2}}</td>
+                    <td>{{address.country}}</td>
+                    <td>{{address.state}}</td>
+                    <td>{{address.city}}</td>
+                    <td>{{address.county}}</td>
+                    <td>{{address.district}}</td>
+                    <td>{{address.zipCode}}</td>
+                    <td><a href="" ng-click="deleteAddress(address.id)">Delete</a></td>
+                </tr>
+            </tbody>
+        </dl>
+    </div>
+</div>
