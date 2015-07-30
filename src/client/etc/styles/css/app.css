@@ -11,7 +11,11 @@
 .site-header .logo {
   padding: 24px 0;
   display: block;
-  float: left;
+}
+@media only screen and (min-width: 34em) {
+  .site-header .logo {
+    float: left;
+  }
 }
 .site-header .logo img {
   display: block;
@@ -19,6 +23,15 @@
 .site-header .util-nav {
   float: right;
   padding: 12px 0;
+}
+.site-header .search-btn .icon {
+  font-size: 2rem;
+  line-height: 1.4;
+  margin-right: 5px;
+  vertical-align: bottom;
+}
+.search {
+  padding: 12px 20px;
 }
 .site-content:after {
   clear: both;
@@ -29,9 +42,15 @@
   padding: 24px 40px;
 }
 .site-content .main-content {
-  border-left: 1px solid #a5a5aa;
   padding: 24px 40px;
   min-height: 300px;
+  border-top: 1px solid #a5a5aa;
+}
+@media only screen and (min-width: 34em) {
+  .site-content .main-content {
+    border-left: 1px solid #a5a5aa;
+    border-top: 0;
+  }
 }
 .site-footer {
   padding: 12px 40px;
