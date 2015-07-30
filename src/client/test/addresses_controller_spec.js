@@ -4,10 +4,10 @@ describe('MPS module', function() {
 beforeEach(module('mps'));
 
 describe('addresses controller', function(){
-  var scope, ctrl;
-
-  beforeEach(inject(function($rootScope, $controller) {
+  var scope, ctrl, location;
+  beforeEach(inject(function($rootScope, $controller, $location) {
       scope = $rootScope.$new();
+      location = $location;
       ctrl = $controller('AddressesController', {$scope: scope});
   }));
 
@@ -54,14 +54,34 @@ describe('addresses controller', function(){
   });
 
   describe('when backed up', function() {
-    it('returns false', function(){
-      expect(scope.back()).toBe(false);
-    });
+      describe('when continueForm is true', function() {
+          it('should set continueForm to be false', function() {
+              scope.back();
+              expect(scope.continueForm).toBe(false);
+          });
+      });
+
+      describe('when continueForm is false', function() {
+          it('should return to home', function() {
+              spyOn(location, 'path').and.returnValue('/');
+              scope.back();
+              expect(location.path).toHaveBeenCalledWith('/');
+          });
+      });
   });
 
   describe('when cancelled', function() {
-     it('returns false', function(){
-      expect(scope.back()).toBe(false);
+    it('should return to home', function(){
+      spyOn(location, 'path').and.returnValue('/');
+      scope.cancel();
+      expect(location.path).toHaveBeenCalledWith('/');
+    });
+  });
+
+  describe('when continued', function() {
+    it('should set continueForm to be true', function() {
+        scope.continue();
+        expect(scope.continueForm).toBe(true);
     });
   });
 

@@ -2,8 +2,12 @@ angular.module('mps')
 .controller("AddressesController", ['$scope', '$location', 'Addresses',
     function($scope, $location, Addresses){
 
+    //TODO: retrieve this from config
+    var base_url = '';
+
     $scope.continueForm = false;
     $scope.submitForm = false;
+    $scope.addresses = Addresses.query();
 
     $scope.contact = {
         name: '',
@@ -39,18 +43,18 @@ angular.module('mps')
 
     $scope.loadTestData();
 
-    $scope.continue = function(){
-        $scope.continueForm = true;
-        // show request review message...
-        return false;
-    }
-
     $scope.save = function(){
         console.log("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
         $scope.submitForm = true;
-        // Addresses.save($scope.address, function(address) {
+        Addresses.saveAddress($scope.address)
+            .success(function(response, data) {
+                console.log('success adding');
+                $scope.addresses.push(data);
+            })
+            .error(function(response) {
+                console.log('error adding');
+            });
         //     show request summery message...
-        // });
         return true;
     };
 
@@ -61,8 +65,6 @@ angular.module('mps')
         }else{
             $location.path("/");
         }
-
-        return false;
     };
 
     $scope.cancel = function(){
@@ -72,7 +74,10 @@ angular.module('mps')
         console.log('cancel...');
 >>>>>>> tons.
         $location.path("/");
-        return false;
+    };
+
+    $scope.continue = function() {
+        $scope.continueForm = true;
     };
 
     $scope.attachmentIsShown = false;
@@ -82,8 +87,7 @@ angular.module('mps')
     };
 
 }])
-.factory('Addresses', [
-function() {
+.factory('Addresses', function($http) {
     var addresses = [
         {
             addName: 'Addy 1',
@@ -98,6 +102,13 @@ function() {
     ];
     return {
         get: function(id) { return addresses[id]; },
-        query: function() { return addresses; }
+        query: function() { return addresses; },
+        saveAddress: function(addressData) {
+            return $http.get('/test');
+            // return $http.post(base_url,addressData);
+        }
     };
-}]);
+
+    // var url = [base_url, '/addresses'].join('');
+    // return $resource(url, {id: '@id'}, {});
+});
