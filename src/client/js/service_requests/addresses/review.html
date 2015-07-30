@@ -1,3 +1,21 @@
+<div class="alert" data-js="alert" ng-hide='submitForm'>
+    <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
+    <icon class="alert__icon icon icon--small icon--ui icon--warning"></icon>
+    <div class="alert__body">
+        <span>
+            <strong>Please review the details for this request. Once confirmed, click on the SUBMIT button below.</strong>
+        </span>
+    </div>
+</div>
+<div class="alert alert--success" data-js="alert" ng-show='submitForm'>
+    <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
+    <icon class="alert__icon icon icon--small icon--ui icon--success"></icon>
+    <div class="alert__body">
+        <span>
+            <strong>Your request # {{serviceRequest.customerReferenceId}} has been submitted successfully. Please use this number when referencing your request..</strong>
+        </span>
+    </div>
+</div>
 <div class="row row--alley-2">
     <div class="col-1-2">
         <h4>Address Information</h4>

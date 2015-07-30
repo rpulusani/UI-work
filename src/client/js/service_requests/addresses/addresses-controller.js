@@ -49,12 +49,13 @@ angular.module('mps')
         Addresses.saveAddress($scope.address)
             .success(function(response, data) {
                 console.log('success adding');
+                //TODO: remove this later
+                $scope.serviceRequest.customerReferenceId = '1-56781108741';
                 $scope.addresses.push(data);
             })
             .error(function(response) {
                 console.log('error adding');
             });
-        //     show request summery message...
         return true;
     };
 
@@ -68,11 +69,7 @@ angular.module('mps')
     };
 
     $scope.cancel = function(){
-<<<<<<< HEAD
         console.log("cancel");
-=======
-        console.log('cancel...');
->>>>>>> tons.
         $location.path("/");
     };
 
@@ -105,6 +102,7 @@ angular.module('mps')
         query: function() { return addresses; },
         saveAddress: function(addressData) {
             return $http.get('/test');
+            //TODO: this is the real one...
             // return $http.post(base_url,addressData);
         }
     };
