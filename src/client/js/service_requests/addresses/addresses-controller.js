@@ -48,7 +48,6 @@
     };
 
     $scope.back = function(){
-        console.log("go back");
         if($scope.continueForm){
             $scope.continueForm = false;
         }else{
