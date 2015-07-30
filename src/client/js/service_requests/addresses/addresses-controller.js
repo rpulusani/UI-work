@@ -1,5 +1,5 @@
  angular.module('mps')
-    .controller("AddressesController", ['$scope', function($scope){
+    .controller("AddressesController", ['$scope', '$location', function($scope, $location){
 
     $scope.continueForm = false;
 
@@ -52,7 +52,7 @@
         if($scope.continueForm){
             $scope.continueForm = false;
         }else{
-            window.location="/";
+            $location.path("/");
         }
 
         return false;
@@ -60,7 +60,7 @@
 
     $scope.cancel = function(){
         console.log("cancel");
-        window.location="/";
+        $location.path("/");
         return false;
     };
 
