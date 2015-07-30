@@ -87,19 +87,19 @@
 
     $scope.cancelDelete = function(){
         Addresses.currentAddress = {};
-        window.location = "/#/service_requests/addresses";
+        $location.path("/service_requests/addresses");
         return false;
     };
 
     $scope.requestDelete = function(){
         console.log("Requested deletion of " + $scope.currentAddress.addName);
-        window.location = "/#/service_requests/addresses/delete/review";
+        $location.path("/service_requests/addresses/delete/review");
         return false;
     };
 
     $scope.deleteAddress = function(id) {
         Addresses.currentAddress = $scope.getAddress(id);
-        window.location = "/#/service_requests/addresses/delete";
+        $location.path("/service_requests/addresses/delete");
     };
 
 }])
