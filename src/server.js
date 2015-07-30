@@ -9,6 +9,7 @@ var path = require('path');
 var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
+var engine = require('express-dot-engine');
 
 process.env.PORT = 8080;
 
@@ -22,7 +23,17 @@ var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
 
-router.use(express.static(path.resolve(__dirname, 'client')));
+router.configure(function(){
+  router.engine('dot', engine.__express);
+  router.set("views", __dirname + '/client/views');
+  router.set('view engine', 'dot');
+  router.use('/etc', express.static(path.resolve(__dirname, 'client/etc')));
+  router.use('/js', express.static(path.resolve(__dirname, 'client/js')));
+  router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
+  router.use('/templates', express.static(path.resolve(__dirname, 'client/templates')));
+  router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
+});
+
 var messages = [];
 var sockets = [];
 
@@ -79,8 +90,13 @@ function broadcast(event, data) {
     socket.emit(event, data);
   });
 }
-
+console.log(process.env.NEW_RELIC_LICENSE_KEY);
+console.log(process.env.NEW_RELIC_APP_NAME);
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Customer Portal server listening at", addr.address + ":" + addr.port);
 });
+
+router.get('/', function(req, res) {
+    res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID, });
+  });
