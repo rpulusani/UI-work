@@ -48,8 +48,33 @@ describe('MPS module', function() {
         });
 
         describe('when saved', function() {
-            it('returns true', function() {
-                expect(scope.save()).toBe(true);
+            var httpBackend;
+            beforeEach(function () {
+                angular.mock.inject(function ($injector) {
+                    httpBackend = $injector.get('$httpBackend');
+                })
+            });
+
+            describe('when POST request failed', function() {
+                it('should set add_success to be false', function() {
+                    //TODO: this mock needs to be POST for real
+                    httpBackend.expectGET('/test').respond(500);
+                    scope.save(function() {
+                      expect(scope.add_success).toBe(false);
+                    });
+                    expect(httpBackend.flush).not.toThrow();
+                });
+            });
+
+            describe('when POST request success', function() {
+                it('should set add_success to be true', function() {
+                    //TODO: this mock needs to be POST for real
+                    httpBackend.expectGET('/test').respond(200);
+                    scope.save(function() {
+                      expect(scope.add_success).toBe(false);
+                    });
+                    expect(httpBackend.flush).not.toThrow();
+                });
             });
         });
 

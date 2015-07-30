@@ -35,6 +35,7 @@ angular.module('mps')
         requestedEffectiveDate: ''
     };
 
+    //TODO: Remove loadTestData later
     $scope.loadTestData = function(){
         $scope.contact.name = "Vickers PetsAtHome";
         $scope.contact.phoneNumber = "9992882222";
@@ -49,14 +50,15 @@ angular.module('mps')
         Addresses.saveAddress($scope.address)
             .success(function(response, data) {
                 console.log('success adding');
-                //TODO: remove this later
+                //TODO: remove setting reference id later
                 $scope.serviceRequest.customerReferenceId = '1-56781108741';
                 $scope.addresses.push(data);
+                $scope.add_success = true;
             })
             .error(function(response) {
                 console.log('error adding');
+                $scope.add_success = false;
             });
-        return true;
     };
 
     $scope.back = function(){
