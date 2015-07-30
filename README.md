@@ -21,3 +21,13 @@ To test via console
 To test via web
  * Start the server
  * Navigate to http://localhost:8080/test
+
+Environmental Variables
+   * NEWRELICID=10059346   --NewRelic Browser
+   * NEW_RELIC_LICENSE_KEY=0ce62264499457b6bb48fc18ed2ee650deeb6e2e  --NewRelic Docker Container for Node.js
+   * NEW_RELIC_APP_NAME=MPS-DEV   --Name of the NewRelic Application in their system
+   * NEW_RELIC_BROWSER_MONITOR_ENABLE=true --Turn on Broswer data capture
+   * NEW_RELIC_CAPTURE_PARAMS=true  
+   * NEW_RELIC_LOG_LEVEL=info
+   * NEW_RELIC_ENABLED=true --enable/disabled newrelic for this docker image
+   * NEW_RELIC_TRACER_ENABLED=true

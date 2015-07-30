@@ -13,6 +13,7 @@ WORKDIR /src
 
 # Install app dependencies
 RUN npm install --production
+RUN npm install newrelic
 
 EXPOSE  8080
 CMD ["npm", "start"]
