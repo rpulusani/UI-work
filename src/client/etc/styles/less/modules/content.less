@@ -1,0 +1,18 @@
+.site-content{
+    .fn-clearfix();
+
+    .site-nav{
+        padding: (2)*@base-grid-v (4)*@base-grid-h;
+    }
+
+    .main-content{
+        padding: (2)*@base-grid-v (4)*@base-grid-h;
+        min-height: 300px;
+        border-top: 1px solid @color-n4;
+
+        @media @mq-gt-mobile{
+            border-left: 1px solid @color-n4;
+            border-top: 0;
+        }
+    }
+}
