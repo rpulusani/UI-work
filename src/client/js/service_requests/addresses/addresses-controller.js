@@ -1,7 +1,13 @@
- angular.module('mps')
-    .controller("AddressesController", ['$scope', '$location', function($scope, $location){
+angular.module('mps')
+.controller("AddressesController", ['$scope', '$location', 'Addresses',
+    function($scope, $location, Addresses){
+
+    //TODO: retrieve this from config
+    var base_url = '';
 
     $scope.continueForm = false;
+    $scope.submitForm = false;
+    $scope.addresses = Addresses.query();
 
     $scope.contact = {
         name: '',
@@ -29,6 +35,7 @@
         requestedEffectiveDate: ''
     };
 
+    //TODO: Remove loadTestData later
     $scope.loadTestData = function(){
         $scope.contact.name = "Vickers PetsAtHome";
         $scope.contact.phoneNumber = "9992882222";
@@ -37,14 +44,21 @@
 
     $scope.loadTestData();
 
-    $scope.continue = function(){
-        $scope.continueForm = true;
-        return false;
-    }
-
     $scope.save = function(){
-        alert("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
-        return true;
+        console.log("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
+        $scope.submitForm = true;
+        Addresses.saveAddress($scope.address)
+            .success(function(response, data) {
+                console.log('success adding');
+                //TODO: remove setting reference id later
+                $scope.serviceRequest.customerReferenceId = '1-56781108741';
+                $scope.addresses.push(data);
+                $scope.add_success = true;
+            })
+            .error(function(response) {
+                console.log('error adding');
+                $scope.add_success = false;
+            });
     };
 
     $scope.back = function(){
@@ -54,14 +68,15 @@
         }else{
             $location.path("/");
         }
-
-        return false;
     };
 
     $scope.cancel = function(){
         console.log("cancel");
         $location.path("/");
-        return false;
+    };
+
+    $scope.continue = function() {
+        $scope.continueForm = true;
     };
 
     $scope.attachmentIsShown = false;
@@ -71,8 +86,7 @@
     };
 
 }])
-.factory('Addresses', [
-function() {
+.factory('Addresses', function($http) {
     var addresses = [
         {
             addName: 'Addy 1',
@@ -87,6 +101,14 @@ function() {
     ];
     return {
         get: function(id) { return addresses[id]; },
-        query: function() { return addresses; }
+        query: function() { return addresses; },
+        saveAddress: function(addressData) {
+            return $http.get('/test');
+            //TODO: this is the real one...
+            // return $http.post(base_url,addressData);
+        }
     };
-}]);
+
+    // var url = [base_url, '/addresses'].join('');
+    // return $resource(url, {id: '@id'}, {});
+});

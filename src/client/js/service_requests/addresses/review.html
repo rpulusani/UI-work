@@ -1,3 +1,27 @@
+<div class="alert" data-js="alert" ng-hide='submitForm'>
+    <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
+    <div class="alert__body">
+        <span>
+            <strong>Please review the details for this request. Once confirmed, click on the SUBMIT button below.</strong>
+        </span>
+    </div>
+</div>
+<div class="alert alert--success" data-js="alert" ng-show='submitForm && add_success'>
+    <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
+    <div class="alert__body">
+        <span>
+            <strong>Your request # {{serviceRequest.customerReferenceId}} has been submitted successfully. Please use this number when referencing your request..</strong>
+        </span>
+    </div>
+</div>
+<div>
+    <div class="alert alert--error" data-js="alert" ng-show='submitForm && !add_success'>
+        <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
+        <div class="alert__body"><span>
+            <strong>Your request has failed.  Please contact your service manager.</strong>
+        </span></div>
+    </div>
+</div>
 <div class="row row--alley-2">
     <div class="col-1-2">
         <h4>Address Information</h4>
@@ -47,5 +71,8 @@
             <dt class="col-1-2">Requested Effective Date of Change:</dt>
             <dd class="col-1-2">{{serviceRequest.requestedEffectiveDate}}</dd>
         </dl>
+    </div>
+    <div class="row row--alley-2" ng-hide="submitForm">
+        <address-navigation-button></address-navigation-button>
     </div>
 </div>
