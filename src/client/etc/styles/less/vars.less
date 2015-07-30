@@ -1,0 +1,513 @@
+//* START Path vars */
+
+@cssRootPath: "/etc";
+@docsRootPath: "/etc";
+@cssResourcesPath: "@{cssRootPath}/resources";
+@docsResourcesPath: "@{docsRootPath}/resources";
+
+//* END Path vars */
+
+//* START Breakpoint vars */
+
+@bpSmall: 34em;
+@bpMedium: 54em;
+@bpLarge: 74em;
+
+//* END Breakpoint vars */
+
+//* START Media Query vars */
+
+@mq-lt-small: ~"(max-width: @{bpSmall})";
+@mq-gt-small: ~"(min-width: @{bpSmall})";
+@mq-lt-medium: ~"(max-width: @{bpMedium})";
+@mq-gt-medium: ~"(min-width: @{bpMedium})";
+@mq-lt-large: ~"(max-width: @{bpLarge})";
+@mq-gt-large: ~"(min-width: @{bpLarge})";
+
+@mq-screen: ~"only screen";
+@mq-print: ~"print";
+
+@mq-mobile: ~"@{mq-screen} and @{mq-lt-small}";
+@mq-gt-mobile: ~"@{mq-screen} and @{mq-gt-small}";
+
+@mq-tablet: ~"@{mq-screen} and @{mq-gt-small} and @{mq-lt-medium}";
+@mq-gt-tablet: ~"@{mq-screen} and @{mq-gt-medium}";
+@mq-not-tablet: ~"@{mq-screen} and @{mq-lt-small}, @{mq-screen} and @{mq-gt-medium}";
+
+@mq-laptop: ~"@{mq-screen} and @{mq-gt-medium} and @{mq-lt-large}";
+@mq-lt-laptop:  ~"@{mq-screen} and @{mq-lt-medium}";
+@mq-not-laptop: ~"@{mq-screen} and @{mq-lt-medium}, @{mq-screen} and @{mq-gt-large}";
+
+@mq-desktop: ~"@{mq-screen} and @{mq-gt-large}";
+@mq-lt-desktop: ~"@{mq-screen} and @{mq-lt-large}";
+
+//* END Media Query vars */
+
+//* START Base vars */
+
+@default-container-width: 1200px;
+
+@base-grid-v: 12px;
+@base-grid-h: 10px;
+
+@link-color: @blue1;
+@link-hover-color: lighten(@link-color, 10%);
+@link-visited-color: @purple;
+
+@site-bg-color: @white;
+@text-default-color: @grey9;
+@text-light-color: @white;
+
+@base-font-family: "tpHero", Arial, Sans-serif;
+
+//* END Base vars */
+
+//* START Typography vars */
+
+@base-font-size: 16px;
+
+@base-scale: 1.2;
+@tablet-scale: 1.125;
+@mobile-scale: 1.115;
+
+@base-power: 0;
+@large-power: 1;
+@small-power: -1;
+@tiny-power: -2;
+
+@h1-power: 4;
+@h2-power: 3;
+@h3-power: 2;
+@h4-power: 1;
+@h5-power: 0;
+@h6-power: -1;
+
+@lh-constant: 0.1;
+@lh-min: 1.3;
+
+@base-lh: 1.75;
+@h6-lh: @base-lh - (@lh-constant * @h6-power);
+@h5-lh: @base-lh - (@lh-constant * @h5-power);
+@h4-lh: @base-lh - (@lh-constant * @h4-power);
+@h3-lh: @base-lh - (@lh-constant * @h3-power);
+@h2-lh: @base-lh - (@lh-constant * @h2-power);
+@h1-lh: @base-lh - (@lh-constant * @h1-power);
+@large-lh: @base-lh - (@lh-constant * @large-power);
+@small-lh: @base-lh - (@lh-constant * @small-power);
+@tiny-lh: @base-lh - (@lh-constant * @tiny-power);
+
+//* END Typography vars */
+
+//* START Font Weight vars */
+
+@font-weight-thin: 100;
+@font-weight-light: 100;
+@font-weight-regular: 300;
+@font-weight-thick: 400;
+@font-weight-semibold: 600;
+@font-weight-bold: 700;
+
+//* END Font Weight vars */
+
+//* START Color vars */
+
+//* START Named Color vars */
+
+@white: #ffffff;
+@black: #000000;
+
+//* Greens Lightest to Darkest */
+@green1: #3af23a;
+@green2: #00c425;
+@green3: #00ad21;
+@green4: #008945;
+@green5: #006446;
+
+//* Blues Lightest to Darkest */
+@blue1: #0061de;
+@blue2: #1c64b4;
+
+@orange: #faa519;
+@red: #ea1b3d;
+@purple: #884fad;
+
+//* Greys Lightest to Darkest */
+@grey1: #eff0f6;
+@grey2: #e6e6f0;
+@grey3: #c9c9d1;
+@grey4: #a5a5aa;
+@grey5: #7e7e85;
+@grey6: #5a5a64;
+@grey7: #44434e;
+@grey8: #32323c;
+@grey9: #1d1d25;
+
+//* END Named Color vars */
+
+//* START Brand Color vars */
+
+@bColorMax: 10; //Used for looping through brand colors
+
+@color-b1: @green1;
+@color-b2: @green2;
+@color-b3: @green3;
+@color-b4: @green4;
+@color-b5: @green5;
+@color-b6: @blue1;
+@color-b7: @blue2;
+@color-b8: @orange;
+@color-b9: @red;
+@color-b10: @purple;
+
+//* END Brand Color vars */
+
+//*************************************/
+
+//* START Neutral Color vars */
+
+@nColorMax: 9; //Used for looping through neutral colors
+
+@color-n1: @grey1;
+@color-n2: @grey2;
+@color-n3: @grey3;
+@color-n4: @grey4;
+@color-n5: @grey5;
+@color-n6: @grey6;
+@color-n7: @grey7;
+@color-n8: @grey8;
+@color-n9: @grey9;
+
+//* END Neutral Color vars */
+
+//* START UI Color vars */
+
+@color-success: @green4;
+@color-info: @blue1;
+@color-warning: @orange;
+@color-error: @red;
+@color-important: @purple;
+
+//* END UI Color vars */
+
+//* !Depreciated! Color Palette vars */
+
+@primary-one: @color-b9;
+@primary-one-tint: @primary-one;
+@primary-one-shade: @primary-one;
+
+@primary-two: @color-b3;
+@primary-two-tint: @primary-two;
+@primary-two-shade: @primary-two;
+
+@primary-three: @color-n6;
+@primary-three-tint: @primary-three;
+@primary-three-shade: @primary-three;
+
+@secondary: @color-n9;
+@secondary-tint: @secondary;
+@secondary-shade: @secondary;
+
+@tertiary-one: @color-b8;
+@tertiary-one-tint: @tertiary-one;
+@tertiary-one-shade: @tertiary-one;
+
+@tertiary-two: @color-n9;
+@tertiary-two-tint: @tertiary-two;
+@tertiary-two-shade: @tertiary-two;
+
+@tertiary-three: @color-b2;
+@tertiary-three-tint: @tertiary-three;
+@tertiary-three-shade: @tertiary-three;
+
+@neutral-one: @color-n3;
+@neutral-one-tint: @color-n2;
+@neutral-one-shade: @color-n4;
+
+@neutral-two: @color-n6;
+@neutral-two-tint: @color-n5;
+@neutral-two-shade: @color-n7;
+
+//* !Depreciated! Color Palette vars */
+
+//* END Color vars */
+
+//************ MODULE VARS ***************/
+
+//* START Alert vars */
+
+@alert-default-color: @orange;
+@alert-default-bg-color: lighten(@alert-default-color, 40%);
+@alert-default-border-color: @alert-default-color;
+
+@alert-error-color: @red;
+@alert-error-bg-color: lighten(@alert-error-color, 40%);
+@alert-error-border-color: @alert-error-color;
+
+@alert-info-color: @blue1;
+@alert-info-bg-color: lighten(@alert-info-color, 50%);
+@alert-info-border-color: @alert-info-color;
+
+@alert-success-color: @green2;
+@alert-success-bg-color: lighten(@alert-success-color, 50%);
+@alert-success-border-color: @alert-success-color;
+
+@alert-close-color: @grey4;
+@alert-close-hover-color: @grey6;
+
+//* END Alert vars */
+
+//* START Button vars */
+
+@btn-default-color: @grey9;
+@btn-primary-color: @green3;
+@btn-important-color: @orange;
+@btn-info-color: @blue1;
+@btn-secondary-color: @grey3;
+@btn-success-color: @green3;
+@btn-warning-color: @red;
+
+@btn-text-dark: @grey9;
+@btn-text-light: @white;
+
+@btn-rounded-radius: 6px;
+
+@btn-lighten-percent: 5%;
+@btn-darken-percent: 5%;
+@btn-contrast-threshold: 55%;
+
+//* END Button vars */
+
+//* START Call Out Box vars */
+
+@callout-shadow-color: rgba(0,0,0,0.1);
+@callout-shadow-radius: ~"50% / 20px";
+@callout-shadow-height: 20px;
+@callout-fallback-border: @grey3;
+
+//* END Call Out Box vars */
+
+//* START Call to Action vars */
+
+@cta-indent: 1.5em;
+@cta-icon: "\e803";
+@cta-icon-inverse: "\e802";
+@cta-hover-opacity: 0.8;
+
+//* END Call to Action vars */
+
+//* START Card vars */
+
+@card-pad: 2px;
+@card-v-pad: @base-grid-v;
+@card-h-pad: (2)*@base-grid-h;
+
+@card-title-color: @text-default-color;
+@card-title-color-alt: @text-light-color;
+@card-text-color: @text-default-color;
+@card-text-color-alt: @text-light-color;
+@card-text-color-alt-dark: @grey3;
+@card-bg-color: @white;
+
+@card-overlay-opacity: .85;
+
+@card-action-overlay-color: @grey3;
+@card-action-overlay-opacity: .4;
+
+//* END Card vars */
+
+//* START Dropdown vars */
+
+@dropdown-bg: @white;
+@dropdown-text-color: @text-default-color;
+@dropdown-link-color: inherit;
+@dropdown-link-hover-color: inherit;
+@dropdown-link-hover-bg: @grey1;
+@dropdown-border: @grey3;
+@dropdown-divider: @dropdown-border;
+@dropdown-caret-dark-color: @text-default-color;
+@dropdown-caret-light-color: @white;
+@dropdown-caret-link-color: @link-color;
+
+@dropdown-caret-width: 3px;
+@dropdown-pointer-width: 6px;
+@dropdown-pointer-position: 10px;
+@dropdown-border-width: 1px;
+@dropdown-zindex: 10;
+@dropdown-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.26);
+@dropdown-menu-margin: 1px;
+@dropdown-col-width: 200px;
+@dropdown-scroll-height: 400px;
+
+//* END Dropdown vars */
+
+//* START Form vars */
+
+@form-control-border-color-default: @grey5;
+@form-control-border-color-hover: @blue2;
+@form-control-border-color-active: @grey9;
+@form-control-border-color-alert: @red;
+@form-control-border-color-disabled: @grey4;
+
+@form-control-text-color-default: @text-default-color;
+@form-control-text-color-hover: @text-default-color;
+@form-control-text-color-active: @text-default-color;
+@form-control-text-color-alert: @red;
+@form-control-text-color-disabled: @grey6;
+
+@form-control-bg-color-default: @white;
+@form-control-bg-color-disabled: @grey2;
+
+@form-control-border-width: 1px;
+@form-control-font-size: 16px;
+@form-control-helper-text-size: 12px;
+@search-radius: 100px;
+@form-control-inline-input-width: 80%;
+
+//* END Form vars */
+
+//* START Select Box vars */
+
+@selectbox-background-gradient-top: @white;
+@selectbox-background-gradient-bottom: @grey2;
+@selectbox-background-color: @form-control-bg-color-default;
+@selectbox-text-color: @form-control-text-color-default;
+@selectbox-border-unactive: @form-control-border-color-default;
+@selectbox-border-active: @form-control-border-color-active;
+@selectbox-border-disabled: @form-control-border-color-disabled;
+@selectbox-border-hover: @form-control-border-color-hover;
+@selectbox-items-background-unactive: @white;
+@selectbox-items-background-active: @grey2;
+@selectbox-items-background-disabled: @form-control-bg-color-disabled;
+@selectbox-items-text-color-disabled: @form-control-text-color-disabled;
+@selectbox-button-border: @form-control-border-color-default;
+
+//* END Select Box vars */
+
+//* START Label & Badge vars */
+
+@label-default-color: @grey9;
+@label-inverse-color: @grey3;
+@label-info-color: @blue1;
+@label-important-color: @orange;
+@label-success-color: @green4;
+@label-warning-color: @red;
+
+//* END Label & Badge vars */
+
+//* START Modal vars */
+
+@modal-background-color: @white;
+@modal-border-color: @grey3;
+@modal-backdrop-color: @black;
+@modal-title-border-bottom: @grey3;
+@modal-overflow: 1%;
+
+//* END Modal vars */
+
+//* START Progress Bar vars */
+
+@progress-bar-bg: @grey3;
+@progress-bar-default: @blue1;
+@progress-bar-success: @green2;
+@progress-bar-warning: @orange;
+@progress-bar-danger: @red;
+
+@progress-bar-height: (2)*(@base-grid-v);
+@progress-bar-radius: 0;
+@progress-bar-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.1);
+@progress-bar-animation-speed: .5s;
+
+//* END Progress Bar vars */
+
+//* START Quote vars */
+
+@quote-default-color: @text-default-color;
+@quote-important-color: @orange;
+@quote-info-color: @green4;
+@quote-secondary-color: @grey4;
+@quote-success-color: @green2;
+@quote-warning-color: @red;
+
+@blockquote-text-size: 24px;
+@blockquote-quotation-size: 50px;
+@blockquote-cite-color: @grey5;
+
+@pullquote-text-size: 24px;
+@pullquote-width: percentage(1 / 3);
+
+//* END Quote vars */
+
+//* START Rail Navigation vars */
+
+@rail-nav-text-color: @grey5;
+@rail-nav-link-active-color: @text-default-color;
+@rail-nav-divider-color: @grey2;
+
+//* END Rail Navigation vars */
+
+//* START Set vars */
+
+@set-trigger-bg: @grey3;
+@set-trigger-bg-active: @white;
+@set-trigger-text: @text-default-color;
+
+//* END Set vars */
+
+//* START Slide In Panel vars */
+
+@sip-bg-color: @grey9;
+@sip-text-color: @white;
+
+@sip-close-text-color: @white;
+@sip-close-font-size: large;
+
+@sip-width: 80%;
+
+//* END Slide In Panel vars */
+
+//* START Social Button vars */
+
+@social-spacing-v: 12px;
+@social-spacing-h: 9px;
+@social-heading-size: 12px;
+@social-btn-size: 28px;
+
+@social-dark-color: @grey9;
+@social-neutral-color: @grey4;
+@social-light-color: @white;
+
+@facebook-brand: #3c5a99;
+@twitter-brand: #5fa9dd;
+@linkedin-brand: #007bb6;
+@google-brand: #dd4b38;
+
+//* END Social Button vars */
+
+//* START Table vars */
+
+@table-header-bg: @grey3;
+@table-hover-bg: @grey1;
+@table-success-bg: @green2;
+@table-error-bg: @red;
+@table-warning-bg: @orange;
+@table-info-bg: @blue1;
+@table-border-color: @grey4;
+@table-stripped-bg: @grey2;
+
+@table-border-width: 1px;
+
+@table-mq: @mq-lt-laptop;
+
+//* END Table vars */
+
+//* START Well vars */
+
+@well-bg-color: @grey1;
+@well-border-color: @grey3;
+
+@well-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+@well-border-width: 1px;
+
+@well-fancy-border: (4)*(@well-border-width) solid @color-b3; // Default fancy border
+
+//* END Well vars */

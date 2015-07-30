@@ -1,51 +1,51 @@
 <div class="row row--alley-2">
     <div class="col-1-2">
-        <h3>Primary Contact Information</h3>
-        <dl>
-            <dt>Name:</dt>
-            <dd>{{contact.name}}</dd>
-            <dt>Phone Number:</dt>
-            <dd>{{contact.phoneNumber}}</dd>
-            <dt>Email Address</dt>
-            <dd>{{contact.emailAddress}}</dd>
+        <h4>Address Information</h4>
+        <dl class="row row--alley-4">
+            <dt class="col-1-2">Address Name:</dt>
+            <dd class="col-1-2">{{address.addName}}</dd>
+            <dt class="col-1-2">Store-front Name:</dt>
+            <dd class="col-1-2">{{address.storeName}}</dd>
+            <dt class="col-1-2">Address Line 1:</dt>
+            <dd class="col-1-2">{{address.addrLine1}}</dd>
+            <dt class="col-1-2">Address Line 2:</dt>
+            <dd class="col-1-2">{{address.addrLine2}}</dd>
+            <dt class="col-1-2">Country</dt>
+            <dd class="col-1-2">{{address.country}}</dd>
+            <dt class="col-1-2">State / Province</dt>
+            <dd class="col-1-2">{{address.state}}</dd>
+            <dt class="col-1-2">City</dt>
+            <dd class="col-1-2">{{address.city}}</dd>
+            <dt class="col-1-2">County</dt>
+            <dd class="col-1-2">{{address.county}}</dd>
+            <dt class="col-1-2">District</dt>
+            <dd class="col-1-2">{{address.district}}</dd>
+            <dt class="col-1-2">Zip / Postal Code</dt>
+            <dd class="col-1-2">{{address.zipCode}}</dd>
         </dl>
     </div>
     <div class="col-1-2">
-        <h3>Additional Information for this Request</h3>
-        <dl>
-            <dt>Customer Reference ID:</dt>
-            <dd>{{serviceRequest.customerReferenceId}}</dd>
-            <dt>Cost Center:</dt>
-            <dd>{{serviceRequest.costCenter}}</dd>
-            <dt>Description:</dt>
-            <dd>{{serviceRequest.addtnlDescription}}</dd>
-            <dt>Requested Effective Date of Change:</dt>
-            <dd>{{serviceRequest.requestedEffectiveDate}}</dd>
-        </dl>
-    </div>
-    <div class="col-1">
-        <h3>New Address to be Added</h3>
-        <dl>
-            <dt>Address Name:</dt>
-            <dd>{{address.addName}}</dd>
-            <dt>Store-front Name:</dt>
-            <dd>{{address.storeName}}</dd>
-            <dt>Address Line 1:</dt>
-            <dd>{{address.addrLine1}}</dd>
-            <dt>Address Line 2:</dt>
-            <dd>{{address.addrLine2}}</dd>
-            <dt>Country</dt>
-            <dd>{{address.country}}</dd>
-            <dt>State / Province</dt>
-            <dd>{{address.state}}</dd>
-            <dt>City</dt>
-            <dd>{{address.city}}</dd>
-            <dt>County</dt>
-            <dd>{{address.county}}</dd>
-            <dt>District</dt>
-            <dd>{{address.district}}</dd>
-            <dt>Zip / Postal Code</dt>
-            <dd>{{address.zipCode}}</dd>
+        <h4>Additional Information</h4>
+        <div class="well well--major">
+            <h5>Primary Contact</h5>
+            <dl class="row row--alley-4">
+                <dt class="col-1-2">Name:</dt>
+                <dd class="col-1-2">{{contact.name}}</dd>
+                <dt class="col-1-2">Phone Number:</dt>
+                <dd class="col-1-2">{{contact.phoneNumber}}</dd>
+                <dt class="col-1-2">Email Address</dt>
+                <dd class="col-1-2">{{contact.emailAddress}}</dd>
+            </dl>
+        </div>
+        <dl class="row row--alley-4">
+            <dt class="col-1-2">Customer Reference ID:</dt>
+            <dd class="col-1-2">{{serviceRequest.customerReferenceId}}</dd>
+            <dt class="col-1-2">Cost Center:</dt>
+            <dd class="col-1-2">{{serviceRequest.costCenter}}</dd>
+            <dt class="col-1-2">Description:</dt>
+            <dd class="col-1-2">{{serviceRequest.addtnlDescription}}</dd>
+            <dt class="col-1-2">Requested Effective Date of Change:</dt>
+            <dd class="col-1-2">{{serviceRequest.requestedEffectiveDate}}</dd>
         </dl>
     </div>
 </div>

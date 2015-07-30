@@ -1,53 +1,8 @@
-<div class="row row-alley-2">
-    <div class="col-1-2">
-       <h4>Primary Contact for this Request</h4>
-       <a href="#" title="Select a different contact">
-           Select a different contact
-       </a>
-
-       <dl>
-           <dt>Name:</dt>
-           <dd>{{contact.name}}</dd>
-
-           <dt>Phone Number:</dt>
-           <dd>{{contact.phoneNumber}}</dd>
-
-           <dt>Email Address:</dt>
-           <dd>{{contact.emailAddress}}</dd>
-       </dl>
-
-       <a href="#" title="Add an Additional Contact for this Request">
-           Add an Additional Contact for this Request
-       </a>
-   </div>
-    <form class="form row row--alley-2" data-form="" name="newAddress" method="post" ng-submit="newAddress.$valid && continue()" enctype="mulitpart/form-data" novalidate>
+<form class="form" data-form="" name="newAddress" method="post" ng-submit="newAddress.$valid && continue()" enctype="mulitpart/form-data" novalidate>
+    <div class="row row--alley-4">
         <div class="col-1-2">
             <fieldset>
-                <legend>Additional Information for this Request</legend>
-
-                <div class="form__field">
-                    <label>Customer Reference ID</label>
-                    <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
-                </div>
-
-                <div class="form__field">
-                    <label>Cost Center</label>
-                    <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
-                </div>
-                <div class="form__field">
-                    <label>Description</label>
-                    <textarea ng-model="serviceRequest.addtnlDescription"></textarea>
-                </div>
-                <div class="form__field">
-                    <label>Requested Effective Date of Change:</label>
-                    <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
-                </div>
-            </fieldset>
-        </div>
-        <div class="col-1-2">
-            <fieldset>
-                <legend>New Address</legend>
-
+                <h4>Address Information</h4>
                 <div class="form__field">
                     <label>Address Name</label>
                     <input type="text" ng-model="address.addName" value="" class="" />
@@ -88,36 +43,61 @@
                 </div>
             </fieldset>
         </div>
+        <div class="col-1-2">
+            <h4>Additional Information</h4>
+            <div class="well">
+                <h5>Primary Contact</h5>
+                <dl class="row row--alley-4">
+                   <dt class="col-1-2">Name:</dt>
+                   <dd class="col-1-2">{{contact.name}}</dd>
 
-        <div class="col-1">
+                   <dt class="col-1-2">Phone Number:</dt>
+                   <dd class="col-1-2">{{contact.phoneNumber}}</dd>
+
+                   <dt class="col-1-2">Email Address:</dt>
+                   <dd class="col-1-2">{{contact.emailAddress}}</dd>
+                </dl>
+                <button class="btn btn--small">Add Contact</button>
+                <button class="btn btn--small">Change Contact</button>
+            </div>
             <fieldset>
-                <legend>
-                    <a href="" ng-click="attachmentToggle()">
-                        <span class="icon icon--lxk-ui" ng-class="attachmentIsShown ? 'icon--toggle-up' : 'icon--toggle-down'"></span>
-                        Add Notes &amp; Attachments
-                    </a>
-                </legend>
+                <div class="form__field">
+                    <label>Customer Reference ID</label>
+                    <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
+                </div>
 
-                <div class="form__field" ng-show="attachmentIsShown">
-                    <label></label>
+                <div class="form__field">
+                    <label>Cost Center</label>
+                    <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
+                </div>
+                <div class="form__field">
+                    <label>Description</label>
+                    <textarea ng-model="serviceRequest.addtnlDescription"></textarea>
+                </div>
+                <div class="form__field">
+                    <label>Requested Effective Date of Change</label>
+                    <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form__field">
+                    <label>Notes</label>
                     <textarea></textarea>
                 </div>
 
-                <div class="form__field" ng-show="attachmentIsShown">
+                <div class="form__field">
+                    <label>Attach Files</label>
                     <input type="file"  />
-                    <small>
-                        Note:Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.
-                        Only a max of 2 files of max. 1 mb each can be attached.
-                    </small>
+                    <div class="form__field__helper-text">
+                        <strong>Note:</strong> Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported. Only a max of 2 files of max. 1 mb each can be attached.
+                    </div>
                 </div>
             </fieldset>
-         </div>
-
-         <div class="row row--alley-2">
-            <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()">Back</button>
-            <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()">Cancel</button>
-            <button name="submit" class="col-1-3 btn btn--primary" type="submit">Continue</button>
-         </div>
-    </form>
-
-</div>
+        </div>
+        <div class="col-1">
+            <button name="back" class="btn btn--secondary" ng-click="back()">Back</button>
+            <button name="cancel" class="btn btn--secondary" ng-click="cancel()">Cancel</button>
+            <button name="submit" class="btn btn--primary" type="submit">Continue</button>
+        </div>
+    </div>
+</form>
