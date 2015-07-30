@@ -90,8 +90,7 @@ function broadcast(event, data) {
     socket.emit(event, data);
   });
 }
-console.log(process.env.NEW_RELIC_LICENSE_KEY);
-console.log(process.env.NEW_RELIC_APP_NAME);
+
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Customer Portal server listening at", addr.address + ":" + addr.port);
