@@ -96,6 +96,6 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   console.log("Customer Portal server listening at", addr.address + ":" + addr.port);
 });
 
-router.get('/', function(req, res) {
+router.all('/*', function(req, res) {
     res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID, });
   });
