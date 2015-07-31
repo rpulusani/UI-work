@@ -1,5 +1,6 @@
-# mps-ui
-MPS Customer Portal 2.0
+# MPS Customer Portal 2.0
+
+* [MPS 2.0 Best Practices Guide](https://github.com/LexmarkWeb/mps-ui/wiki)
 
 To run locally with docker
  * Install docker for your platform
