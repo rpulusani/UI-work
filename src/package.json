@@ -9,7 +9,8 @@
     "async": "~0.2.8",
     "express": "~3.2.4",
     "express-dot-engine": "^1.0.6",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "newrelic": "1.21.1"
   },
   "devDependencies": {
     "jasmine-core": "^2.3.4",
