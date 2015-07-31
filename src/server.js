@@ -31,7 +31,7 @@ router.configure(function(){
   router.use('/js', express.static(path.resolve(__dirname, 'client/js')));
   router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
   router.use('/templates', express.static(path.resolve(__dirname, 'client/templates')));
-  router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
+  router.use('/test', express.static(path.resolve(__dirname, 'client/test')));
 });
 
 var messages = [];
