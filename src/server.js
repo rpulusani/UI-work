@@ -31,7 +31,7 @@ router.configure(function(){
   router.use('/js', express.static(path.resolve(__dirname, 'client/js')));
   router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
   router.use('/templates', express.static(path.resolve(__dirname, 'client/templates')));
-  router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
+  router.use('/test', express.static(path.resolve(__dirname, 'client/test')));
 });
 
 var messages = [];
@@ -96,6 +96,6 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   console.log("Customer Portal server listening at", addr.address + ":" + addr.port);
 });
 
-router.get('/', function(req, res) {
+router.all('/*', function(req, res) {
     res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID, });
   });

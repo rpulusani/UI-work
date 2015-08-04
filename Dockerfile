@@ -1,9 +1,4 @@
-FROM    centos:centos6
-
-# Enable EPEL for Node.js
-RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-# Install Node.js and npm
-RUN     yum install -y npm
+FROM    node
 
 # Bundle app source
 COPY src /src
@@ -12,8 +7,7 @@ COPY src /src
 WORKDIR /src
 
 # Install app dependencies
-RUN npm install --production
-RUN npm install newrelic
+RUN npm install --production && mv node_modules /
 
 EXPOSE  8080
 CMD ["npm", "start"]
