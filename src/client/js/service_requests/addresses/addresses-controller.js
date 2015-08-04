@@ -62,7 +62,6 @@ angular.module('mps')
     };
 
     $scope.back = function(){
-        console.log("go back");
         if($scope.continueForm){
             $scope.continueForm = false;
         }else{
@@ -71,7 +70,6 @@ angular.module('mps')
     };
 
     $scope.cancel = function(){
-        console.log("cancel");
         $location.path("/");
     };
 
@@ -85,6 +83,40 @@ angular.module('mps')
         $scope.attachmentIsShown = !$scope.attachmentIsShown;
     };
 
+    $scope.addresses = Addresses.query();
+
+    $scope.currentAddress = Addresses.currentAddress;
+
+    $scope.getAddress = function(id){
+        var addresses = $scope.addresses,
+            length = addresses.length,
+            address = {};
+        for(var i = 0; i < length; ++i) {
+            if(addresses[i].id === id) {
+                address = addresses[i];
+                break;
+            }
+        }
+        return address;
+    };
+
+    $scope.cancelDelete = function(){
+        Addresses.currentAddress = {};
+        $location.path("/service_requests/addresses");
+        return false;
+    };
+
+    $scope.requestDelete = function(){
+        console.log("Requested deletion of " + $scope.currentAddress.addName);
+        $location.path("/service_requests/addresses/delete/review");
+        return false;
+    };
+
+    $scope.deleteAddress = function(id) {
+        Addresses.currentAddress = $scope.getAddress(id);
+        $location.path("/service_requests/addresses/delete");
+    };
+
 }])
 .factory('Addresses', function($http) {
     var addresses = [
@@ -96,7 +128,30 @@ angular.module('mps')
             city: 'Lexington',
             country: 'USA',
             state: 'KY',
-            zipCode: '40404'
+            zipCode: '40404',
+            id: "foo/1"
+        },
+        {
+            addName: 'Addy 2',
+            storeName: 'Another Store',
+            addrLine1: '123 Some Other Rd',
+            addrLine2: null,
+            city: 'Lexington',
+            country: 'USA',
+            state: 'KY',
+            zipCode: '40404',
+            id: "foo/2"
+        },
+        {
+            addName: 'Addy 3',
+            storeName: 'Yet Another Store',
+            addrLine1: '123 Long Cat Is Really Loooooooooooooong Rd',
+            addrLine2: null,
+            city: 'Lexington',
+            country: 'USA',
+            state: 'KY',
+            zipCode: '40404',
+            id: "foo/3"
         }
     ];
     return {
@@ -106,7 +161,8 @@ angular.module('mps')
             return $http.get('/test');
             //TODO: this is the real one...
             // return $http.post(base_url,addressData);
-        }
+        },
+        currentAddress: {}
     };
 
     // var url = [base_url, '/addresses'].join('');

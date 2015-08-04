@@ -4,15 +4,20 @@ describe('MPS module', function() {
     beforeEach(module('mps'));
 
     describe('addresses controller', function(){
-        var scope, ctrl, location;
-        beforeEach(inject(function($rootScope, $controller, $location) {
+        var scope, ctrl, location, addresses;
+        beforeEach(inject(function($rootScope, $controller, $location, Addresses) {
             scope = $rootScope.$new();
             location = $location;
             ctrl = $controller('AddressesController', {$scope: scope});
+            addresses = Addresses;
         }));
 
         it('is defined', function() {
             expect(ctrl).toBeDefined();
+        });
+
+        it('can get an instance of Addresses', function() {
+            expect(addresses).toBeDefined();
         });
 
         it('has a contact', function() {
@@ -29,6 +34,14 @@ describe('MPS module', function() {
 
         it('has a emailAddress in contact', function() {
             expect(scope.contact.emailAddress).toBeDefined();
+        });
+
+        it('has a list of addresses', function() {
+            expect(scope.addresses).toBeDefined();
+        });
+
+        it('has a selected address', function() {
+            expect(scope.currentAddress).toBeDefined();
         });
 
         describe('when test data is loaded', function(){
@@ -110,7 +123,7 @@ describe('MPS module', function() {
           });
         });
 
-        describe('when taggled', function() {
+        describe('when toggled', function() {
             describe('with attachmentIsShown was originally true', function() {
                 it('should set attachmentIsShown to be false', function() {
                     scope.attachmentIsShown = true;
@@ -125,6 +138,38 @@ describe('MPS module', function() {
                     scope.attachmentToggle();
                     expect(scope.attachmentIsShown).toBe(true);
                 });
+            });
+        });
+
+        describe('when address foo/1 is selected', function() {
+            it('should return an address', function() {
+                var address = scope.getAddress('foo/1');
+                expect(address).toBeDefined();
+            });
+        });
+
+        describe('when a delete request is cancelled', function() {
+            it('should return to the all addresses view', function() {
+                spyOn(location, 'path').and.returnValue('/service_requests/addresses');
+                scope.cancelDelete();
+                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses');
+            });
+        });
+
+        describe('when a delete request is made for foo/1', function() {
+            it('should ask for confirmation of the delete request', function() {
+                spyOn(location, 'path').and.returnValue('/service_requests/addresses/delete');
+                scope.deleteAddress('foo/1');
+                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete');
+                expect(addresses.currentAddress).toEqual(scope.getAddress('foo/1'));
+            });
+        });
+
+        describe('when a delete request is confirmed', function() {
+            it('should confirm the delete request', function() {
+                spyOn(location, 'path').and.returnValue('/service_requests/addresses/delete/review');
+                scope.requestDelete();
+                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete/review');
             });
         });
     });

@@ -1,0 +1,43 @@
+<div class="row row--alley-2">
+    <div class="col-1">
+        <h1>Sevice Requests</h1>
+        <h2>Addresses</h2>
+        <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
+        <ul>
+            <li><a href="/service_requests/addresses/new">Add A New Address</a></li>
+        </ul>
+        <table class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
+            <thead>
+                <tr>
+                    <th>Address Name</th>
+                    <th>Store-front Name</th>
+                    <th>Address Line 1:</th>
+                    <th>Address Line 2:</th>
+                    <th>Country</th>
+                    <th>State / Province</th>
+                    <th>City</th>
+                    <th>County</th>
+                    <th>District</th>
+                    <th>Zip / Postal Code</th>
+                    <th>Actions</th>
+                </th>
+            <tbody>
+                <tr ng-repeat="address in addresses">
+                    <td ng-bind="address.addName"></td>
+                    <td ng-bind="address.storeName"></td>
+                    <td ng-bind="address.addrLine1"></td>
+                    <td ng-bind="address.addrLine2"></td>
+                    <td ng-bind="address.country"></td>
+                    <td ng-bind="address.state"></td>
+                    <td ng-bind="address.city"></td>
+                    <td ng-bind="address.county"></td>
+                    <td ng-bind="address.district"></td>
+                    <td ng-bind="address.zipCode"></td>
+                    <td>
+                        <a href="" ng-click="deleteAddress(address.id)">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </dl>
+    </div>
+</div>
