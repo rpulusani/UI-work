@@ -1,19 +1,37 @@
 angular.module('mps')
-.directive('addressNewForm', function() {
+.directive('addressNewFields', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/service_requests/addresses/address-new-form.html'
+        templateUrl: '/js/service_requests/addresses/address-new-fields.html'
     };
 })
-.directive('addressReview', function() {
+ .directive('addressReview', function() {
     return {
         restrict: 'E',
         templateUrl: '/js/service_requests/addresses/review.html'
     };
 })
-.directive('addressNavigationButton', function() {
+.directive('primaryRequestContact', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/service_requests/addresses/address-navigation-button.html'
-    }
+        templateUrl: '/js/service_requests/common/primary-request-contact.html'
+    };
+})
+.directive('additionalRequestInfo', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/js/service_requests/common/additional-request-info.html'
+    };
+})
+.directive('addressUpload', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/js/service_requests/common/address-upload.html'
+    };
+})
+.directive('readAddress', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/js/service_requests/addresses/read.html'
+    };
 });

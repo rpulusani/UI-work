@@ -1,13 +1,12 @@
 angular.module('mps')
-.controller("AddressesController", ['$scope', '$location', 'Addresses',
-    function($scope, $location, Addresses){
-
-    //TODO: retrieve this from config
-    var base_url = '';
-
+    .controller("AddressesController", ['$scope', '$http', '$location', '$routeParams', 'Addresses', function($scope, $http, $location, $routeParams, Addresses) {
+    
     $scope.continueForm = false;
     $scope.submitForm = false;
-    $scope.addresses = Addresses.query();
+    $scope.attachmentIsShown = false;
+    $scope.addresses = [];
+    $scope.currentAddressId = ''; // Current/Last opened address id
+    $scope.alertMsg = ''; // On-page alert message
 
     $scope.contact = {
         name: '',
@@ -35,136 +34,132 @@ angular.module('mps')
         requestedEffectiveDate: ''
     };
 
-    //TODO: Remove loadTestData later
-    $scope.loadTestData = function(){
-        $scope.contact.name = "Vickers PetsAtHome";
-        $scope.contact.phoneNumber = "9992882222";
-        $scope.contact.emailAddress = "vickerspets@test.com";
+    $scope.loadTestData = function() {
+        $scope.contact.name = 'Vickers PetsAtHome';
+        $scope.contact.phoneNumber = '9992882222';
+        $scope.contact.emailAddress = 'vickerspets@test.com';
     };
 
-    $scope.loadTestData();
+    $scope.save = function(routeToTop) {
+        var newAddress = JSON.stringify($scope.address),
+        fd = new FormData(document.getElementsByName('newAddress')[0]);
 
-    $scope.save = function(){
-        console.log("saving: " + JSON.stringify([$scope.address, $scope.contact, $scope.serviceRequest]));
+        fd.append('file', $scope.addyFile);
+
         $scope.submitForm = true;
-        Addresses.saveAddress($scope.address)
-            .success(function(response, data) {
-                console.log('success adding');
-                //TODO: remove setting reference id later
-                $scope.serviceRequest.customerReferenceId = '1-56781108741';
-                $scope.addresses.push(data);
-                $scope.add_success = true;
-            })
-            .error(function(response) {
-                console.log('error adding');
-                $scope.add_success = false;
-            });
+
+        Addresses.save(fd, function(res) {
+            $scope.addresses = [];
+
+            if (!routeToTop) {
+                $location.path('/service_requests/addresses/' + res.id).search('');
+            } else {
+                $location.path('/service_requests/addresses').search('');
+            }
+        });
     };
 
-    $scope.back = function(){
-        if($scope.continueForm){
+    $scope.back = function() {
+        if ($scope.continueForm) {
             $scope.continueForm = false;
-        }else{
-            $location.path("/");
         }
+                
+        window.history.back();
     };
 
     $scope.cancel = function(){
-        $location.path("/");
+        $location.path('/');
     };
 
     $scope.continue = function() {
         $scope.continueForm = true;
     };
 
-    $scope.attachmentIsShown = false;
-
-    $scope.attachmentToggle = function(){
+    $scope.attachmentToggle = function() {
         $scope.attachmentIsShown = !$scope.attachmentIsShown;
     };
 
-    $scope.addresses = Addresses.query();
-
-    $scope.currentAddress = Addresses.currentAddress;
-
-    $scope.getAddress = function(id){
-        var addresses = $scope.addresses,
-            length = addresses.length,
-            address = {};
-        for(var i = 0; i < length; ++i) {
-            if(addresses[i].id === id) {
-                address = addresses[i];
-                break;
-            }
-        }
-        return address;
+    $scope.goToViewAll = function(id) {
+        $location.path('/service_requests/addresses');
     };
 
-    $scope.cancelDelete = function(){
-        Addresses.currentAddress = {};
-        $location.path("/service_requests/addresses");
-        return false;
-    };
-
-    $scope.requestDelete = function(){
-        console.log("Requested deletion of " + $scope.currentAddress.addName);
-        $location.path("/service_requests/addresses/delete/review");
-        return false;
+    $scope.updateAddress = function(id) {
+        $location.path('/service_requests/addresses/update').search('addressid', id);
     };
 
     $scope.deleteAddress = function(id) {
-        Addresses.currentAddress = $scope.getAddress(id);
-        $location.path("/service_requests/addresses/delete");
+        Addresses.deleteById(id, function(res) {
+            var i = 0,
+            addressCnt = $scope.addresses.length;
+
+            for (i; i < addressCnt; i += 1) {
+                if ($scope.addresses[i].id === id) {
+                    $scope.addresses.splice(i, 1);
+                }
+            }
+        });
     };
 
+    Addresses.query().then(function(res) {
+        $scope.addresses = res.data;
+    });
+
+    if ($location.search().addressid) {
+        $scope.currentAddressId = $location.search().addressid;
+    } else if ($routeParams.id && $routeParams.id.indexOf('addy-') !== -1 ) {
+        $scope.currentAddressId = $routeParams.id;
+    }
+
+    if ($scope.currentAddressId !== '') {
+        $http.get(window.location.href).success(function(res) {
+            $scope.address = res;
+        }).error(function() {
+            // address id wasn't in the store
+            $location.path('/service_requests/addresses/new');
+        });
+    }
+
+    $scope.loadTestData();
+
+}]).directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel),
+            modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
 }])
 .factory('Addresses', function($http) {
-    var addresses = [
-        {
-            addName: 'Addy 1',
-            storeName: 'Some Store',
-            addrLine1: '123 Some Rd',
-            addrLine2: null,
-            city: 'Lexington',
-            country: 'USA',
-            state: 'KY',
-            zipCode: '40404',
-            id: "foo/1"
-        },
-        {
-            addName: 'Addy 2',
-            storeName: 'Another Store',
-            addrLine1: '123 Some Other Rd',
-            addrLine2: null,
-            city: 'Lexington',
-            country: 'USA',
-            state: 'KY',
-            zipCode: '40404',
-            id: "foo/2"
-        },
-        {
-            addName: 'Addy 3',
-            storeName: 'Yet Another Store',
-            addrLine1: '123 Long Cat Is Really Loooooooooooooong Rd',
-            addrLine2: null,
-            city: 'Lexington',
-            country: 'USA',
-            state: 'KY',
-            zipCode: '40404',
-            id: "foo/3"
-        }
-    ];
-    return {
-        get: function(id) { return addresses[id]; },
-        query: function() { return addresses; },
-        saveAddress: function(addressData) {
-            return $http.get('/test');
-            //TODO: this is the real one...
-            // return $http.post(base_url,addressData);
-        },
-        currentAddress: {}
+    var Address = function() {
+        var addy = this; 
+        addy.addresses = [];
     };
 
-    // var url = [base_url, '/addresses'].join('');
-    // return $resource(url, {id: '@id'}, {});
+    Address.prototype.save = function(formdata, fn) {
+        $http.post('', formdata, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function(res) {
+            return fn(res)
+        });
+    }
+
+    Address.prototype.deleteById = function(id, fn) {
+        $http.delete('/service_requests/addresses/' + id).success(function(res) {
+            return fn();
+        });
+    };
+
+    Address.prototype.query = function(fn) {
+        return $http.get('/service_requests/addresses/all');
+    };
+    
+    return new Address();
 });
