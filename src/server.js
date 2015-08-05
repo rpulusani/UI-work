@@ -79,10 +79,10 @@ sockets = [];
 process.env.PORT = 8080;
 
 router.configure(function(){
+    router.use(express.bodyParser());
     router.engine('dot', engine.__express);
     router.set('views', __dirname + '/client/views');
     router.set('view engine', 'dot');
-    router.use(express.bodyParser());
     router.use('/etc', express.static(path.resolve(__dirname, 'client/etc')));
     router.use('/js', express.static(path.resolve(__dirname, 'client/js')));
     router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
