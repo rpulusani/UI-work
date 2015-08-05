@@ -76,7 +76,7 @@ broadcast = function(event, data) {
 messages = [],
 sockets = [];
 
-process.env.PORT = 8180;
+process.env.PORT = 8080;
 
 router.configure(function(){
     router.engine('dot', engine.__express);
