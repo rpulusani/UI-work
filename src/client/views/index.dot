@@ -48,9 +48,6 @@ window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){va
           <nav class="site-nav">
             <ul class="rail-navigation" data-js="railNav" data-label="Global Services">
               <li><a href="/service_requests/addresses" title="Service Request - Addresses">Addresses</a></li>
-              <li><a href="#" title="Do Moar Stuff">Moar Stuff</a></li>
-              <li><a href="#" title="Do Moar Stuff">Moar Stuff</a></li>
-              <li><a href="#" title="Do Moar Stuff">Moar Stuff</a></li>
             </ul>
           </nav>
         </div>
