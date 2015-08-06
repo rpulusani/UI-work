@@ -1,8 +1,6 @@
-angular.module('mps.serviceRequestAddresses', [])
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses', 
+angular.module('mps.serviceRequestAddresses')
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses',
 function($scope, $http, $location, $routeParams, Addresses) {
-    console.log(Addresses);
-    
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
@@ -122,5 +120,4 @@ function($scope, $http, $location, $routeParams, Addresses) {
     }
 
     $scope.loadTestData();
-    
 }]);
