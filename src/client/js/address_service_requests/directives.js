@@ -3,37 +3,37 @@ angular.module('mps.serviceRequestAddresses')
 .directive('addressNewFields', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_request/templates/address-new-fields.html'
+        templateUrl: '/js/address_service_requests/templates/address-new-fields.html'
     };
 })
 .directive('addressReview', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_request/templates/review.html'
+        templateUrl: '/js/address_service_requests/templates/review.html'
     };
 })
 .directive('primaryRequestContact', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_request/templates/common/primary-request-contact.html'
+        templateUrl: '/js/address_service_requests/templates/common/primary-request-contact.html'
     };
 })
 .directive('additionalRequestInfo', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_request/templates/common/additional-request-info.html'
+        templateUrl: '/js/address_service_requests/templates/common/additional-request-info.html'
     };
 })
 .directive('addressUpload', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_request/templates/common/address-upload.html'
+        templateUrl: '/js/address_service_requests/templates/common/address-upload.html'
     };
 })
 .directive('readAddress', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_request/templates/read.html'
+        templateUrl: '/js/address_service_requests/templates/read.html'
     };
 })
 .directive('fileModel', ['$parse', function ($parse) {
