@@ -1,37 +1,23 @@
 module.exports = function(config){
   config.set({
-
     basePath : './',
-
     files : [
         'client/js/libs/angular.min.js',
-        'client/test/angular-mocks.js',
-        'client/js/**/*.js',
-        'client/test/*.js'
+        'client/js/libs/angular-route.min.js',
+        'client/js/libs/angular-resource.min.js',
+        'client/tests/angular-mocks.js',
+        'client/js/customer-portal.js',
+        'client/js/routes.js',
+        'client/js/common/*.js',
+        'client/js/service_requests/**/*.js',
+        'client/tests/address_service_request_module_spec.js',
+        'client/tests/navigation_module_spec.js'
     ],
-
     autoWatch : true,
-
-    hostname: process.env.IP,
-    port: process.env.PORT,
-    runnerPort: 0,
-
+    port: 9090,
+    runnerPort: 9191,
     frameworks: ['jasmine'],
-
-    browsers : ['PhantomJS'],
-
-    plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-phantomjs-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-            ],
-
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
-
+    browsers : ['Chrome'],
+    singleRun: false,
   });
 };
