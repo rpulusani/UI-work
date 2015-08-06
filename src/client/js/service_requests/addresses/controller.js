@@ -1,8 +1,8 @@
 angular.module('mps.serviceRequestAddresses', [])
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
-    //alert(Test);
-alert(2);
-
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses', 
+function($scope, $http, $location, $routeParams, Addresses) {
+    alert(Addresses);
+    /*
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
@@ -122,51 +122,5 @@ alert(2);
     }
 
     $scope.loadTestData();
-
-}])
-/*
-.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel),
-            modelSetter = model.assign;
-            
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}])
-*/
-/*
-.factory('Addresses', function($http) {
-    var Address = function() {
-        var addy = this; 
-        addy.addresses = [];
-    };
-
-    Address.prototype.save = function(formdata, fn) {
-        $http.post('', formdata, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).success(function(res) {
-            return fn(res)
-        });
-    }
-
-    Address.prototype.deleteById = function(id, fn) {
-        $http.delete('/service_requests/addresses/' + id).success(function(res) {
-            return fn();
-        });
-    };
-
-    Address.prototype.query = function(fn) {
-        return $http.get('/service_requests/addresses/all');
-    };
-    
-    return new Address();
-});
-*/
+    */
+}]);

@@ -1,4 +1,4 @@
-/*
+'use strict';
 angular.module('mps.routes', [])
 .config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
@@ -41,4 +41,3 @@ angular.module('mps.routes', [])
     
     $locationProvider.html5Mode(true);
 }]);
-*/

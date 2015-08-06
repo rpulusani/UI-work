@@ -1,4 +1,3 @@
-/*
 angular.module('mps')
 .directive('addressNewFields', function() {
     return {
@@ -35,5 +34,19 @@ angular.module('mps')
         restrict: 'E',
         templateUrl: '/js/service_requests/addresses/read.html'
     };
-});
-*/
+})
+.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel),
+            modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
