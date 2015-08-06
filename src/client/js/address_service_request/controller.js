@@ -5,10 +5,10 @@ function($scope, $http, $location, $routeParams, Addresses) {
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
-    $scope.addresses = [];
     $scope.currentAddressId = ''; // Current/Last opened address id
     $scope.alertMsg = ''; // On-page alert message
-
+    $scope.addresses = Addresses.addresses;
+  
     $scope.contact = {
         name: '',
         phoneNumber: '',
@@ -47,10 +47,10 @@ function($scope, $http, $location, $routeParams, Addresses) {
 
         fd.append('file', $scope.addyFile);
 
-        $scope.submitForm = true;
+        $scope.submitForm = false; // Request data from the server
 
         Addresses.save(fd, function(res) {
-            $scope.addresses = [];
+            Addresses.hasData = true;
 
             if (!routeToTop) {
                 $location.path('/service_requests/addresses/' + res.id).search('');
@@ -91,19 +91,21 @@ function($scope, $http, $location, $routeParams, Addresses) {
     $scope.deleteAddress = function(id) {
         Addresses.deleteById(id, function(res) {
             var i = 0,
-            addressCnt = $scope.addresses.length;
+            addressCnt = Addresses.length;
 
             for (i; i < addressCnt; i += 1) {
-                if ($scope.addresses[i].id === id) {
-                    $scope.addresses.splice(i, 1);
+                if (Addresses.addresses[i].id === id) {
+                    Addresses.addresses.splice(i, 1);
                 }
             }
         });
     };
 
-    Addresses.query().then(function(res) {
-        $scope.addresses = res.data;
-    });
+    if (Addresses.hasData === false) {
+        Addresses.query(function() {
+            $scope.addresses = Addresses.addresses;
+        });
+    }
 
     if ($location.search().addressid) {
         $scope.currentAddressId = $location.search().addressid;

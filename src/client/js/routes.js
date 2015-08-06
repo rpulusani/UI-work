@@ -1,7 +1,7 @@
 'use strict';
 angular.module('mps.routes', [])
-.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
+.config(['$routeProvider', '$locationProvider', 
+function($routeProvider, $locationProvider) {
     $routeProvider
     // Routes for address_service_request
     .when('/service_requests/addresses', {
