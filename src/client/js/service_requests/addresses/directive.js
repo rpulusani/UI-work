@@ -1,4 +1,4 @@
-angular.module('mps')
+angular.module('mps.serviceRequestAddresses')
 .directive('addressNewFields', function() {
     return {
         restrict: 'E',

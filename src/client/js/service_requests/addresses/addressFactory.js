@@ -1,5 +1,5 @@
 'use strict';
-angular.module('mps.serviceRequestAddresses').factory('Addresses', function() {
+angular.module('mps.serviceRequestAddresses').factory('Addresses', function($http) {
     var Address = function() {
         var addy = this; 
         addy.addresses = [];
