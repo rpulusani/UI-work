@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mps.serviceRequestAddresses')
 .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses',
 function($scope, $http, $location, $routeParams, Addresses) {
