@@ -1,3 +1,4 @@
+/*
 angular.module('mps')
 .directive('addressNewFields', function() {
     return {
@@ -35,3 +36,4 @@ angular.module('mps')
         templateUrl: '/js/service_requests/addresses/read.html'
     };
 });
+*/

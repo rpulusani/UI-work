@@ -76,7 +76,7 @@ broadcast = function(event, data) {
 messages = [],
 sockets = [];
 
-process.env.PORT = 8080;
+process.env.PORT = 8180;
 
 router.configure(function(){
     router.use(express.bodyParser());

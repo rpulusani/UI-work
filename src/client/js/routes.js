@@ -1,4 +1,5 @@
-angular.module('mps')
+/*
+angular.module('mps.routes', [])
 .config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
     $routeProvider
@@ -40,3 +41,4 @@ angular.module('mps')
     
     $locationProvider.html5Mode(true);
 }]);
+*/

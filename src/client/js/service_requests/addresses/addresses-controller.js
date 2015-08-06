@@ -1,6 +1,8 @@
-angular.module('mps')
-    .controller("AddressesController", ['$scope', '$http', '$location', '$routeParams', 'Addresses', function($scope, $http, $location, $routeParams, Addresses) {
-    
+angular.module('mps.serviceRequestAddresses', [])
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+    //alert(Test);
+alert(2);
+
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
@@ -121,7 +123,9 @@ angular.module('mps')
 
     $scope.loadTestData();
 
-}]).directive('fileModel', ['$parse', function ($parse) {
+}])
+/*
+.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -136,6 +140,8 @@ angular.module('mps')
         }
     };
 }])
+*/
+/*
 .factory('Addresses', function($http) {
     var Address = function() {
         var addy = this; 
@@ -163,3 +169,4 @@ angular.module('mps')
     
     return new Address();
 });
+*/
