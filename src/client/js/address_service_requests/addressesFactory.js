@@ -1,6 +1,5 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses').factory('Addresses', ['$http', 'ServiceRequests', function($http, ServiceRequests) {
-
     var Address = function() {
         var addy = this;
 
@@ -42,8 +41,21 @@ angular.module('mps.serviceRequestAddresses').factory('Addresses', ['$http', 'Se
     };
 
     Address.prototype.deleteById = function(id, fn) {
+        var addy = this;
+
         $http.delete('/service_requests/addresses/' + id).success(function(res) {
-            return fn();
+            var i = 0,
+            addressCnt = addy.addresses.length;
+
+            for (i; i < addressCnt; i += 1) {
+                if (addy.addresses[i].id === id) {
+                    addy.addresses.splice(i, 1);
+                }
+            }
+
+            if (typeof fn === 'function') {
+                return fn();
+            }
         });
     };
 

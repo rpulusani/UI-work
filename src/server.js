@@ -191,6 +191,7 @@ router.post('/service_requests/addresses/:id', function(req, res) {
 
 router.delete('/service_requests/addresses/:id', function(req, res) {
     removeAddressById(req.params.id, function(deleted) {
+        console.log(req.params.id + ' was deleted!');
         res.json(memAddresses);
     });
 });

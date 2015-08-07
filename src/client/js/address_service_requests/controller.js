@@ -6,7 +6,7 @@ function($scope, $http, $location, $routeParams, Addresses) {
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
     $scope.currentAddressId = Addresses.currentAddress.id;
-    $scope.address = Addresses.currentAddress; // Current/Last opened address id
+    $scope.address = Addresses.currentAddress;
     $scope.addresses = Addresses.addresses;
 
     $scope.contact = {
@@ -76,14 +76,9 @@ function($scope, $http, $location, $routeParams, Addresses) {
     };
 
     $scope.deleteAddress = function(id) {
-        Addresses.deleteById(id, function(res) {
-            var i = 0,
-            addressCnt = Addresses.addresses.length;
-
-            for (i; i < addressCnt; i += 1) {
-                if (Addresses.addresses[i].id === id) {
-                    Addresses.addresses.splice(i, 1);
-                }
+        Addresses.deleteById(id, function() {
+            if (Addresses.addresses.length === 0) {
+                $scope.addresses = false; // for use with ng-bind, hides table completely
             }
         });
     };
@@ -91,6 +86,10 @@ function($scope, $http, $location, $routeParams, Addresses) {
     if (Addresses.hasData === false) {
         Addresses.query(function() {
             $scope.addresses = Addresses.addresses;
+            
+            if (Addresses.addresses.length === 0) {
+                $scope.addresses = false; // for use with ng-bind, hides table completely
+            }
         });
     }
 

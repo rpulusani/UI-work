@@ -18,7 +18,8 @@
             <li><a href="/service_requests/addresses/updateMultiple">Change Multiple Addresses</a></li>
             <li><a href="/service_requests/addresses/deleteMultiple">Delete Multiple Addresses</a></li>
         </ul>
-        <table class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
+
+        <table ng-show="addresses" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
             <thead>
                 <tr>
                     <th>Address Name</th>
