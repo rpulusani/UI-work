@@ -1,8 +1,3 @@
-//
-// # SimpleServer
-//
-// A simple chat server using Socket.IO, Express, and Async.
-//
 'use strict';
 var http = require('http'),
 path = require('path'),
@@ -10,12 +5,6 @@ async = require('async'),
 socketio = require('socket.io'),
 express = require('express'),
 engine = require('express-dot-engine'),
-//
-// ## SimpleServer `SimpleServer(obj)`
-//
-// Creates a new instance of SimpleServer with the following options:
-//  * `port` - The HTTP port to listen on. If `process.env.PORT` is set, _it overrides this value_.
-//
 router = express(),
 server = http.createServer(router),
 io = socketio.listen(server),
@@ -79,10 +68,10 @@ sockets = [];
 process.env.PORT = 8080;
 
 router.configure(function(){
+    router.use(express.bodyParser());
     router.engine('dot', engine.__express);
     router.set('views', __dirname + '/client/views');
     router.set('view engine', 'dot');
-    router.use(express.bodyParser());
     router.use('/etc', express.static(path.resolve(__dirname, 'client/etc')));
     router.use('/js', express.static(path.resolve(__dirname, 'client/js')));
     router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
@@ -160,8 +149,8 @@ router.get('/service_requests/addresses/:id', function(req, res) {
     }
 });
 
-router.post('/service_requests/addresses/:pageName', function(req, res) {
-    findAddressById(req.query.addressid, function(address, addressIndex) {
+router.post('/service_requests/addresses/:id', function(req, res) {
+    findAddressById(req.params.id, function(address, addressIndex) {
         var prop; // looping through existing addresses properties to update
 
         if (!address) {
@@ -202,6 +191,7 @@ router.post('/service_requests/addresses/:pageName', function(req, res) {
 
 router.delete('/service_requests/addresses/:id', function(req, res) {
     removeAddressById(req.params.id, function(deleted) {
+        console.log(req.params.id + ' was deleted!');
         res.json(memAddresses);
     });
 });

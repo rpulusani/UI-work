@@ -1,0 +1,89 @@
+<div class="row row--alley-2">
+    <div class="col-1">
+        <h1>Delete Address</h1>
+        <h2>Pets At Home / Pets At Home_MSA2010_MPS_UK</h2>
+    </div>
+    <div class="col-1-2">
+        <h3>Address Information</h3>
+        <dl class="row row--alley-2">
+            <dt class="col-1-2">Address Name:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.addName"></dd>
+            <dt class="col-1-2">Store-front Name:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.storeName"></dd>
+            <dt class="col-1-2">Address Line 1:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.addrLine1"></dd>
+            <dt class="col-1-2">Address Line 2:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.addrLine2"></dd>
+            <dt class="col-1-2">Country:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.country"></dd>
+            <dt class="col-1-2">State / Province:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.state"></dd>
+            <dt class="col-1-2">City:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.city"></dd>
+            <dt class="col-1-2">County:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.county"></dd>
+            <dt class="col-1-2">District:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.district"></dd>
+            <dt class="col-1-2">Zip / Postal Code:</dt>
+            <dd class="col-1-2" ng-bind="currentAddress.zipCode"></dd>
+        </dl>
+        <button class="btn btn--small" ng-click="cancelDelete()">Change Address</button>
+    </div>
+    <div class="col-1-2">
+        <h3>Additional Information</h3>
+        <div class="well">
+            <h4>Primary Contact Information</h4>
+            <dl class="row row--alley-2">
+                <dt class="col-1-2">Name:</dt>
+                <dd class="col-1-2" ng-bind="contact.name"></dd>
+                <dt class="col-1-2">Phone Number:</dt>
+                <dd class="col-1-2" ng-bind="contact.phoneNumber"></dd>
+                <dt class="col-1-2">Email Address:</dt>
+                <dd class="col-1-2" ng-bind="contact.emailAddress"></dd>
+            </dl>
+            <button class="btn btn--small">Add Contact</button>
+            <button class="btn btn--small">Change Contact</button>
+        </div>
+        <form class="form" data-form="" name="additionalInfo" method="post" ng-submit="additionalInfo.$valid && continue()" enctype="mulitpart/form-data" novalidate>
+            <fieldset>
+                <div class="form__field">
+                    <label>Customer Reference ID</label>
+                    <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
+                </div>
+                <div class="form__field">
+                    <label>Cost Center</label>
+                    <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
+                </div>
+                <div class="form__field">
+                    <label>Description</label>
+                    <textarea ng-model="serviceRequest.addtnlDescription"></textarea>
+                </div>
+                <div class="form__field">
+                    <label>Requested Effective Date of Change</label>
+                    <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
+                </div>
+            </fieldset>
+            <div class="col-1">
+            <fieldset>
+                <div class="form__field">
+                    <label>Notes</label>
+                    <textarea></textarea>
+                </div>
+
+                <div class="form__field">
+                    <label>Attach Files</label>
+                    <input type="file"  />
+                    <div class="form__field__helper-text">
+                        Note:Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.
+                        Only a max of 2 files of max. 1 mb each can be attached.
+                    </div>
+                </div>
+            </fieldset>
+         </div>
+        </form>
+    </div>
+    <div class="col-1">
+        <button class="btn btn--secondary" ng-click="cancelDelete()">Cancel</button>
+        <button class="btn btn--primary" ng-click="requestDelete()">Continue</button>
+    </div>
+</div>

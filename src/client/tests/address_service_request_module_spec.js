@@ -183,5 +183,21 @@ describe('Address Service Request Module', function() {
                 expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/js/service_requests/addresses/view.html');
             });
         });
+
+         // Tests for testing directives
+        describe('directive: new-form-fields.html', function() {
+            var element, scope;
+
+            beforeEach(module('mps'));
+
+            beforeEach(inject(function($rootScope, $compile) {
+                scope = $rootScope.$new();
+
+                element = '<address-new-fields></address-new-fields>';
+                element = $compile(element)(scope);
+
+                scope.$digest();
+            }));
+        });
     });
 });
