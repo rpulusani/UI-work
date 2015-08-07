@@ -1,2 +1,2 @@
 'use strict';
-angular.module('mps.serviceRequests', []);
+angular.module('mps.serviceRequests', ['mps.common']);

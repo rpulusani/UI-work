@@ -6,5 +6,6 @@ angular.module('mps', [
     'mps.serviceRequests',
     'mps.serviceRequestAddresses',
     'mps.serviceRequestContacts',
-    'mps.user'
+    'mps.user',
+    'mps.common'
 ]);

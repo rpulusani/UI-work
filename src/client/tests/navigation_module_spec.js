@@ -24,13 +24,30 @@ describe('Navigation Module', function() {
         });
 
         describe('$scope.isSelected', function(){
-            it('checks a passed in route and validates that is matches what the browser window is located.  Pass in  a good route.', function(){
+            it('checks a passed in route and validates that is matches what the browser window is located.  Pass in a good route.', function(){
               var result  = false,
               service = new BaseService();
               spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/cat');
               result = scope.isSelected('/cat');
               expect(result).toEqual(true);
             });
+
+           it('checks a passed in route and validates that is matches what the browser window is located.  Pass in long route.', function(){
+              var result  = false,
+              service = new BaseService();
+              spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/cat/kittens/1');
+              result = scope.isSelected('/cat');
+              expect(result).toEqual(true);
+            });
+
+            it('checks a passed in route and validates that is matches what the browser window is located.  Pass in root route.', function(){
+              var result  = true,
+              service = new BaseService();
+              spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/cat/kittens/1');
+              result = scope.isSelected('/');
+              expect(result).toEqual(false);
+            });
+
 
             it('checks a passed in route and validates that is matches what the browser window is located.  Pass in  a bad route.', function(){
               var result  = true,
@@ -53,7 +70,7 @@ describe('Navigation Module', function() {
         });
         it('should map to default', function(){
             inject(function($route) {
-                expect($route.routes[null].templateUrl).toEqual('/templates/home.html');
+                expect($route.routes[null].templateUrl).toEqual('/js/dashboard/templates/home.html');
                 expect($route.routes['/cat']).toEqual(undefined);
             });
         });

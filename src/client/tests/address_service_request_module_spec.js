@@ -3,10 +3,11 @@
 describe('Address Service Request Module', function() {
     beforeEach(module('mps'));
     describe('Controllers', function(){
-        var scope, ctrl, location, addresses;
-        beforeEach(inject(function($rootScope, $controller, $location, Addresses) {
+        var scope, ctrl, location, addresses, window;
+        beforeEach(inject(function($rootScope, $controller, $location, Addresses, $window) {
             scope = $rootScope.$new();
             location = $location;
+            window = $window;
             ctrl = $controller('AddressesController', {$scope: scope});
             addresses = Addresses;
         }));
@@ -38,11 +39,10 @@ describe('Address Service Request Module', function() {
         it('has a list of addresses', function() {
             expect(scope.addresses).toBeDefined();
         });
-/*
+
         it('has a selected address', function() {
-            expect(scope.currentAddress).toBeDefined();
+            expect(scope.address).toBeDefined();
         });
-*/
         describe('when test data is loaded', function(){
             beforeEach(function() { scope.loadTestData(); });
 
@@ -89,10 +89,12 @@ describe('Address Service Request Module', function() {
                 });
             });
         });
-
+*/
         describe('when backed up', function() {
             describe('when continueForm is true', function() {
                 it('should set continueForm to be false', function() {
+                    spyOn(addresses.history,'back').and.returnValue('/service_requests/addresses');
+                    scope.continueForm = true;
                     scope.back();
                     expect(scope.continueForm).toBe(false);
                 });
@@ -100,13 +102,13 @@ describe('Address Service Request Module', function() {
 
             describe('when continueForm is false', function() {
                 it('should return to home', function() {
-                    spyOn(location, 'path').and.returnValue('/');
+                    spyOn(addresses.history,'back').and.returnValue('/service_requests/addresses');
                     scope.back();
-                    expect(location.path).toHaveBeenCalledWith('/');
+                    expect(scope.continueForm).toEqual(false);
                 });
             });
         });
-
+/*
         describe('when cancelled', function() {
             it('should return to home', function(){
                 spyOn(location, 'path').and.returnValue('/');
@@ -121,7 +123,7 @@ describe('Address Service Request Module', function() {
               expect(scope.continueForm).toBe(true);
           });
         });
-*/
+
         describe('when toggled', function() {
             describe('with attachmentIsShown was originally true', function() {
                 it('should set attachmentIsShown to be false', function() {
@@ -138,9 +140,10 @@ describe('Address Service Request Module', function() {
                     expect(scope.attachmentIsShown).toBe(true);
                 });
             });
+
         });
 
-/*
+
         describe('when address foo/1 is selected', function() {
             it('should return an address', function() {
                 var address = scope.getAddress('foo/1');
@@ -180,7 +183,12 @@ describe('Address Service Request Module', function() {
         it('should map routes to controllers', function() {
             inject(function($route) {
                 expect($route.routes['/service_requests/addresses'].controller).toBe('AddressesController');
-                expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/js/service_requests/addresses/view.html');
+                expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/js/address_service_requests/templates/view.html');
+                expect($route.routes['/service_requests/addresses/delete'].templateUrl).toEqual('/js/address_service_requests/templates/delete.html');
+                expect($route.routes['/service_requests/addresses/new'].templateUrl).toEqual('/js/address_service_requests/templates/new.html');
+                expect($route.routes['/service_requests/addresses/addMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/addMultiple.html');
+                expect($route.routes['/service_requests/addresses/updateMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/updateMultiple.html');
+                expect($route.routes['/service_requests/addresses/deleteMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/deleteMultiple.html');
             });
         });
 

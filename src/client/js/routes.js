@@ -4,16 +4,16 @@ angular.module('mps.routes', [])
 function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/device_management', {
-            templateUrl: '/js/device_management/device-management-home.html'
+            templateUrl: '/js/device_management/templates/device-management-home.html'
         })
         .when('/invoices', {
-            templateUrl: '/js/invoices/invoices-home.html'
+            templateUrl: '/js/invoices/templates/invoices-home.html'
         })
         .when('/reporting', {
-            templateUrl: '/js/reporting/reporting-home.html'
+            templateUrl: '/js/reporting/templates/reporting-home.html'
         })
         .when('/service_requests', {
-            templateUrl: '/js/service_requests/service-request-dashboard.html'
+            templateUrl: '/js/service_requests/templates/service-request-dashboard.html'
         })
         .when('/service_requests/addresses', {
         templateUrl: '/js/address_service_requests/templates/view.html',
@@ -50,7 +50,7 @@ function($routeProvider, $locationProvider) {
             controller: 'AddressesController'
         })
         .otherwise({
-            templateUrl: '/templates/home.html'
+            templateUrl: '/js/dashboard/templates/home.html'
         });
     
     $locationProvider.html5Mode(true);

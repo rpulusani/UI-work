@@ -1,6 +1,7 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.factory('Addresses', ['$http', 'ServiceRequests', function($http, ServiceRequests) {
+.factory('Addresses', ['$http', 'ServiceRequests', 'BaseService', 
+    function($http, ServiceRequests, BaseService) {
     var Address = function() {
         var addy = this;
 
@@ -21,7 +22,7 @@ angular.module('mps.serviceRequestAddresses')
         addy.addresses = []; // data store
         addy.hasData = false; // Lets us know if we have a dataset from the server
     };
-
+    Address.prototype = new BaseService();
     Address.prototype.save = function(formdata, fn) {
         $http.post('', formdata, {
             transformRequest: angular.identity,

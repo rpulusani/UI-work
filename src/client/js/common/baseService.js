@@ -1,4 +1,4 @@
-angular.module('mps')
+angular.module('mps.common')
 .factory('BaseService', ['$http', function($http) {
     BaseService = function() {
 
@@ -9,5 +9,12 @@ angular.module('mps')
             return window.location.pathname;
         }
     };
+
+    BaseService.prototype.history = {
+        back: function () {
+            return window.history.back();
+        }
+    };
+
     return BaseService;
 }]);
