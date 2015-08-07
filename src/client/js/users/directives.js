@@ -1,2 +1,2 @@
 'use strict';
-angular.module('mps.suser');
+angular.module('mps.user');
