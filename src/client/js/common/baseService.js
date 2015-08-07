@@ -4,12 +4,6 @@ angular.module('mps.common')
 
     };
 
-    BaseService.prototype.getCurrentLocation = {
-        getPathName: function () {
-            return window.location.pathname;
-        }
-    };
-
     BaseService.prototype.history = {
         back: function () {
             return window.history.back();

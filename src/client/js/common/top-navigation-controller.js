@@ -5,10 +5,11 @@ angular.module('mps.common')
             $location.path(path);
         };
         $scope.isSelected = function(path){
-            var pass = false;
-            if(path === '/' && path.toLowerCase() === new BaseService().getCurrentLocation.getPathName().toLowerCase()){
+            var pass = false,
+             currentLocation = angular.lowercase($location.path());
+            if(path === '/' && path.toLowerCase() === currentLocation){
                 pass = true;
-            } else if(path !== '/' && new BaseService().getCurrentLocation.getPathName().toLowerCase().indexOf(path.toLowerCase()) > -1) {
+            } else if(path !== '/' && currentLocation.indexOf(path.toLowerCase()) > -1) {
                     pass = true;
             }else{
                    pass = false;

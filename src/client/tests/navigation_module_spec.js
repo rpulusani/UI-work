@@ -27,7 +27,7 @@ describe('Navigation Module', function() {
             it('checks a passed in route and validates that is matches what the browser window is located.  Pass in a good route.', function(){
               var result  = false,
               service = new BaseService();
-              spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/cat');
+             spyOn(location, 'path').and.returnValue('/cat');
               result = scope.isSelected('/cat');
               expect(result).toEqual(true);
             });
@@ -35,7 +35,7 @@ describe('Navigation Module', function() {
            it('checks a passed in route and validates that is matches what the browser window is located.  Pass in long route.', function(){
               var result  = false,
               service = new BaseService();
-              spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/cat/kittens/1');
+              spyOn(location, 'path').and.returnValue('/cat/kittens/1');
               result = scope.isSelected('/cat');
               expect(result).toEqual(true);
             });
@@ -43,7 +43,7 @@ describe('Navigation Module', function() {
             it('checks a passed in route and validates that is matches what the browser window is located.  Pass in root route.', function(){
               var result  = true,
               service = new BaseService();
-              spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/cat/kittens/1');
+              spyOn(location, 'path').and.returnValue('/cat/kittens/1');
               result = scope.isSelected('/');
               expect(result).toEqual(false);
             });
@@ -52,7 +52,7 @@ describe('Navigation Module', function() {
             it('checks a passed in route and validates that is matches what the browser window is located.  Pass in  a bad route.', function(){
               var result  = true,
               service = new BaseService();
-              spyOn(service.getCurrentLocation,'getPathName').and.returnValue('/dog');
+              spyOn(location, 'path').and.returnValue('/dog');
               result = scope.isSelected('/cat');
               expect(result).toEqual(false);
             });
