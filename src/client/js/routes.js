@@ -1,37 +1,41 @@
-angular.module('mps')
-.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
+'use strict';
+angular.module('mps.routes', [])
+.config(['$routeProvider', '$locationProvider', 
+function($routeProvider, $locationProvider) {
     $routeProvider
+    // Routes for Service Requests
     .when('/service_requests/addresses', {
-        templateUrl: '/js/service_requests/addresses/view.html',
+        templateUrl: '/js/address_service_requests/templates/view.html',
         controller: 'AddressesController'
     })
     .when('/service_requests/addresses/delete', {
-        templateUrl: '/js/service_requests/addresses/delete.html',
+        templateUrl: '/js/address_service_requests/templates/delete.html',
         controller: 'AddressesController'
     })
     .when('/service_requests/addresses/new', {
-        templateUrl: '/js/service_requests/addresses/new.html',
+        templateUrl: '/js/address_service_requests/templates/new.html',
         controller: 'AddressesController'
     })
     .when('/service_requests/addresses/addMultiple', {
-        templateUrl: '/js/service_requests/addresses/addMultiple.html',
+        templateUrl: '/js/address_service_requests/templates/addMultiple.html',
         controller: 'AddressesController'
     })
     .when('/service_requests/addresses/updateMultiple', {
-        templateUrl: '/js/service_requests/addresses/updateMultiple.html',
+        templateUrl: '/js/address_service_requests/templates/updateMultiple.html',
         controller: 'AddressesController'
     })
     .when('/service_requests/addresses/deleteMultiple', {
-        templateUrl: '/js/service_requests/addresses/deleteMultiple.html',
-        controller: 'AddressesController'
-    })
-    .when('/service_requests/addresses/update', {
-        templateUrl: '/js/service_requests/addresses/update.html',
+        templateUrl: '/js/address_service_requests/templates/deleteMultiple.html',
         controller: 'AddressesController'
     })
     .when('/service_requests/addresses/:id', {
-        templateUrl: '/js/service_requests/addresses/review.html',
+        templateUrl: function(routeParams) {
+            if (!routeParams.view || routeParams.view === '') {
+                return '/js/address_service_requests/templates/review.html';
+            } else if (routeParams.view === 'update') {
+                return '/js/address_service_requests/templates/update.html';
+            }
+        },
         controller: 'AddressesController'
     })
     .otherwise({

@@ -172,5 +172,21 @@ describe('MPS module', function() {
                 expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete/review');
             });
         });
+
+         // Tests for testing directives
+        describe('directive: new-form-fields.html', function() {
+            var element, scope;
+
+            beforeEach(module('mps'));
+
+            beforeEach(inject(function($rootScope, $compile) {
+                scope = $rootScope.$new();
+
+                element = '<address-new-fields></address-new-fields>';
+                element = $compile(element)(scope);
+
+                scope.$digest();
+            }));
+        });
     });
 });
