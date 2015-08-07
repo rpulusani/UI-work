@@ -1,7 +1,7 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
 .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses', 'Contacts',
-function($scope, $http, $location, $routeParams, Addresses) {
+function($scope, $http, $location, $routeParams, Addresses, Contacts) {
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
