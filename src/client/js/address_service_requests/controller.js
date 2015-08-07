@@ -1,14 +1,17 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses',
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses', 'Contacts',
 function($scope, $http, $location, $routeParams, Addresses) {
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
-    $scope.currentAddressId = Addresses.currentAddress.id;
+
     $scope.address = Addresses.currentAddress;
     $scope.addresses = Addresses.addresses;
-
+    /*
+    $scope.contact = Contacts.currentContact;
+    $scope.contacts = Contacts.contacts;
+    */
     $scope.contact = {
         name: '',
         phoneNumber: '',
@@ -22,6 +25,7 @@ function($scope, $http, $location, $routeParams, Addresses) {
         requestedEffectiveDate: ''
     };
 
+    // Contacts.loadTestData()
     $scope.loadTestData = function() {
         $scope.contact.name = 'Vickers PetsAtHome';
         $scope.contact.phoneNumber = '9992882222';
@@ -94,16 +98,14 @@ function($scope, $http, $location, $routeParams, Addresses) {
     }
 
     if ($routeParams.id && $routeParams.id !== '') {
-        $scope.currentAddressId = $routeParams.id;
-    } else if ($routeParams.addressid && $routeParams.addressid !== '') {
-        $scope.currentAddressId = $routeParams.addressid;
+        Addresses.currentAddress.id = $routeParams.id;
     } else {
-        $scope.currentAddressId = null;
+        Addresses.currentAddress.id = null;
     }
 
-    if ($scope.currentAddressId) {
-        Addresses.getById($scope.currentAddressId, function(newAddress) {
-            $scope.address = newAddress;
+    if (Addresses.currentAddress.id) {
+        Addresses.getById(Addresses.currentAddress.id, function() {
+            $scope.address = Addresses.currentAddress;
         });
     }
 

@@ -36,7 +36,7 @@ angular.module('mps.serviceRequestAddresses').factory('Addresses', ['$http', 'Se
         $http.get('/service_requests/addresses/' + id).success(function(res) {
             addy.currentAddress = res;
             
-            return fn(res);
+            return fn();
         });
     };
 
