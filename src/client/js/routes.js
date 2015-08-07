@@ -3,7 +3,7 @@ angular.module('mps.routes', [])
 .config(['$routeProvider', '$locationProvider', 
 function($routeProvider, $locationProvider) {
     $routeProvider
-    // Routes for address_service_request
+    // Routes for Service Requests
     .when('/service_requests/addresses', {
         templateUrl: '/js/address_service_requests/templates/view.html',
         controller: 'AddressesController'
@@ -28,12 +28,14 @@ function($routeProvider, $locationProvider) {
         templateUrl: '/js/address_service_requests/templates/deleteMultiple.html',
         controller: 'AddressesController'
     })
-    .when('/service_requests/addresses/update', {
-        templateUrl: '/js/address_service_requests/templates/update.html',
-        controller: 'AddressesController'
-    })
     .when('/service_requests/addresses/:id', {
-        templateUrl: '/js/address_service_requests/templates/review.html',
+        templateUrl: function(routeParams) {
+            if (!routeParams.view || routeParams.view === '') {
+                return '/js/address_service_requests/templates/review.html';
+            } else if (routeParams.view === 'update') {
+                return '/js/address_service_requests/templates/update.html';
+            }
+        },
         controller: 'AddressesController'
     })
     .otherwise({

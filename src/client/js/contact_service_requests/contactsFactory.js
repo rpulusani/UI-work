@@ -1,5 +1,5 @@
 'use strict';
-angular.module('mps.serviceRequestContacts').factory('Contacts', function($http) {
+angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', function($http) {
     var Contact = function() {
         var contact = this;
         contact.contacts = []; // data store
@@ -35,4 +35,4 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', function($http)
     };
     
     return new Contact();
-});
+}]);

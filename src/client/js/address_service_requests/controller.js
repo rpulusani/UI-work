@@ -5,27 +5,14 @@ function($scope, $http, $location, $routeParams, Addresses) {
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
-    $scope.currentAddressId = ''; // Current/Last opened address id
-    $scope.alertMsg = ''; // On-page alert message
+    $scope.currentAddressId = Addresses.currentAddress.id;
+    $scope.address = Addresses.currentAddress; // Current/Last opened address id
     $scope.addresses = Addresses.addresses;
-  
+
     $scope.contact = {
         name: '',
         phoneNumber: '',
         emailAddress: ''
-    };
-
-    $scope.address = {
-        addName: '',
-        storeName: '',
-        addrLine1: '',
-        addrLine2: '',
-        city: '',
-        country: '',
-        state: '',
-        zipCode: '',
-        county: '',
-        district:''
     };
 
     $scope.serviceRequest = {
@@ -50,7 +37,7 @@ function($scope, $http, $location, $routeParams, Addresses) {
         $scope.submitForm = false; // Request data from the server
 
         Addresses.save(fd, function(res) {
-            Addresses.hasData = true;
+            Addresses.hasData = false;
 
             if (!routeToTop) {
                 $location.path('/service_requests/addresses/' + res.id).search('');
@@ -81,17 +68,17 @@ function($scope, $http, $location, $routeParams, Addresses) {
     };
 
     $scope.goToViewAll = function(id) {
-        $location.path('/service_requests/addresses');
+        $location.path('/service_requests/addresses').search('');
     };
 
     $scope.updateAddress = function(id) {
-        $location.path('/service_requests/addresses/update').search('addressid', id);
+        $location.path('/service_requests/addresses/' + id).search('view', 'update');
     };
 
     $scope.deleteAddress = function(id) {
         Addresses.deleteById(id, function(res) {
             var i = 0,
-            addressCnt = Addresses.length;
+            addressCnt = Addresses.addresses.length;
 
             for (i; i < addressCnt; i += 1) {
                 if (Addresses.addresses[i].id === id) {
@@ -107,18 +94,17 @@ function($scope, $http, $location, $routeParams, Addresses) {
         });
     }
 
-    if ($location.search().addressid) {
-        $scope.currentAddressId = $location.search().addressid;
-    } else if ($routeParams.id && $routeParams.id.indexOf('addy-') !== -1 ) {
+    if ($routeParams.id && $routeParams.id !== '') {
         $scope.currentAddressId = $routeParams.id;
+    } else if ($routeParams.addressid && $routeParams.addressid !== '') {
+        $scope.currentAddressId = $routeParams.addressid;
+    } else {
+        $scope.currentAddressId = null;
     }
 
-    if ($scope.currentAddressId !== '') {
-        $http.get(window.location.href).success(function(res) {
-            $scope.address = res;
-        }).error(function() {
-            // address id wasn't in the store
-            $location.path('/service_requests/addresses/new');
+    if ($scope.currentAddressId) {
+        Addresses.getById($scope.currentAddressId, function(newAddress) {
+            $scope.address = newAddress;
         });
     }
 

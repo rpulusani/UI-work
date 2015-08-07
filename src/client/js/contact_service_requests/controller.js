@@ -8,7 +8,7 @@ function($scope, $http, $location, $routeParams, Contacts) {
     $scope.currentContactId = ''; // Current/Last opened address id
     $scope.alertMsg = ''; // On-page alert message
     $scope.contacts = Contacts.contacts;
-  
+    
     $scope.contact = {
         name: '',
         phoneNumber: '',
