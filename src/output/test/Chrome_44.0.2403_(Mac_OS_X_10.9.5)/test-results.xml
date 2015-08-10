@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 44.0.2403 (Mac OS X 10.9.5)" package="" timestamp="2015-08-10T14:19:46" id="0" hostname="krichardson-w7.na.ds.lexmark.com" tests="22" errors="0" failures="0" time="0.133">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.130 Safari/537.36"/>
+  </properties>
+  <testcase name="is defined" time="0.03" classname="Address Service Request Module Controllers"/>
+  <testcase name="can get an instance of Addresses" time="0.011" classname="Address Service Request Module Controllers"/>
+  <testcase name="has a contact" time="0.006" classname="Address Service Request Module Controllers"/>
+  <testcase name="has a name in contact" time="0.004" classname="Address Service Request Module Controllers"/>
+  <testcase name="has a phoneNumber in contact" time="0.008" classname="Address Service Request Module Controllers"/>
+  <testcase name="has a emailAddress in contact" time="0.006" classname="Address Service Request Module Controllers"/>
+  <testcase name="has a list of addresses" time="0.003" classname="Address Service Request Module Controllers"/>
+  <testcase name="has a selected address" time="0.003" classname="Address Service Request Module Controllers"/>
+  <testcase name="has Vickers PetsAtHome as name in contact" time="0.007" classname="Address Service Request Module Controllers when test data is loaded"/>
+  <testcase name="has 9992882222 as phoneNumber in contact" time="0.004" classname="Address Service Request Module Controllers when test data is loaded"/>
+  <testcase name="has vickerspets@test.com as emailAddress in contact" time="0.002" classname="Address Service Request Module Controllers when test data is loaded"/>
+  <testcase name="should set continueForm to be false" time="0.003" classname="Address Service Request Module Controllers when backed up when continueForm is true"/>
+  <testcase name="should return to home" time="0.003" classname="Address Service Request Module Controllers when backed up when continueForm is false"/>
+  <testcase name="should map routes to controllers" time="0.008" classname="Address Service Request Module Routes"/>
+  <testcase name="sets the route of the angular app" time="0.004" classname="Navigation Module Controllers $scope_goTo"/>
+  <testcase name="sets the route of the angular app" time="0.005" classname="Navigation Module Controllers $scope_goTo"/>
+  <testcase name="checks a passed in route and validates that is matches what the browser window is located.  Pass in a good route." time="0.003" classname="Navigation Module Controllers $scope_isSelected"/>
+  <testcase name="checks a passed in route and validates that is matches what the browser window is located.  Pass in long route." time="0.006" classname="Navigation Module Controllers $scope_isSelected"/>
+  <testcase name="checks a passed in route and validates that is matches what the browser window is located.  Pass in root route." time="0.003" classname="Navigation Module Controllers $scope_isSelected"/>
+  <testcase name="checks a passed in route and validates that is matches what the browser window is located.  Pass in  a bad route." time="0.003" classname="Navigation Module Controllers $scope_isSelected"/>
+  <testcase name="should map routes to controllers" time="0.006" classname="Navigation Module Routes"/>
+  <testcase name="should map to default" time="0.005" classname="Navigation Module Routes"/>
+  <system-out><![CDATA[
+]]></system-out>
+  <system-err/>
+</testsuite>
