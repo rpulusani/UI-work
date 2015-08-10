@@ -2,20 +2,32 @@ requirejs.config({
     baseUrl: '/',
     deps: [
         'lxk.fef',
+        
         'angular',
         'angular-resource',
         'angular-route',
+        
         'app',
         'routes',
+        
+        'common',
+        'common.topNavController',
+        'common.baseService',
+        'common.directives',
+        
         'user',
         'user.factory',
-        'service-request',
-        'service-request.factory',
-        'service-request.directives',
+        'user.directives',
+        
+        'serviceRequest',
+        'serviceRequest.factory',
+        'serviceRequest.directives',
+        
         'address',
         'address.controller',
         'address.directives',
         'address.factory',
+        
         'contact',
         'contact.controller',
         'contact.directives',
@@ -24,18 +36,28 @@ requirejs.config({
     shim: {
         'angular-resource': ['angular'],
         'angular-route': ['angular'],
+        
         'app': ['angular', 'angular-resource', 'angular-route'],
         'routes': ['app'],
+        
+        'common': ['app'],
+        'common.topNavController': ['app', 'common', 'common.baseService'],
+        'common.baseService': ['app', 'common'],
+        'common.directives': ['app', 'common'],
+        
         'user': ['app'],
         'user.factory': ['app', 'user'],
         'user.directives': ['app', 'user'],
-        'service-request': ['app'],
-        'service-request.factory': ['app', 'service-request'],
-        'service-request.directives': ['app', 'service-request'],
+        
+        'serviceRequest': ['app', 'common'],
+        'serviceRequest.factory': ['app', 'serviceRequest'],
+        'serviceRequest.directives': ['app', 'serviceRequest'],
+        
         'address': ['app'],
         'address.controller': ['app', 'address', 'address.factory', 'contact.factory'],
         'address.directives': ['app', 'address'],
-        'address.factory': ['app', 'address', 'service-request.factory'],
+        'address.factory': ['app', 'address', 'serviceRequest.factory', 'common.baseService'],
+        
         'contact': ['app'],
         'contact.controller': ['app', 'contact', 'contact.factory'],
         'contact.directives': ['app', 'contact'],
@@ -43,20 +65,32 @@ requirejs.config({
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
+
         'angular': 'js/libs/angular.min',
         'angular-resource': 'js/libs/angular-resource.min',
         'angular-route': 'js/libs/angular-route.min',
+        
         'app': 'js/app',
         'routes': 'js/routes',
+        
+        'common': 'js/common/common',
+        'common.topNavController': 'js/common/top-navigation-controller',
+        'common.baseService': 'js/common/baseService',
+        'common.directives': 'js/common/directives',
+        
         'user': 'js/users/user',
         'user.factory': 'js/users/usersFactory',
-        'service-request': 'js/service_requests/serviceRequest',
-        'service-request.factory': 'js/service_requests/serviceRequestsFactory',
-        'service-request.directives': 'js/service_requests/directives',
+        'user.directives': 'js/users/directives',
+        
+        'serviceRequest': 'js/service_requests/serviceRequest',
+        'serviceRequest.factory': 'js/service_requests/serviceRequestsFactory',
+        'serviceRequest.directives': 'js/service_requests/directives',
+        
         'address': 'js/address_service_requests/addressServiceRequest',
         'address.controller': 'js/address_service_requests/controller',
         'address.directives': 'js/address_service_requests/directives',
         'address.factory': 'js/address_service_requests/addressesFactory',
+        
         'contact': 'js/contact_service_requests/contactServiceRequest',
         'contact.controller': 'js/contact_service_requests/controller',
         'contact.directives': 'js/contact_service_requests/directives',

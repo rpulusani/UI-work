@@ -1,7 +1,22 @@
 .site-header {
-  padding: 0 40px;
+  padding-left: 20px;
   border-top: 5px solid #00c425;
   border-bottom: 1px solid #a5a5aa;
+}
+nav ul {
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+.site-header nav{
+  padding-left: 45px;
+}
+.site-header nav li > a{
+  padding:26px 61px;
+  border-left: solid 1px black;
+}
+.site-header nav .btn--primary{
+ background-color: #00c425;
 }
 .site-header:after {
   clear: both;

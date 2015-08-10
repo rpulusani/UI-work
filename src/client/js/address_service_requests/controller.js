@@ -56,7 +56,7 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
             $scope.continueForm = false;
         }
                 
-        window.history.back();
+        Addresses.history.back();
     };
 
     $scope.cancel = function(){
