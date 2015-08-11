@@ -22,10 +22,16 @@ module.exports = function(config){
         'client/tests/navigation_module_spec.js'
     ],
     autoWatch : true,
+    plugins: ['karma-jasmine', 'karma-phantomjs-launcher','karma-junit-reporter'],
     port: 9090,
     runnerPort: 9191,
     frameworks: ['jasmine'],
-    browsers : ['Chrome'],
-    singleRun: false,
+    browsers : ['PhantomJS'],
+    singleRun: true,
+    reporters: ['dots', 'junit'],
+    junitReporter: {
+        outputFile: '../test-results.xml'
+    }
+
   });
 };
