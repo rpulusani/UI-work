@@ -27,7 +27,7 @@
             <dt class="col-1-2">Zip / Postal Code:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.zipCode"></dd>
         </dl>
-        <button class="btn btn--small" ng-click="cancelDelete()">Change Address</button>
+        <button class="btn btn--small" ng-click="cancel()">Change Address</button>
     </div>
     <div class="col-1-2">
         <h3>Additional Information</h3>
@@ -83,7 +83,7 @@
         </form>
     </div>
     <div class="col-1">
-        <button class="btn btn--secondary" ng-click="cancelDelete()">Cancel</button>
+        <button class="btn btn--secondary" ng-click="cancel()">Cancel</button>
         <button class="btn btn--primary" ng-click="requestDelete()">Continue</button>
     </div>
 </div>
