@@ -66,35 +66,35 @@ requirejs.config({
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
-        'angular': 'js/libs/angular.min',
-        'angular-resource': 'js/libs/angular-resource.min',
-        'angular-route': 'js/libs/angular-route.min',
+        'angular': 'app/libs/angular.min',
+        'angular-resource': 'app/libs/angular-resource.min',
+        'angular-route': 'app/libs/angular-route.min',
         
-        'app': 'js/app',
-        'routes': 'js/routes',
+        'app': 'app/app',
+        'routes': 'app/routes',
         
-        'common': 'js/common/common',
-        'common.topNavController': 'js/common/top-navigation-controller',
-        'common.baseService': 'js/common/baseService',
-        'common.directives': 'js/common/directives',
+        'common': 'app/common/common',
+        'common.topNavController': 'app/common/top-navigation-controller',
+        'common.baseService': 'app/common/baseService',
+        'common.directives': 'app/common/directives',
         
-        'user': 'js/users/user',
-        'user.factory': 'js/users/usersFactory',
-        'user.directives': 'js/users/directives',
+        'user': 'app/users/user',
+        'user.factory': 'app/users/usersFactory',
+        'user.directives': 'app/users/directives',
         
-        'serviceRequest': 'js/service_requests/serviceRequest',
-        'serviceRequest.factory': 'js/service_requests/serviceRequestsFactory',
-        'serviceRequest.directives': 'js/service_requests/directives',
+        'serviceRequest': 'app/service_requests/serviceRequest',
+        'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
+        'serviceRequest.directives': 'app/service_requests/directives',
         
-        'address': 'js/address_service_requests/addressServiceRequest',
-        'address.controller': 'js/address_service_requests/controller',
-        'address.directives': 'js/address_service_requests/directives',
-        'address.factory': 'js/address_service_requests/addressesFactory',
+        'address': 'app/address_service_requests/addressServiceRequest',
+        'address.controller': 'app/address_service_requests/controller',
+        'address.directives': 'app/address_service_requests/directives',
+        'address.factory': 'app/address_service_requests/addressesFactory',
         
-        'contact': 'js/contact_service_requests/contactServiceRequest',
-        'contact.controller': 'js/contact_service_requests/controller',
-        'contact.directives': 'js/contact_service_requests/directives',
-        'contact.factory': 'js/contact_service_requests/contactsFactory'
+        'contact': 'app/contact_service_requests/contactServiceRequest',
+        'contact.controller': 'app/contact_service_requests/controller',
+        'contact.directives': 'app/contact_service_requests/directives',
+        'contact.factory': 'app/contact_service_requests/contactsFactory'
     },
     map: {
         "*": {
