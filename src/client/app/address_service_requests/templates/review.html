@@ -4,7 +4,7 @@
             <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
             <div class="alert__body">
                 <span>
-                    <strong>Please review the details for this request. Once confirmed, click on the CONTINUE button below.</strong>
+                    <strong>{{'MESSAGE_REQUEST_REVIEW' | translate}}</strong>
                 </span>
             </div>
         </div>
@@ -12,7 +12,7 @@
             <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
             <div class="alert__body">
                 <span>
-                    <strong>Your request # {{serviceRequest.customerReferenceId}} has been submitted successfully. Please use this number when referencing your request..</strong>
+                    <strong>{{'MESSAGE_REQUEST_SUCCESS' | translate:{refId : serviceRequest.customerReferenceId}}} Your request # {{serviceRequest.customerReferenceId}}</strong>
                 </span>
             </div>
         </div>
@@ -20,25 +20,27 @@
             <div class="alert alert--error" data-js="alert" ng-show='submitForm && !add_success'>
                 <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
                 <div class="alert__body"><span>
-                    <strong>Your request has failed.  Please contact your service manager.</strong>
+                    <strong>{{'MESSAGE_REQUEST_FAILED' | translate}}</strong>
                 </span></div>
             </div>
         </div>
     </div>
 
     <div class="col-1">
-        <h1>Change Request Addresses</h1>
+        <h1 translate="ADDRESS_SERVICE_REQUEST_TITLE"></h1>
         <h2>Pets At Home / Pets At Home_MSA2010_MPS-UK</h2>
-        <h3>Add Multiple Addresses</h3>
+        <h3 translate="ADDRESS_SERVICE_REQUEST_ADD_MULTI"></h3>
     </div>
 
     <div class="col-1">
         <read-address></read-address>
     </div>
 
-    <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()">Back</button>
+    <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()"
+            translate="LABEL_BACK"></button>
     <!--
     <button name="cancel" class="col-1-3 btn" ng-click="goToUpdate(serviceRequest.customerReferenceId)">Edit</button>
     -->
-    <button name="submit" class="col-1-3 btn btn--primary" ng-click="goToViewAll()" type="submit">Continue</button>
+    <button name="submit" class="col-1-3 btn btn--primary" ng-click="goToViewAll()" type="submit"
+            translate="LABEL_CONTINUE"></button>
 </div>

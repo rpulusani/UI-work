@@ -1,11 +1,11 @@
 <div id="cancel" class="modal">
     <div class="modal__body">
-        <h2>Do you really want to cancel?</h2>
+        <h2>{{'MESSAGE_CANCEL' | translate}}</h2>
         <hr>
-        <p> All data will be lost.</p>
+        <p>{{'MESSAGE_DATA_LOSS' | translate}}</p>
         <button name="cancel" class="btn btn--secondary"
-                data-js="modalClose">Cancel</button>
+                data-js="modalClose" translate="LABEL_CANCEL"></button>
         <button name="ok" class="btn btn--primary" ng-click="cancel()"
-                data-js="modalClose">Ok</button>
+                data-js="modalClose" translate="LABLE_OK"></button>
     </div>
 </div>
