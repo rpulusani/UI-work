@@ -13,13 +13,13 @@ function($routeProvider, $locationProvider) {
             templateUrl: '/app/reporting/templates/reporting-home.html'
         })
         .when('/page_count/update_page_count', {
-            templateUrl: '/js/page_count/templates/update-page-count.html'
+            templateUrl: '/app/page_count/templates/update-page-count.html'
         })
         .when('/service_requests', {
             templateUrl: '/app/service_requests/templates/service-request-dashboard.html'
         })
         .when('/service_requests/order_request', {
-            templateUrl: '/js/service_requests/templates/create-service-request.html'
+            templateUrl: '/app/service_requests/templates/create-service-request.html'
         })
         .when('/service_requests/addresses', {
         templateUrl: '/app/address_service_requests/templates/view.html',
@@ -56,7 +56,7 @@ function($routeProvider, $locationProvider) {
             controller: 'AddressesController'
         })
         .when('/service_requests/contacts', {
-        templateUrl: '/js/contact_service_requests/templates/view.html',
+        templateUrl: '/app/contact_service_requests/templates/view.html',
             controller: 'ContactsController'
         })
         .otherwise({

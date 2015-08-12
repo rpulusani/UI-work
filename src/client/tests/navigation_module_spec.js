@@ -140,7 +140,7 @@ describe('Navigation Module', function() {
         });
         it('should map to default', function(){
             inject(function($route) {
-                expect($route.routes[null].templateUrl).toEqual('/js/dashboard/templates/home.html');
+                expect($route.routes[null].templateUrl).toEqual('/app/dashboard/templates/home.html');
                 expect($route.routes['/cat']).toEqual(undefined);
             });
         });

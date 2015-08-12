@@ -9,7 +9,7 @@ angular.module('mps.common')
 .directive('leftNavigation', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/common/templates/left-navigation.html',
+        templateUrl: '/app/common/templates/left-navigation.html',
         controller: 'NavigationController'
     };
 });
