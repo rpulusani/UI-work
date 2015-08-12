@@ -159,7 +159,7 @@ router.post('/service_requests/addresses/:id', function(req, res) {
                 req.body.hadAttachment = true;
 
                 fs.readFile(req.files.file.path, function(err, fileData) {
-                    fs.writeFile('./uploads/' + req.files.file.name, fileData,function() {  
+                    fs.writeFile('./uploads/' + req.files.file.name, fileData,function() {
                         console.log(req.files.file.name + ' was saved!');
                     });
                 });
@@ -183,7 +183,7 @@ router.post('/service_requests/addresses/:id', function(req, res) {
             address.updated = true;
 
             console.log('Address Updated!');
-            
+
             res.json(address);
         }
     });
@@ -197,7 +197,13 @@ router.delete('/service_requests/addresses/:id', function(req, res) {
 });
 
 router.all('/*', function(req, res, next) {
-    res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
+    var languages = req.headers['accept-language'].split(',').map(function(lang) {
+        return lang.split(';')[0];
+    });
+    res.render(__dirname + '/client/views/index.dot', {
+        languages_json: JSON.stringify(languages),
+        NEWRELICID: process.env.NEWRELICID
+    });
 });
 
 server.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0', function() {
