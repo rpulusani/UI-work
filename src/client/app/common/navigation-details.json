@@ -1,105 +1,79 @@
 [{
       "action": "",
-      "text": "Quick Action",
-      "group": "Quick Action",
-      "parent": "",
+      "text": "Quick Action",      
       "children":"",
-      "tags": ["left","header"]
+      "tags": ["Quick Action","left","header"]
   },
   {
       "action": "/service_requests/order_request",
-      "text": "Order Request",
-      "group": "Quick Action",
-      "parent": "",
+      "text": "Order Request",      
       "children":"",
-      "tags":["left"]
+      "tags":["Quick Action","left"]
   },
   {
       "action": "/device_management",
-      "text": "Device Management Request",
-      "group": "Quick Action",
-      "parent": "",
+      "text": "Device Management Request",      
       "children":"",
-      "tags":["left"]
+      "tags":["Quick Action","left"]
   },
   {
       "action": "/service_requests",
-      "text": "Service Requests",
-      "group": "Quick Action",
-      "parent": "",
+      "text": "Service Requests",      
       "children":["Addresses","Contacts"],
-      "tags":["left"]
+      "tags":["Quick Action","left"]
   },
   {
       "action": "/service_requests/addresses",
       "text": "Addresses",
-      "group": "Quick Action",
-      "parent": "Service Requests",
       "children":"",
-      "tags":["left","level1"]
+      "tags":["Quick Action","left"]
   },
   {
       "action": "",
-      "text": "Company Administration",
-      "group": "Company Administration",
-      "parent": "",
+      "text": "Company Administration",      
       "children":"",
-      "tags": ["left","header"]
+      "tags": ["Company Administration","left","header"]
   },
   {
       "action": "/service_requests/contacts",
       "text": "Contacts",
-      "group": "Quick Action",
-      "parent": "Service Requests",
       "children":"",
-      "tags":["left"]
+      "tags":["Quick Action","left"]
   },
   {
       "action": "/page_count/update_page_count",
-      "text": "Update Page Count",
-      "group": "Quick Action",
-      "parent": "",
+      "text": "Update Page Count",      
       "children":"",
-      "tags":["left"]
+      "tags":["Quick Action","left"]
   },
   {
       "action": "/",
-      "text": "Dashboard",
-      "group": "",
-      "parent": "",
+      "text": "Dashboard",      
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/device_management",
-      "text": "Device Management",
-      "group": "",
-      "parent": "",
+      "text": "Device Management",      
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/service_requests",
-      "text": "Request Management",
-      "group": "",
-      "parent": "",
+      "text": "Request Management",      
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/reporting",
-      "text": "Reporting",
-      "group": "",
-      "parent": "",
+      "text": "Reporting",      
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/invoices",
-      "text": "Invoices",
-      "group": "",
-      "parent": "",
+      "text": "Invoices",      
       "children":"",
-      "tags":"top"
+      "tags":["top"]
   }
 ]

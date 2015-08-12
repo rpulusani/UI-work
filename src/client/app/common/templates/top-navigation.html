@@ -2,14 +2,6 @@
   <ul class="horizontal-nav" style="margin: 0;padding: 0;list-style: none;">
     <li ng-repeat="navObj in navArray | filter:'top'">
         <a href="#" class="btn" ng-click="goTo(navObj.action)" ng-class="{'btn--primary': isSelected(navObj.action), 'btn--secondary': !isSelected(navObj.action)}">{{navObj.text}}</a>
-    </li>
-    <!-- <li>
-    <a href="#" class="btn btn--secondary" ng-click="goTo('/device_management')" ng-class="{'btn--primary': isSelected('/device_management'), 'btn--secondary': !isSelected('/device_management')}">Device Management</a>
-    </li><li>
-      <a href="#" class="btn btn--secondary" ng-click="goTo('/service_requests')" ng-class="{'btn--primary': isSelected('/service_requests'), 'btn--secondary': !isSelected('/service_requests')}">Request Management</a>
-    </li><li>
-     <a href="#" class="btn btn--secondary" ng-click="goTo('/reporting')" ng-class="{'btn--primary': isSelected('/reporting'), 'btn--secondary': !isSelected('/reporting')}">Reporting</a>
-    </li><li>
-    <a href="#" class="btn btn--secondary" ng-click="goTo('/invoices')" ng-class="{'btn--primary': isSelected('/invoices'), 'btn--secondary': !isSelected('/invoices')}">Invoices</a></li> -->
+    </li>   
   </ul>  
 </nav>

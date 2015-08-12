@@ -58,17 +58,17 @@ describe('Navigation Module', function() {
         });
 
         describe('$scope.isHeader', function(){
-            it('checks whether an object in the navigation file is a header or not. Pass in good value', function(){
+            it('if object in the navigation file is header by passing good value', function(){
                 var tags = ["top","header"];
                 var result = scope.isHeader(tags);
                 expect(result).toEqual(true);
             });
-            it('checks whether an object in the navigation file is a header or not. Pass in bad value', function(){
+            it('if object in the navigation file is header by passing bad value', function(){
                 var tags = ["top"];
                 var result = scope.isHeader(tags);
                 expect(result).toEqual(false);
             });
-            it('checks whether an object in the navigation file is a header or not. Pass in blank value', function(){
+            it('if object in the navigation file is header by passing blank value', function(){
                 var tags = "";
                 var result = scope.isHeader(tags);
                 expect(result).toEqual(false);
@@ -76,12 +76,12 @@ describe('Navigation Module', function() {
         });
 
         describe('$scope.hasChildren', function(){
-            it('checks whether an object in the navigation file has children or not. Pass in children value', function(){
+            it('if object in the navigation file has children by passing in children value', function(){
                 var children = ["cat","dog"];
                 var result = scope.hasChildren(children);
                 expect(result).toEqual(true);
             });
-            it('checks whether an object in the navigation file has children or not. Pass in blank value', function(){
+            it('if object in the navigation file has children by passing in blank value', function(){
                 var children = "";
                 var result = scope.hasChildren(children);
                 expect(result).toEqual(false);
@@ -89,25 +89,25 @@ describe('Navigation Module', function() {
         });
 
          describe('$scope.hasThisChild', function(){
-            it('checks whether the children attribute of a navigation object has a specific child. Pass in good value', function(){
+            it('whether the children attribute of a navigation object has a specific child by passing good value', function(){
                 var children = ["cat","dog"];
                 var child = "dog";
                 var result = scope.hasThisChild(children,child);
                 expect(result).toEqual(true);
             });
-            it('checks whether the children attribute of a navigation object has a specific child. Pass in bad value', function(){
+            it('whether the children attribute of a navigation object has a specific child by passing bad value', function(){
                 var children = ["cat","dog"];
                 var child = "mouse";
                 var result = scope.hasThisChild(children,child);
                 expect(result).toEqual(false);
             });
-            it('checks whether the children attribute of a navigation object has a specific child. Pass in blank value for children list', function(){
+            it('whether the children attribute of a navigation object has a specific child by passing blank children', function(){
                 var children = "";
                 var child = "mouse";
                 var result = scope.hasThisChild(children,child);
                 expect(result).toEqual(false);
             });
-            it('checks whether the children attribute of a navigation object has a specific child. Pass in blank value for child', function(){
+            it('whether the children attribute of a navigation object has a specific child by passing blank child', function(){
                 var children = ["cat","dog"];
                 var child = "";
                 var result = scope.hasThisChild(children,child);
@@ -115,14 +115,15 @@ describe('Navigation Module', function() {
             });
 
           describe('$scope.isChild', function(){
-            it('checks whether an object in the navigation file is a child or not by looking in the parent value. Pass in parent value', function(){
-                var parent = "cat";
-                var result = scope.isChild(parent);
+            it('checks whether an object in the navigation file is a child by passing correct value', function(){
+                //spyOn(scope, 'navArray').and.returnValue("[{'children':['cats','dogs']},{'children':''}]");
+                var dataArray = [{"children":"cats"}];
+                var result = scope.isChild("cats",dataArray);
                 expect(result).toEqual(true);
             });
-            it('checks whether an object in the navigation file is a child or not by looking in the parent value. Pass in blank value', function(){
-                var parent = "";
-                var result = scope.isChild(parent);
+            it('checks whether an object in the navigation file is a child by passing blank value', function(){
+                var dataArray = [{'children':['cats','dogs']},{'children':''}];
+                var result = scope.isChild("",dataArray);
                 expect(result).toEqual(false);
             });
         });

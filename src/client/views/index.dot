@@ -28,7 +28,7 @@ window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){va
 </header>
 
       <div class="site-content row">
-        <div class="col-lg-5-24 col-md-1-4 col-sm-1-3 right-border">
+        <div class="col-lg-5-24 col-md-1-4 col-sm-1-3 left-rail">
           <left-navigation></left-navigation>
         </div>
         <div class="col-lg-19-24 col-md-3-4 col-sm-2-3">

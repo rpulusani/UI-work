@@ -57,7 +57,7 @@ nav ul {
   padding: 24px 40px;
 }
 
-.right-border{
+.left-rail{
   border-right: 1px solid #a5a5aa;
 }
 .site-content .main-content {
@@ -68,7 +68,6 @@ nav ul {
 
 @media only screen and (min-width: 34em) {
   .site-content .main-content {
-    /*border-left: 1px solid #a5a5aa;*/
     border-top: 0;
   }
 }
