@@ -3,19 +3,19 @@ angular.module('mps.serviceRequestAddresses')
 .directive('addressNewFields', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_requests/templates/address-new-fields.html'
+        templateUrl: '/app/address_service_requests/templates/address-new-fields.html'
     };
 })
 .directive('addressReview', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_requests/templates/review.html'
+        templateUrl: '/app/address_service_requests/templates/review.html'
     };
 })
 .directive('readAddress', function() {
     return {
         restrict: 'E',
-        templateUrl: '/js/address_service_requests/templates/read.html'
+        templateUrl: '/app/address_service_requests/templates/read.html'
     };
 })
 .directive('fileModel', ['$parse', function ($parse) {

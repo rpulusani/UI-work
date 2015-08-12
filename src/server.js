@@ -73,7 +73,7 @@ router.configure(function(){
     router.set('views', __dirname + '/client/views');
     router.set('view engine', 'dot');
     router.use('/etc', express.static(path.resolve(__dirname, 'client/etc')));
-    router.use('/js', express.static(path.resolve(__dirname, 'client/js')));
+    router.use('/app', express.static(path.resolve(__dirname, 'client/app')));
     router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
     router.use('/templates', express.static(path.resolve(__dirname, 'client/templates')));
     router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
