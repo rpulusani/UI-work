@@ -2,6 +2,6 @@
   <ul class="horizontal-nav" style="margin: 0;padding: 0;list-style: none;">
     <li ng-repeat="navObj in navArray | filter:'top'">
         <a href="#" class="btn" ng-click="goTo(navObj.action)" ng-class="{'btn--primary': isSelected(navObj.action), 'btn--secondary': !isSelected(navObj.action)}">{{navObj.text}}</a>
-    </li>   
-  </ul>  
+    </li>
+  </ul>
 </nav>

@@ -23,9 +23,9 @@ angular.module('mps', [
             break;
         }
     }
-    $translateProvider.preferredLanguage(myLanguage);
 
     $translateProvider
+        .preferredLanguage(myLanguage)
         .useStaticFilesLoader({
           prefix: '/etc/resources/i18n/',
           suffix: '.json'
