@@ -6,7 +6,7 @@ describe('Navigation Module', function() {
         beforeEach(inject(function($rootScope, $controller, $location, Addresses) {
             scope = $rootScope.$new();
             location = $location;
-            ctrl = $controller('TopNavigationController', {$scope: scope});
+            ctrl = $controller('NavigationController', {$scope: scope});
             addresses = Addresses;
         }));
 
@@ -48,7 +48,6 @@ describe('Navigation Module', function() {
               expect(result).toEqual(false);
             });
 
-
             it('checks a passed in route and validates that is matches what the browser window is located.  Pass in  a bad route.', function(){
               var result  = true,
               service = new BaseService();
@@ -56,6 +55,78 @@ describe('Navigation Module', function() {
               result = scope.isSelected('/cat');
               expect(result).toEqual(false);
             });
+        });
+
+        describe('$scope.isHeader', function(){
+            it('if object in the navigation file is header by passing good value', function(){
+                var tags = ["top","header"];
+                var result = scope.isHeader(tags);
+                expect(result).toEqual(true);
+            });
+            it('if object in the navigation file is header by passing bad value', function(){
+                var tags = ["top"];
+                var result = scope.isHeader(tags);
+                expect(result).toEqual(false);
+            });
+            it('if object in the navigation file is header by passing blank value', function(){
+                var tags = "";
+                var result = scope.isHeader(tags);
+                expect(result).toEqual(false);
+            });
+        });
+
+        describe('$scope.hasChildren', function(){
+            it('if object in the navigation file has children by passing in children value', function(){
+                var children = ["cat","dog"];
+                var result = scope.hasChildren(children);
+                expect(result).toEqual(true);
+            });
+            it('if object in the navigation file has children by passing in blank value', function(){
+                var children = "";
+                var result = scope.hasChildren(children);
+                expect(result).toEqual(false);
+            });
+        });
+
+         describe('$scope.hasThisChild', function(){
+            it('whether the children attribute of a navigation object has a specific child by passing good value', function(){
+                var children = ["cat","dog"];
+                var child = "dog";
+                var result = scope.hasThisChild(children,child);
+                expect(result).toEqual(true);
+            });
+            it('whether the children attribute of a navigation object has a specific child by passing bad value', function(){
+                var children = ["cat","dog"];
+                var child = "mouse";
+                var result = scope.hasThisChild(children,child);
+                expect(result).toEqual(false);
+            });
+            it('whether the children attribute of a navigation object has a specific child by passing blank children', function(){
+                var children = "";
+                var child = "mouse";
+                var result = scope.hasThisChild(children,child);
+                expect(result).toEqual(false);
+            });
+            it('whether the children attribute of a navigation object has a specific child by passing blank child', function(){
+                var children = ["cat","dog"];
+                var child = "";
+                var result = scope.hasThisChild(children,child);
+                expect(result).toEqual(false);
+            });
+
+          describe('$scope.isChild', function(){
+            it('checks whether an object in the navigation file is a child by passing correct value', function(){
+                //spyOn(scope, 'navArray').and.returnValue("[{'children':['cats','dogs']},{'children':''}]");
+                var dataArray = [{"children":"cats"}];
+                var result = scope.isChild("cats",dataArray);
+                expect(result).toEqual(true);
+            });
+            it('checks whether an object in the navigation file is a child by passing blank value', function(){
+                var dataArray = [{'children':['cats','dogs']},{'children':''}];
+                var result = scope.isChild("",dataArray);
+                expect(result).toEqual(false);
+            });
+        });
         });
 
     });
@@ -70,7 +141,7 @@ describe('Navigation Module', function() {
         });
         it('should map to default', function(){
             inject(function($route) {
-                expect($route.routes[null].templateUrl).toEqual('/js/dashboard/templates/home.html');
+                expect($route.routes[null].templateUrl).toEqual('/app/dashboard/templates/home.html');
                 expect($route.routes['/cat']).toEqual(undefined);
             });
         });

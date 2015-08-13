@@ -1,0 +1,79 @@
+[{
+      "action": "",
+      "text": "Quick Action",      
+      "children":"",
+      "tags": ["Quick Action","left","header"]
+  },
+  {
+      "action": "/service_requests/order_request",
+      "text": "Order Request",      
+      "children":"",
+      "tags":["Quick Action","left"]
+  },
+  {
+      "action": "/device_management",
+      "text": "Device Management Request",      
+      "children":"",
+      "tags":["Quick Action","left"]
+  },
+  {
+      "action": "/service_requests",
+      "text": "Service Requests",      
+      "children":["Addresses","Contacts"],
+      "tags":["Quick Action","left"]
+  },
+  {
+      "action": "/service_requests/addresses",
+      "text": "Addresses",
+      "children":"",
+      "tags":["Quick Action","left"]
+  },
+  {
+      "action": "",
+      "text": "Company Administration",      
+      "children":"",
+      "tags": ["Company Administration","left","header"]
+  },
+  {
+      "action": "/service_requests/contacts",
+      "text": "Contacts",
+      "children":"",
+      "tags":["Quick Action","left"]
+  },
+  {
+      "action": "/page_count/update_page_count",
+      "text": "Update Page Count",      
+      "children":"",
+      "tags":["Quick Action","left"]
+  },
+  {
+      "action": "/",
+      "text": "Dashboard",      
+      "children":"",
+      "tags":["top"]
+  },
+  {
+      "action": "/device_management",
+      "text": "Device Management",      
+      "children":"",
+      "tags":["top"]
+  },
+  {
+      "action": "/service_requests",
+      "text": "Request Management",      
+      "children":"",
+      "tags":["top"]
+  },
+  {
+      "action": "/reporting",
+      "text": "Reporting",      
+      "children":"",
+      "tags":["top"]
+  },
+  {
+      "action": "/invoices",
+      "text": "Invoices",      
+      "children":"",
+      "tags":["top"]
+  }
+]

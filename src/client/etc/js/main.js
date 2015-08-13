@@ -11,7 +11,7 @@ requirejs.config({
         'routes',
 
         'common',
-        'common.topNavController',
+        'common.navController',
         'common.baseService',
         'common.directives',
 
@@ -40,9 +40,9 @@ requirejs.config({
         'app': ['angular', 'angular-resource', 'angular-route'],
         'routes': ['app'],
 
-        'common': ['app'],
-        'common.topNavController': ['app', 'common', 'common.baseService'],
+        'common': ['app'],        
         'common.baseService': ['app', 'common'],
+        'common.navController': ['app', 'common', 'common.baseService'],
         'common.directives': ['app', 'common'],
 
         'user': ['app'],
@@ -73,9 +73,9 @@ requirejs.config({
         'app': 'app/app',
         'routes': 'app/routes',
 
-        'common': 'app/common/common',
-        'common.topNavController': 'app/common/top-navigation-controller',
+        'common': 'app/common/common',        
         'common.baseService': 'app/common/baseService',
+        'common.navController': 'app/common/navigation-controller',
         'common.directives': 'app/common/directives',
 
         'user': 'app/users/user',

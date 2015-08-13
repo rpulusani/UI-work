@@ -19,7 +19,8 @@ module.exports = function(config){
         'client/app/users/user.js',
         'client/app/users/*.js',
         'client/tests/address_service_request_module_spec.js',
-        'client/tests/navigation_module_spec.js'
+        'client/tests/navigation_module_spec.js',
+        'client/tests/left_navigation_module_spec.js',
     ],
     autoWatch : true,
     plugins: ['karma-jasmine', 'karma-phantomjs-launcher','karma-junit-reporter'],
