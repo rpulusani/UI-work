@@ -1,14 +1,12 @@
 <fieldset>
     <div class="form__field">
-        <label>Notes</label>
+        <label translate="LABEL_NOTES"></label>
         <textarea></textarea>
     </div>
 
     <div class="form__field">
-        <label>Attach Files</label>
+        <label translate="LABEL_ATTACH_FILE"></label>
         <input type="file" file-model="addyFile"/>
-        <div class="form__field__helper-text">
-            <strong>Note: </strong>Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported. Only a max of 2 files of max. 1 mb each can be attached.
-        </div>
+        <div class="form__field__helper-text" translate="MESSAGE_ATTACHMENT"></div>
     </div>
 </fieldset>

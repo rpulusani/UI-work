@@ -26,6 +26,8 @@
     "ADDRESS_CONTACT_INFO": "Primary Contact Information",
     "ADDRESS_CONTACT_ADD": "Add Contact",
     "ADDRESS_CONTACT_CHANGE": "Change Contact",
+    "ADDRESS_CONTACT_SELECT_OTHER": "Select a different contact",
+    "ADDRESS_CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request",
 
 
     "DASHBOARD_TITLE": "Dashboard",
@@ -40,7 +42,7 @@
 
     "LABEL_BACK": "Back",
     "LABEL_CANCEL": "Cancel",
-    "LAB_CONTINUE": "Continue",
+    "LABEL_CONTINUE": "Continue",
     "LABEL_SUBMIT": "Submit",
     "LABEL_OK": "Ok",
     "LABEL_UPDATE": "Update",
@@ -57,10 +59,16 @@
     "LABEL_ATTACH_FILE": "Attach Files",
     "LABEL_ACTION": "Actions",
     "LABEL_ADDRESS": "Addresses",
+    "LABEL_WITH_COLUMN": "{{value}}:",
+
+    "TEST":{
+        "1": "one",
+        "2": "two"
+    },
 
     "MESSAGE_CANCEL": "Do you really want to cancel?",
     "MESSAGE_DATA_LOSS": "All data will be lost",
-    "MESSAGE_ATTACHMENT": "Note: Only .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.<br />Only a max of 2 files of max. 1 mb each can be attached.",
+    "MESSAGE_ATTACHMENT": "<strong>Note:</strong> Only .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",
 
     "MESSAGE_REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
     "MESSAGE_REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",

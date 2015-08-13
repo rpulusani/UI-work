@@ -41,8 +41,8 @@
                 <dt class="col-1-2">{{'LABEL_EMAIL' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.emailAddress"></dd>
             </dl>
-            <button class="btn btn--small">Add Contact</button>
-            <button class="btn btn--small">Change Contact</button>
+            <button class="btn btn--small" translate="ADDRESS_CONTACT_ADD"></button>
+            <button class="btn btn--small" translate="ADDRESS_CONTACT_CHANGE"></button>
         </div>
         <form class="form" data-form="" name="additionalInfo" method="post"
               ng-submit="additionalInfo.$valid && continue()" enctype="mulitpart/form-data" novalidate>
