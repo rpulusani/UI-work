@@ -1,77 +1,89 @@
 {
-    "ADDRESS_SERVICE_REQUEST": "Service Requests",
-    "ADDRESS_SERVICE_REQUEST_TITLE": "Change Request Addresses",
-    "ADDRESS_SERVICE_REQUEST_ADD": "Add New Address",
-    "ADDRESS_SERVICE_REQUEST_ADD_MULTI": "Add Multiple Addresses",
-    "ADDRESS_SERVICE_REQUEST_UPDATE": "Update Address",
-    "ADDRESS_SERVICE_REQUEST_UPDATE_MULTI": "Update Multiple Addresses",
-    "ADDRESS_SERVICE_REQUEST_DELETE": "Delete Address",
-    "ADDRESS_SERVICE_REQUEST_DELETE_MULTI": "Delete Multiple Addresses",
-    "ADDRESS_SERVICE_REQUEST_CHANGE": "Change Address",
-
-    "ADDRESS_INFO": "Address Information",
-    "ADDRESS_NAME": "Address Name",
-    "ADDRESS_STORE_NAME": "Store-front Name",
-    "ADDRESS_LINE_1": "Address Line 1",
-    "ADDRESS_LINE_2": "Address Line 2",
-    "ADDRESS_CITY": "City",
-    "ADDRESS_COUNTRY": "Country",
-    "ADDRESS_STATE": "State",
-    "ADDRESS_STATE_PROVINCE": "State / Province",
-    "ADDRESS_ZIP": "Zip",
-    "ADDRESS_ZIP_POSTAL": "Zip / Postal Code",
-    "ADDRESS_COUNTY": "County",
-    "ADDRESS_DISTRICT": "District",
-    "ADDRESS_ADDITIONAL_INFO": "Additional Information",
-    "ADDRESS_CONTACT_INFO": "Primary Contact Information",
-    "ADDRESS_CONTACT_ADD": "Add Contact",
-    "ADDRESS_CONTACT_CHANGE": "Change Contact",
-    "ADDRESS_CONTACT_SELECT_OTHER": "Select a different contact",
-    "ADDRESS_CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request",
-
-
-    "DASHBOARD_TITLE": "Dashboard",
-
-    "DEVICE_MGT_TITLE": "Device Management",
-
-    "REQUEST_MGMT_TITLE": "Request Management",
-
-    "REPORTING_TITLE": "Reporting",
-
-    "INVOICE_TITLE": "Invoices",
-
-    "LABEL_BACK": "Back",
-    "LABEL_CANCEL": "Cancel",
-    "LABEL_CONTINUE": "Continue",
-    "LABEL_SUBMIT": "Submit",
-    "LABEL_OK": "Ok",
-    "LABEL_UPDATE": "Update",
-    "LABEL_DELETE": "Delete",
-    "LABEL_NAME": "Name",
-    "LABEL_PHONE": "Phone Number",
-    "LABEL_EMAIL": "Email Address",
-    "LABEL_ADDITIONAL_INFO": "Additional Information for this Request",
-    "LABEL_CUSTOMER_REF_ID": "Customer Reference ID",
-    "LABEL_COST_CENTER": "Cost Center",
-    "LABEL_DESC": "Description",
-    "LABEL_EFFECTIVE_DATE": "Requested Effective Date of Change",
-    "LABEL_NOTES": "Notes",
-    "LABEL_ATTACH_FILE": "Attach Files",
-    "LABEL_ACTION": "Actions",
-    "LABEL_ADDRESS": "Addresses",
-    "LABEL_WITH_COLUMN": "{{value}}:",
-
-    "TEST":{
-        "1": "one",
-        "2": "two"
+    "ADDRESS_SERVICE_REQUEST": {
+        "TITLE": "Service Requests",
+        "CHANGE": "Change Request Addresses",
+        "ADD": "Add New Address",
+        "ADD_MULTI": "Add Multiple Addresses",
+        "UPDATE": "Update Address",
+        "UPDATE_MULTI": "Update Multiple Addresses",
+        "DELETE": "Delete Address",
+        "DELETE_MULTI": "Delete Multiple Addresses"
     },
 
-    "MESSAGE_CANCEL": "Do you really want to cancel?",
-    "MESSAGE_DATA_LOSS": "All data will be lost",
-    "MESSAGE_ATTACHMENT": "<strong>Note:</strong> Only .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",
+    "ADDRESS": {
+        "INFO": "Address Information",
+        "NAME": "Address Name",
+        "STORE_NAME": "Store-front Name",
+        "LINE_1": "Address Line 1",
+        "LINE_2": "Address Line 2",
+        "CITY": "City",
+        "COUNTRY": "Country",
+        "STATE": "State",
+        "STATE_PROVINCE": "State / Province",
+        "ZIP": "Zip",
+        "ZIP_POSTAL": "Zip / Postal Code",
+        "COUNTY": "County",
+        "DISTRICT": "District",
+        "ADDITIONAL_INFO": "Additional Information",
+        "CONTACT_INFO": "Primary Contact Information",
+        "CONTACT_ADD": "Add Contact",
+        "CONTACT_CHANGE": "Change Contact",
+        "CONTACT_SELECT_OTHER": "Select a different contact",
+        "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request"
+    },
 
-    "MESSAGE_REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
-    "MESSAGE_REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
-    "MESSAGE_REQUEST_FAILED": "Your request has failed.  Please contact your service manager."
+
+    "DASHBOARD": {
+        "TITLE": "Dashboard"
+    },
+
+    "DEVICE_MGT": {
+        "TITLE": "Device Management"
+    },
+
+    "REQUEST_MGMT": {
+        "TITLE": "Request Management"
+    },
+
+    "REPORTING": {
+        "TITLE": "Reporting"
+    },
+
+    "INVOICE": {
+        "TITLE": "Invoices"
+    },
+
+    "LABEL": {
+        "BACK": "Back",
+        "CANCEL": "Cancel",
+        "CONTINUE": "Continue",
+        "SUBMIT": "Submit",
+        "OK": "Ok",
+        "UPDATE": "Update",
+        "DELETE": "Delete",
+        "NAME": "Name",
+        "PHONE": "Phone Number",
+        "EMAIL": "Email Address",
+        "ADDITIONAL_INFO": "Additional Information for this Request",
+        "CUSTOMER_REF_ID": "Customer Reference ID",
+        "COST_CENTER": "Cost Center",
+        "DESC": "Description",
+        "EFFECTIVE_DATE": "Requested Effective Date of Change",
+        "NOTES": "Notes",
+        "ATTACH_FILE": "Attach Files",
+        "ACTION": "Actions",
+        "ADDRESS": "Addresses",
+        "WITH_COLUMN": "{{value}}:"
+    },
+
+    "MESSAGE": {
+        "CANCEL": "Do you really want to cancel?",
+        "DATA_LOSS": "All data will be lost",
+        "ATTACHMENT": "<strong>Note:</strong> Only .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",
+
+        "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
+        "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
+        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager."
+    }
 
 }

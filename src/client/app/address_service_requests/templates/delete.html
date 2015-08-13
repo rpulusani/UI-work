@@ -1,80 +1,80 @@
 <div class="row row--alley-2">
     <div class="col-1">
-        <h1 translate="ADDRESS_SERVICE_REQUEST_DELETE"></h1>
+        <h1 translate="ADDRESS.SERVICE_REQUEST.DELETE"></h1>
         <h2>Pets At Home / Pets At Home_MSA2010_MPS_UK</h2>
     </div>
     <div class="col-1-2">
-        <h3 translate="ADDRESS_INFO"></h3>
+        <h3 translate="ADDRESS.INFO"></h3>
         <dl class="row row--alley-2">
-            <dt class="col-1-2">{{'ADDRESS_NAME' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.NAME' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.addName"></dd>
-            <dt class="col-1-2">{{'ADDRESS_STORE_NAME' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.STORE_NAME' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.storeName"></dd>
-            <dt class="col-1-2">{{'ADDRESS_LINE_1' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.LINE_1' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.addrLine1"></dd>
-            <dt class="col-1-2">{{'ADDRESS_LINE_2' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.LINE_2' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.addrLine2"></dd>
-            <dt class="col-1-2">{{'ADDRESS_COUNTRY' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.COUNTRY' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.country"></dd>
-            <dt class="col-1-2">{{'ADDRESS_STATE_PROVINCE' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.STATE_PROVINCE' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.state"></dd>
-            <dt class="col-1-2">{{'ADDRESS_CITY' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.CITY' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.city"></dd>
-            <dt class="col-1-2">{{'ADDRESS_COUNTY' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.COUNTY' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.county"></dd>
-            <dt class="col-1-2">{{'ADDRESS_DISTRICT' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.DISTRICT' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.district"></dd>
-            <dt class="col-1-2">{{'ADDRESS_ZIP_POSTAL' | translate}}:</dt>
+            <dt class="col-1-2">{{'ADDRESS.ZIP_POSTAL' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.zipCode"></dd>
         </dl>
-        <button class="btn btn--small" ng-click="cancel()" translate="ADDRESS_SERVICE_REQUEST_CHANGE"></button>
+        <button class="btn btn--small" ng-click="cancel()" translate="ADDRESS.SERVICE_REQUEST.CHANGE"></button>
     </div>
     <div class="col-1-2">
-        <h3 translate="ADDRESS_ADDITIONAL_INFO"></h3>
+        <h3 translate="ADDRESS.ADDITIONAL_INFO"></h3>
         <div class="well">
-            <h4 translate="ADDRESS_CONTACT_INFO"></h4>
+            <h4 translate="ADDRESS.CONTACT_INFO"></h4>
             <dl class="row row--alley-2">
-                <dt class="col-1-2">{{'LABEL_NAME' | translate}}:</dt>
+                <dt class="col-1-2">{{'LABEL.NAME' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.name"></dd>
-                <dt class="col-1-2">{{'LABEL_PHONE' | translate}}:</dt>
+                <dt class="col-1-2">{{'LABEL.PHONE' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.phoneNumber"></dd>
-                <dt class="col-1-2">{{'LABEL_EMAIL' | translate}}:</dt>
+                <dt class="col-1-2">{{'LABEL.EMAIL' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.emailAddress"></dd>
             </dl>
-            <button class="btn btn--small" translate="ADDRESS_CONTACT_ADD"></button>
-            <button class="btn btn--small" translate="ADDRESS_CONTACT_CHANGE"></button>
+            <button class="btn btn--small" translate="ADDRESS.CONTACT_ADD"></button>
+            <button class="btn btn--small" translate="ADDRESS.CONTACT_CHANGE"></button>
         </div>
         <form class="form" data-form="" name="additionalInfo" method="post"
               ng-submit="additionalInfo.$valid && continue()" enctype="mulitpart/form-data" novalidate>
             <fieldset>
                 <div class="form__field">
-                    <label translate="LABEL_CUSTOMER_REF_ID"></label>
+                    <label translate="LABEL.CUSTOMER_REF_ID"></label>
                     <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
                 </div>
                 <div class="form__field">
-                    <label translate="LABEL_COST_CENTER"></label>
+                    <label translate="LABEL.COST_CENTER"></label>
                     <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
                 </div>
                 <div class="form__field">
-                    <label translate="LABEL_DESC"></label>
+                    <label translate="LABEL.DESC"></label>
                     <textarea ng-model="serviceRequest.addtnlDescription"></textarea>
                 </div>
                 <div class="form__field">
-                    <label translate="LABEL_EFFECTIVE_DATE">R</label>
+                    <label translate="LABEL.EFFECTIVE_DATE">R</label>
                     <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
                 </div>
             </fieldset>
             <div class="col-1">
             <fieldset>
                 <div class="form__field">
-                    <label translate="LABEL_NOTES"></label>
+                    <label translate="LABEL.NOTES"></label>
                     <textarea></textarea>
                 </div>
 
                 <div class="form__field">
-                    <label translate="LABEL_ATTACH_FILE"></label>
+                    <label translate="LABEL.ATTACH_FILE"></label>
                     <input type="file"  />
-                    <div class="form__field__helper-text" translate="MESSAGE_ATTACHMENT">
+                    <div class="form__field__helper-text" translate="MESSAGE.ATTACHMENT">
                     </div>
                 </div>
             </fieldset>
@@ -82,7 +82,7 @@
         </form>
     </div>
     <div class="col-1">
-        <button class="btn btn--secondary" ng-click="cancel()" translate="LABEL_CANCEL"></button>
-        <button class="btn btn--primary" ng-click="requestDelete()" translate="LABEL_CONTINUE"></button>
+        <button class="btn btn--secondary" ng-click="cancel()" translate="LABEL.CANCEL"></button>
+        <button class="btn btn--primary" ng-click="requestDelete()" translate="LABEL.CONTINUE"></button>
     </div>
 </div>

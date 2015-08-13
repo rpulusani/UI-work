@@ -9,30 +9,30 @@
     </div>
 
     <div class="col-1">
-        <h1 translate="ADDRESS_SERVICE_REQUEST"></h1>
-        <h2 translate="LABEL_ADDRESS"></h2>
+        <h1 translate="ADDRESS_SERVICE_REQUEST.TITLE"></h1>
+        <h2 translate="LABEL.ADDRESS"></h2>
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
         <ul>
-            <li><a href="/service_requests/addresses/new" translate="ADDRESS_SERVICE_REQUEST_ADD"></a></li>
-            <li><a href="/service_requests/addresses/addMultiple" translate="ADDRESS_SERVICE_REQUEST_ADD_MULTI"></a></li>
-            <li><a href="/service_requests/addresses/updateMultiple" translate="ADDRESS_SERVICE_REQUEST_UPDATE_MULTI"></a></li>
-            <li><a href="/service_requests/addresses/deleteMultiple" translate="ADDRESS_SERVICE_REQUEST_DELETE_MULTI"></a></li>
+            <li><a href="/service_requests/addresses/new" translate="ADDRESS_SERVICE_REQUEST.ADD"></a></li>
+            <li><a href="/service_requests/addresses/addMultiple" translate="ADDRESS_SERVICE_REQUEST.ADD_MULTI"></a></li>
+            <li><a href="/service_requests/addresses/updateMultiple" translate="ADDRESS_SERVICE_REQUEST.UPDATE_MULTI"></a></li>
+            <li><a href="/service_requests/addresses/deleteMultiple" translate="ADDRESS_SERVICE_REQUEST.DELETE_MULTI"></a></li>
         </ul>
 
         <table ng-show="addresses" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
             <thead>
                 <tr>
-                    <th>{{'ADDRESS_NAME' |translate}}:</th>
-                    <th>{{'ADDRESS_STORE_NAME' |translate}}:</th>
-                    <th>{{'ADDRESS_LINE_1' |translate}}:</th>
-                    <th>{{'ADDRESS_LINE_2' |translate}}:</th>
-                    <th>{{'ADDRESS_COUNTRY' |translate}}:</th>
-                    <th>{{'ADDRESS_STATE_PROVINCE' |translate}}:</th>
-                    <th>{{'ADDRESS_CITY' |translate}}:</th>
-                    <th>{{'ADDRESS_COUNTY' |translate}}:</th>
-                    <th>{{'ADDRESS_DISTRICT' |translate}}:</th>
-                    <th>{{'ADDRESS_ZIP_POSTAL' |translate}}:</th>
-                    <th>{{'LABEL_ACTION' |translate}}:</th>
+                    <th>{{'ADDRESS.NAME' |translate}}:</th>
+                    <th>{{'ADDRESS.STORE_NAME' |translate}}:</th>
+                    <th>{{'ADDRESS.LINE_1' |translate}}:</th>
+                    <th>{{'ADDRESS.LINE_2' |translate}}:</th>
+                    <th>{{'ADDRESS.COUNTRY' |translate}}:</th>
+                    <th>{{'ADDRESS.STATE_PROVINCE' |translate}}:</th>
+                    <th>{{'ADDRESS.CITY' |translate}}:</th>
+                    <th>{{'ADDRESS.COUNTY' |translate}}:</th>
+                    <th>{{'ADDRESS.DISTRICT' |translate}}:</th>
+                    <th>{{'ADDRESS.ZIP_POSTAL' |translate}}:</th>
+                    <th>{{'LABEL.ACTION' |translate}}:</th>
                 </th>
             <tbody>
                 <tr ng-repeat="address in addresses">
@@ -47,8 +47,8 @@
                     <td ng-bind="address.district"></td>
                     <td ng-bind="address.zipCode"></td>
                     <td>
-                        <a href="" ng-click="updateAddress(address.id)" translate="LABEL_UPDATE"></a> |
-                        <a href="" ng-click="deleteAddress(address.id)" translate="LABEL_DELETE"></a>
+                        <a href="" ng-click="updateAddress(address.id)" translate="LABEL.UPDATE"></a> |
+                        <a href="" ng-click="deleteAddress(address.id)" translate="LABEL.DELETE"></a>
                     </td>
                 </tr>
             </tbody>
