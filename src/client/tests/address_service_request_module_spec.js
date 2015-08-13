@@ -91,7 +91,7 @@ describe('Address Service Request Module', function() {
             it('should return to home', function(){
                 spyOn(location, 'path').and.returnValue('/');
                 scope.cancel();
-                expect(location.path).toHaveBeenCalledWith('/');
+                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses');
             });
         });
 

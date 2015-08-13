@@ -60,7 +60,7 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
     };
 
     $scope.cancel = function(){
-        $location.path('/');
+        $location.path('/service_requests/addresses');
     };
 
     $scope.continue = function() {
