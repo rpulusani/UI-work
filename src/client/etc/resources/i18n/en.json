@@ -11,6 +11,7 @@
     },
 
     "ADDRESS": {
+        "TITLE": "Addresses",
         "INFO": "Address Information",
         "NAME": "Address Name",
         "STORE_NAME": "Store-front Name",
@@ -32,6 +33,9 @@
         "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request"
     },
 
+    "DEVICE_MGMT_REQUEST": {
+        "TITLE": "Device Management Request"
+    },
 
     "DASHBOARD": {
         "TITLE": "Dashboard"
@@ -53,6 +57,15 @@
         "TITLE": "Invoices"
     },
 
+    "NAVIGATION": {
+        "QUICK_ACTION": "Quick Action",
+        "ORDER_REQUEST":"Order Request",
+        "QUICK_REQUEST": "Quick Request",
+        "COMPANY_ADMIN": "Company Administration",
+        "CONTACT": "Contacts",
+        "UPDATE_PAGE_COUNT": "Update Page Count"
+    },
+
     "LABEL": {
         "BACK": "Back",
         "CANCEL": "Cancel",
@@ -72,7 +85,6 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "ADDRESS": "Addresses",
         "WITH_COLUMN": "{{value}}:"
     },
 

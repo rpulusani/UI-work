@@ -1,78 +1,78 @@
 [{
       "action": "",
-      "text": "Quick Action",      
+      "text": "NAVIGATION.QUICK_ACTION",
       "children":"",
       "tags": ["Quick Action","left","header"]
   },
   {
       "action": "/service_requests/order_request",
-      "text": "Order Request",      
+      "text": "NAVIGATION.ORDER_REQUEST",
       "children":"",
       "tags":["Quick Action","left"]
   },
   {
       "action": "/device_management",
-      "text": "Device Management Request",      
+      "text": "DEVICE_MGMT_REQUEST.TITLE",
       "children":"",
       "tags":["Quick Action","left"]
   },
   {
       "action": "/service_requests",
-      "text": "Service Requests",      
+      "text": "ADDRESS_SERVICE_REQUEST.TITLE",
       "children":["Addresses","Contacts"],
       "tags":["Quick Action","left"]
   },
   {
       "action": "/service_requests/addresses",
-      "text": "Addresses",
+      "text": "ADDRESS.TITLE",
       "children":"",
       "tags":["Quick Action","left"]
   },
   {
       "action": "",
-      "text": "Company Administration",      
+      "text": "NAVIGATION.COMPANY_ADMIN",
       "children":"",
       "tags": ["Company Administration","left","header"]
   },
   {
       "action": "/service_requests/contacts",
-      "text": "Contacts",
+      "text": "NAVIGATION.CONTACT",
       "children":"",
       "tags":["Quick Action","left"]
   },
   {
       "action": "/page_count/update_page_count",
-      "text": "Update Page Count",      
+      "text": "NAVIGATION.UPDATE_PAGE_COUNT",
       "children":"",
       "tags":["Quick Action","left"]
   },
   {
       "action": "/",
-      "text": "Dashboard",      
+      "text": "DASHBOARD.TITLE",
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/device_management",
-      "text": "Device Management",      
+      "text": "DEVICE_MGT.TITLE",
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/service_requests",
-      "text": "Request Management",      
+      "text": "REQUEST_MGMT.TITLE",
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/reporting",
-      "text": "Reporting",      
+      "text": "REPORTING.TITLE",
       "children":"",
       "tags":["top"]
   },
   {
       "action": "/invoices",
-      "text": "Invoices",      
+      "text": "INVOICE.TITLE",
       "children":"",
       "tags":["top"]
   }
