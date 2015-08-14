@@ -24,6 +24,8 @@ angular.module('mps', [
         }
     }
 
+    $translateProvider.useSanitizeValueStrategy(null);
+
     $translateProvider
         .preferredLanguage(myLanguage)
         .useStaticFilesLoader({

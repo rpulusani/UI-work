@@ -42,6 +42,7 @@ requirejs.config({
     shim: {
         'angular-resource': ['angular'],
         'angular-route': ['angular'],
+        'angular-cookies': ['angular'],
         'angular-translate': ['angular'],
         'angular-translate-storage-cookie': ['angular-translate'],
         'angular-translate-storage-local': ['angular-translate'],
