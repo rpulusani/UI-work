@@ -1,0 +1,101 @@
+{
+    "ADDRESS_SERVICE_REQUEST": {
+        "TITLE": "Service Requests",
+        "CHANGE": "Change Request Addresses",
+        "ADD": "Add New Address",
+        "ADD_MULTI": "Add Multiple Addresses",
+        "UPDATE": "Update Address",
+        "UPDATE_MULTI": "Update Multiple Addresses",
+        "DELETE": "Delete Address",
+        "DELETE_MULTI": "Delete Multiple Addresses"
+    },
+
+    "ADDRESS": {
+        "TITLE": "Addresses",
+        "INFO": "Address Information",
+        "NAME": "Address Name",
+        "STORE_NAME": "Store-front Name",
+        "LINE_1": "Address Line 1",
+        "LINE_2": "Address Line 2",
+        "CITY": "City",
+        "COUNTRY": "Country",
+        "STATE": "State",
+        "STATE_PROVINCE": "State / Province",
+        "ZIP": "Zip",
+        "ZIP_POSTAL": "Zip / Postal Code",
+        "COUNTY": "County",
+        "DISTRICT": "District",
+        "ADDITIONAL_INFO": "Additional Information",
+        "CONTACT_INFO": "Primary Contact Information",
+        "CONTACT_ADD": "Add Contact",
+        "CONTACT_CHANGE": "Change Contact",
+        "CONTACT_SELECT_OTHER": "Select a different contact",
+        "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request"
+    },
+
+    "DEVICE_MGMT_REQUEST": {
+        "TITLE": "Device Management Request"
+    },
+
+    "DASHBOARD": {
+        "TITLE": "Dashboard"
+    },
+
+    "DEVICE_MGT": {
+        "TITLE": "Device Management"
+    },
+
+    "REQUEST_MGMT": {
+        "TITLE": "Request Management"
+    },
+
+    "REPORTING": {
+        "TITLE": "Reporting"
+    },
+
+    "INVOICE": {
+        "TITLE": "Invoices"
+    },
+
+    "NAVIGATION": {
+        "QUICK_ACTION": "Quick Action",
+        "ORDER_REQUEST":"Order Request",
+        "QUICK_REQUEST": "Quick Request",
+        "COMPANY_ADMIN": "Company Administration",
+        "CONTACT": "Contacts",
+        "UPDATE_PAGE_COUNT": "Update Page Count"
+    },
+
+    "LABEL": {
+        "BACK": "Back",
+        "CANCEL": "Cancel",
+        "CONTINUE": "Continue",
+        "SUBMIT": "Submit",
+        "OK": "Ok",
+        "UPDATE": "Update",
+        "DELETE": "Delete",
+        "NAME": "Name",
+        "PHONE": "Phone Number",
+        "EMAIL": "Email Address",
+        "ADDITIONAL_INFO": "Additional Information for this Request",
+        "CUSTOMER_REF_ID": "Customer Reference ID",
+        "COST_CENTER": "Cost Center",
+        "DESC": "Description",
+        "EFFECTIVE_DATE": "Requested Effective Date of Change",
+        "NOTES": "Notes",
+        "ATTACH_FILE": "Attach Files",
+        "ACTION": "Actions",
+        "WITH_COLUMN": "{{value}}:"
+    },
+
+    "MESSAGE": {
+        "CANCEL": "Do you really want to cancel?",
+        "DATA_LOSS": "All data will be lost",
+        "ATTACHMENT": "<strong>Note:</strong> Only .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",
+
+        "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
+        "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
+        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager."
+    }
+
+}

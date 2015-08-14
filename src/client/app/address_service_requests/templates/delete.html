@@ -1,81 +1,80 @@
 <div class="row row--alley-2">
     <div class="col-1">
-        <h1>Delete Address</h1>
+        <h1 translate="ADDRESS.SERVICE_REQUEST.DELETE"></h1>
         <h2>Pets At Home / Pets At Home_MSA2010_MPS_UK</h2>
     </div>
     <div class="col-1-2">
-        <h3>Address Information</h3>
+        <h3 translate="ADDRESS.INFO"></h3>
         <dl class="row row--alley-2">
-            <dt class="col-1-2">Address Name:</dt>
+            <dt class="col-1-2">{{'ADDRESS.NAME' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.addName"></dd>
-            <dt class="col-1-2">Store-front Name:</dt>
+            <dt class="col-1-2">{{'ADDRESS.STORE_NAME' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.storeName"></dd>
-            <dt class="col-1-2">Address Line 1:</dt>
+            <dt class="col-1-2">{{'ADDRESS.LINE_1' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.addrLine1"></dd>
-            <dt class="col-1-2">Address Line 2:</dt>
+            <dt class="col-1-2">{{'ADDRESS.LINE_2' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.addrLine2"></dd>
-            <dt class="col-1-2">Country:</dt>
+            <dt class="col-1-2">{{'ADDRESS.COUNTRY' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.country"></dd>
-            <dt class="col-1-2">State / Province:</dt>
+            <dt class="col-1-2">{{'ADDRESS.STATE_PROVINCE' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.state"></dd>
-            <dt class="col-1-2">City:</dt>
+            <dt class="col-1-2">{{'ADDRESS.CITY' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.city"></dd>
-            <dt class="col-1-2">County:</dt>
+            <dt class="col-1-2">{{'ADDRESS.COUNTY' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.county"></dd>
-            <dt class="col-1-2">District:</dt>
+            <dt class="col-1-2">{{'ADDRESS.DISTRICT' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.district"></dd>
-            <dt class="col-1-2">Zip / Postal Code:</dt>
+            <dt class="col-1-2">{{'ADDRESS.ZIP_POSTAL' | translate}}:</dt>
             <dd class="col-1-2" ng-bind="currentAddress.zipCode"></dd>
         </dl>
-        <button class="btn btn--small" ng-click="cancel()">Change Address</button>
+        <button class="btn btn--small" ng-click="cancel()" translate="ADDRESS.SERVICE_REQUEST.CHANGE"></button>
     </div>
     <div class="col-1-2">
-        <h3>Additional Information</h3>
+        <h3 translate="ADDRESS.ADDITIONAL_INFO"></h3>
         <div class="well">
-            <h4>Primary Contact Information</h4>
+            <h4 translate="ADDRESS.CONTACT_INFO"></h4>
             <dl class="row row--alley-2">
-                <dt class="col-1-2">Name:</dt>
+                <dt class="col-1-2">{{'LABEL.NAME' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.name"></dd>
-                <dt class="col-1-2">Phone Number:</dt>
+                <dt class="col-1-2">{{'LABEL.PHONE' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.phoneNumber"></dd>
-                <dt class="col-1-2">Email Address:</dt>
+                <dt class="col-1-2">{{'LABEL.EMAIL' | translate}}:</dt>
                 <dd class="col-1-2" ng-bind="contact.emailAddress"></dd>
             </dl>
-            <button class="btn btn--small">Add Contact</button>
-            <button class="btn btn--small">Change Contact</button>
+            <button class="btn btn--small" translate="ADDRESS.CONTACT_ADD"></button>
+            <button class="btn btn--small" translate="ADDRESS.CONTACT_CHANGE"></button>
         </div>
-        <form class="form" data-form="" name="additionalInfo" method="post" ng-submit="additionalInfo.$valid && continue()" enctype="mulitpart/form-data" novalidate>
+        <form class="form" data-form="" name="additionalInfo" method="post"
+              ng-submit="additionalInfo.$valid && continue()" enctype="mulitpart/form-data" novalidate>
             <fieldset>
                 <div class="form__field">
-                    <label>Customer Reference ID</label>
+                    <label translate="LABEL.CUSTOMER_REF_ID"></label>
                     <input type="text" ng-model="serviceRequest.customerReferenceId" value="" class="" />
                 </div>
                 <div class="form__field">
-                    <label>Cost Center</label>
+                    <label translate="LABEL.COST_CENTER"></label>
                     <input type="text" ng-model="serviceRequest.costCenter"  value="" class="" />
                 </div>
                 <div class="form__field">
-                    <label>Description</label>
+                    <label translate="LABEL.DESC"></label>
                     <textarea ng-model="serviceRequest.addtnlDescription"></textarea>
                 </div>
                 <div class="form__field">
-                    <label>Requested Effective Date of Change</label>
+                    <label translate="LABEL.EFFECTIVE_DATE">R</label>
                     <textarea ng-model="serviceRequest.requestedEffectiveDate"></textarea>
                 </div>
             </fieldset>
             <div class="col-1">
             <fieldset>
                 <div class="form__field">
-                    <label>Notes</label>
+                    <label translate="LABEL.NOTES"></label>
                     <textarea></textarea>
                 </div>
 
                 <div class="form__field">
-                    <label>Attach Files</label>
+                    <label translate="LABEL.ATTACH_FILE"></label>
                     <input type="file"  />
-                    <div class="form__field__helper-text">
-                        Note:Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.
-                        Only a max of 2 files of max. 1 mb each can be attached.
+                    <div class="form__field__helper-text" translate="MESSAGE.ATTACHMENT">
                     </div>
                 </div>
             </fieldset>
@@ -83,7 +82,7 @@
         </form>
     </div>
     <div class="col-1">
-        <button class="btn btn--secondary" ng-click="cancel()">Cancel</button>
-        <button class="btn btn--primary" ng-click="requestDelete()">Continue</button>
+        <button class="btn btn--secondary" ng-click="cancel()" translate="LABEL.CANCEL"></button>
+        <button class="btn btn--primary" ng-click="requestDelete()" translate="LABEL.CONTINUE"></button>
     </div>
 </div>

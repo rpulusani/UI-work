@@ -66,24 +66,21 @@
             <div class="col-1">
             <fieldset>
                 <div class="form__field">
-                    <label>Notes</label>
+                    <label translate="LABEL.NOTES"></label>
                     <textarea></textarea>
                 </div>
 
                 <div class="form__field">
-                    <label>Attach Files</label>
+                    <label translate="LABEL.ATTACH_FILE"></label>
                     <input type="file"  />
-                    <div class="form__field__helper-text">
-                        Note:Only.csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.
-                        Only a max of 2 files of max. 1 mb each can be attached.
-                    </div>
+                    <div class="form__field__helper-text" translate="MESSAGE.ATTACHMENT"></div>
                 </div>
             </fieldset>
          </div>
         </form>
     </div>
     <div class="col-1">
-        <button class="btn btn--secondary" ng-click="cancelDelete()">Cancel</button>
-        <button class="btn btn--primary" ng-click="requestDelete()">Continue</button>
+        <button class="btn btn--secondary" ng-click="cancelDelete()" translate="LABEL.CANCEL"></button>
+        <button class="btn btn--primary" ng-click="requestDelete()" translate="LABEL.CONTINUE"></button>
     </div>
 </div>
