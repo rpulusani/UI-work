@@ -29,6 +29,8 @@ angular.module('mps.serviceRequestAddresses')
             headers: {'Content-Type': undefined}
         }).success(function(res) {
             return fn(res);
+        }).error(function(data) {
+            NREUM.noticeError(data);
         });
     };
 
@@ -39,6 +41,8 @@ angular.module('mps.serviceRequestAddresses')
             addy.currentAddress = res;
             
             return fn();
+        }).error(function(data) {
+            NREUM.noticeError(data);
         });
     };
 
@@ -49,15 +53,26 @@ angular.module('mps.serviceRequestAddresses')
             var i = 0,
             addressCnt = addy.addresses.length;
 
-            for (i; i < addressCnt; i += 1) {
-                if (addy.addresses[i].id === id) {
-                    addy.addresses.splice(i, 1);
+            try{
+                for (i; i < addressCnt; i += 1) {
+                    if (addy.addresses[i].id === id) {
+                        addy.addresses.splice(i, 1);
+                    }
                 }
+            }catch (error){
+                if (error instanceof ReferenceError){
+                    NREUM.noticeError(error);
+                } else if (error instanceof TypeError){
+                    NREUM.noticeError(error);
+                } 
             }
+            
 
             if (typeof fn === 'function') {
                 return fn();
             }
+        }).error(function(data) {
+            NREUM.noticeError(data);
         });
     };
 
@@ -71,6 +86,8 @@ angular.module('mps.serviceRequestAddresses')
             if (typeof fn === 'function') {
                 return fn(res.data);
             }
+        }).catch(function(data) {
+            NREUM.noticeError(data);
         });
     };
     
