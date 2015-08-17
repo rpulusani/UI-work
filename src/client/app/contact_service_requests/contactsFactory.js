@@ -39,7 +39,6 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
 
         $http.get('/accounts/1/contacts/' + id).success(function(res) {
             contact.contact = res;
-            
             return fn();
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -49,7 +48,7 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
     Contact.prototype.removeById = function(id, fn) {
         var contact = this;
 
-        $http.delete('/accounts/1/contacts/' + id).success(function(res) {
+        $http['delete']('/accounts/1/contacts/' + id).success(function(res) {
             var i = 0,
             contactCnt = contact.contacts.length;
 

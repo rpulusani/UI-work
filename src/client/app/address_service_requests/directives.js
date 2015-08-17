@@ -2,7 +2,7 @@
 angular.module('mps.serviceRequestAddresses')
 .directive('addressNewFields', function() {
     return {
-        restrict: 'E',
+        restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/address-new-fields.html'
     };
 })
@@ -14,13 +14,13 @@ angular.module('mps.serviceRequestAddresses')
 })
 .directive('addressReview', function() {
     return {
-        restrict: 'E',
+        restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/review.html'
     };
 })
 .directive('readAddress', function() {
     return {
-        restrict: 'E',
+        restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/read.html'
     };
 })

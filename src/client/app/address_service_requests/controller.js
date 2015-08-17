@@ -66,7 +66,7 @@ angular.module('mps.serviceRequestAddresses')
             $location.path('/service_requests/addresses');
         };
 
-        $scope.continue = function() {
+        $scope['continue'] = function() {
             $scope.continueForm = true;
         };
 
