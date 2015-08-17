@@ -8,7 +8,10 @@ function($scope, $http, $location, $routeParams, Contacts) {
     $scope.currentContactId = ''; // Current/Last opened address id
     $scope.alertMsg = ''; // On-page alert message
     $scope.contacts = Contacts.contacts;
-    
+
+    $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
+                        '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
+
     $scope.contact = {
         name: '',
         phoneNumber: '',
@@ -64,7 +67,7 @@ function($scope, $http, $location, $routeParams, Contacts) {
         if ($scope.continueForm) {
             $scope.continueForm = false;
         }
-                
+
         window.history.back();
     };
 

@@ -91,7 +91,7 @@
     "MESSAGE": {
         "CANCEL": "Do you really want to cancel?",
         "DATA_LOSS": "All data will be lost",
-        "ATTACHMENT": "<strong>Note:</strong> Only .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",
+        "ATTACHMENT": "<strong>Note:</strong> Only {{file_list}} file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",
 
         "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",

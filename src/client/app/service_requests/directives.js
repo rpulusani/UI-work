@@ -15,6 +15,10 @@ angular.module('mps.serviceRequests')
 .directive('addressUpload', function() {
     return {
         restrict: 'E',
-        templateUrl: '/app/service_requests/templates/address-upload.html'
+        templateUrl: '/app/service_requests/templates/address-upload.html',
+        controller: ['$scope', function($scope) {
+            $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
+                                '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
+        }]
     };
 });

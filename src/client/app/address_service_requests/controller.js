@@ -6,6 +6,9 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
 
+    $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
+                        '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
+
     $scope.address = Addresses.currentAddress;
     $scope.addresses = Addresses.addresses;
     /*
@@ -55,7 +58,7 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
         if ($scope.continueForm) {
             $scope.continueForm = false;
         }
-                
+
         Addresses.history.back();
     };
 
@@ -90,7 +93,7 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
     if (Addresses.hasData === false) {
         Addresses.query(function() {
             $scope.addresses = Addresses.addresses;
-            
+
             if (Addresses.addresses.length === 0) {
                 $scope.addresses = false; // for use with ng-bind, hides table completely
             }
