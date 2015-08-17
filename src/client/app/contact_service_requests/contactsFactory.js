@@ -12,12 +12,16 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
             headers: {'Content-Type': undefined}
         }).success(function(res) {
             return fn(res)
+        }).error(function(data) {
+            NREUM.noticeError(data);
         });
     }
 
     Contact.prototype.deleteById = function(id, fn) {
         $http.delete('/service_requests/contacts/' + id).success(function(res) {
             return fn();
+        }).error(function(data) {
+            NREUM.noticeError(data);
         });
     };
 
@@ -31,6 +35,8 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
             if (typeof fn === 'function') {
                 return fn(res);
             }
+        }).catch(function(data) {
+            NREUM.noticeError(data);
         });
     };
     

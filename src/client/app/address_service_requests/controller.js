@@ -84,19 +84,36 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
 
     $scope.deleteAddress = function(id) {
         Addresses.deleteById(id, function() {
-            if (Addresses.addresses.length === 0) {
-                $scope.addresses = false; // for use with ng-bind, hides table completely
+            try{
+                if (Addresses.addresses.length === 0) {
+                    $scope.addresses = false; // for use with ng-bind, hides table completely
+                }
+            } catch (error){
+                if (error instanceof ReferenceError){
+                    NREUM.noticeError(error);
+                } else if (error instanceof TypeError){
+                    NREUM.noticeError(error);
+                }
             }
+            
         });
     };
 
     if (Addresses.hasData === false) {
         Addresses.query(function() {
             $scope.addresses = Addresses.addresses;
-
-            if (Addresses.addresses.length === 0) {
-                $scope.addresses = false; // for use with ng-bind, hides table completely
+            try{
+                if (Addresses.addresses.length === 0) {
+                    $scope.addresses = false; // for use with ng-bind, hides table completely
+                }
+            } catch (error){
+                if (error instanceof ReferenceError){
+                    NREUM.noticeError(error);
+                } else if (error instanceof TypeError){
+                    NREUM.noticeError(error);
+                }
             }
+            
         });
     }
 
