@@ -9,12 +9,18 @@ hooks:
 #   revision's file bundle.
   ApplicationStop:
     - location: scripts/application-stop.sh
+      timeout: 300
+      runas: root
 # During the BeforeInstall deployment lifecycle event, run the commands
 #   in the script specified in "location".
   BeforeInstall:
     - location: scripts/prepare-host.sh
+      timeout: 300
+      runas: root
   ApplicationStart:
     - location: scripts/application-start.sh
+      timeout: 300
+      runas: root
 # During the ValidateService deployment lifecycle event, run the commands
 #   in the script specified in "location".
 #  ValidateService:
