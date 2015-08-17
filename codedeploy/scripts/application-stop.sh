@@ -1,5 +1,9 @@
 #!/bin/bash
 
-# Short circuit logic; if container isn't running, don't block progress.
-docker stop mps-ui
-exit 0
+containerName="mps-ui"
+
+isRunning=`docker ps --filter "name=$containerName" | tail -n 1 | awk '{print $1}'`
+if [[ $isRunning -ne "CONTAINER" ]]; then
+  docker stop $containerName
+fi
+
