@@ -58,7 +58,6 @@ angular.module('mps.serviceRequestAddresses')
             if ($scope.continueForm) {
                 $scope.continueForm = false;
             }
-
             History.back();
         };
 
