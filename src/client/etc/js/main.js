@@ -52,6 +52,7 @@ requirejs.config({
         'app': ['angular',
                 'angular-resource',
                 'angular-route',
+                'angular-cookies',
                 'angular-translate',
                 'angular-translate-storage-cookie',
                 'angular-translate-storage-local',
