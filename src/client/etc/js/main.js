@@ -14,7 +14,6 @@ requirejs.config({
         'angular-translate-loader-url',
 
         'app',
-        'routes',
 
         'common',
         'common.navController',
@@ -37,7 +36,15 @@ requirejs.config({
         'contact',
         'contact.controller',
         'contact.directives',
-        'contact.factory'
+        'contact.factory',
+
+        'invoice',
+
+        'pageCount',
+
+        'deviceManagement',
+
+        'report'
     ],
     shim: {
         'angular-resource': ['angular'],
@@ -58,7 +65,6 @@ requirejs.config({
                 'angular-translate-storage-local',
                 'angular-translate-loader-static-files',
                 'angular-translate-loader-url'],
-        'routes': ['app'],
 
         'common': ['app'],
         'common.topNavController': ['app', 'common', 'common.baseService'],
@@ -82,7 +88,15 @@ requirejs.config({
         'contact': ['app'],
         'contact.controller': ['app', 'contact', 'contact.factory'],
         'contact.directives': ['app', 'contact'],
-        'contact.factory': ['app', 'contact']
+        'contact.factory': ['app', 'contact'],
+
+        'invoice':  ['app'],
+
+        'pageCount':  ['app'],
+
+        'deviceManagement':  ['app'],
+
+        'report':  ['app']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -98,7 +112,6 @@ requirejs.config({
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
 
         'app': 'app/app',
-        'routes': 'app/routes',
 
         'common': 'app/common/common',
         'common.baseService': 'app/common/baseService',
@@ -121,43 +134,51 @@ requirejs.config({
         'contact': 'app/contact_service_requests/contactServiceRequest',
         'contact.controller': 'app/contact_service_requests/controller',
         'contact.directives': 'app/contact_service_requests/directives',
-        'contact.factory': 'app/contact_service_requests/contactsFactory'
+        'contact.factory': 'app/contact_service_requests/contactsFactory',
+
+        'invoice': 'app/invoices/invoice',
+
+        'pageCount': 'app/page_count/pageCount',
+
+        'deviceManagement': 'app/device_management/deviceManagement',
+
+        'report': 'app/reporting/report'
     },
     map: {
-        "*": {
-            "jquery": "jquery-private",
-            "stable": "modules"
+        '*': {
+            'jquery': 'jquery-private',
+            'stable': 'modules'
         },
-        "jquery-private": {"jquery": "jquery"}
+        'jquery-private': {'jquery': 'jquery'}
     },
     bundles: {
-        "lxk.fef": [
-            "jquery",
-            "fef.jquery",
-            "jquery-private",
-            "throttle-debounce",
-            "modernizr",
-            "variables",
-            "modules/alerts",
-            "modules/banner",
-            "modules/breadcrumb",
-            "modules/card",
-            "modules/carousel",
-            "modules/custom-input",
-            "modules/dropdown",
-            "modules/form-selectbox",
-            "modules/form",
-            "modules/griddy",
-            "modules/media-queries",
-            "modules/modal",
-            "modules/modalmanager",
-            "modules/quote",
-            "modules/rail-nav",
-            "modules/responsive-images",
-            "modules/responsive-tables",
-            "modules/set",
-            "modules/sifter",
-            "modules/slide-in-panel"
+        'lxk.fef': [
+            'jquery',
+            'fef.jquery',
+            'jquery-private',
+            'throttle-debounce',
+            'modernizr',
+            'variables',
+            'modules/alerts',
+            'modules/banner',
+            'modules/breadcrumb',
+            'modules/card',
+            'modules/carousel',
+            'modules/custom-input',
+            'modules/dropdown',
+            'modules/form-selectbox',
+            'modules/form',
+            'modules/griddy',
+            'modules/media-queries',
+            'modules/modal',
+            'modules/modalmanager',
+            'modules/quote',
+            'modules/rail-nav',
+            'modules/responsive-images',
+            'modules/responsive-tables',
+            'modules/set',
+            'modules/sifter',
+            'modules/slide-in-panel'
         ]
     },
     callback: function() {

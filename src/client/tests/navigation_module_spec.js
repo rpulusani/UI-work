@@ -10,19 +10,6 @@ describe('Navigation Module', function() {
             addresses = Addresses;
         }));
 
-        describe('$scope.goTo', function(){
-            it('sets the route of the angular app', function(){
-                spyOn(location, 'path').and.returnValue('/service_request');
-                scope.goTo('/service_request');
-                expect(location.path).toHaveBeenCalled();
-            });
-            it('sets the route of the angular app', function(){
-                spyOn(location, 'path').and.returnValue('/');
-                scope.goTo('/');
-                expect(location.path).toHaveBeenCalled();
-            });
-        });
-
         describe('$scope.isSelected', function(){
             it('checks a passed in route and validates that is matches what the browser window is located.  Pass in a good route.', function(){
               var result  = false,
