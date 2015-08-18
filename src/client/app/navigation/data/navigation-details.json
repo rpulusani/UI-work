@@ -19,7 +19,7 @@
   {
       "action": "/service_requests",
       "text": "ADDRESS_SERVICE_REQUEST.TITLE",
-      "children":["ADDRESS.TITLE","NAVIGATION.CONTACT"],
+      "children":["Addresses","Contacts"],
       "tags":["Quick Action","left"]
   },
   {

@@ -15,10 +15,15 @@ requirejs.config({
 
         'app',
 
-        'common',
-        'common.navController',
-        'common.baseService',
-        'common.directives',
+        'navigation',
+        'navigation.navFactory',
+        'navigation.topNav',
+        'navigation.leftNav',
+        'navigation.directives',
+
+        'utility',
+        'utility.historyUtility',
+        'utility.directives',
 
         'user',
         'user.factory',
@@ -66,24 +71,28 @@ requirejs.config({
                 'angular-translate-loader-static-files',
                 'angular-translate-loader-url'],
 
-        'common': ['app'],
-        'common.topNavController': ['app', 'common', 'common.baseService'],
-        'common.baseService': ['app', 'common'],
-        'common.navController': ['app', 'common', 'common.baseService'],
-        'common.directives': ['app', 'common'],
+        'navigation': ['app'],
+        'navigation.topNav': ['app', 'navigation', 'navigation.navFactory'],
+        'navigation.leftNav': ['app', 'navigation', 'navigation.navFactory'],
+        'navigation.navFactory': ['app', 'navigation'],
+        'navigation.directives': ['app', 'navigation'],
+
+        'utility': ['app'],
+        'utility.historyUtility': ['app', 'utility'],
+        'utility.directives': ['app', 'utility'],
 
         'user': ['app'],
         'user.factory': ['app', 'user'],
         'user.directives': ['app', 'user'],
 
-        'serviceRequest': ['app', 'common'],
+        'serviceRequest': ['app', 'utility'],
         'serviceRequest.factory': ['app', 'serviceRequest'],
         'serviceRequest.directives': ['app', 'serviceRequest'],
 
         'address': ['app'],
         'address.controller': ['app', 'address', 'address.factory', 'contact.factory'],
         'address.directives': ['app', 'address'],
-        'address.factory': ['app', 'address', 'serviceRequest.factory', 'common.baseService'],
+        'address.factory': ['app', 'address', 'serviceRequest.factory', 'utility.historyUtility'],
 
         'contact': ['app'],
         'contact.controller': ['app', 'contact', 'contact.factory'],
@@ -113,10 +122,15 @@ requirejs.config({
 
         'app': 'app/app',
 
-        'common': 'app/common/common',
-        'common.baseService': 'app/common/baseService',
-        'common.navController': 'app/common/navigation-controller',
-        'common.directives': 'app/common/directives',
+        'navigation': 'app/navigation/navigation',
+        'navigation.navFactory': 'app/navigation/navFactory',
+        'navigation.topNav': 'app/navigation/topNavController',
+        'navigation.leftNav': 'app/navigation/leftNavController',
+        'navigation.directives': 'app/navigation/directives',
+
+        'utility': 'app/utilities/utility',
+        'utility.historyUtility': 'app/utilities/historyUtility',
+        'utility.directives': 'app/utilities/directives',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

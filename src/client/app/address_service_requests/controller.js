@@ -1,7 +1,7 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses', 'Contacts',
-function($scope, $http, $location, $routeParams, Addresses, Contacts) {
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses', 'Contacts', 'History',
+function($scope, $http, $location, $routeParams, Addresses, Contacts, History) {
     $scope.continueForm = false;
     $scope.submitForm = false;
     $scope.attachmentIsShown = false;
@@ -11,10 +11,7 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
 
     $scope.address = Addresses.currentAddress;
     $scope.addresses = Addresses.addresses;
-    /*
-    $scope.contact = Contacts.currentContact;
-    $scope.contacts = Contacts.contacts;
-    */
+
     $scope.contact = {
         name: '',
         phoneNumber: '',
@@ -28,7 +25,6 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
         requestedEffectiveDate: ''
     };
 
-    // Contacts.loadTestData()
     $scope.loadTestData = function() {
         $scope.contact.name = 'Vickers PetsAtHome';
         $scope.contact.phoneNumber = '9992882222';
@@ -59,7 +55,7 @@ function($scope, $http, $location, $routeParams, Addresses, Contacts) {
             $scope.continueForm = false;
         }
 
-        Addresses.history.back();
+        History.back();
     };
 
     $scope.cancel = function(){

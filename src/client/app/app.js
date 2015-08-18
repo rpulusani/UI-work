@@ -12,7 +12,8 @@ angular.module('mps', [
     'mps.invoice',
     'mps.deviceManagement',
     'mps.pageCount',
-    'mps.common'
+    'mps.navigation',
+    'mps.utility'
 ])
 .config(['$translateProvider', '$routeProvider', '$locationProvider', function ($translateProvider, $routeProvider, $locationProvider) {
     var supportedLanguages = ['en'],
