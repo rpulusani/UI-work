@@ -34,8 +34,7 @@ module.exports = function(config){
         'client/app/device_management/deviceManagement.js',
         'client/app/device_management/*.js',
         'client/tests/navigation_module_spec.js',
-        'client/tests/address_service_request_module_spec.js',
-        'client/tests/contact_service_request_module_spec.js'
+        'client/tests/address_service_request_module_spec.js'
     ],
     autoWatch : true,
     plugins: ['karma-jasmine', 'karma-phantomjs-launcher','karma-junit-reporter'],
