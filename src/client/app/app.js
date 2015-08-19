@@ -4,34 +4,46 @@ angular.module('mps', [
     'ngResource',
     'ngCookies',
     'pascalprecht.translate',
-    'mps.routes',
     'mps.serviceRequests',
     'mps.serviceRequestAddresses',
     'mps.serviceRequestContacts',
     'mps.user',
-    'mps.common'
+    'mps.report',
+    'mps.invoice',
+    'mps.deviceManagement',
+    'mps.pageCount',
+    'mps.navigation',
+    'mps.utility'
 ])
+.config(['$translateProvider', '$routeProvider', '$locationProvider', function ($translateProvider, $routeProvider, $locationProvider) {
+    var supportedLanguages = ['en'],
+    myLanguage = 'en',
+    language,
+    i;
 
-.config(['$translateProvider', function ($translateProvider) {
-    var supportedLanguages = ['en'];
-
-    var myLanguage = 'en';
-    for(var i in window.browser_languages) {
-        var language = window.browser_languages[i];
-        if(supportedLanguages.indexOf(language) >= 0) {
+    for (i in window.browser_languages) {
+        language = window.browser_languages[i];
+        
+        if (supportedLanguages.indexOf(language) >= 0) {
             myLanguage = language;
             break;
         }
     }
 
-    $translateProvider.useSanitizeValueStrategy(null);
+    $translateProvider.useSanitizeValueStrategy(null)
 
     $translateProvider
         .preferredLanguage(myLanguage)
         .useStaticFilesLoader({
-          prefix: '/etc/resources/i18n/',
-          suffix: '.json'
+            prefix: '/etc/resources/i18n/',
+            suffix: '.json'
         })
         .useLocalStorage();
 
+    $routeProvider
+    .otherwise({
+        templateUrl: '/app/dashboard/templates/home.html'
+    });
+
+    $locationProvider.html5Mode(true);
 }]);

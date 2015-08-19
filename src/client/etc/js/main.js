@@ -14,12 +14,16 @@ requirejs.config({
         'angular-translate-loader-url',
 
         'app',
-        'routes',
 
-        'common',
-        'common.navController',
-        'common.baseService',
-        'common.directives',
+        'navigation',
+        'navigation.navFactory',
+        'navigation.topNav',
+        'navigation.leftNav',
+        'navigation.directives',
+
+        'utility',
+        'utility.historyUtility',
+        'utility.directives',
 
         'user',
         'user.factory',
@@ -37,7 +41,15 @@ requirejs.config({
         'contact',
         'contact.controller',
         'contact.directives',
-        'contact.factory'
+        'contact.factory',
+
+        'invoice',
+
+        'pageCount',
+
+        'deviceManagement',
+
+        'report'
     ],
     shim: {
         'angular-resource': ['angular'],
@@ -58,31 +70,42 @@ requirejs.config({
                 'angular-translate-storage-local',
                 'angular-translate-loader-static-files',
                 'angular-translate-loader-url'],
-        'routes': ['app'],
 
-        'common': ['app'],
-        'common.topNavController': ['app', 'common', 'common.baseService'],
-        'common.baseService': ['app', 'common'],
-        'common.navController': ['app', 'common', 'common.baseService'],
-        'common.directives': ['app', 'common'],
+        'navigation': ['app'],
+        'navigation.topNav': ['app', 'navigation', 'navigation.navFactory'],
+        'navigation.leftNav': ['app', 'navigation', 'navigation.navFactory'],
+        'navigation.navFactory': ['app', 'navigation'],
+        'navigation.directives': ['app', 'navigation'],
+
+        'utility': ['app'],
+        'utility.historyUtility': ['app', 'utility'],
+        'utility.directives': ['app', 'utility'],
 
         'user': ['app'],
         'user.factory': ['app', 'user'],
         'user.directives': ['app', 'user'],
 
-        'serviceRequest': ['app', 'common'],
+        'serviceRequest': ['app', 'utility'],
         'serviceRequest.factory': ['app', 'serviceRequest'],
         'serviceRequest.directives': ['app', 'serviceRequest'],
 
         'address': ['app'],
         'address.controller': ['app', 'address', 'address.factory', 'contact.factory'],
         'address.directives': ['app', 'address'],
-        'address.factory': ['app', 'address', 'serviceRequest.factory', 'common.baseService'],
+        'address.factory': ['app', 'address', 'serviceRequest.factory', 'utility.historyUtility'],
 
         'contact': ['app'],
         'contact.controller': ['app', 'contact', 'contact.factory'],
         'contact.directives': ['app', 'contact'],
-        'contact.factory': ['app', 'contact']
+        'contact.factory': ['app', 'contact'],
+
+        'invoice':  ['app'],
+
+        'pageCount':  ['app'],
+
+        'deviceManagement':  ['app'],
+
+        'report':  ['app']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -98,12 +121,16 @@ requirejs.config({
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
 
         'app': 'app/app',
-        'routes': 'app/routes',
 
-        'common': 'app/common/common',
-        'common.baseService': 'app/common/baseService',
-        'common.navController': 'app/common/navigation-controller',
-        'common.directives': 'app/common/directives',
+        'navigation': 'app/navigation/navigation',
+        'navigation.navFactory': 'app/navigation/navFactory',
+        'navigation.topNav': 'app/navigation/topNavController',
+        'navigation.leftNav': 'app/navigation/leftNavController',
+        'navigation.directives': 'app/navigation/directives',
+
+        'utility': 'app/utilities/utility',
+        'utility.historyUtility': 'app/utilities/historyUtility',
+        'utility.directives': 'app/utilities/directives',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
@@ -121,43 +148,51 @@ requirejs.config({
         'contact': 'app/contact_service_requests/contactServiceRequest',
         'contact.controller': 'app/contact_service_requests/controller',
         'contact.directives': 'app/contact_service_requests/directives',
-        'contact.factory': 'app/contact_service_requests/contactsFactory'
+        'contact.factory': 'app/contact_service_requests/contactsFactory',
+
+        'invoice': 'app/invoices/invoice',
+
+        'pageCount': 'app/page_count/pageCount',
+
+        'deviceManagement': 'app/device_management/deviceManagement',
+
+        'report': 'app/reporting/report'
     },
     map: {
-        "*": {
-            "jquery": "jquery-private",
-            "stable": "modules"
+        '*': {
+            'jquery': 'jquery-private',
+            'stable': 'modules'
         },
-        "jquery-private": {"jquery": "jquery"}
+        'jquery-private': {'jquery': 'jquery'}
     },
     bundles: {
-        "lxk.fef": [
-            "jquery",
-            "fef.jquery",
-            "jquery-private",
-            "throttle-debounce",
-            "modernizr",
-            "variables",
-            "modules/alerts",
-            "modules/banner",
-            "modules/breadcrumb",
-            "modules/card",
-            "modules/carousel",
-            "modules/custom-input",
-            "modules/dropdown",
-            "modules/form-selectbox",
-            "modules/form",
-            "modules/griddy",
-            "modules/media-queries",
-            "modules/modal",
-            "modules/modalmanager",
-            "modules/quote",
-            "modules/rail-nav",
-            "modules/responsive-images",
-            "modules/responsive-tables",
-            "modules/set",
-            "modules/sifter",
-            "modules/slide-in-panel"
+        'lxk.fef': [
+            'jquery',
+            'fef.jquery',
+            'jquery-private',
+            'throttle-debounce',
+            'modernizr',
+            'variables',
+            'modules/alerts',
+            'modules/banner',
+            'modules/breadcrumb',
+            'modules/card',
+            'modules/carousel',
+            'modules/custom-input',
+            'modules/dropdown',
+            'modules/form-selectbox',
+            'modules/form',
+            'modules/griddy',
+            'modules/media-queries',
+            'modules/modal',
+            'modules/modalmanager',
+            'modules/quote',
+            'modules/rail-nav',
+            'modules/responsive-images',
+            'modules/responsive-tables',
+            'modules/set',
+            'modules/sifter',
+            'modules/slide-in-panel'
         ]
     },
     callback: function() {

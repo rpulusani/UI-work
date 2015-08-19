@@ -3,11 +3,12 @@
 describe('Address Service Request Module', function() {
     beforeEach(module('mps'));
     describe('Controllers', function(){
-        var scope, ctrl, location, addresses, window;
-        beforeEach(inject(function($rootScope, $controller, $location, Addresses, $window) {
+        var scope, ctrl, location, addresses, window, history;
+        beforeEach(inject(function($rootScope, $controller, $location, Addresses, History, $window) {
             scope = $rootScope.$new();
             location = $location;
             window = $window;
+            history = History;
             ctrl = $controller('AddressesController', {$scope: scope});
             addresses = Addresses;
         }));
@@ -70,7 +71,7 @@ describe('Address Service Request Module', function() {
         describe('when backed up', function() {
             describe('when continueForm is true', function() {
                 it('should set continueForm to be false', function() {
-                    spyOn(addresses.history,'back').and.returnValue('/service_requests/addresses');
+                    spyOn(history,'back').and.returnValue('/service_requests/addresses');
                     scope.continueForm = true;
                     scope.back();
                     expect(scope.continueForm).toBe(false);
@@ -79,7 +80,7 @@ describe('Address Service Request Module', function() {
 
             describe('when continueForm is false', function() {
                 it('should return to home', function() {
-                    spyOn(addresses.history,'back').and.returnValue('/service_requests/addresses');
+                    spyOn(history,'back').and.returnValue('/service_requests/addresses');
                     scope.continueForm = false;
                     scope.back();
                     expect(scope.continueForm).toEqual(false);
