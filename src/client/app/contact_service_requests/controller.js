@@ -41,7 +41,7 @@ angular.module('mps.serviceRequestContacts')
         };
 
         $scope.cancel = function() {
-            $location.path('/');
+            $location.path('/service_requests/contacts');
         };
 
         $scope.continue = function() {

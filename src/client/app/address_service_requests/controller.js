@@ -71,7 +71,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.cancel = function() {
-            $location.path('/');
+            $location.path('/service_requests/addresses');
         };
 
         $scope.continue = function() {
