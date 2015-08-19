@@ -47,25 +47,7 @@ findById = function(memType, id, fn) {
     }
 
     return fn(false);
-},
-updateRoster = function() {
-    async.map(
-        sockets,
-        function (socket, callback) {
-            socket.get('name', callback);
-        },
-        function (err, names) {
-            broadcast('roster', names);
-        }
-    );
-},
-broadcast = function(event, data) {
-    sockets.forEach(function (socket) {
-        socket.emit(event, data);
-    });
-},
-messages = [],
-sockets = [];
+};
 
 process.env.PORT = 8080;
 
@@ -111,7 +93,7 @@ router.get('/accounts/1/:requestType/:id', function(req, res) {
             }
         });
     } else {
-         res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
+        res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
     }
 });
 
@@ -136,7 +118,6 @@ router.post('/accounts/1/:requestType', function(req, res) {
     }
 
     console.log(memory[req.params.requestType]);
-
     console.log(req.params.requestType + ' Saved');
 
     res.json(req.body);

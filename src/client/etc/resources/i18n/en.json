@@ -46,6 +46,7 @@
 
     "CONTACT": {
         "TITLE": "Contacts",
+        "INFO": "Contact Information",
         "FIRST_NAME": "First Name",
         "MIDDLE_NAME": "Middle Name",
         "LAST_NAME": "Last Name",
