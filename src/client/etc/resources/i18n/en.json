@@ -38,7 +38,10 @@
         "CONTACT_ADD": "Add Contact",
         "CONTACT_CHANGE": "Change Contact",
         "CONTACT_SELECT_OTHER": "Select a different contact",
-        "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request"
+        "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request",
+        "BUILDING_NAME": "Building",
+        "FLOOR_NAME": "Floor",
+        "SITE_NAME": "Office"
     },
 
     "CONTACT": {

@@ -24,7 +24,8 @@
                     <th translate="{{'ADDRESS.DISTRICT' |translate}}"></th>
                     <th translate="{{'ADDRESS.ZIP_POSTAL' |translate}}"></th>
                     <th translate="{{'LABEL.ACTION' |translate}}"></th>
-                </th>
+                </tr>
+            </thead>
             <tbody>
                 <tr ng-repeat="address in addresses">
                     <td><a href="service_requests/addresses/{{address.id}}" ng-bind="address.addName"></a></td>
@@ -43,6 +44,6 @@
                     </td>
                 </tr>
             </tbody>
-        </dl>
+        </table>
     </div>
 </div>
