@@ -1,7 +1,7 @@
 {
   "name": "customer-portal",
   "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "description": "Lexmark Managed Print Services Portal",
   "main": "server.js",
   "repository": "",
   "author": "N/A",
@@ -10,8 +10,7 @@
     "dots": "0.0.1",
     "express": "~3.2.4",
     "express-dot-engine": "^1.0.6",
-    "newrelic": "1.21.1",
-    "socket.io": "~0.9.14"
+    "newrelic": "1.21.1"
   },
   "devDependencies": {
     "chrome": "~0.0.3",

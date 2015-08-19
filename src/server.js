@@ -2,12 +2,10 @@
 var http = require('http'),
 path = require('path'),
 async = require('async'),
-socketio = require('socket.io'),
 express = require('express'),
 engine = require('express-dot-engine'),
 router = express(),
 server = http.createServer(router),
-io = socketio.listen(server),
 fs = require('fs'),
 memory = {
     addresses: [{
@@ -81,42 +79,6 @@ router.configure(function(){
     router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
     router.use('/templates', express.static(path.resolve(__dirname, 'client/templates')));
     router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
-});
-
-io.on('connection', function (socket) {
-    messages.forEach(function (data) {
-        socket.emit('message', data);
-    });
-
-    sockets.push(socket);
-
-    socket.on('disconnect', function () {
-        sockets.splice(sockets.indexOf(socket), 1);
-        updateRoster();
-    });
-
-    socket.on('message', function (msg) {
-        var text = String(msg || '');
-
-        if (!text)
-            return;
-
-        socket.get('name', function (err, name) {
-            var data = {
-                name: name,
-                text: text
-            };
-
-            broadcast('message', data);
-            messages.push(data);
-        });
-    });
-
-    socket.on('identify', function (name) {
-        socket.set('name', String(name || 'Anonymous'), function (err) {
-            updateRoster();
-        });
-    });
 });
 
 router.get('/accounts/1/:requestType', function(req, res) {
