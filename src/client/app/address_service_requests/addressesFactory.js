@@ -1,29 +1,29 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.factory('Addresses', ['$http', 'ServiceRequests', function($http, ServiceRequests) {
+.factory('Addresses', ['$http', 'ServiceRequests', 
+    function($http, ServiceRequests) {
     var Address = function() {
         var addy = this;
 
-        addy.currentAddress = {
-            addName: '',
-            storeName: '',
-            addrLine1: '',
-            addrLine2: '',
-            city: '',
-            country: '',
-            state: '',
-            zipCode: '',
-            county: '',
-            district:'',
-            id: null
-        };
+        addy.address = null;
 
         addy.addresses = []; // data store
-        addy.hasData = false; // Lets us know if we have a dataset from the server
     };
 
     Address.prototype.save = function(formdata, fn) {
-        $http.post('', formdata, {
+        $http.post('/accounts/1/addresses/', formdata, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function(res) {
+            return fn(res);
+        }).error(function(data) {
+            NREUM.noticeError(data);
+        });
+    };
+
+
+    Address.prototype.update = function(formdata, id, fn) {
+        $http.post('/accounts/1/addresses/' + id, formdata, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function(res) {
@@ -36,8 +36,8 @@ angular.module('mps.serviceRequestAddresses')
     Address.prototype.getById = function(id, fn) {
         var addy = this;
 
-        $http.get('/service_requests/addresses/' + id).success(function(res) {
-            addy.currentAddress = res;
+        $http.get('/accounts/1/addresses/' + id).success(function(res) {
+            addy.address = res;
             
             return fn();
         }).error(function(data) {
@@ -48,24 +48,23 @@ angular.module('mps.serviceRequestAddresses')
     Address.prototype.deleteById = function(id, fn) {
         var addy = this;
 
-        $http.delete('/service_requests/addresses/' + id).success(function(res) {
+        $http.delete('/accounts/1/addresses/' + id).success(function(res) {
             var i = 0,
             addressCnt = addy.addresses.length;
 
-            try{
+            try {
                 for (i; i < addressCnt; i += 1) {
                     if (addy.addresses[i].id === id) {
                         addy.addresses.splice(i, 1);
                     }
                 }
-            }catch (error){
-                if (error instanceof ReferenceError){
+            } catch (error) {
+                if (error instanceof ReferenceError) {
                     NREUM.noticeError(error);
-                } else if (error instanceof TypeError){
+                } else if (error instanceof TypeError) {
                     NREUM.noticeError(error);
                 } 
             }
-            
 
             if (typeof fn === 'function') {
                 return fn();
@@ -78,9 +77,8 @@ angular.module('mps.serviceRequestAddresses')
     Address.prototype.query = function(fn) {
         var addy = this;
 
-        $http.get('/service_requests/addresses/all').then(function(res) {
+        $http.get('/accounts/1/addresses').then(function(res) {
             addy.addresses = res.data;
-            addy.hasData = true;
 
             if (typeof fn === 'function') {
                 return fn(res.data);

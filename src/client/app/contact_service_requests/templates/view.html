@@ -1,56 +1,39 @@
 <div class="row row--alley-2">
-
+    <alert-message></alert-message>
     <div class="col-1">
-        <div class="alert alert--info" data-js="alert" ng-show='alertMsg'>
-            <div class="alert__body"><span>
-                <strong ng-bind="alertMsg"></strong>
-            </span></div>
-        </div>
-    </div>
-
-    <div class="col-1">
-        <h1>Sevice Requests</h1>
-        <h2>Addresses</h2>
+        <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
+        <h2 translate="CONTACT.TITLE"></h2>
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
         <ul>
-            <li><a href="/service_requests/addresses/new">Add A New Address</a></li>
-            <li><a href="/service_requests/addresses/addMultiple">Add Multiple Addresses</a></li>
-            <li><a href="/service_requests/addresses/updateMultiple">Change Multiple Addresses</a></li>
-            <li><a href="/service_requests/addresses/deleteMultiple">Delete Multiple Addresses</a></li>
+            <li><a title="Add a new Contact" href="/service_requests/contacts/new" translate="CONTACT_SERVICE_REQUEST.ADD"></a></li>
         </ul>
-        <table class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
+
+        <table ng-show="contacts.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
             <thead>
                 <tr>
-                    <th>Address Name</th>
-                    <th>Store-front Name</th>
-                    <th>Address Line 1:</th>
-                    <th>Address Line 2:</th>
-                    <th>Country</th>
-                    <th>State / Province</th>
-                    <th>City</th>
-                    <th>County</th>
-                    <th>District</th>
-                    <th>Zip / Postal Code</th>
-                    <th>Actions</th>
+                    <th translate="{{'CONTACT.FIRST_NAME' |translate}}"></th>
+                    <th translate="{{'CONTACT.LAST_NAME' |translate}}"></th>
+                    <th translate="{{'LABEL.ACTION' |translate}}"></th>
                 </th>
+            </thead>
             <tbody>
-                <tr ng-repeat="address in addresses">
-                    <td><a href="service_requests/addresses/{{address.id}}" ng-bind="address.addName"></a></td>
-                    <td ng-bind="address.storeName"></td>
-                    <td ng-bind="address.addrLine1"></td>
-                    <td ng-bind="address.addrLine2"></td>
-                    <td ng-bind="address.country"></td>
-                    <td ng-bind="address.state"></td>
-                    <td ng-bind="address.city"></td>
-                    <td ng-bind="address.county"></td>
-                    <td ng-bind="address.district"></td>
-                    <td ng-bind="address.zipCode"></td>
+                <tr ng-repeat="contact in contacts">
                     <td>
-                        <a href="" ng-click="updateAddress(address.id)">Update</a> | 
-                        <a href="" ng-click="deleteAddress(address.id)">Delete</a>
+                        <a href="service_requests/contacts/{{contact.id}}" 
+                            ng-bind="contact.firstName" title="View Contact"></a>
+                    </td>
+
+                    <td>
+                        <a href="service_requests/contacts/{{contact.id}}" 
+                            ng-bind="contact.lastName" title="View Contact"></a>
+                    </td>
+
+                    <td>
+                        <a title="Update this Contact" href="" ng-click="goToUpdateContact(contact.id)">Update</a> | 
+                        <a title="Remove this Contact" href="" ng-click="deleteContact(contact.id)">Delete</a>
                     </td>
                 </tr>
             </tbody>
-        </dl>
+        </table>
     </div>
 </div>

@@ -1,21 +1,20 @@
 <div class="row">
     <div class="col-1">
-        <h1>Change Request Addresses</h1>
+        <h1 translate="CONTACT_SERVICE_REQUEST_TITLE"></h1>
         <h2>Pets At Home / Pets At Home_MSA2010_MPS-UK</h2>
-        <h3>Update Multiple Addresses</h3>
+        <h3 translate="CONTACT_SERVICE_REQUEST_UPDATE"></h3>
     </div>
 
-    <form class="form" data-form="" name="newAddress" method="post" ng-submit="newAddress.$valid && continue()" enctype="mulitpart/form-data" novalidate>
-        <div class="col-1-2 l-alley-after">
-            <additional-request-info></additional-request-info>
+    <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && continue()" enctype="mulitpart/form-data" novalidate>
+        <div class="col-1">
+            <new-contact-fields></new-contact-fields>
         </div>
 
-        <div class="col-1-2">
-            <address-new-fields></address-new-fields>
-        </div>
-
-        <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()">Back</button>
-        <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()">Cancel</button>
-        <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit">Continue</button>
+        <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()"
+                translate="LABEL.BACK"></button>
+        <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
+                translate="LABEL.CANCEL"></button>
+        <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit"
+                translate="LABEL.CONTINUE"></button>
     </form>
 </div>
