@@ -45,7 +45,7 @@ module.exports = function(config){
     singleRun: true,
     reporters: ['progress', 'dots', 'junit', 'coverage'],
     preprocessors: { 'client/app/address_service_requests/*.js': ['coverage'] },
-    coverageReporter: { type : 'html', dir : 'coverage/'},
+    coverageReporter: { type : 'cobertura', dir : 'coverage/'},
     junitReporter: {
         outputFile: 'test-results.xml',
         outputDir: '../'
