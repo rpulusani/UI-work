@@ -45,8 +45,8 @@ module.exports = function(config){
     browsers : ['PhantomJS'],
     singleRun: true,
     reporters: ['progress', 'dots', 'junit', 'coverage'],
-    preprocessors: { 'client/app/address_service_requests/*.js': ['coverage'] },
-    coverageReporter: { type : 'html', dir : 'coverage/'},
+    preprocessors: { 'client/app/**/*.js': ['coverage'] },
+    coverageReporter: { type : 'cobertura', dir : 'coverage/'},
     junitReporter: {
         outputFile: 'test-results.xml',
         outputDir: '../'

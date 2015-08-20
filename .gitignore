@@ -1,3 +1,4 @@
 src/node_modules
+src/coverage
 src/uploads/*
 test-results.xml
