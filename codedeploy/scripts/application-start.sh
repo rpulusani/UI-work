@@ -1,5 +1,5 @@
 docker pull lexmarkweb/mps-ui
-
+printenv
 if [ "$DEPLOYMENT_GROUP_NAME" == "mps-ui-dev" ]
 then
 environmentVars="-e 'NEWRELICID=10059346'"
