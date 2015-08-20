@@ -181,7 +181,7 @@ describe('Address Service Request Module', function() {
             beforeEach(inject(function($rootScope, $compile) {
                 scope = $rootScope.$new();
 
-                element = '<address-new-fields></address-new-fields>';
+                element = '<div address-new-fields></div>';
                 element = $compile(element)(scope);
 
                 scope.$digest();
