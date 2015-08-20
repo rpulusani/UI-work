@@ -84,7 +84,7 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
             if (typeof fn === 'function') {
                 return fn(res);
             }
-        }).catch(function(data) {
+        })['catch'](function(data) {
             NREUM.noticeError(data);
         });
     };

@@ -87,7 +87,7 @@ angular.module('mps.serviceRequestAddresses')
             if (typeof fn === 'function') {
                 return fn(res.data);
             }
-        }).catch(function(data) {
+        })['catch'](function(data) {
             NREUM.noticeError(data);
         });
     };
