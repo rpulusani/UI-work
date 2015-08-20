@@ -29,7 +29,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.contact.emailAddress = 'vickerspets@test.com';
         };
 
-        $scope.save = function(routeToTop) {
+        $scope.save = function() {
             var newAddress = JSON.stringify($scope.address),
             fd;
 
@@ -41,11 +41,7 @@ angular.module('mps.serviceRequestAddresses')
                 Addresses.save(fd, function(res) {
                     Addresses.addresses = [];
 
-                    if (!routeToTop) {
-                        $location.path('/service_requests/addresses/' + res.id).search('');
-                    } else {
-                        $location.path('/service_requests/addresses').search('');
-                    }
+                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
                 });
             } else {
                 fd = new FormData(document.getElementsByName('editAddress')[0]);
@@ -53,11 +49,7 @@ angular.module('mps.serviceRequestAddresses')
                 Addresses.update(fd, Addresses.address.id, function(res) {
                     Addresses.addresses = [];
 
-                    if (!routeToTop) {
-                        $location.path('/service_requests/addresses/' + res.id).search('');
-                    } else {
-                        $location.path('/service_requests/addresses').search('');
-                    }
+                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
                 });
             }
         };
@@ -82,16 +74,25 @@ angular.module('mps.serviceRequestAddresses')
             $scope.attachmentIsShown = !$scope.attachmentIsShown;
         };
 
+        $scope.goToCreate = function() {
+            Addresses.address = null;
+            $location.path('/service_requests/addresses/new');
+        }
+
+        $scope.goToRead = function(id) {
+            $location.path('/service_requests/addresses/' + id + '/review');
+        }
+
         $scope.goToViewAll = function(id) {
-            $location.path('/service_requests/addresses').search('');
+            $location.path('/service_requests/addresses');
         };
 
-        $scope.updateAddress = function(id) {
-            $location.path('/service_requests/addresses/' + id).search('view', 'update');
+        $scope.goToUpdate = function(id) {
+            $location.path('/service_requests/addresses/' + id + '/update');
         };
 
-        $scope.deleteAddress = function(id) {
-            Addresses.deleteById(id, function() {
+        $scope.removeAddress = function(id) {
+            Addresses.removeById(id, function() {
                 if (Addresses.addresses.length === 0) {
                     $scope.addresses = [];
                 }
@@ -105,11 +106,9 @@ angular.module('mps.serviceRequestAddresses')
         }
 
         if ($routeParams.id) {
-            Addresses.getById($routeParams.id, function() {
-                 $scope.address = Addresses.address;
+           Addresses.getById($routeParams.id, function() {
+                $scope.address = Addresses.address;
             });
-        } else {
-            Addresses.address = null;
         }
 
         $scope.loadTestData();

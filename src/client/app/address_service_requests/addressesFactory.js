@@ -11,10 +11,14 @@ angular.module('mps.serviceRequestAddresses')
     };
 
     Address.prototype.save = function(formdata, fn) {
+        var addy = this;
+
         $http.post('/accounts/1/addresses/', formdata, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function(res) {
+            addy.address = res;
+            
             return fn(res);
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -45,7 +49,7 @@ angular.module('mps.serviceRequestAddresses')
         });
     };
 
-    Address.prototype.deleteById = function(id, fn) {
+    Address.prototype.removeById = function(id, fn) {
         var addy = this;
 
         $http.delete('/accounts/1/addresses/' + id).success(function(res) {
