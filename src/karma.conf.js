@@ -37,13 +37,15 @@ module.exports = function(config){
         'client/tests/address_service_request_module_spec.js'
     ],
     autoWatch : true,
-    plugins: ['karma-jasmine', 'karma-phantomjs-launcher','karma-junit-reporter'],
+    plugins: ['karma-jasmine', 'karma-phantomjs-launcher','karma-junit-reporter','karma-coverage'],
     port: 9090,
     runnerPort: 9191,
     frameworks: ['jasmine'],
     browsers : ['PhantomJS'],
     singleRun: true,
-    reporters: ['dots', 'junit'],
+    reporters: ['progress', 'dots', 'junit', 'coverage'],
+    preprocessors: { 'client/app/address_service_requests/*.js': ['coverage'] },
+    coverageReporter: { type : 'html', dir : 'coverage/'},
     junitReporter: {
         outputFile: 'test-results.xml',
         outputDir: '../'
