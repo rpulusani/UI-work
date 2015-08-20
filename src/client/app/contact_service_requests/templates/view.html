@@ -1,36 +1,37 @@
 <div class="row row--alley-2">
     <alert-message></alert-message>
+
     <div class="col-1">
         <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
         <h2 translate="CONTACT.TITLE"></h2>
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
         <ul>
-            <li><a title="Add a new Contact" href="/service_requests/contacts/new" translate="CONTACT_SERVICE_REQUEST.ADD"></a></li>
+            <li><a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" ng-click="goToCreate()" translate="CONTACT_SERVICE_REQUEST.ADD"></a></li>
         </ul>
 
         <table ng-show="contacts.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
             <thead>
                 <tr>
                     <th translate="{{'CONTACT.FIRST_NAME' |translate}}"></th>
-                    <th translate="{{'CONTACT.LAST_NAME' |translate}}"></th>
-                    <th translate="{{'LABEL.ACTION' |translate}}"></th>
+                    <th translate="{{'CONTACT.LAST_NAME' | translate}}"></th>
+                    <th translate="{{'LABEL.ACTION' | translate}}"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="contact in contacts">
                     <td>
-                        <a href="service_requests/contacts/{{contact.id}}" 
-                            ng-bind="contact.firstName" title="View Contact"></a>
+                        <a href="" ng-click="goToRead(contact.id)" ng-bind="contact.firstName"></a>
                     </td>
 
                     <td>
-                        <a href="service_requests/contacts/{{contact.id}}" 
-                            ng-bind="contact.lastName" title="View Contact"></a>
+                        <a href="" ng-click="goToRead(contact.id)" ng-bind="contact.lastName"></a>
                     </td>
 
                     <td>
-                        <a href="" ng-click="goToUpdateContact(contact.id)" translate="LABEL.UPDATE"></a> | 
-                        <a href="" ng-click="deleteContact(contact.id)" translate="LABEL.DELETE">Delete</a>
+                        <a title="{{ LABEL.UPDATE | translate }}" href="" 
+                            ng-click="goToUpdate(contact.id)" translate="LABEL.UPDATE"></a> | 
+                        <a title="{{ LABEL.DELETE | translate }}" href="" 
+                            ng-click="removeContact(contact.id)" translate="LABEL.DELETE">Delete</a>
                     </td>
                 </tr>
             </tbody>

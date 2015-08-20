@@ -1,13 +1,12 @@
 'use strict';
 angular.module('mps.serviceRequestContacts')
-.controller('ContactsController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Contacts',
-    function($scope, $http, $location, $routeParams, History, Contacts) {
+.controller('ContactsController', ['$scope', '$http', '$location', 'History', 'Contacts',
+    function($scope, $http, $location, History, Contacts) {
         $scope.continueForm = false;
         $scope.submitForm = false;
         $scope.contacts = Contacts.contacts;
         $scope.contact = Contacts.contact;
-        $scope.alert = '';
-
+   
         $scope.save = function(routeToTop) {
             var newContact = JSON.stringify($scope.contact),
             fd;
@@ -17,17 +16,18 @@ angular.module('mps.serviceRequestContacts')
             if (!Contacts.contact) {
                 fd = new FormData(document.getElementsByName('newContact')[0]);
 
-                Contacts.save(fd, function(res) {
+                Contacts.save(fd, function(contact) {
                     Contacts.contacts = [];
+                    $scope.contact = Contacts.contact;
 
-                    $location.path('/service_requests/contacts/' + res.id).search('');
+                    $location.path('/service_requests/contacts/review');
                 });
             } else {
                 fd = new FormData(document.getElementsByName('editContact')[0]);
 
                 Contacts.update(fd, Contacts.contact.id, function(res) {
                     Contacts.contacts = [];
-                    $location.path('/service_requests/contacts/' + res.id).search('');
+                    $location.path('/service_requests/contacts/review');
                 });
             }
         };
@@ -48,16 +48,27 @@ angular.module('mps.serviceRequestContacts')
             $scope.continueForm = true;
         };
 
+        $scope.goToCreate = function(id) {
+            Contacts.contact = null;
+            $location.path('/service_requests/contacts/new');
+        }
+
+        $scope.goToRead = function(id) {
+            Contacts.getById(id, function() {
+                $location.path('/service_requests/contacts/review');
+            });
+        }
+
         $scope.goToViewAll = function(id) {
             $location.path('/service_requests/contacts');
         };
 
-        $scope.goToUpdateContact = function(id) {
-            $location.path('/service_requests/contacts/' + id).search('view', 'update');
+        $scope.goToUpdate = function(id) {
+            $location.path('/service_requests/contacts/update');
         };
 
-        $scope.deleteContact = function(id) {
-            Contacts.deleteById(id, function() {
+        $scope.removeContact = function(id) {
+            Contacts.removeById(id, function() {
                 if (Contacts.contacts.length === 0) {
                     $scope.contacts = []; // for use with ng-bind, hides table completely
                 }
@@ -68,14 +79,6 @@ angular.module('mps.serviceRequestContacts')
             Contacts.query(function() {
                 $scope.contacts = Contacts.contacts;
             });
-        }
-
-        if ($routeParams.id) {
-            Contacts.getById($routeParams.id, function() {
-                $scope.contact = Contacts.contact;
-            });
-        } else {
-            Contacts.contact = null;
         }
     }
 ]);

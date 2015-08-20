@@ -9,10 +9,14 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
     };
 
     Contact.prototype.save = function(formdata, fn) {
+        var contact = this;
+
         $http.post('/accounts/1/contacts/', formdata, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function(res) {
+            contact.contact = res;
+
             return fn(res);
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -43,7 +47,7 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
         });
     };
 
-    Contact.prototype.deleteById = function(id, fn) {
+    Contact.prototype.removeById = function(id, fn) {
         var contact = this;
 
         $http.delete('/accounts/1/contacts/' + id).success(function(res) {

@@ -13,14 +13,12 @@ angular.module('mps.serviceRequestContacts', []).config(['$routeProvider', funct
         templateUrl: '/app/contact_service_requests/templates/new.html',
         controller: 'ContactsController'
     })
-    .when('/service_requests/contacts/:id', {
-        templateUrl: function(routeParams) {
-            if (routeParams.view === 'update') {
-                return '/app/contact_service_requests/templates/update.html';
-            } else {
-                return '/app/contact_service_requests/templates/review.html';
-            }
-        },
+    .when('/service_requests/contacts/review', {
+        templateUrl: '/app/contact_service_requests/templates/review.html',
+        controller: 'ContactsController'
+    })
+    .when('/service_requests/contacts/update', {
+        templateUrl: '/app/contact_service_requests/templates/update.html',
         controller: 'ContactsController'
     });
 }]);
