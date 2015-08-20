@@ -1,27 +1,20 @@
-<h4>Address Information</h4>
+<h4 translate="CONTACT.INFO"></h4>
 <dl class="row row--alley-4">
-    <dt class="col-1-2">Address Name:</dt>
-    <dd class="col-1-2">{{address.addName}}</dd>
-    <dt class="col-1-2">Store-front Name:</dt>
-    <dd class="col-1-2">{{address.storeName}}</dd>
-    <dt class="col-1-2">Address Line 1:</dt>
-    <dd class="col-1-2">{{address.addrLine1}}</dd>
-    <dt class="col-1-2">Address Line 2:</dt>
-    <dd class="col-1-2">{{address.addrLine2}}</dd>
-    <dt class="col-1-2">Country</dt>
-    <dd class="col-1-2">{{address.country}}</dd>
-    <dt class="col-1-2">State / Province</dt>
-    <dd class="col-1-2">{{address.state}}</dd>
-    <dt class="col-1-2">City</dt>
-    <dd class="col-1-2">{{address.city}}</dd>
-    <dt class="col-1-2">County</dt>
-    <dd class="col-1-2">{{address.county}}</dd>
-    <dt class="col-1-2">District</dt>
-    <dd class="col-1-2">{{address.district}}</dd>
-    <dt class="col-1-2">Zip / Postal Code</dt>
-    <dd class="col-1-2">{{address.zipCode}}</dd>
-</dl>
+    <dt class="col-1-2" translate="{{'CONTACT.FIRST_NAME' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="contact.firstName"></dd>
 
-<div class="row row--alley-2" ng-hide="submitForm">
-    <address-navigation-button></address-navigation-button>
-</div>
+    <dt class="col-1-2"  translate="{{'CONTACT.MIDDLE_NAME' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="contact.middleName"></dd>
+
+    <dt class="col-1-2" translate="{{'CONTACT.LAST_NAME' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="contact.lastName"></dd>
+
+    <dt class="col-1-2" translate="{{'CONTACT.WORK_PHONE' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="contact.workPhone"></dd>
+
+    <dt class="col-1-2" translate="{{'CONTACT.ALT_PHONE' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="contact.alternatePhone"></dd>
+ 
+    <dt class="col-1-2" translate="{{'CONTACT.EMAIL' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="contact.email"></dd>
+</dl>

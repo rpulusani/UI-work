@@ -6,6 +6,12 @@ angular.module('mps.serviceRequestAddresses')
         templateUrl: '/app/address_service_requests/templates/address-new-fields.html'
     };
 })
+.directive('addressLocationFields', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/app/address_service_requests/templates/address-location-fields.html'
+    };
+})
 .directive('addressReview', function() {
     return {
         restrict: 'E',

@@ -1,12 +1,6 @@
 <div class="row row--alley-2">
 
-    <div class="col-1">
-        <div class="alert alert--info" data-js="alert" ng-show='alertMsg'>
-            <div class="alert__body"><span>
-                <strong ng-bind="alertMsg"></strong>
-            </span></div>
-        </div>
-    </div>
+    <alert-message></alert-message>
 
     <div class="col-1">
         <h1 translate="ADDRESS_SERVICE_REQUEST.TITLE"></h1>
@@ -14,26 +8,24 @@
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
         <ul>
             <li><a href="/service_requests/addresses/new" translate="ADDRESS_SERVICE_REQUEST.ADD"></a></li>
-            <li><a href="/service_requests/addresses/addMultiple" translate="ADDRESS_SERVICE_REQUEST.ADD_MULTI"></a></li>
-            <li><a href="/service_requests/addresses/updateMultiple" translate="ADDRESS_SERVICE_REQUEST.UPDATE_MULTI"></a></li>
-            <li><a href="/service_requests/addresses/deleteMultiple" translate="ADDRESS_SERVICE_REQUEST.DELETE_MULTI"></a></li>
         </ul>
 
-        <table ng-show="addresses" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
+        <table ng-show="addresses.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
             <thead>
                 <tr>
-                    <th>{{'ADDRESS.NAME' |translate}}:</th>
-                    <th>{{'ADDRESS.STORE_NAME' |translate}}:</th>
-                    <th>{{'ADDRESS.LINE_1' |translate}}:</th>
-                    <th>{{'ADDRESS.LINE_2' |translate}}:</th>
-                    <th>{{'ADDRESS.COUNTRY' |translate}}:</th>
-                    <th>{{'ADDRESS.STATE_PROVINCE' |translate}}:</th>
-                    <th>{{'ADDRESS.CITY' |translate}}:</th>
-                    <th>{{'ADDRESS.COUNTY' |translate}}:</th>
-                    <th>{{'ADDRESS.DISTRICT' |translate}}:</th>
-                    <th>{{'ADDRESS.ZIP_POSTAL' |translate}}:</th>
-                    <th>{{'LABEL.ACTION' |translate}}:</th>
-                </th>
+                    <th translate="{{'ADDRESS.NAME' |translate}}"></th>
+                    <th translate="{{'ADDRESS.STORE_NAME' |translate}}"></th>
+                    <th translate="{{'ADDRESS.LINE_1' |translate}}"></th>
+                    <th translate="{{'ADDRESS.LINE_2' |translate}}"></th>
+                    <th translate="{{'ADDRESS.COUNTRY' |translate}}"></th>
+                    <th translate="{{'ADDRESS.STATE_PROVINCE' |translate}}"></th>
+                    <th translate="{{'ADDRESS.CITY' |translate}}"></th>
+                    <th translate="{{'ADDRESS.COUNTY' |translate}}"></th>
+                    <th translate="{{'ADDRESS.DISTRICT' |translate}}"></th>
+                    <th translate="{{'ADDRESS.ZIP_POSTAL' |translate}}"></th>
+                    <th translate="{{'LABEL.ACTION' |translate}}"></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr ng-repeat="address in addresses">
                     <td><a href="service_requests/addresses/{{address.id}}" ng-bind="address.addName"></a></td>
@@ -52,6 +44,6 @@
                     </td>
                 </tr>
             </tbody>
-        </dl>
+        </table>
     </div>
 </div>

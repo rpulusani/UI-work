@@ -1,31 +1,6 @@
 <div class="row">
-    <div class="col-1">
-        <div class="alert" data-js="alert" ng-hide='submitForm'>
-            <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
-            <div class="alert__body">
-                <span>
-                    <strong translate="MESSAGE.REQUEST_REVIEW"></strong>
-                </span>
-            </div>
-        </div>
-        <div class="alert alert--success" data-js="alert" ng-show='submitForm && add_success'>
-            <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
-            <div class="alert__body">
-                <span>
-                    <strong translate="MESSAGE.REQUEST_SUCCESS"
-                            translate-values="{refId: serviceRequest.customerReferenceId}"></strong>
-                </span>
-            </div>
-        </div>
-        <div>
-            <div class="alert alert--error" data-js="alert" ng-show='submitForm && !add_success'>
-                <span class="alert__close" data-js="alert-close" aria-hidden="true">×</span>
-                <div class="alert__body"><span>
-                    <strong translate="MESSAGE.REQUEST_FAILED"></strong>
-                </span></div>
-            </div>
-        </div>
-    </div>
+    
+    <alert-message></alert-message>
 
     <div class="col-1">
         <h1 translate="ADDRESS_SERVICE_REQUEST.CHANGE"></h1>
@@ -39,9 +14,6 @@
 
     <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()"
             translate="LABEL.BACK"></button>
-    <!--
-    <button name="cancel" class="col-1-3 btn" ng-click="goToUpdate(serviceRequest.customerReferenceId)">Edit</button>
-    -->
     <button name="submit" class="col-1-3 btn btn--primary" ng-click="goToViewAll()" type="submit"
             translate="LABEL.CONTINUE"></button>
 </div>

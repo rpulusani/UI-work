@@ -1,27 +1,32 @@
 <h4 translate="ADDRESS.INFO"></h4>
 <dl class="row row--alley-4">
-    <dt class="col-1-2">{{'ADDRESS.NAME' | translate}}:</dt>
-    <dd class="col-1-2">{{address.addName}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.STORE_NAME' | translate}}:</dt>
-    <dd class="col-1-2">{{address.storeName}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.LINE_1' | translate}}:</dt>
-    <dd class="col-1-2">{{address.addrLine1}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.LINE_2' | translate}}:</dt>
-    <dd class="col-1-2">{{address.addrLine2}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.COUNTRY' | translate}}:</dt>
-    <dd class="col-1-2">{{address.country}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.STATE_PROVINCE' | translate}}:</dt>
-    <dd class="col-1-2">{{address.state}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.CITY' | translate}}:</dt>
-    <dd class="col-1-2">{{address.city}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.COUNTRY' | translate}}:</dt>
-    <dd class="col-1-2">{{address.county}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.DISTRICT' | translate}}:</dt>
-    <dd class="col-1-2">{{address.district}}</dd>
-    <dt class="col-1-2">{{'ADDRESS.ZIP_POSTAL' | translate}}:</dt>
-    <dd class="col-1-2">{{address.zipCode}}</dd>
-</dl>
+    <dt class="col-1-2" translate="{{'ADDRESS.NAME' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.addName"></dd>
 
-<div class="row row--alley-2" ng-hide="submitForm">
-    <address-navigation-button></address-navigation-button>
-</div>
+    <dt class="col-1-2" translate="{{'ADDRESS.STORE_NAME' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.storeName"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.LINE_1' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.addrLine1"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.LINE_2' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.addrLine2"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.COUNTRY' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.country"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.STATE_PROVINCE' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.state"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.CITY' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.city"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.COUNTRY' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.country"></dd>
+
+    <dt class="col-1-2" translate="{{'ADDRESS.DISTRICT' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.district"></dd>
+    
+    <dt class="col-1-2" translate="{{'ADDRESS.ZIP_POSTAL' | translate}}"></dt>
+    <dd class="col-1-2" ng-bind="address.zipCode"></dd>
+</dl>

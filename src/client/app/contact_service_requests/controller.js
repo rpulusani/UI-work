@@ -1,114 +1,84 @@
 'use strict';
 angular.module('mps.serviceRequestContacts')
-.controller('ContactsController', ['$scope', '$http', '$location', '$routeParams', 'Contacts',
-function($scope, $http, $location, $routeParams, Contacts) {
-    $scope.continueForm = false;
-    $scope.submitForm = false;
-    $scope.attachmentIsShown = false;
-    $scope.currentContactId = ''; // Current/Last opened address id
-    $scope.alertMsg = ''; // On-page alert message
-    $scope.contacts = Contacts.contacts;
+.controller('ContactsController', ['$scope', '$http', '$location', 'History', 'Contacts',
+    function($scope, $http, $location, History, Contacts) {
+        $scope.continueForm = false;
+        $scope.submitForm = false;
+        $scope.contacts = Contacts.contacts;
+        $scope.contact = Contacts.contact;
+   
+        $scope.save = function(routeToTop) {
+            var newContact = JSON.stringify($scope.contact),
+            fd;
 
-    $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
-                        '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
+            $scope.submitForm = false; // Request data from the server
+          
+            if (!Contacts.contact) {
+                fd = new FormData(document.getElementsByName('newContact')[0]);
 
-    $scope.contact = {
-        name: '',
-        phoneNumber: '',
-        emailAddress: ''
-    };
+                Contacts.save(fd, function(contact) {
+                    Contacts.contacts = [];
+                    $scope.contact = Contacts.contact;
 
-    $scope.address = {
-        addName: '',
-        storeName: '',
-        addrLine1: '',
-        addrLine2: '',
-        city: '',
-        country: '',
-        state: '',
-        zipCode: '',
-        county: '',
-        district:''
-    };
-
-    $scope.serviceRequest = {
-        customerReferenceId: '',
-        costCenter: '',
-        addtnlDescription: '',
-        requestedEffectiveDate: ''
-    };
-
-    $scope.loadTestData = function() {
-        $scope.contact.name = 'Vickers PetsAtHome';
-        $scope.contact.phoneNumber = '9992882222';
-        $scope.contact.emailAddress = 'vickerspets@test.com';
-    };
-
-    $scope.save = function(routeToTop) {
-        var newAddress = JSON.stringify($scope.address),
-        fd = new FormData(document.getElementsByName('newAddress')[0]);
-
-        fd.append('file', $scope.contactFile);
-
-        $scope.submitForm = false; // Request data from the server
-
-        Contacts.save(fd, function(res) {
-            Contacts.hasData = true;
-
-            if (!routeToTop) {
-                $location.path('/service_requests/contacts/' + res.id).search('');
+                    $location.path('/service_requests/contacts/review');
+                });
             } else {
-                $location.path('/service_requests/contacts').search('');
-            }
-        });
-    };
+                fd = new FormData(document.getElementsByName('editContact')[0]);
 
-    $scope.back = function() {
-        if ($scope.continueForm) {
-            $scope.continueForm = false;
+                Contacts.update(fd, Contacts.contact.id, function(res) {
+                    Contacts.contacts = [];
+                    $location.path('/service_requests/contacts/review');
+                });
+            }
+        };
+
+        $scope.back = function() {
+            if ($scope.continueForm) {
+                $scope.continueForm = false;
+            }
+
+            History.back();
+        };
+
+        $scope.cancel = function() {
+            $location.path('/service_requests/contacts');
+        };
+
+        $scope.continue = function() {
+            $scope.continueForm = true;
+        };
+
+        $scope.goToCreate = function(id) {
+            Contacts.contact = null;
+            $location.path('/service_requests/contacts/new');
         }
 
-        window.history.back();
-    };
+        $scope.goToRead = function(id) {
+            Contacts.getById(id, function() {
+                $location.path('/service_requests/contacts/review');
+            });
+        }
 
-    $scope.cancel = function(){
-        $location.path('/');
-    };
+        $scope.goToViewAll = function(id) {
+            $location.path('/service_requests/contacts');
+        };
 
-    $scope.continue = function() {
-        $scope.continueForm = true;
-    };
+        $scope.goToUpdate = function(id) {
+            $location.path('/service_requests/contacts/update');
+        };
 
-    $scope.attachmentToggle = function() {
-        $scope.attachmentIsShown = !$scope.attachmentIsShown;
-    };
-
-    $scope.goToViewAll = function(id) {
-        $location.path('/service_requests/contacts');
-    };
-
-    $scope.updateAddress = function(id) {
-        $location.path('/service_requests/contacts/update').search('addressid', id);
-    };
-
-    $scope.deleteContact = function(id) {
-        Contacts.deleteById(id, function(res) {
-            var i = 0,
-            addressCnt = Contacts.length;
-
-            for (i; i < addressCnt; i += 1) {
-                if (Contacts.contacts[i].id === id) {
-                    Contacts.contacts.splice(i, 1);
+        $scope.removeContact = function(id) {
+            Contacts.removeById(id, function() {
+                if (Contacts.contacts.length === 0) {
+                    $scope.contacts = []; // for use with ng-bind, hides table completely
                 }
-            }
-        });
-    };
+            });
+        };
 
-    if (Contacts.hasData === false) {
-        Contacts.query(function() {
-            $scope.contacts = Contacts.contacts;
-        });
+        if (Contacts.contacts.length === 0) {
+            Contacts.query(function() {
+                $scope.contacts = Contacts.contacts;
+            });
+        }
     }
-
-    $scope.loadTestData();
-}]);
+]);
