@@ -7,7 +7,7 @@
         <h2 translate="ADDRESS.TITLE"></h2>
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
         <ul>
-            <li><a href="/service_requests/addresses/new" translate="ADDRESS_SERVICE_REQUEST.ADD"></a></li>
+            <li><a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD"></a></li>
         </ul>
 
         <table ng-show="addresses.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="address in addresses">
-                    <td><a href="service_requests/addresses/{{address.id}}" ng-bind="address.addName"></a></td>
+                    <td><a href="" ng-click="goToRead(address.id)" ng-bind="address.addName"></a></td>
                     <td ng-bind="address.storeName"></td>
                     <td ng-bind="address.addrLine1"></td>
                     <td ng-bind="address.addrLine2"></td>
@@ -39,8 +39,8 @@
                     <td ng-bind="address.district"></td>
                     <td ng-bind="address.zipCode"></td>
                     <td>
-                        <a href="" ng-click="updateAddress(address.id)" translate="LABEL.UPDATE"></a> |
-                        <a href="" ng-click="deleteAddress(address.id)" translate="LABEL.DELETE"></a>
+                        <a href="" ng-click="goToUpdate(address.id)" translate="LABEL.UPDATE"></a> |
+                        <a href="" ng-click="removeAddress(address.id)" translate="LABEL.DELETE"></a>
                     </td>
                 </tr>
             </tbody>

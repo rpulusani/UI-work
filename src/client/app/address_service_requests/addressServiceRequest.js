@@ -14,14 +14,12 @@ angular.module('mps.serviceRequestAddresses', []).config(['$routeProvider',
             templateUrl: '/app/address_service_requests/templates/new.html',
             controller: 'AddressesController'
         })
-        .when('/service_requests/addresses/:id', {
-            templateUrl: function(routeParams) {
-                if (routeParams.view === 'update') {
-                    return '/app/address_service_requests/templates/update.html';
-                } else {
-                    return '/app/address_service_requests/templates/review.html';
-                }
-            },
+        .when('/service_requests/addresses/:id/review', {
+            templateUrl: '/app/address_service_requests/templates/review.html',
+            controller: 'AddressesController'
+        })
+        .when('/service_requests/addresses/:id/update', {
+            templateUrl: '/app/address_service_requests/templates/update.html',
             controller: 'AddressesController'
         });
     }

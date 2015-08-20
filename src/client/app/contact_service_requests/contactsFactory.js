@@ -23,7 +23,6 @@ angular.module('mps.serviceRequestContacts').factory('Contacts', ['$http', funct
         });
     }
 
-
     Contact.prototype.update = function(formdata, id, fn) {
         $http.post('/accounts/1/contacts/' + id, formdata, {
             transformRequest: angular.identity,
