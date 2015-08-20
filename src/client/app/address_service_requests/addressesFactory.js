@@ -52,7 +52,7 @@ angular.module('mps.serviceRequestAddresses')
     Address.prototype.removeById = function(id, fn) {
         var addy = this;
 
-        $http.delete('/accounts/1/addresses/' + id).success(function(res) {
+        $http['delete']('/accounts/1/addresses/' + id).success(function(res) {
             var i = 0,
             addressCnt = addy.addresses.length;
 
@@ -87,7 +87,7 @@ angular.module('mps.serviceRequestAddresses')
             if (typeof fn === 'function') {
                 return fn(res.data);
             }
-        }).catch(function(data) {
+        })['catch'](function(data) {
             NREUM.noticeError(data);
         });
     };

@@ -2,7 +2,7 @@
 angular.module('mps.utility')
 .directive('alertMessage', function() {
     return {
-        restrict: 'E',
+        restrict: 'A',
         templateUrl: '/app/utilities/templates/alerts.html',
     };
 });

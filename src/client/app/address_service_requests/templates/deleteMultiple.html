@@ -2,7 +2,7 @@
     <div class="col-1">
         <h1 translate="ADDRESS_SERVICE_REQUEST.CHANGE"></h1>
         <h2>Pets At Home / Pets At Home_MSA2010_MPS-UK</h2>
-        <h3 translate="ADDRESS_SERVICE_REQUEST.ADD"></h3>
+        <h3 translate="ADDRESS_SERVICE_REQUEST.DELETE_MULTI"></h3>
     </div>
 
     <form class="form" data-form="" name="newAddress" method="post"
@@ -16,14 +16,14 @@
         </div>
 
         <div class="col-1">
-            <div address-new-fields></div>
+            <div address-upload></div>
         </div>
 
         <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()"
                 translate="LABEL.BACK"></button>
         <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
                 translate="LABEL.CANCEL"></button>
-        <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit"
+        <button name="submit" class="col-1-3 btn btn--primary" ng-click="save(true)" type="submit"
                 translate="LABEL.SUBMIT"></button>
     </form>
 </div>

@@ -44,7 +44,7 @@ angular.module('mps.serviceRequestContacts')
             $location.path('/service_requests/contacts');
         };
 
-        $scope.continue = function() {
+        $scope['continue'] = function() {
             $scope.continueForm = true;
         };
 

@@ -2,3 +2,4 @@ src/node_modules
 src/coverage
 src/uploads/*
 test-results.xml
+.DS_Store
