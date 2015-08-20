@@ -35,18 +35,18 @@ describe('Contact Service Request Module', function() {
             });
 
             describe('when cancelled', function() {
-            it('should return to home', function(){
-                spyOn(location, 'path').and.returnValue('/');
-                scope.cancel();
-                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
+                it('should return to home', function(){
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.cancel();
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
                 });
             });
 
             describe('when continued', function() {
-              it('should set continueForm to be true', function() {
-                  scope.continue();
-                  expect(scope.continueForm).toBe(true);
-              });
+                it('should set continueForm to be true', function() {
+                    scope.continue();
+                    expect(scope.continueForm).toBe(true);
+                });
             });
 
             describe('when a delete request is cancelled', function() {
