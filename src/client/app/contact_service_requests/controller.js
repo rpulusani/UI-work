@@ -10,33 +10,16 @@ angular.module('mps.serviceRequestContacts')
             History.back();
         };
 
-        $scope.cancel = function() {
-            $location.path('/service_requests/contacts');
-        };
-
-        $scope['continue'] = function() {
-            $scope.continueForm = true;
-        };
-
         $scope.goToCreate = function() {
-            $scope.contact = {};
             $location.path('/service_requests/contacts/new');
         }
-
-        $scope.goToRead = function(contact) {
-            $location.path('/service_requests/contacts/' + contact.id + '/review');
-        }
-
-        $scope.goToViewAll = function() {
-            $location.path('/service_requests/contacts');
-        };
 
         $scope.goToUpdate = function(contact) {
             $location.path('/service_requests/contacts/' + contact.id + '/update');
         };
 
-        $scope.removeContact = function(contact) {
-            ContactService.delete({accountId: 1, contactId: contact.id}, function(){
+        $scope.remove = function(contact) {
+            ContactService.delete(contact, function(){
                 $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
             }, function(response){
                 console.log(response);
@@ -45,8 +28,11 @@ angular.module('mps.serviceRequestContacts')
     }
 ]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
-        var params = {accountId: 1, id: $routeParams.id};
-        $scope.contact = ContactService.get(params);
+        if($routeParams.id) {
+            $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id});
+        } else {
+            $scope.contact = {accountId: 1};
+        }
 
         $scope.reviewing = false;
         $scope.review = function() {
@@ -56,22 +42,28 @@ angular.module('mps.serviceRequestContacts')
             $scope.reviewing = false;
         }
 
+        var redirect_to_list = function() {
+            $location.path('/service_requests/contacts');
+        }
+
+        var error_saving = function(error) {
+            console.log('Could not save contact because ' + JSON.stringify(error));
+        }
+
         $scope.save = function() {
-            ContactService.update(params, $scope.contact, function success(contact){
-                $scope.submitForm = false;
-                $location.path('/service_requests/contacts');
-            }, function error(err) {
-                console.log('something went wrong');
-            });
+            if ($scope.contact.id) {
+                ContactService.update($scope.contact, redirect_to_list, error_saving);
+            } else {
+                ContactService.save($scope.contact, redirect_to_list, error_saving);
+            }
+
         };
 
         $scope.back = function() {
             History.back();
         };
 
-        $scope.cancel = function() {
-            $location.path('/service_requests/contacts');
-        };
+        $scope.cancel = redirect_to_list;
 
     }
 ]);

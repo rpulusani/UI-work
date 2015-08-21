@@ -6,7 +6,7 @@
         <h2 translate="CONTACT.TITLE"></h2>
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
         <ul>
-            <li><a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" ng-click="goToCreate()"
+            <li><a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" href="" ng-click="goToCreate()"
                    translate="CONTACT_SERVICE_REQUEST.ADD"></a></li>
         </ul>
 
@@ -22,18 +22,18 @@
             <tbody>
                 <tr ng-repeat="contact in contacts">
                     <td>
-                        <a href="" ng-click="goToRead(contact.id)" ng-bind="contact.firstName"></a>
+                        <div ng-bind="contact.firstName"></div>
                     </td>
 
                     <td>
-                        <a href="" ng-click="goToRead(contact.id)" ng-bind="contact.lastName"></a>
+                        <div ng-bind="contact.lastName"></div>
                     </td>
 
                     <td>
-                        <a title="{{ LABEL.UPDATE | translate }}" href=""
-                            ng-click="goToUpdate(contact)" translate="LABEL.UPDATE"></a> |
-                        <a title="{{ LABEL.DELETE | translate }}" href=""
-                            ng-click="removeContact(contact)" translate="LABEL.DELETE"></a>
+                        <a title="{{ LABEL.UPDATE | translate }}" href="" ng-click="goToUpdate(contact)"
+                           translate="LABEL.UPDATE"></a> |
+                        <a title="{{ LABEL.DELETE | translate }}" href="" ng-click="remove(contact)"
+                           translate="LABEL.DELETE"></a>
                     </td>
                 </tr>
             </tbody>
