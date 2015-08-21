@@ -16,38 +16,9 @@ angular.module('mps', [
     'mps.utility',
     'gatekeeper'
 ])
-.config(['$translateProvider', '$routeProvider', '$locationProvider', function ($translateProvider, $routeProvider, $locationProvider) {
-    var supportedLanguages = ['en'],
-    myLanguage = 'en',
-    language,
-    i;
-
-    for (i in window.browser_languages) {
-        language = window.browser_languages[i];
-        
-        if (supportedLanguages.indexOf(language) >= 0) {
-            myLanguage = language;
-            break;
-        }
-    }
-
-    $translateProvider.useSanitizeValueStrategy(null)
-
-    $translateProvider
-        .preferredLanguage(myLanguage)
-        .useStaticFilesLoader({
-            prefix: '/etc/resources/i18n/',
-            suffix: '.json'
-        })
-        .useLocalStorage();
-
-    $routeProvider
-    .otherwise({
-        templateUrl: '/app/dashboard/templates/home.html'
-    });
-
-    $locationProvider.html5Mode(true);
-}])
+//TODO: bocked by BackEnd on CORS
+//.constant('mpsApiUri', 'http://10.145.120.247:8080/mps')
+.constant('mpsApiUri', '')
 
 .constant('serviceUrl', config.portal.serviceUrl)
 
@@ -62,4 +33,39 @@ angular.module('mps', [
 
 .run(function(Gatekeeper, $rootScope) {
     $rootScope.user = Gatekeeper.user;
-});
+})
+
+.config(['$translateProvider', '$routeProvider', '$locationProvider',
+    function ($translateProvider, $routeProvider, $locationProvider) {
+        var supportedLanguages = ['en'],
+            myLanguage = 'en',
+            language,
+            i;
+
+        for (i in window.browser_languages) {
+            language = window.browser_languages[i];
+
+            if (supportedLanguages.indexOf(language) >= 0) {
+                myLanguage = language;
+                break;
+            }
+        }
+
+        $translateProvider.useSanitizeValueStrategy(null)
+
+        $translateProvider
+            .preferredLanguage(myLanguage)
+            .useStaticFilesLoader({
+                prefix: '/etc/resources/i18n/',
+                suffix: '.json'
+            })
+            .useLocalStorage();
+
+        $routeProvider
+        .otherwise({
+            templateUrl: '/app/dashboard/templates/home.html'
+        });
+
+
+        $locationProvider.html5Mode(true);
+}]);
