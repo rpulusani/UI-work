@@ -13,12 +13,8 @@ angular.module('mps.serviceRequestContacts', []).config(['$routeProvider', funct
         templateUrl: '/app/contact_service_requests/templates/new.html',
         controller: 'ContactsController'
     })
-    .when('/service_requests/contacts/:id/review', {
-        templateUrl: '/app/contact_service_requests/templates/review.html',
-        controller: 'ContactsController'
-    })
     .when('/service_requests/contacts/:id/update', {
         templateUrl: '/app/contact_service_requests/templates/update.html',
-        controller: 'ContactsController'
+        controller: 'ContactController'
     });
 }]);

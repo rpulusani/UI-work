@@ -14,11 +14,11 @@ describe('Address Service Request Module', function() {
         }));
 
 
-        
+
         //Testing Object Property Structure in one it function
 
-        
-        
+
+
         /** Cover all business Logic **/
 
         describe('when test data is loaded', function(){
@@ -118,11 +118,11 @@ describe('Address Service Request Module', function() {
                     scope.attachmentToggle();
                     expect(scope.attachmentIsShown).toBe(true);
                 });
-            }); 
+            });
 
-        }); 
+        });
 
-        
+
         describe('when a delete request is cancelled', function() {
             it('should return to the all addresses view', function() {
                 spyOn(location, 'path').and.returnValue('/service_requests/addresses');
@@ -146,7 +146,7 @@ describe('Address Service Request Module', function() {
                 scope.requestDelete();
                 expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete/review');
             });
-        }); 
+        });
 */
     });
     describe("Directives", function(){
@@ -154,7 +154,7 @@ describe('Address Service Request Module', function() {
     });
     describe("Services", function(){
         //Test things like Required or other validations
-        
+
     });
 
     describe("Routes", function(){
