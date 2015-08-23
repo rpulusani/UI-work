@@ -49,7 +49,9 @@ requirejs.config({
 
         'deviceManagement',
 
-        'report'
+        'report',
+
+        'gatekeeper'
     ],
     shim: {
         'angular-resource': ['angular'],
@@ -105,7 +107,9 @@ requirejs.config({
 
         'deviceManagement':  ['app'],
 
-        'report':  ['app']
+        'report':  ['app'],
+
+        'gatekeeper': ['app']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -156,7 +160,9 @@ requirejs.config({
 
         'deviceManagement': 'app/device_management/deviceManagement',
 
-        'report': 'app/reporting/report'
+        'report': 'app/reporting/report',
+
+        'gatekeeper': 'etc/gatekeeper-angular/gatekeeper-angular'
     },
     map: {
         '*': {
