@@ -3,58 +3,84 @@
 describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
-    describe('Controllers', function(){
-        var scope, ctrl, location, contacts, window, history;
-
-        beforeEach(inject(function($rootScope, $controller, $location, Contacts, History, $window) {
+    describe('ContactsController', function() {
+        var scope, ctrl, location, window, history;
+        beforeEach(inject(function($rootScope, $controller, $location, History, $window) {
             scope = $rootScope.$new();
             location = $location;
             window = $window;
             history = History;
             ctrl = $controller('ContactsController', {$scope: scope});
-            contacts = Contacts;
         }));
 
-         describe('when backed up', function() {
-            describe('when continueForm is true', function() {
-                it('should set continueForm to be false', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/contacts');
-                    scope.continueForm = true;
-                    scope.back();
-                    expect(scope.continueForm).toBe(false);
-                });
+        describe('when back() is called', function() {
+            it('should call history back', function() {
+                scope.back();
+                expect(history.path).toBeCalled;
+            });
+        });
+
+        describe('when goToCreate() is called', function() {
+            it('should take to new page', function() {
+                spyOn(location, 'path').and.returnValue('/');
+                scope.goToCreate();
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/new');
+            });
+        });
+
+        describe('when goToUpdate() is called', function() {
+            it('should take to update page', function() {
+                var contact = {id: '1'};
+                spyOn(location, 'path').and.returnValue('/');
+                scope.goToUpdate(contact);
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/update');
             });
 
-            describe('when continueForm is false', function() {
-                it('should return to home', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/contacts');
-                    scope.continueForm = false;
-                    scope.back();
-                    expect(scope.continueForm).toEqual(false);
-                });
-            });
+        });
 
-            describe('when cancelled', function() {
-                it('should return to home', function(){
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.cancel();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
-                });
-            });
+        // describe('when remove() is called', function() {
+        //     it('should remove an item in $scope.contacts', function() {
 
-            describe('when continued', function() {
-                it('should set continueForm to be true', function() {
-                    scope.continue();
-                    expect(scope.continueForm).toBe(true);
-                });
-            });
+        //     });
+        // });
+    });
 
-            describe('when a delete request is cancelled', function() {
-                it('should return to the all contacts view', function() {
-                    spyOn(location, 'path').and.returnValue('/service_requests/contacts');
-                    scope.cancel();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
-                });
+    describe('ContactController', function() {
+        var scope, ctrl, location, window, history;
+        beforeEach(inject(function($rootScope, $controller, $location, History, $window) {
+            scope = $rootScope.$new();
+            location = $location;
+            window = $window;
+            history = History;
+            ctrl = $controller('ContactController', {$scope: scope});
+        }));
+
+        describe('when review() is called', function() {
+            it('should set reviewing to be true', function() {
+                scope.review();
+                expect(scope.reviewing).toBe(true);
+            });
+        });
+
+        describe('when edit() is called', function() {
+            it('should set reviewing to be false', function() {
+                scope.edit();
+                expect(scope.reviewing).toBe(false);
+            });
+        });
+
+        describe('when back() is called', function() {
+            it('should call history back', function() {
+                scope.back();
+                expect(history.path).toBeCalled;
+            });
+        });
+
+        describe('when cancel() is called', function() {
+            it('should redirect to list', function() {
+                spyOn(location, 'path').and.returnValue('/');
+                scope.cancel();
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
             });
         });
     });

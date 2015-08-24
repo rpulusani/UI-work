@@ -2,9 +2,11 @@
 angular.module('mps.serviceRequestContacts')
 .controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
-
-        //TODO: Remove hardcoded accountId, which needs to come from login.
-        $scope.contacts = ContactService.query({accountId: 1});
+        var init = function() {
+            //TODO: Remove hardcoded accountId, which needs to come from login.
+            $scope.contacts = ContactService.query({accountId: 1});
+        };
+        init();
 
         $scope.back = function() {
             History.back();
@@ -28,13 +30,18 @@ angular.module('mps.serviceRequestContacts')
     }
 ]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
-        if($routeParams.id) {
-            $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id});
-        } else {
-            $scope.contact = {accountId: 1};
-        }
+        var init = function() {
+            $scope.reviewing = false;
 
-        $scope.reviewing = false;
+            if($routeParams.id) {
+                $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id});
+            } else {
+                $scope.contact = {accountId: 1};
+            }
+
+        };
+        init();
+
         $scope.review = function() {
             $scope.reviewing = true;
         }
@@ -44,11 +51,11 @@ angular.module('mps.serviceRequestContacts')
 
         var redirect_to_list = function() {
             $location.path('/service_requests/contacts');
-        }
+        };
 
         var error_saving = function(error) {
             console.log('Could not save contact because ' + JSON.stringify(error));
-        }
+        };
 
         $scope.save = function() {
             if ($scope.contact.id) {
