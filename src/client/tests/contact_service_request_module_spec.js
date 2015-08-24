@@ -13,14 +13,14 @@ describe('Contact Service Request Module', function() {
             ctrl = $controller('ContactsController', {$scope: scope});
         }));
 
-        describe('when back() is called', function() {
+        describe('back', function() {
             it('should call history back', function() {
                 scope.back();
                 expect(history.path).toBeCalled;
             });
         });
 
-        describe('when goToCreate() is called', function() {
+        describe('goToCreate', function() {
             it('should take to new page', function() {
                 spyOn(location, 'path').and.returnValue('/');
                 scope.goToCreate();
@@ -28,7 +28,7 @@ describe('Contact Service Request Module', function() {
             });
         });
 
-        describe('when goToUpdate() is called', function() {
+        describe('goToUpdate', function() {
             it('should take to update page', function() {
                 var contact = {id: '1'};
                 spyOn(location, 'path').and.returnValue('/');
@@ -38,9 +38,25 @@ describe('Contact Service Request Module', function() {
 
         });
 
-        // describe('when remove() is called', function() {
-        //     it('should remove an item in $scope.contacts', function() {
+        // describe('remove', function() {
+        //     var mockedFactory;
+        //     beforeEach(function ($provide){
+        //         mockedFactory = {
+        //             delete: jasmine.createSpy()
+        //         };
+        //         // module(function($provide) {
+        //             $provide.value('ContactService', mockedFactory);
+        //         // });
+        //     });
 
+
+        //     it('should remove an item in $scope.contacts', function(){
+        //         scope.contacts = [{id: '1'}, {id: '2'}];
+        //         var contact = {id: '1'};
+        //         spyOn(mockedFactory, 'delete').andReturn(true);
+        //         scope.remove(contact);
+        //         expect(mockedFactory.delete(contact)).toHaveBeenCalled();
+        //         expect(scope.contacts.length).toEqual(1);
         //     });
         // });
     });
@@ -55,28 +71,28 @@ describe('Contact Service Request Module', function() {
             ctrl = $controller('ContactController', {$scope: scope});
         }));
 
-        describe('when review() is called', function() {
+        describe('review', function() {
             it('should set reviewing to be true', function() {
                 scope.review();
                 expect(scope.reviewing).toBe(true);
             });
         });
 
-        describe('when edit() is called', function() {
+        describe('edit', function() {
             it('should set reviewing to be false', function() {
                 scope.edit();
                 expect(scope.reviewing).toBe(false);
             });
         });
 
-        describe('when back() is called', function() {
+        describe('back', function() {
             it('should call history back', function() {
                 scope.back();
                 expect(history.path).toBeCalled;
             });
         });
 
-        describe('when cancel() is called', function() {
+        describe('cancel', function() {
             it('should redirect to list', function() {
                 spyOn(location, 'path').and.returnValue('/');
                 scope.cancel();
