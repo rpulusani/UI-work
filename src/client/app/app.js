@@ -49,13 +49,13 @@ angular.module('mps', [
     $locationProvider.html5Mode(true);
 }])
 
-.constant('serviceUrl', 'http://localhost:3000')
+.constant('serviceUrl', config.portal.serviceUrl)
 
 .config(function(GatekeeperProvider, serviceUrl){
   console.log("the serviceUrl: " + serviceUrl);
   GatekeeperProvider.configure({
-    serviceUri: 'http://localhost:4545',
-    clientId: 'nLwSlKwZY2Hes1C9n8J-fA'
+    serviceUri: config.idp.serviceUrl,
+    clientId: config.idp.clientId
   });
   GatekeeperProvider.protect(serviceUrl);
 })
