@@ -71,7 +71,8 @@ requirejs.config({
                 'angular-translate-storage-cookie',
                 'angular-translate-storage-local',
                 'angular-translate-loader-static-files',
-                'angular-translate-loader-url'],
+                'angular-translate-loader-url',
+                'gatekeeper'],
 
         'navigation': ['app'],
         'navigation.topNav': ['app', 'navigation', 'navigation.navFactory'],
@@ -109,7 +110,7 @@ requirejs.config({
 
         'report':  ['app'],
 
-        'gatekeeper': ['app']
+        'gatekeeper': ['angular-cookies', 'angular-route']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -162,7 +163,7 @@ requirejs.config({
 
         'report': 'app/reporting/report',
 
-        'gatekeeper': 'etc/gatekeeper-angular/gatekeeper-angular'
+        'gatekeeper': 'app/libs/gatekeeper-angular'
     },
     map: {
         '*': {

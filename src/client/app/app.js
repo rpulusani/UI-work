@@ -13,7 +13,8 @@ angular.module('mps', [
     'mps.deviceManagement',
     'mps.pageCount',
     'mps.navigation',
-    'mps.utility'
+    'mps.utility',
+    'gatekeeper'
 ])
 .config(['$translateProvider', '$routeProvider', '$locationProvider', function ($translateProvider, $routeProvider, $locationProvider) {
     var supportedLanguages = ['en'],
@@ -46,4 +47,19 @@ angular.module('mps', [
     });
 
     $locationProvider.html5Mode(true);
-}]);
+}])
+
+.constant('serviceUrl', 'http://localhost:3000')
+
+.config(function(GatekeeperProvider, serviceUrl){
+  console.log("the serviceUrl: " + serviceUrl);
+  GatekeeperProvider.configure({
+    serviceUri: 'http://localhost:4545',
+    clientId: 'nLwSlKwZY2Hes1C9n8J-fA'
+  });
+  GatekeeperProvider.protect(serviceUrl);
+})
+
+.run(function(Gatekeeper, $rootScope) {
+    $rootScope.user = Gatekeeper.user;
+});
