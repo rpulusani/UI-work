@@ -107,11 +107,11 @@ requirejs.config({
 
         'address': ['app'],
         'address.controller': ['app', 'address', 'address.factory', 'contact.factory'],
-        'address.directives': ['app', 'address'],
+        'address.directives': ['app', 'address','lxk.fef',''],
         'address.factory': ['app', 'address', 'serviceRequest.factory', 'utility.historyUtility'],
 
         'contact': ['app'],
-        'contact.controller': ['app', 'contact', 'contact.factory'],
+        'contact.controller': ['app', 'contact', 'contact.factory','jquery-private'],
         'contact.directives': ['app', 'contact'],
         'contact.factory': ['app', 'contact'],
 
