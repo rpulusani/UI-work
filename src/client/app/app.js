@@ -16,9 +16,8 @@ angular.module('mps', [
     'mps.utility',
     'gatekeeper'
 ])
-//TODO: bocked by BackEnd on CORS
-//.constant('mpsApiUri', 'http://10.145.120.247:8080/mps')
-.constant('mpsApiUri', '')
+
+.constant('mpsApiUri', 'http://10.145.120.247:8080/mps')
 
 .constant('serviceUrl', config.portal.serviceUrl)
 
