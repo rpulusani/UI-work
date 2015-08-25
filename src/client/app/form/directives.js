@@ -3,6 +3,11 @@ angular.module('mps.form')
     function(){
         return {
             restrict: 'E',
+angular.module('mps.form')
+.directive('input',[
+    function(){
+        return {
+            restrict: 'E',
             require: ['?ngModel'],
             link: function(scope, el, attr, model){
                 if (!model || model.length < 1) {
