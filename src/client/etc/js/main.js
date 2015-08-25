@@ -23,6 +23,9 @@ requirejs.config({
         'form',
         'form.directives',
 
+        'form',
+        'form.directives',
+
         'utility',
         'utility.historyUtility',
         'utility.directives',
@@ -87,6 +90,9 @@ requirejs.config({
         'form':['app'],
         'form.directives': ['app','form'],
 
+        'form':['app'],
+        'form.directives': ['app','form'],
+
         'utility': ['app'],
         'utility.historyUtility': ['app', 'utility'],
         'utility.directives': ['app', 'utility'],
@@ -142,6 +148,9 @@ requirejs.config({
         'nav.controllers': 'app/nav/controllers',
         'nav.services': 'app/nav/services',
         'nav.directives': 'app/nav/directives',
+
+        'form': 'app/form/form',
+        'form.directives': 'app/form/directives',
 
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
