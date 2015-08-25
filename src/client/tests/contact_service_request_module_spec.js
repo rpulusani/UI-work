@@ -4,7 +4,21 @@ describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
     describe('ContactsController', function() {
-        var scope, ctrl, location, window, history;
+        var scope, ctrl, location, window, history, mockedFactory;
+
+        beforeEach(function (){
+            mockedFactory = {
+                delete: function(contact, resolve) {
+                    resolve(true);
+                },
+                query: jasmine.createSpy()
+            };
+
+
+            module(function($provide) {
+                $provide.value('ContactService', mockedFactory);
+            });
+        });
         beforeEach(inject(function($rootScope, $controller, $location, History, $window) {
             scope = $rootScope.$new();
             location = $location;
@@ -38,27 +52,19 @@ describe('Contact Service Request Module', function() {
 
         });
 
-        // describe('remove', function() {
-        //     var mockedFactory;
-        //     beforeEach(function ($provide){
-        //         mockedFactory = {
-        //             delete: jasmine.createSpy()
-        //         };
-        //         // module(function($provide) {
-        //             $provide.value('ContactService', mockedFactory);
-        //         // });
-        //     });
+        describe('remove', function() {
 
-
-        //     it('should remove an item in $scope.contacts', function(){
-        //         scope.contacts = [{id: '1'}, {id: '2'}];
-        //         var contact = {id: '1'};
-        //         spyOn(mockedFactory, 'delete').andReturn(true);
-        //         scope.remove(contact);
-        //         expect(mockedFactory.delete(contact)).toHaveBeenCalled();
-        //         expect(scope.contacts.length).toEqual(1);
-        //     });
-        // });
+            it('should remove an item in $scope.contacts', function(){
+                scope.contacts = [{id: '1'}, {id: '2'}];
+                var contact = {id: '1'};
+                spyOn(mockedFactory, 'delete').and.callThrough();
+                scope.remove(contact);
+                //expect(mockedFactory.delete.calls.count()).toBe(1);
+                expect(mockedFactory.delete).toHaveBeenCalled();
+                expect(mockedFactory.delete.calls.argsFor(0)[0]).toEqual(contact);
+                expect(scope.contacts.length).toEqual(1);
+            });
+        });
     });
 
     describe('ContactController', function() {
