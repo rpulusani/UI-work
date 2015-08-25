@@ -1,11 +1,11 @@
-window.config = {portal: {serviceUrl: ''}, idp: {}} 
+window.config = {portal: {serviceUrl: ''}, idp: {}};
 angular.module('gatekeeper', [])
 .provider('Gatekeeper', function(){
    return {
         configure: jasmine.createSpy(),
         protect: jasmine.createSpy(),
         $get: function() {
-            return {tokenInfo: {}, user: {}}
+            return {tokenInfo: {}, user: {}};
         }
     };
-})
+});

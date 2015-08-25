@@ -14,7 +14,8 @@ angular.module('mps', [
     'mps.pageCount',
     'mps.navigation',
     'mps.utility',
-    'gatekeeper'
+    'gatekeeper',
+    'mps.form'
 ])
 
 .factory('errorLogInterceptor', function() {
