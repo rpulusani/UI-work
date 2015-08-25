@@ -21,6 +21,9 @@ requirejs.config({
         'navigation.leftNav',
         'navigation.directives',
 
+        'form',
+        'form.directives',
+
         'utility',
         'utility.historyUtility',
         'utility.directives',
@@ -80,6 +83,9 @@ requirejs.config({
         'navigation.navFactory': ['app', 'navigation'],
         'navigation.directives': ['app', 'navigation'],
 
+        'form':['app'],
+        'form.directives': ['app','form'],
+
         'utility': ['app'],
         'utility.historyUtility': ['app', 'utility'],
         'utility.directives': ['app', 'utility'],
@@ -132,6 +138,9 @@ requirejs.config({
         'navigation.topNav': 'app/navigation/topNavController',
         'navigation.leftNav': 'app/navigation/leftNavController',
         'navigation.directives': 'app/navigation/directives',
+
+        'form': 'app/form/form',
+        'form.directives': 'app/form/directives',
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
