@@ -4,10 +4,7 @@ angular.module('mps.serviceRequestContacts')
     function($scope, $location, $routeParams, History, ContactService) {
         var init = function() {
             //TODO: Remove hardcoded accountId, which needs to come from login.
-            $scope.contacts = ContactService.query({accountId: 1})
-            $scope.contacts.$promise.then(function (result) {
-                $scope.contacts = result;
-            }, function(data) {
+            $scope.contacts = ContactService.query({accountId: 1}, null, function(data) {
                 NREUM.noticeError(data);
             });
         };
@@ -39,10 +36,7 @@ angular.module('mps.serviceRequestContacts')
             $scope.reviewing = false;
 
             if($routeParams.id) {
-                $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id});
-                $scope.contact.$promise.then(function (result) {
-                    $scope.contact = result;
-                }, function(data) {
+                $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id}, null, function(data) {
                     NREUM.noticeError(data);
                 });
             } else {
