@@ -4,7 +4,12 @@ angular.module('mps.serviceRequestContacts')
     function($scope, $location, $routeParams, History, ContactService) {
         var init = function() {
             //TODO: Remove hardcoded accountId, which needs to come from login.
-            $scope.contacts = ContactService.query({accountId: 1});
+            $scope.contacts = ContactService.query({accountId: 1})
+            $scope.contacts.$promise.then(function (result) {
+                $scope.contacts = result;
+            }, function(data) {
+                NREUM.noticeError(data);
+            });
         };
         init();
 
@@ -24,7 +29,7 @@ angular.module('mps.serviceRequestContacts')
             ContactService.delete(contact, function(){
                 $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
             }, function(response){
-                console.log(response);
+                NREUM.noticeError(response);
             });
         };
     }
@@ -35,6 +40,11 @@ angular.module('mps.serviceRequestContacts')
 
             if($routeParams.id) {
                 $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id});
+                $scope.contact.$promise.then(function (result) {
+                    $scope.contact = result;
+                }, function(data) {
+                    NREUM.noticeError(data);
+                });
             } else {
                 $scope.contact = {accountId: 1};
             }
@@ -55,6 +65,7 @@ angular.module('mps.serviceRequestContacts')
 
         var error_saving = function(error) {
             console.log('Could not save contact because ' + JSON.stringify(error));
+            NREUM.noticeError(error);
         };
 
         $scope.save = function() {
