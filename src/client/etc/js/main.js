@@ -35,6 +35,9 @@ requirejs.config({
             'form',
             'form.directives',
 
+        'form',
+        'form.directives',
+
             'utility',
             'utility.historyUtility',
             'utility.directives',
