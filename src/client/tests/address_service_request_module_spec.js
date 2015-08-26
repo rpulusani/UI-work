@@ -1,5 +1,5 @@
 /* global describe it beforeEach inject expect */
-
+define(['angular','angular-mocks', 'address'], function(angular, mocks, address) {
 describe('Address Service Request Module', function() {
     beforeEach(module('mps'));
     describe('Controllers', function(){
@@ -188,4 +188,5 @@ describe('Address Service Request Module', function() {
             }));
         });
     });
+});
 });
