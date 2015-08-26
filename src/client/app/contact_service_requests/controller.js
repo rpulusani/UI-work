@@ -2,13 +2,10 @@
 angular.module('mps.serviceRequestContacts')
 .controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
-        var init = function() {
-            //TODO: Remove hardcoded accountId, which needs to come from login.
-            $scope.contacts = ContactService.query({accountId: 1}, null, function(data) {
-                NREUM.noticeError(data);
-            });
-        };
-        init();
+        //TODO: Remove hardcoded accountId, which needs to come from login.
+        $scope.contacts = ContactService.query({accountId: 1}, null, function(data) {
+            NREUM.noticeError(data);
+        });
 
         $scope.back = function() {
             History.back();
@@ -32,19 +29,16 @@ angular.module('mps.serviceRequestContacts')
     }
 ]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
-        var init = function() {
-            $scope.reviewing = false;
-
-            if($routeParams.id) {
-                $scope.contact = ContactService.get({accountId: 1, id: $routeParams.id}, null, function(data) {
-                    NREUM.noticeError(data);
-                });
-            } else {
-                $scope.contact = {accountId: 1};
-            }
-
-        };
-        init();
+        $scope.reviewing = false;
+        //TODO: Remove hardcoded accountId, which needs to come from login.
+        var acct_id = 1;
+        if($routeParams.id) {
+            $scope.contact = ContactService.get({accountId: acct_id, id: $routeParams.id}, null, function(data) {
+                NREUM.noticeError(data);
+            });
+        } else {
+            $scope.contact = {accountId: acct_id};
+        }
 
         $scope.review = function() {
             $scope.reviewing = true;
@@ -52,15 +46,6 @@ angular.module('mps.serviceRequestContacts')
         $scope.edit = function() {
             $scope.reviewing = false;
         }
-
-        var redirect_to_list = function() {
-            $location.path('/service_requests/contacts');
-        };
-
-        var error_saving = function(error) {
-            console.log('Could not save contact because ' + JSON.stringify(error));
-            NREUM.noticeError(error);
-        };
 
         $scope.save = function() {
             if ($scope.contact.id) {
@@ -75,7 +60,18 @@ angular.module('mps.serviceRequestContacts')
             History.back();
         };
 
-        $scope.cancel = redirect_to_list;
+        $scope.cancel = function(){
+            redirect_to_list();
+        };
+
+        var redirect_to_list = function() {
+            $location.path('/service_requests/contacts');
+        };
+
+        var error_saving = function(error) {
+            console.log('Could not save contact because ' + JSON.stringify(error));
+            NREUM.noticeError(error);
+        };
 
     }
 ]);
