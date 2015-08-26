@@ -17,6 +17,18 @@ angular.module('mps', [
     'gatekeeper'
 ])
 
+.factory('errorLogInterceptor', function() {
+    return {
+        responseError: function(response) {
+            if(console && typeof(console.log) === 'function') {
+                console.log('Error: ' + JSON.stringify(response));
+            }
+            NREUM.noticeError(response);
+            return response;
+        }
+    };
+})
+
 .constant('mpsApiUri', 'http://10.145.120.247:8080/mps')
 
 .constant('serviceUrl', config.portal.serviceUrl)
@@ -34,8 +46,10 @@ angular.module('mps', [
     $rootScope.user = Gatekeeper.user;
 })
 
-.config(['$translateProvider', '$routeProvider', '$locationProvider',
-    function ($translateProvider, $routeProvider, $locationProvider) {
+.config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
+    function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {
+        $httpProvider.interceptors.push('errorLogInterceptor');
+
         var supportedLanguages = ['en'],
             myLanguage = 'en',
             language,

@@ -4,7 +4,7 @@ describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
     describe('ContactsController', function() {
-        var scope, ctrl, location, window, history, mockedFactory;
+        var scope, ctrl, location, history, mockedFactory;
 
         beforeEach(function (){
             mockedFactory = {
@@ -18,10 +18,9 @@ describe('Contact Service Request Module', function() {
                 $provide.value('ContactService', mockedFactory);
             });
         });
-        beforeEach(inject(function($rootScope, $controller, $location, History, $window) {
+        beforeEach(inject(function($rootScope, $controller, $location, History) {
             scope = $rootScope.$new();
             location = $location;
-            window = $window;
             history = History;
             ctrl = $controller('ContactsController', {$scope: scope});
         }));
@@ -66,7 +65,7 @@ describe('Contact Service Request Module', function() {
     });
 
     describe('ContactController', function() {
-        var scope, ctrl, location, window, history, mockedFactory;
+        var scope, ctrl, location, history, mockedFactory;
         beforeEach(function (){
             mockedFactory = {
                 get: jasmine.createSpy(),

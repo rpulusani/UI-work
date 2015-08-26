@@ -3,9 +3,7 @@ angular.module('mps.serviceRequestContacts')
 .controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
         //TODO: Remove hardcoded accountId, which needs to come from login.
-        $scope.contacts = ContactService.query({accountId: 1}, null, function(data) {
-            NREUM.noticeError(data);
-        });
+        $scope.contacts = ContactService.query({accountId: 1});
 
         $scope.back = function() {
             History.back();
@@ -22,8 +20,6 @@ angular.module('mps.serviceRequestContacts')
         $scope.remove = function(contact) {
             ContactService.delete(contact, function(){
                 $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
-            }, function(response){
-                NREUM.noticeError(response);
             });
         };
     }
@@ -33,9 +29,7 @@ angular.module('mps.serviceRequestContacts')
         //TODO: Remove hardcoded accountId, which needs to come from login.
         var acct_id = 1;
         if($routeParams.id) {
-            $scope.contact = ContactService.get({accountId: acct_id, id: $routeParams.id}, null, function(data) {
-                NREUM.noticeError(data);
-            });
+            $scope.contact = ContactService.get({accountId: acct_id, id: $routeParams.id});
         } else {
             $scope.contact = {accountId: acct_id};
         }
@@ -49,9 +43,9 @@ angular.module('mps.serviceRequestContacts')
 
         $scope.save = function() {
             if ($scope.contact.id) {
-                ContactService.update($scope.contact, redirect_to_list, error_saving);
+                ContactService.update($scope.contact, redirect_to_list);
             } else {
-                ContactService.save($scope.contact, redirect_to_list, error_saving);
+                ContactService.save($scope.contact, redirect_to_list);
             }
 
         };
@@ -66,11 +60,6 @@ angular.module('mps.serviceRequestContacts')
 
         var redirect_to_list = function() {
             $location.path('/service_requests/contacts');
-        };
-
-        var error_saving = function(error) {
-            console.log('Could not save contact because ' + JSON.stringify(error));
-            NREUM.noticeError(error);
         };
 
     }
