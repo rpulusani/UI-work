@@ -1,3 +1,4 @@
+define(['angular','angular-mocks', 'navigation'], function(angular, mocks, navigation) {
 describe('Navigation Module', function() {
     beforeEach(module('mps'));
     describe('Controller: TopNavController', function(){
@@ -139,4 +140,5 @@ describe('Navigation Module', function() {
             });
         });
     });
+});
 });
