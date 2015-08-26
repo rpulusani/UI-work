@@ -1,21 +1,16 @@
 'use strict';
-angular.module('mps.serviceRequests').factory('ServiceRequests', ['$http', function($http) {
-    var ServiceRequest = function() {
+angular.module('mps.serviceRequests')
+.factory('ServiceRequestService', ['$resource',
+    function($resource, mpsApiUri) {
+        var url = mpsApiUri + '/service-requests/:id';
+        var activity_url = url + '/activities';
+        var order_url = url + '/orders';
+        var payment_url = url + '/payments';
 
-    };
-
-    ServiceRequest.prototype.saveAddress = function(address, fn) {
-
-    };
-
-    ServiceRequest.prototype.saveContact = function(address, fn) {
-        
-    };
-
-    // Pass in an object that defined the request type and request data
-    ServiceRequest.prototype.save = function(requestObj, fn) {
-
-    };
-
-    return new ServiceRequest();
-}]);
+        return $resource(url, {id: '@id'}, {
+            'activities': { method: 'GET', url: activity_url, isArray: true },
+            'orders': { method: 'GET', url: order_url },
+            'payments': { method: 'GET', url: payment_url, isArray: true }
+        });
+    }
+]);
