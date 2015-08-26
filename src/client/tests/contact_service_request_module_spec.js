@@ -14,7 +14,6 @@ describe('Contact Service Request Module', function() {
                 query: jasmine.createSpy()
             };
 
-
             module(function($provide) {
                 $provide.value('ContactService', mockedFactory);
             });
@@ -53,7 +52,6 @@ describe('Contact Service Request Module', function() {
         });
 
         describe('remove', function() {
-
             it('should remove an item in $scope.contacts', function(){
                 scope.contacts = [{id: '1'}, {id: '2'}];
                 var contact = {id: '1'};
@@ -68,14 +66,42 @@ describe('Contact Service Request Module', function() {
     });
 
     describe('ContactController', function() {
-        var scope, ctrl, location, window, history;
-        beforeEach(inject(function($rootScope, $controller, $location, History, $window) {
+        var scope, ctrl, location, window, history, mockedFactory;
+        beforeEach(function (){
+            mockedFactory = {
+                get: jasmine.createSpy(),
+                save: jasmine.createSpy(),
+                update: jasmine.createSpy()
+            };
+
+            module(function($provide) {
+                $provide.value('ContactService', mockedFactory);
+            });
+        });
+        beforeEach(inject(function($rootScope, $controller, $location, History) {
             scope = $rootScope.$new();
             location = $location;
-            window = $window;
             history = History;
             ctrl = $controller('ContactController', {$scope: scope});
         }));
+
+        describe('at init', function() {
+            describe('when routeParam.id exists', function() {
+                beforeEach(inject(function($routeParams, $controller){
+                    $routeParams.id = 1;
+                    ctrl = $controller('ContactController', {$scope: scope});
+                }));
+                it('should get contact', function() {
+                    expect(mockedFactory.get.calls.count()).toBe(1);
+                });
+            });
+
+            describe('when routeParam.id not available', function() {
+                it('should not get contact', function() {
+                    expect(mockedFactory.get.calls.count()).toBe(0);
+                });
+            });
+        });
 
         describe('review', function() {
             it('should set reviewing to be true', function() {
@@ -88,6 +114,23 @@ describe('Contact Service Request Module', function() {
             it('should set reviewing to be false', function() {
                 scope.edit();
                 expect(scope.reviewing).toBe(false);
+            });
+        });
+
+        describe('save', function() {
+            describe('when scope.contact.id exists', function() {
+                it('should update contact', function() {
+                    scope.contact.id = 1;
+                    scope.save();
+                    expect(mockedFactory.update.calls.count()).toBe(1);
+                });
+            });
+
+            describe('when scope.contact.id not available', function() {
+                it('should save contact', function() {
+                    scope.save();
+                    expect(mockedFactory.save.calls.count()).toBe(1);
+                });
             });
         });
 
