@@ -152,7 +152,12 @@ router.all('/*', function(req, res, next) {
     });
     res.render(__dirname + '/client/views/index.dot', {
         languages_json: JSON.stringify(languages),
-        NEWRELICID: process.env.NEWRELICID
+        NEWRELICID: process.env.NEWRELICID,
+        config: JSON.stringify({
+            idp: { serviceUrl: process.env.IDP_SERVICE_URL,
+                   clientId: process.env.IDP_CLIENT_ID},
+            portal: { serviceUrl: process.env.PORTAL_API_URL }
+        })
     });
 });
 
