@@ -12,6 +12,7 @@ module.exports = function(config){
         'client/app/libs/angular-translate-loader-static-files.min.js',
         'client/app/libs/angular-translate-loader-url.min.js',
         'client/tests/angular-mocks.js',
+        'client/tests/mock-gatekeeper.js',
         'client/app/app.js',
         'client/app/navigation/navigation.js',
         'client/app/navigation/*.js',
