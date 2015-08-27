@@ -7,18 +7,14 @@ angular.module('mps.serviceRequestContacts', []).config(['$routeProvider', funct
     })
     .when('/service_requests/contacts/:id/delete', {
         templateUrl: '/app/contact_service_requests/templates/delete.html',
-        controller: 'ContactsController'
+        controller: 'ContactController'
     })
     .when('/service_requests/contacts/new', {
         templateUrl: '/app/contact_service_requests/templates/new.html',
-        controller: 'ContactsController'
-    })
-    .when('/service_requests/contacts/:id/review', {
-        templateUrl: '/app/contact_service_requests/templates/review.html',
-        controller: 'ContactsController'
+        controller: 'ContactController'
     })
     .when('/service_requests/contacts/:id/update', {
         templateUrl: '/app/contact_service_requests/templates/update.html',
-        controller: 'ContactsController'
+        controller: 'ContactController'
     });
 }]);

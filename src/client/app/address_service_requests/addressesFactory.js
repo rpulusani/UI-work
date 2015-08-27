@@ -1,7 +1,7 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.factory('Addresses', ['$http', 'ServiceRequests', 
-    function($http, ServiceRequests) {
+.factory('Addresses', ['$http', 'ServiceRequestService',
+    function($http, ServiceRequestService) {
     var Address = function() {
         var addy = this;
 
@@ -18,7 +18,7 @@ angular.module('mps.serviceRequestAddresses')
             headers: {'Content-Type': undefined}
         }).success(function(res) {
             addy.address = res;
-            
+
             return fn(res);
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -42,7 +42,7 @@ angular.module('mps.serviceRequestAddresses')
 
         $http.get('/accounts/1/addresses/' + id).success(function(res) {
             addy.address = res;
-            
+
             return fn();
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -67,7 +67,7 @@ angular.module('mps.serviceRequestAddresses')
                     NREUM.noticeError(error);
                 } else if (error instanceof TypeError) {
                     NREUM.noticeError(error);
-                } 
+                }
             }
 
             if (typeof fn === 'function') {
@@ -91,6 +91,6 @@ angular.module('mps.serviceRequestAddresses')
             NREUM.noticeError(data);
         });
     };
-    
+
     return new Address();
 }]);

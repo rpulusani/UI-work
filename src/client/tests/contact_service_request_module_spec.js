@@ -3,58 +3,148 @@
 describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
-    describe('Controllers', function(){
-        var scope, ctrl, location, contacts, window, history;
+    describe('ContactsController', function() {
+        var scope, ctrl, location, history, mockedFactory;
 
-        beforeEach(inject(function($rootScope, $controller, $location, Contacts, History, $window) {
+        beforeEach(function (){
+            mockedFactory = {
+                delete: function(contact, resolve) {
+                    resolve(true);
+                },
+                query: jasmine.createSpy()
+            };
+
+            module(function($provide) {
+                $provide.value('ContactService', mockedFactory);
+            });
+        });
+        beforeEach(inject(function($rootScope, $controller, $location, History) {
             scope = $rootScope.$new();
             location = $location;
-            window = $window;
             history = History;
             ctrl = $controller('ContactsController', {$scope: scope});
-            contacts = Contacts;
         }));
 
-         describe('when backed up', function() {
-            describe('when continueForm is true', function() {
-                it('should set continueForm to be false', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/contacts');
-                    scope.continueForm = true;
-                    scope.back();
-                    expect(scope.continueForm).toBe(false);
+        describe('back', function() {
+            it('should call history back', function() {
+                scope.back();
+                expect(history.path).toBeCalled;
+            });
+        });
+
+        describe('goToCreate', function() {
+            it('should take to new page', function() {
+                spyOn(location, 'path').and.returnValue('/');
+                scope.goToCreate();
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/new');
+            });
+        });
+
+        describe('goToUpdate', function() {
+            it('should take to update page', function() {
+                var contact = {id: '1'};
+                spyOn(location, 'path').and.returnValue('/');
+                scope.goToUpdate(contact);
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/update');
+            });
+
+        });
+
+        describe('remove', function() {
+            it('should remove an item in $scope.contacts', function(){
+                scope.contacts = [{id: '1'}, {id: '2'}];
+                var contact = {id: '1'};
+                spyOn(mockedFactory, 'delete').and.callThrough();
+                scope.remove(contact);
+                //expect(mockedFactory.delete.calls.count()).toBe(1);
+                expect(mockedFactory.delete).toHaveBeenCalled();
+                expect(mockedFactory.delete.calls.argsFor(0)[0]).toEqual(contact);
+                expect(scope.contacts.length).toEqual(1);
+            });
+        });
+    });
+
+    describe('ContactController', function() {
+        var scope, ctrl, location, history, mockedFactory;
+        beforeEach(function (){
+            mockedFactory = {
+                get: jasmine.createSpy(),
+                save: jasmine.createSpy(),
+                update: jasmine.createSpy()
+            };
+
+            module(function($provide) {
+                $provide.value('ContactService', mockedFactory);
+            });
+        });
+        beforeEach(inject(function($rootScope, $controller, $location, History) {
+            scope = $rootScope.$new();
+            location = $location;
+            history = History;
+            ctrl = $controller('ContactController', {$scope: scope});
+        }));
+
+        describe('at init', function() {
+            describe('when routeParam.id exists', function() {
+                beforeEach(inject(function($routeParams, $controller){
+                    $routeParams.id = 1;
+                    ctrl = $controller('ContactController', {$scope: scope});
+                }));
+                it('should get contact', function() {
+                    expect(mockedFactory.get.calls.count()).toBe(1);
                 });
             });
 
-            describe('when continueForm is false', function() {
-                it('should return to home', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/contacts');
-                    scope.continueForm = false;
-                    scope.back();
-                    expect(scope.continueForm).toEqual(false);
+            describe('when routeParam.id not available', function() {
+                it('should not get contact', function() {
+                    expect(mockedFactory.get.calls.count()).toBe(0);
+                });
+            });
+        });
+
+        describe('review', function() {
+            it('should set reviewing to be true', function() {
+                scope.review();
+                expect(scope.reviewing).toBe(true);
+            });
+        });
+
+        describe('edit', function() {
+            it('should set reviewing to be false', function() {
+                scope.edit();
+                expect(scope.reviewing).toBe(false);
+            });
+        });
+
+        describe('save', function() {
+            describe('when scope.contact.id exists', function() {
+                it('should update contact', function() {
+                    scope.contact.id = 1;
+                    scope.save();
+                    expect(mockedFactory.update.calls.count()).toBe(1);
                 });
             });
 
-            describe('when cancelled', function() {
-                it('should return to home', function(){
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.cancel();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
+            describe('when scope.contact.id not available', function() {
+                it('should save contact', function() {
+                    scope.save();
+                    expect(mockedFactory.save.calls.count()).toBe(1);
                 });
             });
+        });
 
-            describe('when continued', function() {
-                it('should set continueForm to be true', function() {
-                    scope.continue();
-                    expect(scope.continueForm).toBe(true);
-                });
+        describe('back', function() {
+            it('should call history back', function() {
+                scope.back();
+                expect(history.path).toBeCalled;
             });
+        });
 
-            describe('when a delete request is cancelled', function() {
-                it('should return to the all contacts view', function() {
-                    spyOn(location, 'path').and.returnValue('/service_requests/contacts');
-                    scope.cancel();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
-                });
+        describe('cancel', function() {
+            it('should redirect to list', function() {
+                spyOn(location, 'path').and.returnValue('/');
+                scope.cancel();
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts');
             });
         });
     });

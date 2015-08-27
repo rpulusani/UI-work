@@ -19,7 +19,16 @@ memory = {
         zipCode: '40404',
         id: 'addy-1'
     }],
-    contacts: [],
+    contacts: [{
+        id: '1',
+        accountId: '1',
+        firstName: 'John',
+        middleName: 'E',
+        lastName: 'Doe',
+        workPhone: '800-555-0101',
+        alternatePhone: '800-867-5309',
+        email: 'john.doe@johndeere.com'
+    }],
     requests: []
 },
 removeById = function(memType, id, fn) {
@@ -126,7 +135,7 @@ router.post('/accounts/1/:requestType', function(req, res) {
 router.post('/accounts/1/:requestType/:id', function(req, res) {
     findById(req.params.requestType, req.params.id, function(record, recordIndex) {
         var prop; // looping through existing entries properties to update
-        
+
         for (prop in req.body) {
             record[prop] = req.body[prop];
         }
@@ -134,7 +143,7 @@ router.post('/accounts/1/:requestType/:id', function(req, res) {
         record.updated = true;
 
         console.log(req.params.requestType + ' Updated!');
-        
+
         res.json(record);
     });
 });

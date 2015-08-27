@@ -1,88 +1,66 @@
 'use strict';
 angular.module('mps.serviceRequestContacts')
-.controller('ContactsController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Contacts',
-    function($scope, $http, $location, $routeParams, History, Contacts) {
-        $scope.continueForm = false;
-        $scope.submitForm = false;
-        $scope.contacts = Contacts.contacts;
-        $scope.contact = Contacts.contact;
-   
-        $scope.save = function(routeToTop) {
-            var newContact = JSON.stringify($scope.contact),
-            fd;
-
-            $scope.submitForm = false; // Request data from the server
-          
-            if (!Contacts.contact) {
-                fd = new FormData(document.getElementsByName('newContact')[0]);
-
-                Contacts.save(fd, function(contact) {
-                    Contacts.contacts = [];
-                    $scope.contact = Contacts.contact;
-
-                    $location.path('/service_requests/contacts/' + $scope.contact.id + '/review');
-                });
-            } else {
-                fd = new FormData(document.getElementsByName('editContact')[0]);
-
-                Contacts.update(fd, Contacts.contact.id, function(res) {
-                    Contacts.contacts = [];
-                    $location.path('/service_requests/contacts/' + $scope.contact.id + '/review');
-                });
-            }
-        };
+.controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
+    function($scope, $location, $routeParams, History, ContactService) {
+        //TODO: Remove hardcoded accountId, which needs to come from login.
+        $scope.contacts = ContactService.query({accountId: 1});
 
         $scope.back = function() {
-            if ($scope.continueForm) {
-                $scope.continueForm = false;
-            }
-
             History.back();
         };
 
-        $scope.cancel = function() {
-            $location.path('/service_requests/contacts');
-        };
-
-        $scope['continue'] = function() {
-            $scope.continueForm = true;
-        };
-
         $scope.goToCreate = function() {
-            Contacts.contact = null;
             $location.path('/service_requests/contacts/new');
         }
 
-        $scope.goToRead = function(id) {
-            $location.path('/service_requests/contacts/' + id + '/review');
+        $scope.goToUpdate = function(contact) {
+            $location.path('/service_requests/contacts/' + contact.id + '/update');
+        };
+
+        $scope.remove = function(contact) {
+            ContactService.delete(contact, function(){
+                $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
+            });
+        };
+    }
+]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
+    function($scope, $location, $routeParams, History, ContactService) {
+        $scope.reviewing = false;
+        //TODO: Remove hardcoded accountId, which needs to come from login.
+        var acct_id = 1;
+        if($routeParams.id) {
+            $scope.contact = ContactService.get({accountId: acct_id, id: $routeParams.id});
+        } else {
+            $scope.contact = {accountId: acct_id};
         }
 
-        $scope.goToViewAll = function(id) {
+        $scope.review = function() {
+            $scope.reviewing = true;
+        }
+        $scope.edit = function() {
+            $scope.reviewing = false;
+        }
+
+        $scope.save = function() {
+            if ($scope.contact.id) {
+                ContactService.update($scope.contact, redirect_to_list);
+            } else {
+                ContactService.save($scope.contact, redirect_to_list);
+            }
+
+        };
+
+        $scope.back = function() {
+            History.back();
+        };
+
+        $scope.cancel = function(){
+            redirect_to_list();
+        };
+
+        var redirect_to_list = function() {
             $location.path('/service_requests/contacts');
         };
 
-        $scope.goToUpdate = function(id) {
-            $location.path('/service_requests/contacts/' + id + '/update');
-        };
-
-        $scope.removeContact = function(id) {
-            Contacts.removeById(id, function() {
-                if (Contacts.contacts.length === 0) {
-                    $scope.contacts = []; // for use with ng-bind, hides table completely
-                }
-            });
-        };
-
-        if (Contacts.contacts.length === 0) {
-            Contacts.query(function() {
-                $scope.contacts = Contacts.contacts;
-            });
-        }
-
-        if ($routeParams.id) {
-            Contacts.getById($routeParams.id, function() {
-                $scope.contact = Contacts.contact;
-            });
-        }
     }
 ]);
