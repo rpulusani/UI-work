@@ -168,6 +168,26 @@ describe('Form Module', function() {
                     expect(elm).toBeDefined();
                     expect($(elm).find("li.selected")).toBeDefined();
                     expect($(elm).find("li.selected").html()).toBe("--select--");
+                $httpBackend.flush();
+            });
+            it("should have the front end framework turn on and select non default", function(){
+                var selectBoxHtml =
+                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
+                    expect(elm).toBeDefined();
+                    expect($(elm).find("li.selected")).toBeDefined();
+                    expect($(elm).find("li.selected").html()).toBe("--select--");
+                    $(elm).find("select").val("USA");
+                    $(elm).find("select").selectric("refresh");
+                    expect($(elm).find("li.selected").html()).toBe("USA");
+                $httpBackend.flush();
+            });
+
+            it("should have the front end framework turn on and default selected", function(){
+                var selectBoxHtml =
+                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
+                    expect(elm).toBeDefined();
+                    expect($(elm).find("li.selected")).toBeDefined();
+                    expect($(elm).find("li.selected").html()).toBe("--select--");
                     $(elm).find("select").val("USA");
                     $(elm).find("select").selectric("refresh");
                     expect($(elm).find("li.selected").html()).toBe("USA");
@@ -181,8 +201,10 @@ describe('Form Module', function() {
                     expect($(elm).find("li.selected")).toBeDefined();
                     expect($(elm).find("li.selected").html()).toBe("--select--");
                     
+                    console.log("selectric " + $(elm).find(".selectric"));
                     $(elm).find(".selectric").click();
                     var option1 = $(elm).find("li");
+                    console.log(option1);
                     option1.click();
                     $(elm).find("#test").selectric("refresh");
                     expect($(elm).find("li.selected").html()).toBe("USA");
