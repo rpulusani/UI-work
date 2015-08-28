@@ -51,7 +51,6 @@ module.exports = function(config) {
         { pattern: 'client/app/device_management/*.js', included: false},
         { pattern: 'client/etc/lxk-framework/js/lxk-framework.min.js', included: false},
         { pattern: 'client/etc/lxk-framework/js/libs/*.js', included: false},
-        { pattern: 'client/etc/resources/i18n/en.js', included: false},
         { pattern: 'client/tests/address_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/contact_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/navigation_module_spec.js', included: false},
