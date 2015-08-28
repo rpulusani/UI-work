@@ -18,21 +18,22 @@
     .controller('gatekeeper.AccessTokenCtrl', ['$routeParams', 'Gatekeeper', '$location', '$cookies', '$http',
                                                '$window',
     function($routeParams, Gatekeeper, $location, $cookies, $http, $window) {
-        $cookies['access-token'] = Gatekeeper.accessToken = $routeParams.accessToken.split('&')[0];
+        $cookies.accessToken = Gatekeeper.accessToken = $routeParams.accessToken.split('&')[0];
+        Gatekeeper.authenticating = true;
         $http.get(Gatekeeper.serviceUri + '/oauth/token/info')
         .then(function(resp) {
             Gatekeeper.setTokenInfo(resp.data);
             Gatekeeper.setUser(resp.data.resource_owner);
-            $location.path($cookies['return-to'] || '/');
-            $cookies['return-to'] = null;
+            $location.path($cookies.returnTo || '/');
+            delete $cookies.returnTo;
         }, function(err) {
-            $cookies['access-token'] = null;
+            delete $cookies.accessToken;
             $window.location.href = Gatekeeper.authorizeUri;
         });
     }])
 
-    .factory('gatekeeper.Interceptor', ['Gatekeeper',
-        function(Gatekeeper) {
+    .factory('gatekeeper.Interceptor', ['Gatekeeper', '$q',
+        function(Gatekeeper, $q) {
             return {
                 request: function(config) {
                     if(Gatekeeper.isProtected(config.url)) {
@@ -47,17 +48,25 @@
 
     .run(['Gatekeeper', '$http', '$window', '$browser', '$cookies', '$location', '$timeout',
     function(Gatekeeper, $http, $window, $browser, $cookies, $location, $timeout) {
+        var defaultPort = {'http': 80, 'https': 443};
+        var baseUrl = [$location.protocol(), '://', $location.host()];
+        if($location.port() && $location.port() != defaultPort[$location.protocol()]) {
+          baseUrl.push(':');
+          baseUrl.push($location.port());
+        }
+        baseUrl.push($browser.baseHref());
         Gatekeeper.authorizeUri = [Gatekeeper.serviceUri, '/oauth/authorize',
                                    '?response_type=token',
-                                   '&redirect_uri=', encodeURIComponent($browser.url()),
+                                   '&redirect_uri=', encodeURIComponent(baseUrl.join('')),
                                    '&client_id=', encodeURIComponent(Gatekeeper.clientId)].join('');
-        Gatekeeper.accessToken = $cookies['access-token'];
+        Gatekeeper.accessToken = $cookies.accessToken;
         $timeout(function(){
+            if(Gatekeeper.authenticating) return;
             if(!Gatekeeper.accessToken) {
-                $cookies['return-to'] = $location.path();
+                $cookies.returnTo = $location.path();
                 $window.location.href = Gatekeeper.authorizeUri;
             } else if(!Gatekeeper.tokenInfo.token) {
-                $cookies['return-to'] = $location.path();
+                $cookies.returnTo = $location.path();
                 $location.path('/access_token='+Gatekeeper.accessToken);
             }
         }, 0);
