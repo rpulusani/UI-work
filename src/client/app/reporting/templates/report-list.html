@@ -1,0 +1,15 @@
+<div class="row row--alley-2">
+    <div class="col-1">
+        <h1 translate="REPORTING.TITLE"></h1>
+        <div class="set set--accordion" data-js="accordion" data-collapsable="true" data-collapse-all="true" ng-repeat="group in groups">
+            <div class="set__trigger" data-toggle="{{group.id}}">
+                <a href="#{{group.id}}" ng-bind="group.name"></a>
+            </div>
+            <div id="{{group.id}}" class="set__content">
+                <div ng-repeat="category in categories | filter:group.id">
+                    <a href="#" ng-click="goToReportByCategory(category.id)" ng-bind="category.name"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
