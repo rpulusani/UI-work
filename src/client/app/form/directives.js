@@ -1,28 +1,30 @@
 angular.module('mps.form')
 .directive('input',[
     function(){
+        console.log("entered 1 2 3");
         return {
             restrict: 'E',
-            require: ['?input', '?ngModel'],
-            link: {
-                post: function(scope, el, attr, model){
+            require: ['ngModel'],
+            link: function(scope, el, attr, model){
+                    console.log("entered 4 5 6");
                     (function(require) {
                         require(['lxk.fef'], function() {
+                            console.log("entered 7 8 9");
                             if (!model || model.length < 2) {
                                     return;
                             }
+                            console.log("entered?");
                             var $ = require('jquery');
                             switch(el[0]["type"]){
                                 case 'checkbox':
-                                $(el).customInput();
+                                    $(el).customInput();
                                 break;
                                 case 'radio':
-                                $(el).customInput();
+                                    $(el).customInput();
                                 break;
                             }
                         });
                     })(require);
-                }
             }
         };
     }
