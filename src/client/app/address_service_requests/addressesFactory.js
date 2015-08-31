@@ -5,10 +5,16 @@ angular.module('mps.serviceRequestAddresses')
     var Address = function() {
         var addy = this;
 
-        addy.address = { id:0 };
+        addy.master = { id:0 };
+        addy.address = null;
 
         addy.addresses = []; // data store
     };
+
+    Address.prototype.new = function(){
+        var addy = this;
+        addy.address = angular.copy({ id:0 });
+    }
 
     Address.prototype.save = function(formdata, fn) {
         var addy = this;
