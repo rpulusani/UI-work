@@ -63,6 +63,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.goToCreate = function() {
+            Addresses.new();
             $location.path('/service_requests/addresses/new');
         };
 
