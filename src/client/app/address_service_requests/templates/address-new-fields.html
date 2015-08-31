@@ -21,16 +21,14 @@
 </div>
 <div class="form__field form__field--required">
     <label translate="ADDRESS.COUNTRY"></label>
-    <select name="country" ng-model="address.country" required>
-        <option value="">- select -</option>
-        <option>United States</option>
+    <select name="country" ng-model="address.country" required
+            ng-options="country.name for country in countryHAL.countries track by country.code">
     </select>
 </div>
 <div class="form__field form__field--required">
     <label translate="ADDRESS.STATE"></label>
-    <select name="state" ng-model="address.state" required>
-        <option value="">- select -</option>
-        <option>Kentucky</option>
+    <select name="state" ng-model="address.state" required
+            ng-options="province.name for province in address.country.provinces track by province.code">
     </select>
 </div>
 <div class="form__field form__field--required">
