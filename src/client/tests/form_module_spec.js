@@ -181,10 +181,8 @@ describe('Form Module', function() {
                     expect($(elm).find("li.selected")).toBeDefined();
                     expect($(elm).find("li.selected").html()).toBe("--select--");
                     
-                    console.log("selectric " + $(elm).find(".selectric"));
                     $(elm).find(".selectric").click();
                     var option1 = $(elm).find("li");
-                    console.log(option1);
                     option1.click();
                     $(elm).find("#test").selectric("refresh");
                     expect($(elm).find("li.selected").html()).toBe("USA");

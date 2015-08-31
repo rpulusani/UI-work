@@ -30,6 +30,8 @@ require.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
 
+        'gatekeeper-mocks': 'tests/mock-gatekeeper',
+
         'app': 'app/app',
 
         'navigation': 'app/navigation/navigation',
@@ -80,6 +82,8 @@ require.config({
         'angular-translate-storage-local': ['angular-translate'],
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
+
+        'gatekeeper-mocks': ['angular'],
 
         'app': ['angular',
                 'angular-resource',
@@ -151,6 +155,8 @@ require.config({
         'angular-translate-storage-local',
         'angular-translate-loader-static-files',
         'angular-translate-loader-url',
+
+        'gatekeeper-mocks',
 
         'app',
 

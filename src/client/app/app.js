@@ -65,7 +65,7 @@ angular.module('mps', [
             }
         }
 
-        $translateProvider.useSanitizeValueStrategy(null)
+        $translateProvider.useSanitizeValueStrategy(null);
 
         $translateProvider
             .preferredLanguage(myLanguage)
