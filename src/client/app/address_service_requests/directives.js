@@ -3,10 +3,10 @@ angular.module('mps.serviceRequestAddresses')
 .directive('addressNewFields', function() {
     return {
         restrict: 'A',
-        scope: {},
         templateUrl: '/app/address_service_requests/templates/address-new-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService){
             $scope.countryHAL = CountryService.getHAL();
+        }]
         }]
     };
 })
