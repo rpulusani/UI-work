@@ -120,7 +120,7 @@ requirejs.config({
         'report':  ['app'],
         'report.controller': ['app', 'report', 'report.factory'],
         'report.directives': ['app', 'report'],
-	'report.factory': ['app', 'report'],
+	    'report.factory': ['app', 'report'],
 	
         'gatekeeper': ['angular-cookies', 'angular-route']
         

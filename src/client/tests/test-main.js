@@ -71,7 +71,10 @@ require.config({
 
         'deviceManagement': 'app/device_management/deviceManagement',
 
-        'report': 'app/reporting/report'
+        'report': 'app/reporting/report',
+        'report.controller': 'app/reporting/controller',
+        'report.directives': 'app/reporting/directives',
+        'report.factory': 'app/reporting/reportFactory'
     },
     shim: {
         'angular-resource': ['angular'],
@@ -138,7 +141,10 @@ require.config({
 
         'deviceManagement':  ['app'],
 
-        'report':  ['app']
+        'report':  ['app'],
+        'report.controller': ['app', 'report', 'report.factory'],
+        'report.directives': ['app', 'report'],
+        'report.factory': ['app', 'report']
     },
 
   // dynamically load all test files
@@ -198,6 +204,9 @@ require.config({
         'deviceManagement',
 
         'report',
+        'report.controller',
+        'report.directives',
+        'report.factory'
 
         
   ].concat(allTestFiles),
