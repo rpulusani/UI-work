@@ -19,7 +19,7 @@
         <input name="addName" type="text" ng-model="address.addName" value="" class="" required />
         <span  ng-hide="!newAddress.addName.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
     </div>
-    <div class="form__field">    
+    <div class="form__field"> 
         <label translate="ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION"></label>
          <div class="form__field form__field--radio form__field--no-margin">
             <input type="radio" id="store-front-question-no" name="store-front-question" ng-model="address.storeFrontQuestion" value="false" data-js="customInput" ng-checked='true' /><label for="store-front-question-no"><span class="form__field--is-checked""></span> {{'LABEL.NO' | translate }}</label>
@@ -50,10 +50,9 @@
 <div class="col-1-3">
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS.COUNTRY"></label>
-        <select id="country" name="country" ng-model="address.country" data-js="customSelect" required>
-            <option value="">- Select - </option>
-            <option ng-selected="true">United States</option>
-            <option>Canada</option>
+         <select name="country" ng-model="address.country" required
+           ng-options="country.name for country in countryHAL.countries track by country.code">
+            <option value="">- Select -</option>
         </select>
         <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
         
@@ -81,16 +80,17 @@
 
     </div>
 
-<div class="col-1-3">
+    <div class="col-1-3">
         <div class="form__field form__field--select form__field--required">
             <label translate="ADDRESS.STATE"></label>
     <select name="state" ng-model="address.state" required
             ng-options="province.name for province in address.country.provinces track by province.code">
             </select>
-            <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
+            <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> 
+                <span translate="LABEL.ERROR_REQUIRED"></span></span>
         </div>
-</div>
-<div class="col-1-3"></div>
+    </div>
+    <div class="col-1-3"></div>
 </div>
 <div class="row">
 <div class="col-1-3">
