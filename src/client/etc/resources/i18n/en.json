@@ -77,13 +77,10 @@
         "ASSET_REGISTER": "Asset Register",
         "FUTURE_RATE": "Future Rate",
         "FCC_RATE": "FCC Rate",
-        "NAME": "Report",
-        "DATE": "Date",
-        "STATUS": "Status",
+        "REPORT_NAME": "Report",        
         "ACTION": "Action",
         "RUN": "RUN THIS REPORT",
-        "RUN_TITLE": "Run Report",
-        "SUBMIT": "Submit"
+        "RUN_TITLE": "Run Report"
     },
 
     "INVOICE": {
@@ -118,7 +115,9 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "WITH_COLUMN": "{{value}}:"
+        "WITH_COLUMN": "{{value}}:",
+        "DATE": "Date",
+        "STATUS": "Status"
     },
 
     "MESSAGE": {
