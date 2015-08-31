@@ -67,14 +67,12 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) 
                     scope.goToReportByCategory(definitionId);
                     expect(location.path).toHaveBeenCalledWith('/reporting/123/view');
                 });
-            });
+            });            
 
             describe('goToRun', function() {
-                it('should take to the report submit page based on report category', function() {
-                    var definitionId = '123';
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.goToRun(definitionId);
-                    expect(location.path).toHaveBeenCalledWith('/reporting/123/run');
+                it('should set toRunReport to true', function() {
+                    scope.goToRun();
+                    expect(scope.toRunReport).toBe(true);
                 });
             });
 
