@@ -14,7 +14,8 @@ angular.module('mps', [
     'mps.pageCount',
     'mps.navigation',
     'mps.utility',
-    'gatekeeper'
+    'gatekeeper',
+    'mps.form'
 ])
 
 .factory('errorLogInterceptor', function() {
@@ -64,7 +65,7 @@ angular.module('mps', [
             }
         }
 
-        $translateProvider.useSanitizeValueStrategy(null)
+        $translateProvider.useSanitizeValueStrategy(null);
 
         $translateProvider
             .preferredLanguage(myLanguage)

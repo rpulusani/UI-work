@@ -1,5 +1,5 @@
 /* global describe it beforeEach inject expect */
-
+define(['angular','angular-mocks', 'contact'], function(angular, mocks, contact) {
 describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
@@ -174,4 +174,5 @@ describe('Contact Service Request Module', function() {
             }));
         });
     });
+});
 });
