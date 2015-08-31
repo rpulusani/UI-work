@@ -25,7 +25,7 @@ module.exports = function(config) {
         { pattern: 'client/app/libs/angular-translate-loader-static-files.min.js', included: false},
         { pattern: 'client/app/libs/angular-translate-loader-url.min.js', included: false},
         { pattern: 'client/tests/angular-mocks.js', included: false},
-        'client/tests/mock-gatekeeper.js',
+        { pattern: 'client/tests/mock-gatekeeper.js', included: false},
         { pattern: 'client/app/app.js', included: false},
         { pattern: 'client/app/form/form.js', included: false},
         { pattern: 'client/app/form/*.js', included: false},
