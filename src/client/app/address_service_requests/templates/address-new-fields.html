@@ -50,9 +50,9 @@
 <div class="col-1-3">
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS.COUNTRY"></label>
-         <select name="country" ng-model="address.country" required
-           ng-options="country.name for country in countryHAL.countries track by country.code">
+         <select name="country" ng-model="address.country" required>
             <option value="">- Select -</option>
+            <option>USA</option>
         </select>
         <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
         
