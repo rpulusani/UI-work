@@ -3,7 +3,9 @@ angular.module('mps.serviceRequestContacts')
 .controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
     function($scope, $location, $routeParams, History, ContactService) {
         //TODO: Remove hardcoded accountId, which needs to come from login.
-        $scope.contacts = ContactService.query({accountId: 1});
+        $scope.contactHAL = ContactService.getHAL({accountId: 1}, function(){
+            $scope.contacts = $scope.contactHAL.contacts;
+        });
 
         $scope.back = function() {
             History.back();
@@ -14,7 +16,9 @@ angular.module('mps.serviceRequestContacts')
         }
 
         $scope.goToUpdate = function(contact) {
-            $location.path('/service_requests/contacts/' + contact.id + '/update');
+            var href = contact._links.self.href;
+            var contact_id = href.split('/').pop();
+            $location.path('/service_requests/contacts/' + contact_id + '/update');
         };
 
         $scope.remove = function(contact) {

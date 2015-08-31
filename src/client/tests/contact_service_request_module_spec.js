@@ -11,7 +11,7 @@ describe('Contact Service Request Module', function() {
                 delete: function(contact, resolve) {
                     resolve(true);
                 },
-                query: jasmine.createSpy()
+                getHAL: jasmine.createSpy()
             };
 
             module(function($provide) {
@@ -42,7 +42,7 @@ describe('Contact Service Request Module', function() {
 
         describe('goToUpdate', function() {
             it('should take to update page', function() {
-                var contact = {id: '1'};
+                var contact = { _links: { self: { href: 'accounts/1/contacts/1'} } };
                 spyOn(location, 'path').and.returnValue('/');
                 scope.goToUpdate(contact);
                 expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/update');
