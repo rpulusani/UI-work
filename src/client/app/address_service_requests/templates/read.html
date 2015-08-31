@@ -1,32 +1,67 @@
-<h4 translate="ADDRESS.INFO"></h4>
-<dl class="row row--alley-4">
-    <dt class="col-1-2" translate="{{'ADDRESS.NAME' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.addName"></dd>
+<div class="row">
+    <div class="col-1">
+        <div class="row">
+            <div class="col-1-6">
+                <h4 translate="ADDRESS.INFO"></h4> 
+            </div>
+            <div class="col-1-2">
+                <a href="#" class="col-1-3 " ng-click="back()" translate="LABEL.MAKE_CHANGES"></a>
+            </div>
+        </div>
+        <hr/>
+        <div ng-bind="address.addName"></div>
+        <div ng-bind="address.storeName" ng-show="address.storeName"></div> 
+        <div ng-bind="address.addrLine1"></div>
+        <div ng-bind="address.addrLine2" ng-show="address.addrLine2"></div>
+        <div>
+            <span ng-bind="address.city"></span><span ng-show="address.city",</span> <span ng-bind="address.state"></span> <span ng-bind="address.zipCode"></span>
+        </div>
+        <div ng-bind="address.country"></div>
+        <h4 translate="SERVICE_REQUEST.CONTACT_INFORMATION"></h4>
+        <hr/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1-3">
+        <strong translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></strong>
+        <div class="contact-info">
+            <em translate="LABEL.NONE_SELECTED"></em>
+        </div>
+    </div>
+    <div class="col-1-3">
+         <strong translate="SERVICE_REQUEST.PRIMARY_CONTACT"></strong>
+        <div class="contact-info">
+            <em translate="LABEL.NONE_SELECTED"></em>
+        </div>
+        <a ng-click="" translate="SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT"></a>
+    </div>
+    <div class="col-1-3">
+        <strong translate="SERVICE_REQUEST.SECONDARY_CONTACT"></strong>
+        <div class="contact-info">
+            <em translate="LABEL.NONE_SELECTED"></em>
+        </div>
+        <a ng-click="" translate="SERVICE_REQUEST.ADD_SECONDARY_CONTACT"></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1">
+        <h4 translate="SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h4>
+        <hr/>
+        <form name="serviceRequestAdditions" novalidate>
+            <div class="row">
+                <div class="col-1-3">
+                    <div class="form__field">
+                        <label translate="SERVICE_REQUEST.INTERNAL_REFENCE_ID "></label>
+                        <input name="internalReference" type="text" ng-model="address.internalRefernceId"/>
+                    </div>
+                    <div class="form__field">
+                        <label translate="LABEL.COMMENTS "></label>
+                        <textarea  ng-model="address.comments"></textarea>
+                    </div>
+                </div>
+        </form>
+        <hr/>
+    </div>
+</div>
 
-    <dt class="col-1-2" translate="{{'ADDRESS.STORE_NAME' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.storeName"></dd>
 
-    <dt class="col-1-2" translate="{{'ADDRESS.LINE_1' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.addrLine1"></dd>
-
-    <dt class="col-1-2" translate="{{'ADDRESS.LINE_2' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.addrLine2"></dd>
-
-    <dt class="col-1-2" translate="{{'ADDRESS.COUNTRY' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.country"></dd>
-
-    <dt class="col-1-2" translate="{{'ADDRESS.STATE_PROVINCE' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.state"></dd>
-
-    <dt class="col-1-2" translate="{{'ADDRESS.CITY' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.city"></dd>
-
-    <dt class="col-1-2" translate="{{'ADDRESS.COUNTRY' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.country"></dd>
-
-    <dt class="col-1-2" translate="{{'ADDRESS.DISTRICT' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.district"></dd>
-    
-    <dt class="col-1-2" translate="{{'ADDRESS.ZIP_POSTAL' | translate}}"></dt>
-    <dd class="col-1-2" ng-bind="address.zipCode"></dd>
-</dl>

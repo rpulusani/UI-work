@@ -23,6 +23,10 @@ angular.module('mps.serviceRequestAddresses')
             requestedEffectiveDate: ''
         };
 
+        $scope.setStoreFrontName = function(){
+            $scope.address.storeName =  $scope.address.addName;
+        };
+
         $scope.loadTestData = function() {
             $scope.contact.name = 'Vickers PetsAtHome';
             $scope.contact.phoneNumber = '9992882222';
@@ -34,24 +38,9 @@ angular.module('mps.serviceRequestAddresses')
             fd;
 
             $scope.submitForm = false; // Request data from the server
-
-            if (!Addresses.address) {
-                fd = new FormData(document.getElementsByName('newAddress')[0]);
-
-                Addresses.save(fd, function(res) {
-                    Addresses.addresses = [];
-
-                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
-                });
-            } else {
-                fd = new FormData(document.getElementsByName('editAddress')[0]);
-
-                Addresses.update(fd, Addresses.address.id, function(res) {
-                    Addresses.addresses = [];
-
-                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
-                });
-            }
+        
+            // 1 send to address creation
+            $location.path('/service_requests/addresses/' + $scope.address.id + '/submitted');
         };
 
         $scope.back = function() {
@@ -74,13 +63,15 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.goToCreate = function() {
-            Addresses.address = null;
             $location.path('/service_requests/addresses/new');
-        }
+        };
 
-        $scope.goToRead = function(id) {
-            $location.path('/service_requests/addresses/' + id + '/review');
-        }
+        $scope.goToRead = function() {
+            Addresses.getById($scope.address.id, function() {
+                $scope.address = Addresses.address;
+                $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
+            });
+        };
 
         $scope.goToViewAll = function(id) {
             $location.path('/service_requests/addresses');
