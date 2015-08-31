@@ -29,6 +29,15 @@ angular.module('mps', [
     };
 })
 
+.factory('halInterceptor', function() {
+    return {
+        response: function(response) {
+            angular.copy(response.data._embedded, response.resource);
+            return response;
+        }
+    }
+})
+
 .constant('mpsApiUri', 'http://10.145.116.233:8080/mps')
 
 .constant('serviceUrl', config.portal.serviceUrl)

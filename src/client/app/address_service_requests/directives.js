@@ -7,7 +7,6 @@ angular.module('mps.serviceRequestAddresses')
         templateUrl: '/app/address_service_requests/templates/address-new-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService){
             $scope.countryHAL = CountryService.getHAL();
-            console.log($scope.countryHAL);
         }]
     };
 })
