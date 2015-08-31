@@ -1,73 +1,105 @@
 <fieldset>
 <div class="row">
-<div class="col-9-12">
+<div class="col-1-3">
     <legend translate="ADDRESS.INFO"></legend>
+</div>
+<div class="col-1-3"></div>
+<div class="col-1-3"></div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+    <h3 translate="ADDRESS_SERVICE_REQUEST.IDENTIFY_ADDRESS"></h3>
+</div>
+<div class="col-1-3"></div>
+</div>
+<div class="row">
+<div class="col-1-3">
     <div class="form__field form__field--required">
         <label translate="ADDRESS.NAME "></label>
         <input name="addName" type="text" ng-model="address.addName" value="" class="" required />
+        <span  ng-hide="!newAddress.addName.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
     </div>
-
     <div class="form__field">    
         <label translate="ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION"></label>
-        
          <div class="form__field form__field--radio form__field--no-margin">
-            <input type="radio" id="store-front-question-no" name="store-front-question" ng-model="address.storeFrontQuestion" value="false" data-js="custom-input"/><label for="store-front-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+            <input type="radio" id="store-front-question-no" name="store-front-question" ng-model="address.storeFrontQuestion" value="false" data-js="customInput" ng-checked='true' /><label for="store-front-question-no"><span class="form__field--is-checked""></span> {{'LABEL.NO' | translate }}</label>
         </div>
          <div class="form__field form__field--radio form__field--no-margin">
-            <input type="radio" id="store-front-question-yes" name="store-front-question" ng-model="address.storeFrontQuestion" value="true" data-js="custom-input"/><label  for="store-front-question-yes"><span></span> {{ 'ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION_YES' | translate }}</span></label>
+            <input type="radio" id="store-front-question-yes" name="store-front-question" ng-model="address.storeFrontQuestion" value="true" data-js="customInput"/><label  for="store-front-question-yes"><span></span> {{ 'ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION_YES' | translate }}</span></label>
         </div>
     </div>
-
-
-    <div class="form__field" ng-show="{{store-front-question}}">
+<div ng-show="address.storeFrontQuestion === 'true'" class="well">
+    <div class="form__field" >
         <label translate="ADDRESS.STORE_NAME"></label>
-        <input name="storeName" type="text" ng-model="address.storeName" value="" class="" required />
+        <input name="storeName" type="text" ng-model="address.storeName" value="" class="" />
     </div>
-
-    <div class="form__field form__field--required">
+    <div class="form__field form__field--checkbox">
+        <input id = "sameAddress" name="sameAddress" type="checkbox" ng-model="address.storeFront" data-js="customInput" value="true" ng-click="setStoreFrontName()"/> <label for="sameAddress"><span></span> {{'ADDRESS_SERVICE_REQUEST.SAME_ADDRESS_QUESTION' | translate }}<label>
+</div>
+</div>
+<div class="col-1-3"></div>
+<div class="col-1-3"></div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+<h3 translate="ADDRESS_SERVICE_REQUEST.LOCATION_OF_ADDRESS"></h3>
+</div>
+<div class="col-1-3"></div>
+</div>
+<div class="row">
+<div class="col-1-3">
+    <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS.COUNTRY"></label>
-        <select name="country" ng-model="address.country" required>
-            <option value="">- select -</option>
-            <option>United States</option>
+        <select id="country" name="country" ng-model="address.country" data-js="customSelect" required>
+            <option value="">- Select - </option>
+            <option ng-selected="true">United States</option>
+            <option>Canada</option>
         </select>
+        <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
+        
     </div>
+    
     <div class="form__field form__field--required">
         <label translate="ADDRESS.LINE_1"></label>
-        <input name="addrLine1" type="text" ng-model="address.addrLine1" />
+        <input name="addrLine1" type="text" ng-model="address.addrLine1" required/>
+        <span ng-hide="!newAddress.addrLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
     </div>
     <div class="form__field">
         <label translate="ADDRESS.LINE_2"></label>
         <input name="addrLine2" type="text" ng-model="address.addrLine2"  />
     </div>
 </div>
-<div class="col-3-12"></div>
+<div class="col-2-3"></div>
 </div>
- <div class="row">
-    <div class="col-1-2">
+ <div class="row--alley-1">
+    <div class="col-1-3">
         <div class="form__field form__field--required">
             <label translate="ADDRESS.CITY"></label>
             <input name="city" type="text" ng-model="address.city" required />
+            <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
         </div>
 
     </div>
 
-<div class="l-alley col-1-2">
-        <div class="form__field form__field--required">
+<div class="col-1-3">
+        <div class="form__field form__field--select form__field--required">
             <label translate="ADDRESS.STATE"></label>
     <select name="state" ng-model="address.state" required
             ng-options="province.name for province in address.country.provinces track by province.code">
             </select>
+            <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
         </div>
 </div>
+<div class="col-1-3"></div>
 </div>
 <div class="row">
-<div class="col-9-12">
+<div class="col-1-3">
     <div class="form__field form__field--required">
         <label translate="ADDRESS.ZIP"></label>
         <input type="text" name="zipCode" ng-model="address.zipCode" value="" class="" required />
+        <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
     </div>
 </div>    
-<div class="col-3-12"></div>
-
+<div class="col-1-3"></div>
 </div>
 </fieldset>

@@ -4,21 +4,24 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-3-4">
+    <div class="col-2-3">
+        <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="">Learn more about requests</a>
+    </p>
     </div>
 </div>
 <div class="row">
-    <form class="form" data-form="" name="newAddress" method="post"
-          ng-submit="newAddress.$valid && continue()" enctype="multipart/form-data" novalidate>
-        <address-new-fields></address-new-fields>
+    <form class="form" data-form="" name="newAddress" novalidate>
+        <div address-new-fields></div address-new-fields>
     </form>
 </div>
 <div class="row">
-    <div class="col-3-4">
+    <div class="col-1">
           <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
                 translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
-        <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit"
-                translate="LABEL.REVIEW_SUBMIT"></button>
+        <button name="submit" class="col-1-3 btn btn--primary" type="submit"
+                translate="LABEL.REVIEW_SUBMIT" ng-click="newAddress.$valid && goToRead();"></button>
+    </div>
+    <div class="col-1-3">
     </div>
 </div>

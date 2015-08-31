@@ -2,18 +2,29 @@
 
     <div alert-message></div>
 
+<div class="row">
     <div class="col-1">
-        <h1 translate="ADDRESS_SERVICE_REQUEST.CHANGE"></h1>
-        <h2>Pets At Home / Pets At Home_MSA2010_MPS-UK</h2>
-        <h3 translate="ADDRESS_SERVICE_REQUEST.ADD"></h3>
+        <h1 translate="ADDRESS_SERVICE_REQUEST.ADD"></h1>
     </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="">Learn more about requests</a>
+    </p>
+    </div>
+</div>
+
 
     <div class="col-1">
         <div read-address></div>
     </div>
-
-    <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()"
-            translate="LABEL.BACK"></button>
-    <button name="submit" class="col-1-3 btn btn--primary" ng-click="goToViewAll()" type="submit"
-            translate="LABEL.CONTINUE"></button>
+    <div class="row">
+        <div class="col-1">
+            <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
+                translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
+            <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit"
+                translate="ADDRESS_SERVICE_REQUEST.SUBMIT_ADDRESS_REQUEST"></button>
+        </div>
+    </div>
 </div>

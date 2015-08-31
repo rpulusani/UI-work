@@ -10,7 +10,32 @@
         "DELETE_MULTI": "Delete Multiple Addresses",
         "ABANDON": "Abandon Address Request",
         "STORE_FRONT_QUESTION": "Will this address be a store-front?",
-        "STORE_FRONT_QUESTION_YES": "Yes, address will be a store-front"
+        "STORE_FRONT_QUESTION_YES": "Yes, address will be a store-front",
+        "SAME_ADDRESS_QUESTION": "Same as address name used above",
+        "IDENTIFY_ADDRESS": "How would you like to identify this address?",
+        "LOCATION_OF_ADDRESS": "What is the location of this address?",
+        "SUBMIT_ADDRESS_REQUEST": "Submit Address Request",
+        "ADDRESS_SUBMITTED": "Add Address Request Submitted",
+        "ADDRESS_REQUESTED": "Address requested",
+        "WOULD_YOU_LIKE": "Would you like to ",
+        "ADD_ANOTHER_ADDRESS": "add another address",
+        "DETAILS_TITLE":"Details for Address Request Number: 1-2345-67890"
+    },
+
+    "SERVICE_REQUEST": {
+        "CONTACT_INFORMATION": "Request contact information",
+        "REQUEST_CREATED_BY": "Request created by",
+        "PRIMARY_CONTACT": "Primary contact",
+        "SECONDARY_CONTACT": "Secondary contact",
+        "CHANGE_PRIMARY_CONTACT": "Change primary contact",
+        "ADD_SECONDARY_CONTACT": "Add secondary contact",
+        "CHANGE_SECONDARY_CONTACT": "Change secondary contact",
+        "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+        "INTERNAL_REFENCE_ID": "Internal Refernce ID",
+        "SUBMISSION_TEXT": "Your address request (1-2345-67890) has been submitted. Please allow [x] hours for our team to review and process the request.",
+        "REQUEST_STATUS": "Request status",
+        "IN_PROCESS": "In Process",
+        "SUBMITED": "Submitted"
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -101,6 +126,7 @@
 
     "LABEL": {
         "BACK": "Back",
+        "MAKE_CHANGES": "Make Changes",
         "CANCEL": "Cancel",
         "CONTINUE": "Continue",
         "SUBMIT": "Submit",
@@ -121,8 +147,12 @@
         "ACTION": "Actions",
         "WITH_COLUMN": "{{value}}:",
         "DATE": "Date",
-        "NO": "No"
+        "NO": "No",
+        "ERROR_REQUIRED": "This field is required.",
         "STATUS": "Status"
+        "NONE_SELECTED": "None selected",
+        "NONE": "None",
+        "COMMENTS": "Comments"
     },
 
     "MESSAGE": {

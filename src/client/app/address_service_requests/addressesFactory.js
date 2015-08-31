@@ -5,7 +5,7 @@ angular.module('mps.serviceRequestAddresses')
     var Address = function() {
         var addy = this;
 
-        addy.address = null;
+        addy.address = { id:0 };
 
         addy.addresses = []; // data store
     };
@@ -37,16 +37,31 @@ angular.module('mps.serviceRequestAddresses')
         });
     };
 
+
     Address.prototype.getById = function(id, fn) {
         var addy = this;
 
-        $http.get('/accounts/1/addresses/' + id).success(function(res) {
-            addy.address = res;
-
+        if(id !== undefined && id !== null && id !== "0" && id !== 0){
+                var length = addy.addresses.length,
+                localAddresses = addy.addresses;
+                for(var i = 0; i < length; ++i){
+                    if(id === localAddresses[i].id){
+                        addy.address = localAddresses[i];
+                        return fn();
+                    }
+                }
+        } else if(id === "0" || id === 0){
+            //in the process of creating a new record do nothing for now
+            //don't get from local datastore or network datastore
             return fn();
-        }).error(function(data) {
-            NREUM.noticeError(data);
-        });
+        } else{
+            $http.get('/accounts/1/addresses/' + id).success(function(res) {
+                addy.address = res;
+                return fn();
+            }).error(function(data) {
+                NREUM.noticeError(data);
+           });
+        }
     };
 
     Address.prototype.removeById = function(id, fn) {
