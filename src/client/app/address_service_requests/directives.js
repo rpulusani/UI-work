@@ -7,7 +7,6 @@ angular.module('mps.serviceRequestAddresses')
         controller: ['$scope', 'CountryService', function($scope, CountryService){
             $scope.countryHAL = CountryService.getHAL();
         }]
-        }]
     };
 })
 .directive('addressLocationFields', function() {
