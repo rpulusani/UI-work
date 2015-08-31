@@ -2,7 +2,7 @@
 angular.module('mps.report')
 .directive('reportNavigation', function() {
     return {
-        restrict: 'E',
+        restrict: 'A',
         templateUrl: '/app/reporting/templates/report-list.html',
         controller: 'ReportController',
         link: function(scope, el, attr){

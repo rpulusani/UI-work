@@ -18,7 +18,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
             if (typeof fn === 'function') {
                 return fn(res);
             }
-        }).catch(function(data) {
+        })['catch'](function(data) {
             NREUM.noticeError(data);
         });
     };
@@ -32,7 +32,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
             if (typeof fn === 'function') {
                 return fn(res);
             }
-        }).catch(function(data) {
+        })['catch'](function(data) {
             NREUM.noticeError(data);
         });
     };
@@ -78,7 +78,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
     Report.prototype.removeById = function(id, fn) {
         var report = this;
 
-        $http.delete('/accounts/1/reports/' + id).success(function(res) {
+        $http['delete']('/accounts/1/reports/' + id).success(function(res) {
             var i = 0,
             reportCnt = report.reports.length;
 

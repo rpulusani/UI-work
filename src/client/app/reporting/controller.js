@@ -1,12 +1,24 @@
 'use strict';
 angular.module('mps.report')
-.controller('ReportController', ['$scope', '$http', '$location','$routeParams', 'Report',
-    function($scope, $http, $location, $routeParams, Report) {
+.controller('ReportController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Report',
+    function($scope, $http, $location, $routeParams, History, Report) {
         $scope.reports = Report.reports;
         $scope.groups = Report.groups;
         $scope.categories = Report.categories;        
         $scope.catagory = "";
         $scope.categoryDesc = "";
+
+        $scope.back = function() {
+            History.back();
+        };
+
+        $scope.cancel = function(){
+            redirect_to_list();
+        };
+
+        var redirect_to_list = function() {
+            $location.path('/reporting');
+        };
 
         $scope.reportByCategory = function(definitionId) {
             Report.getByDefinitionId(definitionId, function() {
@@ -22,7 +34,7 @@ angular.module('mps.report')
             $location.path('/reporting/' + definitionId + '/run');
         }
 
-        $scope.runReport = function(definitionId,categoryDesc) {
+        $scope.runReport = function(definitionId) {
             var fd = new FormData(document.getElementsByName('newReport')[0]);
             Report.save(fd, function(report) {
                 Report.reports = [];
