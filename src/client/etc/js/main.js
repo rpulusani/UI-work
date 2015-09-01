@@ -15,11 +15,10 @@ requirejs.config({
 
         'app',
 
-        'navigation',
-        'navigation.navFactory',
-        'navigation.topNav',
-        'navigation.leftNav',
-        'navigation.directives',
+        'nav',
+        'nav.controllers',
+        'nav.services',
+        'nav.directives',
 
         'form',
         'form.directives',
@@ -77,11 +76,10 @@ requirejs.config({
                 'angular-translate-loader-url',
                 'gatekeeper'],
 
-        'navigation': ['app'],
-        'navigation.topNav': ['app', 'navigation', 'navigation.navFactory'],
-        'navigation.leftNav': ['app', 'navigation', 'navigation.navFactory'],
-        'navigation.navFactory': ['app', 'navigation'],
-        'navigation.directives': ['app', 'navigation'],
+        'nav': ['app'],
+        'nav.controllers': ['app', 'nav', 'nav.services'],
+        'nav.services': ['app', 'nav'],
+        'nav.directives': ['app', 'nav'],
 
         'form':['app'],
         'form.directives': ['app','form'],
@@ -133,11 +131,10 @@ requirejs.config({
 
         'app': 'app/app',
 
-        'navigation': 'app/navigation/navigation',
-        'navigation.navFactory': 'app/navigation/navFactory',
-        'navigation.topNav': 'app/navigation/topNavController',
-        'navigation.leftNav': 'app/navigation/leftNavController',
-        'navigation.directives': 'app/navigation/directives',
+        'nav': 'app/nav/nav',
+        'nav.controllers': 'app/nav/controllers',
+        'nav.services': 'app/nav/services',
+        'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
