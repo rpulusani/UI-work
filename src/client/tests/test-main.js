@@ -34,12 +34,6 @@ require.config({
 
         'app': 'app/app',
 
-        'navigation': 'app/navigation/navigation',
-        'navigation.navFactory': 'app/navigation/navFactory',
-        'navigation.topNav': 'app/navigation/topNavController',
-        'navigation.leftNav': 'app/navigation/leftNavController',
-        'navigation.directives': 'app/navigation/directives',
-
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
 
@@ -101,12 +95,6 @@ require.config({
             exports: 'angular-mocks'
         },
 
-        'navigation': ['app'],
-        'navigation.topNav': ['app', 'navigation', 'navigation.navFactory'],
-        'navigation.leftNav': ['app', 'navigation', 'navigation.navFactory'],
-        'navigation.navFactory': ['app', 'navigation'],
-        'navigation.directives': ['app', 'navigation'],
-
         'form':['app'],
         'form.directives': ['app','form'],
 
@@ -159,12 +147,6 @@ require.config({
         'gatekeeper-mocks',
 
         'app',
-
-        'navigation',
-        'navigation.navFactory',
-        'navigation.topNav',
-        'navigation.leftNav',
-        'navigation.directives',
 
         'form',
         'form.directives',
