@@ -34,6 +34,11 @@ require.config({
 
         'app': 'app/app',
 
+        'nav': 'app/nav/nav',
+        'nav.controllers': 'app/nav/controllers',
+        'nav.services': 'app/nav/services',
+        'nav.directives': 'app/nav/directives',
+
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
 
@@ -95,6 +100,11 @@ require.config({
             exports: 'angular-mocks'
         },
 
+        'nav': ['app'],
+        'nav.controllers': ['app', 'nav', 'nav.services'],
+        'nav.services': ['app', 'nav'],
+        'nav.directives': ['app', 'nav', 'nav.services'],
+
         'form':['app'],
         'form.directives': ['app','form'],
 
@@ -147,6 +157,11 @@ require.config({
         'gatekeeper-mocks',
 
         'app',
+
+        'nav',
+        'nav.controllers',
+        'nav.services',
+        'nav.directives',
 
         'form',
         'form.directives',

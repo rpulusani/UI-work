@@ -27,6 +27,7 @@ module.exports = function(config) {
         { pattern: 'client/tests/angular-mocks.js', included: false},
         { pattern: 'client/tests/mock-gatekeeper.js', included: false},
         { pattern: 'client/app/app.js', included: false},
+        { pattern: 'client/app/nav/*.js', included: false},
         { pattern: 'client/app/form/form.js', included: false},
         { pattern: 'client/app/form/*.js', included: false},
         { pattern: 'client/app/service_requests/serviceRequest.js', included: false},

@@ -79,7 +79,7 @@ requirejs.config({
         'nav': ['app'],
         'nav.controllers': ['app', 'nav', 'nav.services'],
         'nav.services': ['app', 'nav'],
-        'nav.directives': ['app', 'nav'],
+        'nav.directives': ['app', 'nav', 'nav.services'],
 
         'form':['app'],
         'form.directives': ['app','form'],
