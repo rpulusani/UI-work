@@ -1,0 +1,16 @@
+<a class="nav-item"
+    href="{{item.action}}"
+    title="{{item.description}}"
+    ng-class="{'is-active': isActive()}"
+>
+    <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
+    <span translate="{{item.text}}"></span>
+</a>
+<ul class="sub-nav"
+    ng-if="hasChildren()"
+>
+    <li ng-repeat="child in children"
+        nav-item
+        item="child"
+    ></li>
+</ul>

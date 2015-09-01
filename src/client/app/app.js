@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('mps', [
     'ngRoute',
     'ngResource',
@@ -12,7 +13,7 @@ angular.module('mps', [
     'mps.invoice',
     'mps.deviceManagement',
     'mps.pageCount',
-    'mps.navigation',
+    'mps.nav',
     'mps.utility',
     'gatekeeper',
     'mps.form'

@@ -1,0 +1,54 @@
+.nav-btn{
+    display: block;
+    padding: @base-grid-v @base-grid-h;
+
+    .icon{
+        vertical-align: baseline;
+    }
+}
+
+.rail-nav{
+
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li{
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    a{
+        
+    }
+
+    .nav-item{
+        display: block;
+        padding: @base-grid-v @base-grid-h;
+        position: relative;
+        border-left: @base-grid-h solid;
+        transition: .1s;
+
+        .icon{
+            vertical-align: baseline;
+            line-height: 1;
+        }
+
+        .item-icon{
+            font-size: 1.25em;
+        }
+    }
+
+    a.nav-item{
+
+    }
+
+    .sub-nav{
+        .nav-item{
+            padding: @base-grid-v (2)*@base-grid-h;
+        }
+    }
+}
