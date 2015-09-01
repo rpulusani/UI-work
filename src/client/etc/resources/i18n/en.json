@@ -35,7 +35,11 @@
         "SUBMISSION_TEXT": "Your address request (1-2345-67890) has been submitted. Please allow [x] hours for our team to review and process the request.",
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
-        "SUBMITED": "Submitted"
+        "SUBMITED": "Submitted",
+        "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
+        "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
+        "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
+        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST" 
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -152,7 +156,8 @@
         "STATUS": "Status"
         "NONE_SELECTED": "None selected",
         "NONE": "None",
-        "COMMENTS": "Comments"
+        "COMMENTS": "Comments",
+        "SELECT": "-Select-"
     },
 
     "MESSAGE": {

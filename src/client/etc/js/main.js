@@ -29,6 +29,7 @@ requirejs.config({
         'utility',
         'utility.historyUtility',
         'utility.directives',
+        'utility.controllers',
 
         'user',
         'user.factory',
@@ -96,6 +97,7 @@ requirejs.config({
         'utility': ['app'],
         'utility.historyUtility': ['app', 'utility'],
         'utility.directives': ['app', 'utility'],
+        'utility.controllers': ['app','utility'],
 
         'user': ['app'],
         'user.factory': ['app', 'user'],
@@ -158,6 +160,7 @@ requirejs.config({
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.directives': 'app/utilities/directives',
+        'utility.controllers': 'app/utilities/controller',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
