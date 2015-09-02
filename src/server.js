@@ -269,7 +269,10 @@ router.delete('/accounts/1/:requestType/:id', function(req, res) {
         res.json(memory[req.params.requestType]);
     });
 });
-
+router.get("/ping", function(req, res){
+    res.writeHead(200);
+    res.end();
+});
 router.all('/*', function(req, res, next) {
     var languages = req.headers['accept-language'].split(',').map(function(lang) {
         return lang.split(';')[0];
