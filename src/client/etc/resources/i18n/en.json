@@ -72,7 +72,15 @@
     },
 
     "REPORTING": {
-        "TITLE": "Reporting"
+        "TITLE": "Reporting",
+        "ORDERS": "Orders",
+        "ASSET_REGISTER": "Asset Register",
+        "FUTURE_RATE": "Future Rate",
+        "FCC_RATE": "FCC Rate",
+        "REPORT_NAME": "Report",        
+        "ACTION": "Action",
+        "RUN": "RUN THIS REPORT",
+        "RUN_TITLE": "Run Report"
     },
 
     "INVOICE": {
@@ -107,7 +115,9 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "WITH_COLUMN": "{{value}}:"
+        "WITH_COLUMN": "{{value}}:",
+        "DATE": "Date",
+        "STATUS": "Status"
     },
 
     "MESSAGE": {
