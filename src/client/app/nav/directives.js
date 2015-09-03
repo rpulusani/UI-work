@@ -1,7 +1,7 @@
 define([
     'nav',
     'nav.controllers',
-    'nav.services'
+    'utility.recursionHelper'
 ], function(nav){
 
     'use strict';

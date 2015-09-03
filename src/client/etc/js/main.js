@@ -38,6 +38,7 @@ requirejs.config({
             'utility',
             'utility.historyUtility',
             'utility.directives',
+            'utility.recursionHelper',
 
             'user',
             'user.factory',
@@ -75,6 +76,7 @@ requirejs.config({
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
         'utility.directives': ['utility'],
+        'utility.recursionHelper': ['utility'],
 
         'user': ['angular'],
         'user.factory': ['user'],
@@ -134,6 +136,7 @@ requirejs.config({
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.directives': 'app/utilities/directives',
+        'utility.recursionHelper': 'app/utilities/recursionHelper',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
