@@ -13,10 +13,10 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 });
 
 require.config({
-  // Karma serves files under /base, which is the basePath from your config file
-  baseUrl: '/base/client',
+    // Karma serves files under /base, which is the basePath from your config file
+    baseUrl: '/base/client',
 
-  paths: {
+    paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
@@ -87,128 +87,115 @@ require.config({
 
         'gatekeeper-mocks': ['angular'],
 
-        'app': ['angular',
-                'angular-resource',
-                'angular-route',
-                'angular-cookies',
-                'angular-translate',
-                'angular-translate-storage-cookie',
-                'angular-translate-storage-local',
-                'angular-translate-loader-static-files',
-                'angular-translate-loader-url',
-                'angular-mocks'],
-
         'angular-mocks': {
             deps: [ 'angular-resource' ],
             exports: 'angular-mocks'
         },
 
-        'nav': ['app'],
-        'nav.controllers': ['app', 'nav', 'nav.services'],
-        'nav.services': ['app', 'nav'],
-        'nav.directives': ['app', 'nav', 'nav.services'],
+        'app': [
+            'angular',
+            'angular-resource',
+            'angular-route',
+            'angular-cookies',
+            'angular-translate',
+            'angular-translate-storage-cookie',
+            'angular-translate-storage-local',
+            'angular-translate-loader-static-files',
+            'angular-translate-loader-url',
+            'gatekeeper-mocks',
+            'angular-mocks',
 
-        'form':['app'],
-        'form.directives': ['app','form'],
+            'nav',
+            'nav.controllers',
+            'nav.services',
+            'nav.directives',
 
-        'utility': ['app'],
-        'utility.historyUtility': ['app', 'utility'],
-        'utility.directives': ['app', 'utility'],
+            'form',
+            'form.directives',
 
-        'user': ['app'],
-        'user.factory': ['app', 'user'],
-        'user.directives': ['app', 'user'],
+            'utility',
+            'utility.historyUtility',
+            'utility.directives',
 
-        'serviceRequest': ['app', 'utility'],
-        'serviceRequest.factory': ['app', 'serviceRequest'],
-        'serviceRequest.directives': ['app', 'serviceRequest'],
+            'user',
+            'user.factory',
+            'user.directives',
 
-        'address': ['app'],
-        'address.controller': ['app', 'address', 'address.factory', 'contact.factory'],
-        'address.directives': ['app', 'address'],
-        'address.factory': ['app', 'address', 'serviceRequest.factory', 'utility.historyUtility'],
+            'serviceRequest',
+            'serviceRequest.factory',
+            'serviceRequest.directives',
 
-        'contact': ['app'],
-        'contact.controller': ['app', 'contact', 'contact.factory'],
-        'contact.directives': ['app', 'contact'],
-        'contact.factory': ['app', 'contact'],
+            'address',
+            'address.controller',
+            'address.factory',
+            'address.directives',
 
-        'invoice':  ['app'],
+            'contact',
+            'contact.controller',
+            'contact.factory',
+            'contact.directives',
 
-        'pageCount':  ['app'],
+            'invoice',
 
-        'deviceManagement':  ['app'],
+            'pageCount',
 
-        'report':  ['app'],
-        'report.controller': ['app', 'report', 'report.factory'],
-        'report.directives': ['app', 'report'],
-        'report.factory': ['app', 'report']
+            'deviceManagement',
+
+            'report',
+            'report.controller',
+            'report.directives',
+            'report.factory'
+        ],
+
+        'nav': ['angular'],
+        'nav.controllers': ['nav', 'nav.services'],
+        'nav.services': ['nav'],
+        'nav.directives': ['nav'],
+
+        'form':['angular', 'lxk.fef'],
+        'form.directives': ['form'],
+
+        'utility': ['angular', 'angular-resource'],
+        'utility.historyUtility': ['utility'],
+        'utility.directives': ['utility'],
+
+        'user': ['angular'],
+        'user.factory': ['user'],
+        'user.directives': ['user'],
+
+        'serviceRequest': ['angular', 'angular-resource', 'angular-route', 'utility'],
+        'serviceRequest.factory': ['serviceRequest'],
+        'serviceRequest.directives': ['serviceRequest'],
+
+        'address': ['angular', 'angular-route'],
+        'address.controller': ['address', 'address.factory', 'contact.factory'],
+        'address.directives': ['address'],
+        'address.factory': ['address', 'serviceRequest.factory', 'utility.historyUtility'],
+
+        'contact': ['angular', 'angular-resource', 'angular-route'],
+        'contact.controller': ['contact', 'contact.factory'],
+        'contact.directives': ['contact'],
+        'contact.factory': ['contact'],
+
+        'invoice': ['angular', 'angular-route'],
+
+        'pageCount': ['angular', 'angular-route'],
+
+        'deviceManagement': ['angular', 'angular-route'],
+
+        'report': ['angular', 'angular-route'],
+        'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
+        'report.directives': ['report'],
+        'report.factory': ['report']
     },
 
-  // dynamically load all test files
-  deps: [
+    // dynamically load all test files
+    deps: [
         'lxk.fef',
+        'app'
+    ].concat(allTestFiles),
 
-        'angular',
-        'angular-mocks',
-        'angular-resource',
-        'angular-route',
-        'angular-cookies',
-        'angular-translate',
-        'angular-translate-storage-cookie',
-        'angular-translate-storage-local',
-        'angular-translate-loader-static-files',
-        'angular-translate-loader-url',
-
-        'gatekeeper-mocks',
-
-        'app',
-
-        'nav',
-        'nav.controllers',
-        'nav.services',
-        'nav.directives',
-
-        'form',
-        'form.directives',
-
-        'utility',
-        'utility.historyUtility',
-        'utility.directives',
-
-        'user',
-        'user.factory',
-        'user.directives',
-
-        'serviceRequest',
-        'serviceRequest.factory',
-        'serviceRequest.directives',
-
-        'address',
-        'address.controller',
-        'address.directives',
-        'address.factory',
-
-        'contact',
-        'contact.controller',
-        'contact.directives',
-        'contact.factory',
-
-        'invoice',
-
-        'pageCount',
-
-        'deviceManagement',
-
-        'report',
-        'report.controller',
-        'report.directives',
-        'report.factory'
-
-        
-  ].concat(allTestFiles),
-
-  map: {
+    map: {
         '*': {
             'jquery': 'jquery-private',
             'stable': 'modules'
