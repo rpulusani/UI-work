@@ -76,6 +76,7 @@ require.config({
         'report.factory': 'app/reporting/reportFactory'
     },
     shim: {
+        'angular': {exports: 'angular'},
         'angular-resource': ['angular'],
         'angular-route': ['angular'],
         'angular-cookies': ['angular'],
