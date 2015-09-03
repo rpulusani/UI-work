@@ -5,6 +5,7 @@ requirejs.config({
         'app'
     ],
     shim: {
+        'angular': {exports: 'angular'},
         'angular-resource': ['angular'],
         'angular-route': ['angular'],
         'angular-cookies': ['angular'],
@@ -67,11 +68,6 @@ requirejs.config({
             'report.directives',
             'report.factory'
         ],
-
-        'nav': ['angular'],
-        'nav.controllers': ['nav', 'nav.services'],
-        'nav.services': ['nav'],
-        'nav.directives': ['nav'],
 
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
