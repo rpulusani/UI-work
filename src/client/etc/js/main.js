@@ -28,8 +28,9 @@ requirejs.config({
             'gatekeeper',
 
             'nav',
-            'nav.controllers',
-            'nav.services',
+            'nav.navController',
+            'nav.navFactory',
+            'nav.navItemFactory',
             'nav.directives',
 
             'form',
@@ -126,8 +127,9 @@ requirejs.config({
         'app': 'app/app',
 
         'nav': 'app/nav/nav',
-        'nav.controllers': 'app/nav/controllers',
-        'nav.services': 'app/nav/services',
+        'nav.navController': 'app/nav/navController',
+        'nav.navFactory': 'app/nav/navFactory',
+        'nav.navItemFactory': 'app/nav/navItemFactory',
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',

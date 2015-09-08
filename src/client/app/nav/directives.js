@@ -1,27 +1,11 @@
 define([
     'nav',
-    'nav.controllers',
-    'utility.recursionHelper'
+    'nav.navController'
 ], function(nav){
 
     'use strict';
 
     nav
-    .directive('navItem', ['RecursionHelper',
-        function(RecursionHelper) {
-            return {
-                restrict: 'A',
-                templateUrl: '/app/nav/templates/nav-item.html',
-                scope: {
-                    item: '='
-                },
-                controller: 'NavItemController',
-                compile: function(element){
-                    return RecursionHelper.compile(element);
-                }
-            };
-        }
-    ])
     .directive('leftNav', [
         function() {
             return {
