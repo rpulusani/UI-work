@@ -53,12 +53,9 @@ angular.module('mps.serviceRequestContacts')
         }
 
         $scope.save = function() {
-            console.log($scope.contact);
             if ($scope.contact._links) {
-                var contact_id = $scope.contact._links.self.href.split('/').pop(),
-                    account_id = $scope.contact._links.account.href.split('/').pop();
-                $scope.contact.id = contact_id;
-                $scope.contact.accountId = account_id;
+                $scope.contact.id = $scope.contact._links.self.href.split('/').pop();
+                $scope.contact.accountId = $scope.contact._links.account.href.split('/').pop();
                 ContactService.update($scope.contact, redirect_to_list);
             } else {
                 ContactService.save($scope.contact, redirect_to_list);

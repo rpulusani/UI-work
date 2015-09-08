@@ -75,7 +75,7 @@ describe('Contact Service Request Module', function() {
     });
 
     describe('ContactController', function() {
-        var scope, ctrl, location, history, mockedContactFactory;
+        var scope, ctrl, location, history, mockedContactFactory, mockedServiceRequestFactory;
         beforeEach(function (){
             mockedContactFactory = {
                 get: jasmine.createSpy(),
@@ -134,7 +134,8 @@ describe('Contact Service Request Module', function() {
         describe('save', function() {
             describe('when scope.contact.id exists', function() {
                 it('should update contact', function() {
-                    scope.contact._links = { self: { href: 'accounts/1/contacts/1'} };
+                    scope.contact._links = { self: { href: 'accounts/1/contacts/1'},
+                                             account: { href: 'accounts/1'} };
                     scope.save();
                     expect(mockedContactFactory.update.calls.count()).toBe(1);
                 });
