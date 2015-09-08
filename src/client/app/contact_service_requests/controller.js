@@ -53,7 +53,8 @@ angular.module('mps.serviceRequestContacts')
         }
 
         $scope.save = function() {
-            if ($scope.contact.id) {
+            console.log($scope.contact);
+            if ($scope.contact._links) {
                 ContactService.update($scope.contact, redirect_to_list);
             } else {
                 ContactService.save($scope.contact, redirect_to_list);
