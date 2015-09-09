@@ -35,7 +35,11 @@
         "SUBMISSION_TEXT": "Your address request {{refId}} has been submitted. Please allow {{hours}} hours for our team to review and process the request.",
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
-        "SUBMITED": "Submitted"
+        "SUBMITED": "Submitted",
+        "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
+        "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
+        "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
+        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST" 
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -154,8 +158,11 @@
         "DATE": "Date",
         "STATUS": "Status",
         "NONE_SELECTED": "None selected",
+        "NO": "No",
+        "ERROR_REQUIRED": "This field is required.",
         "NONE": "None",
-        "COMMENTS": "Comments"
+        "COMMENTS": "Comments",
+        "SELECT": "-Select-"
     },
 
     "MESSAGE": {
