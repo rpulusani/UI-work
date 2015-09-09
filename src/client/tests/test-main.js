@@ -88,6 +88,7 @@ require.config({
 
         'gatekeeper-mocks': ['angular'],
 
+
         'angular-mocks': {
             deps: [ 'angular-resource' ],
             exports: 'angular-mocks'

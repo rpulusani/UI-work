@@ -3,7 +3,6 @@ angular.module('mps.serviceRequestAddresses')
 .directive('addressNewFields', function() {
     return {
         restrict: 'A',
-        scope: {},
         templateUrl: '/app/address_service_requests/templates/address-new-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService){
             $scope.countryHAL = CountryService.getHAL();
@@ -27,19 +26,4 @@ angular.module('mps.serviceRequestAddresses')
         restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/read.html'
     };
-})
-.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel),
-            modelSetter = model.assign;
-
-            element.bind('change', function() {
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
+});
