@@ -44,7 +44,6 @@ angular.module('mps', [
 .constant('serviceUrl', config.portal.serviceUrl)
 
 .config(function(GatekeeperProvider, serviceUrl){
-  console.log("the serviceUrl: " + serviceUrl);
   GatekeeperProvider.configure({
     serviceUri: config.idp.serviceUrl,
     clientId: config.idp.clientId

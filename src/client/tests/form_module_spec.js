@@ -133,6 +133,7 @@ describe('Form Module', function() {
                 $httpBackend.flush();
             });
         });
+      /*
         describe('input of type select', function(){
             it("should have the front end framework turn on", function(){
                 var selectBoxHtml =
@@ -212,6 +213,7 @@ describe('Form Module', function() {
                 $httpBackend.flush();
             });
         });
+*/
     });
 });
 });

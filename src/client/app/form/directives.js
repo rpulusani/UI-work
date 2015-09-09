@@ -21,7 +21,7 @@ angular.module('mps.form')
         };
     }
 ])
-.directive('select', ['$timeout',
+/*.directive('select', ['$timeout',
         function($timeout) {
             return {
                 restrict: 'E',
@@ -29,7 +29,7 @@ angular.module('mps.form')
                 link: function(scope, el, attr, model) {
                         var $ = require('jquery');
 
-                        /*if(el.length > 0){
+                        if(el.length > 0){
                             var options = el[0]["options"],
                             length = el[0]["options"].length;
                            for(var i = 0; i < length; ++i){
@@ -39,9 +39,9 @@ angular.module('mps.form')
                                  model[0].$setViewValue(value);
                             }
                            }
-                        }*/
+                        }
 
-                      /*  $(el).selectric({
+                       $(el).selectric({
                             onChange: function(){
                                 var value = $(el).val();
                                 model[0].$setViewValue(value);
@@ -54,11 +54,11 @@ angular.module('mps.form')
                         });
                         scope.$on('$destroy', function() {
                             $(el).selectric('destroy');
-                        });*/
+                        });
                     }
             };
         }
-    ])
+    ])*/
 .directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',

@@ -21,6 +21,18 @@ describe('Address Service Request Module', function() {
 
         /** Cover all business Logic **/
 
+        describe('when Set Store Front Name is chosen', function(){
+                it('will set the address name to the store front name', function(){
+                    addresses.new();
+                    scope.address = addresses.address;
+
+                    expect(scope.address.storeName).toBe(undefined);
+                    scope.address.addName = 'Cat';
+                    scope.setStoreFrontName();
+                    expect(scope.address.storeName).toBe('Cat');
+                });
+        });
+
         describe('when test data is loaded', function(){
             beforeEach(function() { scope.loadTestData(); });
 
@@ -36,15 +48,39 @@ describe('Address Service Request Module', function() {
                 expect(scope.contact.emailAddress).toBe('vickerspets@test.com');
             });
         });
-/*
+
+        describe("when goto Read", function(){
+            var httpBackend;
+            beforeEach(inject(function (_$httpBackend_) {
+                
+                    httpBackend = _$httpBackend_;
+                    $httpBackend.when('GET', '/service_requests/addresses/0/review').respond(200);
+                
+            }));
+
+            it('should get the address via service save it to scope and redirect', function() {
+                
+            });
+        });
+
         describe('when saved', function() {
             var httpBackend;
-            beforeEach(function () {
-                angular.mock.inject(function ($injector) {
-                    httpBackend = $injector.get('$httpBackend');
-                });
+            beforeEach(inject(function (_$httpBackend_) {
+                
+                    httpBackend = _$httpBackend_;
+                    $httpBackend.when('GET', '/service_requests/addresses/0/submitted').respond(200);
+                
+            }));
+            
+            it('should redirect to submitted page', function(){
+                // setup new record
+                addresses.new();
+                scope.address = addresses.address;
+                $httpBackend.expectGET('/service_requests/addresses/0/submitted').respond(200);
+                scope.save();
             });
-
+            
+/*
             describe('when POST request failed', function() {
                 it('should set add_success to be false', function() {
                     //TODO: this mock needs to be POST for real
@@ -66,8 +102,9 @@ describe('Address Service Request Module', function() {
                     expect(httpBackend.flush).not.toThrow();
                 });
             });
+            */
         });
-*/
+
         describe('when backed up', function() {
             describe('when continueForm is true', function() {
                 it('should set continueForm to be false', function() {
