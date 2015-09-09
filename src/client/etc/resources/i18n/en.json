@@ -151,6 +151,8 @@
         "NO": "No",
         "SELECT": "- select -",
         "ERROR_REQUIRED": "This field is required.",
+        "DATE": "Date",
+        "STATUS": "Status",
         "NONE_SELECTED": "None selected",
         "NONE": "None",
         "COMMENTS": "Comments"
