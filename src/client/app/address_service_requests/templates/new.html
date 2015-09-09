@@ -12,17 +12,29 @@
     </div>
 </div>
 <div class="row">
-    <form class="form" name="newAddress" novalidate>
+    <form class="form" data-form="" name="newAddress" novalidate>
         <div address-new-fields></div address-new-fields>
-    </form>
-</div>
+            <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+ cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+ return-path="/service_requests/addresses"></div>
 <div class="row">
     <div class="col-1">
-          <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
+        <hr/>
+    </div>
+</div>
+<div class="row">
+<div class="row">
+    <div class="col-1">
+          <button name="cancel" class="col-1-3 btn btn--secondary"
+          data-js="modalOpen" data-target="#cancel"
                 translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
         <button name="submit" class="col-1-3 btn btn--primary" type="submit"
-                translate="LABEL.REVIEW_SUBMIT" ng-click="newAddress.$valid && goToRead();"></button>
+                translate="LABEL.REVIEW_SUBMIT" value="submit" ng-click="goToRead(newAddress);"></button>
     </div>
     <div class="col-1-3">
     </div>
 </div>
+    </form>
+</div>
+
+

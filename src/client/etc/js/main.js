@@ -35,9 +35,13 @@ requirejs.config({
             'form',
             'form.directives',
 
+            'form',
+            'form.directives',
+
             'utility',
             'utility.historyUtility',
             'utility.directives',
+            'utility.controllers',
 
             'user',
             'user.factory',
@@ -80,6 +84,7 @@ requirejs.config({
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
         'utility.directives': ['utility'],
+        'utility.controllers' : ['utility'],
 
         'user': ['angular'],
         'user.factory': ['user'],
@@ -139,6 +144,7 @@ requirejs.config({
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.directives': 'app/utilities/directives',
+        'utility.controllers': 'app/utilities/controller',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

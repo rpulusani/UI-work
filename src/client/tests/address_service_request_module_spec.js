@@ -47,27 +47,20 @@ describe('Address Service Request Module', function() {
                 expect(addresses.address.addName).toBe('bad');
             });
 
-        });
-
-        describe('when backed up', function() {
-            describe('when continueForm is true', function() {
-                it('should set continueForm to be false', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/addresses');
-                    scope.continueForm = true;
-                    scope.back();
-                    expect(scope.continueForm).toBe(false);
-                });
+            it('should redirect to submitted page', function(){
+                addresses.new();
+                scope.address = addresses.address;
+                expect(addresses.address).not.toBe(undefined);
+                expect(addresses.address.addName).toBe(undefined);
+                scope.address.addName = 'bad';
+                $httpBackend.expectGET('/service_requests/addresses/0/submitted').respond(200);
+                scope.save();
+                expect(addresses.address.addName).toBe('bad');
             });
 
-            describe('when continueForm is false', function() {
-                it('should return to home', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/addresses');
-                    scope.continueForm = false;
-                    scope.back();
-                    expect(scope.continueForm).toEqual(false);
-                });
-            });
+
         });
+
 
         describe('when cancelled', function() {
             it('should return to home', function(){

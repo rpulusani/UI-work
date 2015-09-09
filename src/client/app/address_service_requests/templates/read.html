@@ -14,9 +14,9 @@
         <div ng-bind="address.addrLine1"></div>
         <div ng-bind="address.addrLine2" ng-show="address.addrLine2"></div>
         <div>
-            <span ng-bind="address.city"></span><span ng-show="address.city",</span> <span ng-bind="address.state"></span> <span ng-bind="address.zipCode"></span>
+            <span ng-bind="address.city"></span><span ng-show="address.city">,</span> <span ng-bind="address.state.name"></span> <span ng-bind="address.zipCode"></span>
         </div>
-        <div ng-bind="address.country"></div>
+        <div ng-bind="address.country.name"></div>
         <h4 translate="SERVICE_REQUEST.CONTACT_INFORMATION"></h4>
         <hr/>
     </div>

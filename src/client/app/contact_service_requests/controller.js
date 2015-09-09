@@ -21,14 +21,21 @@ angular.module('mps.serviceRequestContacts')
             $location.path('/service_requests/contacts/' + contact_id + '/update');
         };
 
-        $scope.remove = function(contact) {
-            ContactService.delete(contact, function(){
-                $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
-            });
+        $scope.goToReview = function(contact) {
+            var href = contact._links.self.href;
+            var contact_id = href.split('/').pop();
+            $location.path('/service_requests/contacts/' + contact_id + '/review');
         };
+
+        // $scope.remove = function(contact) {
+        //     ContactService.delete(contact, function(){
+        //         $scope.contacts.splice($scope.contacts.indexOf(contact), 1);
+        //     });
+        // };
     }
-]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
-    function($scope, $location, $routeParams, History, ContactService) {
+]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History',
+                                    'ContactService', 'ServiceRequestService',
+    function($scope, $location, $routeParams, History, ContactService, ServiceRequestService) {
         $scope.reviewing = false;
         //TODO: Remove hardcoded accountId, which needs to come from login.
         var acct_id = 1;
@@ -46,12 +53,26 @@ angular.module('mps.serviceRequestContacts')
         };
 
         $scope.save = function() {
-            if ($scope.contact.id) {
+            if ($scope.contact._links) {
+                $scope.contact.id = $scope.contact._links.self.href.split('/').pop();
+                $scope.contact.accountId = $scope.contact._links.account.href.split('/').pop();
                 ContactService.update($scope.contact, redirect_to_list);
             } else {
                 ContactService.save($scope.contact, redirect_to_list);
             }
+        };
 
+        $scope.service = {};
+        $scope.saveServiceRequest = function(type) {
+            $scope.service.type = type;
+            $scope.service._link = $scope.contact._links;
+            // TODO: following attributes should come from contact
+            $scope.service.customerReferenceId = 'cust1234';
+            $scope.service.costCenter = 'Boston';
+            $scope.service.description = 'blah blah blah';
+            $scope.service.assetCostCenter = 'Lexington';
+            $scope.service.chlLevel = 'tbd';
+            ServiceRequestService.save($scope.service, redirect_to_list);
         };
 
         $scope.back = function() {

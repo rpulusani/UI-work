@@ -1,7 +1,7 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
 .factory('Addresses', ['$http', 'ServiceRequestService',
-    function($http, ServiceRequestService) {
+    function($http, ServiceRequestService){
     var Address = function() {
         var addy = this;
 
