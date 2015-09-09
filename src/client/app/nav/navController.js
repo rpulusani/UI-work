@@ -15,7 +15,7 @@ define([
                 return Nav.getItemsByTag(tag);
             };
 
-            if(Nav.items.length === 0){
+            if($scope.items.length === 0){
                 Nav.query(function(){
                     $scope.items = Nav.items;
                 });
