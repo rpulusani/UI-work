@@ -40,7 +40,7 @@ angular.module('mps', [
     }
 })
 
-.constant('mpsApiUri', 'http://10.145.116.233:8080/mps')
+.constant('mpsApiUri', '')
 
 .constant('serviceUrl', config.portal.serviceUrl)
 

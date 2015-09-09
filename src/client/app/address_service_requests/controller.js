@@ -71,13 +71,8 @@ angular.module('mps.serviceRequestAddresses')
             $location.path('/service_requests/addresses/new');
         };
 
-        $scope.goToRead = function(form) {
-            if(form.$valid){
-                Addresses.getById($scope.address.id, function() {
-                    $scope.address = Addresses.address;
-                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
-                });
-            }
+        $scope.goToRead = function(id) {
+            $location.path('/service_requests/addresses/' + id + '/review');
         };
 
         $scope.goToViewAll = function(id) {
