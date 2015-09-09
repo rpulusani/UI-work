@@ -27,10 +27,9 @@ module.exports = function(config) {
         { pattern: 'client/tests/angular-mocks.js', included: false},
         { pattern: 'client/tests/mock-gatekeeper.js', included: false},
         { pattern: 'client/app/app.js', included: false},
+        { pattern: 'client/app/nav/*.js', included: false},
         { pattern: 'client/app/form/form.js', included: false},
         { pattern: 'client/app/form/*.js', included: false},
-        { pattern: 'client/app/navigation/navigation.js', included: false},
-        { pattern: 'client/app/navigation/*.js', included: false},
         { pattern: 'client/app/service_requests/serviceRequest.js', included: false},
         { pattern: 'client/app/service_requests/*.js', included: false},
         { pattern: 'client/app/address_service_requests/addressServiceRequest.js', included: false},
@@ -51,10 +50,11 @@ module.exports = function(config) {
         { pattern: 'client/app/device_management/*.js', included: false},
         { pattern: 'client/etc/lxk-framework/js/lxk-framework.min.js', included: false},
         { pattern: 'client/etc/lxk-framework/js/libs/*.js', included: false},
+        { pattern: 'client/tests/report_module_spec.js', included: false},
         { pattern: 'client/tests/address_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/contact_service_request_module_spec.js', included: false},
-        { pattern: 'client/tests/navigation_module_spec.js', included: false},
         { pattern: 'client/tests/form_module_spec.js', included: false},
+        'client/tests/test-main.js'
         'client/tests/test-main.js'
     ],
 
@@ -98,6 +98,12 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
+
+    coverageReporter: {
+        reporters: [
+            { type: 'cobertura', dir: '.' }
+        ]
+    },
 
 
     // Continuous Integration mode

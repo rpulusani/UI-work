@@ -1,0 +1,8 @@
+<nav class="rail-nav">
+    <ul>
+        <li ng-repeat="item in getItemsByTag(navArray, 'primary') | orderBy:['id']"
+            nav-item
+            item="item"
+        ></li>
+    </ul>
+</nav>

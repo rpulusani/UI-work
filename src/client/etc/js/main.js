@@ -2,61 +2,10 @@ requirejs.config({
     baseUrl: '/',
     deps: [
         'lxk.fef',
-
-        'angular',
-        'angular-resource',
-        'angular-route',
-        'angular-cookies',
-        'angular-translate',
-        'angular-translate-storage-cookie',
-        'angular-translate-storage-local',
-        'angular-translate-loader-static-files',
-        'angular-translate-loader-url',
-
-        'app',
-
-        'navigation',
-        'navigation.navFactory',
-        'navigation.topNav',
-        'navigation.leftNav',
-        'navigation.directives',
-
-        'form',
-        'form.directives',
-
-        'utility',
-        'utility.historyUtility',
-        'utility.directives',
-
-        'user',
-        'user.factory',
-        'user.directives',
-
-        'serviceRequest',
-        'serviceRequest.factory',
-        'serviceRequest.directives',
-
-        'address',
-        'address.controller',
-        'address.directives',
-        'address.factory',
-
-        'contact',
-        'contact.controller',
-        'contact.directives',
-        'contact.factory',
-
-        'invoice',
-
-        'pageCount',
-
-        'deviceManagement',
-
-        'report',
-
-        'gatekeeper'
+        'app'
     ],
     shim: {
+        'angular': {exports: 'angular'},
         'angular-resource': ['angular'],
         'angular-route': ['angular'],
         'angular-cookies': ['angular'],
@@ -66,57 +15,106 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
 
-        'app': ['angular',
-                'angular-resource',
-                'angular-route',
-                'angular-cookies',
-                'angular-translate',
-                'angular-translate-storage-cookie',
-                'angular-translate-storage-local',
-                'angular-translate-loader-static-files',
-                'angular-translate-loader-url',
-                'gatekeeper'],
+        'app': [
+            'angular',
+            'angular-resource',
+            'angular-route',
+            'angular-cookies',
+            'angular-translate',
+            'angular-translate-storage-cookie',
+            'angular-translate-storage-local',
+            'angular-translate-loader-static-files',
+            'angular-translate-loader-url',
+            'gatekeeper',
 
-        'navigation': ['app'],
-        'navigation.topNav': ['app', 'navigation', 'navigation.navFactory'],
-        'navigation.leftNav': ['app', 'navigation', 'navigation.navFactory'],
-        'navigation.navFactory': ['app', 'navigation'],
-        'navigation.directives': ['app', 'navigation'],
+            'nav',
+            'nav.controllers',
+            'nav.services',
+            'nav.directives',
 
-        'form':['app'],
-        'form.directives': ['app','form'],
+            'form',
+            'form.directives',
 
-        'utility': ['app'],
-        'utility.historyUtility': ['app', 'utility'],
-        'utility.directives': ['app', 'utility'],
+        'form',
+        'form.directives',
 
-        'user': ['app'],
-        'user.factory': ['app', 'user'],
-        'user.directives': ['app', 'user'],
+            'utility',
+            'utility.historyUtility',
+            'utility.directives',
 
-        'serviceRequest': ['app', 'utility'],
-        'serviceRequest.factory': ['app', 'serviceRequest'],
-        'serviceRequest.directives': ['app', 'serviceRequest'],
+            'user',
+            'user.factory',
+            'user.directives',
 
-        'address': ['app'],
-        'address.controller': ['app', 'address', 'address.factory', 'contact.factory'],
-        'address.directives': ['app', 'address','lxk.fef',''],
-        'address.factory': ['app', 'address', 'serviceRequest.factory', 'utility.historyUtility'],
+            'serviceRequest',
+            'serviceRequest.factory',
+            'serviceRequest.directives',
 
-        'contact': ['app'],
-        'contact.controller': ['app', 'contact', 'contact.factory','jquery-private'],
-        'contact.directives': ['app', 'contact'],
-        'contact.factory': ['app', 'contact'],
+            'address',
+            'address.controller',
+            'address.factory',
+            'address.directives',
 
-        'invoice':  ['app'],
+            'contact',
+            'contact.controller',
+            'contact.factory',
+            'contact.directives',
 
-        'pageCount':  ['app'],
+            'invoice',
 
-        'deviceManagement':  ['app'],
+            'pageCount',
 
-        'report':  ['app'],
+            'deviceManagement',
+
+            'report',
+            'report.controller',
+            'report.directives',
+            'report.factory'
+        ],
+
+        'nav': ['angular'],
+        'nav.controllers': ['nav', 'nav.services'],
+        'nav.services': ['nav'],
+        'nav.directives': ['nav'],
+
+        'form':['angular', 'lxk.fef'],
+        'form.directives': ['form'],
+
+        'utility': ['angular', 'angular-resource'],
+        'utility.historyUtility': ['utility'],
+        'utility.directives': ['utility'],
+
+        'user': ['angular'],
+        'user.factory': ['user'],
+        'user.directives': ['user'],
+
+        'serviceRequest': ['angular', 'angular-resource', 'angular-route', 'utility'],
+        'serviceRequest.factory': ['serviceRequest'],
+        'serviceRequest.directives': ['serviceRequest'],
+
+        'address': ['angular', 'angular-route'],
+        'address.controller': ['address', 'address.factory', 'contact.factory'],
+        'address.directives': ['address'],
+        'address.factory': ['address', 'serviceRequest.factory', 'utility.historyUtility'],
+
+        'contact': ['angular', 'angular-resource', 'angular-route'],
+        'contact.controller': ['contact', 'contact.factory'],
+        'contact.directives': ['contact'],
+        'contact.factory': ['contact'],
+
+        'invoice': ['angular', 'angular-route'],
+
+        'pageCount': ['angular', 'angular-route'],
+
+        'deviceManagement': ['angular', 'angular-route'],
+
+        'report': ['angular', 'angular-route'],
+        'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
+        'report.directives': ['report'],
+        'report.factory': ['report'],
 
         'gatekeeper': ['angular-cookies', 'angular-route']
+        
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -133,11 +131,10 @@ requirejs.config({
 
         'app': 'app/app',
 
-        'navigation': 'app/navigation/navigation',
-        'navigation.navFactory': 'app/navigation/navFactory',
-        'navigation.topNav': 'app/navigation/topNavController',
-        'navigation.leftNav': 'app/navigation/leftNavController',
-        'navigation.directives': 'app/navigation/directives',
+        'nav': 'app/nav/nav',
+        'nav.controllers': 'app/nav/controllers',
+        'nav.services': 'app/nav/services',
+        'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
@@ -171,7 +168,10 @@ requirejs.config({
         'deviceManagement': 'app/device_management/deviceManagement',
 
         'report': 'app/reporting/report',
-
+        'report.controller': 'app/reporting/controller',
+        'report.directives': 'app/reporting/directives',
+        'report.factory': 'app/reporting/reportFactory',
+        
         'gatekeeper': 'app/libs/gatekeeper-angular'
     },
     map: {

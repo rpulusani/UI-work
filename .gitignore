@@ -2,4 +2,9 @@ src/node_modules
 src/coverage
 src/uploads/*
 test-results.xml
+TESTS-*
 .DS_Store
+src/.../PhantomJS 1.9.8 (Mac OS X 0.0.0)/cobertura-coverage.xml
+src/PhantomJS 1.9.8 (Mac OS X 0.0.0)/cobertura-coverage.xml
+src/.../PhantomJS 1.9.8 (Mac OS X 0.0.0)/cobertura-coverage.xml
+src/PhantomJS 1.9.8 (Mac OS X 0.0.0)/cobertura-coverage.xml

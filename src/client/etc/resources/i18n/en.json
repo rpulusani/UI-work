@@ -100,7 +100,15 @@
     },
 
     "REPORTING": {
-        "TITLE": "Reporting"
+        "TITLE": "Reporting",
+        "ORDERS": "Orders",
+        "ASSET_REGISTER": "Asset Register",
+        "FUTURE_RATE": "Future Rate",
+        "FCC_RATE": "FCC Rate",
+        "REPORT_NAME": "Report",        
+        "ACTION": "Action",
+        "RUN": "RUN THIS REPORT",
+        "RUN_TITLE": "Run Report"
     },
 
     "INVOICE": {
@@ -140,6 +148,8 @@
         "WITH_COLUMN": "{{value}}:",
         "NO": "No",
         "ERROR_REQUIRED": "This field is required.",
+        "DATE": "Date",
+        "STATUS": "Status"
         "NONE_SELECTED": "None selected",
         "NONE": "None",
         "COMMENTS": "Comments"

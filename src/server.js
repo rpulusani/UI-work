@@ -29,7 +29,87 @@ memory = {
         alternatePhone: '800-867-5309',
         email: 'john.doe@johndeere.com'
     }],
-    requests: []
+    requests: [],
+    reportGroups: [{
+        id: 'group1',
+        name: 'Orders'
+    },
+    {
+        id: 'group2',
+        name: 'Service'
+    },
+    {
+        id: 'group3',
+        name: 'Assets'
+    },
+    {
+        id: 'group4',
+        name: 'Summary'
+    }],
+    reportCategories: [{
+        id: '123',
+        groupId: 'group1',
+        name: 'Asset register',
+        desc: 'AM1173 Change Management'
+    },
+    {
+        id:'456',
+        groupId: 'group1',
+        name: 'Future Rate',
+        desc: 'AM1177 Future Rate'
+    },
+    {
+        id:'789',
+        groupId: 'group1',
+        name: 'FCC Rate',
+        desc: 'AM1188 FCC Rate'
+    },
+    {
+        id: '910',
+        groupId: 'group2',
+        name: 'Asset Retirement Daily',
+        desc: 'Asset Retirement Daily'
+    },
+    {
+        id:'911',
+        groupId: 'group2',
+        name: 'Asset Retirement Weekly',
+        desc: 'Asset Retirement Weekly'
+    },
+    {
+        id:'912',
+        groupId: 'group3',
+        name: 'Missing Page Count - Automated (AM1175)',
+        desc: 'Missing Page Count - Automated (AM1175)'
+    }],
+    reports: [{
+        id: 'register1',
+        definitionId: '123',
+        desc: 'AM1173 Change Management',
+        date: '08/08/2015',
+        status: 'pending'
+    },
+    {
+        id: 'future1',
+        definitionId: '456',
+        desc: 'AM1177 Future Rate',
+        date: '08/09/2015',
+        status: 'pending'
+    },
+    {
+        id: 'fcc1',
+        definitionId: '789',
+        desc: 'AM1188 FCC Rate',
+        date: '08/08/2015',
+        status: 'pending'
+    },
+    {
+        id: 'register2',
+        definitionId: '123',
+        desc: 'AM1173 Change Management',
+        date: '08/15/2015',
+        status: 'pending'
+    }]
 },
 removeById = function(memType, id, fn) {
     var i = 0,
@@ -56,6 +136,19 @@ findById = function(memType, id, fn) {
     }
 
     return fn(false);
+},
+findByDefinitionId = function(definitionId, fn) {
+    var i = 0,
+    memCnt = memory['reports'].length,
+    reportList = [];
+
+    for (i; i < memCnt; i += 1) {
+        if (memory['reports'][i].definitionId === definitionId) {
+            reportList.push(memory['reports'][i]);
+        }
+    }
+
+    return fn(reportList);
 };
 
 process.env.PORT = 8080;
@@ -92,7 +185,7 @@ router.get('/accounts/1/:requestType/:id', function(req, res) {
     }
 
     console.log('Locating ' + req.params.requestType + ' by ID: ' + id);
-
+    console.log('inside find by id');
     if (req.headers.accept.indexOf('json') > -1) {
         findById(req.params.requestType, id, function(record) {
             if (record) {
@@ -105,6 +198,29 @@ router.get('/accounts/1/:requestType/:id', function(req, res) {
         res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
     }
 });
+
+router.get('/accounts/1/reports/reportlist/:definitionId', function(req, res) {
+    var id;
+    console.log('inside find by definition id');
+    if (!req.query.definitionId) {
+        id = req.params.definitionId;
+    } else {
+        id = req.query.definitionId;
+    }
+
+    if (req.headers.accept.indexOf('json') > -1) {
+        findByDefinitionId(id, function(record) {
+            if (record) {
+                res.json(record);
+            } else {
+                res.send(400);
+            }
+        });
+    } else {
+        res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
+    }
+});
+
 
 router.post('/accounts/1/:requestType', function(req, res) {
     if (req.files.file) {
@@ -119,13 +235,12 @@ router.post('/accounts/1/:requestType', function(req, res) {
     } else {
         req.body.hadAttachment = false;
     }
-
+    console.log('req is '+req.body.definitionId);
     req.body.id = Math.random().toString(36).substring(2, 7);
-
-    if (req.body.addName || req.body.firstName) {
+    if (req.body.addName || req.body.firstName || req.body.definitionId) {
+        console.log('inside the push section');
         memory[req.params.requestType].push(req.body);
     }
-
     console.log(memory[req.params.requestType]);
     console.log(req.params.requestType + ' Saved');
 
@@ -154,7 +269,10 @@ router.delete('/accounts/1/:requestType/:id', function(req, res) {
         res.json(memory[req.params.requestType]);
     });
 });
-
+router.get("/ping", function(req, res){
+    res.writeHead(200);
+    res.end();
+});
 router.all('/*', function(req, res, next) {
     var languages = req.headers['accept-language'].split(',').map(function(lang) {
         return lang.split(';')[0];

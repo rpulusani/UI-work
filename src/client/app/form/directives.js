@@ -74,3 +74,4 @@ angular.module('mps.form')
         }
     };
 }]);
+}]);

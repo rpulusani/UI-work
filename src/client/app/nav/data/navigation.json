@@ -1,0 +1,107 @@
+[
+  {
+    "id": "1",
+    "action": "/",
+    "text": "DASHBOARD.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["primary"]
+  },
+  {
+    "id": "2",
+    "action": "/service_requests/order_request",
+    "text": "NAVIGATION.ORDER_REQUEST",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--alert",
+    "tags":["primary", "left", "Quick Action"]
+  },
+  {
+    "id": "3",
+    "action": "/service_requests",
+    "text": "ADDRESS_SERVICE_REQUEST.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--toggle-up",
+    "tags":["primary", "left", "Quick Action"]
+  },
+  {
+    "id": "4",
+    "action": "/service_requests/addresses",
+    "text": "ADDRESS.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["left", "3"]
+  },
+  {
+    "id": "5",
+    "action": "/service_requests/contacts",
+    "text": "NAVIGATION.CONTACT",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["left", "3"]
+  },
+  {
+    "id": "6",
+    "action": "/page_count/update_page_count",
+    "text": "NAVIGATION.UPDATE_PAGE_COUNT",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["primary", "left", "Quick Action"]
+  },
+  {
+    "id": "7",
+    "action": "/device_management",
+    "text": "DEVICE_MGT.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["primary"]
+  },
+  {
+    "id": "8",
+    "action": "/reporting",
+    "text": "REPORTING.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["primary"]
+  },
+  {
+    "id": "9",
+    "action": "/invoices",
+    "text": "INVOICE.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags":["primary"]
+  },
+  {
+    "id": "10",
+    "action": "http://www.lexmark.com",
+    "target": "_blank",
+    "text": "Lexmark.com",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags": ["footer"]
+  },
+  {
+    "id": "11",
+    "action": "#FAQ",
+    "text": "FAQ",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags": ["footer"]
+  },
+  {
+    "id": "12",
+    "action": "#help",
+    "text": "Get Help",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags": ["footer"]
+  },
+  {
+    "id": "13",
+    "action": "#contact",
+    "text": "Contact Lexmark",
+    "description": "Some description of this link",
+    "icon": "icon icon--lxk-ui icon--error",
+    "tags": ["footer"]
+  }
+]
