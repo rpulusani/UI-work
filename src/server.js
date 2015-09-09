@@ -14,8 +14,8 @@ memory = {
         addrLine1: '123 Some Rd',
         addrLine2: null,
         city: 'Lexington',
-        country: 'USA',
-        state: 'Kentucky',
+        country: 'US',
+        state: 'KY',
         zipCode: '40404',
         id: 'addy-1'
     }],

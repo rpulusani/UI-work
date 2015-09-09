@@ -37,7 +37,7 @@ angular.module('mps', [
             angular.copy(response.data._embedded, response.resource);
             return response;
         }
-    }
+    };
 })
 
 .constant('mpsApiUri', 'http://10.145.116.233:8080/mps')

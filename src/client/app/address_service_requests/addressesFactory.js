@@ -14,7 +14,7 @@ angular.module('mps.serviceRequestAddresses')
     Address.prototype.new = function(){
         var addy = this;
         addy.address = angular.copy({ id:0 });
-    }
+    };
 
     Address.prototype.save = function(formdata, fn) {
         var addy = this;
@@ -46,8 +46,17 @@ angular.module('mps.serviceRequestAddresses')
 
     Address.prototype.getById = function(id, fn) {
         var addy = this;
+        function addressAPIGetById(id,fn){
+            $http.get('/accounts/1/addresses/' + id).success(function(res) {
+                addy.address = res;
+                return fn();
+            }).error(function(data) {
+                NREUM.noticeError(data);
+           });
+        }
 
         if(id !== undefined && id !== null && id !== "0" && id !== 0){
+
                 var length = addy.addresses.length,
                 localAddresses = addy.addresses;
                 for(var i = 0; i < length; ++i){
@@ -56,17 +65,14 @@ angular.module('mps.serviceRequestAddresses')
                         return fn();
                     }
                 }
+                addressAPIGetById(id,fn);
+
         } else if(id === "0" || id === 0){
             //in the process of creating a new record do nothing for now
             //don't get from local datastore or network datastore
             return fn();
         } else{
-            $http.get('/accounts/1/addresses/' + id).success(function(res) {
-                addy.address = res;
-                return fn();
-            }).error(function(data) {
-                NREUM.noticeError(data);
-           });
+            addressAPIGetById(id,fn);
         }
     };
 

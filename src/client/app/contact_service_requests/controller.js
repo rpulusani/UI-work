@@ -13,7 +13,7 @@ angular.module('mps.serviceRequestContacts')
 
         $scope.goToCreate = function() {
             $location.path('/service_requests/contacts/new');
-        }
+        };
 
         $scope.goToUpdate = function(contact) {
             var href = contact._links.self.href;
@@ -40,10 +40,10 @@ angular.module('mps.serviceRequestContacts')
 
         $scope.review = function() {
             $scope.reviewing = true;
-        }
+        };
         $scope.edit = function() {
             $scope.reviewing = false;
-        }
+        };
 
         $scope.save = function() {
             if ($scope.contact.id) {

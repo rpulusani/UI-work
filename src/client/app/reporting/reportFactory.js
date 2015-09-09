@@ -7,7 +7,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
         report.reports = [];
         report.category = "";
     };
-    
+
 
     Report.prototype.query = function(fn) {
         var report = this;
@@ -28,7 +28,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
 
         $http.get('/accounts/1/reportCategories').then(function(res) {
             report.categories = res.data;
-            
+
             if (typeof fn === 'function') {
                 return fn(res);
             }
@@ -42,7 +42,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
 
         $http.get('/accounts/1/reportCategories/' + id).success(function(res) {
             report.category = res;
-            
+
             return fn();
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -54,7 +54,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
 
         $http.get('/accounts/1/reports/reportlist/' + definitionId).success(function(res) {
             report.reports = res;
-            
+
             return fn();
         }).error(function(data) {
             NREUM.noticeError(data);
@@ -73,7 +73,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
         }).error(function(data) {
             NREUM.noticeError(data);
         });
-    }
+    };
 
     Report.prototype.removeById = function(id, fn) {
         var report = this;

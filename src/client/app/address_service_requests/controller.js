@@ -1,12 +1,13 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Addresses',
-    function($scope, $http, $location, $routeParams, History, Addresses) {
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses','CountryService',
+    function($scope, $http, $location, $routeParams, Addresses, CountryService) {
         $scope.continueForm = false;
         $scope.submitForm = false;
         $scope.attachmentIsShown = false;
         $scope.address = Addresses.address;
         $scope.addresses = Addresses.addresses;
+        $scope.countryHAL = CountryService.getHAL();
         $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                         '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
@@ -28,12 +29,6 @@ angular.module('mps.serviceRequestAddresses')
             $scope.address.storeName =  $scope.address.addName;
         };
 
-        $scope.loadTestData = function() {
-            $scope.contact.name = 'Vickers PetsAtHome';
-            $scope.contact.phoneNumber = '9992882222';
-            $scope.contact.emailAddress = 'vickerspets@test.com';
-        };
-
         $scope.save = function() {
             var newAddress = JSON.stringify($scope.address),
             fd;
@@ -41,13 +36,6 @@ angular.module('mps.serviceRequestAddresses')
             $scope.submitForm = false; // Request data from the server
             Addresses.address  = $scope.address;
             $location.path('/service_requests/addresses/' + $scope.address.id + '/submitted');
-        };
-
-        $scope.back = function() {
-            if ($scope.continueForm) {
-                $scope.continueForm = false;
-            }
-            History.back();
         };
 
         $scope.cancel = function() {
@@ -63,7 +51,6 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.goToCreate = function() {
-            Addresses.new();
             $location.path('/service_requests/addresses/new');
         };
 
@@ -90,18 +77,48 @@ angular.module('mps.serviceRequestAddresses')
             });
         };
 
-        if (Addresses.addresses.length === 0) {
-            Addresses.query(function() {
-                $scope.addresses = Addresses.addresses;
+        function setSelectedCountry(){
+            $scope.address.selectedCountry = '';
+
+             $scope.countryHAL.$promise.then(function(countries) {
+                   $scope.countryList =  $scope.countryHAL.countries;
+                   for(var i = 0; i < $scope.countryList.length; i++){
+                        if($scope.address.country === $scope.countryList[i].code){
+                            $scope.address.selectedCountry = $scope.countryList[i];
+                            for(var j = 0; j < $scope.countryList[i].provinces.length; j++){
+                                if($scope.address.state === $scope.countryList[i].provinces[j].code){
+                                    $scope.address.selectedState = $scope.countryList[i].provinces[j];
+                                }
+                            }
+                        }
+                   }
             });
+
         }
 
-        if ($routeParams.id) {
-           Addresses.getById($routeParams.id, function() {
-                $scope.address = Addresses.address;
-            });
-        }
+        $scope.getAddress = function(){
+            if ($routeParams['id']) {
+                Addresses.getById($routeParams['id'], function() {
+                    $scope.address = Addresses.address;
+                });
+            }else if($location.path() === '/service_requests/addresses/new'){
+                Addresses.new();
+                 $scope.address = Addresses.address;
+            }
+            setSelectedCountry();
+        };
 
-        $scope.loadTestData();
+         $scope.getAddressList = function(){
+            if (Addresses.addresses.length === 0) {
+                Addresses.query(function() {
+                    $scope.addresses = Addresses.addresses;
+                    $scope.getAddress();
+                });
+            }else{
+                $scope.getAddress();
+            }
+        };
+
+        $scope.getAddressList();
     }
 ]);

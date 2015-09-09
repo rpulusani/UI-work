@@ -13,12 +13,6 @@ describe('Address Service Request Module', function() {
             addresses = Addresses;
         }));
 
-
-
-        //Testing Object Property Structure in one it function
-
-
-
         /** Cover all business Logic **/
 
         describe('when Set Store Front Name is chosen', function(){
@@ -53,29 +47,6 @@ describe('Address Service Request Module', function() {
                 expect(addresses.address.addName).toBe('bad');
             });
 
-/*
-            describe('when POST request failed', function() {
-                it('should set add_success to be false', function() {
-                    //TODO: this mock needs to be POST for real
-                    httpBackend.expectGET('/test').respond(500);
-                    scope.save(function() {
-                      expect(scope.add_success).toBe(false);
-                    });
-                    expect(httpBackend.flush).not.toThrow();
-                });
-            });
-
-            describe('when POST request success', function() {
-                it('should set add_success to be true', function() {
-                    //TODO: this mock needs to be POST for real
-                    httpBackend.expectGET('/test').respond(200);
-                    scope.save(function() {
-                      expect(scope.add_success).toBe(false);
-                    });
-                    expect(httpBackend.flush).not.toThrow();
-                });
-            });
-            */
         });
 
         describe('when backed up', function() {
@@ -140,24 +111,49 @@ describe('Address Service Request Module', function() {
                 expect(location.path).toHaveBeenCalledWith('/service_requests/addresses');
             });
         });
-/*
-        describe('when a delete request is made for foo/1', function() {
-            it('should ask for confirmation of the delete request', function() {
-                spyOn(location, 'path').and.returnValue('/service_requests/addresses/delete');
-                scope.deleteAddress('foo/1');
-                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete');
-                expect(addresses.currentAddress).toEqual(scope.getAddress('foo/1'));
+
+        describe('when a new address needs to be created', function(){
+            var scope, ctrl, location, addresses;
+            beforeEach(inject(function($rootScope, $controller, $location, Addresses) {
+                scope = $rootScope.$new();
+                location = $location;
+                ctrl = $controller('AddressesController', {$scope: scope});
+                addresses = Addresses;
+            }));
+
+            it('should have an id of zero', function(){
+                spyOn(location,'path').and.returnValue('/service_requests/addresses/new');
+                scope.getAddress();
+                expect(scope.address).toBeDefined();
+                expect(scope.address.id).toBeDefined();
+                expect(scope.address.id).toBe(0);
             });
         });
 
-        describe('when a delete request is confirmed', function() {
-            it('should confirm the delete request', function() {
-                spyOn(location, 'path').and.returnValue('/service_requests/addresses/delete/review');
-                scope.requestDelete();
-                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete/review');
+        describe('when an address needs to be updated', function(){
+            var scope, ctrl, location, addresses, httpBackend, routeParams;
+            beforeEach(inject(function($rootScope, $controller, $location, Addresses, _$httpBackend_, $routeParams) {
+                scope = $rootScope.$new();
+                location = $location;
+                ctrl = $controller('AddressesController', {$scope: scope});
+                addresses = Addresses;
+                httpBackend = _$httpBackend_;
+                $httpBackend.expectGET('/accounts/1/addresses/temp-1').respond({'id': 'temp-1'});
+                routeParams = $routeParams;
+                routeParams.id = 'temp-1';
+            }));
+
+            it('should have an id of temp-1', function(){
+                spyOn(location,'path').and.returnValue('/service_requests/addresses/temp-1/update');
+                scope.getAddress();
+                $httpBackend.expectGET('/accounts/1/addresses/temp-1').respond({'id': 'temp-1'});
+                expect(scope.address).toBeDefined();
+                expect(scope.address.id).toBeDefined();
+                expect(scope.address.id).toBe('temp-1');
             });
         });
-*/
+
+
     });
     describe("Directives", function(){
         //only test logic examples nothing more
@@ -168,19 +164,8 @@ describe('Address Service Request Module', function() {
     });
 
     describe("Routes", function(){
-        it('should map routes to controllers', function() {
-            inject(function($route) {
-                /*  only test logic examples not anything more
-                expect($route.routes['/service_requests/addresses'].controller).toBe('AddressesController');
-                expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/js/address_service_requests/templates/view.html');
-                expect($route.routes['/service_requests/addresses/delete'].templateUrl).toEqual('/js/address_service_requests/templates/delete.html');
-                expect($route.routes['/service_requests/addresses/new'].templateUrl).toEqual('/js/address_service_requests/templates/new.html');
-                expect($route.routes['/service_requests/addresses/addMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/addMultiple.html');
-                expect($route.routes['/service_requests/addresses/updateMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/updateMultiple.html');
-                expect($route.routes['/service_requests/addresses/deleteMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/deleteMultiple.html');
-                */
-            });
-        });
+
+    });
 
          // Tests for testing directives
         describe('directive: new-form-fields.html', function() {
@@ -198,5 +183,4 @@ describe('Address Service Request Module', function() {
             }));
         });
     });
-});
 });
