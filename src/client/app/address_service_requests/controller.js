@@ -2,11 +2,12 @@
 angular.module('mps.serviceRequestAddresses')
 .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Addresses',
     function($scope, $http, $location, $routeParams, History, Addresses) {
+        $scope.accountId = 1; // TODO: CHANGE to read user obj/$routeParams
         $scope.continueForm = false;
         $scope.submitForm = false;
         $scope.attachmentIsShown = false;
-        $scope.address = Addresses.address;
-        $scope.addresses = Addresses.addresses;
+        $scope.address = null;
+        $scope.addresses = [];
         $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                         '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
@@ -39,18 +40,18 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.save = function() {
-            var newAddress = JSON.stringify($scope.address),
-            fd;
-
-            $scope.submitForm = false; // Request data from the server
-            Addresses.address  = $scope.address;
-            $location.path('/service_requests/addresses/' + $scope.address.id + '/submitted');
+            if ($scope.address.id) {
+                Addresses.update({id: $scope.address.id, accountId: $scope.accountId}, $scope.address, $scope.goToViewAll);
+            } else {
+                Addresses.save({accountId: $scope.accountId}, $scope.address, $scope.goToViewAll);
+            }
         };
 
         $scope.back = function() {
             if ($scope.continueForm) {
                 $scope.continueForm = false;
             }
+
             History.back();
         };
 
@@ -67,7 +68,6 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.goToCreate = function() {
-            Addresses.new();
             $location.path('/service_requests/addresses/new');
         };
 
@@ -89,22 +89,18 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.removeAddress = function(id) {
-            Addresses.removeById(id, function() {
-                if (Addresses.addresses.length === 0) {
-                    $scope.addresses = [];
-                }
-            });
+            Addresses.remove({id: id});
         };
 
-        if (Addresses.addresses.length === 0) {
-            Addresses.query(function() {
-                $scope.addresses = Addresses.addresses;
+        if ($scope.addresses.length === 0) {
+            Addresses.query({accountId: $scope.accountId}, function(res) {
+                $scope.addresses = res.resource.addresses;
             });
         }
 
         if ($routeParams.id) {
-           Addresses.getById($routeParams.id, function() {
-                $scope.address = Addresses.address;
+            Addresses.get({id: $routeParams.id, accountId: $scope.accountId}, function(res) {
+                $scope.address = res;
             });
         }
 
