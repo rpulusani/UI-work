@@ -21,9 +21,19 @@ angular.module('mps.form')
         };
     }
 ])
+.directive('select', function(){
+    return {
+        restrict: 'E',
+        link: function(scope, element, attrs) {
+            alert('123');
+            
+           // $(element).selectric();
+        }
+    };
+});
 .directive('fileModel', ['$parse', function ($parse) {
     return {
-        restrict: 'A',
+        restrict: 'A',  
         link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel),
             modelSetter = model.assign;
