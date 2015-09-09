@@ -16,15 +16,6 @@ requirejs.config({
         'angular-translate-loader-url': ['angular-translate'],
 
         'app': [
-            'angular',
-            'angular-resource',
-            'angular-route',
-            'angular-cookies',
-            'angular-translate',
-            'angular-translate-storage-cookie',
-            'angular-translate-storage-local',
-            'angular-translate-loader-static-files',
-            'angular-translate-loader-url',
             'gatekeeper',
 
             'nav',
@@ -50,11 +41,6 @@ requirejs.config({
             'serviceRequest',
             'serviceRequest.factory',
             'serviceRequest.directives',
-
-            'address',
-            'address.controller',
-            'address.factory',
-            'address.directives',
 
             'contact',
             'contact.controller',
