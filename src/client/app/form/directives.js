@@ -74,4 +74,3 @@ angular.module('mps.form')
         }
     };
 }]);
-}]);

@@ -55,7 +55,6 @@ module.exports = function(config) {
         { pattern: 'client/tests/contact_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/form_module_spec.js', included: false},
         'client/tests/test-main.js'
-        'client/tests/test-main.js'
     ],
 
 
