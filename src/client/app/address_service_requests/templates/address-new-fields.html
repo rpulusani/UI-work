@@ -23,12 +23,14 @@
     <label translate="ADDRESS.COUNTRY"></label>
     <select name="country" ng-model="address.country" required
             ng-options="country.name for country in countryHAL.countries track by country.code">
+        <option value="" translate="LABEL.SELECT"></option>
     </select>
 </div>
 <div class="form__field form__field--required">
     <label translate="ADDRESS.STATE"></label>
     <select name="state" ng-model="address.state" required
             ng-options="province.name for province in address.country.provinces track by province.code">
+        <option value="" translate="LABEL.SELECT"></option>
     </select>
 </div>
 <div class="form__field form__field--required">

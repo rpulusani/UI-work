@@ -54,7 +54,7 @@
         "ALT_PHONE": "Alternate Phone",
         "EMAIL": "Email Address"
     },
-    
+
     "DEVICE_MGMT_REQUEST": {
         "TITLE": "Device Management Request"
     },
@@ -77,7 +77,7 @@
         "ASSET_REGISTER": "Asset Register",
         "FUTURE_RATE": "Future Rate",
         "FCC_RATE": "FCC Rate",
-        "REPORT_NAME": "Report",        
+        "REPORT_NAME": "Report",
         "ACTION": "Action",
         "RUN": "RUN THIS REPORT",
         "RUN_TITLE": "Run Report"
@@ -115,9 +115,9 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "WITH_COLUMN": "{{value}}:",
         "DATE": "Date",
-        "STATUS": "Status"
+        "STATUS": "Status",
+        "SELECT": "- select -"
     },
 
     "MESSAGE": {
