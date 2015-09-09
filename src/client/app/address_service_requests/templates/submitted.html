@@ -3,13 +3,13 @@
         <h1 translate="ADDRESS_SERVICE_REQUEST.ADDRESS_SUBMITTED"></h1>
         <div class="well">
             <p>
-                 <span translate="SERVICE_REQUEST.SUBMISSION_TEXT"></span>
+                 <span translate="SERVICE_REQUEST.SUBMISSION_TEXT" translate-values="{refId: serviceRequest.customerReferenceId, hours: serviceRequest.hours}"></span>
             </p>
             <p>
                 <span translate="ADDRESS_SERVICE_REQUEST.WOULD_YOU_LIKE"></span> <a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD_ANOTHER_ADDRESS"></a>
             </p>
         </div>
-        <h4 translate="ADDRESS_SERVICE_REQUEST.DETAILS_TITLE"></h4>
+        <h4 translate="ADDRESS_SERVICE_REQUEST.DETAILS_TITLE" translate-values="{refId: serviceRequest.customerReferenceId}"></h4>
         <hr/>
         <div class="row">
             <div class="col-1-3">
@@ -79,7 +79,7 @@
                 <h3 translate="ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED"></h3>
                 <em ng-hide="address.addName"" translate="LABEL.NONE"></em>
                 <div ng-bind="address.addName"></div>
-                <div ng-bind="address.storeName" ng-show="address.storeName"></div> 
+                <div ng-bind="address.storeName" ng-show="address.storeName"></div>
                 <div ng-bind="address.addrLine1"></div>
                 <div ng-bind="address.addrLine2" ng-show="address.addrLine2"></div>
                 <div>

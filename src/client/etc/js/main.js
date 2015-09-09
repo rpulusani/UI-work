@@ -35,9 +35,6 @@ requirejs.config({
             'form',
             'form.directives',
 
-        'form',
-        'form.directives',
-
             'utility',
             'utility.historyUtility',
             'utility.directives',
@@ -114,7 +111,7 @@ requirejs.config({
         'report.factory': ['report'],
 
         'gatekeeper': ['angular-cookies', 'angular-route']
-        
+
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -171,7 +168,7 @@ requirejs.config({
         'report.controller': 'app/reporting/controller',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-        
+
         'gatekeeper': 'app/libs/gatekeeper-angular'
     },
     map: {

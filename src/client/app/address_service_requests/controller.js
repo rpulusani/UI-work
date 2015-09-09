@@ -9,7 +9,7 @@ angular.module('mps.serviceRequestAddresses')
         $scope.addresses = Addresses.addresses;
         $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                         '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
-       
+
         $scope.contact = {
             name: '',
             phoneNumber: '',
@@ -17,10 +17,11 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.serviceRequest = {
-            customerReferenceId: '',
+            customerReferenceId: '1-23654-AB',
             costCenter: '',
             addtnlDescription: '',
-            requestedEffectiveDate: ''
+            requestedEffectiveDate: '',
+            hours: 3
         };
 
         $scope.setStoreFrontName = function(){
@@ -38,8 +39,7 @@ angular.module('mps.serviceRequestAddresses')
             fd;
 
             $scope.submitForm = false; // Request data from the server
-        
-            // 1 send to address creation
+            Addresses.address  = $scope.address;
             $location.path('/service_requests/addresses/' + $scope.address.id + '/submitted');
         };
 

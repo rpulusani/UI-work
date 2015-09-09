@@ -19,7 +19,7 @@
         "ADDRESS_REQUESTED": "Address requested",
         "WOULD_YOU_LIKE": "Would you like to ",
         "ADD_ANOTHER_ADDRESS": "add another address",
-        "DETAILS_TITLE":"Details for Address Request Number: 1-2345-67890"
+        "DETAILS_TITLE":"Details for Address Request Number: {{refId}}"
     },
 
     "SERVICE_REQUEST": {
@@ -32,7 +32,7 @@
         "CHANGE_SECONDARY_CONTACT": "Change secondary contact",
         "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
         "INTERNAL_REFENCE_ID": "Internal Refernce ID",
-        "SUBMISSION_TEXT": "Your address request (1-2345-67890) has been submitted. Please allow [x] hours for our team to review and process the request.",
+        "SUBMISSION_TEXT": "Your address request {{refId}} has been submitted. Please allow {{hours}} hours for our team to review and process the request.",
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
         "SUBMITED": "Submitted"
