@@ -22,7 +22,7 @@ describe('Address Service Request Module', function() {
         /** Cover all business Logic **/
 
         describe('when Set Store Front Name is chosen', function(){
-                it('will set the address name to the store front name', function(){
+                it('should set the address name to the store front name', function(){
                     addresses.new();
                     scope.address = addresses.address;
 
@@ -33,53 +33,26 @@ describe('Address Service Request Module', function() {
                 });
         });
 
-        describe('when test data is loaded', function(){
-            beforeEach(function() { scope.loadTestData(); });
-
-            it('has Vickers PetsAtHome as name in contact', function() {
-                expect(scope.contact.name).toBe('Vickers PetsAtHome');
-            });
-
-            it('has 9992882222 as phoneNumber in contact', function() {
-                expect(scope.contact.phoneNumber).toBe('9992882222');
-            });
-
-            it('has vickerspets@test.com as emailAddress in contact', function() {
-                expect(scope.contact.emailAddress).toBe('vickerspets@test.com');
-            });
-        });
-
-        describe("when goto Read", function(){
-            var httpBackend;
-            beforeEach(inject(function (_$httpBackend_) {
-                
-                    httpBackend = _$httpBackend_;
-                    $httpBackend.when('GET', '/service_requests/addresses/0/review').respond(200);
-                
-            }));
-
-            it('should get the address via service save it to scope and redirect', function() {
-                
-            });
-        });
-
         describe('when saved', function() {
             var httpBackend;
             beforeEach(inject(function (_$httpBackend_) {
-                
+
                     httpBackend = _$httpBackend_;
                     $httpBackend.when('GET', '/service_requests/addresses/0/submitted').respond(200);
-                
+
             }));
-            
+
             it('should redirect to submitted page', function(){
-                // setup new record
                 addresses.new();
                 scope.address = addresses.address;
+                expect(addresses.address).not.toBe(undefined);
+                expect(addresses.address.addName).toBe(undefined);
+                scope.address.addName = 'bad';
                 $httpBackend.expectGET('/service_requests/addresses/0/submitted').respond(200);
                 scope.save();
+                expect(addresses.address.addName).toBe('bad');
             });
-            
+
 /*
             describe('when POST request failed', function() {
                 it('should set add_success to be false', function() {
