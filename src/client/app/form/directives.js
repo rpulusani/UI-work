@@ -21,16 +21,6 @@ angular.module('mps.form')
         };
     }
 ])
-.directive('select', function(){
-    return {
-        restrict: 'E',
-        link: function(scope, element, attrs) {
-            alert('123');
-            
-           // $(element).selectric();
-        }
-    };
-});
 .directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',  

@@ -41,9 +41,14 @@ angular.module('mps.serviceRequestAddresses')
 
         $scope.save = function() {
             if ($scope.address.id) {
-                Addresses.update({id: $scope.address.id, accountId: $scope.accountId}, $scope.address, $scope.goToViewAll);
+                Addresses.update({
+                    id: $scope.address.id, 
+                    accountId: $scope.accountId
+                }, $scope.address, $scope.goToViewAll);
             } else {
-                Addresses.save({accountId: $scope.accountId}, $scope.address, $scope.goToViewAll);
+                Addresses.save({
+                    accountId: $scope.accountId
+                }, $scope.address, $scope.goToViewAll);
             }
         };
 
@@ -71,7 +76,7 @@ angular.module('mps.serviceRequestAddresses')
             $location.path('/service_requests/addresses/new');
         };
 
-        $scope.goToRead = function(id) {
+        $scope.goToReview = function(id) {
             $location.path('/service_requests/addresses/' + id + '/review');
         };
 
