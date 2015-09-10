@@ -86,44 +86,43 @@ angular.module('mps.form')
         if(selectric) {
           selectric.selectric('destroy');
         }
-        require(['jquery', 'stable/form-selectbox'], function($){
-          selectric = $('<select></select>');
-          if(placeholder) {
-            selectric.append(
-              $('<option></option>').text(placeholder)
-            );
+        $ = require('jquery');
+        selectric = $('<select></select>');
+        if(placeholder) {
+          selectric.append(
+            $('<option></option>').text(placeholder)
+          );
+        }
+        if(!options) {
+          options = [];
+        }
+        $.each(options, function(_index, item) {
+          var option = $('<option></option>')
+                       .attr('value', item[value])
+                       .text(item[label]);
+          if(model == item[value]) {
+            option.attr('selected', 'selected');
           }
-          if(!options) {
-            options = [];
-          }
-          $.each(options, function(_index, item) {
-            var option = $('<option></option>')
-                         .attr('value', item[value])
-                         .text(item[label]);
-            if(model == item[value]) {
-              option.attr('selected', 'selected');
-            }
-            selectric.append(option);
-          });
-          element.empty();
-          element.append(selectric[0]);
-          selectric.selectric({
-             onChange: function(){
-               var val = selectric.val();
-               scope.$apply(function(scope) {
-                 last.model = scope.model = val;
-                 if(scope.onSelect) {
-                   var option = null;
-                   $.each(options, function(_index, item) {
-                     if(item[value] == val) {
-                       option = item;
-                     }
-                   });
-                   scope.onSelect({option: option});
-                 }
-               });
-             }
-          });
+          selectric.append(option);
+        });
+        element.empty();
+        element.append(selectric[0]);
+        selectric.selectric({
+           onChange: function(){
+             var val = selectric.val();
+             scope.$apply(function(scope) {
+               last.model = scope.model = val;
+               if(scope.onSelect) {
+                 var option = null;
+                 $.each(options, function(_index, item) {
+                   if(item[value] == val) {
+                     option = item;
+                   }
+                 });
+                 scope.onSelect({option: option});
+               }
+             });
+           }
         });
       });
       scope.$on('$destroy', function() {
