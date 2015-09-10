@@ -7,13 +7,14 @@ function(angular, mocks, fef, $) {
         $httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
         $compile = _$compile_;
         $rootScope = _$rootScope_;
-        el = $compile('<div selectric model="model" placeholder="place" options="options" value="value" label="label"></div>')($rootScope);
+        el = $compile('<div selectric model="model" placeholder="place" on-select="callback(option)" options="options" value="value" label="label"></div>')($rootScope);
         $rootScope.options = [
             {value: '1', label: 'a'},
             {value: '2', label: 'b'},
             {value: '3', label: 'c'},
             {value: '4', label: 'd'}
         ];
+        $rootScope.callback=function(){};
         $rootScope.$digest();
       }));
       it('loads', function () {
@@ -36,6 +37,13 @@ function(angular, mocks, fef, $) {
         $rootScope.model = '3';
         $rootScope.$digest();
         expect($(el[0]).find('li[class=selected]').text()).toBe('c');
+      });
+      it('calls back on change', function(done) {
+        $rootScope.callback=function(option){
+          expect(option.value).toBe('4');
+          done();
+        };
+        $(el[0]).find('li:last-child').click();
       });
   });
 });
