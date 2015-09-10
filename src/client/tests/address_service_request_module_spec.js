@@ -8,7 +8,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
             beforeEach(function (){
                 mockedAddressesFactory = {
-                    delete: function(address, resolve) {
+                    remove: function(address, resolve) {
                         resolve(true);
                     },
                     query: jasmine.createSpy()
