@@ -8,7 +8,8 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
             beforeEach(function (){
                 mockedFactory = {
                     query: jasmine.createSpy(),
-                    getById: jasmine.createSpy()
+                    getById: jasmine.createSpy(),
+                    devices: jasmine.createSpy()
                 };
 
                 module(function($provide) {
@@ -38,25 +39,17 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                         expect(mockedFactory.getById.calls.count()).toBe(0);
                     });
                 });
-            });
-
-            describe('goToRead', function() {
-                it('should take to the device view page based on device ID', function() {
-                    var deviceId = 'device-1';
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.goToRead(deviceId);
-                    expect(location.path).toHaveBeenCalledWith('/device_management/device-1/review');
-                });
-            });            
+            });                    
 
             describe('Routes', function(){
                 it('should map routes to controllers', function() {
                     inject(function($route) {
                         expect($route.routes['/device_management'].controller).toBe('DeviceManagementController');
-                        expect($route.routes['/DeviceManagementController'].templateUrl)
+                        expect($route.routes['/device_management'].templateUrl)
                                     .toEqual('/app/device_management/templates/device-management-home.html');
                     });
                 });             
             });
+        });
     });
 });

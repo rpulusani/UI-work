@@ -59,7 +59,6 @@ angular.module('mps.deviceManagement')
                      $scope.formattedAddress = $scope.formattedAddress + ', ' + $scope.installAddress.office + '\n';
                 }
                 $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.country;
-                console.log($scope.formattedAddress);
             }
         };
 
@@ -71,7 +70,6 @@ angular.module('mps.deviceManagement')
         };
 
         if (Device.devices.length === 0) {
-            console.log('inside fetching devices');
             Device.query(function() {
                 $scope.devices = Device.devices;
             });
