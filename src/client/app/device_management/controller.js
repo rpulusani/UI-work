@@ -1,10 +1,11 @@
 'use strict';
 angular.module('mps.deviceManagement')
-.controller('DeviceManagementController', ['$scope', '$location', '$routeParams', 'History', 'Device',
-    function($scope, $location, $routeParams, History, Device) {
+.controller('DeviceManagementController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
+    function($scope, $location, $routeParams, BlankCheck, Device) {
         $scope.devices = Device.devices;
         $scope.device = Device.device;
         $scope.formattedAddress = '';
+        $scope.formattedTitleAddress = '';
 
         $scope.primaryContact = {
             address: {},
@@ -43,22 +44,27 @@ angular.module('mps.deviceManagement')
         };
 
         $scope.formatAddress = function() {
-            if($scope.installAddress!== undefined && $scope.installAddress !== null){
+            if(BlankCheck.checkNotNullOrUndefined($scope.installAddress)){
                 $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' + 
                                           $scope.installAddress.addressLine1 + ', ' +
                                           $scope.installAddress.city + ', ' + 
                                           $scope.installAddress.state + ' ' +
                                           $scope.installAddress.postalCode + '\n';
-                if($scope.installAddress.building!== undefined && $scope.installAddress.building !== null){
-                    $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.building;
+                if(BlankCheck.checkNotBlank($scope.installAddress.building)){
+                    $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.building + ', ';
                 }
-                if($scope.installAddress.floor!== undefined && $scope.installAddress.floor !== null){
-                    $scope.formattedAddress = $scope.formattedAddress + ', ' + $scope.installAddress.floor;
+                if(BlankCheck.checkNotBlank($scope.installAddress.floor)){
+                    $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.floor + ', ';
                 }
-                if($scope.installAddress.office!== undefined && $scope.installAddress.office !== null){
-                     $scope.formattedAddress = $scope.formattedAddress + ', ' + $scope.installAddress.office + '\n';
+                if(BlankCheck.checkNotBlank($scope.installAddress.office)){
+                     $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.office + '\n';
                 }
                 $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.country;
+                $scope.formattedTitleAddress = $scope.installAddress.addressLine1 + ", " +
+                                                $scope.installAddress.city + ", " +
+                                                $scope.installAddress.state + " " +
+                                                $scope.installAddress.postalCode + ", " +
+                                                $scope.installAddress.country;
             }
         };
 

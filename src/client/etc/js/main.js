@@ -31,6 +31,7 @@ requirejs.config({
 
             'utility',
             'utility.historyUtility',
+            'utility.blankCheckUtility',
             'utility.directives',
             'utility.controllers',
 
@@ -72,6 +73,7 @@ requirejs.config({
 
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
+        'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
         'utility.controllers' : ['utility'],
 
@@ -98,7 +100,7 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory'],
+        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory','utility.blankCheckUtility'],
         'deviceManagement.directives': ['deviceManagement'],
         'deviceManagement.factory': ['deviceManagement'],
 
@@ -135,6 +137,7 @@ requirejs.config({
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
+        'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controllers': 'app/utilities/controller',
 

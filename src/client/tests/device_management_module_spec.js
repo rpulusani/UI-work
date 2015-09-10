@@ -4,7 +4,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
         beforeEach(module('mps'));    
 
         describe('DeviceManagementController', function() {
-            var scope, ctrl, location, history, mockedFactory;
+            var scope, ctrl, location, blankCheck, mockedFactory;
             beforeEach(function (){
                 mockedFactory = {
                     query: jasmine.createSpy(),
@@ -16,10 +16,10 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                     $provide.value('Device', mockedFactory);
                 });
             });
-            beforeEach(inject(function($rootScope, $controller, $location, History) {
+            beforeEach(inject(function($rootScope, $controller, $location, BlankCheck) {
                 scope = $rootScope.$new();
                 location = $location;
-                history = History;
+                blankCheck = BlankCheck;
                 ctrl = $controller('DeviceManagementController', {$scope: scope});
             }));
 
@@ -39,7 +39,14 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                         expect(mockedFactory.getById.calls.count()).toBe(0);
                     });
                 });
-            });                    
+            });
+
+            describe('formatAddress', function() {
+                it('should call BlankCheck', function() {
+                    scope.formatAddress();
+                    expect(blankCheck.path).toBeCalled;
+                });
+            });              
 
             describe('Routes', function(){
                 it('should map routes to controllers', function() {

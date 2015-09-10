@@ -185,7 +185,9 @@
 
         "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
-        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager."
+        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
+
+        "NO_IMAGE_FOUND": "No Image Found"
     }
 
 }

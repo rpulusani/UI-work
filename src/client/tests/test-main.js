@@ -44,6 +44,7 @@ require.config({
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
+        'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
 
         'user': 'app/users/user',
@@ -120,6 +121,7 @@ require.config({
 
             'utility',
             'utility.historyUtility',
+            'utility.blankCheckUtility',
             'utility.directives',
 
             'user',
@@ -165,6 +167,7 @@ require.config({
 
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
+        'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
 
         'user': ['angular'],
