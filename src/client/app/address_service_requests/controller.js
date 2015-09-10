@@ -8,6 +8,7 @@ angular.module('mps.serviceRequestAddresses')
 
         if ($routeParams.id) {
             $scope.address = Addresses.get({id: $routeParams.id, accountId: 1});
+            $scope.address.accountId = 1;
         } else {
             $scope.address = {accountId: 1};
         }
@@ -97,7 +98,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.removeAddress = function(id) {
-            Addresses.remove({id: id});
+            Addresses.remove($scope.address, {accountId: 1});
         };
 
         $scope.loadTestData();
