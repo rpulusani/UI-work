@@ -66,6 +66,9 @@ requirejs.config({
             'pageCount',
 
             'deviceManagement',
+            'deviceManagement.controller',
+            'deviceManagement.factory',
+            'deviceManagement.directives',
 
             'report',
             'report.controller',
@@ -109,13 +112,15 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
+        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory'],
+        'deviceManagement.directives': ['deviceManagement'],
+        'deviceManagement.factory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
         'report.directives': ['report'],
-        'report.factory': ['report'],
-
         'gatekeeper': ['angular-cookies', 'angular-route']
+        'report.factory': ['report']
 
     },
     paths: {
@@ -169,6 +174,9 @@ requirejs.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
+        'deviceManagement.controller': 'app/device_management/controller',
+        'deviceManagement.directives': 'app/device_management/directives',
+        'deviceManagement.factory': 'app/device_management/deviceManagementFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
@@ -176,6 +184,7 @@ requirejs.config({
         'report.factory': 'app/reporting/reportFactory',
 
         'gatekeeper': 'app/libs/gatekeeper-angular'
+        'report.factory': 'app/reporting/reportFactory'
     },
     map: {
         '*': {

@@ -97,15 +97,17 @@
 
     "DEVICE_MGT": {
         "TITLE": "Device Management",
+        "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
         "SERIAL_NO": "Serial Number",
         "INSTALL_ADDRESS": "Install Address",
         "INSTALL_DATE": "Install Date",
         "IP_ADDRESS": "IP Address",
         "HOST_NAME": "Host Name",
-        "UPDATE_DEVICE_INFO": "Update Device Information",
-        "DECOMMISSION_DEVICE": "Decommission This Device",
-        "MANAGE_DEVICE_CONTACT": "Manage Device Contact >"
+        "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
+        "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
+        "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
+        "MANAGING_DEVICE": "Managing Device {{product_model}}"
     },
 
     "REQUEST_MGMT": {
@@ -169,7 +171,7 @@
         "NETWORK_CONFIG": "Network Configuration",
         "PRIMARY_CONTACT": "Primary Contact",
         "ADDRESS": "Address",
-        "VIEW_ON_MAP": "View On Map >"
+        "VIEW_ON_MAP": "View On Map >",
         "NONE_SELECTED": "None selected",
         "NONE": "None",
         "COMMENTS": "Comments",
