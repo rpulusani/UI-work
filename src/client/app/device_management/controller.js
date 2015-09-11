@@ -7,7 +7,8 @@ define(['angular', 'deviceManagement'], function(angular) {
             $scope.devices = Device.devices;
             $scope.device = Device.device;
             $scope.formattedAddress = '';
-            $scope.formattedTitleAddress = '';        
+            $scope.formattedTitleAddress = '';
+            $scope.file_list = ['.xls', '.xlsx', '.csv'].join(',');
 
             $scope.installAddress = {
                 storeFrontName: 'Lexmark International Inc',

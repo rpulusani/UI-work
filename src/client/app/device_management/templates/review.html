@@ -4,4 +4,17 @@
 </h4>
 <h3 translate="DEVICE_MGT.DEVICE_INFO"></h3>
 <hr>
-<div device-information></div>
+<form class="form" data-form="" name="newAddress" novalidate>
+	<div device-information></div>
+	<div file-upload title="DEVICE_MGT.TITLE_IMPORT_PGCNT" body="DEVICE_MGT.BODY_IMPORT_PGCNT"
+		 cancel="DEVICE_MGT.CANCEL_IMPORT_PGCNT" confirm="DEVICE_MGT.CONFIRM_IMPORT_PGCNT" file-format="MESSAGE.ACCEPTABLE_FILE_FORMAT" file-list="{{file_list}}"> 
+	</div>
+	<div class="col-1">
+		<button name="import" class="col-1-3 btn btn--secondary"
+          		data-js="modalOpen" data-target="#fileUpload"
+                translate="DEVICE_MGT.TITLE_IMPORT_PGCNT">
+        </button>
+	    <button class="btn btn--primary" translate="DEVICE_MGT.UPDATE_DEVICE_INFO"></button>
+	    <button class="btn btn--primary" translate="DEVICE_MGT.DECOMMISSION_DEVICE"></button>
+	</div>
+</form>

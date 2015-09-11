@@ -4,4 +4,9 @@ angular.module('mps.utility')
     $scope.leave = function() {
         $location.path($scope.returnPath);
     };
+}])
+.controller('fileUploadController', ['$scope', function($scope){
+    $scope.upload = function() {
+        // ToDo: upload Logic
+    };
 }]);

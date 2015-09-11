@@ -107,7 +107,11 @@
         "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
         "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
         "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
-        "MANAGING_DEVICE": "Managing Device {{product_model}}"
+        "MANAGING_DEVICE": "Managing Device {{product_model}}",
+        "TITLE_IMPORT_PGCNT": "Import Page Counts",
+        "BODY_IMPORT_PGCNT": "Please select a file you wish to import page counts from...",
+        "CANCEL_IMPORT_PGCNT": "CANCEL IMPORT",
+        "CONFIRM_IMPORT_PGCNT": "IMPORT AND REVIEW PAGE COUNTS"
     },
 
     "REQUEST_MGMT": {
@@ -187,7 +191,8 @@
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
         "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
 
-        "NO_IMAGE_FOUND": "No Image Found"
+        "NO_IMAGE_FOUND": "No Image Found",
+        "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}"
     }
 
 }
