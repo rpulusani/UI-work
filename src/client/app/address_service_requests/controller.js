@@ -34,14 +34,6 @@ angular.module('mps.serviceRequestAddresses')
             hours: 3
         };
 
-        $scope.setStoreFrontName = function(){
-            $scope.address.storeName =  $scope.address.addName;
-        };
-
-        $scope.setStoreFrontName = function(){
-            $scope.address.storeName =  $scope.address.addName;
-        };
-
         $scope.loadTestData = function() {
             $scope.contact.name = 'Vickers PetsAtHome';
             $scope.contact.phoneNumber = '9992882222';
@@ -98,7 +90,9 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.removeAddress = function(id) {
-            Addresses.remove($scope.address, {accountId: 1});
+            Addresses.remove({id: id, accountId: 1}, function() {
+                $location.path('/service_requests/addresses');
+            });
         };
 
         $scope.loadTestData();
