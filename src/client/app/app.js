@@ -54,8 +54,6 @@ define([
         }
     })
 
-    .constant('mpsApiUri', 'http://10.145.116.233:8080/mps')
-
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){
@@ -66,9 +64,24 @@ define([
       GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(function(Gatekeeper, $rootScope) {
-        $rootScope.user = Gatekeeper.user;
-    })
+    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
+    function(Gatekeeper, UserService, $rootScope, $cookies) {
+        $rootScope.idpUser = Gatekeeper.user;
+        $rootScope.currentUser = {};
+        var currentUser = UserService.get({idpId: Gatekeeper.user.id}, function(){
+            if (currentUser._embedded.users.length > 0) {
+                $rootScope.currentUser = currentUser._embedded.users[0];
+            }
+        });
+
+        //TODO: Remove this once it is included into Gatekeeper.
+        $rootScope.logout = function() {
+            delete $cookies['accessToken'];
+            var mpsUiUri = 'http://localhost:8080/';
+            var redirect_uri = config.idp.serviceUrl + '/auth/users/sign_out?redirect_uri=' + mpsUiUri;
+            document.location.href = redirect_uri;
+        };
+    }])
 
     .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
         function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {
