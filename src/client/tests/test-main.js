@@ -17,6 +17,8 @@ require.config({
     baseUrl: '/base/client',
 
     paths: {
+        'fixtures': 'tests/fixtures',
+
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',

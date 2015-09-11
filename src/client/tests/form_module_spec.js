@@ -1,4 +1,5 @@
-define(['angular','angular-mocks', 'form','lxk.fef','jquery'], function(angular, mocks, form, fef,$) {
+define(['angular','angular-mocks', 'form','lxk.fef','jquery', 'fixtures'],
+    function(angular, mocks, form, fef,$, fixtures) {
 describe('Form Module', function() {
     beforeEach(module('mps'));
     describe('directives', function(){
@@ -11,6 +12,7 @@ describe('Form Module', function() {
 
                 $httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
                 $httpBackend.when('GET', '/app/dashboard/templates/home.html').respond("<h1>home</h1>");
+                $httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
             }));
 
 
@@ -53,7 +55,7 @@ describe('Form Module', function() {
 
                 $httpBackend.flush();
             });
-            
+
             it("should have the front end framework turn on and checked saves to scope", function(){
                 scope.cat = "furry";
                 var elementCheckboxHtml =
@@ -201,7 +203,7 @@ describe('Form Module', function() {
                     expect(elm).toBeDefined();
                     expect($(elm).find("li.selected")).toBeDefined();
                     expect($(elm).find("li.selected").html()).toBe("--select--");
-                    
+
                     console.log("selectric " + $(elm).find(".selectric"));
                     $(elm).find(".selectric").click();
                     var option1 = $(elm).find("li");
