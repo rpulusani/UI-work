@@ -68,9 +68,9 @@ define([
     function(Gatekeeper, UserService, $rootScope, $cookies) {
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {};
-        var currentUser = UserService.get({idpId: Gatekeeper.user.id}, function(){
-            if (currentUser._embedded.users.length > 0) {
-                $rootScope.currentUser = currentUser._embedded.users[0];
+        UserService.get({idpId: Gatekeeper.user.id}, function(user){
+            if (user._embedded && user._embedded.users.length > 0) {
+                $rootScope.currentUser = user._embedded.users[0];
             }
         });
 
