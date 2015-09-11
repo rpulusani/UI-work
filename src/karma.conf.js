@@ -54,6 +54,7 @@ module.exports = function(config) {
         { pattern: 'client/tests/address_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/contact_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/form_module_spec.js', included: false},
+        { pattern: 'client/tests/device_management_module_spec.js', included: false},
         { pattern: 'client/tests/selectric_spec.js', included: false},
         'client/tests/test-main.js'
     ],
