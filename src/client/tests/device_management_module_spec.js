@@ -8,7 +8,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
             beforeEach(function (){
                 mockedFactory = {
                     query: jasmine.createSpy(),
-                    getById: jasmine.createSpy(),
+                    get: jasmine.createSpy(),
                     devices: jasmine.createSpy()
                 };
 
@@ -30,13 +30,13 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                         ctrl = $controller('DeviceManagementController', {$scope: scope});
                     }));
                     it('should get device', function() {
-                        expect(mockedFactory.getById.calls.count()).toBe(1);
+                        expect(mockedFactory.get.calls.count()).toBe(1);
                     });
                 });
 
                 describe('when routeParam.id not available', function() {
                     it('should not get device', function() {
-                        expect(mockedFactory.getById.calls.count()).toBe(0);
+                        expect(mockedFactory.get.calls.count()).toBe(0);
                     });
                 });
             });

@@ -6,19 +6,11 @@ angular.module('mps.utility')
     };
 
     BlankCheck.prototype.checkNotNullOrUndefined = function(value){
-        if (value !== undefined && value !== null){
-            return true;
-        } else {
-            return false;
-        }
+        return value !== undefined && value !== null;
     }
 
     BlankCheck.prototype.checkNotBlank = function(value){
-        if (value !== undefined && value !== null && value !== ''){
-            return true;
-        } else {
-            return false;
-        }
+        return value !== undefined && value !== null && value !== '';
     }
 
     return new BlankCheck();

@@ -2,45 +2,30 @@
 angular.module('mps.deviceManagement')
 .controller('DeviceManagementController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
     function($scope, $location, $routeParams, BlankCheck, Device) {
+        var acct_id = 1;
         $scope.devices = Device.devices;
         $scope.device = Device.device;
         $scope.formattedAddress = '';
-        $scope.formattedTitleAddress = '';
-
-        $scope.primaryContact = {
-            address: {},
-            name: '',
-            phoneNumber: '',
-            emailAddress: ''
-        };
+        $scope.formattedTitleAddress = '';        
 
         $scope.installAddress = {
-            storeFrontName: '',
-            addressLine1: '',
+            storeFrontName: 'Lexmark International Inc',
+            addressLine1: '740 W. New Circle Rd.',
             addressLine2: '',
-            country: '',
-            city: '',
-            state: '',
-            postalCode: '',
-            building: '',
-            floor: '',
-            office: '' 
+            country: 'United States',
+            city: 'Lexington',
+            state: 'KY',
+            postalCode: '40511',
+            building: 'Bldg1',
+            floor: 'floor2',
+            office: 'office3' 
         };
 
-        $scope.loadTestData = function() {
-            $scope.installAddress.storeFrontName = 'Lexmark International Inc';
-            $scope.installAddress.addressLine1 = '740 W. New Circle Rd.';
-            $scope.installAddress.country = 'United States';
-            $scope.installAddress.city = 'Lexington';
-            $scope.installAddress.state = 'KY';
-            $scope.installAddress.postalCode = '40511';
-            $scope.installAddress.building = 'Bldg1';
-            $scope.installAddress.floor = 'floor2';
-            $scope.installAddress.office = 'office3';
-            $scope.primaryContact.name = 'John Public';
-            $scope.primaryContact.phoneNumber = '9992882222';
-            $scope.primaryContact.emailAddress = 'jpublic@lexmark.com';
-            $scope.primaryContact.address = $scope.installAddress;
+        $scope.primaryContact = {
+            address: $scope.installAddress,
+            name: 'John Public',
+            phoneNumber: '9992882222',
+            emailAddress: 'jpublic@lexmark.com'
         };
 
         $scope.formatAddress = function() {
@@ -67,27 +52,18 @@ angular.module('mps.deviceManagement')
                                                 $scope.installAddress.country;
             }
         };
+        
+        if($routeParams.id) {
+            $scope.device = Device.get({accountId: acct_id, id: $routeParams.id});
+        }else {
+            $scope.devices = Device.query({accountId: acct_id});
+        }
 
         $scope.goToRead = function(id) {
-            Device.getById(id, function() {
-                $scope.device = Device.device;
-                $location.path('/device_management/' + id + '/review');
-            });
+            $scope.device = Device.get({accountId: acct_id, id: id});
+            $location.path('/device_management/' + id + '/review');
         };
-
-        if (Device.devices.length === 0) {
-            Device.query(function() {
-                $scope.devices = Device.devices;
-            });
-        }
-
-        if ($routeParams.id) {
-           Device.getById($routeParams.id, function() {
-                $scope.device = Device.device;
-            });
-        }
-
-        $scope.loadTestData();
+        
         $scope.formatAddress();
     }
 ]);
