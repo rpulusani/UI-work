@@ -1,0 +1,65 @@
+<div class="row row--alley-2">
+    <div class="col-1-24 text--align-center">
+        <i class="icon icon--ui icon--not-favorite"></i>
+    </div>
+    <div class="col-3-8">
+        <div class="card" data-card="" id="widget-overview">
+            <div class="card__content">
+                <img src="/etc/resources/img/part_na_color.png" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+            </div>
+        </div>
+        <dl class="row">
+            <dt class="col-1-2" translate="DEVICE_MGT.PRODUCT_MODEL"></dt>
+            <dd class="col-1-2" ng-bind="device.productModel"></dd>
+            <dt class="col-1-2" translate="DEVICE_MGT.SERIAL_NO"></dt>
+            <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
+        </dl>
+    </div>
+    <div class="col-5-12">
+        <dl class="row">
+            <dt class="col-1-2">
+                <h4 class="text--semi-bold" translate="LABEL.LOCATION"></h4>                
+            </dt>
+            <dd class="col-1-2 text--small">
+                <a href="" translate="LABEL.VIEW_ON_MAP"></a>
+            </dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-1-2" translate="DEVICE_MGT.INSTALL_ADDRESS"></dt>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
+            <dt class="col-1-2" translate="DEVICE_MGT.INSTALL_DATE"></dt>
+            <dd class="col-1-2" ng-bind="device.installDate"></dd>
+        </dl>
+        <h4 class="text--semi-bold" translate="LABEL.NETWORK_CONFIG"></h4>
+        <dl class="row">
+            <dt class="col-1-2" translate="DEVICE_MGT.IP_ADDRESS"></dt>
+            <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
+            <dt class="col-1-2" translate="DEVICE_MGT.HOST_NAME"></dt>
+            <dd class="col-1-2" ng-bind="device.hostName"></dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-1-2">
+                <h4 class="text--semi-bold" translate="LABEL.PRIMARY_CONTACT"></h4>              
+            </dt>
+            <dd class="col-1-2 text--small">
+                <a href="" translate="DEVICE_MGT.MANAGE_DEVICE_CONTACT"></a>
+            </dd>
+        </dl>
+       
+        <dl class="row">
+            <dt class="col-1-2" translate="LABEL.NAME"></dt>
+            <dd class="col-1-2" ng-bind="primaryContact.name"></dd>
+            <dt class="col-1-2" translate="LABEL.ADDRESS"></dt>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
+            <dt class="col-1-2" translate="LABEL.EMAIL"></dt>
+            <dd class="col-1-2" ng-bind="primaryContact.emailAddress"></dd>
+            <dt class="col-1-2" translate="CONTACT.WORK_PHONE"></dt>
+            <dd class="col-1-2" ng-bind="primaryContact.phoneNumber"></dd>
+        </dl>
+    </div>   
+</div>
+ <div class="col-1">
+    <button class="btn btn--primary" translate="DEVICE_MGT.UPDATE_DEVICE_INFO"></button>
+    <button class="btn btn--primary" translate="DEVICE_MGT.DECOMMISSION_DEVICE"></button>
+</div>

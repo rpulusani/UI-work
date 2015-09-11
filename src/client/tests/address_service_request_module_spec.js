@@ -122,31 +122,6 @@ describe('Address Service Request Module', function() {
                 expect(scope.address.id).toBe(0);
             });
         });
-
-        describe('when an address needs to be updated', function(){
-            var scope, ctrl, location, addresses, httpBackend, routeParams;
-            beforeEach(inject(function($rootScope, $controller, $location, Addresses, _$httpBackend_, $routeParams) {
-                scope = $rootScope.$new();
-                location = $location;
-                ctrl = $controller('AddressesController', {$scope: scope});
-                addresses = Addresses;
-                httpBackend = _$httpBackend_;
-                $httpBackend.expectGET('/accounts/1/addresses/temp-1').respond({'id': 'temp-1'});
-                routeParams = $routeParams;
-                routeParams.id = 'temp-1';
-            }));
-
-            it('should have an id of temp-1', function(){
-                spyOn(location,'path').and.returnValue('/service_requests/addresses/temp-1/update');
-                scope.getAddress();
-                $httpBackend.expectGET('/accounts/1/addresses/temp-1').respond({'id': 'temp-1'});
-                expect(scope.address).toBeDefined();
-                expect(scope.address.id).toBeDefined();
-                expect(scope.address.id).toBe('temp-1');
-            });
-        });
-
-
     });
     describe("Directives", function(){
         //only test logic examples nothing more
