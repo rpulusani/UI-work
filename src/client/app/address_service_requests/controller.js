@@ -2,13 +2,12 @@ define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
 .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses',
-    function($scope, $http, $location, $routeParams, Addresses, CountryService) {
+    function($scope, $http, $location, $routeParams, Addresses) {
             $scope.continueForm = false;
             $scope.submitForm = false;
             $scope.attachmentIsShown = false;
             $scope.address = Addresses.address;
             $scope.addresses = Addresses.addresses;
-        //$scope.countryHAL = CountryService.getHAL();
             $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                             '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
@@ -88,21 +87,7 @@ define(['angular', 'address'], function(angular) {
                 });
             };
 
-        function setSelectedCountry(){
-            $scope.countryHAL.$promise.then(function(countries) {
-               $scope.countryList =  $scope.countryHAL.countries;
-               for(var i = 0; i < $scope.countryList.length; i++){
-                    if($scope.address.country === $scope.countryList[i].code){
-                        $scope.address.selectedCountry = $scope.countryList[i];
-                        for(var j = 0; j < $scope.countryList[i].provinces.length; j++){
-                            if($scope.address.state === $scope.countryList[i].provinces[j].code){
-                                $scope.address.selectedState = $scope.countryList[i].provinces[j];
-                            }
-                        }
-                    }
-                }
-            });
-        }
+
 
         $scope.getAddress = function(){
             if ($routeParams['id']) {
@@ -113,7 +98,6 @@ define(['angular', 'address'], function(angular) {
                 Addresses.new();
                  $scope.address = Addresses.address;
             }
-            setSelectedCountry();
         };
 
         $scope.getAddressList = function(){
