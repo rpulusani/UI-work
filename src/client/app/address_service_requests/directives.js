@@ -10,6 +10,21 @@ define(['angular', 'address'], function(angular) {
             $scope.countrySelected = function(country) {
               $scope.country = country;
             };
+
+            var loaded = false;
+           $scope.$watchGroup(['countryHAL', 'address'], function(vals) {
+             var countries = vals[0], address = vals[1];
+             if(countries && address && !loaded) {
+               countries.$promise.then(function() {
+                 $.each(countries.countries, function(_i, c) {
+                   if(c.code == address.country) {
+                     $scope.country = c;
+                   }
+                 });
+                 loaded = true;
+               });
+             }
+           });
         }]};
     })
     .directive('addressLocationFields', function() {
