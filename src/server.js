@@ -239,17 +239,17 @@ router.get('/countries', function(req, res) {
     res.json(memory.countries);
 });
 
-router.get('/accounts/1/:requestType', function(req, res) {
+router.get('/accounts/:accountId/:requestType', function(req, res) {
     console.log('All ' + req.params.requestType + ' Sent to client');
 
     res.json(memory[req.params.requestType]);
 });
 
-router.get('/accounts/1/:requestType/new', function(req, res) {
+router.get('/accounts/:accountId/:requestType/new', function(req, res) {
     res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
 });
 
-router.get('/accounts/1/:requestType/:id', function(req, res) {
+router.get('/accounts/:accountId/:requestType/:id', function(req, res) {
     var id;
 
     if (!req.query.id) {
@@ -273,7 +273,7 @@ router.get('/accounts/1/:requestType/:id', function(req, res) {
     }
 });
 
-router.get('/accounts/1/reports/reportlist/:definitionId', function(req, res) {
+router.get('/accounts/:accountId/reports/reportlist/:definitionId', function(req, res) {
     var id;
     console.log('inside find by definition id');
     if (!req.query.definitionId) {
@@ -295,7 +295,7 @@ router.get('/accounts/1/reports/reportlist/:definitionId', function(req, res) {
     }
 });
 
-router.post('/accounts/1/:requestType', function(req, res) {
+router.post('/accounts/:accountId/:requestType', function(req, res) {
     if (typeof req.files !== 'undefined' && req.files.file) {
         req.body.fileName = req.files.file.name;
         req.body.hadAttachment = true;
@@ -318,7 +318,7 @@ router.post('/accounts/1/:requestType', function(req, res) {
     });
 });
 
-router.put('/accounts/1/:requestType/:id', function(req, res) {
+router.put('/accounts/:accountId/:requestType/:id', function(req, res) {
     findById(req.params.requestType, req.params.id, function(record, recordIndex) {
         var prop; // looping through existing entries properties to update
 
@@ -332,7 +332,7 @@ router.put('/accounts/1/:requestType/:id', function(req, res) {
     });
 });
 
-router.delete('/accounts/1/:requestType/:id', function(req, res) {
+router.delete('/accounts/:accountId/:requestType/:id', function(req, res) {
     removeById(req.params.requestType, req.params.id, function(deleted) {
         console.log(req.params.id + ' was deleted!');
         res.json(memory[req.params.requestType]);

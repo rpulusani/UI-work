@@ -8,9 +8,9 @@ angular.module('mps.serviceRequestAddresses')
 
         if ($routeParams.id) {
             $scope.address = Addresses.get({id: $routeParams.id, accountId: 1});
-            $scope.address.accountId = 1;
+            $scope.address.accountId = '1-74XV2R';
         } else {
-            $scope.address = {accountId: 1};
+            $scope.address = {accountId: '1-74XV2R'};
         }
       
         $scope.addresses = Addresses.query({accountId: $scope.address.accountId}, function() {
@@ -90,7 +90,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.removeAddress = function(address) {
-            Addresses.remove({id: address.id, accountId: 1}, function() {
+            Addresses.remove({id: address.id, accountId: '1-74XV2R'}, function() {
                 $scope.addresses.splice($scope.addresses.indexOf(address), 1);
             });
         };

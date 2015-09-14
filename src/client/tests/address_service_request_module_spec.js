@@ -59,13 +59,13 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
             describe('removeAddress', function() {
                 it('should remove an item in $scope.addresses', function() {
-                    var address = {id: 1, accountId: 1}; // Address to be removed
+                    var address = {id: 1, accountId: '1-74XV2R'}; // Address to be removed
                     
-                    scope.addresses = [{id: 1, accoundId: 1}, {id:  2, accountId: 1}];
+                    scope.addresses = [{id: 1, accoundId: '1-74XV2R'}, {id:  2, accountId: '1-74XV2R'}];
 
                     spyOn(mockedAddressesFactory, 'remove').and.callThrough();
                     scope.removeAddress(address);
-                    
+
                     expect(mockedAddressesFactory.remove).toHaveBeenCalled();
                     expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual(address);
                     expect(scope.addresses.length).toEqual(1);
