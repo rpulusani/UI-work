@@ -16,6 +16,15 @@ requirejs.config({
         'angular-translate-loader-url': ['angular-translate'],
 
         'app': [
+            'angular',
+            'angular-resource',
+            'angular-route',
+            'angular-cookies',
+            'angular-translate',
+            'angular-translate-storage-cookie',
+            'angular-translate-storage-local',
+            'angular-translate-loader-static-files',
+            'angular-translate-loader-url',
             'gatekeeper',
 
             'nav',
@@ -27,14 +36,9 @@ requirejs.config({
             'form',
             'form.directives',
 
-            'form',
-            'form.directives',
-
             'utility',
             'utility.historyUtility',
-            'utility.blankCheckUtility',
             'utility.directives',
-            'utility.controllers',
             'utility.recursionHelper',
 
             'user',
@@ -44,6 +48,11 @@ requirejs.config({
             'serviceRequest',
             'serviceRequest.factory',
             'serviceRequest.directives',
+
+            'address',
+            'address.controller',
+            'address.factory',
+            'address.directives',
 
             'contact',
             'contact.controller',
@@ -55,9 +64,6 @@ requirejs.config({
             'pageCount',
 
             'deviceManagement',
-            'deviceManagement.controller',
-            'deviceManagement.factory',
-            'deviceManagement.directives',
 
             'report',
             'report.controller',
@@ -70,9 +76,7 @@ requirejs.config({
 
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
-        'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
-        'utility.controllers' : ['utility'],
         'utility.recursionHelper': ['utility'],
 
         'user': ['angular'],
@@ -98,9 +102,6 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory','utility.blankCheckUtility'],
-        'deviceManagement.directives': ['deviceManagement'],
-        'deviceManagement.factory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
@@ -108,7 +109,7 @@ requirejs.config({
         'report.factory': ['report'],
 
         'gatekeeper': ['angular-cookies', 'angular-route']
-
+        
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -136,9 +137,7 @@ requirejs.config({
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
-        'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
-        'utility.controllers': 'app/utilities/controller',
         'utility.recursionHelper': 'app/utilities/recursionHelper',
 
         'user': 'app/users/user',
@@ -164,15 +163,12 @@ requirejs.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
-        'deviceManagement.controller': 'app/device_management/controller',
-        'deviceManagement.directives': 'app/device_management/directives',
-        'deviceManagement.factory': 'app/device_management/deviceManagementFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-
+        
         'gatekeeper': 'app/libs/gatekeeper-angular'
     },
     map: {

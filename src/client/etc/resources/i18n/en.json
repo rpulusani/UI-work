@@ -2,44 +2,12 @@
     "ADDRESS_SERVICE_REQUEST": {
         "TITLE": "Service Requests",
         "CHANGE": "Change Request Addresses",
-        "ADD": "Add Address",
+        "ADD": "Add New Address",
         "ADD_MULTI": "Add Multiple Addresses",
         "UPDATE": "Update Address",
         "UPDATE_MULTI": "Update Multiple Addresses",
         "DELETE": "Delete Address",
-        "DELETE_MULTI": "Delete Multiple Addresses",
-        "ABANDON": "Abandon Address Request",
-        "STORE_FRONT_QUESTION": "Will this address be a store-front?",
-        "STORE_FRONT_QUESTION_YES": "Yes, address will be a store-front",
-        "SAME_ADDRESS_QUESTION": "Same as address name used above",
-        "IDENTIFY_ADDRESS": "How would you like to identify this address?",
-        "LOCATION_OF_ADDRESS": "What is the location of this address?",
-        "SUBMIT_ADDRESS_REQUEST": "Submit Address Request",
-        "ADDRESS_SUBMITTED": "Add Address Request Submitted",
-        "ADDRESS_REQUESTED": "Address requested",
-        "WOULD_YOU_LIKE": "Would you like to ",
-        "ADD_ANOTHER_ADDRESS": "add another address",
-        "DETAILS_TITLE":"Details for Address Request Number: {{refId}}"
-    },
-
-    "SERVICE_REQUEST": {
-        "CONTACT_INFORMATION": "Request contact information",
-        "REQUEST_CREATED_BY": "Request created by",
-        "PRIMARY_CONTACT": "Primary contact",
-        "SECONDARY_CONTACT": "Secondary contact",
-        "CHANGE_PRIMARY_CONTACT": "Change primary contact",
-        "ADD_SECONDARY_CONTACT": "Add secondary contact",
-        "CHANGE_SECONDARY_CONTACT": "Change secondary contact",
-        "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
-        "INTERNAL_REFENCE_ID": "Internal Refernce ID",
-        "SUBMISSION_TEXT": "Your address request {{refId}} has been submitted. Please allow {{hours}} hours for our team to review and process the request.",
-        "REQUEST_STATUS": "Request status",
-        "IN_PROCESS": "In Process",
-        "SUBMITED": "Submitted",
-        "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
-        "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
-        "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
-        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST" 
+        "DELETE_MULTI": "Delete Multiple Addresses"
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -61,7 +29,7 @@
         "COUNTRY": "Country",
         "STATE": "State",
         "STATE_PROVINCE": "State / Province",
-        "ZIP": "Zip code",
+        "ZIP": "Zip",
         "ZIP_POSTAL": "Zip / Postal Code",
         "COUNTY": "County",
         "DISTRICT": "District",
@@ -86,7 +54,7 @@
         "ALT_PHONE": "Alternate Phone",
         "EMAIL": "Email Address"
     },
-
+    
     "DEVICE_MGMT_REQUEST": {
         "TITLE": "Device Management Request"
     },
@@ -96,18 +64,7 @@
     },
 
     "DEVICE_MGT": {
-        "TITLE": "Device Management",
-        "DEVICE_INFO": "Device Information",
-        "PRODUCT_MODEL": "Product Model",
-        "SERIAL_NO": "Serial Number",
-        "INSTALL_ADDRESS": "Install Address",
-        "INSTALL_DATE": "Install Date",
-        "IP_ADDRESS": "IP Address",
-        "HOST_NAME": "Host Name",
-        "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
-        "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
-        "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
-        "MANAGING_DEVICE": "Managing Device {{product_model}}"
+        "TITLE": "Device Management"
     },
 
     "REQUEST_MGMT": {
@@ -120,7 +77,7 @@
         "ASSET_REGISTER": "Asset Register",
         "FUTURE_RATE": "Future Rate",
         "FCC_RATE": "FCC Rate",
-        "REPORT_NAME": "Report",
+        "REPORT_NAME": "Report",        
         "ACTION": "Action",
         "RUN": "RUN THIS REPORT",
         "RUN_TITLE": "Run Report"
@@ -141,11 +98,9 @@
 
     "LABEL": {
         "BACK": "Back",
-        "MAKE_CHANGES": "Make Changes",
         "CANCEL": "Cancel",
         "CONTINUE": "Continue",
         "SUBMIT": "Submit",
-        "REVIEW_SUBMIT": "Review and Submit",
         "OK": "Ok",
         "UPDATE": "Update",
         "DELETE": "Delete",
@@ -160,22 +115,9 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "DATE": "Date",
-        "STATUS": "Status",
         "WITH_COLUMN": "{{value}}:",
-        "NO": "No",
-        "ERROR_REQUIRED": "This field is required.",
         "DATE": "Date",
-        "STATUS": "Status",
-        "LOCATION": "Location",
-        "NETWORK_CONFIG": "Network Configuration",
-        "PRIMARY_CONTACT": "Primary Contact",
-        "ADDRESS": "Address",
-        "VIEW_ON_MAP": "View On Map >",
-        "NONE_SELECTED": "None selected",
-        "NONE": "None",
-        "COMMENTS": "Comments",
-        "SELECT": "-Select-"
+        "STATUS": "Status"
     },
 
     "MESSAGE": {
@@ -185,9 +127,7 @@
 
         "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
-        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
-
-        "NO_IMAGE_FOUND": "No Image Found"
+        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager."
     }
 
 }

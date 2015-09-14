@@ -1,122 +1,95 @@
-define([
-    'angular',
-    'angular-resource',
-    'angular-route',
-    'angular-cookies',
-    'angular-translate',
-    'angular-translate-storage-cookie',
-    'angular-translate-storage-local',
-    'angular-translate-loader-static-files',
-    'angular-translate-loader-url',
-    'address',
-    'address.controller',
-    'address.directives',
-    'address.factory'
-], function(angular) {
-    'use strict';
-    angular.module('mps', [
-        'ngRoute',
-        'ngResource',
-        'ngCookies',
-        'pascalprecht.translate',
-        'mps.serviceRequests',
-        'mps.serviceRequestAddresses',
-        'mps.serviceRequestContacts',
-        'mps.user',
-        'mps.report',
-        'mps.invoice',
-        'mps.deviceManagement',
-        'mps.pageCount',
-        'mps.nav',
-        'mps.utility',
-        'gatekeeper',
-        'mps.form'
-    ])
+'use strict';
 
-    .factory('errorLogInterceptor', function() {
-        return {
-            responseError: function(response) {
-                if(console && typeof(console.log) === 'function') {
-                    console.log('Error: ' + JSON.stringify(response));
-                }
-                NREUM.noticeError(response);
-                return response;
+angular.module('mps', [
+    'ngRoute',
+    'ngResource',
+    'ngCookies',
+    'pascalprecht.translate',
+    'mps.serviceRequests',
+    'mps.serviceRequestAddresses',
+    'mps.serviceRequestContacts',
+    'mps.user',
+    'mps.report',
+    'mps.invoice',
+    'mps.deviceManagement',
+    'mps.pageCount',
+    'mps.nav',
+    'mps.utility',
+    'gatekeeper',
+    'mps.form'
+])
+
+.factory('errorLogInterceptor', function() {
+    return {
+        responseError: function(response) {
+            if(console && typeof(console.log) === 'function') {
+                console.log('Error: ' + JSON.stringify(response));
             }
-        };
-    })
+            NREUM.noticeError(response);
+            return response;
+        }
+    };
+})
 
-    .factory('halInterceptor', function() {
-        return {
-            response: function(response) {
-                angular.copy(response.data._embedded, response.resource);
-                return response;
+.factory('halInterceptor', function() {
+    return {
+        response: function(response) {
+            angular.copy(response.data._embedded, response.resource);
+            return response;
+        }
+    }
+})
+
+.constant('mpsApiUri', 'http://10.145.116.233:8080/mps')
+
+.constant('serviceUrl', config.portal.serviceUrl)
+
+.config(function(GatekeeperProvider, serviceUrl){
+  console.log("the serviceUrl: " + serviceUrl);
+  GatekeeperProvider.configure({
+    serviceUri: config.idp.serviceUrl,
+    clientId: config.idp.clientId
+  });
+  GatekeeperProvider.protect(serviceUrl);
+})
+
+.run(function(Gatekeeper, $rootScope) {
+    $rootScope.user = Gatekeeper.user;
+})
+
+.config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
+    function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {
+        $httpProvider.interceptors.push('errorLogInterceptor');
+
+        var supportedLanguages = ['en'],
+            myLanguage = 'en',
+            language,
+            i;
+
+        for (i in window.browser_languages) {
+            language = window.browser_languages[i];
+
+            if (supportedLanguages.indexOf(language) >= 0) {
+                myLanguage = language;
+                break;
             }
         }
-    })
 
-    .constant('serviceUrl', config.portal.serviceUrl)
+        $translateProvider.useSanitizeValueStrategy(null);
 
-    .config(function(GatekeeperProvider, serviceUrl){
-      GatekeeperProvider.configure({
-        serviceUri: config.idp.serviceUrl,
-        clientId: config.idp.clientId
-      });
-      GatekeeperProvider.protect(serviceUrl);
-    })
+        $translateProvider
+            .preferredLanguage(myLanguage)
+            .useStaticFilesLoader({
+                prefix: '/etc/resources/i18n/',
+                suffix: '.json'
+            })
+            .useLocalStorage();
 
-    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
-    function(Gatekeeper, UserService, $rootScope, $cookies) {
-        $rootScope.idpUser = Gatekeeper.user;
-        $rootScope.currentUser = {};
-        var currentUser = UserService.get({idpId: Gatekeeper.user.id}, function(){
-            if (currentUser._embedded.users.length > 0) {
-                $rootScope.currentUser = currentUser._embedded.users[0];
-            }
+        $routeProvider
+        .otherwise({
+            templateUrl: '/app/dashboard/templates/home.html'
         });
 
-        //TODO: Remove this once it is included into Gatekeeper.
-        $rootScope.logout = function() {
-            delete $cookies['accessToken'];
-            var mpsUiUri = 'http://localhost:8080/';
-            var redirect_uri = config.idp.serviceUrl + '/auth/users/sign_out?redirect_uri=' + mpsUiUri;
-            document.location.href = redirect_uri;
-        };
-    }])
 
-    .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
-        function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {
-            $httpProvider.interceptors.push('errorLogInterceptor');
-
-            var supportedLanguages = ['en'],
-                myLanguage = 'en',
-                language,
-                i;
-
-            for (i in window.browser_languages) {
-                language = window.browser_languages[i];
-
-                if (supportedLanguages.indexOf(language) >= 0) {
-                    myLanguage = language;
-                    break;
-                }
-            }
-
-            $translateProvider.useSanitizeValueStrategy(null);
-
-            $translateProvider
-                .preferredLanguage(myLanguage)
-                .useStaticFilesLoader({
-                    prefix: '/etc/resources/i18n/',
-                    suffix: '.json'
-                })
-                .useLocalStorage();
-
-            $routeProvider
-            .otherwise({
-                templateUrl: '/app/dashboard/templates/home.html'
-            });
-
-
-            $locationProvider.html5Mode(true);
-    }]);
-});
+        $locationProvider.html5Mode(true);
+}]);

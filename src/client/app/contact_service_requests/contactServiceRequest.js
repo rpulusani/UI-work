@@ -16,9 +16,5 @@ angular.module('mps.serviceRequestContacts', []).config(['$routeProvider', funct
     .when('/service_requests/contacts/:id/update', {
         templateUrl: '/app/contact_service_requests/templates/update.html',
         controller: 'ContactController'
-    })
-    .when('/service_requests/contacts/:id/review', {
-        templateUrl: '/app/contact_service_requests/templates/review.html',
-        controller: 'ContactController'
     });
 }]);

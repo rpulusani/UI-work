@@ -45,7 +45,6 @@ require.config({
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
-        'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.recursionHelper': 'app/utilities/recursionHelper',
 
@@ -72,9 +71,6 @@ require.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
-        'deviceManagement.controller': 'app/device_management/controller',
-        'deviceManagement.directives': 'app/device_management/directives',
-        'deviceManagement.factory': 'app/device_management/deviceManagementFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
@@ -93,7 +89,6 @@ require.config({
         'angular-translate-loader-url': ['angular-translate'],
 
         'gatekeeper-mocks': ['angular'],
-
 
         'angular-mocks': {
             deps: ['angular-resource'],
@@ -124,7 +119,6 @@ require.config({
 
             'utility',
             'utility.historyUtility',
-            'utility.blankCheckUtility',
             'utility.directives',
             'utility.recursionHelper',
 
@@ -151,9 +145,6 @@ require.config({
             'pageCount',
 
             'deviceManagement',
-            'deviceManagement.controller',
-            'deviceManagement.directives',
-            'deviceManagement.factory',
 
             'report',
             'report.controller',
@@ -166,7 +157,6 @@ require.config({
 
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
-        'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
         'utility.recursionHelper': ['utility'],
 
@@ -193,9 +183,6 @@ require.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory', 'utility.historyUtility'],
-        'deviceManagement.directives': ['deviceManagement'],
-        'deviceManagement.factory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
