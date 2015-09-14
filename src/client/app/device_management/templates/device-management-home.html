@@ -1,1 +1,27 @@
-<h1 translate="DEVICE_MGT.TITLE"></h1>
+<div class="row row--alley-2">
+
+    <div class="col-1">
+        <h1 translate="DEVICE_MGT.TITLE"></h1>
+
+        <table ng-show="devices.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
+            <thead>
+                <tr>
+                    <th translate="DEVICE_MGT.SERIAL_NO"></th>
+                    <th translate="DEVICE_MGT.PRODUCT_MODEL"></th>
+                    <th translate="DEVICE_MGT.IP_ADDRESS"></th>
+                    <th translate="ADDRESS.NAME"></th>
+                    <th translate="LABEL.PRIMARY_CONTACT"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="device in devices">
+                    <td><a href="" ng-click="goToRead(device.id)" ng-bind="device.serialNumber"></a></td>
+                    <td ng-bind="device.productModel"></td>
+                    <td ng-bind="device.ipAddress"></td>
+                    <td ng-bind="installAddress.storeFrontName"></td>
+                    <td ng-bind="primaryContact.name"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

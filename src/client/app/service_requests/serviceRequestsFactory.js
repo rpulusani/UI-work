@@ -1,8 +1,8 @@
 'use strict';
 angular.module('mps.serviceRequests')
-.factory('ServiceRequestService', ['$resource', 'mpsApiUri',
-    function($resource, mpsApiUri) {
-        var url = mpsApiUri + '/service-requests/:serviceRequestId';
+.factory('ServiceRequestService', ['$resource', 'serviceUrl',
+    function($resource, serviceUrl) {
+        var url = serviceUrl + '/service-requests/:serviceRequestId';
         var activity_url = url + '/activities';
         var order_url = url + '/orders';
         var payment_url = url + '/payments';

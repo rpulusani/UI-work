@@ -15,4 +15,5 @@ web:
    - NEW_RELIC_TRACER_ENABLED=true
    - IDP_SERVICE_URL=https://idp-staging.psft.co
    - IDP_CLIENT_ID=mps-portal
-   - PORTAL_API_URL=
+   - PORTAL_API_URL=http://10.145.116.233:8080/mps
+   - REDIRECT_URL=/auth/users/sign_out?redirect_uri=http://localhost:8080/

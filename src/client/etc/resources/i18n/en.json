@@ -96,7 +96,18 @@
     },
 
     "DEVICE_MGT": {
-        "TITLE": "Device Management"
+        "TITLE": "Device Management",
+        "DEVICE_INFO": "Device Information",
+        "PRODUCT_MODEL": "Product Model",
+        "SERIAL_NO": "Serial Number",
+        "INSTALL_ADDRESS": "Install Address",
+        "INSTALL_DATE": "Install Date",
+        "IP_ADDRESS": "IP Address",
+        "HOST_NAME": "Host Name",
+        "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
+        "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
+        "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
+        "MANAGING_DEVICE": "Managing Device {{product_model}}"
     },
 
     "REQUEST_MGMT": {
@@ -153,13 +164,15 @@
         "STATUS": "Status",
         "WITH_COLUMN": "{{value}}:",
         "NO": "No",
-        "SELECT": "- select -",
         "ERROR_REQUIRED": "This field is required.",
         "DATE": "Date",
         "STATUS": "Status",
+        "LOCATION": "Location",
+        "NETWORK_CONFIG": "Network Configuration",
+        "PRIMARY_CONTACT": "Primary Contact",
+        "ADDRESS": "Address",
+        "VIEW_ON_MAP": "View On Map >",
         "NONE_SELECTED": "None selected",
-        "NO": "No",
-        "ERROR_REQUIRED": "This field is required.",
         "NONE": "None",
         "COMMENTS": "Comments",
         "SELECT": "-Select-"
@@ -172,7 +185,9 @@
 
         "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
-        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager."
+        "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
+
+        "NO_IMAGE_FOUND": "No Image Found"
     }
 
 }
