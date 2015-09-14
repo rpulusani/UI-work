@@ -79,8 +79,7 @@ define([
         //TODO: Remove this once it is included into Gatekeeper.
         $rootScope.logout = function() {
             delete $cookies['accessToken'];
-            var mpsUiUri = 'http://localhost:8080/';
-            var redirect_uri = config.idp.serviceUrl + '/auth/users/sign_out?redirect_uri=' + mpsUiUri;
+            var redirect_uri = config.idp.serviceUrl + config.idp.redirectUrl;
             document.location.href = redirect_uri;
         };
     }])
