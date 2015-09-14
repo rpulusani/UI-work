@@ -57,11 +57,11 @@ define([
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){
-      GatekeeperProvider.configure({
-        serviceUri: config.idp.serviceUrl,
-        clientId: config.idp.clientId
-      });
-      GatekeeperProvider.protect(serviceUrl);
+        GatekeeperProvider.configure({
+            serviceUri: config.idp.serviceUrl,
+            clientId: config.idp.clientId
+        });
+        GatekeeperProvider.protect(serviceUrl);
     })
 
     .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
@@ -71,6 +71,8 @@ define([
         UserService.get({idpId: Gatekeeper.user.id}, function(user){
             if (user._embedded && user._embedded.users.length > 0) {
                 $rootScope.currentUser = user._embedded.users[0];
+                //TODO: Deal with multiple account when definition is ready by stakeholder
+                $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
             }
         });
 
