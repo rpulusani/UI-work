@@ -5,7 +5,7 @@ angular.module('gatekeeper', [])
         configure: jasmine.createSpy(),
         protect: jasmine.createSpy(),
         $get: function() {
-            return {tokenInfo: {}, user: {}};
+            return {tokenInfo: {}, user: {id: 1}};
         }
     };
 });

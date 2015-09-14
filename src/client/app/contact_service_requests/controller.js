@@ -33,16 +33,14 @@ angular.module('mps.serviceRequestContacts')
         //     });
         // };
     }
-]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History',
+]).controller('ContactController', ['$scope', '$location', '$routeParams', '$rootScope', 'History',
                                     'ContactService', 'ServiceRequestService',
-    function($scope, $location, $routeParams, History, ContactService, ServiceRequestService) {
+    function($scope, $location, $routeParams, $rootScope, History, ContactService, ServiceRequestService) {
         $scope.reviewing = false;
-        //TODO: Remove hardcoded accountId, which needs to come from login.
-        var acct_id = 1;
         if($routeParams.id) {
-            $scope.contact = ContactService.get({accountId: acct_id, id: $routeParams.id});
+            $scope.contact = ContactService.get({accountId: $rootScope.currentAccount, id: $routeParams.id});
         } else {
-            $scope.contact = {accountId: acct_id};
+            $scope.contact = {accountId: $rootScope.currentAccount};
         }
 
         $scope.review = function() {

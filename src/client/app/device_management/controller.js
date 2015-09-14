@@ -1,13 +1,13 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceManagementController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
-        function($scope, $location, $routeParams, BlankCheck, Device) {
-            var acct_id = 1;
+    .controller('DeviceManagementController', ['$scope', '$location', '$routeParams', '$rootScope',
+                                               'BlankCheck', 'Device',
+        function($scope, $location, $routeParams, $rootScope, BlankCheck, Device) {
             $scope.devices = Device.devices;
             $scope.device = Device.device;
             $scope.formattedAddress = '';
-            $scope.formattedTitleAddress = '';        
+            $scope.formattedTitleAddress = '';
 
             $scope.installAddress = {
                 storeFrontName: 'Lexmark International Inc',
@@ -19,7 +19,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                 postalCode: '40511',
                 building: 'Bldg1',
                 floor: 'floor2',
-                office: 'office3' 
+                office: 'office3'
             };
 
             $scope.primaryContact = {
@@ -31,9 +31,9 @@ define(['angular', 'deviceManagement'], function(angular) {
 
             $scope.formatAddress = function() {
                 if(BlankCheck.checkNotNullOrUndefined($scope.installAddress)){
-                    $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' + 
+                    $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' +
                                               $scope.installAddress.addressLine1 + ', ' +
-                                              $scope.installAddress.city + ', ' + 
+                                              $scope.installAddress.city + ', ' +
                                               $scope.installAddress.state + ' ' +
                                               $scope.installAddress.postalCode + '\n';
                     if(BlankCheck.checkNotBlank($scope.installAddress.building)){
@@ -53,15 +53,15 @@ define(['angular', 'deviceManagement'], function(angular) {
                                                     $scope.installAddress.country;
                 }
             };
-            
+
             if($routeParams.id) {
-                $scope.device = Device.get({accountId: acct_id, id: $routeParams.id});
+                $scope.device = Device.get({accountId: $rootScope.currentAccount, id: $routeParams.id});
             }else {
-                $scope.devices = Device.query({accountId: acct_id});
+                $scope.devices = Device.query({accountId: $rootScope.currentAccount});
             }
 
             $scope.goToRead = function(id) {
-                $scope.device = Device.get({accountId: acct_id, id: id});
+                $scope.device = Device.get({accountId: $rootScope.currentAccount, id: id});
                 $location.path('/device_management/' + id + '/review');
             };
 

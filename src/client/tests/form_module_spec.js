@@ -1,4 +1,5 @@
-define(['angular','angular-mocks', 'form','lxk.fef','jquery'], function(angular, mocks, form, fef,$) {
+define(['angular','angular-mocks', 'form','lxk.fef','jquery', 'fixtures'],
+    function(angular, mocks, form, fef,$, fixtures) {
 describe('Form Module', function() {
     beforeEach(module('mps'));
     describe('directives', function(){
@@ -11,6 +12,7 @@ describe('Form Module', function() {
 
                 $httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
                 $httpBackend.when('GET', '/app/dashboard/templates/home.html').respond("<h1>home</h1>");
+                $httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
             }));
 
 
