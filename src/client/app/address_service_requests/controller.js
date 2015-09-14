@@ -90,7 +90,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.removeAddress = function(address) {
-            Addresses.remove({id: id, accountId: 1}, function() {
+            Addresses.remove({id: address.id, accountId: 1}, function() {
                 $scope.addresses.splice($scope.addresses.indexOf(address), 1);
             });
         };

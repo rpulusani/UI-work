@@ -62,12 +62,12 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                     var address = {id: 1, accountId: 1}; // Address to be removed
                     
                     scope.addresses = [{id: 1, accoundId: 1}, {id:  2, accountId: 1}];
-                    spyOn(scope, 'removeAddress');
-                    spyOn(mockedAddressesFactory, 'remove');
+
+                    spyOn(mockedAddressesFactory, 'remove').and.callThrough();;
                     
                     scope.removeAddress(address);
 
-                    expect(scope.removeAddress).toHaveBeenCalledWith(1); 
+                    expect(scope.removeAddress).toHaveBeenCalledWith(address); 
                     expect(mockedAddressesFactory.remove).toHaveBeenCalledWith(address);
                     expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual(address);
                     expect(scope.addresses.length).toEqual(1);
