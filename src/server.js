@@ -66,7 +66,7 @@ memory = {
         "totalPages": 1,
         "number": 0
       }
-    },
+    }
     requests: [],
     contacts: {
       "_links": {
@@ -174,7 +174,73 @@ memory = {
           }
         ]
       }
-    }
+    },
+    reportGroups: [{
+        id: 'group1',
+        name: 'Orders'
+    },
+    {
+        id: 'group2',
+        name: 'Service'
+    },
+    {
+        id: 'group3',
+        name: 'Assets'
+    },
+    {
+        id: 'group4',
+        name: 'Summary'
+    }],
+    reportCategories: [{
+        id: '123',
+        groupId: 'group1',
+        name: 'Asset register',
+        desc: 'AM1173 Change Management'
+    },
+    {
+        id:'456',
+        groupId: 'group1',
+        name: 'Future Rate',
+        desc: 'AM1177 Future Rate'
+    },
+    {
+        id:'789',
+        groupId: 'group1',
+        name: 'FCC Rate',
+        desc: 'AM1188 FCC Rate'
+    },
+    {
+        id: '910',
+        groupId: 'group2',
+        name: 'Asset Retirement Daily',
+        desc: 'Asset Retirement Daily'
+    },
+    {
+        id:'911',
+        groupId: 'group2',
+        name: 'Asset Retirement Weekly',
+        desc: 'Asset Retirement Weekly'
+    },
+    {
+        id:'912',
+        groupId: 'group3',
+        name: 'Missing Page Count - Automated (AM1175)',
+        desc: 'Missing Page Count - Automated (AM1175)'
+    }],
+    reports: [{
+        id: 'register1',
+        definitionId: '123',
+        desc: 'AM1173 Change Management',
+        date: '08/08/2015',
+        status: 'pending'
+    },
+    {
+        id: 'future1',
+        definitionId: '456',
+        desc: 'AM1177 Future Rate',
+        date: '08/09/2015',
+        status: 'pending'
+    }]
 },
 addToMemory = function(memType, data, fn) {
    return fn(memory[memType]._embedded[memType].push(data));
@@ -353,7 +419,8 @@ router.all('/*', function(req, res, next) {
         NEWRELICID: process.env.NEWRELICID,
         config: JSON.stringify({
             idp: { serviceUrl: process.env.IDP_SERVICE_URL,
-                   clientId: process.env.IDP_CLIENT_ID },
+                   clientId: process.env.IDP_CLIENT_ID,
+                   redirectUrl: process.env.REDIRECT_URL },
             portal: { serviceUrl: process.env.PORTAL_API_URL }
         })
     });
