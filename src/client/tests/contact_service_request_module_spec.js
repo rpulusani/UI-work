@@ -4,10 +4,10 @@ describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
     describe('ContactsController', function() {
-        var scope, ctrl, location, history, mockedFactory;
+        var scope, ctrl, location, history, mockedContactFactory;
 
         beforeEach(function (){
-            mockedFactory = {
+            mockedContactFactory = {
                 delete: function(contact, resolve) {
                     resolve(true);
                 },
@@ -15,7 +15,7 @@ describe('Contact Service Request Module', function() {
             };
 
             module(function($provide) {
-                $provide.value('ContactService', mockedFactory);
+                $provide.value('ContactService', mockedContactFactory);
             });
         });
         beforeEach(inject(function($rootScope, $controller, $location, History) {
@@ -50,31 +50,46 @@ describe('Contact Service Request Module', function() {
 
         });
 
-        describe('remove', function() {
-            it('should remove an item in $scope.contacts', function(){
-                scope.contacts = [{id: '1'}, {id: '2'}];
-                var contact = {id: '1'};
-                spyOn(mockedFactory, 'delete').and.callThrough();
-                scope.remove(contact);
-                //expect(mockedFactory.delete.calls.count()).toBe(1);
-                expect(mockedFactory.delete).toHaveBeenCalled();
-                expect(mockedFactory.delete.calls.argsFor(0)[0]).toEqual(contact);
-                expect(scope.contacts.length).toEqual(1);
+        describe('goToReview', function() {
+            it('should take to review page', function() {
+                var contact = { _links: { self: { href: 'accounts/1/contacts/1'} } };
+                spyOn(location, 'path').and.returnValue('/');
+                scope.goToReview(contact);
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/review');
             });
+
         });
+
+        // describe('remove', function() {
+        //     it('should remove an item in $scope.contacts', function(){
+        //         scope.contacts = [{id: '1'}, {id: '2'}];
+        //         var contact = {id: '1'};
+        //         spyOn(mockedContactFactory, 'delete').and.callThrough();
+        //         scope.remove(contact);
+        //         //expect(mockedContactFactory.delete.calls.count()).toBe(1);
+        //         expect(mockedContactFactory.delete).toHaveBeenCalled();
+        //         expect(mockedContactFactory.delete.calls.argsFor(0)[0]).toEqual(contact);
+        //         expect(scope.contacts.length).toEqual(1);
+        //     });
+        // });
     });
 
     describe('ContactController', function() {
-        var scope, ctrl, location, history, mockedFactory;
+        var scope, ctrl, location, history, mockedContactFactory, mockedServiceRequestFactory;
         beforeEach(function (){
-            mockedFactory = {
+            mockedContactFactory = {
                 get: jasmine.createSpy(),
                 save: jasmine.createSpy(),
                 update: jasmine.createSpy()
             };
 
+            mockedServiceRequestFactory = {
+                save: jasmine.createSpy()
+            };
+
             module(function($provide) {
-                $provide.value('ContactService', mockedFactory);
+                $provide.value('ContactService', mockedContactFactory);
+                $provide.value('ServiceRequestService', mockedServiceRequestFactory);
             });
         });
         beforeEach(inject(function($rootScope, $controller, $location, History) {
@@ -91,13 +106,13 @@ describe('Contact Service Request Module', function() {
                     ctrl = $controller('ContactController', {$scope: scope});
                 }));
                 it('should get contact', function() {
-                    expect(mockedFactory.get.calls.count()).toBe(1);
+                    expect(mockedContactFactory.get.calls.count()).toBe(1);
                 });
             });
 
             describe('when routeParam.id not available', function() {
                 it('should not get contact', function() {
-                    expect(mockedFactory.get.calls.count()).toBe(0);
+                    expect(mockedContactFactory.get.calls.count()).toBe(0);
                 });
             });
         });
@@ -119,17 +134,25 @@ describe('Contact Service Request Module', function() {
         describe('save', function() {
             describe('when scope.contact.id exists', function() {
                 it('should update contact', function() {
-                    scope.contact.id = 1;
+                    scope.contact._links = { self: { href: 'accounts/1/contacts/1'},
+                                             account: { href: 'accounts/1'} };
                     scope.save();
-                    expect(mockedFactory.update.calls.count()).toBe(1);
+                    expect(mockedContactFactory.update.calls.count()).toBe(1);
                 });
             });
 
             describe('when scope.contact.id not available', function() {
                 it('should save contact', function() {
                     scope.save();
-                    expect(mockedFactory.save.calls.count()).toBe(1);
+                    expect(mockedContactFactory.save.calls.count()).toBe(1);
                 });
+            });
+        });
+
+        describe('saveServiceRequest', function() {
+            it('should save service request', function() {
+                scope.saveServiceRequest();
+                expect(mockedServiceRequestFactory.save.calls.count()).toBe(1);
             });
         });
 

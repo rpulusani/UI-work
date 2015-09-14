@@ -14,8 +14,8 @@ memory = {
         addrLine1: '123 Some Rd',
         addrLine2: null,
         city: 'Lexington',
-        country: 'USA',
-        state: 'Kentucky',
+        country: 'US',
+        state: 'KY',
         zipCode: '40404',
         id: 'addy-1'
     }],
@@ -28,6 +28,22 @@ memory = {
         workPhone: '800-555-0101',
         alternatePhone: '800-867-5309',
         email: 'john.doe@johndeere.com'
+    }],
+    devices: [{
+        productModel: 'C748DTE NBD',
+        serialNumber: '41H0070717001',
+        installDate: '6/16/2015',
+        ipAddress: '10.141.12.13',
+        hostName: 'Hostname',
+        id: 'device-1'
+    },
+    {
+        productModel: 'C748DTE NBC',
+        serialNumber: '41H0070717002',
+        installDate: '7/16/2015',
+        ipAddress: '10.141.12.14',
+        hostName: 'Hostname2',
+        id: 'device-2'
     }],
     requests: [],
     reportGroups: [{
@@ -282,7 +298,8 @@ router.all('/*', function(req, res, next) {
         NEWRELICID: process.env.NEWRELICID,
         config: JSON.stringify({
             idp: { serviceUrl: process.env.IDP_SERVICE_URL,
-                   clientId: process.env.IDP_CLIENT_ID},
+                   clientId: process.env.IDP_CLIENT_ID,
+                   redirectUrl: process.env.REDIRECT_URL },
             portal: { serviceUrl: process.env.PORTAL_API_URL }
         })
     });

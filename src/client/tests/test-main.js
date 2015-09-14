@@ -13,10 +13,12 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 });
 
 require.config({
-    // Karma serves files under /base, which is the basePath from your config file
-    baseUrl: '/base/client',
+  // Karma serves files under /base, which is the basePath from your config file
+  baseUrl: '/base/client',
 
-    paths: {
+  paths: {
+        'fixtures': 'tests/fixtures',
+
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
@@ -45,6 +47,7 @@ require.config({
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
+        'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.recursionHelper': 'app/utilities/recursionHelper',
 
@@ -71,6 +74,9 @@ require.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
+        'deviceManagement.controller': 'app/device_management/controller',
+        'deviceManagement.directives': 'app/device_management/directives',
+        'deviceManagement.factory': 'app/device_management/deviceManagementFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
@@ -89,6 +95,7 @@ require.config({
         'angular-translate-loader-url': ['angular-translate'],
 
         'gatekeeper-mocks': ['angular'],
+
 
         'angular-mocks': {
             deps: ['angular-resource'],
@@ -119,6 +126,7 @@ require.config({
 
             'utility',
             'utility.historyUtility',
+            'utility.blankCheckUtility',
             'utility.directives',
             'utility.recursionHelper',
 
@@ -145,6 +153,9 @@ require.config({
             'pageCount',
 
             'deviceManagement',
+            'deviceManagement.controller',
+            'deviceManagement.directives',
+            'deviceManagement.factory',
 
             'report',
             'report.controller',
@@ -157,6 +168,7 @@ require.config({
 
         'utility': ['angular', 'angular-resource'],
         'utility.historyUtility': ['utility'],
+        'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
         'utility.recursionHelper': ['utility'],
 
@@ -183,6 +195,9 @@ require.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
+        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory', 'utility.historyUtility'],
+        'deviceManagement.directives': ['deviceManagement'],
+        'deviceManagement.factory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],

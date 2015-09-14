@@ -1,115 +1,117 @@
-'use strict';
-angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Addresses',
-    function($scope, $http, $location, $routeParams, History, Addresses) {
-        $scope.continueForm = false;
-        $scope.submitForm = false;
-        $scope.attachmentIsShown = false;
-        $scope.address = Addresses.address;
-        $scope.addresses = Addresses.addresses;
-        $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
-                        '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
-       
-        $scope.contact = {
-            name: '',
-            phoneNumber: '',
-            emailAddress: ''
-        };
+define(['angular', 'address'], function(angular) {
+    'use strict';
+    angular.module('mps.serviceRequestAddresses')
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses',
+    function($scope, $http, $location, $routeParams, Addresses) {
+            $scope.continueForm = false;
+            $scope.submitForm = false;
+            $scope.attachmentIsShown = false;
+            $scope.address = Addresses.address;
+            $scope.addresses = Addresses.addresses;
+            $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
+                            '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
-        $scope.serviceRequest = {
-            customerReferenceId: '',
-            costCenter: '',
-            addtnlDescription: '',
-            requestedEffectiveDate: ''
-        };
+            $scope.contact = {
+                name: '',
+                phoneNumber: '',
+                emailAddress: ''
+            };
 
-        $scope.loadTestData = function() {
-            $scope.contact.name = 'Vickers PetsAtHome';
-            $scope.contact.phoneNumber = '9992882222';
-            $scope.contact.emailAddress = 'vickerspets@test.com';
-        };
+            $scope.serviceRequest = {
+                customerReferenceId: '1-23654-AB',
+                costCenter: '',
+                addtnlDescription: '',
+                requestedEffectiveDate: '',
+                hours: 3
+            };
 
-        $scope.save = function() {
-            var newAddress = JSON.stringify($scope.address),
-            fd;
+            $scope.setStoreFrontName = function(){
+                $scope.address.storeName =  $scope.address.addName;
+            };
 
-            $scope.submitForm = false; // Request data from the server
+            $scope.setStoreFrontName = function(){
+                $scope.address.storeName =  $scope.address.addName;
+            };
 
-            if (!Addresses.address) {
-                fd = new FormData(document.getElementsByName('newAddress')[0]);
+        $scope.setStoreFrontName = function(){
+            $scope.address.storeName =  $scope.address.addName;
+            };
 
-                Addresses.save(fd, function(res) {
-                    Addresses.addresses = [];
+            $scope.save = function() {
+                var newAddress = JSON.stringify($scope.address),
+                fd;
 
-                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
-                });
-            } else {
-                fd = new FormData(document.getElementsByName('editAddress')[0]);
+                $scope.submitForm = false; // Request data from the server
+                Addresses.address  = $scope.address;
+                $location.path('/service_requests/addresses/' + $scope.address.id + '/submitted');
+            };
 
-                Addresses.update(fd, Addresses.address.id, function(res) {
-                    Addresses.addresses = [];
+            $scope.cancel = function() {
+                $location.path('/service_requests/addresses');
+            };
 
-                    $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
-                });
-            }
-        };
+            $scope['continue'] = function() {
+                $scope.continueForm = true;
+            };
 
-        $scope.back = function() {
-            if ($scope.continueForm) {
-                $scope.continueForm = false;
-            }
-            History.back();
-        };
+            $scope.attachmentToggle = function() {
+                $scope.attachmentIsShown = !$scope.attachmentIsShown;
+            };
 
-        $scope.cancel = function() {
-            $location.path('/service_requests/addresses');
-        };
+            $scope.goToCreate = function() {
+                $location.path('/service_requests/addresses/new');
+            };
 
-        $scope['continue'] = function() {
-            $scope.continueForm = true;
-        };
-
-        $scope.attachmentToggle = function() {
-            $scope.attachmentIsShown = !$scope.attachmentIsShown;
-        };
-
-        $scope.goToCreate = function() {
-            Addresses.address = null;
-            $location.path('/service_requests/addresses/new');
-        }
-
-        $scope.goToRead = function(id) {
-            $location.path('/service_requests/addresses/' + id + '/review');
-        }
-
-        $scope.goToViewAll = function(id) {
-            $location.path('/service_requests/addresses');
-        };
-
-        $scope.goToUpdate = function(id) {
-            $location.path('/service_requests/addresses/' + id + '/update');
-        };
-
-        $scope.removeAddress = function(id) {
-            Addresses.removeById(id, function() {
-                if (Addresses.addresses.length === 0) {
-                    $scope.addresses = [];
+            $scope.goToRead = function(form) {
+                if(form.$valid){
+                    Addresses.getById($scope.address.id, function() {
+                        $scope.address = Addresses.address;
+                        $location.path('/service_requests/addresses/' + $scope.address.id + '/review');
+                    });
                 }
-            });
+            };
+
+            $scope.goToViewAll = function(id) {
+                $location.path('/service_requests/addresses');
+            };
+
+            $scope.goToUpdate = function(id) {
+                $location.path('/service_requests/addresses/' + id + '/update');
+            };
+
+            $scope.removeAddress = function(id) {
+                Addresses.removeById(id, function() {
+                    if (Addresses.addresses.length === 0) {
+                        $scope.addresses = [];
+                    }
+                });
+            };
+
+
+
+        $scope.getAddress = function(){
+            if ($routeParams['id']) {
+                Addresses.getById($routeParams['id'], function() {
+                    $scope.address = Addresses.address;
+                });
+            }else if($location.path() === '/service_requests/addresses/new'){
+                Addresses.new();
+                 $scope.address = Addresses.address;
+            }
         };
 
-        if (Addresses.addresses.length === 0) {
-            Addresses.query(function() {
-                $scope.addresses = Addresses.addresses;
-            });
-        }
+        $scope.getAddressList = function(){
+            if (Addresses.addresses.length === 0) {
+                Addresses.query(function() {
+                    $scope.addresses = Addresses.addresses;
+                    $scope.getAddress();
+                });
+            }else{
+                $scope.getAddress();
+            }
+        };
 
-        if ($routeParams.id) {
-           Addresses.getById($routeParams.id, function() {
-                $scope.address = Addresses.address;
-            });
+        $scope.getAddressList();
         }
-
-        $scope.loadTestData();
-    }
-]);
+    ]);
+});

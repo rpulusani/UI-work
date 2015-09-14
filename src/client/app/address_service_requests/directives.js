@@ -1,45 +1,48 @@
-'use strict';
-angular.module('mps.serviceRequestAddresses')
-.directive('addressNewFields', function() {
-    return {
-        restrict: 'A',
-        scope: {},
+define(['angular', 'address'], function(angular) {
+    'use strict';
+    angular.module('mps.serviceRequestAddresses')
+    .directive('addressNewFields', function() {
+        return {
+            restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/address-new-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService){
             $scope.countryHAL = CountryService.getHAL();
-        }]
-    };
-})
-.directive('addressLocationFields', function() {
-    return {
-        restrict: 'A',
-        templateUrl: '/app/address_service_requests/templates/address-location-fields.html'
-    };
-})
-.directive('addressReview', function() {
-    return {
-        restrict: 'A',
-        templateUrl: '/app/address_service_requests/templates/review.html'
-    };
-})
-.directive('readAddress', function() {
-    return {
-        restrict: 'A',
-        templateUrl: '/app/address_service_requests/templates/read.html'
-    };
-})
-.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel),
-            modelSetter = model.assign;
+            $scope.countrySelected = function(country) {
+              $scope.country = country;
+            };
 
-            element.bind('change', function() {
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
+            var loaded = false;
+           $scope.$watchGroup(['countryHAL', 'address'], function(vals) {
+             var countries = vals[0], address = vals[1];
+             if(countries && address && !loaded) {
+               countries.$promise.then(function() {
+                 $.each(countries.countries, function(_i, c) {
+                   if(c.code == address.country) {
+                     $scope.country = c;
+                   }
+                 });
+                 loaded = true;
+               });
+             }
+           });
+        }]};
+    })
+    .directive('addressLocationFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/address_service_requests/templates/address-location-fields.html'
+        };
+    })
+    .directive('addressReview', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/address_service_requests/templates/review.html'
+        };
+    })
+    .directive('readAddress', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/address_service_requests/templates/read.html'
+        };
+    });
+});

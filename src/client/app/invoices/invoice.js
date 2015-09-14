@@ -3,5 +3,5 @@ angular.module('mps.invoice', []).config(['$routeProvider', function ($routeProv
     $routeProvider
     .when('/invoices', {
         templateUrl: '/app/invoices/templates/invoices-home.html'
-    })
+    });
 }]);
