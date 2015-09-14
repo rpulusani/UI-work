@@ -57,28 +57,29 @@ define([
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){
-      GatekeeperProvider.configure({
-        serviceUri: config.idp.serviceUrl,
-        clientId: config.idp.clientId
-      });
-      GatekeeperProvider.protect(serviceUrl);
+        GatekeeperProvider.configure({
+            serviceUri: config.idp.serviceUrl,
+            clientId: config.idp.clientId
+        });
+        GatekeeperProvider.protect(serviceUrl);
     })
 
     .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
     function(Gatekeeper, UserService, $rootScope, $cookies) {
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {};
-        var currentUser = UserService.get({idpId: Gatekeeper.user.id}, function(){
-            if (currentUser._embedded.users.length > 0) {
-                $rootScope.currentUser = currentUser._embedded.users[0];
+        UserService.get({idpId: Gatekeeper.user.id}, function(user){
+            if (user._embedded && user._embedded.users.length > 0) {
+                $rootScope.currentUser = user._embedded.users[0];
+                //TODO: Deal with multiple account when definition is ready by stakeholder
+                $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
             }
         });
 
         //TODO: Remove this once it is included into Gatekeeper.
         $rootScope.logout = function() {
             delete $cookies['accessToken'];
-            var mpsUiUri = 'http://localhost:8080/';
-            var redirect_uri = config.idp.serviceUrl + '/auth/users/sign_out?redirect_uri=' + mpsUiUri;
+            var redirect_uri = config.idp.serviceUrl + config.idp.redirectUrl;
             document.location.href = redirect_uri;
         };
     }])
