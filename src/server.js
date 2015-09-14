@@ -29,6 +29,22 @@ memory = {
         alternatePhone: '800-867-5309',
         email: 'john.doe@johndeere.com'
     }],
+    devices: [{
+        productModel: 'C748DTE NBD',
+        serialNumber: '41H0070717001',
+        installDate: '6/16/2015',
+        ipAddress: '10.141.12.13',
+        hostName: 'Hostname',
+        id: 'device-1'
+    },
+    {
+        productModel: 'C748DTE NBC',
+        serialNumber: '41H0070717002',
+        installDate: '7/16/2015',
+        ipAddress: '10.141.12.14',
+        hostName: 'Hostname2',
+        id: 'device-2'
+    }],
     requests: [],
     reportGroups: [{
         id: 'group1',

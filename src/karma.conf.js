@@ -54,6 +54,8 @@ module.exports = function(config) {
         { pattern: 'client/tests/address_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/contact_service_request_module_spec.js', included: false},
         { pattern: 'client/tests/form_module_spec.js', included: false},
+        { pattern: 'client/tests/device_management_module_spec.js', included: false},
+        { pattern: 'client/tests/selectric_spec.js', included: false},
         { pattern: 'client/tests/nav_module_spec.js', included: false},
         'client/tests/test-main.js'
     ],
@@ -75,6 +77,7 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress', 'dots', 'junit', 'coverage'],
+
 
     // web server port
     port: 9090,
