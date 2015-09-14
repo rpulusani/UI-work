@@ -89,9 +89,9 @@ angular.module('mps.serviceRequestAddresses')
             $location.path('/service_requests/addresses/' + id + '/update');
         };
 
-        $scope.removeAddress = function(id) {
+        $scope.removeAddress = function(address) {
             Addresses.remove({id: id, accountId: 1}, function() {
-                $location.path('/service_requests/addresses');
+                $scope.addresses.splice($scope.addresses.indexOf(address), 1);
             });
         };
 

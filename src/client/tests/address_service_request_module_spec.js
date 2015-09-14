@@ -65,13 +65,12 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                     spyOn(scope, 'removeAddress');
                     spyOn(mockedAddressesFactory, 'remove');
                     
-                    scope.removeAddress(address.id);
-                    mockedAddressesFactory.remove(address);
+                    scope.removeAddress(address);
 
                     expect(scope.removeAddress).toHaveBeenCalledWith(1); 
                     expect(mockedAddressesFactory.remove).toHaveBeenCalledWith(address);
                     expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual(address);
-                    expect(mockedAddressesFactory.remove.calls.count()).toBe(1);
+                    expect(scope.addresses.length).toEqual(1);
                 });
             });
         });
