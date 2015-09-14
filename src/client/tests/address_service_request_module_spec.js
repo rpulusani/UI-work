@@ -15,7 +15,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 };
 
                 module(function($provide) {
-                    $provide.value('Addressses', mockedAddressesFactory);
+                    $provide.value('Addresses', mockedAddressesFactory);
                 });
             });
 

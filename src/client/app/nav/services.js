@@ -14,7 +14,7 @@ angular.module('mps.nav')
             $http.get('app/nav/data/navigation.json').success(function(data) {
                 nav.data = data;
                 nav.makingCall = false;
-                
+
                 if (typeof fn === 'function') {
                     return fn(data);
                 }
