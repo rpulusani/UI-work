@@ -66,7 +66,7 @@ memory = {
         "totalPages": 1,
         "number": 0
       }
-    }
+    },
     requests: [],
     contacts: {
       "_links": {

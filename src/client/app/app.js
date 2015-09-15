@@ -58,7 +58,7 @@ define([
 
     .config(function(GatekeeperProvider, serviceUrl){
         GatekeeperProvider.configure({
-            serviceUri: config.idp.serviceUrl,
+            serviceUri: '',//config.idp.serviceUrl,
             clientId: config.idp.clientId
         });
         GatekeeperProvider.protect(serviceUrl);

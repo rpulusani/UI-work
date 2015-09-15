@@ -7,8 +7,7 @@ angular.module('mps.serviceRequestAddresses')
         $scope.attachmentIsShown = false;
 
         if ($routeParams.id) {
-            $scope.address = Addresses.get({id: $routeParams.id, accountId: 1});
-            $scope.address.accountId = '1-74XV2R';
+            $scope.address = Addresses.get({id: $routeParams.id, accountId: '1-74XV2R'});
         } else {
             $scope.address = {accountId: '1-74XV2R'};
         }
@@ -20,11 +19,7 @@ angular.module('mps.serviceRequestAddresses')
         $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                         '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
-        $scope.contact = {
-            name: '',
-            phoneNumber: '',
-            emailAddress: ''
-        };
+        $scope.contact = {};
 
         $scope.serviceRequest = {
             customerReferenceId: '1-23654-AB',
@@ -40,10 +35,15 @@ angular.module('mps.serviceRequestAddresses')
             $scope.contact.emailAddress = 'vickerspets@test.com';
         };
 
+        $scope.setStoreFrontName = function() {
+            console.log(2);
+            $scope.address.storeFrontName =  $scope.address.name;
+        };
+
         $scope.save = function() {
             if ($scope.address.id) {
                 Addresses.update({
-                    id: $scope.address.id, 
+                    id: $scope.address.id,
                     accountId: $scope.address.accountId
                 }, $scope.address, $scope.goToViewAll);
             } else {
