@@ -36,7 +36,6 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.setStoreFrontName = function() {
-            console.log(2);
             $scope.address.storeFrontName =  $scope.address.name;
         };
 
