@@ -54,6 +54,9 @@ define([
                     if (typeof fn === 'function') {
                         return fn(data);
                     }
+                })
+                .error(function(data){
+                    NREUM.noticeError(data);
                 });
             };
 

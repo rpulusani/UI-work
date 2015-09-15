@@ -1,13 +1,15 @@
-define(['angular', 'angular-mocks', 'nav'], function(angular, mocks, nav){
+define(['angular', 'angular-mocks', 'nav', 'nav.navFactory', 'nav.navItemFactory'], function(angular, mocks, nav){
     describe("Nav Module", function(){
         beforeEach(module('mps'));
 
         describe("Nav Controller", function(){
-            var scope, location, nav, ctrl;
-            beforeEach(inject(function($rootScope, $controller, $location, Nav){
+            var scope, location, nav, item, ctrl, mockItems;
+
+            beforeEach(inject(function($rootScope, $controller, $location, Nav, NavItem){
                 scope = $rootScope.$new();
                 location = $location;
                 nav = Nav;
+                item = NavItem;
                 ctrl = $controller('NavController', {$scope: scope});
             }));
 
@@ -22,8 +24,6 @@ define(['angular', 'angular-mocks', 'nav'], function(angular, mocks, nav){
                 });
 
                 it("has access the the nav menu", function(){
-                    //console.log('ctrl items: ' + scope.items.length);
-                    //console.log('nav items: ' + nav.items.length);
                     expect(scope.items).toBe(nav.items);
                 });
             });
