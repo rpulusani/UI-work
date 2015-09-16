@@ -8,5 +8,25 @@ define(['angular', 'deviceManagement'], function(angular) {
 
             });
         }
+    ])
+    // .factory('PageCount', ['$resource',
+    //     function($resource) {
+    //         var url = 'app/device_management/data/meter-read-types.json';
+    //         return $resource(url, {
+
+    //         });
+    //     }
+    // ]);
+    .factory('PageCount', ['$resource',
+        function($resource) {
+        	return {
+		      pageCountTypes: $resource('app/device_management/data/meter-read-types.json',{
+
+		      }),
+		      pageCounts: $resource('/accounts/:accountId/pageCounts/:id', {accountId: '@accountId', id: '@id'}, {
+
+		      })
+		    };
+        }
     ]);
 });

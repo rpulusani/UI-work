@@ -111,7 +111,42 @@
         "TITLE_IMPORT_PGCNT": "Import Page Counts",
         "BODY_IMPORT_PGCNT": "Please select a file you wish to import page counts from...",
         "CANCEL_IMPORT_PGCNT": "CANCEL IMPORT",
-        "CONFIRM_IMPORT_PGCNT": "IMPORT AND REVIEW PAGE COUNTS"
+        "CONFIRM_IMPORT_PGCNT": "IMPORT AND REVIEW PAGE COUNTS",
+        "PAGE_COUNTS": "Page Counts",
+        "SUBMIT_PAGE_COUNT_UPDATE": "SUBMIT PAGE COUNT UPDATE",
+        "MANAGE_ALL_PAGE_COUNT": "Manage All Page Counts",
+        "VIEW_LESS": "View Less",
+        "PAGE_COUNT_TYPE": "Page Count Type",
+        "PRIOR_COUNT": "Prior Count",
+        "PRIOR_DATE": "Prior Date",
+        "NEW_COUNT": "New Count"
+    },
+
+    "PAGE_COUNT_TYPE": {
+        "LIFETIME_PAGE_COUNT": "Lifetime Page Count",
+        "COLOR_PAGE_COUNT": "Color Page Count",
+        "MONO_PAGE_COUNT": "Mono Page Count",
+        "A3_LIFETIME_PAGE_COUNT": "A3 Lifetime Count",
+        "A3_COLOR_PAGE_COUNT": "A3 Color Count",
+        "A4_LIFETIME_PAGE_COUNT": "A4 Lifetime Count",
+        "A4_COLOR_PAGE_COUNT": "A4 Color Count",
+        "A5_LIFETIME_PAGE_COUNT": "A5 Lifetime Count",
+        "A5_COLOR_PAGE_COUNT": "A5 Color Count",
+        "CYAN_PAGE_COUNT": "Cyan Count",
+        "LEGAL_LIFETIME_PAGE_COUNT": "Legal Lifetime Count",
+        "LEGAL_COLOR_PAGE_COUNT": "Legal Color Count",
+        "LETTER_LIFETIME_PAGE_COUNT": "Letter Lifetime Count",
+        "LETTER_COLOR_PAGE_COUNT": "Letter Color Count",
+        "SCAN_COPY_COUNT": "Scan - Copy Count",
+        "SCAN_FAX_COUNT": "Scan - Fax Count",
+        "SCAN_NETWORK_COUNT": "Scan - Network Count",
+        "SCAN_USB_COUNT": "Scan - USB Count",
+        "SCAN_LIFE_TIME": "Scan - Lifetime Count",
+        "SOFTWARE_COUNT": "Software Count",
+        "STATEMENT_LIFETIME_PAGE_COUNT": "Statement Lifetime Count",
+        "STATEMENT_COLOR_PAGE_COUNT": "Statement Color Count",
+        "TABLOID_LIFETIME_PAGE_COUNT": "Tabloid Lifetime Count",
+        "TABLOID_COLOR_PAGE_COUNT": "Tabloid Color Count"
     },
 
     "REQUEST_MGMT": {

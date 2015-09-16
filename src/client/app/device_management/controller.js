@@ -1,14 +1,23 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceManagementController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
-        function($scope, $location, $routeParams, BlankCheck, Device) {
+    .controller('DeviceManagementController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device','PageCount',
+        function($scope, $location, $routeParams, BlankCheck, Device, PageCount) {
             var acct_id = 1;
-            $scope.devices = Device.devices;
-            $scope.device = Device.device;
             $scope.formattedAddress = '';
             $scope.formattedTitleAddress = '';
+            $scope.showLess = true;
             $scope.file_list = ['.xls', '.xlsx', '.csv'].join(',');
+            $scope.page_count_list = PageCount.pageCountTypes.query();
+            $scope.selectedIds = ['lifetime-1','color-1','mono-1'];
+            $scope.currentDate = new Date(); 
+
+            $scope.showMore = function(){
+                $scope.showLess = false;
+            }
+            $scope.viewLess = function(){
+                $scope.showLess = true;
+            }
 
             $scope.installAddress = {
                 storeFrontName: 'Lexmark International Inc',
@@ -57,6 +66,7 @@ define(['angular', 'deviceManagement'], function(angular) {
             
             if($routeParams.id) {
                 $scope.device = Device.get({accountId: acct_id, id: $routeParams.id});
+                $scope.selectedPageCount = PageCount.pageCounts.get({accountId: acct_id, id: $routeParams.id});
             }else {
                 $scope.devices = Device.query({accountId: acct_id});
             }
@@ -66,7 +76,39 @@ define(['angular', 'deviceManagement'], function(angular) {
                 $location.path('/device_management/' + id + '/review');
             };
 
+            $scope.goToPageCount = function(id) {
+                $location.path('/device_management/' + id + '/page_count');
+            };
+
+            $scope.filterByIds = function(pageCountType) {
+                return ($scope.selectedIds.indexOf(pageCountType.id) !== -1);
+            };
+
+            $scope.selectPageCount = function(id, pageCountArr) {
+                for (var i = 0 ; i < pageCountArr.length ; i++){
+                    if(id === pageCountArr[i].id){
+                        return pageCountArr[i];
+                    }
+                }
+            };
             $scope.formatAddress();
         }
-    ]);
+    ])
+    // .controller('DevicePageCountsController', ['$scope', '$location', '$routeParams', 'PageCount',
+    //     function($scope, $location, $routeParams, PageCount) {
+    //         var acct_id = 1;
+    //         $scope.page_count_list = [];
+    //         $scope.showLess = true;
+    //         $scope.file_list = ['.xls', '.xlsx', '.csv'].join(',');
+
+            
+
+    //         $scope.showMore = function(){
+    //             $scope.showLess = false;
+    //         }
+    //         $scope.viewLess = function(){
+    //             $scope.showLess = true;
+    //         }
+    //     }
+    // ])
 });

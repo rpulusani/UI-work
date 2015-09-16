@@ -6,7 +6,7 @@ angular.module('mps.utility')
     };
 }])
 .controller('fileUploadController', ['$scope', function($scope){
-    $scope.upload = function() {
-        // ToDo: upload Logic
+    $scope.leave = function() {
+        $location.path($scope.returnPath);
     };
 }]);

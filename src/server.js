@@ -45,6 +45,24 @@ memory = {
         hostName: 'Hostname2',
         id: 'device-2'
     }],
+    pageCounts: [{
+        id: 'device-1',
+        devicePageCounts: [{
+                                id: 'lifetime-1',
+                                count: '170000',
+                                updatedDate: '09/01/2015'
+                            },
+                            {
+                                id: 'color-1',
+                                count: '27000',
+                                updatedDate: '09/02/2015'
+                            },
+                            {
+                                id: 'a3color',
+                                count: '47000',
+                                updatedDate: '09/03/2015'
+                            }]
+    }],
     requests: [],
     reportGroups: [{
         id: 'group1',
