@@ -1,9 +1,8 @@
 'use strict';
 angular.module('mps.serviceRequestContacts')
-.controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
-    function($scope, $location, $routeParams, History, ContactService) {
-        //TODO: Remove hardcoded accountId, which needs to come from login.
-        $scope.contactHAL = ContactService.getHAL({accountId: 1}, function(){
+.controller('ContactsController', ['$scope', '$rootScope', '$location', '$routeParams', 'History', 'ContactService',
+    function($scope, $rootScope, $location, $routeParams, History, ContactService) {
+        $scope.contactHAL = ContactService.getHAL({accountId: $rootScope.currentAccount}, function(){
             $scope.contacts = $scope.contactHAL.contacts;
         });
 
