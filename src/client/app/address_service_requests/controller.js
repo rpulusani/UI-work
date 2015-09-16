@@ -17,7 +17,7 @@ angular.module('mps.serviceRequestAddresses')
         });
         
         $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
-                        '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
+                            '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
         $scope.contact = {};
 
