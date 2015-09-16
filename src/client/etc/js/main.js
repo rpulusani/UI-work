@@ -115,7 +115,7 @@ requirejs.config({
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
-        'angular': 'app/libs/angular.min',
+        'angular': 'app/libs/angular',
         'angular-resource': 'app/libs/angular-resource.min',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',

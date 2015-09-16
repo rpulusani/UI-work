@@ -1,8 +1,8 @@
 define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Addresses',
-        function($scope, $http, $location, $routeParams, History, Addresses) {
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'Addresses',
+    function($scope, $http, $location, $routeParams, Addresses) {
             $scope.continueForm = false;
             $scope.submitForm = false;
             $scope.attachmentIsShown = false;
@@ -33,10 +33,8 @@ define(['angular', 'address'], function(angular) {
                 $scope.address.storeName =  $scope.address.addName;
             };
 
-            $scope.loadTestData = function() {
-                $scope.contact.name = 'Vickers PetsAtHome';
-                $scope.contact.phoneNumber = '9992882222';
-                $scope.contact.emailAddress = 'vickerspets@test.com';
+        $scope.setStoreFrontName = function(){
+            $scope.address.storeName =  $scope.address.addName;
             };
 
             $scope.save = function() {
@@ -46,13 +44,6 @@ define(['angular', 'address'], function(angular) {
                 $scope.submitForm = false; // Request data from the server
                 Addresses.address  = $scope.address;
                 $location.path('/service_requests/addresses/' + $scope.address.id + '/submitted');
-            };
-
-            $scope.back = function() {
-                if ($scope.continueForm) {
-                    $scope.continueForm = false;
-                }
-                History.back();
             };
 
             $scope.cancel = function() {
@@ -68,7 +59,6 @@ define(['angular', 'address'], function(angular) {
             };
 
             $scope.goToCreate = function() {
-                Addresses.new();
                 $location.path('/service_requests/addresses/new');
             };
 
@@ -97,19 +87,31 @@ define(['angular', 'address'], function(angular) {
                 });
             };
 
+
+
+        $scope.getAddress = function(){
+            if ($routeParams['id']) {
+                Addresses.getById($routeParams['id'], function() {
+                    $scope.address = Addresses.address;
+                });
+            }else if($location.path() === '/service_requests/addresses/new'){
+                Addresses.new();
+                 $scope.address = Addresses.address;
+            }
+        };
+
+        $scope.getAddressList = function(){
             if (Addresses.addresses.length === 0) {
                 Addresses.query(function() {
                     $scope.addresses = Addresses.addresses;
+                    $scope.getAddress();
                 });
+            }else{
+                $scope.getAddress();
             }
+        };
 
-            if ($routeParams.id) {
-               Addresses.getById($routeParams.id, function() {
-                    $scope.address = Addresses.address;
-                });
-            }
-
-            $scope.loadTestData();
+        $scope.getAddressList();
         }
     ]);
 });
