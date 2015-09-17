@@ -14,11 +14,22 @@
                 <input name="name" value="" type="text" required />
             </div>
         
-            <div class="form__field form__field--checkbox">
-                <input type="radio" value="" name="isStoreFront" ng-model="address.isStoreFront">
-                <label translate="LABEL.NO"></label>
-                <input type="radio" value="" name="isStoreFront" ng-model="address.isStoreFront">
-                <label translate="ADDRESS_SERVICE_REQUEST.IDENTIFY_ADDRESS"></label>
+            <div class="form__field form__field--radio form__field--no-margin">
+                    <input type="radio" id="store-front-question-no" name="store-front-question" ng-model="address.storeFrontQuestion" value="false" data-js="customInput" />
+                    <label for="store-front-question-no">
+                        <span></span>
+                        {{'LABEL.NO' | translate }} 
+                    </label>
+            </div>
+            
+            <div class="form__field form__field--radio form__field--no-margin">
+                <input type="radio" id="store-front-question-yes" name="store-front-question"
+                ng-model="address.storeFrontQuestion" value="true" data-js="customInput"/>
+               
+                <label for="store-front-question-yes">
+                    <span></span>
+                    {{ 'ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION_YES' | translate }}
+                </label>
             </div>
         </div>
 
