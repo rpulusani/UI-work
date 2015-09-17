@@ -51,7 +51,7 @@ define([
                 angular.copy(response.data._embedded, response.resource);
                 return response;
             }
-    };
+        };
     })
 
     .constant('serviceUrl', config.portal.serviceUrl)
