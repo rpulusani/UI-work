@@ -1,48 +1,51 @@
 <div class="row">
-    <div class="col-1">
-        <h1 translate="ADDRESS_SERVICE_REQUEST.ADD"></h1>
-        <hr />
+    <form class="form">
+        <div class="col-1">
+            <h1 translate="ADDRESS_SERVICE_REQUEST.ADD"></h1>
+            <hr />
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a>Learn more about requests</a></p>
-    </div>
-
-    <div class="col-1">
-        <h2 translate="ADDRESS.INFO"></h2>
-        <div>
-            <label translate="ADDRESS.NAME"></label>
-            <input name="name" value="" type="text" required />
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a>Learn more about requests</a></p>
         </div>
-    
-        <div>
-            <label translate="ADDRESS_SERVICE_REQUEST.IDENTIFY_ADDRESS"></label>
-            <input type="radio" value="" name="isStoreFront">
-            <input type="radio" value="" name="isStoreFront">
+
+        <div class="col-1">
+            <h2 translate="ADDRESS.INFO"></h2>
+            <div class="form__field form__field--required">
+                <label translate="ADDRESS.NAME"></label>
+                <input name="name" value="" type="text" required />
+            </div>
+        
+            <div class="form__field form__field--checkbox">
+                <input type="radio" value="" name="isStoreFront" ng-model="address.isStoreFront">
+                <label translate="LABEL.NO"></label>
+                <input type="radio" value="" name="isStoreFront" ng-model="address.isStoreFront">
+                <label translate="ADDRESS_SERVICE_REQUEST.IDENTIFY_ADDRESS"></label>
+            </div>
         </div>
-    </div>
 
-    <div class="col-1">
-        <h2 translate="ADDRESS.ADDRESS_LOCATION"></h2>
-        <div></div>
-    </div>
+        <div class="col-1">
+            <h2 translate="ADDRESS.ADDRESS_LOCATION"></h2>
+            <div></div>
+        </div>
 
-    <div class="col-1-2">
-        <h3 translate="ADDRESS.USER_ENTERED"></h3>
-    </div>
+        <div class="col-1-2">
+            <h3 translate="ADDRESS.USER_ENTERED"></h3>
+        </div>
 
-    <div class="col-1-2">
-        <h3 translate="ADDRESS.ADDRESS_FOUND"></h3>
-    </div>
+        <div class="col-1-2">
+            <h3 translate="ADDRESS.ADDRESS_FOUND"></h3>
+        </div>
 
-    <div class="col-1">
-        <a href="#" translate="ADDRESS.ADDRESS_RESET"></a>
-    </div>
+        <div class="col-1">
+            <a href="#" translate="ADDRESS.ADDRESS_RESET"></a>
+        </div>
 
-    <div class="col-1">
-        <button name="cancel" class="col-1-3 btn btn--secondary"
-          data-js="modalOpen" data-target="#cancel"
-                translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
+        <div class="col-1">
+            <button name="cancel" class="col-1-3 btn btn--secondary"
+              data-js="modalOpen" data-target="#cancel"
+                    translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
 
-        <button name="submit" class="col-1-3 btn btn--primary" type="submit" 
-            translate="LABEL.REVIEW_SUBMIT" value="submit" ng-click="goToRead(newAddress);"></button>
-    </div>
+            <button name="submit" class="col-1-3 btn btn--primary" type="submit" 
+                translate="LABEL.REVIEW_SUBMIT" value="submit" ng-click="goToRead(newAddress);"></button>
+        </div>
+    </form>
 </div>
