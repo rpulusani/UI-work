@@ -51,24 +51,38 @@ define([
                 angular.copy(response.data._embedded, response.resource);
                 return response;
             }
-        }
+    };
     })
-
-    .constant('mpsApiUri', 'http://10.145.116.233:8080/mps')
 
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){
-      GatekeeperProvider.configure({
-        serviceUri: config.idp.serviceUrl,
-        clientId: config.idp.clientId
-      });
-      GatekeeperProvider.protect(serviceUrl);
+        GatekeeperProvider.configure({
+            serviceUri: config.idp.serviceUrl,
+            clientId: config.idp.clientId
+        });
+        GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(function(Gatekeeper, $rootScope) {
-        $rootScope.user = Gatekeeper.user;
-    })
+    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
+    function(Gatekeeper, UserService, $rootScope, $cookies) {
+        $rootScope.idpUser = Gatekeeper.user;
+        $rootScope.currentUser = {};
+        UserService.get({idpId: Gatekeeper.user.id}, function(user){
+            if (user._embedded && user._embedded.users.length > 0) {
+                $rootScope.currentUser = user._embedded.users[0];
+                //TODO: Deal with multiple account when definition is ready by stakeholder
+                $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
+            }
+        });
+
+        //TODO: Remove this once it is included into Gatekeeper.
+        $rootScope.logout = function() {
+            delete $cookies['accessToken'];
+            var redirect_uri = config.idp.serviceUrl + config.idp.redirectUrl;
+            document.location.href = redirect_uri;
+        };
+    }])
 
     .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
         function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {

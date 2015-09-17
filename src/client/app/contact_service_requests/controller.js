@@ -1,9 +1,8 @@
 'use strict';
 angular.module('mps.serviceRequestContacts')
-.controller('ContactsController', ['$scope', '$location', '$routeParams', 'History', 'ContactService',
-    function($scope, $location, $routeParams, History, ContactService) {
-        //TODO: Remove hardcoded accountId, which needs to come from login.
-        $scope.contactHAL = ContactService.getHAL({accountId: 1}, function(){
+.controller('ContactsController', ['$scope', '$rootScope', '$location', '$routeParams', 'History', 'ContactService',
+    function($scope, $rootScope, $location, $routeParams, History, ContactService) {
+        $scope.contactHAL = ContactService.getHAL({accountId: $rootScope.currentAccount}, function(){
             $scope.contacts = $scope.contactHAL.contacts;
         });
 
@@ -13,7 +12,7 @@ angular.module('mps.serviceRequestContacts')
 
         $scope.goToCreate = function() {
             $location.path('/service_requests/contacts/new');
-        }
+        };
 
         $scope.goToUpdate = function(contact) {
             var href = contact._links.self.href;
@@ -33,24 +32,22 @@ angular.module('mps.serviceRequestContacts')
         //     });
         // };
     }
-]).controller('ContactController', ['$scope', '$location', '$routeParams', 'History',
+]).controller('ContactController', ['$scope', '$location', '$routeParams', '$rootScope', 'History',
                                     'ContactService', 'ServiceRequestService',
-    function($scope, $location, $routeParams, History, ContactService, ServiceRequestService) {
+    function($scope, $location, $routeParams, $rootScope, History, ContactService, ServiceRequestService) {
         $scope.reviewing = false;
-        //TODO: Remove hardcoded accountId, which needs to come from login.
-        var acct_id = 1;
         if($routeParams.id) {
-            $scope.contact = ContactService.get({accountId: acct_id, id: $routeParams.id});
+            $scope.contact = ContactService.get({accountId: $rootScope.currentAccount, id: $routeParams.id});
         } else {
-            $scope.contact = {accountId: acct_id};
+            $scope.contact = {accountId: $rootScope.currentAccount};
         }
 
         $scope.review = function() {
             $scope.reviewing = true;
-        }
+        };
         $scope.edit = function() {
             $scope.reviewing = false;
-        }
+        };
 
         $scope.save = function() {
             if ($scope.contact._links) {

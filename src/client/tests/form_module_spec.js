@@ -1,4 +1,5 @@
-define(['angular','angular-mocks', 'form','lxk.fef','jquery'], function(angular, mocks, form, fef,$) {
+define(['angular','angular-mocks', 'form','lxk.fef','jquery', 'fixtures'],
+    function(angular, mocks, form, fef,$, fixtures) {
 describe('Form Module', function() {
     beforeEach(module('mps'));
     describe('directives', function(){
@@ -11,6 +12,7 @@ describe('Form Module', function() {
 
                 $httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
                 $httpBackend.when('GET', '/app/dashboard/templates/home.html').respond("<h1>home</h1>");
+                $httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
             }));
 
 
@@ -53,7 +55,7 @@ describe('Form Module', function() {
 
                 $httpBackend.flush();
             });
-            
+
             it("should have the front end framework turn on and checked saves to scope", function(){
                 scope.cat = "furry";
                 var elementCheckboxHtml =
@@ -133,87 +135,6 @@ describe('Form Module', function() {
                 $httpBackend.flush();
             });
         });
-      /*
-        describe('input of type select', function(){
-            it("should have the front end framework turn on", function(){
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("div.selectric")).toBeDefined();
-                    $httpBackend.flush();
-            });
-
-            it("should have the front end framework turn on and default selected", function(){
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("li.selected")).toBeDefined();
-                    expect($(elm).find("li.selected").html()).toBe("--select--");
-                $httpBackend.flush();
-            });
-            it("should have the front end framework turn on and select non default", function(){
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("li.selected")).toBeDefined();
-                    expect($(elm).find("li.selected").html()).toBe("--select--");
-                    $(elm).find("select").val("USA");
-                    $(elm).find("select").selectric("refresh");
-                    expect($(elm).find("li.selected").html()).toBe("USA");
-                $httpBackend.flush();
-            });
-
-            it("should have the front end framework turn on and default selected", function(){
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("li.selected")).toBeDefined();
-                    expect($(elm).find("li.selected").html()).toBe("--select--");
-                $httpBackend.flush();
-            });
-            it("should have the front end framework turn on and select non default", function(){
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("li.selected")).toBeDefined();
-                    expect($(elm).find("li.selected").html()).toBe("--select--");
-                    $(elm).find("select").val("USA");
-                    $(elm).find("select").selectric("refresh");
-                    expect($(elm).find("li.selected").html()).toBe("USA");
-                $httpBackend.flush();
-            });
-
-            it("should have the front end framework turn on and default selected", function(){
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("li.selected")).toBeDefined();
-                    expect($(elm).find("li.selected").html()).toBe("--select--");
-                    $(elm).find("select").val("USA");
-                    $(elm).find("select").selectric("refresh");
-                    expect($(elm).find("li.selected").html()).toBe("USA");
-                $httpBackend.flush();
-            });
-            it("should have the front end framework turn on and scope is different", function(){
-                scope.cat = "";
-                var selectBoxHtml =
-                    compileDirective('<div class="form__field"><select id="test" data-js="customInput" ng-model="cat"><option value="">--select--</option><option>USA</option></select></div>');
-                    expect(elm).toBeDefined();
-                    expect($(elm).find("li.selected")).toBeDefined();
-                    expect($(elm).find("li.selected").html()).toBe("--select--");
-                    
-                    console.log("selectric " + $(elm).find(".selectric"));
-                    $(elm).find(".selectric").click();
-                    var option1 = $(elm).find("li");
-                    console.log(option1);
-                    option1.click();
-                    $(elm).find("#test").selectric("refresh");
-                    expect($(elm).find("li.selected").html()).toBe("USA");
-                    expect(scope.cat).toBe("USA");
-                $httpBackend.flush();
-            });
-        });
-*/
     });
 });
 });

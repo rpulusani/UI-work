@@ -15,7 +15,7 @@ angular.module('mps.report')
                         collapsable: true,
                         collapseAll: true
                     });
-                });            
+                });
             });
         }
     };

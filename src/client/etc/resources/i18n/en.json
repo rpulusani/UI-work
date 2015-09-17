@@ -39,7 +39,7 @@
         "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
         "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
         "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
-        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST" 
+        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST"
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -203,19 +203,17 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "DATE": "Date",
-        "STATUS": "Status",
         "WITH_COLUMN": "{{value}}:",
-        "NO": "No",
-        "ERROR_REQUIRED": "This field is required.",
         "DATE": "Date",
         "STATUS": "Status",
+        "NONE_SELECTED": "None selected",
+        "NO": "No",
         "LOCATION": "Location",
         "NETWORK_CONFIG": "Network Configuration",
         "PRIMARY_CONTACT": "Primary Contact",
         "ADDRESS": "Address",
         "VIEW_ON_MAP": "View On Map >",
-        "NONE_SELECTED": "None selected",
+        "ERROR_REQUIRED": "This field is required.",
         "NONE": "None",
         "COMMENTS": "Comments",
         "SELECT": "-Select-"

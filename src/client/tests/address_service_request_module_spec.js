@@ -1,202 +1,100 @@
-/* global describe it beforeEach inject expect */
+// Unit tests for Service Request Addresses module
 define(['angular','angular-mocks', 'address'], function(angular, mocks, address) {
-describe('Address Service Request Module', function() {
-    beforeEach(module('mps'));
-    describe('Controllers', function(){
-        var scope, ctrl, location, addresses, window, history;
-        beforeEach(inject(function($rootScope, $controller, $location, Addresses, History, $window) {
-            scope = $rootScope.$new();
-            location = $location;
-            window = $window;
-            history = History;
-            ctrl = $controller('AddressesController', {$scope: scope});
-            addresses = Addresses;
-        }));
+    describe('Address Service Request Module', function() {
+        beforeEach(module('mps'));
 
+        describe('AddressesController', function() {
+            var scope, ctrl, location, history, mockedAddressesFactory;
 
+            beforeEach(function (){
+                mockedAddressesFactory = {
+                    remove: function(address, resolve) {
+                        resolve(true);
+                    },
+                    query: jasmine.createSpy()
+                };
 
-        //Testing Object Property Structure in one it function
-
-
-
-        /** Cover all business Logic **/
-
-        describe('when Set Store Front Name is chosen', function(){
-                it('should set the address name to the store front name', function(){
-                    addresses.new();
-                    scope.address = addresses.address;
-
-                    expect(scope.address.storeName).toBe(undefined);
-                    scope.address.addName = 'Cat';
-                    scope.setStoreFrontName();
-                    expect(scope.address.storeName).toBe('Cat');
-                });
-        });
-
-        describe('when saved', function() {
-            var httpBackend;
-            beforeEach(inject(function (_$httpBackend_) {
-
-                    httpBackend = _$httpBackend_;
-                    $httpBackend.when('GET', '/service_requests/addresses/0/submitted').respond(200);
-
-            }));
-
-            it('should redirect to submitted page', function(){
-                addresses.new();
-                scope.address = addresses.address;
-                expect(addresses.address).not.toBe(undefined);
-                expect(addresses.address.addName).toBe(undefined);
-                scope.address.addName = 'bad';
-                $httpBackend.expectGET('/service_requests/addresses/0/submitted').respond(200);
-                scope.save();
-                expect(addresses.address.addName).toBe('bad');
-            });
-
-/*
-            describe('when POST request failed', function() {
-                it('should set add_success to be false', function() {
-                    //TODO: this mock needs to be POST for real
-                    httpBackend.expectGET('/test').respond(500);
-                    scope.save(function() {
-                      expect(scope.add_success).toBe(false);
-                    });
-                    expect(httpBackend.flush).not.toThrow();
+                module(function($provide) {
+                    $provide.value('Addresses', mockedAddressesFactory);
                 });
             });
 
-            describe('when POST request success', function() {
-                it('should set add_success to be true', function() {
-                    //TODO: this mock needs to be POST for real
-                    httpBackend.expectGET('/test').respond(200);
-                    scope.save(function() {
-                      expect(scope.add_success).toBe(false);
-                    });
-                    expect(httpBackend.flush).not.toThrow();
-                });
-            });
-            */
-        });
-
-        describe('when backed up', function() {
-            describe('when continueForm is true', function() {
-                it('should set continueForm to be false', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/addresses');
-                    scope.continueForm = true;
-                    scope.back();
-                    expect(scope.continueForm).toBe(false);
-                });
-            });
-
-            describe('when continueForm is false', function() {
-                it('should return to home', function() {
-                    spyOn(history,'back').and.returnValue('/service_requests/addresses');
-                    scope.continueForm = false;
-                    scope.back();
-                    expect(scope.continueForm).toEqual(false);
-                });
-            });
-        });
-
-        describe('when cancelled', function() {
-            it('should return to home', function(){
-                spyOn(location, 'path').and.returnValue('/');
-                scope.cancel();
-                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses');
-            });
-        });
-
-        describe('when continued', function() {
-          it('should set continueForm to be true', function() {
-              scope.continue();
-              expect(scope.continueForm).toBe(true);
-          });
-        });
-
-        describe('when toggled', function() {
-            describe('with attachmentIsShown was originally true', function() {
-                it('should set attachmentIsShown to be false', function() {
-                    scope.attachmentIsShown = true;
-                    scope.attachmentToggle();
-                    expect(scope.attachmentIsShown).toBe(false);
-                });
-            });
-
-            describe('with attachmentIsShown was originally false', function() {
-                it('should set attachmentIsShown to be true', function() {
-                    scope.attachmentIsShown = false;
-                    scope.attachmentToggle();
-                    expect(scope.attachmentIsShown).toBe(true);
-                });
-            });
-
-        });
-
-
-        describe('when a delete request is cancelled', function() {
-            it('should return to the all addresses view', function() {
-                spyOn(location, 'path').and.returnValue('/service_requests/addresses');
-                scope.cancel();
-                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses');
-            });
-        });
-/*
-        describe('when a delete request is made for foo/1', function() {
-            it('should ask for confirmation of the delete request', function() {
-                spyOn(location, 'path').and.returnValue('/service_requests/addresses/delete');
-                scope.deleteAddress('foo/1');
-                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete');
-                expect(addresses.currentAddress).toEqual(scope.getAddress('foo/1'));
-            });
-        });
-
-        describe('when a delete request is confirmed', function() {
-            it('should confirm the delete request', function() {
-                spyOn(location, 'path').and.returnValue('/service_requests/addresses/delete/review');
-                scope.requestDelete();
-                expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/delete/review');
-            });
-        });
-*/
-    });
-    describe("Directives", function(){
-        //only test logic examples nothing more
-    });
-    describe("Services", function(){
-        //Test things like Required or other validations
-
-    });
-
-    describe("Routes", function(){
-        it('should map routes to controllers', function() {
-            inject(function($route) {
-                /*  only test logic examples not anything more
-                expect($route.routes['/service_requests/addresses'].controller).toBe('AddressesController');
-                expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/js/address_service_requests/templates/view.html');
-                expect($route.routes['/service_requests/addresses/delete'].templateUrl).toEqual('/js/address_service_requests/templates/delete.html');
-                expect($route.routes['/service_requests/addresses/new'].templateUrl).toEqual('/js/address_service_requests/templates/new.html');
-                expect($route.routes['/service_requests/addresses/addMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/addMultiple.html');
-                expect($route.routes['/service_requests/addresses/updateMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/updateMultiple.html');
-                expect($route.routes['/service_requests/addresses/deleteMultiple'].templateUrl).toEqual('/js/address_service_requests/templates/deleteMultiple.html');
-                */
-            });
-        });
-
-         // Tests for testing directives
-        describe('directive: new-form-fields.html', function() {
-            var element, scope;
-
-            beforeEach(module('mps'));
-
-            beforeEach(inject(function($rootScope, $compile) {
+            beforeEach(inject(function($rootScope, $controller, $location, History) {
                 scope = $rootScope.$new();
-
-                element = '<div address-new-fields></div>';
-                element = $compile(element)(scope);
-
-                scope.$digest();
+                location = $location;
+                history = History;
+                ctrl = $controller('AddressesController', {$scope: scope});
             }));
+
+            describe('back', function() {
+                it('should call history back', function() {
+                    scope.back();
+                    expect(history.path).toBeCalled;
+                });
+            });
+
+            describe('goToCreate', function() {
+                it('should take to new page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.goToCreate();
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/new');
+                });
+            });
+
+            describe('goToUpdate', function() {
+                it('should take to update page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.goToUpdate(1);
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
+                });
+            });
+
+            describe('goToReview', function() {
+                it('should take to review page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.goToReview(1);
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/review');
+                });
+            });
+
+            describe('setStoreFrontName', function() {
+                it('should take to review page', function() {
+                    scope.address = {name: 'Test Name', id: 1, accountId: '1-74XV2R'};
+
+                    spyOn(scope, 'setStoreFrontName').and.callThrough();
+
+                    scope.setStoreFrontName();
+
+                    expect(scope.setStoreFrontName).toHaveBeenCalled();
+                    expect(scope.address.storeFrontName).toEqual(scope.address.name);
+                });
+            });
+
+            describe('removeAddress', function() {
+                it('should remove an item in $scope.addresses', function() {
+                    var address = {id: 1, accountId: '1-74XV2R'}; // Address to be removed
+
+                    scope.addresses = [{id: 1, accoundId: '1-74XV2R'}, {id:  2, accountId: '1-74XV2R'}];
+
+                    spyOn(mockedAddressesFactory, 'remove').and.callThrough();
+                    scope.removeAddress(address);
+
+                    expect(mockedAddressesFactory.remove.calls.count()).toBe(1);
+                    expect(mockedAddressesFactory.remove).toHaveBeenCalled();
+                    expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual(address);
+                    expect(scope.addresses.length).toEqual(1);
+                });
+            });
+        });
+
+        describe('Routes', function(){
+            it('should map routes to controllers', function() {
+                inject(function($route) {
+                    expect($route.routes['/service_requests/addresses'].controller).toBe('AddressesController');
+                    expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/app/address_service_requests/templates/view.html');
+                    expect($route.routes['/service_requests/addresses/new'].templateUrl).toEqual('/app/address_service_requests/templates/new.html');
+                });
+            });
         });
     });
-});
 });

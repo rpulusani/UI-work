@@ -28,19 +28,19 @@
             </thead>
             <tbody>
                 <tr ng-repeat="address in addresses">
-                    <td><a href="" ng-click="goToRead(address.id)" ng-bind="address.addName"></a></td>
-                    <td ng-bind="address.storeName"></td>
-                    <td ng-bind="address.addrLine1"></td>
-                    <td ng-bind="address.addrLine2"></td>
-                    <td ng-bind="address.country"></td>
-                    <td ng-bind="address.state"></td>
+                    <td><a href="" ng-click="goToReview(address.id)" ng-bind="address.name"></a></td>
+                    <td ng-bind="address.storeFrontName"></td>
+                    <td ng-bind="address.addressLine1"></td>
+                    <td ng-bind="address.addressLine2"></td>
+                    <td ng-bind="address.country.name"></td>
+                    <td ng-bind="address.state.name"></td>
                     <td ng-bind="address.city"></td>
                     <td ng-bind="address.county"></td>
                     <td ng-bind="address.district"></td>
                     <td ng-bind="address.zipCode"></td>
                     <td>
                         <a href="" ng-click="goToUpdate(address.id)" translate="LABEL.UPDATE"></a> |
-                        <a href="" ng-click="removeAddress(address.id)" translate="LABEL.DELETE"></a>
+                        <a href="" ng-click="goToReview(address.id)" translate="LABEL.DELETE"></a>
                     </td>
                 </tr>
             </tbody>
