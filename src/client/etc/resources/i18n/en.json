@@ -1,6 +1,5 @@
 {
     "ADDRESS_SERVICE_REQUEST": {
-        "TITLE": "Service Requests",
         "CHANGE": "Change Request Addresses",
         "ADD": "Add Address",
         "ADD_MULTI": "Add Multiple Addresses",
@@ -23,6 +22,7 @@
     },
 
     "SERVICE_REQUEST": {
+        "TITLE": "Requests",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary contact",
@@ -73,7 +73,13 @@
         "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request",
         "BUILDING_NAME": "Building",
         "FLOOR_NAME": "Floor",
-        "SITE_NAME": "Office"
+        "SITE_NAME": "Office",
+        "IS_STORE_FRONT": "Will this address be a store-front?",
+        "ADDRESS_LOCATION": "What is the location of this address?",
+        "USER_ENTERED": "You entered...",
+        "ADDRESS_FOUND": "We found...",
+        "ADDRESS_RESET": "Reset address information",
+        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below..."
     },
 
     "CONTACT": {
@@ -96,7 +102,7 @@
     },
 
     "DEVICE_MGT": {
-        "TITLE": "Device Management",
+        "TITLE": "Devices",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
         "SERIAL_NO": "Serial Number",
@@ -158,7 +164,7 @@
     },
 
     "REPORTING": {
-        "TITLE": "Reporting",
+        "TITLE": "Reports",
         "ORDERS": "Orders",
         "ASSET_REGISTER": "Asset Register",
         "FUTURE_RATE": "Future Rate",
@@ -175,7 +181,8 @@
 
     "NAVIGATION": {
         "QUICK_ACTION": "Quick Action",
-        "ORDER_REQUEST":"Order Request",
+        "ORDER_REQUEST":"Orders",
+        "INVOICES": "Invoices",
         "QUICK_REQUEST": "Quick Request",
         "COMPANY_ADMIN": "Company Administration",
         "CONTACT": "Contacts",
