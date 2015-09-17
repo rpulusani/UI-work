@@ -73,7 +73,13 @@
         "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request",
         "BUILDING_NAME": "Building",
         "FLOOR_NAME": "Floor",
-        "SITE_NAME": "Office"
+        "SITE_NAME": "Office",
+        "IS_STORE_FRONT": "Will this address be a store-front?",
+        "ADDRESS_LOCATION": "What is the location of this address?",
+        "USER_ENTERED": "You entered...",
+        "ADDRESS_FOUND": "We found...",
+        "ADDRESS_RESET": "Reset address information",
+        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below..."
     },
 
     "CONTACT": {
