@@ -8,44 +8,173 @@ router = express(),
 server = http.createServer(router),
 fs = require('fs'),
 memory = {
-    addresses: [{
-        addName: 'Server-side test',
-        storeName: 'Some Store',
-        addrLine1: '123 Some Rd',
-        addrLine2: null,
-        city: 'Lexington',
-        country: 'US',
-        state: 'KY',
-        zipCode: '40404',
-        id: 'addy-1'
-    }],
-    contacts: [{
-        id: '1',
-        accountId: '1',
-        firstName: 'John',
-        middleName: 'E',
-        lastName: 'Doe',
-        workPhone: '800-555-0101',
-        alternatePhone: '800-867-5309',
-        email: 'john.doe@johndeere.com'
-    }],
-    devices: [{
-        productModel: 'C748DTE NBD',
-        serialNumber: '41H0070717001',
-        installDate: '6/16/2015',
-        ipAddress: '10.141.12.13',
-        hostName: 'Hostname',
-        id: 'device-1'
+    addresses: {
+      "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/addresses",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "addresses": [
+         {
+            "id": 1,
+            "name": "Address Name Test",
+            "storeFrontName": "Store Front Name",
+            "addressLine1": "Address 1",
+            "addressLine2": "",
+            "city": "Lexington",
+            "state": {
+                "name": "Kansas",
+                "code": "KS"
+            },
+            "stateCode": "KY",
+            "province": "",
+            "county": "Fayette",
+            "countyIsoCode": "",
+            "district": "",
+            "country": {
+                "name": "USA",
+                "code": "US"
+            },
+            "postalCode": "",
+            "siteId": "",
+            "siteName": "",
+            "buildingId": "",
+            "buildingName": "",
+            "floorId": "",
+            "floorName": "",
+            "zoneId": "",
+            "zoneName": "",
+            "lbsIndentifierFlag": true,
+            "region": "",
+            "latitude": "",
+            "longitude": "",
+            "lbsGridX": "",
+            "lbsGridY": "",
+            "_links": {
+              "self": {
+                "href": "http://10.145.116.233:8080/mps/accounts/1/addresses/1"
+              }
+            }
+          }
+        ]
+      },
+      "page": {
+        "size": 20,
+        "totalElements": 2,
+        "totalPages": 1,
+        "number": 0
+      }
     },
-    {
-        productModel: 'C748DTE NBC',
-        serialNumber: '41H0070717002',
-        installDate: '7/16/2015',
-        ipAddress: '10.141.12.14',
-        hostName: 'Hostname2',
-        id: 'device-2'
-    }],
     requests: [],
+    contacts: {
+      "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/contacts",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "contacts": [
+          {
+            "id": 1,
+            "firstName": "Arnold",
+            "middleName": "M",
+            "lastName": "Schwarzenegger",
+            "email": "terminator@sky.net",
+            "workPhone": "(555) 555-5555",
+            "alternatePhone": "(111) 111-1111",
+            "department": "Web",
+            "type": "?",
+            "userFavorite": false,
+            "_links": {
+              "self": {
+                "href": "http://10.145.116.233:8080/mps/accounts/1/contacts/1"
+              },
+              "account": {
+                "href": "http://10.145.116.233:8080/mps/accounts/1"
+              }
+            }
+          },
+          {
+            "id": 2,
+            "firstName": "Andrew",
+            "middleName": "Ender",
+            "lastName": "Wiggin",
+            "email": "andrew@fleet.net",
+            "workPhone": "(555) 555-5555",
+            "alternatePhone": "(111) 111-1111",
+            "department": "Web",
+            "type": "?",
+            "userFavorite": false,
+            "_links": {
+              "self": {
+                "href": "http://10.145.116.233:8080/mps/accounts/1/contacts/2"
+              },
+              "account": {
+                "href": "http://10.145.116.233:8080/mps/accounts/1"
+              }
+            }
+          }
+        ]
+      },
+      "page": {
+        "size": 20,
+        "totalElements": 2,
+        "totalPages": 1,
+        "number": 0
+      }
+    },
+    countries: {
+      "_links": {
+        "self": {
+          "href": "/mps/countries"
+        }
+      },
+      "_embedded": {
+        "countries": [
+          {
+            "name": "USA",
+            "code": "US",
+            "provinces": [
+              {
+                "name": "Kansas",
+                "code": "KS"
+              },
+              {
+                "name": "Kentucky",
+                "code": "KY"
+              }
+            ]
+          },
+          {
+            "name": "Canada",
+            "code": "CA",
+            "provinces": [
+              {
+                "name": "Ontario",
+                "code": "ON"
+              },
+              {
+                "name": "Quebec",
+                "code": "QC"
+              }
+            ]
+          },
+          {
+            "name": "Mexico",
+            "code": "MX",
+            "provinces": [
+              {
+                "name": "Chihuahua",
+                "code": "CHH"
+              }
+            ]
+          }
+        ]
+      }
+    },
     reportGroups: [{
         id: 'group1',
         name: 'Orders'
@@ -111,29 +240,19 @@ memory = {
         desc: 'AM1177 Future Rate',
         date: '08/09/2015',
         status: 'pending'
-    },
-    {
-        id: 'fcc1',
-        definitionId: '789',
-        desc: 'AM1188 FCC Rate',
-        date: '08/08/2015',
-        status: 'pending'
-    },
-    {
-        id: 'register2',
-        definitionId: '123',
-        desc: 'AM1173 Change Management',
-        date: '08/15/2015',
-        status: 'pending'
     }]
+},
+addToMemory = function(memType, data, fn) {
+   return fn(memory[memType]._embedded[memType].push(data));
 },
 removeById = function(memType, id, fn) {
     var i = 0,
-    memCnt = memory[memType].length;
+    mem = memory[memType]._embedded[memType],
+    memCnt = mem.length;
 
     for (i; i < memCnt; i += 1) {
-        if (memory[memType][i].id === id) {
-            memory[memType].splice(i, 1);
+        if (mem[i].id === parseInt(id)) {
+            mem.splice(i, 1);
 
             return fn(true);
         }
@@ -143,11 +262,12 @@ removeById = function(memType, id, fn) {
 },
 findById = function(memType, id, fn) {
     var i = 0,
-    memCnt = memory[memType].length;
+    mem = memory[memType]._embedded[memType],
+    memCnt = mem.length;
 
     for (i; i < memCnt; i += 1) {
-        if (memory[memType][i].id === id) {
-            return fn(memory[memType][i], i);
+        if (mem[i].id === parseInt(id)) {
+            return fn(mem[i], i);
         }
     }
 
@@ -181,17 +301,21 @@ router.configure(function(){
     router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
 });
 
-router.get('/accounts/1/:requestType', function(req, res) {
+router.get('/countries', function(req, res) {
+    res.json(memory.countries);
+});
+
+router.get('/accounts/:accountId/:requestType', function(req, res) {
     console.log('All ' + req.params.requestType + ' Sent to client');
 
     res.json(memory[req.params.requestType]);
 });
 
-router.get('/accounts/1/:requestType/new', function(req, res) {
+router.get('/accounts/:accountId/:requestType/new', function(req, res) {
     res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
 });
 
-router.get('/accounts/1/:requestType/:id', function(req, res) {
+router.get('/accounts/:accountId/:requestType/:id', function(req, res) {
     var id;
 
     if (!req.query.id) {
@@ -201,8 +325,8 @@ router.get('/accounts/1/:requestType/:id', function(req, res) {
     }
 
     console.log('Locating ' + req.params.requestType + ' by ID: ' + id);
-    console.log('inside find by id');
-    if (req.headers.accept.indexOf('json') > -1) {
+
+    if (req.headers.accept.indexOf('application') > -1) {
         findById(req.params.requestType, id, function(record) {
             if (record) {
                 res.json(record);
@@ -215,7 +339,7 @@ router.get('/accounts/1/:requestType/:id', function(req, res) {
     }
 });
 
-router.get('/accounts/1/reports/reportlist/:definitionId', function(req, res) {
+router.get('/accounts/:accountId/reports/reportlist/:definitionId', function(req, res) {
     var id;
     console.log('inside find by definition id');
     if (!req.query.definitionId) {
@@ -237,9 +361,8 @@ router.get('/accounts/1/reports/reportlist/:definitionId', function(req, res) {
     }
 });
 
-
-router.post('/accounts/1/:requestType', function(req, res) {
-    if (req.files.file) {
+router.post('/accounts/:accountId/:requestType', function(req, res) {
+    if (typeof req.files !== 'undefined' && req.files.file) {
         req.body.fileName = req.files.file.name;
         req.body.hadAttachment = true;
 
@@ -251,19 +374,17 @@ router.post('/accounts/1/:requestType', function(req, res) {
     } else {
         req.body.hadAttachment = false;
     }
-    console.log('req is '+req.body.definitionId);
-    req.body.id = Math.random().toString(36).substring(2, 7);
-    if (req.body.addName || req.body.firstName || req.body.definitionId) {
-        console.log('inside the push section');
-        memory[req.params.requestType].push(req.body);
-    }
-    console.log(memory[req.params.requestType]);
-    console.log(req.params.requestType + ' Saved');
 
-    res.json(req.body);
+    req.body.id = Math.random().toString(36).substring(2, 7);
+
+    addToMemory(req.params.requestType, req.body, function() {
+        console.log(req.params.requestType + ' Saved');
+
+        res.json(req.body);
+    });
 });
 
-router.post('/accounts/1/:requestType/:id', function(req, res) {
+router.put('/accounts/:accountId/:requestType/:id', function(req, res) {
     findById(req.params.requestType, req.params.id, function(record, recordIndex) {
         var prop; // looping through existing entries properties to update
 
@@ -271,24 +392,24 @@ router.post('/accounts/1/:requestType/:id', function(req, res) {
             record[prop] = req.body[prop];
         }
 
-        record.updated = true;
-
         console.log(req.params.requestType + ' Updated!');
 
         res.json(record);
     });
 });
 
-router.delete('/accounts/1/:requestType/:id', function(req, res) {
+router.delete('/accounts/:accountId/:requestType/:id', function(req, res) {
     removeById(req.params.requestType, req.params.id, function(deleted) {
         console.log(req.params.id + ' was deleted!');
         res.json(memory[req.params.requestType]);
     });
 });
-router.get("/ping", function(req, res){
+
+router.get('/ping', function(req, res){
     res.writeHead(200);
     res.end();
 });
+
 router.all('/*', function(req, res, next) {
     var languages = req.headers['accept-language'].split(',').map(function(lang) {
         return lang.split(';')[0];
