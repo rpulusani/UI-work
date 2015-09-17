@@ -62,6 +62,24 @@ memory = {
                                 count: '47000',
                                 updatedDate: '09/03/2015'
                             }]
+    },
+    {
+        id: 'device-2',
+        devicePageCounts: [{
+                            id: 'lifetime-1',
+                            count: '170000',
+                            updatedDate: '09/08/2015'
+                        },
+                        {
+                            id: 'mono-1',
+                            count: '29000',
+                            updatedDate: '09/02/2015'
+                        },
+                        {
+                            id: 'a4color',
+                            count: '48000',
+                            updatedDate: '09/07/2015'
+                        }]
     }],
     requests: [],
     reportGroups: [{

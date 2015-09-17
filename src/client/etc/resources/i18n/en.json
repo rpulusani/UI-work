@@ -119,7 +119,11 @@
         "PAGE_COUNT_TYPE": "Page Count Type",
         "PRIOR_COUNT": "Prior Count",
         "PRIOR_DATE": "Prior Date",
-        "NEW_COUNT": "New Count"
+        "NEW_COUNT": "New Count",
+        "REQUEST_SERVICE": "REQUEST SERVICE",
+        "ORDER_SUPPLIES": "ORDER SUPPLIES",
+        "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
+        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE"
     },
 
     "PAGE_COUNT_TYPE": {

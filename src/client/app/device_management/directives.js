@@ -5,14 +5,14 @@ define(['angular', 'deviceManagement'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/device-information.html',
-            controller: 'DeviceManagementController' 
+            controller: 'DeviceInformationController' 
         };
     })
     .directive('devicePageCount', function() {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/device-page-count.html',
-            controller: 'DeviceManagementController' 
+            controller: 'DevicePageCountsController' 
         };
     })
     .directive('deviceTabs', function() {
