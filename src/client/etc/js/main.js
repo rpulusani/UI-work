@@ -126,7 +126,6 @@ requirejs.config({
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
 
         'app': 'app/app',
-        'init': 'app/init',
 
         'nav': 'app/nav/nav',
         'nav.controllers': 'app/nav/controllers',
