@@ -5,7 +5,6 @@ define(['angular', 'deviceManagement'], function(angular) {
         function($scope, $location, Device) {
             var acct_id = 1;
             $scope.devices = Device.query({accountId: acct_id});
-
             $scope.goToRead = function(id) {
                 $location.path('/device_management/' + id + '/review');
             };
@@ -25,7 +24,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                 postalCode: '40511',
                 building: 'Bldg1',
                 floor: 'floor2',
-                office: 'office3' 
+                office: 'office3'
             };
 
             $scope.primaryContact = {
@@ -37,9 +36,9 @@ define(['angular', 'deviceManagement'], function(angular) {
 
             $scope.formatAddress = function() {
                 if(BlankCheck.checkNotNullOrUndefined($scope.installAddress)){
-                    $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' + 
+                    $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' +
                                               $scope.installAddress.addressLine1 + ', ' +
-                                              $scope.installAddress.city + ', ' + 
+                                              $scope.installAddress.city + ', ' +
                                               $scope.installAddress.state + ' ' +
                                               $scope.installAddress.postalCode + '\n';
                     if(BlankCheck.checkNotBlank($scope.installAddress.building)){
