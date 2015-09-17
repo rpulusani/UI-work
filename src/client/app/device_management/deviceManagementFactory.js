@@ -7,14 +7,6 @@ define(['angular', 'deviceManagement'], function(angular) {
             return $resource(url, {accountId: '@accountId', id: '@id'}, {});
         }
     ])
-    // .factory('PageCount', ['$resource',
-    //     function($resource) {
-    //         var url = 'app/device_management/data/meter-read-types.json';
-    //         return $resource(url, {
-
-    //         });
-    //     }
-    // ]);
     .factory('PageCount', ['$resource',
         function($resource) {
         	return {
