@@ -1,6 +1,5 @@
 {
     "ADDRESS_SERVICE_REQUEST": {
-        "TITLE": "Service Requests",
         "CHANGE": "Change Request Addresses",
         "ADD": "Add Address",
         "ADD_MULTI": "Add Multiple Addresses",
@@ -23,6 +22,7 @@
     },
 
     "SERVICE_REQUEST": {
+        "TITLE": "Requests",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary contact",
@@ -96,7 +96,7 @@
     },
 
     "DEVICE_MGT": {
-        "TITLE": "Device Management",
+        "TITLE": "Devices",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
         "SERIAL_NO": "Serial Number",
@@ -115,7 +115,7 @@
     },
 
     "REPORTING": {
-        "TITLE": "Reporting",
+        "TITLE": "Reports",
         "ORDERS": "Orders",
         "ASSET_REGISTER": "Asset Register",
         "FUTURE_RATE": "Future Rate",
@@ -132,7 +132,8 @@
 
     "NAVIGATION": {
         "QUICK_ACTION": "Quick Action",
-        "ORDER_REQUEST":"Order Request",
+        "ORDER_REQUEST":"Orders",
+        "INVOICES": "Invoices",
         "QUICK_REQUEST": "Quick Request",
         "COMPANY_ADMIN": "Company Administration",
         "CONTACT": "Contacts",
