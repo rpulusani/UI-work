@@ -44,5 +44,11 @@ define(['angular', 'address'], function(angular) {
             restrict: 'A',
             templateUrl: '/app/address_service_requests/templates/read.html'
         };
+    })
+    .directive('addressBod', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/address_service_requests/templates/read.html'
+        };
     });
 });
