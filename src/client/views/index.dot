@@ -35,6 +35,13 @@
     <link rel="stylesheet" href="/etc/styles/css/app.css" />
     <script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>
     <script src="/etc/js/main.js"></script>
+    <script>
+    require(['angular', 'app'], function(angular, app){
+      angular.element(document).ready(function(){
+        angular.bootstrap(document, ['mps']);
+      });
+    });
+    </script>
   </head>
   <body class="theme--dark">
     <a id="top" name="top"></a>
