@@ -11,7 +11,8 @@ define([
     'address',
     'address.controller',
     'address.directives',
-    'address.factory'
+    'address.factory',
+    'ui.grid'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -30,7 +31,12 @@ define([
         'mps.nav',
         'mps.utility',
         'gatekeeper',
-        'mps.form'
+        'mps.form',
+        'ui.grid',
+        'ui.grid.resizeColumns',
+        'ui.grid.moveColumns',
+        'ui.grid.selection',
+        'ui.grid.pagination'
     ])
 
     .factory('errorLogInterceptor', function() {

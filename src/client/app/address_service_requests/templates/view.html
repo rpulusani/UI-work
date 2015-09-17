@@ -9,41 +9,6 @@
         <ul>
             <li><a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD"></a></li>
         </ul>
-
-        <table ng-show="addresses.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
-            <thead>
-                <tr>
-                    <th translate="{{'ADDRESS.NAME' |translate}}"></th>
-                    <th translate="{{'ADDRESS.STORE_NAME' |translate}}"></th>
-                    <th translate="{{'ADDRESS.LINE_1' |translate}}"></th>
-                    <th translate="{{'ADDRESS.LINE_2' |translate}}"></th>
-                    <th translate="{{'ADDRESS.COUNTRY' |translate}}"></th>
-                    <th translate="{{'ADDRESS.STATE_PROVINCE' |translate}}"></th>
-                    <th translate="{{'ADDRESS.CITY' |translate}}"></th>
-                    <th translate="{{'ADDRESS.COUNTY' |translate}}"></th>
-                    <th translate="{{'ADDRESS.DISTRICT' |translate}}"></th>
-                    <th translate="{{'ADDRESS.ZIP_POSTAL' |translate}}"></th>
-                    <th translate="{{'LABEL.ACTION' |translate}}"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="address in addresses">
-                    <td><a href="" ng-click="goToReview(address.id)" ng-bind="address.name"></a></td>
-                    <td ng-bind="address.storeFrontName"></td>
-                    <td ng-bind="address.addressLine1"></td>
-                    <td ng-bind="address.addressLine2"></td>
-                    <td ng-bind="address.country.name"></td>
-                    <td ng-bind="address.state.name"></td>
-                    <td ng-bind="address.city"></td>
-                    <td ng-bind="address.county"></td>
-                    <td ng-bind="address.district"></td>
-                    <td ng-bind="address.zipCode"></td>
-                    <td>
-                        <a href="" ng-click="goToUpdate(address.id)" translate="LABEL.UPDATE"></a> |
-                        <a href="" ng-click="goToReview(address.id)" translate="LABEL.DELETE"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-pagination></div>
     </div>
 </div>

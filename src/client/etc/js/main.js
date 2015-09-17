@@ -34,6 +34,7 @@ requirejs.config({
             'utility.blankCheckUtility',
             'utility.directives',
             'utility.controllers',
+            'utility.gridUtility' ,
 
             'user',
             'user.factory',
@@ -85,7 +86,7 @@ requirejs.config({
         'serviceRequest.factory': ['serviceRequest'],
         'serviceRequest.directives': ['serviceRequest'],
 
-        'address': ['angular', 'angular-route'],
+        'address': ['angular', 'angular-route', 'utility'],
         'address.controller': ['address', 'address.factory', 'contact.factory'],
         'address.directives': ['address'],
         'address.factory': ['address', 'serviceRequest.factory', 'utility.historyUtility'],
@@ -109,7 +110,9 @@ requirejs.config({
         'report.directives': ['report'],
         'report.factory': ['report'],
 
-        'gatekeeper': ['angular-cookies', 'angular-route']
+        'gatekeeper': ['angular-cookies', 'angular-route'],
+
+        'ui.grid' : ['angular']
 
     },
     paths: {
@@ -124,6 +127,8 @@ requirejs.config({
         'angular-translate-storage-local': 'app/libs/angular-translate-storage-local.min',
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
+
+        'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',
 
@@ -140,6 +145,7 @@ requirejs.config({
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controllers': 'app/utilities/controller',
+        'utility.gridUtility': 'app/utilities/gridUtility',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
