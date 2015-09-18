@@ -90,10 +90,10 @@ angular.module('mps.serviceRequestAddresses')
 
 
         $scope.goToVerify = function(address) {
-            Addresses.verify($scope.address, function(res) {
-                console.log(res);
+           // Addresses.verify($scope.address, function(res) {
+              //  console.log(res);
                 $location.path('/service_requests/addresses/' + address.id + '/verify');
-            });
+            //});
         }
 
         $scope.removeAddress = function(address) {
