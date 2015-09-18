@@ -76,16 +76,16 @@ angular.module('mps.serviceRequestAddresses')
             $location.path('/service_requests/addresses/new');
         };
 
-        $scope.goToReview = function(id) {
-            $location.path('/service_requests/addresses/' + id + '/review');
+        $scope.goToReview = function(address) {
+            $location.path('/service_requests/addresses/' + address.id + '/review');
         };
 
-        $scope.goToViewAll = function(id) {
+        $scope.goToViewAll = function(address) {
             $location.path('/service_requests/addresses');
         };
 
-        $scope.goToUpdate = function(id) {
-            $location.path('/service_requests/addresses/' + id + '/update');
+        $scope.goToUpdate = function(address) {
+            $location.path('/service_requests/addresses/' + address.id + '/update');
         };
 
         $scope.goToVerify = function(address) {
