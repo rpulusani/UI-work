@@ -1,15 +1,6 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceManagementController', ['$scope', '$location', 'Device',
-        function($scope, $location, Device) {
-            var acct_id = 1;
-            $scope.devices = Device.query({accountId: acct_id});
-            $scope.goToRead = function(id) {
-                $location.path('/device_management/' + id + '/review');
-            };
-        }
-    ])
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
         function($scope, $location, $routeParams, BlankCheck, Device) {
             var acct_id = 1;
@@ -64,39 +55,6 @@ define(['angular', 'deviceManagement'], function(angular) {
             }
 
             $scope.formatAddress();
-        }
-    ])
-    .controller('DevicePageCountsController', ['$scope', '$location', '$routeParams', 'PageCount',
-        function($scope, $location, $routeParams, PageCount) {
-            var acct_id = 1;
-            $scope.showLess = true;
-            $scope.file_list = ['.xls', '.xlsx', '.csv'].join(',');
-            $scope.page_count_list = PageCount.pageCountTypes.query();
-            $scope.currentDate = new Date(); 
-
-            $scope.showMore = function(){
-                $scope.showLess = false;
-            }
-            $scope.viewLess = function(){
-                $scope.showLess = true;
-            }
-
-            if($routeParams.id) {
-                $scope.selectedPageCount = PageCount.pageCounts.get({accountId: acct_id, id: $routeParams.id});
-            }
-
-            $scope.filterByIds = function(pageCountType) {
-                var selectedIds = ['lifetime-1','color-1','mono-1'];
-                return (selectedIds.indexOf(pageCountType.id) !== -1);
-            };
-
-            $scope.selectPageCount = function(id, pageCountArr) {
-                for (var i = 0 ; i < pageCountArr.length ; i++){
-                    if(id === pageCountArr[i].id){
-                        return pageCountArr[i];
-                    }
-                }
-            };
         }
     ])
 });
