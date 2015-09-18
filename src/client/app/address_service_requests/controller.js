@@ -21,15 +21,7 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                                 '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
             $scope.contact = {};
-
-            $scope.serviceRequest = {
-                customerReferenceId: '1-23654-AB',
-                costCenter: '',
-                addtnlDescription: '',
-                requestedEffectiveDate: '',
-                hours: 3
-            };
-
+            
             $scope.loadTestData = function() {
                 $scope.contact.name = 'Vickers PetsAtHome';
                 $scope.contact.phoneNumber = '9992882222';
