@@ -70,7 +70,7 @@ define([
 
     .config(function(GatekeeperProvider, serviceUrl){
         GatekeeperProvider.configure({
-            serviceUri: '',
+            serviceUri: config.idp.serviceUrl,
             clientId: config.idp.clientId
         });
         GatekeeperProvider.protect(serviceUrl);
