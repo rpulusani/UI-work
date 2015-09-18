@@ -88,12 +88,12 @@ angular.module('mps.serviceRequestAddresses')
             $location.path('/service_requests/addresses/' + address.id + '/update');
         };
 
-        Addresses.verify($scope.address, function(res) {
-            console.log(res);
-        });
 
         $scope.goToVerify = function(address) {
-            $location.path('/service_requests/addresses/' + address.id + '/verify');
+            Addresses.verify($scope.address, function(res) {
+                console.log(res);
+                $location.path('/service_requests/addresses/' + address.id + '/verify');
+            });
         }
 
         $scope.removeAddress = function(address) {
