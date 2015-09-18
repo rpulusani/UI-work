@@ -1,21 +1,22 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Addresses',
-    function($scope, $http, $location, $routeParams, History, Addresses) {
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'GridService', 'Addresses',
+    '$rootScope',
+    function($scope, $http, $location, $routeParams, GridService, Addresses, $rootScope) {
         $scope.continueForm = false;
         $scope.submitForm = false;
         $scope.attachmentIsShown = false;
 
         if ($routeParams.id) {
-            $scope.address = Addresses.get({id: $routeParams.id, accountId: '1-74XV2R'});
+            $scope.address = Addresses.get({id: $routeParams.id, accountId: $rootScope.currentAccount});
         } else {
-            $scope.address = {accountId: '1-74XV2R'};
+            $scope.address = {accountId: $rootScope.currentAccount};
         }
-      
-        $scope.addresses = Addresses.query({accountId: $scope.address.accountId}, function() {
+
+       /* $scope.addresses = Addresses.query({accountId: $scope.address.accountId}, function() {
             $scope.addresses = $scope.addresses.addresses;
-        });
-        
+        });*/
+
         $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                             '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
@@ -27,12 +28,6 @@ angular.module('mps.serviceRequestAddresses')
             addtnlDescription: '',
             requestedEffectiveDate: '',
             hours: 3
-        };
-
-        $scope.loadTestData = function() {
-            $scope.contact.name = 'Vickers PetsAtHome';
-            $scope.contact.phoneNumber = '9992882222';
-            $scope.contact.emailAddress = 'vickerspets@test.com';
         };
 
         $scope.setStoreFrontName = function() {
@@ -50,14 +45,6 @@ angular.module('mps.serviceRequestAddresses')
                     accountId: $scope.address.accountId
                 }, $scope.address, $scope.goToViewAll);
             }
-        };
-
-        $scope.back = function() {
-            if ($scope.continueForm) {
-                $scope.continueForm = false;
-            }
-
-            History.back();
         };
 
         $scope.cancel = function() {
@@ -94,6 +81,22 @@ angular.module('mps.serviceRequestAddresses')
             });
         };
 
-        $scope.loadTestData();
+         $scope.gridOptions = {};
+            GridService.getGridOptions(Addresses, '')
+                .then(function(options){
+                    $scope.gridOptions = options;
+                },
+                function(reason){
+                    alert('failed: ' + reason);
+                }
+            );
+
+            $rootScope.currentAccount = '1-74XV2R';
+        Addresses.resource($rootScope.currentAccount).then(function(response){
+                $scope.addresses = Addresses.addresses;
+                $scope.gridOptions.paginationPageSize = Addresses.page.size;
+                $scope.gridOptions.totalItems = Addresses.page.totalElements;
+                $scope.gridOptions.data = $scope.addresses;
+        });
     }
 ]);

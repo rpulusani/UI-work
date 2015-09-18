@@ -12,7 +12,8 @@ define([
     'address.controller',
     'address.directives',
     'address.factory',
-    'ui.grid'
+    'ui.grid',
+    'angular-spring-data-rest'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -36,7 +37,8 @@ define([
         'ui.grid.resizeColumns',
         'ui.grid.moveColumns',
         'ui.grid.selection',
-        'ui.grid.pagination'
+        'ui.grid.pagination',
+        'spring-data-rest'
     ])
 
     .factory('errorLogInterceptor', function() {
@@ -50,16 +52,6 @@ define([
             }
         };
     })
-
-    .factory('halInterceptor', function() {
-        return {
-            response: function(response) {
-                angular.copy(response.data._embedded, response.resource);
-                return response;
-            }
-    };
-    })
-
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){

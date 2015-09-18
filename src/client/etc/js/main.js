@@ -14,6 +14,8 @@ requirejs.config({
         'angular-translate-storage-local': ['angular-translate'],
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
+        'angular-spring-data-rest': ['angular-resource'],
+
 
         'app': [
             'gatekeeper',
@@ -22,9 +24,6 @@ requirejs.config({
             'nav.controllers',
             'nav.services',
             'nav.directives',
-
-            'form',
-            'form.directives',
 
             'form',
             'form.directives',
@@ -77,6 +76,7 @@ requirejs.config({
         'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
         'utility.controllers' : ['utility'],
+        'utility.gridUtility' : ['utility'],
 
         'user': ['angular'],
         'user.factory': ['user'],
@@ -112,14 +112,14 @@ requirejs.config({
 
         'gatekeeper': ['angular-cookies', 'angular-route'],
 
-        'ui.grid' : ['angular']
+        'ui.grid' : ['angular'],
 
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular',
-        'angular-resource': 'app/libs/angular-resource.min',
+        'angular-resource': 'app/libs/angular-resource',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
         'angular-translate': 'app/libs/angular-translate.min',
@@ -127,6 +127,7 @@ requirejs.config({
         'angular-translate-storage-local': 'app/libs/angular-translate-storage-local.min',
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
+        'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
 
         'ui.grid' : 'app/libs/ui-grid',
 

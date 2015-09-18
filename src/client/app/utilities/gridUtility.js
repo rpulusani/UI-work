@@ -33,10 +33,11 @@ angular.module('mps.utility')
                     addColumns(columns,
                             function(columnArray){
                                 options =  {
-                                    //paginationPageSize: 5,
                                     enableRowSelection: true,
                                     enableSelectAll: true,
                                     showGridFooter:true,
+                                    paginationPageSizes:[20],
+                                    useExternalPagination: true,
                                     columnDefs: columnArray['columnDefs'],
                                     gridCss: 'table'
                                 };

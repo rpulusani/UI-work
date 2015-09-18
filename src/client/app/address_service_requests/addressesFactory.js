@@ -1,30 +1,26 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.factory('Addresses', ['$resource', 'serviceUrl', 'halInterceptor', '$translate',
-    function($resource, serviceUrl, halInterceptor, $translate) {
-        var url = serviceUrl + '/accounts/:accountId/addresses/:id';
-
+.factory('Addresses', [ 'serviceUrl', '$translate','$http','SpringDataRestAdapter',
+    function(serviceUrl, $translate, $http, SpringDataRestAdapter) {
         var Addresses = function(){
 
         };
 
         Addresses.prototype.getColumnDefinition = function(type){
             var columns = { names: [], fields: [] };
-            if(type === "data_address_all"){
                 columns = {
                   'defaultSet':[
-                            {'name': $translate.instant('ADDRESS.NAME'), 'field': 'created'},
-                            {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'id'},
-                            {'name': $translate.instant('ADDRESS.LINE_1'), 'field':''},
-                            {'name': $translate.instant('ADDRESS.LINE_2'), 'field':''},
-                            {'name': $translate.instant('ADDRESS.CITY'), 'field': ''},
-                            {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': '' },
-                            {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '' },
-                            {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': '' }
+                            {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
+                            {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
+                            {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
+                            {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2'},
+                            {'name': $translate.instant('ADDRESS.CITY'), 'field': 'city'},
+                            {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': 'state' },
+                            {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'province' },
+                            {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country' }
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };
-            }
             return columns;
         };
 
@@ -89,12 +85,19 @@ angular.module('mps.serviceRequestAddresses')
             return data;
         };
 
+        Addresses.prototype.resource = function(accountId){
+           var Addy  = this;
+            var url = serviceUrl + '/accounts/' + accountId + '/addresses';
+            var httpPromise = $http.get(url).success(function (response) {
+                    Addy.response = angular.toJson(response, true);
+                });
 
-        Addresses.prototype.resouce = function(){
-            return  $resource(url, {accountId: '@accountId', id: '@id'}, {
-                'update': { method: 'PUT' },
-                'query': { method: 'GET', interceptor: halInterceptor }
+            return SpringDataRestAdapter.process(httpPromise).then(function (processedResponse) {
+                Addy.addresses = processedResponse._embeddedItems;
+                Addy.page = processedResponse.page;
+                Addy.processedResponse = angular.toJson(processedResponse, true);
             });
+
         };
 
         return new Addresses();
