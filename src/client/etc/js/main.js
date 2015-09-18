@@ -29,24 +29,9 @@ requirejs.config({
             'form',
             'form.directives',
 
-            'utility',
-            'utility.historyUtility',
-            'utility.blankCheckUtility',
-            'utility.directives',
-            'utility.controllers',
-
             'user',
             'user.factory',
             'user.directives',
-
-            'serviceRequest',
-            'serviceRequest.factory',
-            'serviceRequest.directives',
-
-            'contact',
-            'contact.controller',
-            'contact.factory',
-            'contact.directives',
 
             'invoice',
 
@@ -71,29 +56,9 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
-        'utility': ['angular', 'angular-resource'],
-        'utility.historyUtility': ['utility'],
-        'utility.blankCheckUtility': ['utility'],
-        'utility.directives': ['utility'],
-        'utility.controllers' : ['utility'],
-
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-
-        'serviceRequest': ['angular', 'angular-resource', 'angular-route', 'utility'],
-        'serviceRequest.factory': ['serviceRequest'],
-        'serviceRequest.directives': ['serviceRequest'],
-
-        'address': ['angular', 'angular-route'],
-        'address.controller': ['address', 'address.factory', 'contact.factory'],
-        'address.directives': ['address'],
-        'address.factory': ['address', 'serviceRequest.factory', 'utility.historyUtility'],
-
-        'contact': ['angular', 'angular-resource', 'angular-route'],
-        'contact.controller': ['contact', 'contact.factory'],
-        'contact.directives': ['contact'],
-        'contact.factory': ['contact'],
 
         'invoice': ['angular', 'angular-route'],
 
@@ -139,7 +104,7 @@ requirejs.config({
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
-        'utility.controllers': 'app/utilities/controller',
+        'utility.controller': 'app/utilities/controller',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
