@@ -5,6 +5,7 @@ define(['angular', 'address'], function(angular) {
         function($resource, serviceUrl, halInterceptor) {
             var url = serviceUrl + '/accounts/:accountId/addresses/:id';
 
+<<<<<<< HEAD
             return $resource(url, {accountId: '@accountId', id: '@id'}, {
                 'update': { method: 'PUT' },
                 'query': { method: 'GET', interceptor: halInterceptor }
@@ -12,3 +13,12 @@ define(['angular', 'address'], function(angular) {
         }
     ]);
 });
+=======
+        return $resource(url, {accountId: '@accountId', id: '@id'}, {
+            'update': { method: 'PUT' },
+            'query': { method: 'GET', interceptor: halInterceptor },
+            'verify': {url: serviceUrl + '/mps/verification', method: 'GET'}
+        });
+    }
+]);
+>>>>>>> upstream/integrated

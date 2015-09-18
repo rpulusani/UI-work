@@ -69,29 +69,25 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                 $location.path('/service_requests/addresses/new');
             };
 
-            $scope.goToReview = function(id) {
-                $location.path('/service_requests/addresses/' + id + '/review');
+            $scope.goToReview = function(address) {
+                $location.path('/service_requests/addresses/' + address.id + '/review');
             };
 
-            $scope.goToViewAll = function(id) {
+            $scope.goToViewAll = function(address) {
                 $location.path('/service_requests/addresses');
             };
 
-            $scope.goToUpdate = function(id) {
-                $location.path('/service_requests/addresses/' + id + '/update');
+            $scope.goToUpdate = function(address) {
+                $location.path('/service_requests/addresses/' + address.id + '/update');
             };
 
-            $scope.goToVerify = function(id) {
-                $location.path('/service_requests/addresses/' + id + '/verify');
+            $scope.goToVerify = function(address) {
+               // Addresses.verify($scope.address, function(res) {
+                  //  console.log(res);
+                    $location.path('/service_requests/addresses/' + address.id + '/verify');
+                //});
             }
 
-            $scope.removeAddress = function(address) {
-                Addresses.remove({id: address.id, accountId: '1-74XV2R'}, function() {
-                    $scope.addresses.splice($scope.addresses.indexOf(address), 1);
-                });
-            };
-
             $scope.loadTestData();
-        }
     ]);
 });
