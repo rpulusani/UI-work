@@ -6,7 +6,8 @@ angular.module('mps.serviceRequestAddresses')
 
         return $resource(url, {accountId: '@accountId', id: '@id'}, {
             'update': { method: 'PUT' },
-            'query': { method: 'GET', interceptor: halInterceptor }
+            'query': { method: 'GET', interceptor: halInterceptor },
+            'verify': {url: serviceUrl + '/mps/verification', method: 'GET'}
         });
     }
 ]);
