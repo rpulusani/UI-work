@@ -8,6 +8,7 @@ define([
     nav
     .factory('Nav', ['$http', 'filterFilter', 'NavItem',
         function($http, filter, Item) {
+
             var Nav = function() {
                 var self = this;
                 self.items = [];
