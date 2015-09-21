@@ -1,9 +1,9 @@
-define(['angular', 'deviceManagement'], function(angular) {
+define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
         function($scope, $location, $routeParams, BlankCheck, Device) {
-            var acct_id = 1;
+            var acctId = 1;
             $scope.formattedAddress = '';
             $scope.installAddress = {
                 storeFrontName: 'Lexmark International Inc',
@@ -51,10 +51,10 @@ define(['angular', 'deviceManagement'], function(angular) {
             };
 
             if($routeParams.id) {
-                $scope.device = Device.get({accountId: acct_id, id: $routeParams.id});
+                $scope.device = Device.get({accountId: acctId, id: $routeParams.id});
             }
 
             $scope.formatAddress();
         }
-    ])
+    ]);
 });

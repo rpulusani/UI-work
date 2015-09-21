@@ -1,4 +1,4 @@
-define(['angular', 'deviceManagement'], function(angular) {
+define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceManagementController', ['$scope', '$location', 'Device',
@@ -9,5 +9,5 @@ define(['angular', 'deviceManagement'], function(angular) {
                 $location.path('/device_management/' + id + '/review');
             };
         }
-    ])
+    ]);
 });

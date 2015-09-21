@@ -1,4 +1,4 @@
-define(['angular', 'deviceManagement'], function(angular) {
+define(['angular', 'deviceManagement', 'deviceManagement.pageCountFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DevicePageCountsController', ['$scope', '$location', '$routeParams', 'PageCount',
@@ -9,11 +9,8 @@ define(['angular', 'deviceManagement'], function(angular) {
             $scope.page_count_list = PageCount.pageCountTypes.query();
             $scope.currentDate = new Date(); 
 
-            $scope.showMore = function(){
-                $scope.showLess = false;
-            }
-            $scope.viewLess = function(){
-                $scope.showLess = true;
+            $scope.toggleDisplay = function(){
+                $scope.showLess = !$scope.showLess;
             }
 
             if($routeParams.id) {
@@ -34,5 +31,5 @@ define(['angular', 'deviceManagement'], function(angular) {
                 }
             };
         }
-    ])
+    ]);
 });

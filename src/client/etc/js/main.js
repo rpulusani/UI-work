@@ -56,7 +56,8 @@ requirejs.config({
             'deviceManagement.deviceManagementController',
             'deviceManagement.deviceInformationController',
             'deviceManagement.devicePageCountsController',
-            'deviceManagement.factory',
+            'deviceManagement.deviceFactory',
+            'deviceManagement.pageCountFactory',
             'deviceManagement.directives',
 
             'report',
@@ -102,11 +103,12 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.deviceManagementController': ['deviceManagement', 'deviceManagement.factory'],
-        'deviceManagement.deviceInformationController': ['deviceManagement', 'deviceManagement.factory','utility.blankCheckUtility'],
-        'deviceManagement.devicePageCountsController': ['deviceManagement', 'deviceManagement.factory'],
+        'deviceManagement.deviceManagementController': ['deviceManagement', 'deviceManagement.deviceFactory'],
+        'deviceManagement.deviceInformationController': ['deviceManagement', 'deviceManagement.deviceFactory','utility.blankCheckUtility'],
+        'deviceManagement.devicePageCountsController': ['deviceManagement', 'deviceManagement.pageCountFactory'],
         'deviceManagement.directives': ['deviceManagement'],
-        'deviceManagement.factory': ['deviceManagement'],
+        'deviceManagement.deviceFactory': ['deviceManagement'],
+        'deviceManagement.pageCountFactory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
@@ -172,7 +174,8 @@ requirejs.config({
         'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
         'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
         'deviceManagement.directives': 'app/device_management/directives',
-        'deviceManagement.factory': 'app/device_management/deviceManagementFactory',
+        'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
+        'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',

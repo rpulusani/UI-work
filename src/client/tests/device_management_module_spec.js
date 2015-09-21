@@ -94,17 +94,11 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                 ctrl = $controller('DevicePageCountsController', {$scope: scope});
             })); 
 
-            describe('viewLess', function() {
-                it('should set showLess to be true', function() {
-                    scope.viewLess();
+            describe('toggleDisplay', function() {
+                it('should toggle the value of showLess', function() {
+                    scope.showLess = false;
+                    scope.toggleDisplay();
                     expect(scope.showLess).toBe(true);
-                });
-            });
-
-            describe('showMore', function() {
-                it('should set showLess to be false', function() {
-                    scope.showMore();
-                    expect(scope.showLess).toBe(false);
                 });
             });
 
