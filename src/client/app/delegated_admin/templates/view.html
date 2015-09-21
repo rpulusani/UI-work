@@ -18,69 +18,72 @@
         <div class="set set--tab" data-js="tab">
 
             <div class="set__tab-container">
-                <div class="col-1-3 set__trigger set--is-active" data-toggle="allUsers">
+                <div class="col-1-3 set__trigger" data-toggle="allUsers" ng-click="setAllUsers()"
+                     ng-class="all_users_active ? 'set--is-active' : ''">
                     <a href="#allUsers" class="text--large text--align-center"
                        translate="DELEGATED_ADMIN.ALL_USER"></a>
                 </div>
-                <div class="col-1-3 set__trigger" data-toggle="invitations">
+                <div class="col-1-3 set__trigger" data-toggle="invitations" ng-click="setInvitations()"
+                     ng-class="invitations_active ? 'set--is-active' : ''">
                     <a href="#invitations" class="text--large text--align-center"
                        translate="DELEGATED_ADMIN.INVITATION"></a>
                 </div>
             </div>
 
-            <div class="set__content-container">
-                <div class="set__content set--is-active" id="allUsers">
-                    <div style="padding-left:15px">
-                        <h2 style="border-bottom: 1px solid #000;" translate="DELEGATED_ADMIN.COMPANY_USERS"></h2>
-                        <div>
-                            <span class="text--thick" translate="DELEGATED_ADMIN.SEARCH_USER"></span>
-                            <div>
-                                <div class="col-1-5">
-                                    <div selectric options="columns" value="id" label="name"
-                                         placeholder="{{'LABEL.SELECT' | translate}}"></div>
-                                </div>
-                                <form class="form form--search col-1-3" data-form="">
-                                    <div class="form__field" style="border-radius: 0;">
-                                        <input type="text" name="search" id="search" placeholder="Search">
-                                    </div>
-                                </form>
-                                <div class="col-1-1 btn btn--secondary" translate="LABEL.SEARCH"></div>
-                            </div>
+            <div style="padding-top: 15px; padding-left:15px;">
+                <h2 ng-if="all_users_active" style="border-bottom: 1px solid #000;"
+                    translate="DELEGATED_ADMIN.COMPANY_USERS"
+                    translate-values="{companyName: companyName, userCount: users.length}"></h2>
+                <h2 ng-if="invitations_active" style="border-bottom: 1px solid #000;"
+                    translate="DELEGATED_ADMIN.INVITED_USERS"
+                    translate-values="{companyName: companyName, userCount: users.length}"></h2>
+                <div>
+                    <span class="text--thick" translate="DELEGATED_ADMIN.SEARCH_USER"></span>
+                    <div>
+                        <div class="col-1-5">
+                            <div selectric options="columns" value="id" label="name"
+                                 placeholder="{{'LABEL.SELECT' | translate}}"></div>
                         </div>
+                        <form class="form form--search col-1-3" data-form="">
+                            <div class="form__field" style="border-radius: 0;">
+                                <input type="text" name="search" id="search" placeholder="Search">
+                            </div>
+                        </form>
+                        <div class="col-1-1 btn btn--secondary" translate="LABEL.SEARCH"
+                             ng-click="search()"></div>
                     </div>
-                </div>
-                <div class="set__content" id="invitations">
-                    <h3 translate="DELEGATED_ADMIN.COMPANY_USERS"></h3>
                 </div>
             </div>
 
+            <div  style="padding-left:15px;">
+                <table ng-if="users.length > 0"
+                       class="table table--condensed table--even table--responsive text--small"
+                       data-js="responsive-table">
+                    <thead>
+                        <tr>
+                            <th translate="{{'LABEL.STATUS' |translate}}"></th>
+                            <th translate="{{'LABEL.CREATED_DATE' |translate}}"></th>
+                            <th translate="{{'LABEL.USER_ID' |translate}}"></th>
+                            <th translate="{{'LABEL.NAME_LAST_FIRST' |translate}}"></th>
+                            <th translate="{{'LABEL.EMAIL' |translate}}"></th>
+                            <th translate="{{'LABEL.COMPANY_ACCT' |translate}}"></th>
+                            <th translate="{{'LABEL.ROLE' |translate}}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.status}}</td>
+                            <td>{{user.created}}</td>
+                            <td>{{user.id}}</td>
+                            <td><a href="" ng-click="goToRead(user)">{{user.lastName}},{{user.firstName}}</a></td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.account.name}}</td>
+                            <td>{{user.roles}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-
-        <table ng-if="users.length > 0" class="table table--condensed table--even table--responsive text--small"
-               data-js="responsive-table">
-            <thead>
-                <tr>
-                    <th translate="{{'LABEL.STATUS' |translate}}"></th>
-                    <th translate="{{'LABEL.CREATED_DATE' |translate}}"></th>
-                    <th translate="{{'LABEL.USER_ID' |translate}}"></th>
-                    <th translate="{{'LABEL.NAME_LAST_FIRST' |translate}}"></th>
-                    <th translate="{{'LABEL.EMAIL' |translate}}"></th>
-                    <th translate="{{'LABEL.COMPANY_ACCT' |translate}}"></th>
-                    <th translate="{{'LABEL.ROLE' |translate}}"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="user in users">
-                    <td>{{user.status}}</td>
-                    <td>{{user.created}}</td>
-                    <td>{{user.id}}</td>
-                    <td><a href="" ng-click="goToRead(user)">{{user.lastName}},{{user.firstName}}</a></td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.account.name}}</td>
-                    <td>{{user.roles}}</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>

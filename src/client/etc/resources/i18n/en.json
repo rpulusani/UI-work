@@ -187,6 +187,7 @@
         "ALL_USER": "All users",
         "INVITATION": "Invitations",
         "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
+        "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
         "SEARCH_USER": "Search for a user"
     },
 
