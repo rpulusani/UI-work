@@ -19,4 +19,19 @@ angular.module('mps.utility')
         restrict: 'A',
         templateUrl: '/app/utilities/templates/alerts.html',
     };
+})
+.directive('fileUpload', function(){
+     return {
+        restrict: 'A',
+        scope: {
+            title: '@',
+            body: '@',
+            cancel: '@',
+            confirm: '@',
+            fileFormat: '@',
+            fileList: '@'
+        },
+        templateUrl: '/app/utilities/templates/file-upload.html',
+        controller: 'fileUploadController'
+    };
 });
