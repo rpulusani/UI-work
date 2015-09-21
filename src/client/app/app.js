@@ -11,7 +11,19 @@ define([
     'address',
     'address.controller',
     'address.directives',
-    'address.factory'
+    'address.factory',
+    'serviceRequest',
+    'serviceRequest.factory',
+    'serviceRequest.directives',
+    'contact',
+    'contact.controller',
+    'contact.factory',
+    'contact.directives',
+    'utility',
+    'utility.historyUtility',
+    'utility.blankCheckUtility',
+    'utility.directives',
+    'utility.controller'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
