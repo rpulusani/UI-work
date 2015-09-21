@@ -88,6 +88,12 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                 //});
             }
 
+            $scope.removeAddress = function(address) {
+                Addresses.remove($scope.address, function() {
+                    $scope.addresses.splice($scope.addresses.indexOf(address), 1);
+                });
+            };
+
             $scope.loadTestData();
     }]);
 });

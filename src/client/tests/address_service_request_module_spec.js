@@ -81,7 +81,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
                     expect(mockedAddressesFactory.remove.calls.count()).toBe(1);
                     expect(mockedAddressesFactory.remove).toHaveBeenCalled();
-                    expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual(address);
+                    expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual({accountId: '1-74XV2R'});
                     expect(scope.addresses.length).toEqual(1);
                 });
             });
