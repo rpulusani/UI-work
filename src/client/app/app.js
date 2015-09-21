@@ -88,7 +88,7 @@ define([
     .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
         function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {
             $httpProvider.interceptors.push('errorLogInterceptor');
-            $httpProvider.defaults.headers.common ={ 'Accept': 'application/json, text/plain, */*'};
+            $httpProvider.defaults.headers.common = { 'Accept': 'application/json, text/plain, */*'};
             var supportedLanguages = ['en'],
                 myLanguage = 'en',
                 language,
