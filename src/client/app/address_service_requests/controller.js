@@ -89,5 +89,5 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
             }
 
             $scope.loadTestData();
-    ]);
+    }]);
 });

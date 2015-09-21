@@ -10,5 +10,5 @@ define(['angular', 'address'], function(angular) {
             'query': { method: 'GET', interceptor: halInterceptor },
             'verify': {url: serviceUrl + '/mps/verification', method: 'GET'}
         });
-    }
-]);
+    }]);
+});

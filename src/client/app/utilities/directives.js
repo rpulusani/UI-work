@@ -20,5 +20,20 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/alerts.html',
         };
+    })
+    .directive('fileUpload', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                title: '@',
+                body: '@',
+                cancel: '@',
+                confirm: '@',
+                fileFormat: '@',
+                fileList: '@'
+            },
+            templateUrl: '/app/utilities/templates/file-upload.html',
+            controller: 'fileUploadController'
+        };
     });
 });

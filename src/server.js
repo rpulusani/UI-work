@@ -67,6 +67,86 @@ memory = {
         "number": 0
       }
     },
+    devices: {
+        "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/devices",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "devices":[
+                {
+                    productModel: 'C748DTE NBD',
+                    serialNumber: '41H0070717001',
+                    installDate: '7/15/2015',
+                    ipAddress: '10.141.12.12',
+                    hostName: 'Hostname1',
+                    id: 'device-1'
+                },
+                {
+                    productModel: 'C748DTE NBC',
+                    serialNumber: '41H0070717002',
+                    installDate: '7/16/2015',
+                    ipAddress: '10.141.12.14',
+                    hostName: 'Hostname2',
+                    id: 'device-2'
+                }
+            ]
+        }
+    },
+    pageCounts: {
+        "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/pageCounts",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "pageCounts":[
+                {
+                    id: 'device-1',
+                    devicePageCounts: [
+                        {
+                            id: 'lifetime-1',
+                            count: '170000',
+                            updatedDate: '09/01/2015'
+                        },
+                        {
+                            id: 'color-1',
+                            count: '27000',
+                            updatedDate: '09/02/2015'
+                        },
+                        {
+                            id: 'a3color',
+                            count: '47000',
+                            updatedDate: '09/03/2015'
+                        }
+                    ]
+                },
+                {
+                    id: 'device-2',
+                    devicePageCounts: [
+                        {
+                            id: 'lifetime-1',
+                            count: '170000',
+                            updatedDate: '09/08/2015'
+                        },
+                        {
+                            id: 'mono-1',
+                            count: '29000',
+                            updatedDate: '09/02/2015'
+                        },
+                        {
+                            id: 'a4color',
+                            count: '48000',
+                            updatedDate: '09/07/2015'
+                        }
+                    ]
+                }
+            ]
+        }
+    },
     requests: [],
     contacts: {
       "_links": {
@@ -175,72 +255,108 @@ memory = {
         ]
       }
     },
-    reportGroups: [{
-        id: 'group1',
-        name: 'Orders'
+    reportGroups: {
+        "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/reportGroups",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "reportGroups":[
+                {
+                    id: 'group1',
+                    name: 'Orders'
+                },
+                {
+                    id: 'group2',
+                    name: 'Service'
+                },
+                {
+                    id: 'group3',
+                    name: 'Assets'
+                },
+                {
+                    id: 'group4',
+                    name: 'Summary'
+                }
+            ]
+        }
     },
-    {
-        id: 'group2',
-        name: 'Service'
+    reportCategories: {
+        "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/reportCategories",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "reportCategories":[
+                {
+                    id: '123',
+                    groupId: 'group1',
+                    name: 'Asset register',
+                    desc: 'AM1173 Change Management'
+                },
+                {
+                    id:'456',
+                    groupId: 'group1',
+                    name: 'Future Rate',
+                    desc: 'AM1177 Future Rate'
+                },
+                {
+                    id:'789',
+                    groupId: 'group1',
+                    name: 'FCC Rate',
+                    desc: 'AM1188 FCC Rate'
+                },
+                {
+                    id: '910',
+                    groupId: 'group2',
+                    name: 'Asset Retirement Daily',
+                    desc: 'Asset Retirement Daily'
+                },
+                {
+                    id:'911',
+                    groupId: 'group2',
+                    name: 'Asset Retirement Weekly',
+                    desc: 'Asset Retirement Weekly'
+                },
+                {
+                    id:'912',
+                    groupId: 'group3',
+                    name: 'Missing Page Count - Automated (AM1175)',
+                    desc: 'Missing Page Count - Automated (AM1175)'
+                }
+            ]
+        }
     },
-    {
-        id: 'group3',
-        name: 'Assets'
-    },
-    {
-        id: 'group4',
-        name: 'Summary'
-    }],
-    reportCategories: [{
-        id: '123',
-        groupId: 'group1',
-        name: 'Asset register',
-        desc: 'AM1173 Change Management'
-    },
-    {
-        id:'456',
-        groupId: 'group1',
-        name: 'Future Rate',
-        desc: 'AM1177 Future Rate'
-    },
-    {
-        id:'789',
-        groupId: 'group1',
-        name: 'FCC Rate',
-        desc: 'AM1188 FCC Rate'
-    },
-    {
-        id: '910',
-        groupId: 'group2',
-        name: 'Asset Retirement Daily',
-        desc: 'Asset Retirement Daily'
-    },
-    {
-        id:'911',
-        groupId: 'group2',
-        name: 'Asset Retirement Weekly',
-        desc: 'Asset Retirement Weekly'
-    },
-    {
-        id:'912',
-        groupId: 'group3',
-        name: 'Missing Page Count - Automated (AM1175)',
-        desc: 'Missing Page Count - Automated (AM1175)'
-    }],
-    reports: [{
-        id: 'register1',
-        definitionId: '123',
-        desc: 'AM1173 Change Management',
-        date: '08/08/2015',
-        status: 'pending'
-    },
-    {
-        id: 'future1',
-        definitionId: '456',
-        desc: 'AM1177 Future Rate',
-        date: '08/09/2015',
-        status: 'pending'
-    }]
+    reports: {
+        "_links": {
+        "self": {
+          "href": "http://10.145.116.233:8080/accounts/1/reportGroups",
+          "templated": true
+        }
+      },
+      "_embedded": {
+        "reports":[
+                {
+                    id: 'register1',
+                    definitionId: '123',
+                    desc: 'AM1173 Change Management',
+                    date: '08/08/2015',
+                    status: 'pending'
+                },
+                {
+                    id: 'future1',
+                    definitionId: '456',
+                    desc: 'AM1177 Future Rate',
+                    date: '08/09/2015',
+                    status: 'pending'
+                }
+            ]
+        }
+    }
 },
 addToMemory = function(memType, data, fn) {
    return fn(memory[memType]._embedded[memType].push(data));
@@ -264,9 +380,12 @@ findById = function(memType, id, fn) {
     var i = 0,
     mem = memory[memType]._embedded[memType],
     memCnt = mem.length;
-
+    var localId = id;
+    if (id === parseInt(id, 10)) {
+        localId = parseInt(id);
+    }
     for (i; i < memCnt; i += 1) {
-        if (mem[i].id === parseInt(id)) {
+        if (mem[i].id === localId) {
             return fn(mem[i], i);
         }
     }
@@ -275,12 +394,13 @@ findById = function(memType, id, fn) {
 },
 findByDefinitionId = function(definitionId, fn) {
     var i = 0,
-    memCnt = memory['reports'].length,
+    mem = memory['reports']._embedded['reports'],
+    memCnt = mem.length,
     reportList = [];
 
     for (i; i < memCnt; i += 1) {
-        if (memory['reports'][i].definitionId === definitionId) {
-            reportList.push(memory['reports'][i]);
+        if (mem[i].definitionId === definitionId) {
+            reportList.push(mem[i]);
         }
     }
 
@@ -307,8 +427,8 @@ router.get('/countries', function(req, res) {
 
 router.get('/accounts/:accountId/:requestType', function(req, res) {
     console.log('All ' + req.params.requestType + ' Sent to client');
-
-    res.json(memory[req.params.requestType]);
+    console.log(memory[req.params.requestType]._embedded[req.params.requestType])
+    res.json(memory[req.params.requestType]._embedded[req.params.requestType]);
 });
 
 router.get('/accounts/:accountId/:requestType/new', function(req, res) {
