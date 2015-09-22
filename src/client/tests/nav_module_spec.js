@@ -31,7 +31,7 @@ define(['angular', 'angular-mocks', 'nav', 'nav.navFactory', 'nav.navItemFactory
         });
 
         describe("Nav Factory", function() {
-            var $httpBackend, scope, location, nav, item, ctrl, mockItems, mockNavFactory;
+            var scope, location, nav, item, ctrl, mockItems, mockNavFactory;
 
             beforeEach(function (){
                 mockNavFactory = {
@@ -45,6 +45,11 @@ define(['angular', 'angular-mocks', 'nav', 'nav.navFactory', 'nav.navItemFactory
                 });
             });
 
+            beforeEach(inject(function($rootScope, $controller, $location) {
+                scope = $rootScope.$new();
+                location = $location;
+                ctrl = $controller('NavController', {$scope: scope});
+            }));
 
             it('getItemsByTag() - return array of matched items', function() {
                 mockNavFactory.getItemsByTag('primary');
@@ -52,14 +57,14 @@ define(['angular', 'angular-mocks', 'nav', 'nav.navFactory', 'nav.navItemFactory
                 expect(mockNavFactory.getItemsByTag).toHaveBeenCalled();
             });
 
-            it('getTags() - looks through items that ', function() {
+            it('getTags() - looks through items that match', function() {
 
             });
 
             it('query() - should get the navigation outline from a flat file', function() {
                 mockNavFactory.query();
 
-                console.log(mockNavFactory.items);
+                console.log(scope.items);
 
                 expect(mockNavFactory.query).toHaveBeenCalled();
             });
