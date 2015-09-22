@@ -187,8 +187,46 @@
         "ALL_USER": "All users",
         "INVITATION": "Invitations",
         "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
-        "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
-        "SEARCH_USER": "Search for a user"
+        "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})"
+    },
+
+    "USER": {
+        "SEARCH_USER": "Search for a user",
+        "CREATE_TITLE": "Create a new user",
+        "INFO": "User information",
+        "ADD_WHO": "Who would you like to add as a user?",
+        "ADD_WHERE": "Where are they located?",
+        "ROLE_PERM": "User role and permissions",
+        "BASIC_ROLE": "Basic user role",
+        "ADD_ROLE": "User role add-ons",
+        "PERM": "Permissions",
+        "ABANDON": "ABANDON USER CREATION",
+        "CREATE": "CREATE USER"
+    },
+
+    "ROLE": {
+        "VIEW_OP": "View only - Operations",
+        "VIEW_STR": "View only - Strategic",
+        "REQUEST_SERVICE": "Request B/F Service",
+        "ORDER_HW": "Order Hardware",
+        "ORDER_CSM": "Order Consumables",
+        "MADC_BASIC": "MADC Basic role",
+        "MADC_ADV": "MADC Advanced (Basic + Edit Asset Data )",
+        "MANAGE_DOC": "OManage Documents",
+        "VIEW_BILL": "View Billing",
+        "MANAGE_USER": "Manage Users - Customer Delegated Admin"
+    },
+
+    "ACCOUNT": {
+        "TITLE": "Account access",
+        "LOGIN": "Portal login",
+        "COMPANY_ASSO": "Company association",
+        "ORG_STRUCT": "Organization structure"
+    },
+
+    "AUTH": {
+        "PASSWORD": "Password",
+        "PASSWORD_CONFIRM": "Confirm password"
     },
 
     "NAVIGATION": {

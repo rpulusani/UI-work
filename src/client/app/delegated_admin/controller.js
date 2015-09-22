@@ -77,6 +77,10 @@ define(['angular', 'delegatedAdmin'], function(angular) {
                 $scope.users = $scope.invited_users;
             };
 
+            $scope.goToCreateUser = function() {
+                console.log('majikayo');
+                $location.path('/delegated_admin/new_user');
+            };
         }
     ]);
 });

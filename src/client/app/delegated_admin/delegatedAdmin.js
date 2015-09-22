@@ -7,16 +7,16 @@ define(['angular'], function(angular) {
             controller: 'DelegatedAdminController'
         })
         .when('/delegated_admin/new_user', {
-            templateUrl: '/app/delegated_admin/templates/new_user.html',
-            controller: 'DelegatedAdminController'
+            templateUrl: '/app/users/templates/new-user.html',
+            controller: 'UserController'
         })
         .when('/delegated_admin/invite_user', {
-            templateUrl: '/app/delegated_admin/templates/invite_user.html',
-            controller: 'DelegatedAdminController'
+            templateUrl: '/app/users/templates/invite-user.html',
+            controller: 'UserController'
         })
         .when('/delegated_admin/:id/read', {
-            templateUrl: '/app/delegated_admin/templates/read.html',
-            controller: 'DelegatedAdminController'
+            templateUrl: '/app/users/templates/read.html',
+            controller: 'UserController'
         })
     }]);
 });

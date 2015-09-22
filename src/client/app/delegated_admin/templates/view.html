@@ -1,6 +1,5 @@
 <div class="row row--alley-2">
 
-
     <div class="col-1">
         <h1 translate="DELEGATED_ADMIN.TITLE"></h1>
         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
@@ -31,14 +30,14 @@
             </div>
 
             <div style="padding-top: 15px; padding-left:15px;">
-                <h2 ng-if="all_users_active" style="border-bottom: 1px solid #000;"
-                    translate="DELEGATED_ADMIN.COMPANY_USERS"
+                <h2 ng-if="all_users_active" translate="DELEGATED_ADMIN.COMPANY_USERS"
                     translate-values="{companyName: companyName, userCount: users.length}"></h2>
-                <h2 ng-if="invitations_active" style="border-bottom: 1px solid #000;"
-                    translate="DELEGATED_ADMIN.INVITED_USERS"
+                <h2 ng-if="invitations_active" translate="DELEGATED_ADMIN.INVITED_USERS"
                     translate-values="{companyName: companyName, userCount: users.length}"></h2>
+                <hr />
+
                 <div>
-                    <span class="text--thick" translate="DELEGATED_ADMIN.SEARCH_USER"></span>
+                    <span class="text--thick" translate="USER.SEARCH_USER"></span>
                     <div>
                         <div class="col-1-5">
                             <div selectric options="columns" value="id" label="name"
