@@ -55,9 +55,8 @@
             </div>
 
             <div  style="padding-left:15px;">
-                <table ng-if="users.length > 0"
-                       class="table table--condensed table--even table--responsive text--small"
-                       data-js="responsive-table">
+                <table ng-if="users.length > 0" data-js="responsive-table"
+                       class="table table--condensed table--even table--responsive text--small">
                     <thead>
                         <tr>
                             <th translate="{{'LABEL.STATUS' |translate}}"></th>
@@ -74,7 +73,8 @@
                             <td>{{user.status}}</td>
                             <td>{{user.created}}</td>
                             <td>{{user.id}}</td>
-                            <td><a href="" ng-click="goToRead(user)">{{user.lastName}},{{user.firstName}}</a></td>
+                            <td><a href="/delegated_admin/{{user.id}}/read"
+                                   ng-click="goToRead(user)">{{user.lastName}},{{user.firstName}}</a></td>
                             <td>{{user.email}}</td>
                             <td>{{user.account.name}}</td>
                             <td>{{user.roles}}</td>

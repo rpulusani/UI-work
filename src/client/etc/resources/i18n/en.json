@@ -195,13 +195,18 @@
         "CREATE_TITLE": "Create a new user",
         "INFO": "User information",
         "ADD_WHO": "Who would you like to add as a user?",
-        "ADD_WHERE": "Where are they located?",
+        "WHO": "Who is the user?",
+        "WHERE": "Where are they located?",
         "ROLE_PERM": "User role and permissions",
         "BASIC_ROLE": "Basic user role",
         "ADD_ROLE": "User role add-ons",
         "PERM": "Permissions",
         "ABANDON": "ABANDON USER CREATION",
-        "CREATE": "CREATE USER"
+        "CREATE": "CREATE USER",
+        "MANAGE": "Managing {{user_name}}",
+        "DEACTIVATE": "DEACTIVATE USER",
+        "DELETE_CHANGES": "DISCARD USER CHANGES",
+        "UPDATE": "UPDATE USER"
     },
 
     "ROLE": {
