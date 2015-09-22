@@ -51,7 +51,8 @@
     },
 
     "ADDRESS": {
-        "TITLE": "Addresses",
+        "TITLE": "Manage Addresses",
+        "BOOK": "Addresss Book ({{total}})",
         "INFO": "Address Information",
         "NAME": "Address Name",
         "STORE_NAME": "Store-front Name",
@@ -73,7 +74,13 @@
         "CONTACT_ADD_ANOTHER": "dd an Additional Contact for this Request",
         "BUILDING_NAME": "Building",
         "FLOOR_NAME": "Floor",
-        "SITE_NAME": "Office"
+        "SITE_NAME": "Office",
+        "IS_STORE_FRONT": "Will this address be a store-front?",
+        "ADDRESS_LOCATION": "What is the location of this address?",
+        "USER_ENTERED": "You entered...",
+        "ADDRESS_FOUND": "We found...",
+        "ADDRESS_RESET": "Reset address information",
+        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below..."
     },
 
     "CONTACT": {
@@ -107,7 +114,50 @@
         "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
         "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
         "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
-        "MANAGING_DEVICE": "Managing Device {{product_model}}"
+        "MANAGING_DEVICE": "Managing Device {{product_model}}",
+        "TITLE_IMPORT_PGCNT": "Import Page Counts",
+        "BODY_IMPORT_PGCNT": "Please select a file you wish to import page counts from...",
+        "CANCEL_IMPORT_PGCNT": "CANCEL IMPORT",
+        "CONFIRM_IMPORT_PGCNT": "IMPORT AND REVIEW PAGE COUNTS",
+        "PAGE_COUNTS": "Page Counts",
+        "SUBMIT_PAGE_COUNT_UPDATE": "SUBMIT PAGE COUNT UPDATE",
+        "MANAGE_ALL_PAGE_COUNT": "Manage All Page Counts",
+        "VIEW_LESS": "View Less",
+        "PAGE_COUNT_TYPE": "Page Count Type",
+        "PRIOR_COUNT": "Prior Count",
+        "PRIOR_DATE": "Prior Date",
+        "NEW_COUNT": "New Count",
+        "REQUEST_SERVICE": "REQUEST SERVICE",
+        "ORDER_SUPPLIES": "ORDER SUPPLIES",
+        "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
+        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE"
+    },
+
+    "PAGE_COUNT_TYPE": {
+        "LIFETIME_PAGE_COUNT": "Lifetime Page Count",
+        "COLOR_PAGE_COUNT": "Color Page Count",
+        "MONO_PAGE_COUNT": "Mono Page Count",
+        "A3_LIFETIME_PAGE_COUNT": "A3 Lifetime Count",
+        "A3_COLOR_PAGE_COUNT": "A3 Color Count",
+        "A4_LIFETIME_PAGE_COUNT": "A4 Lifetime Count",
+        "A4_COLOR_PAGE_COUNT": "A4 Color Count",
+        "A5_LIFETIME_PAGE_COUNT": "A5 Lifetime Count",
+        "A5_COLOR_PAGE_COUNT": "A5 Color Count",
+        "CYAN_PAGE_COUNT": "Cyan Count",
+        "LEGAL_LIFETIME_PAGE_COUNT": "Legal Lifetime Count",
+        "LEGAL_COLOR_PAGE_COUNT": "Legal Color Count",
+        "LETTER_LIFETIME_PAGE_COUNT": "Letter Lifetime Count",
+        "LETTER_COLOR_PAGE_COUNT": "Letter Color Count",
+        "SCAN_COPY_COUNT": "Scan - Copy Count",
+        "SCAN_FAX_COUNT": "Scan - Fax Count",
+        "SCAN_NETWORK_COUNT": "Scan - Network Count",
+        "SCAN_USB_COUNT": "Scan - USB Count",
+        "SCAN_LIFE_TIME": "Scan - Lifetime Count",
+        "SOFTWARE_COUNT": "Software Count",
+        "STATEMENT_LIFETIME_PAGE_COUNT": "Statement Lifetime Count",
+        "STATEMENT_COLOR_PAGE_COUNT": "Statement Color Count",
+        "TABLOID_LIFETIME_PAGE_COUNT": "Tabloid Lifetime Count",
+        "TABLOID_COLOR_PAGE_COUNT": "Tabloid Color Count"
     },
 
     "REQUEST_MGMT": {
@@ -186,7 +236,8 @@
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
         "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
 
-        "NO_IMAGE_FOUND": "No Image Found"
+        "NO_IMAGE_FOUND": "No Image Found",
+        "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}"
     }
 
 }

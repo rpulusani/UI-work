@@ -13,7 +13,19 @@ define([
     'address.directives',
     'address.factory',
     'ui.grid',
-    'angular-spring-data-rest'
+    'angular-spring-data-rest',
+    'serviceRequest',
+    'serviceRequest.factory',
+    'serviceRequest.directives',
+    'contact',
+    'contact.controller',
+    'contact.factory',
+    'contact.directives',
+    'utility',
+    'utility.historyUtility',
+    'utility.blankCheckUtility',
+    'utility.directives',
+    'utility.controller'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -52,6 +64,14 @@ define([
             }
         };
     })
+    .factory('halInterceptor', function() {
+        return {
+            response: function(response) {
+                angular.copy(response.data._embedded, response.resource);
+                return response;
+            }
+        };
+    })
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){
@@ -70,6 +90,7 @@ define([
             if (user._embedded && user._embedded.users.length > 0) {
                 $rootScope.currentUser = user._embedded.users[0];
                 //TODO: Deal with multiple account when definition is ready by stakeholder
+                console.log($rootScope.currentUser._links.accounts[0].href.split('/').pop());
                 $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
             }
         });
@@ -85,7 +106,7 @@ define([
     .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
         function ($translateProvider, $routeProvider, $locationProvider, $httpProvider) {
             $httpProvider.interceptors.push('errorLogInterceptor');
-
+            $httpProvider.defaults.headers.common = { 'Accept': 'application/json, text/plain, */*'};
             var supportedLanguages = ['en'],
                 myLanguage = 'en',
                 language,

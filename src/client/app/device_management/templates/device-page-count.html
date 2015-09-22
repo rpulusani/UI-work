@@ -1,0 +1,43 @@
+<h3 translate="DEVICE_MGT.PAGE_COUNTS"></h3>
+<hr>
+<div file-upload title="DEVICE_MGT.TITLE_IMPORT_PGCNT" body="DEVICE_MGT.BODY_IMPORT_PGCNT"
+	 cancel="DEVICE_MGT.CANCEL_IMPORT_PGCNT" confirm="DEVICE_MGT.CONFIRM_IMPORT_PGCNT" file-format="MESSAGE.ACCEPTABLE_FILE_FORMAT" file-list="{{file_list}}"> 
+</div>
+<div class="col-1">
+	<button name="import" class="col-1-3 btn btn--secondary text--all-caps"
+      		data-js="modalOpen" data-target="#fileUpload"
+            translate="DEVICE_MGT.TITLE_IMPORT_PGCNT">
+    </button>
+</div>
+<p>
+<form class="form" data-form="" name="devicePageCount" novalidate>
+	<table class="table table--condensed table--even table--responsive col-2-3 form__field" data-js="responsive-table">
+		<thead>
+            <tr>
+                <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
+                <th translate="DEVICE_MGT.PRIOR_COUNT"></th>
+                <th translate="DEVICE_MGT.PRIOR_DATE"></th>
+                <th translate="DEVICE_MGT.NEW_COUNT"></th>
+                <th translate="LABEL.DATE"></th>
+            </tr>
+        </thead>
+		<tbody>
+	        <tr ng-repeat="pageCount in page_count_list | filter:(showLess || '') && filterByIds">
+	            <td translate="{{pageCount.text}}"></td>
+	            <td ng-bind="selectPageCount(pageCount.id, selectedPageCount.devicePageCounts).count"></td>
+	            <td ng-bind="selectPageCount(pageCount.id, selectedPageCount.devicePageCounts).updatedDate"></td>
+	            <td>
+	            	<input type="text" name="newPageCount" ng-value="selectPageCount(pageCount.id, selectedPageCount.devicePageCounts).count"/>
+	            </td>
+	            <td>
+	            	<input type="text" name="newDate" ng-value="currentDate | date:'MM/dd/yyyy'"/>
+	            </td>
+	        </tr>
+        </tbody>
+    </table>
+    <a href="" ng-show="showLess" ng-click="toggleDisplay()" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT">
+    <a href="" ng-hide="showLess" ng-click="toggleDisplay()" translate="DEVICE_MGT.VIEW_LESS">
+    <div class="col-1">
+	    <button class="btn btn--primary" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
+	</div>
+</form>

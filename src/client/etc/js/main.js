@@ -28,33 +28,21 @@ requirejs.config({
             'form',
             'form.directives',
 
-            'utility',
-            'utility.historyUtility',
-            'utility.blankCheckUtility',
-            'utility.directives',
-            'utility.controllers',
-            'utility.gridService' ,
-
             'user',
+
             'user.factory',
             'user.directives',
-
-            'serviceRequest',
-            'serviceRequest.factory',
-            'serviceRequest.directives',
-
-            'contact',
-            'contact.controller',
-            'contact.factory',
-            'contact.directives',
 
             'invoice',
 
             'pageCount',
 
             'deviceManagement',
-            'deviceManagement.controller',
-            'deviceManagement.factory',
+            'deviceManagement.deviceManagementController',
+            'deviceManagement.deviceInformationController',
+            'deviceManagement.devicePageCountsController',
+            'deviceManagement.deviceFactory',
+            'deviceManagement.pageCountFactory',
             'deviceManagement.directives',
 
             'report',
@@ -71,39 +59,21 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
-        'utility': ['angular', 'angular-resource'],
-        'utility.historyUtility': ['utility'],
-        'utility.blankCheckUtility': ['utility'],
-        'utility.directives': ['utility'],
-        'utility.controllers' : ['utility'],
-        'utility.gridService' : ['utility'],
-
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-
-        'serviceRequest': ['angular', 'angular-resource', 'angular-route', 'utility'],
-        'serviceRequest.factory': ['serviceRequest'],
-        'serviceRequest.directives': ['serviceRequest'],
-
-        'address': ['angular', 'angular-route', 'utility'],
-        'address.controller': ['address', 'address.factory', 'contact.factory'],
-        'address.directives': ['address'],
-        'address.factory': ['address', 'serviceRequest.factory', 'utility.historyUtility'],
-
-        'contact': ['angular', 'angular-resource', 'angular-route'],
-        'contact.controller': ['contact', 'contact.factory'],
-        'contact.directives': ['contact'],
-        'contact.factory': ['contact'],
 
         'invoice': ['angular', 'angular-route'],
 
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.controller': ['deviceManagement', 'deviceManagement.factory','utility.blankCheckUtility'],
+        'deviceManagement.deviceManagementController': ['deviceManagement', 'deviceManagement.deviceFactory'],
+        'deviceManagement.deviceInformationController': ['deviceManagement', 'deviceManagement.deviceFactory','utility.blankCheckUtility'],
+        'deviceManagement.devicePageCountsController': ['deviceManagement', 'deviceManagement.pageCountFactory'],
         'deviceManagement.directives': ['deviceManagement'],
-        'deviceManagement.factory': ['deviceManagement'],
+        'deviceManagement.deviceFactory': ['deviceManagement'],
+        'deviceManagement.pageCountFactory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
@@ -145,7 +115,7 @@ requirejs.config({
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
-        'utility.controllers': 'app/utilities/controller',
+        'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
 
         'user': 'app/users/user',
@@ -171,9 +141,12 @@ requirejs.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
-        'deviceManagement.controller': 'app/device_management/controller',
+        'deviceManagement.deviceManagementController': 'app/device_management/deviceManagementController',
+        'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
+        'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
         'deviceManagement.directives': 'app/device_management/directives',
-        'deviceManagement.factory': 'app/device_management/deviceManagementFactory',
+        'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
+        'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',

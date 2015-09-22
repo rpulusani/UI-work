@@ -1,0 +1,13 @@
+<div id="fileUpload" class="modal modal--large" ng-controller="fileUploadController">
+    <div class="modal__body form__field">
+        <h2 translate="{{title}}"></h2>
+        <hr>
+        <p translate="{{body}}"></p>
+        <input type="file"/>
+
+        <p translate="{{fileFormat}}" translate-values="{file_list: fileList}"></p>
+        <button name="cancel" class="btn btn--secondary"
+                data-js="modalClose" translate="{{ cancel }}"></button>
+        <button data-js="modalClose" name="confirm" class="btn btn--primary" ng-click="leave()" translate="{{ confirm }}"></button>
+    </div>
+</div>

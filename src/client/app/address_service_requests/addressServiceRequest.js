@@ -26,6 +26,10 @@ define(['angular'], function(angular) {
             .when('/service_requests/addresses/:id/update', {
                 templateUrl: '/app/address_service_requests/templates/update.html',
                 controller: 'AddressesController'
+            })
+            .when('/service_requests/addresses/:id/verify', {
+                templateUrl: '/app/address_service_requests/templates/address-bod.html',
+                controller: 'AddressesController'
             });
         }
     ]);

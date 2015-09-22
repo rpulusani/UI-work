@@ -44,7 +44,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
             describe('goToUpdate', function() {
                 it('should take to update page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    scope.goToUpdate(1);
+                    scope.goToUpdate({id: 1});
                     expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
                 });
             });
@@ -52,7 +52,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
             describe('goToReview', function() {
                 it('should take to review page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    scope.goToReview(1);
+                    scope.goToReview({id: 1});
                     expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/review');
                 });
             });
@@ -81,7 +81,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
                     expect(mockedAddressesFactory.remove.calls.count()).toBe(1);
                     expect(mockedAddressesFactory.remove).toHaveBeenCalled();
-                    expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual(address);
+                    expect(mockedAddressesFactory.remove.calls.argsFor(0)[0]).toEqual({accountId: '1-74XV2R'});
                     expect(scope.addresses.length).toEqual(1);
                 });
             });
