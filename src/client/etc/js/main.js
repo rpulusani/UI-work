@@ -33,7 +33,8 @@ requirejs.config({
 
             'user.factory',
             'user.directives',
-            'user.controller',
+            'user.userController',
+            'user.usersController',
 
             'invoice',
 
@@ -64,7 +65,8 @@ requirejs.config({
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-        'user.controller': ['user'],
+        'user.userController': ['user'],
+        'user.usersController': ['user'],
 
         'invoice': ['angular', 'angular-route'],
 
@@ -118,7 +120,8 @@ requirejs.config({
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
         'user.directives': 'app/users/directives',
-        'user.controller': 'app/users/controller',
+        'user.userController': 'app/users/userController',
+        'user.usersController': 'app/users/usersController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
