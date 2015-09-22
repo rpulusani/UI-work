@@ -1,8 +1,8 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'GridService', 'Addresses','$timeout',
-    '$rootScope',
-    function($scope, $http, $location, $routeParams, GridService, Addresses, $rootScope,$timeout) {
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'gridService', 'Addresses',
+    '$timeout', '$rootScope',
+    function($scope, $http, $location, $routeParams, GridService, Addresses, $rootScope, $timeout) {
         $scope.continueForm = false;
         $scope.submitForm = false;
         $scope.attachmentIsShown = false;

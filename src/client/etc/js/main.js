@@ -33,7 +33,7 @@ requirejs.config({
             'utility.blankCheckUtility',
             'utility.directives',
             'utility.controllers',
-            'utility.gridUtility' ,
+            'utility.gridService' ,
 
             'user',
             'user.factory',
@@ -76,7 +76,7 @@ requirejs.config({
         'utility.blankCheckUtility': ['utility'],
         'utility.directives': ['utility'],
         'utility.controllers' : ['utility'],
-        'utility.gridUtility' : ['utility'],
+        'utility.gridService' : ['utility'],
 
         'user': ['angular'],
         'user.factory': ['user'],
@@ -146,7 +146,7 @@ requirejs.config({
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controllers': 'app/utilities/controller',
-        'utility.gridUtility': 'app/utilities/gridUtility',
+        'utility.gridService': 'app/utilities/gridService',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

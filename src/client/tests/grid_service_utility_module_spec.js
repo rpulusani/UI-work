@@ -1,4 +1,4 @@
-define(['angular','angular-mocks', 'GridService'], function(angular, mocks, GridService) {
+define(['utility.gridService'], function(gridService) {
     describe('Grid Service  Utility Module', function() {
         describe('GridOptions', function() {
             it('should validates that a service exists with the expected functions', function(){
