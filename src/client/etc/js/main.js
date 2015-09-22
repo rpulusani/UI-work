@@ -28,7 +28,7 @@ requirejs.config({
 
             'form',
             'form.directives',
-            
+
             'user',
 
             'user.factory',
@@ -50,10 +50,7 @@ requirejs.config({
             'report',
             'report.controller',
             'report.directives',
-            'report.factory',
-
-            'delegatedAdmin',
-            'delegatedAdmin.controller'
+            'report.factory'
         ],
 
         'nav': ['angular'],
@@ -85,9 +82,6 @@ requirejs.config({
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
         'report.directives': ['report'],
         'report.factory': ['report'],
-
-        'delegatedAdmin': ['angular', 'angular-route'],
-        'delegatedAdmin.controller': ['delegatedAdmin', 'utility.historyUtility'],
 
         'gatekeeper': ['angular-cookies', 'angular-route']
 
@@ -156,9 +150,6 @@ requirejs.config({
         'report.controller': 'app/reporting/controller',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-
-        'delegatedAdmin': 'app/delegated_admin/delegatedAdmin',
-        'delegatedAdmin.controller': 'app/delegated_admin/controller',
 
         'gatekeeper': 'app/libs/gatekeeper-angular'
     },

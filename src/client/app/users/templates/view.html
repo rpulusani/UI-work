@@ -6,11 +6,11 @@
         <div alert-message></div>
 
         <div style="padding-top: 15px;padding-bottom: 15px;">
-            <button name="cancel" class="col-1-4 btn btn--secondary" translate="DELEGATED_ADMIN.CREATE_USER"
+            <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.CREATE_USER"
                     ng-click="goToCreateUser()"></button>
-            <button name="cancel" class="col-1-4 btn btn--secondary" translate="DELEGATED_ADMIN.INVITE_USER"
+            <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.INVITE_USER"
                     ng-click="goToCreateInvite()"></button>
-            <button name="cancel" class="col-1-4 btn btn--secondary" translate="DELEGATED_ADMIN.IMPORT_USER"
+            <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.IMPORT_USER"
                     ng-click="goToImportUsers()"></button>
         </div>
 
@@ -20,19 +20,19 @@
                 <div class="col-1-3 set__trigger" data-toggle="allUsers" ng-click="setAllUsers()"
                      ng-class="all_users_active ? 'set--is-active' : ''">
                     <a href="#allUsers" class="text--large text--align-center"
-                       translate="DELEGATED_ADMIN.ALL_USER"></a>
+                       translate="USER.ALL_USER"></a>
                 </div>
                 <div class="col-1-3 set__trigger" data-toggle="invitations" ng-click="setInvitations()"
                      ng-class="invitations_active ? 'set--is-active' : ''">
                     <a href="#invitations" class="text--large text--align-center"
-                       translate="DELEGATED_ADMIN.INVITATION"></a>
+                       translate="USER.INVITATION"></a>
                 </div>
             </div>
 
             <div style="padding-top: 15px; padding-left:15px;">
-                <h2 ng-if="all_users_active" translate="DELEGATED_ADMIN.COMPANY_USERS"
+                <h2 ng-if="all_users_active" translate="USER.COMPANY_USERS"
                     translate-values="{companyName: companyName, userCount: users.length}"></h2>
-                <h2 ng-if="invitations_active" translate="DELEGATED_ADMIN.INVITED_USERS"
+                <h2 ng-if="invitations_active" translate="USER.INVITED_USERS"
                     translate-values="{companyName: companyName, userCount: users.length}"></h2>
                 <hr />
 
