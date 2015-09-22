@@ -1,9 +1,8 @@
-define(['angular', 'delegatedAdmin'], function(angular) {
+define(['angular', 'user'], function(angular) {
     'use strict';
-    angular.module('mps.delegatedAdmin')
-    .controller('DelegatedAdminController', ['$scope', '$location', '$routeParams', '$rootScope',
+    angular.module('mps.user')
+    .controller('UsersController', ['$scope', '$location', '$routeParams', '$rootScope',
         function($scope, $location, $routeParams, $rootScope) {
-
             $scope.all_users_active = true;
             $scope.invitations_active = false;
 
@@ -82,5 +81,5 @@ define(['angular', 'delegatedAdmin'], function(angular) {
                 $location.path('/delegated_admin/new_user');
             };
         }
-    ]);
+    ])
 });

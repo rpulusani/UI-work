@@ -180,17 +180,17 @@
     },
 
     "DELEGATED_ADMIN": {
-        "TITLE": "Delegated admin",
-        "CREATE_USER": "CREATE NEW USER",
-        "INVITE_USER": "INVITE NEW USER",
-        "IMPORT_USER": "IMPORT USERS",
-        "ALL_USER": "All users",
-        "INVITATION": "Invitations",
-        "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
-        "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})"
+        "TITLE": "Delegated admin"
     },
 
     "USER": {
+        "INVITATION": "Invitations",
+        "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
+        "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
+        "ALL_USER": "All users",
+        "CREATE_USER": "CREATE NEW USER",
+        "INVITE_USER": "INVITE NEW USER",
+        "IMPORT_USER": "IMPORT USERS",
         "SEARCH_USER": "Search for a user",
         "CREATE_TITLE": "Create a new user",
         "INFO": "User information",

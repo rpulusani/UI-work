@@ -28,12 +28,13 @@ requirejs.config({
 
             'form',
             'form.directives',
-            
+
             'user',
 
             'user.factory',
             'user.directives',
-            'user.controller',
+            'user.userController',
+            'user.usersController',
 
             'invoice',
 
@@ -50,10 +51,7 @@ requirejs.config({
             'report',
             'report.controller',
             'report.directives',
-            'report.factory',
-
-            'delegatedAdmin',
-            'delegatedAdmin.controller'
+            'report.factory'
         ],
 
         'nav': ['angular'],
@@ -67,7 +65,8 @@ requirejs.config({
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-        'user.controller': ['user'],
+        'user.userController': ['user'],
+        'user.usersController': ['user'],
 
         'invoice': ['angular', 'angular-route'],
 
@@ -85,9 +84,6 @@ requirejs.config({
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
         'report.directives': ['report'],
         'report.factory': ['report'],
-
-        'delegatedAdmin': ['angular', 'angular-route'],
-        'delegatedAdmin.controller': ['delegatedAdmin', 'utility.historyUtility'],
 
         'gatekeeper': ['angular-cookies', 'angular-route']
 
@@ -124,7 +120,8 @@ requirejs.config({
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
         'user.directives': 'app/users/directives',
-        'user.controller': 'app/users/controller',
+        'user.userController': 'app/users/userController',
+        'user.usersController': 'app/users/usersController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
@@ -156,9 +153,6 @@ requirejs.config({
         'report.controller': 'app/reporting/controller',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-
-        'delegatedAdmin': 'app/delegated_admin/delegatedAdmin',
-        'delegatedAdmin.controller': 'app/delegated_admin/controller',
 
         'gatekeeper': 'app/libs/gatekeeper-angular'
     },

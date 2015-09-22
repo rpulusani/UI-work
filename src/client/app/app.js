@@ -38,7 +38,6 @@ define([
         'mps.report',
         'mps.invoice',
         'mps.deviceManagement',
-        'mps.delegatedAdmin',
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
