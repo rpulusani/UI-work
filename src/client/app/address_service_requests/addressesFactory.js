@@ -15,9 +15,9 @@ angular.module('mps.serviceRequestAddresses')
                             {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
                             {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2'},
                             {'name': $translate.instant('ADDRESS.CITY'), 'field': 'city'},
-                            {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': 'state' },
-                            {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'province' },
-                            {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country' }
+                            {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': 'stateCode' },
+                            {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode' },
+                            {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country', 'width': 120 }
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };
@@ -85,9 +85,20 @@ angular.module('mps.serviceRequestAddresses')
             return data;
         };
 
-        Addresses.prototype.resource = function(accountId){
+        Addresses.prototype.getList = function(){
+            var Addy  = this;
+            return Addy.addresses;
+        };
+
+        Addresses.prototype.getPage = function(page){
+            alert('Page is: ' + page);
+        };
+
+        Addresses.prototype.resource = function(accountId, page){
            var Addy  = this;
-            var url = serviceUrl + '/accounts/' + accountId + '/addresses';
+            var url = serviceUrl + '/accounts/' + accountId + '/addresses?page='+page;
+
+
             var httpPromise = $http.get(url).success(function (response) {
                     Addy.response = angular.toJson(response, true);
                 });

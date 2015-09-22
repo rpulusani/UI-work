@@ -1,8 +1,8 @@
 'use strict';
 angular.module('mps.serviceRequestAddresses')
-.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'GridService', 'Addresses',
+.controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'GridService', 'Addresses','$timeout',
     '$rootScope',
-    function($scope, $http, $location, $routeParams, GridService, Addresses, $rootScope) {
+    function($scope, $http, $location, $routeParams, GridService, Addresses, $rootScope,$timeout) {
         $scope.continueForm = false;
         $scope.submitForm = false;
         $scope.attachmentIsShown = false;
@@ -76,27 +76,32 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.removeAddress = function(address) {
-            Addresses.remove({id: address.id, accountId: '1-74XV2R'}, function() {
-                $scope.addresses.splice($scope.addresses.indexOf(address), 1);
-            });
+            Addresses.remove({id: address.id, accountId: '1-74XV2R'},
+                function() {
+                    $scope.addresses.splice($scope.addresses.indexOf(address), 1);
+                }
+            );
         };
 
          $scope.gridOptions = {};
-            GridService.getGridOptions(Addresses, '')
-                .then(function(options){
+            GridService.getGridOptions(Addresses, '').then(
+                function(options){
                     $scope.gridOptions = options;
+                    $rootScope.currentAccount = '1-74XV2R';
+                    $scope.pagination = GridService.pagination(Addresses, $rootScope);
+                    Addresses.resource($rootScope.currentAccount, 0).then(
+                        function(response){
+                            $scope.gridOptions.data = Addresses.getList();
+                            console.log($scope.pagination.totalItems());
+                            console.log($scope.pagination.pageSize());
+                            console.log($scope.pagination.totalPages());
+                            console.log($scope.pagination.currentPage());
+                        }
+                    );
                 },
                 function(reason){
                     alert('failed: ' + reason);
                 }
             );
-
-            $rootScope.currentAccount = '1-74XV2R';
-        Addresses.resource($rootScope.currentAccount).then(function(response){
-                $scope.addresses = Addresses.addresses;
-                $scope.gridOptions.paginationPageSize = Addresses.page.size;
-                $scope.gridOptions.totalItems = Addresses.page.totalElements;
-                $scope.gridOptions.data = $scope.addresses;
-        });
     }
 ]);
