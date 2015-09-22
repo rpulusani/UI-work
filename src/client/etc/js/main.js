@@ -118,7 +118,7 @@ requirejs.config({
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
-        'angular': 'app/libs/angular',
+        'angular': 'app/libs/angular.min',
         'angular-resource': 'app/libs/angular-resource',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
@@ -218,10 +218,5 @@ requirejs.config({
             'modules/sifter',
             'modules/slide-in-panel'
         ]
-    },
-    callback: function() {
-        angular.element(document).ready(function() {
-            angular.bootstrap(document, ['mps']);
-        });
     }
 });
