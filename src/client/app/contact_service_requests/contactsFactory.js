@@ -1,7 +1,7 @@
 define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('ContactService', ['$resource', 'serviceUrl', 'halInterceptor',
+    .factory('ContactService', ['serviceUrl', '$translate', 'SpringDataRestAdapter',
         function($resource, serviceUrl, halInterceptor) {
             var url = serviceUrl + '/accounts/:accountId/contacts/:id';
             return $resource(url, {accountId: '@accountId', id: '@id'}, {
