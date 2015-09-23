@@ -23,30 +23,29 @@ define(['angular', 'contact'], function(angular) {
             };
 
             Contacts.prototype.addFunctions = function(data) {
-                var  i = 0,
-                contact = this;
-
-                var fullnameFormatter = function() {
-                    return contact.contact.firstName +  ' ' + contact.contact.lastName;
+                var contact = this,
+                i = 0,
+                fullnameFormatter = function() {
+                    return this.firstName +  ' ' + this.lastName;
                 };
 
                 for (i; i < data.length; i += 1) {
-                    
+                    data[i].getFullname = fullnameFormatter;
                 }
 
                 return data;
             };
 
-            Contacts.prototype.getList = function(){
+            Contacts.prototype.getList = function() {
                 var contact = this;
                 return contact.contacts;
             };
 
-            Contacts.prototype.getPage = function(page){
+            Contacts.prototype.getPage = function(page) {
                 alert('Page is: ' + page);
             };
 
-            Contacts.prototype.get = function(params){
+            Contacts.prototype.get = function(params) {
                 var contact  = this;
                 
                 if (params.id !== 'new'){
@@ -56,7 +55,7 @@ define(['angular', 'contact'], function(angular) {
                return contact.contact;
             };
 
-            Contacts.prototype.save = function(params, saveObject, fn){
+            Contacts.prototype.save = function(params, saveObject, fn) {
                 var contact = this;
 
                 if (params.id === 'new') {
@@ -68,7 +67,7 @@ define(['angular', 'contact'], function(angular) {
                 return fn();
             };
 
-            Contacts.prototype.resource = function(accountId, page){
+            Contacts.prototype.resource = function(accountId, page) {
                 var contact  = this,
                 url = contact.url + '?page=' + page,
                 httpPromise = $http.get(url).success(function (response) {
