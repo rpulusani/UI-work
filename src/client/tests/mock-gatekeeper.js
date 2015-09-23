@@ -1,5 +1,5 @@
 window.config = {portal: {serviceUrl: ''}, idp: {}};
-angular.module('gatekeeper', [])
+angular.module('angular-gatekeeper', [])
 .provider('Gatekeeper', function(){
    return {
         configure: jasmine.createSpy(),
