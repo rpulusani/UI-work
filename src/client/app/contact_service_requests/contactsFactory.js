@@ -47,7 +47,7 @@ define(['angular', 'contact'], function(angular) {
             Contacts.prototype.get = function(params) {
                 var contact  = this;
                 
-                if (params.id !== 'new'){
+                if (params.id !== 'new') {
 
                 }
 
