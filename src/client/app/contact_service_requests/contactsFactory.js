@@ -23,8 +23,7 @@ define(['angular', 'contact'], function(angular) {
             };
 
             Contacts.prototype.addFunctions = function(data) {
-                var contact = this,
-                i = 0,
+                var i = 0,
                 fullnameFormatter = function() {
                     return this.firstName +  ' ' + this.lastName;
                 };
