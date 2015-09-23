@@ -15,7 +15,7 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                     $scope.pagination = GridService.pagination(Addresses, $rootScope);
                     Addresses.resource($rootScope.currentAccount, 0).then(
                         function(response){
-                            $scope.gridOptions.data = Addresses.getList();
+                            $scope.gridOptions.data = Addresses.addFunctions(Addresses.getList());
                         }
                     );
                 },

@@ -9,9 +9,10 @@ define([
     'angular-translate-loader-static-files',
     'angular-translate-loader-url',
     'address',
-    'address.controller',
     'address.directives',
     'address.factory',
+    'address.addressController',
+    'address.addressListController',
     'ui.grid',
     'angular-spring-data-rest',
     'serviceRequest',
@@ -25,7 +26,10 @@ define([
     'utility.historyUtility',
     'utility.blankCheckUtility',
     'utility.directives',
-    'utility.controller'
+    'utility.controller',
+    'utility.baseService',
+    'utility.gridService',
+    'utility.gridCustomizationService'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

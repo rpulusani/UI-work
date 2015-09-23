@@ -6,7 +6,7 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
         function(serviceUrl, $translate, $http, SpringDataRestAdapter, gridCustomizationService) {
             var Addresses = function(){
                 this.bindingServiceName = "address";
-                var columns = { defaultSet:[], names: [], fields: [] };
+                var columns = { defaultSet:[] };
                 columns = {
                     'defaultSet':[
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
@@ -89,19 +89,15 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                 return addy.addresses;
             };
 
-            Addresses.prototype.getPage = function(page){
-                alert('Page is: ' + page);
-            };
 
             Addresses.prototype.get = function(params){
                var addy  = this;
                 if(params.id !== 'new'){
 
                 }
-
                return addy.address;
-
             };
+
             Addresses.prototype.save = function(params, saveObject, fn){
                 var addy = this;
                 if(params.id === 'new'){

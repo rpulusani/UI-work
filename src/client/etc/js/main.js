@@ -135,8 +135,8 @@ requirejs.config({
         'serviceRequest.directives': 'app/service_requests/directives',
 
         'address': 'app/address_service_requests/addressServiceRequest',
-        'address.controller': 'app/address_service_requests/AddressController',
-        'address.controllerList': 'app/address_service_requests/AddressListController',
+        'address.addressController': 'app/address_service_requests/addressController',
+        'address.addressListController': 'app/address_service_requests/addressListController',
         'address.directives': 'app/address_service_requests/directives',
         'address.factory': 'app/address_service_requests/addressesFactory',
 

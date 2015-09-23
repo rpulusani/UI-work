@@ -13,13 +13,35 @@ define(['angular', 'utility.baseService'], function(angular) {
             };
 
             gridCustomizationService.prototype.setupColumnDefinition = function(){
-                var columns =  { defaultSet:[], names: [], fields: [] };
+                var columns =  { defaultSet:[] };
 
                 return columns;
             };
             gridCustomizationService.prototype.getColumnDefinition = function(type){
                 return this.columns;
             };
+
+            /*
+             --Example--
+                var functionArray = [
+                    {
+                        'name': 'addressFilter',
+                        'functionDef': function(){
+                            return this.blah + this.blah2;
+                        }
+                    }
+                ];
+            */
+            gridCustomizationService.prototype.setFunctions = function(functionArray){
+                var data = Angular.copy(this.getList());
+                 for(var i = 0; i < data.length; ++i){
+                    for(var j = 0; i < functionArray.length; ++j){
+                        data[i][functionArray[j]['name']] = functionArray[j]['functionDef'];
+                    }
+                 }
+                 this.setList(Angular.copy(data));
+            };
+
 
             return new gridCustomizationService();
     }]);
