@@ -34,7 +34,7 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
                     $scope.pagination = GridService.pagination(Contacts, $rootScope);
                     Contacts.resource($rootScope.currentAccount, 0).then(
                         function(response){
-                            $scope.gridOptions.data = Contacts.getList();
+                            $scope.gridOptions.data = Contacts.addFunctions(Contacts.getList());
                         }
                     );
                 },
