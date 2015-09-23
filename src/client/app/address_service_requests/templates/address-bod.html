@@ -11,21 +11,21 @@
             <h2 translate="ADDRESS.INFO"></h2>
             <div class="form__field form__field--required">
                 <label translate="ADDRESS.NAME"></label>
-                <input name="name" value="" type="text" required />
+                <input name="name" value="" type="text" required ng-model="address.name"/>
             </div>
-        
+
             <div class="form__field form__field--radio form__field--no-margin">
                     <input type="radio" id="store-front-question-no" name="store-front-question" ng-model="address.storeFrontQuestion" value="false" data-js="customInput" />
                     <label for="store-front-question-no">
                         <span></span>
-                        {{'LABEL.NO' | translate }} 
+                        {{'LABEL.NO' | translate }}
                     </label>
             </div>
-            
+
             <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="store-front-question-yes" name="store-front-question"
                 ng-model="address.storeFrontQuestion" value="true" data-js="customInput"/>
-               
+
                 <label for="store-front-question-yes">
                     <span></span>
                     {{ 'ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION_YES' | translate }}
@@ -55,7 +55,7 @@
               data-js="modalOpen" data-target="#cancel"
                     translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
 
-            <button name="submit" class="col-1-3 btn btn--primary" type="submit" 
+            <button name="submit" class="col-1-3 btn btn--primary" type="submit"
                 translate="LABEL.REVIEW_SUBMIT" value="submit" ng-click="goToRead(newAddress);"></button>
         </div>
     </form>

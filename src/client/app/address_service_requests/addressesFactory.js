@@ -95,6 +95,26 @@ define(['angular', 'address'], function(angular) {
                 alert('Page is: ' + page);
             };
 
+            Addresses.prototype.get = function(params){
+               var Addy  = this;
+                if(params.id !== 'new'){
+
+                }
+
+               return Addy.address;
+
+            };
+            Addresses.prototype.save = function(params, saveObject, fn){
+                var Addy = this;
+                if(params.id === 'new'){
+                    Addy.address = saveObject;
+                }else{
+
+                }
+
+                return fn();
+            };
+
             Addresses.prototype.resource = function(accountId, page){
                var Addy  = this;
                 var url = serviceUrl + '/accounts/' + accountId + '/addresses?page='+page;

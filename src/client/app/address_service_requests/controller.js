@@ -1,17 +1,17 @@
 define(['angular', 'address', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'gridService', 'Addresses',
-      '$timeout', '$rootScope', function($scope, $http, $location, $routeParams, GridService, Addresses,
-        $rootScope, $timeout) {
+    .controller('AddressesController', ['$scope', '$location', '$routeParams', 'gridService', 'Addresses', '$rootScope',
+        function($scope, $location, $routeParams, GridService, Addresses, $rootScope) {
             $scope.continueForm = false;
             $scope.submitForm = false;
             $scope.attachmentIsShown = false;
             $rootScope.currentAccount = '1-74XV2R';
-            if ($routeParams.id) {
-            $scope.address = Addresses.get({id: $routeParams.id, accountId: $rootScope.currentAccount});
-            } else {
-            $scope.address = {accountId: $rootScope.currentAccount};
+
+            if ($routeParams.id) { //doing work on a current address
+              $scope.address = Addresses.get({id: $routeParams.id, accountId: $rootScope.currentAccount});
+            } else { //doing work on a new address
+                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
             }
 
 
@@ -49,9 +49,6 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                 $scope.attachmentIsShown = !$scope.attachmentIsShown;
             };
 
-            $scope.goToCreate = function() {
-                $location.path('/service_requests/addresses/new');
-            };
 
             $scope.goToReview = function(address) {
                 $location.path('/service_requests/addresses/' + address.id + '/review');
@@ -65,10 +62,11 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                 $location.path('/service_requests/addresses/' + address.id + '/update');
             };
 
-            $scope.goToVerify = function(address) {
+            $scope.goToVerify = function() {
                // Addresses.verify($scope.address, function(res) {
                   //  console.log(res);
-                    $location.path('/service_requests/addresses/' + address.id + '/verify');
+                    Addresses.addresss = $scope.address;
+                    $location.path('/service_requests/addresses/' + $scope.address.id + '/verify');
                 //});
             };
 
@@ -78,7 +76,15 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                 });
             };
 
-            $scope.gridOptions = {};
+    }])
+    .controller('AddressListController', ['$scope', '$location', 'gridService', 'Addresses', '$rootScope',
+        function($scope,  $location,  GridService, Addresses, $rootScope) {
+            $rootScope.currentAccount = '1-74XV2R';
+            $scope.goToCreate = function() {
+                $location.path('/service_requests/addresses/new');
+            };
+
+         $scope.gridOptions = {};
             GridService.getGridOptions(Addresses, '').then(
                 function(options){
                     $scope.gridOptions = options;
@@ -90,8 +96,8 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                     );
                 },
                 function(reason){
-                    alert('failed: ' + reason);
+                     NREUM.noticeError('Grid Load Failed: ' + reason);
                 }
             );
-    }]);
+      }]);
 });

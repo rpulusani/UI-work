@@ -5,7 +5,7 @@ define(['angular'], function(angular) {
             $routeProvider
             .when('/service_requests/addresses', {
                 templateUrl: '/app/address_service_requests/templates/view.html',
-                controller: 'AddressesController'
+                controller: 'AddressListController'
             })
             .when('/service_requests/addresses/delete', {
                 templateUrl: '/app/address_service_requests/templates/delete.html',

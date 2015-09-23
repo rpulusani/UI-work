@@ -44,10 +44,11 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                     };
                             });
                         $timeout(function(){
+                            console.log("options");
                             if(options !== undefined && options['columnDefs'] !== undefined && options['columnDefs'].length > 0){
                                 resolve(options);
                             }else{
-                                reject("There were no columns");
+                                reject('There were no columns');
                             }
                         }, 1000);
                     });
@@ -119,7 +120,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                     if(service.getList){
                                         gridOptions.data = service.getList();
                                     }else{
-                                         NREUM.noticeError("service.getList() does not exist.");
+                                         NREUM.noticeError('service.getList() does not exist.');
                                     }
                                 },function(reason){
                                     NREUM.noticeError("failed Paging: " + reason);
@@ -133,7 +134,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                 if(this.currentPage() + 1 < this.totalPages()){
                                     this.gotoPage(this.currentPage() + 1, gridOptions);
                                 }else{
-                                    NREUM.noticeError("Pagination nextPage() has a function undefined!");
+                                    NREUM.noticeError('Pagination nextPage() has a function undefined!');
                                 }
                             }
                         },
@@ -143,7 +144,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                     this.gotoPage(this.currentPage() - 1, gridOptions);
                                 }
                             }else{
-                                 NREUM.noticeError("Pagination prevPage() has a function undefined!");
+                                 NREUM.noticeError('Pagination prevPage() has a function undefined!');
                             }
                         }
 
