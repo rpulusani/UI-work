@@ -5,10 +5,6 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
         function($scope,  $location,  GridService, Contacts, $rootScope) {
             $rootScope.currentAccount = '1-74XV2R';
 
-            $scope.back = function() {
-                History.back();
-            };
-
             $scope.goToCreate = function() {
                 $location.path('/service_requests/contacts/new');
             };
@@ -18,12 +14,6 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
                 contact_id = href.split('/').pop();
                 
                 $location.path('/service_requests/contacts/' + contact_id + '/update');
-            };
-
-            $scope.goToReview = function(contact) {
-                var href = contact._links.self.href;
-                var contact_id = href.split('/').pop();
-                $location.path('/service_requests/contacts/' + contact_id + '/review');
             };
 
             $scope.gridOptions = {};

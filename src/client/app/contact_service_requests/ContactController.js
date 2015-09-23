@@ -1,9 +1,9 @@
-define(['angular', 'contact', 'utility.gridService', 'utility.historyUtility'], function(angular) {
+define(['angular', 'contact', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactController', ['$scope', '$location', '$routeParams', '$rootScope', 'History',
-                                      'Contacts', 'ServiceRequestService',
-        function($scope, $location, $routeParams, $rootScope, History, Contacts, ServiceRequestService) {
+    .controller('ContactController', ['$scope', '$location', '$routeParams', 
+                                      '$rootScope', 'Contacts', 'ServiceRequestService',
+        function($scope, $location, $routeParams, $rootScope, Contacts, ServiceRequestService) {
             var redirect_to_list = function() {
                 $location.path('/service_requests/contacts');
             };
@@ -46,12 +46,15 @@ define(['angular', 'contact', 'utility.gridService', 'utility.historyUtility'], 
                 $scope.service.description = 'blah blah blah';
                 $scope.service.assetCostCenter = 'Lexington';
                 $scope.service.chlLevel = 'tbd';
-                
+
                 ServiceRequestService.save($scope.service, redirect_to_list);
             };
 
-            $scope.back = function() {
-                History.back();
+            $scope.goToReview = function(contact) {
+                var href = contact._links.self.href,
+                contact_id = href.split('/').pop();
+                
+                $location.path('/service_requests/contacts/' + contact_id + '/review');
             };
 
             $scope.cancel = function() {
