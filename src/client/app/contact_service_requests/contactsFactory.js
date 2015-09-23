@@ -1,10 +1,10 @@
 define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('ContactService', ['serviceUrl', '$translate', 'SpringDataRestAdapter',
-        function(serviceUrl, $translate, $http, halAdapter) {
+    .factory('Contacts', ['serviceUrl', '$translate', '$http', '$rootScope', 'SpringDataRestAdapter',
+        function(serviceUrl, $translate, $http, $rootScope, halAdapter) {
             var Contacts = function() {
-                this.url = serviceUrl + '/accounts/' + accountId + '/contacts';
+                this.url = serviceUrl + '/accounts/' + '1-3F2FR9' + '/contacts';
                 this.columns = {
                     defaultSet: []
                 };
@@ -19,7 +19,7 @@ define(['angular', 'contact'], function(angular) {
                     bookmarkColumn: 'getBookMark()'
                 };
 
-                return columns;
+                return this.columns;
             };
 
             Contacts.prototype.addFunctions = function(data) {
@@ -66,6 +66,7 @@ define(['angular', 'contact'], function(angular) {
                 return fn();
             };
 
+            // TODO:  No longer needs accountId
             Contacts.prototype.resource = function(accountId, page) {
                 var contact  = this,
                 url = contact.url + '?page=' + page,
