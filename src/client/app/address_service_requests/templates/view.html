@@ -1,49 +1,39 @@
+
 <div class="row row--alley-2">
 
     <div alert-message></div>
 
     <div class="col-1">
-        <h1 translate="ADDRESS_SERVICE_REQUEST.TITLE"></h1>
-        <h2 translate="ADDRESS.TITLE"></h2>
-        <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
-        <ul>
-            <li><a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD"></a></li>
-        </ul>
+        <h1 translate="ADDRESS.LIST_TITLE"></h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Learn more about requests >
+        </p>
 
-        <table ng-show="addresses.length > 0" class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
-            <thead>
-                <tr>
-                    <th translate="{{'ADDRESS.NAME' |translate}}"></th>
-                    <th translate="{{'ADDRESS.STORE_NAME' |translate}}"></th>
-                    <th translate="{{'ADDRESS.LINE_1' |translate}}"></th>
-                    <th translate="{{'ADDRESS.LINE_2' |translate}}"></th>
-                    <th translate="{{'ADDRESS.COUNTRY' |translate}}"></th>
-                    <th translate="{{'ADDRESS.STATE_PROVINCE' |translate}}"></th>
-                    <th translate="{{'ADDRESS.CITY' |translate}}"></th>
-                    <th translate="{{'ADDRESS.COUNTY' |translate}}"></th>
-                    <th translate="{{'ADDRESS.DISTRICT' |translate}}"></th>
-                    <th translate="{{'ADDRESS.ZIP_POSTAL' |translate}}"></th>
-                    <th translate="{{'LABEL.ACTION' |translate}}"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="address in addresses">
-                    <td><a href="" ng-click="goToReview(address)" ng-bind="address.name"></a></td>
-                    <td ng-bind="address.storeFrontName"></td>
-                    <td ng-bind="address.addressLine1"></td>
-                    <td ng-bind="address.addressLine2"></td>
-                    <td ng-bind="address.country.name"></td>
-                    <td ng-bind="address.state.name"></td>
-                    <td ng-bind="address.city"></td>
-                    <td ng-bind="address.county"></td>
-                    <td ng-bind="address.district"></td>
-                    <td ng-bind="address.zipCode"></td>
-                    <td>
-                        <a href="" ng-click="goToUpdate(address)" translate="LABEL.UPDATE"></a> |
-                        <a href="" ng-click="goToReview(address)" translate="LABEL.DELETE"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD"></button>
+        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="ADDRESS.BOOK" translate-values="{total: pagination.totalItems()}">
+        </h2>
+        <hr/>
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+        <div grid-pagination pagination="pagination"></div>
+        <div class="pagination">
+          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+          ng-class="{'btn--is-disabled': pagination.canNotPrev()}"
+          ng-disabled="pagination.canNotPrev()"
+          ng-click="pagination.prevPage(gridOptions)">
+                <i class="icon icon--ui icon--left-arrow-dark"
+                ng-class="{'icon--left-arrow-dark': pagination.canNotPrev(), 'icon--left-arrow-primary': !pagination.canNotPrev() }"></i>
+          </button>
+          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb page-number"
+          ng-click="pagination.gotoPage(pageNumber, gridOptions)"
+          ng-repeat="pageNumber in pagination.pageArray()"
+          ng-class="{'current': pagination.isCurrent(pageNumber)}">
+             <span>{{ pageNumber + 1 }}</span>
+          </button>
+          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+          ng-class="{'btn--is-disabled': pagination.canNotNext()}"
+          ng-disabled="pagination.canNotNext()"
+          ng-click="pagination.nextPage(gridOptions)">
+            <i class="icon icon--ui icon--right-arrow-primary"></i>
+          </button>
+        </div>
 </div>

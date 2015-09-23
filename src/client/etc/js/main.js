@@ -14,6 +14,8 @@ requirejs.config({
         'angular-translate-storage-local': ['angular-translate'],
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
+        'angular-spring-data-rest': ['angular-resource'],
+
 
         'app': [
             'gatekeeper',
@@ -22,9 +24,6 @@ requirejs.config({
             'nav.controllers',
             'nav.services',
             'nav.directives',
-
-            'form',
-            'form.directives',
 
             'form',
             'form.directives',
@@ -85,14 +84,16 @@ requirejs.config({
         'report.directives': ['report'],
         'report.factory': ['report'],
 
-        'gatekeeper': ['angular-cookies', 'angular-route']
+        'gatekeeper': ['angular-cookies', 'angular-route'],
+
+        'ui.grid' : ['angular'],
 
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
-        'angular-resource': 'app/libs/angular-resource.min',
+        'angular-resource': 'app/libs/angular-resource',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
         'angular-translate': 'app/libs/angular-translate.min',
@@ -100,6 +101,9 @@ requirejs.config({
         'angular-translate-storage-local': 'app/libs/angular-translate-storage-local.min',
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
+        'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
+
+        'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',
 
@@ -116,6 +120,7 @@ requirejs.config({
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
+        'utility.gridService': 'app/utilities/gridService',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

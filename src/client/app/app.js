@@ -12,6 +12,8 @@ define([
     'address.controller',
     'address.directives',
     'address.factory',
+    'ui.grid',
+    'angular-spring-data-rest',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.directives',
@@ -42,7 +44,13 @@ define([
         'mps.nav',
         'mps.utility',
         'gatekeeper',
-        'mps.form'
+        'mps.form',
+        'ui.grid',
+        'ui.grid.resizeColumns',
+        'ui.grid.moveColumns',
+        'ui.grid.selection',
+        'ui.grid.pagination',
+        'spring-data-rest'
     ])
 
     .factory('errorLogInterceptor', function() {
@@ -56,7 +64,6 @@ define([
             }
         };
     })
-
     .factory('halInterceptor', function() {
         return {
             response: function(response) {
@@ -65,7 +72,6 @@ define([
             }
         };
     })
-
     .constant('serviceUrl', config.portal.serviceUrl)
 
     .config(function(GatekeeperProvider, serviceUrl){
