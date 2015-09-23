@@ -4,15 +4,13 @@ define(['angular', 'contact'], function(angular) {
     .factory('ContactService', ['serviceUrl', '$translate', 'SpringDataRestAdapter',
         function(serviceUrl, $translate, $http, halAdapter) {
             var Contacts = function() {
-                this.url = serviceUrl + '/accounts/' + accountId + '/addresses';
+                this.url = serviceUrl + '/accounts/' + accountId + '/contacts';
                 this.columns = {
-                    defaultSet: [],
-                    names: [], 
-                    fields: [] 
+                    defaultSet: []
                 };
             };
 
-            Contacts.prototype.getColumnDefinition = function(type){
+            Contacts.prototype.getColumnDefinition = function(type) {
                 this.columns = {
                     'defaultSet':[
                         {'name': $translate.instant('CONTACT.FIRST_NAME'), 'field': 'firstName'},
@@ -25,7 +23,12 @@ define(['angular', 'contact'], function(angular) {
             };
 
             Contacts.prototype.addFunctions = function(data) {
-                var i = 0;
+                var  i = 0,
+                contact = this;
+
+                var fullnameFormatter = function() {
+                    return contact.contact.firstName +  ' ' + contact.contact.lastName;
+                };
 
                 for (i; i < data.length; i += 1) {
                     
@@ -35,8 +38,8 @@ define(['angular', 'contact'], function(angular) {
             };
 
             Contacts.prototype.getList = function(){
-                var  = this;
-                return contact.addresses;
+                var contact = this;
+                return contact.contacts;
             };
 
             Contacts.prototype.getPage = function(page){
@@ -57,7 +60,7 @@ define(['angular', 'contact'], function(angular) {
                 var contact = this;
 
                 if (params.id === 'new') {
-                    contact.address = saveObject;
+                    contact.contact = saveObject;
                 } else {
 
                 }
@@ -73,11 +76,10 @@ define(['angular', 'contact'], function(angular) {
                 });
 
                 return halAdapter.process(httpPromise).then(function (processedResponse) {
-                    contact.addresses = processedResponse._embeddedItems;
+                    contact.contacts = processedResponse._embeddedItems;
                     contact.page = processedResponse.page;
                     contact.processedResponse = angular.toJson(processedResponse, true);
                 });
-
             };
 
             return new Contacts();
