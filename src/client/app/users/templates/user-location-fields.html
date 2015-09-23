@@ -1,0 +1,31 @@
+<div class="form__field form__field--select form__field--required">
+    <label translate="ADDRESS.COUNTRY"></label>
+    <div selectric model="user.address.country" options="countryHAL.countries" value="code" label="name"
+         placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+</div>
+
+<div class="form__field form__field--required">
+    <label translate="ADDRESS.LINE_1"></label>
+    <input name="addressLine1" type="text" ng-model="user.address.addressLine1" required/>
+</div>
+
+<div class="form__field">
+    <label translate="ADDRESS.LINE_2"></label>
+    <input name="addressLine2" type="text" ng-model="user.address.addressLine2"  />
+</div>
+
+<div class="form__field form__field--required">
+    <label translate="ADDRESS.CITY"></label>
+    <input name="city" type="text" ng-model="user.address.city" required />
+</div>
+
+<div class="form__field form__field--select form__field--required">
+    <label translate="ADDRESS.STATE"></label>
+    <div selectric options="country.provinces" value="code" label="name" model="user.address.state" required
+         placeholder="{{'LABEL.SELECT' | translate}}"></div>
+</div>
+
+<div class="form__field form__field--required">
+    <label translate="ADDRESS.ZIP"></label>
+    <input type="text" name="zipCode" ng-model="user.address.zipCode" value="" class="" required />
+</div>

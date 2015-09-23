@@ -181,6 +181,61 @@
         "TITLE": "Invoices"
     },
 
+    "DELEGATED_ADMIN": {
+        "TITLE": "Delegated admin"
+    },
+
+    "USER": {
+        "INVITATION": "Invitations",
+        "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
+        "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
+        "ALL_USER": "All users",
+        "CREATE_USER": "CREATE NEW USER",
+        "INVITE_USER": "INVITE NEW USER",
+        "IMPORT_USER": "IMPORT USERS",
+        "SEARCH_USER": "Search for a user",
+        "CREATE_TITLE": "Create a new user",
+        "INFO": "User information",
+        "ADD_WHO": "Who would you like to add as a user?",
+        "WHO": "Who is the user?",
+        "WHERE": "Where are they located?",
+        "ROLE_PERM": "User role and permissions",
+        "BASIC_ROLE": "Basic user role",
+        "ADD_ROLE": "User role add-ons",
+        "PERM": "Permissions",
+        "ABANDON": "ABANDON USER CREATION",
+        "CREATE": "CREATE USER",
+        "MANAGE": "Managing {{user_name}}",
+        "DEACTIVATE": "DEACTIVATE USER",
+        "DELETE_CHANGES": "DISCARD USER CHANGES",
+        "UPDATE": "UPDATE USER"
+    },
+
+    "ROLE": {
+        "VIEW_OP": "View only - Operations",
+        "VIEW_STR": "View only - Strategic",
+        "REQUEST_SERVICE": "Request B/F Service",
+        "ORDER_HW": "Order Hardware",
+        "ORDER_CSM": "Order Consumables",
+        "MADC_BASIC": "MADC Basic role",
+        "MADC_ADV": "MADC Advanced (Basic + Edit Asset Data )",
+        "MANAGE_DOC": "OManage Documents",
+        "VIEW_BILL": "View Billing",
+        "MANAGE_USER": "Manage Users - Customer Delegated Admin"
+    },
+
+    "ACCOUNT": {
+        "TITLE": "Account access",
+        "LOGIN": "Portal login",
+        "COMPANY_ASSO": "Company association",
+        "ORG_STRUCT": "Organization structure"
+    },
+
+    "AUTH": {
+        "PASSWORD": "Password",
+        "PASSWORD_CONFIRM": "Confirm password"
+    },
+
     "NAVIGATION": {
         "QUICK_ACTION": "Quick Action",
         "ORDER_REQUEST":"Orders",
@@ -203,7 +258,7 @@
         "DELETE": "Delete",
         "NAME": "Name",
         "PHONE": "Phone Number",
-        "EMAIL": "Email Address",
+        "EMAIL_ADDRESS": "Email Address",
         "ADDITIONAL_INFO": "Additional Information for this Request",
         "CUSTOMER_REF_ID": "Customer Reference ID",
         "COST_CENTER": "Cost Center",
@@ -212,7 +267,6 @@
         "NOTES": "Notes",
         "ATTACH_FILE": "Attach Files",
         "ACTION": "Actions",
-        "WITH_COLUMN": "{{value}}:",
         "DATE": "Date",
         "STATUS": "Status",
         "NONE_SELECTED": "None selected",
@@ -225,7 +279,14 @@
         "ERROR_REQUIRED": "This field is required.",
         "NONE": "None",
         "COMMENTS": "Comments",
-        "SELECT": "-Select-"
+        "SELECT": "-Select-",
+        "SEARCH": "Search",
+        "CREATED_DATE": "Creation date",
+        "USER_ID": "User ID",
+        "NAME_LAST_FIRST": "Name (Last, First)",
+        "EMAIL": "Email",
+        "COMPANY_ACCT": "Company account",
+        "ROLE": "Roles"
     },
 
     "MESSAGE": {

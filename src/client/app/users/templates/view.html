@@ -1,0 +1,88 @@
+<div class="row row--alley-2">
+
+    <div class="col-1">
+        <h1 translate="DELEGATED_ADMIN.TITLE"></h1>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
+        <div alert-message></div>
+
+        <div style="padding-top: 15px;padding-bottom: 15px;">
+            <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.CREATE_USER"
+                    ng-click="goToCreateUser()"></button>
+            <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.INVITE_USER"
+                    ng-click="goToCreateInvite()"></button>
+            <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.IMPORT_USER"
+                    ng-click="goToImportUsers()"></button>
+        </div>
+
+        <div class="set set--tab" data-js="tab">
+
+            <div class="set__tab-container">
+                <div class="col-1-3 set__trigger" data-toggle="allUsers" ng-click="setAllUsers()"
+                     ng-class="all_users_active ? 'set--is-active' : ''">
+                    <a href="#allUsers" class="text--large text--align-center"
+                       translate="USER.ALL_USER"></a>
+                </div>
+                <div class="col-1-3 set__trigger" data-toggle="invitations" ng-click="setInvitations()"
+                     ng-class="invitations_active ? 'set--is-active' : ''">
+                    <a href="#invitations" class="text--large text--align-center"
+                       translate="USER.INVITATION"></a>
+                </div>
+            </div>
+
+            <div style="padding-top: 15px; padding-left:15px;">
+                <h2 ng-if="all_users_active" translate="USER.COMPANY_USERS"
+                    translate-values="{companyName: companyName, userCount: users.length}"></h2>
+                <h2 ng-if="invitations_active" translate="USER.INVITED_USERS"
+                    translate-values="{companyName: companyName, userCount: users.length}"></h2>
+                <hr />
+
+                <div>
+                    <span class="text--thick" translate="USER.SEARCH_USER"></span>
+                    <div>
+                        <div class="col-1-5">
+                            <div selectric options="columns" value="id" label="name"
+                                 placeholder="{{'LABEL.SELECT' | translate}}"></div>
+                        </div>
+                        <form class="form form--search col-1-3" data-form="">
+                            <div class="form__field" style="border-radius: 0;">
+                                <input type="text" name="search" id="search" placeholder="Search">
+                            </div>
+                        </form>
+                        <div class="col-1-1 btn btn--secondary" translate="LABEL.SEARCH"
+                             ng-click="search()"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div  style="padding-left:15px;">
+                <table ng-if="users.length > 0" data-js="responsive-table"
+                       class="table table--condensed table--even table--responsive text--small">
+                    <thead>
+                        <tr>
+                            <th translate="{{'LABEL.STATUS' |translate}}"></th>
+                            <th translate="{{'LABEL.CREATED_DATE' |translate}}"></th>
+                            <th translate="{{'LABEL.USER_ID' |translate}}"></th>
+                            <th translate="{{'LABEL.NAME_LAST_FIRST' |translate}}"></th>
+                            <th translate="{{'LABEL.EMAIL' |translate}}"></th>
+                            <th translate="{{'LABEL.COMPANY_ACCT' |translate}}"></th>
+                            <th translate="{{'LABEL.ROLE' |translate}}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.status}}</td>
+                            <td>{{user.created}}</td>
+                            <td>{{user.id}}</td>
+                            <td><a href="/delegated_admin/{{user.id}}/read"
+                                   ng-click="goToRead(user)">{{user.lastName}},{{user.firstName}}</a></td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.account.name}}</td>
+                            <td>{{user.roles}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
