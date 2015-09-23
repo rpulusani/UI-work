@@ -100,6 +100,27 @@
 .rail-nav .sub-nav .nav-item {
   padding: 12px 20px;
 }
+/* <Tree Module> */
+.tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tree__item {
+  margin: 0;
+  padding: 0;
+  padding-left: 30px;
+  position: relative;
+}
+.tree__toggle {
+  color: #008945;
+  cursor: pointer;
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* </Tree Module> */
 .user {
   overflow: hidden;
 }

@@ -1,0 +1,19 @@
+<li class="tree__item">
+    <div ng-show="item.children.length > 0" class="tree__toggle" ng-click="expanded = !expanded">
+        <span class="icon icon--lxk-ui" ng-class="{'icon--collapse': expanded, 'icon--expand': !expanded}"></span>
+    </div>
+
+    <div>
+        <label for="{{item.id}}">
+            <input type="checkbox"
+                id="{{item.id}}"
+                name="{{item.id}}"
+            />
+            {{item.title}}
+        </label>
+    </div>
+
+    <ul class="tree" ng-show="item.children.length > 0 && expanded">
+        <li ng-repeat="child in item.children" tree-item item="child" expanded="true"></li>
+    </ul>
+</li>

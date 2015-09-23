@@ -50,7 +50,10 @@ requirejs.config({
             'report',
             'report.controller',
             'report.directives',
-            'report.factory'
+            'report.factory',
+
+            'tree',
+            'tree.directives'
         ],
 
         'nav': ['angular'],
@@ -160,7 +163,10 @@ requirejs.config({
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
 
-        'angular-gatekeeper': 'app/libs/angular-gatekeeper'
+        'angular-gatekeeper': 'app/libs/angular-gatekeeper',
+
+        'tree': 'app/tree/module',
+        'tree.directives': 'app/tree/directives'
     },
     map: {
         '*': {

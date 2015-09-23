@@ -1,0 +1,6 @@
+<div class="tree__controls">
+    <button class="btn btn--small" ng-click="toggleItems(items)">Expand/Collapse All</button>
+</div>
+<ul class="tree">
+    <li ng-repeat="item in items" tree-item item="item" expanded="true"></li>
+</ul>

@@ -50,7 +50,8 @@ define([
         'ui.grid.moveColumns',
         'ui.grid.selection',
         'ui.grid.pagination',
-        'spring-data-rest'
+        'spring-data-rest',
+        'tree'
     ])
 
     .factory('errorLogInterceptor', function() {
