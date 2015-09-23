@@ -40,7 +40,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
         });
 
-        describe('AddressesController', function() {
+        describe('AddressController', function() {
             var scope, ctrl, location, history, mockedAddressesFactory;
 
             beforeEach(function (){
@@ -60,7 +60,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 scope = $rootScope.$new();
                 location = $location;
                 history = History;
-                ctrl = $controller('AddressesController', {$scope: scope});
+                ctrl = $controller('AddressController', {$scope: scope});
             }));
 
             describe('goToUpdate', function() {

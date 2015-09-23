@@ -121,6 +121,8 @@ requirejs.config({
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
+        'utility.baseService': 'app/utilities/baseService',
+        'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
@@ -133,7 +135,8 @@ requirejs.config({
         'serviceRequest.directives': 'app/service_requests/directives',
 
         'address': 'app/address_service_requests/addressServiceRequest',
-        'address.controller': 'app/address_service_requests/controller',
+        'address.controller': 'app/address_service_requests/AddressController',
+        'address.controllerList': 'app/address_service_requests/AddressListController',
         'address.directives': 'app/address_service_requests/directives',
         'address.factory': 'app/address_service_requests/addressesFactory',
 

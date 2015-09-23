@@ -1,30 +1,28 @@
-define(['angular', 'address'], function(angular) {
+define(['angular', 'address', 'utility.gridCustomizationService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .factory('Addresses', [ 'serviceUrl', '$translate','$http','SpringDataRestAdapter',
-        function(serviceUrl, $translate, $http, SpringDataRestAdapter) {
+        'utility.gridCustomizationService',
+        function(serviceUrl, $translate, $http, SpringDataRestAdapter, gridCustomizationService) {
             var Addresses = function(){
-
+                this.bindingServiceName = "address";
+                var columns = { defaultSet:[], names: [], fields: [] };
+                columns = {
+                    'defaultSet':[
+                        {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
+                        {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
+                        {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
+                        {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2'},
+                        {'name': $translate.instant('ADDRESS.CITY'), 'field': 'city'},
+                        {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': 'stateCode' },
+                        {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode' },
+                        {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country', 'width': 120 }
+                    ],
+                    bookmarkColumn: 'getBookMark()'
+                };
             };
 
-            Addresses.prototype.getColumnDefinition = function(type){
-                var columns = { names: [], fields: [] };
-                    columns = {
-                      'defaultSet':[
-                                {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
-                                {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
-                                {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
-                                {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2'},
-                                {'name': $translate.instant('ADDRESS.CITY'), 'field': 'city'},
-                                {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': 'stateCode' },
-                                {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode' },
-                                {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country', 'width': 120 }
-                        ],
-                        bookmarkColumn: 'getBookMark()'
-                    };
-                return columns;
-            };
-
+            Addresses.prototype = gridCustomizationService;
 
 
             Addresses.prototype.addFunctions = function(data){
@@ -87,8 +85,8 @@ define(['angular', 'address'], function(angular) {
             };
 
             Addresses.prototype.getList = function(){
-                var Addy  = this;
-                return Addy.addresses;
+                var addy  = this;
+                return addy.addresses;
             };
 
             Addresses.prototype.getPage = function(page){
@@ -96,18 +94,18 @@ define(['angular', 'address'], function(angular) {
             };
 
             Addresses.prototype.get = function(params){
-               var Addy  = this;
+               var addy  = this;
                 if(params.id !== 'new'){
 
                 }
 
-               return Addy.address;
+               return addy.address;
 
             };
             Addresses.prototype.save = function(params, saveObject, fn){
-                var Addy = this;
+                var addy = this;
                 if(params.id === 'new'){
-                    Addy.address = saveObject;
+                    addy.address = saveObject;
                 }else{
 
                 }
@@ -116,18 +114,18 @@ define(['angular', 'address'], function(angular) {
             };
 
             Addresses.prototype.resource = function(accountId, page){
-               var Addy  = this;
+               var addy  = this;
                 var url = serviceUrl + '/accounts/' + accountId + '/addresses?page='+page;
 
 
                 var httpPromise = $http.get(url).success(function (response) {
-                        Addy.response = angular.toJson(response, true);
+                        addy.response = angular.toJson(response, true);
                     });
 
                 return SpringDataRestAdapter.process(httpPromise).then(function (processedResponse) {
-                    Addy.addresses = processedResponse._embeddedItems;
-                    Addy.page = processedResponse.page;
-                    Addy.processedResponse = angular.toJson(processedResponse, true);
+                    addy.addresses = processedResponse._embeddedItems;
+                    addy.page = processedResponse.page;
+                    addy.processedResponse = angular.toJson(processedResponse, true);
                 });
 
             };

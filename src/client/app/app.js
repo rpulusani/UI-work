@@ -90,7 +90,7 @@ define([
             if (user._embedded && user._embedded.users.length > 0) {
                 $rootScope.currentUser = user._embedded.users[0];
                 //TODO: Deal with multiple account when definition is ready by stakeholder
-                console.log($rootScope.currentUser._links.accounts[0].href.split('/').pop());
+                console.log("account Id: "  +  $rootScope.currentUser._links.accounts[0].href.split('/').pop());
                 $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
             }
         });

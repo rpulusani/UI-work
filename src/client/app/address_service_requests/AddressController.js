@@ -1,12 +1,12 @@
 define(['angular', 'address', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressesController', ['$scope', '$location', '$routeParams', 'gridService', 'Addresses', '$rootScope',
+    .controller('AddressController', ['$scope', '$location', '$routeParams', 'gridService', 'Addresses', '$rootScope',
         function($scope, $location, $routeParams, GridService, Addresses, $rootScope) {
             $scope.continueForm = false;
             $scope.submitForm = false;
             $scope.attachmentIsShown = false;
-            $rootScope.currentAccount = '1-74XV2R';
+           // $rootScope.currentAccount = '1-74XV2R';
 
             if ($routeParams.id) { //doing work on a current address
               $scope.address = Addresses.get({id: $routeParams.id, accountId: $rootScope.currentAccount});
@@ -76,28 +76,5 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                 });
             };
 
-    }])
-    .controller('AddressListController', ['$scope', '$location', 'gridService', 'Addresses', '$rootScope',
-        function($scope,  $location,  GridService, Addresses, $rootScope) {
-            $rootScope.currentAccount = '1-74XV2R';
-            $scope.goToCreate = function() {
-                $location.path('/service_requests/addresses/new');
-            };
-
-         $scope.gridOptions = {};
-            GridService.getGridOptions(Addresses, '').then(
-                function(options){
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(Addresses, $rootScope);
-                    Addresses.resource($rootScope.currentAccount, 0).then(
-                        function(response){
-                            $scope.gridOptions.data = Addresses.getList();
-                        }
-                    );
-                },
-                function(reason){
-                     NREUM.noticeError('Grid Load Failed: ' + reason);
-                }
-            );
-      }]);
+    }]);
 });
