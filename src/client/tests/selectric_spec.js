@@ -5,7 +5,7 @@ function(angular, mocks, fef, $, fixtures) {
       beforeEach(module('mps'));
 
       beforeEach(inject(function(_$compile_, _$rootScope_, $httpBackend) {
-        $httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
+        $httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
         $httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
         $compile = _$compile_;
         $rootScope = _$rootScope_;

@@ -4,7 +4,7 @@ define(['angular', 'user'], function(angular) {
     .controller('UserController', ['$scope', '$location', '$routeParams', '$rootScope', 'UrlHelper',
         function($scope, $location, $routeParams, $rootScope, UrlHelper) {
 
-            $scope.templateUrl = UrlHelper.template;
+            $scope.templateUrl = UrlHelper.user_template;
 
             $scope.user_info_active = true;
             $scope.account_access_active = false;
