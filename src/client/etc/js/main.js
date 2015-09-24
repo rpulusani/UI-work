@@ -61,7 +61,7 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
-        'user': ['angular'],
+        'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
@@ -121,6 +121,7 @@ requirejs.config({
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
+        'utility.urlHelper': 'app/utilities/urlHelper',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
