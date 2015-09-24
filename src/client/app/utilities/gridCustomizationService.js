@@ -1,9 +1,9 @@
 define(['angular', 'utility.baseService'], function(angular) {
     angular.module('mps.utility')
-    .factory('gridCustomizationService', [ '$translate','$http','SpringDataRestAdapter', 'utility.baseService',
+    .factory('gridCustomizationService', [ '$translate','$http','SpringDataRestAdapter', 'baseService',
         function($translate, $http, SpringDataRestAdapter, baseService) {
             var gridCustomizationService = function(){
-
+                this.columns =  { defaultSet:[] };
             };
             gridCustomizationService.prototype = baseService;
 
@@ -12,11 +12,6 @@ define(['angular', 'utility.baseService'], function(angular) {
                 return columns;
             };
 
-            gridCustomizationService.prototype.setupColumnDefinition = function(){
-                var columns =  { defaultSet:[] };
-
-                return columns;
-            };
             gridCustomizationService.prototype.getColumnDefinition = function(type){
                 return this.columns;
             };

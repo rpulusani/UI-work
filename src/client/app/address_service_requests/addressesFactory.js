@@ -2,12 +2,13 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .factory('Addresses', [ 'serviceUrl', '$translate','$http','SpringDataRestAdapter',
-        'utility.gridCustomizationService',
+        'gridCustomizationService',
         function(serviceUrl, $translate, $http, SpringDataRestAdapter, gridCustomizationService) {
             var Addresses = function(){
-                this.bindingServiceName = "address";
-                var columns = { defaultSet:[] };
-                columns = {
+
+                //customize Address
+                this.bindingServiceName = "addresses";
+                this.columns = {
                     'defaultSet':[
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
@@ -20,75 +21,12 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };
+
+                this.resourceUrl = serviceUrl + 'addresses/';
+                this.paramNames = ['page', 'sort', 'size', 'accountId'];
             };
 
             Addresses.prototype = gridCustomizationService;
-
-
-            Addresses.prototype.addFunctions = function(data){
-                /*var addressFormatter = function(){
-                        return this['destinationAddress']['addressLine1'] +  ' ' +
-                        this['destinationAddress']['city'] + ' ' +
-                        this['destinationAddress']['stateCode'] + ' ' +
-                        this['destinationAddress']['country'];
-                    };
-                var primaryContactFormatter = function(){
-                    return this['_embedded']['primaryContact']['firstName'] + ' ' +
-                        this['_embedded']['primaryContact']['lastName'];
-                };
-                var statusCleaner = function(){
-                    //maybe do a translate here?
-                    var result = '';
-                    switch(this['status']){
-                        case 'in_progress':
-                            result = 'In Progress';
-                            break;
-                        case 'submitted':
-                            result = 'Submitted';
-                            break;
-                        case 'completed':
-                            result = 'Completed';
-                            break;
-                        default:
-                            result = 'unknown';
-                            break;
-                    }
-
-                    return result;
-                };
-                var typeCleaner = function(){
-                    var result  = '';
-                    switch(this['type']){
-                        case 'data_address_add':
-                            result = 'Add address';
-                            break;
-                        case 'data_address_change':
-                            result = 'Address change';
-                            break;
-                        default:
-                            result = 'unknown';
-                            break;
-                    }
-                    return result;
-                };
-                var bookmark = function(){
-                    return 'N';
-                }; */
-                for(var i = 0; i < data.length; ++i){
-                    /*data[i].getAddress = addressFormatter;
-                    data[i].getPrimaryContact = primaryContactFormatter;
-                    data[i].getStatus = statusCleaner;
-                    data[i].getType = typeCleaner;
-                    data[i].getBookMark = bookmark;*/
-                }
-                return data;
-            };
-
-            Addresses.prototype.getList = function(){
-                var addy  = this;
-                return addy.addresses;
-            };
-
 
             Addresses.prototype.get = function(params){
                var addy  = this;
@@ -111,7 +49,22 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
 
             Addresses.prototype.resource = function(accountId, page){
                var addy  = this;
-                var url = serviceUrl + '/accounts/' + accountId + '/addresses?page='+page;
+               var params =[
+                        {
+                            name: 'size',
+                            value: '20'
+                        },
+                        {
+                            name: 'accountId',
+                            value: accountId
+                        },
+                        {
+                            page: 'page',
+                            value: page
+                        }
+                    ];
+                var url = addy.buildURI(params);
+                //serviceUrl + '/accounts/' + accountId + '/addresses?page='+page;
 
 
                 var httpPromise = $http.get(url).success(function (response) {
@@ -119,8 +72,8 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                     });
 
                 return SpringDataRestAdapter.process(httpPromise).then(function (processedResponse) {
-                    addy.addresses = processedResponse._embeddedItems;
-                    addy.page = processedResponse.page;
+                    addy.setList(processedResponse._embeddedItems);
+                    addy.setPage(processedResponse.page);
                     addy.processedResponse = angular.toJson(processedResponse, true);
                 });
 
