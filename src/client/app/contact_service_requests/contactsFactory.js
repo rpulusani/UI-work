@@ -15,7 +15,7 @@ define(['angular', 'contact'], function(angular) {
                     'defaultSet':[
                         {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'getFullname()'},
                         {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'address'},
-                        {'name': $translate.instant('CONTACT.PHONE'), 'field':'workPhone'},
+                        {'name': $translate.instant('CONTACT.WORK_PHONE'), 'field':'workPhone'},
                         {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'alternatePhone'},
                         {'name': $translate.instant('CONTACT.EMAIL'), 'field':'email'}
                     ],

@@ -138,8 +138,8 @@ requirejs.config({
         'address.factory': 'app/address_service_requests/addressesFactory',
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
-        'contact.contactController': 'app/contact_service_requests/ContactController',
-        'contact.contactListController': 'app/contact_service_requests/ContactListController',
+        'contact.contactController': 'app/contact_service_requests/contactController',
+        'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
