@@ -112,6 +112,7 @@
         "INSTALL_DATE": "Install Date",
         "IP_ADDRESS": "IP Address",
         "HOST_NAME": "Host Name",
+        "CUSTOMER_DEVICE_TAG": "Customer Device Tag",
         "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
         "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
         "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
