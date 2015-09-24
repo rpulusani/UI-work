@@ -61,10 +61,10 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
-        'user': ['angular'],
+        'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-        'user.userController': ['user', 'utility.urlHelper'],
+        'user.userController': ['user'],
         'user.usersController': ['user'],
 
         'invoice': ['angular', 'angular-route'],
