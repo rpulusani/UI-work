@@ -38,13 +38,14 @@ define(['angular', 'contact'], function(angular) {
                     }
                 },
                 addressFormatter = function() {
-                     return this.address.addressList1 +  ' ' +
+                     return this.address.addressList1 + ' ' +
                         this.address.city + ' ' +
                         this.address.stateCode + ' ' +
                         this.address.country;
                 };
 
                 for (i; i < data.length; i += 1) {
+                    // TODO: consider moving method calls to delegate rather than attach per item
                     data[i].getFullname = fullnameFormatter;
                 }
 
