@@ -18,7 +18,7 @@ requirejs.config({
 
 
         'app': [
-            'gatekeeper',
+            'angular-gatekeeper',
 
             'nav',
             'nav.controllers',
@@ -61,7 +61,7 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
-        'user': ['angular'],
+        'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
@@ -84,7 +84,7 @@ requirejs.config({
         'report.directives': ['report'],
         'report.factory': ['report'],
 
-        'gatekeeper': ['angular-cookies', 'angular-route'],
+        'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
         'ui.grid' : ['angular'],
 
@@ -122,6 +122,7 @@ requirejs.config({
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
         'utility.baseService': 'app/utilities/baseService',
+        'utility.urlHelper': 'app/utilities/urlHelper',
         'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
 
         'user': 'app/users/user',
@@ -162,7 +163,7 @@ requirejs.config({
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
 
-        'gatekeeper': 'app/libs/gatekeeper-angular'
+        'angular-gatekeeper': 'app/libs/angular-gatekeeper'
     },
     map: {
         '*': {

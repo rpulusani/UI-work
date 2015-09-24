@@ -539,8 +539,7 @@ router.all('/*', function(req, res, next) {
         NEWRELICID: process.env.NEWRELICID,
         config: JSON.stringify({
             idp: { serviceUrl: process.env.IDP_SERVICE_URL,
-                   clientId: process.env.IDP_CLIENT_ID,
-                   redirectUrl: process.env.REDIRECT_URL },
+                   clientId: process.env.IDP_CLIENT_ID },
             portal: { serviceUrl: process.env.PORTAL_API_URL }
         })
     });

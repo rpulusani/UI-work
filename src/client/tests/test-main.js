@@ -35,7 +35,7 @@ require(['/base/client/etc/js/main.js'], function(){
         // dynamically load all test files
         deps: mainConfig.deps.concat(allTestFiles),
         map: {
-            '*': {'gatekeeper': 'gatekeeper-mocks'}
+            '*': {'angular-gatekeeper': 'gatekeeper-mocks'}
         },
         // we have to kickoff jasmine, as it is asynchronous
         callback: window.__karma__.start

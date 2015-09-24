@@ -47,7 +47,7 @@ define([
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
-        'gatekeeper',
+        'angular-gatekeeper',
         'mps.form',
         'ui.grid',
         'ui.grid.resizeColumns',
@@ -88,6 +88,11 @@ define([
 
     .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
     function(Gatekeeper, UserService, $rootScope, $cookies) {
+
+        //TODO: Get appropriate organization
+        // Gatekeeper.login({organization: 'lexmark'});
+        Gatekeeper.login();
+
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {};
         /*
@@ -99,17 +104,11 @@ define([
             if (user._embedded && user._embedded.users.length > 0) {
                 $rootScope.currentUser = user._embedded.users[0];
                 //TODO: Deal with multiple account when definition is ready by stakeholder
-                console.log("account Id: "  +  $rootScope.currentUser._links.accounts[0].href.split('/').pop());
                 $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
             }
         });
 
-        //TODO: Remove this once it is included into Gatekeeper.
-        $rootScope.logout = function() {
-            delete $cookies['accessToken'];
-            var redirect_uri = config.idp.serviceUrl + config.idp.redirectUrl;
-            document.location.href = redirect_uri;
-        };
+        $rootScope.logout = Gatekeeper.logout;
     }])
 
     .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
@@ -117,12 +116,10 @@ define([
             $httpProvider.interceptors.push('errorLogInterceptor');
             $httpProvider.defaults.headers.common = { 'Accept': 'application/json, text/plain, */*'};
             var supportedLanguages = ['en'],
-                myLanguage = 'en',
-                language,
-                i;
+                myLanguage = 'en';
 
-            for (i in window.browser_languages) {
-                language = window.browser_languages[i];
+            for (var i in window.browser_languages) {
+                var language = window.browser_languages[i];
 
                 if (supportedLanguages.indexOf(language) >= 0) {
                     myLanguage = language;
@@ -135,7 +132,7 @@ define([
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: '/etc/resources/i18n/',
+                    prefix: 'etc/resources/i18n/',
                     suffix: '.json'
                 })
                 .useLocalStorage();

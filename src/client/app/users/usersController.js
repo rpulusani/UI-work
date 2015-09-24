@@ -77,7 +77,6 @@ define(['angular', 'user'], function(angular) {
             };
 
             $scope.goToCreateUser = function() {
-                console.log('majikayo');
                 $location.path('/delegated_admin/new_user');
             };
         }
