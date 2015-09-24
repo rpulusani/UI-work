@@ -40,7 +40,8 @@ requirejs.config({
             'pageCount',
 
             'deviceManagement',
-            'deviceManagement.deviceManagementController',
+            'deviceManagement.deviceController',
+            'deviceManagement.deviceListController',
             'deviceManagement.deviceInformationController',
             'deviceManagement.devicePageCountsController',
             'deviceManagement.deviceFactory',
@@ -72,7 +73,8 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.deviceManagementController': ['deviceManagement', 'deviceManagement.deviceFactory'],
+        'deviceManagement.deviceController': ['deviceManagement', 'deviceManagement.deviceFactory'],
+        'deviceManagement.deviceListController': ['deviceManagement', 'deviceManagement.deviceFactory'],
         'deviceManagement.deviceInformationController': ['deviceManagement', 'deviceManagement.deviceFactory','utility.blankCheckUtility'],
         'deviceManagement.devicePageCountsController': ['deviceManagement', 'deviceManagement.pageCountFactory'],
         'deviceManagement.directives': ['deviceManagement'],
@@ -147,7 +149,8 @@ requirejs.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
-        'deviceManagement.deviceManagementController': 'app/device_management/deviceManagementController',
+        'deviceManagement.deviceController': 'app/device_management/deviceController',
+        'deviceManagement.deviceListController': 'app/device_management/deviceListController',
         'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
         'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
         'deviceManagement.directives': 'app/device_management/directives',

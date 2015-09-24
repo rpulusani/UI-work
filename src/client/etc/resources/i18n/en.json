@@ -105,6 +105,7 @@
 
     "DEVICE_MGT": {
         "TITLE": "Devices",
+        "TITLE_CNT": "Devices ({{total}})",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
         "SERIAL_NO": "Serial Number",

@@ -1,10 +1,10 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
-    angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['serviceUrl', '$translate', '$http', '$rootScope', 'SpringDataRestAdapter',
+    angular.module('mps.deviceManagement')
+    .factory('Devices', ['serviceUrl', '$translate', '$http', '$rootScope', 'SpringDataRestAdapter',
         function(serviceUrl, $translate, $http, $rootScope, halAdapter) {
             var Devices = function() {
-                this.url = serviceUrl + '/accounts/' + '1-3F2FR9' + '/devices';
+                this.url = serviceUrl + '/assets';
                 this.columns = {
                     defaultSet: []
                 };
@@ -17,7 +17,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'serialNumber'},
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':''},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress'},
-                        {'name': $translate.instant('ADDRESS.ADDRESS_NAME'), 'field':'getAddressName()'}
+                        {'name': $translate.instant('ADDRESS.NAME'), 'field':'getAddressName()'}
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };
@@ -70,10 +70,10 @@ define(['angular', 'deviceManagement'], function(angular) {
                 return fn();
             };
 
-            // TODO:  No longer needs accountId
+            // TODO:  No longer needs accountId, should be defined in constructor
             Devices.prototype.resource = function(accountId, page) {
                 var device  = this,
-                url = device.url + '?page=' + page,
+                url = device.url + '?accountIds=' + "'1-21AYVOT'" + '&page=' + page,
                 httpPromise = $http.get(url).success(function (response) {
                     device.response = angular.toJson(response, true);
                 });
