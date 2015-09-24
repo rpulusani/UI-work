@@ -52,6 +52,8 @@
 
     "ADDRESS": {
         "TITLE": "Addresses",
+        "LIST_TITLE": "Manage addresses",
+        "BOOK": "Addresss Book ({{total}})",
         "INFO": "Address Information",
         "NAME": "Address Name",
         "STORE_NAME": "Store-front Name",

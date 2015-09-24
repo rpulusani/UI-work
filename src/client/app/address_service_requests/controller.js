@@ -1,32 +1,24 @@
-define(['angular', 'address', 'utility.historyUtility'], function(angular) {
+define(['angular', 'address', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressesController', ['$scope', '$http', '$location', '$routeParams', 'History', 'Addresses',
-        function($scope, $http, $location, $routeParams, History, Addresses) {
+    .controller('AddressesController', ['$scope', '$location', '$routeParams', 'gridService', 'Addresses', '$rootScope',
+        function($scope, $location, $routeParams, GridService, Addresses, $rootScope) {
             $scope.continueForm = false;
             $scope.submitForm = false;
             $scope.attachmentIsShown = false;
+            $rootScope.currentAccount = '1-74XV2R';
 
-            if ($routeParams.id) {
-                $scope.address = Addresses.get({id: $routeParams.id, accountId: '1-74XV2R'});
-            } else {
-                $scope.address = {accountId: '1-74XV2R'};
+            if ($routeParams.id) { //doing work on a current address
+              $scope.address = Addresses.get({id: $routeParams.id, accountId: $rootScope.currentAccount});
+            } else { //doing work on a new address
+                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
             }
-          
-            $scope.addresses = Addresses.query({accountId: $scope.address.accountId}, function() {
-                $scope.addresses = $scope.addresses.addresses;
-            });
-            
+
+
             $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc',
                                 '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
 
             $scope.contact = {};
-            
-            $scope.loadTestData = function() {
-                $scope.contact.name = 'Vickers PetsAtHome';
-                $scope.contact.phoneNumber = '9992882222';
-                $scope.contact.emailAddress = 'vickerspets@test.com';
-            };
 
             $scope.setStoreFrontName = function() {
                 $scope.address.storeFrontName =  $scope.address.name;
@@ -45,14 +37,6 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                 }
             };
 
-            $scope.back = function() {
-                if ($scope.continueForm) {
-                    $scope.continueForm = false;
-                }
-
-                History.back();
-            };
-
             $scope.cancel = function() {
                 $location.path('/service_requests/addresses');
             };
@@ -65,9 +49,6 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                 $scope.attachmentIsShown = !$scope.attachmentIsShown;
             };
 
-            $scope.goToCreate = function() {
-                $location.path('/service_requests/addresses/new');
-            };
 
             $scope.goToReview = function(address) {
                 $location.path('/service_requests/addresses/' + address.id + '/review');
@@ -81,12 +62,13 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                 $location.path('/service_requests/addresses/' + address.id + '/update');
             };
 
-            $scope.goToVerify = function(address) {
+            $scope.goToVerify = function() {
                // Addresses.verify($scope.address, function(res) {
                   //  console.log(res);
-                    $location.path('/service_requests/addresses/' + address.id + '/verify');
+                    Addresses.addresss = $scope.address;
+                    $location.path('/service_requests/addresses/' + $scope.address.id + '/verify');
                 //});
-            }
+            };
 
             $scope.removeAddress = function(address) {
                 Addresses.remove($scope.address, function() {
@@ -94,6 +76,28 @@ define(['angular', 'address', 'utility.historyUtility'], function(angular) {
                 });
             };
 
-            $scope.loadTestData();
-    }]);
+    }])
+    .controller('AddressListController', ['$scope', '$location', 'gridService', 'Addresses', '$rootScope',
+        function($scope,  $location,  GridService, Addresses, $rootScope) {
+            $rootScope.currentAccount = '1-74XV2R';
+            $scope.goToCreate = function() {
+                $location.path('/service_requests/addresses/new');
+            };
+
+         $scope.gridOptions = {};
+            GridService.getGridOptions(Addresses, '').then(
+                function(options){
+                    $scope.gridOptions = options;
+                    $scope.pagination = GridService.pagination(Addresses, $rootScope);
+                    Addresses.resource($rootScope.currentAccount, 0).then(
+                        function(response){
+                            $scope.gridOptions.data = Addresses.getList();
+                        }
+                    );
+                },
+                function(reason){
+                     NREUM.noticeError('Grid Load Failed: ' + reason);
+                }
+            );
+      }]);
 });
