@@ -1,8 +1,10 @@
 define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UserController', ['$scope', '$location', '$routeParams', '$rootScope',
-        function($scope, $location, $routeParams, $rootScope) {
+    .controller('UserController', ['$scope', '$location', '$routeParams', '$rootScope', 'UrlHelper',
+        function($scope, $location, $routeParams, $rootScope, UrlHelper) {
+
+            $scope.templateUrl = UrlHelper.template;
 
             $scope.user_info_active = true;
             $scope.account_access_active = false;
