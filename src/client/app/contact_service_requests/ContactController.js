@@ -11,7 +11,7 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
             $scope.reviewing = false;
 
             if ($routeParams.id) {
-                $scope.contact = ContactService.get({accountId: $rootScope.currentAccount, id: $routeParams.id});
+                $scope.contact = Contacts.get({accountId: $rootScope.currentAccount, id: $routeParams.id});
             } else {
                 $scope.contact = {accountId: $rootScope.currentAccount};
             }

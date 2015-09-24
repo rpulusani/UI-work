@@ -3,11 +3,18 @@ define(['angular','angular-mocks', 'contact'], function(angular, mocks, contact)
 describe('Contact Service Request Module', function() {
     beforeEach(module('mps'));
 
-    describe('ContactsController', function() {
+    describe('ContactListController', function() {
         var scope, ctrl, location, history, mockedContactFactory;
 
         beforeEach(function (){
             mockedContactFactory = {
+                get: function(address, resolve) {
+                    resolve(true);
+                },
+                query: jasmine.createSpy(),
+                getColumnDefinition: function(type) {
+                    return {'defaultSet':[] };
+                },
                 delete: function(contact, resolve) {
                     resolve(true);
                 },
@@ -15,22 +22,16 @@ describe('Contact Service Request Module', function() {
             };
 
             module(function($provide) {
-                $provide.value('ContactService', mockedContactFactory);
+                $provide.value('Contacts', mockedContactFactory);
             });
         });
+
         beforeEach(inject(function($rootScope, $controller, $location, History) {
             scope = $rootScope.$new();
             location = $location;
             history = History;
-            ctrl = $controller('ContactsController', {$scope: scope});
+            ctrl = $controller('ContactListController', {$scope: scope});
         }));
-
-        describe('back', function() {
-            it('should call history back', function() {
-                scope.back();
-                expect(history.path).toBeCalled;
-            });
-        });
 
         describe('goToCreate', function() {
             it('should take to new page', function() {
@@ -47,17 +48,6 @@ describe('Contact Service Request Module', function() {
                 scope.goToUpdate(contact);
                 expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/update');
             });
-
-        });
-
-        describe('goToReview', function() {
-            it('should take to review page', function() {
-                var contact = { _links: { self: { href: 'accounts/1/contacts/1'} } };
-                spyOn(location, 'path').and.returnValue('/');
-                scope.goToReview(contact);
-                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/review');
-            });
-
         });
 
         // describe('remove', function() {
@@ -88,10 +78,11 @@ describe('Contact Service Request Module', function() {
             };
 
             module(function($provide) {
-                $provide.value('ContactService', mockedContactFactory);
+                $provide.value('Contacts', mockedContactFactory);
                 $provide.value('ServiceRequestService', mockedServiceRequestFactory);
             });
         });
+
         beforeEach(inject(function($rootScope, $controller, $location, History) {
             scope = $rootScope.$new();
             location = $location;
@@ -115,6 +106,16 @@ describe('Contact Service Request Module', function() {
                     expect(mockedContactFactory.get.calls.count()).toBe(0);
                 });
             });
+        });
+
+        describe('goToReview', function() {
+            it('should take to review page', function() {
+                var contact = { _links: { self: { href: 'accounts/1/contacts/1'} } };
+                spyOn(location, 'path').and.returnValue('/');
+                scope.goToReview(contact);
+                expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/1/review');
+            });
+
         });
 
         describe('review', function() {
@@ -156,13 +157,6 @@ describe('Contact Service Request Module', function() {
             });
         });
 
-        describe('back', function() {
-            it('should call history back', function() {
-                scope.back();
-                expect(history.path).toBeCalled;
-            });
-        });
-
         describe('cancel', function() {
             it('should redirect to list', function() {
                 spyOn(location, 'path').and.returnValue('/');
@@ -175,7 +169,7 @@ describe('Contact Service Request Module', function() {
     describe('Routes', function(){
         it('should map routes to controllers', function() {
             inject(function($route) {
-                expect($route.routes['/service_requests/contacts'].controller).toBe('ContactsController');
+                expect($route.routes['/service_requests/contacts'].controller).toBe('ContactListController');
                 expect($route.routes['/service_requests/contacts'].templateUrl).toEqual('/app/contact_service_requests/templates/view.html');
                 expect($route.routes['/service_requests/contacts/new'].templateUrl).toEqual('/app/contact_service_requests/templates/new.html');
             });
