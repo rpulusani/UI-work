@@ -1,4 +1,4 @@
-define(['angular', 'user', , 'account.accountFactory', 'account.roleFactory'], function(angular) {
+define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], function(angular) {
     'use strict';
     angular.module('mps.user')
     .directive('userCoreFields', function() {

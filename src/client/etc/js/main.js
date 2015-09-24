@@ -28,16 +28,10 @@ requirejs.config({
             'form',
             'form.directives',
 
-<<<<<<< HEAD
-            'form',
-            'form.directives',
-
             'account',
             'account.accountFactory',
             'account.roleFactory',
 
-=======
->>>>>>> fd280d20c758ac45ead0b11fcc638fe502a9651c
             'user',
 
             'user.factory',
@@ -78,12 +72,9 @@ requirejs.config({
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-<<<<<<< HEAD
-        'user.controller': ['user','user.factory','account.accountFactory','account.roleFactory'],
-=======
+
         'user.userController': ['user'],
         'user.usersController': ['user'],
->>>>>>> fd280d20c758ac45ead0b11fcc638fe502a9651c
 
         'invoice': ['angular', 'angular-route'],
 
