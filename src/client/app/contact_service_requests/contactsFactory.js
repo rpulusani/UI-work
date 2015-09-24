@@ -13,8 +13,11 @@ define(['angular', 'contact'], function(angular) {
             Contacts.prototype.getColumnDefinition = function(type) {
                 this.columns = {
                     'defaultSet':[
-                        {'name': $translate.instant('CONTACT.FIRST_NAME'), 'field': 'firstName'},
-                        {'name': $translate.instant('CONTACT.LAST_NAME'), 'field':'lastName'}
+                        {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'fullnameFormatter()'},
+                        {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'address'},
+                        {'name': $translate.instant('CONTACT.PHONE'), 'field':'workPhone'},
+                        {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'alternatePhone'},
+                        {'name': $translate.instant('CONTACT.EMAIL'), 'field':'email'}
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };
@@ -25,7 +28,20 @@ define(['angular', 'contact'], function(angular) {
             Contacts.prototype.addFunctions = function(data) {
                 var i = 0,
                 fullnameFormatter = function() {
-                    return this.firstName +  ' ' + this.lastName;
+                    var fullname = this.lastName + ', ' +  this.firstName;
+                    
+                    if (this.middleName) {
+                        fullname += ' ' + this.middleName;
+                        return fullname;
+                    } else {
+                        return fullname;
+                    }
+                },
+                addressFormatter = function() {
+                     return this.address.addressList1 +  ' ' +
+                        this.address.city + ' ' +
+                        this.address.stateCode + ' ' +
+                        this.address.country;
                 };
 
                 for (i; i < data.length; i += 1) {

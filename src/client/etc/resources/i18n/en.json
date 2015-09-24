@@ -86,8 +86,10 @@
 
     "CONTACT": {
         "TITLE": "Contacts",
+        "ADDRESS": "Address",
         "BOOK": "Contacts ({{total}})",
         "INFO": "Contact Information",
+        "FULLNAME": "Name (Last, First Middle)",
         "FIRST_NAME": "First Name",
         "MIDDLE_NAME": "Middle Name",
         "LAST_NAME": "Last Name",
