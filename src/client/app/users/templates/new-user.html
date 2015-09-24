@@ -12,17 +12,20 @@
             <h3 translate="USER.INFO"></h3>
             <hr />
             <h4 translate="USER.ADD_WHO"></h4>
-            <div user-core-fields class="col-1-3" style="padding-left:15px;"></div>
+            <div class="col-1-3" style="padding-left:15px;"
+                 ng-include="'/app/users/templates/user-core-fields.html'"></div>
 
             <h4 translate="USER.WHERE"></h4>
-            <div user-location-fields class="col-1-3" style="padding-left:15px;"></div>
+            <div class="col-1-3" style="padding-left:15px;"
+                 ng-include="'/app/users/templates/user-location-fields.html'"></div>
         </div>
 
         <div class="col-1">
             <h3 translate="ACCOUNT.TITLE"></h3>
             <hr />
             <h4 translate="ACCOUNT.LOGIN"></h4>
-            <div user-login-fields class="col-1-3" style="padding-left:15px;"></div>
+            <div class="col-1-3" style="padding-left:15px;"
+                 ng-include="'/app/users/templates/user-login-fields.html'"></div>
 
             <h4 translate="ACCOUNT.COMPANY_ASSO"></h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
