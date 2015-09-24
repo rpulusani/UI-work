@@ -8,23 +8,7 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
                 accounts: '@'
             },
             template: '{{accountName}}',
-            controller: ['$scope', 'AccountService', function($scope, AccountService){
-                var accountList = JSON.parse($scope.accounts);
-                if (accountList.length > 0) {
-                    var i=0;
-                    for(i ; i < accountList.length ; i++) {
-                        var accountId = accountList[i].href.split('/').pop();
-                        $scope.accountName = "";
-                        $scope.selectedAccount = AccountService.get({accountId: accountId}, function(response){
-                            if ($scope.accountName !== ''){
-                                $scope.accountName = $scope.accountName + ',' + response.name;
-                            } else {
-                                $scope.accountName = response.name;
-                            }
-                        });
-                    }
-                }
-            }]
+            controller: 'AccountListController'
         };
     })
     .directive('selectedRoleList', function(){
@@ -34,23 +18,7 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
                 roles: '@'
             },
             template: '{{roleName}}',
-            controller: ['$scope', 'RoleService', function($scope, RoleService){
-                var roleList = JSON.parse($scope.roles);
-                if (roleList.length > 0) {
-                    var i=0;
-                    for(i ; i < roleList.length ; i++) {
-                        var roleId = roleList[i].href.split('/').pop();
-                        $scope.roleName = "";
-                        $scope.selectedRole = RoleService.get({roleId: roleId}, function(response){
-                            if ($scope.roleName !== ''){
-                                $scope.roleName = $scope.roleName + ',' + response.description;
-                            } else {
-                                $scope.roleName = response.description;
-                            }
-                        });
-                    }
-                }
-            }]
+            controller: 'RoleListController'
         };
     })
     .directive('userList', function() {

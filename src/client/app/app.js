@@ -124,7 +124,7 @@ define([
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: '/etc/resources/i18n/',
+                    prefix: 'etc/resources/i18n/',
                     suffix: '.json'
                 })
                 .useLocalStorage();
