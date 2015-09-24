@@ -9,7 +9,6 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             $scope.invitationsActive = false;
             $scope.userHAL = UserService.getHAL(function(){
                 $scope.users = $scope.userHAL.users;
-                console.log($scope.users);
             }); 
 
             $scope.columns = [{id: 1, name: 'Status'}, {id: 2, name: 'Creation date'}, {id: 3, name: 'User Id'}];
@@ -23,7 +22,6 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
                 $scope.invitationsActive = false;
                 $scope.userHAL = UserService.getHAL(function(){
                     $scope.users = $scope.userHAL.users;
-                    console.log($scope.users);
                 });
             };
 
