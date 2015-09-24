@@ -90,6 +90,11 @@ define([
     function(Gatekeeper, UserService, $rootScope, $cookies) {
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {};
+        /*
+            1.) put service url into mps factory
+            2.) call mps.register services
+            3.)
+        */
         UserService.get({idpId: Gatekeeper.user.id}, function(user){
             if (user._embedded && user._embedded.users.length > 0) {
                 $rootScope.currentUser = user._embedded.users[0];

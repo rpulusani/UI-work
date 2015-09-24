@@ -12,18 +12,16 @@ define(['angular', 'utility'], function(angular) {
                 return this.bindingServiceName;
             };
             baseService.prototype.setTemplatedParams = function(url){
-                var cleanedUrl = angular.url;
-                if(cleanedUrl.indexOf('{') !== -1){
-                    //cleanedUrl.split('')
+                if(url.indexOf('{') !== -1){
+                    this.paramNames = url.replace(/.*{[?]/,'').replace('}', '').split(',');
                 }
-                return cleanedUrl;
             };
             baseService.prototype.getServiceUrl = function(){
                 return this.resourceUrl;
             };
             baseService.prototype.setServiceUrl = function(url){
-
-                this.resourceUrl = url;
+                this.setTemplatedParams(url);
+                this.resourceUrl = url.replace(/{.*}/,'');
             };
 
             baseService.prototype.getCurrent = function(){
