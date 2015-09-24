@@ -71,9 +71,7 @@ requirejs.config({
 
         'user': ['angular'],
         'user.factory': ['user'],
-        'user.directives': ['user'],
-
-        'user.userController': ['user'],
+        'user.userController': ['user', 'utility.urlHelper'],
         'user.usersController': ['user'],
 
         'invoice': ['angular', 'angular-route'],
@@ -130,6 +128,7 @@ requirejs.config({
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
+        'utility.urlHelper': 'app/utilities/urlHelper',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
