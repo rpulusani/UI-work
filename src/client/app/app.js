@@ -43,7 +43,7 @@ define([
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
-        'gatekeeper',
+        'angular-gatekeeper',
         'mps.form',
         'ui.grid',
         'ui.grid.resizeColumns',
@@ -84,6 +84,11 @@ define([
 
     .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
     function(Gatekeeper, UserService, $rootScope, $cookies) {
+
+        //TODO: Get appropriate organization
+        // Gatekeeper.login({organization: 'lexmark'});
+        Gatekeeper.login();
+
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {};
         UserService.get({idpId: Gatekeeper.user.id}, function(user){
@@ -96,11 +101,7 @@ define([
         });
 
         //TODO: Remove this once it is included into Gatekeeper.
-        $rootScope.logout = function() {
-            delete $cookies['accessToken'];
-            var redirect_uri = config.idp.serviceUrl + config.idp.redirectUrl;
-            document.location.href = redirect_uri;
-        };
+        $rootScope.logout = Gatekeeper.logout;
     }])
 
     .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
