@@ -13,7 +13,7 @@ define(['angular', 'contact'], function(angular) {
             Contacts.prototype.getColumnDefinition = function(type) {
                 this.columns = {
                     'defaultSet':[
-                        {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'fullnameFormatter()'},
+                        {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'getFullname()'},
                         {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'address'},
                         {'name': $translate.instant('CONTACT.PHONE'), 'field':'workPhone'},
                         {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'alternatePhone'},
