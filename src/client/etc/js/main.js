@@ -29,6 +29,10 @@ requirejs.config({
             'form',
             'form.directives',
 
+            'account',
+            'account.accountFactory',
+            'account.roleFactory',
+
             'user',
 
             'user.factory',
@@ -61,10 +65,14 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
+        'account': ['angular'],
+        'account.accountFactory': ['account'],
+        'account.roleFactory': ['account'],
+
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
-        'user.controller': ['user'],
+        'user.controller': ['user','user.factory','account.accountFactory','account.roleFactory'],
 
         'invoice': ['angular', 'angular-route'],
 
@@ -114,6 +122,10 @@ requirejs.config({
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
+
+        'account': 'app/accounts/account',
+        'account.accountFactory': 'app/accounts/accountFactory',
+        'account.roleFactory': 'app/accounts/roleFactory',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

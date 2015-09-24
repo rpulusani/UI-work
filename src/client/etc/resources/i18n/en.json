@@ -284,7 +284,9 @@
         "NAME_LAST_FIRST": "Name (Last, First)",
         "EMAIL": "Email",
         "COMPANY_ACCT": "Company account",
-        "ROLE": "Roles"
+        "ROLE": "Roles",
+        "ACTIVE": "Active",
+        "INACTIVE": "Inactive"
     },
 
     "MESSAGE": {

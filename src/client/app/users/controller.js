@@ -1,62 +1,16 @@
-define(['angular', 'user'], function(angular) {
+define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UsersController', ['$scope', '$location', '$routeParams', '$rootScope',
-        function($scope, $location, $routeParams, $rootScope) {
-            $scope.all_users_active = true;
-            $scope.invitations_active = false;
-
-            // TODO: remove hardcode when api is ready.
-            // UserService.query({activeStatus: 'Y'}, function(users) {
-            //     $scope.all_users = users;
-            // });
-            $scope.all_users = [
-                {status: 'Active', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Active', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Active', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Active', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Active', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Active', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'}
-            ];
-
-            // TODO: remove hardcode when api is ready.
-            // UserService.query({activeStatus: 'N'}, function(users) {
-            //     $scope.invited_users = users;
-            // });
-            $scope.invited_users = [
-                {status: 'Pending', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Pending', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Pending', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Pending', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'},
-                {status: 'Pending', created: '09/01/15', id: 1234567890,
-                 lastName: 'Public', firstName: 'John', email: 'jpublic@lexmark.com',
-                 account: {name: 'Lexmark International, Inc'}, roles: 'End user'}
-            ];
-
-
-            // TODO: retrieve company name from user object
-            $scope.companyName = 'Lexmark';
-            $scope.users = $scope.all_users;
+    .controller('UsersController', ['$scope', '$location', '$routeParams', '$rootScope', 'BlankCheck', 'UserService',
+        function($scope, $location, $routeParams, $rootScope, BlankCheck, UserService) {
+            var inactive = "LABEL.INACTIVE",
+                active = "LABEL.ACTIVE";
+            $scope.allUsersActive = true;
+            $scope.invitationsActive = false;
+            $scope.userHAL = UserService.getHAL(function(){
+                $scope.users = $scope.userHAL.users;
+                console.log($scope.users);
+            }); 
 
             $scope.columns = [{id: 1, name: 'Status'}, {id: 2, name: 'Creation date'}, {id: 3, name: 'User Id'}];
 
@@ -65,20 +19,28 @@ define(['angular', 'user'], function(angular) {
             };
 
             $scope.setAllUsers = function() {
-                $scope.all_users_active = true;
-                $scope.invitations_active = false;
-                $scope.users = $scope.all_users;
+                $scope.allUsersActive = true;
+                $scope.invitationsActive = false;
+                $scope.userHAL = UserService.getHAL(function(){
+                    $scope.users = $scope.userHAL.users;
+                    console.log($scope.users);
+                });
             };
 
             $scope.setInvitations = function() {
-                $scope.all_users_active = false;
-                $scope.invitations_active = true;
-                $scope.users = $scope.invited_users;
+                $scope.allUsersActive = false;
+                $scope.invitationsActive = true;
+                $scope.invitedUserHAL = UserService.getHAL({type: 'INVITED'}, function(){
+                    $scope.users = $scope.invitedUserHAL.users;
+                });
             };
 
             $scope.goToCreateUser = function() {
-                console.log('majikayo');
                 $location.path('/delegated_admin/new_user');
+            };
+
+            $scope.getStatus = function(status) {
+                return BlankCheck.checkNotBlank(status) && status === 'Y' ? active : inactive;
             };
         }
     ])
