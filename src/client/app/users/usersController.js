@@ -7,8 +7,8 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
                 active = "LABEL.ACTIVE";
             $scope.allUsersActive = true;
             $scope.invitationsActive = false;
-            $scope.userHAL = UserService.getHAL(function(){
-                $scope.users = $scope.userHAL.users;
+            UserService.getHAL(function(response){
+                $scope.users = response.data._embedded.users;
             }); 
 
             $scope.columns = [{id: 1, name: 'Status'}, {id: 2, name: 'Creation date'}, {id: 3, name: 'User Id'}];
@@ -20,16 +20,16 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             $scope.setAllUsers = function() {
                 $scope.allUsersActive = true;
                 $scope.invitationsActive = false;
-                $scope.userHAL = UserService.getHAL(function(){
-                    $scope.users = $scope.userHAL.users;
+                UserService.getHAL(function(response){
+                    $scope.users = response.data._embedded.users;
                 });
             };
 
             $scope.setInvitations = function() {
                 $scope.allUsersActive = false;
                 $scope.invitationsActive = true;
-                $scope.invitedUserHAL = UserService.getHAL({type: 'INVITED'}, function(){
-                    $scope.users = $scope.invitedUserHAL.users;
+                UserService.getHAL({type: 'INVITED'}, function(response){
+                    $scope.users = response.data._embedded.users;
                 });
             };
 
