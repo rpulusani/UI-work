@@ -14,9 +14,11 @@ requirejs.config({
         'angular-translate-storage-local': ['angular-translate'],
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
+        'angular-spring-data-rest': ['angular-resource'],
+
 
         'app': [
-            'gatekeeper',
+            'angular-gatekeeper',
 
             'nav',
             'nav.controllers',
@@ -26,6 +28,7 @@ requirejs.config({
             'form',
             'form.directives',
 
+<<<<<<< HEAD
             'form',
             'form.directives',
 
@@ -33,11 +36,14 @@ requirejs.config({
             'account.accountFactory',
             'account.roleFactory',
 
+=======
+>>>>>>> fd280d20c758ac45ead0b11fcc638fe502a9651c
             'user',
 
             'user.factory',
             'user.directives',
-            'user.controller',
+            'user.userController',
+            'user.usersController',
 
             'invoice',
 
@@ -72,7 +78,12 @@ requirejs.config({
         'user': ['angular'],
         'user.factory': ['user'],
         'user.directives': ['user'],
+<<<<<<< HEAD
         'user.controller': ['user','user.factory','account.accountFactory','account.roleFactory'],
+=======
+        'user.userController': ['user'],
+        'user.usersController': ['user'],
+>>>>>>> fd280d20c758ac45ead0b11fcc638fe502a9651c
 
         'invoice': ['angular', 'angular-route'],
 
@@ -91,14 +102,16 @@ requirejs.config({
         'report.directives': ['report'],
         'report.factory': ['report'],
 
-        'gatekeeper': ['angular-cookies', 'angular-route']
+        'angular-gatekeeper': ['angular-cookies', 'angular-route'],
+
+        'ui.grid' : ['angular'],
 
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
-        'angular-resource': 'app/libs/angular-resource.min',
+        'angular-resource': 'app/libs/angular-resource',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
         'angular-translate': 'app/libs/angular-translate.min',
@@ -106,6 +119,9 @@ requirejs.config({
         'angular-translate-storage-local': 'app/libs/angular-translate-storage-local.min',
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
+        'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
+
+        'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',
 
@@ -122,6 +138,7 @@ requirejs.config({
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
+        'utility.gridService': 'app/utilities/gridService',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
@@ -130,7 +147,8 @@ requirejs.config({
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
         'user.directives': 'app/users/directives',
-        'user.controller': 'app/users/controller',
+        'user.userController': 'app/users/userController',
+        'user.usersController': 'app/users/usersController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
@@ -163,7 +181,7 @@ requirejs.config({
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
 
-        'gatekeeper': 'app/libs/gatekeeper-angular'
+        'angular-gatekeeper': 'app/libs/angular-gatekeeper'
     },
     map: {
         '*': {
