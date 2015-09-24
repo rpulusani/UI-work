@@ -71,9 +71,10 @@ requirejs.config({
         'account.accountFactory': ['account'],
         'account.roleFactory': ['account'],
 
-        'user': ['angular'],
+        'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
-        'user.userController': ['user', 'utility.urlHelper'],
+        'user.directives': ['user'],
+        'user.userController': ['user'],
         'user.usersController': ['user'],
         'user.accountListController': ['user','account.accountFactory'],
         'user.roleListController': ['user','account.roleFactory'],
