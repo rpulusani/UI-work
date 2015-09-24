@@ -45,7 +45,7 @@ define(['angular', 'contact'], function(angular) {
                 };
 
                 for (i; i < data.length; i += 1) {
-                    // TODO: consider moving method calls to delegate rather than attach per item
+                    // TODO: consider moving formattter calls to delegate rather than attach per item
                     data[i].getFullname = fullnameFormatter;
                 }
 
