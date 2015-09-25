@@ -1,81 +1,53 @@
-define(['angular', 'angular-mocks', 'nav', 'nav.navFactory', 'nav.navItemFactory'], function(angular, mocks, nav){
-    describe("Nav Module", function(){
-        beforeEach(module('mps'));
+define(['angular', 'angular-mocks', 'nav', 'fixtures'], 
+    function(angular, mocks, nav, fixtures) {
+        describe('Nav Module', function() {
+            beforeEach(module('mps'));
 
-        describe("Nav Controller", function(){
-            var scope, location, nav, item, ctrl, mockItems, mockNavFactory;
+            describe('Nav Factory', function() {
+                var scope,
+                httpBackend,
+                mockNavFactory;
 
-            beforeEach(inject(function($rootScope, $controller, $location, Nav, NavItem){
-                scope = $rootScope.$new();
-                location = $location;
-                nav = Nav;
-                item = NavItem;
-                ctrl = $controller('NavController', {$scope: scope});
-            }));
+                beforeEach(inject(function($rootScope, $httpBackend, Nav) {
+                    scope = $rootScope.$new();
+                    httpBackend = $httpBackend;
+                    mockNavFactory = Nav;
 
-            describe("When the nav is loaded", function() {
-/*
-                beforeEach(function(){
-                    if (scope.items.length === 0) {
-                        nav.query(function(){
-                            scope.items = nav.items;
-                        });
-                    }
+                    // AJAX mocks
+                    httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
+                    httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
+                    httpBackend
+                    .whenGET('app/nav/data/navigation.json')
+                    .respond(200, [{
+                        "id": "1",
+                        "action": "/",
+                        "text": "DASHBOARD.TITLE",
+                        "description": "Some description of this link",
+                        "icon": "icon icon--lxk-ui icon--error",
+                        "tags":["primary"]
+                    }]);
+                }));
+
+                it('factory should be mocked', function() {
+                    expect(mockNavFactory).toBeDefined();
+                    expect(mockNavFactory.query).toBeDefined();
                 });
 
-                it("has access the the nav menu", function(){
-                    expect(scope.items).toBe(nav.items);
-                });
-*/
-            });
-        });
+                it('query() - should get the navigation outline from a flat file', function() {
+                    spyOn(mockNavFactory, 'query').and.callThrough();
 
-        describe("Nav Factory", function() {
-            var scope, location, nav, item, ctrl, mockItems, mockNavFactory;
+                    mockNavFactory.query(function(i) {
+                        mockNavFactory.items = i;
+                    });
 
-            beforeEach(function (){
-                mockNavFactory = {
-                    query: jasmine.createSpy(),
-                    getItemsByTag: jasmine.createSpy(),
-                    geTags: jasmine.createSpy()
-                };
+                    httpBackend.flush();
 
-                module(function($provide) {
-                    $provide.value('Nav', mockNavFactory);
+                    expect(mockNavFactory.query).toHaveBeenCalled();
+                    expect(mockNavFactory.items).toBeDefined();
+                    expect(mockNavFactory.items.length).toBe(1);
+                    expect(mockNavFactory.items[0].id).toBe('1');
                 });
             });
-
-            beforeEach(inject(function($rootScope, $controller, $location) {
-                scope = $rootScope.$new();
-                location = $location;
-                ctrl = $controller('NavController', {$scope: scope});
-            }));
-
-            it('getItemsByTag() - return array of matched items', function() {
-                mockNavFactory.getItemsByTag('primary');
-
-                expect(mockNavFactory.getItemsByTag).toHaveBeenCalled();
-            });
-
-            it('getTags() - looks through items that match', function() {
-
-            });
-
-            it('query() - should get the navigation outline from a flat file', function() {
-                mockNavFactory.query();
-
-                console.log(scope.items);
-
-                expect(mockNavFactory.query).toHaveBeenCalled();
-            });
         });
-
-        describe("Nav Item Factory", function(){
-
-        });
-
-        describe("Nav Directives", function(){
-
-        });
-    });
-});
+    }
+);
