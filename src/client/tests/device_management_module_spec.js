@@ -16,7 +16,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                     $provide.value('Devices', mockedFactory);
                 });
             });
-
+            
             beforeEach(inject(function($rootScope, $controller, $location, BlankCheck) {
                 scope = $rootScope.$new();
                 location = $location;

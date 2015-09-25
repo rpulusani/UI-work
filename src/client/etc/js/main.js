@@ -62,7 +62,7 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
-        'user': ['angular'],
+        'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
@@ -123,6 +123,7 @@ requirejs.config({
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
+        'utility.urlHelper': 'app/utilities/urlHelper',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
@@ -140,7 +141,8 @@ requirejs.config({
         'address.factory': 'app/address_service_requests/addressesFactory',
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
-        'contact.controller': 'app/contact_service_requests/controller',
+        'contact.contactController': 'app/contact_service_requests/contactController',
+        'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
