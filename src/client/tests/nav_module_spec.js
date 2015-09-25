@@ -1,5 +1,6 @@
 define(['angular', 'angular-mocks', 'nav', 'fixtures'], 
     function(angular, mocks, nav, fixtures) {
+        // We create a suite with describe and outline the test item
         describe('Nav Module', function() {
             beforeEach(module('mps'));
 
@@ -26,7 +27,10 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     }]);
                 }));
 
+                // it() is called a 'spec' or 'test' and checks the current state and 
+                // expectations in the code.
                 it('factory should be mocked', function() {
+                    // outline the expectations the code state should meet
                     expect(mockNavFactory).toBeDefined();
                     expect(mockNavFactory.query).toBeDefined();
                 });
