@@ -12,7 +12,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
     Report.prototype.query = function(fn) {
         var report = this;
 
-        $http.get('/accounts/1/reportGroups').then(function(res) {
+        $http.get('accounts/1/reportGroups').then(function(res) {
             report.groups = res.data;
 
             if (typeof fn === 'function') {
@@ -26,7 +26,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
     Report.prototype.getCategoryList = function(fn) {
         var report = this;
 
-        $http.get('/accounts/1/reportCategories').then(function(res) {
+        $http.get('accounts/1/reportCategories').then(function(res) {
             report.categories = res.data;
 
             if (typeof fn === 'function') {
@@ -40,7 +40,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
     Report.prototype.getById = function(id, fn) {
         var report = this;
 
-        $http.get('/accounts/1/reportCategories/' + id).success(function(res) {
+        $http.get('accounts/1/reportCategories/' + id).success(function(res) {
             report.category = res;
 
             return fn();
@@ -52,7 +52,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
     Report.prototype.getByDefinitionId = function(definitionId, fn) {
         var report = this;
 
-        $http.get('/accounts/1/reports/reportlist/' + definitionId).success(function(res) {
+        $http.get('accounts/1/reports/reportlist/' + definitionId).success(function(res) {
             report.reports = res;
 
             return fn();
@@ -63,7 +63,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
 
     Report.prototype.save = function(formdata, fn) {
         var report = this;
-        $http.post('/accounts/1/reports/', formdata, {
+        $http.post('accounts/1/reports/', formdata, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function(res) {
@@ -78,7 +78,7 @@ angular.module('mps.report').factory('Report', ['$http', function($http) {
     Report.prototype.removeById = function(id, fn) {
         var report = this;
 
-        $http['delete']('/accounts/1/reports/' + id).success(function(res) {
+        $http['delete']('accounts/1/reports/' + id).success(function(res) {
             var i = 0,
             reportCnt = report.reports.length;
 

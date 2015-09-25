@@ -98,15 +98,18 @@ define([
         /*
             1.) put service url into mps factory
             2.) call mps.register services
-            3.)
+            3.) load current user info
+            4.) load current user's default account information
         */
-        UserService.get({idpId: Gatekeeper.user.id}, function(user){
-            if (user._embedded && user._embedded.users.length > 0) {
-                $rootScope.currentUser = user._embedded.users[0];
-                //TODO: Deal with multiple account when definition is ready by stakeholder
-                $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
-            }
+        Gatekeeper.user.$promise.then(function(){
+            UserService.get({idpId: Gatekeeper.user.id}, function(user){
+                if (user._embedded && user._embedded.users.length > 0) {
+                    //TODO: Dealwith multiple account when definition is ready by stakeholder
+                    $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
+                }
+            });
         });
+
 
         $rootScope.logout = Gatekeeper.logout;
     }])

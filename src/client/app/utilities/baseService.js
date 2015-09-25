@@ -39,6 +39,20 @@ define(['angular', 'utility'], function(angular) {
             baseService.prototype.setCurrent = function(item){
                 this.singleItem = item;
             };
+            baseService.prototype.getSelfResource = function(index){
+                var list = this.getList();
+                var singleAddressResource = list[index]._resources("self");
+                this.setCurrent(singleAddressResource.get());
+            };
+            baseService.prototype.setSelected = function(urlIdentifier){
+                var list = this.getList();
+
+                for(var i = 0; i < list.length; ++i){
+                    if(list[i]._links['self']['href'] === urlIdentifier){
+                        this.getSelfResource(i);
+                    }
+                }
+            };
 
             baseService.prototype.getPage = function(){
                 return this.page;
@@ -55,18 +69,18 @@ define(['angular', 'utility'], function(angular) {
             baseService.prototype.getParamsList = function(){
                 return this.paramNames;
             };
-
             /*
-                [
-                    {
-                        name: 'size',
-                        value: '20'
-                    }
-                ]
+                *params*
+                    [
+                        {
+                            name: 'size',
+                            value: '20'
+                        }
+                    ]
             */
             baseService.prototype.buildURI = function(params){
                 var currentUrl =  angular.copy(this.resourceUrl);
-                if(params && params.length && params.length > 0){
+                if(currentUrl && params && params.length && params.length > 0){
                     for(var i = 0; i < params.length; ++i){
                         if(params[i].value && params[i].name){
                             if(currentUrl.indexOf('?') !== -1){
@@ -83,7 +97,7 @@ define(['angular', 'utility'], function(angular) {
 
             baseService.prototype.resource = function(params){
                 var service  = this;
-                var url = baseService.prototype.buildURI(params);
+                var url = service.buildURI(params);
 
                 var httpPromise = $http.get(url).success(function (response) {
                         service.response = angular.toJson(response, true);

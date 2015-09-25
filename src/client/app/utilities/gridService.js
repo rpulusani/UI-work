@@ -28,6 +28,22 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             }
 
             return {
+                getGridActions: function($scope, service){
+                    return function( gridApi ) {
+                            $scope.gridApi = gridApi;
+                            gridApi.selection.on.rowSelectionChanged($scope,function(row){
+                                service.getSelected(row.entity._links['self']['href']);
+                                service.getCurrent().then(function(data){
+                                    console.log(data.id);
+                                });
+                            });
+
+                            gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+                                var msg = 'rows changed ' + rows.length;
+                                console.log(msg);
+                            });
+                    };
+                },
                 getGridOptions: function (service, type){
                     var options = {};
                     var columns = service.getColumnDefinition(type);
@@ -44,7 +60,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                     };
                             });
                         $timeout(function(){
-                            console.log("options");
                             if(options !== undefined && options['columnDefs'] !== undefined && options['columnDefs'].length > 0){
                                 resolve(options);
                             }else{

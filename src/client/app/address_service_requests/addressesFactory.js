@@ -10,6 +10,7 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                 this.bindingServiceName = "addresses";
                 this.columns = {
                     'defaultSet':[
+                        {'name': 'id', 'field': 'id', visible:false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
@@ -22,7 +23,7 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                     bookmarkColumn: 'getBookMark()'
                 };
 
-                this.resourceUrl = serviceUrl + 'addresses/';
+                this.resourceUrl = serviceUrl + 'addresses/{?page,size,sort}';
                 this.paramNames = ['page', 'sort', 'size', 'accountId'];
             };
 
@@ -45,38 +46,6 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                 }
 
                 return fn();
-            };
-
-            Addresses.prototype.resource = function(accountId, page){
-               var addy  = this;
-               var params =[
-                        {
-                            name: 'size',
-                            value: '20'
-                        },
-                        {
-                            name: 'accountId',
-                            value: accountId
-                        },
-                        {
-                            page: 'page',
-                            value: page
-                        }
-                    ];
-                var url = addy.buildURI(params);
-                //serviceUrl + '/accounts/' + accountId + '/addresses?page='+page;
-
-
-                var httpPromise = $http.get(url).success(function (response) {
-                        addy.response = angular.toJson(response, true);
-                    });
-
-                return SpringDataRestAdapter.process(httpPromise).then(function (processedResponse) {
-                    addy.setList(processedResponse._embeddedItems);
-                    addy.setPage(processedResponse.page);
-                    addy.processedResponse = angular.toJson(processedResponse, true);
-                });
-
             };
 
             return new Addresses();
