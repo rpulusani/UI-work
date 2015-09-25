@@ -17,7 +17,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     // AJAX mocks
                     httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
                     httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
-                    httpBackend.whenGET('app/nav/data/navigation.json').respond(200, [{
+                    httpBackend.when('GET', 'app/nav/data/navigation.json').respond(200, [{
                         "id": "1",
                         "action": "/",
                         "text": "DASHBOARD.TITLE",
