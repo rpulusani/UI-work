@@ -33,7 +33,7 @@ define(['angular', 'deviceManagement'], function(angular) {
         return {
 	            restrict: 'A',
 	            templateUrl: '/app/device_management/templates/device-tabs.html',
-	            controller: 'DeviceManagementController',
+	            controller: 'DeviceController',
 	            link: function(scope, el, attr){
 	                require(['lxk.fef'], function() {
 	                var $ = require('jquery'),

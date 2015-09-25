@@ -1,7 +1,7 @@
 define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Device',
+    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
         function($scope, $location, $routeParams, BlankCheck, Device) {
             var acctId = 1;
             $scope.formattedAddress = '';
@@ -26,7 +26,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.formatAddress = function() {
-                if(BlankCheck.checkNotNullOrUndefined($scope.installAddress)){
+                if (BlankCheck.checkNotNullOrUndefined() ) {
                     $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' +
                                               $scope.installAddress.addressLine1 + ', ' +
                                               $scope.installAddress.city + ', ' +

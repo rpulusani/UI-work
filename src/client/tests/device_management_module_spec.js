@@ -3,17 +3,17 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
     describe('Device Management Module', function() {
         beforeEach(module('mps'));    
 
-        describe('DeviceManagementController', function() {
+        describe('DeviceController', function() {
             var scope, ctrl, location, mockedFactory;
 
             beforeEach(function (){
                 mockedFactory = {
-                    query: jasmine.createSpy(),
+                    resource: jasmine.createSpy(),
                     devices: jasmine.createSpy()
                 };
 
                 module(function($provide) {
-                    $provide.value('Device', mockedFactory);
+                    $provide.value('Devices', mockedFactory);
                 });
             });
             
@@ -21,28 +21,22 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                 scope = $rootScope.$new();
                 location = $location;
                 blankCheck = BlankCheck;
-                ctrl = $controller('DeviceManagementController', {$scope: scope});
+                ctrl = $controller('DeviceController', {$scope: scope});
             }));
 
-            describe('at init', function() {
-                it('should query for all devices', function() {
-                    expect(mockedFactory.query.calls.count()).toBe(1);
-                });
-            });
-
-            describe('goToRead', function() {
-                it('should take to the Device related pages', function() {
+            describe('goToReview', function() {
+                it('should navigate to device review page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    var id = '12345';
-                    scope.goToRead(id);
+                    var device = {id: '12345'};
+                    scope.goToReview(device);
                     expect(location.path).toHaveBeenCalledWith('/device_management/12345/review');
                 });
             });
-            
         });
 
         describe('DeviceInformationController', function() {
             var scope, ctrl, location, blankCheck, mockedFactory;
+
             beforeEach(function (){
                 mockedFactory = {
                     get: jasmine.createSpy(),
@@ -50,9 +44,10 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                 };
 
                 module(function($provide) {
-                    $provide.value('Device', mockedFactory);
+                    $provide.value('Devices', mockedFactory);
                 });
             });
+
             beforeEach(inject(function($rootScope, $controller, $location, BlankCheck) {
                 scope = $rootScope.$new();
                 location = $location;
@@ -66,6 +61,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                         $routeParams.id = 'device-1';
                         ctrl = $controller('DeviceInformationController', {$scope: scope});
                     }));
+
                     it('should get device', function() {
                         expect(mockedFactory.get.calls.count()).toBe(1);
                     });
@@ -84,7 +80,6 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                     expect(blankCheck.path).toBeCalled;
                 });
             });
-            
         });
 
         describe('DevicePageCountsController', function() {
@@ -126,11 +121,11 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
         describe('Routes', function(){
             it('should map routes to controllers', function() {
                 inject(function($route) {
-                    expect($route.routes['/device_management'].controller).toBe('DeviceManagementController');
+                    expect($route.routes['/device_management'].controller).toBe('DeviceListController');
                     expect($route.routes['/device_management'].templateUrl)
-                                .toEqual('/app/device_management/templates/device-management-home.html');
+                                .toEqual('/app/device_management/templates/view.html');
                 });
-            });             
+            });
         });
     });
 });
