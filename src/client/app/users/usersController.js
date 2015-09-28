@@ -8,7 +8,11 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             $scope.allUsersActive = true;
             $scope.invitationsActive = false;
             UserService.getHAL(function(response){
-                $scope.users = response.data._embedded.users;
+                if (BlankCheck.checkNotNullOrUndefined(response.data._embedded)){
+                    $scope.users = response.data._embedded.users;
+                } else {
+                    $scope.users = [];
+                }
             }); 
 
             $scope.columns = [{id: 1, name: 'Status'}, {id: 2, name: 'Creation date'}, {id: 3, name: 'User Id'}];
@@ -21,7 +25,11 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
                 $scope.allUsersActive = true;
                 $scope.invitationsActive = false;
                 UserService.getHAL(function(response){
-                    $scope.users = response.data._embedded.users;
+                    if (BlankCheck.checkNotNullOrUndefined(response.data._embedded)){
+                        $scope.users = response.data._embedded.users;
+                    } else {
+                        $scope.users = [];
+                    }
                 });
             };
 
@@ -29,7 +37,11 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
                 $scope.allUsersActive = false;
                 $scope.invitationsActive = true;
                 UserService.getHAL({type: 'INVITED'}, function(response){
-                    $scope.users = response.data._embedded.users;
+                    if (BlankCheck.checkNotNullOrUndefined(response.data._embedded)){
+                        $scope.users = response.data._embedded.users;
+                    } else {
+                        $scope.users = [];
+                    }
                 });
             };
 
