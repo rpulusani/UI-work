@@ -112,7 +112,7 @@
         "TITLE_CNT": "Devices ({{total}})",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
-        "SERIAL_NO": "SerialNumber",
+        "SERIAL_NO": "Serial Number",
         "INSTALL_ADDRESS": "Install Address",
         "INSTALL_DATE": "Install Date",
         "IP_ADDRESS": "IP Address",
