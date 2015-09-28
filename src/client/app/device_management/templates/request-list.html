@@ -1,0 +1,50 @@
+<div class="row row--alley-2">
+    <div class="col-1">
+        <h1 translate="REQUEST_MGMT.REQUESTS_FOR_DEVICE"></h1>
+        
+        <hr/>
+        <div>
+            <span class="text--thick" translate="REQUEST_MGMT.REQUEST_SEARCH"></span>
+            <div>
+                <div class="col-1-5">
+                    <div selectric options="requestColumns" value="id" label="name"
+                         placeholder="{{'LABEL.SELECT' | translate}}"></div>
+                </div>
+                <form class="form form--search col-1-3" data-form="">
+                    <div class="form__field" style="border-radius: 0;">
+                        <input type="text" name="search" id="search" placeholder="Search">
+                    </div>
+                </form>
+                <div class="col-1-1 btn btn--secondary" translate="LABEL.SEARCH"
+                     ng-click="search()"></div>
+            </div>
+        </div>
+        <div ui-grid="requestGridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+        
+        <div grid-pagination pagination="pagination"></div>
+
+        <div class="pagination">
+            <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+            ng-class="{'btn--is-disabled': pagination.canNotPrev()}"
+            ng-disabled="pagination.canNotPrev()"
+            ng-click="pagination.prevPage(gridOptions)">
+                <i class="icon icon--ui icon--left-arrow-dark"
+                ng-class="{'icon--left-arrow-dark': pagination.canNotPrev(), 'icon--left-arrow-primary': !pagination.canNotPrev() }"></i>
+            </button>
+         
+            <button type="button" class="btn btn--default btn--small bg--n1-white-ttb page-number"
+            ng-click="pagination.gotoPage(pageNumber, gridOptions)"
+            ng-repeat="pageNumber in pagination.pageArray()"
+            ng-class="{'current': pagination.isCurrent(pageNumber)}">
+                <span>{{ pageNumber + 1 }}</span>
+            </button>
+
+            <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+            ng-class="{'btn--is-disabled': pagination.canNotNext()}"
+            ng-disabled="pagination.canNotNext()"
+            ng-click="pagination.nextPage(gridOptions)">
+                <i class="icon icon--ui icon--right-arrow-primary"></i>
+            </button>
+        </div>
+    </div>
+</div>

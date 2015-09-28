@@ -112,7 +112,7 @@
         "TITLE_CNT": "Devices ({{total}})",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
-        "SERIAL_NO": "Serial Number",
+        "SERIAL_NO": "SerialNumber",
         "INSTALL_ADDRESS": "Install Address",
         "INSTALL_DATE": "Install Date",
         "IP_ADDRESS": "IP Address",
@@ -138,6 +138,18 @@
         "ORDER_SUPPLIES": "ORDER SUPPLIES",
         "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
         "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE"
+    },
+
+    "ORDER_MGT": {
+        "DATE": "Date",
+        "ORDER_NO": "Order Number",
+        "STATUS": "Status",
+        "PRIMARY_CONTACT": "Primary Contact",
+        "PRIMARY_EMAIL": "Primary Contact Email",
+        "PRIMARY_PHONE": "Primary Contact Phone",
+        "DESCRIPTION": "Description",
+        "ORDERS_FOR_DEVICE": "Orders for this device",
+        "ORDER_SEARCH": "What order are you looking for?"
     },
 
     "PAGE_COUNT_TYPE": {
@@ -168,7 +180,9 @@
     },
 
     "REQUEST_MGMT": {
-        "TITLE": "Request Management"
+        "TITLE": "Request Management",
+        "REQUESTS_FOR_DEVICE": "Requests for this device",
+        "REQUEST_SEARCH": "What request are you looking for?"
     },
 
     "REPORTING": {

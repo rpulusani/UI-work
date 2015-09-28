@@ -1,32 +1,27 @@
-define(['angular', 'deviceManagement', 'utility.gridService'], function(angular) {
+define(['angular', 'deviceManagement', 'utility.gridService','deviceManagement.deviceRequestFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('deviceOrderController', ['$scope', '$location', 'gridService', 'Requests', '$rootScope',
-        function($scope,  $location,  GridService, Requests, $rootScope) {
-            $rootScope.currentAccount = '1-74XV2R';
+    .controller('DeviceRequestController', ['$scope', '$translate', 'gridService', 'Requests', '$rootScope',
+        function($scope, $translate, GridService, Requests, $rootScope) {
 
-            $scope.goToCreate = function() {
-                $location.path('/service_requests/contacts/new');
-            };
+            $scope.requestGridOptions = {};
+            $scope.requestColumns = [{id: 1, name: $translate.instant('ORDER_MGT.DATE')}, 
+                              {id: 2, name: $translate.instant('ORDER_MGT.ORDER_NO')}, 
+                              {id: 3, name: $translate.instant('ORDER_MGT.STATUS')},
+                              {id: 4, name: $translate.instant('ORDER_MGT.PRIMARY_CONTACT')},
+                              {id: 5, name: $translate.instant('ORDER_MGT.PRIMARY_EMAIL')},
+                              {id: 6, name: $translate.instant('ORDER_MGT.PRIMARY_PHONE')}];
 
-            $scope.goToUpdate = function(contact) {
-                var href = contact._links.self.href,
-                contact_id = href.split('/').pop();
-                
-                $location.path('/service_requests/contacts/' + contact_id + '/update');
-            };
-
-            $scope.gridOptions = {};
-            
             GridService.getGridOptions(Requests, '').then(
                 function(options){
-                    $scope.gridOptions = options;
+                    $scope.requestGridOptions = options;
                     $scope.pagination = GridService.pagination(Requests, $rootScope);
-                    Requests.resource($rootScope.currentAccount, 0).then(
-                        function(response){
-                            $scope.gridOptions.data = Requests.addFunctions(Requests.getList());
-                        }
-                    );
+                    $scope.requestGridOptions.data = [
+                        {date: '09/01/15', requestNumber: 'M1-2345-67891', status: 'Submitted',
+                         primaryContact: 'John Public', primaryContactEmail: 'jpublic@lexmark.com', primaryContactPhone: '+1 555-555-5555'},
+                        {date: '09/18/15', requestNumber: 'M1-2345-67890', status: 'In Process',
+                         primaryContact: 'John Public', primaryContactEmail: 'jpublic@lexmark.com', primaryContactPhone: '+1 555-555-5555'}
+                    ];
                 },
                 function(reason){
                      NREUM.noticeError('Grid Load Failed: ' + reason);
