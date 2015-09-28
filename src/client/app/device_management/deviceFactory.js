@@ -75,7 +75,7 @@ define(['angular', 'deviceManagement'], function(angular) {
             };
 
             // TODO:  No longer needs accountId, should be defined in constructor
-            Devices.prototype.resource = function(accountId, page, deviceId) {
+            Devices.prototype.resource = function(accountId, page) {
                 var device  = this,
                 url = device.url + '?accountIds=' + "'1-21AYVOT'" + '&page=' + page,
                 httpPromise = $http.get(url).success(function (response) {
