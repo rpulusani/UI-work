@@ -14,7 +14,9 @@ define(['angular', 'deviceManagement', 'deviceManagement.pageCountFactory'], fun
             }
 
             if($routeParams.id) {
-                $scope.selectedPageCount = PageCount.pageCounts.get({accountId: acctId, id: $routeParams.id});
+                //Hardcoding device ID undtil real implementation
+                var deviceId = "device-1";
+                $scope.selectedPageCount = PageCount.pageCounts.get({accountId: acctId, id: deviceId});
             }
 
             $scope.filterByIds = function(pageCountType) {

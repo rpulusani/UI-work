@@ -5,6 +5,15 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
         function($scope, $location, $routeParams, BlankCheck, Device) {
             var acctId = 1;
             $scope.formattedAddress = '';
+
+            $scope.device = {
+                productModel: 'C748DTE NBD',
+                serialNumber: '41H0070717001',
+                installDate: '7/15/2015',
+                ipAddress: '10.141.12.12',
+                hostName: 'Hostname1'
+            };
+
             $scope.installAddress = {
                 storeFrontName: 'Lexmark International Inc',
                 addressLine1: '740 W. New Circle Rd.',
@@ -26,7 +35,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.formatAddress = function() {
-                if (BlankCheck.checkNotNullOrUndefined() ) {
+                if (BlankCheck.checkNotNullOrUndefined($scope.installAddress) ) {
                     $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' +
                                               $scope.installAddress.addressLine1 + ', ' +
                                               $scope.installAddress.city + ', ' +
@@ -50,9 +59,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 }
             };
 
+            /* Commented until real call 
+
             if($routeParams.id) {
-                $scope.device = Device.get({accountId: acctId, id: $routeParams.id});
+                 $scope.device = Device.get({accountId: acctId, id: $routeParams.id});
             }
+
+            */
 
             $scope.formatAddress();
         }

@@ -8,6 +8,20 @@ define(['angular', 'deviceManagement'], function(angular) {
             controller: 'DeviceInformationController' 
         };
     })
+    .directive('orderList', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_management/templates/order-list.html',
+            controller: 'DeviceOrderController' 
+        };
+    })
+    .directive('requestList', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_management/templates/request-list.html',
+            controller: 'DeviceRequestController' 
+        };
+    })
     .directive('devicePageCount', function() {
         return {
             restrict: 'A',

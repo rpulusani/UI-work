@@ -23,6 +23,7 @@
 
     "SERVICE_REQUEST": {
         "TITLE": "Requests",
+        "ORDERS": "Orders",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary contact",
@@ -139,6 +140,18 @@
         "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE"
     },
 
+    "ORDER_MGT": {
+        "DATE": "Date",
+        "ORDER_NO": "Order Number",
+        "STATUS": "Status",
+        "PRIMARY_CONTACT": "Primary Contact",
+        "PRIMARY_EMAIL": "Primary Contact Email",
+        "PRIMARY_PHONE": "Primary Contact Phone",
+        "DESCRIPTION": "Description",
+        "ORDERS_FOR_DEVICE": "Orders for this device",
+        "ORDER_SEARCH": "What order are you looking for?"
+    },
+
     "PAGE_COUNT_TYPE": {
         "LIFETIME_PAGE_COUNT": "Lifetime Page Count",
         "COLOR_PAGE_COUNT": "Color Page Count",
@@ -167,7 +180,9 @@
     },
 
     "REQUEST_MGMT": {
-        "TITLE": "Request Management"
+        "TITLE": "Request Management",
+        "REQUESTS_FOR_DEVICE": "Requests for this device",
+        "REQUEST_SEARCH": "What request are you looking for?"
     },
 
     "REPORTING": {

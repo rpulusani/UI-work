@@ -13,7 +13,11 @@ define(['angular', 'deviceManagement'], function(angular) {
             Devices.prototype.getColumnDefinition = function(type) {
                 this.columns = {
                     'defaultSet':[
-                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber'},
+                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber', 
+                         'cellTemplate':'<div>' +
+                                        '<a ng-href="/device_management/{{row.entity.id}}/review">{{row.entity.serialNumber}}</a>' +
+                                        '</div>'
+                        },
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'serialNumber'},
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':''},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress'},
