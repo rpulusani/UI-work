@@ -54,7 +54,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in users">
-                    <td translate="{{getStatus(user.activeStatus) | translate}}"></td>
+                    <td ng-if="allUsersActive" translate="{{getStatus(user.activeStatus) | translate}}"></td>
+                    <td ng-if="invitationsActive" ng-bind="user.invitedStatus"></td>
                     <td ng-bind="user.created"></td>
                     <td ng-bind="user.userId"></td>
                     <td><a href="/delegated_admin/{{user.userId}}/read"
