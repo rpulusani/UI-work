@@ -28,12 +28,18 @@ requirejs.config({
             'form',
             'form.directives',
 
+            'account',
+            'account.accountFactory',
+            'account.roleFactory',
+
             'user',
 
             'user.factory',
             'user.directives',
             'user.userController',
             'user.usersController',
+            'user.accountListController',
+            'user.roleListController',
 
             'invoice',
 
@@ -66,11 +72,17 @@ requirejs.config({
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
+        'account': ['angular'],
+        'account.accountFactory': ['account'],
+        'account.roleFactory': ['account'],
+
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
         'user.usersController': ['user'],
+        'user.accountListController': ['user','account.accountFactory'],
+        'user.roleListController': ['user','account.roleFactory'],
 
         'invoice': ['angular', 'angular-route'],
 
@@ -133,11 +145,17 @@ requirejs.config({
         'utility.gridService': 'app/utilities/gridService',
         'utility.urlHelper': 'app/utilities/urlHelper',
 
+        'account': 'app/accounts/account',
+        'account.accountFactory': 'app/accounts/accountFactory',
+        'account.roleFactory': 'app/accounts/roleFactory',
+
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
         'user.directives': 'app/users/directives',
         'user.userController': 'app/users/userController',
         'user.usersController': 'app/users/usersController',
+        'user.accountListController': 'app/users/accountListController',
+        'user.roleListController': 'app/users/roleListController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',

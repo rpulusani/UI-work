@@ -212,6 +212,30 @@
     border-left: 0 none !important;
 }
 
+.section-wrapper {
+  border:thin solid #000;
+  padding:15px;
+  margin-left: 20px;
+}
+
+.label-wrapper-left {
+  padding-left:15px;
+}
+
+.label-wrapper-top-left {
+  padding-top:15px; 
+  padding-left:15px;
+}
+
+.label-wrapper-top-bottom {
+  padding-top:15px; 
+  padding-bottom:15px;
+}
+
+.label-wrapper-bottom {
+  padding-bottom:15px;
+}
+
 .table .ui-grid-header-cell {
     font-weight: bold;
     padding: 6px 10px;
