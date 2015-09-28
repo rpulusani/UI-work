@@ -5,7 +5,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
     </div>
 
-    <div class="col-1" style="padding-bottom:15px;">
+    <div class="col-1 label-wrapper-bottom">
         <button name="cancel" class="col-1-3 btn btn--secondary" data-js="modalOpen" data-target="#deactivate"
                 translate="USER.DEACTIVATE" disabled></button>
     </div>
@@ -29,30 +29,32 @@
                 </div>
             </div>
 
-            <div ng-if="user_info_active" class="col-1" style="padding-top:15px; padding-left:15px;">
+            <div ng-if="user_info_active" class="col-1 label-wrapper-top-left">
                 <h2 translate="USER.INFO"></h2>
                 <hr />
                 <h4 translate="USER.WHO"></h4>
-                <div class="col-1-3" style="padding-left:15px;"
+
+                <div class="col-1-3 label-wrapper-left"
                      ng-include="templateUrl('user-core-fields')"></div>
 
                 <h4 translate="USER.WHERE"></h4>
-                <div class="col-1-3" style="padding-left:15px;"
+                <div class="col-1-3 label-wrapper-left"
                      ng-include="templateUrl('user-location-fields')"></div>
             </div>
 
-            <div ng-if="account_access_active" class="col-1" style="padding-top:15px; padding-left:15px;">
+            <div ng-if="account_access_active" class="col-1 label-wrapper-top-left">
                 <h2 translate="ACCOUNT.TITLE"></h2>
                 <hr />
                 <h4 translate="ACCOUNT.LOGIN"></h4>
-                <div class="col-1-3" style="padding-left:15px;"
+
+                <div class="col-1-3 label-wrapper-left"
                      ng-include="templateUrl('user-login-fields')"></div>
 
                 <h4 translate="ACCOUNT.COMPANY_ASSO"></h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-                <h5 translate='ACCOUNT.ORG_STRUCT' class="text--thick" style="padding-left:15px;"></h5>
-                <div style="padding-top:15px;padding-bottom:15px;">
-                    <div class="col-1-3" style="border:thin solid #000;padding:15px;margin-left: 20px;">
+                <h5 translate='ACCOUNT.ORG_STRUCT' class="text--thick label-wrapper-left"></h5>
+                <div class="label-wrapper-top-bottom">
+                    <div class="col-1-3 section-wrapper">
                         Some kind of tree structure<br />
                         Brad is working on...
                     </div>
@@ -61,20 +63,20 @@
                 <h4 translate="USER.ROLE_PERM"></h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
                 <div>
-                    <h5 translate='USER.BASIC_ROLE'  class="text--thick" style="padding-left:15px;"></h5>
+                    <h5 translate='USER.BASIC_ROLE'  class="text--thick label-wrapper-left"></h5>
                     <div selectric options="columns" value="id" label="name"
-                                   placeholder="{{'ROLE.VIEW_OP' | translate}}" class="col-1-3" style="padding-left:15px;">
+                                   placeholder="{{'ROLE.VIEW_OP' | translate}}" class="col-1-3 label-wrapper-left">
                     </div>
                 </div>
-                <div style="padding-top:15px;padding-bottom:15px;">
-                    <h5 translate='USER.ADD_ROLE'  class="text--thick" style="padding-left:15px;"></h5>
-                    <div class="col-1-3" style="border:thin solid #000;padding:15px;margin-left: 20px;">
+                <div class="label-wrapper-top-bottom">
+                    <h5 translate='USER.ADD_ROLE'  class="text--thick label-wrapper-left"></h5>
+                    <div class="col-1-3 section-wrapper">
                         <div user-roles></div>
                     </div>
                 </div>
 
             <div>
-                <h5 translate="USER.PERM" class="text--thick" style="padding-left:15px;"></h5>
+                <h5 translate="USER.PERM" class="text--thick label-wrapper-left"></h5>
             </div>
             </div>
         </div>

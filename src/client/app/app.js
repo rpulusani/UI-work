@@ -34,6 +34,7 @@ define([
         'ngResource',
         'ngCookies',
         'pascalprecht.translate',
+        'mps.account',
         'mps.serviceRequests',
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
