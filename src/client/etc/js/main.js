@@ -53,6 +53,8 @@ requirejs.config({
             'report.factory',
 
             'tree',
+            'tree.services',
+            'tree.controllers',
             'tree.directives'
         ],
 
@@ -166,6 +168,8 @@ requirejs.config({
         'angular-gatekeeper': 'app/libs/angular-gatekeeper',
 
         'tree': 'app/tree/module',
+        'tree.services': 'app/tree/services',
+        'tree.controllers': 'app/tree/controllers',
         'tree.directives': 'app/tree/directives'
     },
     map: {

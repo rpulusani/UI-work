@@ -10,6 +10,7 @@
                 name="{{item.id}}"
                 ng-model="item.selected"
                 ng-disabled="item.disabled"
+                ng-change="toggleChildren(item)"
             />
             {{item.title}}
         </label>
