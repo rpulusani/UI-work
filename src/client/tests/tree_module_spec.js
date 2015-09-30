@@ -2,8 +2,9 @@ define([
     'angular',
     'angular-mocks',
     'tree',
-    'tree.services',
-    'tree.controllers',
+    'tree.treeItemsService',
+    'tree.treeController',
+    'tree.treeItemController',
     'tree.directives'
 ], function(angular, mocks, tree){
     'use strict';

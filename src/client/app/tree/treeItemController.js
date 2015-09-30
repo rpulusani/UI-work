@@ -1,23 +1,7 @@
 define([
-    'tree',
-    'tree.services'
+    'tree'
 ], function(tree){
     tree
-    .controller('TreeController', ['$scope', 'TreeItems',
-        function($scope, TreeItems){
-            $scope.items = TreeItems.data || [];
-
-            $scope.bulkAction = function(evt){
-                $scope.$broadcast(evt);
-            };
-
-            if($scope.items.length === 0){
-                TreeItems.query(function(){
-                    $scope.items = TreeItems.data;
-                });
-            }
-        }
-    ])
     .controller('TreeItemController', ['$scope',
         function($scope){
             if($scope.item){
