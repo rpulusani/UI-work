@@ -2,7 +2,8 @@ define([
     'tree',
     'nav',
     'nav.services',
-    'tree.controllers'
+    'tree.treeController',
+    'tree.treeItemController'
 ], function(tree, nav){
     'use strict';
 
