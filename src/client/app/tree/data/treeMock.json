@@ -1,0 +1,50 @@
+[
+    {
+        "id": "item1",
+        "title": "Item 1",
+        "items": [
+            {
+                "id": "item1.1",
+                "title": "Item 1.1",
+                "items": [
+                    {
+                        "id": "item1.1.1",
+                        "title": "Item 1.1.1",
+                        "items": [
+                            {
+                                "id": "item1.1.1.1",
+                                "title": "Item 1.1.1.1",
+                                "items": [
+                                    {
+                                        "id": "item1.1.1.1.1",
+                                        "title": "Item 1.1.1.1.1"
+                                    },
+                                    {
+                                        "id": "item1.1.1.1.2",
+                                        "title": "Item 1.1.1.1.2"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "item1.1.1.2",
+                                "title": "Item 1.1.1.2"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "item1.1.2",
+                        "title": "Item 1.1.2"
+                    }
+                ]
+            },
+            {
+                "id": "item1.2",
+                "title": "Item 1.2"
+            }
+        ]
+    },
+    {
+        "id": "item2",
+        "title": "Item 2"
+    }
+]
