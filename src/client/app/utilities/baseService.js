@@ -6,6 +6,7 @@ define(['angular', 'utility'], function(angular) {
                 this.singleItem = {};
                 this.list = [];
                 this.page = {};
+                this.templatedUrl = '';
             };
 
             baseService.prototype.getBindingServiceName = function(){
@@ -17,6 +18,7 @@ define(['angular', 'utility'], function(angular) {
                 }
             };
             baseService.prototype.getServiceUrl = function(){
+                baseService.prototype.setServiceUrl(this.templatedUrl);
                 return this.resourceUrl;
             };
             baseService.prototype.setServiceUrl = function(url){
@@ -24,10 +26,11 @@ define(['angular', 'utility'], function(angular) {
                 this.resourceUrl = url.replace(/{.*}/,'');
             };
 
+            //returns a promise
             baseService.prototype.getCurrent = function(){
                 return this.singleItem;
             };
-
+            //returns a promise
             baseService.prototype.getList = function(){
                 return this.list;
             };
@@ -39,10 +42,16 @@ define(['angular', 'utility'], function(angular) {
             baseService.prototype.setCurrent = function(item){
                 this.singleItem = item;
             };
-            baseService.prototype.getSelfResource = function(index){
+            baseService.prototype.getSelfResource = function(id){
                 var list = this.getList();
-                var singleAddressResource = list[index]._resources("self");
-                this.setCurrent(singleAddressResource.get());
+                for(var i = 0; i < list.length; ++i){
+                    if(list[i].id === id){
+                        var singleAddressResource = list[i]._resources("self");
+                        this.setCurrent(singleAddressResource.get());
+                        break;
+                    }
+                }
+                return this.getCurrent();
             };
             baseService.prototype.setSelected = function(urlIdentifier){
                 var list = this.getList();
@@ -79,7 +88,7 @@ define(['angular', 'utility'], function(angular) {
                     ]
             */
             baseService.prototype.buildURI = function(params){
-                var currentUrl =  angular.copy(this.resourceUrl);
+                var currentUrl =  angular.copy(this.getServiceUrl());
                 if(currentUrl && params && params.length && params.length > 0){
                     for(var i = 0; i < params.length; ++i){
                         if(params[i].value && params[i].name){

@@ -86,8 +86,8 @@ define([
         GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
-    function(Gatekeeper, UserService, $rootScope, $cookies) {
+    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies','$q',
+    function(Gatekeeper, UserService, $rootScope, $cookies, $q) {
 
         //TODO: Get appropriate organization
         // Gatekeeper.login({organization: 'lexmark'});
@@ -101,14 +101,13 @@ define([
             3.) load current user info
             4.) load current user's default account information
         */
-        Gatekeeper.user.$promise.then(function(){
+       /* $q.when(Gatekeeper.user, function(){
             UserService.get({idpId: Gatekeeper.user.id}, function(user){
                 if (user._embedded && user._embedded.users.length > 0) {
-                    //TODO: Dealwith multiple account when definition is ready by stakeholder
                     $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
                 }
             });
-        });
+        });*/
 
 
         $rootScope.logout = Gatekeeper.logout;

@@ -7,29 +7,29 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/address_service_requests/templates/view.html',
                 controller: 'AddressListController'
             })
-            .when('/service_requests/addresses/delete', {
+            .when('/service_requests/addresses/:id/delete', {
                 templateUrl: '/app/address_service_requests/templates/delete.html',
-                controller: 'AddressesController'
+                controller: 'AddressController'
             })
             .when('/service_requests/addresses/new', {
                 templateUrl: '/app/address_service_requests/templates/new.html',
-                controller: 'AddressesController'
+                controller: 'AddressController'
             })
             .when('/service_requests/addresses/:id/review', {
                 templateUrl: '/app/address_service_requests/templates/review.html',
-                controller: 'AddressesController'
+                controller: 'AddressController'
             })
                     .when('/service_requests/addresses/:id/submitted', {
                 templateUrl: '/app/address_service_requests/templates/submitted.html',
-                controller: 'AddressesController'
+                controller: 'AddressController'
             })
             .when('/service_requests/addresses/:id/update', {
                 templateUrl: '/app/address_service_requests/templates/update.html',
-                controller: 'AddressesController'
+                controller: 'AddressController'
             })
             .when('/service_requests/addresses/:id/verify', {
                 templateUrl: '/app/address_service_requests/templates/address-bod.html',
-                controller: 'AddressesController'
+                controller: 'AddressController'
             });
         }
     ]);

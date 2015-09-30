@@ -28,20 +28,44 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             }
 
             return {
-                getGridActions: function($scope, service){
+                getCurrentEntityId: function(row){
+                    if(row.entity && row.entity.id){
+                        return row.entity.id;
+                    }else{
+                        return null;
+                    }
+                },
+                getGridActions: function($rootScope, service){
                     return function( gridApi ) {
-                            $scope.gridApi = gridApi;
-                            gridApi.selection.on.rowSelectionChanged($scope,function(row){
-                                service.getSelected(row.entity._links['self']['href']);
-                                service.getCurrent().then(function(data){
-                                    console.log(data.id);
-                                });
-                            });
+                            $rootScope.gridApi = gridApi;
+                            gridApi.selection.on.rowSelectionChanged($rootScope,
+                                function(row){
+                                    if(row.isSelected){
+                                        //add if not already there
+                                        $rootScope.currentRowList.push(row);
+                                    }else{
+                                        //find and remove
+                                        var length = $rootScope.currentRowList.length,
+                                            items = $rootScope.currentRowList;
+                                        for(var i = 0; i <  length; ++i){
+                                            if(items[i].uid === row.uid){
+                                                items = items.splice(i,1);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            );
 
-                            gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
-                                var msg = 'rows changed ' + rows.length;
-                                console.log(msg);
-                            });
+                            gridApi.selection.on.rowSelectionChangedBatch($rootScope,
+                                function(rows){
+                                    if(rows.length > 0 && rows[0].isSelected){
+                                        $rootScope.currentRowList = rows;
+                                    }else{
+                                       $rootScope.currentRowList = [];
+                                    }
+                                }
+                            );
                     };
                 },
                 getGridOptions: function (service, type){
@@ -130,7 +154,21 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                             }
                         },
                         gotoPage: function(pageNumber, gridOptions){
-                            service.resource(rootScope.currentAccount, pageNumber).then(
+                            var params =[
+                                {
+                                    name: 'size',
+                                    value: '20'
+                                },
+                                {
+                                    name: 'page',
+                                    value: pageNumber
+                                }/*,
+                                {
+                                    name: 'accountId',
+                                    value: rootScope.currentAccount
+                                }*/
+                            ];
+                            service.resource(params).then(
                                 function(response){
                                     if(service.getList){
                                         gridOptions.data = service.getList();

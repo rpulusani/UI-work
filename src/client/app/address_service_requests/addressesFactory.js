@@ -23,7 +23,8 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                     bookmarkColumn: 'getBookMark()'
                 };
 
-                this.resourceUrl = serviceUrl + 'addresses/{?page,size,sort}';
+                this.templatedUrl = serviceUrl + 'accounts/1-21AYVOT/addresses/';
+                //'addresses/?accountId=1-3F2FR9{?page,size,sort}';
                 this.paramNames = ['page', 'sort', 'size', 'accountId'];
             };
 

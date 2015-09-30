@@ -38,6 +38,21 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 });
             });
 
+            describe('goToUpdate', function() {
+                it('should take to update page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.goToUpdate({id: 1});
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
+                });
+            });
+            describe('goToDelete', function() {
+                it('should take to delete page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.goToDelete({id: 1});
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/deletes');
+                });
+            });
+
         });
 
         describe('AddressController', function() {
@@ -63,13 +78,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 ctrl = $controller('AddressController', {$scope: scope});
             }));
 
-            describe('goToUpdate', function() {
-                it('should take to update page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.goToUpdate({id: 1});
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
-                });
-            });
+
 
             describe('goToReview', function() {
                 it('should take to review page', function() {
