@@ -1,0 +1,43 @@
+/* <Tree Module> */
+
+.tree{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tree__item{
+    margin: 0;
+    padding: 0;
+    padding-left: (3)*@base-grid-h;
+    position: relative;
+}
+
+.tree__toggle{
+    color: @green4;
+    cursor: pointer;
+    padding: 0 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* </Tree Module> */
+
+//  Example
+//
+//  <ul class="tree">
+//      <li class="tree__item">
+//          <div class="tree__toggle">
+//              <span class="icon icon--lxk-ui icon--collapse"></span>
+//          </div>
+//
+//          <!-- Item stuff goes here -->
+//
+//          <ul class="tree">
+//              <li class="tree__item">
+//                  <!-- Item stuff goes here -->
+//              </li>
+//          </ul>
+//      </li>
+//  </ul>
