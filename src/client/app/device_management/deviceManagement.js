@@ -13,6 +13,6 @@ define(['angular'], function(angular) {
         .when('/device_management/:id/page_count', {
             templateUrl: '/app/device_management/templates/device-page-count.html',
             controller: 'DevicePageCountsController'
-        })
+        });
     }]);
 });

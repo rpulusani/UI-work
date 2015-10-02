@@ -1,7 +1,7 @@
 /* global describe it beforeEach inject expect */
 define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks, deviceManagement) {
     describe('Device Management Module', function() {
-        beforeEach(module('mps'));    
+        beforeEach(module('mps'));
 
         describe('DeviceController', function() {
             var scope, ctrl, location, mockedFactory;
@@ -90,7 +90,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                 scope = $rootScope.$new();
                 location = $location;
                 ctrl = $controller('DevicePageCountsController', {$scope: scope});
-            })); 
+            }));
 
             describe('toggleDisplay', function() {
                 it('should toggle the value of showLess', function() {

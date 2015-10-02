@@ -5,45 +5,44 @@ define(['angular', 'deviceManagement'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/device-information.html',
-            controller: 'DeviceInformationController' 
+            controller: 'DeviceInformationController'
         };
     })
     .directive('orderList', function() {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/order-list.html',
-            controller: 'DeviceOrderController' 
+            controller: 'DeviceOrderController'
         };
     })
     .directive('requestList', function() {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/request-list.html',
-            controller: 'DeviceRequestController' 
+            controller: 'DeviceRequestController'
         };
     })
     .directive('devicePageCount', function() {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/device-page-count.html',
-            controller: 'DevicePageCountsController' 
+            controller: 'DevicePageCountsController'
         };
     })
     .directive('deviceTabs', function() {
         return {
-	            restrict: 'A',
-	            templateUrl: '/app/device_management/templates/device-tabs.html',
-	            controller: 'DeviceController',
-	            link: function(scope, el, attr){
-	                require(['lxk.fef'], function() {
-	                var $ = require('jquery'),
-	                    sets = $(el).find("[data-js=tab]");
-	                sets.each(function(i,set){
-	                    $(set).set({
-	                    });
-	                });            
-	            });
-        	} 
+            restrict: 'A',
+            templateUrl: '/app/device_management/templates/device-tabs.html',
+            controller: 'DeviceController',
+            link: function(scope, el, attr){
+                require(['lxk.fef'], function() {
+                    var $ = require('jquery'),
+                        sets = $(el).find("[data-js=tab]");
+                    sets.each(function(i,set){
+                        $(set).set({});
+                    });
+                });
+            }
         };
     });
 });
