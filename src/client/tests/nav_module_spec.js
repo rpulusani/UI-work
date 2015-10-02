@@ -1,4 +1,4 @@
-define(['angular', 'angular-mocks', 'nav', 'fixtures'], 
+define(['angular', 'angular-mocks', 'nav', 'fixtures'],
     function(angular, mocks, nav, fixtures) {
         describe('Nav Module', function() {
             var scope,
@@ -30,7 +30,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     "tags":["device"]
                 }];
 
-                httpBackend.when('GET', '/etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
                 httpBackend.when('GET', 'app/nav/data/navigation.json').respond(200, scope.items);
             }));
