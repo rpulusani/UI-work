@@ -123,6 +123,7 @@ describe('Address Service Request Module', function() {
             });
         });
     });
+
     describe("Directives", function(){
         //only test logic examples nothing more
     });
