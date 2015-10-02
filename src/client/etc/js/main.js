@@ -1,4 +1,4 @@
-requirejs.config({
+    requirejs.config({
     baseUrl: '/',
     deps: [
         'lxk.fef',
@@ -45,19 +45,6 @@ requirejs.config({
 
             'pageCount',
 
-            'deviceManagement',
-            'deviceManagement.deviceController',
-            'deviceManagement.deviceListController',
-            'deviceManagement.deviceInformationController',
-            'deviceManagement.devicePageCountsController',
-            'deviceManagement.deviceOrderController',
-            'deviceManagement.deviceRequestController',
-            'deviceManagement.deviceFactory',
-            'deviceManagement.pageCountFactory',
-            'deviceManagement.deviceOrderFactory',
-            'deviceManagement.deviceRequestFactory',
-            'deviceManagement.directives',
-
             'report',
             'report.controller',
             'report.directives',
@@ -87,19 +74,6 @@ requirejs.config({
         'invoice': ['angular', 'angular-route'],
 
         'pageCount': ['angular', 'angular-route'],
-
-        'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.deviceController': ['deviceManagement', 'deviceManagement.deviceFactory'],
-        'deviceManagement.deviceListController': ['deviceManagement', 'deviceManagement.deviceFactory'],
-        'deviceManagement.deviceInformationController': ['deviceManagement', 'deviceManagement.deviceFactory','utility.blankCheckUtility'],
-        'deviceManagement.devicePageCountsController': ['deviceManagement', 'deviceManagement.pageCountFactory'],
-        'deviceManagement.deviceOrderController': ['deviceManagement', 'deviceManagement.deviceOrderFactory'],
-        'deviceManagement.deviceRequestController': ['deviceManagement', 'deviceManagement.deviceRequestFactory'],
-        'deviceManagement.directives': ['deviceManagement'],
-        'deviceManagement.deviceFactory': ['deviceManagement'],
-        'deviceManagement.pageCountFactory': ['deviceManagement'],
-        'deviceManagement.deviceOrderFactory': ['deviceManagement'],
-        'deviceManagement.deviceRequestFactory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
@@ -183,11 +157,18 @@ requirejs.config({
         'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
         'deviceManagement.deviceOrderController': 'app/device_management/deviceOrderController',
         'deviceManagement.deviceRequestController': 'app/device_management/deviceRequestController',
+        'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
         'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
+        'deviceManagement.devicePickerFactory': 'app/device_management/devicePickerFactory',
+
+        'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
+        'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
+        'deviceServiceRequest.directives': 'app/device_service_requests/directives',
+        'deviceServiceRequest.factory': 'app/device_service_requests/deviceServiceRequestFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',

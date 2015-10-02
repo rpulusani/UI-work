@@ -14,5 +14,9 @@ define(['angular'], function(angular) {
             templateUrl: '/app/device_management/templates/device-page-count.html',
             controller: 'DevicePageCountsController'
         })
+        .when('/device_management/pick_device', {
+            templateUrl: '/app/device_management/templates/device-picker.html',
+            controller: 'DevicePickerController'
+        });
     }]);
 });
