@@ -1,10 +1,10 @@
 define([
     'tree',
-    'nav',
-    'nav.services',
+    'utility',
+    'utility.recursionHelper',
     'tree.treeController',
     'tree.treeItemController'
-], function(tree, nav){
+], function(tree, utility){
     'use strict';
 
     tree.directive('tree', ['RecursionHelper', function(RecursionHelper){
