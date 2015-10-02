@@ -21,8 +21,9 @@ requirejs.config({
             'angular-gatekeeper',
 
             'nav',
-            'nav.controllers',
-            'nav.services',
+            'nav.navController',
+            'nav.navFactory',
+            'nav.navItemFactory',
             'nav.directives',
 
             'form',
@@ -70,11 +71,6 @@ requirejs.config({
             'tree.directives'
         ],
 
-        'nav': ['angular'],
-        'nav.controllers': ['nav', 'nav.services'],
-        'nav.services': ['nav'],
-        'nav.directives': ['nav'],
-
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
 
@@ -114,14 +110,13 @@ requirejs.config({
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
-        'ui.grid' : ['angular'],
-
+        'ui.grid' : ['angular']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
-        'angular-resource': 'app/libs/angular-resource',
+        'angular-resource': 'app/libs/angular-resource.min',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
         'angular-translate': 'app/libs/angular-translate.min',
@@ -136,8 +131,9 @@ requirejs.config({
         'app': 'app/app',
 
         'nav': 'app/nav/nav',
-        'nav.controllers': 'app/nav/controllers',
-        'nav.services': 'app/nav/services',
+        'nav.navController': 'app/nav/navController',
+        'nav.navFactory': 'app/nav/navFactory',
+        'nav.navItemFactory': 'app/nav/navItemFactory',
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
@@ -150,6 +146,7 @@ requirejs.config({
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
         'utility.urlHelper': 'app/utilities/urlHelper',
+        'utility.recursionHelper': 'app/utilities/recursionHelper',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
