@@ -93,6 +93,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     spyOn(scope, 'getItemsByTag').and.callThrough();
                     
                     var items = scope.getItemsByTag('device');
+                    
                     expect(scope.getItemsByTag).toHaveBeenCalled();
                     expect(items.length).toBe(1);
                     expect(items[0].tags[0]).toBe('device');
