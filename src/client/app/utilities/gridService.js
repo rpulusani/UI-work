@@ -1,4 +1,4 @@
-define(['angular', 'utility', 'ui.grid', 'ui.grid.selection'], function(angular) {
+define(['angular', 'utility', 'ui.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .factory('gridService', ['$q', '$timeout','uiGridConstants',  function($q, $timeout, uiGridConstants) {
@@ -35,14 +35,12 @@ define(['angular', 'utility', 'ui.grid', 'ui.grid.selection'], function(angular)
                         addColumns(columns,
                                 function(columnArray){
                                     options =  {
-                                        // enableRowSelection: true,
-                                        // enableRowHeaderSelection: false,
-                                        // enableSelectAll: false,
-                                        // multiSelect: false,
-                                        // showGridFooter:true,
-                                        // useExternalPagination: true,
+                                        enableRowSelection: true,
+                                        enableSelectAll: true,
+                                        showGridFooter:true,
+                                        useExternalPagination: true,
                                         columnDefs: columnArray['columnDefs'],
-                                        //gridCss: 'table'
+                                        gridCss: 'table'
                                     };
                                     options.multiSelect = false;
                                     //options.noUnselect = true;
