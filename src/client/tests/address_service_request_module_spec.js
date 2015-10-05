@@ -61,6 +61,63 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 });
             });
 
+            describe('isSingleSelected', function() {
+                it('should be a single item', function() {
+                    scope.currentRowList = [{ entity: {
+                            id: 1
+                        }
+                    }];
+                    var result = scope.isSingleSelected();
+                    expect(result).toBe(true);
+                });
+
+                it('should not have a single item', function() {
+                    scope.currentRowList = [
+                    {
+                        entity: {
+                            id: 1
+                        }
+                    },
+                    {
+                        entity: {
+                            id: 2
+                        }
+                    }
+                    ];
+                    var result = scope.isSingleSelected();
+                    expect(result).toBe(false);
+                });
+            });
+
+            describe('isMultipleSelected', function() {
+                it('should be a single item', function() {
+                    scope.currentRowList = [{ entity: {
+                            id: 1
+                        }
+                    }];
+                    var result = scope.isMultipleSelected();
+                    expect(result).toBe(false);
+                });
+
+                it('should not have a single item', function() {
+                    scope.currentRowList = [
+                    {
+                        entity: {
+                            id: 1
+                        }
+                    },
+                    {
+                        entity: {
+                            id: 2
+                        }
+                    }
+                    ];
+                    var result = scope.isMultipleSelected();
+                    expect(result).toBe(true);
+                });
+            });
+
+
         });
 
         describe('AddressController', function() {
