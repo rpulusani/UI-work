@@ -29,7 +29,7 @@ define([
     'utility.directives',
     'utility.controller',
     'utility.baseService',
-    'utility.recursionHelper'
+    'utility.recursionHelper',
     'utility.gridService',
     'utility.gridCustomizationService'
 ], function(angular) {
