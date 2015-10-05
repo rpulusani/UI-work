@@ -4,9 +4,20 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
     .controller('DevicePickerController', ['$scope', '$location', 'gridService', 'DevicePicker', '$rootScope',
         function($scope, $location, GridService, DevicePicker, $rootScope) {
             $rootScope.currentAccount = '1-21AYVOT';
+            $rootScope.currentRowList = [];
+
+            $scope.isSingleSelected = function(){
+                 if($scope.currentRowList.length === 1){
+                    console.log($scope.currentRowList);
+                    return true;
+                 }else{
+                    return false;
+                 }
+            };
 
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
+            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, DevicePicker);
             GridService.getGridOptions(DevicePicker, '').then(
                 function(options){
                     $scope.gridOptions = options;

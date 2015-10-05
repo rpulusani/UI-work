@@ -1,4 +1,4 @@
-define(['angular', 'utility', 'ui.grid'], function(angular) {
+    define(['angular', 'utility', 'ui.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .factory('gridService', ['$q', '$timeout','uiGridConstants',  function($q, $timeout, uiGridConstants) {
@@ -28,6 +28,46 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             }
 
             return {
+                getCurrentEntityId: function(row){
+                    if (row.entity && row.entity.id) {
+                        return row.entity.id;
+                    } else {
+                        return null;
+                    }
+                },
+                getGridActions: function($rootScope, service){
+                    return function( gridApi ) {
+                        $rootScope.gridApi = gridApi;
+                        gridApi.selection.on.rowSelectionChanged($rootScope,
+                            function(row){
+                                if(row.isSelected){
+                                    //add if not already there
+                                    $rootScope.currentRowList.push(row);
+                                }else{
+                                    //find and remove
+                                    var length = $rootScope.currentRowList.length,
+                                        items = $rootScope.currentRowList;
+                                    for(var i = 0; i <  length; ++i){
+                                        if(items[i].uid === row.uid){
+                                            items = items.splice(i,1);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        );
+
+                        gridApi.selection.on.rowSelectionChangedBatch($rootScope,
+                            function(rows){
+                                if(rows.length > 0 && rows[0].isSelected){
+                                    $rootScope.currentRowList = rows;
+                                }else{
+                                   $rootScope.currentRowList = [];
+                                }
+                            }
+                        );
+                    };
+                },
                 getGridOptions: function (service, type){
                     var options = {};
                     var columns = service.getColumnDefinition(type);
