@@ -18,7 +18,7 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                 }
             };
             $scope.goToRemove = function(){
-                var id = GridService.getCurrentEntityId($scope.currentRowSelected[0]);
+                var id = GridService.getCurrentEntityId($scope.currentRowList[0]);
                 if(id !== null){
                     $location.path('/service_requests/addresses/' + id + '/delete');
                 }

@@ -29,7 +29,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
             return {
                 getCurrentEntityId: function(row){
-                    if(row.entity && row.entity.id){
+                    if(row && row.entity && row.entity.id){
                         return row.entity.id;
                     }else{
                         return null;
