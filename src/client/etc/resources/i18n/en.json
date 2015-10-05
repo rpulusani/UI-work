@@ -23,6 +23,7 @@
 
     "SERVICE_REQUEST": {
         "TITLE": "Requests",
+        "ORDERS": "Orders",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary contact",
@@ -86,7 +87,10 @@
 
     "CONTACT": {
         "TITLE": "Contacts",
+        "ADDRESS": "Address",
+        "BOOK": "Contacts ({{total}})",
         "INFO": "Contact Information",
+        "FULLNAME": "Name (Last, First Middle)",
         "FIRST_NAME": "First Name",
         "MIDDLE_NAME": "Middle Name",
         "LAST_NAME": "Last Name",
@@ -105,6 +109,7 @@
 
     "DEVICE_MGT": {
         "TITLE": "Devices",
+        "TITLE_CNT": "Devices ({{total}})",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
         "SERIAL_NO": "Serial Number",
@@ -112,6 +117,7 @@
         "INSTALL_DATE": "Install Date",
         "IP_ADDRESS": "IP Address",
         "HOST_NAME": "Host Name",
+        "CUSTOMER_DEVICE_TAG": "Customer Device Tag",
         "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
         "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
         "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
@@ -132,6 +138,18 @@
         "ORDER_SUPPLIES": "ORDER SUPPLIES",
         "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
         "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE"
+    },
+
+    "ORDER_MGT": {
+        "DATE": "Date",
+        "ORDER_NO": "Order Number",
+        "STATUS": "Status",
+        "PRIMARY_CONTACT": "Primary Contact",
+        "PRIMARY_EMAIL": "Primary Contact Email",
+        "PRIMARY_PHONE": "Primary Contact Phone",
+        "DESCRIPTION": "Description",
+        "ORDERS_FOR_DEVICE": "Orders for this device",
+        "ORDER_SEARCH": "What order are you looking for?"
     },
 
     "PAGE_COUNT_TYPE": {
@@ -162,7 +180,9 @@
     },
 
     "REQUEST_MGMT": {
-        "TITLE": "Request Management"
+        "TITLE": "Request Management",
+        "REQUESTS_FOR_DEVICE": "Requests for this device",
+        "REQUEST_SEARCH": "What request are you looking for?"
     },
 
     "REPORTING": {
@@ -286,7 +306,9 @@
         "NAME_LAST_FIRST": "Name (Last, First)",
         "EMAIL": "Email",
         "COMPANY_ACCT": "Company account",
-        "ROLE": "Roles"
+        "ROLE": "Roles",
+        "ACTIVE": "Active",
+        "INACTIVE": "Inactive"
     },
 
     "MESSAGE": {
@@ -301,5 +323,4 @@
         "NO_IMAGE_FOUND": "No Image Found",
         "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}"
     }
-
 }

@@ -19,7 +19,8 @@ define([
     'serviceRequest.factory',
     'serviceRequest.directives',
     'contact',
-    'contact.controller',
+    'contact.contactController',
+    'contact.contactListController',
     'contact.factory',
     'contact.directives',
     'utility',
@@ -28,6 +29,7 @@ define([
     'utility.directives',
     'utility.controller',
     'utility.baseService',
+    'utility.recursionHelper'
     'utility.gridService',
     'utility.gridCustomizationService'
 ], function(angular) {
@@ -37,6 +39,7 @@ define([
         'ngResource',
         'ngCookies',
         'pascalprecht.translate',
+        'mps.account',
         'mps.serviceRequests',
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
@@ -54,7 +57,8 @@ define([
         'ui.grid.moveColumns',
         'ui.grid.selection',
         'ui.grid.pagination',
-        'spring-data-rest'
+        'spring-data-rest',
+        'tree'
     ])
 
     .factory('errorLogInterceptor', function() {

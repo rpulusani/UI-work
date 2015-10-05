@@ -3,8 +3,8 @@ define(['angular'], function(angular) {
     angular.module('mps.deviceManagement', []).config(['$routeProvider', function ($routeProvider) {
         $routeProvider
         .when('/device_management', {
-            templateUrl: '/app/device_management/templates/device-management-home.html',
-            controller: 'DeviceManagementController'
+            templateUrl: '/app/device_management/templates/view.html',
+            controller: 'DeviceListController'
         })
         .when('/device_management/:id/review', {
             templateUrl: '/app/device_management/templates/review.html',
@@ -13,6 +13,6 @@ define(['angular'], function(angular) {
         .when('/device_management/:id/page_count', {
             templateUrl: '/app/device_management/templates/device-page-count.html',
             controller: 'DevicePageCountsController'
-        })
+        });
     }]);
 });

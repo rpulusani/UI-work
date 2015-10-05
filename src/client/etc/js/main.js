@@ -21,12 +21,17 @@ requirejs.config({
             'angular-gatekeeper',
 
             'nav',
-            'nav.controllers',
-            'nav.services',
+            'nav.navController',
+            'nav.navFactory',
+            'nav.navItemFactory',
             'nav.directives',
 
             'form',
             'form.directives',
+
+            'account',
+            'account.accountFactory',
+            'account.roleFactory',
 
             'user',
 
@@ -34,50 +39,69 @@ requirejs.config({
             'user.directives',
             'user.userController',
             'user.usersController',
+            'user.accountListController',
+            'user.roleListController',
 
             'invoice',
 
             'pageCount',
 
             'deviceManagement',
-            'deviceManagement.deviceManagementController',
+            'deviceManagement.deviceController',
+            'deviceManagement.deviceListController',
             'deviceManagement.deviceInformationController',
             'deviceManagement.devicePageCountsController',
+            'deviceManagement.deviceOrderController',
+            'deviceManagement.deviceRequestController',
             'deviceManagement.deviceFactory',
             'deviceManagement.pageCountFactory',
+            'deviceManagement.deviceOrderFactory',
+            'deviceManagement.deviceRequestFactory',
             'deviceManagement.directives',
 
             'report',
             'report.controller',
             'report.directives',
-            'report.factory'
-        ],
+            'report.factory',
 
-        'nav': ['angular'],
-        'nav.controllers': ['nav', 'nav.services'],
-        'nav.services': ['nav'],
-        'nav.directives': ['nav'],
+            'tree',
+            'tree.treeItemsService',
+            'tree.treeController',
+            'tree.treeItemController',
+            'tree.directives'
+        ],
 
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
+
+        'account': ['angular'],
+        'account.accountFactory': ['account'],
+        'account.roleFactory': ['account'],
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
         'user.usersController': ['user'],
+        'user.accountListController': ['user','account.accountFactory'],
+        'user.roleListController': ['user','account.roleFactory'],
 
         'invoice': ['angular', 'angular-route'],
 
         'pageCount': ['angular', 'angular-route'],
 
         'deviceManagement': ['angular', 'angular-route'],
-        'deviceManagement.deviceManagementController': ['deviceManagement', 'deviceManagement.deviceFactory'],
+        'deviceManagement.deviceController': ['deviceManagement', 'deviceManagement.deviceFactory'],
+        'deviceManagement.deviceListController': ['deviceManagement', 'deviceManagement.deviceFactory'],
         'deviceManagement.deviceInformationController': ['deviceManagement', 'deviceManagement.deviceFactory','utility.blankCheckUtility'],
         'deviceManagement.devicePageCountsController': ['deviceManagement', 'deviceManagement.pageCountFactory'],
+        'deviceManagement.deviceOrderController': ['deviceManagement', 'deviceManagement.deviceOrderFactory'],
+        'deviceManagement.deviceRequestController': ['deviceManagement', 'deviceManagement.deviceRequestFactory'],
         'deviceManagement.directives': ['deviceManagement'],
         'deviceManagement.deviceFactory': ['deviceManagement'],
         'deviceManagement.pageCountFactory': ['deviceManagement'],
+        'deviceManagement.deviceOrderFactory': ['deviceManagement'],
+        'deviceManagement.deviceRequestFactory': ['deviceManagement'],
 
         'report': ['angular', 'angular-route'],
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
@@ -86,14 +110,13 @@ requirejs.config({
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
-        'ui.grid' : ['angular'],
-
+        'ui.grid' : ['angular']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
-        'angular-resource': 'app/libs/angular-resource',
+        'angular-resource': 'app/libs/angular-resource.min',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
         'angular-translate': 'app/libs/angular-translate.min',
@@ -108,8 +131,9 @@ requirejs.config({
         'app': 'app/app',
 
         'nav': 'app/nav/nav',
-        'nav.controllers': 'app/nav/controllers',
-        'nav.services': 'app/nav/services',
+        'nav.navController': 'app/nav/navController',
+        'nav.navFactory': 'app/nav/navFactory',
+        'nav.navItemFactory': 'app/nav/navItemFactory',
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
@@ -124,12 +148,19 @@ requirejs.config({
         'utility.baseService': 'app/utilities/baseService',
         'utility.urlHelper': 'app/utilities/urlHelper',
         'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
+        'utility.recursionHelper': 'app/utilities/recursionHelper',
+
+        'account': 'app/accounts/account',
+        'account.accountFactory': 'app/accounts/accountFactory',
+        'account.roleFactory': 'app/accounts/roleFactory',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
         'user.directives': 'app/users/directives',
         'user.userController': 'app/users/userController',
         'user.usersController': 'app/users/usersController',
+        'user.accountListController': 'app/users/accountListController',
+        'user.roleListController': 'app/users/roleListController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
@@ -142,7 +173,8 @@ requirejs.config({
         'address.factory': 'app/address_service_requests/addressesFactory',
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
-        'contact.controller': 'app/contact_service_requests/controller',
+        'contact.contactController': 'app/contact_service_requests/contactController',
+        'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
@@ -151,19 +183,30 @@ requirejs.config({
         'pageCount': 'app/page_count/pageCount',
 
         'deviceManagement': 'app/device_management/deviceManagement',
-        'deviceManagement.deviceManagementController': 'app/device_management/deviceManagementController',
+        'deviceManagement.deviceController': 'app/device_management/deviceController',
+        'deviceManagement.deviceListController': 'app/device_management/deviceListController',
         'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
         'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
+        'deviceManagement.deviceOrderController': 'app/device_management/deviceOrderController',
+        'deviceManagement.deviceRequestController': 'app/device_management/deviceRequestController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
         'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
+        'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
+        'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
 
-        'angular-gatekeeper': 'app/libs/angular-gatekeeper'
+        'angular-gatekeeper': 'app/libs/angular-gatekeeper',
+
+        'tree': 'app/tree/module',
+        'tree.treeItemsService': 'app/tree/treeItemsService',
+        'tree.treeController': 'app/tree/treeController',
+        'tree.treeItemController': 'app/tree/treeItemController',
+        'tree.directives': 'app/tree/directives'
     },
     map: {
         '*': {

@@ -1,4 +1,12 @@
-'use strict';
+define([
+    'angular'
+], function(angular){
 
-angular.module('mps.nav', [])
-.filter();
+    'use strict';
+
+    var nav = angular.module('mps.nav', []);
+    
+    nav.filter();
+
+    return nav;
+});

@@ -5,38 +5,45 @@
         <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
         <h2 translate="CONTACT.TITLE"></h2>
         <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
+
         <ul>
-            <li><a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" href="" ng-click="goToCreate()"
-                   translate="CONTACT_SERVICE_REQUEST.ADD"></a></li>
+            <li>
+                <a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" href="" ng-click="goToCreate()"
+                   translate="CONTACT_SERVICE_REQUEST.ADD"></a>
+            </li>
         </ul>
 
-        <table ng-show="contacts.length > 0" class="table table--condensed table--even table--responsive text--small"
-               data-js="responsive-table">
-            <thead>
-                <tr>
-                    <th translate="{{'CONTACT.FIRST_NAME' |translate}}"></th>
-                    <th translate="{{'CONTACT.LAST_NAME' | translate}}"></th>
-                    <th translate="{{'LABEL.ACTION' | translate}}"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="contact in contacts">
-                    <td>
-                        <div ng-bind="contact.firstName"></div>
-                    </td>
+        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="CONTACT.BOOK" translate-values="{total: pagination.totalItems()}">
+        </h2>
 
-                    <td>
-                        <div ng-bind="contact.lastName"></div>
-                    </td>
+        <hr />
+        
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+        
+        <div grid-pagination pagination="pagination"></div>
+       
+        <div class="pagination">
+          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+          ng-class="{'btn--is-disabled': pagination.canNotPrev()}"
+          ng-disabled="pagination.canNotPrev()"
+          ng-click="pagination.prevPage(gridOptions)">
+                <i class="icon icon--ui icon--left-arrow-dark"
+                ng-class="{'icon--left-arrow-dark': pagination.canNotPrev(), 'icon--left-arrow-primary': !pagination.canNotPrev() }"></i>
+          </button>
 
-                    <td>
-                        <a title="{{ LABEL.UPDATE | translate }}" href="" ng-click="goToUpdate(contact)"
-                           translate="LABEL.UPDATE"></a> |
-                        <a title="{{ LABEL.DELETE | translate }}" href="" ng-click="goToReview(contact)"
-                           translate="LABEL.DELETE"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb page-number"
+          ng-click="pagination.gotoPage(pageNumber, gridOptions)"
+          ng-repeat="pageNumber in pagination.pageArray()"
+          ng-class="{'current': pagination.isCurrent(pageNumber)}">
+             <span>{{ pageNumber + 1 }}</span>
+          </button>
+          
+          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+          ng-class="{'btn--is-disabled': pagination.canNotNext()}"
+          ng-disabled="pagination.canNotNext()"
+          ng-click="pagination.nextPage(gridOptions)">
+            <i class="icon icon--ui icon--right-arrow-primary"></i>
+          </button>
+        </div>
     </div>
 </div>
