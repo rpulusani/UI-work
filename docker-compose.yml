@@ -15,4 +15,4 @@ web:
    - NEW_RELIC_TRACER_ENABLED=true
    - IDP_SERVICE_URL=https://idp-staging.psft.co
    - IDP_CLIENT_ID=mps-portal
-   - PORTAL_API_URL=https://api.venus-dev.lexmark.com/mps
+   - PORTAL_API_URL=https://api.venus-dev.lexmark.com/mps/

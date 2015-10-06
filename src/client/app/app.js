@@ -9,9 +9,10 @@ define([
     'angular-translate-loader-static-files',
     'angular-translate-loader-url',
     'address',
-    'address.controller',
     'address.directives',
     'address.factory',
+    'address.addressController',
+    'address.addressListController',
     'ui.grid',
     'angular-spring-data-rest',
     'serviceRequest',
@@ -27,7 +28,10 @@ define([
     'utility.blankCheckUtility',
     'utility.directives',
     'utility.controller',
-    'utility.recursionHelper'
+    'utility.baseService',
+    'utility.recursionHelper',
+    'utility.gridService',
+    'utility.gridCustomizationService'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -86,8 +90,8 @@ define([
         GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies',
-    function(Gatekeeper, UserService, $rootScope, $cookies) {
+    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies','$q',
+    function(Gatekeeper, UserService, $rootScope, $cookies, $q) {
 
         //TODO: Get appropriate organization
         // Gatekeeper.login({organization: 'lexmark'});
@@ -95,13 +99,20 @@ define([
 
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {};
-        UserService.get({idpId: Gatekeeper.user.id}, function(user){
-            if (user._embedded && user._embedded.users.length > 0) {
-                $rootScope.currentUser = user._embedded.users[0];
-                //TODO: Deal with multiple account when definition is ready by stakeholder
-                $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
-            }
-        });
+        /*
+            1.) put service url into mps factory
+            2.) call mps.register services
+            3.) load current user info
+            4.) load current user's default account information
+        */
+       /* $q.when(Gatekeeper.user, function(){
+            UserService.get({idpId: Gatekeeper.user.id}, function(user){
+                if (user._embedded && user._embedded.users.length > 0) {
+                    $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
+                }
+            });
+        });*/
+
 
         $rootScope.logout = Gatekeeper.logout;
     }])
