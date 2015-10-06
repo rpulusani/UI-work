@@ -21,6 +21,7 @@
         "DETAILS_TITLE":"Details for Address Request Number: {{refId}}",
         "ADD_PARAGRAPH":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
         "DELETE_PARAGRAPH":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
+        "UPDATE_PARAGRAPH":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
         "DELETE_SUBMIT": "Submit Delete Address Request"
     },
 
