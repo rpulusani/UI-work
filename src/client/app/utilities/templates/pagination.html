@@ -1,4 +1,12 @@
 <div class="pagination">
+  <div class="pagination__btn pagination__prev">
+    <a href="#"
+      ng-click="pagination.firstPage(gridOptions)">
+        I<i class="icon icon--ui"
+           ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
+        </i>
+    </a>
+  </div>
   <div class="pagination__btn pagination__prev"
   ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
     <a href="#"
@@ -14,6 +22,14 @@
      class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pageNumber)}">
       <a href="#" ng-click="pagination.gotoPage(pageNumber, gridOptions)">{{ pageNumber + 1 }}</a>
       </li>
+      <li ng-show="pagination.elipseCheck()"
+        class="pagination__btn">
+          <span>...</span>
+      </li>
+      <li ng-if="pagination.totalPagesCheck()"
+     class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pagination.totalPages() - 1)}">
+      <a href="#" ng-click="pagination.gotoPage(pagination.totalPages() - 1, gridOptions)">{{ pagination.totalPages() }}</a>
+      </li>
   </ul>
   <div class="pagination__btn pagination__next" ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
     <a href="#"
@@ -22,6 +38,14 @@
       <i class="icon icon--ui"
          ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
       </i>
+    </a>
+  </div>
+  <div class="pagination__btn pagination__prev">
+    <a href="#"
+      ng-click="pagination.lastPage(gridOptions)">
+      <i class="icon icon--ui"
+           ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
+      </i>I
     </a>
   </div>
 </div>

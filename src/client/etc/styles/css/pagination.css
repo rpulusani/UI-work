@@ -1,18 +1,22 @@
 .pagination {
-    display: block;
+  display: block;
   font-size: 1.14285714em;
   line-height: 1.375em;
   margin-bottom: 1.375em;
   *zoom: 1;
+  margin-top: 24px;
 }
 
 .pagination a,
 .pagination span {
-  padding: 0.6875em 0;
   display: block;
+  min-height:28px;
   text-decoration: none;
   text-align: center;
-  width: 100%;
+  width: 35px;
+  padding: 12px 0px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .pagination > li {
   background-color: #efefef;
@@ -35,10 +39,10 @@
   background-color: #efefef;
   display: block;
   float: left;
-  width: 40px;
+  min-width: 54px;
+  min-height: 54px;
   text-decoration: none;
   margin: 0;
-  padding: 0;
 }
 .pagination__btn:hover {
   background-color: #ffffff;
@@ -82,13 +86,14 @@
 }
 .pagination--is-active {
   background-color: #ffffff;
-  border-top: 2px solid #000000;
-  margin-top: -1px;
+  border: 2px solid #0061de;
+}
+.pagination--is-active a{
+    min-height:26px;
 }
 .pagination--is-disabled a,
 .pagination--is-disabled a:hover {
   background-color: #efefef;
-  border-top: 1px solid #cccccc;
   color: #cccccc;
   cursor: default;
 }

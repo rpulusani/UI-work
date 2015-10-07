@@ -94,10 +94,45 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 pagination: function(service, rootScope){
                     return {
+                        pageProps: function(){
+                            var total =  this.totalPages(),
+                            length = 5;
+                            var props = {
+                                page: this.currentPage(),
+                                length: 5
+                            };
+                            if(props.page < 3){
+                                    props.page  = 0;
+                            }else if( props.page >= 3 && props.page + 5 <= total){
+                                    props.page = props.page - 2;
+                                    props.length = props.page + 5;
+                            }else if(props.page + 5 - total === 1 && props.page >= 3  ){
+                                props.page = props.page - 2;
+                                props.length = props.page + 5;
+                            }else if(props.page + 5 > total){
+                                    props.page = total - 5;
+                                    props.length = total;
+                            }
+                            return props;
+                        },
                         pageArray: function(){
                             var array = [],
-                            length = this.totalPages();
-                            for(var i = 0; i < length; ++i){
+                            props = this.pageProps();
+
+/*
+    0 [0,1,2,3,4]
+    1 [0,1,2,3,4]
+    2 [0,1,2,3,4]
+    3 [1,2,3,4,5]
+    4 [2,3,4,5,6]
+    5 [3,4,5,6,7]
+    6 [4,5,6,7,8]
+    7 [5,6,7,8,9]
+    8 [5,6,7,8,9]
+    9 [5,6,7,8,9]
+*/
+
+                            for(var i = props.page; i < props.length; ++i){
                                 array.push(i);
                             }
                             return array;
@@ -121,6 +156,22 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                return service.page.totalPages;
                             }else{
                                 return -1;
+                            }
+                        },
+                        elipseCheck: function(){
+                            var total = this.totalPages();
+                            if(total != -1){
+                               return total > 5 && this.currentPage() + 6 < total;
+                            }else{
+                                return false;
+                            }
+                        },
+                        totalPagesCheck: function(){
+                            var total = this.totalPages();
+                            if(total != -1){
+                               return total > 5 && this.currentPage() + 6 < total;
+                            }else{
+                                return false;
                             }
                         },
                         currentPage: function(){
