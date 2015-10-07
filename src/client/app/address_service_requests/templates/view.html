@@ -20,34 +20,6 @@
         </h2>
         <hr/>
         <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-        <div grid-pagination pagination="pagination"></div>
-
-
-        <div class="pagination">
-          <div class="pagination__btn pagination__prev"
-          ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
-            <a href="#"
-            ng-disabled="pagination.canNotPrev()"
-            ng-click="pagination.prevPage(gridOptions)">
-              <i class="icon icon--ui"
-                 ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
-              </i>
-            </a>
-          </div>
-          <ul class="pagination__list">
-             <li ng-repeat="pageNumber in pagination.pageArray()"
-             class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pageNumber)}">
-              <a href="#" ng-click="pagination.gotoPage(pageNumber, gridOptions)">{{ pageNumber + 1 }}</a>
-              </li>
-          </ul>
-          <div class="pagination__btn pagination__next" ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
-            <a href="#"
-            ng-disabled="pagination.canNotNext()"
-            ng-click="pagination.nextPage(gridOptions)">
-              <i class="icon icon--ui"
-                 ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
-              </i>
-            </a>
-          </div>
-        </div>
+        <div pagination grid="{{gridOptions}}"></div>
+    </div>
 </div>
