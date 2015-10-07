@@ -182,7 +182,15 @@
     "REQUEST_MGMT": {
         "TITLE": "Request Management",
         "REQUESTS_FOR_DEVICE": "Requests for this device",
-        "REQUEST_SEARCH": "What request are you looking for?"
+        "REQUEST_SEARCH": "What request are you looking for?",
+        "CREATE_NEW_REQUEST": "Create new request",
+        "ALL_REQUESTS": "All requests",
+        "DEVICE_REQUESTS": "Device requests",
+        "SERVICE_REQUESTS": "Service requests",
+        "ADDRESS_REQUESTS": "Address requests",
+        "CONTACT_REQUESTS": "Contact requests",
+        "NEW_REQUEST": "New request"
+
     },
 
     "REPORTING": {
