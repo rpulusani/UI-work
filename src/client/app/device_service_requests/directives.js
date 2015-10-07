@@ -1,6 +1,22 @@
 define(['angular', 'deviceServiceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
+    .directive('customRadios', function(){
+      return {
+        restrict: 'A',
+        replace: true,
+        template: function (el, attr) {
+          console.log('hello');
+          console.log(el[0]["type"]);
+          console.log('value is '+attr.ngValue);
+          //var more_class = tAttrs.class ? ' '+tAttrs.class : '';
+          // return '<label ng-transclude><input type="radio" ng-model="' + tAttrs.model
+          //       + '" value="' + tAttrs.value + '"><div class="custom-radio'+ more_class +'"></div>'
+          return '<input type="radio" name="' + attr.name + '" id="' + attr.id + '" ng-model="' + attr.ngModel + '" ng-value="' + attr.ngValue + '">';
+          //return abcd;
+          }
+        };
+    })
     .directive('deviceNewFields', function() {
         return {
             restrict: 'A',

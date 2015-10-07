@@ -17,15 +17,6 @@
 </div>
 <div class="row">
     <div class="col-1-3">
-        <!--  <div class="form__field form__field--required">
-             <input name="id" type="hidden" ng-model="address.id"/>
-             <input name="accountId" type="hidden" ng-model="address.accountId"/>
-             <label translate="ADDRESS.NAME "></label>
-             <input name="addName" type="text" ng-model="address.name" value="" class="" required />
-             <span  ng-hide="!newAddress.name.$error.required"
-             class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
-              <span translate="LABEL.ERROR_REQUIRED"></span></span>
-         </div> -->
         <div class="form__field" >
             <label translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></label>
              <div class="form__field form__field--radio form__field--no-margin">
@@ -117,14 +108,14 @@
                 </div>
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.LINE_1"></label>
-                    <input name="addressLine1" type="text" ng-model="address.addressLine1" required/>
+                    <input name="addressLine1" type="text" ng-model="device.addressLine1" required/>
                     <span ng-hide="!newDevice.addressLine1.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
                 <div class="form__field">
                     <label translate="ADDRESS.LINE_2"></label>
-                    <input name="addressLine2" type="text" ng-model="address.addressLine2"  />
+                    <input name="addressLine2" type="text" ng-model="device.addressLine2"  />
                 </div>
             </div>
             <div class="col-2-3"></div>
@@ -133,7 +124,7 @@
             <div class="col-1-3">
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.CITY"></label>
-                    <input name="city" type="text" ng-model="address.city" required />
+                    <input name="city" type="text" ng-model="device.city" required />
                     <span ng-hide="!newDevice.city.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert">
                     <i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
@@ -154,7 +145,7 @@
             <div class="col-1-3">
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.ZIP"></label>
-                    <input type="text" name="zipCode" ng-model="address.zipCode" value="" class="" required />
+                    <input type="text" name="zipCode" ng-model="device.zipCode" value="" class="" required />
                     <span ng-hide="!newDevice.zipCode.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span></span>
@@ -162,39 +153,150 @@
             </div>
             <div class="col-1-3"></div>
             <div class="col-2-3">
-                <div address-location-fields></div>
+                <div class="form__field">
+                    <label translate="ADDRESS.BUILDING_NAME"></label>
+                    <input name="buildingName" type="text" ng-model="device.buildingName" value="" class="" />
+                </div>
+
+                <div class="form__field">
+                    <label translate="ADDRESS.FLOOR_NAME"></label>
+                    <input name="floorName" type="text" ng-model="device.floorName" value="" class="" />
+                </div>
+
+                <div class="form__field form__field--required">
+                    <label translate="ADDRESS.SITE_NAME"></label>
+                    <input name="siteName" type="text" ng-model="device.siteName" value="" class="" />
+                </div>
             </div>
         </div>
     </div> 
 </div>
 
+ <!-- <label>
+<input type="radio" id="abc" name="test"
+                ng-model="checktest" value="false" checked/>TEST 1</label>
+<label>
+<input type="radio" id="def" name="test"
+                ng-model="checktest" value="true"/>TEST 2</label>   -->  
 
 <div class="row">
     <div class="col-3-5">
         <div class="form__field" >
-            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></label>
+            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></label> 
              <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="device-deinstall-question-no" name="device-deinstall-question"
-                ng-model="device.deviceDeinstallQuestion" value="false" data-js="customInput" checked/>
+                ng-model="device.deviceDeInstallQuestion" value="false" data-js="customInput"  checked/>
                 <label for="device-deinstall-question-no"><span></span>
                     {{'LABEL.NO' | translate }}</label>
             </div>
              <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="device-deinstall-question-yes" name="device-deinstall-question"
-                ng-model="device.deviceDeinstallQuestion" value="true" data-js="customInput"/>
+                ng-model="device.deviceDeInstallQuestion" value="true" data-js="customInput"/>
                 <label for="device-deinstall-question-yes"><span></span>
                 {{ 'LABEL.YES' | translate }}</label>
             </div>
             <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
             <div class="col-2-3"></div>
-            <div ng-show="device.deviceDeinstallQuestion === 'true'">
+            <div ng-show="device.deviceDeInstallQuestion === 'true'">
                 <div class="form__field">
                     <label translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE"></label>
                     
                     <button name="selectDevice" class="btn btn--secondary" translate="DEVICE_SERVICE_REQUEST.BROWSE_DEVICE"
-                            ng-click="goToBrowse()"></button>
+                            ng-click="goToBrowse(device)"></button>
+
+                    <div class="row">
+                        <div class="col-2-3"></div>
+                        <div class="col-2-3 well">
+                            <div ng-show="isDeviceSelected()">
+                                <dl class="row">
+                                    <input type="hidden" name="selectedSerialNumber" ng-model="device.selectedDevice.serialNumber"/>
+                                    <input type="hidden" name="selectedIPAddress" ng-model="device.selectedDevice.ipAddress"/>
+                                    <dt class="col-1-2" translate="DEVICE_MGT.SERIAL_NO"></dt>
+                                    <dd class="col-1-2" ng-bind="device.selectedDevice.serialNumber"></dd>
+                                    <dt class="col-1-2" translate="DEVICE_MGT.IP_ADDRESS"></dt>
+                                    <dd class="col-1-2" ng-bind="device.selectedDevice.ipAddress"></dd>
+                                </dl>
+                            </div>
+                            <div ng-hide="isDeviceSelected()">
+                                <span translate="LABEL.NONE_SELECTED"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING"></h3>
+    </div>
+    <div class="col-2-5">
+        <div class="form__field">
+            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER"></label>
+            <input type="text" name="costCenter" ng-model="device.deviceCostCenter" value="" class="" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3-5">
+            <div class="form__field" >
+                <label translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></label>
+                 <div class="form__field form__field--radio form__field--no-margin">
+                    <input type="radio" id="device-chl-question-no" name="device-chl-question"
+                    ng-model="device.deviceCHLQuestion" value="false" data-js="customInput" checked/>
+                    <label for="device-chl-question-no"><span></span>
+                        {{'LABEL.NO' | translate }}</label>
+                </div>
+                 <div class="form__field form__field--radio form__field--no-margin">
+                    <input type="radio" id="device-chl-question-yes" name="device-chl-question"
+                    ng-model="device.deviceCHLQuestion" value="true" data-js="customInput"/>
+                    <label for="device-chl-question-yes"><span></span>
+                    {{ 'LABEL.YES' | translate }}</label>
+                </div>
+                <div class="col-2-3"></div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="device.deviceCHLQuestion === 'true'">
+        <div class="form__field" >
+            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></label>
+            <input name="deviceInstallDate" type="text" ng-model="device.deviceInstallDate" value="" class="" />
+        </div>
+    </div>
+    <div class="col-2-5">
+        <div class="form__field" >
+            <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
+            <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class="" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACTS"></h3>
+    </div>
+    <div class="col-2-5">
+        <button name="selectDevice" class="btn btn--secondary" translate="CONTACT.SELECT_CONTACT"
+                ng-click="goToContactPicker(device)"></button>
+        <div class="col-2-3"></div>
+        <div class="form__field">
+            <table class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
+                <thead>
+                    <tr>
+                        <th translate="CONTACT.FIRST_NAME"></th>
+                        <th translate="CONTACT.LAST_NAME"></th>
+                        <th translate="CONTACT.EMAIL"></th>
+                        <th translate="LABEL.PHONE"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-bind="device.selectedContact.firstName"></td>
+                        <td ng-bind="device.selectedContact.lastName"></td>
+                        <td ng-bind="device.selectedContact.email"></td>
+                        <td ng-bind="device.selectedContact.workPhone"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

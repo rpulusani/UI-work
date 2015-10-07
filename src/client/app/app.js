@@ -44,7 +44,8 @@ define([
     'utility.historyUtility',
     'utility.blankCheckUtility',
     'utility.directives',
-    'utility.controller'
+    'utility.controller',
+    'utility.contactPickerController'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

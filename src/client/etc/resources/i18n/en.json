@@ -68,7 +68,12 @@
         "BROWSE_DEVICE": "BROWSE DEVICES AT THIS LOCATION",
         "SELECT_DEVICE_DEINSTALL": "Select Device to DeInstall",
         "EXISTING_DEVICE_LIST": "Existing Device List ({{total}})",
-        "DISCARD_DEVICE_SELECTION": "Discard Device Selection"
+        "DISCARD_DEVICE_SELECTION": "Discard Device Selection",
+        "SELECTED_DEVICE_IS": "Selected Device is...",
+        "DEVICE_BILLING_TRACKING": "Device billing and tracking",
+        "DEVICE_COST_CENTER": "Device Cost Center",
+        "DEVICE_CHL_QUESTION": "Would you like to track this device in your organizational structure?",
+        "DEVICE_CONTACTS": "Device Contacts"
     },
 
     "ADDRESS": {
@@ -116,7 +121,12 @@
         "LAST_NAME": "Last Name",
         "WORK_PHONE": "Work Phone",
         "ALT_PHONE": "Alternate Phone",
-        "EMAIL": "Email Address"
+        "EMAIL": "Email Address",
+        "SELECT_CONTACT": "Select a Contact",
+        "SELECTED_CONTACT_IS": "Selected Contact is...",
+        "SEARCH_EXISTING_CONTACT": "Search existing contacts ({{total}})...",
+        "DISCARD_CONTACT_CHANGES": "Discard Contact Changes",
+        "CHANGE_CONTACT": "Change Contact"
     },
 
     "DEVICE_MGMT_REQUEST": {

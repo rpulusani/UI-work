@@ -116,6 +116,7 @@
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
+        'utility.contactPickerController': 'app/utilities/contactPickerController',
         'utility.gridService': 'app/utilities/gridService',
         'utility.urlHelper': 'app/utilities/urlHelper',
 

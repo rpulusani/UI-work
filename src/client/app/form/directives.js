@@ -4,6 +4,8 @@ angular.module('mps.form')
         return {
             restrict: 'E',
             require: ['?ngModel'],
+            replace: true,
+            transclude: true,
             link: function(scope, el, attr, model){
                 if (!model || model.length < 1) {
                    return;
@@ -15,9 +17,22 @@ angular.module('mps.form')
                     break;
                     case 'radio':
                         $(el).customInput();
+                        //attr.$set('checked',true);
+                        // console.log(attr.checked);
+                        // attr.$observe('checked', function(value) {
+                        //   if(value) {
+                        //     attr.$set('checked',true);
+                        //   }
+                        // });
                     break;
                 }
-            }
+            },
+            // template: function(el, attr){
+            //   if (el[0]["type"] === 'radio') {
+            //     var abcd = '<label ng-transclude><input type="text" name="' + attr.name + '" id="' + attr.id + '" ng-model="' + attr.ngModel + '" ng-value="' + attr.ngValue + '"></label>';
+            //     //console.log(abcd);
+            //   }
+            // }
         };
     }
 ])

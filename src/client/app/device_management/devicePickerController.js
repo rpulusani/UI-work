@@ -6,13 +6,17 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
             $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
 
-            $scope.isSingleSelected = function(){
-                 if($scope.currentRowList.length === 1){
-                    console.log($scope.currentRowList);
-                    return true;
-                 }else{
-                    return false;
-                 }
+            $scope.isRowSelected = function(){
+                if ($scope.currentRowList.length === 1) {
+                   return true;
+                } else {
+                   return false;
+                }
+            };
+
+            $scope.goToDeviceAdd = function(){
+                var returned = 'return';
+                $location.path('/service_requests/devices/new/'+returned);
             };
 
             $scope.gridOptions = {};
