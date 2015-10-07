@@ -38,9 +38,89 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 });
             });
 
+            describe('goToUpdate', function() {
+                it('should take to update page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.currentRowList = [{ entity: {
+                            id: 1
+                        }
+                    }];
+                    scope.goToUpdate();
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
+                });
+            });
+            describe('goToRemove', function() {
+                it('should take to delete page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.currentRowList = [{ entity: {
+                            id: 1
+                        }
+                    }];
+                    scope.goToRemove();
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/delete');
+                });
+            });
+
+            describe('isSingleSelected', function() {
+                it('should be a single item', function() {
+                    scope.currentRowList = [{ entity: {
+                            id: 1
+                        }
+                    }];
+                    var result = scope.isSingleSelected();
+                    expect(result).toBe(true);
+                });
+
+                it('should not have a single item', function() {
+                    scope.currentRowList = [
+                    {
+                        entity: {
+                            id: 1
+                        }
+                    },
+                    {
+                        entity: {
+                            id: 2
+                        }
+                    }
+                    ];
+                    var result = scope.isSingleSelected();
+                    expect(result).toBe(false);
+                });
+            });
+
+            describe('isMultipleSelected', function() {
+                it('should be a single item', function() {
+                    scope.currentRowList = [{ entity: {
+                            id: 1
+                        }
+                    }];
+                    var result = scope.isMultipleSelected();
+                    expect(result).toBe(false);
+                });
+
+                it('should not have a single item', function() {
+                    scope.currentRowList = [
+                    {
+                        entity: {
+                            id: 1
+                        }
+                    },
+                    {
+                        entity: {
+                            id: 2
+                        }
+                    }
+                    ];
+                    var result = scope.isMultipleSelected();
+                    expect(result).toBe(true);
+                });
+            });
+
+
         });
 
-        describe('AddressesController', function() {
+        describe('AddressController', function() {
             var scope, ctrl, location, history, mockedAddressesFactory;
 
             beforeEach(function (){
@@ -60,16 +140,10 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 scope = $rootScope.$new();
                 location = $location;
                 history = History;
-                ctrl = $controller('AddressesController', {$scope: scope});
+                ctrl = $controller('AddressController', {$scope: scope});
             }));
 
-            describe('goToUpdate', function() {
-                it('should take to update page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.goToUpdate({id: 1});
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
-                });
-            });
+
 
             describe('goToReview', function() {
                 it('should take to review page', function() {

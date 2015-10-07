@@ -21,8 +21,9 @@
             'angular-gatekeeper',
 
             'nav',
-            'nav.controllers',
-            'nav.services',
+            'nav.navController',
+            'nav.navFactory',
+            'nav.navItemFactory',
             'nav.directives',
 
             'form',
@@ -48,13 +49,14 @@
             'report',
             'report.controller',
             'report.directives',
-            'report.factory'
-        ],
+            'report.factory',
 
-        'nav': ['angular'],
-        'nav.controllers': ['nav', 'nav.services'],
-        'nav.services': ['nav'],
-        'nav.directives': ['nav'],
+            'tree',
+            'tree.treeItemsService',
+            'tree.treeController',
+            'tree.treeItemController',
+            'tree.directives'
+        ],
 
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
@@ -82,14 +84,13 @@
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
-        'ui.grid' : ['angular'],
-
+        'ui.grid' : ['angular']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
 
         'angular': 'app/libs/angular.min',
-        'angular-resource': 'app/libs/angular-resource',
+        'angular-resource': 'app/libs/angular-resource.min',
         'angular-route': 'app/libs/angular-route.min',
         'angular-cookies': 'app/libs/angular-cookies.min',
         'angular-translate': 'app/libs/angular-translate.min',
@@ -104,8 +105,9 @@
         'app': 'app/app',
 
         'nav': 'app/nav/nav',
-        'nav.controllers': 'app/nav/controllers',
-        'nav.services': 'app/nav/services',
+        'nav.navController': 'app/nav/navController',
+        'nav.navFactory': 'app/nav/navFactory',
+        'nav.navItemFactory': 'app/nav/navItemFactory',
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
@@ -118,7 +120,10 @@
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
         'utility.gridService': 'app/utilities/gridService',
+        'utility.baseService': 'app/utilities/baseService',
         'utility.urlHelper': 'app/utilities/urlHelper',
+        'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
+        'utility.recursionHelper': 'app/utilities/recursionHelper',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
@@ -137,7 +142,8 @@
         'serviceRequest.directives': 'app/service_requests/directives',
 
         'address': 'app/address_service_requests/addressServiceRequest',
-        'address.controller': 'app/address_service_requests/controller',
+        'address.addressController': 'app/address_service_requests/addressController',
+        'address.addressListController': 'app/address_service_requests/addressListController',
         'address.directives': 'app/address_service_requests/directives',
         'address.factory': 'app/address_service_requests/addressesFactory',
 
@@ -176,7 +182,13 @@
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
 
-        'angular-gatekeeper': 'app/libs/angular-gatekeeper'
+        'angular-gatekeeper': 'app/libs/angular-gatekeeper',
+
+        'tree': 'app/tree/module',
+        'tree.treeItemsService': 'app/tree/treeItemsService',
+        'tree.treeController': 'app/tree/treeController',
+        'tree.treeItemController': 'app/tree/treeItemController',
+        'tree.directives': 'app/tree/directives'
     },
     map: {
         '*': {
