@@ -29,43 +29,44 @@
 
             return {
                 getCurrentEntityId: function(row){
-                    if (row.entity && row.entity.id) {
+
+                    if(row && row.entity && row.entity.id){
                         return row.entity.id;
-                    } else {
+                    }else{
                         return null;
                     }
                 },
                 getGridActions: function($rootScope, service){
                     return function( gridApi ) {
-                        $rootScope.gridApi = gridApi;
-                        gridApi.selection.on.rowSelectionChanged($rootScope,
-                            function(row){
-                                if(row.isSelected){
-                                    //add if not already there
-                                    $rootScope.currentRowList.push(row);
-                                }else{
-                                    //find and remove
-                                    var length = $rootScope.currentRowList.length,
-                                        items = $rootScope.currentRowList;
-                                    for(var i = 0; i <  length; ++i){
-                                        if(items[i].uid === row.uid){
-                                            items = items.splice(i,1);
-                                            break;
+                            $rootScope.gridApi = gridApi;
+                            gridApi.selection.on.rowSelectionChanged($rootScope,
+                                function(row){
+                                    if(row.isSelected){
+                                        //add if not already there
+                                        $rootScope.currentRowList.push(row);
+                                    }else{
+                                        //find and remove
+                                        var length = $rootScope.currentRowList.length,
+                                            items = $rootScope.currentRowList;
+                                        for(var i = 0; i <  length; ++i){
+                                            if(items[i].uid === row.uid){
+                                                items = items.splice(i,1);
+                                                break;
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        );
+                            );
 
-                        gridApi.selection.on.rowSelectionChangedBatch($rootScope,
-                            function(rows){
-                                if(rows.length > 0 && rows[0].isSelected){
-                                    $rootScope.currentRowList = rows;
-                                }else{
-                                   $rootScope.currentRowList = [];
+                            gridApi.selection.on.rowSelectionChangedBatch($rootScope,
+                                function(rows){
+                                    if(rows.length > 0 && rows[0].isSelected){
+                                        $rootScope.currentRowList = rows;
+                                    }else{
+                                       $rootScope.currentRowList = [];
+                                    }
                                 }
-                            }
-                        );
+                            );
                     };
                 },
                 getGridOptions: function (service, type){
@@ -87,7 +88,6 @@
                             });
 
                         $timeout(function(){
-                            console.log("options");
                             if(options !== undefined && options['columnDefs'] !== undefined && options['columnDefs'].length > 0){
                                 resolve(options);
                             }else{
@@ -158,7 +158,21 @@
                             }
                         },
                         gotoPage: function(pageNumber, gridOptions){
-                            service.resource(rootScope.currentAccount, pageNumber).then(
+                            var params =[
+                                {
+                                    name: 'size',
+                                    value: '20'
+                                },
+                                {
+                                    name: 'page',
+                                    value: pageNumber
+                                }/*,
+                                {
+                                    name: 'accountId',
+                                    value: rootScope.currentAccount
+                                }*/
+                            ];
+                            service.resource(params).then(
                                 function(response){
                                     if(service.getList){
                                         gridOptions.data = service.getList();
