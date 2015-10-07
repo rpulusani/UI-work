@@ -1,0 +1,134 @@
+.pagination {
+    display: block;
+  font-size: 1.14285714em;
+  line-height: 1.375em;
+  margin-bottom: 1.375em;
+  *zoom: 1;
+}
+
+.pagination a,
+.pagination span {
+  padding: 0.6875em 0;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+.pagination > li {
+  background-color: #efefef;
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  display: block;
+  float: left;
+  margin: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.pagination__btn {
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  background-color: #efefef;
+  display: block;
+  float: left;
+  width: 40px;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+.pagination__btn:hover {
+  background-color: #ffffff;
+}
+.pagination--is-first,
+.pagination__prev,
+.pagination__next {
+  border-left: 1px solid #cccccc;
+}
+
+@media (max-width: 54em) {
+  .pagination > li {
+    display: none;
+  }
+}
+@media (max-width: 54em) {
+  .pagination > li.pagination__prev {
+    display: none;
+  }
+}
+.pagination > li.pagination__responsive-set {
+  display: none;
+}
+@media (max-width: 54em) {
+  .pagination > li.pagination__responsive-set {
+    display: block;
+    border-right: 0;
+    width: 100%;
+  }
+}
+.pagination > li.pagination--is-first,
+.pagination > li:first-child {
+  border-left: 1px solid #cccccc;
+}
+.pagination > li.pagination__responsive-set,
+.pagination > li.pagination--is-active,
+.pagination > li:hover {
+  background-color: #ffffff;
+  border-top: 2px solid #000000;
+  margin: -1px 0 0 0;
+}
+.pagination--is-active {
+  background-color: #ffffff;
+  border-top: 2px solid #000000;
+  margin-top: -1px;
+}
+.pagination--is-disabled a,
+.pagination--is-disabled a:hover {
+  background-color: #efefef;
+  border-top: 1px solid #cccccc;
+  color: #cccccc;
+  cursor: default;
+}
+
+.pagination .icon {
+  vertical-align: baseline;
+}
+
+@media (max-width: 54em) {
+  .pagination > li.pagination__responsive-next {
+    width: 50%;
+    display: block;
+  }
+}
+.pagination > li.pagination__responsive-next a {
+  text-align: center;
+}
+.pagination > li.pagination__responsive-prev {
+  display: none;
+}
+@media (max-width: 54em) {
+  .pagination > li.pagination__responsive-prev {
+    border-left: 1px solid #c0c0c0;
+    width: 50%;
+    display: block;
+  }
+}
+.pagination > li.pagination__responsive-prev a {
+  text-align: center;
+}
+.pagination .selectric {
+  background: #ffffff;
+}
+.pagination .selectric .form__field__current-option {
+  display: block;
+  font-size: 1.14285714em;
+  line-height: 1.375em;
+  margin: 0em 2.5em 0em 1.25em;
+  overflow: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

@@ -29,7 +29,9 @@
             }
         </style>
     <![endif]-->
+
     <link rel="stylesheet" href="/etc/lxk-framework/css/lxk-framework.min.css" />
+    <link rel="stylesheet" href="/etc/styles/css/pagination.css" />
     <link rel="stylesheet" href="/etc/styles/css/angular-ui-grid-lxk-framework.css" />
     <link rel="stylesheet" href="//www.lexmark.com/common/common-mce/styles/css/utilities.css" />
     <link rel="stylesheet" href="/etc/styles/css/app.css" />

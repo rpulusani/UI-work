@@ -193,15 +193,31 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         },
                         prevPage: function(gridOptions){
                             if(this.currentPage && this.gotoPage && gridOptions !== undefined){
-                                if(this.currentPage() -1 >= 0){
+                                if(this.currentPage() - 1 >= 0){
                                     this.gotoPage(this.currentPage() - 1, gridOptions);
                                 }
                             }else{
                                  NREUM.noticeError('Pagination prevPage() has a function undefined!');
                             }
+                        },
+                        firstPage: function(gridOptions){
+                            if(this.currentPage && this.gotoPage && gridOptions !== undefined){
+                                if(this.currentPage() - 1 >= 0){
+                                    this.gotoPage(0, gridOptions);
+                                }
+                            }else{
+                                 NREUM.noticeError('Pagination firstPage() has a function undefined!');
+                            }
+                        },
+                        lastPage: function(gridOptions){
+                            if(this.currentPage && this.gotoPage && gridOptions !== undefined){
+                                if(this.currentPage() + 1 < this.totalPages()){
+                                    this.gotoPage(this.totalPages() - 1, gridOptions);
+                                }
+                            }else{
+                                 NREUM.noticeError('Pagination lastPage() has a function undefined!');
+                            }
                         }
-
-
                     };
                 }
             };
