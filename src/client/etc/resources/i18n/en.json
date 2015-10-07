@@ -189,7 +189,8 @@
         "SERVICE_REQUESTS": "Service requests",
         "ADDRESS_REQUESTS": "Address requests",
         "CONTACT_REQUESTS": "Contact requests",
-        "NEW_REQUEST": "New request"
+        "NEW_REQUEST": "New request",
+        "CREATE_NEW_SERVICE_REQUEST": "New support service request"
 
     },
 
