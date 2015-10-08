@@ -26,8 +26,22 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
                 function(options){
                     $scope.gridOptions = options;
                     $scope.pagination = GridService.pagination(DevicePicker, $rootScope);
-                    
-                    DevicePicker.resource($rootScope.currentAccount, 0).then(
+
+                    var params =[
+                        {
+                            name: 'accountIds',
+                            value: "'1-21AYVOT'"
+                        },
+                        {
+                            name: 'size',
+                            value: '20'
+                        },
+                        {
+                            page: 'page',
+                            value: 0
+                        }
+                    ];
+                    DevicePicker.resource(params).then(
                         function(response){
                             $scope.gridOptions.data = DevicePicker.getList();
                         }
