@@ -1,0 +1,58 @@
+<h1 translate="{{title}}"></h1>
+
+<h4 translate="{{contactSelectText}}"></h3>
+
+<div class="row">
+    <div class="col-1-3 well">
+        <div ng-show="isRowSelected()">
+            <dl class="row">
+                <dd class="col-1-2">{{selectedContact.firstName}} {{selectedContact.lastName}}</dd>
+                <dd class="col-1-2" ng-bind="selectedContact.email"></dd>
+                <dd class="col-1-2" ng-bind="selectedContact.workPhone"></dd>
+            </dl>
+        </div>
+        <div ng-hide="isRowSelected()">
+            <span translate="LABEL.NONE_SELECTED"></span>
+        </div>
+    </div>
+</div>
+
+<h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+translate="CONTACT.SEARCH_EXISTING_CONTACT" translate-values="{total: pagination.totalItems()}">
+</h2>
+
+<hr/>
+
+<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+
+<div grid-pagination pagination="pagination"></div>
+
+<div class="pagination">
+    <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+    ng-class="{'btn--is-disabled': pagination.canNotPrev()}"
+    ng-disabled="pagination.canNotPrev()"
+    ng-click="pagination.prevPage(gridOptions)">
+        <i class="icon icon--ui icon--left-arrow-dark"
+        ng-class="{'icon--left-arrow-dark': pagination.canNotPrev(), 'icon--left-arrow-primary': !pagination.canNotPrev() }"></i>
+    </button>
+ 
+    <button type="button" class="btn btn--default btn--small bg--n1-white-ttb page-number"
+    ng-click="pagination.gotoPage(pageNumber, gridOptions)"
+    ng-repeat="pageNumber in pagination.pageArray()"
+    ng-class="{'current': pagination.isCurrent(pageNumber)}">
+        <span>{{ pageNumber + 1 }}</span>
+    </button>
+
+    <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
+    ng-class="{'btn--is-disabled': pagination.canNotNext()}"
+    ng-disabled="pagination.canNotNext()"
+    ng-click="pagination.nextPage(gridOptions)">
+        <i class="icon icon--ui icon--right-arrow-primary"></i>
+    </button>
+</div>
+<div class="col-2-3"></div>
+<div class="col-1">
+    <button class="btn btn--secondary" translate="CONTACT.DISCARD_CONTACT_CHANGES" ng-click="isSingleSelected()"></button>
+    <button class="btn btn--primary" translate="CONTACT.CHANGE_CONTACT" 
+            ng-click="goToDeviceAdd()"></button>
+</div>

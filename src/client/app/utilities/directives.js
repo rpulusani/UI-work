@@ -21,6 +21,28 @@ define(['angular', 'utility'], function(angular) {
             templateUrl: '/app/utilities/templates/alerts.html',
         };
     })
+    .directive('pickContact', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                title: '@',
+                contactSelectText: '@',
+                returnPath: '@'
+            },
+            templateUrl: '/app/utilities/templates/pick-contact.html',
+            controller: 'ContactPickerController'
+        };
+    })
+    .directive('selectPageCount', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                module: '='
+            },
+            templateUrl: '/app/utilities/templates/select-page-count.html',
+            controller: 'PageCountSelectController'
+        };
+    })
     .directive('fileUpload', function(){
          return {
             restrict: 'A',

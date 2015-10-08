@@ -1,0 +1,26 @@
+<table class="table table--condensed table--even table--responsive" data-js="responsive-table">
+	<thead>
+        <tr>
+            <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
+            <th translate="DEVICE_MGT.PRIOR_COUNT"></th>
+            <th translate="DEVICE_MGT.PRIOR_DATE"></th>
+            <th translate="DEVICE_MGT.NEW_COUNT"></th>
+            <th translate="LABEL.DATE"></th>
+        </tr>
+    </thead>
+	<tbody>
+        <tr ng-repeat="pageCount in pageCountList | filter:(showLess || '') && filterByIds">
+            <td translate="{{pageCount.text}}"></td>
+            <td></td>
+            <td></td>
+            <td>
+            	<input type="text" name="newPageCount" ng-model="module.newCount[pageCount.id]"/>
+            </td>
+            <td>
+            	<input type="text" name="newDate" ng-model="currentDate"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<a href="" ng-show="showLess" ng-click="toggleDisplay()" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT">
+<a href="" ng-hide="showLess" ng-click="toggleDisplay()" translate="DEVICE_MGT.VIEW_LESS">
