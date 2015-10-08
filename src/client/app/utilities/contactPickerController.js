@@ -6,9 +6,8 @@ define(['angular', 'utility', 'contact.factory', 'ui.grid'], function(angular) {
             $rootScope.currentAccount = '1-74XV2R';
             $scope.selectedContact = [];
             $rootScope.currentRowList = [];
-            //console.log($rootScope.currentRowList[0].entity);
+           
             if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1) {
-                console.log($rootScope.currentRowList[0].entity);
                 $scope.selectedContact = $rootScope.currentRowList[0].entity;      
             }
 

@@ -1,4 +1,4 @@
-    define(['angular', 'utility', 'ui.grid'], function(angular) {
+define(['angular', 'utility', 'ui.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .factory('gridService', ['$q', '$timeout','uiGridConstants',  function($q, $timeout, uiGridConstants) {
@@ -29,7 +29,6 @@
 
             return {
                 getCurrentEntityId: function(row){
-
                     if(row && row.entity && row.entity.id){
                         return row.entity.id;
                     }else{
@@ -83,10 +82,7 @@
                                         columnDefs: columnArray['columnDefs'],
                                         gridCss: 'table'
                                     };
-                                    options.multiSelect = false;
-                                    //options.noUnselect = true;
                             });
-
                         $timeout(function(){
                             if(options !== undefined && options['columnDefs'] !== undefined && options['columnDefs'].length > 0){
                                 resolve(options);

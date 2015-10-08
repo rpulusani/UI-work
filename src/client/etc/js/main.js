@@ -1,4 +1,4 @@
-    requirejs.config({
+requirejs.config({
     baseUrl: '/',
     deps: [
         'lxk.fef',
