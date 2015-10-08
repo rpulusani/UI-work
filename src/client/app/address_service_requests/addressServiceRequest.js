@@ -43,7 +43,20 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/addresses/:id/review', {
                 templateUrl: '/app/address_service_requests/templates/review.html',
-                controller: 'AddressController'
+                controller: 'AddressController',
+                resolve: {
+                     translationPlaceHolder: function(){
+                        return {
+                            h1:'ADDRESS_SERVICE_REQUEST.CHANGE',
+                            paragraph: 'ADDRESS_SERVICE_REQUEST.UPDATE_PARAGRAPH',
+                            submit: 'LABEL.REVIEW_SUBMIT',
+                            cancel: 'ADDRESS_SERVICE_REQUEST.ABANDON'
+                        };
+                    },
+                    allowMakeChange: function(){
+                        return false;
+                    }
+                }
             })
             .when('/service_requests/addresses/:id/submitted', {
                 templateUrl: '/app/address_service_requests/templates/submitted.html',

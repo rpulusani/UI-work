@@ -5,7 +5,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
 
         describe('AddressListController', function(){
-            var scope, ctrl, location, history, mockedAddressesFactory;
+            var scope, ctrl, location, mockedAddressesFactory;
             beforeEach(function (){
                 mockedAddressesFactory = {
                     get: function(address, resolve) {
@@ -23,10 +23,9 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 });
             });
 
-            beforeEach(inject(function($rootScope, $controller, $location, History) {
+            beforeEach(inject(function($rootScope, $controller, $location) {
                 scope = $rootScope.$new();
                 location = $location;
-                history = History;
                 ctrl = $controller('AddressListController', {$scope: scope});
             }));
 
@@ -134,12 +133,11 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 module(function($provide) {
                     $provide.value('Addresses', mockedAddressesFactory);
                 });
-            });
 
-            beforeEach(inject(function($rootScope, $controller, $location, History) {
+
+            beforeEach(inject(function($rootScope, $controller, $location) {
                 scope = $rootScope.$new();
                 location = $location;
-                history = History;
                 ctrl = $controller('AddressController', {$scope: scope});
             }));
 
@@ -154,10 +152,10 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
             });
 
             describe('setStoreFrontName', function() {
-                it('should take to review page', function() {
+                it('should save store name', function() {
                     scope.address = {name: 'Test Name', id: 1, accountId: '1-74XV2R'};
 
-                    spyOn(scope, 'setStoreFrontName').and.callThrough();
+                   //spyOn(scope, 'setStoreFrontName').and.callThrough();
 
                     scope.setStoreFrontName();
 
@@ -182,13 +180,14 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 });
             });
         });
+    });
 
         describe('Routes', function(){
             it('should map routes to controllers', function() {
                 inject(function($route) {
                     expect($route.routes['/service_requests/addresses'].controller).toBe('AddressListController');
                     expect($route.routes['/service_requests/addresses'].templateUrl).toEqual('/app/address_service_requests/templates/view.html');
-                    expect($route.routes['/service_requests/addresses/new'].templateUrl).toEqual('/app/address_service_requests/templates/new.html');
+                    expect($route.routes['/service_requests/addresses/new'].templateUrl).toEqual('/app/address_service_requests/templates/new_update.html');
                 });
             });
         });
