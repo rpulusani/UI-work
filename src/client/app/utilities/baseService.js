@@ -119,8 +119,6 @@ define(['angular', 'utility'], function(angular) {
                 });
             };
 
-
-
             return new baseService();
     }]);
 });
