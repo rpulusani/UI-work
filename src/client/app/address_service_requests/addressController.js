@@ -2,10 +2,13 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressController', ['$scope', '$location', '$routeParams', 'gridService', 'Addresses',
-        '$rootScope', '$q',
-        function($scope, $location, $routeParams, GridService, Addresses, $rootScope, $q) {
+        '$rootScope', '$q', 'translationPlaceHolder', 'allowMakeChange',
+        function($scope, $location, $routeParams, GridService, Addresses, $rootScope, $q, translationPlaceHolder,
+         allowMakeChange) {
             $scope.continueForm = false;
             $scope.submitForm = false;
+            $scope.translationPlaceHolder = translationPlaceHolder;
+            $scope.allowMakeChange = allowMakeChange;
 
             if ($routeParams.id) { //doing work on a current address
                 var promise = Addresses.getSelfResource($routeParams.id);
