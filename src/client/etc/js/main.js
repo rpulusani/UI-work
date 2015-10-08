@@ -119,6 +119,8 @@
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
+        'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
+        'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',
         'utility.gridService': 'app/utilities/gridService',
         'utility.baseService': 'app/utilities/baseService',
         'utility.urlHelper': 'app/utilities/urlHelper',

@@ -12,11 +12,9 @@
 </div>
 <div class="row">
     <div class="col-2-3">
-    <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
-    <div class="col-1-3"></div>
-</div>
-<div class="row">
-    <div class="col-1-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
+    </div>
+    <div class="col-2-5">
         <div class="form__field" >
             <label translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></label>
              <div class="form__field form__field--radio form__field--no-margin">
@@ -29,7 +27,7 @@
                 <input type="radio" id="lexmark-device-question-yes" name="lexmark-device-question"
                 ng-model="device.lexmarkDeviceQuestion" value="true" data-js="customInput"/><label
                 for="lexmark-device-question-yes"><span></span>
-                {{ 'LABEL.YES' | translate }}</span></label>
+                {{ 'LABEL.YES' | translate }}</label>
             </div>
         </div>
         <div ng-hide="device.lexmarkDeviceQuestion === 'true'">
@@ -48,10 +46,10 @@
                 <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
             </div>
             <div>
-                <div class="form__field" >
+                <div class="form__field form__field--select" >
                     <label translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></label>
                     <div selectric model="device.productNumber" options="productNumbers" value="id" label="name"
-                                   placeholder="{{'LABEL.SELECT' | translate}}" class="col-1-3 label-wrapper-left">
+                        placeholder="{{'LABEL.SELECT' | translate}}">
                     </div>
                 </div>
             </div>
@@ -196,12 +194,12 @@
                 {{ 'LABEL.YES' | translate }}</label>
             </div>
             <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
-            <div class="col-2-3"></div>
             <div ng-show="device.deviceDeInstallQuestion === 'true'">
                 <div class="form__field">
                     <label translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE"></label>
                     
-                    <button name="selectDevice" class="btn btn--secondary" translate="DEVICE_SERVICE_REQUEST.BROWSE_DEVICE"
+                    <button ng-hide="isDeviceSelected()" name="selectDevice" class="btn btn--secondary" 
+                            translate="DEVICE_SERVICE_REQUEST.BROWSE_DEVICE"
                             ng-click="goToBrowse(device)"></button>
 
                     <div class="row">
@@ -221,10 +219,66 @@
                                 <span translate="LABEL.NONE_SELECTED"></span>
                             </div>
                         </div>
+                        <div class="col-2-3" ng-show="isDeviceSelected()">
+                            <button name="selectDevice" class="btn btn--secondary" 
+                                    translate="DEVICE_SERVICE_REQUEST.REMOVE_DIFFERENT_DEVICE"
+                                    ng-click="goToBrowse(device)">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
+    </div>
+    <div class="col-2-5">
+        <div class="form__field" >
+            <label translate="DEVICE_MGT.IP_ADDRESS"></label>
+            <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" />
+        </div>
+        <div class="form__field" >
+            <label translate="DEVICE_MGT.HOST_NAME"></label>
+            <input name="hostName" type="text" ng-model="device.hostName" value="" class="" />
+        </div>
+    </div>
+    <div class="col-1-3"></div>
+    <div class="col-1-3"></div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS"></h3>
+    </div>
+    <div class="col-2-3">
+        <div class="form__field" >
+             <div class="form__field form__field--radio form__field--no-margin">
+                <input type="radio" id="lexmark-page-count-question-no" name="lexmark-page-count-question"
+                ng-model="device.devicePageCountQuestion" value="false" data-js="customInput" checked/>
+                <label for="lexmark-page-count-question-no"><span></span>
+                    {{'LABEL.NO' | translate }}</label>
+            </div>
+             <div class="form__field form__field--radio form__field--no-margin">
+                <input type="radio" id="lexmark-page-count-question-yes" name="lexmark-page-count-question"
+                ng-model="device.devicePageCountQuestion" value="true" data-js="customInput"/><label
+                for="lexmark-page-count-question-yes"><span></span>
+                {{ 'LABEL.YES' | translate }}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <div ng-show="device.devicePageCountQuestion === 'true'">
+            <div class="form__field" >
+                <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
+                <div select-page-count module="device"></div>
+            </div>
+        </div>
+        <div class="col-1-3"></div>
+        <div class="col-1-3"></div>
     </div>
 </div>
 <div class="row">
@@ -257,46 +311,36 @@
             </div>
         </div>
     </div>
-    <div ng-show="device.deviceCHLQuestion === 'true'">
-        <div class="form__field" >
-            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></label>
-            <input name="deviceInstallDate" type="text" ng-model="device.deviceInstallDate" value="" class="" />
+    <div class="row" ng-show="device.deviceCHLQuestion === 'true'">
+        <div class="col-3-5">
+            <div class="form__field" >
+                <label translate="ACCOUNT.ORG_STRUCT"></label>
+                <div tree class="well"></div>
+            </div>
         </div>
     </div>
-    <div class="col-2-5">
-        <div class="form__field" >
-            <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
-            <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class="" />
+    <div class="row">
+        <div class="col-2-5">
+            <div class="form__field" >
+                <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
+                <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class="" />
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-2-3">
-        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACTS"></h3>
-    </div>
-    <div class="col-2-5">
-        <button name="selectDevice" class="btn btn--secondary" translate="CONTACT.SELECT_CONTACT"
-                ng-click="goToContactPicker(device)"></button>
-        <div class="col-2-3"></div>
-        <div class="form__field">
-            <table class="table table--condensed table--even table--responsive text--small" data-js="responsive-table">
-                <thead>
-                    <tr>
-                        <th translate="CONTACT.FIRST_NAME"></th>
-                        <th translate="CONTACT.LAST_NAME"></th>
-                        <th translate="CONTACT.EMAIL"></th>
-                        <th translate="LABEL.PHONE"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td ng-bind="device.selectedContact.firstName"></td>
-                        <td ng-bind="device.selectedContact.lastName"></td>
-                        <td ng-bind="device.selectedContact.email"></td>
-                        <td ng-bind="device.selectedContact.workPhone"></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-2-3">
+            <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
+        </div>
+        <div class="row">
+            <div class="col-1-3">
+                <strong><label translate="LABEL.PRIMARY_CONTACT"></label></strong>
+                <dl class="row well">
+                    <dd class="col-1-2">{{device.selectedContact.firstName}} {{device.selectedContact.lastName}}</dd>
+                    <dd class="col-1-2" ng-bind="device.selectedContact.email"></dd>
+                    <dd class="col-1-2" ng-bind="device.selectedContact.workPhone"></dd>
+                </dl>
+                <a href="" translate="ADDRESS.CONTACT_CHANGE"   ng-click="goToContactPicker(device)"></a>
+            </div>
         </div>
     </div>
 </div>

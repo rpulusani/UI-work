@@ -33,6 +33,16 @@ define(['angular', 'utility'], function(angular) {
             controller: 'ContactPickerController'
         };
     })
+    .directive('selectPageCount', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                module: '='
+            },
+            templateUrl: '/app/utilities/templates/select-page-count.html',
+            controller: 'PageCountSelectController'
+        };
+    })
     .directive('fileUpload', function(){
          return {
             restrict: 'A',

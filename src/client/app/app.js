@@ -47,6 +47,8 @@ define([
     'utility.directives',
     'utility.controller',
     'utility.contactPickerController',
+    'utility.pageCountSelectController',
+    'utility.pageCountSelectService',
     'utility.baseService',
     'utility.recursionHelper',
     'utility.gridService',

@@ -73,7 +73,11 @@
         "DEVICE_BILLING_TRACKING": "Device billing and tracking",
         "DEVICE_COST_CENTER": "Device Cost Center",
         "DEVICE_CHL_QUESTION": "Would you like to track this device in your organizational structure?",
-        "DEVICE_CONTACTS": "Device Contacts"
+        "DEVICE_CONTACT": "Device Contact",
+        "DEVICE_PAGE_COUNTS": "Device Page Counts",
+        "DEVICE_PAGE_COUNT_INSTRUCTION": "Please enter the device page counts",
+        "DEVICE_NETWORK_CONFIGURATION": "Device network configuration",
+        "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE"
     },
 
     "ADDRESS": {
