@@ -119,66 +119,46 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                             var array = [],
                             props = this.pageProps();
 
-/*
-    0 [0,1,2,3,4]
-    1 [0,1,2,3,4]
-    2 [0,1,2,3,4]
-    3 [1,2,3,4,5]
-    4 [2,3,4,5,6]
-    5 [3,4,5,6,7]
-    6 [4,5,6,7,8]
-    7 [5,6,7,8,9]
-    8 [5,6,7,8,9]
-    9 [5,6,7,8,9]
-*/
-
                             for(var i = props.page; i < props.length; ++i){
                                 array.push(i);
                             }
                             return array;
                         },
                         totalItems: function(){
-                            if(service && service.page && service.page.totalElements){
+                            if(service && service.page && service.page.totalElements !== null &&
+                                !isNaN(service.page.totalElements)){
                                 return service.page.totalElements;
                             }else{
                                 return -1;
                             }
                         },
                         pageSize: function(){
-                            if(service && service.page && !isNaN(service.page.size)){
+                            if(service && service.page && service.page.size  !== null && !isNaN(service.page.size)){
                                return service.page.size;
                             }else{
                                 return -1;
                             }
                         },
                         totalPages: function(){
-                            if(service && service.page && !isNaN(service.page.totalPages)){
+                            if(service && service.page && service.page.totalPages !== null && !isNaN(service.page.totalPages)){
                                return service.page.totalPages;
                             }else{
                                 return -1;
                             }
                         },
-                        elipseCheck: function(){
-                            var total = this.totalPages();
-                            if(total != -1){
-                               return total > 5 && this.currentPage() + 6 < total;
-                            }else{
-                                return false;
-                            }
-                        },
-                        totalPagesCheck: function(){
-                            var total = this.totalPages();
-                            if(total != -1){
-                               return total > 5 && this.currentPage() + 6 < total;
-                            }else{
-                                return false;
-                            }
-                        },
-                        currentPage: function(){
-                            if(service && service.page && !isNaN(service.page.number)){
+                       currentPage: function(){
+                            if(service && service.page && service.page.number !== null && !isNaN(service.page.number)){
                                 return service.page.number;
                             }else{
                                 return -1;
+                            }
+                        },
+                        showTotal: function(){
+                            var total = this.totalPages();
+                            if(total != -1){
+                               return total > 5 && this.currentPage() + 3 < total;
+                            }else{
+                                return false;
                             }
                         },
                         isCurrent: function(page){

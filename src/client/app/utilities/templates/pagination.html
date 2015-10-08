@@ -22,11 +22,11 @@
      class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pageNumber)}">
       <a href="#" ng-click="pagination.gotoPage(pageNumber, gridOptions)">{{ pageNumber + 1 }}</a>
       </li>
-      <li ng-show="pagination.elipseCheck()"
+      <li ng-show="pagination.showTotal()"
         class="pagination__btn">
           <span>...</span>
       </li>
-      <li ng-if="pagination.totalPagesCheck()"
+      <li ng-if="pagination.showTotal()"
      class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pagination.totalPages() - 1)}">
       <a href="#" ng-click="pagination.gotoPage(pagination.totalPages() - 1, gridOptions)">{{ pagination.totalPages() }}</a>
       </li>
