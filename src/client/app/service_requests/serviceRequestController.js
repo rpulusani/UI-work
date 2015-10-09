@@ -4,10 +4,11 @@ define(['angular', 'serviceRequest', 'utility.gridService','serviceRequest.servi
     .controller('ServiceRequestController', ['$scope', '$location', 'gridService', 'ServiceRequestService', '$rootScope',
         function($scope, $location, gridService, ServiceRequestService, $rootScope) {
 
-            $scope.newServiceRequest = function() {
-                $location.path('/service_requests/requests/new');
+            $scope.serviceRequestOverview = function() {
+                $location.path('/service_requests/requests/overview');
             };
 
+           // $scope.serviceRequest
         }
     ]);
 });
