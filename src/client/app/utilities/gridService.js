@@ -190,7 +190,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         },
                         onChangeItemsCount: function(option, gridOptions){
                             service.setPersonalizedConfiguration('itemsPerPage', option['items']);
-                            this.gotoPage(this.currentPage(), gridOptions);
+                            this.gotoPage(0, gridOptions);
                         },
                         gotoPage: function(pageNumber, gridOptions){
                             var params =[
