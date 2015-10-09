@@ -94,40 +94,75 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 pagination: function(service, rootScope){
                     return {
+                        pageProps: function(){
+                            var total =  this.totalPages(),
+                            length = 5;
+                            var props = {
+                                page: this.currentPage(),
+                                length: 5
+                            };
+                            if(props.page < 3){
+                                    props.page  = 0;
+                            }else if( props.page >= 3 && props.page + 5 <= total){
+                                    props.page = props.page - 2;
+                                    props.length = props.page + 5;
+                            }else if(props.page + 5 - total === 1 && props.page >= 3  ){
+                                props.page = props.page - 2;
+                                props.length = props.page + 5;
+                            }else if(props.page + 5 > total){
+                                    props.page = total - 5;
+                                    props.length = total;
+                            }
+                            return props;
+                        },
                         pageArray: function(){
                             var array = [],
-                            length = this.totalPages();
-                            for(var i = 0; i < length; ++i){
+                            props = this.pageProps();
+
+                            for(var i = props.page; i < props.length; ++i){
                                 array.push(i);
                             }
                             return array;
                         },
+                        itemsPerPageArray: function(){
+
+                            return service.getItemsPerPage();
+                        },
                         totalItems: function(){
-                            if(service && service.page && service.page.totalElements){
+                            if(service && service.page && service.page.totalElements !== null &&
+                                !isNaN(service.page.totalElements)){
                                 return service.page.totalElements;
                             }else{
                                 return -1;
                             }
                         },
                         pageSize: function(){
-                            if(service && service.page && !isNaN(service.page.size)){
+                            if(service && service.page && service.page.size  !== null && !isNaN(service.page.size)){
                                return service.page.size;
                             }else{
                                 return -1;
                             }
                         },
                         totalPages: function(){
-                            if(service && service.page && !isNaN(service.page.totalPages)){
+                            if(service && service.page && service.page.totalPages !== null && !isNaN(service.page.totalPages)){
                                return service.page.totalPages;
                             }else{
                                 return -1;
                             }
                         },
-                        currentPage: function(){
-                            if(service && service.page && !isNaN(service.page.number)){
+                       currentPage: function(){
+                            if(service && service.page && service.page.number !== null && !isNaN(service.page.number)){
                                 return service.page.number;
                             }else{
                                 return -1;
+                            }
+                        },
+                        showTotal: function(){
+                            var total = this.totalPages();
+                            if(total != -1){
+                               return total > 5 && this.currentPage() + 4 < total;
+                            }else{
+                                return false;
                             }
                         },
                         isCurrent: function(page){
@@ -153,20 +188,20 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                 return false;
                             }
                         },
+                        onChangeItemsCount: function(option, gridOptions){
+                            service.setPersonalizedConfiguration('itemsPerPage', option['items']);
+                            this.gotoPage(0, gridOptions);
+                        },
                         gotoPage: function(pageNumber, gridOptions){
                             var params =[
                                 {
                                     name: 'size',
-                                    value: '20'
+                                    value:  service.getPersonalizedConfiguration('itemsPerPage')
                                 },
                                 {
                                     name: 'page',
                                     value: pageNumber
-                                }/*,
-                                {
-                                    name: 'accountId',
-                                    value: rootScope.currentAccount
-                                }*/
+                                }
                             ];
                             service.resource(params).then(
                                 function(response){
@@ -193,15 +228,31 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         },
                         prevPage: function(gridOptions){
                             if(this.currentPage && this.gotoPage && gridOptions !== undefined){
-                                if(this.currentPage() -1 >= 0){
+                                if(this.currentPage() - 1 >= 0){
                                     this.gotoPage(this.currentPage() - 1, gridOptions);
                                 }
                             }else{
                                  NREUM.noticeError('Pagination prevPage() has a function undefined!');
                             }
+                        },
+                        firstPage: function(gridOptions){
+                            if(this.currentPage && this.gotoPage && gridOptions !== undefined){
+                                if(this.currentPage() - 1 >= 0){
+                                    this.gotoPage(0, gridOptions);
+                                }
+                            }else{
+                                 NREUM.noticeError('Pagination firstPage() has a function undefined!');
+                            }
+                        },
+                        lastPage: function(gridOptions){
+                            if(this.currentPage && this.gotoPage && gridOptions !== undefined){
+                                if(this.currentPage() + 1 < this.totalPages()){
+                                    this.gotoPage(this.totalPages() - 1, gridOptions);
+                                }
+                            }else{
+                                 NREUM.noticeError('Pagination lastPage() has a function undefined!');
+                            }
                         }
-
-
                     };
                 }
             };

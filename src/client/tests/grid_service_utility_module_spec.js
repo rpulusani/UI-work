@@ -76,12 +76,183 @@ define(['angular','angular-mocks', 'utility.gridService'], function(angular, moc
             });
         });
         describe('Pagination', function() {
+            describe('pageProps', function(){
+                it('should show a length of 5 and a page of 0 with a current page of 0', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 0;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 0, length: 5});
+                });
+                it('should show a length of 5 and a page of 0 with a current page of 1', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 1;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 0, length: 5});
+                });
+                it('should show a length of 5 and a page of 0 with a current page of 2', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 2;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 0, length: 5});
+                });
+                it('should show a length of 6 and a page of 1 with a current page of 3', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 3;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 1, length: 6});
+                });
+                it('should show a length of 7 and a page of 2 with a current page of 4', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 4;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 2, length: 7});
+                });
+                it('should show a length of 8 and a page of 3 with a current page of 5', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 5;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 3, length: 8});
+                });
+                it('should show a length of 9 and a page of 4 with a current page of 6', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 6;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 4, length: 9});
+                });
+                it('should show a length of 10 and a page of 5 with a current page of 7', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 7;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 5, length: 10});
+                });
+               it('should show a length of 10 and a page of 5 with a current page of 8', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 8;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 5, length: 10});
+                });
+               it('should show a length of 10 and a page of 5 with a current page of 9', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 9;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 5, length: 10});
+                });
+            });
+
              describe('pageArray', function() {
+                it('should have show only the first 5 pages', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 0;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([0,1,2,3,4]);
+                });
+                it('should have show only the first 5 pages', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 1;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([0,1,2,3,4]);
+                });
+                it('should show current page 2 to be in the center of array', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 2;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([0,1,2,3,4]);
+                });
+                it('should show current page 3 to be in the center of array', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 3;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([1,2,3,4,5]);
+                });
+                it('should show current page 4 to be in the center of array', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 4;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([2,3,4,5,6]);
+                });
+                it('should show current page 5 to be in the center of array', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 5;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([3,4,5,6,7]);
+                });
+                it('should show current page 6 to be in the center of array', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 6;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([4,5,6,7,8]);
+                });
+                it('should show current page 7 to be in the center of array', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 7;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([5,6,7,8,9]);
+                });
+                it('should show the last 5 pages', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 8;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([5,6,7,8,9]);
+                });
+                it('should show the last 5 pages', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 10;
+                    mock.page.number = 9;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageArray()).toEqual([5,6,7,8,9]);
+                });
              });
              describe('totalItems', function() {
                 it('should have no items', function(){
+                    var pagination = gridService.pagination(null, scope);
+                    expect(pagination.totalItems()).toEqual(-1);
+                });
+                it('should have no items', function(){
                     var mock = angular.copy(mockedAddressesFactory);
-                    mock.page.totalElements = 0;
+                    mock.page = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalItems()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalItems()).toEqual(-1);
+                });
+                 it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalElements = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalItems()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalElements = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalItems()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalElements = 'a';
                     var pagination = gridService.pagination(mock, scope);
                     expect(pagination.totalItems()).toEqual(-1);
                 });
@@ -93,8 +264,36 @@ define(['angular','angular-mocks', 'utility.gridService'], function(angular, moc
              });
              describe('pageSize', function() {
                 it('should have no items', function(){
+                    var pagination = gridService.pagination(null, scope);
+                    expect(pagination.pageSize()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageSize()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageSize()).toEqual(-1);
+                });
+                 it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.size = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageSize()).toEqual(-1);
+                });
+                it('should have no items', function(){
                     var mock = angular.copy(mockedAddressesFactory);
                     mock.page.size = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageSize()).toEqual(-1);
+                });
+             it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.size = 'a';
                     var pagination = gridService.pagination(mock, scope);
                     expect(pagination.pageSize()).toEqual(-1);
                 });
@@ -106,8 +305,36 @@ define(['angular','angular-mocks', 'utility.gridService'], function(angular, moc
              });
              describe('totalPages', function() {
                 it('should have no items', function(){
+                    var pagination = gridService.pagination(null, scope);
+                    expect(pagination.totalPages()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalPages()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalPages()).toEqual(-1);
+                });
+                 it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalPages()).toEqual(-1);
+                });
+                it('should have no items', function(){
                     var mock = angular.copy(mockedAddressesFactory);
                     mock.page.totalPages = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.totalPages()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 'a';
                     var pagination = gridService.pagination(mock, scope);
                     expect(pagination.totalPages()).toEqual(-1);
                 });
@@ -119,8 +346,36 @@ define(['angular','angular-mocks', 'utility.gridService'], function(angular, moc
              });
              describe('currentPage', function() {
                 it('should have no items', function(){
+                    var pagination = gridService.pagination(null, scope);
+                    expect(pagination.currentPage()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.currentPage()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.currentPage()).toEqual(-1);
+                });
+                 it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.number = null;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.currentPage()).toEqual(-1);
+                });
+                it('should have no items', function(){
                     var mock = angular.copy(mockedAddressesFactory);
                     mock.page.number = undefined;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.currentPage()).toEqual(-1);
+                });
+                it('should have no items', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.number = 'a';
                     var pagination = gridService.pagination(mock, scope);
                     expect(pagination.currentPage()).toEqual(-1);
                 });
@@ -130,6 +385,50 @@ define(['angular','angular-mocks', 'utility.gridService'], function(angular, moc
                     expect(pagination.currentPage()).toEqual(0);
                 });
              });
+            describe('showTotal', function(){
+                it('should return true when total pages is greater than 5 and current page is 0', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 22;
+                    mock.page.number = 0;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.showTotal()).toEqual(true);
+                });
+                it('should return true when total pages is greater than 5 and current page is 13', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 22;
+                    mock.page.number = 13;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.showTotal()).toEqual(true);
+                });
+                it('should return true when total pages is greater than 5 and current page is 17', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 22;
+                    mock.page.number = 17;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.showTotal()).toEqual(true);
+                });
+                it('should return true when total pages is greater than 5 and current page is 19', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 22;
+                    mock.page.number = 19;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.showTotal()).toEqual(false);
+                });
+                it('should return true when total pages is greater than 5 and current page is 20', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 22;
+                    mock.page.number = 20;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.showTotal()).toEqual(false);
+                });
+                it('should return true when total pages is greater than 5 and current page is 22', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 22;
+                    mock.page.number = 22;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.showTotal()).toEqual(false);
+                });
+            });
              describe('isCurrent', function() {
                 it('should have matching pages numbers', function(){
                     var pagination = gridService.pagination(mockedAddressesFactory, scope);
