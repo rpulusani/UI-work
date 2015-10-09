@@ -6,7 +6,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             $rootScope.currentAccount = '1-21AYVOT';
             
             $scope.goToCreate = function() {
-                $location.path('/service_requests/addresses/new');
+                $location.path('/service_requests/devices/new');
             };
 
             $scope.gridOptions = {};

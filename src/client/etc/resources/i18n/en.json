@@ -18,7 +18,11 @@
         "ADDRESS_REQUESTED": "Address requested",
         "WOULD_YOU_LIKE": "Would you like to ",
         "ADD_ANOTHER_ADDRESS": "add another address",
-        "DETAILS_TITLE":"Details for Address Request Number: {{refId}}"
+        "DETAILS_TITLE":"Details for Address Request Number: {{refId}}",
+        "ADD_PARAGRAPH":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
+        "DELETE_PARAGRAPH":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
+        "UPDATE_PARAGRAPH":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
+        "DELETE_SUBMIT": "Submit Delete Address Request"
     },
 
     "SERVICE_REQUEST": {
@@ -49,6 +53,35 @@
         "ADD": "Add New Contact",
         "UPDATE": "Update Contact",
         "DELETE": "Delete Contact"
+    },
+
+    "DEVICE_SERVICE_REQUEST": {
+        "ADD": "Add a Device",
+        "ABANDON": "Abandon Device Request",
+        "DEVICE_SELECTION": "Device Selection",
+        "LEXMARK_DEVICE_QUESTION": "Is this a Lexmark device?",
+        "PRODUCT_NUMBER": "Product Number",
+        "DEVICE_INSTALLATION": "Device Installation",
+        "DEVICE_INSTALLTION_QUESTION": "Do you require Lexmark to install this device?",
+        "DEVICE_INSTALL_DATE_QUESTION": "When was the device installed?",
+        "OLD_DEVICE_INSTALL_LOCATION": "Where is the device installed?",
+        "NEW_DEVICE_INSTALL_LOCATION": "Where would you like the device installed?",
+        "DEVICE_DEINSTALLTION_QUESTION": "Will this installation require Lexmark to remove an existing device from this location?",
+        "DEINSTALL_NOTE": "Note: If you would like to remove a device from another location, please submit a separate removal request",
+        "SELECT_DEVICE": "Please select the device that will be removed from this location",
+        "BROWSE_DEVICE": "BROWSE DEVICES AT THIS LOCATION",
+        "SELECT_DEVICE_DEINSTALL": "Select Device to DeInstall",
+        "EXISTING_DEVICE_LIST": "Existing Device List ({{total}})",
+        "DISCARD_DEVICE_SELECTION": "Discard Device Selection",
+        "SELECTED_DEVICE_IS": "Selected Device is...",
+        "DEVICE_BILLING_TRACKING": "Device billing and tracking",
+        "DEVICE_COST_CENTER": "Device Cost Center",
+        "DEVICE_CHL_QUESTION": "Would you like to track this device in your organizational structure?",
+        "DEVICE_CONTACT": "Device Contact",
+        "DEVICE_PAGE_COUNTS": "Device Page Counts",
+        "DEVICE_PAGE_COUNT_INSTRUCTION": "Please enter the device page counts",
+        "DEVICE_NETWORK_CONFIGURATION": "Device network configuration",
+        "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE"
     },
 
     "ADDRESS": {
@@ -96,7 +129,12 @@
         "LAST_NAME": "Last Name",
         "WORK_PHONE": "Work Phone",
         "ALT_PHONE": "Alternate Phone",
-        "EMAIL": "Email Address"
+        "EMAIL": "Email Address",
+        "SELECT_CONTACT": "Select a Contact",
+        "SELECTED_CONTACT_IS": "Selected Contact is...",
+        "SEARCH_EXISTING_CONTACT": "Search existing contacts ({{total}})...",
+        "DISCARD_CONTACT_CHANGES": "Discard Contact Changes",
+        "CHANGE_CONTACT": "Change Contact"
     },
 
     "DEVICE_MGMT_REQUEST": {
@@ -109,7 +147,7 @@
 
     "DEVICE_MGT": {
         "TITLE": "Devices",
-        "TITLE_CNT": "Devices ({{total}})",
+        "TITLE_CNT": "Device Listing ({{total}})",
         "DEVICE_INFO": "Device Information",
         "PRODUCT_MODEL": "Product Model",
         "SERIAL_NO": "Serial Number",
@@ -137,7 +175,11 @@
         "REQUEST_SERVICE": "REQUEST SERVICE",
         "ORDER_SUPPLIES": "ORDER SUPPLIES",
         "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
-        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE"
+        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE",
+        "ADD": "ADD AN EXISTING DEVICE",
+        "IMPORT": "IMPORT DEVICES",
+        "ORDER_NEW": "ORDER NEW DEVICE",
+        "MANAGE_PAGE_COUNTS": "MANAGE PAGE COUNTS"
     },
 
     "ORDER_MGT": {
@@ -291,6 +333,7 @@
         "STATUS": "Status",
         "NONE_SELECTED": "None selected",
         "NO": "No",
+        "YES": "Yes",
         "LOCATION": "Location",
         "NETWORK_CONFIG": "Network Configuration",
         "PRIMARY_CONTACT": "Primary Contact",

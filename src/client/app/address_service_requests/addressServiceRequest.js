@@ -8,28 +8,93 @@ define(['angular'], function(angular) {
                 controller: 'AddressListController'
             })
             .when('/service_requests/addresses/:id/delete', {
-                templateUrl: '/app/address_service_requests/templates/delete.html',
-                controller: 'AddressController'
+                templateUrl: '/app/address_service_requests/templates/review.html',
+                controller: 'AddressController',
+                resolve: {
+                     translationPlaceHolder: function(){
+                        return {
+                            h1:'ADDRESS_SERVICE_REQUEST.DELETE',
+                            paragraph: 'ADDRESS_SERVICE_REQUEST.DELETE_PARAGRAPH',
+                            submit: 'ADDRESS_SERVICE_REQUEST.DELETE_SUBMIT',
+                            cancel: 'ADDRESS_SERVICE_REQUEST.ABANDON'
+                        };
+                    },
+                    allowMakeChange: function(){
+                        return false;
+                    }
+                }
             })
             .when('/service_requests/addresses/new', {
-                templateUrl: '/app/address_service_requests/templates/new.html',
-                controller: 'AddressController'
+                templateUrl: '/app/address_service_requests/templates/new_update.html',
+                controller: 'AddressController',
+                 resolve: {
+                    translationPlaceHolder: function(){
+                        return {
+                            h1:'ADDRESS_SERVICE_REQUEST.ADD',
+                            paragraph: 'ADDRESS_SERVICE_REQUEST.ADD_PARAGRAPH',
+                            submit: 'LABEL.REVIEW_SUBMIT',
+                            cancel: 'ADDRESS_SERVICE_REQUEST.ABANDON'
+                        };
+                    },
+                    allowMakeChange: function(){
+                        return false;
+                    }
+                }
             })
             .when('/service_requests/addresses/:id/review', {
                 templateUrl: '/app/address_service_requests/templates/review.html',
-                controller: 'AddressController'
+                controller: 'AddressController',
+                resolve: {
+                     translationPlaceHolder: function(){
+                        return {
+                            h1:'ADDRESS_SERVICE_REQUEST.CHANGE',
+                            paragraph: 'ADDRESS_SERVICE_REQUEST.UPDATE_PARAGRAPH',
+                            submit: 'LABEL.REVIEW_SUBMIT',
+                            cancel: 'ADDRESS_SERVICE_REQUEST.ABANDON'
+                        };
+                    },
+                    allowMakeChange: function(){
+                        return false;
+                    }
+                }
             })
-                    .when('/service_requests/addresses/:id/submitted', {
+            .when('/service_requests/addresses/:id/submitted', {
                 templateUrl: '/app/address_service_requests/templates/submitted.html',
                 controller: 'AddressController'
             })
             .when('/service_requests/addresses/:id/update', {
-                templateUrl: '/app/address_service_requests/templates/update.html',
-                controller: 'AddressController'
+                templateUrl: '/app/address_service_requests/templates/new_update.html',
+                controller: 'AddressController',
+                 resolve: {
+                    translationPlaceHolder: function(){
+                        return {
+                            h1:'ADDRESS_SERVICE_REQUEST.UPDATE',
+                            paragraph: 'ADDRESS_SERVICE_REQUEST.UPDATE_PARAGRAPH',
+                            submit: 'LABEL.REVIEW_SUBMIT',
+                            cancel: 'ADDRESS_SERVICE_REQUEST.ABANDON'
+                        };
+                    },
+                    allowMakeChange: function(){
+                        return false;
+                    }
+                }
             })
             .when('/service_requests/addresses/:id/verify', {
                 templateUrl: '/app/address_service_requests/templates/address-bod.html',
-                controller: 'AddressController'
+                controller: 'AddressController',
+                 resolve: {
+                    translationPlaceHolder: function(){
+                        return {
+                            h1:'ADDRESS_SERVICE_REQUEST.ADD',
+                            paragraph: 'ADDRESS_SERVICE_REQUEST.ADD_PARAGRAPH',
+                            submit: 'LABEL.REVIEW_SUBMIT',
+                            cancel: 'ADDRESS_SERVICE_REQUEST.ABANDON'
+                        };
+                    },
+                    allowMakeChange: function(){
+                        return true;
+                    }
+                }
             });
         }
     ]);
