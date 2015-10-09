@@ -1,18 +1,19 @@
-define(['angular', 'utility.baseService'], function(angular) {
+define(['angular', 'utility.personalizationService'], function(angular) {
+    'use strict';
     angular.module('mps.utility')
-    .factory('gridCustomizationService', [ '$translate','$http','SpringDataRestAdapter', 'baseService',
-        function($translate, $http, SpringDataRestAdapter, baseService) {
-            var gridCustomizationService = function(){
+    .factory('gridCustomizationService', [ '$translate','$http','SpringDataRestAdapter', 'personalizationService',
+        function($translate, $http, SpringDataRestAdapter, personalizationService) {
+            var GridCustomizationService = function(){
                 this.columns =  { defaultSet:[] };
             };
-            gridCustomizationService.prototype = baseService;
+            GridCustomizationService.prototype = personalizationService;
 
-            gridCustomizationService.prototype.setupBookmarkColumn = function(columns){
+            GridCustomizationService.prototype.setupBookmarkColumn = function(columns){
                 columns['bookmarkColumn'] = 'getBookMark()';
                 return columns;
             };
 
-            gridCustomizationService.prototype.getColumnDefinition = function(type){
+            GridCustomizationService.prototype.getColumnDefinition = function(type){
                 return this.columns;
             };
 
@@ -27,7 +28,7 @@ define(['angular', 'utility.baseService'], function(angular) {
                     }
                 ];
             */
-            gridCustomizationService.prototype.setFunctions = function(functionArray){
+            GridCustomizationService.prototype.setFunctions = function(functionArray){
                 var data = Angular.copy(this.getList());
                  for(var i = 0; i < data.length; ++i){
                     for(var j = 0; i < functionArray.length; ++j){
@@ -38,6 +39,6 @@ define(['angular', 'utility.baseService'], function(angular) {
             };
 
 
-            return new gridCustomizationService();
+            return new GridCustomizationService();
     }]);
 });

@@ -1,48 +1,57 @@
 define(['angular', 'utility'], function(angular) {
+    'use strict';
     angular.module('mps.utility')
     .factory('baseService', [ 'serviceUrl', '$translate','$http','SpringDataRestAdapter',
         function(serviceUrl, $translate, $http, SpringDataRestAdapter) {
-            var baseService = function init(){
+            var BaseService = function init(){
                 this.singleItem = {};
                 this.list = [];
                 this.page = {};
+                this.itemsListArray = [{items: 20},{items:40},{items:60},{items:80},{items:100}];
                 this.templatedUrl = '';
             };
 
-            baseService.prototype.getBindingServiceName = function(){
+
+            BaseService.prototype.getBindingServiceName = function(){
                 return this.bindingServiceName;
             };
-            baseService.prototype.setTemplatedParams = function(url){
+            BaseService.prototype.setTemplatedParams = function(url){
                 if(url.indexOf('{') !== -1){
                     this.paramNames = url.replace(/.*{[?]/,'').replace('}', '').split(',');
                 }
             };
-            baseService.prototype.getServiceUrl = function(){
-                baseService.prototype.setServiceUrl(this.templatedUrl);
+
+
+            BaseService.prototype.getItemsPerPage = function(){
+                return this.itemsListArray;
+            };
+
+            BaseService.prototype.getServiceUrl = function(){
+                BaseService.prototype.setServiceUrl(this.templatedUrl);
                 return this.resourceUrl;
             };
-            baseService.prototype.setServiceUrl = function(url){
+            BaseService.prototype.setServiceUrl = function(url){
                 this.setTemplatedParams(url);
                 this.resourceUrl = url.replace(/{.*}/,'');
             };
 
             //returns a promise
-            baseService.prototype.getCurrent = function(){
+            BaseService.prototype.getCurrent = function(){
                 return this.singleItem;
             };
             //returns a promise
-            baseService.prototype.getList = function(){
+            BaseService.prototype.getList = function(){
                 return this.list;
             };
 
-            baseService.prototype.setList = function(mylist){
+            BaseService.prototype.setList = function(mylist){
                 this.list = mylist;
             };
 
-            baseService.prototype.setCurrent = function(item){
+            BaseService.prototype.setCurrent = function(item){
                 this.singleItem = item;
             };
-            baseService.prototype.getSelfResource = function(id){
+            BaseService.prototype.getSelfResource = function(id){
                 var list = this.getList();
                 for(var i = 0; i < list.length; ++i){
                     if(list[i].id === id){
@@ -53,7 +62,7 @@ define(['angular', 'utility'], function(angular) {
                 }
                 return this.getCurrent();
             };
-            baseService.prototype.setSelected = function(urlIdentifier){
+            BaseService.prototype.setSelected = function(urlIdentifier){
                 var list = this.getList();
 
                 for(var i = 0; i < list.length; ++i){
@@ -63,19 +72,19 @@ define(['angular', 'utility'], function(angular) {
                 }
             };
 
-            baseService.prototype.getPage = function(){
+            BaseService.prototype.getPage = function(){
                 return this.page;
             };
 
-            baseService.prototype.setPage = function(page){
+            BaseService.prototype.setPage = function(page){
                 this.page = page;
             };
 
-            baseService.prototype.setParamsList = function(arrayParamNames){
+            BaseService.prototype.setParamsList = function(arrayParamNames){
                 this.paramNames = arrayParamNames;
             };
 
-            baseService.prototype.getParamsList = function(){
+            BaseService.prototype.getParamsList = function(){
                 return this.paramNames;
             };
             /*
@@ -87,7 +96,7 @@ define(['angular', 'utility'], function(angular) {
                         }
                     ]
             */
-            baseService.prototype.buildURI = function(params){
+            BaseService.prototype.buildURI = function(params){
                 var currentUrl =  angular.copy(this.getServiceUrl());
                 if(currentUrl && params && params.length && params.length > 0){
                     for(var i = 0; i < params.length; ++i){
@@ -104,7 +113,7 @@ define(['angular', 'utility'], function(angular) {
                 return currentUrl;
             };
 
-            baseService.prototype.resource = function(params){
+            BaseService.prototype.resource = function(params){
                 var service  = this;
                 var url = service.buildURI(params);
 
@@ -121,6 +130,6 @@ define(['angular', 'utility'], function(angular) {
 
 
 
-            return new baseService();
+            return new BaseService();
     }]);
 });

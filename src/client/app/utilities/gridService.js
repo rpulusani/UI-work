@@ -124,6 +124,10 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                             }
                             return array;
                         },
+                        itemsPerPageArray: function(){
+
+                            return service.getItemsPerPage();
+                        },
                         totalItems: function(){
                             if(service && service.page && service.page.totalElements !== null &&
                                 !isNaN(service.page.totalElements)){
@@ -156,7 +160,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         showTotal: function(){
                             var total = this.totalPages();
                             if(total != -1){
-                               return total > 5 && this.currentPage() + 3 < total;
+                               return total > 5 && this.currentPage() + 4 < total;
                             }else{
                                 return false;
                             }
@@ -184,20 +188,20 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                 return false;
                             }
                         },
+                        onChangeItemsCount: function(option, gridOptions){
+                            service.setPersonalizedConfiguration('itemsPerPage', option['items']);
+                            this.gotoPage(this.currentPage(), gridOptions);
+                        },
                         gotoPage: function(pageNumber, gridOptions){
                             var params =[
                                 {
                                     name: 'size',
-                                    value: '20'
+                                    value:  service.getPersonalizedConfiguration('itemsPerPage')
                                 },
                                 {
                                     name: 'page',
                                     value: pageNumber
-                                }/*,
-                                {
-                                    name: 'accountId',
-                                    value: rootScope.currentAccount
-                                }*/
+                                }
                             ];
                             service.resource(params).then(
                                 function(response){

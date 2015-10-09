@@ -146,6 +146,7 @@ requirejs.config({
         'utility.controller': 'app/utilities/controller',
         'utility.gridService': 'app/utilities/gridService',
         'utility.baseService': 'app/utilities/baseService',
+        'utility.personalizationService': 'app/utilities/personalizationService',
         'utility.urlHelper': 'app/utilities/urlHelper',
         'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
         'utility.recursionHelper': 'app/utilities/recursionHelper',

@@ -1,4 +1,4 @@
-<div class="pagination">
+<div class="pagination desktop" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
   <div class="pagination__btn pagination__prev">
     <a href="#"
       ng-click="pagination.firstPage(gridOptions)">
@@ -22,7 +22,7 @@
      class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pageNumber)}">
       <a href="#" ng-click="pagination.gotoPage(pageNumber, gridOptions)">{{ pageNumber + 1 }}</a>
       </li>
-      <li ng-show="pagination.showTotal()"
+      <li ng-if="pagination.showTotal()"
         class="pagination__btn">
           <span>...</span>
       </li>
@@ -48,4 +48,10 @@
       </i>I
     </a>
   </div>
+  <div selectric model="itemsPerPage" options="pagination.itemsPerPageArray()" label="items" value="items" label="itemsPerPage"
+    class="items-per-page" on-select="pagination.onChangeItemsCount(option, gridOptions)"></div>
+    <span class="message" translate="PAGINATION.ITEMS_PER_PAGE"></span>
+</div>
+<div class="pagination mobile" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
+
 </div>

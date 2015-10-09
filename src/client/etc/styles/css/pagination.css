@@ -136,4 +136,26 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.pagination .items-per-page{
+  width:125px;
+  margin-left:40px;
+  display:inline-block;
+}
+.pagination .items-per-page  .selectricButton{
+  background-color: #efefef;
+  border-left: 1px solid #cccccc;
+  height:51px;
+}
+.pagination .items-per-page  .selectric{
+  border: 1px solid #cccccc;
+}
 
+.pagination .message{
+  margin-left:10px;
+  display: inline-block;
+  color: #7e7e85;
+  width: 150px;
+}
+.pagination .selectricItems{
+  border: 1px solid #cccccc;
+}
