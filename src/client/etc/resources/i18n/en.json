@@ -312,7 +312,8 @@
     },
 
     "PAGINATION": {
-            "ITEMS_PER_PAGE": "Items Per Page"
+            "ITEMS_PER_PAGE": "Items Per Page",
+            "PAGE_MOBILE": "Page {{currentPage}} of {{totalPages}}"
     },
 
     "MESSAGE": {

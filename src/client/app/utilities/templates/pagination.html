@@ -1,5 +1,5 @@
-<div class="pagination desktop" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
-  <div class="pagination__btn pagination__prev">
+<div class="pagination" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
+  <div class="pagination__btn pagination__first">
     <a href="#"
       ng-click="pagination.firstPage(gridOptions)">
         I<i class="icon icon--ui"
@@ -16,6 +16,8 @@
          ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
       </i>
     </a>
+  </div>
+  <div class="page-x-of-y" translate="PAGINATION.PAGE_MOBILE" translate-values="{currentPage: pagination.currentPage() + 1, totalPages: pagination.totalPages()}">
   </div>
   <ul class="pagination__list">
      <li ng-repeat="pageNumber in pagination.pageArray()"
@@ -40,7 +42,7 @@
       </i>
     </a>
   </div>
-  <div class="pagination__btn pagination__prev">
+  <div class="pagination__btn pagination__last">
     <a href="#"
       ng-click="pagination.lastPage(gridOptions)">
       <i class="icon icon--ui"
@@ -51,7 +53,4 @@
   <div selectric model="itemsPerPage" options="pagination.itemsPerPageArray()" label="items" value="items" label="itemsPerPage"
     class="items-per-page" on-select="pagination.onChangeItemsCount(option, gridOptions)"></div>
     <span class="message" translate="PAGINATION.ITEMS_PER_PAGE"></span>
-</div>
-<div class="pagination mobile" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
-
 </div>
