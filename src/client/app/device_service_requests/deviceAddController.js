@@ -19,16 +19,8 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
 
             if ($rootScope.newDevice !== undefined && $routeParams.return) {
                 $scope.device = $rootScope.newDevice;
-                // if ($rootScope.selectedDevice!==undefined) {
-                //     $scope.device.selectedDevice = $rootScope.selectedDevice;
-                // }
-                // if ($rootScope.selectedContact!==undefined) {
-                //     $scope.device.selectedContact = $rootScope.selectedContact;
-                // }
             } 
-            // else {
-            //     $scope.device = sharedFactory;
-            // }
+            
 
             if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1 && $routeParams.return) {
                 if ($rootScope.currentRowList[0].entity.serialNumber !== undefined) {
@@ -53,14 +45,11 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
 
             $scope.goToBrowse = function(device) {
                 $rootScope.newDevice = device;
-                // $rootScope.selectedDevice = device.selectedDevice;
-                // $rootScope.selectedContact = device.selectedContact;
                 $location.path('/device_management/pick_device');
             };
 
             $scope.goToReview = function() {
                 $scope.isReview = true;
-                //$location.path('/service_requests/devices/review');
             };
 
             $scope.goToAdd = function() {
@@ -78,8 +67,6 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             $scope.goToContactPicker = function(device,currentSelected) {
                 $rootScope.currentSelected = currentSelected;
                 $rootScope.newDevice = device;
-                // $rootScope.selectedDevice = device.selectedDevice;
-                // $rootScope.selectedContact = device.selectedContact;
                 $location.path('/service_requests/devices/pick_contact');
             };
 

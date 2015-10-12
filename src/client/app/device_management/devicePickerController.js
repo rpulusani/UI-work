@@ -26,6 +26,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
                 function(options){
                     $scope.gridOptions = options;
                     $scope.pagination = GridService.pagination(DevicePicker, $rootScope);
+                    $scope.itemsPerPage = DevicePicker.getPersonalizedConfiguration('itemsPerPage');
 
                     var params =[
                         {
@@ -34,7 +35,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
                         },
                         {
                             name: 'size',
-                            value: '20'
+                            value: $scope.itemsPerPage
                         },
                         {
                             page: 'page',
