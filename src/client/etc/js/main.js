@@ -116,6 +116,7 @@ requirejs.config({
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
+        'utility.formatUtility': 'app/utilities/formatUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',

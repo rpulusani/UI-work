@@ -1,6 +1,12 @@
 define(['angular', 'deviceServiceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
+    .directive('readDevice', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_service_requests/templates/read.html'
+        };
+    })
     .directive('deviceNewFields', function() {
         return {
             restrict: 'A',

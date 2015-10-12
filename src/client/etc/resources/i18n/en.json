@@ -37,6 +37,7 @@
         "CHANGE_SECONDARY_CONTACT": "Change secondary contact",
         "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
         "INTERNAL_REFENCE_ID": "Internal Refernce ID",
+        "REQUEST_COST_CENTER": "Request Cost Center",
         "SUBMISSION_TEXT": "Your address request {{refId}} has been submitted. Please allow {{hours}} hours for our team to review and process the request.",
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
@@ -81,7 +82,8 @@
         "DEVICE_PAGE_COUNTS": "Device Page Counts",
         "DEVICE_PAGE_COUNT_INSTRUCTION": "Please enter the device page counts",
         "DEVICE_NETWORK_CONFIGURATION": "Device network configuration",
-        "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE"
+        "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE",
+        "SUBMIT_DEVICE_REQUEST": "SUBMIT DEVICE REQUEST"
     },
 
     "ADDRESS": {
