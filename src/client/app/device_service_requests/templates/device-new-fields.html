@@ -1,3 +1,5 @@
+
+<div ng-hide="isReview || isSubmitted">
 <div class="row">
     <div class="col-1-3">
         <h4 translate="DEVICE_MGT.DEVICE_INFO"></h4>
@@ -88,7 +90,7 @@
                 <div class="form__field" >
                     <label ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></label>
                     <label ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></label>
-                    <input name="deviceInstallLocation" type="text" ng-model="device.deviceInstallLocation" value="" class="" />
+                    <input name="deviceInstallLocation" type="text" ng-model="device.address.storeFrontName" value="" class="" />
                 </div>
             </div>
         </div>
@@ -100,20 +102,20 @@
             <div class="col-1-3">
                 <div class="form__field form__field--select form__field--required">
                         <label translate="ADDRESS.COUNTRY"></label>
-                 <div selectric model="device.country" options="countryHAL.countries" value="code" label="name"
+                 <div selectric model="device.address.country" options="countryHAL.countries" value="code" label="name"
                       placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
                     <span ng-hide="!newDevice.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.LINE_1"></label>
-                    <input name="addressLine1" type="text" ng-model="device.addressLine1" required/>
+                    <input name="addressLine1" type="text" ng-model="device.address.addressLine1" required/>
                     <span ng-hide="!newDevice.addressLine1.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
                 <div class="form__field">
                     <label translate="ADDRESS.LINE_2"></label>
-                    <input name="addressLine2" type="text" ng-model="device.addressLine2"  />
+                    <input name="addressLine2" type="text" ng-model="device.address.addressLine2"  />
                 </div>
             </div>
             <div class="col-2-3"></div>
@@ -122,7 +124,7 @@
             <div class="col-1-3">
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.CITY"></label>
-                    <input name="city" type="text" ng-model="device.city" required />
+                    <input name="city" type="text" ng-model="device.address.city" required />
                     <span ng-hide="!newDevice.city.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert">
                     <i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
@@ -131,7 +133,7 @@
             <div class="col-1-3">
                 <div class="form__field form__field--select form__field--required">
                     <label translate="ADDRESS.STATE"></label>
-                    <div selectric options="country.provinces" value="code" label="name" model="device.state" required
+                    <div selectric options="country.provinces" value="code" label="name" model="device.address.state" required
                          placeholder="{{'LABEL.SELECT' | translate}}"></div>
                     <span ng-hide="!newDevice.state.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                         <span translate="LABEL.ERROR_REQUIRED"></span></span>
@@ -143,7 +145,7 @@
             <div class="col-1-3">
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.ZIP"></label>
-                    <input type="text" name="zipCode" ng-model="device.zipCode" value="" class="" required />
+                    <input type="text" name="zipCode" ng-model="device.address.postalCode" value="" class="" required />
                     <span ng-hide="!newDevice.zipCode.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span></span>
@@ -153,17 +155,17 @@
             <div class="col-2-3">
                 <div class="form__field">
                     <label translate="ADDRESS.BUILDING_NAME"></label>
-                    <input name="buildingName" type="text" ng-model="device.buildingName" value="" class="" />
+                    <input name="buildingName" type="text" ng-model="device.address.building" value="" class="" />
                 </div>
 
                 <div class="form__field">
                     <label translate="ADDRESS.FLOOR_NAME"></label>
-                    <input name="floorName" type="text" ng-model="device.floorName" value="" class="" />
+                    <input name="floorName" type="text" ng-model="device.address.floor" value="" class="" />
                 </div>
 
                 <div class="form__field form__field--required">
                     <label translate="ADDRESS.SITE_NAME"></label>
-                    <input name="siteName" type="text" ng-model="device.siteName" value="" class="" />
+                    <input name="siteName" type="text" ng-model="device.address.office" value="" class="" />
                 </div>
             </div>
         </div>
@@ -332,10 +334,14 @@
                     <dd class="col-1-2" ng-bind="device.selectedContact.email"></dd>
                     <dd class="col-1-2" ng-bind="device.selectedContact.workPhone"></dd>
                 </dl>
-                <a href="" translate="ADDRESS.CONTACT_CHANGE"   ng-click="goToContactPicker(device)"></a>
+                <a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker(device,'deviceContact')"></a>
             </div>
         </div>
     </div>
+</div>
+</div>
+<div ng-show="isReview && !isSubmitted">
+    <div read-device></div>
 </div>
     
     
