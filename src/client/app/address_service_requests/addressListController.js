@@ -62,7 +62,7 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
 
                     Addresses.resource(params).then(
                         function(response){
-                            $scope.gridOptions.data = Addresses.getList();
+                            $scope.gridOptions.data = Addresses.getGRIDList();
                         }
                     );
                 },

@@ -4,13 +4,15 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
     .controller('DeviceListController', ['$scope', '$location', 'gridService', 'Devices', '$rootScope',
         function($scope, $location, GridService, Devices, $rootScope) {
             $rootScope.currentAccount = '1-21AYVOT';
-            
+            $rootScope.currentRowList = [];
+
             $scope.goToCreate = function() {
                 $location.path('/service_requests/devices/new');
             };
 
             $scope.gridOptions = {};
-            
+            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, Devices);
+            Devices.setRequiredParams([{name: 'accountIds', value: $rootScope.currentAccount }]);
             GridService.getGridOptions(Devices, '').then(
                 function(options){
                     $scope.gridOptions = options;
@@ -18,10 +20,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                     $scope.itemsPerPage = Devices.getPersonalizedConfiguration('itemsPerPage');
 
                     var params =[
-                        {
-                            name: 'accountIds',
-                            value: "'1-21AYVOT'"
-                        },
                         {
                             name: 'size',
                             value: $scope.itemsPerPage
@@ -31,10 +29,10 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                             value: 0
                         }
                     ];
-                    
-                    Devices.resource(params).then(
+
+                    Devices.resource(Devices.getFullParamsList(params)).then(
                         function(response){
-                            $scope.gridOptions.data = Devices.getList();
+                            $scope.gridOptions.data = Devices.getGRIDList();
                         }
                     );
                 },

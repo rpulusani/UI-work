@@ -4,10 +4,10 @@ define(['angular', 'deviceManagement'], function(angular) {
     .factory('Devices', ['serviceUrl', '$translate', '$http', '$rootScope', 'SpringDataRestAdapter','gridCustomizationService',
         function(serviceUrl, $translate, $http, $rootScope, SpringDataRestAdapter, gridCustomizationService) {
             var Devices = function() {
-                this.bindingServiceName = "devices";
+                this.bindingServiceName = "assets";
                 this.columns = {
                     'defaultSet':[
-                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber', 
+                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber',
                          'cellTemplate':'<div>' +
                                         '<a ng-href="/device_management/{{row.entity.id}}/review">{{row.entity.serialNumber}}</a>' +
                                         '</div>'
@@ -21,27 +21,26 @@ define(['angular', 'deviceManagement'], function(angular) {
                 };
                 this.templatedUrl = serviceUrl + 'assets';
                 this.paramNames = ['page', 'sort', 'size', 'accountIds'];
+                this.functionArray = [
+                        {
+                            name: 'getAddressName',
+                            functionDef:  function() {
+                                if(this._embedded && this._embedded.address){
+                                    return this._embedded.address.name;
+                                }else{
+                                    return '';
+                                }
+                            }
+                        }
+                ];
             };
 
             Devices.prototype = gridCustomizationService;
 
-            Devices.prototype.addFunctions = function(data) {
-                var i = 0,
-                addressNameFormatter = function() {
-                     return this._embedded.address.name;
-                };
-
-                for (i; i < data.length; i += 1) {
-                    // TODO: consider moving formattter calls to delegate rather than attach per item
-                    data[i].getAddressName = addressNameFormatter;
-                }
-
-                return data;
-            };
 
             Devices.prototype.get = function(params) {
                 var device  = this;
-                
+
                 if (params.id !== 'new') {
 
                 }
