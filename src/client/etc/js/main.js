@@ -51,6 +51,11 @@ requirejs.config({
             'report.directives',
             'report.factory',
 
+            'serviceRequest',
+            'serviceRequest.directives',
+            'serviceRequest.serviceRequestController',
+            'serviceRequest.serviceRequestsFactory',
+
             'tree',
             'tree.treeItemsService',
             'tree.treeController',
@@ -81,6 +86,11 @@ requirejs.config({
         'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
         'report.directives': ['report'],
         'report.factory': ['report'],
+
+        'serviceRequest': ['angular', 'angular-route'],
+        'serviceRequest.directives': ['serviceRequest'],
+        'serviceRequest.serviceRequestController': ['serviceRequest', 'serviceRequest.serviceRequestsFactory'],
+        'serviceRequest.serviceRequestsFactory': ['serviceRequest'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
@@ -142,6 +152,7 @@ requirejs.config({
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
+        'serviceRequest.serviceRequestController': 'app/service_requests/serviceRequestController',
         'serviceRequest.directives': 'app/service_requests/directives',
 
         'address': 'app/address_service_requests/addressServiceRequest',
