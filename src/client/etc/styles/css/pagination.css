@@ -1,0 +1,157 @@
+.pagination {
+  display: block;
+  font-size: 1.14285714em;
+  line-height: 1.375em;
+  margin-bottom: 1.375em;
+  *zoom: 1;
+  margin-top: 24px;
+}
+
+.pagination a,
+.pagination span {
+  display: block;
+  min-height:28px;
+  text-decoration: none;
+  text-align: center;
+  width: 35px;
+  padding: 12px 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pagination > li {
+  background-color: #efefef;
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  display: block;
+  float: left;
+  margin: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.pagination__btn {
+  border: 1px solid #cccccc;
+  background-color: #efefef;
+  display: block;
+  float: left;
+  min-width: 54px;
+  min-height: 54px;
+  text-decoration: none;
+  margin: 0;
+}
+.pagination__btn:hover {
+  background-color: #ffffff;
+}
+.pagination--is-first,
+.pagination__prev,
+.pagination__next {
+  border-left: 1px solid #cccccc;
+}
+.pagination .page-x-of-y {
+    display: none;
+}
+
+.pagination > li.pagination--is-first,
+.pagination > li:first-child {
+  border-left: 1px solid #cccccc;
+}
+.pagination > li.pagination__responsive-set,
+.pagination > li.pagination--is-active,
+.pagination > li:hover {
+  background-color: #ffffff;
+  border-top: 2px solid #000000;
+  margin: -1px 0 0 0;
+}
+.pagination--is-active {
+  background-color: #ffffff;
+  border: 2px solid #0061de;
+}
+.pagination--is-active a{
+    min-height:26px;
+}
+.pagination--is-disabled a,
+.pagination--is-disabled a:hover {
+  background-color: #efefef;
+  color: #cccccc;
+  cursor: default;
+}
+
+.pagination .icon {
+  vertical-align: baseline;
+}
+
+.pagination > li.pagination__responsive-next a {
+  text-align: center;
+}
+.pagination > li.pagination__responsive-prev {
+  display: none;
+}
+.pagination > li.pagination__responsive-prev a {
+  text-align: center;
+}
+.pagination .selectric {
+  background: #ffffff;
+}
+.pagination .selectric .form__field__current-option {
+  display: block;
+  font-size: 1.14285714em;
+  line-height: 1.375em;
+  margin: 0em 2.5em 0em 1.25em;
+  overflow: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pagination .items-per-page{
+  width:125px;
+  margin-left:40px;
+  display:inline-block;
+}
+.pagination .items-per-page  .selectricButton{
+  background-color: #efefef;
+  border-left: 1px solid #cccccc;
+  height:51px;
+}
+.pagination .items-per-page  .selectric{
+  border: 1px solid #cccccc;
+}
+
+.pagination .message{
+  margin-left:10px;
+  display: inline-block;
+  color: #7e7e85;
+  width: 150px;
+}
+.pagination .selectricItems{
+  border: 1px solid #cccccc;
+}
+
+@media (max-width: 80em) {
+  .pagination .page-x-of-y,
+  .pagination  .items-per-page,
+  .pagination  .message{
+    display: none;
+  }
+}
+
+@media (max-width: 60em) {
+  .pagination  .pagination__list,
+  .pagination  .items-per-page,
+  .pagination  .message{
+    display: none;
+  }
+  .pagination .page-x-of-y {
+    border-right: 0;
+    min-width: 54px;
+    min-height: 30px;
+    padding:12px 10px;
+    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    display: block;
+    float: left;
+  }
+}
+
+

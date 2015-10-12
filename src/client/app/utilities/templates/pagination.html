@@ -1,0 +1,56 @@
+<div class="pagination" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
+  <div class="pagination__btn pagination__first">
+    <a href="#"
+      ng-click="pagination.firstPage(gridOptions)">
+        I<i class="icon icon--ui"
+           ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
+        </i>
+    </a>
+  </div>
+  <div class="pagination__btn pagination__prev"
+  ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
+    <a href="#"
+    ng-disabled="pagination.canNotPrev()"
+    ng-click="pagination.prevPage(gridOptions)">
+      <i class="icon icon--ui"
+         ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
+      </i>
+    </a>
+  </div>
+  <div class="page-x-of-y" translate="PAGINATION.PAGE_MOBILE" translate-values="{currentPage: pagination.currentPage() + 1, totalPages: pagination.totalPages()}">
+  </div>
+  <ul class="pagination__list">
+     <li ng-repeat="pageNumber in pagination.pageArray()"
+     class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pageNumber)}">
+      <a href="#" ng-click="pagination.gotoPage(pageNumber, gridOptions)">{{ pageNumber + 1 }}</a>
+      </li>
+      <li ng-if="pagination.showTotal()"
+        class="pagination__btn">
+          <span>...</span>
+      </li>
+      <li ng-if="pagination.showTotal()"
+     class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pagination.totalPages() - 1)}">
+      <a href="#" ng-click="pagination.gotoPage(pagination.totalPages() - 1, gridOptions)">{{ pagination.totalPages() }}</a>
+      </li>
+  </ul>
+  <div class="pagination__btn pagination__next" ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
+    <a href="#"
+    ng-disabled="pagination.canNotNext()"
+    ng-click="pagination.nextPage(gridOptions)">
+      <i class="icon icon--ui"
+         ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
+      </i>
+    </a>
+  </div>
+  <div class="pagination__btn pagination__last">
+    <a href="#"
+      ng-click="pagination.lastPage(gridOptions)">
+      <i class="icon icon--ui"
+           ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
+      </i>I
+    </a>
+  </div>
+  <div selectric model="itemsPerPage" options="pagination.itemsPerPageArray()" label="items" value="items" label="itemsPerPage"
+    class="items-per-page" on-select="pagination.onChangeItemsCount(option, gridOptions)"></div>
+    <span class="message" translate="PAGINATION.ITEMS_PER_PAGE"></span>
+</div>

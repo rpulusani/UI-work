@@ -178,29 +178,7 @@
 .table .ui-grid-canvas .ui-grid-row-header-cell:first-child {
   padding: 5px 5px 5px 0;
 }
-.pagination button {
-  padding: 12px 10px;
-  height: 48px;
-  width: 44px;
-  color: #0061de;
-  background-color: #FFFFFF;
-  font-weight: bold;
-  border: 1px solid #d3d3d3;
-}
-.pagination .icon {
-  margin: 0;
-}
-.pagination .current {
-  border-top: 3px solid #1d1d26;
-  border-left: 1px solid #1d1d26;
-  border-right: 1px solid #1d1d26;
-  /*border-bottom: 2px solid #d3d3d3;*/
-  margin-top: 3px;
-  color: black;
-}
-.pagination .page-number:visited {
-  color: #884fad;
-}
+
 /* </ui-grid> */
 .user {
   overflow: hidden;

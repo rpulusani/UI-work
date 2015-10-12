@@ -360,6 +360,11 @@
         "ATTACHMENTS": "Attachments"
     },
 
+    "PAGINATION": {
+            "ITEMS_PER_PAGE": "Items Per Page",
+            "PAGE_MOBILE": "Page {{currentPage}} of {{totalPages}}"
+    },
+
     "MESSAGE": {
         "CANCEL": "Do you really want to cancel?",
         "DATA_LOSS": "All data will be lost",

@@ -6,6 +6,7 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
             $rootScope.currentAccount = '1-3F2FR9';
             $rootScope.currentRowList = [];
 
+
             /* Actions */
             $scope.goToCreate = function() {
                 $location.path('/service_requests/addresses/new');
@@ -47,16 +48,18 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                 function(options){
                     $scope.gridOptions = options;
                     $scope.pagination = GridService.pagination(Addresses, $rootScope);
+                    $scope.itemsPerPage = Addresses.getPersonalizedConfiguration('itemsPerPage');
                     var params =[
                         {
                             name: 'size',
-                            value: '20'
+                            value: $scope.itemsPerPage
                         },
                         {
                             page: 'page',
                             value: 0
                         }
                     ];
+
                     Addresses.resource(params).then(
                         function(response){
                             $scope.gridOptions.data = Addresses.getList();
