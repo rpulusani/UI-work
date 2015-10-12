@@ -55,7 +55,8 @@ define([
     'utility.recursionHelper',
     'utility.gridService',
     'utility.gridCustomizationService',
-    'utility.personalizationService'
+    'utility.personalizationService',
+    'utility.formatters'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

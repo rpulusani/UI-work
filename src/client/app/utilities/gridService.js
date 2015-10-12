@@ -208,7 +208,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                             service.resource(service.getFullParamsList(params)).then(
                                 function(response){
                                     if(service.getList){
-                                        gridOptions.data = service.getList();
+                                        gridOptions.data = service.getGRIDList();
                                     }else{
                                          NREUM.noticeError('service.getList() does not exist.');
                                     }

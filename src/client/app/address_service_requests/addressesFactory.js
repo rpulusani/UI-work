@@ -7,7 +7,7 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
             var Addresses = function(){
 
                 //customize Address
-                this.bindingServiceName = "addresses";
+                this.bindingServiceName = 'addresses';
                 this.columns = {
                     'defaultSet':[
                         {'name': 'id', 'field': 'id', visible:false},

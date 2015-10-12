@@ -5,6 +5,7 @@ define(['angular', 'utility.personalizationService'], function(angular) {
         function($translate, $http, SpringDataRestAdapter, personalizationService) {
             var GridCustomizationService = function(){
                 this.columns =  { defaultSet:[] };
+                this.functionArray = [];
             };
             GridCustomizationService.prototype = personalizationService;
 
@@ -28,16 +29,20 @@ define(['angular', 'utility.personalizationService'], function(angular) {
                     }
                 ];
             */
-            GridCustomizationService.prototype.setFunctions = function(functionArray){
-                var data = Angular.copy(this.getList());
+            GridCustomizationService.prototype.setFunctions = function(){
+                var data = angular.copy(this.getList());
                  for(var i = 0; i < data.length; ++i){
-                    for(var j = 0; i < functionArray.length; ++j){
-                        data[i][functionArray[j]['name']] = functionArray[j]['functionDef'];
+                    for(var j = 0; j < this.functionArray.length; ++j){
+                        data[i][this.functionArray[j]['name']] = this.functionArray[j]['functionDef'];
                     }
                  }
-                 this.setList(Angular.copy(data));
+                 this.setList(angular.copy(data));
             };
 
+            GridCustomizationService.prototype.getGRIDList = function(){
+                 this.setFunctions();
+                 return this.getList();
+            };
 
             return new GridCustomizationService();
     }]);

@@ -1,35 +1,63 @@
-define(['angular', 'contact'], function(angular) {
+define(['angular', 'contact', 'utility.gridCustomizationService', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['serviceUrl', '$translate', '$http', '$rootScope', 'SpringDataRestAdapter',
-        function(serviceUrl, $translate, $http, $rootScope, halAdapter) {
+        'gridCustomizationService', 'FormatterService',
+        function(serviceUrl, $translate, $http, $rootScope, halAdapter, gridCustomizationService, formatter) {
             var Contacts = function() {
-                this.url = serviceUrl + '/accounts/' + '1-3F2FR9' + '/contacts';
-                this.columns = {
-                    defaultSet: []
-                };
-            };
-
-            Contacts.prototype.getColumnDefinition = function(type) {
+                this.bindingServiceName =  'contacts';
+                this.templatedUrl = serviceUrl + '/accounts/' + '1-3F2FR9' + '/contacts';
                 this.columns = {
                     'defaultSet':[
                         {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'getFullname()'},
-                        {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'address'},
-                        {'name': $translate.instant('CONTACT.WORK_PHONE'), 'field':'workPhone'},
-                        {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'alternatePhone'},
+                        {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'getAddress()'},
+                        {'name': $translate.instant('CONTACT.WORK_PHONE'), 'field':'getWorkPhone()'},
+                        {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'getAltPhone()'},
                         {'name': $translate.instant('CONTACT.EMAIL'), 'field':'email'}
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };
+                this.paramNames = ['page', 'sort', 'size'];
+                this.functionArray  = [
+                    {
+                        name: 'getFullname',
+                        functionDef: function() {
+                            return formatter.getFullName(this.firstName, this.lastName, this.middleName);
+                        }
+                    },
+                    {
+                        name: 'getWorkPhone',
+                        functionDef: function(){
+                            return formatter.getPhoneFormat(this.workPhone);
+                        }
+                    },
+                    {
+                        name: 'getAltPhone',
+                        functionDef: function(){
+                            return formatter.getPhoneFormat(this.alternatePhone);
+                        }
+                    }
+                    /*,
+                    {
+                        name: 'getAddress',
+                        functionDef: function() {
+                            return this.address.addressList1 + ' ' +
+                                this.address.city + ' ' +
+                                this.address.stateCode + ' ' +
+                                this.address.country;
+                        }
+                    }*/
 
-                return this.columns;
+                ];
             };
+
+            Contacts.prototype = gridCustomizationService;
 
             Contacts.prototype.addFunctions = function(data) {
                 var i = 0,
                 fullnameFormatter = function() {
                     var fullname = this.lastName + ', ' +  this.firstName;
-                    
+
                     if (this.middleName) {
                         fullname += ' ' + this.middleName;
                         return fullname;
@@ -52,18 +80,9 @@ define(['angular', 'contact'], function(angular) {
                 return data;
             };
 
-            Contacts.prototype.getList = function() {
-                var contact = this;
-                return contact.contacts;
-            };
-
-            Contacts.prototype.getPage = function(page) {
-                alert('Page is: ' + page);
-            };
-
             Contacts.prototype.get = function(params) {
                 var contact  = this;
-                
+
                 if (params.id !== 'new') {
 
                 }
@@ -82,22 +101,6 @@ define(['angular', 'contact'], function(angular) {
 
                 return fn();
             };
-
-            // TODO:  No longer needs accountId
-            Contacts.prototype.resource = function(accountId, page) {
-                var contact  = this,
-                url = contact.url + '?page=' + page,
-                httpPromise = $http.get(url).success(function (response) {
-                    contact.response = angular.toJson(response, true);
-                });
-
-                return halAdapter.process(httpPromise).then(function (processedResponse) {
-                    contact.contacts = processedResponse._embeddedItems;
-                    contact.page = processedResponse.page;
-                    contact.processedResponse = angular.toJson(processedResponse, true);
-                });
-            };
-
             return new Contacts();
         }
     ]);

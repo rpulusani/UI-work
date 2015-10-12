@@ -12,19 +12,31 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
             $scope.goToUpdate = function(contact) {
                 var href = contact._links.self.href,
                 contact_id = href.split('/').pop();
-                
+
                 $location.path('/service_requests/contacts/' + contact_id + '/update');
             };
 
             $scope.gridOptions = {};
-            
+             $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, Contacts);
             GridService.getGridOptions(Contacts, '').then(
                 function(options){
                     $scope.gridOptions = options;
                     $scope.pagination = GridService.pagination(Contacts, $rootScope);
-                    Contacts.resource($rootScope.currentAccount, 0).then(
+                    $scope.itemsPerPage = Contacts.getPersonalizedConfiguration('itemsPerPage');
+                    var params =[
+                        {
+                            name: 'size',
+                            value: $scope.itemsPerPage
+                        },
+                        {
+                            name: 'page',
+                            value: 0
+                        }
+                    ];
+
+                    Contacts.resource(params).then(
                         function(response){
-                            $scope.gridOptions.data = Contacts.addFunctions(Contacts.getList());
+                            $scope.gridOptions.data = Contacts.getGRIDList();
                         }
                     );
                 },
