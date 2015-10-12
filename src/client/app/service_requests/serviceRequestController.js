@@ -1,4 +1,4 @@
-define(['angular', 'serviceRequest', 'utility.gridService','serviceRequest.serviceRequestFactory'], function(angular) {
+define(['angular', 'serviceRequest', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequests')
     .controller('ServiceRequestController', ['$scope', '$location', 'gridService', 'ServiceRequestService', '$rootScope',

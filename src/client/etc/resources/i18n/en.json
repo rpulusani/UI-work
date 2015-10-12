@@ -28,6 +28,7 @@
     "SERVICE_REQUEST": {
         "TITLE": "Requests",
         "ORDERS": "Orders",
+        "REQUEST_NUMBER": "Reqeust number",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary contact",
@@ -324,6 +325,7 @@
 
     "LABEL": {
         "BACK": "Back",
+        "TYPE": "Type",
         "MAKE_CHANGES": "Make Changes",
         "CANCEL": "Cancel",
         "CONTINUE": "Continue",

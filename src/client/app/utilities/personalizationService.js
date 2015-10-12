@@ -41,11 +41,10 @@ define(['angular', 'utility.baseService'], function(angular) {
                     this.modulePesonalization[configPropName] = value; //update or add
             }else{
                 //create Object Array
-                this.modulePesonalization = [
+                this.modulePesonalization =
                     {
                        'name': this.getBindingServiceName()
-                    }
-                ];
+                    };
                 this.modulePesonalization[configPropName]  = value;
             }
             //push personalization to the database repo via api

@@ -18,6 +18,8 @@ define([
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.directives',
+    'serviceRequest.listController',
+    'serviceRequest.serviceRequestController',
     'contact',
     'contact.contactController',
     'contact.contactListController',

@@ -76,7 +76,15 @@ define(['angular','angular-mocks', 'utility.gridService'], function(angular, moc
             });
         });
         describe('Pagination', function() {
+
             describe('pageProps', function(){
+                it('should show a length of 3 and a page of 0 with a current page of 0', function(){
+                    var mock = angular.copy(mockedAddressesFactory);
+                    mock.page.totalPages = 3;
+                    mock.page.number = 0;
+                    var pagination = gridService.pagination(mock, scope);
+                    expect(pagination.pageProps()).toEqual({page: 0, length: 3});
+                });
                 it('should show a length of 5 and a page of 0 with a current page of 0', function(){
                     var mock = angular.copy(mockedAddressesFactory);
                     mock.page.totalPages = 10;

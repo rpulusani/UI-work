@@ -55,7 +55,7 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
                             value: $scope.itemsPerPage
                         },
                         {
-                            page: 'page',
+                            name: 'page',
                             value: 0
                         }
                     ];
