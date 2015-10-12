@@ -31,6 +31,10 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
             });
 
             describe('isDeviceSelected', function() {
+                beforeEach(inject(function($routeParams, $controller){
+                    $routeParams.return = 'return';
+                    ctrl = $controller('DeviceAddController', {$scope: scope});
+                }));
                 it('should decide whether device selected or not', function() {
                     rootScope.currentRowList = [{ entity: {
                             id: 1
@@ -38,6 +42,38 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                     }];
                     var checkOutput = scope.isDeviceSelected();
                     expect(checkOutput).toBe(true);
+                });
+            });
+
+            describe('goToReview', function() {
+                it('should decide review page should be displayed', function() {
+                    scope.isReview = false;
+                    scope.goToReview();
+                    expect(scope.isReview).toBe(true);
+                });
+            });
+
+            describe('goToAdd', function() {
+                it('should decide add page should be displayed', function() {
+                    scope.isReview = true;
+                    scope.goToAdd();
+                    expect(scope.isReview).toBe(false);
+                });
+            });
+
+            describe('goToSubmit', function() {
+                it('should decide submit page should be displayed', function() {
+                    scope.isSubmitted = false;
+                    scope.goToSubmit();
+                    expect(scope.isSubmitted).toBe(true);
+                });
+            });
+
+            describe('goToCreate', function() {
+                it('should navigate to add a new device page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    scope.goToCreate();
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/devices/new');
                 });
             });
         });

@@ -1,5 +1,5 @@
 
-<div ng-hide="isReview">
+<div ng-hide="isReview || isSubmitted">
 <div class="row">
     <div class="col-1-3">
         <h4 translate="DEVICE_MGT.DEVICE_INFO"></h4>
@@ -340,7 +340,7 @@
     </div>
 </div>
 </div>
-<div ng-show="isReview">
+<div ng-show="isReview && !isSubmitted">
     <div read-device></div>
 </div>
     

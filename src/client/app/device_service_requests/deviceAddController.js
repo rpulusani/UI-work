@@ -1,15 +1,17 @@
 define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceAddController', ['$scope', '$location', '$routeParams', '$rootScope', 'Format',
-        function($scope, $location, $routeParams, $rootScope, Format) {
+    .controller('DeviceAddController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'Format',
+        function($scope, $location, $filter, $routeParams, $rootScope, Format) {
             
             $scope.device = {};
             $scope.device.selectedDevice = {};
             $scope.device.selectedContact = {};
+            $scope.isSubmitted = false;
             $scope.isReview = false;
             $scope.isPrimarySelected = false;
             $scope.isSecondarySelected = false;
+            $scope.currentDate = $filter('date')(new Date(), "MM/dd/yyyy");
             
             /* Remove this varibale after real call and getting the list of products
                based on serial number */
@@ -63,6 +65,14 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
 
             $scope.goToAdd = function() {
                 $scope.isReview = false;
+            };
+
+            $scope.goToSubmit = function() {
+                $scope.isSubmitted = true;
+            };
+
+            $scope.goToCreate = function() {
+                $location.path('/service_requests/devices/new');
             };
 
             $scope.goToContactPicker = function(device,currentSelected) {

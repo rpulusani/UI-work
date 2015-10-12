@@ -58,6 +58,7 @@
 
     "DEVICE_SERVICE_REQUEST": {
         "ADD": "Add a Device",
+        "SUBMITTED": "Add a Device Request Submitted",
         "ABANDON": "Abandon Device Request",
         "DEVICE_SELECTION": "Device Selection",
         "LEXMARK_DEVICE_QUESTION": "Is this a Lexmark device?",
@@ -83,7 +84,9 @@
         "DEVICE_PAGE_COUNT_INSTRUCTION": "Please enter the device page counts",
         "DEVICE_NETWORK_CONFIGURATION": "Device network configuration",
         "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE",
-        "SUBMIT_DEVICE_REQUEST": "SUBMIT DEVICE REQUEST"
+        "SUBMIT_DEVICE_REQUEST": "SUBMIT DEVICE REQUEST",
+        "ADD_ANOTHER_DEVICE": "Add Another Device",
+        "DETAILS_FOR_DEVICE_REQUEST": "Details for Device Request Number: {{requestNumber}}"
     },
 
     "ADDRESS": {
@@ -353,7 +356,8 @@
         "COMPANY_ACCT": "Company account",
         "ROLE": "Roles",
         "ACTIVE": "Active",
-        "INACTIVE": "Inactive"
+        "INACTIVE": "Inactive",
+        "ATTACHMENTS": "Attachments"
     },
 
     "MESSAGE": {
@@ -364,7 +368,7 @@
         "REQUEST_REVIEW": "Please review the details for this request. Once confirmed, click on the CONTINUE button below.",
         "REQUEST_SUCCESS": "Your request # {{refId}} has been submitted successfully. Please use this number when referencing your request.",
         "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
-
+        "LIKE_TO": "Would you like to {{addItem}}",
         "NO_IMAGE_FOUND": "No Image Found",
         "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}"
     }

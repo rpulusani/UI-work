@@ -7,6 +7,12 @@ define(['angular', 'deviceServiceRequest'], function(angular) {
             templateUrl: '/app/device_service_requests/templates/read.html'
         };
     })
+    .directive('submitDevice', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_service_requests/templates/submitted.html'
+        };
+    })
     .directive('deviceNewFields', function() {
         return {
             restrict: 'A',
