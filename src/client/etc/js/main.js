@@ -129,6 +129,8 @@ requirejs.config({
         'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
         'utility.recursionHelper': 'app/utilities/recursionHelper',
         'utility.formatters': 'app/utilities/formatters',
+        'utility.hateaosFactory': 'app/utilities/hateaosFactory',
+        'utility.grid': 'app/utilities/grid',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',

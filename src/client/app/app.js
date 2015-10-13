@@ -58,6 +58,7 @@ define([
     'utility.gridCustomizationService',
     'utility.personalizationService',
     'utility.formatters'
+    'utility.grid'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
