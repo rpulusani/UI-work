@@ -1,20 +1,20 @@
 define(['angular', 'contact', 'utility.gridService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactController', ['$scope', '$location', '$routeParams', 
-                                      '$rootScope', 'Contacts', 'ServiceRequestService',
-        function($scope, $location, $routeParams, $rootScope, Contacts, ServiceRequestService) {
+    .controller('ContactController', ['$scope', '$location', 'Contacts', 'ServiceRequestService',
+        function($scope, $location, Contacts, ServiceRequestService) {
             var redirect_to_list = function() {
-                $location.path('/service_requests/contacts');
+                Contacts.item = null;
+                $location.path(Contacts.route);
             };
+
+            if (Contacts.item === null) {
+                redirect_to_list();
+            } else {
+                $scope.contact = Contacts.item;
+            }
             
             $scope.reviewing = false;
-
-            if ($routeParams.id) {
-                $scope.contact = Contacts.get({accountId: $rootScope.currentAccount, id: $routeParams.id});
-            } else {
-                $scope.contact = {accountId: $rootScope.currentAccount};
-            }
 
             $scope.review = function() {
                 $scope.reviewing = true;
@@ -26,12 +26,13 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
 
             $scope.save = function() {
                 if ($scope.contact._links) {
-                    $scope.contact.id = $scope.contact._links.self.href.split('/').pop();
-                    $scope.contact.accountId = $scope.contact._links.account.href.split('/').pop();
-
-                    Contacts.update($scope.contact, redirect_to_list);
+                    Contacts.update($scope.contact).then(function() {
+                        redirect_to_list();
+                    });
                 } else {
-                    Contacts.save($scope.contact, redirect_to_list);
+                    Contacts.save($scope.contact).then(function() {
+                        redirect_to_list();
+                    });
                 }
             };
 
@@ -51,10 +52,7 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
             };
 
             $scope.goToReview = function(contact) {
-                var href = contact._links.self.href,
-                contact_id = href.split('/').pop();
-                
-                $location.path('/service_requests/contacts/' + contact_id + '/review');
+                $location.path(Contacts.route + '/' + contact.id + '/review');
             };
 
             $scope.cancel = function() {
