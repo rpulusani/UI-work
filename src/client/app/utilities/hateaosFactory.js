@@ -4,7 +4,7 @@ define(['angular', 'utility'], function(angular) {
         function(serviceUrl, $translate, $http, $q, halAdapter) {
             var user = { // mock
                 accountId: '1-21AYVOT'
-            }
+            };
 
             var HATEAOSFactory = function(serviceDefinition) {
                 var self = this;
@@ -23,7 +23,7 @@ define(['angular', 'utility'], function(angular) {
                 // self.params  = {page: 0, size: 20, sort: ''}
                 self.params = {};
                 self.route = '';
-                
+
                 return angular.extend(self, serviceDefinition);
             };
 
@@ -72,7 +72,7 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSFactory.prototype.get = function(halObj) {
                 var self  = this,
                 deferred = $q.defer();
-               
+
                 halAdapter.process($http.get(halObj._links.self.href + '?accountId=' + user.accountId)).then(function(processedResponse) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
@@ -133,10 +133,10 @@ define(['angular', 'utility'], function(angular) {
                     if (size) {
                         self.params.size = size;
                     }
-                    
-                    url = self.url + '?accountId=' + user.accountId 
-                     + '&page=' + self.params.page
-                     + '&size=' + self.params.size;
+
+                    url = self.url + '?accountId=' + user.accountId +
+                        '&page=' + self.params.page +
+                        '&size=' + self.params.size;
 
                     halAdapter.process($http.get(url)).then(function (processedResponse) {
                         self.data = processedResponse._embeddedItems;
@@ -144,7 +144,7 @@ define(['angular', 'utility'], function(angular) {
                         self.params.page = self.page.number;
                         self.params.size = self.page.size;
                         self.processedResponse = angular.toJson(processedResponse, true);
-                       
+
                         return deferred.resolve();
                     });
                 });

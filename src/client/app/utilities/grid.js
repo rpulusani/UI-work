@@ -3,7 +3,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
     angular.module('mps.utility')
     .factory('grid', ['uiGridConstants',  function(uiGridConstants) {
         var Grid = function() {
-            this.itemsPerPageArr = [ 
+            this.itemsPerPageArr = [
                 {items: 20},
                 {items: 40},
                 {items: 60},
@@ -62,8 +62,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 totalPages: service.page.totalPages,
                 showTotal: function() {
                     if (service.page.totalPages !== -1){
-                        return service.page.totalPages > 5 
-                            && service.params.page + 4 < service.page.totalPages;
+                        return service.page.totalPages > 5 &&
+                         service.params.page + 4 < service.page.totalPages;
                     } else {
                         return false;
                     }
@@ -130,8 +130,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             scope.gridOptions.enableColumnMenu = false;
 
             // Setup special columns
-            if ((!scope.gridOptions.showBookmarkColumn 
-                || scope.gridOptions.showBookmarkColumn === true) 
+            if ((!scope.gridOptions.showBookmarkColumn
+                || scope.gridOptions.showBookmarkColumn === true)
                 && this.hasBookmarkCol === false) {
                 this.hasBookmarkCol = true;
 

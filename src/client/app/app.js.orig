@@ -57,8 +57,12 @@ define([
     'utility.gridService',
     'utility.gridCustomizationService',
     'utility.personalizationService',
-    'utility.formatters',
+<<<<<<< HEAD
+    'utility.formatters'
+=======
+    'utility.hateaosFactory',
     'utility.grid'
+>>>>>>> 2487e2c319df1002f446b04c5231638e9f1054d7
 ], function(angular) {
     'use strict';
     angular.module('mps', [

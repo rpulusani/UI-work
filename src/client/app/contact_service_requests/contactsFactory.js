@@ -3,11 +3,10 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['serviceUrl', '$translate', 'HATEAOSFactory',
        'FormatterService',
-        function(serviceUrl, $translate, HATEAOSFactory,formatter) {
+        function(serviceUrl, $translate, HATEAOSFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
-                columns: {
-                    'defaultSet':[
+                columns: [
                         {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'getFullname()'},
                         {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'getAddress()'},
                         {'name': $translate.instant('CONTACT.WORK_PHONE'), 'field':'getWorkPhone()'},
@@ -45,7 +44,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                         }
                     }*/
                    ]
-                    
+
              };
             Contacts.prototype = gridCustomizationService;
 
