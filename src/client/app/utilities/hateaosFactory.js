@@ -72,7 +72,7 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSFactory.prototype.get = function(halObj) {
                 var self  = this,
                 deferred = $q.defer();
-
+               
                 halAdapter.process($http.get(halObj._links.self.href + '?accountId=' + user.accountId)).then(function(processedResponse) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
