@@ -133,6 +133,11 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             if ((!scope.gridOptions.showBookmarkColumn 
                 || scope.gridOptions.showBookmarkColumn === true) 
                 && this.hasBookmarkCol === false) {
+
+                scope.bookmark = function(row, $element) {
+                    
+                };
+
                 this.hasBookmarkCol = true;
 
                 scope.gridOptions.columnDefs.unshift({
@@ -141,7 +146,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     width:'30',
                     headerCellClass: 'no-border',
                     enableSorting: false,
-                    cellTemplate: '<i class="icon icon--ui icon--not-favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
+                    cellTemplate: '<i class="icon icon--ui icon--not-favorite" ng-click="grid.appScope.bookmark(row.entity, $event)"></i>',
                     enableColumnMenu: false,
                     cellClass: 'bookmark'
                 });

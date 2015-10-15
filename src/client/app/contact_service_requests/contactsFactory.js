@@ -22,7 +22,7 @@ define(['angular', 'contact'], function(angular, contact) {
                 ],
                 route: '/service_requests/contacts'
             };
-
+            
             return new HATEAOSFactory(Contacts);
         }
     ]);

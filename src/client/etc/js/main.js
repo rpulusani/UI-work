@@ -128,6 +128,7 @@ requirejs.config({
         'utility.urlHelper': 'app/utilities/urlHelper',
         'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
         'utility.recursionHelper': 'app/utilities/recursionHelper',
+        'utility.hateaosConfig': 'app/utilities/hateaosConfig',
         'utility.hateaosFactory': 'app/utilities/hateaosFactory',
         'utility.grid': 'app/utilities/grid',
 
