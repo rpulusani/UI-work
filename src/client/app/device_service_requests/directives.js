@@ -39,5 +39,11 @@ define(['angular', 'deviceServiceRequest'], function(angular) {
                });
             }]
         };
+    })
+    .directive('deviceSearchFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_service_requests/templates/device-search-fields.html'
+        };
     });
 });

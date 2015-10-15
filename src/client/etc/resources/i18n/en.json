@@ -86,7 +86,9 @@
         "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE",
         "SUBMIT_DEVICE_REQUEST": "SUBMIT DEVICE REQUEST",
         "ADD_ANOTHER_DEVICE": "Add Another Device",
-        "DETAILS_FOR_DEVICE_REQUEST": "Details for Device Request Number: {{requestNumber}}"
+        "DETAILS_FOR_DEVICE_REQUEST": "Details for Device Request Number: {{requestNumber}}",
+        "WHAT_IS_THE_DEVICE_SERIAL_NUMBER": "What is the device serial number?",
+        "FIND_DEVICE": "Find device"
     },
 
     "ADDRESS": {
