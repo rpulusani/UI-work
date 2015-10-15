@@ -87,7 +87,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     this.gotoPage();
                 },
                 gotoPage: function(pageNumber) {
-                    console.log('goto ' + pageNumber );
                     service.getList(pageNumber).then(function() {
                         scope.gridOptions.data = service.data;
                     }, function(reason) {
