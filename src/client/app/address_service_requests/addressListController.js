@@ -1,11 +1,9 @@
-define(['angular', 'address', 'utility.gridService'], function(angular) {
+define(['angular', 'address', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressListController', ['$scope', '$location', 'gridService', 'Addresses', '$rootScope','$q',
-        function($scope,  $location,  GridService, Addresses, $rootScope, $q) {
-            $rootScope.currentAccount = '1-3F2FR9';
+    .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',
+        function($scope,  $location,  Grid, Addresses, $rootScope, $q) {
             $rootScope.currentRowList = [];
-
 
             /* Actions */
             $scope.goToCreate = function() {
@@ -13,13 +11,13 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
             };
 
             $scope.goToUpdate = function() {
-                var id = GridService.getCurrentEntityId($scope.currentRowList[0]);
+                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
                 if(id !== null){
                     $location.path('/service_requests/addresses/' + id + '/update');
                 }
             };
             $scope.goToRemove = function(){
-                var id = GridService.getCurrentEntityId($scope.currentRowList[0]);
+                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
                 if(id !== null){
                     $location.path('/service_requests/addresses/' + id + '/delete');
                 }
@@ -43,33 +41,13 @@ define(['angular', 'address', 'utility.gridService'], function(angular) {
 
             /* grid configuration */
             $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, Addresses);
-            GridService.getGridOptions(Addresses, '').then(
-                function(options){
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(Addresses, $rootScope);
-                    $scope.itemsPerPage = Addresses.getPersonalizedConfiguration('itemsPerPage');
-                    var params =[
-                        {
-                            name: 'size',
-                            value: $scope.itemsPerPage
-                        },
-                        {
-                            name: 'page',
-                            value: 0
-                        }
-                    ];
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses);
+            Addresses.getList().then(function(){
+                Grid.display(Addresses, $scope);
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+            });
 
-                    Addresses.resource(params).then(
-                        function(response){
-                            $scope.gridOptions.data = Addresses.getGRIDList();
-                        }
-                    );
-                },
-                function(reason){
-                     NREUM.noticeError('Grid Load Failed: ' + reason);
-                }
-            );
         }
       ]);
 });

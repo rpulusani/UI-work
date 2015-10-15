@@ -52,12 +52,10 @@ define([
     'utility.contactPickerController',
     'utility.pageCountSelectController',
     'utility.pageCountSelectService',
-    'utility.baseService',
     'utility.recursionHelper',
-    'utility.gridService',
-    'utility.gridCustomizationService',
     'utility.personalizationService',
     'utility.formatters',
+    'utility.hateaosFactory',
     'utility.grid'
 ], function(angular) {
     'use strict';

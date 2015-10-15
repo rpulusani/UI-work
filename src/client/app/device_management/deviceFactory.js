@@ -1,12 +1,11 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .factory('Devices', ['serviceUrl', '$translate', '$http', '$rootScope', 'SpringDataRestAdapter','gridCustomizationService',
-        function(serviceUrl, $translate, $http, $rootScope, SpringDataRestAdapter, gridCustomizationService) {
-            var Devices = function() {
-                this.bindingServiceName = "assets";
-                this.columns = {
-                    'defaultSet':[
+    .factory('Devices', ['serviceUrl', '$translate', '$rootScope', 'HATEAOSFactory',
+        function(serviceUrl, $translate,$rootScope, HATEAOSFactory) {
+            var Devices = {
+                serviceName: "assets",
+                columns: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber',
                          'cellTemplate':'<div>' +
                                         '<a ng-href="/device_management/{{row.entity.id}}/review">{{row.entity.serialNumber}}</a>' +
@@ -16,12 +15,9 @@ define(['angular', 'deviceManagement'], function(angular) {
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':''},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress'},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'getAddressName()'}
-                    ],
-                    bookmarkColumn: 'getBookMark()'
-                };
-                this.templatedUrl = serviceUrl + 'assets';
-                this.paramNames = ['page', 'sort', 'size', 'accountIds'];
-                this.functionArray = [
+                ],
+                route: '/device_management',
+                functionArray: [
                         {
                             name: 'getAddressName',
                             functionDef:  function() {
@@ -32,35 +28,10 @@ define(['angular', 'deviceManagement'], function(angular) {
                                 }
                             }
                         }
-                ];
+                ]
             };
 
-            Devices.prototype = gridCustomizationService;
-
-
-            Devices.prototype.get = function(params) {
-                var device  = this;
-
-                if (params.id !== 'new') {
-
-                }
-
-               return device.device;
-            };
-
-            Devices.prototype.save = function(params, saveObject, fn) {
-                var device = this;
-
-                if (params.id === 'new') {
-                    device.device = saveObject;
-                } else {
-
-                }
-
-                return fn();
-            };
-
-            return new Devices();
+            return new HATEAOSFactory(Devices);
         }
     ]);
 });

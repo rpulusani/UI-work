@@ -1,9 +1,9 @@
-define(['angular', 'address', 'utility.gridService'], function(angular) {
+define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressController', ['$scope', '$location', '$routeParams', 'gridService', 'Addresses',
+    .controller('AddressController', ['$scope', '$location', '$routeParams', 'Addresses',
         '$rootScope', '$q', 'translationPlaceHolder', 'allowMakeChange',
-        function($scope, $location, $routeParams, GridService, Addresses, $rootScope, $q, translationPlaceHolder,
+        function($scope, $location, $routeParams,  Addresses, $rootScope, $q, translationPlaceHolder,
          allowMakeChange) {
             $scope.continueForm = false;
             $scope.submitForm = false;

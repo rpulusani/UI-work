@@ -1,9 +1,9 @@
-define(['angular', 'contact', 'utility.formatters'], function(angular, contact) {
+define(['angular', 'contact', 'utility.formatters', 'utility.personalizationService'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['serviceUrl', '$translate', 'HATEAOSFactory',
-       'FormatterService',
-        function(serviceUrl, $translate, HATEAOSFactory, formatter) {
+       'FormatterService', 'PersonalizationServiceFactory',
+        function(serviceUrl, $translate, HATEAOSFactory, formatter, PersonalizationServiceFactory) {
             var Contacts = {
                 serviceName: 'contacts',
                 columns: [
@@ -11,7 +11,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                         {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'getAddress()'},
                         {'name': $translate.instant('CONTACT.WORK_PHONE'), 'field':'getWorkPhone()'},
                         {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'getAltPhone()'},
-                    {'name': $translate.instant('CONTACT.EMAIL'), 'field': 'email'}
+                        {'name': $translate.instant('CONTACT.EMAIL'), 'field': 'email'}
                 ],
                 route: '/service_requests/contacts',
                  functionArray: [
@@ -46,9 +46,8 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                    ]
 
              };
-            Contacts.prototype = gridCustomizationService;
 
-            return new HATEAOSFactory(Contacts);
+            return new HATEAOSFactory(new PersonalizationServiceFactory(Contacts));
         }
     ]);
 });

@@ -1,41 +1,18 @@
-define(['angular','serviceRequest', 'utility.gridService'], function(angular) {
+define(['angular','serviceRequest', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('ServiceRequestListController', ['$scope', '$location', 'gridService', '$rootScope','$q',
-        'ServiceRequestService',
-        function($scope,  $location,  GridService, $rootScope, $q, ServiceRequest) {
+    .controller('ServiceRequestListController', ['$scope', '$location', '$rootScope','ServiceRequestService', 'grid',
+        function($scope,  $location, $rootScope, ServiceRequest, Grid) {
             $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
 
             $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, ServiceRequest);
-            ServiceRequest.setRequiredParams([{name: 'accountId', value: $rootScope.currentAccount }]);
-            GridService.getGridOptions(ServiceRequest, '').then(
-                function(options){
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(ServiceRequest, $rootScope);
-                    $scope.itemsPerPage = ServiceRequest.getPersonalizedConfiguration('itemsPerPage');
-                    var params =[
-                        {
-                            name: 'size',
-                            value: $scope.itemsPerPage
-                        },
-                        {
-                            name: 'page',
-                            value: 0
-                        }
-                    ];
-
-                    ServiceRequest.resource(ServiceRequest.getFullParamsList(params)).then(
-                        function(response){
-                            $scope.gridOptions.data = ServiceRequest.getList();
-                        }
-                    );
-                },
-                function(reason){
-                     NREUM.noticeError('Grid Load Failed: ' + reason);
-                }
-            );
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest);
+            ServiceRequest.getList().then(function() {
+                Grid.display(ServiceRequest, $scope);
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);
+            });
         }
     ]);
 });

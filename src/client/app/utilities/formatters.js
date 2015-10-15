@@ -18,7 +18,7 @@ define(['angular', 'utility'], function(angular) {
                     var value = telephone.toString().trim().replace(/^\+/, '');
 
                     if (value.match(/[^0-9]/)) {
-                            return tel;
+                            return telephone;
                     }
 
                     var country, city, number;

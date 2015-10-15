@@ -1,15 +1,13 @@
-define(['angular', 'address', 'utility.gridCustomizationService'], function(angular) {
+define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .factory('Addresses', [ 'serviceUrl', '$translate','$http','SpringDataRestAdapter',
-        'gridCustomizationService',
-        function(serviceUrl, $translate, $http, SpringDataRestAdapter, gridCustomizationService) {
-            var Addresses = function(){
+    .factory('Addresses', [ 'serviceUrl', '$translate','HATEAOSFactory',
+        function(serviceUrl, $translate, HATEAOSFactory) {
+            var Addresses = {
 
                 //customize Address
-                this.bindingServiceName = 'addresses';
-                this.columns = {
-                    'defaultSet':[
+                serviceName: 'addresses',
+                columns: [
                         {'name': 'id', 'field': 'id', visible:false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
@@ -20,36 +18,11 @@ define(['angular', 'address', 'utility.gridCustomizationService'], function(angu
                         {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode' },
                         {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country', 'width': 120 }
                     ],
-                    bookmarkColumn: 'getBookMark()'
-                };
+                route: '/service_request/addresses'
 
-                this.templatedUrl = serviceUrl + 'accounts/1-21AYVOT/addresses/';
-                //'addresses/?accountId=1-3F2FR9{?page,size,sort}';
-                this.paramNames = ['page', 'sort', 'size', 'accountId'];
             };
 
-            Addresses.prototype = gridCustomizationService;
-
-            Addresses.prototype.get = function(params){
-               var addy  = this;
-                if(params.id !== 'new'){
-
-                }
-               return addy.address;
-            };
-
-            Addresses.prototype.save = function(params, saveObject, fn){
-                var addy = this;
-                if(params.id === 'new'){
-                    addy.address = saveObject;
-                }else{
-
-                }
-
-                return fn();
-            };
-
-            return new Addresses();
+            return new HATEAOSFactory(Addresses);
         }
     ]);
 });
