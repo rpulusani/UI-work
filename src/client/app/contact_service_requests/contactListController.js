@@ -14,10 +14,6 @@ define(['angular', 'contact', 'utility.gridService'], function(angular) {
                 });
             };
 
-          //  $scope.bookmark = function(contact, $event) {
-                //console.log($event.currentTarget);
-          //  };
-            
             $scope.gridOptions = {};
 
             Contacts.getList().then(function() {

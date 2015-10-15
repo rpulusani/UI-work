@@ -134,10 +134,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 || scope.gridOptions.showBookmarkColumn === true) 
                 && this.hasBookmarkCol === false) {
 
-                scope.bookmark = function(row, $element) {
-                    
-                };
-
                 this.hasBookmarkCol = true;
 
                 scope.gridOptions.columnDefs.unshift({

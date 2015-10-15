@@ -91,7 +91,7 @@ define(['angular', 'utility'], function(angular) {
                 deferred = $q.defer();
 
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                    var url = '';
+                    var url;
 
                     self.url = api.url;
                     self.params = api.params;
