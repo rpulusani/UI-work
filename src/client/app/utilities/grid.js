@@ -15,7 +15,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.pagination = function(service, scope) {
             var self = this;
-
+            alert('PAGINATION')
             return {
                 currentPage: service.params.page,
                 pageProps: function() {
