@@ -1,4 +1,4 @@
-define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(angular) {
+define(['angular', 'deviceServiceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
     .controller('DeviceSearchController', ['$scope', '$location',
