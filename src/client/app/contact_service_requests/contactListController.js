@@ -5,7 +5,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         'PersonalizationServiceFactory',
         function($scope, $location, Grid, Contacts, $rootScope, Personalize) {
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(),'test');
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.goToCreate = function() {
                 Contacts.item = {};
                 $location.path(Contacts.route + '/new');
