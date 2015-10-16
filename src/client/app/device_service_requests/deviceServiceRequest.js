@@ -15,6 +15,10 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/contact-picker.html',
                 controller: 'ContactPickerController'
             })
+            .when('/service_requests/devices/search', {
+                templateUrl: '/app/device_service_requests/templates/search.html',
+                controller: 'DeviceSearchController'
+            })
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController'
