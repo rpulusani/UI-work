@@ -20,7 +20,15 @@ define(['angular', 'contact'], function(angular, contact) {
                     {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field': 'alternatePhone'},
                     {'name': $translate.instant('CONTACT.EMAIL'), 'field': 'email'}
                 ],
-                route: '/service_requests/contacts'
+                route: '/service_requests/contacts',
+                beforeSave: function(halObj, deferred) { // Must return true for item to be saved
+                    halObj.physicalAddress = {
+                        addressId: '1-2CPY6UA',
+                        country: 'US'
+                    };
+                    
+                    deferred.resolve(true, halObj);
+                }
             };
             
             return new HATEAOSFactory(Contacts);

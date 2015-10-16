@@ -16,7 +16,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
             $scope.gridOptions = {};
 
-            Contacts.getList().then(function() {
+            Contacts.getPage().then(function() {
                 Grid.display(Contacts, $scope);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);

@@ -122,11 +122,11 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                 });
             }));
 
-            describe('getList()', function() {
+            describe('getPage()', function() {
                 it('gets a paged collection from the service and puts them in this.data', function() {
-                    spyOn(mockFactory, 'getList').and.callThrough();
+                    spyOn(mockFactory, 'getPage').and.callThrough();
 
-                    mockFactory.getList();
+                    mockFactory.getPage();
 
                     httpBackend.flush();
 

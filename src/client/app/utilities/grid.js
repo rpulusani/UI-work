@@ -15,19 +15,18 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.pagination = function(service, scope) {
             var self = this;
-            alert('PAGINATION')
+            
             return {
-                currentPage: service.params.page,
+                currentPage: service.page.number,
                 pageProps: function() {
                     var total = service.page.totalPages,
-                    length = 5,
                     props = {
-                        page: service.params.page,
-                        length: length
+                        page: service.page.number,
+                        length: 5
                     };
 
                     if (props.page < 3) {
-                        props.page  = 0;
+                        props.page = 0;
                     } else if ( props.page >= 3 && props.page + 5 <= total) {
                         props.page = props.page - 2;
                         props.length = props.page + 5;
@@ -38,7 +37,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         props.page = total - 5;
                         props.length = total;
                     }
-
+                   
                     return props;
                 },
                 pageArray: function() {
@@ -52,58 +51,61 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
                     return array;
                 },
-                totalItems: function() {
-                    if (service.page.totalElements) {
-                        return service.page.totalElements;
-                    } else {
-                        return -1;
-                    }
-                },
-                totalPages: service.page.totalPages,
+                totalItems: service.page.totalElements,
+                totalPages: 26,
                 showTotal: function() {
-                    if (service.page.totalPages !== -1){
-                        return service.page.totalPages > 5 
-                            && service.params.page + 4 < service.page.totalPages;
+                    if (this.totalPages !== -1){
+                        return this.totalPages > 5 
+                            && this.currentPage + 4 < this.totalPages;
                     } else {
                         return false;
                     }
                 },
                 isCurrent: function(page) {
-                   return page === service.params.page;
+                   return page === this.currentPage;
                 },
-                canNotPrev:  function(){
-                    var page = service.params.page - 1;
-                    return  page < 0;
+                canNotPrev: function() {
+                    return  (this.currentPage - 1) < 0;
                 },
                 canNotNext: function() {
-                    if (service.params.page && service.page.totalPages) {
-                        return (service.params.page + 1) >= service.page.totalPages;
+                    if (this.currentPage && this.totalPages) {
+                        return (this.currentPage + 1) >= this.totalPages;
                     } else {
                         return false;
                     }
                 },
                 onChangeItemsCount: function(option) {
-                    service.params.size = option.items;
-                    this.gotoPage();
+                    this.gotoPage(0, option.items);
                 },
-                gotoPage: function(pageNumber) {
-                    service.getList(pageNumber).then(function() {
+                gotoPage: function(pageNumber, size) {
+                    var self = this;
+
+                    if (!size) {
+                        size = service.page.size;
+                    }
+
+                    service.getPage(pageNumber, size).then(function() {
+                        self.currentPage = service.page.number;
+                        self.totalPages = service.page.totalPages;
+                        self.totalElements = service.page.totalElements;
+                        angular.copy(20, self.totalPages);
                         scope.gridOptions.data = service.data;
+                        scope.total = service.data.length;
                     }, function(reason) {
                         NREUM.noticeError('failed Paging: ' + reason);
                     });
                 },
                 nextPage: function() {
-                    if (service.params.page + 1 < service.page.totalPages) {
-                        this.gotoPage(service.params.page + 1);
+                    if (this.currentPage + 1 < this.totalPages) {
+                        this.gotoPage(service.page.number + 1);
                     } else {
                         NREUM.noticeError('Pagination nextPage() has a function undefined!');
                     }
                 },
                 prevPage: function() {
                     if (this.gotoPage) {
-                        if (service.params.page - 1 >= 0) {
-                            this.gotoPage(service.params.page - 1);
+                        if (this.currentPage - 1 >= 0) {
+                            this.gotoPage(service.page.number - 1);
                         }
                     } else {
                          NREUM.noticeError('Pagination prevPage() has a function undefined!');
@@ -113,20 +115,32 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     this.gotoPage(0);
                 },
                 lastPage: function() {
-                    this.gotoPage(service.params.page - 1);
-                },
-                useExternalPagination: true
+                    this.gotoPage(service.page.totalPages - 1);
+                }
             };
         };
 
         Grid.prototype.display = function(service, scope) {
+            var i = 0,
+            totalColumns = 0;
+
             scope.gridOptions.data = service.data;
             scope.gridOptions.columnDefs = service.columns;
-            scope.gridOptions.showGridFooter = true;
+            scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
             scope.gridOptions.gridCss = 'table';
             scope.gridOptions.enableColumnMenu = false;
+            scope.gridOptions.useExternalPagination = true;
+            
+            totalColumns = scope.gridOptions.columnDefs.length;
+
+            for (i; i < totalColumns; i += 1) {
+                if (!scope.gridOptions.columnDefs[i].enableColumnMenu || 
+                    !scope.gridOptions.columnDefs[i].enableColumnMenu === false) {
+                    scope.gridOptions.columnDefs[i].enableColumnMenu = false;
+                }
+            }
 
             // Setup special columns
             if ((!scope.gridOptions.showBookmarkColumn 
@@ -151,7 +165,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             if (scope.gridOptions.pagination !== false) {
                 scope.pagination = this.pagination(service, scope);
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
-                scope.itemsPerPage = service.params.size;
             }
         };
 

@@ -5,7 +5,7 @@ define(['angular', 'utility'], function(angular) {
         function(serviceUrl, $http, $q, HATEAOSConfig, halAdapter) {
             var user = { // mock
                 accountId: '1-21AYVOT'
-            }
+            };
 
             var HATEAOSFactory = function(serviceDefinition) {
                 var self = this;
@@ -28,12 +28,39 @@ define(['angular', 'utility'], function(angular) {
                 return angular.extend(self, serviceDefinition);
             };
 
+            HATEAOSFactory.prototype.before = function(halObj, fnName) {
+                var self = this,
+                deferred = $q.defer();
+
+                if (fnName && typeof self[fnName] === 'function') {
+                    self[fnName](halObj, deferred);
+                } else {
+                    deferred.resolve(true);
+                }
+
+                return deferred.promise;
+            };
+
+            HATEAOSFactory.prototype.after = function(halObj, fnName) {
+                var self = this,
+                deferred = $q.defer();
+
+                if (fnName && typeof self[fnName]=== 'function') {
+                    self[fnName](halObj, deferred);
+                } else {
+                    deferred.resolve(halObj);
+                }
+
+                return deferred.promise;
+            };
+
             // Obtaining single item
             HATEAOSFactory.prototype.get = function(halObj) {
                 var self  = this,
-                deferred = $q.defer();
+                deferred = $q.defer(),
+                url = halObj._links.self.href + '?accountId=' + user.accountId;
                
-                halAdapter.process($http.get(halObj._links.self.href + '?accountId=' + user.accountId)).then(function(processedResponse) {
+                halAdapter.process($http.get(url)).then(function(processedResponse) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
 
@@ -47,20 +74,33 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer();
 
-                halObj.firstName = 'Rocky';
-                halObj.lastName = 'Bevins';
-                halObj.email = 'rbevins@lexmark.com';
-                halObj._links = {account: {href:'https://api.venus-dev.lexmark.com/mps/accounts/1-21AYVOT'}};
+                self.before(halObj, 'beforeSave').then(function(canContinue, newObj) {
+                    if (canContinue === true) {
+                        if (newObj) {
+                            halObj = newObj;
+                        }
 
-                halAdapter.process($http({
-                    method: 'post',
-                    url: self.url + '?accountId=' + user.accountId,
-                    data: halObj
-                })).then(function(processedResponse) {
-                    self.item = processedResponse;
-                    self.processedResponse = processedResponse;
+                        halObj._links = { 
+                            account: {
+                                href: 'http://localhost:8080/mps/accounts/' + user.accountId
+                            }
+                        }
 
-                    deferred.resolve();
+                        halAdapter.process($http({
+                            method: 'post',
+                            url: self.url + '?accountId=' + user.accountId,
+                            data: halObj
+                        })).then(function(processedResponse) {
+                            self.item = processedResponse;
+                            self.processedResponse = processedResponse;
+
+                            self.after(self.item, 'afterSave').then(function() {
+                                deferred.resolve();
+                            });
+                        });
+                    } else {
+                        deferred.resolve(false);
+                    }
                 });
 
                 return deferred.promise;
@@ -69,24 +109,40 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSFactory.prototype.update = function(halObj) {
                 var self  = this,
                 deferred = $q.defer();
+                
+                self.before(halObj, 'beforeUpdate').then(function(canContinue, newObj) {
+                    if (canContinue) {
+                        if (newObj) {
+                            halObj = newObj;
+                        }
 
-                halObj._links.account = 'https://api.venus-dev.lexmark.com/mps/accounts/1-21AYVOT';
+                        halObj._links = { 
+                            account: {
+                                href: 'http://localhost:8080/mps/accounts/' + user.accountId
+                            }
+                        }
 
-                halAdapter.process($http({
-                    method: 'put',
-                    url: halObj._links.self.href + '?accountId=' + user.accountId,
-                    data: halObj
-                })).then(function(processedResponse) {
-                    self.item = processedResponse;
-                    self.processedResponse = processedResponse;
+                        halAdapter.process($http({
+                            method: 'put',
+                            url: self.url + '/' + halObj.id + '?accountId=' + user.accountId,
+                            data: halObj
+                        })).then(function(processedResponse) {
+                            self.item = processedResponse;
+                            self.processedResponse = processedResponse;
 
-                    deferred.resolve();
-                });
+                            self.after(self.item, 'afterUpdate').then(function() {
+                                deferred.resolve();
+                            });
+                        });
+                    } else {
+                        deferred.resolve(false);
+                    }
+               });
 
-                return deferred.promise;
+               return deferred.promise;
             };
 
-            HATEAOSFactory.prototype.getList = function(page, size) {
+            HATEAOSFactory.prototype.getPage = function(page, size) {
                 var self  = this,
                 deferred = $q.defer();
 
@@ -103,10 +159,10 @@ define(['angular', 'utility'], function(angular) {
                     if (size) {
                         self.params.size = size;
                     }
-                    
+
                     url = self.url + '?accountId=' + user.accountId +
-                        '&page=0' +
-                        '&size=20';
+                        '&page=' + self.params.page +
+                        '&size=' + self.params.size;
 
                     halAdapter.process($http.get(url)).then(function(processedResponse) {
                         self.data = processedResponse._embeddedItems;
