@@ -77,14 +77,28 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 });
             });
         });
-    
-    describe('Routes', function(){
+
+
+        describe('DeviceSearchController', function() {
+            var scope, ctrl, location;
+            
+            beforeEach(inject(function($rootScope, $controller, $location) {
+                scope = $rootScope.$new();
+                rootScope = $rootScope;
+                location = $location;
+                ctrl = $controller('DeviceSearchController', {$scope: scope});
+            }));
+        });
+
+        describe('Routes', function(){
             it('should map routes to controllers', function() {
                 inject(function($route) {
                     expect($route.routes['/service_requests/devices/new'].controller).toBe('DeviceAddController');
                     expect($route.routes['/service_requests/devices/new'].templateUrl).toEqual('/app/device_service_requests/templates/new.html');
                     expect($route.routes['/service_requests/devices/pick_contact'].controller).toBe('ContactPickerController');
                     expect($route.routes['/service_requests/devices/pick_contact'].templateUrl).toEqual('/app/device_service_requests/templates/contact-picker.html');
+                    expect($route.routes['/service_requests/devices/search'].controller).toBe('DeviceSearchController');
+                    expect($route.routes['/service_requests/devices/search'].templateUrl).toEqual('/app/device_service_requests/templates/search.html');
                 });
             });
         });
