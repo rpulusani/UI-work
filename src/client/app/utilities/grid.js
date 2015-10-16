@@ -52,7 +52,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     return array;
                 },
                 totalItems: service.page.totalElements,
-                totalPages: 26,
+                totalPages: service.page.totalPages,
                 showTotal: function() {
                     if (this.totalPages !== -1){
                         return this.totalPages > 5 
