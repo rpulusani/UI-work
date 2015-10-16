@@ -28,7 +28,7 @@ define(['angular', 'utility'], function(angular) {
                 return angular.extend(self, serviceDefinition);
             };
 
-            HATEAOSFactory.prototype.before = function(halObj, fnName) {
+            HATEAOSFactory.prototype.checkForEvent = function(halObj, fnName) {
                 var self = this,
                 deferred = $q.defer();
 
@@ -36,19 +36,6 @@ define(['angular', 'utility'], function(angular) {
                     self[fnName](halObj, deferred);
                 } else {
                     deferred.resolve(true);
-                }
-
-                return deferred.promise;
-            };
-
-            HATEAOSFactory.prototype.after = function(halObj, fnName) {
-                var self = this,
-                deferred = $q.defer();
-
-                if (fnName && typeof self[fnName]=== 'function') {
-                    self[fnName](halObj, deferred);
-                } else {
-                    deferred.resolve(halObj);
                 }
 
                 return deferred.promise;
@@ -74,7 +61,7 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer();
 
-                self.before(halObj, 'beforeSave').then(function(canContinue, newObj) {
+                self.checkForEvent(halObj, 'beforeSave').then(function(canContinue, newObj) {
                     if (canContinue === true) {
                         if (newObj) {
                             halObj = newObj;
@@ -94,7 +81,7 @@ define(['angular', 'utility'], function(angular) {
                             self.item = processedResponse;
                             self.processedResponse = processedResponse;
 
-                            self.after(self.item, 'afterSave').then(function() {
+                            self.checkForEvent(self.item, 'afterSave').then(function() {
                                 deferred.resolve();
                             });
                         });
@@ -110,7 +97,7 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer();
                 
-                self.before(halObj, 'beforeUpdate').then(function(canContinue, newObj) {
+                self.checkForEvent(halObj, 'beforeUpdate').then(function(canContinue, newObj) {
                     if (canContinue) {
                         if (newObj) {
                             halObj = newObj;
@@ -130,7 +117,7 @@ define(['angular', 'utility'], function(angular) {
                             self.item = processedResponse;
                             self.processedResponse = processedResponse;
 
-                            self.after(self.item, 'afterUpdate').then(function() {
+                            self.checkForEvent(self.item, 'afterUpdate').then(function() {
                                 deferred.resolve();
                             });
                         });
