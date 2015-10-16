@@ -98,6 +98,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
+                scope.itemsPerPage = service.params.size;
             }
         };
 
@@ -107,7 +108,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             return {
                 currentPage: service.params.page,
                 pageProps: function() {
-                    var total = service.page.totalPages,
+                    var total = this.totalPages(),
                     props = {
                         page: service.params.page,
                         length: 5
@@ -149,11 +150,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         return -1;
                     }
                 },
-                totalPages: service.page.totalPages,
+                totalPages:  function(){
+                    return service.page.totalPages;
+                },
                 showTotal: function() {
-                    if (service.page.totalPages !== -1){
-                        return service.page.totalPages > 5 &&
-                         service.params.page + 4 < service.page.totalPages;
+                    if (this.totalPages() !== -1){
+                        return this.totalPages() > 5 &&
+                         service.params.page + 4 < this.totalPages();
                     } else {
                         return false;
                     }
@@ -166,8 +169,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     return  page < 0;
                 },
                 canNotNext: function() {
-                    if (service.params.page && service.page.totalPages) {
-                        return (service.params.page + 1) >= service.page.totalPages;
+                    if (service.params.page && this.totalPages()) {
+                        return (service.params.page + 1) >= this.totalPages();
                     } else {
                         return false;
                     }
@@ -185,7 +188,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     });
                 },
                 nextPage: function() {
-                    if (service.params.page + 1 < service.page.totalPages) {
+                    if (service.params.page + 1 < this.totalPages()) {
                         this.gotoPage(service.params.page + 1);
                     } else {
                         NREUM.noticeError('Pagination nextPage() has a function undefined!');
@@ -204,7 +207,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     this.gotoPage(0);
                 },
                 lastPage: function() {
-                    this.gotoPage(service.params.page - 1);
+                    this.gotoPage(this.totalPages() - 1);
                 },
                 useExternalPagination: true
             };

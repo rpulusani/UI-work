@@ -29,8 +29,8 @@
           <span>...</span>
       </li>
       <li ng-if="pagination.showTotal()"
-     class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pagination.totalPages - 1)}">
-      <a href="#" ng-click="pagination.gotoPage(pagination.totalPages - 1, gridOptions)">{{ pagination.totalPages }}</a>
+     class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pagination.totalPages() - 1)}">
+      <a href="#" ng-click="pagination.gotoPage(pagination.totalPages() - 1, gridOptions)">{{ pagination.totalPages() }}</a>
       </li>
   </ul>
   <div class="pagination__btn pagination__next" ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
