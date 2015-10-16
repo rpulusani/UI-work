@@ -262,7 +262,24 @@
         "REPORT_NAME": "Report",
         "ACTION": "Action",
         "RUN": "RUN THIS REPORT",
-        "RUN_TITLE": "Run Report"
+        "RUN_TITLE": "Run Report",
+        "TITLE_CNT": "Records ({{total}})",
+        "MP9073.TITLE": "MADC Report (MP9073)<br/> Showing {{event_type}} from 2015-01-01 to 2015-01-16 ({{total}} records)",
+        "MP9073.TYPE": "Event Type",
+        "MP9073.EVENT_DT": "Event Date",
+        "MP9073.MANUFACTURER": "Manufacturer",
+        "MP9073.DEVICE": "Device",
+        "MP9073.ASSET_TAG": "Asset Tag",
+        "MP9073.ORIG_SN": "Original SN",
+        "MP9073.NEW_SN": "New SN",
+        "MP9073.OLD_ADDRESS": "Old Address",
+        "MP9073.NEW_ADDRESS": "New Address",
+        "MP9073.GEO": "Geo",
+        "MP9073.COUNTRY": "Country",
+        "MP9073.OLD_IP": "Old IP",
+        "MP9073.NEW_IP": "New IP",
+        "MP9073.OLD_CHL": "Old CHL",
+        "MP9073.NEW_CHL": "New CHL"
     },
 
     "INVOICE": {

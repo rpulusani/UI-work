@@ -327,6 +327,12 @@ memory = {
                     groupId: 'group3',
                     name: 'Missing Page Count - Automated (AM1175)',
                     desc: 'Missing Page Count - Automated (AM1175)'
+                },
+                {
+                    id:'913',
+                    groupId: 'group3',
+                    name: 'MADC (MP9073)',
+                    desc: 'MADC (MP9073)'
                 }
             ]
         }
