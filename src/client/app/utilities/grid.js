@@ -14,7 +14,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
 
-        Grid.prototype.getGridActions =  function($rootScope, service){
+        Grid.prototype.getGridActions =  function($rootScope, service, personal){
                 return function( gridApi ) {
                     $rootScope.gridApi = gridApi;
                     gridApi.selection.on.rowSelectionChanged($rootScope,
@@ -58,17 +58,19 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             return angular.copy(data);
         };
 
-        Grid.prototype.setColumnDefaults = function(columns){
+        Grid.prototype.setColumnDefaults = function(columns, personal){
+            //do something with a personal set of columns configured
+
+            //disabled column menu keep last so that it can not be overridden by personal settings.
             for(var i = 0; i < columns.length; ++i){
                      columns[i].enableColumnMenu = false;
-                }
-
+            }
             return columns;
         };
 
-        Grid.prototype.display = function(service, scope) {
+        Grid.prototype.display = function(service, scope, personal) {
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
-            scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns);
+            scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, personal);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
@@ -93,14 +95,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             }
 
             // Setting up pagination
-            if (scope.gridOptions.pagination !== false) {
-                scope.pagination = this.pagination(service, scope);
+            if (scope.pagination !== false) {
+                scope.pagination = this.pagination(service, scope, personal);
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
-                scope.itemsPerPage = service.params.size;
             }
         };
 
-        Grid.prototype.pagination = function(service, scope) {
+        Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
 
             return {
@@ -172,13 +173,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     }
                 },
                 onChangeItemsCount: function(option) {
-                    service.setPersonalizedConfiguration('itemsPerPage', option['items']);
+                    personal.setPersonalizedConfiguration('itemsPerPage', option['items']);
                     this.gotoPage(0);
                 },
                 gotoPage: function(pageNumber) {
-                    var pageSize = service.getPersonalizedConfiguration('itemsPerPage');
+                    var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
                     service.getList(pageNumber, pageSize).then(function() {
-                        scope.gridOptions.data = self.getDataWithDataFormatters(service.data, service.functionArray);
+                       self.display(service, scope, personal);
                     }, function(reason) {
                         NREUM.noticeError('failed Paging: ' + reason);
                     });
@@ -208,6 +209,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 useExternalPagination: true
             };
         };
+
 
         return new Grid();
     }]);

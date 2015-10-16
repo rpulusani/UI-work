@@ -1,9 +1,9 @@
-define(['angular', 'contact', 'utility.formatters', 'utility.personalizationService'], function(angular, contact) {
+define(['angular', 'contact', 'utility.formatters'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['serviceUrl', '$translate', 'HATEAOSFactory',
-       'FormatterService', 'PersonalizationServiceFactory',
-        function(serviceUrl, $translate, HATEAOSFactory, formatter, PersonalizationServiceFactory) {
+       'FormatterService',
+        function(serviceUrl, $translate, HATEAOSFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
                 columns: [
@@ -47,7 +47,7 @@ define(['angular', 'contact', 'utility.formatters', 'utility.personalizationServ
 
              };
 
-            return new HATEAOSFactory(new PersonalizationServiceFactory(Contacts));
+            return new HATEAOSFactory(Contacts);
         }
     ]);
 });

@@ -4,16 +4,9 @@ define(['angular', 'contact'], function(angular) {
     .controller('ContactController', ['$scope', '$location', 'Contacts', 'ServiceRequestService',
         function($scope, $location, Contacts, ServiceRequestService) {
             var redirect_to_list = function() {
-                Contacts.item = null;
                 $location.path(Contacts.route);
             };
-
-            if (Contacts.item === null) {
-                redirect_to_list();
-            } else {
-                $scope.contact = Contacts.item;
-            }
-
+            
             $scope.reviewing = false;
 
             $scope.review = function() {
@@ -58,6 +51,12 @@ define(['angular', 'contact'], function(angular) {
             $scope.cancel = function() {
                 redirect_to_list();
             };
+
+            if (Contacts.item === null) {
+                redirect_to_list();
+            } else {
+                $scope.contact = Contacts.item;
+            }
         }
     ])
 });

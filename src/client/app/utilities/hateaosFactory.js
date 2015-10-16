@@ -1,7 +1,8 @@
 define(['angular', 'utility'], function(angular) {
+    'use strict';
     angular.module('mps.utility')
-    .factory('HATEAOSFactory', ['serviceUrl', '$translate','$http', '$q', 'SpringDataRestAdapter',
-        function(serviceUrl, $translate, $http, $q, halAdapter) {
+    .factory('HATEAOSFactory', ['serviceUrl', '$http', '$q', 'HATEAOSConfig', 'SpringDataRestAdapter',
+        function(serviceUrl, $http, $q, HATEAOSConfig, halAdapter) {
             var user = { // mock
                 accountId: '1-21AYVOT'
             };
@@ -20,55 +21,14 @@ define(['angular', 'utility'], function(angular) {
                 self.columns = {};
                 self.resetServiceMap = false;
                 self.url = '';
-                // self.params  = {page: 0, size: 20, sort: ''}
-                self.params = {};
+                // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
+                self.params = {}; 
                 self.route = '';
 
                 return angular.extend(self, serviceDefinition);
             };
 
-            // abstract this portion to a new service
-            HATEAOSFactory.prototype.getApi = function() {
-                var self = this,
-                deferred = $q.defer();
-
-                if (!self.url || self.resetServiceMap === true) {
-                    $http.get(serviceUrl + '/').success(function (data) {
-                        var prop,
-                        paramArr = [],
-                        i = 0;
-
-                        for (prop in data._links) {
-                            if (prop === self.serviceName) {
-                                self.url = data._links[prop].href.replace(/{.*}/,'');
-                                paramArr = data._links[prop].href.replace(/.*{[?]/,'')
-                                    .replace('}', '')
-                                    .split(',');
-                            }
-                        }
-
-                        for (i; i < paramArr.length; i += 1) {
-                            if (paramArr[i] === 'page') {
-                                // default page
-                                self.params[paramArr[i]] = 0;
-                            } else if (paramArr[i] === 'size') {
-                                // default size
-                                self.params[paramArr[i]] = 20;
-                            } else {
-                                // default sort
-                                self.params[paramArr[i]] = '';
-                            }
-                        }
-
-                        deferred.resolve();
-                    });
-                } else {
-                    deferred.resolve();
-                }
-
-                return deferred.promise;
-            };
-
+            // Obtaining single item
             HATEAOSFactory.prototype.get = function(halObj) {
                 var self  = this,
                 deferred = $q.defer();
@@ -77,7 +37,7 @@ define(['angular', 'utility'], function(angular) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
 
-                    return deferred.resolve();
+                    deferred.resolve();
                 });
 
                 return deferred.promise;
@@ -87,6 +47,11 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer();
 
+                halObj.firstName = 'Rocky';
+                halObj.lastName = 'Bevins';
+                halObj.email = 'rbevins@lexmark.com';
+                halObj._links = {account: {href:'https://api.venus-dev.lexmark.com/mps/accounts/1-21AYVOT'}};
+
                 halAdapter.process($http({
                     method: 'post',
                     url: self.url + '?accountId=' + user.accountId,
@@ -95,7 +60,7 @@ define(['angular', 'utility'], function(angular) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
 
-                    return deferred.resolve();
+                    deferred.resolve();
                 });
 
                 return deferred.promise;
@@ -105,6 +70,8 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer();
 
+                halObj._links.account = 'https://api.venus-dev.lexmark.com/mps/accounts/1-21AYVOT';
+
                 halAdapter.process($http({
                     method: 'put',
                     url: halObj._links.self.href + '?accountId=' + user.accountId,
@@ -113,7 +80,7 @@ define(['angular', 'utility'], function(angular) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
 
-                    return deferred.resolve();
+                    deferred.resolve();
                 });
 
                 return deferred.promise;
@@ -123,8 +90,11 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer();
 
-                self.getApi().then(function() {
+                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     var url;
+
+                    self.url = api.url;
+                    self.params = api.params;
 
                     if (page || page === 0) {
                         self.params.page = page;
@@ -138,14 +108,14 @@ define(['angular', 'utility'], function(angular) {
                         '&page=' + self.params.page +
                         '&size=' + self.params.size;
 
-                    halAdapter.process($http.get(url)).then(function (processedResponse) {
+                    halAdapter.process($http.get(url)).then(function(processedResponse) {
                         self.data = processedResponse._embeddedItems;
                         self.page = processedResponse.page;
                         self.params.page = self.page.number;
                         self.params.size = self.page.size;
                         self.processedResponse = angular.toJson(processedResponse, true);
 
-                        return deferred.resolve();
+                        deferred.resolve();
                     });
                 });
 

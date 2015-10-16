@@ -2,49 +2,53 @@ define(['angular'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .factory('PersonalizationServiceFactory', [function() {
-        var PersonalizationServiceFactory = function(serviceDefinition){
+        var PersonalizationServiceFactory = function(uri, userId){
              var self = this;
-             self.modulePesonalization ={};
-             return angular.extend(self, serviceDefinition);
+             self.modulePesonalization = this.getPersonalizedFragment(uri, userId);
         };
 
-        function sync(){
+        PersonalizationServiceFactory.prototype.save = function(fragment){
+            this.modulePesonalization = fragment;
+            //save back to db the updated/new settings
+        };
 
-        }
+        PersonalizationServiceFactory.prototype.getPersonalizedFragment = function(uri, userId){
+            var fragment = {};
+            //query for personalized fragment based on  uri and userId
+            if(this.modulePesonalization !== undefined && this.modulePesonalization.name === uri){
+                fragment = angular.copy(this.modulePesonalization);
+            }else{
+                //setup starter fragment
+                fragment =
+                    {
+                       'name': uri
+                    };
+            }
+            return fragment;
+        };
 
-        function getPersonalizedFragment(){
-            //call out to new service and fill modulePersonalizationArray
-            //if empty then
-        }
+         PersonalizationServiceFactory.prototype.getFragment = function(){
+            return angular.copy(this.modulePesonalization);
+        };
 
         PersonalizationServiceFactory.prototype.getPersonalizedConfiguration = function(configPropName){
-            if(this.modulePesonalization && this.modulePesonalization.name &&
-                 this.modulePesonalization.name === this.serviceName &&
-                 this.modulePesonalization[configPropName]){
-                return this.modulePesonalization[configPropName];
-            }else{
-                return undefined;
+            var fragment = this.getFragment(),
+                value;
+            if(fragment !== null && fragment !== undefined &&
+                 fragment[configPropName] !== null &&
+                 fragment[configPropName] !== undefined ){
+                value =  fragment[configPropName];
             }
+            return value;
         };
 
         PersonalizationServiceFactory.prototype.setPersonalizedConfiguration = function(configPropName, value){
-            getPersonalizedFragment();
-
-             if(this.modulePesonalization && this.modulePesonalization.name &&
-                 this.modulePesonalization.name === this.serviceName){
-                    this.modulePesonalization[configPropName] = value; //update or add
-            }else{
-                //create Object Array
-                this.modulePesonalization =
-                    {
-                       'name': this.serviceName
-                    };
-                this.modulePesonalization[configPropName]  = value;
-            }
+            var fragment = this.getFragment();
+            fragment[configPropName] = value; //update or add
             //push personalization to the database repo via api
-            sync();
+            this.save(fragment);
         };
 
-        return PersonalizationServiceFactory();
+        return PersonalizationServiceFactory;
     }]);
 });
