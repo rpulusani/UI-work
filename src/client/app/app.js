@@ -39,6 +39,7 @@ define([
     'deviceManagement.directives',
     'deviceServiceRequest',
     'deviceServiceRequest.deviceAddController',
+    'deviceServiceRequest.deviceSearchController',
     'deviceServiceRequest.factory',
     'deviceServiceRequest.directives',
     'utility',
