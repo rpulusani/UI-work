@@ -114,8 +114,8 @@ define([
         GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(['Gatekeeper', 'UserService', '$rootScope', '$cookies','$q',
-    function(Gatekeeper, UserService, $rootScope, $cookies, $q) {
+    .run(['Gatekeeper', '$rootScope', '$cookies','$q',
+    function(Gatekeeper, $rootScope, $cookies, $q) {
 
         //TODO: Get appropriate organization
         // Gatekeeper.login({organization: 'lexmark'});

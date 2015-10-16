@@ -331,6 +331,244 @@ memory = {
             ]
         }
     },
+    users: 
+        {
+  "_links": {
+    "self": {
+      "href": "http://10.145.116.233:8080/users"
+    }
+  },
+  "_embedded": {
+    "users": [
+              {
+                "id": "122345",
+                "userId": "122345",
+                "idpId": "122345",
+                "contactId": "122345",
+                "type": "enduser",
+                "created": "01/26/2015 00:00:00",
+                "createdBy": "12342",
+                "updated": "01/26/2015 00:00:00",
+                "updatedBy": "12342",
+                "invitedStatus": "pending",
+                "activeStatus": "Y",
+                "resetPassword": "Y",
+                "firstName": "shankar",
+                "lastName": "matta",
+                "email": "test@test.com",
+                "password": "tbd",
+                "workPhone": "111-11-1111",
+                "address1": "111-11-1111",
+                "address2": "111-11-1111",
+                "city": "lexington",
+                "country": "usa",
+                "state": "ky",
+                "postalCode": "40509",
+                "preferredLanguage": "en_US",
+                "permissions": [
+                  "viewInvoices"
+                ],
+                "_links": {
+                  "self": {
+                    "href": "/users/{userId}"
+                  },
+                  "accounts": [
+                    {
+                      "href": "/accounts/123"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "href": "/roles/123"
+                    }
+                  ],
+                  "contact": {
+                    "href": "/contacts/122345"
+                  }
+                },
+                "_embedded": {
+                  "accounts": [
+                    {
+                      "name": "string",
+                      "id": 0,
+                      "additionalProperties": "tbd"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "roleId": "122345",
+                      "description": "account manager",
+                      "permissions": [
+                        "viewInvoices"
+                      ],
+                      "_links": {
+                        "self": {
+                          "href": "/roles/CustomerPortal/2"
+                        }
+                      }
+                    }
+                  ],
+                  "preferences": [
+                    "SEND EMAIL ETC"
+                  ]
+                }
+              },
+              {
+                "id": "1223456",
+                "userId": "1223456",
+                "idpId": "1223456",
+                "contactId": "1223456",
+                "type": "INVITED",
+                "created": "01/26/2015 00:00:00",
+                "createdBy": "12342",
+                "updated": "01/26/2015 00:00:00",
+                "updatedBy": "12342",
+                "invitedStatus": "pending",
+                "activeStatus": "Y",
+                "resetPassword": "Y",
+                "firstName": "test",
+                "lastName": "user",
+                "email": "test@user.com",
+                "password": "tbd",
+                "workPhone": "111-11-1111",
+                "address1": "111-11-1111",
+                "address2": "111-11-1111",
+                "city": "lexington",
+                "country": "usa",
+                "state": "ky",
+                "postalCode": "40509",
+                "preferredLanguage": "en_US",
+                "permissions": [
+                  "viewInvoices"
+                ],
+                "_links": {
+                  "self": {
+                    "href": "/users/1223456"
+                  },
+                  "accounts": [
+                    {
+                      "href": "/accounts/123"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "href": "/roles/123"
+                    }
+                  ],
+                  "contact": {
+                    "href": "/contacts/122345"
+                  }
+                },
+                "_embedded": {
+                  "accounts": [
+                    {
+                      "name": "Test Account",
+                      "id": 0,
+                      "additionalProperties": "tbd"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "roleId": "122345",
+                      "description": "account manager",
+                      "permissions": [
+                        "viewInvoices"
+                      ],
+                      "_links": {
+                        "self": {
+                          "href": "/roles/CustomerPortal/2"
+                        }
+                      }
+                    }
+                  ],
+                  "preferences": [
+                    "SEND EMAIL ETC"
+                  ]
+                }
+              },
+              {
+                "id": "1223457",
+                "userId": "1223457",
+                "idpId": "1223457",
+                "contactId": "1223457",
+                "type": "enduser",
+                "created": "01/26/2015 00:00:00",
+                "createdBy": "12342",
+                "updated": "01/26/2015 00:00:00",
+                "updatedBy": "12342",
+                "invitedStatus": "pending",
+                "activeStatus": "Y",
+                "resetPassword": "Y",
+                "firstName": "test",
+                "lastName": "user2",
+                "email": "test2@user.com",
+                "password": "tbd",
+                "workPhone": "111-11-1111",
+                "address1": "111-11-1111",
+                "address2": "111-11-1111",
+                "city": "lexington",
+                "country": "usa",
+                "state": "ky",
+                "postalCode": "40509",
+                "preferredLanguage": "en_US",
+                "permissions": [
+                  "viewInvoices"
+                ],
+                "_links": {
+                  "self": {
+                    "href": "/users/1223456"
+                  },
+                  "accounts": [
+                    {
+                      "href": "/accounts/123"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "href": "/roles/123"
+                    }
+                  ],
+                  "contact": {
+                    "href": "/contacts/122345"
+                  }
+                },
+                "_embedded": {
+                  "accounts": [
+                    {
+                      "name": "Test Account",
+                      "id": 0,
+                      "additionalProperties": "tbd"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "roleId": "122345",
+                      "description": "account manager",
+                      "permissions": [
+                        "viewInvoices"
+                      ],
+                      "_links": {
+                        "self": {
+                          "href": "/roles/CustomerPortal/2"
+                        }
+                      }
+                    }
+                  ],
+                  "preferences": [
+                    "SEND EMAIL ETC"
+                  ]
+                }
+              }
+            ]
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+    
     reports: {
         "_links": {
         "self": {
@@ -405,6 +643,20 @@ findByDefinitionId = function(definitionId, fn) {
     }
 
     return fn(reportList);
+},
+findByInvited = function(fn) {
+    var i = 0,
+    mem = memory['users']._embedded['users'],
+    memCnt = mem.length,
+    userList = [];
+
+    for (i; i < memCnt; i += 1) {
+        if (mem[i].type === 'INVITED') {
+            userList.push(mem[i]);
+        }
+    }
+
+    return fn(userList);
 };
 
 process.env.PORT = 8080;
@@ -423,6 +675,30 @@ router.configure(function(){
 
 router.get('/countries', function(req, res) {
     res.json(memory.countries);
+});
+
+router.get('/users', function(req, res) {
+    console.log('inside normal users');
+    console.log(JSON.stringify(req.query));
+    if (req.query !== undefined && JSON.stringify(req.query).indexOf('type') > 0) {
+        findByInvited(function(record) {
+            if (record) {
+                var userTextBegin = '{"_links": {"self": {"href": "http://10.145.116.233:8080/users"}},"_embedded": {"users":';
+                var recordList = JSON.stringify(record);
+                var userTextEnd = '},"page": {"size": 20,"totalElements": 1,"totalPages": 1,"number": 0}}';
+                var recordToSend = userTextBegin + recordList + userTextEnd;
+                console.log(recordToSend);
+                var jsonRecord = JSON.parse(recordToSend);
+                console.log(jsonRecord);
+                res.json(jsonRecord);
+            } else {
+                res.send(400);
+            }
+        });
+    } else {
+      res.json(memory['users']);
+    }
+    
 });
 
 router.get('/accounts/:accountId/:requestType', function(req, res) {

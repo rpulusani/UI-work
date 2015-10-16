@@ -34,7 +34,6 @@ requirejs.config({
             'account.roleFactory',
 
             'user',
-
             'user.factory',
             'user.directives',
             'user.userController',
