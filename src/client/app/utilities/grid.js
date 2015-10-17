@@ -104,29 +104,46 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
-
             return {
-                currentPage: service.page.number,
+                validatePaginationDataExists: function(){
+                        var result = false;
+                    if(service !== null && service !== undefined){
+                        if(service.page !== null && service.page !== undefined){
+                            result = true;
+                        }
+                    }
+                    return result;
+                },
+                currentPage: function(){
+                    if(this.validatePaginationDataExists() &&
+                        service.page.number !== null && service.page.number !== undefined &&
+                        !isNaN(service.page.number)){
+                        return service.page.number;
+                    }else{
+                        return -1;
+                    }
+                },
                 pageProps: function() {
-                    var total = this.totalPages(),
+                   var total =  this.totalPages(),
                     props = {
-                        page: service.page.number,
+                        page: this.currentPage(),
                         length: 5
                     };
-
-                    if (props.page < 3) {
+                    if(props.page < 3 && total > 5){
+                            props.page  = 0;
+                    }else if(props.page < 3 && total < 5){
                         props.page = 0;
-                    } else if ( props.page >= 3 && props.page + 5 <= total) {
-                        props.page = props.page - 2;
-                        props.length = props.page + 5;
-                    } else if (props.page + 5 - total === 1 && props.page >= 3  ) {
-                        props.page = props.page - 2;
-                        props.length = props.page + 5;
-                    } else if (props.page + 5 > total) {
-                        props.page = total - 5;
                         props.length = total;
+                    }else if( props.page >= 3 && props.page + 5 <= total){
+                            props.page = props.page - 2;
+                            props.length = props.page + 5;
+                    }else if(props.page + 5 - total === 1 && props.page >= 3  ){
+                        props.page = props.page - 2;
+                        props.length = props.page + 5;
+                    }else if(props.page + 5 > total){
+                            props.page = total - 5;
+                            props.length = total;
                     }
-
                     return props;
                 },
                 pageArray: function() {
@@ -143,26 +160,50 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 itemsPerPageArray: function(){
                     return this.itemsPerPageArr;
                 },
-                totalPages:  function(){
-                    return service.page.totalPages;
+                totalPages: function(){
+                    if(this.validatePaginationDataExists() &&
+                        service.page.totalPages !== null && service.page.totalPages !== undefined &&
+                        !isNaN(service.page.totalPages)){
+                       return service.page.totalPages;
+                    }else{
+                        return -1;
+                    }
+                },
+                totalItems: function(){
+                    if(this.validatePaginationDataExists() &&
+                        service.page.totalElements !== null && service.page.totalElements !== undefined &&
+                        !isNaN(service.page.totalElements)){
+                        return service.page.totalElements;
+                    }else{
+                        return -1;
+                    }
+                },
+                pageSize: function(){
+                    if(this.validatePaginationDataExists() &&
+                        service.page.size  !== null && service.page.size  !== undefined &&
+                        !isNaN(service.page.size)){
+                       return service.page.size;
+                    }else{
+                        return -1;
+                    }
                 },
                 showTotal: function() {
-                    if (this.totalPages() !== -1){
-                        return this.totalPages() > 5 &&
-                         service.params.page + 4 < this.totalPages();
-                    } else {
+                    var total = this.totalPages();
+                    if(total != -1){
+                       return total > 5 && this.currentPage() + 4 < total;
+                    }else{
                         return false;
                     }
                 },
                 isCurrent: function(page) {
-                   return page === this.currentPage;
+                   return page === this.currentPage();
                 },
                 canNotPrev: function() {
-                    return  (this.currentPage - 1) < 0;
+                    return  (this.currentPage() - 1) < 0;
                 },
                 canNotNext: function() {
-                    if (service.params.page && this.totalPages()) {
-                        return (service.params.page + 1) >= this.totalPages();
+                    if (this.currentPage() && this.totalPages()) {
+                        return (this.currentPage() + 1) >= this.totalPages();
                     } else {
                         return false;
                     }
@@ -173,7 +214,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 gotoPage: function(pageNumber, size) {
                     var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
-                    service.getList(pageNumber, pageSize).then(function() {
+                    service.getPage(pageNumber, pageSize).then(function() {
                        self.display(service, scope, personal);
                         size = service.page.size;
                     }, function(reason) {
@@ -189,7 +230,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 prevPage: function() {
                     if (this.gotoPage) {
-                        if (this.currentPage - 1 >= 0) {
+                        if (this.currentPage() - 1 >= 0) {
                             this.gotoPage(service.page.number - 1);
                         }
                     } else {
