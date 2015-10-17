@@ -6,7 +6,6 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
             mockContactListCtrl,
             mockContactCtrl,
             location,
-            q,
             deferred,
             mockContactFactory;
 
@@ -138,7 +137,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                     it('should redirect to list', function() {
                         spyOn(location, 'path').and.returnValue('/');
                         scope.cancel();
-                        expect(location.path).toHaveBeenCalledWith(mockContactFactory.route);
+                        expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/');
                     });
                 });
             });

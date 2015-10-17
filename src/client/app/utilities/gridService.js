@@ -7,7 +7,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 var columns = angular.copy(columnDef);
                 var length = columnObject['defaultSet'].length;
                 var workingColumns = columnObject['defaultSet'];
-                if(columnObject.bookmarkColumn){
+
+                if (columnObject.bookmarkColumn) {
                     columns.columnDefs.push({
                         name: '',
                         field: columnObject['bookmarkColumn'],
@@ -19,11 +20,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         cellClass: 'bookmark'
                     });
                 }
-                for(var i = 0; i < length; ++i){
+
+                for (var i = 0; i < length; ++i) {
                      var item = angular.copy(workingColumns[i]);
                      item.enableColumnMenu = false;
                      columns.columnDefs.push(item);
                 }
+
                 returnFN(angular.copy(columns));
             }
 

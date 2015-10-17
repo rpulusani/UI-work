@@ -14,6 +14,14 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                         {'name': $translate.instant('CONTACT.EMAIL'), 'field': 'email'}
                 ],
                 route: '/service_requests/contacts',
+                beforeSave: function(halObj, deferred) { // Must return true for item to be saved
+                    halObj.physicalAddress = {
+                        addressId: '1-2CPY6UA',
+                        country: 'US'
+                    };
+
+                    deferred.resolve(true, halObj);
+                },
                  functionArray: [
                     {
                         name: 'getFullname',

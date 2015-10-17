@@ -106,16 +106,16 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             var self = this;
 
             return {
-                currentPage: service.params.page,
+                currentPage: service.page.number,
                 pageProps: function() {
                     var total = this.totalPages(),
                     props = {
-                        page: service.params.page,
+                        page: service.page.number,
                         length: 5
                     };
 
                     if (props.page < 3) {
-                        props.page  = 0;
+                        props.page = 0;
                     } else if ( props.page >= 3 && props.page + 5 <= total) {
                         props.page = props.page - 2;
                         props.length = props.page + 5;
@@ -143,13 +143,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 itemsPerPageArray: function(){
                     return this.itemsPerPageArr;
                 },
-                totalItems: function() {
-                    if (service.page.totalElements) {
-                        return service.page.totalElements;
-                    } else {
-                        return -1;
-                    }
-                },
                 totalPages:  function(){
                     return service.page.totalPages;
                 },
@@ -162,11 +155,10 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     }
                 },
                 isCurrent: function(page) {
-                   return page === service.params.page;
+                   return page === this.currentPage;
                 },
-                canNotPrev:  function(){
-                    var page = service.params.page - 1;
-                    return  page < 0;
+                canNotPrev: function() {
+                    return  (this.currentPage - 1) < 0;
                 },
                 canNotNext: function() {
                     if (service.params.page && this.totalPages()) {
@@ -179,25 +171,26 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     personal.setPersonalizedConfiguration('itemsPerPage', option['items']);
                     this.gotoPage(0);
                 },
-                gotoPage: function(pageNumber) {
+                gotoPage: function(pageNumber, size) {
                     var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
                     service.getList(pageNumber, pageSize).then(function() {
                        self.display(service, scope, personal);
+                        size = service.page.size;
                     }, function(reason) {
                         NREUM.noticeError('failed Paging: ' + reason);
                     });
                 },
                 nextPage: function() {
                     if (service.params.page + 1 < this.totalPages()) {
-                        this.gotoPage(service.params.page + 1);
+                        this.gotoPage(service.page.number + 1);
                     } else {
                         NREUM.noticeError('Pagination nextPage() has a function undefined!');
                     }
                 },
                 prevPage: function() {
                     if (this.gotoPage) {
-                        if (service.params.page - 1 >= 0) {
-                            this.gotoPage(service.params.page - 1);
+                        if (this.currentPage - 1 >= 0) {
+                            this.gotoPage(service.page.number - 1);
                         }
                     } else {
                          NREUM.noticeError('Pagination prevPage() has a function undefined!');
@@ -208,8 +201,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 lastPage: function() {
                     this.gotoPage(this.totalPages() - 1);
-                },
-                useExternalPagination: true
+                }
             };
         };
 
