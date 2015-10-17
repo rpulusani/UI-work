@@ -13,37 +13,13 @@
             </li>
         </ul>
 
-        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="CONTACT.BOOK" translate-values="{total: pagination.totalItems()}">
+        <h2 ng-show="pagination.totalItems !== -1 && pagination.totalItems !== undefined" translate="CONTACT.BOOK" translate-values="{total: pagination.totalItems}">
         </h2>
 
         <hr />
         
         <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
         
-        <div grid-pagination pagination="pagination"></div>
-       
-        <div class="pagination">
-          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
-          ng-class="{'btn--is-disabled': pagination.canNotPrev()}"
-          ng-disabled="pagination.canNotPrev()"
-          ng-click="pagination.prevPage(gridOptions)">
-                <i class="icon icon--ui icon--left-arrow-dark"
-                ng-class="{'icon--left-arrow-dark': pagination.canNotPrev(), 'icon--left-arrow-primary': !pagination.canNotPrev() }"></i>
-          </button>
-
-          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb page-number"
-          ng-click="pagination.gotoPage(pageNumber, gridOptions)"
-          ng-repeat="pageNumber in pagination.pageArray()"
-          ng-class="{'current': pagination.isCurrent(pageNumber)}">
-             <span>{{ pageNumber + 1 }}</span>
-          </button>
-          
-          <button type="button" class="btn btn--default btn--small bg--n1-white-ttb"
-          ng-class="{'btn--is-disabled': pagination.canNotNext()}"
-          ng-disabled="pagination.canNotNext()"
-          ng-click="pagination.nextPage(gridOptions)">
-            <i class="icon icon--ui icon--right-arrow-primary"></i>
-          </button>
-        </div>
+        <div grid-pagination pages=="pagination"></div>
     </div>
 </div>

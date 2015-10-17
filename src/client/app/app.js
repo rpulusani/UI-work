@@ -46,7 +46,7 @@ define([
     'utility.historyUtility',
     'utility.blankCheckUtility',
     'utility.formatUtility',
-    'utility.directives',
+    'utility.directives',   
     'utility.controller',
     'utility.contactPickerController',
     'utility.pageCountSelectController',
@@ -55,7 +55,10 @@ define([
     'utility.recursionHelper',
     'utility.gridService',
     'utility.gridCustomizationService',
-    'utility.personalizationService'
+    'utility.personalizationService',
+    'utility.hateaosConfig',
+    'utility.hateaosFactory',
+    'utility.grid'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
