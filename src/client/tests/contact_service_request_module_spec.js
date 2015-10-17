@@ -16,13 +16,13 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                 deferred= $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
-                
+
                 mockContactFactory = Contacts;
 
                 mockContactFactory.get = function(contact) {
                     return deferred.promise;
                 };
-                
+
                 mockContactFactory.save = function(contact) {
                     contact.id = 'assigned';
                     return deferred.promise;
@@ -36,8 +36,8 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                 mockContactFactory.route = '/service_requests/contacts';
 
                 mockContactListCtrl = $controller('ContactListController', {$scope: scope, Contacts: mockContactFactory});
-                mockContactCtrl = $controller('ContactController', {$scope: scope, Contacts: mockContactFactory})
-                
+                mockContactCtrl = $controller('ContactController', {$scope: scope, Contacts: mockContactFactory});
+
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({it: 'works'});
             }));
@@ -73,7 +73,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                         spyOn(location, 'path').and.returnValue('/');
 
                         scope.goToReview(scope.contact);
-                        
+
                         expect(scope.contact.id).toEqual('123');
                         expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/' + scope.contact.id + '/review');
                     });
@@ -109,7 +109,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
 
                             scope.save();
                             scope.$digest();
-                            
+
                             expect(scope.save).toHaveBeenCalled();
                             expect(scope.contact.id).toEqual('assigned');
                             expect(location.path).toHaveBeenCalled();
@@ -125,7 +125,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
 
                             scope.save();
                             scope.$digest();
-                            
+
                             expect(scope.save).toHaveBeenCalled();
                             expect(scope.contact.id).toEqual('123');
                             expect(location.path).toHaveBeenCalled();
