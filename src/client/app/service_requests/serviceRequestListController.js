@@ -10,7 +10,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);
-            ServiceRequest.getList().then(function() {
+            ServiceRequest.getPage().then(function() {
                 Grid.display(ServiceRequest, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);

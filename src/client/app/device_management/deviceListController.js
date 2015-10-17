@@ -13,7 +13,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
-            Devices.getList().then(function() {
+            Devices.getPage().then(function() {
                 Grid.display(Devices, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
