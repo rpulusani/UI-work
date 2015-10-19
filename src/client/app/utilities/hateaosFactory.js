@@ -22,7 +22,7 @@ define(['angular', 'utility'], function(angular) {
                 self.resetServiceMap = false;
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
-                self.params = {}; 
+                self.params = {};
                 self.route = '';
 
                 return angular.extend(self, serviceDefinition);
@@ -67,11 +67,11 @@ define(['angular', 'utility'], function(angular) {
                             halObj = newObj;
                         }
 
-                        halObj._links = { 
+                        halObj._links = {
                             account: {
                                 href: 'http://localhost:8080/mps/accounts/' + user.accountId
                             }
-                        }
+                        };
 
                         halAdapter.process($http({
                             method: 'post',
@@ -96,18 +96,18 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSFactory.prototype.update = function(halObj) {
                 var self  = this,
                 deferred = $q.defer();
-                
+
                 self.checkForEvent(halObj, 'beforeUpdate').then(function(canContinue, newObj) {
                     if (canContinue) {
                         if (newObj) {
                             halObj = newObj;
                         }
 
-                        halObj._links = { 
+                        halObj._links = {
                             account: {
                                 href: 'http://localhost:8080/mps/accounts/' + user.accountId
                             }
-                        }
+                        };
 
                         halAdapter.process($http({
                             method: 'put',
@@ -128,17 +128,47 @@ define(['angular', 'utility'], function(angular) {
 
                return deferred.promise;
             };
+            HATEAOSFactory.prototype.buildUrl = function(url, requiredParams, additonalparams){
+                var paramsUrl = '';
+                function addParamSyntax(paramsUrl){
+                    if(paramsUrl === ''){
+                            return '?';
+                    }else{
+                        return '&';
+                    }
+                }
+                if(requiredParams){
+                    angular.forEach(requiredParams, function(value, key) {
+                        if(value !== '' && value !== undefined & value !== null){
+                            paramsUrl += addParamSyntax(paramsUrl);
+                            paramsUrl += key + '=' + value;
+                        }
+                    });
+                }
 
-            HATEAOSFactory.prototype.getPage = function(page, size) {
+                if(additonalparams){
+                    for(var i = 0; i < additonalparams.length; ++i){
+                        if(additonalparams[i].name !== undefined && additonalparams[i].value !== undefined){
+                            paramsUrl += addParamSyntax(paramsUrl);
+                            paramsUrl += additonalparams[i].name + '=' + additonalparams[i].value;
+                        }
+                    }
+                }
+
+                return url += paramsUrl;
+            };
+
+            HATEAOSFactory.prototype.getPage = function(page, size, params) {
                 var self  = this,
-                deferred = $q.defer();
+                deferred = $q.defer(),
+                additonalParams;
 
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     var url;
 
                     self.url = api.url;
                     self.params = api.params;
-
+                    //setup required
                     if (page || page === 0) {
                         self.params.page = page;
                     }
@@ -147,9 +177,16 @@ define(['angular', 'utility'], function(angular) {
                         self.params.size = size;
                     }
 
-                    url = self.url + '?accountId=' + user.accountId +
+                    self.params.accountId = user.accountId;
+
+                    url = self.buildUrl(self.url, self.params, params);
+
+
+                    /*url = self.url + '?accountId=' + user.accountId +
                         '&page=' + self.params.page +
                         '&size=' + self.params.size;
+
+                    url = self.addAdditonalParams(url, params);*/
 
                     halAdapter.process($http.get(url)).then(function(processedResponse) {
                         self.data = processedResponse._embeddedItems;
