@@ -28,6 +28,7 @@
     "SERVICE_REQUEST": {
         "TITLE": "Requests",
         "ORDERS": "Orders",
+        "REQUEST_NUMBER": "Reqeust number",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary contact",
@@ -231,9 +232,23 @@
     },
 
     "REQUEST_MGMT": {
-        "TITLE": "Request Management",
+        "TITLE": "Manage Requests",
         "REQUESTS_FOR_DEVICE": "Requests for this device",
-        "REQUEST_SEARCH": "What request are you looking for?"
+        "REQUEST_SEARCH": "What request are you looking for?",
+        "CREATE_NEW_REQUEST": "Create new request",
+        "ALL_REQUESTS": "All requests",
+        "DEVICE_REQUESTS": "Device requests",
+        "SERVICE_REQUESTS": "Service requests",
+        "ADDRESS_REQUESTS": "Address requests",
+        "CONTACT_REQUESTS": "Contact requests",
+        "NEW_REQUEST": "New request",
+        "WHAT_WOULD_YOU_LIKE_TO_DO": "What would you like to do?",
+        "MANAGE_A_DEVICE": "Manage a device",
+        "MANAGE_A_CONTACT": "Manage a contact",
+        "MANAGE_AN_ADDRESS": "Manage an address",
+        "REQUEST_SERVICE": "Request service",
+        "HAVE_A_QUESTION": "Have a question? Send us an inquiry!"
+
     },
 
     "REPORTING": {
@@ -320,6 +335,7 @@
 
     "LABEL": {
         "BACK": "Back",
+        "TYPE": "Type",
         "MAKE_CHANGES": "Make Changes",
         "CANCEL": "Cancel",
         "CONTINUE": "Continue",

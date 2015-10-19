@@ -1,2 +1,19 @@
-<h1 translate="REQUEST_MGMT.TITLE"></h1>
-Welcome
+<div class="row">
+    <div class="col-1">
+        <h1 translate="REQUEST_MGMT.TITLE"></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
+        sit amet lacus accumsan et viverra justo commodo. <a href="#">Learn more about requests</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1">
+        <button class="btn btn--default" ng-click="serviceRequestOverview()" translate="REQUEST_MGMT.CREATE_NEW_REQUEST"></button>
+        <hr />
+    </div>
+</div>
+
+<div service-request-tabs></div>

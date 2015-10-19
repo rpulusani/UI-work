@@ -121,12 +121,13 @@ requirejs.config({
         'utility.contactPickerController': 'app/utilities/contactPickerController',
         'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
         'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',
-        'utility.gridService': 'app/utilities/gridService',
-        'utility.baseService': 'app/utilities/baseService',
         'utility.personalizationService': 'app/utilities/personalizationService',
         'utility.urlHelper': 'app/utilities/urlHelper',
-        'utility.gridCustomizationService': 'app/utilities/gridCustomizationService',
         'utility.recursionHelper': 'app/utilities/recursionHelper',
+        'utility.formatters': 'app/utilities/formatters',
+        'utility.hateaosConfig': 'app/utilities/hateaosConfig',
+        'utility.hateaosFactory': 'app/utilities/hateaosFactory',
+        'utility.grid': 'app/utilities/grid',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
@@ -142,7 +143,9 @@ requirejs.config({
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
+        'serviceRequest.serviceRequestController': 'app/service_requests/serviceRequestController',
         'serviceRequest.directives': 'app/service_requests/directives',
+        'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressController': 'app/address_service_requests/addressController',

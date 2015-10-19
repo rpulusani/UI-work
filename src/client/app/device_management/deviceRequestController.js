@@ -1,12 +1,12 @@
-define(['angular', 'deviceManagement', 'utility.gridService','deviceManagement.deviceRequestFactory'], function(angular) {
+define(['angular', 'deviceManagement', 'deviceManagement.deviceRequestFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceRequestController', ['$scope', '$translate', 'gridService', 'Requests', '$rootScope',
         function($scope, $translate, GridService, Requests, $rootScope) {
 
             $scope.requestGridOptions = {};
-            $scope.requestColumns = [{id: 1, name: $translate.instant('ORDER_MGT.DATE')}, 
-                              {id: 2, name: $translate.instant('ORDER_MGT.ORDER_NO')}, 
+            $scope.requestColumns = [{id: 1, name: $translate.instant('ORDER_MGT.DATE')},
+                              {id: 2, name: $translate.instant('ORDER_MGT.ORDER_NO')},
                               {id: 3, name: $translate.instant('ORDER_MGT.STATUS')},
                               {id: 4, name: $translate.instant('ORDER_MGT.PRIMARY_CONTACT')},
                               {id: 5, name: $translate.instant('ORDER_MGT.PRIMARY_EMAIL')},

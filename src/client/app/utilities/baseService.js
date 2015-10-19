@@ -21,6 +21,24 @@ define(['angular', 'utility'], function(angular) {
                 }
             };
 
+            BaseService.prototype.setRequiredParams = function(params){
+                this.requiredParams = params;
+            };
+
+            BaseService.prototype.getRequiredParams = function(){
+                if(this.requiredParams && this.requiredParams.length > 0){
+                    return this.requiredParams;
+                }else{
+                    return [];
+                }
+            };
+
+            BaseService.prototype.getFullParamsList = function(optionalParams){
+                var fullParams = [];
+                fullParams = fullParams.concat(this.getRequiredParams());
+                fullParams = fullParams.concat(optionalParams);
+                return fullParams;
+            };
 
             BaseService.prototype.getItemsPerPage = function(){
                 return this.itemsListArray;

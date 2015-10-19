@@ -58,6 +58,12 @@ define(['angular', 'utility'], function(angular) {
             controller: 'fileUploadController'
         };
     })
+    .directive('pages', function(){
+        return{
+            restrict: 'A',
+            templateUrl: '/app/utilities/templates/pages.html',
+        };
+    })
     .directive('pagination', function(){
         return{
             restrict: 'A',

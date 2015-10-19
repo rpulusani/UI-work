@@ -18,6 +18,8 @@ define([
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.directives',
+    'serviceRequest.listController',
+    'serviceRequest.serviceRequestController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -46,16 +48,17 @@ define([
     'utility.historyUtility',
     'utility.blankCheckUtility',
     'utility.formatUtility',
-    'utility.directives',
+    'utility.directives',   
     'utility.controller',
     'utility.contactPickerController',
     'utility.pageCountSelectController',
     'utility.pageCountSelectService',
-    'utility.baseService',
     'utility.recursionHelper',
-    'utility.gridService',
-    'utility.gridCustomizationService',
-    'utility.personalizationService'
+    'utility.personalizationService',
+    'utility.formatters',
+    'utility.hateaosConfig',
+    'utility.hateaosFactory',
+    'utility.grid'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

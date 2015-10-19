@@ -7,7 +7,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 var columns = angular.copy(columnDef);
                 var length = columnObject['defaultSet'].length;
                 var workingColumns = columnObject['defaultSet'];
-                if(columnObject.bookmarkColumn){
+
+                if (columnObject.bookmarkColumn) {
                     columns.columnDefs.push({
                         name: '',
                         field: columnObject['bookmarkColumn'],
@@ -19,11 +20,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         cellClass: 'bookmark'
                     });
                 }
-                for(var i = 0; i < length; ++i){
+
+                for (var i = 0; i < length; ++i) {
                      var item = angular.copy(workingColumns[i]);
                      item.enableColumnMenu = false;
                      columns.columnDefs.push(item);
                 }
+
                 returnFN(angular.copy(columns));
             }
 
@@ -96,13 +99,15 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     return {
                         pageProps: function(){
                             var total =  this.totalPages(),
-                            length = 5;
-                            var props = {
+                            props = {
                                 page: this.currentPage(),
                                 length: 5
                             };
-                            if(props.page < 3){
+                            if(props.page < 3 && total > 5){
                                     props.page  = 0;
+                            }else if(props.page < 3 && total < 5){
+                                props.page = 0;
+                                props.length = total;
                             }else if( props.page >= 3 && props.page + 5 <= total){
                                     props.page = props.page - 2;
                                     props.length = props.page + 5;
@@ -203,10 +208,10 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                                     value: pageNumber
                                 }
                             ];
-                            service.resource(params).then(
+                            service.resource(service.getFullParamsList(params)).then(
                                 function(response){
                                     if(service.getList){
-                                        gridOptions.data = service.getList();
+                                        gridOptions.data = service.getGRIDList();
                                     }else{
                                          NREUM.noticeError('service.getList() does not exist.');
                                     }

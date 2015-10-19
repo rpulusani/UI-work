@@ -1,37 +1,29 @@
-define(['angular', 'contact', 'utility.gridService'], function(angular) {
+define(['angular', 'contact', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactListController', ['$scope', '$location', 'gridService', 'Contacts', '$rootScope',
-        function($scope,  $location,  GridService, Contacts, $rootScope) {
-            $rootScope.currentAccount = '1-74XV2R';
-
+    .controller('ContactListController', ['$scope', '$location', 'grid', 'Contacts', '$rootScope',
+        'PersonalizationServiceFactory',
+        function($scope, $location, Grid, Contacts, $rootScope, Personalize) {
+            $rootScope.currentRowList = [];
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             $scope.goToCreate = function() {
-                $location.path('/service_requests/contacts/new');
+                Contacts.item = {};
+                $location.path(Contacts.route + '/new');
             };
 
             $scope.goToUpdate = function(contact) {
-                var href = contact._links.self.href,
-                contact_id = href.split('/').pop();
-                
-                $location.path('/service_requests/contacts/' + contact_id + '/update');
+                Contacts.get(contact).then(function() {
+                    $location.path(Contacts.route + '/' + contact.id + '/update');
+                });
             };
 
             $scope.gridOptions = {};
-            
-            GridService.getGridOptions(Contacts, '').then(
-                function(options){
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(Contacts, $rootScope);
-                    Contacts.resource($rootScope.currentAccount, 0).then(
-                        function(response){
-                            $scope.gridOptions.data = Contacts.addFunctions(Contacts.getList());
-                        }
-                    );
-                },
-                function(reason){
-                     NREUM.noticeError('Grid Load Failed: ' + reason);
-                }
-            );
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+            Contacts.getPage().then(function() {
+                Grid.display(Contacts, $scope, personal);
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
+            });
         }
     ]);
 });

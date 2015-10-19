@@ -1,12 +1,12 @@
-define(['angular', 'deviceManagement', 'utility.gridService','deviceManagement.deviceOrderFactory'], function(angular) {
+define(['angular', 'deviceManagement','deviceManagement.deviceOrderFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceOrderController', ['$scope', '$translate', 'gridService', 'Orders', '$rootScope',
         function($scope, $translate, GridService, Orders, $rootScope) {
 
             $scope.orderGridOptions = {};
-            $scope.orderColumns = [{id: 1, name: $translate.instant('ORDER_MGT.DATE')}, 
-                              {id: 2, name: $translate.instant('ORDER_MGT.ORDER_NO')}, 
+            $scope.orderColumns = [{id: 1, name: $translate.instant('ORDER_MGT.DATE')},
+                              {id: 2, name: $translate.instant('ORDER_MGT.ORDER_NO')},
                               {id: 3, name: $translate.instant('ORDER_MGT.STATUS')},
                               {id: 4, name: $translate.instant('ORDER_MGT.PRIMARY_CONTACT')},
                               {id: 5, name: $translate.instant('ORDER_MGT.DESCRIPTION')}];
