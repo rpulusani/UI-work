@@ -1,4 +1,4 @@
-define(['angular', 'serviceRequest', ], function(angular) {
+define(['angular', 'serviceRequest' ], function(angular) {
     'use strict';
     angular.module('mps.serviceRequests')
     .controller('ServiceRequestController', ['$scope', '$location', 'ServiceRequestService', '$rootScope',
