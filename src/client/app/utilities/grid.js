@@ -48,7 +48,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
             var data = angular.copy(incommingData);
-            if(functionArray){
+            if(functionArray && data){
                 for(var i = 0; i < data.length; ++i){
                     for(var j = 0; j < functionArray.length; ++j){
                         data[i][functionArray[j]['name']] = functionArray[j]['functionDef'];
@@ -116,6 +116,9 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
             return {
+                /*
+                    This function checks to see that service and its child property page exist
+                */
                 validatePaginationDataExists: function(){
                         var result = false;
                     if(service !== null && service !== undefined){
@@ -134,6 +137,16 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         return -1;
                     }
                 },
+                /*
+                    pageProps holds the logic  for how many items will be allowed for pagination
+                        Rules:
+                            * No more than 5 sequence items at one time
+                            * Move the numbering to the right or left if the current page is greater than 3
+                                so that the current page will be in the middle of the number sequence
+                            * If total pages is greater than 5 and current page is towards the end of the sequence
+                                then allow for sequence range to freeze at max total pages for a full sequence count of
+                                5 items
+                */
                 pageProps: function() {
                    var total =  this.totalPages(),
                     props = {
