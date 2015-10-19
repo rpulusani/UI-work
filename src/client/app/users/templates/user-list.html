@@ -14,10 +14,10 @@
     </div>
 
     <div style="padding-top: 15px; padding-left:15px;">
-        <h2 ng-if="allUsersActive" translate="USER.COMPANY_USERS"
-            translate-values="{companyName: companyName, userCount: users.length}"></h2>
-        <h2 ng-if="invitationsActive" translate="USER.INVITED_USERS"
-            translate-values="{companyName: companyName, userCount: users.length}"></h2>
+
+        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="USER.USERS"
+          translate-values="{userCount: pagination.totalItems()}">
+        </h2>
         <hr />
 
         <div>
@@ -38,33 +38,6 @@
         </div>
     </div>
 
-    <div  style="padding-left:15px;">
-        <table ng-if="users.length > 0" data-js="responsive-table"
-               class="table table--condensed table--even table--responsive text--small">
-            <thead>
-                <tr>
-                    <th translate="LABEL.STATUS"></th>
-                    <th translate="LABEL.CREATED_DATE"></th>
-                    <th translate="LABEL.USER_ID"></th>
-                    <th translate="LABEL.NAME_LAST_FIRST"></th>
-                    <th translate="LABEL.EMAIL"></th>
-                    <th translate="LABEL.COMPANY_ACCT"></th>
-                    <th translate="LABEL.ROLE"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="user in users">
-                    <td ng-if="allUsersActive" translate="{{getStatus(user.activeStatus) | translate}}"></td>
-                    <td ng-if="invitationsActive" ng-bind="user.invitedStatus"></td>
-                    <td ng-bind="user.created"></td>
-                    <td ng-bind="user.userId"></td>
-                    <td><a href="/delegated_admin/{{user.userId}}/read"
-                           ng-click="goToRead(user)">{{user.lastName}},{{user.firstName}}</a></td>
-                    <td ng-bind="user.email"></td>
-                    <td><div selected-account-list accounts={{user._links.accounts}}></div></td>
-                    <td><div selected-role-list roles={{user._links.roles}}></div></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+    <div pagination grid="{{gridOptions}}"></div>
 </div>

@@ -275,6 +275,7 @@
 
     "USER": {
         "INVITATION": "Invitations",
+        "USERS": "Users ({{userCount}})",
         "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
         "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
         "ALL_USER": "All users",

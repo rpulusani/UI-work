@@ -1,19 +1,36 @@
 define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UsersController', ['$scope', '$location', '$routeParams', '$rootScope', 'BlankCheck', 'UserService',
-        function($scope, $location, $routeParams, $rootScope, BlankCheck, UserService) {
+    .controller('UsersController', ['$scope', '$location', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserService',
+        'PersonalizationServiceFactory',
+        function($scope, $location, Grid, $routeParams, $rootScope, BlankCheck, UserService, Personalize) {
             var inactive = "LABEL.INACTIVE",
                 active = "LABEL.ACTIVE";
             $scope.allUsersActive = true;
             $scope.invitationsActive = false;
-            UserService.getHAL(function(response){
-                if (BlankCheck.checkNotNullOrUndefined(response.data._embedded)){
-                    $scope.users = response.data._embedded.users;
-                } else {
-                    $scope.users = [];
+            
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            $scope.gridOptions = {};
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, UserService);
+
+            $scope.setGrid = function() {
+                $scope.additionalParams = [];
+                if ($scope.invitationsActive) {
+                    $scope.additionalParams = [
+                        {
+                            name: 'type',
+                            value: 'INVITED'
+                        }
+                    ];
                 }
-            }); 
+                UserService.getPage(undefined,undefined,$scope.additionalParams).then(function() {
+                Grid.display(UserService, $scope, personal);
+                }, function(reason) {
+                    NREUM.noticeError('Grid Load Failed for ' + UserService.serviceName +  ' reason: ' + reason);
+                });
+            };
+
+            $scope.setGrid();
 
             $scope.columns = [{id: 1, name: 'Status'}, {id: 2, name: 'Creation date'}, {id: 3, name: 'User Id'}];
 
@@ -24,25 +41,13 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             $scope.setAllUsers = function() {
                 $scope.allUsersActive = true;
                 $scope.invitationsActive = false;
-                UserService.getHAL(function(response){
-                    if (BlankCheck.checkNotNullOrUndefined(response.data._embedded)){
-                        $scope.users = response.data._embedded.users;
-                    } else {
-                        $scope.users = [];
-                    }
-                });
+                $scope.setGrid();
             };
 
             $scope.setInvitations = function() {
                 $scope.allUsersActive = false;
                 $scope.invitationsActive = true;
-                UserService.getHAL({type: 'INVITED'}, function(response){
-                    if (BlankCheck.checkNotNullOrUndefined(response.data._embedded)){
-                        $scope.users = response.data._embedded.users;
-                    } else {
-                        $scope.users = [];
-                    }
-                });
+                $scope.setGrid();
             };
 
             $scope.goToCreateUser = function() {
