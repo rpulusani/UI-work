@@ -88,6 +88,23 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 location = $location;
                 ctrl = $controller('DeviceSearchController', {$scope: scope});
             }));
+
+
+            describe('goToSubmit', function() {
+                it('should handle the submit request', function() {
+
+                });
+            });
+
+            describe('queryBySerial', function() {
+                it('should perform a query based on serial', function() {
+                    var serial = 'DEVICE_SERIAL';
+                    spyOn(scope, 'queryBySerial');
+                    scope.serial = serial;
+                    scope.queryBySerial(scope.serial);
+                    expect(scope.queryBySerial).toHaveBeenCalledWith(serial);
+                });
+            });
         });
 
         describe('Routes', function(){
