@@ -1,64 +1,24 @@
-define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory','utility.gridService'], function(angular) {
+define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UsersController', ['$scope', '$location', 'gridService', '$routeParams', '$rootScope', 'BlankCheck', 'UserService','$q',
-        function($scope, $location, GridService, $routeParams, $rootScope, BlankCheck, UserService, $q) {
+    .controller('UsersController', ['$scope', '$location', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserService',
+        'PersonalizationServiceFactory',
+        function($scope, $location, Grid, $routeParams, $rootScope, BlankCheck, UserService, Personalize) {
             var inactive = "LABEL.INACTIVE",
                 active = "LABEL.ACTIVE";
             $scope.allUsersActive = true;
             $scope.invitationsActive = false;
             
-
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, UserService);
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, UserService);
+
             $scope.setGrid = function() {
-                GridService.getGridOptions(UserService, '').then(
-                function(options){
-                    var params = [];
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(UserService, $rootScope);
-                    $scope.itemsPerPage = UserService.getPersonalizedConfiguration('itemsPerPage');
-                    if ($scope.invitationsActive) {
-                        params =[
-                            {
-                                name: 'size',
-                                value: $scope.itemsPerPage
-                            },
-                            {
-                                name: 'page',
-                                value: 0
-                            },
-                            {
-                                name: 'type',
-                                value: 'INVITED'
-                            }
-                        ];
-                    }
-
-                    if ($scope.allUsersActive) {
-                        params =[
-                            {
-                                name: 'size',
-                                value: $scope.itemsPerPage
-                            },
-                            {
-                                name: 'page',
-                                value: 0
-                            }
-                        ];
-                    }
-                    
-
-                    UserService.resource(params).then(
-                        function(response){
-                            $scope.gridOptions.data = UserService.getList();
-                        }
-                    );
-                    },
-                    function(reason){
-                         NREUM.noticeError('Grid Load Failed: ' + reason);
-                    }
-                );
+                UserService.getPage().then(function() {
+                Grid.display(UserService, $scope, personal);
+                }, function(reason) {
+                    NREUM.noticeError('Grid Load Failed for ' + UserService.serviceName +  ' reason: ' + reason);
+                });
             };
 
             $scope.setGrid();

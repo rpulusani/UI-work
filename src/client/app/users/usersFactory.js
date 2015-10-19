@@ -1,15 +1,13 @@
-define(['angular', 'user', 'utility.gridCustomizationService'], function(angular) {
+define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .factory('UserService', [ 'serviceUrl', '$translate', '$http', 'SpringDataRestAdapter',
-        'gridCustomizationService',
-        function(serviceUrl, $translate, $http, SpringDataRestAdapter, gridCustomizationService) {
-            var UserService = function(){
+    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEAOSFactory',
+        function(serviceUrl, $translate, HATEAOSFactory) {
+            var UserService = {
 
                 //customize Address
-                this.bindingServiceName = "userService";
-                this.columns = {
-                    'defaultSet':[
+                serviceName: 'users',
+                columns: [
                         {'name': $translate.instant('LABEL.STATUS'), 'field': 'activeStatus'},
                         {'name': $translate.instant('LABEL.CREATED_DATE'), 'field':'created'},
                         {'name': $translate.instant('LABEL.USER_ID'), 'field':'userId'},
@@ -21,17 +19,12 @@ define(['angular', 'user', 'utility.gridCustomizationService'], function(angular
                         {'name': $translate.instant('LABEL.EMAIL'), 'field': 'email'},
                         {'name': $translate.instant('LABEL.COMPANY_ACCT'), 'field': '' },
                         {'name': $translate.instant('LABEL.ROLE'), 'field': '' }
-                    ],
-                    bookmarkColumn: 'getBookMark()'
-                };
+                ],
 
-                this.templatedUrl =  '/users';
-                this.paramNames = ['page', 'sort', 'size', 'type'];
+                route: '/delegated_admin'
             };
 
-            UserService.prototype = gridCustomizationService;
-
-            return new UserService();
+            return new HATEAOSFactory(UserService);
         }
     ]);
 });
