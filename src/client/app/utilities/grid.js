@@ -105,6 +105,9 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
             return {
+                /*
+                    This function checks to see that service and its child property page exist
+                */
                 validatePaginationDataExists: function(){
                         var result = false;
                     if(service !== null && service !== undefined){
