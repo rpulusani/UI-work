@@ -69,12 +69,17 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
+            var newHeight =  46 + (31 * service.params.size);
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, personal);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
             scope.gridOptions.gridCss = 'table';
+            scope.gridOptions.enableMinHeightCheck = true;
+            scope.gridOptions.minRowsToShow = service.params.size;
+            scope.gridOptions.virtualizationThreshold = service.params.size;
+
 
             // Setup special columns
             if ((!scope.gridOptions.showBookmarkColumn ||
@@ -93,7 +98,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
-
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
+            angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
+            angular.element(document.getElementsByClassName('ui-grid-render-container')[0]).css('height', newHeight + 'px');
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
+            scope.gridApi.core.refresh();
             // Setting up pagination
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);
