@@ -26,3 +26,17 @@
         <div device-search-fields></div>
     </form>
 </div>
+
+<div ng-if="pagination.totalItems !== -1 && pagination.totalItems !== undefined" class="row">
+    <div class="col-1">
+
+        <h2 translate="DEVICE_SERVICE_REQUEST.DEVICES_MATCHING_SEARCH" translate-values="{total: pagination.totalItems, serial: '{{serial}}'}">
+        </h2>
+        
+        <hr/>
+
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+        <div grid-pagination pages=="pagination"></div>
+
+    </div>
+</div>

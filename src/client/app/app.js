@@ -42,6 +42,7 @@ define([
     'deviceServiceRequest.deviceSearchController',
     'deviceServiceRequest.factory',
     'deviceServiceRequest.directives',
+    'deviceServiceRequest.deviceSearchFactory',
     'utility',
     'utility.historyUtility',
     'utility.blankCheckUtility',
