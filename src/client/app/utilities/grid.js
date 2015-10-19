@@ -48,7 +48,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
             var data = angular.copy(incommingData);
-            if(functionArray){
+            if(functionArray && data){
                 for(var i = 0; i < data.length; ++i){
                     for(var j = 0; j < functionArray.length; ++j){
                         data[i][functionArray[j]['name']] = functionArray[j]['functionDef'];
