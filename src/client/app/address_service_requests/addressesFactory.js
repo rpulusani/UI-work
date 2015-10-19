@@ -18,7 +18,7 @@ define(['angular', 'address'], function(angular) {
                         {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode' },
                         {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country', 'width': 120 }
                     ],
-                route: '/service_request/addresses'
+                route: '/service_requests/addresses'
 
             };
 
