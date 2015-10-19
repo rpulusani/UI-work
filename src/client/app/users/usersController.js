@@ -14,7 +14,16 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, UserService);
 
             $scope.setGrid = function() {
-                UserService.getPage().then(function() {
+                var additionalParams = [];
+                if ($scope.invitationsActive) {
+                    additionalParams = [
+                        {
+                            name: 'type',
+                            value: 'INVITED'
+                        }
+                    ];
+                }
+                UserService.getPage(undefined,undefined,additionalParams).then(function() {
                 Grid.display(UserService, $scope, personal);
                 }, function(reason) {
                     NREUM.noticeError('Grid Load Failed for ' + UserService.serviceName +  ' reason: ' + reason);
