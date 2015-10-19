@@ -238,7 +238,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 gotoPage: function(pageNumber, size) {
                     var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
-                    service.getPage(pageNumber, pageSize).then(function() {
+                    service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
                        self.display(service, scope, personal);
                         size = service.page.size;
                     }, function(reason) {
