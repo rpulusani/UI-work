@@ -46,7 +46,7 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = halObj._links.self.href + '?accountId=' + user.accountId;
-               
+
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;

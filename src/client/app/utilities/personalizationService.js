@@ -1,57 +1,54 @@
-define(['angular', 'utility.baseService'], function(angular) {
+define(['angular'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('personalizationService', ['baseService', function(baseService) {
-        var PersonalizationService = function init(){
-             this.modulePesonalization =
-                {
-                    'name': 'addresses',  //serviceBindingname
-                    'itemsPerPage': '40', //property is added and value
-                    //'columns': []         // columns if exists will override default columns set
-                }
-            ;
+    .factory('PersonalizationServiceFactory', [function() {
+        var PersonalizationServiceFactory = function(uri, userId){
+             var self = this;
+             self.modulePesonalization = this.getPersonalizedFragment(uri, userId);
         };
 
-        PersonalizationService.prototype = baseService;
-
-        function sync(){
-
-        }
-
-        function getPersonalizedFragment(){
-            //call out to new service and fill modulePersonalizationArray
-            //if empty then
-        }
-
-        PersonalizationService.prototype.getPersonalizedConfiguration = function(configPropName){
-            if(this.modulePesonalization && this.modulePesonalization.name &&
-                 this.modulePesonalization.name === this.getBindingServiceName() &&
-                 this.modulePesonalization[configPropName]){
-                return this.modulePesonalization[configPropName];
-            }else{
-                return undefined;
-            }
+        PersonalizationServiceFactory.prototype.save = function(fragment){
+            this.modulePesonalization = fragment;
+            //save back to db the updated/new settings
         };
 
-        PersonalizationService.prototype.setPersonalizedConfiguration = function(configPropName, value){
-            getPersonalizedFragment();
-
-             if(this.modulePesonalization && this.modulePesonalization.name &&
-                 this.modulePesonalization.name === this.getBindingServiceName()){
-                    this.modulePesonalization[configPropName] = value; //update or add
+        PersonalizationServiceFactory.prototype.getPersonalizedFragment = function(uri, userId){
+            var fragment = {};
+            //query for personalized fragment based on  uri and userId
+            if(this.modulePesonalization !== undefined && this.modulePesonalization.name === uri){
+                fragment = angular.copy(this.modulePesonalization);
             }else{
-                //create Object Array
-                this.modulePesonalization = [
+                //setup starter fragment
+                fragment =
                     {
-                       'name': this.getBindingServiceName()
-                    }
-                ];
-                this.modulePesonalization[configPropName]  = value;
+                       'name': uri
+                    };
             }
-            //push personalization to the database repo via api
-            sync();
+            return fragment;
         };
 
-        return new PersonalizationService();
+         PersonalizationServiceFactory.prototype.getFragment = function(){
+            return angular.copy(this.modulePesonalization);
+        };
+
+        PersonalizationServiceFactory.prototype.getPersonalizedConfiguration = function(configPropName){
+            var fragment = this.getFragment(),
+                value;
+            if(fragment !== null && fragment !== undefined &&
+                 fragment[configPropName] !== null &&
+                 fragment[configPropName] !== undefined ){
+                value =  fragment[configPropName];
+            }
+            return value;
+        };
+
+        PersonalizationServiceFactory.prototype.setPersonalizedConfiguration = function(configPropName, value){
+            var fragment = this.getFragment();
+            fragment[configPropName] = value; //update or add
+            //push personalization to the database repo via api
+            this.save(fragment);
+        };
+
+        return PersonalizationServiceFactory;
     }]);
 });

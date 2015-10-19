@@ -1,4 +1,4 @@
-define(['angular', 'contact', 'utility.gridService'], function(angular) {
+define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
     .controller('ContactController', ['$scope', '$location', 'Contacts', 'ServiceRequestService',

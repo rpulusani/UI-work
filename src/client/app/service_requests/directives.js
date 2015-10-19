@@ -22,5 +22,21 @@ define(['angular', 'serviceRequest'], function(angular) {
                                     '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(',');
             }]
         };
+    })
+    .directive('serviceRequestTabs', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/service-request-tabs.html',
+            controller: 'ServiceRequestController',
+            link: function(scope, el, attr){
+                require(['lxk.fef'], function() {
+                    var $ = require('jquery'),
+                        sets = $(el).find("[data-js=tab]");
+                    sets.each(function(i,set){
+                        $(set).set({});
+                    });
+                });
+            }
+        };
     });
 });

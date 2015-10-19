@@ -1,39 +1,58 @@
 // Unit tests for Service Request Addresses module
 define(['angular','angular-mocks', 'address'], function(angular, mocks, address) {
     describe('Address Service Request Module', function() {
+        var scope,
+            httpBackend,
+            mockAddressListCtrl,
+            mockAddressCtrl,
+            location,
+            deferred,
+            mockedAddressesFactory;
         beforeEach(module('mps'));
-
-
         describe('AddressListController', function(){
-            var scope, ctrl, location, mockedAddressesFactory;
-            beforeEach(function (){
-                mockedAddressesFactory = {
-                    get: function(address, resolve) {
-                        resolve(true);
-                    },
-                    query: jasmine.createSpy(),
-                    getColumnDefinition: function(type){
-                        return {'defaultSet':[] };
-                    }
+
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Addresses, $q) {
+                var translationPlaceHolder = {};
+                var allowMakeChange = false;
+                scope = $rootScope.$new();
+                deferred= $q.defer();
+                httpBackend = $httpBackend;
+                location = $location;
+
+                mockedAddressesFactory = Addresses;
+                mockedAddressesFactory.get = function(address){
+                    return deferred.promise;
+                };
+                 mockedAddressesFactory.save = function(address) {
+                    address.id = 'assigned';
+                    return deferred.promise;
                 };
 
+                mockedAddressesFactory.update = function(address) {
+                    return deferred.promise;
+                };
 
-                module(function($provide) {
-                    $provide.value('Addresses', mockedAddressesFactory);
-                });
-            });
+                mockedAddressesFactory.item = {id:'123', _links: {self: {href: '/account/12345/addresses/123'}}};
+                mockedAddressesFactory.route = '/service_requests/addresses';
 
-            beforeEach(inject(function($rootScope, $controller, $location) {
-                scope = $rootScope.$new();
-                location = $location;
-                ctrl = $controller('AddressListController', {$scope: scope});
+                mockAddressListCtrl = $controller('AddressListController', {$scope: scope,
+                    Adresses: mockedAddressesFactory});
+                mockAddressCtrl = $controller('AddressController', {$scope: scope, Adresses: mockedAddressesFactory,
+                    translationPlaceHolder: translationPlaceHolder, allowMakeChange: allowMakeChange});
+
+                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', '/').respond({it: 'works'});
+
             }));
+
 
             describe('goToCreate', function() {
                 it('should take to new page', function() {
+                    spyOn(scope, 'goToCreate').and.callThrough();
                     spyOn(location, 'path').and.returnValue('/');
                     scope.goToCreate();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/new');
+                    expect(mockedAddressesFactory.item).toEqual({});
+                    expect(location.path).toHaveBeenCalledWith(mockedAddressesFactory.route + '/new');
                 });
             });
 

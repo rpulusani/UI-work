@@ -1,18 +1,21 @@
 define(['angular', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequests')
-    .factory('ServiceRequestService', ['$resource', 'serviceUrl',
-        function($resource, serviceUrl) {
-            var url = serviceUrl + '/service-requests/:serviceRequestId';
-            var activity_url = url + '/activities';
-            var order_url = url + '/orders';
-            var payment_url = url + '/payments';
+    .factory('ServiceRequestService', ['serviceUrl', '$translate', 'HATEAOSFactory',
+        function(serviceUrl, $translate, HATEAOSFactory) {
+            var ServiceRequests = {
+                    serviceName: 'service-requests',
+                    columns: [
+                            {'name': 'id', 'field': 'id', visible:false},
+                            {'name': $translate.instant('LABEL.DATE'), 'field': 'createDate'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
+                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                            {'name': $translate.instant('LABEL.PRIMARY_CONTACT'), 'field': ''}
+                        ],
+                    route: '/service_requests'
+            };
 
-            return $resource(url, {serviceRequestId: '@serviceRequestId'}, {
-                'activities': { method: 'GET', url: activity_url, isArray: true },
-                'orders': { method: 'GET', url: order_url },
-                'payments': { method: 'GET', url: payment_url, isArray: true }
-            });
-        }
-    ]);
+        return  new HATEAOSFactory(ServiceRequests);
+    }]);
 });
