@@ -126,6 +126,16 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         return -1;
                     }
                 },
+                /*
+                    pageProps holds the logic  for how many items will be allowed for pagination
+                        Rules:
+                            * No more than 5 sequence items at one time
+                            * Move the numbering to the right or left if the current page is greater than 3
+                                so that the current page will be in the middle of the number sequence
+                            * If total pages is greater than 5 and current page is towards the end of the sequence
+                                then allow for sequence range to freeze at max total pages for a full sequence count of
+                                5 items
+                */
                 pageProps: function() {
                    var total =  this.totalPages(),
                     props = {
