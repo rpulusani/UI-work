@@ -16,7 +16,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                         {
                             'name': 'fullname',
                             'field': '',
-                            'cellTemplate': 
+                            'cellTemplate':
                                 '<div>' +
                                     '<a href="" ng-click="grid.appScope.goToUpdate(row.entity)" ' +
                                     'ng-bind="row.entity.lastName + \', \' +  row.entity.firstName"></a>' +
@@ -69,7 +69,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                         }
                     }
                 });
-            
+
                 httpBackend.when('PUT', mockFactory.url + '/1-TEST?accountId=1-21AYVOT').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
@@ -92,7 +92,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('GET', mockFactory.url + '?accountId=1-21AYVOT&page=0&size=20').respond({
+                httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT').respond({
                   "_links" : {
                     "self" : {
                       "href" : mockFactory.url + '/{?page,size,sort}',
@@ -177,6 +177,88 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     expect(mockFactory.item.id).toEqual('1-TEST');
                     expect(mockFactory.item.updated).toEqual(true);
                     expect(mockFactory.processedResponse).toBeDefined();
+                });
+            });
+            describe('buildUrl', function(){
+                it('should provide the same url passed in if no required params and no additional params passed in',
+                    function(){
+                    url='http://www.google.com';
+                    requiredParams = undefined;
+                    additonalParams = undefined;
+                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+
+                    expect(result).toEqual('http://www.google.com');
+                });
+                it('should provide the same url passed in if no required params and no additional params passed in',
+                    function(){
+                    url='http://www.google.com';
+                    requiredParams = null;
+                    additonalParams = null;
+                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+
+                    expect(result).toEqual('http://www.google.com');
+                });
+                it('should provide the new url passed in  required params, sort is empty and no additional params passed in',
+                    function(){
+                    url='http://www.google.com';
+                    requiredParams = {
+                        sort: '',
+                        size: 40,
+                        page: 3
+                    };
+                    additonalParams = undefined;
+                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+
+                    expect(result).toEqual('http://www.google.com?size=40&page=3');
+                });
+                it('should provide the new url passed in required params, sort filled out and no additional params passed in',
+                    function(){
+                    url='http://www.google.com';
+                    requiredParams = {
+                        sort: 'green:Desc',
+                        size: 40,
+                        page: 3
+                    };
+                    additonalParams = undefined;
+                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+
+                    expect(result).toEqual('http://www.google.com?sort=green:Desc&size=40&page=3');
+                });
+                it('should provide the new url passed in required params, sort filled out and additional params passed in',
+                    function(){
+                    url='http://www.google.com';
+                    requiredParams = {
+                        sort: 'green:Desc',
+                        size: 40,
+                        page: 3
+                    };
+                    additonalParams = [{
+                        'name':'bat',
+                        'value': 'ball',
+                    },
+                    {
+                        'name': 'string',
+                        'value': 'knot'
+                    }];
+                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+
+                    expect(result).toEqual('http://www.google.com?sort=green:Desc&size=40&page=3&bat=ball&string=knot');
+                });
+                it('should provide the new url passed in required params is empty out and additional params passed in',
+                    function(){
+                    url='http://www.google.com';
+                    requiredParams = undefined;
+                    additonalParams = [{
+                        'name':'bat',
+                        'value': 'ball',
+                    },
+                    {
+                        'name': 'string',
+                        'value': 'knot'
+                    }];
+                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+
+                    expect(result).toEqual('http://www.google.com?bat=ball&string=knot');
                 });
             });
         });

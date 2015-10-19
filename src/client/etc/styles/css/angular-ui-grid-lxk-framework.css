@@ -405,8 +405,6 @@ select.ui-grid-filter-select:hover {
 .ui-grid-viewport {
   min-height: 20px;
   position: relative;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 }
 .ui-grid-viewport:focus {
   outline: none !important;

@@ -48,7 +48,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
             var data = angular.copy(incommingData);
-            if(functionArray){
+            if(functionArray && data){
                 for(var i = 0; i < data.length; ++i){
                     for(var j = 0; j < functionArray.length; ++j){
                         data[i][functionArray[j]['name']] = functionArray[j]['functionDef'];
@@ -69,12 +69,17 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
+            var newHeight =  46 + (31 * service.params.size);
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, personal);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
             scope.gridOptions.gridCss = 'table';
+            scope.gridOptions.enableMinHeightCheck = true;
+            scope.gridOptions.minRowsToShow = service.params.size;
+            scope.gridOptions.virtualizationThreshold = service.params.size;
+
 
             // Setup special columns
             if ((!scope.gridOptions.showBookmarkColumn ||
@@ -93,7 +98,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
-
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
+            angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
+            angular.element(document.getElementsByClassName('ui-grid-render-container')[0]).css('height', newHeight + 'px');
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
+            angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
+            scope.gridApi.core.refresh();
             // Setting up pagination
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);
@@ -105,6 +116,9 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
             return {
+                /*
+                    This function checks to see that service and its child property page exist
+                */
                 validatePaginationDataExists: function(){
                         var result = false;
                     if(service !== null && service !== undefined){
@@ -123,6 +137,16 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         return -1;
                     }
                 },
+                /*
+                    pageProps holds the logic  for how many items will be allowed for pagination
+                        Rules:
+                            * No more than 5 sequence items at one time
+                            * Move the numbering to the right or left if the current page is greater than 3
+                                so that the current page will be in the middle of the number sequence
+                            * If total pages is greater than 5 and current page is towards the end of the sequence
+                                then allow for sequence range to freeze at max total pages for a full sequence count of
+                                5 items
+                */
                 pageProps: function() {
                    var total =  this.totalPages(),
                     props = {
@@ -214,7 +238,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 },
                 gotoPage: function(pageNumber, size) {
                     var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
-                    service.getPage(pageNumber, pageSize).then(function() {
+                    service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
                        self.display(service, scope, personal);
                         size = service.page.size;
                     }, function(reason) {
