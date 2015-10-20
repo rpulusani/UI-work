@@ -7,6 +7,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             $scope.formattedAddress = '';
 
             $scope.device = {
+                id: '1-PXZVOP2',
                 productModel: 'C748DTE NBD',
                 serialNumber: '41H0070717001',
                 installDate: '7/15/2015',
@@ -32,6 +33,10 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 name: 'John Public',
                 phoneNumber: '9992882222',
                 emailAddress: 'jpublic@lexmark.com'
+            };
+
+            $scope.btnRequestService = function(device) {
+                $location.path('/service_requests/devices/' + device.id + '/review');
             };
 
             $scope.formatAddress = function() {

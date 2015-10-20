@@ -81,6 +81,15 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                     expect(blankCheck.path).toBeCalled;
                 });
             });
+
+            describe('btnRequestService', function() {
+                it('should direct user to device service request review page', function() {
+                    spyOn(location, 'path');
+                    var device = [{id: '1-ACCT-ID'}];
+                    scope.btnRequestService(device);
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/devices/'+device.id +'/review');
+                });
+            });
         });
 
         describe('DevicePageCountsController', function() {
