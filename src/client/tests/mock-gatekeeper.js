@@ -7,7 +7,13 @@ angular.module('angular-gatekeeper', [])
         $get: function() {
             return {
                 tokenInfo: {},
-                user: {id: 1},
+                user: {
+                    id: 1,
+                    email: 'cat@cat.com',
+                    $promise: {
+                        then: jasmine.createSpy()
+                     }
+                },
                 login: jasmine.createSpy(),
                 logout: jasmine.createSpy()
             };

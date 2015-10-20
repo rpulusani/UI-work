@@ -11,6 +11,12 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                 $location.path('/service_requests/devices/new');
             };
 
+            $scope.view = function(device){
+                Devices.get(device).then(function(){
+                    $location.path(Devices.route + '/' + device.id + '/review');
+                });
+            };
+
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
             Devices.getPage().then(function() {
