@@ -18,7 +18,7 @@
     </div>
     <div class="col-2-5">
         <div class="form__field" >
-            <label translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></label>
+            <strong translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></strong>
              <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="lexmark-device-question-no" name="lexmark-device-question"
                 ng-model="device.lexmarkDeviceQuestion" value="false" data-js="customInput" checked/>
@@ -67,7 +67,7 @@
     <div class="row">
         <div class="col-2-5">
             <div class="form__field" >
-                <label translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></label>
+                <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></strong>
                  <div class="form__field form__field--radio form__field--no-margin">
                     <input type="radio" id="device-install-question-no" name="device-install-question"
                     ng-model="device.deviceInstallQuestion" value="false" data-js="customInput" checked/>
@@ -83,13 +83,13 @@
                 <div class="col-2-3"></div>
                 <div ng-hide="device.deviceInstallQuestion === 'true'">
                     <div class="form__field" >
-                        <label translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></label>
+                        <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
                         <input name="deviceInstallDate" type="text" ng-model="device.deviceInstallDate" value="" class="" />
                     </div>
                 </div>
                 <div class="form__field" >
-                    <label ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></label>
-                    <label ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></label>
+                    <strong ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></strong>
+                    <strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
                     <input name="deviceInstallLocation" type="text" ng-model="device.address.storeFrontName" value="" class="" />
                 </div>
             </div>
@@ -101,8 +101,9 @@
         <div class="row">
             <div class="col-1-3">
                 <div class="form__field form__field--select form__field--required">
-                        <label translate="ADDRESS.COUNTRY"></label>
-                 <div selectric model="device.address.country" options="countryHAL.countries" value="code" label="name"
+                <label translate="ADDRESS.COUNTRY"></label>
+                <input name="country" type="hidden" ng-model="device.address.country" required/>
+                <div selectric model="device.address.country" options="countryHAL.countries" value="code" label="name"
                       placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
                     <span ng-hide="!newDevice.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
@@ -133,10 +134,11 @@
             <div class="col-1-3">
                 <div class="form__field form__field--select form__field--required">
                     <label translate="ADDRESS.STATE"></label>
+                    <input name="state" type="hidden" ng-model="device.address.state" required/>
                     <div selectric options="country.provinces" value="code" label="name" model="device.address.state" required
                          placeholder="{{'LABEL.SELECT' | translate}}"></div>
                     <span ng-hide="!newDevice.state.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
-                        <span translate="LABEL.ERROR_REQUIRED"></span></span>
+                    <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
             </div>
             <div class="col-1-3"></div>
@@ -163,7 +165,7 @@
                     <input name="floorName" type="text" ng-model="device.address.floor" value="" class="" />
                 </div>
 
-                <div class="form__field form__field--required">
+                <div class="form__field">
                     <label translate="ADDRESS.SITE_NAME"></label>
                     <input name="siteName" type="text" ng-model="device.address.office" value="" class="" />
                 </div>
@@ -175,8 +177,8 @@
 <div class="row">
     <div class="col-3-5">
         <div class="form__field" >
-            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></label> 
-             <div class="form__field form__field--radio form__field--no-margin">
+            <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
+            <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="device-deinstall-question-no" name="device-deinstall-question"
                 ng-model="device.deviceDeInstallQuestion" value="false" data-js="customInput"  checked/>
                 <label for="device-deinstall-question-no"><span></span>
@@ -248,6 +250,7 @@
         <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS"></h3>
     </div>
     <div class="col-2-3">
+        <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_QUESTION"></strong>
         <div class="form__field" >
              <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="lexmark-page-count-question-no" name="lexmark-page-count-question"
@@ -289,7 +292,7 @@
     <div class="row">
         <div class="col-3-5">
             <div class="form__field" >
-                <label translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></label>
+                <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></strong>
                  <div class="form__field form__field--radio form__field--no-margin">
                     <input type="radio" id="device-chl-question-no" name="device-chl-question"
                     ng-model="device.deviceCHLQuestion" value="false" data-js="customInput" checked/>

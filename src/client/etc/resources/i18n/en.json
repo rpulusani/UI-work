@@ -92,8 +92,8 @@
         "SELECT_DEVICE": "Select device",
         "WHAT_IS_THE_DEVICE_SERIAL_NUMBER": "What is the device serial number?",
         "FIND_DEVICE": "Find device",
-        "DEVICES_MATCHING_SEARCH": "{{total}} devices matching {{serial}}"
-
+        "DEVICES_MATCHING_SEARCH": "{{total}} devices matching {{serial}}",
+        "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?"
     },
 
     "ADDRESS": {
