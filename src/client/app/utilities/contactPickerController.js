@@ -1,4 +1,4 @@
-define(['angular', 'utility', 'contact.factory', 'ui.grid'], function(angular) {
+define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('ContactPickerController', ['$scope', '$location', 'grid', 'Contacts', '$rootScope',
