@@ -15,7 +15,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
-                    $scope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+                   $scope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                    return true;
                 } else {
                    return false;
@@ -23,7 +23,11 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.goToDeviceAdd = function(){
-                $location.path($scope.returnPath);
+                $location.path($scope.returnPath + '/return');
+            };
+
+            $scope.discardSelect = function(){
+                $location.path($scope.returnPath + '/discard');
             };
 
             $scope.gridOptions = {};

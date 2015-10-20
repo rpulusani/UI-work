@@ -10,13 +10,13 @@
     </thead>
 	<tbody>
         <tr ng-repeat="pageCount in pageCountList | filter:(showLess || '') && filterByIds">
-            <td translate="{{pageCount.text}}"></td>
-            <td></td>
-            <td></td>
-            <td>
+            <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate }}" translate="{{pageCount.text}}"></td>
+            <td data-label="{{'DEVICE_MGT.PRIOR_COUNT' | translate }}"></td>
+            <td data-label="{{'DEVICE_MGT.PRIOR_DATE' | translate }}"></td>
+            <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate }}">
             	<input type="text" name="newPageCount" ng-model="module.newCount[pageCount.id]"/>
             </td>
-            <td>
+            <td data-label="{{'LABEL.DATE' | translate }}">
             	<input type="text" name="newDate" ng-model="currentDate"/>
             </td>
         </tr>

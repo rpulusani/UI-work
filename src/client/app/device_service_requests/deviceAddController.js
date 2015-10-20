@@ -22,20 +22,21 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             } 
             
 
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1 && $routeParams.return) {
-                if ($rootScope.currentRowList[0].entity.serialNumber !== undefined) {
-                    $scope.device.selectedDevice = $rootScope.currentRowList[0].entity;
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
+                && $routeParams.return && $routeParams.return !== 'discard') {
+                if ($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.serialNumber !== undefined) {
+                    $scope.device.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                 } else {
                     if ($rootScope.currentSelected) {
                         switch($rootScope.currentSelected){
                             case 'deviceContact':
-                                $scope.device.selectedContact = $rootScope.currentRowList[0].entity;
+                                $scope.device.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                             break;
                             case 'requestPrimaryContact':
-                                $scope.device.requestPrimaryContact = $rootScope.currentRowList[0].entity;
+                                $scope.device.requestPrimaryContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                             break;
                             case 'requestSecondaryContact':
-                                $scope.device.requestSecondaryContact = $rootScope.currentRowList[0].entity;
+                                $scope.device.requestSecondaryContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                             break;
                         }
                     }
