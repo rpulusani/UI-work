@@ -1,7 +1,7 @@
 /* global describe it beforeEach inject expect */
 define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) {
     describe('Report Module', function() {
-        beforeEach(module('mps'));    
+        beforeEach(module('mps'));
 
         describe('ReportController', function() {
             var scope, ctrl, location, history, mockedFactory;
@@ -14,7 +14,10 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) 
                     getByDefinitionId: jasmine.createSpy(),
                     removeById: jasmine.createSpy(),
                     groups: jasmine.createSpy(),
-                    categories: jasmine.createSpy()
+                    categories: jasmine.createSpy(),
+                    getColumnDefinition: function(type){
+                        return {'defaultSet':[] };
+                    }
                 };
 
                 module(function($provide) {
@@ -57,7 +60,7 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) 
                     var definitionId = '123';
                     scope.runReport(definitionId);
                     expect(mockedFactory.save.calls.count()).toBe(1);
-                });            
+                });
             });
 
             describe('goToReportByCategory', function() {
@@ -67,7 +70,7 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) 
                     scope.goToReportByCategory(definitionId);
                     expect(location.path).toHaveBeenCalledWith('/reporting/123/view');
                 });
-            });            
+            });
 
             describe('goToRun', function() {
                 it('should set toRunReport to true', function() {
@@ -100,7 +103,7 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) 
                 });
             });
 
-             
+
         });
     });
 });

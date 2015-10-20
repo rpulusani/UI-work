@@ -1,25 +1,18 @@
 <div class="row row--alley-2">
-
     <div class="col-1">
-        <h1 translate="REPORTING.TITLE"></h1>
-        <span class="label label--inverse vertical-space--thick" ng-bind="category.desc"></span><p>
-        <div ng-show="toRunReport">
-            <h2 class="vertical-space--thick" translate="REPORTING.RUN_TITLE"></h2>
-            <form name="newReport" method="post" enctype="multipart/form-data" novalidate>
-                <input type="hidden" name="definitionId" ng-value="category.id"/>
-                <input type="hidden" name="date" ng-value="currentDate | date:'MM/dd/yyyy'"/>
-                <input type="hidden" name="desc" ng-value="category.desc"/>
-                <input type="hidden" name="status" value="pending"/>
-                <button name="submit" class="col-1-3 btn btn--primary" ng-click="runReport(category.id)" href=""
-                        type="submit" translate="LABEL.SUBMIT">
-                </button>
-            </form>
-        </div>
-
-        <div ng-hide="toRunReport">
-            <button name="submit" class="col-1-3 btn btn--primary" ng-click="goToRun()" type="submit" translate="REPORTING.RUN"></button>
-        </div>
-        <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()" translate="LABEL.CANCEL"></button>
-        <button name="back" class="col-1-3 btn btn--secondary" ng-click="back()" translate="LABEL.BACK"></button>
+        <h1 translate="REPORTING.RUN_TITLE">{{category.desc}}</h1>
+        <form name="newReport" method="post" enctype="multipart/form-data" novalidate>
+            <label for="eventType">Event Type</label><br/>
+            <select name="eventType" id="eventType" ng-model="reportParams.eventType">
+                <option ng-repeat="eventType in reportParams.eventTypes" value="{{eventType}}">{{eventType}}</option>
+            </select><br/>
+            <label for="eventDateFrom">From</label><br/>
+            <input type="date" name="eventDateFrom" id="eventDateFrom" ng-model="reportParams.eventDateFrom"><br/>
+            <label for="eventDateFrom">To</label><br/>
+            <input type="date" name="eventDateTo" id="eventDateTo" ng-model="reportParams.eventDateTo"><br/>
+            <input type="hidden" name="reportParams.definitionId" ng-value="category.id"/>
+            <button name="submit" class="col-1-3 btn btn--primary" ng-click="runReport(reportParams)" type="submit"
+                translate="REPORTING.RUN_TITLE"></button>
+        </form>
     </div>
 </div>

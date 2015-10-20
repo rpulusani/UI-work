@@ -1,11 +1,16 @@
-define(['angular', 'report', 'utility.gridService'], function(angular) {
+define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$routeParams', 'History', 'Report',  'gridService', '$rootScope', '$q',
-        function($scope, $location, $routeParams, History, Report, GridService, $rootScope, $q) {
-            $scope.reports = Report.reports;
-            $scope.groups = Report.groups;
-            $scope.categories = Report.categories;
+    .controller('ReportController', ['$scope', '$location', '$routeParams', 'History', 'Report',  'ReportGroup', '$rootScope', '$q',
+        '$filter', 'serviceUrl', 'UrlHelper', 'grid','PersonalizationServiceFactory',
+        function($scope, $location, $routeParams, History, Report, ReportGroup, $rootScope, $q, $filter, serviceUrl, UrlHelper, Grid, Personalize) {
+
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            $scope.templateUrl = UrlHelper.report_template('view');
+
+            $scope.reports = ReportGroup.reports;
+            $scope.groups = ReportGroup.groups;
+            $scope.categories = ReportGroup.categories;
             $scope.catagory = "";
             $scope.categoryDesc = "";
 
@@ -26,12 +31,14 @@ define(['angular', 'report', 'utility.gridService'], function(angular) {
             };
 
             $scope.reportByCategory = function(definitionId) {
-                Report.getByDefinitionId(definitionId, function() {
+                ReportGroup.getByDefinitionId(definitionId, function() {
                     $scope.reports = Report.reports;
                 });
             };
 
             $scope.goToReportByCategory = function(definitionId) {
+                $rootScope.reportParams = {};
+                $rootScope.reportParams.eventTypes = ['Remove - Account', 'MC', 'Installs', 'Manual Swaps'];
                 $location.path('/reporting/' + definitionId + '/view');
             };
 
@@ -39,45 +46,43 @@ define(['angular', 'report', 'utility.gridService'], function(angular) {
                 $scope.toRunReport = true;
             };
 
-            $scope.runReport = function(definitionId) {
+            $scope.runReport = function(reportParams) {
                 var fd = new FormData(document.getElementsByName('newReport')[0]);
-                Report.save(fd, function(report) {
-                    Report.reports = [];
-                    $scope.reports = Report.reports;
+                ReportGroup.save(fd, function(report) {
+                    ReportGroup.reports = [];
+                    $scope.reports = ReportGroup.reports;
                     $scope.toRunReport = false;
                     //redirect_to_list();
-                    //TODO:
-                    //$rootScope.category = Report.category;
                     $location.path('/reporting/view');
                 });
             };
 
             $scope.removeReport = function(id) {
-                Report.removeById(id, function() {
-                    if (Report.reports.length === 0) {
+                ReportGroup.removeById(id, function() {
+                    if (ReportGroup.reports.length === 0) {
                         $scope.reports = [];
                     }
                 });
             };
 
-            if (Report.groups.length === 0) {
-                Report.query(function() {
-                    $scope.groups = Report.groups;
+            if (ReportGroup.groups.length === 0) {
+                ReportGroup.query(function() {
+                    $scope.groups = ReportGroup.groups;
                 });
             }
 
-            if (Report.categories.length === 0) {
-                Report.getCategoryList(function() {
-                    $scope.categories = Report.categories;
+            if (ReportGroup.categories.length === 0) {
+                ReportGroup.getCategoryList(function() {
+                    $scope.categories = ReportGroup.categories;
                 });
             }
 
             if ($routeParams.definitionId) {
-                Report.getByDefinitionId($routeParams.definitionId, function() {
-                    $scope.reports = Report.reports;
+                ReportGroup.getByDefinitionId($routeParams.definitionId, function() {
+                    $scope.reports = ReportGroup.reports;
                 });
-                Report.getById($routeParams.definitionId, function() {
-                    $scope.category = Report.category;
+                ReportGroup.getById($routeParams.definitionId, function() {
+                    $scope.category = ReportGroup.category;
                 });
                 $scope.currentDate = new Date();
             }
@@ -87,56 +92,47 @@ define(['angular', 'report', 'utility.gridService'], function(angular) {
                 enableGridMenu: true,
                 enableSelectAll: true,
                 exporterCsvFilename: 'mp9073.csv',
-                /*
                 exporterPdfDefaultStyle: {fontSize: 9},
                 exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
                 exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
-                /*
+                exporterPdfHeader: { text: "MADC (MP9073)", style: 'headerStyle' },
                 exporterPdfFooter: function ( currentPage, pageCount ) {
                     return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
                 },
-
-
                 exporterPdfCustomFormatter: function ( docDefinition ) {
                     docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
                     docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
                     return docDefinition;
                 },
-                */
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
+                exporterPdfOrientation: 'landscape',
+                exporterPdfPageSize: 'TABLOID',
+                //exporterPdfMaxGridWidth: 1500,
                 exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
             };
 
-            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, Report);
-            GridService.getGridOptions(Report, '').then(
-                function(options){
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(Report, $rootScope);
-                    $scope.itemsPerPage = Report.getPersonalizedConfiguration('itemsPerPage');
-                    var params =[
-                        {
-                            name: 'size',
-                            value: $scope.itemsPerPage
-                        },
-                        {
-                            page: 'page',
-                            value: 0
-                        }
-                    ];
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Report);
 
-                    Report.resource(params).then(
-                        function(response){
-                            $scope.gridOptions.data = Report.getList();
-                        }
-                    );
+            $scope.additionalParams = [
+                {
+                    name: 'eventType',
+                    value: $rootScope.reportParams ? $rootScope.reportParams.eventType : ""
                 },
-                function(reason){
-                     NREUM.noticeError('Grid Load Failed: ' + reason);
+                {
+                    name: 'eventDateFrom',
+                    value:  $rootScope.reportParams? $filter('date')($rootScope.reportParams.eventDateFrom, "yyyy-MM-dd") : ""
+                },
+                {
+                    name: 'eventDateTo',
+                    value: $rootScope.reportParams ? $filter('date')($rootScope.reportParams.eventDateTo, "yyyy-MM-dd") : ""
                 }
-            );
+            ];
+
+            Report.getPage(undefined,undefined,$scope.additionalParams).then(function() {
+                Grid.display(Report, $scope, personal);
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + UserService.serviceName +  ' reason: ' + reason);
+            });
         }
+
     ]);
 });

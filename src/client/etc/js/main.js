@@ -15,8 +15,15 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
-        //'pdfmake': ['angular-resource'],
-
+         'pdfMakeLib' :
+        {
+            exports: 'pdfMake'
+        },
+        'pdfmake' :
+        {
+            deps: ['pdfMakeLib'],
+            exports: 'pdfMake'
+        },
         'app': [
             'angular-gatekeeper',
 
@@ -49,6 +56,7 @@ requirejs.config({
             'report.controller',
             'report.directives',
             'report.factory',
+            'report.reportGroupFactory',
 
             'tree',
             'tree.treeItemsService',
@@ -77,13 +85,14 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
-        'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
+        'report.controller': ['report', 'report.factory', 'report.reportGroupFactory', 'utility.historyUtility'],
         'report.directives': ['report'],
         'report.factory': ['report'],
+        'report.reportGroupFactory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
-        'ui.grid' : ['angular']
+        'ui.grid' : ['angular', 'pdfmake']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -98,8 +107,8 @@ requirejs.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
-
-        //'pdfmake': 'app/libs/pdfmake.min',
+        'pdfmake': 'app/libs/vfs_fonts',
+        'pdfMakeLib': 'app/libs/pdfmake',
         'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',
@@ -190,6 +199,7 @@ requirejs.config({
         'report.controller': 'app/reporting/controller',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
+        'report.reportGroupFactory': 'app/reporting/reportGroupFactory',
 
         'angular-gatekeeper': 'app/libs/angular-gatekeeper',
 

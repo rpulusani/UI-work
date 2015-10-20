@@ -15,7 +15,6 @@ define([
     'address.addressListController',
     'ui.grid',
     'angular-spring-data-rest',
-    //'pdfmake',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.directives',
@@ -89,7 +88,6 @@ define([
         'ui.grid.pagination',
         'ui.grid.exporter',
         'spring-data-rest',
-        //'pdfmake',
         'tree'
     ])
 

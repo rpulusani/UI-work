@@ -1,7 +1,7 @@
 define(['angular', 'utility', 'ui.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('gridService', ['$q', '$timeout','uiGridConstants',  function($q, $timeout, uiGridConstants) {
+    .factory('gridService', ['$q', '$timeout','uiGridConstants',  '$rootScope', '$filter', function($q, $timeout, uiGridConstants, $rootScope, $filter) {
         var columnDef = { columnDefs: [] };
             function addColumns(columnObject, returnFN){
                 var columns = angular.copy(columnDef);
