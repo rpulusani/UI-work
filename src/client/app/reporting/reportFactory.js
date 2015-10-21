@@ -4,7 +4,7 @@ define(['angular', 'report'], function(angular) {
     .factory('Report', ['serviceUrl', '$translate', '$http', 'HATEAOSFactory',
         function(serviceUrl, $translate, $http, HATEAOSFactory) {
             var Report = {
-                serviceName: "report/mp9073",
+                serviceName: "reports",
                 columns: [
                         {'name': $translate.instant('REPORTING.MP9073.TYPE'), 'field': 'type'},
                         {'name': $translate.instant('REPORTING.MP9073.EVENT_DT'), 'field':'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},

@@ -264,7 +264,7 @@
         "RUN": "RUN THIS REPORT",
         "RUN_TITLE": "Run Report",
         "TITLE_CNT": "Records ({{total}})",
-        "MP9073.TITLE": "MADC Report (MP9073)<br/> Showing {{event_type}} from 2015-01-01 to 2015-01-16 ({{total}} records)",
+        "MP9073.TITLE": "MADC Report (MP9073) -  ({{total}} records)",
         "MP9073.TYPE": "Event Type",
         "MP9073.EVENT_DT": "Event Date",
         "MP9073.MANUFACTURER": "Manufacturer",

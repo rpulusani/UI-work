@@ -15,11 +15,11 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
-         'pdfMakeLib' :
+         pdfMakeLib:
         {
             exports: 'pdfMake'
         },
-        'pdfmake' :
+        pdfmake:
         {
             deps: ['pdfMakeLib'],
             exports: 'pdfMake'
@@ -108,7 +108,7 @@ requirejs.config({
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
         'pdfmake': 'app/libs/vfs_fonts',
-        'pdfMakeLib': 'app/libs/pdfmake',
+        'pdfMakeLib': 'app/libs/pdfmake.min',
         'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',

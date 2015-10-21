@@ -90,7 +90,8 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             /* grid configuration */
             $scope.gridOptions =  {
                 enableGridMenu: true,
-                enableSelectAll: true,
+                enableSelectAll: false,
+                enableRowSelection: false,
                 exporterCsvFilename: 'mp9073.csv',
                 exporterPdfDefaultStyle: {fontSize: 9},
                 exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
@@ -106,7 +107,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 },
                 exporterPdfOrientation: 'landscape',
                 exporterPdfPageSize: 'TABLOID',
-                //exporterPdfMaxGridWidth: 1500,
                 exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
             };
 
@@ -127,11 +127,12 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 }
             ];
 
-            Report.getPage(undefined,undefined,$scope.additionalParams).then(function() {
+            Report.getPage(0,20,$scope.additionalParams).then(function() {
                 Grid.display(Report, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + UserService.serviceName +  ' reason: ' + reason);
             });
+
         }
 
     ]);

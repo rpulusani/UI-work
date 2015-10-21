@@ -1,5 +1,5 @@
 /* global describe it beforeEach inject expect */
-define(['angular','angular-mocks', 'report'], function(angular, mocks, reports) {
+define(['angular','angular-mocks', 'report', 'utility.grid'], function(angular, mocks, Report, Grid) {
     describe('Report Module', function() {
         beforeEach(module('mps'));
 
