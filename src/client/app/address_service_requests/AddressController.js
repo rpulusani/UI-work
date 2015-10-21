@@ -42,7 +42,6 @@ define(['angular', 'address'], function(angular) {
 
             $scope.goToVerify = function() {
                // Addresses.verify($scope.address, function(res) {
-                  //  console.log(res);
                     Addresses.addresss = $scope.address;
                     $location.path('/service_requests/addresses/' + $scope.address.id + '/verify');
                 //});

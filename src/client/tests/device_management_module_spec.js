@@ -3,6 +3,61 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
     describe('Device Management Module', function() {
         beforeEach(module('mps'));
 
+
+        describe('DeviceListController', function(){
+
+            var scope,
+            httpBackend,
+            mockDeviceListCtrl,
+            location,
+            deferred,
+            mockDeviceFactory;
+
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Devices, $q) {
+                scope = $rootScope.$new();
+                deferred= $q.defer();
+                httpBackend = $httpBackend;
+                location = $location;
+
+                mockDeviceFactory = Devices;
+
+                mockDeviceFactory.get = function(device) {
+                    return deferred.promise;
+                };
+
+                mockDeviceFactory.save = function(device) {
+                    device.id = 'assigned';
+                    return deferred.promise;
+                };
+
+                mockDeviceFactory.update = function(device) {
+                    return deferred.promise;
+                };
+
+                mockDeviceFactory.item = {id:'123', _links: {self: {href: '/assets/123'}}};
+                mockDeviceFactory.route = '/device_management';
+
+                mockDeviceListCtrl = $controller('DeviceListController', {$scope: scope, Devices: mockDeviceFactory});
+
+                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', '/').respond({it: 'works'});
+            }));
+
+            it('should go to a full device view', function(){
+                    spyOn(scope, 'view').and.callThrough();
+                    spyOn(location, 'path').and.returnValue('/');
+
+                    scope.device = mockDeviceFactory.item;
+
+                    deferred.resolve();
+                    scope.view(scope.device);
+
+                    scope.$digest();
+                    expect(location.path).toHaveBeenCalledWith(mockDeviceFactory.route + '/123/review');
+            });
+
+        });
+
         describe('DeviceController', function() {
             var scope, ctrl, location, mockedFactory;
 
@@ -16,7 +71,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                     $provide.value('Devices', mockedFactory);
                 });
             });
-            
+
             beforeEach(inject(function($rootScope, $controller, $location, BlankCheck) {
                 scope = $rootScope.$new();
                 location = $location;
@@ -55,37 +110,20 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                 ctrl = $controller('DeviceInformationController', {$scope: scope});
             }));
 
-            describe('at init', function() {
-                //Commenting until real call
-                /*describe('when routeParam.id is available', function() {
-                    beforeEach(inject(function($routeParams, $controller){
-                        $routeParams.id = 'device-1';
-                        ctrl = $controller('DeviceInformationController', {$scope: scope});
-                    }));
-
-                    it('should get device', function() {
-                        expect(mockedFactory.get.calls.count()).toBe(1);
-                    });
-                });*/
-
-                describe('when routeParam.id not available', function() {
-                    it('should not get device', function() {
-                        expect(mockedFactory.get.calls.count()).toBe(0);
-                    });
-                });
-            });
 
             describe('formatAddress', function() {
-                it('should call BlankCheck', function() {
+                it('should be empty if install Address is null', function() {
+                    scope.formattedAddress = '';
+                    scope.installAddress = null;
                     scope.formatAddress();
-                    expect(blankCheck.path).toBeCalled;
+                    expect(scope.formattedAddress).toBe('');
                 });
             });
         });
 
         describe('DevicePageCountsController', function() {
             var scope, ctrl, location;
-            
+
             beforeEach(inject(function($rootScope, $controller, $location) {
                 scope = $rootScope.$new();
                 location = $location;
@@ -116,7 +154,7 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                     expect(checkOutput.count).toBe('789');
                 });
             });
-            
+
         });
 
         describe('Routes', function(){

@@ -6,7 +6,7 @@ define(['angular', 'contact'], function(angular) {
             var redirect_to_list = function() {
                $location.path(Contacts.route + '/');
             };
-            
+
             $scope.reviewing = false;
 
             $scope.review = function() {
@@ -58,5 +58,5 @@ define(['angular', 'contact'], function(angular) {
                 $scope.contact = Contacts.item;
             }
         }
-    ])
+    ]);
 });

@@ -8,7 +8,14 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.goToCreate = function() {
+                Devices.item = {};
                 $location.path('/service_requests/devices/new');
+            };
+
+            $scope.view = function(device){
+                Devices.get(device).then(function(){
+                    $location.path(Devices.route + '/' + device.id + '/review');
+                });
             };
 
             $scope.gridOptions = {};

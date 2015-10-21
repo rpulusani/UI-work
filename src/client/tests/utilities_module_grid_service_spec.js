@@ -260,7 +260,6 @@ define(['angular','angular-mocks', 'utility.grid'], function(angular, mocks, Gri
              });
              describe('totalItems', function() {
                 it('should have no items', function(){
-                    console.log("hi");
                     var pagination = gridService.pagination(null, scope, null);
                     expect(pagination.totalItems()).toEqual(-1);
                 });
