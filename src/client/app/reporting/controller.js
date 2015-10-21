@@ -47,14 +47,8 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             };
 
             $scope.runReport = function(reportParams) {
-                var fd = new FormData(document.getElementsByName('newReport')[0]);
-                ReportGroup.save(fd, function(report) {
-                    ReportGroup.reports = [];
-                    $scope.reports = ReportGroup.reports;
-                    $scope.toRunReport = false;
-                    //redirect_to_list();
-                    $location.path('/reporting/view');
-                });
+                $scope.toRunReport = false;
+                $location.path('/reporting/view');
             };
 
             $scope.removeReport = function(id) {

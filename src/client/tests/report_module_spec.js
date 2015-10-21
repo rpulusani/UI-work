@@ -1,33 +1,28 @@
 /* global describe it beforeEach inject expect */
-define(['angular','angular-mocks', 'report', 'utility.grid'], function(angular, mocks, Report, Grid) {
+define(['angular','angular-mocks', 'report', 'report.reportGroupFactory'], function(angular, mocks, Report, ReportGroup) {
     describe('Report Module', function() {
+        var scope,
+            httpBackend,
+            mockReportCtrl,
+            location,
+            deferred,
+            mockedFactory,
+            mockedReportGroupFactory,
+            history,
+            ctrl;
+
         beforeEach(module('mps'));
 
         describe('ReportController', function() {
-            var scope, ctrl, location, history, mockedFactory;
-            beforeEach(function (){
-                mockedFactory = {
-                    query: jasmine.createSpy(),
-                    getCategoryList: jasmine.createSpy(),
-                    save: jasmine.createSpy(),
-                    getById: jasmine.createSpy(),
-                    getByDefinitionId: jasmine.createSpy(),
-                    removeById: jasmine.createSpy(),
-                    groups: jasmine.createSpy(),
-                    categories: jasmine.createSpy(),
-                    getColumnDefinition: function(type){
-                        return {'defaultSet':[] };
-                    }
-                };
-
-                module(function($provide) {
-                    $provide.value('Report', mockedFactory);
-                });
-            });
-            beforeEach(inject(function($rootScope, $controller, $location, History) {
+            beforeEach(inject(function ($rootScope, $httpBackend, $controller, $location, Report, ReportGroup, History, $q){
                 scope = $rootScope.$new();
+                deferred = $q.defer();
+                httpBackend = $httpBackend;
                 location = $location;
                 history = History;
+                mockedFactory = Report;
+                mockedReportGroupFactory = ReportGroup;
+
                 ctrl = $controller('ReportController', {$scope: scope});
             }));
 
@@ -37,29 +32,6 @@ define(['angular','angular-mocks', 'report', 'utility.grid'], function(angular, 
                         $routeParams.definitionId = '123';
                         ctrl = $controller('ReportController', {$scope: scope});
                     }));
-                    it('should get reports', function() {
-                        expect(mockedFactory.getByDefinitionId.calls.count()).toBe(1);
-                    });
-                    it('should get Category by Id', function() {
-                        expect(mockedFactory.getById.calls.count()).toBe(1);
-                    });
-                });
-
-                describe('when routeParam.definitionId not available', function() {
-                    it('should not get reports', function() {
-                        expect(mockedFactory.getByDefinitionId.calls.count()).toBe(0);
-                    });
-                    it('should not get Category by Id', function() {
-                        expect(mockedFactory.getById.calls.count()).toBe(0);
-                    });
-                });
-            });
-
-            describe('runReport', function() {
-                it('should Add a new report for the specific definition Id', function() {
-                    var definitionId = '123';
-                    scope.runReport(definitionId);
-                    expect(mockedFactory.save.calls.count()).toBe(1);
                 });
             });
 
@@ -79,6 +51,15 @@ define(['angular','angular-mocks', 'report', 'utility.grid'], function(angular, 
                 });
             });
 
+            describe('runReport', function() {
+                it('should redirect to report view', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    var reportParams = {};
+                    scope.runReport(reportParams);
+                    expect(location.path).toHaveBeenCalledWith('/reporting/view');
+                });
+            });
+
             describe('back', function() {
                 it('should call history back', function() {
                     scope.back();
@@ -93,17 +74,6 @@ define(['angular','angular-mocks', 'report', 'utility.grid'], function(angular, 
                     expect(location.path).toHaveBeenCalledWith('/reporting');
                 });
             });
-        });
-
-        describe('Routes', function(){
-            it('should map routes to controllers', function() {
-                inject(function($route) {
-                    expect($route.routes['/reporting'].controller).toBe('ReportController');
-                    expect($route.routes['/reporting'].templateUrl).toEqual('/app/reporting/templates/reporting-home.html');
-                });
-            });
-
-
         });
     });
 });
