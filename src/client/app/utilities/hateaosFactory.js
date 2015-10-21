@@ -116,28 +116,35 @@ define(['angular', 'utility'], function(angular) {
                         if (newObj) {
                             halObj = newObj;
                         }
-
+                    $rootScope.currentUser.deferred.promise.then(function(){
+                        self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                        self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                         halObj._links = {
                             account: {
-                                href: 'http://localhost:8080/mps/accounts/' + user.accountId
+                                href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
                             }
                         };
 
-                        halAdapter.process($http({
-                            method: 'put',
-                            url: self.url + '/' + halObj.id + '?accountId=' + user.accountId,
-                            data: halObj
-                        })).then(function(processedResponse) {
-                            self.item = processedResponse;
-                            self.processedResponse = processedResponse;
 
-                            self.checkForEvent(self.item, 'afterUpdate').then(function() {
-                                deferred.resolve();
+                            halAdapter.process($http({
+                                method: 'put',
+                                url: self.url + '/' + halObj.id + '?accountId=' + self.params.accountId,
+                                data: halObj
+                            })).then(function(processedResponse) {
+                                self.item = processedResponse;
+                                self.processedResponse = processedResponse;
+
+                                self.checkForEvent(self.item, 'afterUpdate').then(function() {
+                                    deferred.resolve();
+                                });
                             });
-                        });
+                        },function(reason){
+                            deferred.reject(reason);
+                    });
                     } else {
                         deferred.resolve(false);
                     }
+
                });
 
                return deferred.promise;
@@ -177,15 +184,15 @@ define(['angular', 'utility'], function(angular) {
                 deferred = $q.defer(),
                 additonalParams;
 
-
+                console.log('HATEOAS Page()');
                 $rootScope.currentUser.deferred.promise.then(function(user){
                     HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                         var url;
 
                         self.url = api.url;
                         self.params = api.params;
-                        self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                        self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                        self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                        self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                         //setup required
                         if (page || page === 0) {
                             self.params.page = page;

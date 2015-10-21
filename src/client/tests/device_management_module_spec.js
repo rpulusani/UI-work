@@ -13,13 +13,13 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
             deferred,
             mockDeviceFactory;
 
-            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, deviceManagement, $q) {
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Devices, $q) {
                 scope = $rootScope.$new();
                 deferred= $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
 
-                mockDeviceFactory = deviceManagement;
+                mockDeviceFactory = Devices;
 
                 mockDeviceFactory.get = function(device) {
                     return deferred.promise;
@@ -110,30 +110,13 @@ define(['angular','angular-mocks', 'deviceManagement'], function(angular, mocks,
                 ctrl = $controller('DeviceInformationController', {$scope: scope});
             }));
 
-            describe('at init', function() {
-                //Commenting until real call
-                /*describe('when routeParam.id is available', function() {
-                    beforeEach(inject(function($routeParams, $controller){
-                        $routeParams.id = 'device-1';
-                        ctrl = $controller('DeviceInformationController', {$scope: scope});
-                    }));
-
-                    it('should get device', function() {
-                        expect(mockedFactory.get.calls.count()).toBe(1);
-                    });
-                });*/
-
-                describe('when routeParam.id not available', function() {
-                    it('should not get device', function() {
-                        expect(mockedFactory.get.calls.count()).toBe(0);
-                    });
-                });
-            });
 
             describe('formatAddress', function() {
-                it('should call BlankCheck', function() {
+                it('should be empty if install Address is null', function() {
+                    scope.formattedAddress = '';
+                    scope.installAddress = null;
                     scope.formatAddress();
-                    expect(blankCheck.path).toBeCalled;
+                    expect(scope.formattedAddress).toBe('');
                 });
             });
         });

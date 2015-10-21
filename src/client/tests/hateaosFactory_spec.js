@@ -44,6 +44,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                 };
 
                 httpBackend = $httpBackend;
+                //httpBackend.when('GET', )
 
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({
