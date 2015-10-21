@@ -183,9 +183,9 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 additonalParams;
-
                 console.log('HATEOAS Page()');
-                $rootScope.currentUser.deferred.promise.then(function(user){
+                $rootScope.currentUser.deferred.promise.then(function(){
+
                     HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                         var url;
 
@@ -203,7 +203,7 @@ define(['angular', 'utility'], function(angular) {
                         }
 
                         url = self.buildUrl(self.url, self.params, params);
-
+                        console.log('url: ' + url);
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
                             self.data = processedResponse._embeddedItems;
                             self.page = processedResponse.page;
