@@ -75,7 +75,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('POST', mockFactory.url + '?accountId=1-21AYVOT').respond({
+                httpBackend.when('POST', mockFactory.url + '?accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "saved": true,
@@ -86,7 +86,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('PUT', mockFactory.url + '/1-TEST?accountId=1-21AYVOT').respond({
+                httpBackend.when('PUT', mockFactory.url + '/1-TEST?accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "updated": true,
@@ -97,7 +97,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('GET', mockFactory.url + '/1-TEST?accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
+                httpBackend.when('GET', mockFactory.url + '/1-TEST').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "newProp": 'nice!',
@@ -173,7 +173,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     spyOn(mockFactory, 'save').and.callThrough();
 
                     mockFactory.save(testItem);
-
+                    rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
                     expect(mockFactory.item.id).toEqual('1-TEST');
@@ -187,7 +187,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     spyOn(mockFactory, 'update').and.callThrough();
 
                     mockFactory.update(testItem);
-
+                    rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
                     expect(mockFactory.item.id).toEqual('1-TEST');

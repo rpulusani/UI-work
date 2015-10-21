@@ -80,24 +80,30 @@ define(['angular', 'utility'], function(angular) {
                         if (newObj) {
                             halObj = newObj;
                         }
+                        $rootScope.currentUser.deferred.promise.then(function(){
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            halObj._links = {
+                                account: {
+                                    href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
+                                }
+                            };
+                            var url = self.buildUrl(self.url, self.params, []);
 
-                        halObj._links = {
-                            account: {
-                                href: 'http://localhost:8080/mps/accounts/' + user.accountId
-                            }
-                        };
+                            halAdapter.process($http({
+                                method: 'post',
+                                url: url,
+                                data: halObj
+                            })).then(function(processedResponse) {
+                                self.item = processedResponse;
+                                self.processedResponse = processedResponse;
 
-                        halAdapter.process($http({
-                            method: 'post',
-                            url: self.url + '?accountId=' + user.accountId,
-                            data: halObj
-                        })).then(function(processedResponse) {
-                            self.item = processedResponse;
-                            self.processedResponse = processedResponse;
-
-                            self.checkForEvent(self.item, 'afterSave').then(function() {
-                                deferred.resolve();
+                                self.checkForEvent(self.item, 'afterSave').then(function() {
+                                    deferred.resolve();
+                                });
                             });
+                        },function(reason){
+                            deferred.reject(reason);
                         });
                     } else {
                         deferred.resolve(false);
@@ -116,19 +122,19 @@ define(['angular', 'utility'], function(angular) {
                         if (newObj) {
                             halObj = newObj;
                         }
-                    $rootScope.currentUser.deferred.promise.then(function(){
-                        self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                        self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
-                        halObj._links = {
-                            account: {
-                                href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
-                            }
-                        };
+                        $rootScope.currentUser.deferred.promise.then(function(){
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            halObj._links = {
+                                account: {
+                                    href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
+                                }
+                            };
 
-
+                            var url = self.buildUrl(self.url + '/' + halObj.id, self.params, []);
                             halAdapter.process($http({
                                 method: 'put',
-                                url: self.url + '/' + halObj.id + '?accountId=' + self.params.accountId,
+                                url:  url,
                                 data: halObj
                             })).then(function(processedResponse) {
                                 self.item = processedResponse;
@@ -140,7 +146,7 @@ define(['angular', 'utility'], function(angular) {
                             });
                         },function(reason){
                             deferred.reject(reason);
-                    });
+                        });
                     } else {
                         deferred.resolve(false);
                     }
@@ -175,7 +181,6 @@ define(['angular', 'utility'], function(angular) {
                         }
                     }
                 }
-
                 return url += paramsUrl;
             };
 
@@ -183,9 +188,7 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 additonalParams;
-                console.log('HATEOAS Page()');
                 $rootScope.currentUser.deferred.promise.then(function(){
-
                     HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                         var url;
 
@@ -203,7 +206,6 @@ define(['angular', 'utility'], function(angular) {
                         }
 
                         url = self.buildUrl(self.url, self.params, params);
-                        console.log('url: ' + url);
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
                             self.data = processedResponse._embeddedItems;
                             self.page = processedResponse.page;
