@@ -5,7 +5,8 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
             httpBackend,
             mockServiceDefinition,
             testItem,
-            mockFactory;
+            mockFactory,
+            rootScope;
 
             beforeEach(module('mps'));
 
@@ -30,6 +31,20 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     route: ''
                 };
 
+                $rootScope.currentUser = {
+                    item: {
+                        accounts: [
+                            {
+                                accountId: '1-21AYVOT',
+                                level: 'GLOBAL'
+                            }
+                        ],
+                    },
+                    deferred: $q.defer()
+                };
+
+                rootScope = $rootScope;
+
                 mockFactory = new HATEAOSFactory(hateaosConfig);
                 mockFactory.url = 'http://127.0.0.1/test';
 
@@ -44,6 +59,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                 };
 
                 httpBackend = $httpBackend;
+                //httpBackend.when('GET', )
 
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({
@@ -59,7 +75,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('POST', mockFactory.url + '?accountId=1-21AYVOT').respond({
+                httpBackend.when('POST', mockFactory.url + '?accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "saved": true,
@@ -70,7 +86,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('PUT', mockFactory.url + '/1-TEST?accountId=1-21AYVOT').respond({
+                httpBackend.when('PUT', mockFactory.url + '/1-TEST?accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "updated": true,
@@ -81,7 +97,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('GET', mockFactory.url + '/1-TEST?accountId=1-21AYVOT').respond({
+                httpBackend.when('GET', mockFactory.url + '/1-TEST').respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "newProp": 'nice!',
@@ -92,7 +108,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT').respond({
+                httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
                   "_links" : {
                     "self" : {
                       "href" : mockFactory.url + '/{?page,size,sort}',
@@ -127,7 +143,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     spyOn(mockFactory, 'getPage').and.callThrough();
 
                     mockFactory.getPage();
-
+                    rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
                     expect(mockFactory.data.length).toEqual(1);
@@ -143,7 +159,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     spyOn(mockFactory, 'get').and.callThrough();
 
                     mockFactory.get(testItem);
-
+                    rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
                     expect(mockFactory.item.id).toEqual('1-TEST');
@@ -157,7 +173,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     spyOn(mockFactory, 'save').and.callThrough();
 
                     mockFactory.save(testItem);
-
+                    rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
                     expect(mockFactory.item.id).toEqual('1-TEST');
@@ -171,7 +187,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     spyOn(mockFactory, 'update').and.callThrough();
 
                     mockFactory.update(testItem);
-
+                    rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
                     expect(mockFactory.item.id).toEqual('1-TEST');

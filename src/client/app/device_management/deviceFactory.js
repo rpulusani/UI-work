@@ -8,7 +8,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                 columns: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber',
                          'cellTemplate':'<div>' +
-                                        '<a ng-href="/device_management/{{row.entity.id}}/review">{{row.entity.serialNumber}}</a>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);">{{row.entity.serialNumber}}</a>' +
                                         '</div>'
                         },
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'serialNumber'},

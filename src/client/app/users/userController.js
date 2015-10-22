@@ -31,7 +31,7 @@ define(['angular', 'user'], function(angular) {
             };
 
             $scope.save = function() {
-                console.log('save new user');
+                console.log('save new user not implemented');
                 $location.path('/delegated_admin/return/submitted');
             };
 

@@ -49,7 +49,7 @@ define([
     'utility.historyUtility',
     'utility.blankCheckUtility',
     'utility.formatUtility',
-    'utility.directives',   
+    'utility.directives',
     'utility.controller',
     'utility.contactPickerController',
     'utility.pageCountSelectController',
@@ -119,15 +119,30 @@ define([
         GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(['Gatekeeper', '$rootScope', '$cookies','$q',
-    function(Gatekeeper, $rootScope, $cookies, $q) {
+    .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService',
+    function(Gatekeeper, $rootScope, $cookies, $q, UserService) {
 
         //TODO: Get appropriate organization
         // Gatekeeper.login({organization: 'lexmark'});
         Gatekeeper.login();
 
         $rootScope.idpUser = Gatekeeper.user;
-        $rootScope.currentUser = {};
+        $rootScope.currentUser = {
+            deferred: $q.defer()
+        };
+        $rootScope.idpUser.$promise.then(function(){
+            var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
+                promise.then(function(user){
+                    angular.extend($rootScope.currentUser, user);
+                    $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
+                }, function(reason){
+                    NREUM.noticeError('API User Information failed to load for app.js reason: ' + reason);
+                });
+        }, function(reason) {
+                NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
+                $rootScope.currentUser.deferred.reject(reason);
+        });
+
         /*
             1.) put service url into mps factory
             2.) call mps.register services

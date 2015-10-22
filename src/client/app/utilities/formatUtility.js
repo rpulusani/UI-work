@@ -55,9 +55,8 @@ define(['angular', 'utility','utility.blankCheckUtility'], function(angular) {
                 if (BlankCheck.checkNotBlank(address.country)){
                      formattedAddress = formattedAddress + address.country;
                 }
-                
+
             }
-            console.log(formattedAddress);
             return formattedAddress;
         };
 

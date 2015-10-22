@@ -3,16 +3,32 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
     angular.module('mps.deviceManagement')
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
         function($scope, $location, $routeParams, BlankCheck, Device) {
+
+             var redirect_to_list = function() {
+               $location.path(Contacts.route + '/');
+            };
+
+             /* if ($routeParams.id) { //doing work on a current device
+                var promise = Device.getSelfResource($routeParams.id);
+                $q.when(promise,
+                    function(item){
+                        $scope.device = item;
+                    }
+                );
+            } else { //doing work on a new address
+                $scope.Devices = {accountId: $rootScope.currentUser.item.accounts[0].accountId, id:'new'};
+            }*/
+
+            if (Device.item === null) {
+                redirect_to_list();
+            } else {
+                $scope.device = Device.item;
+            }
+
+
+
             var acctId = 1;
             $scope.formattedAddress = '';
-
-            $scope.device = {
-                productModel: 'C748DTE NBD',
-                serialNumber: '41H0070717001',
-                installDate: '7/15/2015',
-                ipAddress: '10.141.12.12',
-                hostName: 'Hostname1'
-            };
 
             $scope.installAddress = {
                 storeFrontName: 'Lexmark International Inc',
@@ -29,8 +45,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             $scope.primaryContact = {
                 address: $scope.installAddress,
-                name: 'John Public',
-                phoneNumber: '9992882222',
+                name: 'Fake Data',
+                phoneNumber: '(999)288-2222',
                 emailAddress: 'jpublic@lexmark.com'
             };
 
@@ -58,14 +74,6 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                                                     $scope.installAddress.country;
                 }
             };
-
-            /* Commented until real call 
-
-            if($routeParams.id) {
-                 $scope.device = Device.get({accountId: acctId, id: $routeParams.id});
-            }
-
-            */
 
             $scope.formatAddress();
         }
