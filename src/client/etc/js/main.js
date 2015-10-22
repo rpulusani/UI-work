@@ -53,7 +53,7 @@ requirejs.config({
             'pageCount',
 
             'report',
-            'report.controller',
+            'report.reportController',
             'report.directives',
             'report.factory',
             'report.reportGroupFactory',
@@ -85,7 +85,7 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
-        'report.controller': ['report', 'report.factory', 'report.reportGroupFactory', 'utility.historyUtility'],
+        'report.reportController': ['report', 'report.factory', 'report.reportGroupFactory', 'utility.historyUtility'],
         'report.directives': ['report'],
         'report.factory': ['report'],
         'report.reportGroupFactory': ['report'],
@@ -196,7 +196,7 @@ requirejs.config({
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
 
         'report': 'app/reporting/report',
-        'report.controller': 'app/reporting/controller',
+        'report.reportController': 'app/reporting/reportController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
         'report.reportGroupFactory': 'app/reporting/reportGroupFactory',

@@ -6,6 +6,11 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
         function($scope, $location, $routeParams, History, Report, ReportGroup, $rootScope, $q, $filter, serviceUrl, UrlHelper, Grid, Personalize) {
 
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+
+           var redirect_to_list = function() {
+                $location.path('/reporting');
+            };
+
             $scope.templateUrl = UrlHelper.report_template('view');
 
             $scope.reports = ReportGroup.reports;
@@ -24,10 +29,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
 
             $scope.cancel = function(){
                 redirect_to_list();
-            };
-
-            var redirect_to_list = function() {
-                $location.path('/reporting');
             };
 
             $scope.reportByCategory = function(definitionId) {
