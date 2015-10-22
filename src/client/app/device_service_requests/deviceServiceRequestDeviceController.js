@@ -1,14 +1,41 @@
-define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory'], function(angular) {
+define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
-    angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'DeviceServiceRequest',
-        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest) {
+    angular.module('mps.serviceRequestDevices')
+    .controller('DeviceServiceRequestDeviceController', ['$scope', '$location', '$translate', 'Devices',
+        'ServiceRequestService', 'BlankCheck', 'DeviceServiceRequest',
+        function($scope, $location, $translate, Devices, ServiceRequestService, BlankCheck, DeviceServiceRequest) {
 
             $scope.device = Devices.item;
-
+            $scope.moveDevice = '';
+            $scope.breakfixOption ='';
             $scope.formattedAddress = '';
+            $scope.formattedTitleAddress = '';
 
-            $scope.installAddress = {
+            $scope.typeOfServiceOptions = [
+                { value: 'BREAK_FIX_ONSITE_REPAIR', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_ONSITE_REPAIR') },
+                { value: 'BREAK_FIX_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_EXCHANGE') },
+                { value: 'BREAK_FIX_OPTION_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_OPTION_EXCHANGE') },
+                { value: 'BREAK_FIX_REPLACEMENT', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_REPLACEMENT') },
+                { value: 'BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL') },
+                { value: 'BREAK_FIX_CONSUMABLE_PART_INSTALL', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_CONSUMABLE_PART_INSTALL') },
+                { value: 'BREAK_FIX_ONSITE_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_ONSITE_EXCHANGE') },
+                { value: 'BREAK_FIX_OTHER', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_OTHER') }
+            ];
+
+            $scope.serviceSelected = function(option) {
+                if ($scope.breakfixOption === 'BREAK_FIX_ONSITE_EXCHANGE') {
+                    $scope.moveDevice = $translate.instant('LABEL.YES');
+                }
+                else {
+                    $scope.moveDevice = $translate.instant('LABEL.NO');
+                }
+            };
+
+            $scope.goToCreate = function() {
+                $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/review');
+            };
+
+            var installAddress = {
                 storeFrontName: 'Lexmark International Inc',
                 addressLine1: '740 W. New Circle Rd.',
                 addressLine2: '',
@@ -21,15 +48,11 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 office: 'office3'
             };
 
-            $scope.primaryContact = {
+            var primaryContact = {
                 address: $scope.installAddress,
                 name: 'John Public',
                 phoneNumber: '9992882222',
                 emailAddress: 'jpublic@lexmark.com'
-            };
-
-            $scope.btnRequestService = function(device) {
-                    $location.path(DeviceServiceRequest.route + "/" + device.id + '/view');
             };
 
             $scope.formatAddress = function() {
@@ -58,6 +81,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.formatAddress();
-        }
+        } 
     ]);
 });
+

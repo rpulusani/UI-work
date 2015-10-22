@@ -181,9 +181,10 @@ requirejs.config({
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
+        'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
-        'deviceServiceRequest.factory': 'app/device_service_requests/deviceServiceRequestFactory',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
+        'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
