@@ -9,9 +9,9 @@
                 <div ng-show="isRowSelected()">
                     <dl class="row">
                         <dt class="col-1-2" translate="DEVICE_MGT.SERIAL_NO"></dt>
-                        <dd class="col-1-2" ng-bind="currentRowList[0].entity.serialNumber"></dd>
+                        <dd class="col-1-2" ng-bind="selectedDevice.serialNumber"></dd>
                         <dt class="col-1-2" translate="DEVICE_MGT.IP_ADDRESS"></dt>
-                        <dd class="col-1-2" ng-bind="currentRowList[0].entity.ipAddress"></dd>
+                        <dd class="col-1-2" ng-bind="selectedDevice.ipAddress"></dd>
                     </dl>
                 </div>
                 <div ng-hide="isRowSelected()">

@@ -26,6 +26,7 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
                 && $routeParams.return && $routeParams.return !== 'discard') {
                 if ($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.serialNumber !== undefined) {
+                    console.log("inside device condition");
                     $scope.device.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                 } else {
                     if ($rootScope.currentSelected) {
@@ -73,7 +74,8 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             };
 
             $scope.isDeviceSelected = function(){
-                if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1 && $routeParams.return) {
+                if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
+                    && $routeParams.return && $routeParams.return !== 'discard') {
                     return true;
                 } else {
                     return false;

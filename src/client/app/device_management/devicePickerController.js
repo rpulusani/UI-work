@@ -6,10 +6,16 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
         function($scope, $location, Grid, DevicePicker, $rootScope, Personalize) {
             $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
+            $scope.selectedDevice = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1) {
+                $scope.selectedDevice = $rootScope.currentRowList[0].entity;      
+            }
 
             $scope.isRowSelected = function(){
                 if ($scope.currentRowList.length >= 1) {
+                    $scope.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                    return true;
                 } else {
                    return false;
