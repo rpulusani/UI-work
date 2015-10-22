@@ -7,6 +7,7 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             $scope.device = {};
             $scope.device.selectedDevice = {};
             $scope.device.selectedContact = {};
+            $scope.device.lexmarkDeviceQuestion = 'true';
             $scope.isSubmitted = false;
             $scope.isReview = false;
             $scope.isPrimarySelected = false;

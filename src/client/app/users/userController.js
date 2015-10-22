@@ -5,7 +5,7 @@ define(['angular', 'user'], function(angular) {
         function($scope, $location, $routeParams, $rootScope, UrlHelper) {
 
             $scope.templateUrl = UrlHelper.user_template;
-
+            
             $scope.user_info_active = true;
             $scope.account_access_active = false;
 
@@ -32,6 +32,12 @@ define(['angular', 'user'], function(angular) {
 
             $scope.save = function() {
                 console.log('save new user');
+                $location.path('/delegated_admin/return/submitted');
+            };
+
+            $scope.invite = function() {
+                console.log('invite new user');
+                $location.path('/delegated_admin/return/invited');
             };
         }
     ]);

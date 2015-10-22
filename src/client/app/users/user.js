@@ -10,6 +10,10 @@ define(['angular'], function(angular) {
             templateUrl: templateUrl('view'),
             controller: 'UsersController'
         })
+        .when('/delegated_admin/return/:returnParam', {
+            templateUrl: templateUrl('view'),
+            controller: 'UsersController'
+        })
         .when('/delegated_admin/new_user', {
             templateUrl: templateUrl('new-user'),
             controller: 'UserController'

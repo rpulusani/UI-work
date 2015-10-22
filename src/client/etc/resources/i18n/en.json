@@ -284,8 +284,10 @@
         "IMPORT_USER": "IMPORT USERS",
         "SEARCH_USER": "Search for a user",
         "CREATE_TITLE": "Create a new user",
+        "INVITE_TITLE": "Invite User(s)",
         "INFO": "User information",
         "ADD_WHO": "Who would you like to add as a user?",
+        "INVITE_WHO": "Who would you like to invite as a user?",
         "WHO": "Who is the user?",
         "WHERE": "Where are they located?",
         "ROLE_PERM": "User role and permissions",
@@ -297,7 +299,12 @@
         "MANAGE": "Managing {{user_name}}",
         "DEACTIVATE": "DEACTIVATE USER",
         "DELETE_CHANGES": "DISCARD USER CHANGES",
-        "UPDATE": "UPDATE USER"
+        "UPDATE": "UPDATE USER",
+        "EMAILS": "Email(s)",
+        "DISCARD_INVITE": "DISCARD USER INVITATIONS",
+        "INVITE_USERS": "INVITE USER(S)",
+        "USER_CREATED_MSG": "User has been created successfully!",
+        "USER_INVITED_MSG": "users have been sent invites!"
     },
 
     "ROLE": {
@@ -380,7 +387,8 @@
         "ROLE": "Roles",
         "ACTIVE": "Active",
         "INACTIVE": "Inactive",
-        "ATTACHMENTS": "Attachments"
+        "ATTACHMENTS": "Attachments",
+        "USERS": "Users"
     },
 
     "PAGINATION": {
