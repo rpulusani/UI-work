@@ -4,8 +4,20 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'DeviceServiceRequest',
         function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest) {
 
-            $scope.device = Devices.item;
+             var redirect_to_list = function() {
+               $location.path(Devices.route + '/');
+             } 
 
+
+            if (Devices.item === null) {
+                redirect_to_list();
+            } else {
+                $scope.device = Devices.item;
+            }
+
+
+
+            var acctId = 1;
             $scope.formattedAddress = '';
 
             $scope.installAddress = {
@@ -23,8 +35,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             $scope.primaryContact = {
                 address: $scope.installAddress,
-                name: 'John Public',
-                phoneNumber: '9992882222',
+                name: 'Fake Data',
+                phoneNumber: '(999)288-2222',
                 emailAddress: 'jpublic@lexmark.com'
             };
 

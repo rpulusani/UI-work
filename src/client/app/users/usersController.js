@@ -11,9 +11,11 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             $scope.gridOptions = {};
+            $scope.gridOptions.showBookmarkColumn = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, UserService);
 
             $scope.setGrid = function() {
+
                 $scope.additionalParams = [];
                 if ($scope.invitationsActive) {
                     $scope.additionalParams = [

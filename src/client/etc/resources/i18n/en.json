@@ -94,6 +94,7 @@
         "FIND_DEVICE": "Find device",
         "DEVICES_MATCHING_SEARCH": "{{total}} devices matching {{serial}}",
         "REQUEST_SEARCH": "What request are you looking for?",
+        "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?",
         "REQUEST_SERVICE_FOR": "Request service for {{product_model}}",
         "DEVICE_DETAILS": "Device details",
         "SERVICE_REQUEST_DETAIL": "Service request details",

@@ -8,7 +8,6 @@ define(['angular', 'deviceServiceRequest', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
 
             $scope.goToSubmit = function() {
-                console.log($scope.serial);
                 $scope.queryBySerial($scope.serial);
 
             };
@@ -20,6 +19,6 @@ define(['angular', 'deviceServiceRequest', 'utility.grid'], function(angular) {
                     NREUM.noticeError('Grid Load Failed for ' + DeviceSearch.serviceName +  ' reason: ' + reason);
                 });
             };
-        } 
+        }
     ]);
 });
