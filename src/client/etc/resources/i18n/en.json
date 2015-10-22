@@ -265,7 +265,7 @@
         "RUN_TITLE": "Run Report",
         "TITLE_CNT": "Records ({{total}})",
         "MP9073.TITLE": "MADC Report (MP9073) -  ({{total}} records)",
-        "MP9073.TYPE": "Event Type",
+        "MP9073.EVENT_TYPE": "Event Type",
         "MP9073.EVENT_DT": "Event Date",
         "MP9073.MANUFACTURER": "Manufacturer",
         "MP9073.DEVICE": "Device",
@@ -279,7 +279,9 @@
         "MP9073.OLD_IP": "Old IP",
         "MP9073.NEW_IP": "New IP",
         "MP9073.OLD_CHL": "Old CHL",
-        "MP9073.NEW_CHL": "New CHL"
+        "MP9073.NEW_CHL": "New CHL",
+        "MP9073.EVENT_DATE_FROM": "From",
+        "MP9073.EVENT_DATE_TO": "To"
     },
 
     "INVOICE": {

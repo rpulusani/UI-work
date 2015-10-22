@@ -266,19 +266,7 @@ memory = {
         "reportGroups":[
                 {
                     id: 'group1',
-                    name: 'Orders'
-                },
-                {
-                    id: 'group2',
-                    name: 'Service'
-                },
-                {
-                    id: 'group3',
-                    name: 'Assets'
-                },
-                {
-                    id: 'group4',
-                    name: 'Summary'
+                    name: 'Standard Reports'
                 }
             ]
         }
@@ -294,74 +282,40 @@ memory = {
         "reportCategories":[
                 {
                     id: '123',
-                    groupId: 'group1',
-                    name: 'Asset register',
-                    desc: 'AM1173 Change Management'
-                },
-                {
-                    id:'456',
-                    groupId: 'group1',
-                    name: 'Future Rate',
-                    desc: 'AM1177 Future Rate'
-                },
-                {
-                    id:'789',
-                    groupId: 'group1',
-                    name: 'FCC Rate',
-                    desc: 'AM1188 FCC Rate'
-                },
-                {
-                    id: '910',
-                    groupId: 'group2',
-                    name: 'Asset Retirement Daily',
-                    desc: 'Asset Retirement Daily'
-                },
-                {
-                    id:'911',
-                    groupId: 'group2',
-                    name: 'Asset Retirement Weekly',
-                    desc: 'Asset Retirement Weekly'
-                },
-                {
-                    id:'912',
-                    groupId: 'group3',
-                    name: 'Missing Page Count - Automated (AM1175)',
-                    desc: 'Missing Page Count - Automated (AM1175)'
+                    name: 'Asset register (MP9058SP)'
                 },
                 {
                     id:'913',
-                    groupId: 'group3',
-                    name: 'MADC (MP9073)',
-                    desc: 'MADC (MP9073)'
-                    /*
-                    'defaultSet': [
-                        {'name': $translate.instant('REPORTING.MP9073.TYPE'), 'field': 'type'},
-                        {'name': $translate.instant('REPORTING.MP9073.EVENT_DT'), 'field':'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
-                        {'name': $translate.instant('REPORTING.MP9073.MANUFACTURER'), 'field': 'manufacturer'},
-                        {'name': $translate.instant('REPORTING.MP9073.DEVICE'), 'field':'device'},
-                        {'name': $translate.instant('REPORTING.MP9073.ASSET_TAG'), 'field': 'assetTag'},
-                        {'name': $translate.instant('REPORTING.MP9073.ORIG_SN'), 'field':'origSerialNumber'},
-                        {'name': $translate.instant('REPORTING.MP9073.NEW_SN'), 'field': 'newSerialNumber'},
-                        {'name': $translate.instant('REPORTING.MP9073.OLD_ADDRESS'), 'field': 'oldAddress'},
-                        {'name': $translate.instant('REPORTING.MP9073.NEW_ADDRESS'), 'field': 'newAddress'},
-                        {'name': $translate.instant('REPORTING.MP9073.GEO'), 'field': 'geo'},
-                        {'name': $translate.instant('REPORTING.MP9073.COUNTRY'), 'field': 'country'},
-                        {'name': $translate.instant('REPORTING.MP9073.OLD_IP'), 'field': 'oldIp'},
-                        {'name': $translate.instant('REPORTING.MP9073.NEW_IP'), 'field': 'newIp'},
-                        {'name': $translate.instant('REPORTING.MP9073.OLD_CHL'), 'field': 'oldChl'},
-                        {'name': $translate.instant('REPORTING.MP9073.NEW_CHL'), 'field': 'newChl'}
-                    ],
-                    'parameters': [
-                        {'name': 'eventType', 'type': 'select', 'options': ['Installs', 'MC', 'Manual Swaps', 'Remove Account']},
-                        {'name': 'eventDateFrom', 'type': 'date'},
-                        {'name': 'eventDateTo', 'type': 'date'}
-                    ]
-                    */
+                    name: 'MADC (MP9073)'
+                },
+                {
+                    id:'456',
+                    name: 'Missing Meter Reads (MP0075)'
+                },
+                {
+                    id:'789',
+                    name: 'Consumables Orders (MP0021)'
+                },
+                {
+                    id: '910',
+                    name: 'Hardware Orders (HW0008)'
+                },
+                {
+                    id:'911',
+                    name: 'Pages Billed'
+                },
+                {
+                    id:'912',
+                    name: 'Hardware Installation Requests'
+                },
+                {
+                    id:'914',
+                    name: 'Service Detail Report (SD 0101/EM0034)'
                 }
             ]
         }
     },
-    users: 
+    users:
         {
   "_links": {
     "self": {
@@ -598,7 +552,7 @@ memory = {
             "number": 0
           }
         },
-    
+
     reports: {
         "_links": {
         "self": {
@@ -728,7 +682,7 @@ router.get('/users', function(req, res) {
     } else {
       res.json(memory['users']);
     }
-    
+
 });
 
 router.get('/accounts/:accountId/:requestType', function(req, res) {

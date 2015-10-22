@@ -7,17 +7,15 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
 
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
-           var redirect_to_list = function() {
+            var redirect_to_list = function() {
                 $location.path('/reporting');
             };
 
             $scope.templateUrl = UrlHelper.report_template('view');
 
             $scope.reports = ReportGroup.reports;
-            $scope.groups = ReportGroup.groups;
             $scope.categories = ReportGroup.categories;
             $scope.catagory = "";
-            $scope.categoryDesc = "";
 
             $rootScope.currentAccount = '1-11JNK1L';
             $rootScope.currentRowList = [];
@@ -59,12 +57,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     }
                 });
             };
-
-            if (ReportGroup.groups.length === 0) {
-                ReportGroup.query(function() {
-                    $scope.groups = ReportGroup.groups;
-                });
-            }
 
             if (ReportGroup.categories.length === 0) {
                 ReportGroup.getCategoryList(function() {
@@ -108,6 +100,10 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Report);
 
             $scope.additionalParams = [
+                {
+                    name: 'accountId',
+                    value: '1-11JNK1L'
+                },
                 {
                     name: 'eventType',
                     value: $rootScope.reportParams ? $rootScope.reportParams.eventType : ""
