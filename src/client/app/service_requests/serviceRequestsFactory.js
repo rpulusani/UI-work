@@ -5,7 +5,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         function(serviceUrl, $translate, HATEAOSFactory) {
             var ServiceRequests = {
                     serviceName: 'service-requests',
-                    embededName: 'serviceRequests',
+                    embeddedName: 'serviceRequests',
                     columns: [
                             {'name': 'id', 'field': 'id', visible:false},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'createDate'},
