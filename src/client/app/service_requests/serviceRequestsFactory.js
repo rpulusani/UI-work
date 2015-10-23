@@ -5,7 +5,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         function(serviceUrl, $translate, HATEAOSFactory) {
             var ServiceRequests = {
                     serviceName: 'service-requests',
-                    embeddedName: 'serviceRequests',
+                    embeddedName: 'serviceRequests', //get away from embedded name and move to a function to convert url name to javascript name
                     columns: [
                             {'name': 'id', 'field': 'id', visible:false},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'createDate'},
