@@ -114,7 +114,10 @@
         "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
         "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
         "BREAK_FIX_OTHER": "Other",
-        "REQUEST_DECOMISSION_FOR": "Request decomission for {{productModel}}"
+        "REQUEST_DECOMISSION_FOR": "Request decomission for {{productModel}}",
+        "DEVICE_PRIMARY_CONTACT": "Device primary contact",
+        "DEVICE_INSTALL_ADDRESS": "Device install address",
+        "DEVICE_REMOVAL": "Device removal"
     },
 
     "ADDRESS": {
