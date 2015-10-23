@@ -15,7 +15,6 @@ define(['angular', 'utility'], function(angular) {
                     number: 0
                 };
                 self.columns = {};
-                self.resetServiceMap = false;
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
                 self.params = {};
@@ -23,7 +22,11 @@ define(['angular', 'utility'], function(angular) {
 
                 return angular.extend(self, serviceDefinition);
             };
-
+            HATEAOSFactory.prototype.resetServiceMap = function(){
+                var self = this;
+                self.item = null;
+                self.data = [];
+            };
             HATEAOSFactory.prototype.getLoggedInUserInfo = function(loginId){
                 var self  = this,
                 deferred = $q.defer(),
@@ -78,13 +81,24 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
+                newService.resetServiceMap();
+                if(halObj.item){
+                    url = halObj.item._links[newService.serviceName].href;
 
-                url = halObj.item._links[newService.serviceName].href;
+                }else{
+                    url = halObj._links[newService.serviceName].href;
+                }
 
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
-                    newService.item = processedResponse;
-                    newService.processedResponse = processedResponse;
-
+                    if(processedResponse._embeddedItems[newService.embeddedName].constructor === Array){
+                        newService.data = processedResponse._embeddedItems[newService.embeddedName];
+                        newService.page = processedResponse.page;
+                        newService.params.page = self.page.number;
+                        newService.params.size = self.page.size;
+                    }else{
+                        newService.item = processedResponse;
+                    }
+                    newService.processedResponse = angular.toJson(processedResponse, true);
                     deferred.resolve();
                 });
 

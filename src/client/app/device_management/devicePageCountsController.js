@@ -26,9 +26,11 @@ define(['angular', 'deviceManagement', 'deviceManagement.pageCountFactory'], fun
 
             $scope.selectPageCount = function(id, pageCountArr) {
                 var i=0;
-                for (i ; i < pageCountArr.length ; i++){
-                    if(id === pageCountArr[i].id){
-                        return pageCountArr[i];
+                if(pageCountArr){
+                    for (i ; i < pageCountArr.length ; i++){
+                        if(id === pageCountArr[i].id){
+                            return pageCountArr[i];
+                        }
                     }
                 }
             };

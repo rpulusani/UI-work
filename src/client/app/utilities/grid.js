@@ -83,9 +83,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                 scope.gridOptions.showBookmarkColumn === true) &&
-                 this.hasBookmarkCol === false) {
-                this.hasBookmarkCol = true;
+                 scope.gridOptions.showBookmarkColumn === true)) {
+                //this.hasBookmarkCol = true;
 
                 scope.gridOptions.columnDefs.unshift({
                     name: '',
