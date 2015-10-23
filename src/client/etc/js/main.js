@@ -171,7 +171,7 @@ requirejs.config({
         'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
         'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
         'deviceManagement.deviceOrderController': 'app/device_management/deviceOrderController',
-        'deviceManagement.deviceRequestController': 'app/device_management/deviceRequestController',
+        'deviceManagement.deviceRequestBreakFixController': 'app/device_management/deviceRequestBreakFixListController',
         'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',

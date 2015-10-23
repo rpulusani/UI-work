@@ -14,18 +14,24 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             } else {
                 $scope.device = Devices.item;
                 Devices.getAdditional(Devices, MeterReads).then(function(){
-                    $scope.meterReads = MeterReads.item;
-                    $scope.meterReadList = $scope.meterReads._embeddedItems['meterReads'];
+                    //$scope.meterReads = MeterReads.data;
+                    $scope.meterReadList = MeterReads.data;
 
                     for (i=0 ; i<= $scope.meterReadList.length; i++) {
-                        if ($scope.meterReadList[i].type && $scope.meterReadList[i].type === 'LTPC') {
-                            $scope.ltpc = $scope.meterReadList[i];
-                        }
-                        if ($scope.meterReadList[i].type && $scope.meterReadList[i].type === 'Color') {
-                            $scope.color = $scope.meterReadList[i];
-                        }
-                        if ($scope.meterReadList[i].type && $scope.meterReadList[i].type === 'Mono') {
-                            $scope.mono = $scope.meterReadList[i];
+                        if($scope.meterReadList[i] && $scope.meterReadList[i].type){
+                            switch($scope.meterReadList[i].type){
+                                case 'LTPC':
+                                    $scope.ltpc = $scope.meterReadList[i];
+                                break;
+                                case 'Color':
+                                    $scope.color = $scope.meterReadList[i];
+                                break;
+                                case 'Mono':
+                                    $scope.mono = $scope.meterReadList[i];
+                                break;
+                                default:
+                                break;
+                            }
                         }
                     }
                 });

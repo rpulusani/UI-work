@@ -33,7 +33,7 @@ define([
     'deviceManagement.deviceInformationController',
     'deviceManagement.devicePageCountsController',
     'deviceManagement.deviceOrderController',
-    'deviceManagement.deviceRequestController',
+    'deviceManagement.deviceRequestBreakFixController',
     'deviceManagement.deviceFactory',
     'deviceManagement.pageCountFactory',
     'deviceManagement.meterReadFactory',

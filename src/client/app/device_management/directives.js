@@ -15,11 +15,11 @@ define(['angular', 'deviceManagement'], function(angular) {
             controller: 'DeviceOrderController'
         };
     })
-    .directive('requestList', function() {
+    .directive('requestBreakFixList', function() {
         return {
             restrict: 'A',
-            templateUrl: '/app/device_management/templates/request-list.html',
-            controller: 'DeviceRequestController'
+            templateUrl: '/app/device_management/templates/request-break-fix-list.html',
+            controller: 'DeviceRequestBreakFixListController'
         };
     })
     .directive('devicePageCount', function() {
