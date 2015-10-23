@@ -59,15 +59,25 @@ define(['angular', 'utility'], function(angular) {
         };
     })
     .directive('pages', function(){
-        return{
+        return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pages.html',
         };
     })
     .directive('pagination', function(){
-        return{
+        return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pagination.html',
+        };
+    })
+    .directive('draw', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attributes) {
+                console.log(element);
+                var r = Raphael(element);
+                r.piechart(0, 0, 100, [55, 20, 13, 32, 5, 1, 2]);
+            }
         };
     });
 });
