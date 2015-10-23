@@ -271,50 +271,6 @@ memory = {
             ]
         }
     },
-    reportCategories: {
-        "_links": {
-        "self": {
-          "href": "http://10.145.116.233:8080/accounts/1/reportCategories",
-          "templated": true
-        }
-      },
-      "_embedded": {
-        "reportCategories":[
-                {
-                    id: '123',
-                    name: 'Asset register (MP9058SP)'
-                },
-                {
-                    id:'913',
-                    name: 'MADC (MP9073)'
-                },
-                {
-                    id:'456',
-                    name: 'Missing Meter Reads (MP0075)'
-                },
-                {
-                    id:'789',
-                    name: 'Consumables Orders (MP0021)'
-                },
-                {
-                    id: '910',
-                    name: 'Hardware Orders (HW0008)'
-                },
-                {
-                    id:'911',
-                    name: 'Pages Billed'
-                },
-                {
-                    id:'912',
-                    name: 'Hardware Installation Requests'
-                },
-                {
-                    id:'914',
-                    name: 'Service Detail Report (SD 0101/EM0034)'
-                }
-            ]
-        }
-    },
     users:
         {
   "_links": {

@@ -56,7 +56,6 @@ requirejs.config({
             'report.reportController',
             'report.directives',
             'report.factory',
-            'report.reportGroupFactory',
 
             'tree',
             'tree.treeItemsService',
@@ -85,10 +84,9 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
-        'report.reportController': ['report', 'report.factory', 'report.reportGroupFactory', 'utility.historyUtility'],
+        'report.reportController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
-        'report.reportGroupFactory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
@@ -199,7 +197,6 @@ requirejs.config({
         'report.reportController': 'app/reporting/reportController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-        'report.reportGroupFactory': 'app/reporting/reportGroupFactory',
 
         'angular-gatekeeper': 'app/libs/angular-gatekeeper',
 

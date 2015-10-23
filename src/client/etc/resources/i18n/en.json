@@ -262,7 +262,7 @@
         "REPORT_NAME": "Report",
         "ACTION": "Action",
         "RUN": "RUN THIS REPORT",
-        "RUN_TITLE": "Run Report",
+        "RUN_TITLE": "Run Report {{category}}",
         "TITLE_CNT": "Records ({{total}})",
         "MP9073.TITLE": "MADC Report (MP9073) -  ({{total}} records)",
         "MP9073.EVENT_TYPE": "Event Type",

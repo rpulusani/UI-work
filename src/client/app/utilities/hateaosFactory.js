@@ -188,12 +188,11 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 additonalParams;
-                $rootScope.currentUser.deferred.promise.then(function(){
-                    HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                        var url;
 
-                        self.url = api.url;
-                        self.params = api.params;
+                $rootScope.currentUser.deferred.promise.then(function() {
+                    var processPage = function() {
+                         var url;
+
                         self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
                         self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                         //setup required
@@ -206,6 +205,7 @@ define(['angular', 'utility'], function(angular) {
                         }
 
                         url = self.buildUrl(self.url, self.params, params);
+                    
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
                             self.data = processedResponse._embeddedItems;
                             self.page = processedResponse.page;
@@ -215,7 +215,18 @@ define(['angular', 'utility'], function(angular) {
 
                             deferred.resolve();
                         });
-                    });
+                    };
+
+                    if (!self.url) {
+                        HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                            self.url = api.url;
+                            self.params = api.params;
+
+                            processPage();
+                        });
+                    } else {
+                        processPage();
+                    }
                 },function(reason){
                     deferred.reject(reason);
                 });
