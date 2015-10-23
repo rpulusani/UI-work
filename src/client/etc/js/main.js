@@ -15,6 +15,7 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
+        'angular-sanitize': ['angular'],
 
 
         'app': [
@@ -98,6 +99,7 @@ requirejs.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
+        'angular-sanitize': 'app/libs/angular-sanitize.min',
 
         'ui.grid' : 'app/libs/ui-grid',
 

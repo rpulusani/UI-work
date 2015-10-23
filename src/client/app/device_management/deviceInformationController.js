@@ -1,75 +1,41 @@
 define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'DeviceServiceRequest',
-        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest) {
+    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
+        'DeviceServiceRequest','FormatterService',
+        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService) {
 
              var redirect_to_list = function() {
                $location.path(Devices.route + '/');
-             } 
+             };
 
 
             if (Devices.item === null) {
                 redirect_to_list();
             } else {
                 $scope.device = Devices.item;
+                $scope.installAddress = $scope.device._embeddedItems['address'];
+                $scope.primaryContact = $scope.device._embeddedItems['primaryContact'];
+            }
+
+            if($scope.device !== null && $scope.device !== undefined){
+                 $scope.device.installDate = new Date($scope.device.installDate);
+            }
+            if($scope.installAddress !== null && $scope.installAddress !== undefined){
+                $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
+            }
+            if($scope.primaryContact !== null && $scope.primaryContact !== undefined){
+                    $scope.primaryContact.formattedName = FormatterService.getFullName($scope.primaryContact.firstName,
+                        $scope.primaryContact.lastName, $scope.primaryContact.middleName);
+                    $scope.primaryContact.formattedworkPhone =
+                         FormatterService.getPhoneFormat($scope.primaryContact.workPhone);
             }
 
 
-
-            var acctId = 1;
-            $scope.formattedAddress = '';
-
-            $scope.installAddress = {
-                storeFrontName: 'Lexmark International Inc',
-                addressLine1: '740 W. New Circle Rd.',
-                addressLine2: '',
-                country: 'United States',
-                city: 'Lexington',
-                state: 'KY',
-                postalCode: '40511',
-                building: 'Bldg1',
-                floor: 'floor2',
-                office: 'office3'
-            };
-
-            $scope.primaryContact = {
-                address: $scope.installAddress,
-                name: 'Fake Data',
-                phoneNumber: '(999)288-2222',
-                emailAddress: 'jpublic@lexmark.com'
-            };
-
             $scope.btnRequestService = function(device) {
-                    $location.path(DeviceServiceRequest.route + "/" + device.id + '/view');
+                $location.path(DeviceServiceRequest.route + "/" + device.id + '/review');
             };
 
-            $scope.formatAddress = function() {
-                if (BlankCheck.checkNotNullOrUndefined($scope.installAddress) ) {
-                    $scope.formattedAddress = $scope.installAddress.storeFrontName + '\n' +
-                                              $scope.installAddress.addressLine1 + ', ' +
-                                              $scope.installAddress.city + ', ' +
-                                              $scope.installAddress.state + ' ' +
-                                              $scope.installAddress.postalCode + '\n';
-                    if(BlankCheck.checkNotBlank($scope.installAddress.building)){
-                        $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.building + ', ';
-                    }
-                    if(BlankCheck.checkNotBlank($scope.installAddress.floor)){
-                        $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.floor + ', ';
-                    }
-                    if(BlankCheck.checkNotBlank($scope.installAddress.office)){
-                         $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.office + '\n';
-                    }
-                    $scope.formattedAddress = $scope.formattedAddress + $scope.installAddress.country;
-                    $scope.formattedTitleAddress = $scope.installAddress.addressLine1 + ", " +
-                                                    $scope.installAddress.city + ", " +
-                                                    $scope.installAddress.state + " " +
-                                                    $scope.installAddress.postalCode + ", " +
-                                                    $scope.installAddress.country;
-                }
-            };
-
-            $scope.formatAddress();
         }
     ]);
 });

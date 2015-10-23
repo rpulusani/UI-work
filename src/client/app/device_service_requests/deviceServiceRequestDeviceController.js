@@ -3,9 +3,16 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
     angular.module('mps.serviceRequestDevices')
     .controller('DeviceServiceRequestDeviceController', ['$scope', '$location', '$translate', 'Devices',
         'ServiceRequestService', 'BlankCheck', 'DeviceServiceRequest',
-        function($scope, $location, $translate, Devices, ServiceRequestService, BlankCheck, DeviceServiceRequest) {
+        function($scope, $location, $translate, Devices, ServiceRequestService, BlankCheck, DeviceServiceRequest){
 
-            $scope.device = Devices.item;
+            if (Devices.item === null) {
+                redirect_to_list();
+            } else {
+                $scope.device = Devices.item;
+                $scope.installAddress = Devices.item._embeddedItems['address'];
+                $scope.primaryContact = Devices.item._embeddedItems['primaryContact'];
+            }
+
             $scope.moveDevice = '';
             $scope.breakfixOption ='';
             $scope.formattedAddress = '';
@@ -81,7 +88,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             };
 
             $scope.formatAddress();
-        } 
+        }
     ]);
 });
 

@@ -8,6 +8,7 @@ define([
     'angular-translate-storage-local',
     'angular-translate-loader-static-files',
     'angular-translate-loader-url',
+    'angular-sanitize',
     'address',
     'address.directives',
     'address.factory',
@@ -67,6 +68,7 @@ define([
         'ngRoute',
         'ngResource',
         'ngCookies',
+        'ngSanitize',
         'pascalprecht.translate',
         'mps.account',
         'mps.serviceRequests',
@@ -111,7 +113,13 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .config(function (SpringDataRestAdapterProvider) {
 
+        // set the links key to _myLinks
+        SpringDataRestAdapterProvider.config({
+            embeddedNamedResources: true
+        });
+    })
     .config(function(GatekeeperProvider, serviceUrl){
         GatekeeperProvider.configure({
             serviceUri: config.idp.serviceUrl,

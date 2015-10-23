@@ -56,14 +56,32 @@ define(['angular', 'utility'], function(angular) {
             };
 
             // Obtaining single item
-            HATEAOSFactory.prototype.get = function(halObj) {
+            HATEAOSFactory.prototype.get = function(halObj, embeds) {
                 var self  = this,
                 deferred = $q.defer(),
-                url = halObj._links.self.href;
+                params = [{
+                    name: 'embed',
+                    value: embeds
+                }],
+                url = self.buildUrl(halObj._links.self.href, undefined, params);
 
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
                     self.item = processedResponse;
                     self.processedResponse = processedResponse;
+
+                    deferred.resolve();
+                });
+
+                return deferred.promise;
+            };
+             HATEAOSFactory.prototype.getAdditonal = function(halObj, newService) {
+                var self  = this,
+                deferred = $q.defer(),
+                url = halObj._links[newService.serviceName].href;
+
+                halAdapter.process($http.get(url)).then(function(processedResponse) {
+                    newService.item = processedResponse;
+                    newService.processedResponse = processedResponse;
 
                     deferred.resolve();
                 });
@@ -207,7 +225,7 @@ define(['angular', 'utility'], function(angular) {
 
                         url = self.buildUrl(self.url, self.params, params);
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
-                            self.data = processedResponse._embeddedItems;
+                            self.data = processedResponse._embeddedItems[self.serviceName];
                             self.page = processedResponse.page;
                             self.params.page = self.page.number;
                             self.params.size = self.page.size;
