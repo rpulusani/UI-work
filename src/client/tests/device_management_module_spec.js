@@ -265,6 +265,9 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                     "_links" : {
                         "self" : {
                             "href" : mockFactory.url + "/1-ACCT-ID"
+                        },
+                        "meterReads": {
+                          "href": mockFactory.url + "/1-ACCT-ID/meter-reads"
                         }
                     }
                 };
