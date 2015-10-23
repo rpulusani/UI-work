@@ -85,7 +85,7 @@
         "DEVICE_PAGE_COUNT_INSTRUCTION": "Please enter the device page counts",
         "DEVICE_NETWORK_CONFIGURATION": "Device network configuration",
         "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE",
-        "SUBMIT_DEVICE_REQUEST": "SUBMIT DEVICE REQUEST",
+        "SUBMIT_DEVICE_REQUEST": "Submit device request",
         "ADD_ANOTHER_DEVICE": "Add Another Device",
         "DETAILS_FOR_DEVICE_REQUEST": "Details for Device Request Number: {{requestNumber}}",
         "NEW_SERVICE_REQUEST": "New service request",
@@ -93,7 +93,27 @@
         "WHAT_IS_THE_DEVICE_SERIAL_NUMBER": "What is the device serial number?",
         "FIND_DEVICE": "Find device",
         "DEVICES_MATCHING_SEARCH": "{{total}} devices matching {{serial}}",
-        "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?"
+        "REQUEST_SEARCH": "What request are you looking for?",
+        "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?",
+        "REQUEST_SERVICE_FOR": "Request service for {{product_model}}",
+        "DEVICE_DETAILS": "Device details",
+        "SERVICE_REQUEST_DETAIL": "Service request details",
+        "TYPE_OF_SERVICE_NEEDED": "Type of service needed",
+        "PROBLEM_DESCRIPTION": "Problem description",
+        "REFERENCE_NUMBER": "Reference number",
+        "UPDATE_DEVICE": "Update device",
+        "REQUESTED_UPDATE_TO_DEVICE": "Requested update to device information",
+        "REQUEST_CONTACT_INFORMATION": "Request contact information",
+        "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+        "LEXMARK_MOVE_DEVICE": "Lexmark to move device?",
+        "BREAK_FIX_ONSITE_REPAIR": "Onsite repair",
+        "BREAK_FIX_EXCHANGE": "Exchange",
+        "BREAK_FIX_OPTION_EXCHANGE": "Option exchange",
+        "BREAK_FIX_REPLACEMENT": "Replacement",
+        "BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL": "Consumable supply install",
+        "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
+        "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
+        "BREAK_FIX_OTHER": "Other"
     },
 
     "ADDRESS": {
@@ -199,7 +219,11 @@
         "UPDATE_DEVICE_INFO_LINK": "Update device information >",
         "LAST_UPDATED": "(Last updated {{lastUpdatedDate}})",
         "MANAGE_PAGE_COUNTS_LINK": "Manage Page Counts >",
-        "PAGE_COUNT_SUMMARY": "Page count summary"
+        "PAGE_COUNT_SUMMARY": "Page count summary",
+        "PART_NUMBER": "Part number",
+        "MACHINE_TYPE": "Machine type",
+        "SERVICE_CONTACT": "Service contact",
+        "SERVICE_ADDRESS": "Service address"
     },
 
     "ORDER_MGT": {

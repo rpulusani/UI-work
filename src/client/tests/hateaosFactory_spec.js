@@ -120,7 +120,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                   },
                   "_embedded" : {
-                    "tests" : [{
+                    "test" : [{
                       "name" : "test",
                       "id" : "1-6PCRP71",
                       "_links" : {
