@@ -5,6 +5,7 @@ define(['angular', 'deviceManagement'], function(angular) {
         function(serviceUrl, $translate,$rootScope, HATEAOSFactory) {
             var Devices = {
                 serviceName: "assets",
+                embeddedName: "assets",
                 columns: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber',
                          'cellTemplate':'<div>' +

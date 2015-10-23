@@ -1,9 +1,9 @@
-define(['angular', 'address', 'utility.grid'], function(angular) {
+define(['angular', 'address','account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',
-        'PersonalizationServiceFactory',
-        function($scope,  $location,  Grid, Addresses, $rootScope, $q, Personalize) {
+        'PersonalizationServiceFactory', 'AccountService', 'UserService',
+        function($scope,  $location,  Grid, Addresses, $rootScope, $q, Personalize, Account, User) {
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             /* Actions */
@@ -44,10 +44,14 @@ define(['angular', 'address', 'utility.grid'], function(angular) {
             /* grid configuration */
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            Addresses.getPage().then(function(){
-                Grid.display(Addresses, $scope, personal);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+            $rootScope.currentUser.deferred.promise.then(function(user){
+                User.getAdditional(user, Account).then(function(){
+                    Addresses.getPage().then(function(){
+                        Grid.display(Addresses, $scope, personal);
+                    }, function(reason) {
+                        NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+                    });
+                });
             });
         }
       ]);
