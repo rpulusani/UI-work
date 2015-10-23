@@ -16,19 +16,18 @@
 </div> 
 <hr>
 <div class="row">
-    <dl class="col-2-3">
+    <dl class="col-2-3" ng-show="ltpc">
         <dt class="text--semi-bold" translate="PAGE_COUNT_TYPE.LIFETIME_TITLE"></dt>
-        <dt>112344434 Pages</dt>
+        <dt translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: ltpc.value}"></dt>
     </dl>
-    <dl class="col-2-3">
+    <dl class="col-2-3" ng-show="color">
         <dt class="text--semi-bold" translate="PAGE_COUNT_TYPE.COLOR_TITLE"></dt>
-        <dt>112344434 Pages</dt>
+        <dt translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: color.value}"></dt>
     </dl>
-    <dl class="col-2-3">
+    <dl class="col-2-3" ng-show="mono">
         <dt class="text--semi-bold" translate="PAGE_COUNT_TYPE.MONO_TITLE"></dt>
-        <dt>112344434 Pages</dt>
+        <dt translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: mono.value}"></dt>
     </dl>
-    
 </div>
 
 <div class="row">

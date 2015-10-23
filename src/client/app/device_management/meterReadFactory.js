@@ -1,11 +1,12 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .factory('MeterReads', ['serviceUrl', '$translate', 'HATEAOSFactory',
+    .factory('MeterReadService', ['serviceUrl', '$translate', 'HATEAOSFactory',
         function(serviceUrl, $translate, HATEAOSFactory) {
             var MeterReads = {
-                serviceName: 'meter-reads',
-                route: '/service_requests/pageCounts'
+                serviceName: 'meterReads',
+                embeddedName: 'meterReads',
+                route: ''
             };
 
         return new HATEAOSFactory(MeterReads);

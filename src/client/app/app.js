@@ -36,6 +36,7 @@ define([
     'deviceManagement.deviceRequestController',
     'deviceManagement.deviceFactory',
     'deviceManagement.pageCountFactory',
+    'deviceManagement.meterReadFactory',
     'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
     'deviceManagement.devicePickerFactory',

@@ -176,6 +176,7 @@ requirejs.config({
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
         'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
+        'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
         'deviceManagement.devicePickerFactory': 'app/device_management/devicePickerFactory',

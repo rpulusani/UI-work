@@ -223,7 +223,8 @@
         "PART_NUMBER": "Part number",
         "MACHINE_TYPE": "Machine type",
         "SERVICE_CONTACT": "Service contact",
-        "SERVICE_ADDRESS": "Service address"
+        "SERVICE_ADDRESS": "Service address",
+        "NO_OF_PAGES": "{{pageCount}} Pages"
     },
 
     "ORDER_MGT": {
