@@ -5,7 +5,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
         function($scope, $location, $routeParams, BlankCheck, Device) {
 
              var redirect_to_list = function() {
-               $location.path(Contacts.route + '/');
+               $location.path(Device.route + '/');
             };
 
              /* if ($routeParams.id) { //doing work on a current device
