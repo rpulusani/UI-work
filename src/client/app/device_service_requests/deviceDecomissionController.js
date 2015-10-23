@@ -1,10 +1,14 @@
 define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceDecomissionDeviceController', ['$scope', '$location', '$translate', 'Devices',
+    .controller('DeviceDecomissionController', ['$scope', '$location', '$translate', 'Devices',
         'ServiceRequestService', 'BlankCheck', 'DeviceServiceRequest',
         function($scope, $location, $translate, Devices, ServiceRequestService, BlankCheck, DeviceServiceRequest){
 
+             var redirect_to_list = function() {
+               $location.path(Devices.route + '/');
+             };
+             
             if (Devices.item === null) {
                 redirect_to_list();
             } else {

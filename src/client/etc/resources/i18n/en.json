@@ -113,7 +113,8 @@
         "BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL": "Consumable supply install",
         "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
         "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
-        "BREAK_FIX_OTHER": "Other"
+        "BREAK_FIX_OTHER": "Other",
+        "REQUEST_DECOMISSION_FOR": "Request decomission for {{productModel}}"
     },
 
     "ADDRESS": {
