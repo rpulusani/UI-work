@@ -1,6 +1,8 @@
 <div class="row row--alley-2">
     <div class="col-1">
-        <h1 translate="REQUEST_MGMT.REQUESTS_FOR_DEVICE"></h1>
+        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="REQUEST_MGMT.REQUESTS_FOR_DEVICE"
+          translate-values="{total: pagination.totalItems()}">
+        </h2>
         <hr/>
         <div style="display:none;">
             <span class="text--thick" translate="REQUEST_MGMT.REQUEST_SEARCH"></span>

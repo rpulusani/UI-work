@@ -271,7 +271,7 @@
 
     "REQUEST_MGMT": {
         "TITLE": "Manage Requests",
-        "REQUESTS_FOR_DEVICE": "Requests for this device",
+        "REQUESTS_FOR_DEVICE": "Service requests ({{total}})",
         "REQUEST_SEARCH": "What request are you looking for?",
         "CREATE_NEW_REQUEST": "Create new request",
         "ALL_REQUESTS": "All requests",
