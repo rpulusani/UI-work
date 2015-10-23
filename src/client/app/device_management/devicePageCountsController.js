@@ -7,11 +7,11 @@ define(['angular', 'deviceManagement', 'deviceManagement.pageCountFactory'], fun
             $scope.showLess = true;
             $scope.file_list = ['.xls', '.xlsx', '.csv'].join(',');
             $scope.page_count_list = PageCount.pageCountTypes.query();
-            $scope.currentDate = new Date(); 
+            $scope.currentDate = new Date();
 
             $scope.toggleDisplay = function(){
                 $scope.showLess = !$scope.showLess;
-            }
+            };
 
             if($routeParams.id) {
                 //Hardcoding device ID undtil real implementation

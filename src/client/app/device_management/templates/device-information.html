@@ -30,9 +30,9 @@
 
             <dl class="row">
                 <dt class="col-1-2" translate="DEVICE_MGT.INSTALL_ADDRESS"></dt>
-                <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
+                <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedAddress"></dd>
                 <dt class="col-1-2" translate="DEVICE_MGT.INSTALL_DATE"></dt>
-                <dd class="col-1-2" ng-bind="device.installDate"></dd>
+                <dd class="col-1-2" ng-bind="device.installDate | date:'MM/dd/yyyy'"></dd>
             </dl>
             <h4 class="text--semi-bold" translate="LABEL.NETWORK_CONFIG"></h4>
             <dl class="row">
@@ -52,13 +52,13 @@
 
             <dl class="row">
                 <dt class="col-1-2" translate="LABEL.NAME"></dt>
-                <dd class="col-1-2" ng-bind="primaryContact.name"></dd>
+                <dd class="col-1-2" ng-bind="primaryContact.formattedName"></dd>
                 <dt class="col-1-2" translate="LABEL.ADDRESS"></dt>
-                <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
+                <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedAddress"></dd>
                 <dt class="col-1-2" translate="LABEL.EMAIL"></dt>
-                <dd class="col-1-2" ng-bind="primaryContact.emailAddress"></dd>
+                <dd class="col-1-2" ng-bind="primaryContact.email"></dd>
                 <dt class="col-1-2" translate="CONTACT.WORK_PHONE"></dt>
-                <dd class="col-1-2" ng-bind="primaryContact.phoneNumber"></dd>
+                <dd class="col-1-2" ng-bind="primaryContact.formattedworkPhone"></dd>
             </dl>
         </div>
     </div>

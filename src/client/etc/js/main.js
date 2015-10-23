@@ -15,6 +15,7 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
+        'angular-sanitize': ['angular'],
 
 
         'app': [
@@ -98,6 +99,7 @@ requirejs.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
+        'angular-sanitize': 'app/libs/angular-sanitize.min',
 
         'ui.grid' : 'app/libs/ui-grid',
 
@@ -181,9 +183,10 @@ requirejs.config({
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
+        'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
-        'deviceServiceRequest.factory': 'app/device_service_requests/deviceServiceRequestFactory',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
+        'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
 
         'report': 'app/reporting/report',
         'report.controller': 'app/reporting/controller',
