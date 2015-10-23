@@ -19,6 +19,14 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/search.html',
                 controller: 'DeviceSearchController'
             })
+            .when('/service_requests/devices/:id/view', {
+                templateUrl: '/app/device_service_requests/templates/view-request.html',
+                controller: 'DeviceServiceRequestDeviceController'
+            })
+            .when('/service_requests/devices/:id/review', {
+                templateUrl: '/app/device_service_requests/templates/review-request.html',
+                controller: 'DeviceServiceRequestDeviceController'
+            })
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController'

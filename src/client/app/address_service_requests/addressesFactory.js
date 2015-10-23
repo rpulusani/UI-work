@@ -7,6 +7,7 @@ define(['angular', 'address'], function(angular) {
 
                 //customize Address
                 serviceName: 'addresses',
+                embeddedName: 'addresses',
                 columns: [
                         {'name': 'id', 'field': 'id', visible:false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},

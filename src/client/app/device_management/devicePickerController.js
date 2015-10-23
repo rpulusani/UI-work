@@ -1,13 +1,21 @@
-define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', 'ui.grid'], function(angular) {
+define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DevicePickerController', ['$scope', '$location', 'gridService', 'DevicePicker', '$rootScope',
-        function($scope, $location, GridService, DevicePicker, $rootScope) {
+    .controller('DevicePickerController', ['$scope', '$location', 'grid', 'DevicePicker', '$rootScope',
+        'PersonalizationServiceFactory',
+        function($scope, $location, Grid, DevicePicker, $rootScope, Personalize) {
             $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
+            $scope.selectedDevice = [];
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1) {
+                $scope.selectedDevice = $rootScope.currentRowList[0].entity;      
+            }
 
             $scope.isRowSelected = function(){
-                if ($scope.currentRowList.length === 1) {
+                if ($scope.currentRowList.length >= 1) {
+                    $scope.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                    return true;
                 } else {
                    return false;
@@ -19,39 +27,20 @@ define(['angular', 'deviceManagement', 'deviceManagement.devicePickerFactory', '
                 $location.path('/service_requests/devices/new/'+returned);
             };
 
+            $scope.discardDeviceSelection = function(){
+                var returned = 'discard';
+                $location.path('/service_requests/devices/new/'+returned);
+            };
+
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
-            $scope.gridOptions.onRegisterApi = GridService.getGridActions($rootScope, DevicePicker);
-            GridService.getGridOptions(DevicePicker, '').then(
-                function(options){
-                    $scope.gridOptions = options;
-                    $scope.pagination = GridService.pagination(DevicePicker, $rootScope);
-                    $scope.itemsPerPage = DevicePicker.getPersonalizedConfiguration('itemsPerPage');
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, DevicePicker, personal);
 
-                    var params =[
-                        {
-                            name: 'accountIds',
-                            value: "'1-21AYVOT'"
-                        },
-                        {
-                            name: 'size',
-                            value: $scope.itemsPerPage
-                        },
-                        {
-                            page: 'page',
-                            value: 0
-                        }
-                    ];
-                    DevicePicker.resource(params).then(
-                        function(response){
-                            $scope.gridOptions.data = DevicePicker.getList();
-                        }
-                    );
-                },
-                function(reason){
-                     NREUM.noticeError('Grid Load Failed: ' + reason);
-                }
-            );
+            DevicePicker.getPage().then(function() {
+                Grid.display(DevicePicker, $scope, personal);
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + DevicePicker.serviceName +  ' reason: ' + reason);
+            });
         }
     ]);
 });

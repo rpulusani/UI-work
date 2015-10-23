@@ -9,9 +9,9 @@
                 <div ng-show="isRowSelected()">
                     <dl class="row">
                         <dt class="col-1-2" translate="DEVICE_MGT.SERIAL_NO"></dt>
-                        <dd class="col-1-2" ng-bind="currentRowList[0].entity.serialNumber"></dd>
+                        <dd class="col-1-2" ng-bind="selectedDevice.serialNumber"></dd>
                         <dt class="col-1-2" translate="DEVICE_MGT.IP_ADDRESS"></dt>
-                        <dd class="col-1-2" ng-bind="currentRowList[0].entity.ipAddress"></dd>
+                        <dd class="col-1-2" ng-bind="selectedDevice.ipAddress"></dd>
                     </dl>
                 </div>
                 <div ng-hide="isRowSelected()">
@@ -31,7 +31,7 @@
         
         <div class="col-2-3"></div>
         <div class="col-1">
-            <button class="btn btn--secondary" translate="DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_SELECTION" ng-click="isSingleSelected()"></button>
+            <button class="btn btn--secondary" translate="DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_SELECTION" ng-click="discardDeviceSelection()"></button>
             <button class="btn btn--primary" translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_DEINSTALL" 
                     ng-click="goToDeviceAdd()"></button>
         </div>

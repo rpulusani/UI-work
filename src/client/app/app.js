@@ -8,6 +8,7 @@ define([
     'angular-translate-storage-local',
     'angular-translate-loader-static-files',
     'angular-translate-loader-url',
+    'angular-sanitize',
     'address',
     'address.directives',
     'address.factory',
@@ -35,6 +36,7 @@ define([
     'deviceManagement.deviceRequestController',
     'deviceManagement.deviceFactory',
     'deviceManagement.pageCountFactory',
+    'deviceManagement.meterReadFactory',
     'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
     'deviceManagement.devicePickerFactory',
@@ -42,9 +44,10 @@ define([
     'deviceServiceRequest',
     'deviceServiceRequest.deviceAddController',
     'deviceServiceRequest.deviceSearchController',
-    'deviceServiceRequest.factory',
+    'deviceServiceRequest.deviceServiceRequestDeviceController',
     'deviceServiceRequest.directives',
     'deviceServiceRequest.deviceSearchFactory',
+    'deviceServiceRequest.deviceServiceRequestFactory',
     'utility',
     'utility.historyUtility',
     'utility.blankCheckUtility',
@@ -66,6 +69,7 @@ define([
         'ngRoute',
         'ngResource',
         'ngCookies',
+        'ngSanitize',
         'pascalprecht.translate',
         'mps.account',
         'mps.serviceRequests',
@@ -111,7 +115,13 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .config(function (SpringDataRestAdapterProvider) {
 
+        // set the links key to _myLinks
+        SpringDataRestAdapterProvider.config({
+            embeddedNamedResources: true
+        });
+    })
     .config(function(GatekeeperProvider, serviceUrl){
         GatekeeperProvider.configure({
             serviceUri: config.idp.serviceUrl,

@@ -24,6 +24,7 @@ requirejs.config({
             deps: ['pdfMakeLib'],
             exports: 'pdfMake'
         },
+        'angular-sanitize': ['angular'],
         'app': [
             'angular-gatekeeper',
 
@@ -105,8 +106,12 @@ requirejs.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
+      
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
+      
+        'angular-sanitize': 'app/libs/angular-sanitize.min',
+
         'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',
@@ -182,6 +187,7 @@ requirejs.config({
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
         'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
+        'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
         'deviceManagement.devicePickerFactory': 'app/device_management/devicePickerFactory',
@@ -189,9 +195,10 @@ requirejs.config({
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
+        'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
-        'deviceServiceRequest.factory': 'app/device_service_requests/deviceServiceRequestFactory',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
+        'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
 
         'report': 'app/reporting/report',
         'report.reportController': 'app/reporting/reportController',

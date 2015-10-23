@@ -13,7 +13,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             };
 
             $scope.view = function(device){
-                Devices.get(device).then(function(){
+                Devices.get(device, 'address,primaryContact').then(function(){
                     $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };

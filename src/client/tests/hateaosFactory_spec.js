@@ -13,6 +13,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
             beforeEach(inject(function($rootScope, $httpBackend, HATEAOSFactory, $q) {
                 var hateaosConfig = {
                     serviceName: 'test',
+                    embeddedName: 'test',
                     columns: [
                         {
                             'name': 'fullname',
@@ -120,7 +121,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                   },
                   "_embedded" : {
-                    "tests" : [{
+                    "test" : [{
                       "name" : "test",
                       "id" : "1-6PCRP71",
                       "_links" : {

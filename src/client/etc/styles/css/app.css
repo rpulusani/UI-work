@@ -7,6 +7,9 @@
   content: "";
   display: block;
 }
+.left-pad {
+  padding-left: 30px;
+}
 .site-nav {
   width: 300px;
 }

@@ -85,7 +85,7 @@
         "DEVICE_PAGE_COUNT_INSTRUCTION": "Please enter the device page counts",
         "DEVICE_NETWORK_CONFIGURATION": "Device network configuration",
         "REMOVE_DIFFERENT_DEVICE": "REMOVE A DIFFERENT DEVICE",
-        "SUBMIT_DEVICE_REQUEST": "SUBMIT DEVICE REQUEST",
+        "SUBMIT_DEVICE_REQUEST": "Submit device request",
         "ADD_ANOTHER_DEVICE": "Add Another Device",
         "DETAILS_FOR_DEVICE_REQUEST": "Details for Device Request Number: {{requestNumber}}",
         "NEW_SERVICE_REQUEST": "New service request",
@@ -93,7 +93,27 @@
         "WHAT_IS_THE_DEVICE_SERIAL_NUMBER": "What is the device serial number?",
         "FIND_DEVICE": "Find device",
         "DEVICES_MATCHING_SEARCH": "{{total}} devices matching {{serial}}",
-        "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?"
+        "REQUEST_SEARCH": "What request are you looking for?",
+        "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?",
+        "REQUEST_SERVICE_FOR": "Request service for {{product_model}}",
+        "DEVICE_DETAILS": "Device details",
+        "SERVICE_REQUEST_DETAIL": "Service request details",
+        "TYPE_OF_SERVICE_NEEDED": "Type of service needed",
+        "PROBLEM_DESCRIPTION": "Problem description",
+        "REFERENCE_NUMBER": "Reference number",
+        "UPDATE_DEVICE": "Update device",
+        "REQUESTED_UPDATE_TO_DEVICE": "Requested update to device information",
+        "REQUEST_CONTACT_INFORMATION": "Request contact information",
+        "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+        "LEXMARK_MOVE_DEVICE": "Lexmark to move device?",
+        "BREAK_FIX_ONSITE_REPAIR": "Onsite repair",
+        "BREAK_FIX_EXCHANGE": "Exchange",
+        "BREAK_FIX_OPTION_EXCHANGE": "Option exchange",
+        "BREAK_FIX_REPLACEMENT": "Replacement",
+        "BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL": "Consumable supply install",
+        "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
+        "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
+        "BREAK_FIX_OTHER": "Other"
     },
 
     "ADDRESS": {
@@ -171,12 +191,12 @@
         "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
         "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
         "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
-        "MANAGING_DEVICE": "Managing Device {{product_model}}",
+        "MANAGING_DEVICE": "MANAGING DEVICE",
         "TITLE_IMPORT_PGCNT": "Import Page Counts",
         "BODY_IMPORT_PGCNT": "Please select a file you wish to import page counts from...",
         "CANCEL_IMPORT_PGCNT": "CANCEL IMPORT",
         "CONFIRM_IMPORT_PGCNT": "IMPORT AND REVIEW PAGE COUNTS",
-        "PAGE_COUNTS": "Page Counts",
+        "PAGE_COUNTS": "PAGE COUNTS",
         "SUBMIT_PAGE_COUNT_UPDATE": "SUBMIT PAGE COUNT UPDATE",
         "MANAGE_ALL_PAGE_COUNT": "Manage All Page Counts",
         "VIEW_LESS": "View Less",
@@ -184,14 +204,27 @@
         "PRIOR_COUNT": "Prior Count",
         "PRIOR_DATE": "Prior Date",
         "NEW_COUNT": "New Count",
-        "REQUEST_SERVICE": "REQUEST SERVICE",
+        "REQUEST_SERVICE": "SCHEDULE SERVICE",
         "ORDER_SUPPLIES": "ORDER SUPPLIES",
         "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
-        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE",
+        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION \"{{productModel}}\"",
         "ADD": "ADD AN EXISTING DEVICE",
         "IMPORT": "IMPORT DEVICES",
         "ORDER_NEW": "ORDER NEW DEVICE",
-        "MANAGE_PAGE_COUNTS": "MANAGE PAGE COUNTS"
+        "MANAGE_PAGE_COUNTS": "MANAGE PAGE COUNTS",
+        "VISIT_SUPPORT_PAGE": "Visit Lexmark.com support page for this device >",
+        "OVERVIEW": "OVERVIEW",
+        "SUPPLY_ORDERS": "SUPPLY ORDERS",
+        "SERVICE_HISTORY": "SERVICE HISTORY",
+        "UPDATE_DEVICE_INFO_LINK": "Update device information >",
+        "LAST_UPDATED": "(Last updated {{lastUpdatedDate}})",
+        "MANAGE_PAGE_COUNTS_LINK": "Manage Page Counts >",
+        "PAGE_COUNT_SUMMARY": "Page count summary",
+        "PART_NUMBER": "Part number",
+        "MACHINE_TYPE": "Machine type",
+        "SERVICE_CONTACT": "Service contact",
+        "SERVICE_ADDRESS": "Service address",
+        "NO_OF_PAGES": "{{pageCount}} Pages"
     },
 
     "ORDER_MGT": {
@@ -230,7 +263,10 @@
         "STATEMENT_LIFETIME_PAGE_COUNT": "Statement Lifetime Count",
         "STATEMENT_COLOR_PAGE_COUNT": "Statement Color Count",
         "TABLOID_LIFETIME_PAGE_COUNT": "Tabloid Lifetime Count",
-        "TABLOID_COLOR_PAGE_COUNT": "Tabloid Color Count"
+        "TABLOID_COLOR_PAGE_COUNT": "Tabloid Color Count",
+        "LIFETIME_TITLE": "LIFETIME",
+        "COLOR_TITLE": "COLOR",
+        "MONO_TITLE": "MONO"
     },
 
     "REQUEST_MGMT": {
@@ -303,8 +339,10 @@
         "IMPORT_USER": "IMPORT USERS",
         "SEARCH_USER": "Search for a user",
         "CREATE_TITLE": "Create a new user",
+        "INVITE_TITLE": "Invite User(s)",
         "INFO": "User information",
         "ADD_WHO": "Who would you like to add as a user?",
+        "INVITE_WHO": "Who would you like to invite as a user?",
         "WHO": "Who is the user?",
         "WHERE": "Where are they located?",
         "ROLE_PERM": "User role and permissions",
@@ -316,7 +354,12 @@
         "MANAGE": "Managing {{user_name}}",
         "DEACTIVATE": "DEACTIVATE USER",
         "DELETE_CHANGES": "DISCARD USER CHANGES",
-        "UPDATE": "UPDATE USER"
+        "UPDATE": "UPDATE USER",
+        "EMAILS": "Email(s)",
+        "DISCARD_INVITE": "DISCARD USER INVITATIONS",
+        "INVITE_USERS": "INVITE USER(S)",
+        "USER_CREATED_MSG": "User has been created successfully!",
+        "USER_INVITED_MSG": "users have been sent invites!"
     },
 
     "ROLE": {
@@ -399,7 +442,9 @@
         "ROLE": "Roles",
         "ACTIVE": "Active",
         "INACTIVE": "Inactive",
-        "ATTACHMENTS": "Attachments"
+        "ATTACHMENTS": "Attachments",
+        "USERS": "Users",
+        "UPDATE_LINK": "Update >"
     },
 
     "PAGINATION": {

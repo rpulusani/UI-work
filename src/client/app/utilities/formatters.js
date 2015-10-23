@@ -1,16 +1,19 @@
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('FormatterService', [ '$translate',
-        function($translate) {
+    .factory('FormatterService', [ '$translate', 'BlankCheck',
+        function($translate, BlankCheck) {
             return{
                 getFullName: function(firstName, lastName, middleName){
-                    var fullname = lastName + ', ' +  firstName;
-                    if (middleName) {
-                        fullname += ' ' + middleName;
-                        return fullname;
-                    } else {
-                        return fullname;
+                    if(firstName !== undefined && firstName !== null &&
+                        lastName !== undefined && lastName !== null){
+                        var fullname = lastName + ', ' +  firstName;
+                        if (middleName) {
+                            fullname += ' ' + middleName;
+                            return fullname;
+                        } else {
+                            return fullname;
+                        }
                     }
                 },
                 getPhoneFormat: function(telephone){
@@ -48,7 +51,65 @@ define(['angular', 'utility'], function(angular) {
 
                     return (country + " (" + city + ") " + number).trim();
 
+                },
+                formatAddress: function(address){
+                    var formattedAddress = '';
+                    if (BlankCheck.checkNotNullOrUndefined(address) ) {
+                        if (BlankCheck.checkNotBlank(address.storeFrontName)){
+                            formattedAddress += address.storeFrontName + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine1)){
+                            formattedAddress += address.addressLine1 + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine2)){
+                            formattedAddress += address.addressLine2 + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.city)){
+                            formattedAddress = formattedAddress + address.city;
+                            if (!BlankCheck.checkNotBlank(address.postalCode) && !BlankCheck.checkNotBlank(address.state)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ', ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.state)){
+                            formattedAddress = formattedAddress + address.state;
+                            if (!BlankCheck.checkNotBlank(address.postalCode)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ' ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.postalCode)){
+                            formattedAddress = formattedAddress + address.postalCode + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.building)){
+                            formattedAddress = formattedAddress + address.building;
+                            if (!BlankCheck.checkNotBlank(address.floor) && !BlankCheck.checkNotBlank(address.office)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ', ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.floor)){
+                            formattedAddress = formattedAddress + address.floor;
+                        if (!BlankCheck.checkNotBlank(address.office)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ', ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.office)){
+                             formattedAddress = formattedAddress + address.office + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.country)){
+                             formattedAddress = formattedAddress + address.country;
+                        }
+
+                    }
+                    return formattedAddress;
                 }
             };
+
     }]);
 });
