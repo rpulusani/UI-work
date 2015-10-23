@@ -74,10 +74,12 @@ define(['angular', 'utility'], function(angular) {
 
                 return deferred.promise;
             };
-             HATEAOSFactory.prototype.getAdditonal = function(halObj, newService) {
+             HATEAOSFactory.prototype.getAdditional = function(halObj, newService) {
                 var self  = this,
                 deferred = $q.defer(),
-                url = halObj._links[newService.serviceName].href;
+                url = '';
+
+                url = halObj.item._links[newService.serviceName].href;
 
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
                     newService.item = processedResponse;
@@ -225,7 +227,7 @@ define(['angular', 'utility'], function(angular) {
 
                         url = self.buildUrl(self.url, self.params, params);
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
-                            self.data = processedResponse._embeddedItems[self.serviceName];
+                            self.data = processedResponse._embeddedItems[self.embeddedName];
                             self.page = processedResponse.page;
                             self.params.page = self.page.number;
                             self.params.size = self.page.size;

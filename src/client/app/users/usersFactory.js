@@ -11,7 +11,7 @@ define(['angular', 'user'], function(angular) {
                         {'name': $translate.instant('LABEL.STATUS'), 'field': 'activeStatus'},
                         {'name': $translate.instant('LABEL.CREATED_DATE'), 'field':'created'},
                         {'name': $translate.instant('LABEL.USER_ID'), 'field':'userId'},
-                        {'name': $translate.instant('LABEL.NAME_LAST_FIRST'), 
+                        {'name': $translate.instant('LABEL.NAME_LAST_FIRST'),
                          'cellTemplate':'<div>' +
                                         '{{row.entity.lastName}}, {{row.entity.firstName}}' +
                                         '</div>'
