@@ -1,6 +1,13 @@
 define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], function(angular) {
     'use strict';
     angular.module('mps.user')
+    .directive('userRoles', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/user-roles.html',
+            controller: 'UserController'
+        };
+    })
     .directive('selectedAccountList', function(){
          return {
             restrict: 'A',

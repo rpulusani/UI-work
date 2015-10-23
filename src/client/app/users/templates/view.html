@@ -3,13 +3,15 @@
     <div class="col-1">
         <h1 translate="DELEGATED_ADMIN.TITLE"></h1>
         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
-        <div alert-message></div>
+        <div alert-message title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+             cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+             return-path="/delegated_admin"></div>
 
         <div style="padding-top: 15px;padding-bottom: 15px;">
             <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.CREATE_USER"
                     ng-click="goToCreateUser()"></button>
             <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.INVITE_USER"
-                    ng-click="goToCreateInvite()"></button>
+                    ng-click="goToInviteUser()"></button>
             <button name="cancel" class="col-1-4 btn btn--secondary" translate="USER.IMPORT_USER"
                     ng-click="goToImportUsers()"></button>
         </div>
