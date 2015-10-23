@@ -191,12 +191,12 @@
         "UPDATE_DEVICE_INFO": "UPDATE DEVICE INFORMATION",
         "DECOMMISSION_DEVICE": "DECOMMISSION THIS DEVICE",
         "MANAGE_DEVICE_CONTACT": "Manage Device Contact >",
-        "MANAGING_DEVICE": "Managing Device {{product_model}}",
+        "MANAGING_DEVICE": "MANAGING DEVICE",
         "TITLE_IMPORT_PGCNT": "Import Page Counts",
         "BODY_IMPORT_PGCNT": "Please select a file you wish to import page counts from...",
         "CANCEL_IMPORT_PGCNT": "CANCEL IMPORT",
         "CONFIRM_IMPORT_PGCNT": "IMPORT AND REVIEW PAGE COUNTS",
-        "PAGE_COUNTS": "Page Counts",
+        "PAGE_COUNTS": "PAGE COUNTS",
         "SUBMIT_PAGE_COUNT_UPDATE": "SUBMIT PAGE COUNT UPDATE",
         "MANAGE_ALL_PAGE_COUNT": "Manage All Page Counts",
         "VIEW_LESS": "View Less",
@@ -204,19 +204,27 @@
         "PRIOR_COUNT": "Prior Count",
         "PRIOR_DATE": "Prior Date",
         "NEW_COUNT": "New Count",
-        "REQUEST_SERVICE": "REQUEST SERVICE",
+        "REQUEST_SERVICE": "SCHEDULE SERVICE",
         "ORDER_SUPPLIES": "ORDER SUPPLIES",
         "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
-        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION THIS DEVICE",
+        "DECOMMISSION_THIS_DEVICE": "DECOMMISSION \"{{productModel}}\"",
         "ADD": "ADD AN EXISTING DEVICE",
         "IMPORT": "IMPORT DEVICES",
         "ORDER_NEW": "ORDER NEW DEVICE",
         "MANAGE_PAGE_COUNTS": "MANAGE PAGE COUNTS",
+        "VISIT_SUPPORT_PAGE": "Visit Lexmark.com support page for this device >",
+        "OVERVIEW": "OVERVIEW",
+        "SUPPLY_ORDERS": "SUPPLY ORDERS",
+        "SERVICE_HISTORY": "SERVICE HISTORY",
+        "UPDATE_DEVICE_INFO_LINK": "Update device information >",
+        "LAST_UPDATED": "(Last updated {{lastUpdatedDate}})",
+        "MANAGE_PAGE_COUNTS_LINK": "Manage Page Counts >",
+        "PAGE_COUNT_SUMMARY": "Page count summary",
         "PART_NUMBER": "Part number",
         "MACHINE_TYPE": "Machine type",
         "SERVICE_CONTACT": "Service contact",
-        "SERVICE_ADDRESS": "Service address"
-
+        "SERVICE_ADDRESS": "Service address",
+        "NO_OF_PAGES": "{{pageCount}} Pages"
     },
 
     "ORDER_MGT": {
@@ -255,7 +263,10 @@
         "STATEMENT_LIFETIME_PAGE_COUNT": "Statement Lifetime Count",
         "STATEMENT_COLOR_PAGE_COUNT": "Statement Color Count",
         "TABLOID_LIFETIME_PAGE_COUNT": "Tabloid Lifetime Count",
-        "TABLOID_COLOR_PAGE_COUNT": "Tabloid Color Count"
+        "TABLOID_COLOR_PAGE_COUNT": "Tabloid Color Count",
+        "LIFETIME_TITLE": "LIFETIME",
+        "COLOR_TITLE": "COLOR",
+        "MONO_TITLE": "MONO"
     },
 
     "REQUEST_MGMT": {
@@ -413,7 +424,8 @@
         "ACTIVE": "Active",
         "INACTIVE": "Inactive",
         "ATTACHMENTS": "Attachments",
-        "USERS": "Users"
+        "USERS": "Users",
+        "UPDATE_LINK": "Update >"
     },
 
     "PAGINATION": {

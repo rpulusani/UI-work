@@ -2,9 +2,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
-        'DeviceServiceRequest','FormatterService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService) {
-
+        'DeviceServiceRequest','FormatterService', 'MeterReadService',
+        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService, MeterReads) {
              var redirect_to_list = function() {
                $location.path(Devices.route + '/');
              };
@@ -14,6 +13,22 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 redirect_to_list();
             } else {
                 $scope.device = Devices.item;
+                Devices.getAdditional(Devices, MeterReads).then(function(){
+                    $scope.meterReads = MeterReads.item;
+                    $scope.meterReadList = $scope.meterReads._embeddedItems['meterReads'];
+
+                    for (i=0 ; i<= $scope.meterReadList.length; i++) {
+                        if ($scope.meterReadList[i].type && $scope.meterReadList[i].type === 'LTPC') {
+                            $scope.ltpc = $scope.meterReadList[i];
+                        }
+                        if ($scope.meterReadList[i].type && $scope.meterReadList[i].type === 'Color') {
+                            $scope.color = $scope.meterReadList[i];
+                        }
+                        if ($scope.meterReadList[i].type && $scope.meterReadList[i].type === 'Mono') {
+                            $scope.mono = $scope.meterReadList[i];
+                        }
+                    }
+                });
                 $scope.installAddress = $scope.device._embeddedItems['address'];
                 $scope.primaryContact = $scope.device._embeddedItems['primaryContact'];
             }
