@@ -12,7 +12,7 @@ angular.module('mps.report', []).config(['$routeProvider',
         })
         .when('/reporting/view', {
             templateUrl: '/app/reporting/templates/report-view.html',
-            controller: 'ReportController'
+            controller: 'ReportListController'
         });;
     }
 ]);

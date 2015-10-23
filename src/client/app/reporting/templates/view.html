@@ -17,23 +17,23 @@
                 <div class="col-1-2">
                     <div class="form__field">
                         <label translate="REPORTING.MP9073.EVENT_DATE_FROM"></label>
-                        <input type="date" name="eventDateFrom" id="eventDateFrom" ng-model="reportParams.eventDateFrom">
+                        <input type="text" name="eventDateFrom" id="eventDateFrom" ng-model="finder.dateFrom">
                      </div>
                  </div>
 
                 <div class="col-1-2">
                      <div class="form__field">
                         <label translate="REPORTING.MP9073.EVENT_DATE_TO"></label>
-                        <input type="date" name="eventDateTo" id="eventDateTo" ng-model="reportParams.eventDateTo">
+                        <input type="text" name="eventDateTo" id="eventDateTo" ng-model="finder.dateTo">
                     </div>
                </div>
 
                 <div class="col-1">
-                    <button name="submit" class="btn btn--primary" ng-click="runReport(reportParams)" type="submit"
+                    <button name="submit" class="btn btn--primary" ng-click="runReport()" type="submit"
                         translate="REPORTING.RUN_TITLE"></button>
                 </div>
 
-                <input type="hidden" name="reportParams.definitionId" ng-value="category.id"/>
+                <input type="hidden" name="category.id" ng-value="category.id"/>
             </form>
         </div>
     </div>

@@ -74,6 +74,7 @@ define(['angular', 'utility'], function(angular) {
 
                 return deferred.promise;
             };
+
              HATEAOSFactory.prototype.getAdditional = function(halObj, newService) {
                 var self  = this,
                 deferred = $q.defer(),
@@ -175,6 +176,7 @@ define(['angular', 'utility'], function(angular) {
 
                return deferred.promise;
             };
+            
             HATEAOSFactory.prototype.buildUrl = function(url, requiredParams, additonalparams){
                 var paramsUrl = '';
                 function addParamSyntax(paramsUrl){

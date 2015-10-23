@@ -4,7 +4,7 @@ define(['angular', 'report'], function(angular) {
     .factory('Reports', ['$translate', 'HATEAOSFactory',
         function($translate, HATEAOSFactory) {
             var Report = {
-                url: '/reports',
+                url: 'http://10.188.121.79:8080/mps/reports',
                 serviceName: 'reports',
                 columns: [
                     {'name': $translate.instant('REPORTING.MP9073.TYPE'), 'field': 'type'},
@@ -48,13 +48,12 @@ define(['angular', 'report'], function(angular) {
                         name: 'Hardware Orders (HW0008)'
                     },
                     {
-                        id:'911',
+                        id: '911',
                         name: 'Pages Billed'
                     },
                     {
                         id:'912',
                         name: 'Hardware Installation Requests'
-                        }
                     },
                     {
                         id:'914',

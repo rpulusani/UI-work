@@ -1,4 +1,4 @@
-define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
+define(['angular', 'report', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
@@ -7,15 +7,24 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $location.path(Reports.route);
             };
 
+            $scope.finder = {};
+            $scope.finder.dateFrom = '';
+            $scope.finder.dateTo = '';
             $scope.categories = Reports.categories;
             $scope.category = Reports.category;
 
-            $scope.goToReport = function(report) {
-                Reports.get(report).then(function() {
-                    Reports.category = Reports.item;
-                    $location.path(Reports.route + '/' + report.id + '/view');
-                });
+            $scope.goToReportFinder = function(category) {
+                Reports.category = category;
+                $location.path(Reports.route + '/' + Reports.category.id + '/view');
             };
+
+            $scope.runReport = function() {
+                if ($scope.finder.dateFrom && $scope.finder.dateTo) {
+                    $location.path(Reports.route + '/view');
+                } else {
+                     $location.path(Reports.route + '/' + Reports.category.id + '/view');
+                }
+            }
         }
     ]);
 });
