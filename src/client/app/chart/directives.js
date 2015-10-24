@@ -4,6 +4,7 @@ define(['angular', 'chart'], function(angular) {
     .directive('draw', function() {
         return {
             restrict: 'A',
+            template: '<canvas></canvas>',
             scope: {
                 radius: '=',
                 xpos: '=',

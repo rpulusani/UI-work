@@ -63,8 +63,7 @@ define([
     'utility.hateaosConfig',
     'utility.hateaosFactory',
     'utility.grid',
-    'raphael-charting',
-    'raphael-pie-chart'
+    'chartjs'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

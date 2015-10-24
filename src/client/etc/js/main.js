@@ -15,9 +15,7 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
-        'raphael': ['angular'],
-        'raphael-charting': ['raphael'],
-        'raphael-pie-chart': ['raphael-charting'],
+        'chartjs': ['angular'],
         'pdfMakeLib': { 
             exports: 'pdfMake' 
         },
@@ -113,11 +111,9 @@ requirejs.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
-      
-        'raphael': 'app/libs/raphael-min',
-        'raphael-charting': 'app/libs/g.raphael-min',
-        'raphael-pie-chart': 'app/libs/g.pie-min',
-      
+
+        'chartjs': 'app/libs/Chart.min',
+
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
       
