@@ -85,6 +85,7 @@ define([
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
+        'mps.chart',
         'angular-gatekeeper',
         'mps.form',
         'ui.grid',

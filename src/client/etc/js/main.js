@@ -18,10 +18,10 @@ requirejs.config({
         'raphael': ['angular'],
         'raphael-charting': ['raphael'],
         'raphael-pie-chart': ['raphael-charting'],
-         pdfMakeLib: {
-            exports: 'pdfMake'
+        'pdfMakeLib': { 
+            exports: 'pdfMake' 
         },
-        pdfmake: {
+        'pdfmake': {
             deps: ['pdfMakeLib'],
             exports: 'pdfMake'
         },
@@ -34,6 +34,10 @@ requirejs.config({
             'nav.navFactory',
             'nav.navItemFactory',
             'nav.directives',
+
+            'chart',
+            'chart.chartingController',
+            'chart.directives',
 
             'form',
             'form.directives',
@@ -131,6 +135,10 @@ requirejs.config({
 
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
+
+        'chart': 'app/chart/charts',
+        'chart.chartingController': 'app/chart/chartController',
+        'chart.directives': 'app/chart/directives',
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',

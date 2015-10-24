@@ -229,7 +229,6 @@ define(['angular', 'utility'], function(angular) {
                         url = self.buildUrl(self.url, self.params, params);
                     
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
-
                             //get away from embedded name and move to a function to convert url name to javascript name
                             self.data = processedResponse._embeddedItems[self.embeddedName];
                             self.page = processedResponse.page;
