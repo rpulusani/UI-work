@@ -2,49 +2,52 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
     'use strict';
     angular.module('mps.chart')
     .controller('ChartController', ['$scope', '$element', '$attrs',
-        function($scope, $element, $attrs) {
-            var node = $element[0],
+        function(scope, element, attrs) {
+            var node = element[0],
             canvas = document.createElement('canvas'),
             ctx = canvas.getContext('2d'),
-            data = [
-                {
-                    value: 300,
-                    color:"#F7464A",
-                    highlight: "#FF5A5E",
-                    label: "Red"
-                },
-                {
-                    value: 50,
-                    color: "#46BFBD",
-                    highlight: "#5AD3D1",
-                    label: "Green"
-                },
-                {
-                    value: 100,
-                    color: "#FDB45C",
-                    highlight: "#FFC870",
-                    label: "Yellow"
-                }
-            ],
+            chartName,
             chart;
 
-            if (data.length > 0) {
+            if (data2.length > 0) {
                 node.appendChild(canvas);
                 chart = new ChartJs(ctx);
 
-                console.log($attrs.draw.toLowerCase())
+                switch (attrs.draw.toLowerCase()) {
+                    case 'barchart':
+                        if (!attrs.chartname) {
+                            attrs.chartname = 'bardata';
+                        }
 
-                switch ($attrs.draw.toLowerCase()) {
+                        if (scope[attrs.chartname]) {
+                            chart.Bar(scope[attrs.chartname], {
+                                barShowStroke: false
+                            });
+                        }
+                        break;
                     case 'piechart':
-                        chart.Pie(data);
+                        if (!attrs.chartname) {
+                            attrs.chartname = 'piedata';
+                        }
+
+                        if (scope[attrs.chartname]) {
+                            chart.Bar(scope[attrs.chartname], {
+                                barShowStroke: false
+                            });
+                        }
                         break;
                     case 'doughnutchart':
-                        chart.Doughnut(data);
+                        if (!attrs.chartname) {
+                            attrs.chartname = 'doughnutdata';
+                        }
+
+                        if (scope[attrs.chartname]) {
+                            chart.Bar(scope[attrs.chartname], {
+                                barShowStroke: false
+                            });
+                        }
                         break;
-                    case 'barchart':
-                        chart.Bar(data);
-                        break;
-                    default: chart.Bar(data);
+                    default: chart.Bar(bardata);
                 }
             }
         }
