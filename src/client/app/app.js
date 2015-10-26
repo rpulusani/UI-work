@@ -62,8 +62,7 @@ define([
     'utility.formatters',
     'utility.hateaosConfig',
     'utility.hateaosFactory',
-    'utility.grid',
-    'chartjs'
+    'utility.grid'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

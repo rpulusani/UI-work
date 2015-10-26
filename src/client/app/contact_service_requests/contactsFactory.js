@@ -7,14 +7,15 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
             var Contacts = {
                 serviceName: 'contacts',
                 columns: [
-                        {'name': $translate.instant('CONTACT.FULLNAME'), 'field': 'getFullname()'},
-                        {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'getAddress()'},
-                        {'name': $translate.instant('CONTACT.WORK_PHONE'), 'field':'getWorkPhone()'},
-                        {'name': $translate.instant('CONTACT.ALT_PHONE'), 'field':'getAltPhone()'},
-                        {'name': $translate.instant('CONTACT.EMAIL'), 'field': 'email'}
+                    {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
+                    {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'},
+                    {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
+                    {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'},
+                    {name: $translate.instant('CONTACT.EMAIL'), field: 'email'}
                 ],
                 route: '/service_requests/contacts',
-                beforeSave: function(halObj, deferred) { // Must return true for item to be saved
+                // Must return resolve(true, halObj) for item to be saved
+                beforeSave: function(halObj, deferred) {
                     halObj.physicalAddress = {
                         addressId: '1-2CPY6UA',
                         country: 'US'
@@ -22,7 +23,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
 
                     deferred.resolve(true, halObj);
                 },
-                 functionArray: [
+                functionArray: [
                     {
                         name: 'getFullname',
                         functionDef: function() {
@@ -51,8 +52,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                                 this.address.country;
                         }
                     }*/
-                   ]
-
+                ]
              };
 
             return new HATEAOSFactory(Contacts);

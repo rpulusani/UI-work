@@ -15,7 +15,7 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
-        'chartjs': ['angular'],
+
         'pdfMakeLib': { 
             exports: 'pdfMake' 
         },
@@ -32,6 +32,8 @@ requirejs.config({
             'nav.navFactory',
             'nav.navItemFactory',
             'nav.directives',
+
+            'chartjs',
 
             'chart',
             'chart.chartingController',

@@ -1,8 +1,8 @@
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('HATEAOSFactory', ['serviceUrl', '$http', '$q', 'HATEAOSConfig', 'SpringDataRestAdapter', '$rootScope',
-        function(serviceUrl, $http, $q, HATEAOSConfig, halAdapter, $rootScope) {
+    .factory('HATEAOSFactory', ['$http', '$q', 'HATEAOSConfig', 'SpringDataRestAdapter', '$rootScope',
+        function($http, $q, HATEAOSConfig, halAdapter, $rootScope) {
             var HATEAOSFactory = function(serviceDefinition) {
                 var self = this;
                 self.serviceName = '';
@@ -203,6 +203,7 @@ define(['angular', 'utility'], function(angular) {
                         }
                     }
                 }
+
                 return url += paramsUrl;
             };
 
@@ -213,11 +214,18 @@ define(['angular', 'utility'], function(angular) {
 
                 $rootScope.currentUser.deferred.promise.then(function() {
                     var processPage = function() {
-                         var url;
+                        var url;
 
-                        self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                        self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
-                        //setup required
+                        if (!self.params.accountId) {
+                            //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
+                        }
+
+                        if (!self.params.accountLevel) {
+                            //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                        }
+
                         if (page || page === 0) {
                             self.params.page = page;
                         }
@@ -230,7 +238,12 @@ define(['angular', 'utility'], function(angular) {
                     
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
                             //get away from embedded name and move to a function to convert url name to javascript name
-                            self.data = processedResponse._embeddedItems[self.embeddedName];
+                            if (!self.embeddedName) {
+                                self.data = processedResponse._embeddedItems[self.serviceName];
+                            } else {
+                                self.data = processedResponse._embeddedItems[self.embeddedName];
+                            }
+
                             self.page = processedResponse.page;
                             self.params.page = self.page.number;
                             self.params.size = self.page.size;
@@ -242,15 +255,22 @@ define(['angular', 'utility'], function(angular) {
 
                     if (!self.url) {
                         HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                            var prop;
+
                             self.url = api.url;
-                            self.params = api.params;
+
+                            for (prop in api.params) {
+                                if (self.params[prop]) {
+                                    self.params[prop] = api.params[prop];
+                                }
+                            }
 
                             processPage();
                         });
                     } else {
                         processPage();
                     }
-                },function(reason){
+                }, function(reason) {
                     deferred.reject(reason);
                 });
 

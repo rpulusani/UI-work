@@ -1,11 +1,15 @@
 <div class="row row--alley-2">
     <div class="col-1">
-        <h1 ng-show="pagination.totalItems !== -1 && pagination.totalItems !== undefined"
-            translate="REPORTING.MP9073.TITLE" translate-values="{total: pagination.totalItems()}">
-        </h1>
-        <hr/>
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter class="grid">
-        </div>
+        <h1 translate="REPORTING.RUN_TITLE" translate-values="{category: category.name}"></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+    </div>
+</div>
+<div class="row">
+    <div report-finder></div>
+</div>
+<div class="row">
+    <div class="col-1">
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter class="grid"></div>
 
         <div grid-pagination pagination="pagination"></div>
     </div>

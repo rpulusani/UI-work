@@ -5,9 +5,9 @@ define(['angular', 'chart'], function(angular) {
         return {
             restrict: 'A',
             scope: {
-                options: '=',
-                data: '=',
-                chartname: '='
+                showlegend: '=',
+                options: '@',
+                data: '@'
             },
             controller: 'ChartController'
         };
