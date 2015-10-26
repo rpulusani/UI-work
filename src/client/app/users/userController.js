@@ -1,13 +1,16 @@
 define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UserController', ['$scope', '$location', '$routeParams', '$rootScope', 'UrlHelper',
-        function($scope, $location, $routeParams, $rootScope, UrlHelper) {
+    .controller('UserController', ['$scope', '$location', '$translate', '$routeParams', '$rootScope', 'UrlHelper',
+        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper) {
 
             $scope.templateUrl = UrlHelper.user_template;
             
             $scope.user_info_active = true;
             $scope.account_access_active = false;
+
+            $scope.userRoles = [{id: 1, name: $translate.instant('ROLE.VIEW_OP')}, 
+                                {id: 2, name: $translate.instant('ROLE.VIEW_STR')}];
 
             if ($routeParams.id) {
                 // TODO: remove hardcode when api is ready.
