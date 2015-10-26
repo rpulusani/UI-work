@@ -71,6 +71,7 @@ define([
         'ngCookies',
         'ngSanitize',
         'pascalprecht.translate',
+        'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
         'mps.serviceRequestAddresses',
@@ -201,7 +202,8 @@ define([
 
             $routeProvider
             .otherwise({
-                templateUrl: '/app/dashboard/templates/home.html'
+                templateUrl: '/app/dashboard/templates/home.html',
+                controller: 'DashboardController'
             });
 
 

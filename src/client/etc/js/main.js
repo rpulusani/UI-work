@@ -27,6 +27,9 @@ requirejs.config({
         'app': [
             'angular-gatekeeper',
 
+            'dashboard',
+            'dashboard.dashboardController',
+
             'nav',
             'nav.navController',
             'nav.navFactory',
@@ -218,6 +221,9 @@ requirejs.config({
         'report.reportListController': 'app/reporting/reportListController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
+
+        'dashboard': 'app/dashboard/dashboard',
+        'dashboard.dashboardController': 'app/dashboard/dashboardController',
 
         'angular-gatekeeper': 'app/libs/angular-gatekeeper',
 
