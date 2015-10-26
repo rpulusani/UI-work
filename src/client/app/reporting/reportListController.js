@@ -15,7 +15,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 
             Reports.getPage().then(function() {
-                Grid.display(Reports, $scope);
+                Grid.display(Reports, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
             });

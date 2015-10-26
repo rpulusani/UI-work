@@ -7,7 +7,8 @@ define(['angular', 'chart'], function(angular) {
             scope: {
                 showlegend: '=',
                 options: '@',
-                data: '@'
+                data: '@',
+                centered: '='
             },
             controller: 'ChartController'
         };

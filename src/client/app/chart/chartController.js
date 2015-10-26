@@ -8,11 +8,18 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
             ctx = canvas.getContext('2d'),
             legend,
             chartData,
+            centered,
             chartOptions,
             chart;
 
             if  (attrs.showlegend === '' || attrs.showlegend) {
                 legend = document.createElement('div');
+            }
+
+            if  (attrs.centered !== 'false') {
+                node.style.textAlign = 'center';
+                node.style.verticalAlign = 'middle';
+                node.style.margin = '0  auto';
             }
 
             if (scope.data) {
@@ -46,9 +53,6 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
 
                 if (legend) {
                     node.appendChild(legend);
-                }
-
-                if (legend) {
                     legend.innerHTML = chart.generateLegend();
                 }
             }
