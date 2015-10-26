@@ -59,13 +59,13 @@ define(['angular', 'utility'], function(angular) {
         };
     })
     .directive('pages', function(){
-        return{
+        return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pages.html',
         };
     })
     .directive('pagination', function(){
-        return{
+        return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pagination.html',
         };

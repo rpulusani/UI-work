@@ -1,108 +1,54 @@
-'use strict';
-angular.module('mps.report').factory('Report', ['$http', function($http) {
-    var Report = function() {
-        var report = this;
-        report.categories = [];
-        report.groups = [];
-        report.reports = [];
-        report.category = "";
-    };
+define(['angular', 'report'], function(angular) {
+    'use strict';
+    angular.module('mps.report')
+    .factory('Reports', ['$translate', 'HATEAOSFactory', '$q', '$http',
+        function($translate, HATEAOSFactory, $q, $http) {
+            var Report = {
+                params: {page: 0, size: 20, sort: '', accountId: '1-11JNK1L', accountLevel: 'L5'},
+                embeddedName: 'mp9073Dtoes',
+                serviceName: 'reports',
+                columns: [
+                    {'name': $translate.instant('REPORTING.TYPE'), 'field': 'type'},
+                    {'name': $translate.instant('REPORTING.EVENT_DT'), 'field': 'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
+                    {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer'},
+                    {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
+                    {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
+                    {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo'}
+                    /*
+                    {'name': $translate.instant('REPORTING.ORIG_SN'), 'field':'origSerialNumber'},
+                    {'name': $translate.instant('REPORTING.NEW_SN'), 'field': 'newSerialNumber'},
+                    {'name': $translate.instant('REPORTING.OLD_ADDRESS'), 'field': 'oldAddress'},
+                    {'name': $translate.instant('REPORTING.NEW_ADDRESS'), 'field': 'newAddress'},
+                    {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'}
+                    {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country'},
+                    {'name': $translate.instant('REPORTING.OLD_IP'), 'field': 'oldIp'},
+                    {'name': $translate.instant('REPORTING.NEW_IP'), 'field': 'newIp'},
+                    {'name': $translate.instant('REPORTING.OLD_CHL'), 'field': 'oldChl'},
+                    {'name': $translate.instant('REPORTING.NEW_CHL'), 'field': 'newChl'}
+                    */
+                ],
+                route: '/reporting',
+                category: null, // category object from categories[]
+                categories: [],
+                finder: {
+                    dateTo: '2015-01-01',
+                    dateFrom: '2015-01-16',
+                    eventType: ''
+                },
+                getTypes: function() {
+                    var self = this,
+                    deferred = $q.defer();
 
+                    $http.get('/reports/types').success(function(res) {
+                        self.categories = res._embedded.types;
+                        deferred.resolve(self.categories);
+                    });
 
-    Report.prototype.query = function(fn) {
-        var report = this;
-
-        $http.get('accounts/1/reportGroups').then(function(res) {
-            report.groups = res.data;
-
-            if (typeof fn === 'function') {
-                return fn(res);
-            }
-        })['catch'](function(data) {
-            NREUM.noticeError(data);
-        });
-    };
-
-    Report.prototype.getCategoryList = function(fn) {
-        var report = this;
-
-        $http.get('accounts/1/reportCategories').then(function(res) {
-            report.categories = res.data;
-
-            if (typeof fn === 'function') {
-                return fn(res);
-            }
-        })['catch'](function(data) {
-            NREUM.noticeError(data);
-        });
-    };
-
-    Report.prototype.getById = function(id, fn) {
-        var report = this;
-
-        $http.get('accounts/1/reportCategories/' + id).success(function(res) {
-            report.category = res;
-
-            return fn();
-        }).error(function(data) {
-            NREUM.noticeError(data);
-        });
-    };
-
-    Report.prototype.getByDefinitionId = function(definitionId, fn) {
-        var report = this;
-
-        $http.get('accounts/1/reports/reportlist/' + definitionId).success(function(res) {
-            report.reports = res;
-
-            return fn();
-        }).error(function(data) {
-            NREUM.noticeError(data);
-        });
-    };
-
-    Report.prototype.save = function(formdata, fn) {
-        var report = this;
-        $http.post('accounts/1/reports/', formdata, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).success(function(res) {
-            report.reports = res;
-
-            return fn(res);
-        }).error(function(data) {
-            NREUM.noticeError(data);
-        });
-    };
-
-    Report.prototype.removeById = function(id, fn) {
-        var report = this;
-
-        $http['delete']('accounts/1/reports/' + id).success(function(res) {
-            var i = 0,
-            reportCnt = report.reports.length;
-
-            try {
-                for (i; i < reportCnt; i += 1) {
-                    if (report.reports[i].id === id) {
-                        report.reports.splice(i, 1);
-                    }
+                    return deferred.promise;
                 }
-            } catch (error) {
-                if (error instanceof ReferenceError) {
-                    NREUM.noticeError(error);
-                } else if (error instanceof TypeError) {
-                    NREUM.noticeError(error);
-                }
-            }
+            };
 
-            if (typeof fn === 'function') {
-                return fn();
-            }
-        }).error(function(data) {
-            NREUM.noticeError(data);
-        });
-    };
-
-    return new Report();
-}]);
+            return new HATEAOSFactory(Report);
+        }
+    ]);
+});

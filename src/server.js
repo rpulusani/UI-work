@@ -266,72 +266,12 @@ memory = {
         "reportGroups":[
                 {
                     id: 'group1',
-                    name: 'Orders'
-                },
-                {
-                    id: 'group2',
-                    name: 'Service'
-                },
-                {
-                    id: 'group3',
-                    name: 'Assets'
-                },
-                {
-                    id: 'group4',
-                    name: 'Summary'
+                    name: 'Standard Reports'
                 }
             ]
         }
     },
-    reportCategories: {
-        "_links": {
-        "self": {
-          "href": "http://10.145.116.233:8080/accounts/1/reportCategories",
-          "templated": true
-        }
-      },
-      "_embedded": {
-        "reportCategories":[
-                {
-                    id: '123',
-                    groupId: 'group1',
-                    name: 'Asset register',
-                    desc: 'AM1173 Change Management'
-                },
-                {
-                    id:'456',
-                    groupId: 'group1',
-                    name: 'Future Rate',
-                    desc: 'AM1177 Future Rate'
-                },
-                {
-                    id:'789',
-                    groupId: 'group1',
-                    name: 'FCC Rate',
-                    desc: 'AM1188 FCC Rate'
-                },
-                {
-                    id: '910',
-                    groupId: 'group2',
-                    name: 'Asset Retirement Daily',
-                    desc: 'Asset Retirement Daily'
-                },
-                {
-                    id:'911',
-                    groupId: 'group2',
-                    name: 'Asset Retirement Weekly',
-                    desc: 'Asset Retirement Weekly'
-                },
-                {
-                    id:'912',
-                    groupId: 'group3',
-                    name: 'Missing Page Count - Automated (AM1175)',
-                    desc: 'Missing Page Count - Automated (AM1175)'
-                }
-            ]
-        }
-    },
-    users: 
+    users:
         {
   "_links": {
     "self": {
@@ -568,32 +508,143 @@ memory = {
             "number": 0
           }
         },
-    
+
     reports: {
-        "_links": {
+      "_links": {
         "self": {
-          "href": "http://10.145.116.233:8080/accounts/1/reportGroups",
+          "href": "/accounts/1/reportGroups",
           "templated": true
+        },
+        "types": {
+            "href": "/reports/type"
+        }
+      },
+      "page": {
+        "size": 20,
+        "totalElements": 2,
+        "totalPages": 1,
+        "number": 0
+      },
+      "_embedded": {
+        "reports":[{
+            "type": "Installs",
+            "eventDate": "2015-01-04",
+            "origSerialNumber": "5026299423M0T",
+            "manufacturer": "Lexmark",
+            "device": "C74x C748 e LV US CA Service Printer",
+            "assetTag": null,
+            "newSerialNumber": null,
+            "oldAddress": null,
+            "newAddress": null,
+            "oldChl": null,
+            "newChl": null,
+            "oldIp": null,
+            "newIp": null,
+            "geo": "LXK North America",
+            "country": "LXK United States"
+          },{
+            "type": "Installs",
+            "eventDate": "2015-01-04",
+            "origSerialNumber": "5026299423M0T",
+            "manufacturer": "Lexmark",
+            "device": "C74x C748 e LV US CA Service Printer",
+            "assetTag": null,
+            "newSerialNumber": null,
+            "oldAddress": null,
+            "newAddress": null,
+            "oldChl": null,
+            "newChl": null,
+            "oldIp": null,
+            "newIp": null,
+            "geo": "LXK North America",
+            "country": "LXK United States"
+          }
+        ]
+      }
+    },
+    reportTypes: {
+      "_links": {
+        "self": {
+          "href": "/mps/reports/types"
         }
       },
       "_embedded": {
-        "reports":[
-                {
-                    id: 'register1',
-                    definitionId: '123',
-                    desc: 'AM1173 Change Management',
-                    date: '08/08/2015',
-                    status: 'pending'
-                },
-                {
-                    id: 'future1',
-                    definitionId: '456',
-                    desc: 'AM1177 Future Rate',
-                    date: '08/09/2015',
-                    status: 'pending'
-                }
-            ]
-        }
+        "types": [
+            {
+                id: '123',
+                name: 'Asset register',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id:'913',
+                name: 'MADC',
+                eventTypes: ['Remove - Account', 'MC', 'Installs', 'Manual Swaps'],
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id:'456',
+                name: 'Missing Meter Reads',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id:'789',
+                name: 'Consumables Orders',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id: '910',
+                name: 'Hardware Orders',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id: '911',
+                name: 'Pages Billed',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id:'912',
+                name: 'Hardware Installation Requests',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            },
+            {
+                id:'914',
+                name: 'Service Detail Report',
+                      "_links": {
+                        "self": {
+                          "href": "/reports/type/123"
+                        }
+                      }
+            }
+        ]
+      }
     }
 },
 addToMemory = function(memType, data, fn) {
@@ -673,6 +724,14 @@ router.configure(function(){
     router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
 });
 
+router.get('/reports', function(req, res) {
+    res.json(memory.reports);
+});
+
+router.get('/reports/types', function(req, res) {
+    res.json(memory.reportTypes);
+});
+
 router.get('/countries', function(req, res) {
     res.json(memory.countries);
 });
@@ -698,7 +757,7 @@ router.get('/users', function(req, res) {
     } else {
       res.json(memory['users']);
     }
-    
+
 });
 
 router.get('/accounts/:accountId/:requestType', function(req, res) {

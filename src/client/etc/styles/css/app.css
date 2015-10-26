@@ -1,3 +1,27 @@
+/** DASHBOARD MOCK **/
+.action-bar {
+
+}
+
+.action-bar h4 {
+  padding: 0;
+  margin: 0;
+}
+
+.action-bar p {
+  padding: 0;
+  margin: 0;
+}
+
+.action-bar .report-tab {
+  border: 1px solid #ccc;
+  height: 130px;
+}
+
+.dashboard-widget {
+border: 1px solid #ccc;
+}
+/** END DASHBOARD MOCK **/
 .site-wrapper:after,
 .site-header:after,
 .site-nav:after,

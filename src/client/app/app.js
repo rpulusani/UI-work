@@ -71,6 +71,7 @@ define([
         'ngCookies',
         'ngSanitize',
         'pascalprecht.translate',
+        'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
         'mps.serviceRequestAddresses',
@@ -83,6 +84,7 @@ define([
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
+        'mps.chart',
         'angular-gatekeeper',
         'mps.form',
         'ui.grid',
@@ -90,6 +92,7 @@ define([
         'ui.grid.moveColumns',
         'ui.grid.selection',
         'ui.grid.pagination',
+        'ui.grid.exporter',
         'spring-data-rest',
         'tree'
     ])
@@ -199,7 +202,8 @@ define([
 
             $routeProvider
             .otherwise({
-                templateUrl: '/app/dashboard/templates/home.html'
+                templateUrl: '/app/dashboard/templates/home.html',
+                controller: 'DashboardController'
             });
 
 

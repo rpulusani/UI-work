@@ -14,6 +14,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                 var hateaosConfig = {
                     serviceName: 'test',
                     embeddedName: 'test',
+                    params: {page: 0, size: 20, sort: ''},
                     columns: [
                         {
                             'name': 'fullname',
@@ -173,6 +174,8 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                 it('saves a new service item', function() {
                     spyOn(mockFactory, 'save').and.callThrough();
 
+                    mockFactory.params = {};
+
                     mockFactory.save(testItem);
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
@@ -186,6 +189,8 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
             describe('update()', function() {
                 it('updates a service item', function() {
                     spyOn(mockFactory, 'update').and.callThrough();
+
+                    mockFactory.params = {};
 
                     mockFactory.update(testItem);
                     rootScope.currentUser.deferred.resolve();

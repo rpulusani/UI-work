@@ -13,7 +13,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             this.hasBookmarkCol = false; // has a bookmark column
         };
 
-
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
                 return function( gridApi ) {
                     $rootScope.gridApi = gridApi;
@@ -80,7 +79,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
 
-
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
                  scope.gridOptions.showBookmarkColumn === true)) {
@@ -114,6 +112,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
+
             return {
                 /*
                     This function checks to see that service and its child property page exist

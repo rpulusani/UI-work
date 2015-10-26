@@ -15,17 +15,32 @@ requirejs.config({
         'angular-translate-loader-static-files': ['angular-translate'],
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
+
+        'pdfMakeLib': { 
+            exports: 'pdfMake' 
+        },
+        'pdfmake': {
+            deps: ['pdfMakeLib'],
+            exports: 'pdfMake'
+        },
         'angular-sanitize': ['angular'],
-
-
         'app': [
             'angular-gatekeeper',
+
+            'dashboard',
+            'dashboard.dashboardController',
 
             'nav',
             'nav.navController',
             'nav.navFactory',
             'nav.navItemFactory',
             'nav.directives',
+
+            'chartjs',
+
+            'chart',
+            'chart.chartingController',
+            'chart.directives',
 
             'form',
             'form.directives',
@@ -47,7 +62,8 @@ requirejs.config({
             'pageCount',
 
             'report',
-            'report.controller',
+            'report.reportController',
+            'report.reportListController',
             'report.directives',
             'report.factory',
 
@@ -78,13 +94,14 @@ requirejs.config({
         'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
-        'report.controller': ['report', 'report.factory', 'utility.historyUtility'],
+        'report.reportController': ['report', 'report.factory'],
+        'report.reportListController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
-        'ui.grid' : ['angular']
+        'ui.grid' : ['angular', 'pdfmake']
     },
     paths: {
         'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
@@ -99,6 +116,12 @@ requirejs.config({
         'angular-translate-loader-static-files': 'app/libs/angular-translate-loader-static-files.min',
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
+
+        'chartjs': 'app/libs/Chart.min',
+
+        'pdfmake': 'app/libs/vfs_fonts',
+        'pdfMakeLib': 'app/libs/pdfmake.min',
+      
         'angular-sanitize': 'app/libs/angular-sanitize.min',
 
         'ui.grid' : 'app/libs/ui-grid',
@@ -113,6 +136,10 @@ requirejs.config({
 
         'form': 'app/form/form',
         'form.directives': 'app/form/directives',
+
+        'chart': 'app/chart/charts',
+        'chart.chartingController': 'app/chart/chartController',
+        'chart.directives': 'app/chart/directives',
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
@@ -190,9 +217,13 @@ requirejs.config({
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
 
         'report': 'app/reporting/report',
-        'report.controller': 'app/reporting/controller',
+        'report.reportController': 'app/reporting/reportController',
+        'report.reportListController': 'app/reporting/reportListController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
+
+        'dashboard': 'app/dashboard/dashboard',
+        'dashboard.dashboardController': 'app/dashboard/dashboardController',
 
         'angular-gatekeeper': 'app/libs/angular-gatekeeper',
 
