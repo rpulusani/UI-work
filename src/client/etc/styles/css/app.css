@@ -20,7 +20,7 @@
 
 
 .dashboard-widget {
-
+border: 1px solid #ccc;
 }
 /** END DASHBOARD MOCK **/
 .site-wrapper:after,

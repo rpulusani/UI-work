@@ -4,8 +4,8 @@ define(['angular', 'report'], function(angular) {
     .factory('Reports', ['$translate', 'HATEAOSFactory', '$q', '$http',
         function($translate, HATEAOSFactory, $q, $http) {
             var Report = {
-                url: '/reports',
-                params: {page: 0, size: 20, sort: '', accountId: '1-11JNK1L'},
+                params: {page: 0, size: 20, sort: '', accountId: '1-11JNK1L', accountLevel: 'L5'},
+                embeddedName: 'mp9073Dtoes',
                 serviceName: 'reports',
                 columns: [
                     {'name': $translate.instant('REPORTING.TYPE'), 'field': 'type'},
