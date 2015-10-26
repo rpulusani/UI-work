@@ -9,14 +9,12 @@ define(['angular', 'dashboard', 'chart'], function(angular) {
                 color:'#F7464A',
                 highlight: '#FF5A5E',
                 label: 'Red'
-            },
-            {
+            }, {
                 value: 50,
                 color: '#46BFBD',
                 highlight: '#5AD3D1',
                 label: 'Green'
-            },
-            {
+            }, {
                 value: 100,
                 color: '#FDB45C',
                 highlight: '#FFC870',
@@ -32,8 +30,7 @@ define(['angular', 'dashboard', 'chart'], function(angular) {
                       highlightFill: 'rgba(0,173,22,0.75)',
                       highlightStroke: 'rgba(0,173,22,1)',
                       data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
+                    }, {
                       label: 'My Second dataset',
                       fillColor: 'rgba(0,97,222,0.5)',
                       strokeColor: 'rgba(0,97,222,0.5)',
