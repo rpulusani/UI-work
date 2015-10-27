@@ -117,7 +117,10 @@
         "REQUEST_DECOMISSION_FOR": "Request decomission for {{productModel}}",
         "DEVICE_PRIMARY_CONTACT": "Device primary contact",
         "DEVICE_INSTALL_ADDRESS": "Device install address",
-        "DEVICE_REMOVAL": "Device removal"
+        "DEVICE_REMOVAL": "Device removal",
+        "DO_YOU_REQUIRE_PICKUP_DEVICE": "Do you require Lexmark to pick up this device?",
+        "WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE": "Would you like to enter page counts for this device?",
+        "ABANDON_DEVICE_DECOMISSION": "Abandon device decomission"
     },
 
     "ADDRESS": {
