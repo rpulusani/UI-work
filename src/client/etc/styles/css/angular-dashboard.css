@@ -1,0 +1,59 @@
+.chart-widget h1 {
+  font-size: 18px;
+}
+.chart-widget h2 {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Arial;
+  color: #999999;
+  text-align: center;
+  margin: 0px 0px 10px 0px;
+}
+.chart-widget ul {
+  list-style: none;
+  font-size: 12px;
+}
+.chart-widget ul li {
+  margin: 0px;
+  display: inline-block;
+  padding-right: 15px;
+}
+.chart-widget ul li span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.chart-widget .pie-legend,
+.chart-widget .bar-legend,
+.chart-widget .stackedbar-legend {
+  text-align: center;
+  margin-top: 10px;
+}
+.chart-widget canvas {
+  text-align: center;
+  display: inline-block;
+}
+.chart-widget.mpsstackedbar-chart-widget .bar-label {
+  font-size: 14px;
+}
+.chart-widget.mpsstackedbar-chart-widget ul {
+  margin: 0px;
+}
+.chart-widget.mpsstackedbar-chart-widget .green {
+  border: rgba(0, 173, 22, 0.75);
+}
+.chart-widget.mpsstackedbar-chart-widget .blue {
+  border: rgba(0, 97, 222, 0.75);
+}
+.chart-widget.mpsstackedbar-chart-widget .missed {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid #d3d3d3;
+}
+.chart-widget.mpsstackedbar-chart-widget td {
+  padding: 5px;
+}
+
+
+/*# sourceMappingURL=angular-dashboard.css.map*/
