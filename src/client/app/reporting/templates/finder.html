@@ -4,11 +4,11 @@
             <form name="newReport" method="post" enctype="multipart/form-data" novalidate>
                 <div class="col-1 form__field">
                     <label translate="REPORTING.EVENT_TYPE"></label>
-                    <select name="eventType" id="eventType" ng-model="category.eventType">
-                        <option ng-repeat="eventType in category.eventTypes" value="{{eventType}}" ng-bind="eventType"></option>
+                    <select name="eventType" id="eventType" ng-model="finder.eventType">
+                        <option ng-repeat="eventType in category.eventTypes" value="{{eventType}}" ng-bind="eventType" ng-selected="eventType == finder.eventType"></option>
                     </select>
                 </div>
-               
+
                 <div class="col-1-2">
                     <div class="form__field">
                         <label translate="REPORTING.EVENT_DATE_FROM"></label>

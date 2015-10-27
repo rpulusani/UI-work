@@ -1,8 +1,8 @@
 define(['angular', 'report'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
-        function($scope, $location, Reports, Grid) {
+    .controller('ReportController', ['$scope', '$location', '$rootScope', 'Reports', 'grid',
+        function($scope, $location, $rootScope, Reports, Grid) {
             $scope.finder = Reports.finder;
             $scope.categories = Reports.categories;
             $scope.category = Reports.category;
@@ -63,6 +63,7 @@ define(['angular', 'report'], function(angular) {
 
             $scope.runReport = function() {
                 if ($scope.finder.dateFrom && $scope.finder.dateTo) {
+                    $rootScope.finder = $scope.finder;
                     $location.path(Reports.route + '/results');
                 } else {
                     $location.path(Reports.route + '/' + Reports.category.id + '/find');

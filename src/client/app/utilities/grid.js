@@ -152,19 +152,22 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                         length: 5
                     };
                     if(props.page < 3 && total > 5){
-                            props.page  = 0;
+                        props.page  = 0;
                     }else if(props.page < 3 && total < 5){
                         props.page = 0;
                         props.length = total;
                     }else if( props.page >= 3 && props.page + 5 <= total){
-                            props.page = props.page - 2;
-                            props.length = props.page + 5;
+                        props.page = props.page - 2;
+                        props.length = props.page + 5;
                     }else if(props.page + 5 - total === 1 && props.page >= 3  ){
                         props.page = props.page - 2;
                         props.length = props.page + 5;
                     }else if(props.page + 5 > total){
-                            props.page = total - 5;
-                            props.length = total;
+                        props.page = total - 5;
+                        if (props.page < 0) {
+                            props.page = 0;
+                        }
+                        props.length = total;
                     }
                     return props;
                 },
