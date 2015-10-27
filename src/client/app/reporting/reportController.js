@@ -1,4 +1,4 @@
-define(['angular', 'report'], function(angular) {
+define(['angular', 'report', 'chart'], function(angular) {
     'use strict';
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
