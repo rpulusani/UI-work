@@ -1,4 +1,4 @@
-define(['angular'], function(angular) {
+define(['angular', 'chart'], function(angular) {
     'use strict';
     angular.module('mps.dashboard', []);
 });
