@@ -3,7 +3,10 @@
 
 <form class="form" data-form="" name="devicePageCount" novalidate>
     <div>
-        <a href="#" ng-click="showAll = !showAll">Show <span ng-hide="showAll">All</span><span ng-show="showAll">Less</span></a>
+        <a href="#" ng-click="showAll = !showAll">
+            <span translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT" ng-hide="showAll"></span>
+            <span translate="DEVICE_MGT.VIEW_LESS" ng-show="showAll"></span>
+        </a>
     </div>
     <table class="table table--condensed table--even vertical-space--none" style="min-height:0;">
         <thead>
@@ -26,7 +29,10 @@
         </tbody>
     </table>
     <div class="vertical-space--thin">
-        <a href="#" ng-click="showAll = !showAll">Show <span ng-hide="showAll">All</span><span ng-show="showAll">Less</span></a>
+        <a href="#" ng-click="showAll = !showAll">
+            <span translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT" ng-hide="showAll"></span>
+            <span translate="DEVICE_MGT.VIEW_LESS" ng-show="showAll"></span>
+        </a>
     </div>
 
 	<button class="btn btn--primary" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
