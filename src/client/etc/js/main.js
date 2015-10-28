@@ -36,8 +36,6 @@ requirejs.config({
             'nav.navItemFactory',
             'nav.directives',
 
-            'chartjs',
-
             'chart',
             'chart.chartingController',
             'chart.directives',
@@ -73,6 +71,10 @@ requirejs.config({
             'tree.treeItemController',
             'tree.directives'
         ],
+
+        'chart': ['angular', 'chartjs'],
+        'chart.chartingController': ['chartjs'],
+        'chart.directives': ['chartjs'],
 
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
