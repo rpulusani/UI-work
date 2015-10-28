@@ -2,11 +2,13 @@
     <div class="col-1-4">
         <div class="row">
             <form name="newReport" method="post" enctype="multipart/form-data" novalidate>
-                <div class="col-1 form__field">
-                    <label translate="REPORTING.EVENT_TYPE"></label>
-                    <select name="eventType" id="eventType" ng-model="finder.eventType">
-                        <option ng-repeat="eventType in category.eventTypes" value="{{eventType}}" ng-bind="eventType" ng-selected="eventType == finder.eventType"></option>
-                    </select>
+                <div class="col-1">
+                    <div class="form__field form__field--select">
+                        <label translate="REPORTING.EVENT_TYPE"></label>
+                        <div selectric model="finder.eventType" options="category.eventTypes" label="value" value="value"
+                            placeholder="{{'LABEL.SELECT' | translate}}">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-1-2">
