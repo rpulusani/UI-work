@@ -582,7 +582,7 @@ memory = {
             {
                 id:'913',
                 name: 'MADC',
-                eventTypes: ['Remove - Account', 'MC', 'Installs', 'Manual Swaps'],
+                eventTypes: [{id: 1, value: 'Remove - Account'}, {id: 2, value: 'MC'}, {id: 3, value: 'Installs'}, {id: 4, value: 'Manual Swaps'}],
                       "_links": {
                         "self": {
                           "href": "/reports/type/123"
