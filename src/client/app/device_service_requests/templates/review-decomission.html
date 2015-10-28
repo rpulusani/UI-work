@@ -1,1 +1,74 @@
-<h1>review-decomission</h1>
+<div class="row">
+    <div class="col-1">
+        <h1 translate="DEVICE_SERVICE_REQUEST.REQUEST_DECOMISSION_FOR" translate-values="{productModel: device.productModel}"></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2-3">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
+            sit amet lacus accumsan et viverra justo commodo.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h3>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-1-3">
+        <dl class="row text--small">
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK"></dt>
+            <dd class="col-1-2" ng-bind="formattedPickupDevice"></dd>
+        </dl>
+</div>
+
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_MGT.DEVICE_INFO"></h3>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-1-3">
+        <dl class="row text--small">
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.SERIAL_NO"></dt>
+            <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.PART_NUMBER"></dt>
+            <dd class="col-1-2" ng-bind="device.partNumber"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.IP_ADDRESS"></dt>
+            <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></dt>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedAddress"></dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-1-3">
+        <dl class="row text--small">
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></dt>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedContact"></dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION"></h3>
+        <hr />
+    </div>
+</div>
