@@ -29,6 +29,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $location.path(DeviceServiceRequest.route + '/decomission/' + $scope.device.id + '/review');
             };
 
+            $scope.goToSubmit = function() {
+
+            };
 
             if (!BlankCheck.isNull($scope.installAddress)) {
                 $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);

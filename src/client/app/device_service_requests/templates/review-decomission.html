@@ -72,3 +72,52 @@
         <hr />
     </div>
 </div>
+
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h3>
+        <hr />
+    </div>
+</div>
+
+<form class="form" data-form="" name="reviewDevice" novalidate>
+    <div class="row">
+        <div class="col-1-3">
+
+            <div class="form__field">
+                <label translate="SERVICE_REQUEST.INTERNAL_REFERENCE_ID"></label>
+                <input name="internalReferenceId" type="text" class="" value="" />
+            </div>
+
+            <div class="form__field">
+                <label translate="SERVICE_REQUEST.REQUEST_COST_CENTER"></label>
+                <input name="requestCostCenter" type="text" class="" value="" />
+            </div>
+
+            <div class="form__field">
+                <label translate="LABEL.COMMENTS"></label>
+                <textarea name="comments" type="text" rows="8" cols="77" required></textarea>
+            </div>
+
+            <div class="form__field">
+                <label translate="LABEL.ATTACHMENTS"></label>
+                <input name="attachments" type="file" multiple="multiple" />
+                <p class="text--tiny">File formats supported: .csv, .xls, .xlsx, .vsd, .doc, .docx, .ppt, .pptx, .pdf, .zip</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-1">
+            <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel" translate="DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMISSION"></button>
+            <button class="btn btn--primary" ng-click="goToCreate();" translate="DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMISSION"></button>
+
+            <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+                 cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+                 return-path="/device_management"></div>
+        </div>
+    </div>
+</form>

@@ -37,8 +37,8 @@
         "ADD_SECONDARY_CONTACT": "Add secondary contact",
         "CHANGE_SECONDARY_CONTACT": "Change secondary contact",
         "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
-        "INTERNAL_REFERENCE_ID": "Internal Refernce ID",
-        "REQUEST_COST_CENTER": "Request Cost Center",
+        "INTERNAL_REFERENCE_ID": "Internal Reference ID",
+        "REQUEST_COST_CENTER": "Request cost center",
         "SUBMISSION_TEXT": "Your address request {{refId}} has been submitted. Please allow {{hours}} hours for our team to review and process the request.",
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
@@ -121,7 +121,8 @@
         "DO_YOU_REQUIRE_PICKUP_DEVICE": "Do you require Lexmark to pick up this device?",
         "WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE": "Would you like to enter page counts for this device?",
         "ABANDON_DEVICE_DECOMISSION": "Abandon device decomission",
-        "DEVICE_PICKUP_LEXMARK": "Device pick up by Lexmark?"
+        "DEVICE_PICKUP_LEXMARK": "Device pick up by Lexmark?",
+        "SUBMIT_DEVICE_DECOMISSION": "Submit device decomission"
     },
 
     "ADDRESS": {
