@@ -14,6 +14,14 @@ define(['angular', 'utility'], function(angular) {
             return value !== undefined && value !== null && value !== '';
         };
 
+        BlankCheck.prototype.isNull = function(value) {
+            return value === undefined || value === null;
+        };
+    
+        BlankCheck.prototype.isNullOrWhiteSpace = function(value) {
+            return value === undefined || value === null || value === '';
+        };
+
         return new BlankCheck();
     });
 });

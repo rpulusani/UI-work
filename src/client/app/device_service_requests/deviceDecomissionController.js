@@ -2,8 +2,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
     'use strict';
     angular.module('mps.serviceRequestDevices')
     .controller('DeviceDecomissionController', ['$scope', '$location', '$translate', 'Devices',
-        'ServiceRequestService', 'FormatterService', 'DeviceServiceRequest',
-        function($scope, $location, $translate, Devices, ServiceRequestService, FormatterService, DeviceServiceRequest){
+        'ServiceRequestService', 'FormatterService', 'BlankCheck', 'DeviceServiceRequest',
+        function($scope, $location, $translate, Devices, ServiceRequestService, FormatterService, BlankCheck, DeviceServiceRequest){
 
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
@@ -16,8 +16,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.installAddress = Devices.item._embeddedItems['address'];
                 $scope.primaryContact = Devices.item._embeddedItems['primaryContact'];
 
-                $scope.device.lexmarkPickupDevice = false;
-                $scope.device.devicePageCountQuestion = false;
+                if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
+                    $scope.device.lexmarkPickupDevice = false;
+                }
+
+                if (BlankCheck.isNullOrWhiteSpace($scope.device.devicePageCountQuestion)) {
+                    $scope.device.devicePageCountQuestion = false;
+                }
             }
 
             $scope.goToReview = function() {
@@ -25,13 +30,17 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             };
 
 
-            if ($scope.installAddress !== null && $scope.installAddress !== undefined) {
+            if (!BlankCheck.isNull($scope.installAddress)) {
                 $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
-            }
+            };
 
-            if ($scope.primaryContact !== null && $scope.primaryContact !== undefined) {
+            if (!BlankCheck.isNull($scope.primaryContact)) {
                 $scope.formattedContact = FormatterService.formatPrimaryContact($scope.primaryContact);
-            }
+            };
+
+            if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
+                $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
+            };
         }
     ]);
 });
