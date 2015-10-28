@@ -78,6 +78,24 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
+            HATEAOSFactory.prototype.follow = function(newService, embeds){
+                var self  = this,
+                    deferred = $q.defer(),
+                    params = [{
+                        name: 'embed',
+                        value: embeds
+                    }],
+                    url = self.buildUrl(self.item._links[newService.serviceName].href, newService.params, params);
+
+                halAdapter.process($http.get(url)).then(function(processedResponse) {
+                    newService.item = processedResponse;
+
+                    deferred.resolve();
+                });
+
+                return deferred.promise;
+            };
+
              HATEAOSFactory.prototype.getAdditional = function(halObj, newService) {
                 var self  = this,
                 deferred = $q.defer(),

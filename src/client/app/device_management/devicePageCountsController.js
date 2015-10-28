@@ -1,39 +1,67 @@
-define(['angular', 'deviceManagement', 'deviceManagement.pageCountFactory'], function(angular) {
+define([
+    'angular',
+    'deviceManagement',
+    'deviceManagement.meterReadFactory',
+    'deviceManagement.deviceFactory'
+], function(angular) {
     'use strict';
+
     angular.module('mps.deviceManagement')
-    .controller('DevicePageCountsController', ['$scope', '$location', '$routeParams', 'PageCount',
-        function($scope, $location, $routeParams, PageCount) {
-            var acctId = 1;
-            $scope.showLess = true;
-            $scope.file_list = ['.xls', '.xlsx', '.csv'].join(',');
-            $scope.page_count_list = PageCount.pageCountTypes.query();
-            $scope.currentDate = new Date();
+    .controller('DevicePageCountsController', [
+        '$scope', '$rootScope', '$location', '$routeParams', 'Devices', 'MeterReadService',
+        function($scope, $rootScope, $location, $routeParams, Devices, MeterReads) {
+            $rootScope.currentAccount = '1-21AYVOT';
+            $rootScope.currentRowList = [];
 
-            $scope.toggleDisplay = function(){
-                $scope.showLess = !$scope.showLess;
+            $scope.getModifiedDate = function(item){
+                if(item.updateDate){
+                    return item.updateDate;
+                }
+                return item.createDate;
             };
 
-            if($routeParams.id) {
-                //Hardcoding device ID undtil real implementation
-                var deviceId = "device-1";
-                $scope.selectedPageCount = PageCount.pageCounts.get({accountId: acctId, id: deviceId});
-            }
+            if (Devices.item !== null) {
+                Devices.follow(MeterReads).then(function(){
+                    $scope.meterReads = MeterReads;
+                    $scope.meterReads.data = MeterReads.item._embeddedItems[MeterReads.embeddedName];
+                    $scope.showAll = false;
 
-            $scope.filterByIds = function(pageCountType) {
-                var selectedIds = ['lifetime-1','color-1','mono-1'];
-                return (selectedIds.indexOf(pageCountType.id) !== -1);
-            };
+                    var mono, color, lifetime,
+                        tempData = [],
+                        reorderedData = [],
+                        limit = $scope.meterReads.data.length;
 
-            $scope.selectPageCount = function(id, pageCountArr) {
-                var i=0;
-                if(pageCountArr){
-                    for (i ; i < pageCountArr.length ; i++){
-                        if(id === pageCountArr[i].id){
-                            return pageCountArr[i];
+                    for(var i=0; i<limit; i++){
+                        switch($scope.meterReads.data[i].type){
+                            case 'Mono':
+                                mono = $scope.meterReads.data[i];
+                            break;
+                            case 'Color':
+                                color = $scope.meterReads.data[i];
+                            break;
+                            case 'LTPC':
+                                lifetime = $scope.meterReads.data[i];
+                            break;
+                            default:
+                                tempData.push($scope.meterReads.data[i]);
                         }
                     }
-                }
-            };
+
+                    if(mono){
+                        reorderedData.push(mono);
+                    }
+                    if(color){
+                        reorderedData.push(color);
+                    }
+                    if(lifetime){
+                        reorderedData.push(lifetime);
+                    }
+
+                    $scope.meterReads.data = reorderedData.concat(tempData);
+                }, function(reason){
+                    NREUM.noticeError(MeterReads.serviceName +  ' failure: ' + reason);
+                });
+            }
         }
     ]);
 });

@@ -16,8 +16,8 @@ requirejs.config({
         'angular-translate-loader-url': ['angular-translate'],
         'angular-spring-data-rest': ['angular-resource'],
 
-        'pdfMakeLib': { 
-            exports: 'pdfMake' 
+        'pdfMakeLib': {
+            exports: 'pdfMake'
         },
         'pdfmake': {
             deps: ['pdfMakeLib'],
@@ -202,7 +202,6 @@ requirejs.config({
         'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
-        'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',

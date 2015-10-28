@@ -1,4 +1,4 @@
-define(['angular', 'deviceManagement'], function(angular) {
+define(['angular', 'deviceManagement', 'angular-translate'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .factory('MeterReadService', ['serviceUrl', '$translate', 'HATEAOSFactory',
@@ -6,9 +6,12 @@ define(['angular', 'deviceManagement'], function(angular) {
             var MeterReads = {
                 serviceName: 'meterReads',
                 embeddedName: 'meterReads',
-                route: ''
+                params: {
+                    size: 100
+                }
             };
 
-        return new HATEAOSFactory(MeterReads);
-    }]);
+            return new HATEAOSFactory(MeterReads);
+        }
+    ]);
 });
