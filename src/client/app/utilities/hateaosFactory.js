@@ -28,7 +28,6 @@ define(['angular', 'utility'], function(angular) {
                     serviceDefinition.columns = 'defaultSet';
                 }
 
-
                 return angular.extend(self, serviceDefinition);
             };
 
