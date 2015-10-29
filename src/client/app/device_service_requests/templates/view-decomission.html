@@ -36,7 +36,7 @@
             <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
             <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.IP_ADDRESS"></dt>
             <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_PRIMARY_CONTACT"></dt>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></dt>
             <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedContact"></dd>
             <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></dt>
             <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedAddress"></dd>
@@ -60,13 +60,13 @@
                 <strong translate="DEVICE_SERVICE_REQUEST.DO_YOU_REQUIRE_PICKUP_DEVICE"></strong>
                  <div class="form__field form__field--radio form__field--no-margin">
                     <input type="radio" id="lexmark-pickup-device-question-no" name="lexmark-pickup-device-question"
-                        ng-model="device.lexmarkPickupDevice" value="false" checked />
+                        ng-model="lexmarkPickupDevice" value="false" checked />
                         <label for="lexmark-pickup-device-question-no"><span></span>
                             {{'LABEL.NO' | translate }}</label>
                 </div>
                  <div class="form__field form__field--radio form__field--no-margin">
                     <input type="radio" id="lexmark-pickup-device-question-yes" name="lexmark-pickup-device-question"
-                        ng-model="device.lexmarkPickupDevice" value="true" />
+                        ng-model="lexmarkPickupDevice" value="true" />
                         <label for="lexmark-pickup-device-question-yes"><span></span>
                             {{ 'LABEL.YES' | translate }}</label>
                 </div>
@@ -75,15 +75,15 @@
             <div class="form__field" >
                 <strong translate="DEVICE_SERVICE_REQUEST.WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE"></strong>
                  <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="device-pagecount-question-no" name="device-pagecount-question"
-                        ng-model="device.devicePageCountQuestion" value="false" checked />
-                    <label for="device-pagecount-question-no"><span></span>
+                    <input type="radio" id="page-count-question-no" name="page-count-question"
+                        ng-model="pageCountQuestion" value="false" checked />
+                    <label for="page-count-question-no"><span></span>
                         {{'LABEL.NO' | translate }}</label>
                 </div>
                  <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="device-pagecount-question-yes" name="device-pagecount-question"
-                        ng-model="device.devicePageCountQuestion" value="true" />
-                    <label for="device-pagecount-question-yes"><span></span>
+                    <input type="radio" id="page-count-question-yes" name="page-count-question"
+                        ng-model="pageCountQuestion" value="true" />
+                    <label for="page-count-question-yes"><span></span>
                         {{ 'LABEL.YES' | translate }}</label>
                 </div>
             </div>
@@ -92,7 +92,7 @@
 
     <div class="row">
         <div class="col-2-3">
-            <div ng-show="device.devicePageCountQuestion === 'true'">
+            <div ng-show="pageCountQuestion === 'true'">
                 <div class="form__field" >
                     <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
                     <div select-page-count module="device"></div>
