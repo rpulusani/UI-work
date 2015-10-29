@@ -14,35 +14,35 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
-                return function( gridApi ) {
-                    $rootScope.gridApi = gridApi;
-                    gridApi.selection.on.rowSelectionChanged($rootScope,
-                        function(row){
-                            if(row.isSelected){
-                                //add if not already there
-                                $rootScope.currentRowList.push(row);
-                            }else{
-                                //find and remove
-                                var length = $rootScope.currentRowList.length,
-                                    items = $rootScope.currentRowList;
-                                for(var i = 0; i <  length; ++i){
-                                    if(items[i].uid === row.uid){
-                                        items = items.splice(i,1);
-                                        break;
-                                    }
+            return function( gridApi ) {
+                $rootScope.gridApi = gridApi;
+                gridApi.selection.on.rowSelectionChanged($rootScope,
+                    function(row){
+                        if(row.isSelected){
+                            //add if not already there
+                            $rootScope.currentRowList.push(row);
+                        }else{
+                            //find and remove
+                            var length = $rootScope.currentRowList.length,
+                                items = $rootScope.currentRowList;
+                            for(var i = 0; i <  length; ++i){
+                                if(items[i].uid === row.uid){
+                                    items = items.splice(i,1);
+                                    break;
                                 }
                             }
                         }
-                    );
-                };
+                    }
+                );
+            };
         };
 
         Grid.prototype.getCurrentEntityId =  function(row){
-                    if(row && row.entity && row.entity.id){
-                        return row.entity.id;
-                    }else{
-                        return null;
-                    }
+            if (row && row.entity && row.entity.id) {
+                return row.entity.id;
+            } else {
+                return null;
+            }
         };
 
         Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
@@ -57,20 +57,37 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             return angular.copy(data);
         };
 
-        Grid.prototype.setColumnDefaults = function(columns, personal){
+        Grid.prototype.setColumnDefaults = function(service, personal){
+            var columns = [],
+            i = 0;
             //do something with a personal set of columns configured
+            if (!service.columns || (service.columns === 'default' 
+                || service.columns === 'defaultSet') && service.columnDefs.defaultSet) {
+                if (typeof service.columnDefs[service.columns] === 'function') {
+                     columns = service.columnDefs.defaultSet();
+                } else {
+                     columns = service.columnDefs.defaultSet;
+                }
+            } else if (service.columnDefs[service.columns]) {
+                if (typeof service.columnDefs[service.columns] === 'function') {
+                    columns = service.columnDefs[service.columns]();
+                } else {
+                    columns = service.columnDefs[service.columns];
+                }
+            }
 
             //disabled column menu keep last so that it can not be overridden by personal settings.
-            for(var i = 0; i < columns.length; ++i){
-                     columns[i].enableColumnMenu = false;
+            for (i; i < columns.length; i += 1) {
+                columns[i].enableColumnMenu = false;
             }
+
             return columns;
         };
 
         Grid.prototype.display = function(service, scope, personal) {
             var newHeight =  46 + (31 * service.params.size);
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
-            scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, personal);
+            scope.gridOptions.columnDefs = this.setColumnDefaults(service, personal);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
@@ -270,7 +287,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 }
             };
         };
-
 
         return new Grid();
     }]);
