@@ -14,9 +14,8 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             };
 
             $scope.goToUpdate = function(contact) {
-                Contacts.get(contact).then(function() {
-                    $location.path(Contacts.route + '/' + contact.id + '/update');
-                });
+                Contacts.item = contact;
+                $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
             };
 
             $scope.gridOptions = {};

@@ -23,7 +23,10 @@ define(['angular', 'utility'], function(angular) {
                 self.route = '';
 
                 if (serviceDefinition.columns instanceof Array) {
-                    serviceDefinition.columnDefs = {};
+                    if (!serviceDefinition.columnDefs) {
+                       serviceDefinition.columnDefs = {};
+                    }
+                    
                     serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
                     serviceDefinition.columns = 'defaultSet';
                 }
