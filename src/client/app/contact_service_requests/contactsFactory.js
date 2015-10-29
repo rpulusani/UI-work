@@ -15,8 +15,6 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                     defaultSet: [
                         {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
                         {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'},
-                        {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
-                        {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'}
                     ],
                     // Addtional sets can be defined
                     testSet: [
@@ -25,12 +23,17 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                     ],
                     // using a function to return a column set
                     fullSet: function() {
-                        this.defaultSet.push({
+                        var arr = [];
+
+                        arr = arr.concat(this.defaultSet);
+                        arr = arr.concat(this.testSet);
+
+                        arr.push({  
                             name: $translate.instant('CONTACT.EMAIL'),
                             field: 'email'
                         });
 
-                        return this.defaultSet;
+                        return arr;
                     }
                 },
                 route: '/service_requests/contacts',
