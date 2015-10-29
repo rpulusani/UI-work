@@ -1,9 +1,8 @@
 define(['angular', 'contact', 'utility.formatters'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['serviceUrl', '$translate', 'HATEAOSFactory',
-       'FormatterService',
-        function(serviceUrl, $translate, HATEAOSFactory, formatter) {
+    .factory('Contacts', ['$translate', 'HATEAOSFactory', 'FormatterService',
+        function($translate, HATEAOSFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
                 // default, defaultSet, false attach the defaultSet columnDef 
