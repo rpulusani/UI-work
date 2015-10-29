@@ -60,6 +60,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         Grid.prototype.setColumnDefaults = function(service, personal){
             var columns = [],
             i = 0;
+
             //do something with a personal set of columns configured
             if (!service.columns || (service.columns === 'default' 
                 || service.columns === 'defaultSet') && service.columnDefs.defaultSet) {
