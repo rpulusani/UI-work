@@ -1,9 +1,9 @@
 define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceDecomissionController', ['$scope', '$location', '$translate', 'Devices',
+    .controller('DeviceDecomissionController', ['$scope', '$rootScope', '$location', '$translate', 'Devices',
         'ServiceRequestService', 'FormatterService', 'BlankCheck', 'DeviceServiceRequest',
-        function($scope, $location, $translate, Devices, ServiceRequestService, FormatterService, BlankCheck, DeviceServiceRequest){
+        function($scope, $rootScope, $location, $translate, Devices, ServiceRequestService, FormatterService, BlankCheck, DeviceServiceRequest) {
 
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
@@ -16,12 +16,12 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.installAddress = Devices.item._embeddedItems['address'];
                 $scope.primaryContact = Devices.item._embeddedItems['primaryContact'];
 
-                if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
-                    $scope.device.lexmarkPickupDevice = false;
+                if (BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
+                    $scope.lexmarkPickupDevice = false;
                 }
 
-                if (BlankCheck.isNullOrWhiteSpace($scope.device.devicePageCountQuestion)) {
-                    $scope.device.devicePageCountQuestion = false;
+                if (BlankCheck.isNullOrWhiteSpace($scope.pageCountQuestion)) {
+                    $scope.pageCountQuestion = false;
                 }
             }
 
@@ -33,6 +33,10 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
 
             };
 
+            $scope.createServiceRequestForDevice = function() {
+                    DeviceServiceRequest.save();
+            };
+
             if (!BlankCheck.isNull($scope.installAddress)) {
                 $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
             };
@@ -41,8 +45,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.formattedContact = FormatterService.formatPrimaryContact($scope.primaryContact);
             };
 
-            if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
-                $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
+            if (!BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
+                $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.lexmarkPickupDevice);
             };
         }
     ]);

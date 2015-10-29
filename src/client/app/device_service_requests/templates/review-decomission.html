@@ -75,6 +75,19 @@
 
 <div class="row">
     <div class="col-2-3">
+        <div class="col-1-4">
+            <p class="text--small text--semi-bold" translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></p>
+            <div ng-bind-html="formattedAddress"></div>
+        </div>
+        <div class="col-1-4">
+            <p class="text--small text--semi-bold" translate="LABEL.PRIMARY_CONTACT"></p>
+            <div ng-bind-html="formattedAddress"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2-3">
         <h3 translate="DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h3>
         <hr />
     </div>
@@ -113,7 +126,7 @@
     <div class="row">
         <div class="col-1">
             <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel" translate="DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMISSION"></button>
-            <button class="btn btn--primary" ng-click="goToCreate();" translate="DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMISSION"></button>
+            <button class="btn btn--primary" ng-click="goToSubmit();" translate="DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMISSION"></button>
 
             <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
                  cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
