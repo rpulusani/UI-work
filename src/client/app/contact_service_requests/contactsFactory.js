@@ -13,7 +13,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                     // if this is not defined or null full property set returns per ui.grid
                     defaultSet: [
                         {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
-                        {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'},
+                        {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'}
                     ],
                     // Addtional sets can be defined
                     testSet: [
@@ -24,8 +24,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                     fullSet: function() {
                         var arr = [];
 
-                        arr = arr.concat(this.defaultSet);
-                        arr = arr.concat(this.testSet);
+                        arr = arr.concat(this.defaultSet).concat(this.testSet);
 
                         arr.push({  
                             name: $translate.instant('CONTACT.EMAIL'),
