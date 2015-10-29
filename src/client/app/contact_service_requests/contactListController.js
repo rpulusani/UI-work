@@ -4,8 +4,10 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     .controller('ContactListController', ['$scope', '$location', 'grid', 'Contacts', '$rootScope',
         'PersonalizationServiceFactory',
         function($scope, $location, Grid, Contacts, $rootScope, Personalize) {
-            $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+
+            $rootScope.currentRowList = [];
+
             $scope.goToCreate = function() {
                 Contacts.item = {};
                 $location.path(Contacts.route + '/new');
@@ -22,6 +24,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             Contacts.columns = 'fullSet';
 
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+            
             Contacts.getPage().then(function() {
                 Grid.display(Contacts, $scope, personal);
             }, function(reason) {
