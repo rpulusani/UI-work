@@ -22,11 +22,13 @@ define(['angular', 'utility'], function(angular) {
 
                 return angular.extend(self, serviceDefinition);
             };
+            
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;
                 self.data = [];
             };
+
             HATEAOSFactory.prototype.getLoggedInUserInfo = function(loginId){
                 var self  = this,
                 deferred = $q.defer(),

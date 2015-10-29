@@ -23,9 +23,9 @@ define(['angular', 'deviceManagement'], function(angular) {
                     {
                         name: 'getAddressName',
                         functionDef: function() {
-                            if(this._embedded && this._embedded.address){
+                            if (this._embedded && this._embedded.address) {
                                 return this._embedded.address.name;
-                            }else{
+                            } else {
                                 return '';
                             }
                         }
