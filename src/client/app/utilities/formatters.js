@@ -108,6 +108,28 @@ define(['angular', 'utility'], function(angular) {
 
                     }
                     return formattedAddress;
+                },
+                formatPrimaryContact: function(contact) {
+                    var formattedPrimaryContact = '';
+                    if (BlankCheck.checkNotNullOrUndefined(contact)) {
+                        formattedPrimaryContact = this.getFullName(
+                            BlankCheck.checkNotBlank(contact.firstName) ? contact.firstName : '',
+                            BlankCheck.checkNotBlank(contact.lastName) ? contact.lastName : ''.
+                            BlankCheck.checkNotBlank(contact.middleName) ? contact.middleName : '');
+
+                        if (BlankCheck.checkNotBlank(contact.email)) {
+                            formattedPrimaryContact += '<br />' + contact.email;
+                        }
+
+                        if (BlankCheck.checkNotBlank(contact.workPhone)) {
+                            formattedPrimaryContact += '<br />' + this.getPhoneFormat(contact.workPhone);
+                        };
+                    }
+
+                    return formattedPrimaryContact;
+                },
+                formatYesNo: function(value) {
+                    return (value === true) ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 }
             };
 

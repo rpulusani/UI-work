@@ -107,6 +107,29 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
             });
         });
 
+        describe('DeviceDecomissionController', function() {
+            var scope, ctrl, location;
+            
+            beforeEach(inject(function($rootScope, $controller, $location) {
+                scope = $rootScope.$new();
+                rootScope = $rootScope;
+                location = $location;
+                ctrl = $controller('DeviceDecomissionController', {$scope: scope});
+            }));
+
+            describe('goToReview', function() {
+                it('should handle the review request', function() {
+
+                });
+            });
+
+            describe('goToSubmit', function() {
+                it('should handle the submit request', function() {
+
+                });
+            });
+        });
+
         describe('Routes', function(){
             it('should map routes to controllers', function() {
                 inject(function($route) {

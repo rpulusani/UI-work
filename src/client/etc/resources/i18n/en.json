@@ -37,8 +37,8 @@
         "ADD_SECONDARY_CONTACT": "Add secondary contact",
         "CHANGE_SECONDARY_CONTACT": "Change secondary contact",
         "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
-        "INTERNAL_REFERENCE_ID": "Internal Refernce ID",
-        "REQUEST_COST_CENTER": "Request Cost Center",
+        "INTERNAL_REFERENCE_ID": "Internal Reference ID",
+        "REQUEST_COST_CENTER": "Request cost center",
         "SUBMISSION_TEXT": "Your address request {{refId}} has been submitted. Please allow {{hours}} hours for our team to review and process the request.",
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
@@ -113,7 +113,16 @@
         "BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL": "Consumable supply install",
         "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
         "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
-        "BREAK_FIX_OTHER": "Other"
+        "BREAK_FIX_OTHER": "Other",
+        "REQUEST_DECOMISSION_FOR": "Request decomission for {{productModel}}",
+        "DEVICE_PRIMARY_CONTACT": "Device primary contact",
+        "DEVICE_INSTALL_ADDRESS": "Device install address",
+        "DEVICE_REMOVAL": "Device removal",
+        "DO_YOU_REQUIRE_PICKUP_DEVICE": "Do you require Lexmark to pick up this device?",
+        "WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE": "Would you like to enter page counts for this device?",
+        "ABANDON_DEVICE_DECOMISSION": "Abandon device decomission",
+        "DEVICE_PICKUP_LEXMARK": "Device pick up by Lexmark?",
+        "SUBMIT_DEVICE_DECOMISSION": "Submit device decomission"
     },
 
     "ADDRESS": {
@@ -467,6 +476,7 @@
         "REQUEST_FAILED": "Your request has failed.  Please contact your service manager.",
         "LIKE_TO": "Would you like to {{addItem}}",
         "NO_IMAGE_FOUND": "No Image Found",
-        "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}"
+        "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
+        "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
     }
 }
