@@ -6,10 +6,7 @@
 
 <div class="row">
     <div class="col-2-3">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
-            sit amet lacus accumsan et viverra justo commodo.
-        </p>
+        <p translate="MESSAGE.LIPSUM"></p>
     </div>
 </div>
 
@@ -45,7 +42,7 @@
             <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.IP_ADDRESS"></dt>
             <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
             <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></dt>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedAddress"></dd>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedDeviceAddress"></dd>
         </dl>
     </div>
 </div>
@@ -115,7 +112,7 @@
             <div class="form__field">
                 <label translate="LABEL.ATTACHMENTS"></label>
                 <input name="attachments" type="file" multiple="multiple" />
-                <p class="text--tiny">File formats supported: .csv, .xls, .xlsx, .vsd, .doc, .docx, .ppt, .pptx, .pdf, .zip</p>
+                <div class="form__field__helper-text" translate="MESSAGE.ATTACHMENT" translate-values="{file_list: file_list}"></div>
             </div>
 
         </div>
