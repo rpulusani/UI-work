@@ -1,30 +1,81 @@
-define(['angular','angular-mocks', 'utility.grid'], function(angular, mocks, Grid) {
-    describe('Grid Service  Utility Module', function() {
-            beforeEach(module('mps'));
+define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Grid) {
+    describe('Grid Service Utility Module', function() {
             var scope, mockedAddressesFactory, grid;
-            beforeEach(function(){
-                mockedAddressesFactory = {
+
+            beforeEach(module('mps'));
+
+            beforeEach(inject(function($rootScope, HATEAOSFactory, Grid) {
+                var hateaosConfig = {
+                    serviceName: 'test',
+                    embeddedName: 'test',
+                    params: {page: 0, size: 20, sort: ''},
+                    columns: [
+                        {
+                            'name': 'fullname',
+                            'field': '',
+                            'cellTemplate':
+                                '<div>' +
+                                    '<a href="" ng-click="grid.appScope.goToUpdate(row.entity)" ' +
+                                    'ng-bind="row.entity.lastName + \', \' +  row.entity.firstName"></a>' +
+                                '</div>'
+                        },
+                        {'name': 'address', 'field': 'address'},
+                        {'name': 'work phone', 'field': 'workPhone'},
+                        {'name': 'alternate phone', 'field': 'alternatePhone'},
+                        {'name': 'email', 'field': 'email'}
+                    ],
+                    columnDefs: {
+                        testCol: [
+                            {'name': 'test', 'field': 'test'}
+                        ]
+                    },
+                    route: '',
                     getColumnDefinition: function(type){
-                        return {'defaultSet':[] };
+                        return {'defaultSet': []};
                     },
                     page: {
-                            "size" : 20,
-                            "totalElements" : 39,
-                            "totalPages" : 2,
-                            "number" : 0
-                        }
+                        "size" : 20,
+                        "totalElements" : 39,
+                        "totalPages" : 2,
+                        "number" : 0
+                    }
                 };
-                module(function($provide) {
-                    $provide.value('Addresses', mockedAddressesFactory);
-                });
-            });
 
-            beforeEach(inject(function($rootScope) {
+                mockedAddressesFactory =  new HATEAOSFactory(hateaosConfig);
+
                 scope = $rootScope.$new();
             }));
+
             beforeEach(inject(['grid', function(Grid){
                 gridService = Grid;
             }]));
+
+            describe('setColumnDefaults()', function() {
+                it('should return an array of columns', function() {
+                    var columns;
+
+                    spyOn(gridService, 'setColumnDefaults').and.callThrough();
+
+                    columns = gridService.setColumnDefaults(mockedAddressesFactory);
+
+                    expect(mockedAddressesFactory.columns).toEqual('defaultSet');
+                    expect(columns.length).toEqual(5);
+                });
+
+                it('should return an array of columns that we define', function() {
+                    var columns;
+
+                    spyOn(gridService, 'setColumnDefaults').and.callThrough();
+
+                    mockedAddressesFactory.columns = 'testCol';
+
+                    columns = gridService.setColumnDefaults(mockedAddressesFactory);
+
+                    expect(mockedAddressesFactory.columns).toEqual('testCol');
+                    expect(columns.length).toEqual(1);
+                });
+            });
+
             describe('getCurrentEntityId', function() {
                 it('should return null', function(){
                     var result = gridService.getCurrentEntityId(undefined);
@@ -34,6 +85,7 @@ define(['angular','angular-mocks', 'utility.grid'], function(angular, mocks, Gri
                     var result = gridService.getCurrentEntityId(null);
                     expect(result).toEqual(null);
                 });
+                
                 it('should return null', function(){
                     var row = {
 
@@ -68,13 +120,14 @@ define(['angular','angular-mocks', 'utility.grid'], function(angular, mocks, Gri
                     var result = gridService.getCurrentEntityId(row);
                     expect(result).toEqual(5);
                 });
-
             });
+
             describe('GridOptions', function() {
-            it('should validates that a service exists with the expected functions', function(){
+                it('should validates that a service exists with the expected functions', function(){
 
+                });
             });
-        });
+
         describe('Pagination', function() {
              describe('validatePaginationDataExists', function(){
                 it(' should return false for undefined Service',function(){

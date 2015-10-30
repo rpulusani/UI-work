@@ -14,23 +14,37 @@ define(['angular', 'utility'], function(angular) {
                     totalPages: 0,
                     number: 0
                 };
-                self.columns = {};
+                self.columns = null;
+                self.columnDefs = null;
+
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
                 self.params = {};
                 self.route = '';
 
+                if (serviceDefinition.columns instanceof Array) {
+                    if (!serviceDefinition.columnDefs) {
+                       serviceDefinition.columnDefs = {};
+                    }
+                    
+                    serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
+                    serviceDefinition.columns = 'defaultSet';
+                }
+
                 return angular.extend(self, serviceDefinition);
             };
+
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;
                 self.data = [];
             };
+
             HATEAOSFactory.prototype.getLoggedInUserInfo = function(loginId){
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
+
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     self.url = api.url;
                     url = self.url + '/' + loginId;
