@@ -37,7 +37,7 @@ define(['angular', 'report'], function(angular) {
                     var self = this,
                     deferred = $q.defer();
 
-                    $http.get('/reports').success(function(res) {
+                    $http.get('/reports/types').success(function(res) {
                         self.categories = res._embedded.types;
                         deferred.resolve(self.categories);
                     });
