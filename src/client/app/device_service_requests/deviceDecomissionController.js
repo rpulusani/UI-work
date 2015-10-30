@@ -5,6 +5,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
         'ServiceRequestService', 'FormatterService', 'BlankCheck', 'DeviceServiceRequest',
         function($scope, $rootScope, $location, $translate, Devices, ServiceRequestService, FormatterService, BlankCheck, DeviceServiceRequest) {
 
+            $scope.file_list = ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ');
+
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
             };
@@ -30,11 +32,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             };
 
             $scope.goToSubmit = function() {
-
-            };
-
-            $scope.createServiceRequestForDevice = function() {
-                    DeviceServiceRequest.save();
+                //DeviceServiceRequest.save();
             };
 
             if (!BlankCheck.isNull($scope.installAddress)) {
