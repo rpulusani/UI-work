@@ -255,22 +255,6 @@ memory = {
         ]
       }
     },
-    reportGroups: {
-        "_links": {
-        "self": {
-          "href": "http://10.145.116.233:8080/accounts/1/reportGroups",
-          "templated": true
-        }
-      },
-      "_embedded": {
-        "reportGroups":[
-                {
-                    id: 'group1',
-                    name: 'Standard Reports'
-                }
-            ]
-        }
-    },
     users:
         {
   "_links": {
@@ -509,59 +493,6 @@ memory = {
           }
         },
 
-    reports: {
-      "_links": {
-        "self": {
-          "href": "/accounts/1/reportGroups",
-          "templated": true
-        },
-        "types": {
-            "href": "/reports/type"
-        }
-      },
-      "page": {
-        "size": 20,
-        "totalElements": 2,
-        "totalPages": 1,
-        "number": 0
-      },
-      "_embedded": {
-        "reports":[{
-            "type": "Installs",
-            "eventDate": "2015-01-04",
-            "origSerialNumber": "5026299423M0T",
-            "manufacturer": "Lexmark",
-            "device": "C74x C748 e LV US CA Service Printer",
-            "assetTag": null,
-            "newSerialNumber": null,
-            "oldAddress": null,
-            "newAddress": null,
-            "oldChl": null,
-            "newChl": null,
-            "oldIp": null,
-            "newIp": null,
-            "geo": "LXK North America",
-            "country": "LXK United States"
-          },{
-            "type": "Installs",
-            "eventDate": "2015-01-04",
-            "origSerialNumber": "5026299423M0T",
-            "manufacturer": "Lexmark",
-            "device": "C74x C748 e LV US CA Service Printer",
-            "assetTag": null,
-            "newSerialNumber": null,
-            "oldAddress": null,
-            "newAddress": null,
-            "oldChl": null,
-            "newChl": null,
-            "oldIp": null,
-            "newIp": null,
-            "geo": "LXK North America",
-            "country": "LXK United States"
-          }
-        ]
-      }
-    },
     reportTypes: {
       "_links": {
         "self": {
@@ -681,20 +612,6 @@ findById = function(memType, id, fn) {
 
     return fn(false);
 },
-findByDefinitionId = function(definitionId, fn) {
-    var i = 0,
-    mem = memory['reports']._embedded['reports'],
-    memCnt = mem.length,
-    reportList = [];
-
-    for (i; i < memCnt; i += 1) {
-        if (mem[i].definitionId === definitionId) {
-            reportList.push(mem[i]);
-        }
-    }
-
-    return fn(reportList);
-},
 findByInvited = function(fn) {
     var i = 0,
     mem = memory['users']._embedded['users'],
@@ -722,10 +639,6 @@ router.configure(function(){
     router.use('/img', express.static(path.resolve(__dirname, 'client/img')));
     router.use('/templates', express.static(path.resolve(__dirname, 'client/templates')));
     router.use('/tests', express.static(path.resolve(__dirname, 'client/tests')));
-});
-
-router.get('/reports', function(req, res) {
-    res.json(memory.reports);
 });
 
 router.get('/reports/types', function(req, res) {
@@ -783,28 +696,6 @@ router.get('/accounts/:accountId/:requestType/:id', function(req, res) {
 
     if (req.headers.accept.indexOf('application') > -1) {
         findById(req.params.requestType, id, function(record) {
-            if (record) {
-                res.json(record);
-            } else {
-                res.send(400);
-            }
-        });
-    } else {
-        res.render(__dirname + '/client/views/index.dot', { NEWRELICID: process.env.NEWRELICID });
-    }
-});
-
-router.get('/accounts/:accountId/reports/reportlist/:definitionId', function(req, res) {
-    var id;
-    console.log('inside find by definition id');
-    if (!req.query.definitionId) {
-        id = req.params.definitionId;
-    } else {
-        id = req.query.definitionId;
-    }
-
-    if (req.headers.accept.indexOf('json') > -1) {
-        findByDefinitionId(id, function(record) {
             if (record) {
                 res.json(record);
             } else {
