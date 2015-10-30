@@ -38,11 +38,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             };
 
             if (!BlankCheck.isNull($scope.installAddress)) {
-                $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
+                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.installAddress);
             };
 
             if (!BlankCheck.isNull($scope.primaryContact)) {
-                $scope.formattedContact = FormatterService.formatPrimaryContact($scope.primaryContact);
+                $scope.formattedDeviceContact = FormatterService.formatPrimaryContact($scope.primaryContact);
             };
 
             if (!BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
