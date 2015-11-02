@@ -10,7 +10,6 @@ define([
     .controller('DevicePageCountsController', [
         '$scope', '$rootScope', '$location', '$routeParams', 'Devices', 'MeterReadService',
         function($scope, $rootScope, $location, $routeParams, Devices, MeterReads) {
-            $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
 
             $scope.getModifiedDate = function(item){
