@@ -26,7 +26,7 @@ define(['angular', 'utility'], function(angular) {
                     if (!serviceDefinition.columnDefs) {
                        serviceDefinition.columnDefs = {};
                     }
-                    
+
                     serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
                     serviceDefinition.columns = 'defaultSet';
                 }
@@ -97,15 +97,17 @@ define(['angular', 'utility'], function(angular) {
                 deferred = $q.defer(),
                 url = '';
                 newService.resetServiceMap();
-                if(halObj.item){
+                if(halObj.item && halObj.item._links[newService.serviceName]){
                     url = halObj.item._links[newService.serviceName].href;
-
+                }
+                else if(halObj.item && halObj.item._links[newService.serviceNameUnplurize()]){
+                    url = halObj.item._links[newService.serviceNameUnplurize()].href;
                 }else{
                     url = halObj._links[newService.serviceName].href;
                 }
 
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
-                    if(processedResponse._embeddedItems[newService.embeddedName].constructor === Array){
+                    if(processedResponse._embeddedItems && processedResponse._embeddedItems[newService.embeddedName].constructor === Array){
                         newService.data = processedResponse._embeddedItems[newService.embeddedName];
                         newService.page = processedResponse.page;
                         newService.params.page = self.page.number;
@@ -118,6 +120,10 @@ define(['angular', 'utility'], function(angular) {
                 });
 
                 return deferred.promise;
+            };
+
+            HATEAOSFactory.prototype.serviceNameUnplurize = function(){
+                return this.singular !== undefined ? this.singular : '';
             };
 
             HATEAOSFactory.prototype.save = function(halObj) {
@@ -204,7 +210,7 @@ define(['angular', 'utility'], function(angular) {
 
                return deferred.promise;
             };
-            
+
             HATEAOSFactory.prototype.buildUrl = function(url, requiredParams, additonalparams){
                 var paramsUrl = '';
                 function addParamSyntax(paramsUrl){
@@ -263,7 +269,7 @@ define(['angular', 'utility'], function(angular) {
                         }
 
                         url = self.buildUrl(self.url, self.params, params);
-                    
+
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
                             //get away from embedded name and move to a function to convert url name to javascript name
                             if (!self.embeddedName) {

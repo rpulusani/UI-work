@@ -5,8 +5,9 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
         function($translate, HATEAOSFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
-                // default, defaultSet, false attach the defaultSet columnDef 
-                columns: 'default', 
+                singular: 'contact',
+                // default, defaultSet, false attach the defaultSet columnDef
+                columns: 'default',
                 columnDefs: {
                     // default is a reserved keyword so we use defaultSet
                     // can be a function
@@ -26,7 +27,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
 
                         arr = arr.concat(this.defaultSet).concat(this.testSet);
 
-                        arr.push({  
+                        arr.push({
                             name: $translate.instant('CONTACT.EMAIL'),
                             field: 'email'
                         });
