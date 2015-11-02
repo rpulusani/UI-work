@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="/etc/styles/css/angular-ui-grid-lxk-framework.css" />
     <link rel="stylesheet" href="//www.lexmark.com/common/common-mce/styles/css/utilities.css" />
     <link rel="stylesheet" href="/etc/styles/css/app.css" />
-    
+
     <script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>
     <script src="/etc/js/main.js"></script>
     <script>
@@ -77,11 +77,6 @@
 
     <div class="site-wrapper">
       <div class="site-content">
-        <ul class="breadcrumb">
-          <li><a href="#root">Root</a></li>
-          <li><a href="#parent">Parent</a></li>
-          <li>Child</li>
-        </ul>
         <div ng-view></div>
       </div>
 

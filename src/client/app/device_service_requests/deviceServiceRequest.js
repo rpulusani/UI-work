@@ -32,7 +32,7 @@ define(['angular'], function(angular) {
                 controller: 'DeviceDecomissionController'
             })
             .when('/service_requests/devices/decomission/:id/review', {
-                templateUrl: '/app/device_service_requests/templates/review-decomission.html',
+                templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'DeviceDecomissionController'
             })
             .when('/service_requests/devices/review', {
