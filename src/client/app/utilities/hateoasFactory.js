@@ -52,6 +52,58 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
+            // core logic for put/post
+            HATEOASFactory.prototype.send = function(method, verbName) {
+                var self  = this,
+                deferred = $q.defer();
+
+                self.checkForEvent(halObj, 'before' + verbName).then(function(canContinue, newObj) {
+                    if (canContinue === true) {
+                        if (newObj) {
+                            halObj = newObj;
+                        }
+
+                        $rootScope.currentUser.deferred.promise.then(function() {
+                            var url;
+
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            
+                            halObj._links = {
+                                account: {
+                                    href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
+                                }
+                            };
+                            
+                            url = self.buildUrl(self.url, self.params, []);
+
+                            self.checkForEvent(self.item, 'on' + verbName).then(function() {
+                                deferred.resolve();
+                            });
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: halObj
+                            }).then(function(processedResponse) {
+                                self.item = processedResponse;
+                                self.processedResponse = processedResponse;
+
+                                self.checkForEvent(self.item, 'after' + verbName).then(function() {
+                                    deferred.resolve();
+                                });
+                            });
+                        },function(reason){
+                            deferred.reject(reason);
+                        });
+                    } else {
+                        deferred.resolve(false);
+                    }
+                });
+
+                return deferred.promise;
+            };
+
             HATEOASFactory.prototype.follow = function(newService, embeds){
                 var self  = this,
                     deferred = $q.defer(),

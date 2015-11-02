@@ -11,7 +11,7 @@ Defined as a core MPS module and included via require. Example of  injection int
         'use strict';
         angular.module('mps.serviceRequestContacts')
         .factory('NewFactory', ['$translate', 'HATEOASFactory', 
-            function(serviceUrl, $translate, HATEAOSFactory, formatter) {
+            function($translate, HATEAOSFactory) {
                 var serviceDefinition = {
                     serviceName: 'contacts'
                 };
@@ -115,6 +115,9 @@ Lets assume we have a set of items already in service.data[]. If we want to use 
     $scope.goToContact = function(contact) {
         // Items are set this way so their _links can be attached as promises
         Contacts.setItem(contact);
+        
+        // or
+        Contacts.item = contact;
     }
 
 ```
@@ -173,7 +176,6 @@ An example:
 
 ```
 
-
 ## Working with Parameters
 All services has a params{} property that defines the parameters and values for the needed calls
 
@@ -191,6 +193,9 @@ The typical way to build out a grid with your service is to outline the followin
     });
 
 ```
+
+#### Columns
+
 
 ## Events
 There are a few events you can leverage within HATEOASFactory. They can be defined within the definition or attached to the service within the controller.
@@ -226,12 +231,44 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
     onItemSet(halObj, deferred) 
 ```
 
-## General Notes
-    * Service.data[] holds multiple items -- think paged content.
-    * Service.item holds a single item.
-    * You can see the full response form the last call of any service provided by the factory by looking at the processedResponse property.
-    * Service.setItem() puts an item into a services item{} slot and builds the needed functions from _links.
-    * Service resetParams() resets the service to the params it had upon being initialized.
+## Examples and Solutions
+
+#### If I were working with devices and wanted a particular devices meter read data -- how would I do it?
+
+```js
+    // Assuming Devices.item is defined
+    Devices.item.meterReads().then(function(serverResponse) {
+
+    });
+
+```
+
+#### What if I have a structure that relates to another service and was simply embedded in my current data -- put another way: How would I work with an address attached to a contact response?
+
+```js
+    // You would use that service
+    Addresses.item = Contacts.item.address;
+```
+
+#### How do I call an items self link?
+
+```js
+    Contacts.item.self().then(function() {
+
+    });
+```
+
+#### How can I move two pages ahead?
+
+```js
+    Contacts.params.page = Contacts.params.page + 2;
+
+    Contacts.get().then(function() {
+
+    });
+
+```
+
 
 
 
