@@ -109,28 +109,40 @@ define(['angular', 'utility'], function(angular) {
                     }
                     return formattedAddress;
                 },
-                formatContact: function(contact){
+                formatRequestedByContact: function(contact){
                     var formattedContact = '';
-                    if (BlankCheck.checkNotNullOrUndefined(contact) ) {
-                        if (BlankCheck.checkNotBlank(contact.firstName)){
-                            formattedContact = formattedContact + contact.firstName;
-                            if (!BlankCheck.checkNotBlank(contact.lastName)) {
-                                formattedContact = formattedContact + '\n';
-                            } else {
-                                formattedContact = formattedContact + ' ';
-                            }
+                    if (BlankCheck.checkNotNullOrUndefined(contact)) {
+                        formattedContact = this.getFullName(contact.firstName, contact.lastName, contact.middleName);
+                        if (BlankCheck.checkNotBlank(contact.email)) {
+                            formattedContact += '<br />' + contact.email;
                         }
-                        if (BlankCheck.checkNotBlank(contact.lastName)){
-                            formattedContact = formattedContact + contact.lastName + '\n';
-                        }
-                        if (BlankCheck.checkNotBlank(contact.email)){
-                            formattedContact = formattedContact + contact.email + '\n';
-                        }
-                        if (BlankCheck.checkNotBlank(contact.workPhone)){
-                            formattedContact = formattedContact + contact.workPhone;
+                         if (BlankCheck.checkNotBlank(contact.workPhone)) {
+                            formattedContact += '<br />' + this.getPhoneFormat(contact.workPhone);
                         }
                     }
                     return formattedContact;
+                },
+                formatPrimaryContact: function(contact) {
+                    var formattedPrimaryContact = '';
+                    if (BlankCheck.checkNotNullOrUndefined(contact)) {
+                        formattedPrimaryContact = this.getFullName(
+                            BlankCheck.checkNotBlank(contact.firstName) ? contact.firstName : '',
+                            BlankCheck.checkNotBlank(contact.lastName) ? contact.lastName : ''.
+                            BlankCheck.checkNotBlank(contact.middleName) ? contact.middleName : '');
+
+                        if (BlankCheck.checkNotBlank(contact.email)) {
+                            formattedPrimaryContact += '<br />' + contact.email;
+                        }
+
+                        if (BlankCheck.checkNotBlank(contact.workPhone)) {
+                            formattedPrimaryContact += '<br />' + this.getPhoneFormat(contact.workPhone);
+                        }
+                    }
+
+                    return formattedPrimaryContact;
+                },
+                formatYesNo: function(value) {
+                    return (value === true) ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 }
             };
 

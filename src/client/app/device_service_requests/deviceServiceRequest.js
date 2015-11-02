@@ -31,6 +31,14 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/update.html',
                 controller: 'DeviceUpdateController'
             })
+            .when('/service_requests/devices/decomission/:id/view', {
+                templateUrl: '/app/device_service_requests/templates/view-decomission.html',
+                controller: 'DeviceDecomissionController'
+            })
+            .when('/service_requests/devices/decomission/:id/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'DeviceDecomissionController'
+            })
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController'

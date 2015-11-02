@@ -7,6 +7,12 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/primary-request-contact.html'
         };
     })
+    .directive('srHeader', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/sr-header.html'
+        };
+    })
     .directive('additionalRequestInfo', function() {
         return {
             restrict: 'A',

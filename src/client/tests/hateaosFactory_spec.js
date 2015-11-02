@@ -140,6 +140,13 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                 });
             }));
 
+            describe('column properties', function() {
+                it('makes sure we have required column properties defined', function() {
+                    expect(mockFactory.columns).toEqual('defaultSet');
+                    expect(mockFactory.columnDefs.defaultSet.length).toEqual(5);
+                });
+            });
+
             describe('getPage()', function() {
                 it('gets a paged collection from the service and puts them in this.data', function() {
                     spyOn(mockFactory, 'getPage').and.callThrough();
@@ -201,6 +208,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     expect(mockFactory.processedResponse).toBeDefined();
                 });
             });
+
             describe('buildUrl', function(){
                 it('should provide the same url passed in if no required params and no additional params passed in',
                     function(){

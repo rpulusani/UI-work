@@ -215,6 +215,7 @@ requirejs.config({
         'deviceServiceRequest.deviceUpdateController': 'app/device_service_requests/deviceUpdateController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
         'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
+        'deviceServiceRequest.deviceDecomissionController': 'app/device_service_requests/deviceDecomissionController',
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
