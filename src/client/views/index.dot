@@ -77,7 +77,7 @@
 
     <div class="site-wrapper">
       <div class="site-content">
-        <div ng-view></div>
+        <div ng-view autoscroll="true"></div>
       </div>
 
       <footer class="site-footer">
