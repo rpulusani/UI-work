@@ -33,7 +33,13 @@ define(['angular', 'utility'], function(angular) {
 
                 return angular.extend(self, serviceDefinition);
             };
+            HATEAOSFactory.prototype.newMessage  = function(){
+                this.item = {
+                    '_links':{
 
+                    }
+                };
+            };
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;

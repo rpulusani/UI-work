@@ -58,7 +58,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.btnDecomissionDevice = function(device) {
-                $location.path(DeviceServiceRequest.route + "/decomission/" + device.id + "/view");
+                $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
         }
     ]);

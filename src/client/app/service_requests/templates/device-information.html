@@ -1,0 +1,25 @@
+<div class="row" ng-if="configure.device.information">
+    <div class="col-1">
+        <h2 translate="{{configure.device.information.translate.title}}"></h2>
+        <div class="row row--alley-2">
+            <div class="col-1-3">
+                <div class="well">
+                    <dl class="row text--small">
+                        <dt class="col-1-2 text--semi-bold"
+                            translate="{{configure.device.information.translate.serialNumber}}"></dt>
+                        <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
+                        <dt class="col-1-2 text--semi-bold"
+                            translate="{{configure.device.information.translate.partNumber}}"></dt>
+                        <dd class="col-1-2" ng-bind="device.partNumber"></dd>
+                        <dt class="col-1-2 text--semi-bold"
+                            translate="{{configure.device.information.translate.ipAddress}}"></dt>
+                        <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
+                        <dt class="col-1-2 text--semi-bold"
+                            translate="{{configure.device.information.translate.installAddress}}"></dt>
+                        <dd class="col-1-2" ng-bind-html="formattedDeviceAddress"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

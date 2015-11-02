@@ -1,9 +1,9 @@
 define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceDecomissionController', ['$scope', '$rootScope', '$location', '$translate', 'Devices',
+    .controller('DeviceDecommissionController', ['$scope', '$rootScope', '$location', '$translate', 'Devices',
         'ServiceRequestService', 'FormatterService', 'BlankCheck', 'DeviceServiceRequest','Contacts',
-        function($scope, $rootScope, $location, $translate, Devices, ServiceRequestService, FormatterService,
+        function($scope, $rootScope, $location, $translate, Devices, ServiceRequest, FormatterService,
             BlankCheck, DeviceServiceRequest, Contacts) {
 
             var redirect_to_list = function() {
@@ -13,11 +13,14 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             if (Devices.item === null) {
                 redirect_to_list();
             } else {
+
                 $scope.device = Devices.item;
                 $scope.installAddress = Devices.item._embeddedItems['address'];
                 $scope.primaryContact = Devices.item._embeddedItems['primaryContact'];
+
                 Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
                     $scope.requestedByContact = Contacts.item;
+                    $scope.sr._links['requester'] = $scope.requestedByContact._links['self'];
                     $scope.requestedByContactFormatted =
                         FormatterService.formatRequestedByContact($scope.requestedByContact);
                 });
@@ -31,17 +34,55 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     $scope.pageCountQuestion = false;
                 }
 
+                setupSR();
+
                 configureTemplates();
+                if($location.path().indexOf('receipt') > -1){
+                    configureReceiptTemplate();
+                }
 
             }
 
+            function setupSR(){
+                if(ServiceRequest.item === null){
+                    ServiceRequest.newMessage();
+                    $scope.sr = ServiceRequest.item;
+                    $scope.sr._links['account'] = $scope.device._links['account'];
+                    $scope.sr._links['asset'] = $scope.device._links['self'];
+                    $scope.sr.customerReferenceId = '';
+                    $scope.sr.costCenter = '';
+                    $scope.sr.notes = '';
+                    $scope.sr.id = '1-XAEASD';
+                    $scope.sr._links['ui'] = 'http://www.google.com/1-XAEASD';
+                }else{
+                   $scope.sr = ServiceRequest.item;
+                }
+            }
+
+            function configureReceiptTemplate(){
+                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
+                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.bodyValues= {
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                    'srHours': 24,
+                    'deviceManagementUrl': 'device_management/',
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL",
+                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+            }
             function configureTemplates(){
                 $scope.configure = {
                     header: {
                         translate:{
-                            h1: 'DEVICE_SERVICE_REQUEST.REQUEST_DECOMISSION_FOR',
+                            h1: 'DEVICE_SERVICE_REQUEST.REQUEST_DECOMMISSION_FOR',
                             h1Values:{'productModel': $scope.device.productModel},
                             body: 'MESSAGE.LIPSUM',
+                            bodyValues: '',
                             readMore: ''
                         },
                         readMoreUrl: ''
@@ -76,6 +117,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
                             primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        },
+                        show:{
+                            primaryAction : true
                         }
                     },
                     detail:{
@@ -97,8 +141,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     },
                     actions:{
                         translate: {
-                            abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMISSION',
-                            submit: 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMISSION'
+                            abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
+                            submit: 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION'
                         }
                     },
                     modal:{
@@ -112,12 +156,16 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     }
                 };
             }
+
+
             $scope.goToReview = function() {
-                $location.path(DeviceServiceRequest.route + '/decomission/' + $scope.device.id + '/review');
+
+                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
             };
 
             $scope.goToSubmit = function() {
-                //DeviceServiceRequest.save();
+                //$scope.sr._links['primaryContact'] =
+                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
             };
 
             if (!BlankCheck.isNull($scope.installAddress)) {

@@ -4,6 +4,15 @@ define(['angular', 'utility'], function(angular) {
     .factory('FormatterService', [ '$translate', 'BlankCheck',
         function($translate, BlankCheck) {
             return{
+                getFormattedSRNumber: function(serviceRequest){
+                    if(serviceRequest && serviceRequest._links && serviceRequest.id && serviceRequest._links['ui']){
+                        return '<a href="' + serviceRequest._links['ui'] + '">' + serviceRequest.id + '</a>';
+                    }else if(serviceRequest && serviceRequest.id){
+                        return serviceRequest.id;
+                    }else{
+                        return '';
+                    }
+                },
                 getFullName: function(firstName, lastName, middleName){
                     if(firstName !== undefined && firstName !== null &&
                         lastName !== undefined && lastName !== null){

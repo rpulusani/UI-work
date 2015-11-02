@@ -1,0 +1,14 @@
+<div class="row" ng-if="configure.device.contact">
+    <div class="col-1">
+        <h2 translate="{{configure.device.contact.translate.title}}"></h2>
+        <div class="row row--alley-2">
+            <div class="col-1-3">
+                <div class="well">
+                     <dt class="col-1-2 text--semi-bold"
+                            translate="{{configure.device.contact.translate.title}}"></dt>
+                        <dd class="col-1-2" ng-bind-html="formattedDeviceContact"></dd>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
