@@ -1,0 +1,191 @@
+<div class="row">
+    <div class="col-1-3">
+        <h4 translate="DEVICE_MGT.DEVICE_INFO"></h4>
+    </div>
+    <div class="col-1-3"></div>
+    <div class="col-1-3"></div>
+</div>
+<div class="row">
+    <div class="col-1">
+        <hr/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></h3>
+    </div>
+    <div class="col-2-3">
+        <div class="row">
+            <div class="col-1-3">
+                <div class="form__field form__field--select form__field--required">
+                <label translate="ADDRESS.COUNTRY"></label>
+                <input name="country" type="hidden" ng-model="updatedInstallAddress.country" required/>
+                <div selectric model="updatedInstallAddress.country" options="countryHAL.countries" value="name" label="name"
+                      placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+                    <span ng-hide="!newDevice.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
+                </div>
+                <div class="form__field form__field--required">
+                    <label translate="ADDRESS.LINE_1"></label>
+                    <input name="addressLine1" type="text" ng-model="updatedInstallAddress.addressLine1" required/>
+                    <span ng-hide="!newDevice.addressLine1.$error.required"
+                    class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
+                    <span translate="LABEL.ERROR_REQUIRED"></span></span>
+                </div>
+                <div class="form__field">
+                    <label translate="ADDRESS.LINE_2"></label>
+                    <input name="addressLine2" type="text" ng-model="updatedInstallAddress.addressLine2"  />
+                </div>
+            </div>
+            <div class="col-2-3"></div>
+        </div>
+        <div class="row--alley-1">
+            <div class="col-1-3">
+                <div class="form__field form__field--required">
+                    <label translate="ADDRESS.CITY"></label>
+                    <input name="city" type="text" ng-model="updatedInstallAddress.city" required />
+                    <span ng-hide="!newDevice.city.$error.required"
+                    class="form__field__helper-text form__field__helper-text--alert">
+                    <i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
+                </div>
+            </div>
+            <div class="col-1-3">
+                <div class="form__field form__field--select form__field--required">
+                    <label translate="ADDRESS.STATE"></label>
+                    <input name="state" type="hidden" ng-model="updatedInstallAddress.state" required/>
+                    <div selectric options="country.provinces" value="code" label="name" model="updatedInstallAddress.state" required
+                         placeholder="{{'LABEL.SELECT' | translate}}"></div>
+                    <span ng-hide="!newDevice.state.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
+                    <span translate="LABEL.ERROR_REQUIRED"></span></span>
+                </div>
+            </div>
+            <div class="col-1-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-1-3">
+                <div class="form__field form__field--required">
+                    <label translate="ADDRESS.ZIP"></label>
+                    <input type="text" name="zipCode" ng-model="updatedInstallAddress.postalCode" value="" class="" required />
+                    <span ng-hide="!newDevice.zipCode.$error.required"
+                    class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
+                    <span translate="LABEL.ERROR_REQUIRED"></span></span>
+                </div>
+            </div>
+            <div class="col-1-3"></div>
+            <div class="col-2-3">
+                <div class="form__field">
+                    <label translate="ADDRESS.BUILDING_NAME"></label>
+                    <input name="buildingName" type="text" ng-model="updatedInstallAddress.building" value="" class="" />
+                </div>
+
+                <div class="form__field">
+                    <label translate="ADDRESS.FLOOR_NAME"></label>
+                    <input name="floorName" type="text" ng-model="updatedInstallAddress.floor" value="" class="" />
+                </div>
+
+                <div class="form__field">
+                    <label translate="ADDRESS.SITE_NAME"></label>
+                    <input name="siteName" type="text" ng-model="updatedInstallAddress.office" value="" class="" />
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-3-5">
+        <div class="form__field" >
+            <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_MOVE_QUESTION"></strong> 
+            <div class="form__field form__field--radio form__field--no-margin">
+                <input type="radio" id="device-move-question-no" name="device-move-question"
+                ng-model="device.deviceMoveQuestion" value="false" data-js="customInput"  checked/>
+                <label for="device-move-question-no"><span></span>
+                    {{'LABEL.NO' | translate }}</label>
+            </div>
+             <div class="form__field form__field--radio form__field--no-margin">
+                <input type="radio" id="device-move-question-yes" name="device-move-question"
+                ng-model="device.deviceMoveQuestion" value="true" data-js="customInput"/>
+                <label for="device-move-question-yes"><span></span>
+                {{ 'DEVICE_SERVICE_REQUEST.DEVICE_MOVE_YES' | translate }}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
+    </div>
+    <div class="col-2-5">
+        <div class="form__field" >
+            <label translate="DEVICE_MGT.IP_ADDRESS"></label>
+            <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" />
+        </div>
+        <div class="form__field" >
+            <label translate="DEVICE_MGT.HOST_NAME"></label>
+            <input name="hostName" type="text" ng-model="device.hostName" value="" class="" />
+        </div>
+    </div>
+    <div class="col-1-3"></div>
+    <div class="col-1-3"></div>
+</div>
+<div class="row">
+    <div class="col-2-3">
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING"></h3>
+    </div>
+    <div class="col-2-5">
+        <div class="form__field">
+            <label translate="DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER"></label>
+            <input type="text" name="costCenter" ng-model="device.costCenter" value="" class="" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3-5">
+            <div class="form__field" >
+                <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></strong>
+                 <div class="form__field form__field--radio form__field--no-margin">
+                    <input type="radio" id="device-chl-question-no" name="device-chl-question"
+                    ng-model="device.deviceCHLQuestion" value="false" data-js="customInput" checked/>
+                    <label for="device-chl-question-no"><span></span>
+                        {{'LABEL.NO' | translate }}</label>
+                </div>
+                 <div class="form__field form__field--radio form__field--no-margin">
+                    <input type="radio" id="device-chl-question-yes" name="device-chl-question"
+                    ng-model="device.deviceCHLQuestion" value="true" data-js="customInput"/>
+                    <label for="device-chl-question-yes"><span></span>
+                    {{ 'LABEL.YES' | translate }}</label>
+                </div>
+                <div class="col-2-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="device.deviceCHLQuestion === 'true'">
+        <div class="col-3-5">
+            <strong translate="ACCOUNT.ORG_STRUCT"></strong>
+            <div tree class="well"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2-5">
+            <div class="form__field" >
+                <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
+                <input name="customerDeviceTag" type="text" ng-model="device.assetTag" value="" class="" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2-3">
+            <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
+        </div>
+        <div class="row">
+            <div class="col-1-3">
+                <strong><label translate="LABEL.PRIMARY_CONTACT"></label></strong>
+                <div class="contact-info">
+                    <div class="col-1-2" style="white-space: pre;" ng-bind="primaryContact"></div>
+                </div>
+                <a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker(device,'updateDeviceContact')"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    

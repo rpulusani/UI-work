@@ -108,6 +108,29 @@ define(['angular', 'utility'], function(angular) {
 
                     }
                     return formattedAddress;
+                },
+                formatContact: function(contact){
+                    var formattedContact = '';
+                    if (BlankCheck.checkNotNullOrUndefined(contact) ) {
+                        if (BlankCheck.checkNotBlank(contact.firstName)){
+                            formattedContact = formattedContact + contact.firstName;
+                            if (!BlankCheck.checkNotBlank(contact.lastName)) {
+                                formattedContact = formattedContact + '\n';
+                            } else {
+                                formattedContact = formattedContact + ' ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(contact.lastName)){
+                            formattedContact = formattedContact + contact.lastName + '\n';
+                        }
+                        if (BlankCheck.checkNotBlank(contact.email)){
+                            formattedContact = formattedContact + contact.email + '\n';
+                        }
+                        if (BlankCheck.checkNotBlank(contact.workPhone)){
+                            formattedContact = formattedContact + contact.workPhone;
+                        }
+                    }
+                    return formattedContact;
                 }
             };
 

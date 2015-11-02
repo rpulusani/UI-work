@@ -52,6 +52,9 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                          FormatterService.getPhoneFormat($scope.primaryContact.workPhone);
             }
 
+            $scope.goToUpdate = function(device) {
+                $location.path(DeviceServiceRequest.route + "/" + device.id + '/update');
+            };
 
             $scope.btnRequestService = function(device) {
                 $location.path(DeviceServiceRequest.route + "/" + device.id + '/review');
