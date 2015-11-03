@@ -205,6 +205,7 @@ Example of adding a custom parameters to the call:
 
     // if you didn't want to send page/size you can set them to null
     // or do something like the below
+    // .../contacts?firstName=Gob&lastName=Blooth
     Contacts.get({
         preventParams: true, // blocks native params
         params: {
