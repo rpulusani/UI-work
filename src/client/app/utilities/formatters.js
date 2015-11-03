@@ -5,7 +5,9 @@ define(['angular', 'utility'], function(angular) {
         function($translate, BlankCheck) {
             return{
                 getFormattedSRNumber: function(serviceRequest){
-                    if(serviceRequest && serviceRequest._links && serviceRequest.id && serviceRequest._links['ui']){
+
+                    if(serviceRequest && serviceRequest._links && serviceRequest.id &&
+                        serviceRequest._links['ui'] && serviceRequest._links['ui'] !== ''){
                         return '<a href="' + serviceRequest._links['ui'] + '">' + serviceRequest.id + '</a>';
                     }else if(serviceRequest && serviceRequest.id){
                         return serviceRequest.id;
@@ -14,8 +16,8 @@ define(['angular', 'utility'], function(angular) {
                     }
                 },
                 getFullName: function(firstName, lastName, middleName){
-                    if(firstName !== undefined && firstName !== null &&
-                        lastName !== undefined && lastName !== null){
+                    if(firstName !== undefined && firstName !== null && firstName !== '' &&
+                        lastName !== undefined && lastName !== null && lastName !== ''){
                         var fullname = lastName + ', ' +  firstName;
                         if (middleName) {
                             fullname += ' ' + middleName;
@@ -23,6 +25,14 @@ define(['angular', 'utility'], function(angular) {
                         } else {
                             return fullname;
                         }
+                    }else if((firstName !== undefined || firstName !== null || firstName === '') &&
+                        lastName !== undefined && lastName !== null && lastName !== ''){
+                        return lastName;
+                    }else if(firstName !== undefined && firstName !== null && firstName !== '' &&
+                        (lastName !== undefined || lastName !== null  || lastName === '')){
+                        return firstName;
+                    }else{
+                        return '';
                     }
                 },
                 getPhoneFormat: function(telephone){
@@ -112,7 +122,7 @@ define(['angular', 'utility'], function(angular) {
                              formattedAddress = formattedAddress + address.office + '<br/>';
                         }
                         if (BlankCheck.checkNotBlank(address.country)){
-                             formattedAddress = formattedAddress + address.country;
+                             formattedAddress = formattedAddress + address.country + '<br/>';
                         }
 
                     }
@@ -123,10 +133,10 @@ define(['angular', 'utility'], function(angular) {
                     if (BlankCheck.checkNotNullOrUndefined(contact)) {
                         formattedContact = this.getFullName(contact.firstName, contact.lastName, contact.middleName);
                         if (BlankCheck.checkNotBlank(contact.email)) {
-                            formattedContact += '<br />' + contact.email;
+                            formattedContact += '<br/>' + contact.email;
                         }
                          if (BlankCheck.checkNotBlank(contact.workPhone)) {
-                            formattedContact += '<br />' + this.getPhoneFormat(contact.workPhone);
+                            formattedContact += '<br/>' + this.getPhoneFormat(contact.workPhone);
                         }
                     }
                     return formattedContact;
