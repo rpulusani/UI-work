@@ -7,74 +7,48 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
             location,
             deferred,
             mockedFactory,
-            mockedReportGroupFactory,
-            history,
             ctrl;
 
         beforeEach(module('mps'));
-/*
+
         describe('ReportController', function() {
-            beforeEach(inject(function ($rootScope, $httpBackend, $controller, $location, Report, ReportGroup, History, $q){
+            beforeEach(inject(function ($rootScope, $httpBackend, $controller, $location,  Reports, $q){
                 scope = $rootScope.$new();
                 deferred = $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
-                history = History;
-                mockedFactory = Report;
-                mockedReportGroupFactory = ReportGroup;
+                mockedFactory = Reports;
 
-                ctrl = $controller('ReportController', {$scope: scope});
+                ctrl = $controller('ReportController', {$scope: scope, Reports: mockedFactory});
+
+                mockedFactory.category = {};
+                mockedFactory.category.id = 1;
             }));
 
-            describe('at init', function() {
-                describe('when routeParam.definitionId is available', function() {
-                    beforeEach(inject(function($routeParams, $controller){
-                        $routeParams.definitionId = '123';
-                        ctrl = $controller('ReportController', {$scope: scope});
-                    }));
-                });
-            });
-
-            describe('goToReportByCategory', function() {
-                it('should take to the report list view page based on report category', function() {
-                    var definitionId = '123';
+            describe('goToFinder', function() {
+                it('should redirect to report finder page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    scope.goToReportByCategory(definitionId);
-                    expect(location.path).toHaveBeenCalledWith('/reporting/123/view');
-                });
-            });
-
-            describe('goToRun', function() {
-                it('should set toRunReport to true', function() {
-                    scope.goToRun();
-                    expect(scope.toRunReport).toBe(true);
+                    scope.goToFinder(mockedFactory.category);
+                    expect(location.path).toHaveBeenCalledWith('/reporting/' + mockedFactory.category.id + '/find');
                 });
             });
 
             describe('runReport', function() {
-                it('should redirect to report view', function() {
+                it('should redirect to report finder page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    var reportParams = {};
-                    scope.runReport(reportParams);
-                    expect(location.path).toHaveBeenCalledWith('/reporting/view');
+                    scope.runReport();
+                    expect(location.path).toHaveBeenCalledWith('/reporting/' + mockedFactory.category.id + '/find');
                 });
-            });
 
-            describe('back', function() {
-                it('should call history back', function() {
-                    scope.back();
-                    expect(history.path).toBeCalled;
-                });
-            });
-
-            describe('cancel', function() {
-                it('should redirect to list', function() {
+                it('should redirect to report result page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    scope.cancel();
-                    expect(location.path).toHaveBeenCalledWith('/reporting');
+                    scope.finder = {};
+                    scope.finder.dateFrom = '2015-01-01';
+                    scope.finder.dateTo = '2015-01-01';
+                    scope.runReport();
+                    expect(location.path).toHaveBeenCalledWith('/reporting/results');
                 });
             });
         });
-*/
     });
 });

@@ -108,6 +108,41 @@ define(['angular', 'utility'], function(angular) {
 
                     }
                     return formattedAddress;
+                },
+                formatRequestedByContact: function(contact){
+                    var formattedContact = '';
+                    if (BlankCheck.checkNotNullOrUndefined(contact)) {
+                        formattedContact = this.getFullName(contact.firstName, contact.lastName, contact.middleName);
+                        if (BlankCheck.checkNotBlank(contact.email)) {
+                            formattedContact += '<br />' + contact.email;
+                        }
+                         if (BlankCheck.checkNotBlank(contact.workPhone)) {
+                            formattedContact += '<br />' + this.getPhoneFormat(contact.workPhone);
+                        }
+                    }
+                    return formattedContact;
+                },
+                formatPrimaryContact: function(contact) {
+                    var formattedPrimaryContact = '';
+                    if (BlankCheck.checkNotNullOrUndefined(contact)) {
+                        formattedPrimaryContact = this.getFullName(
+                            BlankCheck.checkNotBlank(contact.firstName) ? contact.firstName : '',
+                            BlankCheck.checkNotBlank(contact.lastName) ? contact.lastName : ''.
+                            BlankCheck.checkNotBlank(contact.middleName) ? contact.middleName : '');
+
+                        if (BlankCheck.checkNotBlank(contact.email)) {
+                            formattedPrimaryContact += '<br />' + contact.email;
+                        }
+
+                        if (BlankCheck.checkNotBlank(contact.workPhone)) {
+                            formattedPrimaryContact += '<br />' + this.getPhoneFormat(contact.workPhone);
+                        }
+                    }
+
+                    return formattedPrimaryContact;
+                },
+                formatYesNo: function(value) {
+                    return (value === true) ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 }
             };
 

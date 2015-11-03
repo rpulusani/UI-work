@@ -39,8 +39,6 @@ requirejs.config({
             'nav.navItemFactory',
             'nav.directives',
 
-            'chartjs',
-
             'chart',
             'chart.chartingController',
             'chart.directives',
@@ -76,6 +74,10 @@ requirejs.config({
             'tree.treeItemController',
             'tree.directives'
         ],
+
+        'chart': ['angular', 'chartjs'],
+        'chart.chartingController': ['chartjs'],
+        'chart.directives': ['chartjs'],
 
         'form':['angular', 'lxk.fef'],
         'form.directives': ['form'],
@@ -217,6 +219,7 @@ requirejs.config({
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
         'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
+        'deviceServiceRequest.deviceDecomissionController': 'app/device_service_requests/deviceDecomissionController',
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',

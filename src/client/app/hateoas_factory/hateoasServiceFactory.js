@@ -14,13 +14,23 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     totalPages: 0,
                     number: 0
                 };
-                self.columns = {};
+                self.columns = null;
+                self.columnDefs = null;
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
                 self.params = {};
                 // Placeholder for the original params given to us from server
                 self.defaultParams = {};
                 self.route = '';
+
+                if (serviceDefinition.columns instanceof Array) {
+                    if (!serviceDefinition.columnDefs) {
+                       serviceDefinition.columnDefs = {};
+                    }
+
+                    serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
+                    serviceDefinition.columns = 'defaultSet';
+                }
 
                 return angular.extend(self, serviceDefinition);
             };

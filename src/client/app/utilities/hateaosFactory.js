@@ -14,15 +14,26 @@ define(['angular', 'utility'], function(angular) {
                     totalPages: 0,
                     number: 0
                 };
-                self.columns = {};
+                self.columns = null;
+                self.columnDefs = null;
+
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
                 self.params = {};
                 self.route = '';
 
+                if (serviceDefinition.columns instanceof Array) {
+                    if (!serviceDefinition.columnDefs) {
+                       serviceDefinition.columnDefs = {};
+                    }
+
+                    serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
+                    serviceDefinition.columns = 'defaultSet';
+                }
+
                 return angular.extend(self, serviceDefinition);
             };
-            
+
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;
@@ -33,6 +44,7 @@ define(['angular', 'utility'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
+
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     self.url = api.url;
                     url = self.url + '/' + loginId;
@@ -103,15 +115,17 @@ define(['angular', 'utility'], function(angular) {
                 deferred = $q.defer(),
                 url = '';
                 newService.resetServiceMap();
-                if(halObj.item){
+                if(halObj.item && halObj.item._links[newService.serviceName]){
                     url = halObj.item._links[newService.serviceName].href;
-
+                }
+                else if(halObj.item && halObj.item._links[newService.serviceNameUnplurize()]){
+                    url = halObj.item._links[newService.serviceNameUnplurize()].href;
                 }else{
                     url = halObj._links[newService.serviceName].href;
                 }
 
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
-                    if(processedResponse._embeddedItems[newService.embeddedName].constructor === Array){
+                    if(processedResponse._embeddedItems && processedResponse._embeddedItems[newService.embeddedName].constructor === Array){
                         newService.data = processedResponse._embeddedItems[newService.embeddedName];
                         newService.page = processedResponse.page;
                         newService.params.page = self.page.number;
@@ -124,6 +138,10 @@ define(['angular', 'utility'], function(angular) {
                 });
 
                 return deferred.promise;
+            };
+
+            HATEAOSFactory.prototype.serviceNameUnplurize = function(){
+                return this.singular !== undefined ? this.singular : '';
             };
 
             HATEAOSFactory.prototype.save = function(halObj) {
@@ -210,7 +228,7 @@ define(['angular', 'utility'], function(angular) {
 
                return deferred.promise;
             };
-            
+
             HATEAOSFactory.prototype.buildUrl = function(url, requiredParams, additonalparams){
                 var paramsUrl = '';
                 function addParamSyntax(paramsUrl){
@@ -269,7 +287,7 @@ define(['angular', 'utility'], function(angular) {
                         }
 
                         url = self.buildUrl(self.url, self.params, params);
-                    
+
                         halAdapter.process($http.get(url)).then(function(processedResponse) {
                             //get away from embedded name and move to a function to convert url name to javascript name
                             if (!self.embeddedName) {
