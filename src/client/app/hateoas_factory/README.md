@@ -123,6 +123,10 @@ Lets assume we have a set of items already in service.data[]. If we want to use 
         Contacts.setupItem();
     }
 
+    // if you know you need access to the items _links you can skip
+    // the assignment and do:
+    Contacts.setupItem(contact);
+
 ```
 
 Now that we have something in Contacts.item a set of new functions related to the _links outline become available. For example; lets assume the items hal envelope had an 'account' link outling the items associated account; to get this you can do something like:
@@ -182,7 +186,7 @@ An example:
 ## Working with Query Parameters
 All services have a params{} property that defines the parameters and values for the needed calls. All parameters are sent with every call to Service.get() -- this is because the service defaults to using the entire set given to it by the intial endpoint call. Parameters set to null are never sent.
 
-Example of a modified get() call:
+Example of a unmodified get() call:
 ```js
     // note sort is not sent because it defaults to null
     // .../contacts?page=0&size=20 
@@ -199,7 +203,7 @@ Example of adding a custom parameters to the call:
     Contacts.get({
         params: {
             firstName: 'Gob',
-            lastNameL 'Blooth'
+            lastName: 'Blooth'
         }
     });
 
@@ -210,7 +214,7 @@ Example of adding a custom parameters to the call:
         preventDefaultParams: true, // blocks native params
         params: {
             firstName: 'Gob',
-            lastNameL 'Blooth'
+            lastName: 'Blooth'
         }
     });
 
@@ -356,19 +360,12 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
 
 ```
 
+#### I am creating an item across different views/templates -- how do I keep track of it?
+
+Keep track of the item in Service.item as you work. When it is time to save call Service.post().
 
 
-
-
-
-
-
-
-
-
-
-
-
+NOTE: To prevent refactoring getPage(), save(), and update() are still supported functions that call get(), post(), and put() respectively.
 
 
 
