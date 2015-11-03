@@ -39,6 +39,10 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'DeviceDecomissionController'
             })
+            .when('/service_requests/devices/update/:updateid/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'DeviceUpdateController'
+            })
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController'

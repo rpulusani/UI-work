@@ -127,7 +127,7 @@ define(['angular', 'utility'], function(angular) {
                     if (BlankCheck.checkNotNullOrUndefined(contact)) {
                         formattedPrimaryContact = this.getFullName(
                             BlankCheck.checkNotBlank(contact.firstName) ? contact.firstName : '',
-                            BlankCheck.checkNotBlank(contact.lastName) ? contact.lastName : ''.
+                            BlankCheck.checkNotBlank(contact.lastName) ? contact.lastName : '',
                             BlankCheck.checkNotBlank(contact.middleName) ? contact.middleName : '');
 
                         if (BlankCheck.checkNotBlank(contact.email)) {
@@ -142,7 +142,8 @@ define(['angular', 'utility'], function(angular) {
                     return formattedPrimaryContact;
                 },
                 formatYesNo: function(value) {
-                    return (value === true) ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
+                    console.log(value);
+                    return (value === 'true') ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 }
             };
 

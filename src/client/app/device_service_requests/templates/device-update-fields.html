@@ -97,13 +97,13 @@
             <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_MOVE_QUESTION"></strong> 
             <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="device-move-question-no" name="device-move-question"
-                ng-model="device.deviceMoveQuestion" value="false" data-js="customInput"  checked/>
+                ng-model="lexmarkMoveDevice" value="false" data-js="customInput"  checked/>
                 <label for="device-move-question-no"><span></span>
                     {{'LABEL.NO' | translate }}</label>
             </div>
              <div class="form__field form__field--radio form__field--no-margin">
                 <input type="radio" id="device-move-question-yes" name="device-move-question"
-                ng-model="device.deviceMoveQuestion" value="true" data-js="customInput"/>
+                ng-model="lexmarkMoveDevice" value="true" data-js="customInput"/>
                 <label for="device-move-question-yes"><span></span>
                 {{ 'DEVICE_SERVICE_REQUEST.DEVICE_MOVE_YES' | translate }}</label>
             </div>
@@ -177,9 +177,9 @@
         </div>
         <div class="row">
             <div class="col-1-3">
-                <strong><label translate="LABEL.PRIMARY_CONTACT"></label></strong>
+                <strong><label translate="SERVICE_REQUEST.PRIMARY_CONTACT"></label></strong>
                 <div class="contact-info">
-                    <div class="col-1-2" style="white-space: pre;" ng-bind="primaryContact"></div>
+                    <div class="col-1-2" ng-bind-html="formattedPrimaryContact"></div>
                 </div>
                 <a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker(device,'updateDeviceContact')"></a>
             </div>
