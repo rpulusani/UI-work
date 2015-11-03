@@ -153,6 +153,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
                         },
                         returnPath: Devices.route + '/'
+                    },
+                    contactPicker:{
+                        translate:{
+                            title: 'CONTACT.SELECT_CONTACT',
+                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
+                        },
+                        returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
                     }
                 };
             }
@@ -167,6 +174,17 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 //$scope.sr._links['primaryContact'] =
                 $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
             };
+
+            $scope.goToContactPicker = function() {
+                // $rootScope.currentSelected = currentSelected;
+                // $rootScope.newDevice = device;
+                $location.path('/service_requests/devices/decommission/pick_contact');
+            };
+
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
+                && $routeParams.return && $routeParams.return !== 'discard') {
+                $scope.primaryContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+            }
 
             if (!BlankCheck.isNull($scope.installAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.installAddress);
