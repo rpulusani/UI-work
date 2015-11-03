@@ -13,6 +13,30 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/sr-header.html'
         };
     })
+    .directive('requestContacts', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/request-contact-information.html'
+        };
+    })
+    .directive('srDeviceInformation', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/device-information.html'
+        };
+    })
+     .directive('srDeviceRemoval', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/device-removal.html'
+        };
+    })
+    .directive('srDeviceContact', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/device-contact.html'
+        };
+    })
     .directive('additionalRequestInfo', function() {
         return {
             restrict: 'A',

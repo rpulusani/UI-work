@@ -5,6 +5,11 @@ h1, h2, p{
 dt{
   float:left;
 }
+
+dd,dt,dl{
+  min-height:25px;
+}
+
 .well{
   border:none;
   min-height: 100px;
