@@ -70,6 +70,7 @@ define([
         'ngCookies',
         'ngSanitize',
         'pascalprecht.translate',
+        'mps.hateoasFactory',
         'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',

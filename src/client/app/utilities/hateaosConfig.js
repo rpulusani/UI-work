@@ -47,7 +47,7 @@ define(['angular', 'utility'], function(angular) {
 
                             self.serviceMap[prop].params = self.createParams(paramArr);
                         }
-
+                        
                         deferred.resolve(self.serviceMap[name]);
                     });
                 } else {

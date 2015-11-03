@@ -49,10 +49,13 @@ define(['angular', 'contact'], function(angular) {
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['$translate', 'HATEAOSFactory',
         var Contacts = {
+            // service name must match to end point key
             serviceName: 'contacts',
+            // given to grid for column sets
             columns: [
                 {name: $translate.instant('CONTACT.EMAIL'), field: 'email'}
             ],
+            // used to make client site routes consistent
             route: '/service_requests/contacts'
         };
 
@@ -100,24 +103,24 @@ To obtain a specific page use the following:
         Contacts.data; // Page 2 size 100
 
         // You could reset to default param values with:
-        Contacts.resetParams();
+        Contacts.params = Contacts.defaultParams;
     });
 
 ```
 
 ### Getting single items
-Generally speaking the services item{} property is set sometime after an initial paging call (as we do not know the end point to call). That said there is a provided pattern to call for a particular item only by ID. It is detailed at the bottom of this section; first we will outline the general cases.
+The services item{} property is set sometime after an initial paging call (as we do not know the end point to call). That said there is a provided pattern to call for a particular item only by ID. It is detailed at the bottom of this section; first we will outline the general cases.
 
 Lets assume we have a set of items already in service.data[]. If we want to use the _links{} items of that particular item we need to set it in our services item{} property. If you were on a grid powered page reflecting a page collection you could do something like the following to obtain the item:
 
 ```js
     // in controller, function called in template
-    $scope.goToContact = function(contact) {
-        // Items are set this way so their _links can be attached as promises
-        Contacts.setItem(contact);
-        
-        // or
+    $scope.goToContact = function(contact) {        
         Contacts.item = contact;
+
+        // Call this to attach _links routes as functions
+        // You wouldn't need this if you were creating a new item.
+        Contacts.setupItem();
     }
 
 ```
@@ -149,11 +152,11 @@ Contacts.get('123-XYT').then(function(processedResponse) {
 
 ```
 
-NOTE: You could also make an http call manually and set the item via service.setItem();
+NOTE: You could also make an http call manually and set the item on your service.
 
 ## Saving
 
-There are two methids related to getting information to our end points.
+There are two methods related to getting information to our end points.
 
 #### Contacts.put() / Contacts.item.put()
 put() will make a PUT request to our root path, updates mainly
@@ -169,7 +172,7 @@ An example:
 
     });
 
-    // Saving a a new item in service.item
+    // Saving a a new item, if no item is given service.item is sent if found
     Contacts.post(item).then(function() {
 
     });
@@ -177,7 +180,7 @@ An example:
 ```
 
 ## Working with Parameters
-All services has a params{} property that defines the parameters and values for the needed calls
+All services has a params{} property that defines the parameters and values for the needed calls. Unless service.sendAllParams
 
 
 ## Working with collections (grids and etc)
@@ -209,26 +212,22 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
     // fires after get is successful 
     afterGet(halObj, deferred) 
 
-    // fires before put exdcutes, must return true or put will fail
+    // fires before put executes, must return true or put() will fail
     beforePut(halObj, deferred) 
     onPut(halObj, deferred) 
     afterPut(halObj, deferred) 
 
+    // fires before put executes, must return true or post() will fail
     beforePost(halObj, deferred) 
     onPost(halObj, deferred) 
     afterPost(halObj, deferred) 
 
-    onNextPage(halObj, deferred) 
-    afterNextPage(halObj, deferred) 
+    onNext(halObj, deferred) 
 
-    onFirstPage(halObj, deferred) 
-    afterFirstPage(halObj, deferred) 
+    onPrev(halObj, deferred) 
 
-    onLastPage(halObj, deferred) 
-    afterLastPage(halObj, deferred) 
-
-    onDataSet(halObj, deferred) 
-    onItemSet(halObj, deferred) 
+    // When an item is setup
+    onItemSetup(halObj, deferred) 
 ```
 
 ## Examples and Solutions
@@ -243,11 +242,16 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
 
 ```
 
-#### What if I have a structure that relates to another service and was simply embedded in my current data -- put another way: How would I work with an address attached to a contact response?
+#### What if I have a structure that relates to another service and was simply embedded in my current data -- put another way: How would I work with an address attached to a contact?
 
 ```js
     // You would use that service
     Addresses.item = Contacts.item.address;
+
+    // Need a hal envelope for this items links? If so do:
+    Addresses.item.self().then(function() {
+        // Addresses.item should have been refreshed with a direct call
+    });
 ```
 
 #### How do I call an items self link?
@@ -266,6 +270,20 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
     Contacts.get().then(function() {
 
     });
+
+```
+
+#### How can I get the base url of the service?
+
+```js
+    Contacts.url; // String
+
+```
+
+#### How can I get the base url of an attached item?
+
+```js
+    Contacts.item._links.self.href;
 
 ```
 
