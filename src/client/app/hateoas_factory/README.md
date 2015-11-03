@@ -1,6 +1,6 @@
 # HATEOASFactory
 
-HATEOASFactory outputs angular services based on a 'service definition' and combines it with their initial endpoint call to allow easy hal focused development within module controllers.
+HATEOASFactory outputs angular services based on a 'service definition' (think: fat model) and combines it with their initial endpoint call to allow easy hal focused development within module controllers.
 
 ### Installation
 Defined as a core MPS module and included via require. Example of  injection into a factory along with a service definition: 
@@ -145,9 +145,39 @@ Now that we have something in Contacts.item a set of new functions related to th
 
 ```
 
+Service.item.all() lets you fire all links before execution
+```js
+    Contacts.all().then(function(res) {
+        // res = {linkName: response}
+    });
+
+    // You can also target specific links with options
+    Contacts.all({
+        // the omit array will let you skip a set of links
+        omit: ['accounts'],
+        linkName: {
+            params: {
+                firstName: 'Buster',
+                lastName: 'Blooth'
+            }
+        }
+    }).then(function() {
+
+    });
+
+```
+
 As mentioned above you can also directly call for an item; to do so use get():
 
 ```js
+Contacts.get('123-XYT').then(function(processedResponse) {
+    // this makes a call to contacts/123-XYT based on no HAL data
+    // use at your own risk; since you are constructing the url from
+    // something other than defined metadata.
+});
+
+// also
+
 Contacts.get('123-XYT').then(function(processedResponse) {
     // this makes a call to contacts/123-XYT based on no HAL data
     // use at your own risk; since you are constructing the url from
@@ -268,21 +298,19 @@ The typical way to build out a grid with your service is to outline the followin
 ## Events
 There are a few events you can leverage within HATEOASFactory. They can be defined within the definition or attached to the service within the controller.
 
-
 ```js
-    // fires before get executes, must return true or get() will fail
+    // before events fire before execution, must return true or function will fail
+    // on events added to the stack when function begins
+    // afrer events fired at end of execution
+
     beforeGet(halObj, deferred) 
-    // fires when get begins
     onGet(halObj, deferred)
-    // fires after get is successful 
     afterGet(halObj, deferred) 
 
-    // fires before put executes, must return true or put() will fail
     beforePut(halObj, deferred) 
     onPut(halObj, deferred) 
     afterPut(halObj, deferred) 
 
-    // fires before put executes, must return true or post() will fail
     beforePost(halObj, deferred) 
     onPost(halObj, deferred) 
     afterPost(halObj, deferred) 
@@ -291,11 +319,12 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
 
     onPrev(halObj, deferred) 
 
-    // When an item is setup
     onItemSetup(halObj, deferred) 
 ```
 
-## Examples and Solutions
+There are example use cases for events in the 'Example Problems' section.
+
+## Example Problems
 
 #### If I were working with devices and wanted a particular devices meter read data -- how would I do it?
 
@@ -310,13 +339,13 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
 #### What if I have a structure that relates to another service and was simply embedded in my current data -- put another way: How would I work with an address attached to a contact?
 
 ```js
-    // You would use that service
-    Addresses.item = Contacts.item.address;
+    Addresses.setItem(Contacts.item.address);
 
     // Need a hal envelope for this items links? If so do:
     Addresses.item.self().then(function() {
         // Addresses.item should have been refreshed with a direct call
     });
+
 ```
 
 #### How do I call an items self link?
@@ -325,6 +354,7 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
     Contacts.item.self().then(function() {
 
     });
+
 ```
 
 #### How can I move two pages ahead?
@@ -343,6 +373,7 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
     }).then(function() {
 
     });
+
 ```
 
 #### How can I get the base url of the service?
@@ -363,6 +394,46 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
 
 Keep track of the item in Service.item as you work. When it is time to save call Service.post().
 
+
+#### What problems do events solve? Do you have any examples?
+
+Geez, you're demanding.
+
+Lets say you're going to save an item but it doesnt quite yet meet the expected form. You could check it within the controller, or you can leverage the beforePost event to define something that will span across your service instances.
+
+The following will make sure any item that we try to save has an associated account:
+
+```js
+    beforeSave: function(halObj, deferred) {
+        halObj._links.account = {
+            href: ''
+        };
+
+        // must return true, and pass in the new item if there were modifications
+        deferred.resolve(true, halObj);
+    }
+
+```
+
+In the following example we implment a counter tracking the total times we've called put() via the afterPut() event.
+```js
+    updateCnt: 0,
+    afterPut: function(halObj, deferred) {
+        this.afterPut += 1;
+        deferred.resolve();
+    }
+
+```
+
+Lastly, this example outlines how to perform a save through an injected service with an onPost() event.
+```js
+    onPost: function(halObj, deferred) {
+        Service.post(halObj.serviceItem).then(function(response) {
+            deferred.resolve();
+        });
+    }
+
+```
 
 NOTE: To prevent refactoring getPage(), save(), and update() are still supported functions that call get(), post(), and put() respectively.
 

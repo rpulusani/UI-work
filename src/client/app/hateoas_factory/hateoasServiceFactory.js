@@ -73,9 +73,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(self.item, 'onItemSetup');
 
+                self.item.links = [];
+
                 for (link in links) {
                     if (link.href) {
                         propName = parsePropertyName(link);
+
+                        self.item.links.push(propName);
 
                         self.item[propName] = function(params, options) {
                             var deferred = $q.defer();
@@ -90,6 +94,19 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         };
                     }
                 }
+
+                self.item.all = function() {
+                    var deferred = $q.defer(),
+                    len = self.item.links.length,
+                    deferreds = [],
+                    i = 0;
+
+                    for (i; i < len; i += 1) {
+                        deferreds.push(self.item[self.item.links[i]]());
+                    }
+
+                    return $q.all(deferreds);
+                };
             };
 
             HATEOASFactory.prototype.checkForEvent = function(halObj, fnName) {
