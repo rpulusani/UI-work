@@ -207,7 +207,7 @@ Example of adding a custom parameters to the call:
     // or do something like the below
     // .../contacts?firstName=Gob&lastName=Blooth
     Contacts.get({
-        preventParams: true, // blocks native params
+        preventDefaultParams: true, // blocks native params
         params: {
             firstName: 'Gob',
             lastNameL 'Blooth'

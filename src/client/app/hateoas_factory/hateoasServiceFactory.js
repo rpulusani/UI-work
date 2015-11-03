@@ -257,7 +257,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     self.params.size = options.size;
                                 }
 
-                                if (!options.preventParams) {
+                                if (!options.preventDefaultParams) {
                                     params = self.params;
                                 } else {
                                     params = false;
