@@ -37,7 +37,7 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/devices/decommission/:id/review/:return', {
                 templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'DeviceAddController'
+                controller: 'DeviceDecommissionController'
             })
             .when('/service_requests/devices/decommission/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',

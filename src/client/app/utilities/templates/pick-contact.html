@@ -5,11 +5,10 @@
 <div class="row">
     <div class="col-1-3 well">
         <div ng-show="isRowSelected()">
-            <dl class="row">
-                <dd class="col-1-2">{{selectedContact.firstName}} {{selectedContact.lastName}}</dd>
-                <dd class="col-1-2" ng-bind="selectedContact.email"></dd>
-                <dd class="col-1-2" ng-bind="selectedContact.workPhone"></dd>
-            </dl>
+            <p translate="{{configure.contact.translate.primaryTitle}}"></p>
+            <div>
+                 <p ng-bind-html="formattedSelectedContact"></p>
+            </div>
         </div>
         <div ng-hide="isRowSelected()">
             <span translate="LABEL.NONE_SELECTED"></span>
