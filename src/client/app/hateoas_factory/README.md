@@ -218,7 +218,6 @@ Example of adding a custom parameters to the call:
         }
     });
 
-    // this is referred to as the options object
     // .../contacts?page=20&size=20&lastName=Blooth
     Contacts.params.lastName = 'Blooth';
 
@@ -243,7 +242,7 @@ Lastly, working with parameters with link functions:
 ```js
     // .../devices/meter-reads?key=value
     Devices.item.meterReads({
-        key: 'value', // 0 index for pages so this is the second page
+        key: 'value',
     }).then(function() {
 
     });
