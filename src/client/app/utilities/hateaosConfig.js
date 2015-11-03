@@ -19,7 +19,7 @@ define(['angular', 'utility'], function(angular) {
                     } else if (paramArr[i] === 'size') {
                         params[paramArr[i]] = 20;
                     } else {
-                        params[paramArr[i]] = '';
+                        params[paramArr[i]] = null;
                     }
                 }
 

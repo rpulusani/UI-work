@@ -6,12 +6,12 @@ HATEOASFactory outputs angular services based on a 'service definition' and comb
 Defined as a core MPS module and included via require. Example of  injection into a factory along with a service definition: 
 
 ```js
-    define(['angular', 'contact', 'utility.formatters'], 
+    define(['angular', 'contact'], 
     function(angular, contact) {
         'use strict';
         angular.module('mps.serviceRequestContacts')
-        .factory('NewFactory', ['$translate', 'HATEOASFactory', 
-            function($translate, HATEOASFactory) {
+        .factory('NewFactory', ['HATEOASFactory', 
+            function(HATEOASFactory) {
                 var serviceDefinition = {
                     serviceName: 'contacts'
                 };
@@ -179,9 +179,70 @@ An example:
 
 ```
 
-## Working with Parameters
-All services has a params{} property that defines the parameters and values for the needed calls. Unless service.sendAllParams
+## Working with Query Parameters
+All services have a params{} property that defines the parameters and values for the needed calls. All parameters are sent with every call to Service.get() -- this is because the service defaults to using the entire set given to it by the intial endpoint call. Parameters set to null are never sent.
 
+Example of a modified get() call:
+```js
+    // note sort is not sent because it defaults to null
+    // .../contacts?page=0&size=20 
+    Contacts.get().then(function() {
+
+    });
+```
+
+Example of adding a custom parameters to the call:
+
+```js
+    // this is referred to as the options object
+    // .../contacts?page=20&size=20&firstName=Gob&lastName=Blooth
+    Contacts.get({
+        params: {
+            firstName: 'Gob',
+            lastNameL 'Blooth'
+        }
+    });
+
+    // if you didn't want to send page/size you can set them to null
+    // or do something like the below
+    Contacts.get({
+        preventParams: true, // blocks native params
+        params: {
+            firstName: 'Gob',
+            lastNameL 'Blooth'
+        }
+    });
+
+    // this is referred to as the options object
+    // .../contacts?page=20&size=20&lastName=Blooth
+    Contacts.params.lastName = 'Blooth';
+
+    Contacts.get().then(function() {
+        // if you had the need you could reset:
+        Contacts.params = Contacts.defaultParams;
+    });;
+
+    // Options object can be given page/size as well
+    // .../contacts?page=1&size=100
+    Contacts.get({
+        page: 1, // 0 index for pages so this is the second page
+        size: 100
+    }).then(function() {
+
+    });
+
+```
+
+Lastly, working with parameters with link functions:
+
+```js
+    // .../devices/meter-reads?key=value
+    Devices.item.meterReads({
+        key: 'value', // 0 index for pages so this is the second page
+    }).then(function() {
+
+    });
+```
 
 ## Working with collections (grids and etc)
 The typical way to build out a grid with your service is to outline the following in a controller. The grid directive does need added to relevant templates and the grid module will need to be injected into the controller.

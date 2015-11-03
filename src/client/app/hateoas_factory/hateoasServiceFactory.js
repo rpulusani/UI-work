@@ -175,26 +175,36 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.next = function() {
                 var self = this;
 
-                self.checkForEvent(halObj, 'onNext').then(function(canContinue, newObj) {
-                    return self.get({
-                        page: self.params.page += 1,
-                        size: self.params.size
-                    });
+                self.checkForEvent(halObj, 'onNext');
+
+                return self.get({
+                    page: self.params.page += 1,
+                    size: self.params.size
                 });
             };
 
             HATEOASFactory.prototype.prev = function() {
                 var self = this;
 
-                self.checkForEvent(self.item, 'onPrev').then(function(canContinue, newObj) {
-                    return self.get({
-                        page: self.params.page -= 1,
-                        size: self.params.size
-                    });
+                self.checkForEvent(self.item, 'onPrev');
+
+                return self.get({
+                    page: self.params.page -= 1,
+                    size: self.params.size
                 });
             };
 
             HATEOASFactory.prototype.getPage = function(page, size) {
+                var self = this;
+
+                if (page !== 0 && !page) {
+                    page = self.params.page;
+                }
+
+                if (!size) {
+                    size = self.params.size;
+                }
+
                 return this.get({
                     page: page,
                     size: size
@@ -239,7 +249,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
                                 }
 
-                                if (options.page) {
+                                if (options.page || options.page === 0) {
                                     self.params.page = options.page;
                                 }
 
@@ -290,7 +300,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     self.url = api.url;
 
                                     for (prop in api.params) {
-                                        if (self.params[prop]) {
+                                        if (!self.params[prop]) {
                                             self.params[prop] = api.params[prop];
                                             self.defaultParams[prop] = api.params[prop];
                                         }
@@ -322,7 +332,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (requiredParams) {
                     angular.forEach(requiredParams, function(value, key) {
-                        if (value) {
+                        if (value !== null) {
                             paramsUrl += addParamSyntax(paramsUrl);
                             paramsUrl += key + '=' + value;
                         }
@@ -330,12 +340,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 if (additonalParams) {
-                    for (var i = 0; i < additonalParams.length; ++i) {
-                        if (additonalParams[i].name && additonalParams[i].value) {
+                    angular.forEach(additonalParams, function(value, key) {
+                        if (value !== null) {
                             paramsUrl += addParamSyntax(paramsUrl);
-                            paramsUrl += additonalParams[i].name + '=' + additonalParams[i].value;
+                            paramsUrl += key + '=' + value;
                         }
-                    }
+                    });
                 }
 
                 return url += paramsUrl;
