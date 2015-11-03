@@ -25,7 +25,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return angular.extend(self, serviceDefinition);
             };
 
-            HATEOASFactory.prototype.setupItem = function() {
+            HATEOASFactory.prototype.setupItem = function(item) {
                 var self = this,
                 link, // prop in _links 
                 links,
@@ -54,7 +54,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     return name;
                 };
 
-                links = self.item._links;
+                if (item) {
+                    self.item = item;
+                    links = self.item._links;
+                } else {
+                    links = self.item._links;
+                }
 
                 self.checkForEvent(self.item, 'onItemSetup');
 
@@ -188,12 +193,20 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
+                params,
                 options = {},
                 deferred = $q.defer(),
                 additonalParams;
 
                 if (optionsObj) {
-                    options = optionsObj;
+                    if (!angular.isString(optionsObj)) {
+                        options = optionsObj;
+                    } else {
+                        options = {
+                            url: self.url + '/' + optionsObj,
+                            preventParams: true
+                        }
+                    }
                 }
 
                 self.checkForEvent(self.item, 'beforeGet').then(function(canContinue, newObj) {
@@ -224,10 +237,16 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     self.params.size = options.size;
                                 }
 
-                                if (!options.url) {
-                                    url = self.buildUrl(self.url, self.params, options.params);
+                                if (!options.preventParams) {
+                                    params = self.params;
                                 } else {
-                                    url = self.buildUrl(options.url, self.params, options.params);
+                                    params = false;
+                                }
+
+                                if (!options.url) {
+                                    url = self.buildUrl(self.url, params, options.params);
+                                } else {
+                                    url = self.buildUrl(options.url, params, options.params);
                                 }
 
                                 $http.get(url).then(function(processedResponse) {
@@ -277,6 +296,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         });
                     }
                 });
+
                 return deferred.promise;
             };
 
