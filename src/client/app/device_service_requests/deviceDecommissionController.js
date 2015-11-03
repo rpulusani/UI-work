@@ -22,7 +22,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     $scope.requestedByContact = Contacts.item;
                     $scope.sr._links['requester'] = $scope.requestedByContact._links['self'];
                     $scope.requestedByContactFormatted =
-                        FormatterService.formatRequestedByContact($scope.requestedByContact);
+                        FormatterService.formatContact($scope.requestedByContact);
                 });
 
 
@@ -92,7 +92,6 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             translate:{
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
                                 pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
-
                             },
                         },
                         information:{
@@ -107,7 +106,6 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                         contact:{
                             translate:{
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT',
-
                             }
                         }
                     },
@@ -159,12 +157,10 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
 
 
             $scope.goToReview = function() {
-
                 $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
             };
 
             $scope.goToSubmit = function() {
-                //$scope.sr._links['primaryContact'] =
                 $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
             };
 
@@ -173,8 +169,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             }
 
             if (!BlankCheck.isNull($scope.primaryContact)) {
-                $scope.formattedDeviceContact = FormatterService.formatPrimaryContact($scope.primaryContact);
-                $scope.formattedPrimaryContact = FormatterService.formatPrimaryContact($scope.primaryContact);
+                $scope.formattedDeviceContact = FormatterService.formatContact($scope.primaryContact);
+                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.primaryContact);
             }
 
             if (!BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
