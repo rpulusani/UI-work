@@ -27,6 +27,9 @@ requirejs.config({
         'app': [
             'angular-gatekeeper',
 
+            'hateoasFactory',
+            'hateoasFactory.serviceFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -127,6 +130,9 @@ requirejs.config({
         'ui.grid' : 'app/libs/ui-grid',
 
         'app': 'app/app',
+
+        'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
+        'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
