@@ -52,7 +52,6 @@ define([
     'utility',
     'utility.historyUtility',
     'utility.blankCheckUtility',
-    'utility.formatUtility',
     'utility.directives',
     'utility.controller',
     'utility.contactPickerController',
