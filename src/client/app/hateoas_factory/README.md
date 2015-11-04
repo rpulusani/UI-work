@@ -2,6 +2,8 @@
 
 HATEOASFactory outputs angular services based on a 'service definition' (think: fat model) and combines it with their initial endpoint call to allow easy hal focused development within module controllers.
 
+NOTE: To prevent refactoring getPage(page, size), save(), and update() are still supported functions that call get(), post(), and put() respectively.
+
 ### Installation
 Defined as a core MPS module and included via require. Example of  injection into a factory along with a service definition: 
 
@@ -170,39 +172,30 @@ Service.item.all() lets you fire all links before execution
 As mentioned above you can also directly call for an item; to do so use get():
 
 ```js
-Contacts.get('123-XYT').then(function(processedResponse) {
-    // this makes a call to contacts/123-XYT based on no HAL data
-    // use at your own risk; since you are constructing the url from
-    // something other than defined metadata.
-});
-
-// also
-
-Contacts.get('123-XYT').then(function(processedResponse) {
-    // this makes a call to contacts/123-XYT based on no HAL data
-    // use at your own risk; since you are constructing the url from
-    // something other than defined metadata.
-});
+    Contacts.get('123-XYT').then(function(processedResponse) {
+        // this makes a call to contacts/123-XYT based on no HAL data
+        // use at your own risk; since you are constructing the url from
+        // something other than defined metadata.
+        // You could also make an http call manually and set the item on your service.
+    });
 
 ```
 
-NOTE: You could also make an http call manually and set the item on your service.
-
-## Saving
+## Updating and Saving
 
 There are two methods related to getting information to our end points.
 
-#### Contacts.put() / Contacts.item.put()
+#### Service.put()
 put() will make a PUT request to our root path, updates mainly
 
-#### Contacts.post() / Contacts.item.post()
+#### Service.post()
 put() will make a POST request to our root path, typically used for initial saves.
 
 An example: 
 
 ```js
-    // Saving the structure in service.item
-    Contacts.item.put().then(function() {
+    // Saving the structure in Contacts.item
+    Contacts.put().then(function() {
 
     });
 
@@ -292,8 +285,47 @@ The typical way to build out a grid with your service is to outline the followin
 
 ```
 
-#### Columns
+Its important to remember that the grid does not expect a service per se, but an object that has columns'', columnDefs{}, and data[] defined.
 
+#### Columns
+Unless we specifically outline a column set the grid will display everything; to clean that up (and to add i18n abilities) we define columns in our service definition:
+
+```js
+    // default, defaultSet, false attach the defaultSet columnDef
+    columns: 'default',
+    columnDefs: {
+        defaultSet: [
+            {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
+            {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'}
+        ],
+        // Addtional sets can be defined
+        testSet: [
+            {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
+            {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'}
+        ],
+        // using a function to return a column set
+        fullSet: function() {
+            var arr = [];
+
+            arr = arr.concat(this.defaultSet).concat(this.testSet);
+
+            arr.push({
+                name: $translate.instant('CONTACT.EMAIL'),
+                field: 'email'
+            });
+
+            return arr;
+        }
+    }
+```
+
+#### Dynamic Columns
+You can switch to a new set of columns anytime by reintialzing the grid after pointing the service to a new set.
+
+```js
+    Contacts.columns = 'fullSet'; // fires fullset() returning all columns
+
+```
 
 ## Events
 There are a few events you can leverage within HATEOASFactory. They can be defined within the definition or attached to the service within the controller.
@@ -334,6 +366,12 @@ There are example use cases for events in the 'Example Problems' section.
 
     });
 
+    // Passing a parameter to meter reads
+    Devices.item.meterReads({
+        params: {key: 'value'}
+    }).then(function(serverResponse) {
+
+    });
 ```
 
 #### What if I have a structure that relates to another service and was simply embedded in my current data -- put another way: How would I work with an address attached to a contact?
@@ -399,10 +437,9 @@ Keep track of the item in Service.item as you work. When it is time to save call
 
 Geez, you're demanding.
 
-Lets say you're going to save an item but it doesnt quite yet meet the expected form. You could check it within the controller, or you can leverage the beforePost event to define something that will span across your service instances.
+Lets say you're going to save an item but it doesnt meet the expected form. You could check it within the controller, or you can leverage the beforePost event to define something that will span across your service instances.
 
 The following will make sure any item that we try to save has an associated account:
-
 ```js
     beforeSave: function(halObj, deferred) {
         halObj._links.account = {
@@ -415,7 +452,7 @@ The following will make sure any item that we try to save has an associated acco
 
 ```
 
-In the following example we implment a counter tracking the total times we've called put() via the afterPut() event.
+In the following example we implement a counter tracking the total times we've called put() via the afterPut() event.
 ```js
     updateCnt: 0,
     afterPut: function(halObj, deferred) {
@@ -435,22 +472,6 @@ Lastly, this example outlines how to perform a save through an injected service 
 
 ```
 
-NOTE: To prevent refactoring getPage(), save(), and update() are still supported functions that call get(), post(), and put() respectively.
+#### Is there any way to know what links I have access to when working with Service.item?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Aside from calling all() you can get an array of the function names with Service.item.links.
