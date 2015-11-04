@@ -1,9 +1,9 @@
-define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory'], function(angular) {
+define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.grid', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
-        'DeviceServiceRequest','FormatterService', 'MeterReadService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService, MeterReads) {
+        'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService',
+        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
              var redirect_to_list = function() {
                $location.path(Devices.route + '/');
              };
@@ -60,6 +60,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             $scope.btnDecommissionDevice = function(device) {
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
+
+            $scope.gridOptions = {};
+             ServiceRequest.getPage().then(function() {
+                Grid.display(ServiceRequest, $scope);
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);
+            });
         }
     ]);
 });
