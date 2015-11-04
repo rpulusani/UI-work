@@ -126,7 +126,7 @@ requirejs.config({
 
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
-      
+
         'angular-sanitize': 'app/libs/angular-sanitize.min',
 
         'ui.grid' : 'app/libs/ui-grid',
@@ -152,7 +152,6 @@ requirejs.config({
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',
         'utility.blankCheckUtility': 'app/utilities/blankCheckUtility',
-        'utility.formatUtility': 'app/utilities/formatUtility',
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
@@ -219,7 +218,7 @@ requirejs.config({
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
         'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
-        'deviceServiceRequest.deviceDecomissionController': 'app/device_service_requests/deviceDecomissionController',
+        'deviceServiceRequest.deviceDecommissionController': 'app/device_service_requests/deviceDecommissionController',
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',

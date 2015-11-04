@@ -27,13 +27,17 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/review-request.html',
                 controller: 'DeviceServiceRequestDeviceController'
             })
-            .when('/service_requests/devices/decomission/:id/view', {
-                templateUrl: '/app/device_service_requests/templates/view-decomission.html',
-                controller: 'DeviceDecomissionController'
+            .when('/service_requests/devices/decommission/:id/view', {
+                templateUrl: '/app/device_service_requests/templates/view-decommission.html',
+                controller: 'DeviceDecommissionController'
             })
-            .when('/service_requests/devices/decomission/:id/review', {
+            .when('/service_requests/devices/decommission/:id/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'DeviceDecomissionController'
+                controller: 'DeviceDecommissionController'
+            })
+            .when('/service_requests/devices/decommission/:id/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'DeviceDecommissionController'
             })
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',

@@ -81,7 +81,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         self.item.links.push(propName);
 
-                        self.item[propName] = function(params, options) {
+                        self.item[propName] = function(optionsObj) {
                             var deferred = $q.defer();
 
                             $http(link.href).then(function(response) {
@@ -95,7 +95,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-                self.item.all = function() {
+                self.item.all = function(optionsObj) {
                     var deferred = $q.defer(),
                     len = self.item.links.length,
                     deferreds = [],
@@ -194,21 +194,29 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(halObj, 'onNext');
 
-                return self.get({
-                    page: self.params.page += 1,
-                    size: self.params.size
-                });
+                if (self.page.totalPages > self.params.page) {
+                    return self.get({
+                        page: self.params.page += 1,
+                        size: self.params.size
+                    });
+                } else {
+                    return null;
+                }
             };
 
             HATEOASFactory.prototype.prev = function() {
                 var self = this;
 
                 self.checkForEvent(self.item, 'onPrev');
-
-                return self.get({
-                    page: self.params.page -= 1,
-                    size: self.params.size
-                });
+                
+                if (self.params.page !== 0) {
+                    return self.get({
+                        page: self.params.page -= 1,
+                        size: self.params.size
+                    });
+                } else {
+                    return null;
+                }
             };
 
             HATEOASFactory.prototype.getPage = function(page, size) {
@@ -339,7 +347,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.buildUrl = function(url, requiredParams, additonalParams) {
                 var paramsUrl = '',
-                addParamSyntax = function(paramsUrl){
+                addParamSyntax = function(paramsUrl) {
                     if (paramsUrl === '') {
                         return '?';
                     } else {

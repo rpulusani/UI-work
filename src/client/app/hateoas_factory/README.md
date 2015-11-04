@@ -95,7 +95,7 @@ To navigate within the context of the current page you can use next() and prev()
 
 ```
 
-To obtain a specific page use the following:
+To obtain a specific page set the required parameters:
 
 ```js
     Contacts.params.page = 2;
@@ -147,7 +147,8 @@ Now that we have something in Contacts.item a set of new functions related to th
 
 ```
 
-Service.item.all() lets you fire all links before execution
+Service.item.all() lets you fire all links before execution, remember that it will wait for all calls to resolve before continuing; so in some cases you may prefer to call the links asynchronously.
+
 ```js
     Contacts.all().then(function(res) {
         // res = {linkName: response}
@@ -265,7 +266,7 @@ Lastly, working with parameters with link functions:
 ```js
     // .../devices/meter-reads?key=value
     Devices.item.meterReads({
-        key: 'value',
+        key: 'value'
     }).then(function() {
 
     });
@@ -320,7 +321,7 @@ Unless we specifically outline a column set the grid will display everything; to
 ```
 
 #### Dynamic Columns
-You can switch to a new set of columns anytime by reintialzing the grid after pointing the service to a new set.
+You can switch to a new set of columns anytime by reinitialzing the grid after pointing the service to a new set.
 
 ```js
     Contacts.columns = 'fullSet'; // fires fullset() returning all columns
@@ -334,24 +335,26 @@ There are a few events you can leverage within HATEOASFactory. They can be defin
     // before events fire before execution, must return true or function will fail
     // on events added to the stack when function begins
     // afrer events fired at end of execution
+    // all outlined events must resolve the deferred
 
-    beforeGet(halObj, deferred) 
-    onGet(halObj, deferred)
-    afterGet(halObj, deferred) 
+    beforeGet
+    onGet
+    afterGet
 
-    beforePut(halObj, deferred) 
-    onPut(halObj, deferred) 
-    afterPut(halObj, deferred) 
+    beforePut
+    onPut
+    afterPut
 
-    beforePost(halObj, deferred) 
-    onPost(halObj, deferred) 
-    afterPost(halObj, deferred) 
+    beforePost
+    onPost
+    afterPost
 
-    onNext(halObj, deferred) 
+    onNext
 
-    onPrev(halObj, deferred) 
+    onPrev
 
-    onItemSetup(halObj, deferred) 
+    onItemSetup
+
 ```
 
 There are example use cases for events in the 'Example Problems' section.
@@ -374,7 +377,7 @@ There are example use cases for events in the 'Example Problems' section.
     });
 ```
 
-#### What if I have a structure that relates to another service and was simply embedded in my current data -- put another way: How would I work with an address attached to a contact?
+#### What if I have a structure that relates to another service and that is embedded in my current data -- put another way: How would I work with an address attached to a contact?
 
 ```js
     Addresses.setItem(Contacts.item.address);
@@ -475,3 +478,11 @@ Lastly, this example outlines how to perform a save through an injected service 
 #### Is there any way to know what links I have access to when working with Service.item?
 
 Aside from calling all() you can get an array of the function names with Service.item.links.
+
+#### What if I want to override my default end point url?
+
+You can define a new url by setting the url property in the service definition. All default values can be extended by defining them within the definition. You can route services to the node server on a per module basis.
+
+#### Can I add a function to my service?
+
+Yes. Just add it to the service definition and it will be accessible via Service.function().

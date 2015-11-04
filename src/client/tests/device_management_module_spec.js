@@ -316,13 +316,13 @@ define(['angular', 'angular-mocks', 'deviceManagement', 'deviceServiceRequest'],
                 });
             });
 
-            describe('btnDecomissionDevice', function() {
-                it('should direct user to device decomission view page', function() {
-                    spyOn(scope, 'btnDecomissionDevice').and.callThrough();
+            describe('btnDecommissionDevice', function() {
+                it('should direct user to device decommission view page', function() {
+                    spyOn(scope, 'btnDecommissionDevice').and.callThrough();
                     spyOn(location, 'path').and.returnValue('/');
 
-                    scope.btnDecomissionDevice(scope.device);
-                    expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/decomission/' + scope.device.id +'/view');
+                    scope.btnDecommissionDevice(scope.device);
+                    expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/decommission/' + scope.device.id +'/view');
                 });
             });
         });
