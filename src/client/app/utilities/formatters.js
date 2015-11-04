@@ -4,9 +4,20 @@ define(['angular', 'utility'], function(angular) {
     .factory('FormatterService', [ '$translate', 'BlankCheck',
         function($translate, BlankCheck) {
             return{
+                getFormattedSRNumber: function(serviceRequest){
+
+                    if(serviceRequest && serviceRequest._links && serviceRequest.id &&
+                        serviceRequest._links['ui'] && serviceRequest._links['ui'] !== ''){
+                        return '<a href="' + serviceRequest._links['ui'] + '">' + serviceRequest.id + '</a>';
+                    }else if(serviceRequest && serviceRequest.id){
+                        return serviceRequest.id;
+                    }else{
+                        return '';
+                    }
+                },
                 getFullName: function(firstName, lastName, middleName){
-                    if(firstName !== undefined && firstName !== null &&
-                        lastName !== undefined && lastName !== null){
+                    if(firstName !== undefined && firstName !== null && firstName !== '' &&
+                        lastName !== undefined && lastName !== null && lastName !== ''){
                         var fullname = lastName + ', ' +  firstName;
                         if (middleName) {
                             fullname += ' ' + middleName;
@@ -14,6 +25,14 @@ define(['angular', 'utility'], function(angular) {
                         } else {
                             return fullname;
                         }
+                    }else if((firstName !== undefined || firstName !== null || firstName === '') &&
+                        lastName !== undefined && lastName !== null && lastName !== ''){
+                        return lastName;
+                    }else if(firstName !== undefined && firstName !== null && firstName !== '' &&
+                        (lastName !== undefined || lastName !== null  || lastName === '')){
+                        return firstName;
+                    }else{
+                        return '';
                     }
                 },
                 getPhoneFormat: function(telephone){
@@ -103,43 +122,24 @@ define(['angular', 'utility'], function(angular) {
                              formattedAddress = formattedAddress + address.office + '<br/>';
                         }
                         if (BlankCheck.checkNotBlank(address.country)){
-                             formattedAddress = formattedAddress + address.country;
+                             formattedAddress = formattedAddress + address.country + '<br/>';
                         }
 
                     }
                     return formattedAddress;
                 },
-                formatRequestedByContact: function(contact){
+                formatContact: function(contact){
                     var formattedContact = '';
                     if (BlankCheck.checkNotNullOrUndefined(contact)) {
                         formattedContact = this.getFullName(contact.firstName, contact.lastName, contact.middleName);
                         if (BlankCheck.checkNotBlank(contact.email)) {
-                            formattedContact += '<br />' + contact.email;
+                            formattedContact += '<br/>' + contact.email;
                         }
                          if (BlankCheck.checkNotBlank(contact.workPhone)) {
-                            formattedContact += '<br />' + this.getPhoneFormat(contact.workPhone);
+                            formattedContact += '<br/>' + this.getPhoneFormat(contact.workPhone);
                         }
                     }
                     return formattedContact;
-                },
-                formatPrimaryContact: function(contact) {
-                    var formattedPrimaryContact = '';
-                    if (BlankCheck.checkNotNullOrUndefined(contact)) {
-                        formattedPrimaryContact = this.getFullName(
-                            BlankCheck.checkNotBlank(contact.firstName) ? contact.firstName : '',
-                            BlankCheck.checkNotBlank(contact.lastName) ? contact.lastName : '',
-                            BlankCheck.checkNotBlank(contact.middleName) ? contact.middleName : '');
-
-                        if (BlankCheck.checkNotBlank(contact.email)) {
-                            formattedPrimaryContact += '<br />' + contact.email;
-                        }
-
-                        if (BlankCheck.checkNotBlank(contact.workPhone)) {
-                            formattedPrimaryContact += '<br />' + this.getPhoneFormat(contact.workPhone);
-                        }
-                    }
-
-                    return formattedPrimaryContact;
                 },
                 formatYesNo: function(value) {
                     console.log(value);

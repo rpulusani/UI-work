@@ -4,7 +4,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
 
         describe('DeviceAddController', function() {
             var scope, ctrl, location;
-            
+
             beforeEach(inject(function($rootScope, $controller, $location) {
                 scope = $rootScope.$new();
                 rootScope = $rootScope;
@@ -81,7 +81,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
 
         describe('DeviceSearchController', function() {
             var scope, ctrl, location;
-            
+
             beforeEach(inject(function($rootScope, $controller, $location) {
                 scope = $rootScope.$new();
                 rootScope = $rootScope;
@@ -107,17 +107,17 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
             });
         });
 
-        describe('DeviceDecomissionController', function() {
+        describe('DeviceDecommissionController', function() {
             var scope, ctrl, location;
-            
+
             beforeEach(inject(function($rootScope, $controller, $location) {
                 scope = $rootScope.$new();
                 rootScope = $rootScope;
                 location = $location;
-                ctrl = $controller('DeviceDecomissionController', {$scope: scope});
+                ctrl = $controller('DeviceDecommissionController', {$scope: scope});
             }));
-
-            describe('goToReview', function() {
+            //Commenting until implementation
+            /*describe('goToReview', function() {
                 it('should handle the review request', function() {
 
                 });
@@ -127,7 +127,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 it('should handle the submit request', function() {
 
                 });
-            });
+            });*/
         });
 
         describe('Routes', function(){

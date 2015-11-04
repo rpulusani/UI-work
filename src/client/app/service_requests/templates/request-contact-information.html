@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-1">
+        <h2 translate="{{configure.contact.translate.title}}"></h2>
+        <div class="row row--alley-2">
+            <div class="col-1-3">
+                <p translate="{{configure.contact.translate.requestedByTitle}}"></p>
+                <div class="well">
+                    <p ng-bind-html="requestedByContactFormatted"></p>
+                </div>
+            </div>
+            <div class="col-1-3">
+                <p translate="{{configure.contact.translate.primaryTitle}}"></p>
+                <div class="well">
+                     <p ng-bind-html="formattedPrimaryContact"></p>
+                    <a ng-show="configure.contact.show.primaryAction" ng-click="goToContactPicker()" class="primary-contact-action" href="" translate="{{configure.contact.translate.changePrimary}}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

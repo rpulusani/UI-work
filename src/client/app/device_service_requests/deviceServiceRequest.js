@@ -35,9 +35,21 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/view-decomission.html',
                 controller: 'DeviceDecomissionController'
             })
-            .when('/service_requests/devices/decomission/:id/review', {
+            .when('/service_requests/devices/decommission/:id/view', {
+                templateUrl: '/app/device_service_requests/templates/view-decommission.html',
+                controller: 'DeviceDecommissionController'
+            })
+            .when('/service_requests/devices/decommission/:id/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'DeviceDecomissionController'
+                controller: 'DeviceDecommissionController'
+            })
+            .when('/service_requests/devices/decommission/:id/review/:return', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'DeviceDecommissionController'
+            })
+            .when('/service_requests/devices/decommission/:id/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'DeviceDecommissionController'
             })
             .when('/service_requests/devices/update/:updateid/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
@@ -46,6 +58,10 @@ define(['angular'], function(angular) {
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController'
+            })
+            .when('/service_requests/devices/decommission/pick_contact', {
+                templateUrl: '/app/device_service_requests/templates/contact-picker.html',
+                controller: 'DeviceDecommissionController'
             });
         }
     ]);

@@ -1,9 +1,9 @@
-define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(angular) {
+define(['angular', 'deviceServiceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceAddController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'Format',
-        function($scope, $location, $filter, $routeParams, $rootScope, Format) {
-            
+    .controller('DeviceAddController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'FormatterService',
+        function($scope, $location, $filter, $routeParams, $rootScope, FormatterService) {
+
             $scope.device = {};
             $scope.device.selectedDevice = {};
             $scope.device.selectedContact = {};
@@ -13,17 +13,17 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             $scope.isPrimarySelected = false;
             $scope.isSecondarySelected = false;
             $scope.currentDate = $filter('date')(new Date(), "MM/dd/yyyy");
-            
+
             /* Remove this varibale after real call and getting the list of products
                based on serial number */
             $scope.productNumbers = [{id: 1, name: 'Product 1'}, {id: 2, name: 'Product 2'}, {id: 3, name: 'Product 3'}];
 
             if ($rootScope.newDevice !== undefined && $routeParams.return) {
                 $scope.device = $rootScope.newDevice;
-            } 
-            
+            }
 
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
+
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
                 && $routeParams.return && $routeParams.return !== 'discard') {
                 if ($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.serialNumber !== undefined) {
                     console.log("inside device condition");
@@ -42,7 +42,7 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
                             break;
                         }
                     }
-                    
+
                 }
             }
 
@@ -74,7 +74,7 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             };
 
             $scope.isDeviceSelected = function(){
-                if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
+                if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
                     && $routeParams.return && $routeParams.return !== 'discard') {
                     return true;
                 } else {
@@ -83,22 +83,22 @@ define(['angular', 'deviceServiceRequest', 'utility.formatUtility'], function(an
             };
 
             if ($scope.device.address) {
-                $scope.installAddress = Format.formatAddress($scope.device.address);
+                $scope.installAddress = FormatterService.formatAddress($scope.device.address);
             }
 
             if ($scope.device.selectedContact) {
-                $scope.devicePrimaryContact = Format.formatContact($scope.device.selectedContact);
+                $scope.devicePrimaryContact = FormatterService.formatContact($scope.device.selectedContact);
                 $scope.isReview = false;
             }
 
             if ($scope.device.requestPrimaryContact) {
-                $scope.requestPrimaryContact = Format.formatContact($scope.device.requestPrimaryContact);
+                $scope.requestPrimaryContact = FormatterService.formatContact($scope.device.requestPrimaryContact);
                 $scope.isPrimarySelected = true;
                 $scope.isReview = true;
             }
 
             if ($scope.device.requestSecondaryContact) {
-                $scope.requestSecondaryContact = Format.formatContact($scope.device.requestSecondaryContact);
+                $scope.requestSecondaryContact = FormatterService.formatContact($scope.device.requestSecondaryContact);
                 $scope.isSecondarySelected = true;
                 $scope.isReview = true;
             }

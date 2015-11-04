@@ -118,14 +118,18 @@
         "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
         "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
         "BREAK_FIX_OTHER": "Other",
-        "REQUEST_DECOMISSION_FOR": "Request decomission for {{productModel}}",
+        "REQUEST_DECOMMISSION_FOR": "Request decomission for {{productModel}}",
         "DEVICE_INSTALL_ADDRESS": "Device install address",
         "DEVICE_REMOVAL": "Device removal",
         "DO_YOU_REQUIRE_PICKUP_DEVICE": "Do you require Lexmark to pick up this device?",
         "WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE": "Would you like to enter page counts for this device?",
-        "ABANDON_DEVICE_DECOMISSION": "Abandon device decomission",
+        "ABANDON_DEVICE_DECOMMISSION": "Abandon device decomission",
         "DEVICE_PICKUP_LEXMARK": "Device pick up by Lexmark?",
-        "SUBMIT_DEVICE_DECOMISSION": "Submit device decomission"
+        "SUBMIT_DEVICE_DECOMMISSION": "Submit device decomission",
+        "DECOMMISSION_DEVICE_REQUEST_SUBMITTED": "Decommission Device Request Submitted",
+        "DECOMMISION_DEVICE_SUBMIT_HEADER_BODY": "Your decommission device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
+        "DECOMMISION_DEVICE_DETAIL": "Details for Decommission Device Request Number: {{srNumber}}"
+
     },
 
     "ADDRESS": {
