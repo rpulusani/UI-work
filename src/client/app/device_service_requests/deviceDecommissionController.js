@@ -22,14 +22,6 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.device.installAddress = Devices.item._embeddedItems['address'];
                 $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
 
-                Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
-                    $scope.device.requestedByContact = Contacts.item;
-                    $scope.sr._links['requester'] = $scope.requestedByContact._links['self'];
-                    $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.device.requestedByContact);
-                });
-
-
                 if (BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
                     $scope.device.lexmarkPickupDevice = false;
                 }
@@ -46,6 +38,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 }
 
             }
+
+            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
+                $scope.device.requestedByContact = Contacts.item;
+                $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
+                $scope.requestedByContactFormatted =
+                    FormatterService.formatContact($scope.device.requestedByContact);
+            });
 
             function setupSR(){
                 if(ServiceRequest.item === null){
