@@ -12,7 +12,7 @@
                 <p translate="{{configure.contact.translate.primaryTitle}}"></p>
                 <div class="well">
                      <p ng-bind-html="formattedPrimaryContact"></p>
-                    <a ng-show="configure.contact.show.primaryAction" class="primary-contact-action" href="" translate="{{configure.contact.translate.changePrimary}}"></a>
+                    <a ng-show="configure.contact.show.primaryAction" ng-click="goToContactPicker()" class="primary-contact-action" href="" translate="{{configure.contact.translate.changePrimary}}"></a>
                 </div>
             </div>
         </div>

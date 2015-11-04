@@ -116,8 +116,8 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 location = $location;
                 ctrl = $controller('DeviceDecommissionController', {$scope: scope});
             }));
-
-            describe('goToReview', function() {
+            //Commenting until implementation
+            /*describe('goToReview', function() {
                 it('should handle the review request', function() {
 
                 });
@@ -127,7 +127,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 it('should handle the submit request', function() {
 
                 });
-            });
+            });*/
         });
 
         describe('Routes', function(){

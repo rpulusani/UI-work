@@ -119,7 +119,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             angular.element(document.getElementsByClassName('ui-grid-render-container')[0]).css('height', newHeight + 'px');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
-            scope.gridApi.core.refresh();
+            //scope.gridApi.core.refresh();
             // Setting up pagination
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);

@@ -1,9 +1,9 @@
 define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .controller('ContactPickerController', ['$scope', '$location', 'grid', 'Contacts', '$rootScope',
+    .controller('ContactPickerController', ['$scope', '$location', 'grid', 'Contacts', 'FormatterService', '$rootScope',
         'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Contacts, $rootScope, Personalize) {
+        function($scope, $location, Grid, Contacts, FormatterService, $rootScope, Personalize) {
             $rootScope.currentAccount = '1-74XV2R';
             $scope.selectedContact = [];
             $rootScope.currentRowList = [];
@@ -16,6 +16,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
                    $scope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+                   $scope.formattedSelectedContact = FormatterService.formatContact($scope.selectedContact);
                    return true;
                 } else {
                    return false;
@@ -33,7 +34,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-
+            Contacts.columns = 'fullSet';
             Contacts.getPage().then(function() {
                 Grid.display(Contacts, $scope, personal);
             }, function(reason) {
