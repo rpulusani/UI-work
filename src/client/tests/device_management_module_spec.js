@@ -295,6 +295,31 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
 
             }));
 
+            describe('getMeterReadPriorDate()', function(){
+              describe('if a meter read does not have an updated date', function(){
+                it('should return the createDate of the meter read', function(){
+                  var item = {
+                    createDate: '1234',
+                    updateDate: null
+                  };
+                  var result = scope.getMeterReadPriorDate(item);
+
+                  expect(result).toEqual(item.createDate);
+                });
+              });
+
+              describe('if a meter read has an updated date', function(){
+                it('should return the updateDate of the meter read', function(){
+                  var item = {
+                    createDate: '1234',
+                    updateDate: '5678'
+                  };
+                  var result = scope.getMeterReadPriorDate(item);
+
+                  expect(result).toEqual(item.updateDate);
+                });
+              });
+            });
 
             describe('btnRequestService', function() {
                 it('should direct user to device service request review page', function() {
@@ -315,42 +340,6 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                     expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/decommission/' + scope.device.id +'/view');
                 });
             });
-        });
-
-        describe('DevicePageCountsController', function() {
-            var scope, ctrl, location;
-
-            beforeEach(inject(function($rootScope, $controller, $location) {
-                scope = $rootScope.$new();
-                location = $location;
-                ctrl = $controller('DevicePageCountsController', {$scope: scope});
-            }));
-
-            describe('toggleDisplay', function() {
-                it('should toggle the value of showLess', function() {
-                    scope.showLess = false;
-                    scope.toggleDisplay();
-                    expect(scope.showLess).toBe(true);
-                });
-            });
-
-            describe('filterByIds', function() {
-                it('should check whether an id for a Page Count belong to a list', function() {
-                    var selectedType = {'id': 'lifetime-1'};
-                    var checkOutput = scope.filterByIds(selectedType);
-                    expect(checkOutput).toBe(true);
-                });
-            });
-
-            describe('selectPageCount', function() {
-                it('should return an object from an array based on id', function() {
-                    var pageCountArr = [{'id':'123','count':'789'},{'id':'456','count':'444'}];
-                    var id = '123';
-                    var checkOutput = scope.selectPageCount(id,pageCountArr);
-                    expect(checkOutput.count).toBe('789');
-                });
-            });
-
         });
 
         describe('Routes', function(){

@@ -15,7 +15,7 @@
 	        <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
 	            <td ng-bind="item.type"></td>
 	            <td ng-bind="item.value"></td>
-	            <td ng-bind="item.updateDate"></td>
+	            <td ng-bind="getMeterReadPriorDate(item)"></td>
 	            <td>
 	            	<input type="number" name="newPageCount" ng-if="item.type !== 'Mono'" />
 	            </td>

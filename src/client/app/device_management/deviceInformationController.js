@@ -8,6 +8,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                $location.path(Devices.route + '/');
             };
 
+            $scope.getMeterReadPriorDate = function(item){
+                if(item.updateDate){
+                    return item.updateDate;
+                }
+                return item.createDate;
+            };
+
             if (Devices.item === null) {
                 redirect_to_list();
             } else {

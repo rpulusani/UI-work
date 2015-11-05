@@ -31,7 +31,6 @@ define([
     'deviceManagement.deviceListController',
     'deviceManagement.devicePickerController',
     'deviceManagement.deviceInformationController',
-    'deviceManagement.devicePageCountsController',
     'deviceManagement.deviceOrderController',
     'deviceManagement.deviceRequestBreakFixController',
     'deviceManagement.deviceFactory',
