@@ -4,36 +4,58 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
     .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
         'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService',
         function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
-             var redirect_to_list = function() {
+            var redirect_to_list = function() {
                $location.path(Devices.route + '/');
-             };
+            };
 
+            $scope.getMeterReadPriorDate = function(item){
+                if(item.updateDate){
+                    return item.updateDate;
+                }
+                return item.createDate;
+            };
 
             if (Devices.item === null) {
                 redirect_to_list();
             } else {
                 $scope.device = Devices.item;
                 Devices.getAdditional(Devices, MeterReads).then(function(){
-                    //$scope.meterReads = MeterReads.data;
-                    $scope.meterReadList = MeterReads.data;
+                    var tempData = [],
+                        reorderedData = [];
 
-                    for (i=0 ; i<= $scope.meterReadList.length; i++) {
-                        if($scope.meterReadList[i] && $scope.meterReadList[i].type){
-                            switch($scope.meterReadList[i].type){
+                    $scope.meterReads = MeterReads.data;
+                    $scope.showAllMeterReads = false;
+
+                    for (i=0 ; i<= $scope.meterReads.length; i++) {
+                        if($scope.meterReads[i] && $scope.meterReads[i].type){
+                            switch($scope.meterReads[i].type){
                                 case 'LTPC':
-                                    $scope.ltpc = $scope.meterReadList[i];
+                                    $scope.ltpc = $scope.meterReads[i];
                                 break;
                                 case 'Color':
-                                    $scope.color = $scope.meterReadList[i];
+                                    $scope.color = $scope.meterReads[i];
                                 break;
                                 case 'Mono':
-                                    $scope.mono = $scope.meterReadList[i];
+                                    $scope.mono = $scope.meterReads[i];
                                 break;
                                 default:
+                                    tempData.push($scope.meterReads[i]);
                                 break;
                             }
                         }
                     }
+
+                    if($scope.mono){
+                        reorderedData.push($scope.mono);
+                    }
+                    if($scope.color){
+                        reorderedData.push($scope.color);
+                    }
+                    if($scope.ltpc){
+                        reorderedData.push($scope.ltpc);
+                    }
+
+                    $scope.meterReads = reorderedData.concat(tempData);
                 });
                 $scope.installAddress = $scope.device._embeddedItems['address'];
                 $scope.primaryContact = $scope.device._embeddedItems['primaryContact'];
