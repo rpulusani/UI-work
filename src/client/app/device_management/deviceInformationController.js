@@ -15,6 +15,34 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 return item.createDate;
             };
 
+            $scope.saveMeterReads = function() {
+                var limit, i;
+
+                if($scope.meterReads){
+                    limit = $scope.meterReads.length;
+
+                    for(i=0; i<limit; i+=1){
+                        if($scope.meterReads[i].type !== 'Mono' && ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate)){
+                            if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value){
+                                $scope.meterReads[i].value = $scope.meterReads[i].newVal;
+                                $scope.meterReads[i].newVal = null;
+                            }
+
+                            if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== $scope.getMeterReadPriorDate($scope.meterReads[i])){
+                                $scope.meterReads[i].updateDate = $scope.meterReads[i].newDate;
+                                $scope.meterReads[i].newDate = null;
+                            }
+
+                            MeterReads.update($scope.meterReads[i]).then(function(){
+                                console.log("Updated Meter Read " + $scope.meterReads[i].id);
+                            }, function(reason){
+                                NREUM.noticeError('Failed to update Meter Read ' + $scope.meterReads[i].id +  ' because: ' + reason);
+                            });
+                        }
+                    }
+                }
+            };
+
             if (Devices.item === null) {
                 redirect_to_list();
             } else {

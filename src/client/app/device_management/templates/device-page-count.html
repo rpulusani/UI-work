@@ -17,10 +17,10 @@
 	            <td ng-bind="item.value"></td>
 	            <td ng-bind="getMeterReadPriorDate(item)"></td>
 	            <td>
-	            	<input type="number" name="newPageCount" ng-if="item.type !== 'Mono'" />
+	            	<input type="number" ng-model="item.newVal" ng-if="item.type !== 'Mono'" />
 	            </td>
 	            <td>
-	            	<input type="date" name="newDate" ng-if="item.type !== 'Mono'" />
+	            	<input type="date" ng-model="item.newDate" ng-if="item.type !== 'Mono'" />
 	            </td>
 	        </tr>
         </tbody>
@@ -30,6 +30,6 @@
         <span ng-show="showAllMeterReads" translate="DEVICE_MGT.VIEW_LESS"></span>
     </a>
     <div class="col-1">
-	    <button class="btn btn--primary" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
+	    <button class="btn btn--primary" ng-click="saveMeterReads();" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
 	</div>
 </form>
