@@ -67,14 +67,25 @@ define(['angular', 'report'], function(angular) {
                     dateFrom: '',
                     eventType: ''
                 },
-                getReport: function() {
+                reportParams: [],
+                results: [],
+                getReport: function(params) {
                     var self = this,
+                    serviceObj = {
+                        serviceName: 'self',
+                        embeddedName: 'reports'
+                    },
                     deferred = $q.defer();
 
-                    $http.get(self.item._links.self.href).success(function(res) {
-                        self.data = res._embedded.reportTypes;
-                        deferred.resolve(res);
-                    });
+                    if (self.item) {
+                        self.getAdditional(self.item, serviceObj, self.reportParams).then(function(res) {
+                            self.results = res.data;
+                            console.log(self);
+                            deferred.resolve();
+                        });
+                    } else {
+                        deferred.resolve();
+                    }
 
                     return deferred.promise;
                 }

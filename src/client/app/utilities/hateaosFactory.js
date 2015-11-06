@@ -40,6 +40,7 @@ define(['angular', 'utility'], function(angular) {
                     }
                 };
             };
+
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;
@@ -98,31 +99,44 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
-             HATEAOSFactory.prototype.getAdditional = function(halObj, newService) {
+             HATEAOSFactory.prototype.getAdditional = function(halObj, newService, params) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
-                newService.resetServiceMap();
-                if(halObj.item && halObj.item._links[newService.serviceName]){
-                    url = halObj.item._links[newService.serviceName].href;
+             
+                newService.item = null;
+                newService.data = [];
+
+                if (!newService.params) {
+                    newService.params = {};
                 }
-                else if(halObj.item && halObj.item._links[newService.serviceNameUnplurize()]){
+
+                if (!newService.page) {
+                    newService.page = {};
+                }
+
+                if (halObj.item && halObj.item._links[newService.serviceName]) {
+                    url = halObj.item._links[newService.serviceName].href;
+                } else if (halObj.item && halObj.item._links[newService.serviceNameUnplurize()]) {
                     url = halObj.item._links[newService.serviceNameUnplurize()].href;
-                }else{
+                } else {
                     url = halObj._links[newService.serviceName].href;
                 }
 
+                url = self.buildUrl(url, false, params);
+
                 halAdapter.process($http.get(url)).then(function(processedResponse) {
-                    if(processedResponse._embeddedItems && processedResponse._embeddedItems[newService.embeddedName].constructor === Array){
+                    if (processedResponse._embeddedItems && processedResponse._embeddedItems[newService.embeddedName].constructor === Array) {
                         newService.data = processedResponse._embeddedItems[newService.embeddedName];
                         newService.page = processedResponse.page;
                         newService.params.page = self.page.number;
                         newService.params.size = self.page.size;
-                    }else{
+                    } else {
                         newService.item = processedResponse;
                     }
+
                     newService.processedResponse = angular.toJson(processedResponse, true);
-                    deferred.resolve();
+                    deferred.resolve(newService);
                 });
 
                 return deferred.promise;

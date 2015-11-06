@@ -4,17 +4,26 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
     .controller('ReportListController', ['$scope', '$location', 'grid', 'Reports', '$rootScope',
         'PersonalizationServiceFactory', '$filter',
         function($scope, $location, Grid, Reports, $rootScope, Personalize, $filter) {
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            additionalParams = [{
-                    name: 'eventType',
-                    value: $rootScope.finder ? $rootScope.finder.eventType : ''
-                }, {
-                    name: 'eventDateFrom',
-                    value:  $rootScope.finder? $filter('date')($rootScope.finder.dateFrom, 'yyyy-MM-dd') : ''
-                }, {
-                    name: 'eventDateTo',
-                    value: $rootScope.finder ? $filter('date')($rootScope.finder.dateTo, 'yyyy-MM-dd') : ''
-            }];
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+
+            if ($rootScope.currentUser.item) {
+                Reports.reportParams = [{
+                        name: 'accountId',
+                        value: $rootScope.currentUser.item.accounts[0].accountId
+                    }, {
+                        name: 'accountLevel',
+                        value: $rootScope.currentUser.item.accounts[0].level
+                    }, {
+                        name: 'eventType',
+                        value: Reports.finder ? Reports.finder.eventType : ''
+                    }, {
+                        name: 'eventDateFrom',
+                        value:  Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : ''
+                    }, {
+                        name: 'eventDateTo',
+                        value: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
+                }];
+            }
 
             if (!Reports.item) {
                 $location.path(Reports.route);
@@ -30,7 +39,9 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             $scope.exporterPdfPageSize = 'TABLOID';
             $scope.gridOptions.showBookmarkColumn = false;
 
-            Reports.columns = Reports.item.id;
+            if (Reports.item) {
+                Reports.columns = Reports.item.id;
+            }
 
             Reports.getReport().then(function() {
                 Grid.display(Reports, $scope, personal);
