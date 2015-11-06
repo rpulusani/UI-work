@@ -86,8 +86,19 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
-            var newHeight =  46 + (31 * service.params.size);
-            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            var newHeight =  46 + (31 * service.params.size),
+            gridData = [];
+
+            if (angular.isString(service.gridData)) {
+                gridData = service[service.gridData];
+            } else if (service.gridData instanceof Array) {
+                gridData = service.gridData;
+            } else {
+                gridData = service.data;
+            }
+
+            scope.gridOptions.data = this.getDataWithDataFormatters(gridData, service.functionArray);
+
             scope.gridOptions.columnDefs = this.setColumnDefaults(service);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
@@ -113,6 +124,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
+
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');

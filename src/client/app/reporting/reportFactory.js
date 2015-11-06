@@ -32,7 +32,8 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},     
                         {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field': 'serialNumber'},
                         {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
-                        {'name': $translate.instant('REPORTING.DEVICE_TAG_CUSTOMER'), 'field': 'deviceTagCustomer'},
+                        {'name': $translate.instant('REPORTING.DEVICE_TAG_CUSTOMER'), 'field': 'deviceTagCustomer'}
+                        /*
                         {'name': $translate.instant('REPORTING.DEVICE_STATUS'), 'field': 'deviceStatus'},     
                         {'name': $translate.instant('REPORTING.LAST_LTPC'), 'field': 'lastLtpc'},
                         {'name': $translate.instant('REPORTING.LAST_LTPC_DATE'), 'field': 'lastLtpcDate', 'cellFilter': 'date:\'yyyy-MM-dd\'' },
@@ -59,6 +60,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.PHY_LOC_2'), 'field': 'phyLoc2'},
                         {'name': $translate.instant('REPORTING.PHY_LOC_3'), 'field': 'phyLoc3'},
                         {'name': $translate.instant('REPORTING.AGREEMENT'), 'field': 'agreement'}
+                        */
                     ]
                 },    
                 route: '/reporting',
@@ -73,14 +75,13 @@ define(['angular', 'report'], function(angular) {
                     var self = this,
                     serviceObj = {
                         serviceName: 'self',
-                        embeddedName: 'reports'
+                        embeddedName: 'reportData'
                     },
                     deferred = $q.defer();
 
                     if (self.item) {
                         self.getAdditional(self.item, serviceObj, self.reportParams).then(function(res) {
                             self.results = res.data;
-                            console.log(self);
                             deferred.resolve();
                         });
                     } else {

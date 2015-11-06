@@ -40,10 +40,11 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             $scope.gridOptions.showBookmarkColumn = false;
 
             if (Reports.item) {
-                Reports.columns = Reports.item.id;
+                Reports.columns = 'columns_' + Reports.item.id;
             }
 
             Reports.getReport().then(function() {
+                Reports.gridData = 'results';
                 Grid.display(Reports, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
