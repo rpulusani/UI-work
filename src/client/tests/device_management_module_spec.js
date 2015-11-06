@@ -178,10 +178,10 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
         });
 
         describe('DeviceInformationController', function() {
-            var scope, ctrl, location, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest;
+            var scope, ctrl, location, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest, mockMeterReads;
 
             beforeEach(inject(function($rootScope, $controller, $location, BlankCheck, HATEAOSFactory, $httpBackend,
-                Devices, DeviceServiceRequest) {
+                Devices, DeviceServiceRequest, MeterReadService) {
                 scope = $rootScope.$new();
                 location = $location;
                 blankCheck = BlankCheck;
@@ -290,10 +290,78 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                     return deferred.promise;
                 };
 
+                mockMeterReads = MeterReadService;
+                mockMeterReads.get = function(item){
+                  return deferred.promise;
+                };
+                mockMeterReads.save = function(item) {
+                    item.id = 'assigned';
+                    return deferred.promise;
+                };
+                mockMeterReads.update = function(item) {
+                    return deferred.promise;
+                };
+
+                mockMeterReads.data = [
+                  {
+                    "type" : "A3 LTPC",
+                    "value" : "0",
+                    "createDate" : "2014-04-26 19:22:10",
+                    "createBy" : "0-1",
+                    "updateDate" : null,
+                    "updateBy" : null,
+                    "id" : "1-RT9Q-802",
+                    "_links" : {
+                      "self" : {
+                        "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82/meter-reads/1-RT9Q-802"
+                      },
+                      "asset" : {
+                        "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82"
+                      }
+                    }
+                  }, {
+                    "type" : "A3 Mono",
+                    "value" : "0",
+                    "createDate" : "2014-04-26 20:09:47",
+                    "createBy" : "0-1",
+                    "updateDate" : null,
+                    "updateBy" : null,
+                    "id" : "1-RVJ8-2131",
+                    "_links" : {
+                      "self" : {
+                        "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82/meter-reads/1-RVJ8-2131"
+                      },
+                      "asset" : {
+                        "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82"
+                      }
+                    }
+                  }
+                ];
+
                 ctrl = $controller('DeviceInformationController', {$scope: scope, Devices:mockFactory,
-                    DeviceServiceRequest:MockDeviceServiceRequest });
+                    DeviceServiceRequest:MockDeviceServiceRequest, MeterReadService:mockMeterReads});
 
             }));
+
+            describe('saveMeterReads()', function(){
+              describe('when meter reads are updated', function(){
+                it('should update the changed meter reads', function(){
+                  console.log(mockMeterReads.data);
+
+                  scope.meterReads = mockMeterReads.data;
+                  scope.meterReads[0].newVal = 100;
+                  
+                  console.log(scope.meterReads);
+
+                  spyOn(scope, 'saveMeterReads').and.callThrough();
+                  spyOn(mockMeterReads, 'update');
+
+                  scope.saveMeterReads();
+
+                  expect(mockMeterReads.update(scope.meterReads[0])).toHaveBeenCalled();
+                });
+              });
+            });
 
             describe('getMeterReadPriorDate()', function(){
               describe('if a meter read does not have an updated date', function(){
