@@ -248,7 +248,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         options = optionsObj;
                     } else {
                         options = {
-                            url: self.url + '/' + optionsObj,
+                            url: self.url + optionsObj,
                             preventParams: true
                         }
                     }
