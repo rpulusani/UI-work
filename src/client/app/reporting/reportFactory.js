@@ -81,7 +81,9 @@ define(['angular', 'report'], function(angular) {
 
                     if (self.item) {
                         self.getAdditional(self.item, serviceObj, self.reportParams).then(function(res) {
-                            self.results = res.data;
+                            self.data = res.data;
+                            self.page = res.page;
+
                             deferred.resolve();
                         });
                     } else {

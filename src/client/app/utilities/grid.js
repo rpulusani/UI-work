@@ -89,7 +89,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             var newHeight =  46 + (31 * service.params.size),
             gridData = [];
 
-            if (angular.isString(service.gridData)) {
+            if (angular.isString(service.gridData) && service.gridData !== '') {
                 gridData = service[service.gridData];
             } else if (service.gridData instanceof Array) {
                 gridData = service.gridData;
@@ -142,7 +142,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
-
+            
             return {
                 /*
                     This function checks to see that service and its child property page exist
