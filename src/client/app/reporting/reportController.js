@@ -4,10 +4,8 @@ define(['angular', 'report', 'chart'], function(angular) {
     .controller('ReportController', ['$scope', '$location', '$rootScope', 'Reports', 'grid', '$http', 'serviceUrl',
         function($scope, $location, $rootScope, Reports, Grid, $http, serviceUrl) {
             $scope.finder = Reports.finder;
-            $scope.categories = Reports.categories;
-            $scope.category = Reports.category;
-
-            Reports.columns = 'fullSet';
+            $scope.categories = Reports.data;
+            $scope.category = Reports.item;
 
             // Dummy Chart Data
 
@@ -32,12 +30,10 @@ define(['angular', 'report', 'chart'], function(angular) {
             }];
 
             $scope.devicecount = function() {
-                $http.get(serviceUrl + "reports/devicecount/?accountId=1-1L9SRP&accountLevel=L5").success(function(res) {
-                    console.log("res", res);
+                $http.get(serviceUrl + 'reports/devicecount/?accountId=1-1L9SRP&accountLevel=L5').success(function(res) {
                     $scope.madcEvents[0].value = res.dataSet[0].data[0];
                     $scope.madcEvents[1].value = res.dataSet[0].data[1];
                     $scope.madcEvents[2].value = res.dataSet[0].data[2];
-                    console.log($scope.madcEvents);
                 });
             };
 
@@ -65,31 +61,27 @@ define(['angular', 'report', 'chart'], function(angular) {
                 ]
             };
 
-            if (!Reports.category) {
-                Reports.getTypes().then(function() {
-                   $scope.categories = Reports.categories;
+            if (Reports.data.length === 0 || !Reports.data) {
+                Reports.getPage().then(function() {
+                   $scope.categories = Reports.data;
                 });
             } else {
-                $scope.categories = Reports.categories;
+                $scope.categories = Reports.data;
             }
 
             $scope.goToFinder = function(category) {
-                Reports.category = category;
-                $location.path(Reports.route + '/' + Reports.category.id + '/find');
+                Reports.item = category;
+
+                if (Reports.item.eventTypes) {
+                    $location.path(Reports.route + '/' + Reports.item.id + '/find');
+                } else {
+                    $scope.runReport(category);
+                }
             };
 
             $scope.runReport = function(category) {
-                console.log("runReport", category);
-                /*
-                  Report.get(category, '').then(function(){
-                });
-                */
-                if ($scope.finder.dateFrom && $scope.finder.dateTo) {
-                    $rootScope.finder = $scope.finder;
-                    $location.path(Reports.route + '/results');
-                } else {
-                    $location.path(Reports.route + '/' + Reports.category.id + '/find');
-                }
+                Reports.finder = $scope.finder;
+                $location.path(Reports.route + '/results');
             };
         }
     ]);

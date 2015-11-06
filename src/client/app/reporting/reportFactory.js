@@ -5,8 +5,9 @@ define(['angular', 'report'], function(angular) {
             function($translate, HATEAOSFactory, $q, $http, serviceUrl) {
             var Report = {
                 params: {page: 0, size: 20, sort: ''},
-                embeddedName: 'reports',
                 serviceName: 'reports',
+                embeddedName: 'reportTypes',
+                columns: 'default',
                 columnDefs: {
                     columns_mp9073: [
                         {'name': $translate.instant('REPORTING.EVENT_TYPE'), 'field': 'type'},
@@ -44,7 +45,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.DEPT_NUMBER'), 'field': 'departNumber'},
                         {'name': $translate.instant('REPORTING.DEPT_NAME'), 'field': 'departmentName'},
                         {'name': $translate.instant('REPORTING.INSTALL_DATE'), 'field': 'installDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
-                        {'name': $translate.instant('REPORTING.TERM_START_DATE'), 'field': 'termStartDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},     
+                        {'name': $translate.instant('REPORTING.TERM_START_DATE'), 'field': 'termStartDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
                         {'name': $translate.instant('REPORTING.TERM_END_DATE'), 'field': 'termEndDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
                         {'name': $translate.instant('REPORTING.TERMS'), 'field': 'terms'},
                         {'name': $translate.instant('REPORTING.ADDRESS'), 'field': 'address'},
@@ -58,38 +59,21 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.PHY_LOC_2'), 'field': 'phyLoc2'},
                         {'name': $translate.instant('REPORTING.PHY_LOC_3'), 'field': 'phyLoc3'},
                         {'name': $translate.instant('REPORTING.AGREEMENT'), 'field': 'agreement'}
-                    ],
-                    // using a function to return a column set
-                    fullSet: function() {
-                        var arr = [];
-
-                        //arr = arr.concat(this.defaultSet).concat(this.testSet);
-
-                        //arr.push({
-                        //    name: $translate.instant('CONTACT.EMAIL'),
-                        //    field: 'email'
-                        //});
-
-                        //return arr;
-                        return this.columns_mp9073;
-                    
-                    }
+                    ]
                 },    
                 route: '/reporting',
-                category: null, // category object from categories[]
-                categories: [],
                 finder: {
                     dateTo: '',
                     dateFrom: '',
                     eventType: ''
                 },
-                getTypes: function() {
+                getReport: function() {
                     var self = this,
                     deferred = $q.defer();
 
-                    $http.get(serviceUrl + '/reports').success(function(res) {
-                        self.categories = res._embedded.reportTypes;
-                        deferred.resolve(self.categories);
+                    $http.get(self.item._links.self.href).success(function(res) {
+                        self.data = res._embedded.reportTypes;
+                        deferred.resolve(res);
                     });
 
                     return deferred.promise;

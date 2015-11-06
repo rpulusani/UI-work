@@ -4,13 +4,23 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
     .controller('ReportListController', ['$scope', '$location', 'grid', 'Reports', '$rootScope',
         'PersonalizationServiceFactory', '$filter',
         function($scope, $location, Grid, Reports, $rootScope, Personalize, $filter) {
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            additionalParams = [{
+                    name: 'eventType',
+                    value: $rootScope.finder ? $rootScope.finder.eventType : ''
+                }, {
+                    name: 'eventDateFrom',
+                    value:  $rootScope.finder? $filter('date')($rootScope.finder.dateFrom, 'yyyy-MM-dd') : ''
+                }, {
+                    name: 'eventDateTo',
+                    value: $rootScope.finder ? $filter('date')($rootScope.finder.dateTo, 'yyyy-MM-dd') : ''
+            }];
 
             if (!Reports.category) {
                 $location.path(Reports.route);
             }
 
-            $scope.category = Reports.category;
+            $scope.category = Reports.item;
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
             $scope.gridOptions.enableGridMenu = true;
@@ -20,28 +30,11 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             $scope.exporterPdfPageSize = 'TABLOID';
             $scope.gridOptions.showBookmarkColumn = false;
 
-            $scope.additionalParams = [
-                {
-                    name: 'eventType',
-                    value: $rootScope.finder ? $rootScope.finder.eventType : ""
-                },
-                {
-                    name: 'eventDateFrom',
-                    value:  $rootScope.finder? $filter('date')($rootScope.finder.dateFrom, "yyyy-MM-dd") : ""
-                },
-                {
-                    name: 'eventDateTo',
-                    value: $rootScope.finder ? $filter('date')($rootScope.finder.dateTo, "yyyy-MM-dd") : ""
-                }
-            ];
-
-            Reports.getPage(0, 20,$scope.additionalParams).then(function() {
+            Reports.getReport().then(function() {
                 Grid.display(Reports, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
             });
-
         }
-
     ]);
 });
