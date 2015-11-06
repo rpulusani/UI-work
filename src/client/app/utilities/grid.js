@@ -86,8 +86,19 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
-            var newHeight =  46 + (31 * service.params.size);
-            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            var newHeight =  46 + (31 * service.params.size),
+            gridData = [];
+
+            if (angular.isString(service.gridData) && service.gridData !== '') {
+                gridData = service[service.gridData];
+            } else if (service.gridData instanceof Array) {
+                gridData = service.gridData;
+            } else {
+                gridData = service.data;
+            }
+
+            scope.gridOptions.data = this.getDataWithDataFormatters(gridData, service.functionArray);
+
             scope.gridOptions.columnDefs = this.setColumnDefaults(service);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
@@ -113,13 +124,14 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
+
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
             angular.element(document.getElementsByClassName('ui-grid-render-container')[0]).css('height', newHeight + 'px');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
-            scope.gridApi.core.refresh();
+            //scope.gridApi.core.refresh();
             // Setting up pagination
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);
@@ -130,7 +142,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.pagination = function(service, scope, personal) {
             var self = this;
-
+            
             return {
                 /*
                     This function checks to see that service and its child property page exist

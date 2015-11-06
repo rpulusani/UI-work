@@ -1,31 +1,44 @@
 define(['angular', 'report', 'chart'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$rootScope', 'Reports', 'grid',
-        function($scope, $location, $rootScope, Reports, Grid) {
+    .controller('ReportController', ['$scope', '$location', '$rootScope', 'Reports', 'grid', '$http', 'serviceUrl',
+        function($scope, $location, $rootScope, Reports, Grid, $http, serviceUrl) {
             $scope.finder = Reports.finder;
-            $scope.categories = Reports.categories;
-            $scope.category = Reports.category;
+            $scope.categories = Reports.data;
+            $scope.category = Reports.item;
 
             // Dummy Chart Data
+
+            // end point /devicecount
             $scope.madcEvents = [{
                 value: 300,
                 color:'#F7464A',
                 highlight: '#FF5A5E',
-                label: 'Red'
+                label: 'Shipped'
             },
             {
                 value: 50,
                 color: '#46BFBD',
                 highlight: '#5AD3D1',
-                label: 'Green'
+                label: 'Installed'
             },
             {
                 value: 100,
                 color: '#FDB45C',
                 highlight: '#FFC870',
-                label: 'Yellow'
+                label: 'Stored'
             }];
+
+            $scope.devicecount = function() {
+                $http.get(serviceUrl + 'reports/devicecount/?accountId=1-1L9SRP&accountLevel=L5').success(function(res) {
+                    $scope.madcEvents[0].value = res.dataSet[0].data[0];
+                    $scope.madcEvents[1].value = res.dataSet[0].data[1];
+                    $scope.madcEvents[2].value = res.dataSet[0].data[2];
+                });
+            };
+
+            $scope.devicecount();
+
             $scope.barChartSample = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -48,26 +61,27 @@ define(['angular', 'report', 'chart'], function(angular) {
                 ]
             };
 
-            if (!Reports.category) {
-                Reports.getTypes().then(function() {
-                   $scope.categories = Reports.categories;
+            if (Reports.data.length === 0 || !Reports.data) {
+                Reports.getPage().then(function() {
+                   $scope.categories = Reports.data;
                 });
             } else {
-                $scope.categories = Reports.categories;
+                $scope.categories = Reports.data;
             }
 
             $scope.goToFinder = function(category) {
-                Reports.category = category;
-                $location.path(Reports.route + '/' + Reports.category.id + '/find');
+                Reports.item = category;
+
+                if (Reports.item.eventTypes) {
+                    $location.path(Reports.route + '/' + Reports.item.id + '/find');
+                } else {
+                    $scope.runReport(category);
+                }
             };
 
-            $scope.runReport = function() {
-                if ($scope.finder.dateFrom && $scope.finder.dateTo) {
-                    $rootScope.finder = $scope.finder;
-                    $location.path(Reports.route + '/results');
-                } else {
-                    $location.path(Reports.route + '/' + Reports.category.id + '/find');
-                }
+            $scope.runReport = function(category) {
+                Reports.finder = $scope.finder;
+                $location.path(Reports.route + '/results');
             };
         }
     ]);

@@ -83,7 +83,7 @@
         </dl>
         <dl class="row">
             <dt class="col-1-3">
-                <h4 class="text--semi-bold" translate="LABEL.PRIMARY_CONTACT"></h4>
+                <h4 class="text--semi-bold" translate="SERVICE_REQUEST.PRIMARY_CONTACT"></h4>
             </dt>
             <dd class="col-5-24 text--small">
                 <a href="" translate="LABEL.UPDATE_LINK"></a>
@@ -100,5 +100,15 @@
             <dt class="col-1-3" translate="CONTACT.WORK_PHONE"></dt>
             <dd class="col-2-3" ng-bind="primaryContact.formattedworkPhone"></dd>
         </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1">
+        <h3 translate="DEVICE_SERVICE_REQUEST.CHANGE_HISTORY"></h3>
+        <hr />
+
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+       
+       <div pagination grid="{{gridOptions}}"></div>
     </div>
 </div>
