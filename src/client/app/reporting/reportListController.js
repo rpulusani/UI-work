@@ -16,7 +16,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     value: $rootScope.finder ? $filter('date')($rootScope.finder.dateTo, 'yyyy-MM-dd') : ''
             }];
 
-            if (!Reports.category) {
+            if (!Reports.item) {
                 $location.path(Reports.route);
             }
 
@@ -29,6 +29,8 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             $scope.exporterPdfOrientation =  'landscape';
             $scope.exporterPdfPageSize = 'TABLOID';
             $scope.gridOptions.showBookmarkColumn = false;
+
+            Reports.columns = Reports.item.id;
 
             Reports.getReport().then(function() {
                 Grid.display(Reports, $scope, personal);
