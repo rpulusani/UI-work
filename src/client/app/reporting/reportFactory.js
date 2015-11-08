@@ -1,15 +1,15 @@
 define(['angular', 'report'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .factory('Reports', ['$translate', 'HATEAOSFactory', '$q', '$http', 'serviceUrl',
-            function($translate, HATEAOSFactory, $q, $http, serviceUrl) {
+    .factory('Reports', ['$translate', 'HATEOASFactory',
+        function($translate, HATEOASFactory) {
             var Report = {
                 params: {page: 0, size: 20, sort: ''},
                 serviceName: 'reports',
                 embeddedName: 'reportTypes',
                 columns: 'default',
                 columnDefs: {
-                    columns_mp9073: [
+                    mp9073: [
                         {'name': $translate.instant('REPORTING.EVENT_TYPE'), 'field': 'type'},
                         {'name': $translate.instant('REPORTING.EVENT_DT'), 'field': 'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
                         {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer'},
@@ -26,7 +26,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.OLD_CHL'), 'field': 'oldChl'},
                         {'name': $translate.instant('REPORTING.NEW_CHL'), 'field': 'newChl'}
                     ],
-                    columns_mp9058sp: [
+                    mp9058sp: [
                         {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl'},
                         {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName'},
                         {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},     
@@ -68,33 +68,10 @@ define(['angular', 'report'], function(angular) {
                     dateTo: '',
                     dateFrom: '',
                     eventType: ''
-                },
-                reportParams: [],
-                results: [],
-                getReport: function(params) {
-                    var self = this,
-                    serviceObj = {
-                        serviceName: 'self',
-                        embeddedName: 'reportData'
-                    },
-                    deferred = $q.defer();
-
-                    if (self.item) {
-                        self.getAdditional(self.item, serviceObj, self.reportParams).then(function(res) {
-                            self.data = res.data;
-                            self.page = res.page;
-
-                            deferred.resolve();
-                        });
-                    } else {
-                        deferred.resolve();
-                    }
-
-                    return deferred.promise;
                 }
             };
 
-            return new HATEAOSFactory(Report);
+            return new HATEOASFactory(Report);
         }
     ]);
 });

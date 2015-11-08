@@ -14,7 +14,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     totalPages: 0,
                     number: 0
                 };
-                self.columns = null;
+                self.columns = 'defaultSet';
                 self.columnDefs = null;
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
@@ -29,25 +29,22 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
 
                     serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
-                    serviceDefinition.columns = 'defaultSet';
                 }
 
                 return angular.extend(self, serviceDefinition);
             };
 
-            HATEOASFactory.prototype.setupItem = function(item) {
+            HATEOASFactory.prototype.setItem = function(item) {
                 var self = this,
                 link, // prop in _links 
                 links,
                 propName,
                 parsePropertyName = function(prop) {
-                    // meter-reads -> meterReads
-                    // HelloWorld -> helloWorld
                     var  i = 0,
                     name = prop
-                    .replace('-', ' ')
-                    .replace('_', ' ')
-                    .toLowerCase();
+                        .replace('-', ' ')
+                        .replace('_', ' ')
+                        .toLowerCase();
 
                     if (name.indexOf(' ') !== -1) {
                         name = name.split(' ');
@@ -74,18 +71,56 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 self.checkForEvent(self.item, 'onItemSetup');
 
                 self.item.links = [];
+                self.item.data = [];
+                self.item.page = {};
+                self.item.params = self.params;
+                self.item.page = 0;
+                self.item.size = self.defaultParams.size;
+                self.item.sort = null;
 
                 for (link in links) {
-                    if (link.href) {
+                    if (links[link].href) {
                         propName = parsePropertyName(link);
 
                         self.item.links.push(propName);
 
-                        self.item[propName] = function(optionsObj) {
+                        self.item[propName] = function(options, isAll) {
                             var deferred = $q.defer();
 
-                            $http(link.href).then(function(response) {
+                            if (isAll) {
+                                self.item.data = {};
+                            }
+
+                            if (!options) {
+                                options = {};
+                            }
+
+                            if (!options.method) {
+                                options.method = 'get';
+                            }
+
+                            if (!options.url) {
+                                options.url = self.buildUrl(links[link].href, item.params, options.params);
+                            } else {
+                                oprions.url = self.buildUrl(options.url, item.params, options.params);
+                            }
+
+                            $http(options).then(function(response) {
                                 self.processedResponse = response;
+
+                                if (!options.embeddedName) {
+                                    if (!isAll) {
+                                        self.item.data = response;
+                                    } else {
+                                        self.item.data[propName] = response;
+                                    }
+                                } else {
+                                    if (!isAll) {
+                                        self.item.data = response;
+                                    } else {
+                                         self.item.data[propName] = response.data._embedded[options.embeddedName];
+                                    }
+                                }
 
                                 deferred.resolve(response);
                             });
@@ -95,18 +130,21 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-                self.item.all = function(optionsObj) {
+                self.item.all = function(options) {
                     var deferred = $q.defer(),
                     len = self.item.links.length,
                     deferreds = [],
                     i = 0;
 
                     for (i; i < len; i += 1) {
-                        deferreds.push(self.item[self.item.links[i]]());
+                        deferreds.push( self.item[self.item.links[i]]() );
                     }
 
                     return $q.all(deferreds);
                 };
+
+                self.item.get = self.get;
+                self.item.getPage = self.getPage;
             };
 
             HATEOASFactory.prototype.checkForEvent = function(halObj, fnName) {
@@ -157,9 +195,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 self.item = processedResponse;
                                 self.processedResponse = processedResponse;
 
-                                self.checkForEvent(self.item, 'after' + verbName).then(function() {
-                                    deferred.resolve();
-                                });
+                                self.checkForEvent(self.item, 'after' + verbName);
+
+                                deferred.resolve();
                             });
                         },function(reason){
                             deferred.reject(reason);
@@ -194,10 +232,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(halObj, 'onNext');
 
-                if (self.page.totalPages > self.params.page) {
+                if (self.page.next) {
                     return self.get({
-                        page: self.params.page += 1,
-                        size: self.params.size
+                        url: self.page.next
                     });
                 } else {
                     return null;
@@ -209,10 +246,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(self.item, 'onPrev');
                 
-                if (self.params.page !== 0) {
+                if (self.page.prev) {
                     return self.get({
-                        page: self.params.page -= 1,
-                        size: self.params.size
+                        url: self.page.prev
                     });
                 } else {
                     return null;
@@ -234,6 +270,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     page: page,
                     size: size
                 });
+            };
+
+            HATEOASFactory.prototype.getAdditional = function(page, size) {
+                var self = this;
+
             };
 
             HATEOASFactory.prototype.get = function(optionsObj) {
@@ -260,6 +301,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             self.item = newObj;
                         }
 
+                        // TODO: MAKE SURE THIS DOEST CALL EACH TIME
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var processPage = function() {
                                 var url;
@@ -310,9 +352,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                                     self.processedResponse = processedResponse;
 
-                                    self.checkForEvent(self.item, 'afterGet').then(function() {
-                                        deferred.resolve();
-                                    });
+                                    self.checkForEvent(self.item, 'afterGet');
 
                                     deferred.resolve();
                                 });
