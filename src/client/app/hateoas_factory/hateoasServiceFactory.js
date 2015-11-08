@@ -19,7 +19,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 self.url = '';
                 // self.params  = {page: 0, size: 20, sort: ''}, defined by hateaosconfig
                 self.params = {};
-                // Placeholder for the original params given to us from server
                 self.defaultParams = {};
                 self.route = '';
 
@@ -31,120 +30,68 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     serviceDefinition.columnDefs.defaultSet = serviceDefinition.columns;
                 }
 
-                return angular.extend(self, serviceDefinition);
+                self.defaultDefinition = angular.extend(self, serviceDefinition);
+
+                return self.defaultDefinition;
             };
 
-            HATEOASFactory.prototype.setItem = function(item) {
-                var self = this,
-                link, // prop in _links 
-                links,
-                propName,
-                parsePropertyName = function(prop) {
-                    var  i = 0,
-                    name = prop
-                        .replace('-', ' ')
-                        .replace('_', ' ')
-                        .toLowerCase();
-
-                    if (name.indexOf(' ') !== -1) {
-                        name = name.split(' ');
-
-                        for (i; i < name.length; i += 1) {
-                            if (i > 0) {
-                                name[i][0].toUpperCase();
-                            }
-                        }
-
-                        name = name.join('');
-                    }
-
-                    return name;
-                };
-
-                if (item) {
-                    self.item = item;
-                    links = self.item._links;
+            HATEOASFactory.prototype.refresh = function(serviceDefinition) {
+                if (!serviceDefinition) {
+                    self.extend(self, self.defaultDefinition)
                 } else {
-                    links = self.item._links;
+                    self.extend(self, serviceDefinition)
+                }
+            };
+
+            // Resolves all _links on self.item or {item: item}
+            // Results returned as {linkName: results}
+            HATEOASFactory.prototype.all = function(options) {
+                var self = this, 
+                deferred = $q.defer(),
+                len = 0,
+                deferreds = [],
+                item,
+                link,
+                i = 0;
+
+               // self.allData = {};
+
+                if (!options) {
+                    options = {};
                 }
 
-                self.checkForEvent(self.item, 'onItemSetup');
-
-                self.item.links = [];
-                self.item.data = [];
-                self.item.page = {};
-                self.item.params = self.params;
-                self.item.page = 0;
-                self.item.size = self.defaultParams.size;
-                self.item.sort = null;
-
-                for (link in links) {
-                    if (links[link].href) {
-                        propName = parsePropertyName(link);
-
-                        self.item.links.push(propName);
-
-                        self.item[propName] = function(options, isAll) {
-                            var deferred = $q.defer();
-
-                            if (isAll) {
-                                self.item.data = {};
-                            }
-
-                            if (!options) {
-                                options = {};
-                            }
-
-                            if (!options.method) {
-                                options.method = 'get';
-                            }
-
-                            if (!options.url) {
-                                options.url = self.buildUrl(links[link].href, item.params, options.params);
-                            } else {
-                                oprions.url = self.buildUrl(options.url, item.params, options.params);
-                            }
-
-                            $http(options).then(function(response) {
-                                self.processedResponse = response;
-
-                                if (!options.embeddedName) {
-                                    if (!isAll) {
-                                        self.item.data = response;
-                                    } else {
-                                        self.item.data[propName] = response;
-                                    }
-                                } else {
-                                    if (!isAll) {
-                                        self.item.data = response;
-                                    } else {
-                                         self.item.data[propName] = response.data._embedded[options.embeddedName];
-                                    }
-                                }
-
-                                deferred.resolve(response);
-                            });
-
-                            return deferred.promise;
-                        };
-                    }
+                if (!options.method) {
+                    options.method = 'get';
                 }
 
-                self.item.all = function(options) {
-                    var deferred = $q.defer(),
-                    len = self.item.links.length,
-                    deferreds = [],
-                    i = 0;
+                if (options.item && options.item._links) {
+                    item = self.item;
+                } else {
+                    item = self.item
+                }
 
-                    for (i; i < len; i += 1) {
-                        deferreds.push( self.item[self.item.links[i]]() );
+                len = item._links.length;
+
+                for (link in item._links) {
+                    if (!options.url) {
+                        options.url = self.buildUrl(item.links[link].href, item.params, options.params);
+                    } else {
+                        oprions.url = self.buildUrl(options.url, item.params, options.params);
                     }
+                    
+                    deferreds.push($http(options).then(function() {
 
-                    return $q.all(deferreds);
-                };
+                    }));
+                }
 
-                self.item.get = self.get;
-                self.item.getPage = self.getPage;
+                return $q.all(deferreds);
+            };
+
+            // Calls the services assigned url
+            HATEOASFactory.prototype.self = function(options) {
+                var deferred = $q.defer();
+
+                return deferred.promise;
             };
 
             HATEOASFactory.prototype.checkForEvent = function(halObj, fnName) {
@@ -277,7 +224,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             };
 
-            HATEOASFactory.prototype.get = function(optionsObj) {
+            HATEOASFactory.prototype.get = function(optionsObj, linkName) {
                 var self  = this,
                 params,
                 options = {},
@@ -293,6 +240,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             preventParams: true
                         }
                     }
+                }
+
+                if (linkName) {
+                    options.linkName = linkName;
                 }
 
                 self.checkForEvent(self.item, 'beforeGet').then(function(canContinue, newObj) {

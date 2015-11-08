@@ -57,9 +57,12 @@ define(['angular', 'report', 'chart'], function(angular) {
             $scope.goToFinder = function(category) {
                 Reports.setItem(category);
 
-                Reports.item.all({embeddedName: 'reportData'}).then(function(res) {
-                    console.log(Reports.item.data)
-                    console.log('Link functions work!');
+                Reports.all({
+                    results: {
+                        embeddedName: 'results'
+                    }
+                }).then(function(res) {
+                    console.log('here');
                 });
 /*
                 if (Reports.item.eventTypes) {
