@@ -27,8 +27,28 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/review-request.html',
                 controller: 'DeviceServiceRequestDeviceController'
             })
+            .when('/service_requests/devices/:id/update/:return', {
+                templateUrl: '/app/device_service_requests/templates/update.html',
+                controller: 'DeviceUpdateController'
+            })
             .when('/service_requests/devices/:id/update', {
                 templateUrl: '/app/device_service_requests/templates/update.html',
+                controller: 'DeviceUpdateController'
+            })
+            .when('/service_requests/devices/update/:id/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'DeviceUpdateController'
+            })
+            .when('/service_requests/devices/update/:id/review/:return', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'DeviceUpdateController'
+            })
+            .when('/service_requests/devices/update/:id/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'DeviceUpdateController'
+            })
+            .when('/service_requests/devices/update/pick_contact', {
+                templateUrl: '/app/device_service_requests/templates/contact-picker.html',
                 controller: 'DeviceUpdateController'
             })
             .when('/service_requests/devices/decomission/:id/view', {
@@ -50,10 +70,6 @@ define(['angular'], function(angular) {
             .when('/service_requests/devices/decommission/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'DeviceDecommissionController'
-            })
-            .when('/service_requests/devices/update/:updateid/review', {
-                templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'DeviceUpdateController'
             })
             .when('/service_requests/devices/review', {
                 templateUrl: '/app/device_service_requests/templates/review.html',

@@ -1,0 +1,18 @@
+<div class="row" ng-if="configure.device.update">
+    <div class="col-1">
+        <h2 translate="{{configure.device.update.translate.title}}"></h2>
+        <div class="row row--alley-2">
+            <div class="col-1-2">
+                <div class="well">
+                    <dl class="row text--small">
+                        <dt class="col-1-2 text--semi-bold"
+                            translate="{{configure.device.update.translate.installAddress}}"></dt>
+                        <dd class="col-1-2" ng-bind-html="formattedDeviceAddress"></dd>
+                        <dt class="col-1-2 text--semi-bold" translate="{{configure.device.update.translate.move}}"></dt>
+                        <dd class="col-1-2" ng-bind="formattedMoveDevice"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

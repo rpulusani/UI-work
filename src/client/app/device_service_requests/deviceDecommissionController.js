@@ -174,7 +174,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
             };
 
-            $scope.goToContactPicker = function() {
+            $scope.goToContactPicker = function(selectedContact) {
                 $rootScope.decommissionDevice = $scope.device;
                 $rootScope.decommissionSr = $scope.sr;
                 $location.path(DeviceServiceRequest.route + '/decommission/pick_contact');
