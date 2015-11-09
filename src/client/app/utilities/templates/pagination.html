@@ -43,7 +43,8 @@
       </i>
     </a>
   </div>
-  <div class="pagination__btn pagination__last">
+  <div class="pagination__btn pagination__last"
+  ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
     <a href="#"
       ng-click="pagination.lastPage(gridOptions)">
       <i class="icon icon--ui"
