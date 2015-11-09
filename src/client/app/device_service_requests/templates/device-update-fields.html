@@ -20,8 +20,7 @@
                 <div class="form__field form__field--select form__field--required">
                 <label translate="ADDRESS.COUNTRY"></label>
                 <input name="country" type="hidden" ng-model="device.updatedInstallAddress.country" required/>
-                <div selectric model="device.updatedInstallAddress.country" options="countryHAL.countries" value="name" label="name"
-                      placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+                <div selectric model="device.updatedInstallAddress.country" options="countryHAL.countries" value="name" label="name" placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
                     <span ng-hide="!newDevice.country.$error.required" class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i> <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
                 <div class="form__field form__field--required">

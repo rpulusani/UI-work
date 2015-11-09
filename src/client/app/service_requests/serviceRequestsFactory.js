@@ -12,7 +12,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
-                            {'name': $translate.instant('LABEL.PRIMARY_CONTACT'), 'field': ''}
+                            {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': ''}
                         ],
                     route: '/service_requests'
             };

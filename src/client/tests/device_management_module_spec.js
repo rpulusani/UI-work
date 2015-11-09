@@ -178,14 +178,14 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
         });
 
         describe('DeviceInformationController', function() {
-            var scope, ctrl, location, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest;
+            var scope, ctrl, location, deferred, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest, mockMeterReads;
 
-            beforeEach(inject(function($rootScope, $controller, $location, BlankCheck, HATEAOSFactory, $httpBackend,
-                Devices, DeviceServiceRequest) {
+            beforeEach(inject(function($rootScope, $controller, $location, $q, BlankCheck, HATEAOSFactory, $httpBackend,
+                Devices, DeviceServiceRequest, MeterReadService) {
                 scope = $rootScope.$new();
                 location = $location;
+                deferred = $q.defer();
                 blankCheck = BlankCheck;
-
 
                 MockDeviceServiceRequest = DeviceServiceRequest;
                 mockFactory = Devices;
@@ -290,11 +290,100 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                     return deferred.promise;
                 };
 
+                mockMeterReads = MeterReadService;
+                mockMeterReads.get = function(item){
+                  return deferred.promise;
+                };
+                mockMeterReads.save = function(item) {
+                    item.id = 'assigned';
+                    return deferred.promise;
+                };
+                mockMeterReads.update = function(item) {
+                    return deferred.promise;
+                };
+
                 ctrl = $controller('DeviceInformationController', {$scope: scope, Devices:mockFactory,
-                    DeviceServiceRequest:MockDeviceServiceRequest });
+                    DeviceServiceRequest:MockDeviceServiceRequest, MeterReadService:mockMeterReads});
 
             }));
 
+            describe('saveMeterReads()', function(){
+              describe('when meter reads are updated', function(){
+                it('should update only the changed meter reads', function(){
+                  scope.meterReads = [
+                    {
+                      "type" : "A3 LTPC",
+                      "value" : "0",
+                      "createDate" : "2014-04-26 19:22:10",
+                      "createBy" : "0-1",
+                      "updateDate" : null,
+                      "updateBy" : null,
+                      "id" : "1-RT9Q-802",
+                      "_links" : {
+                        "self" : {
+                          "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82/meter-reads/1-RT9Q-802"
+                        },
+                        "asset" : {
+                          "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82"
+                        }
+                      }
+                    }, {
+                      "type" : "A3 Mono",
+                      "value" : "0",
+                      "createDate" : "2014-04-26 20:09:47",
+                      "createBy" : "0-1",
+                      "updateDate" : null,
+                      "updateBy" : null,
+                      "id" : "1-RVJ8-2131",
+                      "_links" : {
+                        "self" : {
+                          "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82/meter-reads/1-RVJ8-2131"
+                        },
+                        "asset" : {
+                          "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82"
+                        }
+                      }
+                    }
+                  ];
+
+                  scope.meterReads[0].newVal = 100;
+
+                  spyOn(scope, 'saveMeterReads').and.callThrough();
+                  spyOn(mockMeterReads, 'update').and.callThrough();
+
+                  scope.saveMeterReads();
+
+                  expect(mockMeterReads.update).toHaveBeenCalledWith(scope.meterReads[0]);
+                  expect(mockMeterReads.update).not.toHaveBeenCalledWith(scope.meterReads[1]);
+                });
+              });
+            });
+
+            describe('getMeterReadPriorDate()', function(){
+              describe('if a meter read does not have an updated date', function(){
+                it('should return the createDate of the meter read', function(){
+                  var item = {
+                    createDate: '1234',
+                    updateDate: null
+                  };
+                  var result = scope.getMeterReadPriorDate(item);
+
+                  expect(result).toEqual(item.createDate);
+                });
+              });
+
+              describe('if a meter read has an updated date', function(){
+                it('should return the updateDate of the meter read', function(){
+                  var item = {
+                    createDate: '1234',
+                    updateDate: '5678'
+                  };
+                  var result = scope.getMeterReadPriorDate(item);
+
+                  expect(result).toEqual(item.updateDate);
+                });
+              });
+            });
 
             describe('btnRequestService', function() {
                 it('should direct user to device service request review page', function() {
@@ -315,42 +404,6 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                     expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/decommission/' + scope.device.id +'/view');
                 });
             });
-        });
-
-        describe('DevicePageCountsController', function() {
-            var scope, ctrl, location;
-
-            beforeEach(inject(function($rootScope, $controller, $location) {
-                scope = $rootScope.$new();
-                location = $location;
-                ctrl = $controller('DevicePageCountsController', {$scope: scope});
-            }));
-
-            describe('toggleDisplay', function() {
-                it('should toggle the value of showLess', function() {
-                    scope.showLess = false;
-                    scope.toggleDisplay();
-                    expect(scope.showLess).toBe(true);
-                });
-            });
-
-            describe('filterByIds', function() {
-                it('should check whether an id for a Page Count belong to a list', function() {
-                    var selectedType = {'id': 'lifetime-1'};
-                    var checkOutput = scope.filterByIds(selectedType);
-                    expect(checkOutput).toBe(true);
-                });
-            });
-
-            describe('selectPageCount', function() {
-                it('should return an object from an array based on id', function() {
-                    var pageCountArr = [{'id':'123','count':'789'},{'id':'456','count':'444'}];
-                    var id = '123';
-                    var checkOutput = scope.selectPageCount(id,pageCountArr);
-                    expect(checkOutput.count).toBe('789');
-                });
-            });
-
         });
 
         describe('Routes', function(){
