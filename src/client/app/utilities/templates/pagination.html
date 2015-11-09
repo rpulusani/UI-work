@@ -1,5 +1,6 @@
 <div class="pagination" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
-  <div class="pagination__btn pagination__first">
+  <div class="pagination__btn pagination__first"
+  ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
     <a href="#"
       ng-click="pagination.firstPage(gridOptions)">
         I<i class="icon icon--ui"
