@@ -210,6 +210,7 @@ requirejs.config({
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
+        'deviceServiceRequest.deviceUpdateController': 'app/device_service_requests/deviceUpdateController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
         'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
         'deviceServiceRequest.deviceDecommissionController': 'app/device_service_requests/deviceDecommissionController',
