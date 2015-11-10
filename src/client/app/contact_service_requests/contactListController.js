@@ -20,9 +20,12 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
             $scope.gridOptions = {};
 
+            Contacts.columns = 'fullSet';
+
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-          
-            Contacts.get().then(function() {
+            
+            Contacts.getPage().then(function() {
+                console.log(JSON.stringify(Contacts));
                 Grid.display(Contacts, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);

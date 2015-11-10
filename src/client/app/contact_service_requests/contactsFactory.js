@@ -1,20 +1,43 @@
-define(['angular', 'contact', 'hateoasFactory', 'utility.formatters'], function(angular, contact) {
+define(['angular', 'contact', 'utility.formatters'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService',
-        function($translate, HATEOASFactory, formatter) {
+    .factory('Contacts', ['$translate', 'HATEAOSFactory', 'FormatterService',
+        function($translate, HATEAOSFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
                 singular: 'contact',
-                columns: [
-                    {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
-                    {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'},
-                    {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
-                    {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'},
-                    {name: $translate.instant('CONTACT.EMAIL'), field: 'email'}
-                ],
+                // default, defaultSet, false attach the defaultSet columnDef
+                columns: 'default',
+                columnDefs: {
+                    // default is a reserved keyword so we use defaultSet
+                    // can be a function
+                    // if this is not defined or null full property set returns per ui.grid
+                    defaultSet: [
+                        {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
+                        {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'}
+                    ],
+                    // Addtional sets can be defined
+                    testSet: [
+                        {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
+                        {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'}
+                    ],
+                    // using a function to return a column set
+                    fullSet: function() {
+                        var arr = [];
+
+                        arr = arr.concat(this.defaultSet).concat(this.testSet);
+
+                        arr.push({
+                            name: $translate.instant('CONTACT.EMAIL'),
+                            field: 'email'
+                        });
+
+                        return arr;
+                    }
+                },
                 route: '/service_requests/contacts',
-                beforePost: function(halObj, deferred) {
+                // Must return resolve(true, halObj) for item to be saved
+                beforeSave: function(halObj, deferred) {
                     halObj.physicalAddress = {
                         addressId: '1-2CPY6UA',
                         country: 'US'
@@ -44,7 +67,7 @@ define(['angular', 'contact', 'hateoasFactory', 'utility.formatters'], function(
                 ]
              };
 
-            return new HATEOASFactory(Contacts);
+            return new HATEAOSFactory(Contacts);
         }
     ]);
 });

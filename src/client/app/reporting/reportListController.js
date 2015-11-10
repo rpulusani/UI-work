@@ -11,13 +11,12 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             if (!Reports.item) {
                 $location.path(Reports.route);
             } else {
-                 Reports.columns = Reports.item.id;
-            }
+                $scope.category = Reports.item;
 
-            // if this report has an associated eventType from the finder form add these
-            // parameters to the next call.
-            if (Report.finder.eventType) {
-                params = [{
+                // if this report has an associated eventType from the finder form add these
+                // parameters to the next call.
+                if (Reports.finder.eventType) {
+                    params = [{
                         name: 'eventType',
                         value: Reports.finder ? Reports.finder.eventType : ''
                     }, {
@@ -26,27 +25,25 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     }, {
                         name: 'eventDateTo',
                         value: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
-                }];
+                    }];
+                }
+
+                // Setting up the grid
+                $scope.gridOptions = {};
+                $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
+                $scope.gridOptions.enableGridMenu = true;
+                $scope.gridOptions.enableSelectAll = false;
+                $scope.gridOptions.enableRowSelection = false;
+                $scope.exporterPdfOrientation =  'landscape';
+                $scope.exporterPdfPageSize = 'TABLOID';
+                $scope.gridOptions.showBookmarkColumn = false;
+
+                Reports.item.links.results().then(function(res) {
+                    Grid.display(Reports.item.results, $scope, personal);
+                }, function(reason) {
+                    NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
+                });
             }
-            
-            $scope.category = Reports.item;
-
-            // Setting up the grid
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
-            $scope.gridOptions.enableGridMenu = true;
-            $scope.gridOptions.enableSelectAll = false;
-            $scope.gridOptions.enableRowSelection = false;
-            $scope.exporterPdfOrientation =  'landscape';
-            $scope.exporterPdfPageSize = 'TABLOID';
-            $scope.gridOptions.showBookmarkColumn = false;
-
-            Reports.item.self().then(function(res) {
-                console.log('HERE!')
-                Grid.display(Reports, $scope, personal);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
-            });
         }
     ]);
 });

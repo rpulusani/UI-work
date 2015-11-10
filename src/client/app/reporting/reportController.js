@@ -54,26 +54,17 @@ define(['angular', 'report', 'chart'], function(angular) {
                 $scope.categories = Reports.data;
             }
 
-            $scope.goToFinder = function(category) {
-                Reports.setItem(category);
+            $scope.goToFinder = function(report) {
+                Reports.setItem(report);
 
-                Reports.all({
-                    results: {
-                        embeddedName: 'results'
-                    }
-                }).then(function(res) {
-                    console.log('here');
-                });
-/*
                 if (Reports.item.eventTypes) {
                     $location.path(Reports.route + '/' + Reports.item.id + '/find');
                 } else {
-                    $scope.runReport(category);
+                    $scope.runReport(report);
                 }
-  */
             };
 
-            $scope.runReport = function(category) {
+            $scope.runReport = function(report) {
                 Reports.finder = $scope.finder;
                 $location.path(Reports.route + '/results');
             };

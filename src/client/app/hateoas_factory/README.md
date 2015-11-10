@@ -2,7 +2,7 @@
 
 HATEOASFactory outputs angular services based on a 'service definition' (think: fat model) and combines it with their initial endpoint call to allow easy hal focused development within module controllers.
 
-NOTE: To prevent refactoring getPage(page, size), getAdditional(service, serviceDescription, params), save(), and update() are still supported functions.
+**NOTE**: To prevent refactoring getPage(page, size), getAdditional(service, serviceDescription, params), save(), and update() are still supported functions.
 
 * [Setup](#Setup)
 * [Overview](#Overview)
@@ -114,8 +114,11 @@ Used to obtain info. Returns a promise. Options object can have a number of poss
 
 #### put(options)
 
-#### setItem(item, returnItem)
-Puts the item into Service.item and attaches some functions. If the returnItem parameter returns true the item is not attached but instead returned.
+#### setItem(item)
+Puts the item into Service.item and attaches some functions.
+
+#### createItem(item)
+Output an item object with the HATEOASFactory functions attached.
 
 #### all(options) 
 Wait for all of an attached self.items._links to be called before executing. All is not attached to the root service ( Service.all() ), and any found self link is omitted by default. all() has a few options not found in the other functions:
@@ -147,8 +150,16 @@ Follows the given prev _link, returns null if it cannot.
 #### getAdditional(Service, NewService)
 Returns a service object built from a _link in Service.item. NewService must meet the form of a service and have a serviceName that matches a Service.item _link.
 
-#### Link functions fn(options)
-Created from an envelopes _links data via setItem. Links functions can process the same options as get().
+#### Link functions
+Created from an envelopes _links data via setItem/createItem. Links functions can process the same options as get(). Data is attached to Service.item.linkName.data or Service.item.linkName.item. Returns a promise passing in the full server response.
+
+Examples:
+
+```js
+    Service.item.links.property(options);
+    Service.item.links.['ugly-property'](options);
+
+```
 
 ### Properties
 These are some of the commonly used properties within a HATEOASFactory Service.
@@ -157,7 +168,7 @@ These are some of the commonly used properties within a HATEOASFactory Service.
 A unique name for the service; should reflect the endpoint
 
 #### Service.embeddedName
-Often embedded data is not under its 'service name' but something else.
+Often embedded data is not under its 'service name'.
 
 #### Service.url
 Base url of the service.
@@ -246,7 +257,7 @@ Service.item.all() lets you fire all links before execution, remember that it wi
             }
         }
     }).then(function() {
-
+        // Contacts.all.
     });
 
 ```
@@ -482,16 +493,22 @@ There are example use cases for events in the 'Example Problems' section.
     // You can also
 
     Devices.setItem(Devices.item);
-    Devices.item.links.meterReads().then(function() {
+    Devices.item.links.['meter-reads']().then(function() {
+        // Data is in
+        Devices.item['meter-reads'].data;
 
-    });
+        // Involved example, lets get the device again
+        Devices.item['meter-reads'] = Devices.createItem(Devices.item[meter-reads]);
 
-    // Lastly
+        Devices.item['meter-reads'].links.device().then(function() {
 
-    var device = Service.setItem(device, true);
+        });
 
-    device.links.meterReads(function() {
+        // Could also do
+        var meterReads = createItem(Devices.item[meter-reads]);
+        meterReads.links.device().then(function() {
 
+        });
     });
 
 ```
@@ -606,3 +623,17 @@ You can define a new url by setting the url property in the service definition. 
 
 Yes. Just add it to the service definition and it will be accessible via Service.function().
 
+#### Is there a way to know what links I have access to?
+Yes, use one of the following:
+
+```js
+    var linkName;
+    
+    for (linkName in halObj._links) {
+
+    }
+
+    // or this item specific function
+
+    Service.item.linkNames // ['account', 'self']
+```
