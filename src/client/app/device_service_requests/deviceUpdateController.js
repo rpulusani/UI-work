@@ -207,10 +207,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             }
 
             $scope.goToSubmit = function() {
-                var primaryContactId = 
-                $scope.device._links = {
-
+                console.log('Lexmark Move Device',$scope.device.lexmarkMoveDevice);
+                if ($scope.device.lexmarkMoveDevice === 'true') {
+                    $scope.device.type = 'DATA_ASSET_CHANGE';
+                } else {
+                    $scope.device.type = 'MADC_MOVE';
                 }
+
                 DeviceServiceRequest.save($scope.device).then(function(){
                     console.log("created SR MADC update");
                     $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
