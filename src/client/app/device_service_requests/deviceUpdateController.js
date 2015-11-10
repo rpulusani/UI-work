@@ -36,7 +36,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 if($location.path().indexOf('receipt') > -1){
                     configureReceiptTemplate();
                 }
-            }
+            };
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
                 $scope.device.requestedByContact = Contacts.item;
@@ -59,7 +59,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 }else{
                    $scope.sr = ServiceRequest.item;
                 }
-            }
+            };
 
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_SUBMITTED";
@@ -76,7 +76,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
-            }
+            };
 
             function configureTemplates(){
                 $scope.configure = {
@@ -156,7 +156,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review'
                 } else {
                     $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/' + $scope.device.id + '/update'
-                }
+                };
 
                 if ($rootScope.formChangedValues) {
                     if ($rootScope.formChangedValues.indexOf('ipAddress') > -1 || 
@@ -181,9 +181,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                         }
 
                     }
-                }
+                };
 
-            }
+            };
 
             $scope.goToReview = function() {
                 $rootScope.formChangedValues = $scope.getChangedValues();
@@ -204,7 +204,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 });
                 return formUpdatedValues;
-            }
+            };
 
             $scope.goToSubmit = function() {
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
@@ -232,11 +232,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                             break;
                         }
                     }
-            }
+            };
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
-            }
+            };
 
             if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateDeviceContact) ||
                 !BlankCheck.isNull($rootScope.updateRequestContact)){
@@ -252,11 +252,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
                 }
                 
-            }
+            };
 
             if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
                 $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
-            }
+            };
             
         }
     ]);
