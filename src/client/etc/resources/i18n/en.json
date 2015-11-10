@@ -133,7 +133,6 @@
         "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
         "CHANGE_HISTORY": "Device change history",
         "LEARN_MORE": "Learn more about requests"
-
     },
 
     "ADDRESS": {
