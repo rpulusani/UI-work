@@ -1,0 +1,25 @@
+<div class="row row--alley-2">
+    <div class="col-1-5">
+        <div class="card" data-card="" id="widget-overview">
+            <div class="card__content">
+                <img src="/etc/resources/img/part_na_color.png" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+            </div>
+        </div>
+    </div>
+    <div class="col-5-12">
+        <dl class="row text--small">
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.PRODUCT_MODEL"></dt>
+            <dd class="col-1-2" ng-bind="device.productModel"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.PART_NUMBER"></dt>
+            <dd class="col-1-2" ng-bind="device.partNumber"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.SERIAL_NO"></dt>
+            <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.IP_ADDRESS"></dt>
+            <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></dt>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedDeviceContact"></dd>
+            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></dt>
+            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedDeviceAddress"></dd>
+        </dl>
+    </div>
+</div>

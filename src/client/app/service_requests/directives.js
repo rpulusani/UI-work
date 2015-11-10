@@ -13,6 +13,19 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/sr-header.html'
         };
     })
+    .directive('srFormButtons', function() {
+        return{
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/sr-form-buttons.html',
+            controller: ['$scope', function($scope) {
+                $scope.submitclick = function(submitFn){
+                    if(submitFn !== null && submitFn !== undefined){
+                        return submitFn();
+                    }
+                };
+            }]
+        };
+    })
     .directive('requestContacts', function() {
         return {
             restrict: 'A',

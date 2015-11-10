@@ -20,11 +20,15 @@ define(['angular'], function(angular) {
                 controller: 'DeviceSearchController'
             })
             .when('/service_requests/devices/:id/view', {
-                templateUrl: '/app/device_service_requests/templates/view-request.html',
+                templateUrl: '/app/device_service_requests/templates/view-breakfix.html',
                 controller: 'DeviceServiceRequestDeviceController'
             })
             .when('/service_requests/devices/:id/review', {
-                templateUrl: '/app/device_service_requests/templates/review-request.html',
+                templateUrl: '/app/device_service_requests/templates/review.html',
+                controller: 'DeviceServiceRequestDeviceController'
+            })
+          .when('/service_requests/devices/:id/receipt', {
+                templateUrl: '/app/device_service_requests/templates/receipt.html',
                 controller: 'DeviceServiceRequestDeviceController'
             })
             .when('/service_requests/devices/:id/update/:return', {

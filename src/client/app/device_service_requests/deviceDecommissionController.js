@@ -6,6 +6,21 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
         function($scope, $rootScope, $routeParams, $location, $translate, Devices, ServiceRequest, FormatterService,
             BlankCheck, DeviceServiceRequest, Contacts) {
 
+
+            $scope.goToReview = function() {
+                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
+            };
+
+            $scope.goToSubmit = function() {
+                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+            };
+
+            $scope.goToContactPicker = function() {
+                $rootScope.decommissionDevice = $scope.device;
+                $rootScope.decommissionSr = $scope.sr;
+                $location.path(DeviceServiceRequest.route + '/decommission/pick_contact');
+            };
+
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
             };
@@ -38,8 +53,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 configureTemplates();
                 if($location.path().indexOf('receipt') > -1){
                     configureReceiptTemplate();
+                }else if($location.path().indexOf('review') > -1){
+                    configureReviewTemplate();
                 }
-
             }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
@@ -65,6 +81,10 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 }
             }
 
+            function configureReviewTemplate(){
+                $scope.configure.actions.translations.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
+                $scope.configure.actions.submit = $scope.goToSubmit;
+            }
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
@@ -146,8 +166,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     actions:{
                         translate: {
                             abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
-                            submit: 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION'
-                        }
+                            submit: 'LABEL.REVIEW_SUBMIT'
+                        },
+                        submit: $scope.goToReview
                     },
                     modal:{
                         translate:{
@@ -169,21 +190,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             }
 
 
-            $scope.goToReview = function() {
-                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
-            };
-
-            $scope.goToSubmit = function() {
-                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
-            };
-
-            $scope.goToContactPicker = function(selectedContact) {
-                $rootScope.decommissionDevice = $scope.device;
-                $rootScope.decommissionSr = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/decommission/pick_contact');
-            };
-
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
                 && $routeParams.return && $routeParams.return !== 'discard') {
                 $rootScope.decommissionContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
             }
@@ -192,7 +199,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 
-            if (!BlankCheck.isNull($scope.device.primaryContact) || 
+            if (!BlankCheck.isNull($scope.device.primaryContact) ||
                 !BlankCheck.isNull($rootScope.decommissionContact)){
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
                 if ($rootScope.decommissionContact) {
@@ -200,7 +207,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 } else {
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
                 }
-                
+
             }
 
             if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {

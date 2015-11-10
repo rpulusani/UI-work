@@ -46,7 +46,8 @@
         "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
         "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
         "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
-        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST"
+        "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST",
+        "ABANDON_SERVICE_REQUEST": "Abandon Service Request"
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -99,7 +100,7 @@
         "DEVICES_MATCHING_SEARCH": "{{total}} devices matching {{serial}}",
         "REQUEST_SEARCH": "What request are you looking for?",
         "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?",
-        "REQUEST_SERVICE_FOR": "Request service for {{product_model}}",
+        "REQUEST_SERVICE_FOR": "Request service for {{productModel}}",
         "DEVICE_DETAILS": "Device details",
         "SERVICE_REQUEST_DETAIL": "Service request details",
         "TYPE_OF_SERVICE_NEEDED": "Type of service needed",
