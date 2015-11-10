@@ -68,7 +68,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         self.item[link].page = 0;
                         self.item[link].size = self.defaultParams.size;
                         self.item[link].sort = null;
-                        self.item[link].url = self.buildUrl(item._links.self.href, self.item.params, itemOptions.params);
+                        self.item[link].url = self.buildUrl(item._links.self.href, self.item.params, false);
                         self.item[link].linkNames = [];
                         self.item[link].columns = self.columns;
                         self.item[link].columnDefs = self.columnDefs;
