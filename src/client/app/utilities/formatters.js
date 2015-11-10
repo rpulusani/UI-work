@@ -142,7 +142,6 @@ define(['angular', 'utility'], function(angular) {
                     return formattedContact;
                 },
                 formatYesNo: function(value) {
-                    console.log(value);
                     return (value === 'true') ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 }
             };
