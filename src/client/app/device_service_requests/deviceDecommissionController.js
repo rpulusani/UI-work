@@ -19,8 +19,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             } else {
 
                 $scope.device = Devices.item;
-                $scope.device.installAddress = Devices.item._embeddedItems['address'];
-                $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
+
+                if (!BlankCheck.isNull(Devices.item._embeddedItems)) {
+                    $scope.device.installAddress = Devices.item._embeddedItems['address'];
+                    $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
+                }
 
                 if (BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
                     $scope.device.lexmarkPickupDevice = false;

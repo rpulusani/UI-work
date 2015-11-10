@@ -199,7 +199,6 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     if(key[0] === '$') {
                         return;
                     }
-                    console.log('index of value '+formUpdatedValues.indexOf(value));
                     if(!value.$pristine && formUpdatedValues.indexOf(value) === -1) {
                         formUpdatedValues.push(key);
                     }
@@ -214,8 +213,10 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             $scope.goToContactPicker = function(currentSelected) {
                 $rootScope.currentSelected = currentSelected;
                 $rootScope.updateDevice = $scope.device;
-                $rootScope.formChangedValues = $scope.getChangedValues();
                 $rootScope.updateSr = $scope.sr;
+                if($location.path().indexOf('review') === -1){
+                    $rootScope.formChangedValues = $scope.getChangedValues();
+                }
                 $location.path(DeviceServiceRequest.route + '/update/pick_contact');
             };
 
@@ -237,8 +238,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
             }
 
-            if (!BlankCheck.isNull($scope.device.primaryContact) || 
-                !BlankCheck.isNull($rootScope.updateDeviceContact)){
+            if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateDeviceContact) ||
+                !BlankCheck.isNull($rootScope.updateRequestContact)){
                 if ($rootScope.updateDeviceContact) {
                     $scope.formattedDeviceContact = FormatterService.formatContact($rootScope.updateDeviceContact);
                 } else {
@@ -254,10 +255,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             }
 
             if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
-                console.log('device move question ' + $scope.device.lexmarkMoveDevice);
                 $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
-                console.log('formatted move question ' + $scope.formattedMoveDevice);
-                //$scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
             }
             
         }
