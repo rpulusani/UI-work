@@ -153,10 +153,10 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 };
                 if (!BlankCheck.isNull($rootScope.currentSelected) && $rootScope.currentSelected === 'updateRequestContact') {
-                    $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review'
+                    $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review';
                 } else {
-                    $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/' + $scope.device.id + '/update'
-                };
+                    $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/' + $scope.device.id + '/update';
+                }
 
                 if ($rootScope.formChangedValues) {
                     if ($rootScope.formChangedValues.indexOf('ipAddress') > -1 || 
@@ -167,7 +167,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
                                 hostName: 'DEVICE_MGT.HOST_NAME'
                             }
-                        }
+                        };
                     }
 
                     if ($rootScope.formChangedValues.indexOf('costCenter') > -1 || 
@@ -178,10 +178,10 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                                 deviceCostCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
                                 customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG'
                             }
-                        }
+                        };
 
                     }
-                };
+                }
 
             };
 
@@ -232,11 +232,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                             break;
                         }
                     }
-            };
+            }
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
-            };
+            }
 
             if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateDeviceContact) ||
                 !BlankCheck.isNull($rootScope.updateRequestContact)){
@@ -252,11 +252,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
                 }
                 
-            };
+            }
 
             if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
                 $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
-            };
+            }
             
         }
     ]);
