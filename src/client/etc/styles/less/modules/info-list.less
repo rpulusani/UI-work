@@ -1,0 +1,37 @@
+.info-list{
+    list-style: none;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+
+    .fn-clearfix();
+}
+
+.info-list__item{
+    .fn-clearfix();
+}
+
+.info-list__heading{
+    float: left;
+    font-weight: bold;
+}
+
+.info-list__item-name{
+    float: left;
+    font-weight: bold;
+    margin-right: (2)*@base-grid-h;
+    width: 200px;
+
+    &:after{
+        content: ":";
+    }
+}
+
+.info-list__item-value{
+    float: left;
+    margin-right: (2)*@base-grid-h;
+}
+
+.info-list__item-link{
+    float: right;
+}
