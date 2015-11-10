@@ -207,6 +207,16 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             }
 
             $scope.goToSubmit = function() {
+                var primaryContactId = 
+                $scope.device._links = {
+
+                }
+                DeviceServiceRequest.save($scope.device).then(function(){
+                    console.log("created SR MADC update");
+                    $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
+                }, function(reason){
+                    NREUM.noticeError('Failed to create SR because: ' + reason);
+                });
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
             };
 
@@ -238,20 +248,18 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
             }
 
-            if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateDeviceContact) ||
-                !BlankCheck.isNull($rootScope.updateRequestContact)){
+            if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateDeviceContact)) {
                 if ($rootScope.updateDeviceContact) {
-                    $scope.formattedDeviceContact = FormatterService.formatContact($rootScope.updateDeviceContact);
-                } else {
-                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
+                    $scope.device.primaryContact = $rootScope.updateDeviceContact;
                 }
+                $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
+            }
                 
+            if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateRequestContact)) {
                 if ($rootScope.updateRequestContact) {
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($rootScope.updateRequestContact);
-                } else {
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+                    $scope.device.primaryContact = $rootScope.updateRequestContact;
                 }
-                
+                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
             }
 
             if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
