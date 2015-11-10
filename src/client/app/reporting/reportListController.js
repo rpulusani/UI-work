@@ -38,7 +38,12 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.exporterPdfPageSize = 'TABLOID';
                 $scope.gridOptions.showBookmarkColumn = false;
 
-                Reports.item.links.results().then(function(res) {
+                Reports.item.links.results({
+                    serviceName: 'results',
+                    embeddedName: 'reportData',
+                    columns: Reports.item.id,
+                    columnsDefs: Reports.columnsDefs
+                }).then(function(res) {
                     Grid.display(Reports.item.results, $scope, personal);
                 }, function(reason) {
                     NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);

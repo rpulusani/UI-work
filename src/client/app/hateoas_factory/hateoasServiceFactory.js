@@ -65,15 +65,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         self.item[link].data = [];
                         self.item[link].page = {};
                         self.item[link].params = self.params;
-                        self.item[link].page = 0;
                         self.item[link].size = self.defaultParams.size;
                         self.item[link].sort = null;
                         self.item[link].url = self.buildUrl(item._links.self.href, self.item.params, false);
                         self.item[link].linkNames = [];
                         self.item[link].columns = self.columns;
                         self.item[link].columnDefs = self.columnDefs;
-                        self.item[link].serviceName = '';
-                        self.item[link].embeddedName = '';
+                        self.item[link].serviceName = link;
+                        self.item[link].embeddedName = link;
 
                         self.item.links[link] = function(options, isAll) {
                             var deferred = $q.defer();
@@ -92,6 +91,24 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 options.url = self.buildUrl(options.url, self.item[link].params, options.params);
                             }
 
+                            if (options.serviceName) {
+                                self.item[link].serviceName = options.serviceName;
+                            }
+
+                            if (options.embeddedName) {
+                                self.item[link].embeddedName = options.embeddedName;
+                            }
+
+                            if (options.columns) {
+                                self.item[link].columns = options.columns;
+                            }
+
+                            if (options.columnDefs) {
+                                self.item[link].columnDefs = options.columnDefs;
+                            }
+
+                            self.item[link].getPage = self.getPage;
+
                             $http(options).then(function(response) {
                                 self.processedResponse = response;
 
@@ -102,6 +119,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 } else {
                                     self.item[link].data = response;
                                 }
+
+                                self.item[link].page = response.data.page;
 
                                 deferred.resolve(response);
                             });
@@ -123,10 +142,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                     return $q.all(deferreds);
                 };
-
-                self.item.get = self.get;
-                self.item.getPage = self.getPage;
-                //self.item.getAdditional = self.getAdditional;
             };
 
             HATEOASFactory.prototype.checkForEvent = function(halObj, fnName) {

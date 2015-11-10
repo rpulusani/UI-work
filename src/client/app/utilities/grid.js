@@ -114,8 +114,6 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 });
             }
 
-            console.log(scope.gridOptions);
-
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
@@ -125,9 +123,9 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             //scope.gridApi.core.refresh();
             // Setting up pagination
             if (scope.pagination !== false) {
-                //scope.pagination = this.pagination(service, scope, personal);
-              //  scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
-               // scope.itemsPerPage = service.params.size;
+                scope.pagination = this.pagination(service, scope, personal);
+                scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
+                scope.itemsPerPage = service.params.size;
             }
         };
 
