@@ -35,7 +35,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.createItem = function(halObj) {
-
+                
             };
 
             HATEOASFactory.prototype.setItem = function(item) {
