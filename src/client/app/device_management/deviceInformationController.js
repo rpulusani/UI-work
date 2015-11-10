@@ -85,8 +85,12 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
                     $scope.meterReads = reorderedData.concat(tempData);
                 });
-                $scope.installAddress = $scope.device._embeddedItems['address'];
-                $scope.primaryContact = $scope.device._embeddedItems['primaryContact'];
+
+                if (!BlankCheck.isNull($scope.device._embeddedItems)) {
+                    $scope.installAddress = $scope.device._embeddedItems['address'];
+                    $scope.primaryContact = $scope.device._embeddedItems['primaryContact'];
+                }
+                
             }
 
             if($scope.device !== null && $scope.device !== undefined){
