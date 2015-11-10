@@ -36,7 +36,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 if($location.path().indexOf('receipt') > -1){
                     configureReceiptTemplate();
                 }
-            };
+            }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
                 $scope.device.requestedByContact = Contacts.item;
@@ -59,7 +59,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 }else{
                    $scope.sr = ServiceRequest.item;
                 }
-            };
+            }
 
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_SUBMITTED";
@@ -76,7 +76,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
-            };
+            }
 
             function configureTemplates(){
                 $scope.configure = {
@@ -183,7 +183,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 }
 
-            };
+            }
 
             $scope.goToReview = function() {
                 $rootScope.formChangedValues = $scope.getChangedValues();
