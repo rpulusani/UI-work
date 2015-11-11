@@ -1,62 +1,38 @@
-<div class="row well">
-<div class="col-1-5">
-	<div class="card" data-card="" id="widget-overview">
-        <div class="card__content">
-            <img src="/etc/resources/img/part_na_color.png" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
-        </div>
-    </div>
-</div>
-<div class="col-4-5 left-pad">
+<div class="well well--no-shadow">
 	<strong translate="DEVICE_MGT.MANAGING_DEVICE"></strong>
-	<div class="row">
-		<div class="col-2-8">
-			<h1 ng-bind="device.productModel"></h1>
-		</div>
-		<div class="col-1-24 text--align-center">
-        	<i class="icon icon--ui icon--not-favorite"></i>
-    	</div>
-    </div>
-	<div class="row">
-		<div class="col-23-24">
-			<div class="row">
-				<div class="col-2-8">
-			    	<strong translate="DEVICE_MGT.PRODUCT_MODEL"></strong>
-			    	<strong>:</strong>
-			    	<span ng-bind="device.productModel"></span>
-			    </div>
-			    <div class="col-1-24 text--align-center">|</div>
-			    <div class="col-2-8">
-			    	<strong translate="DEVICE_MGT.SERIAL_NO"></strong>
-			    	<strong>:</strong>
-			    	<span ng-bind="device.serialNumber"></span>
-			    </div>
-			    <div class="col-1-24 text--align-center">|</div>
-			    <div class="col-2-8">
-			    	<strong translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG">:</strong>
-			    	<strong>:</strong>
-			    	<span ng-bind="device.serialNumber"></span>
-			    </div>
-		    </div>
-		</div>
+	<div class="clearfix">
+		<h1 class="pull vertical-space--none" ng-bind="device.productModel"></h1>
+	    <i class="pull icon icon--ui icon--not-favorite"></i>
+	    <div class="push"><a href="#">lorem</a> | <a class="#">ipsum</a></div>
 	</div>
-	<div class="col-1">
-		<a href="" translate="DEVICE_MGT.VISIT_SUPPORT_PAGE"></a>
-	</div>
-	<div class="col-1"></div>
-	<div class="row">
-		<div class="col-5-8">
-	        <button class="btn btn--primary" ng-click="btnRequestService(device);" translate="DEVICE_MGT.REQUEST_SERVICE"></button>
-	        <div selectric options="columns" value="id" label="name"
-                placeholder="{{'DEVICE_MGT.ORDER_SUPPLIES' | translate}}" class="col-3-8">
-            </div>
+   	<hr>
+	<div class="media">
+		<div class="media__visual">
+	    	<img src="/etc/resources/img/part_na_color.png" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
 	    </div>
-        <div class="col-3-8">
-	        <button class="btn btn--primary" ng-click="btnDecommissionDevice(device);" translate="DEVICE_MGT.DECOMMISSION_THIS_DEVICE"
-	        		translate-values="{productModel: device.productModel}">
-	        </button>
-	    </div>
-	    <div class="col-1"></div>
+	    <div class="media__body">
+		    <ul class="info-list vertical-space--none">
+	    		<li class="info-list__item vertical-space--none">
+			    	<div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+			    	<div class="info-list__item-value" ng-bind="device.productModel"></div>
+			    </li>
+			    <li class="info-list__item vertical-space--none">
+			    	<div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+			    	<div class="info-list__item-value" ng-bind="device.serialNumber"></div>
+			    </li>
+			    <li class="info-list__item vertical-space--none">
+			    	<div class="info-list__item-name" translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></div>
+			    	<div class="info-list__item-value" ng-bind="device.serialNumber"></div>
+			    </li>
+		    </ul>
+		    <div class="vertical-space--thin"><a href="" class="call-to-action call-to-action--after" translate="DEVICE_MGT.VISIT_SUPPORT_PAGE"></a></div>
+
+		    <div class="clearfix">
+		        <button class="pull btn" ng-click="btnRequestService(device);" translate="DEVICE_MGT.REQUEST_SERVICE"></button>
+		        <div class="pull" selectric options="columns" value="id" label="name" placeholder="{{'DEVICE_MGT.ORDER_SUPPLIES' | translate}}"></div>
+				<button class="pull btn btn--secondary" ng-click="btnDecommissionDevice(device);" translate="DEVICE_MGT.DECOMMISSION_THIS_DEVICE" translate-values="{productModel: device.productModel}"></button>
+			</div>
+		</div>
 	</div>
-</div>
 </div>
 <div device-tabs></div>
