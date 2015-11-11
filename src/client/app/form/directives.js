@@ -21,6 +21,35 @@ angular.module('mps.form')
         };
     }
 ])
+.directive('datepicker', [function () {
+    return {
+      restrict: 'A',
+      scope: {
+          appendTo: '=',
+          autoClose: '=',
+          autoHideOnBlur: '=',
+          autoHideOnClick: '=',
+          date: '=',
+          dateValidator: '=',
+          dayFormat: '=',
+          initialValue: '=',
+          inputFormat: '=',
+          invalidate: '=',
+          max: '=',
+          min: '=',
+          monthFormat: '=',
+          monthsInCalendar: '=',
+          required: '=',
+          strictParse: '=',
+          time: '=',
+          timeFormat: '=',
+          timeInterval: '=',
+          timeValidator: '=',
+          weekdayFormat: '='
+      },
+      controller: 'DatePickerController'
+    };
+}])
 .directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
