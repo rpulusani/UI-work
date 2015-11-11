@@ -6,6 +6,8 @@ define(['angular', 'chartjs', 'rome', 'chart'], function(angular, ChartJs, Rome)
             var node = element[0],
             calendar;
 
+            node.type = 'text';
+
             if (!attrs.inputFormat) {
                 attrs.inputFormat = 'YYYY-MM-DD';
             }
