@@ -12,9 +12,15 @@ define(['angular', 'chartjs', 'rome', 'chart'], function(angular, ChartJs, Rome)
 
             calendar = Rome(node, attrs);
 
-            calendar.on('data', function() {
-             
+            // Watch was avoided due to performance concerns
+            calendar.on('data', function(val) {
+                scope.dateVal = val;
             });
+
+            // Add apply() call to top of event queue; hence 0 milliseconds
+            setInterval(function() {
+                scope.$apply()
+            }, 0);
         }
     ]);
 });
