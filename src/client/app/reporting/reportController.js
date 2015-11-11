@@ -23,7 +23,42 @@ define(['angular', 'report', 'chart'], function(angular) {
                             report.links.stats({
                                 embeddedName: null
                             }).then(function(serverResponse) {
+                                var j = 0,
+                                results = [];
 
+                                if (report.stats.data.dataSet) {
+                                    if (report.stats.data.dataSet[0].data) {
+                                        for (j; j < report.stats.data.dataSet[0].data.length; j += 1) {
+
+                                            if (j === 0) {
+                                                results.push({
+                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    color: '#F7464A', 
+                                                    highlight: '#FF5A5E', 
+                                                    label: 'Shipped'
+                                                });
+                                            } else if (j === 1) {
+                                                results.push({
+                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    color: '#46BFBD', 
+                                                    highlight: '#5AD3D1', 
+                                                    label: 'Installed'
+                                                });
+                                            } else {
+                                                results.push({
+                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    color: '#FDB45C', 
+                                                    highlight: '#FFC870', 
+                                                    label: 'Stored'
+                                                });
+                                            }
+                                        }
+
+                                        $scope[report.id] = {};
+                                        $scope[report.id].report = report;
+                                        $scope[report.id].chart = results;
+                                    }
+                                }
                             });
                         }(report));
                     }
@@ -43,6 +78,7 @@ define(['angular', 'report', 'chart'], function(angular) {
             };
 
             $scope.runReport = function(report) {
+                Reports.setItem(report);
                 Reports.finder = $scope.finder;
                 $location.path(Reports.route + '/results');
             };

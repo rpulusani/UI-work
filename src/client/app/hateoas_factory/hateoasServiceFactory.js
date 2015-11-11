@@ -51,6 +51,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 item,
                 propName;
 
+                if (!itemOptions) {
+                    itemOptions = {};
+                }
+
                 self.checkForEvent(self.item, 'onItemSetup');
 
                 if (halObj) {
@@ -99,6 +103,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 } else {
                                     options.url = self.buildUrl(options.url, item[link].params, options.params);
                                 }
+
+                                console.log(link)
+                                console.log(item);
+                                console.log(options.url)
 
                                 if (options.serviceName) {
                                     item[link].serviceName = options.serviceName;

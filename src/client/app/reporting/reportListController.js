@@ -44,6 +44,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     columns: Reports.item.id,
                     columnsDefs: Reports.columnsDefs
                 }).then(function(res) {
+                    console.log('123');
                     Grid.display(Reports.item.results, $scope, personal);
                 }, function(reason) {
                     NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);

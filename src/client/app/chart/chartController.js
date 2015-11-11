@@ -23,7 +23,7 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
             }
 
             // move to scope.on and broadcast the event
-            scope.$watch('chartdata', function() {
+            scope.$watch('data', function() {
                 if (scope.data) {
                     chartData = JSON.parse(scope.data);
                 } else {
