@@ -9,7 +9,7 @@ define(['angular', 'angular-mocks', 'utility.formatters'], function(angular, moc
             it('should format to a link', function(){
                 var expected = '<a href=\"http://www.google.com/1-23-456-789-00\">1-23-456-789-00</a>';
                 var serviceRequest = {
-                    'id': '1-23-456-789-00',
+                    'requestNumber': '1-23-456-789-00',
                     '_links':{
                         'ui': 'http://www.google.com/1-23-456-789-00'
                     }
@@ -17,10 +17,10 @@ define(['angular', 'angular-mocks', 'utility.formatters'], function(angular, moc
                 var actual = formatter.getFormattedSRNumber(serviceRequest);
                 expect(actual).toEqual(expected);
             });
-            it('should show just id because of empty ui link', function(){
+            it('should show just requestNumber because of empty ui link', function(){
                 var expected = '1-23-456-789-00';
                 var serviceRequest = {
-                    'id': '1-23-456-789-00',
+                    'requestNumber': '1-23-456-789-00',
                     '_links':{
                         'ui': ''
                     }
@@ -28,32 +28,32 @@ define(['angular', 'angular-mocks', 'utility.formatters'], function(angular, moc
                 var actual = formatter.getFormattedSRNumber(serviceRequest);
                 expect(actual).toEqual(expected);
             });
-            it('should show just id because of missing ui link', function(){
+            it('should show just requestNumber because of missing ui link', function(){
                 var expected = '1-23-456-789-00';
                 var serviceRequest = {
-                    'id': '1-23-456-789-00',
+                    'requestNumber': '1-23-456-789-00',
                     '_links':{}
                 };
                 var actual = formatter.getFormattedSRNumber(serviceRequest);
                 expect(actual).toEqual(expected);
             });
-            it('should show just id because of missing _link section', function(){
+            it('should show just requestNumber because of missing _link section', function(){
                 var expected = '1-23-456-789-00';
                 var serviceRequest = {
-                    'id': '1-23-456-789-00'
+                    'requestNumber': '1-23-456-789-00'
                 };
                 var actual = formatter.getFormattedSRNumber(serviceRequest);
                 expect(actual).toEqual(expected);
             });
-             it('should show just empty string because of empty id', function(){
+             it('should show just empty string because of empty requestNumber', function(){
                 var expected = '';
                 var serviceRequest = {
-                    'id': ''
+                    'requestNumber': ''
                 };
                 var actual = formatter.getFormattedSRNumber(serviceRequest);
                 expect(actual).toEqual(expected);
             });
-            it('should show just empty string because of missing id', function(){
+            it('should show just empty string because of missing requestNumber', function(){
                 var expected = '';
                 var serviceRequest = {};
                 var actual = formatter.getFormattedSRNumber(serviceRequest);

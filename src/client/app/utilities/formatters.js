@@ -6,11 +6,11 @@ define(['angular', 'utility'], function(angular) {
             return{
                 getFormattedSRNumber: function(serviceRequest){
 
-                    if(serviceRequest && serviceRequest._links && serviceRequest.id &&
+                    if(serviceRequest && serviceRequest._links && serviceRequest.requestNumber &&
                         serviceRequest._links['ui'] && serviceRequest._links['ui'] !== ''){
-                        return '<a href="' + serviceRequest._links['ui'] + '">' + serviceRequest.id + '</a>';
-                    }else if(serviceRequest && serviceRequest.id){
-                        return serviceRequest.id;
+                        return '<a href="' + serviceRequest._links['ui'] + '">' + serviceRequest.requestNumber + '</a>';
+                    }else if(serviceRequest && serviceRequest.requestNumber){
+                        return serviceRequest.requestNumber;
                     }else{
                         return '';
                     }
