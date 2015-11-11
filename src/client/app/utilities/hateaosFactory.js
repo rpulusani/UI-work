@@ -146,10 +146,73 @@ define(['angular', 'utility'], function(angular) {
                             self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                             halObj._links = {
                                 account: {
-                                    href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
+                                    href: 'https://api.venus-dev.lexmark.com/mps/accounts/' + self.params.accountId
                                 }
                             };
                             var url = self.buildUrl(self.url, self.params, []);
+
+                            halAdapter.process($http({
+                                method: 'post',
+                                url: url,
+                                data: halObj
+                            })).then(function(processedResponse) {
+                                self.item = processedResponse;
+                                self.processedResponse = processedResponse;
+
+                                self.checkForEvent(self.item, 'afterSave').then(function() {
+                                    deferred.resolve();
+                                });
+                            });
+                        },function(reason){
+                            deferred.reject(reason);
+                        });
+                    } else {
+                        deferred.resolve(false);
+                    }
+                });
+
+                return deferred.promise;
+            };
+
+            HATEAOSFactory.prototype.saveMADC = function(halObj) {
+                var self  = this,
+                deferred = $q.defer();
+
+                self.checkForEvent(halObj, 'beforeSave').then(function(canContinue, newObj) {
+                    if (canContinue === true) {
+                        if (newObj) {
+                            halObj = newObj;
+                        }
+                        $rootScope.currentUser.deferred.promise.then(function(){
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            halObj._links = {
+                                account: {
+                                    href: 'https://api.venus-dev.lexmark.com/mps/accounts/' + self.params.accountId
+                                }
+                            };
+                            if (halObj.primaryContact) {
+                                halObj._links.primaryContact = {
+                                    href: 'https://api.venus-dev.lexmark.com/mps/contacts/' + halObj.primaryContact.id
+                                }
+                            }
+                            if (halObj.requestedByContact) {
+                                halObj._links.requester = {
+                                    href: 'https://api.venus-dev.lexmark.com/mps/contacts/' + halObj.requestedByContact.id
+                                }
+                            }
+                            if (halObj.installAddress) {
+                                halObj._links.sourceAddress = {
+                                    href: 'https://api.venus-dev.lexmark.com/mps/accounts/' + self.params.accountId+ '/addresses/' + halObj.requestedByContact.id
+                                }
+                            }
+                            if (halObj.id) {
+                                halObj._links.asset = {
+                                    href: 'https://api.venus-dev.lexmark.com/mps/assets/' + halObj.id
+                                }
+                            }
+                            var url = self.buildUrl('https://api.venus-dev.lexmark.com/mps/'+self.serviceName, self.params, []);
+                            console.log(url);
 
                             halAdapter.process($http({
                                 method: 'post',

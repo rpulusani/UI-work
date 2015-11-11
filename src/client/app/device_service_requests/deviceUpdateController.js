@@ -6,6 +6,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
         function($scope, $location, $filter, $routeParams, $rootScope, ServiceRequest, FormatterService, 
             BlankCheck, DeviceServiceRequest, Devices, Contacts) {
 
+            $scope.madcDevice = {};
+
             var redirectToList = function() {
                 $location.path(Devices.route + '/');
             };
@@ -36,7 +38,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 if($location.path().indexOf('receipt') > -1){
                     configureReceiptTemplate();
                 }
-            };
+            }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
                 $scope.device.requestedByContact = Contacts.item;
@@ -46,22 +48,22 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             });
 
             function setupSR(){
-                if(ServiceRequest.item === null){
-                    ServiceRequest.newMessage();
-                    $scope.sr = ServiceRequest.item;
+                if(DeviceServiceRequest.item === null){
+                    DeviceServiceRequest.newMessage();
+                    $scope.sr = DeviceServiceRequest.item;
                     $scope.sr._links['account'] = $scope.device._links['account'];
                     $scope.sr._links['asset'] = $scope.device._links['self'];
                     $scope.sr.customerReferenceId = '';
                     $scope.sr.costCenter = '';
                     $scope.sr.notes = '';
-                    $scope.sr.id = '1-XAEASD';
+                    $scope.sr.id = $scope.sr.requestNumber;
                     $scope.sr._links['ui'] = 'http://www.google.com/1-XAEASD';
                 }else{
-                   $scope.sr = ServiceRequest.item;
+                   $scope.sr = DeviceServiceRequest.item;
                 }
-            };
+            }
 
-            function configureReceiptTemplate(){
+            function configureReceiptTemplate() {
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
@@ -76,9 +78,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
-            };
+            }
 
-            function configureTemplates(){
+            function configureTemplates() {
                 $scope.configure = {
                     header: {
                         translate: {
@@ -141,14 +143,14 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                             abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
                             abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
-                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
+                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
                         },
                         returnPath: Devices.route + '/'
                     },
                     contactPicker: {
                         translate: {
                             title: 'CONTACT.SELECT_CONTACT',
-                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
+                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS'
                         }
                     }
                 };
@@ -183,7 +185,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                     }
                 }
 
-            };
+            }
 
             $scope.goToReview = function() {
                 $rootScope.formChangedValues = $scope.getChangedValues();
@@ -207,20 +209,32 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             };
 
             $scope.goToSubmit = function() {
-                console.log('Lexmark Move Device',$scope.device.lexmarkMoveDevice);
-                if ($scope.device.lexmarkMoveDevice === 'true') {
-                    $scope.device.type = 'DATA_ASSET_CHANGE';
-                } else {
-                    $scope.device.type = 'MADC_MOVE';
-                }
-
-                DeviceServiceRequest.save($scope.device).then(function(){
-                    console.log("created SR MADC update");
+                getMADCObject();
+                DeviceServiceRequest.saveMADC($scope.madcDevice).then(function(){
                     $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
                 });
-                $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
+            };
+
+            var getMADCObject = function() {
+                if ($scope.device.lexmarkMoveDevice === 'true') {
+                    $scope.madcDevice.type = 'MADC_MOVE';
+                } else {
+                    $scope.madcDevice.type = 'DATA_ASSET_CHANGE';
+                }
+                $scope.madcDevice.assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.assetTag,
+                    costCenter: $scope.device.costCenter
+                };
+                $scope.madcDevice.notes = $scope.sr.notes;
+                $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
+                $scope.madcDevice.primaryContact = $scope.device.primaryContact;
+                $scope.madcDevice.id = $scope.device.id;
+                $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
+                $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
             };
 
             $scope.goToContactPicker = function(currentSelected) {
