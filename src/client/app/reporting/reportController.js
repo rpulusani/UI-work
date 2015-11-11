@@ -63,12 +63,11 @@ define(['angular', 'report', 'chart', 'form'], function(angular) {
             };
 
             $scope.runReport = function() {
-                console.log($scope.finder);
                 if ($scope.finder.dateFrom && $scope.finder.dateTo) {
                     Reports.finder = $scope.finder;
-                   // $location.path(Reports.route + '/results');
+                    $location.path(Reports.route + '/results');
                 } else {
-                   // $location.path(Reports.route + '/' + Reports.category.id + '/find');
+                    $location.path(Reports.route + '/' + Reports.category.id + '/find');
                 }
             };
         }
