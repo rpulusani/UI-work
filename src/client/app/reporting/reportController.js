@@ -26,6 +26,7 @@ define(['angular', 'report', 'chart', 'form'], function(angular) {
                 highlight: '#FFC870',
                 label: 'Yellow'
             }];
+
             $scope.barChartSample = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -62,11 +63,12 @@ define(['angular', 'report', 'chart', 'form'], function(angular) {
             };
 
             $scope.runReport = function() {
+                console.log($scope.finder);
                 if ($scope.finder.dateFrom && $scope.finder.dateTo) {
-                    $rootScope.finder = $scope.finder;
-                    $location.path(Reports.route + '/results');
+                    Reports.finder = $scope.finder;
+                   // $location.path(Reports.route + '/results');
                 } else {
-                    $location.path(Reports.route + '/' + Reports.category.id + '/find');
+                   // $location.path(Reports.route + '/' + Reports.category.id + '/find');
                 }
             };
         }

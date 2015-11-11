@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="/etc/styles/css/pagination.css" />
     <link rel="stylesheet" href="/etc/styles/css/angular-ui-grid-lxk-framework.css" />
     <link rel="stylesheet" href="//www.lexmark.com/common/common-mce/styles/css/utilities.css" />
+    <link rel="stylesheet" href="/etc/styles/css/rome.css" />
     <link rel="stylesheet" href="/etc/styles/css/app.css" />
 
     <script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>

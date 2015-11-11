@@ -29,8 +29,8 @@ define(['angular', 'report'], function(angular) {
                 category: null, // category object from categories[]
                 categories: [],
                 finder: {
-                    dateTo: '',
                     dateFrom: '',
+                    dateTo: '',
                     eventType: ''
                 },
                 getTypes: function() {
