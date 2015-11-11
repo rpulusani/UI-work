@@ -40,7 +40,10 @@ requirejs.config({
             'chart.chartingController',
             'chart.directives',
 
+            'rome',
+
             'form',
+            'form.datePicker',
             'form.directives',
 
             'account',
@@ -76,7 +79,10 @@ requirejs.config({
         'chart.chartingController': ['chartjs'],
         'chart.directives': ['chartjs'],
 
+        'rome': ['angular'],
+
         'form':['angular', 'lxk.fef'],
+        'form.datePicker' : ['form'],
         'form.directives': ['form'],
 
         'account': ['angular'],
@@ -121,6 +127,8 @@ requirejs.config({
 
         'chartjs': 'app/libs/Chart.min',
 
+        'rome': 'app/libs/rome.min',
+
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
 
@@ -137,6 +145,7 @@ requirejs.config({
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
+        'form.datePicker': 'app/form/datePickerController',
         'form.directives': 'app/form/directives',
 
         'chart': 'app/chart/charts',

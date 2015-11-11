@@ -1,4 +1,4 @@
-define(['angular', 'report', 'chart'], function(angular) {
+define(['angular', 'report', 'chart', 'form'], function(angular) {
     'use strict';
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', '$rootScope', 'Reports', 'grid',
@@ -26,6 +26,7 @@ define(['angular', 'report', 'chart'], function(angular) {
                 highlight: '#FFC870',
                 label: 'Yellow'
             }];
+
             $scope.barChartSample = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -63,7 +64,7 @@ define(['angular', 'report', 'chart'], function(angular) {
 
             $scope.runReport = function() {
                 if ($scope.finder.dateFrom && $scope.finder.dateTo) {
-                    $rootScope.finder = $scope.finder;
+                    Reports.finder = $scope.finder;
                     $location.path(Reports.route + '/results');
                 } else {
                     $location.path(Reports.route + '/' + Reports.category.id + '/find');
