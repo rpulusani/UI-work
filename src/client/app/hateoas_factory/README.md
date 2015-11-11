@@ -637,3 +637,27 @@ Yes, use one of the following:
 
     Service.item.linkNames // ['account', 'self']
 ```
+#### I am looking through a number of items; in a for loop, how can I keep track of the responses?
+Use a closure.
+
+```js
+     Reports.getPage().then(function() {
+        var i = 0,
+        report;
+
+       $scope.reports = Reports.data;
+
+        for (i; i < $scope.reports.length; i += 1) {
+            report = Reports.createItem($scope.reports[i]);
+            report.stats.params.page = null;
+            report.stats.params.size = null;
+
+            (function(report) {
+                report.links.stats().then(function() {
+                    // data in report.stats.data
+                });
+            }(report));
+        }
+    });
+
+```

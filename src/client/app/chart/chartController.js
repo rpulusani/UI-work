@@ -22,7 +22,8 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                 node.style.margin = '0  auto';
             }
 
-            scope.$on('chartdata', function(newVal) {
+            // move to scope.on and broadcast the event
+            scope.$watch('chartdata', function() {
                 if (scope.data) {
                     chartData = JSON.parse(scope.data);
                 } else {

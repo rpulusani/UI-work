@@ -15,22 +15,17 @@ define(['angular', 'report', 'chart'], function(angular) {
                    $scope.categories = Reports.data;
 
                     for (i; i < $scope.categories.length; i += 1) {
-                        report = Reports.setItem($scope.categories[i], {
-                            newItem: true
-                        });
-
+                        report = Reports.createItem($scope.categories[i]);
                         report.stats.params.page = null;
                         report.stats.params.size = null;
-                        
-                        report.links.stats({
-                            page: null, 
-                            size: null,
-                            embeddedName: null
-                        }).then(function(report, serverResponse) {
-                            if (report.data.dataSet) {
 
-                            }
-                        });
+                        (function(report) {
+                            report.links.stats({
+                                embeddedName: null
+                            }).then(function(serverResponse) {
+
+                            });
+                        }(report));
                     }
                 });
             } else {

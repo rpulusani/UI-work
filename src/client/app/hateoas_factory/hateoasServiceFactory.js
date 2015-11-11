@@ -34,8 +34,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return angular.extend(self, serviceDefinition);
             };
 
-            HATEOASFactory.prototype.createItem = function(halObj) {
+            HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
+                if (!itemOptions) {
+                    itemOptions = {}
+                }
 
+                itemOptions.newItem = true;
+
+                return this.setItem(halObj, itemOptions);
             };
 
             HATEOASFactory.prototype.setItem = function(halObj, itemOptions) {
