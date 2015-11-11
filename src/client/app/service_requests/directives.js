@@ -18,7 +18,7 @@ define(['angular', 'serviceRequest'], function(angular) {
             restrict: 'A',
             templateUrl: '/app/service_requests/templates/sr-form-buttons.html',
             controller: ['$scope', function($scope) {
-                $scope.submitclick = function(submitFn){
+                $scope.formSubmit = function(submitFn){
                     if(submitFn !== null && submitFn !== undefined){
                         return submitFn();
                     }
@@ -42,6 +42,12 @@ define(['angular', 'serviceRequest'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/service_requests/templates/device-removal.html'
+        };
+    })
+    .directive('srDeviceServiceDetails', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/device-service-request-details.html'
         };
     })
     .directive('srDeviceContact', function() {

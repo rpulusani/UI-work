@@ -24,11 +24,15 @@ define(['angular'], function(angular) {
                 controller: 'DeviceServiceRequestDeviceController'
             })
             .when('/service_requests/devices/:id/review', {
-                templateUrl: '/app/device_service_requests/templates/review.html',
+                templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'DeviceServiceRequestDeviceController'
             })
           .when('/service_requests/devices/:id/receipt', {
-                templateUrl: '/app/device_service_requests/templates/receipt.html',
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'DeviceServiceRequestDeviceController'
+            })
+          .when('/service_requests/devices/pick_contact', {
+                templateUrl: '/app/device_service_requests/templates/contact-picker.html',
                 controller: 'DeviceServiceRequestDeviceController'
             })
             .when('/service_requests/devices/:id/update/:return', {

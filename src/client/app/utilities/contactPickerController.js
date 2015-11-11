@@ -10,13 +10,13 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length === 1) {
-                $scope.selectedContact = $rootScope.currentRowList[0].entity;      
+                $scope.selectedContact = $rootScope.currentRowList[0].entity;
             }
 
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
-                   $scope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                   $scope.formattedSelectedContact = FormatterService.formatContact($scope.selectedContact);
+                   $rootScope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+                   $rootScope.formattedSelectedContact = FormatterService.formatContact($scope.selectedContact);
                    return true;
                 } else {
                    return false;
@@ -24,11 +24,13 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.goToDeviceAdd = function(){
-                $location.path($scope.returnPath + '/return');
+                $location.path($scope.returnPath);
             };
 
             $scope.discardSelect = function(){
-                $location.path($scope.returnPath + '/discard');
+                $rootScope.selectedContact = undefined;
+                $rootScope.formattedSelectedContact = undefined;
+                $location.path($scope.returnPath);
             };
 
             $scope.gridOptions = {};
@@ -40,7 +42,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
             });
-            
+
         }
     ]);
 });
