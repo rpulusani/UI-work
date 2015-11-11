@@ -35,113 +35,137 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.createItem = function(halObj) {
-                
+
             };
 
-            HATEOASFactory.prototype.setItem = function(item) {
+            HATEOASFactory.prototype.setItem = function(halObj, itemOptions) {
                 var self = this,
                 link, // prop in _links 
                 links,
+                item,
                 propName;
-
-                if (item) {
-                    self.item = item;
-                    links = self.item._links;
-                } else {
-                    links = self.item._links;
-                }
 
                 self.checkForEvent(self.item, 'onItemSetup');
 
-                self.item.linkNames = [];
-                self.item.links = {};
-                
-                for (link in links) {
-                    if (links[link].href) {
-                        self.item.linkNames.push(link);
+                if (halObj) {
+                    item = halObj;
+                    links = halObj._links;
 
-                        self.item[link] = {};
-                        self.item[link].links = {};
-                        self.item[link].data = [];
-                        self.item[link].page = {};
-                        self.item[link].params = self.params;
-                        self.item[link].size = self.defaultParams.size;
-                        self.item[link].sort = null;
-                        self.item[link].url = self.buildUrl(item._links.self.href, self.item.params, false);
-                        self.item[link].linkNames = [];
-                        self.item[link].columns = self.columns;
-                        self.item[link].columnDefs = self.columnDefs;
-                        self.item[link].serviceName = link;
-                        self.item[link].embeddedName = link;
+                    item.linkNames = [];
+                    item.links = {};
+                    
+                    for (link in links) {
+                        if (links[link].href) {
+                            item.linkNames.push(link);
 
-                        self.item.links[link] = function(options, isAll) {
-                            var deferred = $q.defer();
+                            item[link] = {};
+                            item[link].links = {};
+                            item[link].data = [];
+                            item[link].page = {};
+                            item[link].params = self.params;
+                            item[link].size = self.defaultParams.size;
+                            item[link].sort = null;
+                            item[link].url = self.buildUrl(item._links.self.href, item.params, false);
+                            item[link].linkNames = [];
+                            item[link].columns = self.columns;
+                            item[link].columnDefs = self.columnDefs;
+                            item[link].serviceName = link;
 
-                            if (!options) {
-                                options = {};
-                            }
-
-                            if (!options.method) {
-                                options.method = 'get';
-                            }
-
-                            if (!options.url) {
-                                options.url = self.buildUrl(links[link].href, self.item[link].params, options.params);
+                            if (!itemOptions.embeddedName) {
+                                item[link].embeddedName = null;
                             } else {
-                                options.url = self.buildUrl(options.url, self.item[link].params, options.params);
+                                item[link].embeddedName = itemOptions.embeddedName;
                             }
 
-                            if (options.serviceName) {
-                                self.item[link].serviceName = options.serviceName;
-                            }
+                            item.links[link] = function(options) {
+                                var deferred = $q.defer();
 
-                            if (options.embeddedName) {
-                                self.item[link].embeddedName = options.embeddedName;
-                            }
-
-                            if (options.columns) {
-                                self.item[link].columns = options.columns;
-                            }
-
-                            if (options.columnDefs) {
-                                self.item[link].columnDefs = options.columnDefs;
-                            }
-
-                            self.item[link].getPage = self.getPage;
-
-                            $http(options).then(function(response) {
-                                self.processedResponse = response;
-
-                                if (self.item[link].embeddedName) {
-                                    self.item[link].data = response.data._embedded[self.item[link].embeddedName];
-                                } else if (self.item[link].serviceName) {
-                                    self.item[link].data = response.data._embedded[self.item[link].serviceName];
-                                } else {
-                                    self.item[link].data = response;
+                                if (!options) {
+                                    options = {};
                                 }
 
-                                self.item[link].page = response.data.page;
+                                if (!options.method) {
+                                    options.method = 'get';
+                                }
 
-                                deferred.resolve(response);
-                            });
+                                if (!options.url) {
+                                    options.url = self.buildUrl(links[link].href, item[link].params, options.params);
+                                } else {
+                                    options.url = self.buildUrl(options.url, item[link].params, options.params);
+                                }
 
-                            return deferred.promise;
-                        };
+                                if (options.serviceName) {
+                                    item[link].serviceName = options.serviceName;
+                                }
+
+                                if (options.embeddedName) {
+                                    item[link].embeddedName = options.embeddedName;
+                                }
+
+                                if (options.columns) {
+                                    item[link].columns = options.columns;
+                                }
+
+                                if (options.columnDefs) {
+                                    item[link].columnDefs = options.columnDefs;
+                                }
+
+                                item[link].getPage = self.getPage;
+
+                                $http(options).then(function(response) {
+                                    var embeddedProperty = null;
+
+                                    self.processedResponse = response;
+
+                                    if (options.embeddedName) {
+                                        embeddedProperty = options.embeddedName;
+                                    } else if (item[link].embeddedName && options.embeddedName !== null) {
+                                        embeddedProperty = item[link].embeddedName;
+                                    } else if (item[link].serviceName && options.embeddedName !== null) {
+                                        embeddedProperty = item[link].serviceName
+                                    }
+
+                                    if (embeddedProperty) {
+                                        item[link].data = response.data._embedded[embeddedProperty];
+                                    } else {
+                                        item[link].data = response.data;
+                                    }
+
+                                    if (response.data.page) {
+                                        item[link].page = response.data.page;
+                                    }
+
+                                    if (item[link].data.status) {
+                                        item[link].data = [];
+                                    }
+
+                                    deferred.resolve(item[link], response);
+                                });
+
+                                return deferred.promise;
+                            };
+                        }
+                    }
+
+                    item.all = function(options) {
+                        var deferred = $q.defer(),
+                        len = item.links.length,
+                        deferreds = [],
+                        i = 0;
+
+                        for (i; i < len; i += 1) {
+                            deferreds.push( item[item.links[i]]() );
+                        }
+
+                        return $q.all(deferreds);
+                    };
+
+                    if (itemOptions.newItem !== true) {
+                        self.item = item;
+                    } else {
+                        return item;
                     }
                 }
-
-                self.item.all = function(options) {
-                    var deferred = $q.defer(),
-                    len = self.item.links.length,
-                    deferreds = [],
-                    i = 0;
-
-                    for (i; i < len; i += 1) {
-                        deferreds.push( self.item[self.item.links[i]]() );
-                    }
-
-                    return $q.all(deferreds);
-                };
             };
 
             HATEOASFactory.prototype.checkForEvent = function(halObj, fnName) {

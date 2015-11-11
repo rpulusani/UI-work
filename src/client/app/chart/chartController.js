@@ -22,7 +22,7 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                 node.style.margin = '0  auto';
             }
 
-            scope.$watch('data', function(newVal) {
+            scope.$on('chartdata', function(newVal) {
                 if (scope.data) {
                     chartData = JSON.parse(scope.data);
                 } else {
