@@ -1,14 +1,7 @@
 <h3 translate="DEVICE_MGT.PAGE_COUNTS"></h3>
 <hr>
-
 <form class="form" data-form="" name="devicePageCount" novalidate>
-    <div>
-        <a href="#" ng-click="showAll = !showAll">
-            <span translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT" ng-hide="showAll"></span>
-            <span translate="DEVICE_MGT.VIEW_LESS" ng-show="showAll"></span>
-        </a>
-    </div>
-    <table class="table table--condensed table--even vertical-space--none" style="min-height:0;">
+    <table class="table table--condensed table--even table--responsive" data-js="responsive-table">
         <thead>
             <tr>
                 <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
@@ -19,21 +12,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in meterReads.data" ng-show="item.type === 'Mono' || item.type === 'Color' || item.type === 'LTPC' || showAll">
+            <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
                 <td ng-bind="item.type"></td>
                 <td ng-bind="item.value"></td>
-                <td ng-bind="getModifiedDate(item)"></td>
-                <td><input type="number" ng-value="item.value" ng-if="item.type !== 'Mono'" /></td>
-                <td><input type="date" placeholder="MM/dd/YYYY" ng-if="item.type !== 'Mono'" /></td>
+                <td ng-bind="getMeterReadPriorDate(item)"></td>
+                <td>
+                    <input type="number" ng-model="item.newVal" ng-if="item.type !== 'Mono'" />
+                </td>
+                <td>
+                    <input type="date" ng-model="item.newDate" ng-if="item.type !== 'Mono'" />
+                </td>
             </tr>
         </tbody>
     </table>
-    <div class="vertical-space--thin">
-        <a href="#" ng-click="showAll = !showAll">
-            <span translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT" ng-hide="showAll"></span>
-            <span translate="DEVICE_MGT.VIEW_LESS" ng-show="showAll"></span>
-        </a>
+    <a href="#" ng-click="showAllMeterReads = !showAllMeterReads">
+        <span ng-hide="showAllMeterReads" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT"></span>
+        <span ng-show="showAllMeterReads" translate="DEVICE_MGT.VIEW_LESS"></span>
+    </a>
+    <div class="col-1">
+        <button class="btn btn--primary" ng-click="saveMeterReads();" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
     </div>
-
-	<button class="btn btn--primary" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
 </form>

@@ -1,3 +1,2 @@
 'use strict';
-angular.module('mps.form', [])
-.filter();
+angular.module('mps.form', []).filter();

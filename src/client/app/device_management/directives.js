@@ -25,8 +25,7 @@ define(['angular', 'deviceManagement'], function(angular) {
     .directive('devicePageCount', function() {
         return {
             restrict: 'A',
-            templateUrl: '/app/device_management/templates/device-page-count.html',
-            controller: 'DevicePageCountsController'
+            templateUrl: '/app/device_management/templates/device-page-count.html'
         };
     })
     .directive('deviceTabs', function() {

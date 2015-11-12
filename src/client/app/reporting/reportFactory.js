@@ -65,8 +65,8 @@ define(['angular', 'report'], function(angular) {
                 },    
                 route: '/reporting',
                 finder: {
-                    dateTo: '',
                     dateFrom: '',
+                    dateTo: '',
                     eventType: ''
                 }
             };

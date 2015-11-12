@@ -43,7 +43,10 @@ requirejs.config({
             'chart.chartingController',
             'chart.directives',
 
+            'rome',
+
             'form',
+            'form.datePicker',
             'form.directives',
 
             'account',
@@ -79,7 +82,10 @@ requirejs.config({
         'chart.chartingController': ['chartjs'],
         'chart.directives': ['chartjs'],
 
+        'rome': ['angular'],
+
         'form':['angular', 'lxk.fef'],
+        'form.datePicker' : ['form'],
         'form.directives': ['form'],
 
         'account': ['angular'],
@@ -124,6 +130,8 @@ requirejs.config({
 
         'chartjs': 'app/libs/Chart.min',
 
+        'rome': 'app/libs/rome.min',
+
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
 
@@ -143,6 +151,7 @@ requirejs.config({
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
+        'form.datePicker': 'app/form/datePickerController',
         'form.directives': 'app/form/directives',
 
         'chart': 'app/chart/charts',
@@ -203,7 +212,6 @@ requirejs.config({
         'deviceManagement.deviceController': 'app/device_management/deviceController',
         'deviceManagement.deviceListController': 'app/device_management/deviceListController',
         'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
-        'deviceManagement.devicePageCountsController': 'app/device_management/devicePageCountsController',
         'deviceManagement.deviceOrderController': 'app/device_management/deviceOrderController',
         'deviceManagement.deviceRequestBreakFixController': 'app/device_management/deviceRequestBreakFixListController',
         'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
@@ -216,6 +224,7 @@ requirejs.config({
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
+        'deviceServiceRequest.deviceUpdateController': 'app/device_service_requests/deviceUpdateController',
         'deviceServiceRequest.deviceSearchController': 'app/device_service_requests/deviceSearchController',
         'deviceServiceRequest.deviceServiceRequestDeviceController': 'app/device_service_requests/deviceServiceRequestDeviceController',
         'deviceServiceRequest.deviceDecommissionController': 'app/device_service_requests/deviceDecommissionController',
