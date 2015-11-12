@@ -21,7 +21,14 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
 
                 ctrl = $controller('ReportController', {$scope: scope, Reports: mockedFactory});
 
-                mockedFactory.category = {};
+                mockedFactory.category = {
+                    eventTypes: [{test: 1}],
+                    _links: {
+                        self: {
+                            href: 'http://www.lexmark.com'
+                        }
+                    }
+                };
                 mockedFactory.category.id = 1;
             }));
 
@@ -37,7 +44,7 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
                 it('should redirect to report finder page', function() {
                     spyOn(location, 'path').and.returnValue('/');
                     scope.runReport();
-                    expect(location.path).toHaveBeenCalledWith('/reporting/' + mockedFactory.category.id + '/find');
+                    expect(location.path).toHaveBeenCalledWith('/reporting/results');
                 });
 
                 it('should redirect to report result page', function() {

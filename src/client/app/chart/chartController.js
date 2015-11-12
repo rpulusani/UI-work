@@ -22,40 +22,43 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                 node.style.margin = '0  auto';
             }
 
-            if (scope.data) {
-                chartData = JSON.parse(scope.data);
-            } else {
-                chartData = null;
-            }
-
-            if (scope.options) {
-                chartOptions = JSON.parse(scope.options);
-            } else {
-                chartOptions = {};
-            }
-        
-            if (chartData !== null) {
-                node.appendChild(canvas);
-                chart = new ChartJs(ctx);
-
-                switch (attrs.draw.toLowerCase()) {
-                    case 'barchart':
-                        chart = chart.Bar(chartData, chartOptions);
-                        break;
-                    case 'piechart':
-                        chart = chart.Pie(chartData, chartOptions);
-                        break;
-                    case 'doughnutchart':
-                        chart = chart.Doughnut(chartData, chartOptions);
-                        break;
-                    default: chart = chart.Bar(chartData, chartOptions);
+            // move to scope.on and broadcast the event
+            scope.$watch('data', function() {
+                if (scope.data) {
+                    chartData = JSON.parse(scope.data);
+                } else {
+                    chartData = null;
                 }
 
-                if (legend) {
-                    node.appendChild(legend);
-                    legend.innerHTML = chart.generateLegend();
+                if (scope.options) {
+                    chartOptions = JSON.parse(scope.options);
+                } else {
+                    chartOptions = {};
                 }
-            }
+
+                if (chartData !== null) {
+                    node.appendChild(canvas);
+                    chart = new ChartJs(ctx);
+
+                    switch (attrs.draw.toLowerCase()) {
+                        case 'barchart':
+                            chart = chart.Bar(chartData, chartOptions);
+                            break;
+                        case 'piechart':
+                            chart = chart.Pie(chartData, chartOptions);
+                            break;
+                        case 'doughnutchart':
+                            chart = chart.Doughnut(chartData, chartOptions);
+                            break;
+                        default: chart = chart.Bar(chartData, chartOptions);
+                    }
+
+                    if (legend) {
+                        node.appendChild(legend);
+                        legend.innerHTML = chart.generateLegend();
+                    }
+                }
+            }, true);
         }
     ]);
 });

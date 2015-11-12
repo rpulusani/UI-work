@@ -27,6 +27,9 @@ requirejs.config({
         'app': [
             'angular-gatekeeper',
 
+            'hateoasFactory',
+            'hateoasFactory.serviceFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -138,6 +141,9 @@ requirejs.config({
 
         'app': 'app/app',
 
+        'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
+        'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
+
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
         'nav.navFactory': 'app/nav/navFactory',
@@ -211,7 +217,6 @@ requirejs.config({
         'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
-        'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',

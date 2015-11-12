@@ -34,7 +34,6 @@ define([
     'deviceManagement.deviceOrderController',
     'deviceManagement.deviceRequestBreakFixController',
     'deviceManagement.deviceFactory',
-    'deviceManagement.pageCountFactory',
     'deviceManagement.meterReadFactory',
     'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
@@ -71,6 +70,7 @@ define([
         'ngCookies',
         'ngSanitize',
         'pascalprecht.translate',
+        'mps.hateoasFactory',
         'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
@@ -101,7 +101,7 @@ define([
         return {
             responseError: function(response) {
                 if(console && typeof(console.log) === 'function') {
-                    console.log('Error: ' + JSON.stringify(response));
+                    //console.log('Error: ' + JSON.stringify(response));
                 }
                 NREUM.noticeError(response);
                 return response;

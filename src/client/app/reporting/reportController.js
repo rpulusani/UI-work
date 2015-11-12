@@ -1,74 +1,93 @@
-define(['angular', 'report', 'chart', 'form'], function(angular) {
+define(['angular', 'report', 'chart'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$rootScope', 'Reports', 'grid',
-        function($scope, $location, $rootScope, Reports, Grid) {
-            $scope.finder = Reports.finder;
-            $scope.categories = Reports.categories;
-            $scope.category = Reports.category;
+    .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
+        function($scope, $location, Reports, Grid) {
+            var buildCharts = function() {
+                var i = 0,
+                report;
 
-            // Dummy Chart Data
-            $scope.madcEvents = [{
-                value: 300,
-                color:'#F7464A',
-                highlight: '#FF5A5E',
-                label: 'Red'
-            },
-            {
-                value: 50,
-                color: '#46BFBD',
-                highlight: '#5AD3D1',
-                label: 'Green'
-            },
-            {
-                value: 100,
-                color: '#FDB45C',
-                highlight: '#FFC870',
-                label: 'Yellow'
-            }];
+                 for (i; i < $scope.categories.length; i += 1) {
+                    report = Reports.createItem($scope.categories[i]);
+                    report.stats.params.page = null;
+                    report.stats.params.size = null;
 
-            $scope.barChartSample = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [
-                    {
-                      label: 'My First dataset',
-                      fillColor: 'rgba(0,173,22,0.5)',
-                      strokeColor: 'rgba(0,173,22,0.5)',
-                      highlightFill: 'rgba(0,173,22,0.75)',
-                      highlightStroke: 'rgba(0,173,22,1)',
-                      data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
-                      label: 'My Second dataset',
-                      fillColor: 'rgba(0,97,222,0.5)',
-                      strokeColor: 'rgba(0,97,222,0.5)',
-                      highlightFill: 'rgba(0,97,222,0.75)',
-                      highlightStroke: 'rgba(0,97,222,1)',
-                      data: [28, 48, 40, 19, 86, 27, 90]
+                    // making sure we call only the working stats endpoint. 
+                    //should be removed when all are working
+                    if (report.id === 'mp9058sp') {
+                        (function(report) {
+
+                            report.links.stats({
+                                embeddedName: null
+                            }).then(function(serverResponse) {
+                                var j = 0,
+                                results = [];
+
+                                if (report.stats.data.dataSet) {
+                                    if (report.stats.data.dataSet[0].data) {
+                                        for (j; j < report.stats.data.dataSet[0].data.length; j += 1) {
+                                            if (j === 0) {
+                                                results.push({
+                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    color: '#F7464A', 
+                                                    highlight: '#FF5A5E', 
+                                                    label: 'Shipped'
+                                                });
+                                            } else if (j === 1) {
+                                                results.push({
+                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    color: '#46BFBD', 
+                                                    highlight: '#5AD3D1', 
+                                                    label: 'Installed'
+                                                });
+                                            } else {
+                                                results.push({
+                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    color: '#FDB45C', 
+                                                    highlight: '#FFC870', 
+                                                    label: 'Stored'
+                                                });
+                                            }
+                                        }
+
+                                        $scope[report.id] = {};
+                                        $scope[report.id].report = report;
+                                        $scope[report.id].chart = results;
+                                    }
+                                }
+                            });
+                        }(report));
                     }
-                ]
+                }
             };
 
-            if (!Reports.category) {
-                Reports.getTypes().then(function() {
-                   $scope.categories = Reports.categories;
+            $scope.finder = Reports.finder;
+            $scope.categories = Reports.data;
+            $scope.category = Reports.item;
+
+            if (!$scope.categories.length) {
+                Reports.getPage().then(function() {
+                   $scope.categories = Reports.data;
+
+                    buildCharts();
                 });
             } else {
-                $scope.categories = Reports.categories;
+                buildCharts();
             }
 
-            $scope.goToFinder = function(category) {
-                Reports.category = category;
-                $location.path(Reports.route + '/' + Reports.category.id + '/find');
+            $scope.goToFinder = function(report) {
+                Reports.setItem(report);
+
+                if (Reports.item.eventTypes) {
+                    $location.path(Reports.route + '/' + report.id + '/find');
+                } else {
+                    $scope.runReport(report);
+                }
             };
 
-            $scope.runReport = function() {
-                if ($scope.finder.dateFrom && $scope.finder.dateTo) {
-                    Reports.finder = $scope.finder;
-                    $location.path(Reports.route + '/results');
-                } else {
-                    $location.path(Reports.route + '/' + Reports.category.id + '/find');
-                }
+            $scope.runReport = function(report) {
+                Reports.finder = $scope.finder;
+               $location.path(Reports.route + '/results');
             };
         }
     ]);
