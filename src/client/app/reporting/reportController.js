@@ -79,7 +79,7 @@ define(['angular', 'report', 'chart'], function(angular) {
                 Reports.setItem(report);
 
                 if (Reports.item.eventTypes) {
-                    $location.path(Reports.route + '/' + Reports.item.id + '/find');
+                    $location.path(Reports.route + '/' + report.id + '/find');
                 } else {
                     $scope.runReport(report);
                 }

@@ -43,7 +43,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosConfig', 'fixtures'],
                     
                     expect(mockFactory.serviceMap.test.params.page).toEqual(0);
                     expect(mockFactory.serviceMap.test.params.size).toEqual(20);
-                    expect(mockFactory.serviceMap.test.params.test).toEqual('');
+                    expect(mockFactory.serviceMap.test.params.test).toEqual(null);
                 });
             });
 
