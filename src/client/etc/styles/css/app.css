@@ -7,9 +7,6 @@
   content: "";
   display: block;
 }
-.left-pad {
-  padding-left: 30px;
-}
 .site-nav {
   width: 300px;
 }
@@ -25,8 +22,6 @@
   margin: 0;
 }
 .site-content {
-  padding: 24px 50px;
-  box-shadow: inset 3px 0px 10px 0px rgba(0, 0, 0, 0.5);
   overflow-x: auto;
   min-height: 350px;
 }
@@ -64,10 +59,24 @@
 .site-footer .util-nav ul li:last-child {
   border-right: 0;
 }
-.top-btn {
+.page-header,
+.page-content {
+  padding: 24px 20px;
+}
+@media only screen and (min-width: 54em) {
+  .page-header,
+  .page-content {
+    padding: 24px 40px;
+  }
+}
+.page-header:after,
+.page-content:after {
+  clear: both;
+  content: "";
   display: block;
-  padding: 12px 10px;
-  text-align: center;
+}
+.page-header {
+  background-color: #e6e6f0;
 }
 /** DASHBOARD MOCK **/
 h1,
@@ -125,6 +134,31 @@ a.read-more {
   border: 1px solid #ccc;
 }
 /** END DASHBOARD MOCK **/
+.btns {
+  marign-bottom: -12px;
+  margin-left: -10px;
+}
+.btns:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.btns .btn {
+  margin: 0 0 12px 10px;
+}
+@media only screen and (max-width: 34em) {
+  .btns .btn {
+    width: 100%;
+  }
+}
+.top-btn {
+  display: block;
+  padding: 12px 10px;
+  text-align: center;
+}
+.selectric .form__field__current-option {
+  margin-right: 60px;
+}
 .info-list {
   list-style: none;
   padding: 0;

@@ -1,0 +1,20 @@
+.btns{
+    marign-bottom: (-1)*@base-grid-v;
+    margin-left: (-1)*@base-grid-h;
+
+    .fn-clearfix();
+    
+    .btn{
+        margin: 0 0 @base-grid-v @base-grid-h;
+
+        @media @mq-mobile{
+            width: 100%;
+        }
+    }
+}
+
+.top-btn{
+    display: block;
+    padding: @base-grid-v @base-grid-h;
+    text-align: center;
+}

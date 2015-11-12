@@ -1,16 +1,15 @@
-<div class="well well--no-shadow">
+<div class="page-header">
 	<strong translate="DEVICE_MGT.MANAGING_DEVICE"></strong>
 	<div class="clearfix">
 		<h1 class="pull vertical-space--none" ng-bind="device.productModel"></h1>
-	    <i class="pull icon icon--ui icon--not-favorite"></i>
-	    <div class="push"><a href="#">lorem</a> | <a class="#">ipsum</a></div>
+	    <a class="pull" href="#bookmark"><i class="icon icon--ui icon--not-favorite"></i></a>
 	</div>
    	<hr>
 	<div class="media">
 		<div class="media__visual">
 	    	<img src="/etc/resources/img/part_na_color.png" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
 	    </div>
-	    <div class="media__body">
+		<div class="media__body">
 		    <ul class="info-list vertical-space--none">
 	    		<li class="info-list__item vertical-space--none">
 			    	<div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
@@ -25,14 +24,19 @@
 			    	<div class="info-list__item-value" ng-bind="device.serialNumber"></div>
 			    </li>
 		    </ul>
-		    <div class="vertical-space--thin"><a href="" class="call-to-action call-to-action--after" translate="DEVICE_MGT.VISIT_SUPPORT_PAGE"></a></div>
 
-		    <div class="clearfix">
-		        <button class="pull btn" ng-click="btnRequestService(device);" translate="DEVICE_MGT.REQUEST_SERVICE"></button>
-		        <div class="pull" selectric options="columns" value="id" label="name" placeholder="{{'DEVICE_MGT.ORDER_SUPPLIES' | translate}}"></div>
-				<button class="pull btn btn--secondary" ng-click="btnDecommissionDevice(device);" translate="DEVICE_MGT.DECOMMISSION_THIS_DEVICE" translate-values="{productModel: device.productModel}"></button>
+		    <div class="vertical-space--thin">
+		    	<a href="" class="call-to-action call-to-action--after" translate="DEVICE_MGT.VISIT_SUPPORT_PAGE"></a>
+		    </div>
+
+		    <div class="btns">
+		        <button class="btn" ng-click="btnRequestService(device);" translate="DEVICE_MGT.REQUEST_SERVICE"></button>
+
+		        <button class="btn" translate="DEVICE_MGT.ORDER_SUPPLIES"></button>
+				
+				<button class="btn btn--secondary" ng-click="btnDecommissionDevice(device);" translate="DEVICE_MGT.DECOMMISSION_THIS_DEVICE" translate-values="{productModel: device.productModel}"></button>
 			</div>
 		</div>
 	</div>
 </div>
-<div device-tabs></div>
+<div class="page-content" device-tabs></div>

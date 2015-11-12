@@ -1,27 +1,18 @@
-<div class="row row--alley-2">
-    <div class="col-1">
-        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="REQUEST_MGMT.REQUESTS_FOR_DEVICE"
-          translate-values="{total: pagination.totalItems()}">
-        </h2>
-        <hr/>
-        <div style="display:none;">
-            <span class="text--thick" translate="REQUEST_MGMT.REQUEST_SEARCH"></span>
-            <div>
-                <div class="col-1-5">
-                    <div selectric options="requestColumns" value="id" label="name"
-                         placeholder="{{'LABEL.SELECT' | translate}}"></div>
-                </div>
-                <form class="form form--search col-1-3" data-form="">
-                    <div class="form__field" style="border-radius: 0;">
-                        <input type="text" name="search" id="search" placeholder="Search">
-                    </div>
-                </form>
-                <div class="col-1-1 btn btn--secondary" translate="LABEL.SEARCH"
-                     ng-click="search()" ></div>
-            </div>
-        </div>
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-        <div pagination grid="{{gridOptions}}"></div>
+<h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="REQUEST_MGMT.REQUESTS_FOR_DEVICE" translate-values="{total: pagination.totalItems()}"></h2>
 
-    </div>
+<hr/>
+
+<div style="display:none;">
+    <span class="text--thick" translate="REQUEST_MGMT.REQUEST_SEARCH"></span>
+    <form class="form clearfix" data-form="">
+        <div class="pull" selectric options="requestColumns" value="id" label="name" placeholder="{{'LABEL.SELECT' | translate}}"></div>
+        <div class="form__field pull" style="border-radius: 0;">
+            <input type="text" name="search" id="search" placeholder="Search">
+        </div>
+        <button class="btn btn--secondary" translate="LABEL.SEARCH" ng-click="search()" ></button>
+    </form>
 </div>
+
+<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+
+<div pagination grid="{{gridOptions}}"></div>
