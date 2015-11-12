@@ -1,9 +1,9 @@
 define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceUpdateController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'ServiceRequestService',
+    .controller('DeviceUpdateController', ['$scope', '$location', '$routeParams', '$rootScope', 'ServiceRequestService',
         'FormatterService', 'BlankCheck','DeviceServiceRequest', 'Devices', 'Contacts',
-        function($scope, $location, $filter, $routeParams, $rootScope, ServiceRequest, FormatterService, 
+        function($scope, $location, $routeParams, $rootScope, ServiceRequest, FormatterService, 
             BlankCheck, DeviceServiceRequest, Devices, Contacts) {
 
             $scope.madcDevice = {};
@@ -187,6 +187,26 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
 
             }
 
+            function setMADCObject() {
+                if ($scope.device.lexmarkMoveDevice === 'true') {
+                    $scope.madcDevice.type = 'MADC_MOVE';
+                } else {
+                    $scope.madcDevice.type = 'DATA_ASSET_CHANGE';
+                }
+                $scope.madcDevice.assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.assetTag,
+                    costCenter: $scope.device.costCenter
+                };
+                $scope.madcDevice.notes = $scope.sr.notes;
+                $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
+                $scope.madcDevice.primaryContact = $scope.device.primaryContact;
+                $scope.madcDevice.id = $scope.device.id;
+                $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
+                $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
+            }
+
             $scope.goToReview = function() {
                 $rootScope.formChangedValues = $scope.getChangedValues();
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -209,7 +229,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             };
 
             $scope.goToSubmit = function() {
-                getMADCObject();
+                setMADCObject();
                 DeviceServiceRequest.saveMADC($scope.madcDevice).then(function(){
                     $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
                 }, function(reason){
@@ -217,25 +237,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 });
             };
 
-            var getMADCObject = function() {
-                if ($scope.device.lexmarkMoveDevice === 'true') {
-                    $scope.madcDevice.type = 'MADC_MOVE';
-                } else {
-                    $scope.madcDevice.type = 'DATA_ASSET_CHANGE';
-                }
-                $scope.madcDevice.assetInfo = {
-                    ipAddress: $scope.device.ipAddress,
-                    hostName: $scope.device.hostName,
-                    assetTag: $scope.device.assetTag,
-                    costCenter: $scope.device.costCenter
-                };
-                $scope.madcDevice.notes = $scope.sr.notes;
-                $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
-                $scope.madcDevice.primaryContact = $scope.device.primaryContact;
-                $scope.madcDevice.id = $scope.device.id;
-                $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
-                $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
-            };
+            
 
             $scope.goToContactPicker = function(currentSelected) {
                 $rootScope.currentSelected = currentSelected;
