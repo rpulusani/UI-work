@@ -78,8 +78,8 @@ define(['angular', 'report', 'chart'], function(angular) {
             $scope.goToFinder = function(report) {
                 Reports.setItem(report);
 
-                if (Reports.item.eventTypes) {
-                    $location.path(Reports.route + '/' + report.id + '/find');
+                if (Reports.item.name === 'MADC') {
+                    $location.path(Reports.route + '/' + Reports.item.id + '/find');
                 } else {
                     $scope.runReport(report);
                 }
@@ -87,6 +87,9 @@ define(['angular', 'report', 'chart'], function(angular) {
 
             $scope.runReport = function(report) {
                 Reports.finder = $scope.finder;
+                
+                Reports.setItem(report);
+                
                $location.path(Reports.route + '/results');
             };
         }
