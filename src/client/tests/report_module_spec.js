@@ -22,7 +22,7 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
                 ctrl = $controller('ReportController', {$scope: scope, Reports: mockedFactory});
 
                 mockedFactory.category = {
-                    eventTypes: [{test: 1}],
+                    name: 'MADC',
                     _links: {
                         self: {
                             href: 'http://www.lexmark.com'

@@ -16,7 +16,8 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
                         {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
                         {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo'},
-                        {'name': $translate.instant('REPORTING.ORIG_SN'), 'field':'origSerialNumber'},
+                        {'name': $translate.instant('REPORTING.ORIG_SN'), 'field':'origSerialNumber'}
+                        /*
                         {'name': $translate.instant('REPORTING.NEW_SN'), 'field': 'newSerialNumber'},
                         {'name': $translate.instant('REPORTING.OLD_ADDRESS'), 'field': 'oldAddress'},
                         {'name': $translate.instant('REPORTING.NEW_ADDRESS'), 'field': 'newAddress'},
@@ -25,6 +26,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.NEW_IP'), 'field': 'newIp'},
                         {'name': $translate.instant('REPORTING.OLD_CHL'), 'field': 'oldChl'},
                         {'name': $translate.instant('REPORTING.NEW_CHL'), 'field': 'newChl'}
+                        */
                     ],
                     mp9058sp: [
                         {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl'},
@@ -67,7 +69,8 @@ define(['angular', 'report'], function(angular) {
                 finder: {
                     dateFrom: '',
                     dateTo: '',
-                    eventType: ''
+                    eventType: '',
+                    eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}]
                 }
             };
 
