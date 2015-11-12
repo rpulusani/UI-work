@@ -1,4 +1,4 @@
-define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
+define(['angular', 'address','account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',

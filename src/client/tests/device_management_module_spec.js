@@ -1,10 +1,11 @@
 /* global describe it beforeEach inject expect */
-define(['angular', 'angular-mocks', 'deviceManagement', 'deviceServiceRequest'],
-  function() {
+define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], function(angular, mocks, deviceManagement, deviceServiceRequest) {
     describe('Device Management Module', function() {
         beforeEach(module('mps'));
 
+
         describe('DeviceListController', function(){
+
             var scope,
             httpBackend,
             mockDeviceListCtrl,
@@ -58,17 +59,6 @@ define(['angular', 'angular-mocks', 'deviceManagement', 'deviceServiceRequest'],
 
         });
 
-        describe('DevicePageCountsController', function() {
-            describe('goToReview', function() {
-                it('should navigate to device review page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var device = {id: '12345'};
-                    scope.goToReview(device);
-                    expect(location.path).toHaveBeenCalledWith('/device_management/12345/review');
-                });
-            });
-        });
-
         describe('DeviceController', function() {
             var scope, ctrl, location, mockedFactory, httpBackend;
 
@@ -108,7 +98,7 @@ define(['angular', 'angular-mocks', 'deviceManagement', 'deviceServiceRequest'],
                     ],
                     route: ''
                 };
-                mockFactory = new HATEAOSFactory(hateaosConfig);
+                 mockFactory = new HATEAOSFactory(hateaosConfig);
                 mockFactory.url = 'http://127.0.0.1/test';
                 httpBackend.when('GET', mockFactory.url + '/1-ACCT-ID').respond({
                     "serialNumber": "406336990F9Y5",
