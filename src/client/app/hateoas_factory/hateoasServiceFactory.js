@@ -77,7 +77,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             item[link].data = [];
                             item[link].page = {};
                             item[link].params = self.params;
-                            item[link].params.size = self.defaultParams.size;
+                            item[link].params.page = 0;
+                            item[link].params.size = 20;
                             item[link].params.sort = null;
                             item[link].url = self.buildUrl(halObj._links[link].href, item.params, false);
                             item[link].linkNames = [];
@@ -483,7 +484,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     angular.forEach(additonalParams, function(value, key) {
                         if (value !== null) {
                             paramsUrl += addParamSyntax(paramsUrl);
-                            paramsUrl += key + '=' + value;
+                            paramsUrl += value.name + '=' + value.value;
                         }
                     });
                 }
