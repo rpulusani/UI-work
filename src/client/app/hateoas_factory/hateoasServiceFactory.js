@@ -5,6 +5,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
         function($http, $q, HATEAOSConfig, $rootScope) {
             var HATEOASFactory = function(serviceDefinition) {
                 var self = this;
+                
                 self.serviceName = '';
                 self.item = null;
                 self.data = [];
@@ -32,6 +33,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 return angular.extend(self, serviceDefinition);
+            };
+
+            HATEOASFactory.prototype.parseOptions = function(options) {
+
             };
 
             HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
@@ -63,23 +68,24 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                     item.linkNames = [];
                     item.links = {};
-                    
+                    item.url = self.buildUrl(halObj._links.self.href, false, false);
+
                     for (link in links) {
                         if (links[link].href) {
-                            item.linkNames.push(link);
-
                             item[link] = {};
                             item[link].links = {};
                             item[link].data = [];
                             item[link].page = {};
                             item[link].params = self.params;
-                            item[link].size = self.defaultParams.size;
-                            item[link].sort = null;
-                            item[link].url = self.buildUrl(item._links.self.href, item.params, false);
+                            item[link].params.size = self.defaultParams.size;
+                            item[link].params.sort = null;
+                            item[link].url = self.buildUrl(halObj._links[link].href, item.params, false);
                             item[link].linkNames = [];
                             item[link].columns = self.columns;
                             item[link].columnDefs = self.columnDefs;
                             item[link].serviceName = link;
+
+                            item.linkNames.push(link);
 
                             if (!itemOptions.embeddedName) {
                                 item[link].embeddedName = null;
@@ -87,88 +93,90 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 item[link].embeddedName = itemOptions.embeddedName;
                             }
 
-                            item.links[link] = function(options) {
-                                var deferred = $q.defer();
+                            (function(item, link) {
+                                item.links[link] = function(options) {
+                                    var deferred = $q.defer();
 
-                                if (!options) {
-                                    options = {};
-                                }
+                                    if (!options) {
+                                        options = {};
+                                    }
 
-                                if (!options.method) {
-                                    options.method = 'get';
-                                }
+                                    if (!options.method) {
+                                        options.method = 'get';
+                                    }
 
-                                if (!options.url) {
-                                    options.url = self.buildUrl(links[link].href, item[link].params, options.params);
-                                } else {
-                                    options.url = self.buildUrl(options.url, item[link].params, options.params);
-                                }
+                                    if (!options.url) {
+                                        options.url = self.buildUrl(item[link].url, item[link].params, options.params);
+                                    } else {
+                                        options.url = self.buildUrl(options.url, item[link].params, options.params);
+                                    }
 
-                                console.log(link)
-                                console.log(item);
-                                console.log(options.url)
-
-                                if (options.serviceName) {
-                                    item[link].serviceName = options.serviceName;
-                                }
-
-                                if (options.embeddedName) {
-                                    item[link].embeddedName = options.embeddedName;
-                                }
-
-                                if (options.columns) {
-                                    item[link].columns = options.columns;
-                                }
-
-                                if (options.columnDefs) {
-                                    item[link].columnDefs = options.columnDefs;
-                                }
-
-                                item[link].getPage = self.getPage;
-
-                                $http(options).then(function(response) {
-                                    var embeddedProperty = null;
-
-                                    self.processedResponse = response;
+                                    if (options.serviceName) {
+                                        item[link].serviceName = options.serviceName;
+                                    }
 
                                     if (options.embeddedName) {
-                                        embeddedProperty = options.embeddedName;
-                                    } else if (item[link].embeddedName && options.embeddedName !== null) {
-                                        embeddedProperty = item[link].embeddedName;
-                                    } else if (item[link].serviceName && options.embeddedName !== null) {
-                                        embeddedProperty = item[link].serviceName
+                                        item[link].embeddedName = options.embeddedName;
                                     }
 
-                                    if (embeddedProperty) {
-                                        item[link].data = response.data._embedded[embeddedProperty];
-                                    } else {
-                                        item[link].data = response.data;
+                                    if (options.columns) {
+                                        item[link].columns = options.columns;
                                     }
 
-                                    if (response.data.page) {
-                                        item[link].page = response.data.page;
+                                    if (options.columnDefs) {
+                                        item[link].columnDefs = options.columnDefs;
                                     }
 
-                                    if (item[link].data.status) {
-                                        item[link].data = [];
-                                    }
+                                    item[link].checkForEvent = self.checkForEvent;
+                                    item[link].setItem = self.setItem;
+                                    item[link].get = self.get;
+                                    item[link].getPage = self.getPage;
+                                    item[link].buildUrl = self.buildUrl;
 
-                                    deferred.resolve(item[link], response);
-                                });
+                                    $http(options).then(function(response) {
+                                        var embeddedProperty = null;
 
-                                return deferred.promise;
-                            };
+                                        self.processedResponse = response;
+
+                                        if (options.embeddedName) {
+                                            embeddedProperty = options.embeddedName;
+                                        } else if (item[link].embeddedName && options.embeddedName !== null) {
+                                            embeddedProperty = item[link].embeddedName;
+                                        } else if (item[link].serviceName && options.embeddedName !== null) {
+                                            embeddedProperty = item[link].serviceName
+                                        }
+
+                                        if (embeddedProperty && response.data._embedded) {
+                                            item[link].data = response.data._embedded[embeddedProperty];
+                                        } else {
+                                            item[link].data = response.data;
+                                        }
+
+                                        if (response.data.page) {
+                                            item[link].page = response.data.page;
+                                        }
+
+                                        if (item[link].data && item[link].data.status) {
+                                            item[link].data = [];
+                                        }
+
+                                        deferred.resolve(item[link], response);
+                                    });
+
+                                    return deferred.promise;
+                                };
+                            }(item, link));
                         }
                     }
 
                     item.all = function(options) {
                         var deferred = $q.defer(),
-                        len = item.links.length,
+                        len = item.linkNames.length,
                         deferreds = [],
                         i = 0;
 
                         for (i; i < len; i += 1) {
-                            deferreds.push( item[item.links[i]]() );
+                            deferreds.push( item.links[item.linkNames[i]]() );
                         }
 
                         return $q.all(deferreds);
@@ -307,9 +315,37 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 });
             };
 
-            HATEOASFactory.prototype.getAdditional = function(page, size) {
-                var self = this;
+            HATEOASFactory.prototype.getAdditional = function(halObj, newService) {
+                var self  = this,
+                deferred = $q.defer(),
+                url = '';
+      
+                newService.item = null;
+                newService.data = [];
 
+                if (halObj.item && halObj.item._links[newService.serviceName]) {
+                    url = halObj.item._links[newService.serviceName].href;
+                } else if (halObj.item && halObj.item._links[newService.serviceNameUnplurize()]) {
+                    url = halObj.item._links[newService.serviceNameUnplurize()].href;
+                } else {
+                    url = halObj._links[newService.serviceName].href;
+                }
+
+                $http.get(url).then(function(processedResponse) {
+                    if (processedResponse._embeddedItems && processedResponse._embeddedItems[newService.embeddedName].constructor === Array) {
+                        newService.data = processedResponse.data._embeddedItems[newService.embeddedName];
+                        newService.page = processedResponse.data.page;
+                        newService.params.page = self.page.number;
+                        newService.params.size = self.page.size;
+                    } else {
+                        newService.item = processedResponse;
+                    }
+
+                    newService.processedResponse = angular.toJson(processedResponse, true);
+                    deferred.resolve();
+                });
+
+                return deferred.promise;
             };
 
             HATEOASFactory.prototype.get = function(optionsObj, linkName) {

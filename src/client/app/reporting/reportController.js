@@ -3,23 +3,20 @@ define(['angular', 'report', 'chart'], function(angular) {
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
         function($scope, $location, Reports, Grid) {
-            $scope.finder = Reports.finder;
-            $scope.categories = Reports.data;
-            $scope.category = Reports.item;
+            var buildCharts = function() {
+                var i = 0,
+                report;
 
-            if (Reports.data.length === 0 || !Reports.data) {
-                Reports.getPage().then(function() {
-                    var i = 0,
-                    report;
+                 for (i; i < $scope.categories.length; i += 1) {
+                    report = Reports.createItem($scope.categories[i]);
+                    report.stats.params.page = null;
+                    report.stats.params.size = null;
 
-                   $scope.categories = Reports.data;
-
-                    for (i; i < $scope.categories.length; i += 1) {
-                        report = Reports.createItem($scope.categories[i]);
-                        report.stats.params.page = null;
-                        report.stats.params.size = null;
-
+                    // making sure we call only the working stats endpoint. 
+                    //should be removed when all are working
+                    if (report.id === 'mp9058sp') {
                         (function(report) {
+
                             report.links.stats({
                                 embeddedName: null
                             }).then(function(serverResponse) {
@@ -29,7 +26,6 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 if (report.stats.data.dataSet) {
                                     if (report.stats.data.dataSet[0].data) {
                                         for (j; j < report.stats.data.dataSet[0].data.length; j += 1) {
-
                                             if (j === 0) {
                                                 results.push({
                                                     value: report.stats.data.dataSet[0].data[j], 
@@ -62,9 +58,21 @@ define(['angular', 'report', 'chart'], function(angular) {
                             });
                         }(report));
                     }
+                }
+            };
+
+            $scope.finder = Reports.finder;
+            $scope.categories = Reports.data;
+            $scope.category = Reports.item;
+
+            if (!$scope.categories.length) {
+                Reports.getPage().then(function() {
+                   $scope.categories = Reports.data;
+
+                    buildCharts();
                 });
             } else {
-                $scope.categories = Reports.data;
+                buildCharts();
             }
 
             $scope.goToFinder = function(report) {
@@ -78,9 +86,8 @@ define(['angular', 'report', 'chart'], function(angular) {
             };
 
             $scope.runReport = function(report) {
-                Reports.setItem(report);
                 Reports.finder = $scope.finder;
-                $location.path(Reports.route + '/results');
+               $location.path(Reports.route + '/results');
             };
         }
     ]);

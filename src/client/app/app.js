@@ -101,7 +101,7 @@ define([
         return {
             responseError: function(response) {
                 if(console && typeof(console.log) === 'function') {
-                    console.log('Error: ' + JSON.stringify(response));
+                    //console.log('Error: ' + JSON.stringify(response));
                 }
                 NREUM.noticeError(response);
                 return response;

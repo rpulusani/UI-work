@@ -335,6 +335,7 @@
         "NAME": "Report name",
         "MADC": "MADC",
         "VIEW_MADC": "View MADC Events",
+        "VIEW_ASSET": "View Count of Managed Assets",
         "CHL": "Chl",
         "ADDRESS_NAME": "Address Name",
         "SERIAL_NUMBER": "Serial Number",
