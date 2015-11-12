@@ -9,7 +9,9 @@ define(['angular', 'utility'], function(angular) {
                 body: '@',
                 cancel: '@',
                 confirm: '@',
-                returnPath: '@'
+                returnPath: '@',
+                confirmAction: '@',
+                cancelAction: '@'
             },
             templateUrl: '/app/utilities/templates/confirm-cancel.html',
             controller: 'confirmCancelController'

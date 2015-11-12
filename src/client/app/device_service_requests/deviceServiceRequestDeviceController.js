@@ -25,6 +25,7 @@ define(['angular',
             FormatterService,
             Contacts,
             $rootScope){
+
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
             };
@@ -38,25 +39,26 @@ define(['angular',
             if (Devices.item === null) {
                 redirect_to_list();
             } else if($rootScope.selectedContact){
-                $scope.device = $rootScope.returnPickerObject;
-                $scope.sr = $rootScope.returnPickerSRObject;
-                $scope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
-                $scope.device.primaryContact = $rootScope.selectedContact;
-                configureTemplates();
-                configureReviewTemplate();
-            }else {
-                $scope.device = Devices.item;
-                $scope.device.installAddress = Devices.item._embeddedItems['address'];
-                $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
-
+                $rootScope.device = $rootScope.returnPickerObject;
+                $rootScope.sr = $rootScope.returnPickerSRObject;
+                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.device.primaryContact = $rootScope.selectedContact;
+                $rootScope.selectedContact = undefined;
+            }else if(ServiceRequest.item && $rootScope.returnPickerObject){
                 setupSR();
+                $rootScope.device = $rootScope.returnPickerObject;
+            }else {
+                $rootScope.device = Devices.item;
+                $rootScope.device.installAddress = Devices.item._embeddedItems['address'];
+                $rootScope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
+                setupSR();
+            }
 
-                configureTemplates();
-                if($location.path().indexOf('receipt') > -1){
+            configureTemplates();
+            if($location.path().indexOf('receipt') > -1){
                     configureReceiptTemplate();
-                }else if($location.path().indexOf('review') > -1){
+            }else if($location.path().indexOf('review') > -1){
                     configureReviewTemplate();
-                }
             }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
@@ -177,6 +179,16 @@ define(['angular',
                             abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
+                        },
+                        actions:{
+                            abandon: function(){
+                                $rootScope.returnPickerObject = undefined;
+                                $rootScope.returnPickerSRObject = undefined;
+                                $rootScope.selectedContact = undefined;
+                            },
+                            cancel: function(){
+                                //do nothing
+                            }
                         },
                         returnPath: Devices.route + '/'
                     },

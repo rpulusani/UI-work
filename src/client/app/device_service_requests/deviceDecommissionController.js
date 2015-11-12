@@ -16,8 +16,8 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             };
 
             $scope.goToContactPicker = function() {
-                $rootScope.decommissionDevice = $scope.device;
-                $rootScope.decommissionSr = $scope.sr;
+                $rootScope.returnPickerObject = $scope.device;
+                $rootScope.returnPickerSRObject = $scope.sr;
                 $location.path(DeviceServiceRequest.route + '/decommission/pick_contact');
             };
 
@@ -27,11 +27,16 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
 
             if (Devices.item === null) {
                 redirect_to_list();
-            } else if ($rootScope.decommissionDevice !== undefined && $routeParams.return) {
-                $scope.device = $rootScope.decommissionDevice;
-                $scope.sr = $rootScope.decommissionSr;
-                configureTemplates();
-            } else {
+            } else if($rootScope.selectedContact){
+                $rootScope.device = $rootScope.returnPickerObject;
+                $rootScope.sr = $rootScope.returnPickerSRObject;
+                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.device.primaryContact = $rootScope.selectedContact;
+                $rootScope.selectedContact = undefined;
+            } else if(ServiceRequest.item && $rootScope.returnPickerObject){
+                setupSR();
+                $rootScope.device = $rootScope.returnPickerObject;
+            }else {
 
                 $scope.device = Devices.item;
 
@@ -49,13 +54,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 }
 
                 setupSR();
+            }
 
-                configureTemplates();
-                if($location.path().indexOf('receipt') > -1){
-                    configureReceiptTemplate();
-                }else if($location.path().indexOf('review') > -1){
-                    configureReviewTemplate();
-                }
+            configureTemplates();
+            if($location.path().indexOf('receipt') > -1){
+                configureReceiptTemplate();
+            }else if($location.path().indexOf('review') > -1){
+                configureReviewTemplate();
             }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
@@ -83,7 +88,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translations.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
-                $scope.configure.actions.submit = $scope.goToSubmit;
+                $scope.configure.actions.submit = function() {
+                    $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+                };
             }
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
@@ -177,6 +184,16 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
                         },
+                        actions:{
+                            abandon: function(){
+                                $rootScope.returnPickerObject = undefined;
+                                $rootScope.returnPickerSRObject = undefined;
+                                $rootScope.selectedContact = undefined;
+                            },
+                            cancel: function(){
+                                //do nothing
+                            }
+                        },
                         returnPath: Devices.route + '/'
                     },
                     contactPicker:{
@@ -187,12 +204,6 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                         returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
                     }
                 };
-            }
-
-
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
-                && $routeParams.return && $routeParams.return !== 'discard') {
-                $rootScope.decommissionContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
             }
 
             if (!BlankCheck.isNull($scope.device.installAddress)) {
