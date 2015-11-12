@@ -27,6 +27,9 @@ requirejs.config({
         'app': [
             'angular-gatekeeper',
 
+            'hateoasFactory',
+            'hateoasFactory.serviceFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -40,7 +43,10 @@ requirejs.config({
             'chart.chartingController',
             'chart.directives',
 
+            'rome',
+
             'form',
+            'form.datePicker',
             'form.directives',
 
             'account',
@@ -76,7 +82,10 @@ requirejs.config({
         'chart.chartingController': ['chartjs'],
         'chart.directives': ['chartjs'],
 
+        'rome': ['angular'],
+
         'form':['angular', 'lxk.fef'],
+        'form.datePicker' : ['form'],
         'form.directives': ['form'],
 
         'account': ['angular'],
@@ -121,6 +130,8 @@ requirejs.config({
 
         'chartjs': 'app/libs/Chart.min',
 
+        'rome': 'app/libs/rome.min',
+
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
 
@@ -130,6 +141,9 @@ requirejs.config({
 
         'app': 'app/app',
 
+        'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
+        'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
+
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
         'nav.navFactory': 'app/nav/navFactory',
@@ -137,6 +151,7 @@ requirejs.config({
         'nav.directives': 'app/nav/directives',
 
         'form': 'app/form/form',
+        'form.datePicker': 'app/form/datePickerController',
         'form.directives': 'app/form/directives',
 
         'chart': 'app/chart/charts',
@@ -202,7 +217,6 @@ requirejs.config({
         'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
-        'deviceManagement.pageCountFactory': 'app/device_management/pageCountFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',

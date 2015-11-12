@@ -1,8 +1,8 @@
 <h3 translate="DEVICE_MGT.PAGE_COUNTS"></h3>
 <hr>
 <form class="form" data-form="" name="devicePageCount" novalidate>
-	<table class="table table--condensed table--even table--responsive" data-js="responsive-table">
-		<thead>
+    <table class="table table--condensed table--even table--responsive" data-js="responsive-table">
+        <thead>
             <tr>
                 <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
                 <th translate="DEVICE_MGT.PRIOR_COUNT"></th>
@@ -11,18 +11,18 @@
                 <th translate="LABEL.DATE"></th>
             </tr>
         </thead>
-		<tbody>
-	        <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
-	            <td ng-bind="item.type"></td>
-	            <td ng-bind="item.value"></td>
-	            <td ng-bind="getMeterReadPriorDate(item)"></td>
-	            <td>
-	            	<input type="number" ng-model="item.newVal" ng-if="item.type !== 'Mono'" />
-	            </td>
-	            <td>
-	            	<input type="date" ng-model="item.newDate" ng-if="item.type !== 'Mono'" />
-	            </td>
-	        </tr>
+        <tbody>
+            <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
+                <td ng-bind="item.type"></td>
+                <td ng-bind="item.value"></td>
+                <td ng-bind="getMeterReadPriorDate(item)"></td>
+                <td>
+                    <input type="number" ng-model="item.newVal" ng-if="item.type !== 'Mono'" />
+                </td>
+                <td>
+                    <input type="date" ng-model="item.newDate" ng-if="item.type !== 'Mono'" />
+                </td>
+            </tr>
         </tbody>
     </table>
     <a href="#" ng-click="showAllMeterReads = !showAllMeterReads">
@@ -30,6 +30,6 @@
         <span ng-show="showAllMeterReads" translate="DEVICE_MGT.VIEW_LESS"></span>
     </a>
     <div class="col-1">
-	    <button class="btn btn--primary" ng-click="saveMeterReads();" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
-	</div>
+        <button class="btn btn--primary" ng-click="saveMeterReads();" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
+    </div>
 </form>
