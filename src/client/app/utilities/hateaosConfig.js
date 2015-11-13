@@ -19,7 +19,7 @@ define(['angular', 'utility'], function(angular) {
                     } else if (paramArr[i] === 'size') {
                         params[paramArr[i]] = 20;
                     } else {
-                        params[paramArr[i]] = '';
+                        params[paramArr[i]] = null;
                     }
                 }
 
@@ -47,7 +47,7 @@ define(['angular', 'utility'], function(angular) {
 
                             self.serviceMap[prop].params = self.createParams(paramArr);
                         }
-
+                        
                         deferred.resolve(self.serviceMap[name]);
                     });
                 } else {

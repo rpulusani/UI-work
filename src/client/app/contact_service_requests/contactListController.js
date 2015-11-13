@@ -19,9 +19,6 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             };
 
             $scope.gridOptions = {};
-
-            Contacts.columns = 'fullSet';
-
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
             
             Contacts.getPage().then(function() {
