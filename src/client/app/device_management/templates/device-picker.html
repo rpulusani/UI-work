@@ -1,39 +1,27 @@
-<div class="row row--alley-2">
-    <div class="col-1">
-        <h1 translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_DEINSTALL"></h1>
+<div class="page-content">
+    <h1 translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_DEINSTALL"></h1>
 
-        <h4 translate="DEVICE_SERVICE_REQUEST.SELECTED_DEVICE_IS"></h3>
+    <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+    translate="DEVICE_SERVICE_REQUEST.EXISTING_DEVICE_LIST" translate-values="{total: pagination.totalItems()}"></h2>
+    <hr />
+    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+    <div pagination grid="{{gridOptions}}"></div>
 
-        <div class="row">
-            <div class="col-1-3 well">
-                <div ng-show="isRowSelected()">
-                    <dl class="row">
-                        <dt class="col-1-2" translate="DEVICE_MGT.SERIAL_NO"></dt>
-                        <dd class="col-1-2" ng-bind="selectedDevice.serialNumber"></dd>
-                        <dt class="col-1-2" translate="DEVICE_MGT.IP_ADDRESS"></dt>
-                        <dd class="col-1-2" ng-bind="selectedDevice.ipAddress"></dd>
-                    </dl>
-                </div>
-                <div ng-hide="isRowSelected()">
-                    <span translate="LABEL.NONE_SELECTED"></span>
-                </div>
-            </div>
-        </div>
+    <div ng-show="isRowSelected()">
+        <h2 class="vertical-space--none" translate="DEVICE_SERVICE_REQUEST.SELECTED_DEVICE_IS"></h2>
+        <hr />
+        <ul class="info-list">
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                <div class="info-list__item-value" ng-bind="selectedDevice.serialNumber"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
+                <div class="info-list__item-value" ng-bind="selectedDevice.ipAddress"></div>
+            </li>
+        </ul>
 
-        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
-        translate="DEVICE_SERVICE_REQUEST.EXISTING_DEVICE_LIST" translate-values="{total: pagination.totalItems()}">
-        </h2>
-        
-        <hr/>
-
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-        <div pagination grid="{{gridOptions}}"></div>
-        
-        <div class="col-2-3"></div>
-        <div class="col-1">
-            <button class="btn btn--secondary" translate="DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_SELECTION" ng-click="discardDeviceSelection()"></button>
-            <button class="btn btn--primary" translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_DEINSTALL" 
-                    ng-click="goToDeviceAdd()"></button>
-        </div>
+        <button class="btn btn--secondary" translate="DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_SELECTION" ng-click="discardDeviceSelection()"></button>
+        <button class="btn btn--primary" translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_DEINSTALL" ng-click="goToDeviceAdd()"></button>
     </div>
 </div>
