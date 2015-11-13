@@ -34,7 +34,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-            Contacts.columns = 'fullSet';
             Contacts.getPage().then(function() {
                 Grid.display(Contacts, $scope, personal);
             }, function(reason) {

@@ -7,6 +7,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             BlankCheck, DeviceServiceRequest, Devices, Contacts) {
 
             $scope.madcDevice = {};
+            $scope.returnedForm = false;
 
             var redirectToList = function() {
                 $location.path(Devices.route + '/');
@@ -18,6 +19,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 $scope.device = $rootScope.updateDevice;
                 $scope.sr = $rootScope.updateSr;
                 $scope.updateDevice = $rootScope.updateForm;
+                $scope.returnedForm = true;
                 configureTemplates();
             } else {
                 $scope.device = Devices.item;
@@ -214,7 +216,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
 
             $scope.getChangedValues = function() {
                 var formUpdatedValues = [];
-                if ($rootScope.formChangedValues) {
+                if ($rootScope.formChangedValues && $scope.returnedForm) {
                     formUpdatedValues = $rootScope.formChangedValues;
                 }
                 angular.forEach($scope.updateDevice, function(value, key) {
