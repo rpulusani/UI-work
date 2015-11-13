@@ -48,6 +48,7 @@ define(['angular',
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 setupSR();
+                $rootScope.contactPickerReset = false;
             }else {
                 $rootScope.device = Devices.item;
                 $rootScope.device.installAddress = Devices.item._embeddedItems['address'];
