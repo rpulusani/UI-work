@@ -42,11 +42,12 @@ define(['angular',
                 $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
                 $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
-                $rootScope.device.primaryContact = $rootScope.selectedContact;
-                $rootScope.selectedContact = undefined;
-            }else if(ServiceRequest.item && $rootScope.returnPickerObject){
+                $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $rootScope.contactPickerReset = true;
+                Devices.item = $rootScope.device;
+            }else if($rootScope.contactPickerReset){
+                $rootScope.device = Devices.item;
                 setupSR();
-                $rootScope.device = $rootScope.returnPickerObject;
             }else {
                 $rootScope.device = Devices.item;
                 $rootScope.device.installAddress = Devices.item._embeddedItems['address'];
@@ -179,16 +180,6 @@ define(['angular',
                             abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
-                        },
-                        actions:{
-                            abandon: function(){
-                                $rootScope.returnPickerObject = undefined;
-                                $rootScope.returnPickerSRObject = undefined;
-                                $rootScope.selectedContact = undefined;
-                            },
-                            cancel: function(){
-                                //do nothing
-                            }
                         },
                         returnPath: Devices.route + '/'
                     },
