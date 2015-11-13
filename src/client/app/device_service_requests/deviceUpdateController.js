@@ -27,6 +27,7 @@ define(['angular',
             Contacts) {
 
             $scope.madcDevice = {};
+            $scope.returnedForm = false;
 
             $scope.goToContactPicker = function() {
                 $rootScope.returnPickerObject = $scope.device;
@@ -251,7 +252,7 @@ define(['angular',
 
             $scope.getChangedValues = function() {
                 var formUpdatedValues = [];
-                if ($rootScope.formChangedValues) {
+                if ($rootScope.formChangedValues && $scope.returnedForm) {
                     formUpdatedValues = $rootScope.formChangedValues;
                 }
                 angular.forEach($scope.updateDevice, function(value, key) {
