@@ -67,7 +67,7 @@ define(['angular',
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
                 $scope.device.requestedByContact = Contacts.item;
-                $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
+                ServiceRequest.addRelationship($scope.sr, 'requester', $scope.device.requestedByContact._links['self']);
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
             });
@@ -76,14 +76,15 @@ define(['angular',
                 if(ServiceRequest.item === null){
                     ServiceRequest.newMessage();
                     $scope.sr = ServiceRequest.item;
-                    $scope.sr._links['account'] = $scope.device._links['account'];
-                    $scope.sr._links['asset'] = $scope.device._links['self'];
-                    $scope.sr._links['primaryContact'] = $scope.device._links['primaryContact'];
-                    $scope.sr.customerReferenceId = '';
-                    $scope.sr.costCenter = '';
-                    $scope.sr.notes = '';
-                    $scope.sr.id = '';
-                    $scope.sr.description = '';
+                    ServiceRequest.addRelationship($scope.sr, 'account', $scope.device._links['account']);
+                    ServiceRequest.addRelationship($scope.sr, 'asset', $scope.device._links['self']);
+                    ServiceRequest.addRelationship($scope.sr, 'primaryContact', $scope.device._links['primaryContact']);
+                    ServiceRequest.addField($scope.sr, 'type', 'BREAK_FIX');
+                    ServiceRequest.addField($scope.sr, 'customerReferenceId', '');
+                    ServiceRequest.addField($scope.sr, 'costCenter', '');
+                    ServiceRequest.addField($scope.sr, 'notes', '');
+                    ServiceRequest.addField($scope.sr, 'description', '');
+                    ServiceRequest.addField($scope.sr, 'id', '');
                 }else{
                    $scope.sr = ServiceRequest.item;
                 }
@@ -92,7 +93,11 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
                 $scope.configure.actions.submit = function(){
+                    DeviceServiceRequest.saveMADC($scope.sr).then(function(){
                     $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                }, function(reason){
+                    NREUM.noticeError('Failed to create SR because: ' + reason);
+                });
                 };
             }
             function configureReceiptTemplate(){
@@ -221,10 +226,6 @@ define(['angular',
                     $scope.moveDevice = $translate.instant('LABEL.NO');
                 }
             };
-
-
-
-
 
              if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);

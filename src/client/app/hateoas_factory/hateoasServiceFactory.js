@@ -5,7 +5,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
         function($http, $q, HATEAOSConfig, $rootScope) {
             var HATEOASFactory = function(serviceDefinition) {
                 var self = this;
-                
+
                 self.serviceName = '';
                 self.item = null;
                 self.data = [];
@@ -23,7 +23,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 // Placeholder for the original params given to us from server
                 self.defaultParams = {};
                 self.route = '';
-
+                console.log('new hateoas for: ' + serviceDefinition.serviceName);
                 if (serviceDefinition.columns instanceof Array) {
                     if (!serviceDefinition.columnDefs) {
                        serviceDefinition.columnDefs = {};
@@ -39,9 +39,45 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             };
 
+             HATEAOSFactory.prototype.newMessage  = function(){
+                this.item = {
+                    '_links':{
+
+                    }
+                };
+            };
+            HATEAOSFactory.prototype.addField = function(halObject, fieldName, fieldValue){
+                if(halObject){
+                   halObject = this.newMessage(); //if halObject is empty then fill it with a new message
+                }
+
+                halObject[fieldName]  = fieldValue;
+
+                return halObject;
+            };
+            HATEAOSFactory.prototype.addRelationship = function(halObject, name, link){
+                if(!halObject){
+                    halObject = this.newMessage(); //if halObject is empty then fill it with a new message
+                }else if(!halObject['_links']){
+                    halObject['_links'] = {};   //if halObject is not empty but missing the links sub object add it
+                }
+
+                if(name && link){
+                    if(halObject['_links'][name]){
+                        halObject['_links'][name]['href'] = link; //if relationship already exists but needs updating
+                    }else{
+                        halObject['_links'][name] = {       //add relationship if missing.
+                         href: link
+                        };
+                    }
+                }
+
+                return halObj;
+            };
+
             HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
                 if (!itemOptions) {
-                    itemOptions = {}
+                    itemOptions = {};
                 }
 
                 itemOptions.newItem = true;
@@ -51,7 +87,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.setItem = function(halObj, itemOptions) {
                 var self = this,
-                link, // prop in _links 
+                link, // prop in _links
                 links,
                 item,
                 propName;
@@ -144,7 +180,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         } else if (item[link].embeddedName && options.embeddedName !== null) {
                                             embeddedProperty = item[link].embeddedName;
                                         } else if (item[link].serviceName && options.embeddedName !== null) {
-                                            embeddedProperty = item[link].serviceName
+                                            embeddedProperty = item[link].serviceName;
                                         }
 
                                         if (embeddedProperty && response.data._embedded) {
@@ -220,13 +256,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                             self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
                             self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
-                            
+
                             halObj._links = {
                                 account: {
                                     href: HATEAOSConfig.serviceMap['accounts'].url + self.params.accountId
                                 }
                             };
-                            
+
                             url = self.buildUrl(self.url, self.params, []);
 
                             self.checkForEvent(self.item, 'on' + verbName);
@@ -289,7 +325,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this;
 
                 self.checkForEvent(self.item, 'onPrev');
-                
+
                 if (self.page.prev) {
                     return self.get({
                         url: self.page.prev
@@ -320,7 +356,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
-      
+
                 newService.item = null;
                 newService.data = [];
 
@@ -363,7 +399,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         options = {
                             url: self.url + optionsObj,
                             preventParams: true
-                        }
+                        };
                     }
                 }
 
