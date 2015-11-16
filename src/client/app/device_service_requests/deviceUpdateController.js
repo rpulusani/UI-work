@@ -277,22 +277,6 @@ define(['angular',
 
 
 
-
-
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
-                && $routeParams.return && $routeParams.return !== 'discard') {
-                if ($rootScope.currentSelected) {
-                        switch($rootScope.currentSelected){
-                            case 'updateDeviceContact':
-                                $rootScope.updateDeviceContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                            case 'updateRequestContact':
-                                $rootScope.updateRequestContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                        }
-                    }
-            }
-
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
             }

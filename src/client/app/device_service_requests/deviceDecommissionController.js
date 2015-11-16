@@ -18,7 +18,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             $scope.goToContactPicker = function() {
                 $rootScope.returnPickerObject = $scope.device;
                 $rootScope.returnPickerSRObject = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/decommission/pick_contact');
+                $location.path(DeviceServiceRequest.route + '/pick_contact');
             };
 
             var redirect_to_list = function() {

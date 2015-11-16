@@ -131,7 +131,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
         });
 
         describe('DeviceUpdateController', function() {
-            var scope, ctrl, location, form, deferred, blankCheck, mockedFactory, $httpBackend, 
+            var scope, ctrl, location, form, deferred, blankCheck, mockedFactory, $httpBackend,
             MockDeviceServiceRequest, mockContacts, compile;
 
             beforeEach(inject(function($rootScope, $controller, $location, $compile, $q, BlankCheck, HATEAOSFactory, $httpBackend,
@@ -341,12 +341,12 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
 
                 element = angular.element(
                     '<form name="updateDevice">' +
-                    '   <input name="myFirst" ng-model="myFirst"></input>' + 
-                    '   <input name="mySecond" ng-model="mySecond"></input>' + 
+                    '   <input name="myFirst" ng-model="myFirst"></input>' +
+                    '   <input name="mySecond" ng-model="mySecond"></input>' +
                     '</form>'
                 );
                 element = compile(element)(scope);
-                
+
                 ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockFactory,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts});
             }));
@@ -358,7 +358,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                     var currentSelected = 'updateDeviceContact';
 
                     scope.goToContactPicker(currentSelected);
-                    expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/update/pick_contact');
+                    expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/pick_contact');
                 });
             });
 
