@@ -36,7 +36,7 @@ define(['angular', 'deviceManagement'], function(angular) {
             link: function(scope, el, attr){
                 require(['lxk.fef'], function() {
                     var $ = require('jquery'),
-                        sets = $(el).find("[data-js=tab]");
+                        sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                     sets.each(function(i,set){
                         $(set).set({});
                     });

@@ -212,7 +212,6 @@ define(['angular', 'utility'], function(angular) {
                                 }
                             }
                             var url = self.buildUrl('https://api.venus-dev.lexmark.com/mps/'+self.serviceName, self.params, []);
-                            console.log(url);
 
                             halAdapter.process($http({
                                 method: 'post',

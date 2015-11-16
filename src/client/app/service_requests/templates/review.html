@@ -1,60 +1,53 @@
 <div sr-header></div>
+
 <!-- Begin Custom Modules for Requests -->
-<span sr-device-update></span>
-<span sr-device-removal></span>
-<span sr-device-network-config></span>
-<span sr-device-billing></span>
-<span sr-device-contact></span>
-<span sr-device-information></span>
-<div class="row" ng-if="master">
-    <div class="col-1">
+
+<div class="page-content">
+    <div sr-device-update></div>
+    <div sr-device-removal></div>
+    <div sr-device-network-config></div>
+    <div sr-device-billing></div>
+    <div sr-device-contact></div>
+    <div sr-device-information></div>
+    <div sr-device-service-details></div>
+
+    <div ng-if="master">
         <h2>ipsum dolor</h2>
-        <div class="row row--alley-2">
-            <div class="col-1-3">
-                <div class="well"><!-- template --></div>
-            </div>
-        </div>
+        
+        <div class="well"><!-- template --></div>
     </div>
-</div>
-<!-- End Custom Modules for Requests -->
-<span request-contacts></span>
-<form class="form" data-form="" name="reviewDetail" novalidate>
-<div class="row">
-    <div class="col-2-3">
+
+    <!-- End Custom Modules for Requests -->
+
+    <div request-contacts></div>
+
+    <form class="form" data-form="" name="reviewDetail" novalidate>
         <h2 translate="{{configure.detail.translate.title}}"></h2>
+                
         <div class="form__field" ng-if="configure.detail.show.referenceId">
-                <label translate="{{configure.detail.translate.referenceId}}"></label>
-                <input name="internalReferenceId" type="text" class="" value="" ng-model="sr.customerReferenceId" />
-            </div>
-
-            <div class="form__field" ng-if="configure.detail.show.costCenter">
-                <label translate="{{configure.detail.translate.costCenter}}"></label>
-                <input name="requestCostCenter" type="text" class="" value="" ng-model="sr.costCenter" />
-            </div>
-
-            <div class="form__field" ng-if="configure.detail.show.comments">
-                <label translate="{{configure.detail.translate.comments}}"></label>
-                <textarea name="comments" type="text" rows="8" cols="129" ng-model="sr.notes"></textarea>
-            </div>
-            <div class="form__field" ng-if="configure.detail.show.attachements">
-                <label translate="{{configure.detail.translate.attachments}}"></label>
-                <input name="attachments" type="file" multiple="multiple" />
-                <div class="form__field__helper-text" translate="{{configure.detail.translate.attachmentMessage}}"
-                translate-values="{file_list: configure.detail.translate.fileList}"></div>
-            </div>
-    </div>
-</div>
-<div class="row form-action">
-        <div class="col-1">
-            <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
-            translate="{{configure.actions.translate.abandonRequest}}"></button>
-            <button class="btn btn--primary" ng-click="goToSubmit();" translate="{{configure.actions.translate.submit}}"></button>
-            <div confirm-cancel title="{{configure.modal.translate.abandonTitle}}"
-                body="{{configure.modal.translate.abandonBody}}"
-                cancel="{{configure.modal.translate.abandonCancel}}"
-                confirm="{{configure.modal.translate.abandonConfirm}}"
-                return-path="{{configure.modal.returnPath}}"></div>
+            <label translate="{{configure.detail.translate.referenceId}}"></label>
+            <input name="internalReferenceId" type="text" class="" value="" ng-model="sr.customerReferenceId" />
         </div>
-    </div>
-</form>
 
+        <div class="form__field" ng-if="configure.detail.show.costCenter">
+            <label translate="{{configure.detail.translate.costCenter}}"></label>
+            <input name="requestCostCenter" type="text" class="" value="" ng-model="sr.costCenter" />
+        </div>
+
+        <div class="form__field" ng-if="configure.detail.show.comments">
+            <label translate="{{configure.detail.translate.comments}}"></label>
+            <textarea name="comments" type="text" rows="8" cols="129" ng-model="sr.notes"></textarea>
+        </div>
+
+        <div class="form__field" ng-if="configure.detail.show.attachements">
+            <label translate="{{configure.detail.translate.attachments}}"></label>
+            <input name="attachments" type="file" multiple="multiple" />
+            <div class="form__field__helper-text"
+                translate="{{configure.detail.translate.attachmentMessage}}"
+                translate-values="{file_list: configure.detail.translate.fileList}"
+            ></div>
+        </div>
+
+        <div sr-form-buttons></div>
+    </form>
+</div>

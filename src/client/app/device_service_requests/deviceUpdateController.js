@@ -1,12 +1,39 @@
-define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','utility.formatters'], function(angular) {
+define(['angular',
+    'deviceServiceRequest',
+    'deviceManagement.deviceFactory',
+    'utility.formatters'],
+    function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceUpdateController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'ServiceRequestService',
-        'FormatterService', 'BlankCheck','DeviceServiceRequest', 'Devices', 'Contacts',
-        function($scope, $location, $filter, $routeParams, $rootScope, ServiceRequest, FormatterService, 
-            BlankCheck, DeviceServiceRequest, Devices, Contacts) {
+    .controller('DeviceUpdateController', ['$scope',
+        '$location',
+        '$routeParams',
+        '$rootScope',
+        'ServiceRequestService',
+        'FormatterService',
+        'BlankCheck',
+        'DeviceServiceRequest',
+        'Devices',
+        'Contacts',
+        function($scope,
+            $location,
+            $routeParams,
+            $rootScope,
+            ServiceRequest,
+            FormatterService,
+            BlankCheck,
+            DeviceServiceRequest,
+            Devices,
+            Contacts) {
 
             $scope.madcDevice = {};
+            $scope.returnedForm = false;
+
+            $scope.goToContactPicker = function() {
+                $rootScope.returnPickerObject = $scope.device;
+                $rootScope.returnPickerSRObject = $scope.sr;
+                $location.path(DeviceServiceRequest.route + '/pick_contact');
+            };
 
             var redirectToList = function() {
                 $location.path(Devices.route + '/');
@@ -14,30 +41,41 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
 
             if (Devices.item === null) {
                 redirectToList();
-            } else if ($rootScope.updateDevice !== undefined && $routeParams.return) {
-                $scope.device = $rootScope.updateDevice;
-                $scope.sr = $rootScope.updateSr;
-                $scope.updateDevice = $rootScope.updateForm;
-                configureTemplates();
-            } else {
+            } else if($rootScope.selectedContact){
+                $rootScope.device = $rootScope.returnPickerObject;
+                $rootScope.sr = $rootScope.returnPickerSRObject;
+                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $rootScope.contactPickerReset = true;
+                Devices.item = $rootScope.device;
+            }else if($rootScope.contactPickerReset){
+                $rootScope.device = Devices.item;
+                setupSR();
+                $rootScope.contactPickerReset = false;
+            }else {
                 $scope.device = Devices.item;
                 if (!BlankCheck.isNull(Devices.item._embeddedItems)) {
                     $scope.device.currentInstallAddress = Devices.item._embeddedItems['address'];
                     $scope.device.updatedInstallAddress = $scope.device.currentInstallAddress;
                     $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
                 }
-                
+
 
                 if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
                     $scope.device.lexmarkMoveDevice = false;
                 }
-                
-                setupSR();
-                configureTemplates();
 
-                if($location.path().indexOf('receipt') > -1){
-                    configureReceiptTemplate();
-                }
+                setupSR();
+
+            }
+
+
+            configureTemplates();
+
+            if($location.path().indexOf('receipt') > -1){
+                configureReceiptTemplate();
+            }else if($location.path().indexOf('review') > -1){
+                 configureReviewTemplate();
             }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
@@ -62,7 +100,12 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                    $scope.sr = DeviceServiceRequest.item;
                 }
             }
-
+            function configureReviewTemplate(){
+                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
+                $scope.configure.actions.submit = function(){
+                    $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
+                };
+            }
             function configureReceiptTemplate() {
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
@@ -154,14 +197,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                         }
                     }
                 };
-                if (!BlankCheck.isNull($rootScope.currentSelected) && $rootScope.currentSelected === 'updateRequestContact') {
-                    $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review';
-                } else {
-                    $scope.configure.contactPicker["returnPath"] = DeviceServiceRequest.route + '/' + $scope.device.id + '/update';
-                }
 
                 if ($rootScope.formChangedValues) {
-                    if ($rootScope.formChangedValues.indexOf('ipAddress') > -1 || 
+                    if ($rootScope.formChangedValues.indexOf('ipAddress') > -1 ||
                         $rootScope.formChangedValues.indexOf('hostName') > -1) {
                         $scope.configure.device.networkConfig = {
                             translate: {
@@ -172,7 +210,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                         };
                     }
 
-                    if ($rootScope.formChangedValues.indexOf('costCenter') > -1 || 
+                    if ($rootScope.formChangedValues.indexOf('costCenter') > -1 ||
                         $rootScope.formChangedValues.indexOf('customerDeviceTag') > -1) {
                         $scope.configure.device.deviceBilling = {
                             translate: {
@@ -187,37 +225,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
 
             }
 
-            $scope.goToReview = function() {
-                $rootScope.formChangedValues = $scope.getChangedValues();
-                $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
-            };
-
-            $scope.getChangedValues = function() {
-                var formUpdatedValues = [];
-                if ($rootScope.formChangedValues) {
-                    formUpdatedValues = $rootScope.formChangedValues;
-                }
-                angular.forEach($scope.updateDevice, function(value, key) {
-                    if(key[0] === '$') {
-                        return;
-                    }
-                    if(!value.$pristine && formUpdatedValues.indexOf(value) === -1) {
-                        formUpdatedValues.push(key);
-                    }
-                });
-                return formUpdatedValues;
-            };
-
-            $scope.goToSubmit = function() {
-                getMADCObject();
-                DeviceServiceRequest.saveMADC($scope.madcDevice).then(function(){
-                    $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
-            };
-
-            var getMADCObject = function() {
+            function setMADCObject() {
                 if ($scope.device.lexmarkMoveDevice === 'true') {
                     $scope.madcDevice.type = 'MADC_MOVE';
                 } else {
@@ -235,31 +243,39 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 $scope.madcDevice.id = $scope.device.id;
                 $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
                 $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
-            };
-
-            $scope.goToContactPicker = function(currentSelected) {
-                $rootScope.currentSelected = currentSelected;
-                $rootScope.updateDevice = $scope.device;
-                $rootScope.updateSr = $scope.sr;
-                if($location.path().indexOf('review') === -1){
-                    $rootScope.formChangedValues = $scope.getChangedValues();
-                }
-                $location.path(DeviceServiceRequest.route + '/update/pick_contact');
-            };
-
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
-                && $routeParams.return && $routeParams.return !== 'discard') {
-                if ($rootScope.currentSelected) {
-                        switch($rootScope.currentSelected){
-                            case 'updateDeviceContact':
-                                $rootScope.updateDeviceContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                            case 'updateRequestContact':
-                                $rootScope.updateRequestContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                        }
-                    }
             }
+
+            $scope.goToReview = function() {
+                $rootScope.formChangedValues = $scope.getChangedValues();
+                $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
+            };
+
+            $scope.getChangedValues = function() {
+                var formUpdatedValues = [];
+                if ($rootScope.formChangedValues && $scope.returnedForm) {
+                    formUpdatedValues = $rootScope.formChangedValues;
+                }
+                angular.forEach($scope.updateDevice, function(value, key) {
+                    if(key[0] === '$') {
+                        return;
+                    }
+                    if(!value.$pristine && formUpdatedValues.indexOf(value) === -1) {
+                        formUpdatedValues.push(key);
+                    }
+                });
+                return formUpdatedValues;
+            };
+
+            $scope.goToSubmit = function() {
+                setMADCObject();
+                DeviceServiceRequest.saveMADC($scope.madcDevice).then(function(){
+                    $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
+                }, function(reason){
+                    NREUM.noticeError('Failed to create SR because: ' + reason);
+                });
+            };
+
+
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
@@ -271,7 +287,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
                 }
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
             }
-                
+
             if (!BlankCheck.isNull($scope.device.primaryContact) || !BlankCheck.isNull($rootScope.updateRequestContact)) {
                 if ($rootScope.updateRequestContact) {
                     $scope.device.primaryContact = $rootScope.updateRequestContact;
@@ -282,7 +298,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory','uti
             if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
                 $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
             }
-            
+
         }
     ]);
 });
