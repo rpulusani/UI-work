@@ -1,61 +1,73 @@
 <div sr-header></div>
-<div device-info-section></div>
 
-<form class="form" data-form="" name="decomissionDevice" method="post"
-    ng-submit="decomissionDevice.$valid && goToReview()" enctype="multipart/form-data" novalidate>
+<div class="page-content">
+    <div device-info-section></div>
 
-    <div class="row">
-        <div class="col-2-3">
-            <h2 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h2>
+    <form class="form"
+        data-form=""
+        name="decomissionDevice"
+        method="post"
+        ng-submit="decomissionDevice.$valid && goToReview()"
+        enctype="multipart/form-data"
+        novalidate
+    >
+        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h3>
+
+        <h2 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h2>
+
+        <strong translate="DEVICE_SERVICE_REQUEST.DO_YOU_REQUIRE_PICKUP_DEVICE"></strong>
+        
+        <div class="form__field form__field--radio form__field--no-margin">
+            <input type="radio"
+                id="lexmark-pickup-device-question-no"
+                name="lexmark-pickup-device-question"
+                ng-model="device.lexmarkPickupDevice"
+                value="false"
+                checked
+            />
+            <label for="lexmark-pickup-device-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
         </div>
-    </div>
+        
+        <div class="form__field form__field--radio form__field--no-margin">
+            <input type="radio"
+                id="lexmark-pickup-device-question-yes"
+                name="lexmark-pickup-device-question"
+                ng-model="device.lexmarkPickupDevice"
+                value="true"
+            />
+            <label for="lexmark-pickup-device-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        </div>
 
-    <div class="row">
-        <div class="col-2-5">
+        <strong translate="DEVICE_SERVICE_REQUEST.WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE"></strong>
+        
+        <div class="form__field form__field--radio form__field--no-margin">
+            <input type="radio"
+                id="page-count-question-no"
+                name="page-count-question"
+                ng-model="device.pageCountQuestion"
+                value="false"
+                checked
+            />
+            <label for="page-count-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+        </div>
+        
+        <div class="form__field form__field--radio form__field--no-margin">
+            <input type="radio"
+                id="page-count-question-yes"
+                name="page-count-question"
+                ng-model="device.pageCountQuestion"
+                value="true"
+            />
+            <label for="page-count-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        </div>
+
+        <div ng-show="pageCountQuestion === 'true'">
             <div class="form__field" >
-                <strong translate="DEVICE_SERVICE_REQUEST.DO_YOU_REQUIRE_PICKUP_DEVICE"></strong>
-                 <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="lexmark-pickup-device-question-no" name="lexmark-pickup-device-question"
-                        ng-model="device.lexmarkPickupDevice" value="false" checked />
-                        <label for="lexmark-pickup-device-question-no"><span></span>
-                            {{'LABEL.NO' | translate }}</label>
-                </div>
-                 <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="lexmark-pickup-device-question-yes" name="lexmark-pickup-device-question"
-                        ng-model="device.lexmarkPickupDevice" value="true" />
-                        <label for="lexmark-pickup-device-question-yes"><span></span>
-                            {{ 'LABEL.YES' | translate }}</label>
-                </div>
-            </div>
-
-            <div class="form__field" >
-                <strong translate="DEVICE_SERVICE_REQUEST.WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE"></strong>
-                 <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="page-count-question-no" name="page-count-question"
-                        ng-model="device.pageCountQuestion" value="false" checked />
-                    <label for="page-count-question-no"><span></span>
-                        {{'LABEL.NO' | translate }}</label>
-                </div>
-                 <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="page-count-question-yes" name="page-count-question"
-                        ng-model="device.pageCountQuestion" value="true" />
-                    <label for="page-count-question-yes"><span></span>
-                        {{ 'LABEL.YES' | translate }}</label>
-                </div>
+                <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
+                <div select-page-count module="device"></div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-2-3">
-            <div ng-show="pageCountQuestion === 'true'">
-                <div class="form__field" >
-                    <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
-                    <div select-page-count module="device"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div sr-form-buttons></div>
-</form>
+        <div sr-form-buttons></div>
+    </form>
+</div>

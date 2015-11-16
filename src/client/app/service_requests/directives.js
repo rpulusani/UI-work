@@ -98,7 +98,7 @@ define(['angular', 'serviceRequest'], function(angular) {
             link: function(scope, el, attr){
                 require(['lxk.fef'], function() {
                     var $ = require('jquery'),
-                        sets = $(el).find("[data-js=tab]");
+                        sets = $(el).find("[data-js=tab], [data-js=accordion], [data-js=set]");
                     sets.each(function(i,set){
                         $(set).set({});
                     });

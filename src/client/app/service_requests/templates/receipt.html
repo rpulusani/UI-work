@@ -1,44 +1,41 @@
 <div sr-header></div>
 
-<h2 translate="{{configure.receipt.translate.title}}" translate-values="{{configure.receipt.translate.titleValues}}"></h2>
-<!-- request status goes here -->
+<div class="page-content">
+    <h2 translate="{{configure.receipt.translate.title}}" translate-values="{{configure.receipt.translate.titleValues}}"></h2>
+    
+    <!-- request status goes here -->
 
-<span request-contacts></span>
+    <div request-contacts></div>
 
-
-<div class="row" ng-if="configure.detail">
-    <div class="col-1">
+    <div ng-if="configure.detail">
         <h2 translate="{{configure.detail.translate.title}}"></h2>
-        <div class="row row--alley-2">
-            <div class="col-2-3">
-                <div class="well">
-                    <dl class="row text--small">
-                        <dt class="col-1-3 text--semi-bold" ng-show="configure.detail.show.referenceId"
-                            translate="{{configure.detail.translate.referenceId}}"></dt>
-                        <dd class="col-2-3" ng-show="configure.detail.show.referenceId"
-                             ng-bind="sr.customerReferenceId"></dd>
-                        <dt class="col-1-3 text--semi-bold" ng-show="configure.detail.show.costCenter"
-                            translate="{{configure.detail.translate.costCenter}}"></dt>
-                        <dd class="col-2-3" ng-show="configure.detail.show.costCenter"
-                            ng-bind="sr.costCenter"></dd>
-                        <dt class="col-1-3 text--semi-bold" ng-show="configure.detail.show.comments"
-                            translate="{{configure.detail.translate.comments}}"></dt>
-                        <dd class="col-2-3" ng-show="configure.detail.show.comments"
-                            ng-bind="sr.notes"></dd>
-                        <dt class="col-1-3 text--semi-bold" ng-show="configure.detail.show.attachements"
-                            translate="{{configure.detail.translate.attachements}}"></dt>
-                        <dd class="col-2-3"  ng-show="configure.detail.show.attachements"
-                            ng-bind=""></dd>
-                    </dl>
-                </div>
-            </div>
+        
+        <div class="well">
+            <ul class="info-list">
+                <li class="info-list__item" ng-show="configure.detail.show.referenceId">
+                    <div class="info-list__item-name" translate="{{configure.detail.translate.referenceId}}"></div>
+                    <div class="info-list__item-value" ng-bind="sr.customerReferenceId"></div>
+                </li>
+                <li class="info-list__item" ng-show="configure.detail.show.costCenter">
+                    <div class="info-list__item-name" translate="{{configure.detail.translate.costCenter}}"></div>
+                    <div class="info-list__item-value" ng-bind="sr.costCenter"></div>
+                </li>
+                <li class="info-list__item" ng-show="configure.detail.show.comments">
+                    <div class="info-list__item-name" translate="{{configure.detail.translate.comments}}"></div>
+                    <div class="info-list__item-value" ng-bind="sr.notes"></div>
+                </li>
+                <li class="info-list__item" ng-show="configure.detail.show.attachements">
+                    <div class="info-list__item-name" translate="{{configure.detail.translate.attachements}}"></div>
+                    <div class="info-list__item-value" ng-bind=""></div>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <!-- additional request Details go here -->
+
+    <div sr-device-information></div>
+    <div sr-device-removal></div>
+    <div sr-device-contact></div>
+    <div sr-device-service-details></div>
 </div>
-
-<!-- additional request Details go here -->
-
-<span sr-device-information></span>
-<span sr-device-removal></span>
-<span sr-device-contact></span>
-<span sr-device-service-details></span>
