@@ -1,66 +1,39 @@
-<div class="row">
-    <div class="col-1">
-        <h1 translate="DEVICE_SERVICE_REQUEST.NEW_SERVICE_REQUEST"></h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-2-3">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
-        sit amet lacus accumsan et viverra justo commodo. <a href="#">Learn more about requests</a></p>
-    </div>
-</div>
+<h1 translate="DEVICE_SERVICE_REQUEST.NEW_SERVICE_REQUEST"></h1>
 
-<div class="row">
-    <div class="col-1-3">
-        <h4 translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE"></h4>
-    </div>
-</div>
-<div class="row">
-    <div class="col-1">
-        <hr />
-    </div>
-</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="#">Learn more about requests</a></p>
 
-<div class="row">
-    <form class="form" data-form="" name="searchDevice" novalidate>
-        <div device-search-fields></div>
-    </form>
-</div>
+<h4 translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE"></h4>
 
-<div ng-if="pagination.totalItems !== -1 && pagination.totalItems !== undefined" class="row">
-    <div class="col-1">
+<hr />
 
-        <h2 translate="DEVICE_SERVICE_REQUEST.DEVICES_MATCHING_SEARCH" translate-values="{total: pagination.totalItems, serial: '{{serial}}'}">
-        </h2>
+<form class="form" data-form="" name="searchDevice" novalidate>
+    <div device-search-fields></div>
+</form>
+
+<div ng-if="pagination.totalItems !== -1 && pagination.totalItems !== undefined">
+    <h2 translate="DEVICE_SERVICE_REQUEST.DEVICES_MATCHING_SEARCH"
+        translate-values="{total: pagination.totalItems, serial: '{{serial}}'}"
+    ></h2>
         
-        <hr/>
+    <hr/>
 
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
-        <div grid-pagination pages=="pagination"></div>
-
-    </div>
+    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+    <div grid-pagination pages=="pagination"></div>
 </div>
 
-<div class="row">
-    <div class="col-1">
-        <hr />
-    </div>
-</div>
+<hr />
 
-<div class="row">
-    <div class="col-2-3">
+<div confirm-cancel
+    title="SERVICE_REQUEST.TITLE_ABANDON_MODAL"
+    body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+    cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL"
+    confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+    return-path="/device_management"
+></div>
 
-        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
-             cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
-             return-path="/device_management"></div>
-
-        <div class="row">
-                <div class="col-1">
-                    <button name="cancel" class="col-1-3 btn btn--secondary" data-js="modalOpen" data-target="#cancel"
-                            translate="DEVICE_SERVICE_REQUEST.ABANDON"></button>
-                </div>
-        </div>
-
-    </div>
-</div>
-
+<button name="cancel"
+    class="btn btn--secondary"
+    data-js="modalOpen"
+    data-target="#cancel"
+    translate="DEVICE_SERVICE_REQUEST.ABANDON"
+></button>
