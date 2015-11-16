@@ -1,20 +1,20 @@
 <h4>Primary Contact for this Request</h4>
 
-<a href="#" title="Select a different contact">
-    Select a different contact
-</a>
+<a href="#" title="Select a different contact">Select a different contact</a>
 
-<dl>
-    <dt>Name:</dt>
-    <dd>{{contact.name}}</dd>
+<ul class="info-list">
+    <li class="info-list__item">
+        <div class="info-list__item-name">Name:</div>
+        <div class="info-list__item-value" ng-bind="contact.name"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name">Phone Number:</div>
+        <div class="info-list__item-value" ng-bind="contact.phoneNumber"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name">Email Address:</div>
+        <div class="info-list__item-value" ng-bind="contact.emailAddress"></div>
+    </li>
+</ul>
 
-    <dt>Phone Number:</dt>
-    <dd>{{contact.phoneNumber}}</dd>
-
-    <dt>Email Address:</dt>
-    <dd>{{contact.emailAddress}}</dd>
-</dl>
-
-<a href="#" title="Add an Additional Contact for this Request">
-    Add an Additional Contact for this Request
-</a>
+<a href="#" title="Add an Additional Contact for this Request">Add an Additional Contact for this Request</a>

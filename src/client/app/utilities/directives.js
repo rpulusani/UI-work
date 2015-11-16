@@ -1,7 +1,16 @@
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .directive('confirmCancel', function(){
+    .directive('confirmCancel', ['$rootScope', function($rootScope){
+        function link(scope, element, attrs) {
+             element.on('$destroy', function() {
+                if($rootScope.contactPickerReset){
+                    $rootScope.returnPickerObject = undefined;
+                    $rootScope.returnPickerSRObject = undefined;
+                    $rootScope.selectedContact = undefined;
+                }
+             });
+        }
          return {
             restrict: 'A',
             scope: {
@@ -12,9 +21,10 @@ define(['angular', 'utility'], function(angular) {
                 returnPath: '@'
             },
             templateUrl: '/app/utilities/templates/confirm-cancel.html',
-            controller: 'confirmCancelController'
+            controller: 'confirmCancelController',
+            link:link
         };
-    })
+    }])
     .directive('alertMessage', function() {
         return {
             restrict: 'A',

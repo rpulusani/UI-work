@@ -1,37 +1,37 @@
-<div class="set set--tab" data-js="tab">
-<div class="set__tab-container">
+<div class="set" data-js="set">
     <div class="set__trigger" data-toggle="serviceRequestsAllTab">
         <a href="#serviceRequestsAllTab" translate="REQUEST_MGMT.ALL_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__trigger" data-toggle="serviceRequestsDeviceTab">
-        <a href="#serviceRequestsDeviceTab" translate="REQUEST_MGMT.DEVICE_REQUESTS"><i class="set__icon"></i></a>
-    </div>
-    <div class="set__trigger" data-toggle="serviceRequestsServiceTab">
-        <a href="#serviceRequestsServiceTab" translate="REQUEST_MGMT.SERVICE_REQUESTS"><i class="set__icon"></i></a>
-    </div>
-    <div class="set__trigger" data-toggle="serviceRequestsAddressTab">
-        <a href="#serviceRequestsAddressTab" translate="REQUEST_MGMT.ADDRESS_REQUESTS"><i class="set__icon"></i></a>
-    </div>
-    <div class="set__trigger" data-toggle="serviceRequestsContactTab">
-        <a href="#serviceRequestsContactTab" translate="REQUEST_MGMT.CONTACT_REQUESTS"><i class="set__icon"></i></a>
-    </div>
-</div>
-<div class="set__content-container">
     <div class="set__content" id="serviceRequestsAllTab">
        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
        <div pagination grid="{{gridOptions}}"></div>
     </div>
+    
+    <div class="set__trigger" data-toggle="serviceRequestsDeviceTab">
+        <a href="#serviceRequestsDeviceTab" translate="REQUEST_MGMT.DEVICE_REQUESTS"><i class="set__icon"></i></a>
+    </div>
     <div class="set__content" id="serviceRequestsDeviceTab">
         <p>left to my own devices tab</p>
+    </div>
+
+    <div class="set__trigger" data-toggle="serviceRequestsServiceTab">
+        <a href="#serviceRequestsServiceTab" translate="REQUEST_MGMT.SERVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsServiceTab">
         <p>Service tab</p>
     </div>
+    
+    <div class="set__trigger" data-toggle="serviceRequestsAddressTab">
+        <a href="#serviceRequestsAddressTab" translate="REQUEST_MGMT.ADDRESS_REQUESTS"><i class="set__icon"></i></a>
+    </div>
     <div class="set__content" id="serviceRequestsAddressTab">
         <p>Address tab</p>
+    </div>
+    
+    <div class="set__trigger" data-toggle="serviceRequestsContactTab">
+        <a href="#serviceRequestsContactTab" translate="REQUEST_MGMT.CONTACT_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsContactTab">
         <p>Contact tab</p>
     </div>
-</div>
 </div>

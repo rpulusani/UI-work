@@ -9,36 +9,38 @@
 
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
     
-    <a class="read-more" href="#" translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></a>
+    <a class="read-more call-to-action" href="#" translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></a>
 </div>
 
-<form class="form" data-form="" name="updateDevice" novalidate>
-    <div device-update-fields></div>
-    
-    <div confirm-cancel
-        title="SERVICE_REQUEST.TITLE_ABANDON_MODAL"
-        body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
-        cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL"
-        confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
-        return-path="/device_management"
-    ></div>
-    
-    <hr/>
-    
-    <div class="btns">
-        <button name="cancel"
-            class="btn btn--secondary"
-            data-js="modalOpen"
-            data-target="#cancel"
-            translate="DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_CHANGES"
-        ></button>
-        <button ng-hide="isReview"
-            name="review"
-            class="btn btn--primary"
-            type="submit"
-            translate="LABEL.REVIEW_SUBMIT"
-            value="review"
-            ng-click="goToReview();"
-        ></button>
-    </div>
-</form>
+<div class="page-content">
+    <form class="form" data-form="" name="updateDevice" novalidate>
+        <div device-update-fields></div>
+        
+        <div confirm-cancel
+            title="SERVICE_REQUEST.TITLE_ABANDON_MODAL"
+            body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+            cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL"
+            confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+            return-path="/device_management"
+        ></div>
+        
+        <hr/>
+        
+        <div class="btns">
+            <button name="cancel"
+                class="btn btn--secondary"
+                data-js="modalOpen"
+                data-target="#cancel"
+                translate="DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_CHANGES"
+            ></button>
+            <button ng-hide="isReview"
+                name="review"
+                class="btn btn--primary"
+                type="submit"
+                translate="LABEL.REVIEW_SUBMIT"
+                value="review"
+                ng-click="goToReview();"
+            ></button>
+        </div>
+    </form>
+</div>

@@ -1,81 +1,103 @@
-<div ng-hide="isReview || isSubmitted">
-    <h4 translate="DEVICE_MGT.DEVICE_INFO"></h4>
-</div>
+<h4 translate="DEVICE_MGT.DEVICE_INFO" ng-hide="isReview || isSubmitted"></h4>
 
 <hr />
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
-<div class="form__field" >
-    <strong translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></strong>
-    <div class="form__field form__field--radio form__field--no-margin">
-        <input type="radio" id="lexmark-device-question-no" name="lexmark-device-question"
-        ng-model="device.lexmarkDeviceQuestion" value="false" data-js="customInput"/>
-        <label for="lexmark-device-question-no"><span></span>
-            {{'LABEL.NO' | translate }}</label>
-    </div>
-    <div class="form__field form__field--radio form__field--no-margin">
-        <input type="radio" id="lexmark-device-question-yes" name="lexmark-device-question"
-        ng-model="device.lexmarkDeviceQuestion" value="true" data-js="customInput" checked/><label
-        for="lexmark-device-question-yes"><span></span>
-        {{ 'LABEL.YES' | translate }}</label>
-    </div>
+
+<strong translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></strong>
+
+<div class="form__field form__field--radio form__field--no-margin">
+    <input type="radio"
+        id="lexmark-device-question-no"
+        name="lexmark-device-question"
+        ng-model="device.lexmarkDeviceQuestion"
+        value="false"
+        data-js="customInput"
+    />
+    <label for="lexmark-device-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
 </div>
+
+<div class="form__field form__field--radio form__field--no-margin">
+    <input type="radio"
+        id="lexmark-device-question-yes"
+        name="lexmark-device-question"
+        ng-model="device.lexmarkDeviceQuestion"
+        value="true"
+        data-js="customInput"
+        checked
+    />
+    <label for="lexmark-device-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+</div>
+
 <div ng-hide="device.lexmarkDeviceQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_MGT.PRODUCT_MODEL"></label>
         <input name="productModel" type="text" ng-model="device.productModel" value="" class="" />
     </div>
+    
     <div class="form__field" >
         <label translate="DEVICE_MGT.SERIAL_NO"></label>
         <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
     </div>
 </div>
+
 <div ng-show="device.lexmarkDeviceQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_MGT.SERIAL_NO"></label>
         <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
     </div>
-    <div>
-        <div class="form__field form__field--select" >
-            <label translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></label>
-            <div selectric model="device.productNumber" options="productNumbers" value="id" label="name"
-                placeholder="{{'LABEL.SELECT' | translate}}">
-            </div>
-        </div>
+    
+    <div class="form__field form__field--select" >
+        <label translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></label>
+        <div selectric
+            model="device.productNumber"
+            options="productNumbers"
+            value="id"
+            label="name"
+            placeholder="{{'LABEL.SELECT' | translate}}"
+        ></div>
     </div>
 </div>
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLATION"></h3>
-<div class="form__field" >
-    <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></strong>
 
-    <div class="form__field form__field--radio form__field--no-margin">
-        <input type="radio" id="device-install-question-no" name="device-install-question"
-        ng-model="device.deviceInstallQuestion" value="false" data-js="customInput" checked/>
-        <label for="device-install-question-no"><span></span>
-            {{'LABEL.NO' | translate }}</label>
-    </div>
-    
-    <div class="form__field form__field--radio form__field--no-margin">
-        <input type="radio" id="device-install-question-yes" name="device-install-question"
-        ng-model="device.deviceInstallQuestion" value="true" data-js="customInput"/>
-        <label for="device-install-question-yes"><span></span>
-        {{ 'LABEL.YES' | translate }}</label>
-    </div>
+<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></strong>
 
-    <div ng-hide="device.deviceInstallQuestion === 'true'">
-        <div class="form__field" >
-            <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
-            <input name="deviceInstallDate" type="text" ng-model="device.deviceInstallDate" value="" class="" />
-        </div>
+<div class="form__field form__field--radio form__field--no-margin">
+    <input type="radio"
+        id="device-install-question-no"
+        name="device-install-question"
+        ng-model="device.deviceInstallQuestion"
+        value="false"
+        data-js="customInput"
+        checked
+    />
+    <label for="device-install-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+</div>
+
+<div class="form__field form__field--radio form__field--no-margin">
+    <input type="radio"
+        id="device-install-question-yes"
+        name="device-install-question"
+        ng-model="device.deviceInstallQuestion"
+        value="true"
+        data-js="customInput"
+    />
+    <label for="device-install-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+</div>
+
+<div ng-hide="device.deviceInstallQuestion === 'true'">
+    <div class="form__field" >
+        <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
+        <input name="deviceInstallDate" type="text" ng-model="device.deviceInstallDate" value="" class="" />
     </div>
-    
-    <strong ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></strong>
-    <strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
-    
-    <div class="form__field">
-        <input name="deviceInstallLocation" type="text" ng-model="device.address.storeFrontName" value="" class="" />
-    </div>
+</div>
+
+<strong ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></strong>
+<strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
+
+<div class="form__field">
+    <input name="deviceInstallLocation" type="text" ng-model="device.address.storeFrontName" value="" class="" />
 </div>
 
 <div class="form__field form__field--select form__field--required">

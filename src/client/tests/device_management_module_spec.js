@@ -391,7 +391,7 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                     spyOn(location, 'path').and.returnValue('/');
 
                     scope.btnRequestService(scope.device);
-                    expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/' + scope.device.id +'/review');
+                    expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/' + scope.device.id +'/view');
                 });
             });
 

@@ -40,15 +40,13 @@
                     <hr/>
                     
                     <div class="btns">
-                        <button
-                            name="cancel"
+                        <button name="cancel"
                             class="btn btn--secondary"
                             data-js="modalOpen"
                             data-target="#cancel"
                             translate="DEVICE_SERVICE_REQUEST.ABANDON"
                         ></button>
-                        <button
-                            ng-hide="isReview"
+                        <button ng-hide="isReview"
                             name="review"
                             class="btn btn--primary"
                             type="submit"
@@ -56,8 +54,7 @@
                             ng-click="goToReview();"
                             ng-disabled="isReview"
                         ></button>
-                        <button
-                            ng-show="isReview"
+                        <button ng-show="isReview"
                             name="submit"
                             class="btn btn--primary"
                             type="submit"
