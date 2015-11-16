@@ -148,7 +148,19 @@ Follows the given next _link, returns null if it cannot.
 Follows the given prev _link, returns null if it cannot.
 
 #### getAdditional(Service, NewService)
-Returns a service object built from a _link in Service.item. NewService must meet the form of a service and have a serviceName that matches a Service.item _link.
+getAdditional() takes in two HATEOASFactory services and sets item two up with the data found in a link in service one. For example:
+
+```js
+    self.getAdditional(Devices.item, MeterReads).then(function() {
+        // Meter reads link in Devices.item._links['meter-reads']
+        // was called and give to MeterReads service. 
+        // data in MeterReads.data
+        MeterReads.get().then(function() {
+
+        });
+    });
+    
+```
 
 #### Link functions
 Created from an envelopes _links data via setItem/createItem. Links functions can process the same options as get(). Data is attached to Service.item.linkName.data or Service.item.linkName.item. Returns a promise passing in the full server response.
