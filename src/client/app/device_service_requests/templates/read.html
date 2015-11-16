@@ -1,92 +1,85 @@
-<div class="row">
-	<div class="col-1-5">
-		<h3 translate="DEVICE_MGT.DEVICE_INFO"></h3>
-	</div>
-	<div class="col-1-3">
-		<a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a>
-	</div>
-	<hr>
-	<div class="col-1-3">
-		<dl class="row">
-            <strong><dt class="col-1-2" translate="DEVICE_MGT.SERIAL_NO"></dt></strong>
-            <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
-            <strong><dt class="col-1-2" translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></dt></strong>
-            <dd class="col-1-2" ng-bind="device.productNumber"></dd>
-            <strong><dt class="col-1-2" translate="DEVICE_MGT.IP_ADDRESS"></dt></strong>
-            <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
-            <strong><dt class="col-1-2" translate="DEVICE_MGT.INSTALL_ADDRESS"></dt></strong>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind="installAddress"></dd>
-        </dl>
-	</div>
+<h3 translate="DEVICE_MGT.DEVICE_INFO"></h3>
+
+<a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a>
+
+<hr />
+
+<ul class="info-list">
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+        <div class="info-list__item-value" ng-bind="device.serialNumber"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></div>
+        <div class="info-list__item-value" ng-bind="device.productNumber"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
+        <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DEVICE_MGT.INSTALL_ADDRESS"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="installAddress"></div>
+    </li>
+</ul>
+
+<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
+
+<a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a>
+
+<hr />
+
+<ul class="info-list">
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="LABEL.PRIMARY_CONTACT"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="devicePrimaryContact"></div>
+    </li>
+</ul>
+
+<h3 translate="SERVICE_REQUEST.CONTACT_INFORMATION"></h3>
+
+<hr />
+
+<strong translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></strong>
+<div class="contact-info">
+    <em translate="LABEL.NONE_SELECTED"></em>
+</div>
+    
+<strong translate="SERVICE_REQUEST.PRIMARY_CONTACT"></strong>
+
+<div class="contact-info">
+    <em ng-hide="isPrimarySelected" translate="LABEL.NONE_SELECTED"></em>
+    <div ng-show="isPrimarySelected" style="white-space: pre;" ng-bind="requestPrimaryContact"></div>
 </div>
 
-<div class="row">
-	<div class="col-1-5">
-		<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
-	</div>
-	<div class="col-1-3">
-		<a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a>
-	</div>
-	<hr>
-	<div class="col-1-3">
-		<dl class="row">
-            <strong><dt class="col-1-2" translate="LABEL.PRIMARY_CONTACT"></dt></strong>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind="devicePrimaryContact"></dd>
-        </dl>
-	</div>
+<a href="" ng-click="goToContactPicker(device,'requestPrimaryContact')" translate="SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT"></a>
+    
+<strong translate="SERVICE_REQUEST.SECONDARY_CONTACT"></strong>
+
+<div class="contact-info">
+    <em ng-hide="isSecondarySelected" translate="LABEL.NONE_SELECTED"></em>
+    <div ng-show="isSecondarySelected" class="col-1-2" style="white-space: pre;" ng-bind="requestSecondaryContact"></div>
 </div>
 
-<div class="row">
-	<div class="col-1-3">
-		<h3 translate="SERVICE_REQUEST.CONTACT_INFORMATION"></h3>
-	</div>
-	<hr>
-</div>
-<div class="row">
-    <div class="col-1-3">
-        <strong translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></strong>
-        <div class="contact-info">
-            <em translate="LABEL.NONE_SELECTED"></em>
-        </div>
-    </div>
-    <div class="col-1-3">
-         <strong translate="SERVICE_REQUEST.PRIMARY_CONTACT"></strong>
-        <div class="contact-info">
-            <em ng-hide="isPrimarySelected" translate="LABEL.NONE_SELECTED"></em>
-            <div ng-show="isPrimarySelected" class="col-1-2" style="white-space: pre;" ng-bind="requestPrimaryContact"></div>
-        </div>
-        <a href="" ng-click="goToContactPicker(device,'requestPrimaryContact')" translate="SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT"></a>
-    </div>
-    <div class="col-1-3">
-        <strong translate="SERVICE_REQUEST.SECONDARY_CONTACT"></strong>
-        <div class="contact-info">
-            <em ng-hide="isSecondarySelected" translate="LABEL.NONE_SELECTED"></em>
-            <div ng-show="isSecondarySelected" class="col-1-2" style="white-space: pre;" ng-bind="requestSecondaryContact"></div>
-        </div>
-        <a href="" ng-click="goToContactPicker(device,'requestSecondaryContact')" translate="SERVICE_REQUEST.ADD_SECONDARY_CONTACT"></a>
-    </div>
+<a href="" ng-click="goToContactPicker(device,'requestSecondaryContact')" translate="SERVICE_REQUEST.ADD_SECONDARY_CONTACT"></a>
+
+<h4 translate="SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h4>
+
+<hr />
+            
+<div class="form__field">
+    <label translate="SERVICE_REQUEST.INTERNAL_REFERENCE_ID "></label>
+    <input name="internalReference" type="text" ng-model="device.internalRefernceId"/>
 </div>
 
-<div class="row">
-    <div class="col-1">
-        <h4 translate="SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h4>
-        <hr/>
-            <div class="row">
-                <div class="col-1-3">
-                    <div class="form__field">
-                        <label translate="SERVICE_REQUEST.INTERNAL_REFERENCE_ID "></label>
-                        <input name="internalReference" type="text" ng-model="device.internalRefernceId"/>
-                    </div>
-                    <div class="form__field">
-                        <label translate="SERVICE_REQUEST.REQUEST_COST_CENTER "></label>
-                        <input name="requestCostCenter" type="text" ng-model="device.requestCostCenter"/>
-                    </div>
-                    <div class="form__field">
-                        <label translate="LABEL.COMMENTS "></label>
-                        <textarea ng-model="device.comments"></textarea>
-                    </div>
-                </div>
-        </form>
-        <hr/>
-    </div>
+<div class="form__field">
+    <label translate="SERVICE_REQUEST.REQUEST_COST_CENTER "></label>
+    <input name="requestCostCenter" type="text" ng-model="device.requestCostCenter"/>
 </div>
+
+<div class="form__field">
+    <label translate="LABEL.COMMENTS "></label>
+    <textarea ng-model="device.comments"></textarea>
+</div>
+
+<hr />
