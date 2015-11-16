@@ -1,0 +1,19 @@
+<div sr-header></div>
+<div device-info-section></div>
+<form class="form" data-form="" name="breakFixDevice" method="post"
+    ng-submit="breakFixDevice.$valid && goToReview()" enctype="multipart/form-data" novalidate>
+    <div class="row">
+        <div class="col-2-3">
+            <h2 translate="DEVICE_SERVICE_REQUEST.SERVICE_REQUEST_DETAIL"></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2-3">
+            <div class="form__field">
+                <label translate="DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION"></label>
+                <textarea name="description" type="text" rows="8" cols="129" ng-model="sr.description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div sr-form-buttons></div>
+</form>

@@ -13,6 +13,19 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/sr-header.html'
         };
     })
+    .directive('srFormButtons', function() {
+        return{
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/sr-form-buttons.html',
+            controller: ['$scope', function($scope) {
+                $scope.formSubmit = function(submitFn){
+                    if(submitFn !== null && submitFn !== undefined){
+                        return submitFn();
+                    }
+                };
+            }]
+        };
+    })
     .directive('requestContacts', function() {
         return {
             restrict: 'A',
@@ -29,6 +42,12 @@ define(['angular', 'serviceRequest'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/service_requests/templates/device-removal.html'
+        };
+    })
+    .directive('srDeviceServiceDetails', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/device-service-request-details.html'
         };
     })
     .directive('srDeviceContact', function() {
