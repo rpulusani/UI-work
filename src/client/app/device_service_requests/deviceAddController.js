@@ -1,8 +1,8 @@
-define(['angular', 'deviceServiceRequest'], function(angular) {
+define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceAddController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'FormatterService',
-        function($scope, $location, $filter, $routeParams, $rootScope, FormatterService) {
+    .controller('DeviceAddController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'FormatterService', 'Devices',
+        function($scope, $location, $filter, $routeParams, $rootScope, FormatterService, Devices) {
 
             $scope.device = {};
             $scope.device.selectedDevice = {};
@@ -101,6 +101,43 @@ define(['angular', 'deviceServiceRequest'], function(angular) {
                 $scope.requestSecondaryContact = FormatterService.formatContact($scope.device.requestSecondaryContact);
                 $scope.isSecondarySelected = true;
                 $scope.isReview = true;
+            }
+
+            configureTemplates();
+
+            function configureTemplates() {
+                $scope.configure = {
+                    header: {
+                        translate: {
+                            h1: 'DEVICE_SERVICE_REQUEST.ADD',
+                            body: 'MESSAGE.LIPSUM',
+                            readMore: 'Learn more about requests'
+                        },
+                        readMoreUrl: '#'
+                    },
+                    actions: {
+                        translate: {
+                            abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON',
+                            submit: 'LABEL.REVIEW_SUBMIT'
+                        },
+                        submit: function() {
+                            if($scope.isReview){
+                                $scope.goToSubmit();
+                            }else{
+                                $scope.goToReview();
+                            }
+                        }
+                    },
+                    modal: {
+                        translate: {
+                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                            abandonBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
+                        },
+                        returnPath: Devices.route + '/'
+                    }
+                };
             }
         }
     ]);
