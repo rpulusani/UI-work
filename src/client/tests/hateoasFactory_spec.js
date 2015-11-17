@@ -1,6 +1,5 @@
-define(['angular', 'angular-mocks', 'mps.hateoasFactory'],
+define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
     function(angular, mocks) {
-        'use strict';
         describe('HATEAOSFactory.js', function() {
             var scope,
             httpBackend,
@@ -62,6 +61,7 @@ define(['angular', 'angular-mocks', 'mps.hateoasFactory'],
                 };
 
                 httpBackend = $httpBackend;
+                //httpBackend.when('GET', )
 
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({
@@ -139,14 +139,6 @@ define(['angular', 'angular-mocks', 'mps.hateoasFactory'],
                     }
                 });
             }));
-
-            describe('hateoasServiceFactory', function() {
-                describe('parseOptions', function() {
-                    it('returns a vali options object', function() {
-                        // spyOn(mockService, 'parseOptions').and.callthrough();
-                    });
-                });
-            });
         });
     }
 );

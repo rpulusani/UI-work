@@ -2,7 +2,7 @@
 
 HATEOASFactory outputs angular services based on a 'service definition' (think: fat model) and combines it with their initial endpoint call to allow easy hal focused development within module controllers.
 
-**NOTE**: To prevent refactoring getPage(page, size), getAdditional(service, serviceDescription, params), save(), and update() are still supported functions.
+**NOTE**: To prevent refactoring getPage(page, size), getAdditional(halObj, service), save(), and update() are still supported functions.
 
 * [Setup](#Setup)
 * [Overview](#Overview)
@@ -106,7 +106,9 @@ Used to obtain info. Returns a promise. Options object can have a number of poss
         link: '',
         // override url for this call
         url: '',
-        method: '' // change the request method
+        method: '', // change the request method,
+        page: 0, // override and set the page param of service
+        size: 20 // override and set the size param of service
     }
 ```
 
@@ -141,20 +143,13 @@ Wait for all of an attached self.items._links to be called before executing. All
 #### getPage(pageNumber, resultSize)
 Convenience function for page navigation.
 
-#### next()
-Follows the given next _link, returns null if it cannot.
+#### getAdditional(halOBJ, NewService)
+getAdditional() takes in A halObj and a HATEOASFactory service and sets item two up with the data found in a link in the envelope. 
 
-#### prev()
-Follows the given prev _link, returns null if it cannot.
-
-#### getAdditional(Service, NewService)
-getAdditional() takes in two HATEOASFactory services and sets item two up with the data found in a link in service one. For example:
+For example:
 
 ```js
     self.getAdditional(Devices.item, MeterReads).then(function() {
-        // Meter reads link in Devices.item._links['meter-reads']
-        // was called and give to MeterReads service. 
-        // data in MeterReads.data
         MeterReads.get().then(function() {
 
         });
@@ -284,19 +279,6 @@ Generally speaking our initital endpoint will return a collection of items. Thes
 
 ```
 
-To navigate within the context of the current page you can use next() and prev() which are based on the initial collections _links.self. They will return null if you cannot move in that direction.
-
-```js
-    Contacts.next().then(function(success) {
-        Contacts.data; 
-    });
-
-    Contacts.prev().then(function(success) {
-        Contacts.data; 
-    });
-
-```
-
 To obtain a specific page set the required parameters:
 
 ```js
@@ -310,9 +292,9 @@ To obtain a specific page set the required parameters:
         Contacts.params = Contacts.defaultParams;
     });
 
-    // Can also use getPage()
+    // Can also use getPage(page, size)
 
-    Contacts.getPage().then(function() {
+    Contacts.getPage(0, 20).then(function() {
 
     });
 
@@ -322,9 +304,7 @@ Want to navigate paged data returned by a link function? Do something like the f
 
 ```js
     Device.item.links.meterReads().then(function() {
-        var meterReads = Device.item.meterReads.data;
-
-        Grid.display(meterReads, $scope);
+        Grid.display(Device.item.meterReads.data, $scope);
     });
 
 ```
@@ -506,12 +486,6 @@ There are example use cases for events in the 'Example Problems' section.
 
     Devices.setItem(Devices.item);
     Devices.item.links.['meter-reads']().then(function() {
-        // Data is in
-        Devices.item['meter-reads'].data;
-
-        // Involved example, lets get the device again
-        Devices.item['meter-reads'] = Devices.createItem(Devices.item[meter-reads]);
-
         Devices.item['meter-reads'].links.device().then(function() {
 
         });
@@ -534,6 +508,15 @@ There are example use cases for events in the 'Example Problems' section.
     }, function(address) {
         Addresses.item = address;
         // Now you can pass to Grid
+    });
+
+    // or
+
+    Contact.item.links.address().then(function() {
+        // can now use address 
+        Contact.item.address.links.self().then(function() {
+
+        });
     });
 
 ```
@@ -563,11 +546,6 @@ There are example use cases for events in the 'Example Problems' section.
 
     });
 
-    // With an item
-    Contacts.item.params.page = Contacts.item.params.page + 2;
-    Contacts.item.get().then(function() {
-
-    });
 ```
 
 #### How can I get the base url of the service?
@@ -580,7 +558,9 @@ There are example use cases for events in the 'Example Problems' section.
 #### How can I get the base url of an attached item?
 
 ```js
-    Contacts.item._links.self.href;
+    Contacts.item.url // Clean
+
+    Contacts.item._links.self.href; // From Server
 
 ```
 
@@ -670,6 +650,42 @@ Use a closure.
                 });
             }(report));
         }
+    });
+
+```
+
+#### How can I display a users associated addresses? Assume I have a user envelope which links me to an accounts endpoint that gives me my wanted addresses link.
+
+There are a couple of ways we can easily do this.
+
+```js
+    // We can avoid outside services and just follow the links
+    User.item.link.account().then(function() {
+        User.item.account.link.address().then(function() {
+            Grid.display(User.item.account.address.data);
+        });
+    });
+
+    // Or we can leverage our other modules
+
+    User.item.link.account().then(function(account) {
+        Account.setItem(account);
+        Account.item.link.address().then(function(address) {
+            Addresses.setItem(address);
+            Addresses.get().then(function() {
+                Grid.display(Addresses);
+            });
+        });
+    });
+
+    // Or use getAdditional if we have a service defined that matches the link we want
+
+    User.getAdditional(user.item.data, Account).then(function() {
+        Account.getAdditional(Account.data[0], Addresses).then(function() {
+            Addresses.getPage().then(function() {
+                Grid.display(Addresses, $scope, personal);
+            });
+        });
     });
 
 ```

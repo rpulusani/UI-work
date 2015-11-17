@@ -7,8 +7,9 @@ define(['angular', 'report', 'chart'], function(angular) {
                 var i = 0,
                 report;
 
-                 for (i; i < $scope.categories.length; i += 1) {
-                    report = Reports.createItem($scope.categories[i]);
+                 for (i; i < $scope.reports.length; i += 1) {
+                    report = Reports.createItem($scope.reports[i]);
+
                     report.stats.params.page = null;
                     report.stats.params.size = null;
 
@@ -16,36 +17,34 @@ define(['angular', 'report', 'chart'], function(angular) {
                     //should be removed when all are working
                     if (report.id === 'mp9058sp') {
                         (function(report) {
-
                             report.links.stats({
-                                embeddedName: null
+                                embeddedName: 'stats',
                             }).then(function(serverResponse) {
                                 var j = 0,
                                 results = [];
-
-                                if (report.stats.data.dataSet) {
-                                    if (report.stats.data.dataSet[0].data) {
-                                        for (j; j < report.stats.data.dataSet[0].data.length; j += 1) {
+                                if (report.stats.data) {
+                                    if (report.stats.data[0].stat.length > 0) {
+                                        for (j; j < report.stats.data[0].stat.length; j += 1) {
                                             if (j === 0) {
                                                 results.push({
-                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    value: report.stats.data[0].stat[j].value, 
                                                     color: '#F7464A', 
                                                     highlight: '#FF5A5E', 
-                                                    label: 'Shipped'
+                                                    label: report.stats.data[0].stat[j].label
                                                 });
                                             } else if (j === 1) {
                                                 results.push({
-                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    value: report.stats.data[0].stat[j].value, 
                                                     color: '#46BFBD', 
                                                     highlight: '#5AD3D1', 
-                                                    label: 'Installed'
+                                                    label: report.stats.data[0].stat[j].label
                                                 });
                                             } else {
                                                 results.push({
-                                                    value: report.stats.data.dataSet[0].data[j], 
+                                                    value: report.stats.data[0].stat[j].value, 
                                                     color: '#FDB45C', 
                                                     highlight: '#FFC870', 
-                                                    label: 'Stored'
+                                                    label: report.stats.data[0].stat[j].label
                                                 });
                                             }
                                         }
@@ -62,12 +61,17 @@ define(['angular', 'report', 'chart'], function(angular) {
             };
 
             $scope.finder = Reports.finder;
-            $scope.categories = Reports.data;
-            $scope.category = Reports.item;
+            $scope.reports = Reports.data;
+            $scope.report = Reports.item;
 
-            if (!$scope.categories.length) {
-                Reports.getPage().then(function() {
-                   $scope.categories = Reports.data;
+            if (!$scope.reports.length) {
+                Reports.getPage({
+                    params: {
+                        page: 1,
+                        hello: 'world'
+                    }
+                }).then(function() {
+                   $scope.reports = Reports.data;
 
                     buildCharts();
                 });
