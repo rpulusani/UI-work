@@ -6,17 +6,39 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
         function($scope, $rootScope, $routeParams, $location, $translate, Devices, ServiceRequest, FormatterService,
             BlankCheck, DeviceServiceRequest, Contacts) {
 
+
+            $scope.goToReview = function() {
+                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
+            };
+
+            $scope.goToSubmit = function() {
+                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+            };
+
+            $scope.goToContactPicker = function() {
+                $rootScope.returnPickerObject = $scope.device;
+                $rootScope.returnPickerSRObject = $scope.sr;
+                $location.path(DeviceServiceRequest.route + '/pick_contact');
+            };
+
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
             };
 
             if (Devices.item === null) {
                 redirect_to_list();
-            } else if ($rootScope.decommissionDevice !== undefined && $routeParams.return) {
-                $scope.device = $rootScope.decommissionDevice;
-                $scope.sr = $rootScope.decommissionSr;
-                configureTemplates();
-            } else {
+            } else if($rootScope.selectedContact){
+                 $rootScope.device = $rootScope.returnPickerObject;
+                $rootScope.sr = $rootScope.returnPickerSRObject;
+                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $rootScope.contactPickerReset = true;
+                Devices.item = $rootScope.device;
+            } else if($rootScope.contactPickerReset){
+                $rootScope.device = Devices.item;
+                setupSR();
+                $rootScope.contactPickerReset = false;
+            }else {
 
                 $scope.device = Devices.item;
 
@@ -34,12 +56,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 }
 
                 setupSR();
+            }
 
-                configureTemplates();
-                if($location.path().indexOf('receipt') > -1){
-                    configureReceiptTemplate();
-                }
-
+            configureTemplates();
+            if($location.path().indexOf('receipt') > -1){
+                configureReceiptTemplate();
+            }else if($location.path().indexOf('review') > -1){
+                configureReviewTemplate();
             }
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
@@ -65,6 +88,12 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 }
             }
 
+            function configureReviewTemplate(){
+                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
+                $scope.configure.actions.submit = function() {
+                    $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+                };
+            }
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
@@ -146,8 +175,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     actions:{
                         translate: {
                             abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
-                            submit: 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION'
-                        }
+                            submit: 'LABEL.REVIEW_SUBMIT'
+                        },
+                        submit: $scope.goToReview
                     },
                     modal:{
                         translate:{
@@ -168,31 +198,11 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 };
             }
 
-
-            $scope.goToReview = function() {
-                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
-            };
-
-            $scope.goToSubmit = function() {
-                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
-            };
-
-            $scope.goToContactPicker = function(selectedContact) {
-                $rootScope.decommissionDevice = $scope.device;
-                $rootScope.decommissionSr = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/decommission/pick_contact');
-            };
-
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 
-                && $routeParams.return && $routeParams.return !== 'discard') {
-                $rootScope.decommissionContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-            }
-
             if (!BlankCheck.isNull($scope.device.installAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 
-            if (!BlankCheck.isNull($scope.device.primaryContact) || 
+            if (!BlankCheck.isNull($scope.device.primaryContact) ||
                 !BlankCheck.isNull($rootScope.decommissionContact)){
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
                 if ($rootScope.decommissionContact) {
@@ -200,7 +210,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 } else {
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
                 }
-                
+
             }
 
             if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {

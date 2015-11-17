@@ -1,112 +1,79 @@
-<div class="row">
-    <div class="col-1">
-        <h1 translate="DEVICE_SERVICE_REQUEST.UPDATE_DEVICE"></h1>
-    </div>
+<h1 translate="DEVICE_SERVICE_REQUEST.UPDATE_DEVICE"></h1>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+
+<h3 translate="DEVICE_SERVICE_REQUEST.REQUESTED_UPDATE_TO_DEVICE"></h3>
+
+<hr />
+
+<ul class="info-list">
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DEVICE_MGT.INSTALL_ADDRESS"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="formattedAddress"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="moveDevice"></div>
+    </li>
+</ul>
+
+<h3 translate="DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION"></h3>
+
+<hr />
+
+<ul class="info-list">
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="formattedAddress"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="SERVICE_REQUEST.PRIMARY_CONTACT"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="formattedAddress"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="SERVICE_REQUEST.SECONDARY_CONTACT"></div>
+        <div class="info-list__item-value" style="white-space: pre;" ng-bind="formattedAddress"></div>
+    </li>
+</ul>
+
+<h3 translate="DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h3>
+
+<hr />
+
+<div class="form__field">
+    <label translate="Internal reference ID"></label>
+    <input name="internalReferenceId" type="text"></textarea>
 </div>
 
-<div class="row">
-    <div class="col-2-3">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
-            sit amet lacus accumsan et viverra justo commodo.
-        </p>
-    </div>
+<div class="form__field">
+    <label translate="Request cost center"></label>
+    <input name="requestCostCenter" type="text"></textarea>
 </div>
 
-<div class="row">
-    <div class="col-2-3">
-        <h3 translate="DEVICE_SERVICE_REQUEST.REQUESTED_UPDATE_TO_DEVICE"></h3>
-        <hr />
-    </div>
+<div class="form__field">
+    <label translate="Comments"></label>
+    <textarea name="comments" type="text" rows="8" cols="77" required></textarea>
 </div>
 
-<div class="row row--alley-2">
-    <div class="col-5-12">
-        <dl class="row text--small">
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.INSTALL_ADDRESS"></dt>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE"></dt>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind="moveDevice"></dd>
-        </dl>
-    </div>
+<div class="form__field">
+    <label translate="Attachments"></label>
+    <input name="attachments" type="file" multiple="multiple" />
+    <p class="text--tiny">File formats supported: .csv, .xls, .xlsx, .vsd, .doc, .docx, .ppt, .pptx, .pdf, .zip</p>
 </div>
 
-<div class="row">
-    <div class="col-2-3">
-        <h3 translate="DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION"></h3>
-        <hr />
-    </div>
-</div>
+<button name="cancel"
+    class="btn btn--secondary"
+    data-js="modalOpen"
+    data-target="#cancel"
+    translate="DEVICE_SERVICE_REQUEST.ABANDON"
+></button>
 
-<div class="row">
-    <div class="col-2-3">
-        <div class="row">
-            <div class="col-1-3">
-                <p><strong>{{ 'SERVICE_REQUEST.REQUEST_CREATED_BY' | translate }}</strong></p>
-                <dl class="row text--small">
-                    <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
-                </dl>
-            </div>
-            <div class="col-1-3">
-                <p><strong>{{ 'SERVICE_REQUEST.PRIMARY_CONTACT' | translate }}</strong></p>
-                <dl class="row text--small">
-                    <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
-                </dl>
-            </div>
-            <div class="col-1-3">
-                <p><strong>{{ 'SERVICE_REQUEST.SECONDARY_CONTACT' | translate }}</strong></p>
-                <dl class="row text--small">
-                    <dd class="col-1-2" style="white-space: pre;" ng-bind="formattedAddress"></dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
+<button class="btn btn--primary" translate="DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST"></button>
 
-<div class="row">
-    <div class="col-2-3">
-        <h3 translate="DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h3>
-        <hr />
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-1">
-        <div class="col-1-3">
-
-            <div class="form__field">
-                <label translate="Internal reference ID"></label>
-                <input name="internalReferenceId" type="text"></textarea>
-            </div>
-
-            <div class="form__field">
-                <label translate="Request cost center"></label>
-                <input name="requestCostCenter" type="text"></textarea>
-            </div>
-
-            <div class="form__field">
-                <label translate="Comments"></label>
-                <textarea name="comments" type="text" rows="8" cols="77" required></textarea>
-            </div>
-
-            <div class="form__field">
-                <label translate="Attachments"></label>
-                <input name="attachments" type="file" multiple="multiple" />
-                <p class="text--tiny">File formats supported: .csv, .xls, .xlsx, .vsd, .doc, .docx, .ppt, .pptx, .pdf, .zip</p>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-1">
-        <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel" translate="DEVICE_SERVICE_REQUEST.ABANDON"></button>
-        <button class="btn btn--primary" translate="DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST"></button>
-
-        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
-             cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
-             return-path="/device_management"></div>
-    </div>
-</div>
+<div confirm-cancel
+    title="SERVICE_REQUEST.TITLE_ABANDON_MODAL"
+    body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+    cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL"
+    confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+    return-path="/device_management"
+></div>

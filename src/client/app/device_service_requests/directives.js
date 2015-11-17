@@ -13,6 +13,12 @@ define(['angular', 'deviceServiceRequest'], function(angular) {
             templateUrl: '/app/device_service_requests/templates/submitted.html'
         };
     })
+     .directive('deviceInfoSection', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_service_requests/templates/device-info-section.html'
+        };
+    })
     .directive('deviceNewFields', function() {
         return {
             restrict: 'A',
