@@ -5,7 +5,7 @@ define(['angular', 'account'], function(angular) {
         function($resource, serviceUrl, HATEAOSFactory) {
             var Account = {
                 serviceName: 'accounts',
-                embeddedName: 'account',
+                embeddedName: 'accounts',
                 columns: [],
                 route: ''
 

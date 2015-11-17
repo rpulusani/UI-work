@@ -44,15 +44,31 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
             /* grid configuration */
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
+
             $rootScope.currentUser.deferred.promise.then(function(user){
-                User.getAdditional(user, Account).then(function(){
-                    Addresses.getPage().then(function(){
-                        Grid.display(Addresses, $scope, personal);
-                    }, function(reason) {
-                        NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+                User.getAdditional(user, Account).then(function() {
+                    Account.getAdditional(Account.data[0], Addresses).then(function() {
+                        Addresses.getPage().then(function() {
+                            Grid.display(Addresses, $scope, personal);
+                        }, function(reason) {
+                            NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+                        });
                     });
                 });
             });
+            // $rootScope.currentUser.deferred.promise.then(function(user){
+            //     User.getAdditional(user, Account).then(function(){
+            //         console.log(Account);
+            //         //Account.getAdditional(Account.data[0],Addresses).then(function(){
+            //             //console.log(Addresses);
+            //             Addresses.getPage().then(function(){
+            //             //     Grid.display(Addresses, $scope, personal);
+            //             // }, function(reason) {
+            //             //     NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+            //             // });
+            //         });
+            //     });
+            // });
         }
       ]);
 });
