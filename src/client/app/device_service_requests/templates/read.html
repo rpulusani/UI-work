@@ -1,6 +1,6 @@
 <h3 translate="DEVICE_MGT.DEVICE_INFO"></h3>
 
-<a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a>
+<div><a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a></div>
 
 <hr />
 
@@ -25,7 +25,7 @@
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
 
-<a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a>
+<div><a href="" translate="LABEL.MAKE_CHANGES" ng-click="goToAdd()"></a></div>
 
 <hr />
 
@@ -40,29 +40,29 @@
 
 <hr />
 
-<strong translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></strong>
+<h4 translate="SERVICE_REQUEST.REQUEST_CREATED_BY"></h4>
 
 <div class="contact-info">
     <em translate="LABEL.NONE_SELECTED"></em>
 </div>
     
-<strong translate="SERVICE_REQUEST.PRIMARY_CONTACT"></strong>
+<h4 translate="SERVICE_REQUEST.PRIMARY_CONTACT"></h4>
 
 <div class="contact-info">
     <em ng-hide="isPrimarySelected" translate="LABEL.NONE_SELECTED"></em>
     <div ng-show="isPrimarySelected" style="white-space: pre;" ng-bind="requestPrimaryContact"></div>
 </div>
 
-<a href="" ng-click="goToContactPicker(device,'requestPrimaryContact')" translate="SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT"></a>
+<div><a href="" ng-click="goToContactPicker(device,'requestPrimaryContact')" translate="SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT"></a></div>
     
-<strong translate="SERVICE_REQUEST.SECONDARY_CONTACT"></strong>
+<h4 translate="SERVICE_REQUEST.SECONDARY_CONTACT"></h4>
 
 <div class="contact-info">
     <em ng-hide="isSecondarySelected" translate="LABEL.NONE_SELECTED"></em>
     <div ng-show="isSecondarySelected" class="col-1-2" style="white-space: pre;" ng-bind="requestSecondaryContact"></div>
 </div>
 
-<a href="" ng-click="goToContactPicker(device,'requestSecondaryContact')" translate="SERVICE_REQUEST.ADD_SECONDARY_CONTACT"></a>
+<div><a href="" ng-click="goToContactPicker(device,'requestSecondaryContact')" translate="SERVICE_REQUEST.ADD_SECONDARY_CONTACT"></a></div>
 
 <h4 translate="SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS"></h4>
 
@@ -82,5 +82,3 @@
     <label translate="LABEL.COMMENTS "></label>
     <textarea ng-model="device.comments"></textarea>
 </div>
-
-<hr />
