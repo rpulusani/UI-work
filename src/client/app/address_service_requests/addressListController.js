@@ -50,7 +50,10 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
                 console.log('user.item.data',user.item.data);
                 User.getAdditional(user.item.data, Account).then(function() {
                     console.log('Account.data[0]',Account);
-                    Account.getAdditional(Account.data[0], Addresses).then(function() {
+                    // Account.data[0]._links.addresses.href = 'https://api.venus-dev.lexmark.com/mps/accounts/' +
+                    //                                         $rootScope.currentUser.item.data.accounts[0].accountId + 
+                    //                                         '/addresses';
+                    Account.getAdditional(Account.data, Addresses).then(function() {
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);
                         }, function(reason) {

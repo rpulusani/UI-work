@@ -61,10 +61,17 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 newService.data = [];
 
                 if (!newService.url) {
-                    newService.params = self.setupParams({
-                        url: halObj._links[newService.serviceName].href
-                    });
-                    newService.url = self.setupUrl(halObj._links[newService.serviceName].href);
+                    if (halObj._links[newService.serviceName] && halObj._links[newService.serviceName].length > 0) {
+                        newService.params = self.setupParams({
+                            url: halObj._links[newService.serviceName][0].href
+                        });
+                        newService.url = self.setupUrl(halObj._links[newService.serviceName][0].href);
+                    } else if (halObj._links[newService.serviceName].length == 1) {
+                        newService.params = self.setupParams({
+                            url: halObj._links[newService.serviceName].href
+                        });
+                        newService.url = self.setupUrl(halObj._links[newService.serviceName].href);
+                    }
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
@@ -430,6 +437,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.get = function(optionsObj) {
+                console.log('optionsObj',optionsObj);
                 var self  = this,
                 options = {},
                 item,
@@ -487,17 +495,23 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 url = self.buildUrl(self.url, self.params);
 
                                 $http.get(url).then(function(processedResponse) {
+                                    console.log('processedResponse',processedResponse);
                                     if (!self.embeddedName) {
-                                        self.data = processedResponse.data._embedded[self.serviceName];
+                                        //self.data = processedResponse.data._embedded[self.serviceName];
+                                        self.data = processedResponse.data;
                                     } else {
-                                        self.data = processedResponse.data._embedded[self.embeddedName];
+                                        //self.data = processedResponse.data._embedded[self.embeddedName];
+                                        self.data = processedResponse.data
                                     }
 
                                     self.checkForEvent(self.item, 'onGet');
 
-                                    self.page = processedResponse.data.page;
-                                    self.params.page = self.page.number;
-                                    self.params.size = self.page.size;
+                                    if (processedResponse.data.page) {
+                                        self.page = processedResponse.data.page;
+                                        self.params.page = self.page.number;
+                                        self.params.size = self.page.size;
+                                    }
+                                    
 
                                     self.processedResponse = processedResponse;
 
@@ -521,8 +535,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                                    self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
 
                                     processPage();
                                 });

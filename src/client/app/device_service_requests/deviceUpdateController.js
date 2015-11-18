@@ -78,7 +78,7 @@ define(['angular',
                  configureReviewTemplate();
             }
 
-            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
+            Contacts.getAdditional($rootScope.currentUser.item.data, Contacts).then(function(){
                 $scope.device.requestedByContact = Contacts.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =
