@@ -46,6 +46,14 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
 
             $rootScope.currentUser.deferred.promise.then(function(user){
+                user.link.account().then(function() {
+                    User.item.account.link.address().then(function() {
+                        Grid.display(User.item.account.address.data);
+                    });
+                });
+            });
+
+            /*$rootScope.currentUser.deferred.promise.then(function(user){
                 User.getAdditional(user, Account).then(function() {
                     Account.getAdditional(Account.data[0], Addresses).then(function() {
                         Addresses.getPage().then(function() {
@@ -55,7 +63,7 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
                         });
                     });
                 });
-            });
+            });*/
             // $rootScope.currentUser.deferred.promise.then(function(user){
             //     User.getAdditional(user, Account).then(function(){
             //         console.log(Account);
