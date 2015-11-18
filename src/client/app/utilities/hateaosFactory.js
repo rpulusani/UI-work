@@ -35,41 +35,8 @@ define(['angular', 'utility'], function(angular) {
 
                 return angular.extend(self, serviceDefinition);
             };
-            HATEAOSFactory.prototype.newMessage  = function(){
-                this.item = {
-                    '_links':{
 
-                    }
-                };
-            };
-            HATEAOSFactory.prototype.addField = function(halObject, fieldName, fieldValue){
-                if(halObject){
-                   halObject = this.newMessage(); //if halObject is empty then fill it with a new message
-                }
 
-                halObject[fieldName]  = fieldValue;
-
-                return halObject;
-            };
-            HATEAOSFactory.prototype.addRelationship = function(halObject, name, link){
-                if(!halObject){
-                    halObject = this.newMessage(); //if halObject is empty then fill it with a new message
-                }else if(!halObject['_links']){
-                    halObject['_links'] = {};   //if halObject is not empty but missing the links sub object add it
-                }
-
-                if(name && link){
-                    if(halObject['_links'][name]){
-                        halObject['_links'][name]['href'] = link; //if relationship already exists but needs updating
-                    }else{
-                        halObject['_links'][name] = {       //add relationship if missing.
-                         href: link
-                        };
-                    }
-                }
-
-                return halObj;
-            };
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;

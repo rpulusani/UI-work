@@ -39,40 +39,58 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             };
 
-             HATEAOSFactory.prototype.newMessage  = function(){
+            HATEOASFactory.prototype.reset = function(){
+                this.item = null;
+            };
+            HATEOASFactory.prototype.newMessage  = function(){
                 this.item = {
-                    '_links':{
-
-                    }
+                    '_links':[],
+                    'postURL': this.url
                 };
             };
-            HATEAOSFactory.prototype.addField = function(halObject, fieldName, fieldValue){
-                if(halObject){
-                   halObject = this.newMessage(); //if halObject is empty then fill it with a new message
+            HATEOASFactory.prototype.addField = function(fieldName, fieldValue){
+                if(!this.item){
+                   this.item = this.newMessage(); //if halObject is empty then fill it with a new message
                 }
 
-                halObject[fieldName]  = fieldValue;
-
-                return halObject;
+                this.item[fieldName]  = fieldValue;
             };
-            HATEAOSFactory.prototype.addRelationship = function(halObject, name, link){
-                if(!halObject){
-                    halObject = this.newMessage(); //if halObject is empty then fill it with a new message
-                }else if(!halObject['_links']){
-                    halObject['_links'] = {};   //if halObject is not empty but missing the links sub object add it
+
+            HATEOASFactory.prototype.getMessage = function(){
+                if(!this.item){
+                    this.newMessage(); //if halObject is empty then fill it with a new message
+                }else if(!this.item['_links']){
+                    this.item['_links'] = [];   //if halObject is not empty but missing the links sub object add it
                 }
+            };
+
+            HATEOASFactory.prototype.addRelationship = function(name, link){
+                this.getMessage();
+
+                var found = false,
+                length = this.item['_links'].length,
+                links = this.item['_links'],
+                foundId = -1;
+
 
                 if(name && link){
-                    if(halObject['_links'][name]){
-                        halObject['_links'][name]['href'] = link; //if relationship already exists but needs updating
+
+                    for(var i = 0; i < length; ++i){
+                        if(links[i][name]){
+                            found  = true;
+                            foundId = i;
+                            break;
+                        }
+                    }
+
+                    if(!found){
+                        var tempObject = {};
+                        tempObject[name] = { href: link };
+                        links.push(tempObject);
                     }else{
-                        halObject['_links'][name] = {       //add relationship if missing.
-                         href: link
-                        };
+                         links[foundId][name] = link;
                     }
                 }
-
-                return halObj;
             };
 
             HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
@@ -169,24 +187,21 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     item[link].get = self.get;
                                     item[link].getPage = self.getPage;
                                     item[link].buildUrl = self.buildUrl;
-
+                                    //this is temporary - build url should remove tack on params
+                                    //so that this can be used
+                                    if(options.params){
+                                       delete options.params;
+                                    }
                                     $http(options).then(function(response) {
                                         var embeddedProperty = null;
 
                                         self.processedResponse = response;
-
-                                        if (options.embeddedName) {
-                                            embeddedProperty = options.embeddedName;
-                                        } else if (item[link].embeddedName && options.embeddedName !== null) {
-                                            embeddedProperty = item[link].embeddedName;
-                                        } else if (item[link].serviceName && options.embeddedName !== null) {
-                                            embeddedProperty = item[link].serviceName;
-                                        }
-
-                                        if (embeddedProperty && response.data._embedded) {
-                                            item[link].data = response.data._embedded[embeddedProperty];
-                                        } else {
-                                            item[link].data = response.data;
+                                        //if there is embeded items then add them to the main object
+                                        for(var embed in response.data._embedded){
+                                            if(!item[embed]){
+                                                item[embed] = {};  // only if embed item doesn't exist.
+                                            }
+                                            item[embed].item = response.data._embedded[embed];
                                         }
 
                                         if (response.data.page) {
@@ -239,6 +254,19 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 return deferred.promise;
             };
+            HATEOASFactory.prototype.getHalUrl = function(halObj){
+                var url = '';
+                if(halObj.item && halObj.item['postURL']){
+                    url = halObj.item['postURL'];
+                }else if(halObj.item && halObj.item['_links']){
+                    for(var i = 0; i < halObj.item['_links'].length; ++i){
+                        if(halObj.item['_links'][i]['self'] && halObj.item['_links'][i]['self']['href']){
+                            url = halObj.item['_links'][i]['self']['href'];
+                        }
+                    }
+                }
+                return url;
+            };
 
             // core logic for put/post
             HATEOASFactory.prototype.send = function(halObj, method, verbName) {
@@ -246,42 +274,36 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 deferred = $q.defer();
 
                 self.checkForEvent(halObj, 'before' + verbName).then(function(canContinue, newObj) {
+                    var url,
+                        itemUrl;
                     if (canContinue === true) {
                         if (newObj) {
                             halObj = newObj;
                         }
 
-                        $rootScope.currentUser.deferred.promise.then(function() {
-                            var url;
-
+                        if(method === 'get'){
                             self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
                             self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                        }
 
-                            halObj._links = {
-                                account: {
-                                    href: HATEAOSConfig.serviceMap['accounts'].url + self.params.accountId
-                                }
-                            };
+                        itemUrl = getHalUrl(halObj);
+                        url = self.buildUrl(itemUrl, self.params, []);
 
-                            url = self.buildUrl(self.url, self.params, []);
+                        self.checkForEvent(halObj.item, 'on' + verbName);
 
-                            self.checkForEvent(self.item, 'on' + verbName);
+                        $http({
+                            method: method,
+                            url: url,
+                            data: halObj.item
+                        }).then(function(processedResponse) {
+                            self.item = processedResponse;
+                            self.processedResponse = processedResponse;
 
-                            $http({
-                                method: method,
-                                url: url,
-                                data: halObj
-                            }).then(function(processedResponse) {
-                                self.item = processedResponse;
-                                self.processedResponse = processedResponse;
+                            self.checkForEvent(self.item, 'after' + verbName);
 
-                                self.checkForEvent(self.item, 'after' + verbName);
-
-                                deferred.resolve();
-                            });
-                        },function(reason){
-                            deferred.reject(reason);
+                            deferred.resolve();
                         });
+
                     } else {
                         deferred.resolve(false);
                     }
@@ -291,7 +313,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.post = function(halObj) {
-                this.send(halObj, 'post', 'post');
+                return this.send(halObj, 'post', 'post');
             };
 
             HATEOASFactory.prototype.put = function(halObj) {
@@ -362,8 +384,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (halObj.item && halObj.item._links[newService.serviceName]) {
                     url = halObj.item._links[newService.serviceName].href;
-                } else if (halObj.item && halObj.item._links[newService.serviceNameUnplurize()]) {
-                    url = halObj.item._links[newService.serviceNameUnplurize()].href;
+                } else if (halObj.item && halObj.item._links[newService.embeddedName]) {
+                    url = halObj.item._links[newService.embeddedName].href;
                 } else {
                     url = halObj._links[newService.serviceName].href;
                 }
