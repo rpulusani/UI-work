@@ -127,6 +127,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             translate:{
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
                                 pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
+                                pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
                             },
                         },
                         information:{
