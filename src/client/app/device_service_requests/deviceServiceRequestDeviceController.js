@@ -26,6 +26,8 @@ define(['angular',
             Contacts,
             $rootScope){
 
+            $scope.formattedAddress = '';
+
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
             };
@@ -51,9 +53,11 @@ define(['angular',
                 $rootScope.contactPickerReset = false;
             }else {
                 $rootScope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item._embeddedItems)) {
-                    $rootScope.device.installAddress = Devices.item._embeddedItems['address'];
-                    $rootScope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
+                if (!BlankCheck.isNull(Devices.item['address'])) {
+                    $scope.device.installAddress = Devices.item['address']['item'];
+                }
+                if (!BlankCheck.isNull(Devices.item['primaryContact'])) {
+                    $scope.device.primaryContact = Devices.item['primaryContact']['item'];
                 }
                 setupSR();
             }
@@ -67,7 +71,7 @@ define(['angular',
 
             Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
                 $scope.device.requestedByContact = Contacts.item;
-                ServiceRequest.addRelationship($scope.sr, 'requester', $scope.device.requestedByContact._links['self']);
+                ServiceRequest.addRelationship('requester', $scope.device.requestedByContact['_links']['self']['href']);
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
             });
@@ -76,15 +80,15 @@ define(['angular',
                 if(ServiceRequest.item === null){
                     ServiceRequest.newMessage();
                     $scope.sr = ServiceRequest.item;
-                    ServiceRequest.addRelationship($scope.sr, 'account', $scope.device._links['account']);
-                    ServiceRequest.addRelationship($scope.sr, 'asset', $scope.device._links['self']);
-                    ServiceRequest.addRelationship($scope.sr, 'primaryContact', $scope.device._links['primaryContact']);
-                    ServiceRequest.addField($scope.sr, 'type', 'BREAK_FIX');
-                    ServiceRequest.addField($scope.sr, 'customerReferenceId', '');
-                    ServiceRequest.addField($scope.sr, 'costCenter', '');
-                    ServiceRequest.addField($scope.sr, 'notes', '');
-                    ServiceRequest.addField($scope.sr, 'description', '');
-                    ServiceRequest.addField($scope.sr, 'id', '');
+                    ServiceRequest.addRelationship('account', $scope.device['_links']['account']['href']);
+                    ServiceRequest.addRelationship('asset', $scope.device['_links']['self']['href']);
+                    ServiceRequest.addRelationship('primaryContact', $scope.device['_links']['primaryContact']['href']);
+                    ServiceRequest.addField('type', 'BREAK_FIX');
+                    ServiceRequest.addField('customerReferenceId', '');
+                    ServiceRequest.addField('costCenter', '');
+                    ServiceRequest.addField('notes', '');
+                    ServiceRequest.addField('description', '');
+                    ServiceRequest.addField('id', '');
                 }else{
                    $scope.sr = ServiceRequest.item;
                 }
@@ -93,7 +97,9 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
                 $scope.configure.actions.submit = function(){
-                    DeviceServiceRequest.saveMADC($scope.sr).then(function(){
+                    DeviceServiceRequest.post({
+                         item:  $scope.sr
+                    }).then(function(){
                     $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -201,33 +207,7 @@ define(['angular',
                 };
             }
 
-
-            $scope.moveDevice = '';
-            $scope.breakfixOption ='';
-            $scope.formattedAddress = '';
-            $scope.formattedTitleAddress = '';
-
-            $scope.typeOfServiceOptions = [
-                { value: 'BREAK_FIX_ONSITE_REPAIR', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_ONSITE_REPAIR') },
-                { value: 'BREAK_FIX_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_EXCHANGE') },
-                { value: 'BREAK_FIX_OPTION_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_OPTION_EXCHANGE') },
-                { value: 'BREAK_FIX_REPLACEMENT', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_REPLACEMENT') },
-                { value: 'BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL') },
-                { value: 'BREAK_FIX_CONSUMABLE_PART_INSTALL', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_CONSUMABLE_PART_INSTALL') },
-                { value: 'BREAK_FIX_ONSITE_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_ONSITE_EXCHANGE') },
-                { value: 'BREAK_FIX_OTHER', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_OTHER') }
-            ];
-
-            $scope.serviceSelected = function(option) {
-                if ($scope.breakfixOption === 'BREAK_FIX_ONSITE_EXCHANGE') {
-                    $scope.moveDevice = $translate.instant('LABEL.YES');
-                }
-                else {
-                    $scope.moveDevice = $translate.instant('LABEL.NO');
-                }
-            };
-
-             if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
+            if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 

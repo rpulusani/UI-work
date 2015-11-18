@@ -1,8 +1,8 @@
-define(['angular', 'serviceRequest'], function(angular) {
+define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequests')
-    .factory('ServiceRequestService', ['serviceUrl', '$translate', 'HATEAOSFactory',
-        function(serviceUrl, $translate, HATEAOSFactory) {
+    .factory('ServiceRequestService', ['serviceUrl', '$translate', 'HATEOASFactory',
+        function(serviceUrl, $translate, HATEOASFactory) {
             var ServiceRequests = {
                     serviceName: 'service-requests',
                     embeddedName: 'serviceRequests', //get away from embedded name and move to a function to convert url name to javascript name
@@ -17,6 +17,6 @@ define(['angular', 'serviceRequest'], function(angular) {
                     route: '/service_requests'
             };
 
-        return  new HATEAOSFactory(ServiceRequests);
+        return  new HATEOASFactory(ServiceRequests);
     }]);
 });
