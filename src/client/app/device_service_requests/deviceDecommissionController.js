@@ -217,6 +217,19 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
                 $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
             }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.sr.notes)) {
+                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
+            }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.sr.customerReferenceId)) {
+                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+            }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.sr.costCenter)) {
+                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+            }
+
         }
     ]);
 });
