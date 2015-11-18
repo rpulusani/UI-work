@@ -1,8 +1,8 @@
 define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEAOSFactory',
-        function(serviceUrl, $translate, HATEAOSFactory) {
+    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory', 'HATEAOSConfig', '$http', '$q',
+        function(serviceUrl, $translate, HATEOASFactory, HATEAOSConfig, $http, $q) {
             var UserService = {
 
                 //customize Address
@@ -20,11 +20,28 @@ define(['angular', 'user'], function(angular) {
                         {'name': $translate.instant('LABEL.COMPANY_ACCT'), 'field': '' },
                         {'name': $translate.instant('LABEL.ROLE'), 'field': '' }
                 ],
+                getLoggedInUserInfo: function(loginId){
+                    var self  = this,
+                    deferred = $q.defer(),
+                    url = '';
 
+                    HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                        self.url = api.url;
+                        url = self.url + '/' + loginId;
+                        $http.get(url).then(function(processedResponse) {
+                            self.item = processedResponse;
+                            self.processedResponse = processedResponse;
+
+                            deferred.resolve(self);
+                        });
+                    });
+
+                    return deferred.promise;
+                },
                 route: '/delegated_admin'
             };
 
-            return new HATEAOSFactory(UserService);
+            return new HATEOASFactory(UserService);
         }
     ]);
 });

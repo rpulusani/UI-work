@@ -80,6 +80,7 @@ define(['angular', 'utility'], function(angular) {
 
             // Obtaining single item
             HATEAOSFactory.prototype.get = function(halObj, embeds) {
+                console.log('halObj',halObj);
                 var self  = this,
                 deferred = $q.defer(),
                 params = [{

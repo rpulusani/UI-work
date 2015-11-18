@@ -68,8 +68,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
-                    newService.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                    newService.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                    console.log('$rootScope.currentUser ',$rootScope.currentUser);
+                    newService.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                    newService.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
                 
                     newService.get({
                         page: newService.params.page,
@@ -374,6 +375,25 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 return deferred.promise;
             };
+
+            /*HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId){
+                var self  = this,
+                deferred = $q.defer(),
+                url = '';
+
+                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                    self.url = api.url;
+                    url = self.url + '/' + loginId;
+                    $http.get(url).then(function(processedResponse) {
+                        self.item = processedResponse;
+                        self.processedResponse = processedResponse;
+
+                        deferred.resolve(self);
+                    });
+                });
+
+                return deferred.promise;
+            };*/
 
             HATEOASFactory.prototype.post = function(halObj) {
                 this.send(halObj, 'post', 'post');

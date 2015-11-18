@@ -1,8 +1,8 @@
 define(['angular', 'account'], function(angular) {
 	'use strict';
 	angular.module('mps.account')
-	.factory('AccountService', ['$resource', 'serviceUrl', 'HATEAOSFactory',
-        function($resource, serviceUrl, HATEAOSFactory) {
+	.factory('AccountService', ['$resource', 'serviceUrl', 'HATEOASFactory',
+        function($resource, serviceUrl, HATEOASFactory) {
             var Account = {
                 serviceName: 'accounts',
                 embeddedName: 'accounts',
@@ -12,7 +12,7 @@ define(['angular', 'account'], function(angular) {
             };
 
 
-            return new HATEAOSFactory(Account);
+            return new HATEOASFactory(Account);
        }
     ]);
 });
