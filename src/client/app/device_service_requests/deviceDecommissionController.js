@@ -47,7 +47,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
                 }
 
-                if (BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
+                if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
                     $scope.device.lexmarkPickupDevice = false;
                 }
 
