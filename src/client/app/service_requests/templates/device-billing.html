@@ -1,19 +1,16 @@
-<div class="row" ng-if="configure.device.deviceBilling">
-    <div class="col-1">
-        <h2 translate="{{configure.device.deviceBilling.translate.title}}"></h2>
-        <div class="row row--alley-2">
-            <div class="col-1-3">
-                <div class="well">
-                    <dl class="row text--small">
-                        <dt class="col-1-2 text--semi-bold"
-                            translate="{{configure.device.deviceBilling.translate.deviceCostCenter}}"></dt>
-                        <dd class="col-1-2" ng-bind="device.costCenter"></dd>
-                        <dt class="col-1-2 text--semi-bold"
-                            translate="{{configure.device.deviceBilling.translate.customerDeviceTag}}"></dt>
-                        <dd class="col-1-2" ng-bind="device.assetTag"></dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
+<div ng-if="configure.device.deviceBilling">
+    <h2 translate="{{configure.device.deviceBilling.translate.title}}"></h2>
+    
+    <div class="well">
+        <ul class="info-list">
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="{{configure.device.deviceBilling.translate.deviceCostCenter}}"></div>
+                <div class="info-list__item-value" ng-bind="device.costCenter"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="{{configure.device.deviceBilling.translate.customerDeviceTag}}"></div>
+                <div class="info-list__item-value" ng-bind="device.assetTag"></div>
+            </li>
+        </ul>
     </div>
 </div>

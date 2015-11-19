@@ -11,7 +11,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             if (!Reports.item) {
                 $location.path(Reports.route);
             } else {
-                $scope.category = Reports.item;
+                $scope.report = Reports.item;
 
                 // if this report has an associated eventType from the finder form add these
                 // parameters to the next call.

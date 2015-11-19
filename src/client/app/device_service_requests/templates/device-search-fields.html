@@ -1,26 +1,17 @@
-<div class="row">
-    <div class="col-1-3">
-        <p class="text--small text--bold" translate="DEVICE_SERVICE_REQUEST.WHAT_IS_THE_DEVICE_SERIAL_NUMBER"></p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-2-3">
-        <div class="row--alley-1">
-            <div class="col-1-3">
-                <div class="form__field form__field--required">
-                    <input name="serial" type="text" ng-model="serial" value="" required />
-                    <span ng-hide="!searchDevice.serial.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-                        <i class="icon icon--ui icon--error-small"></i>
-                        <span translate="LABEL.ERROR_REQUIRED"></span>
-                    </span>
-                </div>
-            </div>
+<p class="text--small text--bold" translate="DEVICE_SERVICE_REQUEST.WHAT_IS_THE_DEVICE_SERIAL_NUMBER"></p>
 
-            <div class="col-1-3">
-                <div class="form__field">
-                    <button name="search" class="btn btn--secondary" type="submit" translate="DEVICE_SERVICE_REQUEST.FIND_DEVICE" ng-click="goToSubmit();"></button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="form__field form__field--required">
+    <input name="serial" type="text" ng-model="serial" value="" required />
+    <span ng-hide="!searchDevice.serial.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i>
+        <span translate="LABEL.ERROR_REQUIRED"></span>
+    </span>
 </div>
+
+<button name="search"
+    class="btn btn--secondary"
+    type="submit"
+    translate="DEVICE_SERVICE_REQUEST.FIND_DEVICE"
+    ng-click="goToSubmit();"
+></button>
+

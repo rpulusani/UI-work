@@ -1,12 +1,21 @@
- <div class="row form-action">
-    <div class="col-1">
-        <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
-        translate="{{configure.actions.translate.abandonRequest}}"></button>
-        <button class="btn btn--primary" ng-click="formSubmit(configure.actions.submit)" translate="{{configure.actions.translate.submit}}"></button>
-        <div confirm-cancel title="{{configure.modal.translate.abandonTitle}}"
-            body="{{configure.modal.translate.abandonBody}}"
-            cancel="{{configure.modal.translate.abandonCancel}}"
-            confirm="{{configure.modal.translate.abandonConfirm}}"
-            return-path="{{configure.modal.returnPath}}"></div>
-    </div>
+ <div class="btns">
+    <button name="cancel"
+        class="btn btn--secondary"
+        data-js="modalOpen"
+        data-target="#cancel"
+        translate="{{configure.actions.translate.abandonRequest}}"
+    ></button>
+    
+    <button class="btn btn--primary"
+        ng-click="formSubmit(configure.actions.submit)"
+        translate="{{configure.actions.translate.submit}}"
+    ></button>
+    
+    <div confirm-cancel
+        title="{{configure.modal.translate.abandonTitle}}"
+        body="{{configure.modal.translate.abandonBody}}"
+        cancel="{{configure.modal.translate.abandonCancel}}"
+        confirm="{{configure.modal.translate.abandonConfirm}}"
+        return-path="{{configure.modal.returnPath}}"
+    ></div>
 </div>

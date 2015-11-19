@@ -1,25 +1,37 @@
-<div class="row row--alley-2">
-    <div class="col-1-5">
+<div class="media">
+    <div class="media__visual">
         <div class="card" data-card="" id="widget-overview">
             <div class="card__content">
                 <img src="/etc/resources/img/part_na_color.png" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
             </div>
         </div>
     </div>
-    <div class="col-5-12">
-        <dl class="row text--small">
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.PRODUCT_MODEL"></dt>
-            <dd class="col-1-2" ng-bind="device.productModel"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.PART_NUMBER"></dt>
-            <dd class="col-1-2" ng-bind="device.partNumber"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.SERIAL_NO"></dt>
-            <dd class="col-1-2" ng-bind="device.serialNumber"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_MGT.IP_ADDRESS"></dt>
-            <dd class="col-1-2" ng-bind="device.ipAddress"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></dt>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedDeviceContact"></dd>
-            <dt class="col-1-2 text--semi-bold" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></dt>
-            <dd class="col-1-2" style="white-space: pre;" ng-bind-html="formattedDeviceAddress"></dd>
-        </dl>
+    <div class="media__body">
+        <ul class="info-list">
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+                <div class="info-list__item-value" ng-bind="device.productModel"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_MGT.PART_NUMBER"></div>
+                <div class="info-list__item-value" ng-bind="device.partNumber"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                <div class="info-list__item-value" ng-bind="device.serialNumber"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
+                <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></div>
+                <div class="info-list__item-value" style="white-space: pre;" ng-bind-html="formattedDeviceContact"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></div>
+                <div class="info-list__item-value" style="white-space: pre;" ng-bind-html="formattedDeviceAddress"></div>
+            </li>
+        </ul>
     </div>
 </div>

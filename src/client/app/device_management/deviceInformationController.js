@@ -47,7 +47,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 redirect_to_list();
             } else {
                 $scope.device = Devices.item;
-                Devices.getAdditional(Devices, MeterReads).then(function(){
+                Devices.getAdditional(Devices.item, MeterReads).then(function(){
                     var tempData = [],
                         reorderedData = [];
 
@@ -89,8 +89,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 if (!BlankCheck.isNull($scope.device['address'])) {
                     $scope.installAddress = $scope.device['address']['item'];
                 }
-                if (!BlankCheck.isNull($scope.device['primaryContact'])) {
-                    $scope.primaryContact = $scope.device['primaryContact']['item'];
+                if (!BlankCheck.isNull($scope.device['contact'])) {
+                    $scope.primaryContact = $scope.device['contact']['item'];
                 }
 
             }
