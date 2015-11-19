@@ -14,15 +14,15 @@
             <ul class="info-list">
                 <li class="info-list__item" ng-show="configure.detail.show.referenceId">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.referenceId}}"></div>
-                    <div class="info-list__item-value" ng-bind="sr.customerReferenceId"></div>
+                    <div class="info-list__item-value" ng-bind="formattedReferenceId"></div>
                 </li>
                 <li class="info-list__item" ng-show="configure.detail.show.costCenter">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.costCenter}}"></div>
-                    <div class="info-list__item-value" ng-bind="sr.costCenter"></div>
+                    <div class="info-list__item-value" ng-bind="formattedCostCenter"></div>
                 </li>
                 <li class="info-list__item" ng-show="configure.detail.show.comments">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.comments}}"></div>
-                    <div class="info-list__item-value" ng-bind="sr.notes"></div>
+                    <div class="info-list__item-value" ng-bind="formattedNotes"></div>
                 </li>
                 <li class="info-list__item" ng-show="configure.detail.show.attachements">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.attachements}}"></div>

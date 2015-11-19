@@ -1,4 +1,4 @@
-define(['angular', 'user'], function(angular) {
+define(['angular', 'user', 'hateoasFactory.serviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.user')
     .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory', 'HATEAOSConfig', '$http', '$q',
@@ -7,6 +7,7 @@ define(['angular', 'user'], function(angular) {
 
                 //customize Address
                 serviceName: 'users',
+                embeddedName: 'users',
                 columns: [
                         {'name': $translate.instant('LABEL.STATUS'), 'field': 'activeStatus'},
                         {'name': $translate.instant('LABEL.CREATED_DATE'), 'field':'created'},
@@ -45,4 +46,3 @@ define(['angular', 'user'], function(angular) {
         }
     ]);
 });
-

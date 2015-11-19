@@ -6,13 +6,22 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
         function($scope, $rootScope, $routeParams, $location, $translate, Devices, ServiceRequest, FormatterService,
             BlankCheck, DeviceServiceRequest, Contacts) {
 
+            $scope.madcDevice = {};
 
             $scope.goToReview = function() {
                 $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
             };
 
             $scope.goToSubmit = function() {
-                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+                getMADCObject();
+
+                DeviceServiceRequest.saveMADC($scope.madcDevice).then(function() {
+                    $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+                    console.log('madc');
+                    console.log($scope.madcDevice);
+                }, function(reason) {
+                    NREUM.noticeError('Failed to create SR because: ' + reason);
+                });
             };
 
             $scope.goToContactPicker = function() {
@@ -28,7 +37,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             if (Devices.item === null) {
                 redirect_to_list();
             } else if($rootScope.selectedContact){
-                 $rootScope.device = $rootScope.returnPickerObject;
+                $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
                 $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
                 $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
@@ -47,7 +56,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                     $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
                 }
 
-                if (BlankCheck.isNullOrWhiteSpace($scope.lexmarkPickupDevice)) {
+                if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
                     $scope.device.lexmarkPickupDevice = false;
                 }
 
@@ -64,35 +73,62 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             }else if($location.path().indexOf('review') > -1){
                 configureReviewTemplate();
             }
+            // $rootScope.currentUser.item.data
+            // We'd want to actually do Users.item.links or Users.getAddi
+            var user = {item: {}}; 
+            user.item = Contacts.createItem($rootScope.currentUser.item.data);
 
-            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
-                $scope.device.requestedByContact = Contacts.item;
+            user.item.links.contact().then(function() {
+                $scope.device.requestedByContact = user.item.contact.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
             });
 
-            function setupSR(){
-                if(ServiceRequest.item === null){
+            function setupSR() {
+                if(DeviceServiceRequest.item === null) {
                     ServiceRequest.newMessage();
                     $scope.sr = ServiceRequest.item;
                     $scope.sr._links['account'] = $scope.device._links['account'];
                     $scope.sr._links['asset'] = $scope.device._links['self'];
                     $scope.sr.customerReferenceId = '';
                     $scope.sr.costCenter = '';
-                    $scope.sr.notes = '';
-                    $scope.sr.id = '1-XAEASD';
-                    $scope.sr._links['ui'] = 'http://www.google.com/1-XAEASD';
-                }else{
-                   $scope.sr = ServiceRequest.item;
+                    $scope.sr.notes = ''
+                } else {
+                    $scope.sr = DeviceServiceRequest.item;
+                    $scope.sr._links['ui'] = ServiceRequest.route + '/' + $scope.sr.requestNumber;
                 }
             }
 
+            var getMADCObject = function() {
+                console.log('device');
+                console.log($scope.device);
+                $scope.madcDevice.id = $scope.device.id;
+
+                if ($scope.device.lexmarkPickupDevice === true) {
+                    $scope.madcDevice.type = 'MADC_DECOMMISSION';
+                } else {
+                    $scope.madcDevice.type = 'DATA_ASSET_DEREGISTER';
+                }
+
+                $scope.madcDevice.assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.assetTag,
+                    costCenter: $scope.device.costCenter
+                };
+
+                $scope.madcDevice.notes = $scope.sr.notes;
+                $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
+                $scope.madcDevice.primaryContact = $scope.device.primaryContact;
+                
+                $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
+                $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
+            };
+
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
-                $scope.configure.actions.submit = function() {
-                    $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
-                };
+                $scope.configure.actions.submit = $scope.goToSubmit;
             }
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
@@ -127,6 +163,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             translate:{
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
                                 pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
+                                pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
                             },
                         },
                         information:{
@@ -216,6 +253,19 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
                 $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
             }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.sr.notes)) {
+                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
+            }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.sr.customerReferenceId)) {
+                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+            }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.sr.costCenter)) {
+                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+            }
+
         }
     ]);
 });

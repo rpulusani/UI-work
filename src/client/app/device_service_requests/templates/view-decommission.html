@@ -5,9 +5,9 @@
 
     <form class="form"
         data-form=""
-        name="decomissionDevice"
+        name="decommissionDevice"
         method="post"
-        ng-submit="decomissionDevice.$valid && goToReview()"
+        ng-submit="decommissionDevice.$valid && goToReview()"
         enctype="multipart/form-data"
         novalidate
     >
@@ -61,10 +61,12 @@
             <label for="page-count-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
         </div>
 
-        <div ng-show="pageCountQuestion === 'true'">
+        <div ng-show="device.pageCountQuestion === 'true'">
             <div class="form__field" >
                 <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
-                <div select-page-count module="device"></div>
+                <div class="col-2-3">
+                    <div select-page-count module="device"></div>
+                </div>
             </div>
         </div>
 

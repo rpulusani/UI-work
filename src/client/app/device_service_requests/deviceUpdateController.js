@@ -81,8 +81,13 @@ define(['angular',
                  configureReviewTemplate();
             }
 
-            Contacts.getAdditional(Users.item.data, Contacts).then(function() {
-                $scope.device.requestedByContact = Contacts.item;
+            // $rootScope.currentUser.item.data
+            // We'd want to actually do Users.item.links or Users.getAddi
+            var user = {item: {}}; 
+            user.item = Contacts.createItem($rootScope.currentUser.item.data);
+
+            user.item.links.contact().then(function() {
+                $scope.device.requestedByContact = user.item.contact.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
