@@ -41,12 +41,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                         }
                     }
                 }
-                var image = new ImageService();
-                  image.getPartMediumImageUrl('35S0332').then(function(url){
-                    alert(url);
-                  }, function(reason){
-                     NREUM.noticeError('Image url was not found reason: ' + reason);
-                  });
+
             };
 
             if (Devices.item === null) {
@@ -78,6 +73,15 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                             }
                         }
                     }
+
+                var image = new ImageService();
+                  image.getPartMediumImageUrl('35S0332').then(function(url){
+                    console.log("getPartMedium is " + url);
+                    $scope.medImage = url;
+                  }, function(reason){
+                    //console.log('Image url was not found reason: ' + reason);
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                  });
 
                     if($scope.mono){
                         reorderedData.push($scope.mono);
