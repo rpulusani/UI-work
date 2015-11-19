@@ -1,7 +1,8 @@
 define(['angular',
     'deviceServiceRequest',
     'deviceManagement.deviceFactory',
-    'utility.formatters'],
+    'utility.formatters'
+    ],
     function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
@@ -15,6 +16,7 @@ define(['angular',
         'DeviceServiceRequest',
         'Devices',
         'Contacts',
+        'UserService',
         function($scope,
             $location,
             $routeParams,
@@ -24,7 +26,8 @@ define(['angular',
             BlankCheck,
             DeviceServiceRequest,
             Devices,
-            Contacts) {
+            Contacts,
+            Users) {
 
             $scope.madcDevice = {};
             $scope.returnedForm = false;
@@ -78,7 +81,7 @@ define(['angular',
                  configureReviewTemplate();
             }
 
-            Contacts.getAdditional($rootScope.currentUser.item.data, Contacts).then(function(){
+            Contacts.getAdditional(Users.item.data, Contacts).then(function() {
                 $scope.device.requestedByContact = Contacts.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =

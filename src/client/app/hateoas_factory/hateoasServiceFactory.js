@@ -479,11 +479,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     } else {
                                         if (processedResponse.data._links) {
-                                            console.log(self.item);
-
                                             self.item = processedResponse.data;
-
-                                            console.log(self.item);
                                         } else {
                                             self.data = processedResponse.data;
                                         }
