@@ -266,6 +266,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 mockContacts.serviceName = 'contact';
 
                 rootScope.currentUser = {
+                    deferred: deferred,
                     "id": "122345",
                     "userId": "122345",
                     "idpId": "122345",
