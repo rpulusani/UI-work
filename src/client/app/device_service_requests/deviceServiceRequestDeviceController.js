@@ -82,7 +82,7 @@ define(['angular',
                     $scope.sr = ServiceRequest.item;
                     ServiceRequest.addRelationship('account', $scope.device['_links']['account']['href']);
                     ServiceRequest.addRelationship('asset', $scope.device['_links']['self']['href']);
-                    ServiceRequest.addRelationship('primaryContact', $scope.device['_links']['primaryContact']['href']);
+                    ServiceRequest.addRelationship('contact', $scope.device['_links']['contact']['href']);
                     ServiceRequest.addField('type', 'BREAK_FIX');
                     ServiceRequest.addField('customerReferenceId', '');
                     ServiceRequest.addField('costCenter', '');
