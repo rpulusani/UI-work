@@ -181,11 +181,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 }
 
                                 if (!options.url) {
+                                    console.log('options.URL does not exist: ' + item[link].url);
                                     options.url = self.buildUrl(item[link].url, item[link].params);
                                 } else {
                                     options.url = self.buildUrl(options.url, item[link].params);
                                 }
-
+                                console.log('URL: ' + options.url);
                                 if (options.serviceName) {
                                     item[link].serviceName = options.serviceName;
                                 }
@@ -363,6 +364,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (params) {
                     angular.forEach(params, function(value, key) {
                         if (value !== null) {
+                            console.log('params: ' + key + ' value: ' + value);
                             paramsUrl += addParamSyntax(paramsUrl);
                             paramsUrl += key + '=' + value;
                         }
