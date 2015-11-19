@@ -45,15 +45,13 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
 
-            $rootScope.currentUser.deferred.promise.then(function(user){
-                console.log('user',user);
-                console.log('user.item.data',user.item.data);
+            $rootScope.currentUser.deferred.promise.then(function(user) {
+                user.item.data._links.accounts = user.item.data._links.accounts[0];
+
                 User.getAdditional(user.item.data, Account).then(function() {
-                    console.log('Account.data[0]',Account);
-                    // Account.data[0]._links.addresses.href = 'https://api.venus-dev.lexmark.com/mps/accounts/' +
-                    //                                         $rootScope.currentUser.item.data.accounts[0].accountId + 
-                    //                                         '/addresses';
-                    Account.getAdditional(Account.data, Addresses).then(function() {
+                    console.log(Account.item);
+                    Account.getAdditional(Account.item, Addresses).then(function() {
+                        console.log('Accounts worked')
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);
                         }, function(reason) {
