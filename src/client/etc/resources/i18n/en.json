@@ -120,14 +120,14 @@
         "BREAK_FIX_CONSUMABLE_PART_INSTALL": "Consumable part install",
         "BREAK_FIX_ONSITE_EXCHANGE": "Onsite exchange",
         "BREAK_FIX_OTHER": "Other",
-        "REQUEST_DECOMMISSION_FOR": "Request decomission for {{productModel}}",
+        "REQUEST_DECOMMISSION_FOR": "Request decommission for {{productModel}}",
         "DEVICE_INSTALL_ADDRESS": "Device install address",
         "DEVICE_REMOVAL": "Device removal",
         "DO_YOU_REQUIRE_PICKUP_DEVICE": "Do you require Lexmark to pick up this device?",
         "WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE": "Would you like to enter page counts for this device?",
-        "ABANDON_DEVICE_DECOMMISSION": "Abandon device decomission",
+        "ABANDON_DEVICE_DECOMMISSION": "Abandon device decommission",
         "DEVICE_PICKUP_LEXMARK": "Device pick up by Lexmark?",
-        "SUBMIT_DEVICE_DECOMMISSION": "Submit device decomission",
+        "SUBMIT_DEVICE_DECOMMISSION": "Submit device decommission",
         "DECOMMISSION_DEVICE_REQUEST_SUBMITTED": "Decommission Device Request Submitted",
         "DECOMMISION_DEVICE_SUBMIT_HEADER_BODY": "Your decommission device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
         "DECOMMISION_DEVICE_DETAIL": "Details for Decommission Device Request Number: {{srNumber}}","UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
@@ -341,6 +341,7 @@
         "EVENT_DATE_TO": "To",
         "TYPE": "Report Type",
         "STANDARD_REPORTS": "Standard Reports",
+        "OTHER_REPORTS": "Other Reports",
         "NAME": "Report name",
         "MADC": "MADC",
         "VIEW_MADC": "View MADC Events",
@@ -372,7 +373,9 @@
         "PHY_LOC_1": "Physical Loc 1",
         "PHY_LOC_2": "Physical Loc 2",
         "PHY_LOC_3": "Physical Loc 3",
-        "AGREEMENT": "Agreement"
+        "AGREEMENT": "Agreement",
+        "KEY_PERFORMANCE_INDICATORS": "Key Performance Indicators",
+        "CHARTS": "Charts"
     },
 
     "INVOICE": {
@@ -498,7 +501,10 @@
         "INACTIVE": "Inactive",
         "ATTACHMENTS": "Attachments",
         "USERS": "Users",
-        "UPDATE_LINK": "Update"
+        "UPDATE_LINK": "Update",
+        "CREATED": "Created",
+        "TAGGED_AS": "Tagged as",
+        "FILE": "File"
     },
 
     "PAGINATION": {

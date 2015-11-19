@@ -1,10 +1,6 @@
-<h4 translate="DEVICE_MGT.DEVICE_INFO" ng-hide="isReview || isSubmitted"></h4>
-
-<hr />
-
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
 
-<strong translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></strong>
+<div><strong translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></strong></div>
 
 <div class="form__field form__field--radio form__field--no-margin">
     <input type="radio"
@@ -61,7 +57,7 @@
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLATION"></h3>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></strong>
+<div><strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></strong></div>
 
 <div class="form__field form__field--radio form__field--no-margin">
     <input type="radio"
@@ -93,8 +89,10 @@
     </div>
 </div>
 
-<strong ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></strong>
-<strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
+<div>
+    <strong ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></strong>
+    <strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
+</div>
 
 <div class="form__field">
     <input name="deviceInstallLocation" type="text" ng-model="device.address.storeFrontName" value="" class="" />
@@ -299,7 +297,7 @@
     <input type="text" name="costCenter" ng-model="device.deviceCostCenter" value="" class="" required />
 </div>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></strong>
+<div><strong translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></strong></div>
 
 <div class="form__field form__field--radio form__field--no-margin">
     <input type="radio"
@@ -336,7 +334,7 @@
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
 
-<label translate="LABEL.PRIMARY_CONTACT"></label>
+<div><strong translate="LABEL.PRIMARY_CONTACT"></strong></div>
 <div class="well">
     <div>
         <span ng-bind="device.selectedContact.firstName"></span>

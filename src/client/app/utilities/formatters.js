@@ -143,6 +143,9 @@ define(['angular', 'utility'], function(angular) {
                 },
                 formatYesNo: function(value) {
                     return (value === 'true') ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
+                },
+                formatNoneIfEmpty: function(value) {
+                    return (BlankCheck.isNullOrWhiteSpace(value) === true) ? $translate.instant('LABEL.NONE') : value;
                 }
             };
 
