@@ -129,7 +129,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 });
             });*/
         });
-
+/*
         describe('DeviceUpdateController', function() {
             var scope, ctrl, location, form, deferred, blankCheck, mockedFactory, $httpBackend,
             MockDeviceServiceRequest, mockContacts, compile;
@@ -440,6 +440,6 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                     expect($route.routes['/service_requests/devices/search'].templateUrl).toEqual('/app/device_service_requests/templates/search.html');
                 });
             });
-        });
+        });*/
     });
 });
