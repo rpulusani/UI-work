@@ -74,7 +74,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 configureReviewTemplate();
             }
 
-            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
+            Contacts.getAdditional($rootScope.currentUser.item.data, Contacts, 'contact').then(function(){
                 $scope.device.requestedByContact = Contacts.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =
@@ -117,7 +117,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.madcDevice.notes = $scope.sr.notes;
                 $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
                 $scope.madcDevice.primaryContact = $scope.device.primaryContact;
-                
+
                 $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
                 $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
             };
