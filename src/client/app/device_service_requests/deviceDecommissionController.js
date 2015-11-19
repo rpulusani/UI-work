@@ -37,7 +37,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             if (Devices.item === null) {
                 redirect_to_list();
             } else if($rootScope.selectedContact){
-                 $rootScope.device = $rootScope.returnPickerObject;
+                $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
                 $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
                 $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
@@ -73,9 +73,13 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             }else if($location.path().indexOf('review') > -1){
                 configureReviewTemplate();
             }
+            // $rootScope.currentUser.item.data
+            // We'd want to actually do Users.item.links or Users.getAddi
+            var user = {item: {}}; 
+            user.item = Contacts.createItem($rootScope.currentUser.item.data);
 
-            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
-                $scope.device.requestedByContact = Contacts.item;
+            user.item.links.contact().then(function() {
+                $scope.device.requestedByContact = user.item.contact.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
