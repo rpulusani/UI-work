@@ -7,6 +7,11 @@
                 <div class="info-list__item-name" translate="{{configure.device.removal.translate.pickup}}"></div>
                 <div class="info-list__item-value" ng-bind="formattedPickupDevice"></div>
             </li>
+
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="{{configure.device.removal.translate.pageCount}}"></div>
+                <div select-page-count module="device" readonly="true"></div>
+            </li>
         </ul>
     </div>
 </div>
