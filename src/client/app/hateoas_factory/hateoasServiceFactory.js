@@ -46,7 +46,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 obj.columns = 'defaultSet';
                 obj.columnDefs = {defaultSet: {}};
                 obj.serviceName = '';
-                obj.embeddedName = '';
+                obj.embeddedName = false;
 
                 return obj;
             };
@@ -92,6 +92,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     if (links[link].href) {
                         (function(item, link) {
                             item[link] = self.setItemDefaults();
+                            item[link].serviceName = link;
                             item[link].url = self.setupUrl(item._links[link].href);
                             item[link].params = self.setupParams({url: item._links[link].href});
                             
@@ -157,11 +158,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     if (embeddedProperty && response.data._embedded) {
                                         item[link].data = response.data._embedded[embeddedProperty];
                                     } else {
-                                        if (response.data._links) {
-                                            item[link] = self.attachEmbeds(item, link, response);
-                                        } else {
-                                            item[link].data = response.data;
-                                        }
+                                        item[link].data = response.data;
                                     }
 
                                     if (response.data.page) {
@@ -188,24 +185,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 return item;
             }
-
-            HATEOASFactory.prototype.attachEmbeds = function(item, link, response) {
-                var prop;
-
-                item[link].item = response.data;
-
-                if (item[link].item._embedded) {
-                    for (prop in item[link].item._embedded) {
-                        if (item[link].item._embedded[prop] instanceof Array) {
-                            item[prop].data = item[link].item._embedded[prop];
-                        } else {
-                            item[prop].item = item[link].item._embedded[prop];
-                        }
-                    }
-                }
-
-                return item;
-            };
  
             HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
                 if (!itemOptions) {
@@ -223,14 +202,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 item,
                 propName;
 
-                if (!itemOptions) {
-                    itemOptions = {};
-                }
-
-                self.checkForEvent(self.item, 'onItemSetup');
-
                 if (halObj) {
                     item = halObj;
+
+                    if (!itemOptions) {
+                        itemOptions = {};
+                    }
+
+                    self.checkForEvent(item, 'onItemSetup');
 
                     item.linkNames = [];
                     item.links = {};
@@ -379,6 +358,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
+            // This guy is scheduled for removal
+            HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId){
+                var self  = this,
+                deferred = $q.defer(),
+                url = '';
+
+                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                    self.url = api.url;
+                    url = self.url + '/' + loginId;
+                    $http.get(url).then(function(processedResponse) {
+                        self.item = processedResponse;
+                        self.processedResponse = processedResponse;
+
+                        deferred.resolve(self);
+                    });
+                });
+
+                return deferred.promise;
+            };
+
             HATEOASFactory.prototype.post = function(halObj) {
                 this.send(halObj, 'post', 'post');
             };
@@ -433,10 +432,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     options.params = {};
                 }
 
-                if (!optionsObj.item) {
+                if (!options.item) {
                     item = self.item;
                 } else {
-                    item = optionsObj.item;
+                    item = options.item;
                 }
 
                 if (options.page && options.page >= 0) {
@@ -479,12 +478,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     } else {
                                         if (processedResponse.data._links) {
-                                            self.item = processedResponse.data;
+                                            self.setItem(processedResponse.data);
                                         } else {
                                             self.data = processedResponse.data;
                                         }
                                     }
-                            
+
                                     self.checkForEvent(self.item, 'onGet');
 
                                     if (processedResponse.data.page) {
@@ -492,6 +491,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         self.params.page = self.page.number;
                                         self.params.size = self.page.size;
                                     }
+                                    
 
                                     self.processedResponse = processedResponse;
 
