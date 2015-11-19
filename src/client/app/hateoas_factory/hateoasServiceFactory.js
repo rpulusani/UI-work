@@ -606,8 +606,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                                    self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
 
                                     processPage();
                                 });
