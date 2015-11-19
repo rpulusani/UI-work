@@ -123,8 +123,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
-                    newService.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                    newService.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                    newService.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                    newService.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
 
                     newService.get({
                         page: newService.params.page,
@@ -421,8 +421,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         }
 
                         if(method === 'get'){
-                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                         }
 
                         itemUrl = getHalUrl(halObj);
