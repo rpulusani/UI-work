@@ -1,12 +1,13 @@
-define(['angular', 'user'], function(angular) {
+define(['angular', 'user', 'hateoasFactory.serviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEAOSFactory',
-        function(serviceUrl, $translate, HATEAOSFactory) {
+    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory',
+        function(serviceUrl, $translate, HATEOASFactory) {
             var UserService = {
 
                 //customize Address
                 serviceName: 'users',
+                embeddedName: 'users',
                 columns: [
                         {'name': $translate.instant('LABEL.STATUS'), 'field': 'activeStatus'},
                         {'name': $translate.instant('LABEL.CREATED_DATE'), 'field':'created'},
@@ -24,8 +25,7 @@ define(['angular', 'user'], function(angular) {
                 route: '/delegated_admin'
             };
 
-            return new HATEAOSFactory(UserService);
+            return new HATEOASFactory(UserService);
         }
     ]);
 });
-
