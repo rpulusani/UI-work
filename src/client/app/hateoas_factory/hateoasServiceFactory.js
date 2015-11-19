@@ -175,7 +175,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     if (embeddedProperty && response.data._embedded) {
                                         item[link].data = response.data._embedded[embeddedProperty];
                                     } else {
-                                        item[link].data = response.data;
+                                        if (response.data._links) {
+                                            item[link] = self.attachEmbeds(item, link, response);
+                                        } else {
+                                            item[link].data = response.data;
+                                        }
                                     }
 
                                     if (response.data.page) {
@@ -202,6 +206,24 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 return item;
             }
+
+            HATEOASFactory.prototype.attachEmbeds = function(item, link, response) {
+                var prop;
+
+                item[link].item = response.data;
+
+                if (item[link].item._embedded) {
+                    for (prop in item[link].item._embedded) {
+                        if (item[link].item._embedded[prop] instanceof Array) {
+                            item[prop].data = item[link].item._embedded[prop];
+                        } else {
+                            item[prop].item = item[link].item._embedded[prop];
+                        }
+                    }
+                }
+
+                return item;
+            };
  
             HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
                 if (!itemOptions) {
@@ -467,10 +489,18 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 url = self.buildUrl(self.url, self.params);
 
                                 $http.get(url).then(function(processedResponse) {
-                                    if (!self.embeddedName) {
-                                        self.data = processedResponse.data._embedded[self.serviceName];
+                                    if (processedResponse.data._embedded) {
+                                        if (!self.embeddedName) {
+                                            self.data = processedResponse.data._embedded[self.serviceName];
+                                        } else {
+                                            self.data = processedResponse.data._embedded[self.embeddedName];
+                                        }
                                     } else {
-                                        self.data = processedResponse.data._embedded[self.embeddedName];
+                                        if (response.data._links) {
+                                            item[link] = self.attachEmbeds(item, link, response);
+                                        } else {
+                                            item[link].data = response.data;
+                                        }
                                     }
 
                                     self.checkForEvent(self.item, 'onGet');
