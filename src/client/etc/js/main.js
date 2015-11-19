@@ -173,6 +173,7 @@ requirejs.config({
         'utility.hateaosConfig': 'app/utilities/hateaosConfig',
         'utility.hateaosFactory': 'app/utilities/hateaosFactory',
         'utility.grid': 'app/utilities/grid',
+        'utility.imageService': 'app/utilities/imageService',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
