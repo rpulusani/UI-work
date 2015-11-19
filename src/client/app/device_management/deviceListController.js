@@ -13,8 +13,15 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             };
 
             $scope.view = function(device){
-                Devices.get(device, 'address,primaryContact').then(function(){
+                Devices.setItem(device);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+                Devices.item.links.self(options).then(function(){
                     $location.path(Devices.route + '/' + device.id + '/review');
+
                 });
             };
 

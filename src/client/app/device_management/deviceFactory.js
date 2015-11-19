@@ -1,12 +1,15 @@
 define(['angular', 'deviceManagement'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .factory('Devices', ['serviceUrl', '$translate', '$rootScope', 'HATEAOSFactory',
-        function(serviceUrl, $translate,$rootScope, HATEAOSFactory) {
+    .factory('Devices', ['serviceUrl', '$translate', '$rootScope', 'HATEOASFactory',
+        function(serviceUrl, $translate,$rootScope, HATEOASFactory) {
             var Devices = {
                 serviceName: "assets",
+                singular: 'asset',
                 embeddedName: "assets",
-                columns: [
+                columns: 'default',
+                columnDefs: {
+                    defaultSet: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber',
                          'cellTemplate':'<div>' +
                                             '<a href="#" ng-click="grid.appScope.view(row.entity);">{{row.entity.serialNumber}}</a>' +
@@ -16,7 +19,8 @@ define(['angular', 'deviceManagement'], function(angular) {
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':''},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress'},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'getAddressName()'}
-                ],
+                    ]
+                },
                 route: '/device_management',
                 functionArray: [
                         {
@@ -32,7 +36,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                 ]
             };
 
-            return new HATEAOSFactory(Devices);
+            return new HATEOASFactory(Devices);
         }
     ]);
 });

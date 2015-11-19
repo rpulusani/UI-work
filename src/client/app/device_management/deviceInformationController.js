@@ -47,7 +47,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 redirect_to_list();
             } else {
                 $scope.device = Devices.item;
-                Devices.getAdditional(Devices, MeterReads).then(function(){
+                Devices.getAdditional(Devices.item, MeterReads).then(function(){
                     var tempData = [],
                         reorderedData = [];
 
@@ -86,11 +86,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     $scope.meterReads = reorderedData.concat(tempData);
                 });
 
-                if (!BlankCheck.isNull($scope.device._embeddedItems)) {
-                    $scope.installAddress = $scope.device._embeddedItems['address'];
-                    $scope.primaryContact = $scope.device._embeddedItems['primaryContact'];
+                if (!BlankCheck.isNull($scope.device['address'])) {
+                    $scope.installAddress = $scope.device['address']['item'];
                 }
-                
+                if (!BlankCheck.isNull($scope.device['contact'])) {
+                    $scope.primaryContact = $scope.device['contact']['item'];
+                }
+
             }
 
             if($scope.device !== null && $scope.device !== undefined){
@@ -107,14 +109,17 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             }
 
             $scope.goToUpdate = function(device) {
+                ServiceRequest.reset();
                 $location.path(DeviceServiceRequest.route + "/" + device.id + '/update');
             };
 
             $scope.btnRequestService = function(device) {
+                ServiceRequest.reset();
                 $location.path(DeviceServiceRequest.route + "/" + device.id + '/view');
             };
 
             $scope.btnDecommissionDevice = function(device) {
+                ServiceRequest.reset();
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
 
