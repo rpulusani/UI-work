@@ -70,29 +70,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 $rootScope.currentUser.deferred.promise.then(function() {
                     newService.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
                     newService.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
-                
+
                     newService.get({
                         page: newService.params.page,
                         size: newService.params.size
                     }).then(function(processedResponse) {
-                        if (processedResponse.data._embedded) {
-                            if (newService.embeddedName) {
-                                newService.data = processedResponse.data._embedded[newService.embeddedName];
-                            } else if (newService.serviceName) {
-                                newService.data= processedResponse.data._embedded[newService.serviceName];
-                            } else {
-                                newService.data = processedResponse.data;
-                            }
-
-                            if (processedResponse.page) {
-                                newService.page = processedResponse.page;
-                                newService.page.page = self.params.page;
-                                newService.page.size = self.params.size;
-                            }
-                        } else {
-                            newService.item = processedResponse;
-                        }
-
                         deferred.resolve();
                     });
                 });
@@ -496,18 +478,20 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                             self.data = processedResponse.data._embedded[self.embeddedName];
                                         }
                                     } else {
-                                        if (response.data._links) {
-                                            item[link] = self.attachEmbeds(item, link, response);
+                                        if (processedResponse.data._links) {
+                                            self.item = processedResponse.data;
                                         } else {
-                                            item[link].data = response.data;
+                                            self.data = processedResponse.data;
                                         }
                                     }
-
+                            
                                     self.checkForEvent(self.item, 'onGet');
 
-                                    self.page = processedResponse.data.page;
-                                    self.params.page = self.page.number;
-                                    self.params.size = self.page.size;
+                                    if (processedResponse.data.page) {
+                                        self.page = processedResponse.data.page;
+                                        self.params.page = self.page.number;
+                                        self.params.size = self.page.size;
+                                    }
 
                                     self.processedResponse = processedResponse;
 
