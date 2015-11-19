@@ -11,7 +11,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 self.defaultParams = {};
                 self.route = '';
 
-                console.log('new hateoas for: ' + serviceDefinition.serviceName);
                 if (serviceDefinition.columns instanceof Array) {
                     if (!serviceDefinition.columnDefs) {
                        serviceDefinition.columnDefs = {defaultSet: []};
@@ -21,7 +20,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     serviceDefinition.columns = 'defaultSet';
                 } else {
                     if (!serviceDefinition.columnDefs) {
-                          serviceDefinition.columnDefs = {defaultSet: []};
+                        serviceDefinition.columnDefs = {defaultSet: []};
                     }
                 }
 
@@ -46,7 +45,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 obj.columns = 'defaultSet';
                 obj.columnDefs = {defaultSet: {}};
                 obj.serviceName = '';
-                obj.embeddedName = '';
+                obj.embeddedName = false;
 
                 return obj;
             };
@@ -71,37 +70,39 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
             };
+
             HATEOASFactory.prototype.newMessage  = function(){
                 this.item = {
                     '_links':{},
                     'postURL': this.url
                 };
             };
-            HATEOASFactory.prototype.addField = function(fieldName, fieldValue){
-                if(!this.item){
+
+            HATEOASFactory.prototype.addField = function(fieldName, fieldValue) {
+                if (!this.item) {
                    this.item = this.newMessage(); //if halObject is empty then fill it with a new message
                 }
 
-                this.item[fieldName]  = fieldValue;
+                this.item[fieldName] = fieldValue;
             };
 
-            HATEOASFactory.prototype.getMessage = function(){
-                if(!this.item){
+            HATEOASFactory.prototype.getMessage = function() {
+                if (!this.item) {
                     this.newMessage(); //if halObject is empty then fill it with a new message
-                }else if(!this.item['_links']){
+                } else if (!this.item['_links']) {
                     this.item['_links'] = {};   //if halObject is not empty but missing the links sub object add it
                 }
             };
 
             HATEOASFactory.prototype.addRelationship = function(name, halObj, altName){
-                this.getMessage();
                 var tempObject = {},
                 calculatedName = (altName) ? altName: name;
 
-
-                if(halObj && halObj['_links'] && halObj['_links'][calculatedName] && halObj['_links'][calculatedName]['href']){
-                        tempObject[name] = { href: halObj['_links'][calculatedName]['href'] };
-                        angular.extend(this.item['_links'], tempObject);
+                this.getMessage();
+                
+                if (halObj && halObj['_links'] && halObj['_links'][calculatedName] && halObj['_links'][calculatedName]['href']) {
+                    tempObject[name] = { href: halObj['_links'][calculatedName]['href'] };
+                    angular.extend(this.item['_links'], tempObject);
                 }
             };
 
@@ -122,31 +123,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
-                    newService.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                    newService.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                    newService.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                    newService.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
 
                     newService.get({
                         page: newService.params.page,
                         size: newService.params.size
                     }).then(function(processedResponse) {
-                        if (processedResponse.data._embedded) {
-                            if (newService.embeddedName) {
-                                newService.data = processedResponse.data._embedded[newService.embeddedName];
-                            } else if (newService.serviceName) {
-                                newService.data= processedResponse.data._embedded[newService.serviceName];
-                            } else {
-                                newService.data = processedResponse.data;
-                            }
-
-                            if (processedResponse.page) {
-                                newService.page = processedResponse.page;
-                                newService.page.page = self.params.page;
-                                newService.page.size = self.params.size;
-                            }
-                        } else {
-                            newService.item = processedResponse;
-                        }
-
                         deferred.resolve();
                     });
                 });
@@ -164,6 +147,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     if (links[link].href) {
                         (function(item, link) {
                             item[link] = self.setItemDefaults();
+                            item[link].serviceName = link;
                             item[link].url = self.setupUrl(item._links[link].href);
                             item[link].params = self.setupParams({url: item._links[link].href});
 
@@ -215,7 +199,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 item[link].put = self.put;
 
                                 $http(options).then(function(response) {
-                                    var embeddedProperty = null;
+                                    var embeddedProperty = null,
+                                    prop;
 
                                     self.processedResponse = response;
 
@@ -234,7 +219,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                             item[link].item = response.data;
 
                                             if (item[link].item._embedded) {
-                                                for (var prop in item[link].item._embedded) {
+                                                for (prop in item[link].item._embedded) {
                                                     if (item[link].item._embedded[prop] instanceof Array) {
                                                         item[prop].data = item[link].item._embedded[prop];
                                                     } else {
@@ -288,14 +273,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 item,
                 propName;
 
-                if (!itemOptions) {
-                    itemOptions = {};
-                }
-
-                self.checkForEvent(self.item, 'onItemSetup');
-
                 if (halObj) {
                     item = halObj;
+
+                    if (!itemOptions) {
+                        itemOptions = {};
+                    }
+
+                    self.checkForEvent(item, 'onItemSetup');
 
                     item.linkNames = [];
                     item.links = {};
@@ -337,13 +322,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 return deferred.promise;
             };
+
             HATEOASFactory.prototype.getHalUrl = function(halObj){
                 var url = '';
-                if(halObj.item && halObj.item['postURL']){
+
+                if (halObj.item && halObj.item['postURL']){
                     url = halObj.item['postURL'];
-                }else if(halObj.item && halObj.item['_links']){
-                    for(var i = 0; i < halObj.item['_links'].length; ++i){
-                        if(halObj.item['_links'][i]['self'] && halObj.item['_links'][i]['self']['href']){
+                } else if (halObj.item && halObj.item['_links']){
+                    for (var i = 0; i < halObj.item['_links'].length; ++i) {
+                        if (halObj.item['_links'][i]['self'] && halObj.item['_links'][i]['self']['href']){
                             url = halObj.item['_links'][i]['self']['href'];
                         }
                     }
@@ -436,8 +423,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         }
 
                         if(method === 'get'){
-                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                         }
 
                         itemUrl = getHalUrl(halObj);
@@ -460,6 +447,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     } else {
                         deferred.resolve(false);
                     }
+                });
+
+                return deferred.promise;
+            };
+
+            // This guy is scheduled for removal
+            HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId){
+                var self  = this,
+                deferred = $q.defer(),
+                url = '';
+
+                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                    self.url = api.url;
+                    url = self.url + '/' + loginId;
+                    $http.get(url).then(function(processedResponse) {
+                        self.item = processedResponse;
+                        self.processedResponse = processedResponse;
+
+                        deferred.resolve(self);
+                    });
                 });
 
                 return deferred.promise;
@@ -511,7 +518,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     } else {
                         options = {
                             url: self.url + optionsObj
-                        };
+                        }
                     }
                 }
 
@@ -519,10 +526,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     options.params = {};
                 }
 
-                if (!optionsObj.item) {
+                if (!options.item) {
                     item = self.item;
                 } else {
-                    item = optionsObj.item;
+                    item = options.item;
                 }
 
                 if (options.page && options.page >= 0) {
@@ -557,26 +564,28 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 url = self.buildUrl(self.url, self.params);
 
                                 $http.get(url).then(function(processedResponse) {
-                                    if (!self.embeddedName) {
-                                        self.data = processedResponse.data._embedded[self.serviceName];
-                                    } else if(self.embeddedName &&
-                                        !processedResponse.data._embedded){
-                                        self.item = processedResponse.data;
-                                    }
-                                    else {
-                                        self.data = processedResponse.data._embedded[self.embeddedName];
+                                    if (processedResponse.data._embedded) {
+                                        if (!self.embeddedName) {
+                                            self.data = processedResponse.data._embedded[self.serviceName];
+                                        } else {
+                                            self.data = processedResponse.data._embedded[self.embeddedName];
+                                        }
+                                    } else {
+                                        if (processedResponse.data._links) {
+                                            self.setItem(processedResponse.data);
+                                        } else {
+                                            self.data = processedResponse.data;
+                                        }
                                     }
 
                                     self.checkForEvent(self.item, 'onGet');
 
-                                    self.page = processedResponse.data.page;
-
-                                    if(self.page && self.page.number){
+                                    if (processedResponse.data.page) {
+                                        self.page = processedResponse.data.page;
                                         self.params.page = self.page.number;
-                                    }
-                                    if(self.page && self.page.size){
                                         self.params.size = self.page.size;
                                     }
+                                    
                                     self.processedResponse = processedResponse;
 
                                     self.checkForEvent(self.item, 'afterGet');
@@ -587,7 +596,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                                    var prop;
+                                    var prop; 
 
                                     self.url = api.url;
 
@@ -599,8 +608,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                                    self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
 
                                     processPage();
                                 });
