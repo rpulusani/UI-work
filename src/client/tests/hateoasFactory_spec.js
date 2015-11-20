@@ -48,7 +48,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 // General queries we expect to answer, test specific mocks are in the related it()
                 httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
-                httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageTwo);
+                httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageOne);
                 httpBackend.when('GET', mockFactory.url + '?page=1&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageTwo);
             }));
 
@@ -105,7 +105,21 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
             });
 
             describe('getPage()', function() {
-                it('gets a paged collection from the service and puts them in this.data', function() {
+                it('gets a paged collection from page 1 of the service and puts them in this.data', function() {
+                    mockFactory.getPage();
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+
+                    expect(mockFactory.data.length).toEqual(1);
+                    expect(mockFactory.data[0].id).toEqual('itemOne');
+                    expect(mockFactory.page.number).toEqual(0);
+                    expect(mockFactory.params.page).toEqual(0);
+                    expect(mockFactory.processedResponse).toBeDefined();
+                });
+            });
+
+            describe('getPage()', function() {
+                it('gets a paged collection from page 2 of the service and puts them in this.data', function() {
                     mockFactory.getPage(1);
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();

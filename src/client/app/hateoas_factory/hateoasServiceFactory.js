@@ -491,11 +491,16 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             if (self.item._embedded[prop] instanceof Array) {
                                 self.item[prop].data = self.item._embedded[prop];
                             } else {
-                                self.item[prop].item = self.createItem(self.item._embedded[prop]);
+                                if (!self.item._embedded[prop]._links) {
+                                    self.item[prop].item = self.item._embedded[prop];
+                                } else {
+                                    self.item[prop].item = self.createItem(self.item._embedded[prop]);
+                                }
                             }
                         }
                     }
                 }
+
 
                 if (processedResponse.data.page) {
                     self.page = processedResponse.data.page;
