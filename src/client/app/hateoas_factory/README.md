@@ -93,15 +93,13 @@ Used to obtain info. Returns a promise. Options object can have a number of poss
 
 ```js
     {
-        // blocks native params (given in initial call)
+        // blocks all params for THIS call
         preventDefaultParams: true, 
         // adding params
         params: { 
             firstName: 'Gob',
             lastName: 'Blooth'
         },
-        // a hal item
-        item: {},
         // seek out a _link in options.item or self.item
         link: '',
         // override url for this call

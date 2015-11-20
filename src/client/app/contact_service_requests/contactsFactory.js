@@ -17,7 +17,6 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                     ]
                 },
                 route: '/service_requests/contacts',
-                // Must return resolve(true, halObj) for item to be saved
                 beforeSave: function(halObj, deferred) {
                     halObj.physicalAddress = {
                         addressId: '1-2CPY6UA',
