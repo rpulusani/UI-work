@@ -265,7 +265,13 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
 
                 mockContacts.serviceName = 'contact';
 
-                rootScope.currentUser = {
+                $rootScope.currentUser = {
+                    item: {
+                        data: {} 
+                    }
+                };
+
+                $rootScope.currentUser.item.data = {
                     "id": "122345",
                     "userId": "122345",
                     "idpId": "122345",
@@ -357,7 +363,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                     spyOn(location, 'path').and.returnValue('/');
                     var currentSelected = 'updateDeviceContact';
 
-                    scope.goToContactPicker(currentSelected);
+                    scope.goToContactPicker();
                     expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/pick_contact');
                 });
             });

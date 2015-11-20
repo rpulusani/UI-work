@@ -115,10 +115,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 newService.item = null;
                 newService.data = [];
 
+
                 if (!newService.url) {
                     newService.params = self.setupParams({
                         url: halObj._links[newService.embeddedName].href
                     });
+ 
                     newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
                 }
 
