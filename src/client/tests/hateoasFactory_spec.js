@@ -59,10 +59,53 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 });
             });
 
+            describe('setItem(halEnvelope) attaches an item to Service.item and sets up the wanted functions' , function() {
+                it('must process a valid hal envelope', function() {
+                    mockFactory.setItem(fixtures.api.test.itemOne);
+
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+                    
+                    expect(mockFactory.url).toEqual('http://127.0.0.1/test');
+                    expect(mockFactory.item.id).toEqual('itemOne');
+                    expect(typeof mockFactory.item.links.self).toEqual('function');
+                });
+            });
+
+            describe('testing embedded items' , function() {
+                it('a call to a service with embeds=name,name2 should return those items attached to the response', function() {
+                    httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&embeds=device').respond(fixtures.api.test.embedItem);
+
+                    mockFactory.get({
+                        params: {
+                            embeds: 'device'
+                        }
+                    });
+
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+
+                    expect(mockFactory.item.device.item.name).toEqual('testDevice');
+                    expect(typeof mockFactory.item.device.item.links.self).toEqual('function');
+                });
+            });
+
+            describe('createItem(halEnvelope) returns an item and sets up the wanted functions' , function() {
+                it('must process a valid hal envelope', function() {
+                    var item = mockFactory.createItem(fixtures.api.test.itemTwo);
+
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+                    
+                    expect(mockFactory.url).toEqual('http://127.0.0.1/test');
+                    expect(mockFactory.item).toEqual(null); // create item does not set the item!!
+                    expect(item.id).toEqual('itemTwo');
+                    expect(typeof item.links.self).toEqual('function');
+                });
+            });
+
             describe('getPage()', function() {
                 it('gets a paged collection from the service and puts them in this.data', function() {
-                    spyOn(mockFactory, 'getPage').and.callThrough();
-
                     mockFactory.getPage(1);
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
@@ -77,8 +120,6 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
             describe('get({params: {key:value}}) options check against the generalized query service' , function() {
                 it('passing in options.params = {key:value} should modify current parameters', function() {
-                    spyOn(mockFactory, 'get').and.callThrough();
-
                     httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&key=value').respond(fixtures.api.test.pageTwo);
 
                     mockFactory.get({
@@ -96,8 +137,6 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
             describe('get({preventDefaultParams: true}) options check against the generalized query service' , function() {
                 it('passing in options.preventDefaultParams = true should set all current params to null so they dont attach to url. Params should reattach when call completes', function() {
-                    spyOn(mockFactory, 'get').and.callThrough();
-
                     httpBackend.when('GET', mockFactory.url).respond(fixtures.api.test.pageOne);
 
                     mockFactory.get({
@@ -111,128 +150,125 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 });
             });
 
-/*
+            describe('get({url: ""}) options check against the generalized query service' , function() {
+                it('passing in options.url = "www.google.com" should make the next call with a base url of www.google.com', function() {
+                    var overrideURL = 'www.google.com';
 
-            describe('save()', function() {
-                it('saves a new service item', function() {
-                    spyOn(mockFactory, 'save').and.callThrough();
+                    httpBackend.when('GET', overrideURL).respond(fixtures.api.test.pageOne);
 
-                    mockFactory.params = {};
+                    mockFactory.get({
+                        preventDefaultParams: true,
+                        url: overrideURL
+                    });
 
-                    mockFactory.save(testItem);
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
-                    expect(mockFactory.item.id).toEqual('1-TEST');
-                    expect(mockFactory.item.saved).toEqual(true);
-                    expect(mockFactory.processedResponse).toBeDefined();
+                    
+                    expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
             });
 
-            describe('update()', function() {
-                it('updates a service item', function() {
-                    spyOn(mockFactory, 'update').and.callThrough();
+            describe('get({method: ""}) options check against the generalized query service' , function() {
+                it('passing in options.method = "post" should make the next call with POST', function() {
+                    httpBackend.when('POST', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.itemOne);
 
-                    mockFactory.params = {};
+                    mockFactory.get({
+                        method: 'post'
+                    });
 
-                    mockFactory.update(testItem);
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
-                    expect(mockFactory.item.id).toEqual('1-TEST');
-                    expect(mockFactory.item.updated).toEqual(true);
-                    expect(mockFactory.processedResponse).toBeDefined();
+                    
+                    expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
             });
 
-            describe('buildUrl', function(){
+            describe('get({page: 1, size: 20}) options check against the generalized query service' , function() {
+                it('passing in options.page = 2 should make a call for the second page and update our params', function() {
+                    mockFactory.get({
+                        page: 1,
+                        size: 20
+                    });
+
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+                    
+                    expect(mockFactory.url).toEqual('http://127.0.0.1/test');
+                    expect(mockFactory.params.page).toEqual(1);
+                    expect(mockFactory.params.size).toEqual(20);
+                });
+            });
+
+            describe('buildUrl(stringUrl, params)', function(){
                 it('should provide the same url passed in if no required params and no additional params passed in',
-                    function(){
-                    url='http://www.google.com';
-                    requiredParams = undefined;
-                    additonalParams = undefined;
-                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+                    function() {
+                    var url = 'http://www.google.com',
+                    requiredParams = undefined,
+                    additonalParams = undefined,
+                    result = mockFactory.buildUrl(url, requiredParams);
 
                     expect(result).toEqual('http://www.google.com');
                 });
 
                 it('should provide the same url passed in if no required params and no additional params passed in',
-                    function(){
-                    url='http://www.google.com';
-                    requiredParams = null;
-                    additonalParams = null;
-                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+                    function() {
+                    var url = 'http://www.google.com',
+                    requiredParams = null,
+                    additonalParams = null,
+                    result = mockFactory.buildUrl(url, requiredParams);
 
                     expect(result).toEqual('http://www.google.com');
                 });
 
                 it('should provide the new url passed in  required params, sort is empty and no additional params passed in',
-                    function(){
-                    url='http://www.google.com';
+                    function() {
+                    var url='http://www.google.com';
                     requiredParams = {
-                        sort: '',
+                        sort: null,
                         size: 40,
                         page: 3
-                    };
-                    additonalParams = undefined;
-                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+                    },
+                    additonalParams = undefined,
+                    result = mockFactory.buildUrl(url, requiredParams);
 
                     expect(result).toEqual('http://www.google.com?size=40&page=3');
                 });
 
-                it('should provide the new url passed in required params, sort filled out and no additional params passed in',
-                    function(){
-                    url='http://www.google.com';
+                it('should provide the new url passed in required params object, sort filled out and no additional params passed in',
+                    function( ){
+                    var url='http://www.google.com',
                     requiredParams = {
                         sort: 'green:Desc',
                         size: 40,
                         page: 3
-                    };
-                    additonalParams = undefined;
-                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+                    },
+                    result = mockFactory.buildUrl(url, requiredParams);
 
                     expect(result).toEqual('http://www.google.com?sort=green:Desc&size=40&page=3');
                 });
 
                 it('should provide the new url passed in required params, sort filled out and additional params passed in',
-                    function(){
-                    url='http://www.google.com';
+                    function() {
+                    var url='http://www.google.com',
                     requiredParams = {
                         sort: 'green:Desc',
                         size: 40,
                         page: 3
-                    };
-                    additonalParams = [{
-                        'name':'bat',
-                        'value': 'ball',
                     },
-                    {
-                        'name': 'string',
-                        'value': 'knot'
-                    }];
-                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+                    result = mockFactory.buildUrl(url, requiredParams);
 
-                    expect(result).toEqual('http://www.google.com?sort=green:Desc&size=40&page=3&bat=ball&string=knot');
+                    expect(result).toEqual('http://www.google.com?sort=green:Desc&size=40&page=3');
                 });
 
                 it('should provide the new url passed in required params is empty out and additional params passed in',
-                    function(){
-                    url='http://www.google.com';
-                    requiredParams = undefined;
-                    additonalParams = [{
-                        'name':'bat',
-                        'value': 'ball',
-                    },
-                    {
-                        'name': 'string',
-                        'value': 'knot'
-                    }];
-                    var result = mockFactory.buildUrl(url, requiredParams, additonalParams);
+                    function() {
+                    var url='http://www.google.com',
+                    requiredParams = undefined,
+                    result = mockFactory.buildUrl(url, requiredParams);
 
-                    expect(result).toEqual('http://www.google.com?bat=ball&string=knot');
+                    expect(result).toEqual('http://www.google.com');
                 });
             });
-*/
         });
     }
 );

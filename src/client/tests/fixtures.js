@@ -44,6 +44,16 @@ define([], function() {
         "name" : "test2",
         "id" : "1-EMBED",
         "saved": true,
+        "_embedded": {
+            'device': {
+                "name": "testDevice",
+                "_links" : {
+                    "self" : {
+                        "href" : "http://127.0.0.1/device/1-DEVICE"
+                    }
+                }
+            }
+        },
         "_links" : {
             "self" : {
                 "href" : "http://127.0.0.1/test/1-EMBED"
