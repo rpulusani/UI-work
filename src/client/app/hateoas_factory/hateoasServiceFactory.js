@@ -481,7 +481,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         self.data = processedResponse.data;
                     }
 
-                    // Attaching returned items from embeds param
                     if (self.item._embedded) {
                         for (prop in self.item._embedded) {
                             if (!self.item[prop]) {
