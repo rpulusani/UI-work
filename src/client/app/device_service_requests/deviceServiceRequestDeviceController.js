@@ -43,7 +43,7 @@ define(['angular',
             } else if($rootScope.selectedContact){
                 $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
-                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.sr._links['contact'] = $rootScope.selectedContact._links['self'];
                 $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $rootScope.contactPickerReset = true;
                 Devices.item = $rootScope.device;
@@ -56,8 +56,8 @@ define(['angular',
                 if (!BlankCheck.isNull(Devices.item['address'])) {
                     $scope.device.installAddress = Devices.item['address']['item'];
                 }
-                if (!BlankCheck.isNull(Devices.item['primaryContact'])) {
-                    $scope.device.primaryContact = Devices.item['primaryContact']['item'];
+                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                    $scope.device.primaryContact = Devices.item['contact']['item'];
                 }
                 setupSR();
             }
@@ -69,9 +69,9 @@ define(['angular',
                     configureReviewTemplate();
             }
 
-            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
+            Contacts.getAdditional($rootScope.currentUser.item.data, Contacts, 'requester').then(function(){
                 $scope.device.requestedByContact = Contacts.item;
-                ServiceRequest.addRelationship('requester', $scope.device.requestedByContact['_links']['self']['href']);
+                ServiceRequest.addRelationship('requester', $scope.device.requestedByContact, 'self');
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
             });
@@ -80,15 +80,14 @@ define(['angular',
                 if(ServiceRequest.item === null){
                     ServiceRequest.newMessage();
                     $scope.sr = ServiceRequest.item;
-                    ServiceRequest.addRelationship('account', $scope.device['_links']['account']['href']);
-                    ServiceRequest.addRelationship('asset', $scope.device['_links']['self']['href']);
-                    ServiceRequest.addRelationship('contact', $scope.device['_links']['contact']['href']);
+                    ServiceRequest.addRelationship('account', $scope.device);
+                    ServiceRequest.addRelationship('asset', $scope.device, 'self');
+                    ServiceRequest.addRelationship('contact', $scope.device);
                     ServiceRequest.addField('type', 'BREAK_FIX');
                     ServiceRequest.addField('customerReferenceId', '');
                     ServiceRequest.addField('costCenter', '');
                     ServiceRequest.addField('notes', '');
                     ServiceRequest.addField('description', '');
-                    ServiceRequest.addField('id', '');
                 }else{
                    $scope.sr = ServiceRequest.item;
                 }
@@ -97,13 +96,17 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
                 $scope.configure.actions.submit = function(){
-                    DeviceServiceRequest.post({
+                   var deferred = DeviceServiceRequest.post({
                          item:  $scope.sr
-                    }).then(function(){
-                    $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
+                    });
+
+                    deferred.then(function(result){
+                        ServiceRequest.item = DeviceServiceRequest.item;
+                        $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+
                 };
             }
             function configureReceiptTemplate(){
