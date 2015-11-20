@@ -98,7 +98,7 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
-             HATEAOSFactory.prototype.getAdditional = function(halObj, newService) {
+             HATEAOSFactory.prototype.getAdditional = function(halObj, newService, name) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
@@ -108,7 +108,10 @@ define(['angular', 'utility'], function(angular) {
                 }
                 else if(halObj.item && halObj.item._links[newService.serviceNameUnplurize()]){
                     url = halObj.item._links[newService.serviceNameUnplurize()].href;
-                }else{
+                }else if(name){
+                    url = halObj._links[name].href;
+                }
+                else{
                     url = halObj._links[newService.serviceName].href;
                 }
 
@@ -184,8 +187,8 @@ define(['angular', 'utility'], function(angular) {
                             halObj = newObj;
                         }
                         $rootScope.currentUser.deferred.promise.then(function(){
-                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                             halObj._links = {
                                 account: {
                                     href: 'https://api.venus-dev.lexmark.com/mps/accounts/' + self.params.accountId
