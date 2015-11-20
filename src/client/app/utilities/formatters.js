@@ -131,13 +131,17 @@ define(['angular', 'utility'], function(angular) {
                 formatContact: function(contact){
                     var formattedContact = '';
                     if (BlankCheck.checkNotNullOrUndefined(contact)) {
+                        console.log('contact is',contact);
+                        console.log('contact.firstName',contact.firstName);
                         formattedContact = this.getFullName(contact.firstName, contact.lastName, contact.middleName);
+                        console.log('after full name', formattedContact)
                         if (BlankCheck.checkNotBlank(contact.email)) {
                             formattedContact += '<br/>' + contact.email;
                         }
                          if (BlankCheck.checkNotBlank(contact.workPhone)) {
                             formattedContact += '<br/>' + this.getPhoneFormat(contact.workPhone);
                         }
+                        console.log('after everything',formattedContact)
                     }
                     return formattedContact;
                 },

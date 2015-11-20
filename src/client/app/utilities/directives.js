@@ -8,6 +8,7 @@ define(['angular', 'utility'], function(angular) {
                     $rootScope.returnPickerObject = undefined;
                     $rootScope.returnPickerSRObject = undefined;
                     $rootScope.selectedContact = undefined;
+                    $rootScope.currentSelected = undefined;
                 }
              });
         }

@@ -1,7 +1,7 @@
 <div sr-header></div>
 
 <div class="page-content">
-    <form class="form" data-form="" name="updateDevice" novalidate>
+    <form class="form" data-form="" name="updateDevice" ng-submit="updateDevice.$valid && goToReview()" novalidate>
         <div device-update-fields></div>
         
         <div confirm-cancel

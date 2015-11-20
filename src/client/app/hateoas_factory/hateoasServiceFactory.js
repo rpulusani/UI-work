@@ -215,12 +215,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     }
 
                                     if (embeddedProperty && response.data._embedded) {
-                                        item[link].data = response.data._embedded[embeddedProperty];
-                                    } else {
                                         if (response.data._links) {
-
                                             item[link].item = response.data;
-
+                                            
                                             if (item[link].item._embedded) {
                                                 for (prop in item[link].item._embedded) {
                                                     if (item[link].item._embedded[prop] instanceof Array) {
@@ -233,7 +230,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         } else {
                                             item[link].data = response.data;
                                         }
+                                    } else {
+                                        item[link].data = response.data._embedded[embeddedProperty];
                                     }
+
+
+                                    
 
                                     if (response.data.page) {
                                         item[link].page = response.data.page;

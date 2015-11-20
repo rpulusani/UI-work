@@ -19,6 +19,7 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/sr-form-buttons.html',
             controller: ['$scope', function($scope) {
                 $scope.formSubmit = function(submitFn){
+                    console.log('Submit function',submitFn);
                     if(submitFn !== null && submitFn !== undefined){
                         return submitFn();
                     }
