@@ -1,8 +1,8 @@
 define(['angular', 'contact', 'utility.formatters'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEAOSFactory', 'FormatterService',
-        function($translate, HATEAOSFactory, formatter) {
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService',
+        function($translate, HATEOASFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
                 singular: 'contact',
@@ -17,7 +17,6 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                     ]
                 },
                 route: '/service_requests/contacts',
-                // Must return resolve(true, halObj) for item to be saved
                 beforeSave: function(halObj, deferred) {
                     halObj.physicalAddress = {
                         addressId: '1-2CPY6UA',
@@ -48,7 +47,7 @@ define(['angular', 'contact', 'utility.formatters'], function(angular, contact) 
                 ]
              };
 
-            return new HATEAOSFactory(Contacts);
+            return new HATEOASFactory(Contacts);
         }
     ]);
 });
