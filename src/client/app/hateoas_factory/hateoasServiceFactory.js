@@ -226,7 +226,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                                     item[prop].item = item[link].item._embedded[prop];
                                                 }
                                             }
-                                        }                                     
+                                        }
                                     } else {
                                         // Collection of data
                                         if (embeddedProperty && response.data._embedded) {
