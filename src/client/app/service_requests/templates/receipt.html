@@ -2,14 +2,14 @@
 
 <div class="page-content">
     <h2 translate="{{configure.receipt.translate.title}}" translate-values="{{configure.receipt.translate.titleValues}}"></h2>
-    
+
     <!-- request status goes here -->
 
     <div request-contacts></div>
 
     <div ng-if="configure.detail">
         <h2 translate="{{configure.detail.translate.title}}"></h2>
-        
+
         <div class="well">
             <ul class="info-list">
                 <li class="info-list__item" ng-show="configure.detail.show.referenceId">
@@ -25,8 +25,8 @@
                     <div class="info-list__item-value" ng-bind="formattedNotes"></div>
                 </li>
                 <li class="info-list__item" ng-show="configure.detail.show.attachements">
-                    <div class="info-list__item-name" translate="{{configure.detail.translate.attachements}}"></div>
-                    <div class="info-list__item-value" ng-bind=""></div>
+                    <div class="info-list__item-name" translate="{{configure.detail.translate.attachments}}"></div>
+                    <div class="info-list__item-value" ng-bind="formattedAttachments"></div>
                 </li>
             </ul>
         </div>

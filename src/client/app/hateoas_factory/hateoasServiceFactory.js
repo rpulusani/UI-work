@@ -100,8 +100,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 this.getMessage();
 
-                if (halObj && halObj._links && halObj._links[calculatedName]
-                    && halObj._links[calculatedName].href) {
+                if (halObj && halObj._links && halObj._links[calculatedName] &&
+                     halObj._links[calculatedName].href) {
                     tempObject[name] = { href: halObj._links[calculatedName].href};
                     angular.extend(this.item._links, tempObject);
                 }
@@ -449,12 +449,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     } else {
                         options = {
                             url: self.url + optionsObj
-                        }
+                        };
                     }
                 }
 
                 if (options.params) {
-                    angular.extend(self.params, options.params)
+                    angular.extend(self.params, options.params);
                 }
 
                 if (options.page && options.page >= 0) {

@@ -69,7 +69,7 @@ define(['angular',
                     configureReviewTemplate();
             }
 
-            Contacts.getAdditional($rootScope.currentUser.item.data, Contacts, 'requester').then(function(){
+            Contacts.getAdditional($rootScope.currentUser.item, Contacts, 'requester').then(function(){
                 $scope.device.requestedByContact = Contacts.item;
                 ServiceRequest.addRelationship('requester', $scope.device.requestedByContact, 'self');
                 $scope.requestedByContactFormatted =
@@ -218,6 +218,19 @@ define(['angular',
                     $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
             }
+             if (!BlankCheck.isNull($scope.sr.notes)) {
+                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
+            }
+
+            if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
+                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+            }
+
+            if (!BlankCheck.isNull($scope.sr.costCenter)) {
+                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+            }
+
+            $scope.formattedAttachments = FormatterService.formatNoneIfEmpty($scope.sr.attachments);
         }
     ]);
 });
