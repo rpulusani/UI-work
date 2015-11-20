@@ -20,6 +20,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                     }
                 };
                 Devices.item.links.self(options).then(function(){
+                    console.log(Devices.item);
                     $location.path(Devices.route + '/' + device.id + '/review');
 
                 });

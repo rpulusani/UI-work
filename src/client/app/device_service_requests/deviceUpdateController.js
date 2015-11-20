@@ -78,19 +78,17 @@ define(['angular',
                 $rootScope.contactPickerReset = true;
                 Devices.item = $rootScope.device;
             } else if($rootScope.contactPickerReset){
-                console.log('in reset');
                 $rootScope.device = Devices.item;
                 setupSR();
                 $rootScope.contactPickerReset = false;
             } else {
-                console.log('in default');
                 $scope.device = Devices.item;
-                console.log('devices',Devices.item);
-                if (!BlankCheck.isNull(Devices.item._embeddedItems)) {
-                    console.log('devices',Devices.item);
+                if (!BlankCheck.isNull(Devices.item.address.item)) {
                     $scope.device.currentInstallAddress = Devices.item.address.item;
                     $scope.device.updatedInstallAddress = $scope.device.currentInstallAddress;
-                    $scope.device.primaryContact = Devices.item.contact.item;
+                }
+                if (!BlankCheck.isNull(Devices.item.contact.item)) {
+                    $scope.device.deviceContact = Devices.item.contact.item;
                 }
 
 
@@ -117,6 +115,7 @@ define(['angular',
             user.item = Contacts.createItem($rootScope.currentUser.item.data);
 
             user.item.links.contact().then(function() {
+                console.log('user contact',user.item);
                 $scope.device.requestedByContact = user.item.contact.item;
                 $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
                 $scope.requestedByContactFormatted =
