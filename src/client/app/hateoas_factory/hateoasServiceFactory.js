@@ -214,24 +214,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         embeddedProperty = item[link].serviceName;
                                     }
 
-                                    if (embeddedProperty && response.data._embedded) {
-                                        if (response.data._links) {
-                                            item[link].item = response.data;
-                                            
-                                            if (item[link].item._embedded) {
-                                                for (prop in item[link].item._embedded) {
-                                                    if (item[link].item._embedded[prop] instanceof Array) {
-                                                        item[prop].data = item[link].item._embedded[prop];
-                                                    } else {
-                                                        item[prop].item = item[link].item._embedded[prop];
-                                                    }
+                                    if (response.data._links) {
+                                        // Single item
+                                         item[link].item = response.data;
+
+                                         if (item[link].item._embedded) {
+                                            for (prop in item[link].item._embedded) {
+                                                if (item[link].item._embedded[prop] instanceof Array) {
+                                                    item[prop].data = item[link].item._embedded[prop];
+                                                } else {
+                                                    item[prop].item = item[link].item._embedded[prop];
                                                 }
                                             }
-                                        } else {
-                                            item[link].data = response.data._embedded[embeddedProperty];
-                                        }
+                                        }                                     
                                     } else {
-                                        item[link].data = response.data;
+                                        // Collection of data
+                                        if (embeddedProperty && response.data._embedded) {
+                                            item[link].data = response.data._embedded[embeddedProperty];
+                                        } else {
+                                            item[link].data = response.data;
+                                        }
                                     }
 
                                     if (response.data.page) {
