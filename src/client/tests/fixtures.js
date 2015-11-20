@@ -98,21 +98,16 @@ define([], function() {
     /* User Mock Data Structures */
     fixtures.users = {};
     fixtures.users.regular = {
-        _embedded: {
-            users: [
+        item: {
+            accounts: [
                 {
-                    id: 1,
-                    idpId: "1",
-                    _links: {
-                        accounts: [
-                            {
-                                href: "http://10.145.116.233:8080/mps/accounts/1"
-                            }
-                        ]
-                    }
+                    accountId: '1-21AYVOT',
+                    accountLevel: 'GLOBAL'
                 }
             ]
         }
+       
     };
+
     return fixtures;
 });

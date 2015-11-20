@@ -417,8 +417,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.params.page = page;
                 }
 
-                console.log(self.params);
-
                 return this.get({
                     page: page,
                     size: size
@@ -496,14 +494,30 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
             };
 
+            HATEOASFactory.prototype.setParamsToNull = function() {
+                var self = this,
+                prop;
+
+                for (prop in self.params) {
+                    self.params[prop] = null;
+                }
+        
+                console.log(123);                
+            };
+
             HATEOASFactory.prototype.processCall = function(options, deferred) {
                 var self = this,
+                currentParams = self.params,
                 url;
 
-                self.params = self.setupParams({
-                    url: self.url,
-                    params: self.params
-                });
+                if (!options.preventDefaultParams) {
+                    self.params = self.setupParams({
+                        url: self.url,
+                        params: self.params
+                    });
+                } else {
+                   self.setParamsToNull();
+                }
 
                 if (!options.url) {
                     self.url = self.setupUrl(self.url);
@@ -519,6 +533,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.setupItem(processedResponse);
 
                     self.processedResponse = processedResponse;
+
+                    self.params = currentParams;
 
                     self.checkForEvent(self.item, 'afterGet');
 
@@ -539,12 +555,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var item,
                             options = self.setupOptions(optionsObj);
-
-                            if (!optionsObj.item) {
-                                item = self.item;
-                            } else {
-                                item = optionsObj.item;
-                            }
 
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {

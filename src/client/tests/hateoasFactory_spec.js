@@ -33,41 +33,22 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     route: ''
                 };
 
-                $rootScope.currentUser = {
-                    item: {
-                        accounts: [
-                            {
-                                accountId: '1-21AYVOT',
-                                accountLevel: 'GLOBAL'
-                            }
-                        ],
-                    },
-                    deferred: $q.defer()
-                };
+                $rootScope.currentUser = fixtures.users.regular;
+                $rootScope.currentUser.deferred = $q.defer();
 
                 rootScope = $rootScope;
 
+                mockFactory = new HATEOASFactory(hateoasConfig);
+                mockFactory.url = 'http://127.0.0.1/test';
                 mockFactory.params.accountId = rootScope.currentUser.item.accounts[0].accountId;
                 mockFactory.params.accountLevel = rootScope.currentUser.item.accounts[0].accountLevel;
 
-                $httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
-
-                mockFactory = new HATEOASFactory(hateoasConfig);
-                mockFactory.url = 'http://127.0.0.1/test';
-
-                testItem = {
-                    "name" : "test2",
-                    "id" : "1-TEST",
-                    "_links" : {
-                        "self" : {
-                            "href" : mockFactory.url + '/1-TEST'
-                        }
-                    }
-                };
-
                 httpBackend = $httpBackend;
 
+                // General queries we expect to answer, test specific mocks are in the related it()
+                httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageTwo);
                 httpBackend.when('GET', mockFactory.url + '?page=1&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageTwo);
             }));
 
@@ -93,21 +74,44 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     expect(mockFactory.processedResponse).toBeDefined();
                 });
             });
-/*
-            describe('get()', function() {
-                it('is ageneralized query service, with a number of different options', function() {
+
+            describe('get({params: {key:value}}) options check against the generalized query service' , function() {
+                it('passing in options.params = {key:value} should modify current parameters', function() {
                     spyOn(mockFactory, 'get').and.callThrough();
 
-                    mockFactory.get(testItem);
+                    httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&key=value').respond(fixtures.api.test.pageTwo);
+
+                    mockFactory.get({
+                        params: {
+                            key: 'value'
+                        }
+                    });
+
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
-                    expect(mockFactory.item.id).toEqual('1-TEST');
-                    expect(mockFactory.item.newProp).toEqual('nice!');
-                    expect(mockFactory.processedResponse).toBeDefined();
+                    expect(mockFactory.params.key).toEqual('value');
                 });
             });
 
+            describe('get({preventDefaultParams: true}) options check against the generalized query service' , function() {
+                it('passing in options.preventDefaultParams = true should set all current params to null so they dont attach to url. Params should reattach when call completes', function() {
+                    spyOn(mockFactory, 'get').and.callThrough();
+
+                    httpBackend.when('GET', mockFactory.url).respond(fixtures.api.test.pageOne);
+
+                    mockFactory.get({
+                        preventDefaultParams: true
+                    });
+
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+
+                    expect(mockFactory.params.page).toEqual(0);
+                });
+            });
+
+/*
 
             describe('save()', function() {
                 it('saves a new service item', function() {
