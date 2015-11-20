@@ -14,7 +14,7 @@ define(['angular', 'utility'], function(angular) {
                     totalPages: 0,
                     number: 0
                 };
-                    console.log('old hateoas for: ' + serviceDefinition.serviceName);
+                    //console.log('old hateoas for: ' + serviceDefinition.serviceName);
 
                 self.columns = null;
                 self.columnDefs = null;
