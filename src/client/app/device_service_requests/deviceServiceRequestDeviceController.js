@@ -26,6 +26,8 @@ define(['angular',
             Contacts,
             $rootScope){
 
+            $scope.formattedAddress = '';
+
             var redirect_to_list = function() {
                 $location.path(Devices.route + '/');
             };
@@ -41,7 +43,7 @@ define(['angular',
             } else if($rootScope.selectedContact){
                 $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
-                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.sr._links['contact'] = $rootScope.selectedContact._links['self'];
                 $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $rootScope.contactPickerReset = true;
                 Devices.item = $rootScope.device;
@@ -51,9 +53,11 @@ define(['angular',
                 $rootScope.contactPickerReset = false;
             }else {
                 $rootScope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item._embeddedItems)) {
-                    $rootScope.device.installAddress = Devices.item._embeddedItems['address'];
-                    $rootScope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
+                if (!BlankCheck.isNull(Devices.item['address'])) {
+                    $scope.device.installAddress = Devices.item['address']['item'];
+                }
+                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                    $scope.device.primaryContact = Devices.item['contact']['item'];
                 }
                 setupSR();
             }
@@ -65,9 +69,9 @@ define(['angular',
                     configureReviewTemplate();
             }
 
-            Contacts.getAdditional($rootScope.currentUser, Contacts).then(function(){
+            Contacts.getAdditional($rootScope.currentUser.item, Contacts, 'requester').then(function(){
                 $scope.device.requestedByContact = Contacts.item;
-                $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
+                ServiceRequest.addRelationship('requester', $scope.device.requestedByContact, 'self');
                 $scope.requestedByContactFormatted =
                     FormatterService.formatContact($scope.device.requestedByContact);
             });
@@ -76,14 +80,14 @@ define(['angular',
                 if(ServiceRequest.item === null){
                     ServiceRequest.newMessage();
                     $scope.sr = ServiceRequest.item;
-                    $scope.sr._links['account'] = $scope.device._links['account'];
-                    $scope.sr._links['asset'] = $scope.device._links['self'];
-                    $scope.sr._links['primaryContact'] = $scope.device._links['primaryContact'];
-                    $scope.sr.customerReferenceId = '';
-                    $scope.sr.costCenter = '';
-                    $scope.sr.notes = '';
-                    $scope.sr.id = '';
-                    $scope.sr.description = '';
+                    ServiceRequest.addRelationship('account', $scope.device);
+                    ServiceRequest.addRelationship('asset', $scope.device, 'self');
+                    ServiceRequest.addRelationship('contact', $scope.device);
+                    ServiceRequest.addField('type', 'BREAK_FIX');
+                    ServiceRequest.addField('customerReferenceId', '');
+                    ServiceRequest.addField('costCenter', '');
+                    ServiceRequest.addField('notes', '');
+                    ServiceRequest.addField('description', '');
                 }else{
                    $scope.sr = ServiceRequest.item;
                 }
@@ -92,7 +96,17 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
                 $scope.configure.actions.submit = function(){
-                    $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                   var deferred = DeviceServiceRequest.post({
+                         item:  $scope.sr
+                    });
+
+                    deferred.then(function(result){
+                        ServiceRequest.item = DeviceServiceRequest.item;
+                        $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+
                 };
             }
             function configureReceiptTemplate(){
@@ -196,37 +210,7 @@ define(['angular',
                 };
             }
 
-
-            $scope.moveDevice = '';
-            $scope.breakfixOption ='';
-            $scope.formattedAddress = '';
-            $scope.formattedTitleAddress = '';
-
-            $scope.typeOfServiceOptions = [
-                { value: 'BREAK_FIX_ONSITE_REPAIR', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_ONSITE_REPAIR') },
-                { value: 'BREAK_FIX_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_EXCHANGE') },
-                { value: 'BREAK_FIX_OPTION_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_OPTION_EXCHANGE') },
-                { value: 'BREAK_FIX_REPLACEMENT', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_REPLACEMENT') },
-                { value: 'BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL') },
-                { value: 'BREAK_FIX_CONSUMABLE_PART_INSTALL', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_CONSUMABLE_PART_INSTALL') },
-                { value: 'BREAK_FIX_ONSITE_EXCHANGE', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_ONSITE_EXCHANGE') },
-                { value: 'BREAK_FIX_OTHER', label: $translate.instant('DEVICE_SERVICE_REQUEST.BREAK_FIX_OTHER') }
-            ];
-
-            $scope.serviceSelected = function(option) {
-                if ($scope.breakfixOption === 'BREAK_FIX_ONSITE_EXCHANGE') {
-                    $scope.moveDevice = $translate.instant('LABEL.YES');
-                }
-                else {
-                    $scope.moveDevice = $translate.instant('LABEL.NO');
-                }
-            };
-
-
-
-
-
-             if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
+            if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 
@@ -234,6 +218,19 @@ define(['angular',
                     $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
             }
+             if (!BlankCheck.isNull($scope.sr.notes)) {
+                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
+            }
+
+            if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
+                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+            }
+
+            if (!BlankCheck.isNull($scope.sr.costCenter)) {
+                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+            }
+
+            $scope.formattedAttachments = FormatterService.formatNoneIfEmpty($scope.sr.attachments);
         }
     ]);
 });

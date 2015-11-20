@@ -99,9 +99,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 calculatedName = (altName) ? altName: name;
 
                 this.getMessage();
-                
-                if (halObj && halObj._links && halObj._links[calculatedName] 
-                    && halObj._links[calculatedName].href) {
+
+                if (halObj && halObj._links && halObj._links[calculatedName] &&
+                     halObj._links[calculatedName].href) {
                     tempObject[name] = { href: halObj._links[calculatedName].href};
                     angular.extend(this.item._links, tempObject);
                 }
@@ -124,8 +124,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
-                    newService.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
-                    newService.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
+                    newService.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
+                    newService.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
 
                     newService.get({
                         page: newService.params.page,
@@ -157,7 +157,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             item.linkNames.push(link);
 
                             item[link].get = self.get;
-                            
+
                             item.links[link] = function(options) {
                                 item[link].createItem = self.createItem;
                                 item[link].setItemDefaults = self.setItemDefaults;
@@ -360,7 +360,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 self.checkForEvent(halObj, 'before' + verbName).then(function(canContinue, newObj) {
                     var url,
                     itemUrl;
-                    
+
                     if (canContinue === true) {
                         if (newObj) {
                             halObj = newObj;
@@ -368,11 +368,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         if (method === 'get') {
                             //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
-                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
                         }
 
-                        itemUrl = getHalUrl(halObj);
+                        if(halObj.item.id && halObj.item.id === ''){
+                            delete halObj.item.id;
+                        }
+
+                        itemUrl = self.getHalUrl(halObj);
                         url = self.buildUrl(itemUrl, self.params, []);
 
                         self.checkForEvent(self.item, 'on' + verbName);
@@ -380,14 +384,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         $http({
                             method: method,
                             url: url,
-                            data: halObj
+                            data: halObj.item
                         }).then(function(processedResponse) {
-                            self.item = processedResponse;
+                            self.item = processedResponse.data;
                             self.processedResponse = processedResponse;
 
                             self.checkForEvent(self.item, 'after' + verbName);
 
-                            deferred.resolve();
+                            deferred.resolve(processedResponse);
                         });
                     } else {
                         deferred.resolve(false);
@@ -398,20 +402,20 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.post = function(halObj) {
-                this.send(halObj, 'post', 'post');
+                return this.send(halObj, 'post', 'post');
             };
 
             HATEOASFactory.prototype.put = function(halObj) {
-                this.send(halObj, 'put', 'put');
+                return this.send(halObj, 'put', 'put');
             };
 
             // Provided for convenience
             HATEOASFactory.prototype.save = function(halObj) {
-                this.send(halObj, 'post', 'post');
+                return this.send(halObj, 'post', 'post');
             };
 
             HATEOASFactory.prototype.update = function(halObj) {
-                this.send(halObj, 'put', 'put');
+                return this.send(halObj, 'put', 'put');
             };
 
             HATEOASFactory.prototype.getPage = function(page, size) {
@@ -445,12 +449,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     } else {
                         options = {
                             url: self.url + optionsObj
-                        }
+                        };
                     }
                 }
 
                 if (options.params) {
-                    angular.extend(self.params, options.params)
+                    angular.extend(self.params, options.params);
                 }
 
                 if (options.page && options.page >= 0) {
@@ -537,7 +541,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 } else {
                     options.url = self.buildUrl(options.url, self.params);
                 }
-                
+
                 self.checkForEvent(self.item, 'onGet');
 
                 options.params = {};
@@ -571,7 +575,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                                    var prop; 
+                                    var prop;
 
                                     self.url = api.url;
 
@@ -583,8 +587,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
+                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
 
                                     self.processCall(options, deferred);
                                 });

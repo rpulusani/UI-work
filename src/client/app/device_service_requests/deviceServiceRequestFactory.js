@@ -1,13 +1,13 @@
-define(['angular', 'deviceServiceRequest'], function(angular) {
+define(['angular', 'deviceServiceRequest', 'hateoasFactory.serviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .factory('DeviceServiceRequest', ['serviceUrl', '$translate', 'HATEAOSFactory',
-        function(serviceUrl, $translate, HATEAOSFactory) {
+    .factory('DeviceServiceRequest', ['serviceUrl', '$translate', 'HATEOASFactory',
+        function(serviceUrl, $translate, HATEOASFactory) {
             var DeviceServiceRequest = {
                 serviceName: 'service-requests',
                 route: '/service_requests/devices'
             };
 
-        return new HATEAOSFactory(DeviceServiceRequest);
+        return new HATEOASFactory(DeviceServiceRequest);
     }]);
 });
