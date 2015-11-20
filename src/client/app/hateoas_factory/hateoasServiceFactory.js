@@ -214,21 +214,23 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         embeddedProperty = item[link].serviceName;
                                     }
 
-                                    if (embeddedProperty && response.data._embedded) {
-                                        item[link].data = response.data._embedded[embeddedProperty];
-                                    } else {
-                                        if (response.data._links) {
-                                            item[link].item = response.data;
+                                    if (response.data._links) {
+                                        // Single item
+                                         item[link].item = response.data;
 
-                                            if (item[link].item._embedded) {
-                                                for (prop in item[link].item._embedded) {
-                                                    if (item[link].item._embedded[prop] instanceof Array) {
-                                                        item[prop].data = item[link].item._embedded[prop];
-                                                    } else {
-                                                        item[prop].item = item[link].item._embedded[prop];
-                                                    }
+                                         if (item[link].item._embedded) {
+                                            for (prop in item[link].item._embedded) {
+                                                if (item[link].item._embedded[prop] instanceof Array) {
+                                                    item[prop].data = item[link].item._embedded[prop];
+                                                } else {
+                                                    item[prop].item = item[link].item._embedded[prop];
                                                 }
                                             }
+                                        }
+                                    } else {
+                                        // Collection of data
+                                        if (embeddedProperty && response.data._embedded) {
+                                            item[link].data = response.data._embedded[embeddedProperty];
                                         } else {
                                             item[link].data = response.data;
                                         }
@@ -257,6 +259,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 return item;
+
             };
 
             HATEOASFactory.prototype.createItem = function(halObj, itemOptions) {
@@ -579,7 +582,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                             self.data = processedResponse.data;
                                         }
                                     }
-
+                            
                                     self.checkForEvent(self.item, 'onGet');
 
                                     if (processedResponse.data.page) {
@@ -587,7 +590,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         self.params.page = self.page.number;
                                         self.params.size = self.page.size;
                                     }
-                                    
+
                                     self.processedResponse = processedResponse;
 
                                     self.checkForEvent(self.item, 'afterGet');
