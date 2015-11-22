@@ -1,0 +1,32 @@
+<div sr-header></div>
+<h3 class="vertical-space--none" translate="ADDRESS.ADDRESS_SELECTION"></h3>
+
+<hr />
+
+<p translate="{{currentInstalledAddressTitle}}"></p>
+
+<div class="well">
+    <p ng-bind-html="formattedInstalledAddress"></p>
+</div>
+
+<p translate="{{replaceAddressTitle}}"></p>
+
+<div class="well">
+    <p ng-show="isRowSelected()" ng-bind-html="formattedSelectedAddress"></p>
+</div>
+
+<h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+    translate="ADDRESS.SEARCH_FOR_ADDRESS">
+</h2>
+
+<hr/>
+
+<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+
+<div pagination grid="{{gridOptions}}"></div>
+<div class="col-2-3"></div>
+<div class="col-1">
+    <button class="btn btn--secondary" translate="CONTACT.DISCARD_CONTACT_CHANGES" ng-click="discardSelect()"></button>
+    <button class="btn btn--primary" translate="CONTACT.CHANGE_CONTACT" 
+            ng-click="goToCallingPage()"></button>
+</div>

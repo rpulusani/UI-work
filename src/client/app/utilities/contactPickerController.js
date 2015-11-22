@@ -12,6 +12,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $scope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
             }
 
+            if($rootScope.selectedAddress) {
+                $rootScope.selectedAddress = undefined;
+            }
+
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
                    $rootScope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;

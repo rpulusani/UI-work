@@ -40,6 +40,13 @@ define(['angular',
                 $location.path(DeviceServiceRequest.route + '/pick_contact');
             };
 
+            $scope.goToAddressPicker = function() {
+                $rootScope.addressReturnPath = $location.url();
+                $rootScope.returnPickerObject = $scope.device;
+                $rootScope.returnPickerSRObject = $scope.sr;
+                $location.path(DeviceServiceRequest.route + '/update/pick_address');
+            };
+
             $scope.goToReview = function() {
                 console.log('in go to review');
                 $rootScope.formChangedValues = $scope.getChangedValues();
@@ -62,26 +69,36 @@ define(['angular',
             if (Devices.item === null) {
                 redirectToList();
             } else if($rootScope.selectedContact){
-                $rootScope.device = $rootScope.returnPickerObject;
-                $rootScope.sr = $rootScope.returnPickerSRObject;
+                console.log('in select contact');
+                $scope.device = $rootScope.returnPickerObject;
+                $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
-                    console.log('in selected contact');
                     if ($rootScope.currentSelected === 'updateRequestContact') {
-                        $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
-                        $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                        $scope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                        $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                     } else if ($rootScope.currentSelected === 'updateDeviceContact') {
-                        $rootScope.sr._links['deviceContact'] = $rootScope.selectedContact._links['self'];
-                        $rootScope.device.deviceContact = angular.copy($rootScope.selectedContact);
+                        $scope.sr._links['deviceContact'] = $rootScope.selectedContact._links['self'];
+                        $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                     }
                 }
                 
-                $rootScope.contactPickerReset = true;
+                //$rootScope.contactPickerReset = true;
+                Devices.item = $rootScope.device;
+            } else if($rootScope.selectedAddress){
+                console.log('in select address');
+                $scope.device = $rootScope.returnPickerObject;
+                $scope.sr = $rootScope.returnPickerSRObject;
+                $scope.sr._links['destinationAddress'] = $rootScope.selectedAddress._links['self'];
+                $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
+                //$scope.contactPickerReset = true;
                 Devices.item = $rootScope.device;
             } else if($rootScope.contactPickerReset){
-                $rootScope.device = Devices.item;
+                console.log('in reset');
+                $scope.device = Devices.item;
                 setupSR();
                 $rootScope.contactPickerReset = false;
             } else {
+                console.log('in default');
                 $scope.device = Devices.item;
                 if (!BlankCheck.isNull(Devices.item.address.item)) {
                     $scope.device.currentInstallAddress = Devices.item.address.item;
@@ -98,6 +115,19 @@ define(['angular',
 
                 setupSR();
 
+                // $rootScope.currentUser.item.data
+                // We'd want to actually do Users.item.links or Users.getAddi
+                var user = {item: {}}; 
+                user.item = Contacts.createItem($rootScope.currentUser.item.data);
+
+                user.item.links.contact().then(function() {
+                    console.log('user contact',user.item);
+                    $scope.device.requestedByContact = user.item.contact.item;
+                    $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
+                    $scope.requestedByContactFormatted =
+                        FormatterService.formatContact($scope.device.requestedByContact);
+                });
+
             }
 
 
@@ -108,19 +138,6 @@ define(['angular',
             }else if($location.path().indexOf('review') > -1){
                  configureReviewTemplate();
             }
-
-            // $rootScope.currentUser.item.data
-            // We'd want to actually do Users.item.links or Users.getAddi
-            var user = {item: {}}; 
-            user.item = Contacts.createItem($rootScope.currentUser.item.data);
-
-            user.item.links.contact().then(function() {
-                console.log('user contact',user.item);
-                $scope.device.requestedByContact = user.item.contact.item;
-                $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
-                $scope.requestedByContactFormatted =
-                    FormatterService.formatContact($scope.device.requestedByContact);
-            });
 
             function setupSR(){
                 if(DeviceServiceRequest.item === null){
@@ -231,6 +248,13 @@ define(['angular',
                             title: 'CONTACT.SELECT_CONTACT',
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS'
                         }
+                    },
+                    addressPicker: {
+                        translate: {
+                            currentInstalledAddressTitle: 'DEVICE_SERVICE_REQUEST.CURRENTLY_INSTALLED_AT',
+                            replaceAddressTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_ADDRESS_WITH'
+                        },
+                        sourceAddress: $scope.device.updatedInstallAddress
                     }
                 };
 
@@ -300,9 +324,6 @@ define(['angular',
             };
 
             
-
-
-
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
             }
@@ -315,8 +336,16 @@ define(['angular',
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
             }
 
+            if (!BlankCheck.isNull($scope.device.requestedByContact)) {
+                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.device.requestedByContact);
+            }
+
             if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
                 $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
+            }
+
+            if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
+                $scope.formattedInstalledAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
             }
 
         }

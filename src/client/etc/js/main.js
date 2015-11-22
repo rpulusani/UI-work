@@ -164,6 +164,7 @@ requirejs.config({
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
+        'utility.addressPickerController': 'app/utilities/addressPickerController',
         'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
         'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',
         'utility.personalizationService': 'app/utilities/personalizationService',

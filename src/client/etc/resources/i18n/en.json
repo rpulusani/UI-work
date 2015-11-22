@@ -134,7 +134,11 @@
         "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
         "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
         "CHANGE_HISTORY": "Device change history",
-        "LEARN_MORE": "Learn more about requests"
+        "LEARN_MORE": "Learn more about requests",
+        "CHANGE_INSTALL_ADDRESS": "Change install address",
+        "CURRENTLY_INSTALLED_AT": "Device currently installed at",
+        "REPLACE_ADDRESS_WITH": "Replace device installation address with...",
+        "CHANGE_INSTALL_ADDRESS": "Change device install address"
     },
 
     "ADDRESS": {
@@ -168,7 +172,9 @@
         "USER_ENTERED": "You entered...",
         "ADDRESS_FOUND": "We found...",
         "ADDRESS_RESET": "Reset address information",
-        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below..."
+        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below...",
+        "SEARCH_FOR_ADDRESS": "Search for an address",
+        "ADDRESS_SELECTION": "Address selection"
     },
 
     "CONTACT": {

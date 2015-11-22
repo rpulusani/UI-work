@@ -37,11 +37,22 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             scope: {
                 title: '@',
-                contactSelectText: '@',
-                returnPath: '@'
+                contactSelectText: '@'
             },
             templateUrl: '/app/utilities/templates/pick-contact.html',
             controller: 'ContactPickerController'
+        };
+    })
+    .directive('pickAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                currentInstalledAddressTitle: '@',
+                replaceAddressTitle: '@',
+                sourceAddress: '@'
+            },
+            templateUrl: '/app/utilities/templates/pick-address.html',
+            controller: 'AddressPickerController'
         };
     })
     .directive('selectPageCount', function(){

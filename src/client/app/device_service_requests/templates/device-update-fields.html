@@ -4,7 +4,7 @@
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></h3>
     
-<div class="form__field form__field--select form__field--required">
+<!--<div class="form__field form__field--select form__field--required">
     <label translate="ADDRESS.COUNTRY"></label>
     <input name="country" type="hidden" ng-model="device.updatedInstallAddress.country" required/>
     <div selectric
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<!-- <div class="form__field form__field--required">
+<div class="form__field form__field--required">
     <label translate="ADDRESS.LINE_1"></label>
     <input name="addressLine1" type="text" ng-model="device.updatedInstallAddress.addressLine1" required/>
     <div ng-hide="!newDevice.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
@@ -71,10 +71,11 @@
     </div>
 </div> -->
 
-
 <div class="contact-info">
     <div ng-bind-html="formattedInstalledAddress"></div>
 </div>
+<a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('updateInstallAddress')"></a>
+
 <div class="form__field">
     <label translate="ADDRESS.BUILDING_NAME"></label>
     <input name="buildingName" type="text" ng-model="device.updatedInstallAddress.building" value="" class="" />
