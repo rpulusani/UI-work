@@ -48,6 +48,7 @@ define([
     'deviceServiceRequest.directives',
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
+    'hateoasFactory.serviceFactory',
     'utility',
     'utility.historyUtility',
     'utility.blankCheckUtility',

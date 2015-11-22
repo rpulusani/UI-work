@@ -77,7 +77,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
-                httpBackend.when('POST', mockFactory.url + '?accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
+                httpBackend.when('POST', mockFactory.url).respond({
                     "name" : "test2",
                     "id" : "1-TEST",
                     "saved": true,
@@ -110,6 +110,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
 
+
                 httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond({
                   "_links" : {
                     "self" : {
@@ -139,6 +140,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosFactory', 'fixtures'],
                     }
                 });
             }));
+
 
             describe('column properties', function() {
                 it('makes sure we have required column properties defined', function() {

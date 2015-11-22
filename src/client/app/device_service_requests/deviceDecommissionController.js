@@ -75,7 +75,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             }
             // $rootScope.currentUser.item.data
             // We'd want to actually do Users.item.links or Users.getAddi
-            var user = {item: {}}; 
+            var user = {item: {}};
             user.item = Contacts.createItem($rootScope.currentUser.item.data);
 
             user.item.links.contact().then(function() {
@@ -121,7 +121,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.madcDevice.notes = $scope.sr.notes;
                 $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
                 $scope.madcDevice.primaryContact = $scope.device.primaryContact;
-                
+
                 $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
                 $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
             };
@@ -254,15 +254,15 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
             }
 
-            if (BlankCheck.isNullOrWhiteSpace($scope.sr.notes)) {
+            if (!BlankCheck.isNull($scope.sr.notes)) {
                 $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
             }
 
-            if (BlankCheck.isNullOrWhiteSpace($scope.sr.customerReferenceId)) {
+            if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
                 $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
             }
 
-            if (BlankCheck.isNullOrWhiteSpace($scope.sr.costCenter)) {
+            if (!BlankCheck.isNull($scope.sr.costCenter)) {
                 $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
             }
 

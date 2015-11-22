@@ -129,7 +129,7 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 });
             });*/
         });
-
+/*
         describe('DeviceUpdateController', function() {
             var scope, ctrl, location, form, deferred, blankCheck, mockedFactory, $httpBackend,
             MockDeviceServiceRequest, mockContacts, compile;
@@ -267,11 +267,188 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
 
                 $rootScope.currentUser = {
                     item: {
-                        data: {} 
+                    "id": "122345",
+                    "userId": "122345",
+                    "idpId": "122345",
+                    "contactId": "122345",
+                    "type": "enduser",
+                    "created": "2015-01-26 00:00:00",
+                    "createdBy": "12342",
+                    "updated": "2015-01-26 00:00:00",
+                    "updatedBy": "12342",
+                    "invitedStatus": "pending",
+                    "activeStatus": "Y",
+                    "resetPassword": "Y",
+                    "firstName": "shankar",
+                    "lastName": "matta",
+                    "email": "test@test.com",
+                    "password": "tbd",
+                    "workPhone": "111-11-1111",
+                    "address1": "111-11-1111",
+                    "address2": "111-11-1111",
+                    "city": "lexington",
+                    "country": "usa",
+                    "state": "ky",
+                    "postalCode": "40509",
+                    "preferredLanguage": "en_US",
+                    "permissions": [
+                    "viewInvoices"
+                    ],
+                    "_links": {
+                    "self": {
+                      "href": "/users/{userId}"
+                    },
+                    "accounts": [
+                      {
+                        "href": "/accounts/123"
+                      }
+                    ],
+                    "roles": [
+                      {
+                        "href": "/roles/123"
+                      }
+                    ],
+                    "contact": {
+                      "href": "/contacts/{contactId}"
                     }
+                  },
+                  "_embedded": {
+                    "accounts": [
+                      {
+                        "name": "string",
+                        "id": 0,
+                        "additionalProperties": "tbd"
+                      }
+                    ],
+                    "roles": [
+                      {
+                        "roleId": "122345",
+                        "description": "account manager",
+                        "permissions": [
+                          "viewInvoices"
+                        ],
+                        "_links": {
+                          "self": {
+                            "href": "/roles/{applicationName}/{roleId}"
+                          }
+                        }
+                      }
+                    ],
+                    "preferences": [
+                      "SEND EMAIL ETC"
+                    ]
+                  }
                 };
 
-                $rootScope.currentUser.item.data = {
+                element = angular.element(
+                    '<form name="updateDevice">' +
+                    '   <input name="myFirst" ng-model="myFirst"></input>' +
+                    '   <input name="mySecond" ng-model="mySecond"></input>' +
+                    '</form>'
+                );
+                element = compile(element)(scope);
+
+                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockFactory,
+                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts});
+            }));
+
+
+            describe('goToContactPicker', function() {
+                it('should take to contact picker page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    var currentSelected = 'updateDeviceContact';
+
+                    "id": "122345",
+                    "userId": "122345",
+                    "idpId": "122345",
+                    "contactId": "122345",
+                    "type": "enduser",
+                    "created": "2015-01-26 00:00:00",
+                    "createdBy": "12342",
+                    "updated": "2015-01-26 00:00:00",
+                    "updatedBy": "12342",
+                    "invitedStatus": "pending",
+                    "activeStatus": "Y",
+                    "resetPassword": "Y",
+                    "firstName": "shankar",
+                    "lastName": "matta",
+                    "email": "test@test.com",
+                    "password": "tbd",
+                    "workPhone": "111-11-1111",
+                    "address1": "111-11-1111",
+                    "address2": "111-11-1111",
+                    "city": "lexington",
+                    "country": "usa",
+                    "state": "ky",
+                    "postalCode": "40509",
+                    "preferredLanguage": "en_US",
+                    "permissions": [
+                    "viewInvoices"
+                    ],
+                    "_links": {
+                    "self": {
+                      "href": "/users/{userId}"
+                    },
+                    "accounts": [
+                      {
+                        "href": "/accounts/123"
+                      }
+                    ],
+                    "roles": [
+                      {
+                        "href": "/roles/123"
+                      }
+                    ],
+                    "contact": {
+                      "href": "/contacts/{contactId}"
+                    }
+                  },
+                  "_embedded": {
+                    "accounts": [
+                      {
+                        "name": "string",
+                        "id": 0,
+                        "additionalProperties": "tbd"
+                      }
+                    ],
+                    "roles": [
+                      {
+                        "roleId": "122345",
+                        "description": "account manager",
+                        "permissions": [
+                          "viewInvoices"
+                        ],
+                        "_links": {
+                          "self": {
+                            "href": "/roles/{applicationName}/{roleId}"
+                          }
+                        }
+                      }
+                    ],
+                    "preferences": [
+                      "SEND EMAIL ETC"
+                    ]
+                  }
+                };
+
+                element = angular.element(
+                    '<form name="updateDevice">' +
+                    '   <input name="myFirst" ng-model="myFirst"></input>' +
+                    '   <input name="mySecond" ng-model="mySecond"></input>' +
+                    '</form>'
+                );
+                element = compile(element)(scope);
+
+                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockFactory,
+                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts});
+            }));
+
+
+            describe('goToContactPicker', function() {
+                it('should take to contact picker page', function() {
+                    spyOn(location, 'path').and.returnValue('/');
+                    var currentSelected = 'updateDeviceContact';
+
                     "id": "122345",
                     "userId": "122345",
                     "idpId": "122345",
@@ -446,6 +623,6 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                     expect($route.routes['/service_requests/devices/search'].templateUrl).toEqual('/app/device_service_requests/templates/search.html');
                 });
             });
-        });
+        });*/
     });
 });

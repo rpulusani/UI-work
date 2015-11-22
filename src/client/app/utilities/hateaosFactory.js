@@ -14,6 +14,8 @@ define(['angular', 'utility'], function(angular) {
                     totalPages: 0,
                     number: 0
                 };
+                    console.log('old hateoas for: ' + serviceDefinition.serviceName);
+
                 self.columns = null;
                 self.columnDefs = null;
 
@@ -33,13 +35,8 @@ define(['angular', 'utility'], function(angular) {
 
                 return angular.extend(self, serviceDefinition);
             };
-            HATEAOSFactory.prototype.newMessage  = function(){
-                this.item = {
-                    '_links':{
 
-                    }
-                };
-            };
+
             HATEAOSFactory.prototype.resetServiceMap = function(){
                 var self = this;
                 self.item = null;
@@ -99,7 +96,7 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
-             HATEAOSFactory.prototype.getAdditional = function(halObj, newService) {
+             HATEAOSFactory.prototype.getAdditional = function(halObj, newService, name) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
@@ -109,7 +106,10 @@ define(['angular', 'utility'], function(angular) {
                 }
                 else if(halObj.item && halObj.item._links[newService.serviceNameUnplurize()]){
                     url = halObj.item._links[newService.serviceNameUnplurize()].href;
-                }else{
+                }else if(name){
+                    url = halObj._links[name].href;
+                }
+                else{
                     url = halObj._links[newService.serviceName].href;
                 }
 
@@ -142,30 +142,19 @@ define(['angular', 'utility'], function(angular) {
                         if (newObj) {
                             halObj = newObj;
                         }
-                        $rootScope.currentUser.deferred.promise.then(function(){
-                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
-                            halObj._links = {
-                                account: {
-                                    href: 'https://api.venus-dev.lexmark.com/mps/accounts/' + self.params.accountId
-                                }
-                            };
-                            var url = self.buildUrl(self.url, self.params, []);
 
-                            halAdapter.process($http({
-                                method: 'post',
-                                url: url,
-                                data: halObj
-                            })).then(function(processedResponse) {
-                                self.item = processedResponse;
-                                self.processedResponse = processedResponse;
+                        var url = self.buildUrl(self.url, self.params, []);
+                        halAdapter.process($http({
+                            method: 'post',
+                            url: url,
+                            data: halObj
+                        })).then(function(processedResponse) {
+                            self.item = processedResponse;
+                            self.processedResponse = processedResponse;
 
-                                self.checkForEvent(self.item, 'afterSave').then(function() {
-                                    deferred.resolve();
-                                });
+                            self.checkForEvent(self.item, 'afterSave').then(function() {
+                                deferred.resolve();
                             });
-                        },function(reason){
-                            deferred.reject(reason);
                         });
                     } else {
                         deferred.resolve(false);
@@ -175,7 +164,7 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
-            HATEAOSFactory.prototype.saveMADC = function(halObj) {
+           /* HATEAOSFactory.prototype.saveMADC = function(halObj) {
                 var self  = this,
                 deferred = $q.defer();
 
@@ -235,7 +224,7 @@ define(['angular', 'utility'], function(angular) {
                 });
 
                 return deferred.promise;
-            };
+            }; */
 
             HATEAOSFactory.prototype.update = function(halObj) {
                 var self  = this,

@@ -510,7 +510,8 @@
         "UPDATE_LINK": "Update",
         "CREATED": "Created",
         "TAGGED_AS": "Tagged as",
-        "FILE": "File"
+        "FILE": "File",
+        "ATTACHMENTS": "Attachements"
     },
 
     "PAGINATION": {
