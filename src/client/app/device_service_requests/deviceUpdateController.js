@@ -58,15 +58,6 @@ define(['angular',
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
             };
 
-            $scope.goToSubmit = function() {
-                setMADCObject();
-                DeviceServiceRequest.saveMADC($scope.madcDevice).then(function(){
-                    $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
-            };
-
             var configureSR = function(ServiceRequest){
                 var assetInfo = {
                     ipAddress: $scope.device.ipAddress,
@@ -80,12 +71,8 @@ define(['angular',
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
             };
 
-            var redirectToList = function() {
-                $location.path(Devices.route + '/');
-            };
-
             if (Devices.item === null) {
-                redirectToList();
+                $scope.redirectToList();
             } else if($rootScope.selectedContact 
                     && $rootScope.returnPickerObject 
                     && $rootScope.selectionId === Devices.item.id){
