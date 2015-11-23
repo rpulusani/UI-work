@@ -5,7 +5,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
         function($translate, HATEOASFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
-                embeddedName: 'contact',
+                embeddedName: 'contacts',
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [

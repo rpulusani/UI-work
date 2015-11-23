@@ -21,7 +21,6 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory'], function(angular) {
                         {'name': $translate.instant('LABEL.COMPANY_ACCT'), 'field': '' },
                         {'name': $translate.instant('LABEL.ROLE'), 'field': '' }
                 ],
-
                 route: '/delegated_admin'
             };
 

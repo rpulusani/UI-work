@@ -54,9 +54,13 @@ define(['angular', 'serviceRequest'], function(angular) {
             }
 
             function getRequestor(ServiceRequest, Contacts){
-                Contacts.getAdditional(rootScope.currentUser.item, Contacts, 'requester').then(function(){
-                    scope.device.requestedByContact = Contacts.item;
+                var user = {item: {}}; 
+                user.item = Contacts.createItem(rootScope.currentUser.item);
+
+                user.item.links.contact().then(function() {
+                    scope.device.requestedByContact = user.item.contact.item;
                     ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
+                    ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
                     scope.requestedByContactFormatted =
                     FormatterService.formatContact(scope.device.requestedByContact);
                 });

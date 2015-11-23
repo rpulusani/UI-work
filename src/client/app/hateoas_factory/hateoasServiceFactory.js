@@ -504,7 +504,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-
                 if (processedResponse.data.page) {
                     self.page = processedResponse.data.page;
                     self.params.page = self.page.number;

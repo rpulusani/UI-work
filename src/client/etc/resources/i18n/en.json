@@ -134,7 +134,12 @@
         "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
         "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
         "CHANGE_HISTORY": "Device change history",
-        "LEARN_MORE": "Learn more about requests"
+        "LEARN_MORE": "Learn more about requests",
+        "CHANGE_INSTALL_ADDRESS": "Change install address",
+        "CHANGE_CONTACT": "Change Contact",
+        "CURRENTLY_INSTALLED_AT": "Device currently installed at",
+        "REPLACE_ADDRESS_WITH": "Replace device installation address with...",
+        "CHANGE_INSTALL_ADDRESS": "Change device install address"
     },
 
     "ADDRESS": {
@@ -168,7 +173,11 @@
         "USER_ENTERED": "You entered...",
         "ADDRESS_FOUND": "We found...",
         "ADDRESS_RESET": "Reset address information",
-        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below..."
+        "BOD_ALERT": "A similar address was found in our system. Please select which address you would like to use below...",
+        "SEARCH_FOR_ADDRESS": "Search for an address",
+        "ADDRESS_SELECTION": "Address selection",
+        "DISCARD_INSTALL_ADDRESS_CHANGES": "DISCARD INSTALL ADDRESS CHANGES",
+        "CHANGE_DEVICE_INSTALL_ADDRESS": "CHANGE DEVICE INSTALL ADDRESS"
     },
 
     "CONTACT": {
@@ -185,9 +194,12 @@
         "EMAIL": "Email Address",
         "SELECT_CONTACT": "Select a Contact",
         "SELECTED_CONTACT_IS": "Selected Contact is...",
-        "SEARCH_EXISTING_CONTACT": "Search existing contacts ({{total}})...",
+        "SEARCH_EXISTING_CONTACT": "Search existing contacts",
         "DISCARD_CONTACT_CHANGES": "Discard Contact Changes",
-        "CHANGE_CONTACT": "Change Contact"
+        "CHANGE_CONTACT": "Change Contact",
+        "CURRENT_CONTACT": "Current Contact",
+        "REPLACE_CONTACT": "Replace current contact with...",
+        "CONTACT_SELECTION": "Contact Selection"
     },
 
     "DEVICE_MGMT_REQUEST": {
