@@ -312,6 +312,8 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
             describe('saveMeterReads()', function(){
               describe('when meter reads are updated', function(){
                 it('should update only the changed meter reads', function(){
+                  var key = null;
+
                   scope.meterReads = [
                     {
                       "type" : "A3 LTPC",
@@ -329,34 +331,27 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                           "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82"
                         }
                       }
-                    }, {
-                      "type" : "A3 Mono",
-                      "value" : "0",
-                      "createDate" : "2014-04-26 20:09:47",
-                      "createBy" : "0-1",
-                      "updateDate" : null,
-                      "updateBy" : null,
-                      "id" : "1-RVJ8-2131",
-                      "_links" : {
-                        "self" : {
-                          "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82/meter-reads/1-RVJ8-2131"
-                        },
-                        "asset" : {
-                          "href" : "https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-82"
-                        }
-                      }
                     }
                   ];
 
-                  scope.meterReads[0].newVal = 100;
-
+                  // create spies
                   spyOn(scope, 'saveMeterReads').and.callThrough();
-                  spyOn(mockMeterReads, 'update').and.callThrough();
+                  spyOn(mockMeterReads, 'put').and.callThrough();
 
+                  // submit meter read
                   scope.saveMeterReads();
 
-                  expect(mockMeterReads.update).toHaveBeenCalledWith(scope.meterReads[0]);
-                  expect(mockMeterReads.update).not.toHaveBeenCalledWith(scope.meterReads[1]);
+                  // check to make sure that meter read was not submitted
+                  expect(mockMeterReads.put).not.toHaveBeenCalled();
+
+                  // update meter read with a new value
+                  scope.meterReads[0].newVal = 100;
+
+                  // submit meter read
+                  scope.saveMeterReads();
+
+                  // check to make sure that meter read was submitted
+                  expect(mockMeterReads.put).toHaveBeenCalled();
                 });
               });
             });
