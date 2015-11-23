@@ -16,6 +16,7 @@ define(['angular',
         'Devices',
         'Contacts',
         'UserService',
+        'SRControllerHelperService',
         function($scope,
             $location,
             $routeParams,
@@ -26,10 +27,13 @@ define(['angular',
             DeviceServiceRequest,
             Devices,
             Contacts,
-            Users) {
+            Users,
+            SRHelper) {
 
             $scope.madcDevice = {};
             $scope.returnedForm = false;
+
+            SRHelper.addMethods(Devices, $scope, $rootScope);
 
             $scope.goToContactPicker = function(currentSelected) {
                 $rootScope.currentSelected = currentSelected;
@@ -63,6 +67,27 @@ define(['angular',
                 });
             };
 
+            var configureSR = function(ServiceRequest){
+                var assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.assetTag,
+                    costCenter: $scope.device.costCenter
+                };
+                ServiceRequest.addField('assetInfo', assetInfo);
+                ServiceRequest.addRelationship('account', $scope.device);
+                ServiceRequest.addRelationship('asset', $scope.device, 'self');
+
+                if ($scope.device.lexmarkMoveDevice === 'true') {
+                    ServiceRequest.addField('type', 'MADC_MOVE');
+                    ServiceRequest.addRelationship('sourceAddress', $scope.device.currentInstallAddress, 'self');
+                    ServiceRequest.addRelationship('destinationAddress', $scope.device.updatedInstallAddress, 'self');
+                } else {
+                    ServiceRequest.addRelationship('sourceAddress', $scope.device.updatedInstallAddress, 'self');
+                    ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
+                }
+            };
+
             var redirectToList = function() {
                 $location.path(Devices.route + '/');
             };
@@ -77,10 +102,10 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
                     if ($rootScope.currentSelected === 'updateRequestContact') {
-                        $scope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
+                        ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                         $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                     } else if ($rootScope.currentSelected === 'updateDeviceContact') {
-                        $scope.sr._links['deviceContact'] = $rootScope.selectedContact._links['self'];
+                        ServiceRequest.addRelationship('contact', $rootScope.selectedContact, 'self');
                         $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                     }
                 }
@@ -91,7 +116,6 @@ define(['angular',
                 console.log('in select address');
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
-                $scope.sr._links['destinationAddress'] = $rootScope.selectedAddress._links['self'];
                 $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
                 Devices.item = $scope.device;
             } else {
@@ -109,21 +133,21 @@ define(['angular',
                     $scope.device.lexmarkMoveDevice = false;
                 }
 
-                setupSR();
+                //setupSR();
 
                 // $rootScope.currentUser.item.data
                 // We'd want to actually do Users.item.links or Users.getAddi
-                var user = {item: {}}; 
-                console.log($rootScope.currentUser.item);
-                user.item = Contacts.createItem($rootScope.currentUser.item);
+                // var user = {item: {}}; 
+                // console.log($rootScope.currentUser.item);
+                // user.item = Contacts.createItem($rootScope.currentUser.item);
 
-                user.item.links.contact().then(function() {
-                    console.log('user contact',user.item);
-                    $scope.device.requestedByContact = user.item.contact.item;
-                    $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
-                    $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.device.requestedByContact);
-                });
+                // user.item.links.contact().then(function() {
+                //     console.log('user contact',user.item);
+                //     $scope.device.requestedByContact = user.item.contact.item;
+                //     $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
+                //     $scope.requestedByContactFormatted =
+                //         FormatterService.formatContact($scope.device.requestedByContact);
+                // });
 
                 if ($rootScope.returnPickerObjectAddress && $rootScope.selectionId !== Devices.item.id) {
                     resetAddressPicker();
@@ -135,30 +159,32 @@ define(['angular',
 
             }
 
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            $scope.getRequestor(ServiceRequest, Contacts);
+            //configureTemplates();
 
-            configureTemplates();
+            // if($location.path().indexOf('receipt') > -1){
+            //     configureReceiptTemplate();
+            // }else if($location.path().indexOf('review') > -1){
+            //      configureReviewTemplate();
+            // }
 
-            if($location.path().indexOf('receipt') > -1){
-                configureReceiptTemplate();
-            }else if($location.path().indexOf('review') > -1){
-                 configureReviewTemplate();
-            }
-
-            function setupSR(){
-                if(DeviceServiceRequest.item === null){
-                    DeviceServiceRequest.newMessage();
-                    $scope.sr = DeviceServiceRequest.item;
-                    $scope.sr._links['account'] = $scope.device._links['account'];
-                    $scope.sr._links['asset'] = $scope.device._links['self'];
-                    $scope.sr.customerReferenceId = '';
-                    $scope.sr.costCenter = '';
-                    $scope.sr.notes = '';
-                    $scope.sr.id = $scope.sr.requestNumber;
-                    $scope.sr._links['ui'] = 'http://www.google.com/1-XAEASD';
-                }else{
-                   $scope.sr = DeviceServiceRequest.item;
-                }
-            }
+            // function setupSR(){
+            //     if(DeviceServiceRequest.item === null){
+            //         DeviceServiceRequest.newMessage();
+            //         $scope.sr = DeviceServiceRequest.item;
+            //         $scope.sr._links['account'] = $scope.device._links['account'];
+            //         $scope.sr._links['asset'] = $scope.device._links['self'];
+            //         $scope.sr.customerReferenceId = '';
+            //         $scope.sr.costCenter = '';
+            //         $scope.sr.notes = '';
+            //         $scope.sr.id = $scope.sr.requestNumber;
+            //         $scope.sr._links['ui'] = 'http://www.google.com/1-XAEASD';
+            //     }else{
+            //        $scope.sr = DeviceServiceRequest.item;
+            //     }
+            // }
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = $scope.goToSubmit
@@ -340,31 +366,33 @@ define(['angular',
                 return formUpdatedValues;
             };
 
+            var formatAdditionalData = function() {
+                if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
+                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
+                }
+
+                if (!BlankCheck.isNull($scope.device.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+                }
+
+                if (!BlankCheck.isNull($scope.device.deviceContact)) {
+                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+                }
+
+                if (!BlankCheck.isNull($scope.device.requestedByContact)) {
+                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.device.requestedByContact);
+                }
+
+                if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
+                    $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
+                }
+
+                if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
+                    $scope.formattedInstalledAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
+                }
+            };
             
-            if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
-                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
-            }
-
-            if (!BlankCheck.isNull($scope.device.primaryContact)) {
-                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
-            }
-
-            if (!BlankCheck.isNull($scope.device.deviceContact)) {
-                $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
-            }
-
-            if (!BlankCheck.isNull($scope.device.requestedByContact)) {
-                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.device.requestedByContact);
-            }
-
-            if (!BlankCheck.isNull($scope.device.lexmarkMoveDevice)) {
-                $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
-            }
-
-            if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
-                $scope.formattedInstalledAddress = FormatterService.formatAddress($scope.device.updatedInstallAddress);
-            }
-
+            $scope.formatReceiptData(formatAdditionalData);
         }
     ]);
 });
