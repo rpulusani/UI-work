@@ -312,8 +312,6 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
             describe('saveMeterReads()', function(){
               describe('when meter reads are updated', function(){
                 it('should update only the changed meter reads', function(){
-                  var key = null;
-
                   scope.meterReads = [
                     {
                       "type" : "A3 LTPC",
