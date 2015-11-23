@@ -21,6 +21,7 @@ define([
     'serviceRequest.directives',
     'serviceRequest.listController',
     'serviceRequest.serviceRequestController',
+    'serviceRequest.controllerHelperService',
     'contact',
     'contact.contactController',
     'contact.contactListController',
