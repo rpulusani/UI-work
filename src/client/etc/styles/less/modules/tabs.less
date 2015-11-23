@@ -1,0 +1,68 @@
+/* <tabs> */
+
+.page-tabs{
+    padding: (2)*@base-grid-v (2)*@base-grid-h;
+
+    @media @mq-gt-tablet{
+        padding: 0;
+    }
+    // don't screw up nested tabs
+    > .set{
+        &.set--tab{
+
+        }
+
+        .set__tab-container{
+            background-color: @grey2;
+            border-bottom: 1px solid @grey4;
+            padding: 0 (4)*@base-grid-h;
+            
+            .set__trigger{
+                border: 1px solid @grey4;
+                margin: 0 0 -1px 0;
+
+                a{
+                    background-color: @grey3;
+                    border-top: 3px solid @grey3;
+
+                    &:hover,
+                    &:active,
+                    &:focus{
+                        background-color: @grey2;
+                        border-top-color: @grey2;
+                    }
+                }
+
+                &.set--is-active{
+                    border-bottom-color: @white;
+
+                    a{
+                        background-color: @white; 
+                        border-top-color: @green3;
+                        border-bottom-color: @white;
+                    }
+                }
+            }
+        }
+
+        .set__content-container{
+
+            .set__content{
+                border: 0;
+                padding: (2)*@base-grid-v (4)*@base-grid-h;
+            }
+        }
+    }
+}
+
+/* <FEF hax> */
+
+// Reset the z-index of .set__trigger's b/c it's dumb
+.set__content.set--is-active,
+.set__tab-container .set__trigger.set--is-active{
+    z-index: auto;
+}
+
+/* </FEF hax> */
+
+/* </tabs> */

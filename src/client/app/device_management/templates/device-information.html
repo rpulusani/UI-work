@@ -3,7 +3,7 @@
 
 <hr />
 
-<ul class="info-list">
+<ul class="info-list text--small">
     <li class="info-list__item" ng-show="ltpc">
         <div class="info-list__item-name" translate="PAGE_COUNT_TYPE.LIFETIME_TITLE"></div>
         <div class="info-list__item-value" translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: ltpc.value}"></div>
@@ -29,7 +29,7 @@
 <div class="row row--alley-4">
     <div class="col-lg-1-2">
         <h3 class="text--semi-bold vertical-space--none" translate="LABEL.LOCATION"></h3>
-        <ul class="info-list">
+        <ul class="info-list text--small">
             <li class="info-list__item">
                 <div class="info-list__item-name" translate="DEVICE_MGT.INSTALL_DATE"></div>
                 <div class="info-list__item-value" ng-bind="device.installDate | date:'MM/dd/yyyy'"></div>
@@ -44,7 +44,7 @@
         </ul>
 
         <h3 class="text--semi-bold vertical-space--none" translate="LABEL.NETWORK_CONFIG"></h3>
-        <ul class="info-list">
+        <ul class="info-list text--small">
             <li class="info-list__item">
                 <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
                 <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
@@ -56,7 +56,7 @@
         </ul>
 
         <h3 class="text--semi-bold vertical-space--none" translate="SERVICE_REQUEST.PRIMARY_CONTACT"></h3>
-        <ul class="info-list">
+        <ul class="info-list text--small">
             <li class="info-list__item">
                 <div class="info-list__item-name" translate="LABEL.NAME"></div>
                 <div class="info-list__item-value" ng-bind="primaryContact.formattedName"></div>
@@ -78,7 +78,7 @@
 
     <div class="col-lg-1-2">
         <h3 class="text--semi-bold vertical-space--none" translate="DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING"></h3>
-        <ul class="info-list">
+        <ul class="info-list text--small">
             <li class="info-list__item">
                 <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER"></div>
                 <div class="info-list__item-value" ng-bind="device.costCenter"></div>
