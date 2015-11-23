@@ -16,27 +16,53 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.saveMeterReads = function() {
+            /* 
+            desc:   Loops through all meter reads and submits put requests
+                    for all that were updated (bulk update)
+            */
                 var limit, i;
 
                 if($scope.meterReads){
                     limit = $scope.meterReads.length;
 
                     for(i=0; i<limit; i+=1){
+                        // ignore Mono reads since they can't be updated
+                        // ignore reads that weren't updated
                         if($scope.meterReads[i].type !== 'Mono' && ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate)){
+                            // if a new value was added
                             if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value){
                                 $scope.meterReads[i].value = $scope.meterReads[i].newVal;
                                 $scope.meterReads[i].newVal = null;
                             }
 
+                            // if a new date was added
                             if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== $scope.getMeterReadPriorDate($scope.meterReads[i])){
                                 $scope.meterReads[i].updateDate = $scope.meterReads[i].newDate;
                                 $scope.meterReads[i].newDate = null;
                             }
 
-                            MeterReads.update($scope.meterReads[i]).then(function(){
-                                console.log("Updated Meter Read " + $scope.meterReads[i].id);
+                            // init MeterReads.item
+                            MeterReads.newMessage();
+
+                            // set item props
+                            for(var key in $scope.meterReads[i]){
+                                // always check to make sure the prop belongs directly to the object
+                                if($scope.meterReads[i].hasOwnProperty(key)){
+                                    // ignore unneeded props
+                                    if(key != "newVal" || key != "newDate"){
+                                        MeterReads.addField(key, $scope.meterReads[i][key]);
+                                    }
+                                }
+                            }
+
+                            // reset the postURL
+                            MeterReads.addField("postURL", $scope.meterReads[i]._links.self.href);
+
+                            // submit the request
+                            MeterReads.put(MeterReads).then(function(){
+                                MeterReads.reset();
                             }, function(reason){
-                                NREUM.noticeError('Failed to update Meter Read ' + $scope.meterReads[i].id +  ' because: ' + reason);
+                                NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
                             });
                         }
                     }

@@ -1,41 +1,46 @@
-define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
+define(['angular',
+    'deviceServiceRequest',
+    'deviceManagement.deviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceDecommissionController', ['$scope', '$rootScope', '$routeParams', '$location', '$translate', 'Devices',
-        'ServiceRequestService', 'FormatterService', 'BlankCheck', 'DeviceServiceRequest','Contacts',
-        function($scope, $rootScope, $routeParams, $location, $translate, Devices, ServiceRequest, FormatterService,
-            BlankCheck, DeviceServiceRequest, Contacts) {
+    .controller('DeviceDecommissionController', [
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        '$location',
+        '$translate',
+        'Devices',
+        'ServiceRequestService',
+         'FormatterService',
+         'BlankCheck',
+         'DeviceServiceRequest',
+         'Contacts',
+         'SRControllerHelperService',
+        function($scope,
+            $rootScope,
+            $routeParams,
+             $location,
+             $translate,
+             Devices,
+             ServiceRequest,
+             FormatterService,
+            BlankCheck,
+            DeviceServiceRequest,
+            Contacts,
+            SRHelper) {
 
-            $scope.madcDevice = {};
+            SRHelper.addMethods(Devices, $scope, $rootScope);
 
-            $scope.goToReview = function() {
-                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
-            };
+            var configureSR = function(ServiceRequest){
+                    ServiceRequest.addRelationship('account', $scope.device);
+                    ServiceRequest.addRelationship('asset', $scope.device, 'self');
+                    ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
 
-            $scope.goToSubmit = function() {
-                getMADCObject();
-
-                DeviceServiceRequest.saveMADC($scope.madcDevice).then(function() {
-                    $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
-                    console.log('madc');
-                    console.log($scope.madcDevice);
-                }, function(reason) {
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
-            };
-
-            $scope.goToContactPicker = function() {
-                $rootScope.returnPickerObject = $scope.device;
-                $rootScope.returnPickerSRObject = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/pick_contact');
-            };
-
-            var redirect_to_list = function() {
-                $location.path(Devices.route + '/');
+                    ServiceRequest.addField('type', 'MADC_DECOMMISSION');
             };
 
             if (Devices.item === null) {
-                redirect_to_list();
+                $scope.redirectToList();
             } else if($rootScope.selectedContact){
                 $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
@@ -45,16 +50,18 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 Devices.item = $rootScope.device;
             } else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
-                setupSR();
                 $rootScope.contactPickerReset = false;
             }else {
 
                 $scope.device = Devices.item;
 
-                if (!BlankCheck.isNull(Devices.item._embeddedItems)) {
-                    $scope.device.installAddress = Devices.item._embeddedItems['address'];
-                    $scope.device.primaryContact = Devices.item._embeddedItems['primaryContact'];
+                if (!BlankCheck.isNull(Devices.item['address'])) {
+                    $scope.device.installAddress = Devices.item['address']['item'];
                 }
+                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                    $scope.device.primaryContact = Devices.item['contact']['item'];
+                }
+
 
                 if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
                     $scope.device.lexmarkPickupDevice = false;
@@ -63,72 +70,40 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 if (BlankCheck.isNullOrWhiteSpace($scope.pageCountQuestion)) {
                     $scope.device.pageCountQuestion = false;
                 }
-
-                setupSR();
             }
 
-            configureTemplates();
-            if($location.path().indexOf('receipt') > -1){
-                configureReceiptTemplate();
-            }else if($location.path().indexOf('review') > -1){
-                configureReviewTemplate();
-            }
-            // $rootScope.currentUser.item.data
-            // We'd want to actually do Users.item.links or Users.getAddi
-            var user = {item: {}};
-            user.item = Contacts.createItem($rootScope.currentUser.item);
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            $scope.getRequestor(ServiceRequest, Contacts);
 
-            user.item.links.contact().then(function() {
-                $scope.device.requestedByContact = user.item.contact.item;
-                $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
-                $scope.requestedByContactFormatted =
-                    FormatterService.formatContact($scope.device.requestedByContact);
-            });
+            var updateSRObjectForSubmit = function() {
 
-            function setupSR() {
-                if(DeviceServiceRequest.item === null) {
-                    ServiceRequest.newMessage();
+                if ($scope.device.lexmarkPickupDevice === 'true') {
                     $scope.sr = ServiceRequest.item;
-                    $scope.sr._links['account'] = $scope.device._links['account'];
-                    $scope.sr._links['asset'] = $scope.device._links['self'];
-                    $scope.sr.customerReferenceId = '';
-                    $scope.sr.costCenter = '';
-                    $scope.sr.notes = ''
+                    $scope.sr.type = 'MADC_DECOMMISSION';
                 } else {
-                    $scope.sr = DeviceServiceRequest.item;
-                    $scope.sr._links['ui'] = ServiceRequest.route + '/' + $scope.sr.requestNumber;
-                }
-            }
-
-            var getMADCObject = function() {
-                console.log('device');
-                console.log($scope.device);
-                $scope.madcDevice.id = $scope.device.id;
-
-                if ($scope.device.lexmarkPickupDevice === true) {
-                    $scope.madcDevice.type = 'MADC_DECOMMISSION';
-                } else {
-                    $scope.madcDevice.type = 'DATA_ASSET_DEREGISTER';
+                    $scope.sr.type = 'DATA_ASSET_DEREGISTER';
                 }
 
-                $scope.madcDevice.assetInfo = {
-                    ipAddress: $scope.device.ipAddress,
-                    hostName: $scope.device.hostName,
-                    assetTag: $scope.device.assetTag,
-                    costCenter: $scope.device.costCenter
-                };
+                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
 
-                $scope.madcDevice.notes = $scope.sr.notes;
-                $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
-                $scope.madcDevice.primaryContact = $scope.device.primaryContact;
 
-                $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
-                $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
             };
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
-                $scope.configure.actions.submit = $scope.goToSubmit;
+                $scope.configure.actions.submit = function(){
+                    updateSRObjectForSubmit();
+                    var deferred = DeviceServiceRequest.post({
+                         item:  $scope.sr
+                    });
+                    deferred.then(function(result){
+                        ServiceRequest.item = DeviceServiceRequest.item;
+                       $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+                };
             }
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
@@ -214,7 +189,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
                             submit: 'LABEL.REVIEW_SUBMIT'
                         },
-                        submit: $scope.goToReview
+                        submit: function(){
+                            $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
+                        }
                     },
                     modal:{
                         translate:{
