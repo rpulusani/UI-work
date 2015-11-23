@@ -77,15 +77,7 @@ define(['angular',
                 ServiceRequest.addField('assetInfo', assetInfo);
                 ServiceRequest.addRelationship('account', $scope.device);
                 ServiceRequest.addRelationship('asset', $scope.device, 'self');
-
-                if ($scope.device.lexmarkMoveDevice === 'true') {
-                    ServiceRequest.addField('type', 'MADC_MOVE');
-                    ServiceRequest.addRelationship('sourceAddress', $scope.device.currentInstallAddress, 'self');
-                    ServiceRequest.addRelationship('destinationAddress', $scope.device.updatedInstallAddress, 'self');
-                } else {
-                    ServiceRequest.addRelationship('sourceAddress', $scope.device.updatedInstallAddress, 'self');
-                    ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
-                }
+                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
             };
 
             var redirectToList = function() {
@@ -97,7 +89,6 @@ define(['angular',
             } else if($rootScope.selectedContact 
                     && $rootScope.returnPickerObject 
                     && $rootScope.selectionId === Devices.item.id){
-                console.log('in select contact');
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
@@ -113,9 +104,9 @@ define(['angular',
             } else if($rootScope.selectedAddress
                     && $rootScope.returnPickerObjectAddress 
                     && $rootScope.selectionId === Devices.item.id){
-                console.log('in select address');
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
+                ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
                 $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
                 Devices.item = $scope.device;
             } else {
@@ -133,22 +124,6 @@ define(['angular',
                     $scope.device.lexmarkMoveDevice = false;
                 }
 
-                //setupSR();
-
-                // $rootScope.currentUser.item.data
-                // We'd want to actually do Users.item.links or Users.getAddi
-                // var user = {item: {}}; 
-                // console.log($rootScope.currentUser.item);
-                // user.item = Contacts.createItem($rootScope.currentUser.item);
-
-                // user.item.links.contact().then(function() {
-                //     console.log('user contact',user.item);
-                //     $scope.device.requestedByContact = user.item.contact.item;
-                //     $scope.sr._links['requester'] = $scope.device.requestedByContact._links['self'];
-                //     $scope.requestedByContactFormatted =
-                //         FormatterService.formatContact($scope.device.requestedByContact);
-                // });
-
                 if ($rootScope.returnPickerObjectAddress && $rootScope.selectionId !== Devices.item.id) {
                     resetAddressPicker();
                 }
@@ -160,34 +135,30 @@ define(['angular',
             }
 
             $scope.setupSR(ServiceRequest, configureSR);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
             $scope.getRequestor(ServiceRequest, Contacts);
-            //configureTemplates();
-
-            // if($location.path().indexOf('receipt') > -1){
-            //     configureReceiptTemplate();
-            // }else if($location.path().indexOf('review') > -1){
-            //      configureReviewTemplate();
-            // }
-
-            // function setupSR(){
-            //     if(DeviceServiceRequest.item === null){
-            //         DeviceServiceRequest.newMessage();
-            //         $scope.sr = DeviceServiceRequest.item;
-            //         $scope.sr._links['account'] = $scope.device._links['account'];
-            //         $scope.sr._links['asset'] = $scope.device._links['self'];
-            //         $scope.sr.customerReferenceId = '';
-            //         $scope.sr.costCenter = '';
-            //         $scope.sr.notes = '';
-            //         $scope.sr.id = $scope.sr.requestNumber;
-            //         $scope.sr._links['ui'] = 'http://www.google.com/1-XAEASD';
-            //     }else{
-            //        $scope.sr = DeviceServiceRequest.item;
-            //     }
-            // }
+            
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
-                $scope.configure.actions.submit = $scope.goToSubmit
+                $scope.configure.actions.submit = function(){
+                    if ($scope.device.lexmarkMoveDevice === 'true') {
+                        ServiceRequest.addField('type', 'MADC_MOVE');
+                    } else {
+                        ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
+                    }
+
+                    var deferred = DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    });
+
+                    deferred.then(function(result){
+                        ServiceRequest.item = DeviceServiceRequest.item;
+                        $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+
+                };
             }
             function configureReceiptTemplate() {
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_SUBMITTED";
@@ -327,28 +298,6 @@ define(['angular',
                 $rootScope.selectedContact = undefined;
                 $rootScope.currentSelected = undefined;
             }
-
-            function setMADCObject() {
-                if ($scope.device.lexmarkMoveDevice === 'true') {
-                    $scope.madcDevice.type = 'MADC_MOVE';
-                } else {
-                    $scope.madcDevice.type = 'DATA_ASSET_CHANGE';
-                }
-                $scope.madcDevice.assetInfo = {
-                    ipAddress: $scope.device.ipAddress,
-                    hostName: $scope.device.hostName,
-                    assetTag: $scope.device.assetTag,
-                    costCenter: $scope.device.costCenter
-                };
-                $scope.madcDevice.notes = $scope.sr.notes;
-                $scope.madcDevice.customerReferenceNumber = $scope.sr.customerReferenceId;
-                $scope.madcDevice.primaryContact = $scope.device.primaryContact;
-                $scope.madcDevice.id = $scope.device.id;
-                $scope.madcDevice.installAddress = $scope.device.currentInstallAddress;
-                $scope.madcDevice.requestedByContact = $scope.device.requestedByContact;
-            }
-
-            
 
             $scope.getChangedValues = function() {
                 var formUpdatedValues = [];
