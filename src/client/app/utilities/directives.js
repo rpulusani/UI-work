@@ -10,6 +10,11 @@ define(['angular', 'utility'], function(angular) {
                     $rootScope.selectedContact = undefined;
                     $rootScope.currentSelected = undefined;
                 }
+                if($rootScope.addressPickerReset){
+                    $rootScope.returnPickerObjectAddress = undefined;
+                    $rootScope.returnPickerSRObjectAddress = undefined;
+                    $rootScope.selectedAddress = undefined;
+                }
              });
         }
          return {

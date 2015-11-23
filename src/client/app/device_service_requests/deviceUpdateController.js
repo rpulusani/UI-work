@@ -34,6 +34,7 @@ define(['angular',
 
             $scope.goToContactPicker = function(currentSelected) {
                 $rootScope.currentSelected = currentSelected;
+                $rootScope.selectionId = $scope.device.id;
                 $rootScope.contactReturnPath = $location.url();
                 $rootScope.returnPickerObject = $scope.device;
                 $rootScope.returnPickerSRObject = $scope.sr;
@@ -42,8 +43,9 @@ define(['angular',
 
             $scope.goToAddressPicker = function() {
                 $rootScope.addressReturnPath = $location.url();
-                $rootScope.returnPickerObject = $scope.device;
-                $rootScope.returnPickerSRObject = $scope.sr;
+                $rootScope.selectionId = $scope.device.id;
+                $rootScope.returnPickerObjectAddress = $scope.device;
+                $rootScope.returnPickerSRObjectAddress = $scope.sr;
                 $location.path(DeviceServiceRequest.route + '/update/pick_address');
             };
 
@@ -68,7 +70,9 @@ define(['angular',
 
             if (Devices.item === null) {
                 redirectToList();
-            } else if($rootScope.selectedContact){
+            } else if($rootScope.selectedContact 
+                    && $rootScope.returnPickerObject 
+                    && $rootScope.selectionId === Devices.item.id){
                 console.log('in select contact');
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
@@ -81,24 +85,17 @@ define(['angular',
                         $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                     }
                 }
-                
-                //$rootScope.contactPickerReset = true;
-                Devices.item = $rootScope.device;
-            } else if($rootScope.selectedAddress){
+                Devices.item = $scope.device;
+            } else if($rootScope.selectedAddress
+                    && $rootScope.returnPickerObjectAddress 
+                    && $rootScope.selectionId === Devices.item.id){
                 console.log('in select address');
-                $scope.device = $rootScope.returnPickerObject;
-                $scope.sr = $rootScope.returnPickerSRObject;
+                $scope.device = $rootScope.returnPickerObjectAddress;
+                $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 $scope.sr._links['destinationAddress'] = $rootScope.selectedAddress._links['self'];
                 $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
-                //$scope.contactPickerReset = true;
-                Devices.item = $rootScope.device;
-            } else if($rootScope.contactPickerReset){
-                console.log('in reset');
-                $scope.device = Devices.item;
-                setupSR();
-                $rootScope.contactPickerReset = false;
+                Devices.item = $scope.device;
             } else {
-                console.log('in default');
                 $scope.device = Devices.item;
                 if (!BlankCheck.isNull(Devices.item.address.item)) {
                     $scope.device.currentInstallAddress = Devices.item.address.item;
@@ -128,6 +125,14 @@ define(['angular',
                     $scope.requestedByContactFormatted =
                         FormatterService.formatContact($scope.device.requestedByContact);
                 });
+
+                if ($rootScope.returnPickerObjectAddress && $rootScope.selectionId !== Devices.item.id) {
+                    resetAddressPicker();
+                }
+
+                if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
+                    resetContactPicker();
+                }
 
             }
 
@@ -283,6 +288,19 @@ define(['angular',
                     }
                 }
 
+            }
+
+            function resetAddressPicker(){
+                $rootScope.returnPickerObjectAddress = undefined;
+                $rootScope.returnPickerSRObjectAddress = undefined;
+                $rootScope.selectedAddress = undefined;
+            }
+
+            function resetContactPicker(){
+                $rootScope.returnPickerObject = undefined;
+                $rootScope.returnPickerSRObject = undefined;
+                $rootScope.selectedContact = undefined;
+                $rootScope.currentSelected = undefined;
             }
 
             function setMADCObject() {
