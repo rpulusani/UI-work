@@ -32,9 +32,10 @@ define(['angular',
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             var configureSR = function(ServiceRequest){
+                    ServiceRequest.addField('description', '');
                     ServiceRequest.addRelationship('account', $scope.device);
                     ServiceRequest.addRelationship('asset', $scope.device, 'self');
-                    ServiceRequest.addRelationship('contact', $scope.device);
+                    ServiceRequest.addRelationship('primaryContact', $scope.device);
                     ServiceRequest.addField('type', 'BREAK_FIX');
             };
 
@@ -43,7 +44,7 @@ define(['angular',
             } else if($rootScope.selectedContact){
                 $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
-                $rootScope.sr._links['contact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
                 $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $rootScope.contactPickerReset = true;
                 Devices.item = $rootScope.device;
@@ -64,7 +65,7 @@ define(['angular',
             $scope.getRequestor(ServiceRequest, Contacts);
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
+                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
                    var deferred = DeviceServiceRequest.post({
                          item:  $scope.sr
