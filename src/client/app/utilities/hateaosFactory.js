@@ -236,8 +236,8 @@ define(['angular', 'utility'], function(angular) {
                             halObj = newObj;
                         }
                         $rootScope.currentUser.deferred.promise.then(function(){
-                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId; //get 0 index until account switching and preferences are 100% implemented
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;  //get 0 index until account switching and preferences are 100% implemented
                             halObj._links = {
                                 account: {
                                     href: 'http://localhost:8080/mps/accounts/' + self.params.accountId
@@ -310,12 +310,12 @@ define(['angular', 'utility'], function(angular) {
 
                         if (!self.params.accountId) {
                             //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountId = $rootScope.currentUser.item.data.accounts[0].accountId;
+                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
                         }
 
                         if (!self.params.accountLevel) {
                             //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountLevel = $rootScope.currentUser.item.data.accounts[0].level;
+                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
                         }
 
                         if (page || page === 0) {
