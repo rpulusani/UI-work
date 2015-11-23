@@ -1,8 +1,7 @@
 define(['angular',
     'deviceServiceRequest',
     'deviceManagement.deviceFactory',
-    'utility.formatters'
-    ],
+    'utility.formatters'],
     function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')

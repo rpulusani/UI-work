@@ -22,10 +22,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             configureTemplates();
 
-            // console.log('currentInstalledAddressTitle',$scope.currentInstalledAddressTitle);
-            // console.log('replaceAddressTitle',$scope.replaceAddressTitle);
-            // console.log('sourceAddress',$scope.sourceAddress);
-
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
                    $rootScope.selectedAddress = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
@@ -50,8 +46,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
             $rootScope.currentUser.deferred.promise.then(function(user) {
-                console.log('user is',user);
-                console.log('user.item.data._links.accounts',user.item._links.accounts);
                 user.item._links.accounts = user.item._links.accounts[0];
 
                 User.getAdditional(user.item, Account).then(function() {

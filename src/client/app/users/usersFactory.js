@@ -1,8 +1,8 @@
 define(['angular', 'user', 'hateoasFactory.serviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory', 'HATEAOSConfig', '$http', '$q',
-        function(serviceUrl, $translate, HATEOASFactory, HATEAOSConfig, $http, $q) {
+    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory',
+        function(serviceUrl, $translate, HATEOASFactory) {
             var UserService = {
 
                 //customize Address
