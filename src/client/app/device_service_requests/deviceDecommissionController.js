@@ -34,7 +34,7 @@ define(['angular',
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addRelationship('account', $scope.device);
                     ServiceRequest.addRelationship('asset', $scope.device, 'self');
-                    ServiceRequest.addRelationship('primaryContact', $scope.device);
+                    ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
 
                     ServiceRequest.addField('type', 'MADC_DECOMMISSION');
             };
@@ -79,13 +79,13 @@ define(['angular',
             var updateSRObjectForSubmit = function() {
 
                 if ($scope.device.lexmarkPickupDevice === 'true') {
-                    ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
                     $scope.sr = ServiceRequest.item;
                     $scope.sr.type = 'MADC_DECOMMISSION';
                 } else {
                     $scope.sr.type = 'DATA_ASSET_DEREGISTER';
                 }
 
+                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
 
 
             };

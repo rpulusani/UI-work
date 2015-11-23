@@ -35,7 +35,7 @@ define(['angular',
                     ServiceRequest.addField('description', '');
                     ServiceRequest.addRelationship('account', $scope.device);
                     ServiceRequest.addRelationship('asset', $scope.device, 'self');
-                    ServiceRequest.addRelationship('primaryContact', $scope.device);
+                    ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
                     ServiceRequest.addField('type', 'BREAK_FIX');
             };
 
