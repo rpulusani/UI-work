@@ -11,9 +11,9 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/new.html',
                 controller: 'DeviceAddController'
             })
-            .when('/service_requests/devices/pick_contact', {
+            .when('/service_requests/devices/update/pick_contact', {
                 templateUrl: '/app/device_service_requests/templates/contact-picker.html',
-                controller: 'ContactPickerController'
+                controller: 'DeviceUpdateController'
             })
             .when('/service_requests/devices/update/pick_address', {
                 templateUrl: '/app/device_service_requests/templates/address-picker.html',

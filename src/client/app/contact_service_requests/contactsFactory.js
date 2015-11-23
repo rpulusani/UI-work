@@ -1,11 +1,11 @@
-define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
+define(['angular', 'contact', 'utility.formatters'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService',
         function($translate, HATEOASFactory, formatter) {
             var Contacts = {
                 serviceName: 'contacts',
-                embeddedName: 'contact',
+                embeddedName: 'contacts',
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [

@@ -1,9 +1,9 @@
 define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .controller('ContactPickerController', ['$scope', '$location', 'grid', 'Contacts', 'FormatterService', '$rootScope',
+    .controller('ContactPickerController', ['$scope', '$location', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
         'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Contacts, FormatterService, $rootScope, Personalize) {
+        function($scope, $location, Grid, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
             $scope.selectedContact = [];
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
@@ -15,6 +15,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             if($rootScope.selectedAddress) {
                 $rootScope.selectedAddress = undefined;
             }
+
+            configureTemplates();
 
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
@@ -29,7 +31,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             console.log('current selected in contact picker',$rootScope.currentSelected)
             console.log('returnpath is',$rootScope.contactReturnPath);
 
-            $scope.goToDeviceAdd = function(){
+            $scope.goToCallingPage = function(){
                 console.log('contactReturnPath',$rootScope.contactReturnPath)
                 $location.path($rootScope.contactReturnPath);
             };
@@ -48,6 +50,19 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
             });
+
+            function configureTemplates() {
+                $scope.configure = {
+                    header: {
+                        translate: {
+                            h1: 'DEVICE_SERVICE_REQUEST.CHANGE_CONTACT',
+                            body: 'MESSAGE.LIPSUM',
+                            readMore: ''
+                        },
+                        readMoreUrl: ''
+                    }
+                }
+            }
 
         }
     ]);

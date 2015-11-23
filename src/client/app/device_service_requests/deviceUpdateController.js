@@ -37,7 +37,7 @@ define(['angular',
                 $rootScope.contactReturnPath = $location.url();
                 $rootScope.returnPickerObject = $scope.device;
                 $rootScope.returnPickerSRObject = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/pick_contact');
+                $location.path(DeviceServiceRequest.route + '/update/pick_contact');
             };
 
             $scope.goToAddressPicker = function() {
@@ -118,7 +118,8 @@ define(['angular',
                 // $rootScope.currentUser.item.data
                 // We'd want to actually do Users.item.links or Users.getAddi
                 var user = {item: {}}; 
-                user.item = Contacts.createItem($rootScope.currentUser.item.data);
+                console.log($rootScope.currentUser.item);
+                user.item = Contacts.createItem($rootScope.currentUser.item);
 
                 user.item.links.contact().then(function() {
                     console.log('user contact',user.item);
@@ -245,8 +246,7 @@ define(['angular',
                     },
                     contactPicker: {
                         translate: {
-                            title: 'CONTACT.SELECT_CONTACT',
-                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS'
+                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
                         }
                     },
                     addressPicker: {

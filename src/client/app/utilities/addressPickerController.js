@@ -51,10 +51,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
             $rootScope.currentUser.deferred.promise.then(function(user) {
                 console.log('user is',user);
-                console.log('user.item.data._links.accounts',user.item.data._links.accounts);
-                user.item.data._links.accounts = user.item.data._links.accounts[0];
+                console.log('user.item.data._links.accounts',user.item._links.accounts);
+                user.item._links.accounts = user.item._links.accounts[0];
 
-                User.getAdditional(user.item.data, Account).then(function() {
+                User.getAdditional(user.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);

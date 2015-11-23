@@ -21,24 +21,6 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory'], function(angular) {
                         {'name': $translate.instant('LABEL.COMPANY_ACCT'), 'field': '' },
                         {'name': $translate.instant('LABEL.ROLE'), 'field': '' }
                 ],
-                getLoggedInUserInfo: function(loginId){
-                    var self  = this,
-                    deferred = $q.defer(),
-                    url = '';
-
-                    HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                        self.url = api.url;
-                        url = self.url + '/' + loginId;
-                        $http.get(url).then(function(processedResponse) {
-                            self.item = processedResponse;
-                            self.processedResponse = processedResponse;
-
-                            deferred.resolve(self);
-                        });
-                    });
-
-                    return deferred.promise;
-                },
                 route: '/delegated_admin'
             };
 

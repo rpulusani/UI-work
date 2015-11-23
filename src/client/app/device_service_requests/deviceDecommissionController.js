@@ -76,7 +76,7 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             // $rootScope.currentUser.item.data
             // We'd want to actually do Users.item.links or Users.getAddi
             var user = {item: {}};
-            user.item = Contacts.createItem($rootScope.currentUser.item.data);
+            user.item = Contacts.createItem($rootScope.currentUser.item);
 
             user.item.links.contact().then(function() {
                 $scope.device.requestedByContact = user.item.contact.item;

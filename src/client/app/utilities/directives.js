@@ -36,8 +36,8 @@ define(['angular', 'utility'], function(angular) {
          return {
             restrict: 'A',
             scope: {
-                title: '@',
-                contactSelectText: '@'
+                currentContactTitle: '@',
+                replaceContactTitle: '@'
             },
             templateUrl: '/app/utilities/templates/pick-contact.html',
             controller: 'ContactPickerController'
