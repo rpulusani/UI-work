@@ -47,6 +47,7 @@ requirejs.config({
 
             'form',
             'form.datePicker',
+            'form.columnPickerController',
             'form.directives',
 
             'account',
@@ -86,6 +87,7 @@ requirejs.config({
 
         'form':['angular', 'lxk.fef'],
         'form.datePicker' : ['form'],
+        'form.columnPickerController': ['form'],
         'form.directives': ['form'],
 
         'account': ['angular'],
@@ -152,6 +154,7 @@ requirejs.config({
 
         'form': 'app/form/form',
         'form.datePicker': 'app/form/datePickerController',
+        'form.columnPickerController': 'app/form/columnPickerController',
         'form.directives': 'app/form/directives',
 
         'chart': 'app/chart/charts',

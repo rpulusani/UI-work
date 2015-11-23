@@ -20,10 +20,13 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-            
+
+            $scope.gridOptions.columnDefs = Contacts.columnDefs;
+            $scope.test = Contacts.columnDefs;
+
             Contacts.getPage().then(function() {
-                console.log(Contacts.data);
                 Grid.display(Contacts, $scope, personal);
+                $scope.$broadcast('setupColumnPicker', Grid);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
             });

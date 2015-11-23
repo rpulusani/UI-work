@@ -1,4 +1,4 @@
-define(['angular', 'utility', 'ui.grid'], function(angular) {
+define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .factory('grid', ['uiGridConstants',  function(uiGridConstants) {
@@ -11,6 +11,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 {items: 100}
             ];
             this.hasBookmarkCol = false; // has a bookmark column
+            this.gridOptions = {};
         };
 
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
@@ -45,7 +46,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             }
         };
 
-        Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
+        Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray) {
             var data = angular.copy(incommingData);
             if(functionArray && data){
                 for(var i = 0; i < data.length; ++i){
@@ -57,29 +58,34 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             return angular.copy(data);
         };
 
-        Grid.prototype.setColumnDefaults = function(service) {
+        /*
+            @columnSet'' is a key pointing to a property in @columnDefs{}.
+            @columnSet'' can also be an array of columns.
+        */
+        Grid.prototype.setColumnDefaults = function(columnSet, columnDefs, enableColumnMenu) {
             var columns = [],
             i = 0;
-            
-            //do something with a personal set of columns configured
-            if (!service.columns || (service.columns === 'default' 
-                || service.columns === 'defaultSet') && service.columnDefs.defaultSet) {
-                if (typeof service.columnDefs[service.columns] === 'function') {
-                     columns = service.columnDefs.defaultSet();
-                } else {
-                     columns = service.columnDefs.defaultSet;
+
+            if (!angular.isArray(columnSet)) {
+                //do something with a personal set of columns configured
+                if (columnDefs[columnSet]) {
+                    if (typeof columnDefs[columnSet] !== 'function') {
+                        columns = columnDefs[columnSet];
+                    } else {
+                        columns = columnDefs[columnSet]();
+                    }
                 }
-            } else if (service.columnDefs[service.columns]) {
-                if (typeof service.columnDefs[service.columns] === 'function') {
-                    columns = service.columnDefs[service.columns]();
-                } else {
-                    columns = service.columnDefs[service.columns];
-                }
+            } else {
+                columns = columnSet;
+            }
+
+            if (!enableColumnMenu) {
+                enableColumnMenu = false;
             }
 
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
-                columns[i].enableColumnMenu = false;
+                columns[i].enableColumnMenu = enableColumnMenu;
             }
 
             return columns;
@@ -87,8 +93,13 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
 
         Grid.prototype.display = function(service, scope, personal) {
             var newHeight =  46 + (31 * service.params.size);
+
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
-            scope.gridOptions.columnDefs = this.setColumnDefaults(service);
+           
+            scope.gridOptions.columnSet = service.columns;
+            scope.gridOptions.columns = service.columnDefs;
+
+            scope.gridOptions.columnDefs = this.setColumnDefaults(scope.gridOptions.columnSet, scope.gridOptions.columns);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
@@ -126,6 +137,12 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
                 scope.itemsPerPage = service.params.size;
             }
+
+            this.gridOptions = scope.gridOptions;
+        };
+
+        Grid.prototype.update = function(scope) {
+            this.gridOptions = scope.gridOptions;
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

@@ -25,7 +25,9 @@ angular.module('mps.form')
     return {
       restrict: 'A',
       scope: {
-
+        target: '=',
+        columns: '@',
+        grid: '@'
       },
       controller: 'ColumnPickerController'
     };

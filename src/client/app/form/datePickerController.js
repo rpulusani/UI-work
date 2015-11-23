@@ -1,4 +1,4 @@
-define(['angular', 'chartjs', 'rome', 'chart'], function(angular, ChartJs, Rome) {
+define(['angular', 'rome'], function(angular, Rome) {
     'use strict';
     angular.module('mps.form')
     .controller('DatePickerController', ['$scope', '$element', '$attrs',
