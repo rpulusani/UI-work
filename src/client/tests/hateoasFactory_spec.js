@@ -68,7 +68,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.item.id).toEqual('itemOne');
-                    expect(typeof mockFactory.item.links.self).toEqual('function');
+                    expect(typeof mockFactory.item.links.itemTwo).toEqual('function');
                 });
             });
 
@@ -86,7 +86,8 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     httpBackend.flush();
 
                     expect(mockFactory.item.device.item.name).toEqual('testDevice');
-                    expect(typeof mockFactory.item.device.item.links.self).toEqual('function');
+                    expect(typeof mockFactory.item.device.item.links.itemOne).toEqual('function');
+                    expect(typeof mockFactory.item.device.item.links.itemTwo).toEqual('function');
                 });
             });
 
@@ -100,7 +101,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.item).toEqual(null); // create item does not set the item!!
                     expect(item.id).toEqual('itemTwo');
-                    expect(typeof item.links.self).toEqual('function');
+                    expect(typeof item.links.itemOne).toEqual('function');
                 });
             });
 

@@ -144,7 +144,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 link;
 
                 for (link in links) {
-                    if (links[link].href) {
+                    if (links[link].href && link !== 'self') {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
@@ -474,6 +474,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (processedResponse.data._embedded && processedResponse.data.page) {
                     if (!self.embeddedName) {
+                        console.log('here');
                         self.data = processedResponse.data._embedded[self.serviceName];
                     } else {
                         self.data = processedResponse.data._embedded[self.embeddedName];

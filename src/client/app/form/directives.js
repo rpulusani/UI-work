@@ -21,6 +21,15 @@ angular.module('mps.form')
         };
     }
 ])
+.directive('columnpicker', [function () {
+    return {
+      restrict: 'A',
+      scope: {
+
+      },
+      controller: 'ColumnPickerController'
+    };
+}])
 .directive('datepicker', [function () {
     return {
       restrict: 'A',

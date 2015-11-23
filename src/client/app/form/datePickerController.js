@@ -20,7 +20,7 @@ define(['angular', 'chartjs', 'rome', 'chart'], function(angular, ChartJs, Rome)
             });
 
             // Add apply() call to top of event queue; hence 0 milliseconds
-            setInterval(function() {
+            setTimeout(function() {
                 scope.$apply();
             }, 0);
         }
