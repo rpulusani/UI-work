@@ -488,7 +488,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.setupItem = function(processedResponse) {
                 var self = this,
                 prop;
-                
+
                 if (processedResponse.data._embedded && processedResponse.data.page) {
                     if (!self.embeddedName) {
                         self.data = processedResponse.data._embedded[self.serviceName];
@@ -609,6 +609,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     self.processCall(options, deferred);
                                 });
                             } else {
+                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
                                 self.processCall(options, deferred);
                             }
                         }, function(reason) {
