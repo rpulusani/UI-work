@@ -61,8 +61,8 @@
 	
 		<text id="XMLID_2058_" transform="matrix(1 0 0 1 243.8846 60.6711)" fill="#1D1D26" font-family="'TPHero-Bold'" font-size="10px">Missed Reads</text>
 	<rect id="XMLID_21_" x="46.8" y="0" fill="none" width="247.8" height="28.1"/>
-	
+	<!--
 		<text id="XMLID_1968_" transform="matrix(1 0 0 1 130.3599 10.3883)" fill="#0061DE" font-family="'TPHero-Regular'" font-size="13px">Meter Reads</text>
-	<line id="XMLID_2072_" fill="none" stroke="#C9C9D1" stroke-miterlimit="10" x1="195.6" y1="52" x2="195.6" y2="266"/>
+	<line id="XMLID_2072_" fill="none" stroke="#C9C9D1" stroke-miterlimit="10" x1="195.6" y1="52" x2="195.6" y2="266"/>-->
 </g>
 </svg>
