@@ -95,11 +95,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             var newHeight =  46 + (31 * service.params.size);
 
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
-           
-            scope.gridOptions.columnSet = service.columns;
-            scope.gridOptions.columns = service.columnDefs;
 
-            scope.gridOptions.columnDefs = this.setColumnDefaults(scope.gridOptions.columnSet, scope.gridOptions.columns);
+            scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
@@ -124,6 +121,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
+            
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');

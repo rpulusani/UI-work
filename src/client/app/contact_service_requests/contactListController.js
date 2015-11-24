@@ -21,7 +21,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
 
-            $scope.gridOptions.columnDefs = Contacts.columnDefs;
+            $scope.gridOptions.columnDefs = Contacts.columnDefs[Contacts.columns];
             $scope.test = Contacts.columnDefs;
 
             Contacts.getPage().then(function() {

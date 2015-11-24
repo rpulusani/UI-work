@@ -6,14 +6,17 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
-                columns: 'default',
+                columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
                         {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
                         {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'},
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
                         {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'},
-                        {name: $translate.instant('CONTACT.EMAIL'), field: 'email'}
+                        {name: $translate.instant('CONTACT.EMAIL'), field: 'email', visible: false},
+                        {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false},
+                        {name: $translate.instant('CONTACT.TYPE'), field: 'type', visible: false},
+                        {name: $translate.instant('CONTACT.DEPARTMENT'), field: 'department', visible: false}
                     ]
                 },
                 route: '/service_requests/contacts',
