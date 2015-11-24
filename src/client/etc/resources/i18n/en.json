@@ -396,7 +396,12 @@
         "METER_READS": "Meter Reads",
         "CONSUMABLES_ORDERS": "Consumable Orders",
         "HARDWARE_ORDERS": "Hardware Orders",
-        "BILLED_PAGES": "Billed Pages"
+        "BILLED_PAGES": "Billed Pages",
+        "MOVES": "Moves",
+        "ADDITIONS": "Additions",
+        "IP_CHANGES": "IP Changes",
+        "DECOMMISSIONS": "Decommissions",
+        "SWAPS": "Swaps"
     },
 
     "INVOICE": {

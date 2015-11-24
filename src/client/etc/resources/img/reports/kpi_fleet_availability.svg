@@ -4,11 +4,11 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 369.3 243.4" enable-background="new 0 0 369.3 243.4" xml:space="preserve">
 <g id="Layer_2">
-	<g id="XMLID_17_">
+	<g id="XMLID_17_"><!--
 		<rect id="XMLID_87_" x="58.6" y="7.1" fill="none" width="247.8" height="28.1"/>
 		<text id="XMLID_3225_" transform="matrix(1 0 0 1 130.0162 17.4758)" font-family="'TPHero-Regular'" font-size="13px">Fleet Availability</text>
 		<rect id="XMLID_82_" x="94" y="50.6" fill="none" width="26.9" height="14.5"/>
-		
+		-->
 			<text id="XMLID_3219_" transform="matrix(1 0 0 1 94.0362 58.5705)" fill="#1D1D26" font-family="'TPHero-Regular'" font-size="10px">100%</text>
 		<rect id="XMLID_81_" x="100" y="211.6" fill="none" width="26.9" height="14.5"/>
 		

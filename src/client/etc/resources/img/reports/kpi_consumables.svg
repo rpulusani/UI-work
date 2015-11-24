@@ -49,11 +49,11 @@
 		<rect id="XMLID_2602_" x="161.9" y="61.6" fill="#1C64B4" width="33.2" height="154.9"/>
 	</g>
 </g>
-<g id="Layer_4">
+<g id="Layer_4"><!--
 	<rect id="XMLID_92_" x="58.6" y="6.4" fill="none" width="247.8" height="28.1"/>
 	<text id="XMLID_2595_" transform="matrix(1 0 0 1 140.442 16.806)" font-family="'TPHero-Regular'" font-size="13px">Consumables</text>
 	<rect id="XMLID_91_" x="94" y="49.9" fill="none" width="26.9" height="14.5"/>
-	
+	-->
 		<text id="XMLID_2588_" transform="matrix(1 0 0 1 94.0359 57.9001)" fill="#1D1D26" font-family="'TPHero-Regular'" font-size="10px">100%</text>
 	<rect id="XMLID_90_" x="100" y="210.9" fill="none" width="26.9" height="14.5"/>
 	

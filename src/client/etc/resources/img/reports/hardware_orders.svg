@@ -25,8 +25,8 @@
 		</g>
 	</g>
 	<rect id="XMLID_88_" x="52.9" y="-0.8" fill="none" width="247.8" height="28.1"/>
-	
-		<text id="XMLID_1972_" transform="matrix(1 0 0 1 121.5674 9.6291)" fill="#0061DE" font-family="'TPHero-Regular'" font-size="13px">Hardware Orders</text>
+	<!--
+		<text id="XMLID_1972_" transform="matrix(1 0 0 1 121.5674 9.6291)" fill="#0061DE" font-family="'TPHero-Regular'" font-size="13px">Hardware Orders</text>-->
 	<rect id="XMLID_2083_" x="0.1" y="33" fill="#EFF0F6" width="368.5" height="252"/>
 	<rect id="XMLID_87_" x="84.9" y="81.2" fill="none" width="49" height="18"/>
 	
