@@ -75,8 +75,8 @@ define(['angular', 'report', 'chart'], function(angular) {
                             ],
                         datasets: [
                             {
-                                fillColor: "#f00",
-                                strokeColor: "#f01",
+                                fillColor: "#00ad21",
+                                strokeColor: "#00ad21",
                                 data: [475, 375, 250, 150, 50]
                             }
                         ]
