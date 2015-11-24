@@ -387,7 +387,16 @@
         "PHY_LOC_3": "Physical Loc 3",
         "AGREEMENT": "Agreement",
         "KEY_PERFORMANCE_INDICATORS": "Key Performance Indicators",
-        "CHARTS": "Charts"
+        "CHARTS": "Charts",
+        "FLEET_AVAILABILITY": "Fleet Availability",
+        "RESPONSE_TIME": "Response Time",
+        "CONSUMABLES": "Consumables",
+        "ASSET_COUNT": "Asset Count",
+        "MADC_EVENTS": "MADC Events",
+        "METER_READS": "Meter Reads",
+        "CONSUMABLES_ORDERS": "Consumable Orders",
+        "HARDWARE_ORDERS": "Hardware Orders",
+        "BILLED_PAGES": "Billed Pages"
     },
 
     "INVOICE": {

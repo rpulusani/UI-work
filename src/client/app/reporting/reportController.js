@@ -3,6 +3,57 @@ define(['angular', 'report', 'chart'], function(angular) {
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
         function($scope, $location, Reports, Grid) {
+
+            function configureTemplates() {
+                $scope.configure = {
+                    header: {
+                        translate: {
+                            h1: 'REPORTING.TITLE',
+                            body: 'MESSAGE.LIPSUM',
+                        },
+                    },
+                    report: {
+                        kpi: {
+                            translate: {
+                                h2: 'REPORTING.FLEET_AVAILABILITY',
+                                fleetAvailability: 'REPORTING.FLEET_AVAILABILITY',
+                                responseTime: 'REPORTING.RESPONSE_TIME',
+                                consumables: 'REPORTING.CONSUMABLES'
+                            },
+                        },
+                        charts: {
+                            translate: {
+                                h2: 'REPORTING.CHARTS',
+                                assetCount: 'REPORTING.ASSET_COUNT',
+                                madcEvents: 'REPORTING.MADC_EVENTS',
+                                meterReads: 'REPORTING.METER_READS',
+                                consumablesOrders: 'REPORTING.CONSUMABLES_ORDERS',
+                                hardwareOrders: 'REPORTING.HARDWARE_ORDERS',
+                                billedPages: 'REPORTING.BILLED_PAGES'
+                            }
+                        },
+                        grids: {
+                            standard: {
+                                translate: {
+                                    h2: 'REPORTING.STANDARD_REPORTS',
+                                    fieldReportName: 'REPOTING.NAME'
+                                }
+                            },
+                            other: {
+                                translate: {
+                                    h2: 'REPORTING.OTHER_REPORTS',
+                                    fieldCreated: 'LABEL.CREATED',
+                                    fieldTaggedAs: 'LABEL.TAGGED_AS',
+                                    fieldFile: 'LABEL.FILE'
+                                }
+                            }
+                        }
+                    }
+                };
+            };
+
+            configureTemplates();
+
             var buildCharts = function() {
                 var i = 0,
                 report;
