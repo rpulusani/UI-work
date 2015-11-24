@@ -15,6 +15,7 @@ define(['angular',
         'FormatterService',
         'Contacts',
         '$rootScope',
+        'SRControllerHelperService',
         function($scope,
             $location,
             $translate,
@@ -24,32 +25,31 @@ define(['angular',
             DeviceServiceRequest,
             FormatterService,
             Contacts,
-            $rootScope){
+            $rootScope,
+            SRHelper){
 
             $scope.formattedAddress = '';
+            SRHelper.addMethods(Devices, $scope, $rootScope);
 
-            var redirect_to_list = function() {
-                $location.path(Devices.route + '/');
-            };
-
-             $scope.goToContactPicker = function() {
-                $rootScope.returnPickerObject = $scope.device;
-                $rootScope.returnPickerSRObject = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/pick_contact');
+            var configureSR = function(ServiceRequest){
+                    ServiceRequest.addField('description', '');
+                    ServiceRequest.addRelationship('account', $scope.device);
+                    ServiceRequest.addRelationship('asset', $scope.device, 'self');
+                    ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
+                    ServiceRequest.addField('type', 'BREAK_FIX');
             };
 
             if (Devices.item === null) {
-                redirect_to_list();
+                $scope.redirectToList();
             } else if($rootScope.selectedContact){
                 $rootScope.device = $rootScope.returnPickerObject;
                 $rootScope.sr = $rootScope.returnPickerSRObject;
-                $rootScope.sr._links['contact'] = $rootScope.selectedContact._links['self'];
+                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
                 $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $rootScope.contactPickerReset = true;
                 Devices.item = $rootScope.device;
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
-                setupSR();
                 $rootScope.contactPickerReset = false;
             }else {
                 $rootScope.device = Devices.item;
@@ -59,42 +59,13 @@ define(['angular',
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
                     $scope.device.primaryContact = Devices.item['contact']['item'];
                 }
-                setupSR();
             }
-
-            configureTemplates();
-            if($location.path().indexOf('receipt') > -1){
-                    configureReceiptTemplate();
-            }else if($location.path().indexOf('review') > -1){
-                    configureReviewTemplate();
-            }
-
-            Contacts.getAdditional($rootScope.currentUser.item, Contacts, 'requester').then(function(){
-                $scope.device.requestedByContact = Contacts.item;
-                ServiceRequest.addRelationship('requester', $scope.device.requestedByContact, 'self');
-                $scope.requestedByContactFormatted =
-                    FormatterService.formatContact($scope.device.requestedByContact);
-            });
-
-            function setupSR(){
-                if(ServiceRequest.item === null){
-                    ServiceRequest.newMessage();
-                    $scope.sr = ServiceRequest.item;
-                    ServiceRequest.addRelationship('account', $scope.device);
-                    ServiceRequest.addRelationship('asset', $scope.device, 'self');
-                    ServiceRequest.addRelationship('contact', $scope.device);
-                    ServiceRequest.addField('type', 'BREAK_FIX');
-                    ServiceRequest.addField('customerReferenceId', '');
-                    ServiceRequest.addField('costCenter', '');
-                    ServiceRequest.addField('notes', '');
-                    ServiceRequest.addField('description', '');
-                }else{
-                   $scope.sr = ServiceRequest.item;
-                }
-            }
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            $scope.getRequestor(ServiceRequest, Contacts);
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
+                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
                    var deferred = DeviceServiceRequest.post({
                          item:  $scope.sr
@@ -210,27 +181,19 @@ define(['angular',
                 };
             }
 
-            if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
-                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
-            }
+            /* Format Data for receipt */
+            var formatAdditionalData = function(){
+                if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
+                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
+                }
 
-            if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.primaryContact)){
-                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
-            }
-             if (!BlankCheck.isNull($scope.sr.notes)) {
-                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
-            }
+                if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.primaryContact)){
+                        $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
+                        $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+                }
+            };
 
-            if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
-                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
-            }
-
-            if (!BlankCheck.isNull($scope.sr.costCenter)) {
-                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
-            }
-
-            $scope.formattedAttachments = FormatterService.formatNoneIfEmpty($scope.sr.attachments);
+            $scope.formatReceiptData(formatAdditionalData);
         }
     ]);
 });

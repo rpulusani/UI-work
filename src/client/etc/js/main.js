@@ -167,6 +167,7 @@ requirejs.config({
         'utility.directives': 'app/utilities/directives',
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
+        'utility.addressPickerController': 'app/utilities/addressPickerController',
         'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
         'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',
         'utility.personalizationService': 'app/utilities/personalizationService',
@@ -194,6 +195,7 @@ requirejs.config({
         'serviceRequest.serviceRequestController': 'app/service_requests/serviceRequestController',
         'serviceRequest.directives': 'app/service_requests/directives',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
+        'serviceRequest.controllerHelperService': 'app/service_requests/srControllerHelperService',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressController': 'app/address_service_requests/addressController',

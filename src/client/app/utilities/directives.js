@@ -8,6 +8,12 @@ define(['angular', 'utility'], function(angular) {
                     $rootScope.returnPickerObject = undefined;
                     $rootScope.returnPickerSRObject = undefined;
                     $rootScope.selectedContact = undefined;
+                    $rootScope.currentSelected = undefined;
+                }
+                if($rootScope.addressPickerReset){
+                    $rootScope.returnPickerObjectAddress = undefined;
+                    $rootScope.returnPickerSRObjectAddress = undefined;
+                    $rootScope.selectedAddress = undefined;
                 }
              });
         }
@@ -35,12 +41,23 @@ define(['angular', 'utility'], function(angular) {
          return {
             restrict: 'A',
             scope: {
-                title: '@',
-                contactSelectText: '@',
-                returnPath: '@'
+                currentContactTitle: '@',
+                replaceContactTitle: '@'
             },
             templateUrl: '/app/utilities/templates/pick-contact.html',
             controller: 'ContactPickerController'
+        };
+    })
+    .directive('pickAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                currentInstalledAddressTitle: '@',
+                replaceAddressTitle: '@',
+                sourceAddress: '@'
+            },
+            templateUrl: '/app/utilities/templates/pick-address.html',
+            controller: 'AddressPickerController'
         };
     })
     .directive('selectPageCount', function(){

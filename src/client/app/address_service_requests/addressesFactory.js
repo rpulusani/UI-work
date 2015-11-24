@@ -1,8 +1,8 @@
 define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .factory('Addresses', [ 'serviceUrl', '$translate','HATEAOSFactory',
-        function(serviceUrl, $translate, HATEAOSFactory) {
+    .factory('Addresses', [ 'serviceUrl', '$translate','HATEOASFactory',
+        function(serviceUrl, $translate, HATEOASFactory) {
             var Addresses = {
 
                 //customize Address
@@ -23,7 +23,7 @@ define(['angular', 'address'], function(angular) {
 
             };
 
-            return new HATEAOSFactory(Addresses);
+            return new HATEOASFactory(Addresses);
         }
     ]);
 });
