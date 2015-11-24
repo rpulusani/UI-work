@@ -1,8 +1,8 @@
 define(['angular', 'report', 'chart'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid',
-        function($scope, $location, $translate, Reports, Grid) {
+    .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
+        function($scope, $location, Reports, Grid) {
 
             function configureTemplates() {
                 $scope.configure = {
@@ -29,14 +29,8 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 meterReads: 'REPORTING.METER_READS',
                                 consumablesOrders: 'REPORTING.CONSUMABLES_ORDERS',
                                 hardwareOrders: 'REPORTING.HARDWARE_ORDERS',
-                                billedPages: 'REPORTING.BILLED_PAGES',
-                                moves: 'REPORTING.MOVES',
-                                additions: 'REPORTING.ADDITIONS',
-                                ipChanges: 'REPORTING.IP_CHANGES',
-                                decommissions: 'REPORTING.DECOMMISSIONS',
-                                swaps: 'REPORTING.SWAPS'
-
-                            },
+                                billedPages: 'REPORTING.BILLED_PAGES'
+                            }
                         },
                         grids: {
                             standard: {
@@ -58,34 +52,7 @@ define(['angular', 'report', 'chart'], function(angular) {
                 };
             };
 
-            function configureFauxCharts() {
-                $scope.fauxCharts = {
-                    assetCount: [{
-                        value: 1733,
-                        color: '#00ad21',
-                        label: $translate.instant($scope.configure.report.charts.translate.assetCount)
-                    }],
-                    madcEvents: {
-                        labels: [
-                            $translate.instant($scope.configure.report.charts.translate.moves),
-                            $translate.instant($scope.configure.report.charts.translate.additions),
-                            $translate.instant($scope.configure.report.charts.translate.ipChanges),
-                            $translate.instant($scope.configure.report.charts.translate.decommissions),
-                            $translate.instant($scope.configure.report.charts.translate.swaps)
-                            ],
-                        datasets: [
-                            {
-                                fillColor: "#f00",
-                                strokeColor: "#f01",
-                                data: [475, 375, 250, 150, 50]
-                            }
-                        ]
-                    }
-                };
-            };
-
             configureTemplates();
-            configureFauxCharts();
 
             var buildCharts = function() {
                 var i = 0,
