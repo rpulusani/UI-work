@@ -151,6 +151,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             }
 
                             item[link].serviceName = link;
+
                             item[link].url = self.setupUrl(item._links[link].href);
                             item[link].params = self.setupParams({url: item._links[link].href});
 
@@ -465,6 +466,22 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.params.size = options.size;
                 }
 
+                if (options.embeddedName) {
+                    self.embeddedName = options.embeddedName;
+                }
+
+                if (options.serviceName) {
+                    self.serviceName = options.serviceName;
+                }
+
+                if (options.columns) {
+                    self.columns = options.columns;
+                }
+
+                if (options.columnDefs) {
+                    self.columnDefs = options.columnDefs;
+                }
+
                 return options;
             };
 
@@ -592,6 +609,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                     self.processCall(options, deferred);
                                 });
                             } else {
+                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
                                 self.processCall(options, deferred);
                             }
                         }, function(reason) {
