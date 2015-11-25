@@ -42,7 +42,7 @@ define(['angular', 'report', 'chart'], function(angular) {
                             standard: {
                                 translate: {
                                     h2: 'REPORTING.STANDARD_REPORTS',
-                                    fieldReportName: 'REPOTING.NAME'
+                                    fieldReportName: 'REPORTING.NAME'
                                 }
                             },
                             other: {
