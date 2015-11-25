@@ -6,9 +6,6 @@
         </div>
     </div>
 </div>
-        <div draw="piechart" data="{{ mp9058sp.chart }}"></div>
-        <a href="" ng-click="goToFinder(mp9058sp.report)" translate="REPORTING.VIEW_ASSET"></a>
-                
 
 <div class="page-content">
     <h2 translate="{{ configure.report.kpi.translate.h2 }}"></h2>
@@ -69,7 +66,14 @@
                 <a href="#" translate="{{ configure.report.charts.translate.meterReads }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/meter_reads.svg" />
+                <div class="row">
+                    <div class="col-1-2">
+                        <div draw="doughnutchart" data="{{ fauxCharts.meterReadsAll }}"></div>
+                    </div>
+                    <div class="col-1-2">
+                        <div draw="doughnutchart" data="{{ fauxCharts.meterReadsMissed }}"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

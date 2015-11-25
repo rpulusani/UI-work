@@ -34,8 +34,13 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 additions: 'REPORTING.ADDITIONS',
                                 ipChanges: 'REPORTING.IP_CHANGES',
                                 decommissions: 'REPORTING.DECOMMISSIONS',
-                                swaps: 'REPORTING.SWAPS'
-
+                                swaps: 'REPORTING.SWAPS',
+                                allReads: 'REPORTING.ALL_READS',
+                                missedReads: 'REPORTING.MISSED_READS',
+                                successfulReadsPercent: 'REPORTING.SUCCESSFUL_READS_PERCENT',
+                                missedReadsPercent: 'REPORTING.MISSED_READS_PERCENT',
+                                autoCount: 'REPORTING.AUTO_COUNT',
+                                manualCount: 'REPORTING.MANUAL_COUNT'
                             },
                         },
                         grids: {
@@ -60,11 +65,6 @@ define(['angular', 'report', 'chart'], function(angular) {
 
             function configureFauxCharts() {
                 $scope.fauxCharts = {
-                    assetCount: [{
-                        value: 1733,
-                        color: '#00ad21',
-                        label: $translate.instant($scope.configure.report.charts.translate.assetCount)
-                    }],
                     madcEvents: {
                         labels: [
                             $translate.instant($scope.configure.report.charts.translate.moves),
@@ -80,7 +80,27 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 data: [475, 375, 250, 150, 50]
                             }
                         ]
-                    }
+                    },
+                    meterReadsAll: [{
+                        value: 97,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.successfulReadsPercent, { successPercent: 97 })
+                    },
+                    {
+                        value: 3,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.missedReadsPercent, { missedPercent: 3, assetCount: 254 })
+                    }],
+                    meterReadsMissed: [{
+                        value: 1,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.autoCount, { autoCount: 1 })
+                    },
+                    {
+                        value: 253,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.manualCount, { manualCount: 253 })
+                    }]
                 };
             };
 
@@ -99,6 +119,7 @@ define(['angular', 'report', 'chart'], function(angular) {
 
                     // making sure we call only the working stats endpoint. 
                     //should be removed when all are working
+
                     if (report.id === 'mp9058sp') {
                         (function(report) {
                             report.links.stats({
@@ -108,7 +129,11 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 results = [];
                                 if (report.stats.data) {
                                     if (report.stats.data[0].stat.length > 0) {
+
+                                        var total = 0;
+
                                         for (j; j < report.stats.data[0].stat.length; j += 1) {
+                                            total += report.stats.data[0].stat[j].value;
                                             if (j === 0) {
                                                 results.push({
                                                     value: report.stats.data[0].stat[j].value, 
@@ -132,6 +157,12 @@ define(['angular', 'report', 'chart'], function(angular) {
                                                 });
                                             }
                                         }
+
+                                        $scope.fauxCharts.assetCount = [{
+                                            value: total,
+                                            color: '#00ad21',
+                                            label: $translate.instant($scope.configure.report.charts.translate.assetCount)
+                                        }];
 
                                         $scope[report.id] = {};
                                         $scope[report.id].report = report;

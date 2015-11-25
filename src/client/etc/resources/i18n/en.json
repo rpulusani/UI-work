@@ -401,7 +401,13 @@
         "ADDITIONS": "Additions",
         "IP_CHANGES": "IP Changes",
         "DECOMMISSIONS": "Decommissions",
-        "SWAPS": "Swaps"
+        "SWAPS": "Swaps",
+        "ALL_READS": "All Reads",
+        "MISSED_READS": "Missed Reads",
+        "SUCCESSFUL_READS_PERCENT": "{{successPercent}}% successful reads",
+        "MISSED_READS_PERCENT": "{{missedPercent}}% missed reads ({{assetCount}} assets)",
+        "AUTO_COUNT": "Auto ({{autoCount}} assets)",
+        "MANUAL_COUNT": "Manual ({{manualCount}} assets)"
     },
 
     "INVOICE": {
