@@ -16,11 +16,7 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                 legend = document.createElement('div');
             }
 
-            if  (attrs.centered !== 'false') {
-                node.style.textAlign = 'center';
-                node.style.verticalAlign = 'middle';
-                node.style.margin = '0  auto';
-            }
+            node.className = 'text--align-center';
 
             // move to scope.on and broadcast the event
             scope.$watch('data', function() {
@@ -50,7 +46,8 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                         case 'doughnutchart':
                             chart = chart.Doughnut(chartData, chartOptions);
                             break;
-                        default: chart = chart.Bar(chartData, chartOptions);
+                        default:
+                            chart = chart.Bar(chartData, chartOptions);
                     }
 
                     if (legend) {
