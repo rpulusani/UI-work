@@ -497,12 +497,22 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-                        self.setItem(processedResponse.data);
+                        if (self.serviceName 
+                            && (processedResponse.data._embedded && processedResponse.data._embedded[self.serviceName]) ) {
+
+                            if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
+                                self.data = processedResponse.data._embedded[self.serviceName];
+                            } else {
+                                self.item = processedResponse.data._embedded[self.serviceName];
+                            }
+                       } else {
+                            self.setItem(processedResponse.data);
+                       }
                     } else {
                         self.data = processedResponse.data;
                     }
 
-                    if (self.item._embedded) {
+                    if (self.item && self.item._embedded) {
                         for (prop in self.item._embedded) {
                             if (!self.item[prop]) {
                                 self.item[prop] = self.setItemDefaults();

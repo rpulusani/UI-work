@@ -1,8 +1,112 @@
 define(['angular', 'report', 'chart'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', 'Reports', 'grid',
-        function($scope, $location, Reports, Grid) {
+    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid',
+        function($scope, $location, $translate, Reports, Grid) {
+
+            function configureTemplates() {
+                $scope.configure = {
+                    header: {
+                        translate: {
+                            h1: 'REPORTING.TITLE',
+                            body: 'MESSAGE.LIPSUM',
+                        },
+                    },
+                    report: {
+                        kpi: {
+                            translate: {
+                                h2: 'REPORTING.FLEET_AVAILABILITY',
+                                fleetAvailability: 'REPORTING.FLEET_AVAILABILITY',
+                                responseTime: 'REPORTING.RESPONSE_TIME',
+                                consumables: 'REPORTING.CONSUMABLES'
+                            },
+                        },
+                        charts: {
+                            translate: {
+                                h2: 'REPORTING.CHARTS',
+                                assetCount: 'REPORTING.ASSET_COUNT',
+                                madcEvents: 'REPORTING.MADC_EVENTS',
+                                meterReads: 'REPORTING.METER_READS',
+                                consumablesOrders: 'REPORTING.CONSUMABLES_ORDERS',
+                                hardwareOrders: 'REPORTING.HARDWARE_ORDERS',
+                                billedPages: 'REPORTING.BILLED_PAGES',
+                                moves: 'REPORTING.MOVES',
+                                additions: 'REPORTING.ADDITIONS',
+                                ipChanges: 'REPORTING.IP_CHANGES',
+                                decommissions: 'REPORTING.DECOMMISSIONS',
+                                swaps: 'REPORTING.SWAPS',
+                                allReads: 'REPORTING.ALL_READS',
+                                missedReads: 'REPORTING.MISSED_READS',
+                                successfulReadsPercent: 'REPORTING.SUCCESSFUL_READS_PERCENT',
+                                missedReadsPercent: 'REPORTING.MISSED_READS_PERCENT',
+                                autoCount: 'REPORTING.AUTO_COUNT',
+                                manualCount: 'REPORTING.MANUAL_COUNT'
+                            },
+                        },
+                        grids: {
+                            standard: {
+                                translate: {
+                                    h2: 'REPORTING.STANDARD_REPORTS',
+                                    fieldReportName: 'REPORTING.NAME'
+                                }
+                            },
+                            other: {
+                                translate: {
+                                    h2: 'REPORTING.OTHER_REPORTS',
+                                    fieldCreated: 'LABEL.CREATED',
+                                    fieldTaggedAs: 'LABEL.TAGGED_AS',
+                                    fieldFile: 'LABEL.FILE'
+                                }
+                            }
+                        }
+                    }
+                };
+            };
+
+            function configureFauxCharts() {
+                $scope.fauxCharts = {
+                    madcEvents: {
+                        labels: [
+                            $translate.instant($scope.configure.report.charts.translate.moves),
+                            $translate.instant($scope.configure.report.charts.translate.additions),
+                            $translate.instant($scope.configure.report.charts.translate.ipChanges),
+                            $translate.instant($scope.configure.report.charts.translate.decommissions),
+                            $translate.instant($scope.configure.report.charts.translate.swaps)
+                            ],
+                        datasets: [
+                            {
+                                fillColor: "#00ad21",
+                                strokeColor: "#00ad21",
+                                data: [475, 375, 250, 150, 50]
+                            }
+                        ]
+                    },
+                    meterReadsAll: [{
+                        value: 97,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.successfulReadsPercent, { successPercent: 97 })
+                    },
+                    {
+                        value: 3,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.missedReadsPercent, { missedPercent: 3, assetCount: 254 })
+                    }],
+                    meterReadsMissed: [{
+                        value: 1,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.autoCount, { autoCount: 1 })
+                    },
+                    {
+                        value: 253,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.manualCount, { manualCount: 253 })
+                    }]
+                };
+            };
+
+            configureTemplates();
+            configureFauxCharts();
+
             var buildCharts = function() {
                 var i = 0,
                 report;
@@ -15,6 +119,7 @@ define(['angular', 'report', 'chart'], function(angular) {
 
                     // making sure we call only the working stats endpoint. 
                     //should be removed when all are working
+
                     if (report.id === 'mp9058sp') {
                         (function(report) {
                             report.links.stats({
@@ -24,7 +129,11 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 results = [];
                                 if (report.stats.data) {
                                     if (report.stats.data[0].stat.length > 0) {
+
+                                        var total = 0;
+
                                         for (j; j < report.stats.data[0].stat.length; j += 1) {
+                                            total += report.stats.data[0].stat[j].value;
                                             if (j === 0) {
                                                 results.push({
                                                     value: report.stats.data[0].stat[j].value, 
@@ -48,6 +157,12 @@ define(['angular', 'report', 'chart'], function(angular) {
                                                 });
                                             }
                                         }
+
+                                        $scope.fauxCharts.assetCount = [{
+                                            value: total,
+                                            color: '#00ad21',
+                                            label: $translate.instant($scope.configure.report.charts.translate.assetCount)
+                                        }];
 
                                         $scope[report.id] = {};
                                         $scope[report.id].report = report;
