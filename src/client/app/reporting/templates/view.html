@@ -84,7 +84,14 @@
                 <a href="#" translate="{{ configure.report.charts.translate.consumablesOrders }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/consumables_orders.svg" />
+                <div class="row">
+                    <div class="col-1-2">
+                        <div draw="piechart" data="{{ fauxCharts.consumableOrdersOpen }}"></div>
+                    </div>
+                    <div class="col-1-2">
+                        <div draw="piechart" data="{{ fauxCharts.consumableOrdersShipped }}"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-1-3">
@@ -92,7 +99,14 @@
                 <a href="#" translate="{{ configure.report.charts.translate.hardwareOrders }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/hardware_orders.svg" />
+                <div class="row">
+                    <div class="col-1-2">
+                        <div draw="piechart" data="{{ fauxCharts.hardwareOrdersOpen }}"></div>
+                    </div>
+                    <div class="col-1-2">
+                        <div draw="piechart" data="{{ fauxCharts.hardwareOrdersShipped }}"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-1-3">
@@ -100,7 +114,7 @@
                 <a href="#" translate="{{ configure.report.charts.translate.billedPages }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/billed_pages.svg" />
+                <div draw="doughnutchart" data="{{ fauxCharts.billedPages }}"></div>
             </div>
         </div>
     </div>

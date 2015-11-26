@@ -40,7 +40,13 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 successfulReadsPercent: 'REPORTING.SUCCESSFUL_READS_PERCENT',
                                 missedReadsPercent: 'REPORTING.MISSED_READS_PERCENT',
                                 autoCount: 'REPORTING.AUTO_COUNT',
-                                manualCount: 'REPORTING.MANUAL_COUNT'
+                                manualCount: 'REPORTING.MANUAL_COUNT',
+                                consumableOrdersOpen: 'LABEL.OPEN',
+                                consumableOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
+                                hardwareOrdersOpen: 'LABEL.OPEN',
+                                hardwareOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
+                                billedPagesColor: 'REPORTING.COLOR_PAGES_COUNT',
+                                billedPagesMono: 'REPORTING.MONO_PAGES_COUNT'
                             },
                         },
                         grids: {
@@ -100,7 +106,38 @@ define(['angular', 'report', 'chart'], function(angular) {
                         value: 253,
                         color: '#00ad21',
                         label: $translate.instant($scope.configure.report.charts.translate.manualCount, { manualCount: 253 })
-                    }]
+                    }],
+
+                    consumableOrdersOpen: [{
+                        value: 1854,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.consumableOrdersOpen)
+                    }],
+                    consumableOrdersShipped: [{
+                        value: 67,
+                        color: '#7e7e85',
+                        label: $translate.instant($scope.configure.report.charts.translate.consumableOrdersShipped)
+                    }],
+                    hardwareOrdersOpen: [{
+                        value: 51,
+                        color: '#00ad21',
+                        label: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen)
+                    }],
+                    hardwareOrdersShipped: [{
+                        value: 264,
+                        color: '#7e7e85',
+                        label: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped)
+                    }],
+                    billedPages: [{
+                        value: 10652,
+                        color: '#faa519',
+                        label: $translate.instant($scope.configure.report.charts.translate.billedPagesColor, { autoCount: 10652 })
+                    },
+                    {
+                        value: 311941,
+                        color: '#7e7e85',
+                        label: $translate.instant($scope.configure.report.charts.translate.billedPagesMono, { manualCount: 311941 })
+                    }],
                 };
             };
 
