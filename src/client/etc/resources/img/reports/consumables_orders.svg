@@ -8,8 +8,8 @@
 <text id="XMLID_821_" transform="matrix(1 0 0 1 85.5887 83.9069)" fill="#1C1D26" font-family="'TPHero-Regular'" font-size="10px">Open</text>
 <rect id="XMLID_85_" x="210.6" y="75.9" fill="none" width="112.2" height="20.8"/>
 <text id="XMLID_823_" transform="matrix(1 0 0 1 210.5818 83.9069)" fill="#1C1D26" font-family="'TPHero-Regular'" font-size="10px">Shipped last 30 days</text>
-<rect id="XMLID_84_" x="54.6" y="0" fill="none" width="247.8" height="28.1"/><!--
-<text id="XMLID_1974_" transform="matrix(1 0 0 1 113.0091 10.388)" fill="#0061DE" font-family="'TPHero-Regular'" font-size="13px">Consumables Orders</text>-->
+<rect id="XMLID_84_" x="54.6" y="0" fill="none" width="247.8" height="28.1"/>
+<text id="XMLID_1974_" transform="matrix(1 0 0 1 113.0091 10.388)" fill="#0061DE" font-family="'TPHero-Regular'" font-size="13px">Consumables Orders</text>
 <circle id="XMLID_466_" fill="#00AD21" stroke="#C9C9D1" stroke-width="1.2964" stroke-miterlimit="10" cx="101.4" cy="169.6" r="65.5"/>
 <rect id="XMLID_83_" x="57.3" y="156.3" fill="none" width="140" height="54"/>
 <text id="XMLID_463_" transform="matrix(1 0 0 1 57.3133 182.7094)" fill="#FFFFFF" font-family="'TPHero-Regular'" font-size="33px">1,854</text>
