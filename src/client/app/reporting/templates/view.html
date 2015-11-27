@@ -50,7 +50,7 @@
                 <a href="#" translate="{{ configure.report.charts.translate.assetCount }}"></a>
             </div>
             <div class="well">
-                <div draw="piechart" data="{{ fauxCharts.assetCount }}"></div>
+                <div draw="piechart" data="{{ chartData.assetCount }}"></div>
             </div>
         </div>
         <div class="col-1-3">
@@ -58,7 +58,8 @@
                 <a href="#" translate="{{ configure.report.charts.translate.madcEvents }}"></a>
             </div>
             <div class="well">
-                <div draw="barchart" data="{{ fauxCharts.madcEvents }}"></div>
+                <!--<div draw="barchart" data="{{ fauxCharts.madcEvents }}"></div>-->
+                <img src="/etc/resources/img/reports/madc_events.svg" />
             </div>
         </div>
         <div class="col-1-3">
@@ -66,14 +67,17 @@
                 <a href="#" translate="{{ configure.report.charts.translate.meterReads }}"></a>
             </div>
             <div class="well">
+                <img src="/etc/resources/img/reports/meter_reads.svg" />
+                <!--
                 <div class="row">
                     <div class="col-1-2">
                         <div draw="doughnutchart" data="{{ fauxCharts.meterReadsAll }}"></div>
+                        <img src="/etc/resources/img/reports/meter_reads.svg" />
                     </div>
                     <div class="col-1-2">
                         <div draw="doughnutchart" data="{{ fauxCharts.meterReadsMissed }}"></div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -86,10 +90,10 @@
             <div class="well">
                 <div class="row">
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ fauxCharts.consumableOrdersOpen }}"></div>
+                        <div draw="piechart" data="{{ chartData.consumableOrdersOpen }}"></div>
                     </div>
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ fauxCharts.consumableOrdersShipped }}"></div>
+                        <div draw="piechart" data="{{ chartData.consumableOrdersShipped }}"></div>
                     </div>
                 </div>
             </div>
@@ -101,10 +105,10 @@
             <div class="well">
                 <div class="row">
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ fauxCharts.hardwareOrdersOpen }}"></div>
+                        <div draw="piechart" data="{{ chartData.hardwareOrdersOpen }}"></div>
                     </div>
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ fauxCharts.hardwareOrdersShipped }}"></div>
+                        <div draw="piechart" data="{{ chartData.hardwareOrdersShipped }}"></div>
                     </div>
                 </div>
             </div>
@@ -114,7 +118,8 @@
                 <a href="#" translate="{{ configure.report.charts.translate.billedPages }}"></a>
             </div>
             <div class="well">
-                <div draw="doughnutchart" data="{{ fauxCharts.billedPages }}"></div>
+                <!--<div draw="doughnutchart" data="{{ fauxCharts.billedPages }}"></div>-->
+                <img src="/etc/resources/img/reports/billed_pages.svg" />
             </div>
         </div>
     </div>
