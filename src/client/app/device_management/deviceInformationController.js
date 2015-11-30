@@ -74,15 +74,6 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                         }
                     }
 
-                var image = new ImageService();
-                  image.getPartMediumImageUrl('35S0332').then(function(url){
-                    console.log("getPartMedium is " + url);
-                    $scope.medImage = url;
-                  }, function(reason){
-                    //console.log('Image url was not found reason: ' + reason);
-                     NREUM.noticeError('Image url was not found reason: ' + reason);
-                  });
-
                     if($scope.mono){
                         reorderedData.push($scope.mono);
                     }
@@ -94,6 +85,14 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     }
 
                     $scope.meterReads = reorderedData.concat(tempData);
+
+                var image = new ImageService();
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                  });
+                
                 });
 
                 if (!BlankCheck.isNull($scope.device._embeddedItems)) {

@@ -42,18 +42,13 @@ define(['angular', 'utility'], function(angular) {
                         return $.parseXML(data);
                      }
                 }).success(function(data, status, headers, config) {
-                    console.log(data);  // XML document object
-                    //my stuff
-                    console.log(data.getElementsByTagName('product')[0].attributes);
                     var medUrl = "";
                     var x = data.getElementsByTagName('img');
                     for (i = 0; i < x.length; i++) {
                         if(x[i].getAttribute('key')==='medium'){
-                            //console.log(x[i].getAttribute('src'));
                             medUrl = x[i].getAttribute('src');
-                        } 
+                        }
                     }
-                    //end my stuff
                     deferred.resolve(medUrl);
                 }).error(function(data, status, headers, config) {
                      alert('issue found: ' + data);
