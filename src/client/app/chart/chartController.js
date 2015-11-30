@@ -9,8 +9,11 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
             legend,
             chartData,
             centered,
-            chartOptions,
             chart;
+
+            var chartOptions = {};
+            chartOptions.responsive = true;
+            chartOptions.maintainAspectRatio = false;
 
             if  (attrs.showlegend === '' || attrs.showlegend) {
                 legend = document.createElement('div');
@@ -26,11 +29,13 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                     chartData = null;
                 }
 
-                if (scope.options) {
-                    chartOptions = JSON.parse(scope.options);
-                } else {
-                    chartOptions = {};
-                }
+                // if pie/doughnut has more than one value, display segments
+                if (attrs.draw.toLowerCase() === 'piechart' || attrs.draw.toLowerCase() === 'doughnutchart') {
+                    if (chartData !== null && chartData.length > 1)
+                        chartOptions.segmentShowStroke = true;
+                    else
+                        chartOptions.segmentShowStroke = false;
+                };
 
                 if (chartData !== null) {
                     node.appendChild(canvas);
