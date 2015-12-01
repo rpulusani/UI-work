@@ -1,8 +1,8 @@
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('FormatterService', [ '$translate', 'BlankCheck',
-        function($translate, BlankCheck) {
+    .factory('FormatterService', [ '$translate', 'BlankCheck','$filter',
+        function($translate, BlankCheck, $filter) {
             return{
                 getFormattedSRNumber: function(serviceRequest){
 
@@ -127,6 +127,10 @@ define(['angular', 'utility'], function(angular) {
 
                     }
                     return formattedAddress;
+                },
+                formatDate: function(dateToBeFormatted){
+                    var d = new Date(dateToBeFormatted);
+                    return $filter('date')(d, 'MM/dd/yyyy');
                 },
                 formatContact: function(contact){
                     var formattedContact = '';
