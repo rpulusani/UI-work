@@ -4,6 +4,8 @@ define(['angular', 'report', 'chart'], function(angular) {
     .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid',
         function($scope, $location, $translate, Reports, Grid) {
 
+            $scope.chartData = {};
+
             function configureTemplates() {
                 $scope.configure = {
                     header: {
@@ -40,7 +42,13 @@ define(['angular', 'report', 'chart'], function(angular) {
                                 successfulReadsPercent: 'REPORTING.SUCCESSFUL_READS_PERCENT',
                                 missedReadsPercent: 'REPORTING.MISSED_READS_PERCENT',
                                 autoCount: 'REPORTING.AUTO_COUNT',
-                                manualCount: 'REPORTING.MANUAL_COUNT'
+                                manualCount: 'REPORTING.MANUAL_COUNT',
+                                consumableOrdersOpen: 'LABEL.OPEN',
+                                consumableOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
+                                hardwareOrdersOpen: 'LABEL.OPEN',
+                                hardwareOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
+                                billedPagesColor: 'REPORTING.COLOR_PAGES_COUNT',
+                                billedPagesMono: 'REPORTING.MONO_PAGES_COUNT'
                             },
                         },
                         grids: {
@@ -100,79 +108,127 @@ define(['angular', 'report', 'chart'], function(angular) {
                         value: 253,
                         color: '#00ad21',
                         label: $translate.instant($scope.configure.report.charts.translate.manualCount, { manualCount: 253 })
-                    }]
+                    }],
+                    billedPages: [{
+                        value: 10652,
+                        color: '#faa519',
+                        label: $translate.instant($scope.configure.report.charts.translate.billedPagesColor, { autoCount: 10652 })
+                    },
+                    {
+                        value: 311941,
+                        color: '#7e7e85',
+                        label: $translate.instant($scope.configure.report.charts.translate.billedPagesMono, { manualCount: 311941 })
+                    }],
                 };
             };
 
             configureTemplates();
             configureFauxCharts();
 
-            var buildCharts = function() {
-                var i = 0,
-                report;
+            var buildAssetCountChart = function(data) {
+                var total = 0;
 
-                 for (i; i < $scope.reports.length; i += 1) {
+                for (var i = 0; i < data.stat.length; i++) {
+                    total += data.stat[i].value;
+                }
+
+                $scope.chartData.assetCount = [{
+                    value: total,
+                    color: '#00ad21',
+                    label: $translate.instant($scope.configure.report.charts.translate.assetCount)
+                }];
+            };
+
+            var buildConsumablesOrdersChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartData.consumableOrdersOpen = [{
+                    value: d.Open,
+                    color: '#00ad21',
+                    label: $translate.instant($scope.configure.report.charts.translate.consumableOrdersOpen)
+                }];
+
+                $scope.chartData.consumableOrdersShipped = [{
+                    value: d.Shipped,
+                    color: '#7e7e85',
+                    label: $translate.instant($scope.configure.report.charts.translate.consumableOrdersShipped)
+                }];
+            };
+
+            var buildHardwareOrdersChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartData.hardwareOrdersOpen = [{
+                    value: d.Open,
+                    color: '#00ad21',
+                    label: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen)
+                }];
+
+                $scope.chartData.hardwareOrdersShipped = [{
+                    value: d.Shipped,
+                    color: '#7e7e85',
+                    label: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped)
+                }];
+
+            };
+
+            var buildCharts = function() {
+                var report;
+
+                 for (var i = 0; i < $scope.reports.length; i++) {
                     report = Reports.createItem($scope.reports[i]);
 
                     report.stats.params.page = null;
                     report.stats.params.size = null;
 
-                    // making sure we call only the working stats endpoint. 
-                    //should be removed when all are working
-
-                    if (report.id === 'mp9058sp') {
                         (function(report) {
                             report.links.stats({
                                 embeddedName: 'stats',
                             }).then(function(serverResponse) {
-                                var j = 0,
-                                results = [];
-                                if (report.stats.data) {
-                                    if (report.stats.data[0].stat.length > 0) {
 
-                                        var total = 0;
-
-                                        for (j; j < report.stats.data[0].stat.length; j += 1) {
-                                            total += report.stats.data[0].stat[j].value;
-                                            if (j === 0) {
-                                                results.push({
-                                                    value: report.stats.data[0].stat[j].value, 
-                                                    color: '#F7464A', 
-                                                    highlight: '#FF5A5E', 
-                                                    label: report.stats.data[0].stat[j].label
-                                                });
-                                            } else if (j === 1) {
-                                                results.push({
-                                                    value: report.stats.data[0].stat[j].value, 
-                                                    color: '#46BFBD', 
-                                                    highlight: '#5AD3D1', 
-                                                    label: report.stats.data[0].stat[j].label
-                                                });
-                                            } else {
-                                                results.push({
-                                                    value: report.stats.data[0].stat[j].value, 
-                                                    color: '#FDB45C', 
-                                                    highlight: '#FFC870', 
-                                                    label: report.stats.data[0].stat[j].label
-                                                });
-                                            }
-                                        }
-
-                                        $scope.fauxCharts.assetCount = [{
-                                            value: total,
-                                            color: '#00ad21',
-                                            label: $translate.instant($scope.configure.report.charts.translate.assetCount)
-                                        }];
-
-                                        $scope[report.id] = {};
-                                        $scope[report.id].report = report;
-                                        $scope[report.id].chart = results;
+                                if (report.stats.data[0]) {
+                                    switch (report.id) {
+                                        /* Asset Register */
+                                        case 'mp9058sp':
+                                            buildAssetCountChart(report.stats.data[0]);
+                                            break;
+                                        /* MADC */
+                                        case 'mp9073':
+                                            break;
+                                        /* Missing Meter Reads */
+                                        case 'mp0075':
+                                            break;
+                                        /* Consumables Orders */
+                                        case 'mp0021':
+                                            buildConsumablesOrdersChart(report.stats.data[0]);
+                                            break;
+                                        /* Hardware Orders */
+                                        case 'hw0008':
+                                            buildHardwareOrdersChart(report.stats.data[0]);
+                                            break;
+                                        /* Pages Billed */
+                                        case 'pb0001':
+                                            break;
+                                        /* Hardware Installation Requests */
+                                        case 'hw0015':
+                                            break;
+                                        /* Service Detail Report */
+                                        case 'sd0101':
+                                            break;
+                                        default:
                                     }
                                 }
                             });
                         }(report));
                     }
-                }
             };
 
             $scope.finder = Reports.finder;

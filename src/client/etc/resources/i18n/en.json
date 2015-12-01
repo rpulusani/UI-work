@@ -407,7 +407,10 @@
         "SUCCESSFUL_READS_PERCENT": "{{successPercent}}% successful reads",
         "MISSED_READS_PERCENT": "{{missedPercent}}% missed reads ({{assetCount}} assets)",
         "AUTO_COUNT": "Auto ({{autoCount}} assets)",
-        "MANUAL_COUNT": "Manual ({{manualCount}} assets)"
+        "MANUAL_COUNT": "Manual ({{manualCount}} assets)",
+        "SHIPPED_LAST_THIRTY_DAYS": "Shipped last 30 days",
+        "COLOR_PAGES_COUNT": "{{colorCount}} color",
+        "MONO_PAGES_COUNT": "{{monoCount}} mono"
     },
 
     "INVOICE": {
@@ -537,7 +540,8 @@
         "CREATED": "Created",
         "TAGGED_AS": "Tagged as",
         "FILE": "File",
-        "ATTACHMENTS": "Attachements"
+        "ATTACHMENTS": "Attachements",
+        "OPEN": "Open"
     },
 
     "PAGINATION": {

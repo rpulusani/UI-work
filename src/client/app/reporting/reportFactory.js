@@ -9,25 +9,7 @@ define(['angular', 'report'], function(angular) {
                 embeddedName: 'reportTypes',
                 columns: 'default',
                 columnDefs: {
-                    mp9073: [
-                        {'name': $translate.instant('REPORTING.EVENT_TYPE'), 'field': 'type'},
-                        {'name': $translate.instant('REPORTING.EVENT_DT'), 'field': 'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
-                        {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer'},
-                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
-                        {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
-                        {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo'},
-                        {'name': $translate.instant('REPORTING.ORIG_SN'), 'field':'origSerialNumber'}
-                        /*
-                        {'name': $translate.instant('REPORTING.NEW_SN'), 'field': 'newSerialNumber'},
-                        {'name': $translate.instant('REPORTING.OLD_ADDRESS'), 'field': 'oldAddress'},
-                        {'name': $translate.instant('REPORTING.NEW_ADDRESS'), 'field': 'newAddress'},
-                        {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country'},
-                        {'name': $translate.instant('REPORTING.OLD_IP'), 'field': 'oldIp'},
-                        {'name': $translate.instant('REPORTING.NEW_IP'), 'field': 'newIp'},
-                        {'name': $translate.instant('REPORTING.OLD_CHL'), 'field': 'oldChl'},
-                        {'name': $translate.instant('REPORTING.NEW_CHL'), 'field': 'newChl'}
-                        */
-                    ],
+                    /* Asset Register */
                     mp9058sp: [
                         {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl'},
                         {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName'},
@@ -63,7 +45,39 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.PHY_LOC_3'), 'field': 'phyLoc3'},
                         {'name': $translate.instant('REPORTING.AGREEMENT'), 'field': 'agreement'}
                         */
-                    ]
+                    ],
+                    /* MADC */
+                    mp9073: [
+                        {'name': $translate.instant('REPORTING.EVENT_TYPE'), 'field': 'type'},
+                        {'name': $translate.instant('REPORTING.EVENT_DT'), 'field': 'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
+                        {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer'},
+                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
+                        {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
+                        {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo'},
+                        {'name': $translate.instant('REPORTING.ORIG_SN'), 'field':'origSerialNumber'}
+                        /*
+                        {'name': $translate.instant('REPORTING.NEW_SN'), 'field': 'newSerialNumber'},
+                        {'name': $translate.instant('REPORTING.OLD_ADDRESS'), 'field': 'oldAddress'},
+                        {'name': $translate.instant('REPORTING.NEW_ADDRESS'), 'field': 'newAddress'},
+                        {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country'},
+                        {'name': $translate.instant('REPORTING.OLD_IP'), 'field': 'oldIp'},
+                        {'name': $translate.instant('REPORTING.NEW_IP'), 'field': 'newIp'},
+                        {'name': $translate.instant('REPORTING.OLD_CHL'), 'field': 'oldChl'},
+                        {'name': $translate.instant('REPORTING.NEW_CHL'), 'field': 'newChl'}
+                        */
+                    ],
+                    /* Missing Meter Reads */
+                    mp0075: [],
+                    /* Consumables Orders */
+                    mp0021: [],
+                    /* Hardware Orders */
+                    hw0008: [],
+                    /* Pages Billed */
+                    pb0001: [],
+                    /* Hardware Installation Requests */
+                    hw0015: [],
+                    /* Service Detail Report */
+                    sd0101: []
                 },    
                 route: '/reporting',
                 finder: {
