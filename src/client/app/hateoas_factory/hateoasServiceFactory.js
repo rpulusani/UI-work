@@ -23,7 +23,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         serviceDefinition.columnDefs = {defaultSet: []};
                     }
 
-                    if (serviceDefinition.columns.toLowerCase() === 'default') {
+                    if (!serviceDefinition.columns || serviceDefinition.columns.toLowerCase() === 'default') {
                         serviceDefinition.columns = 'defaultSet';
                     }
                 }

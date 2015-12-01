@@ -65,13 +65,13 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
+                    
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.item.id).toEqual('itemOne');
-                    expect(typeof mockFactory.item.links.self).toEqual('function');
+                    expect(typeof mockFactory.item.links.itemTwo).toEqual('function');
                 });
             });
-/*
+
             describe('testing embedded items' , function() {
                 it('a call to a service with embeds=name,name2 should return those items attached to the response', function() {
                     httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&embeds=device').respond(fixtures.api.test.embedItem);
@@ -86,7 +86,8 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     httpBackend.flush();
 
                     expect(mockFactory.item.device.item.name).toEqual('testDevice');
-                    expect(typeof mockFactory.item.device.item.links.self).toEqual('function');
+                    expect(typeof mockFactory.item.device.item.links.itemOne).toEqual('function');
+                    expect(typeof mockFactory.item.device.item.links.itemTwo).toEqual('function');
                 });
             });
 
@@ -96,11 +97,11 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
+                    
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.item).toEqual(null); // create item does not set the item!!
                     expect(item.id).toEqual('itemTwo');
-                    expect(typeof item.links.self).toEqual('function');
+                    expect(typeof item.links.itemOne).toEqual('function');
                 });
             });
 
@@ -177,7 +178,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
+                    
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
             });
@@ -192,7 +193,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
+                    
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
             });
@@ -206,7 +207,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
+                    
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.params.page).toEqual(1);
                     expect(mockFactory.params.size).toEqual(20);
@@ -283,7 +284,6 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     expect(result).toEqual('http://www.google.com');
                 });
             });
-*/
         });
     }
 );
