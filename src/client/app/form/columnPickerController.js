@@ -38,9 +38,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 var listItem = angular.element('<li>'),
                 checkBoxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
                 checkbox = $('<input type="checkbox" id="' + column.name + '" name="' + column.field  + '" value="">'),
-                checkboxLabel;
-
-                checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name + '</label>')
+                checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name + '</label>');
 
                 checkBoxWrapper.append(checkbox);
                 checkBoxWrapper.append(checkboxLabel);

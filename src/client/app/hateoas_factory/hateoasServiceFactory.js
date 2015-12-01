@@ -469,6 +469,22 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.params.size = options.size;
                 }
 
+                if (options.embeddedName) {
+                    self.embeddedName = options.embeddedName;
+                }
+
+                if (options.serviceName) {
+                    self.serviceName = options.serviceName;
+                }
+
+                if (options.columns) {
+                    self.columns = options.columns;
+                }
+
+                if (options.columnDefs) {
+                    self.columnDefs = options.columnDefs;
+                }
+
                 return options;
             };
 
