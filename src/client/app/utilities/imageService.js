@@ -12,6 +12,9 @@ define(['angular', 'utility'], function(angular) {
                     prefix: '',
                     number: '',
                 };
+                if(!partNumber || partNumber.length < 3){
+                    return undefined;
+                }
                 item.prefix = partNumber.substring(0,3);
                 item.number = partNumber;
                 return item;
@@ -19,17 +22,27 @@ define(['angular', 'utility'], function(angular) {
             Image.prototype.buildUrl = function(item){
                 var self = this,
                 builtUrl = self.url;
+                if(!item || !item.prefix || !item.number){
+                    return undefined;
+                }
                 return builtUrl + item.prefix + '/' + item.number + '.xml';
             };
             Image.prototype.getPartMediumImageUrl = function(partNumber){
+                // DONE use the test cases for partNumber for undefined, null, less 3 characters
+
+
                 var self = this,
                 item  = self.parsePartNumber(partNumber),
-                deferred = $q.defer();
-                var url  = self.buildUrl(item);
-               /* var str= '<xml version=\'1.0\'><name>jQuery By Example</name></xml>';
-                $('h1').html($Name);*/
+                deferred = $q.defer(),
+                url  = self.buildUrl(item),
+                defaultImageUrl = '/etc/resources/img/part_na_color.png';
 
-                $http({
+                // DONE what do you do here if url is undefined???
+                if(!url){
+                    return defaultImageUrl;
+                }
+                //console.log(url);
+               $http({
                      method: 'GET',
                      url: url,
                      timeout: 10000,
@@ -42,27 +55,33 @@ define(['angular', 'utility'], function(angular) {
                         return $.parseXML(data);
                      }
                 }).success(function(data, status, headers, config) {
-                    var medUrl = "";
+                    // TODO what if the xml is bad?
+
+                    var medUrl = defaultImageUrl; //<--- DONE set default url here
                     var x = data.getElementsByTagName('img');
-                    for (i = 0; i < x.length; i++) {
+                    for (var i = 0; i < x.length; i++) {
+                    // DONE what if its missing medium?
                         if(x[i].getAttribute('key')==='medium'){
-                            medUrl = x[i].getAttribute('src');
+                            // DONE what happens if src does not exist?
+                            if(x[i].getAttribute('src')){
+                                medUrl = x[i].getAttribute('src');
+                            }
                         }
                     }
+                    //console.log(medUrl);
+                    // DONE if medUrl is not found should we should return default image
                     deferred.resolve(medUrl);
                 }).error(function(data, status, headers, config) {
-                     alert('issue found: ' + data);
-                     deferred.reject(data);
+                     // capture the error and resolve to default image url
+                     // how do we do this? NREUM.noticeError('Failed to get imageService xml ' + data);
+                     deferred.resolve(defaultImageUrl);
+                     //deferred.reject(data);
                 });
 
                 return deferred.promise;
             };
-            Image.prototype.getPartSmallImageUrl = function(partNumber){
-                var self = this,
-                item  = self.parsePartNumber(partNumber);
-            };
             //http://www.lexmark.com/common/xml/35S/35S0332.xml
-            return  Image;
+            return  new Image();
         }
     ]);
 });
