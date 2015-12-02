@@ -56,7 +56,6 @@ define(['angular', 'serviceRequest'], function(angular) {
             function getRequestor(ServiceRequest, Contacts){
                 var user = {item: {}}; 
                 user.item = Contacts.createItem(rootScope.currentUser.item);
-
                 user.item.links.contact().then(function() {
                     scope.device.requestedByContact = user.item.contact.item;
                     ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
@@ -99,6 +98,25 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
+            function resetAddressPicker(){
+                rootScope.returnPickerObjectAddress = undefined;
+                rootScope.returnPickerSRObjectAddress = undefined;
+                rootScope.selectedAddress = undefined;
+            }
+
+            function resetContactPicker(){
+                rootScope.returnPickerObject = undefined;
+                rootScope.returnPickerSRObject = undefined;
+                rootScope.selectedContact = undefined;
+                rootScope.currentSelected = undefined;
+            }
+
+            function setupPhysicalLocations(address, building, floor, office) {
+                address.building = building;
+                address.floor = floor;
+                address.office = office;
+            }
+
             function addMethods(halObject, $scope, $rootScope){
                 halObj = halObject;
                 scope = $scope;
@@ -111,6 +129,9 @@ define(['angular', 'serviceRequest'], function(angular) {
                     scope.formatReceiptData = formatReceiptData;
                     scope.setupTemplates = setupTemplates;
                     scope.setupSR = setupSR;
+                    scope.setupPhysicalLocations = setupPhysicalLocations;
+                    scope.resetAddressPicker = resetAddressPicker;
+                    scope.resetContactPicker = resetContactPicker;
                 }else{
                     throw 'scope was not passed in to addMethods';
                 }
