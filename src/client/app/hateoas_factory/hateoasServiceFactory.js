@@ -23,7 +23,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         serviceDefinition.columnDefs = {defaultSet: []};
                     }
 
-                    if (serviceDefinition.columns.toLowerCase() === 'default') {
+                    if (!serviceDefinition.columns || serviceDefinition.columns.toLowerCase() === 'default') {
                         serviceDefinition.columns = 'defaultSet';
                     }
                 }
@@ -269,15 +269,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
-            HATEOASFactory.prototype.getHalUrl = function(halObj){
+            HATEOASFactory.prototype.getHalUrl = function(halObj) {
                 var url = '',
                 i = 0;
 
-                if (halObj.item && halObj.item.postURL){
+                if (halObj.item && halObj.item.postURL) {
                     url = halObj.item.postURL;
                 } else if (halObj.item && halObj.item._links){
                     for (i; i < halObj.item._links.length; i += 1) {
-                        if (halObj.item._links[i].self && halObj.item._links[i].self.href){
+                        if (halObj.item._links[i].self && halObj.item._links[i].self.href) {
                             url = halObj.item._links[i].self.href;
                         }
                     }
@@ -500,18 +500,17 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-                        if (self.serviceName 
-                            && (processedResponse.data._embedded && processedResponse.data._embedded[self.serviceName]) ) {
+                        if (self.serviceName && (processedResponse.data._embedded 
+                            && processedResponse.data._embedded[self.serviceName]) ) {
 
                             if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
                                 self.data = processedResponse.data._embedded[self.serviceName];
                             } else {
                                 self.item = processedResponse.data._embedded[self.serviceName];
                             }
-                         } else {
+                        } else {
                             self.setItem(processedResponse.data);
-
-                         } 
+                        }
                     } else {
                         self.data = processedResponse.data;
                     }

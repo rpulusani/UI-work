@@ -56,7 +56,7 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
 
                     spyOn(gridService, 'setColumnDefaults').and.callThrough();
 
-                    columns = gridService.setColumnDefaults(mockedAddressesFactory);
+                    columns = gridService.setColumnDefaults(mockedAddressesFactory.columns, mockedAddressesFactory.columnDefs);
 
                     expect(mockedAddressesFactory.columns).toEqual('defaultSet');
                     expect(columns.length).toEqual(5);
@@ -69,7 +69,7 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
 
                     mockedAddressesFactory.columns = 'testCol';
 
-                    columns = gridService.setColumnDefaults(mockedAddressesFactory);
+                    columns = gridService.setColumnDefaults(mockedAddressesFactory.columns, mockedAddressesFactory.columnDefs);
 
                     expect(mockedAddressesFactory.columns).toEqual('testCol');
                     expect(columns.length).toEqual(1);
