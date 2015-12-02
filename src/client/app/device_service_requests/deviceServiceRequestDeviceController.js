@@ -1,6 +1,7 @@
 define(['angular',
     'deviceServiceRequest',
-    'deviceManagement.deviceFactory'],
+    'deviceManagement.deviceFactory',
+    'utility.imageService'],
     function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
@@ -9,6 +10,7 @@ define(['angular',
         '$location',
         '$translate',
         'Devices',
+        'imageService',
         'ServiceRequestService',
         'BlankCheck',
         'DeviceServiceRequest',
@@ -20,6 +22,7 @@ define(['angular',
             $location,
             $translate,
             Devices,
+            ImageService,
             ServiceRequest,
             BlankCheck,
             DeviceServiceRequest,
@@ -59,6 +62,14 @@ define(['angular',
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
                     $scope.device.primaryContact = Devices.item['contact']['item'];
                 }
+
+                var image =  ImageService;
+                image.getPartMediumImageUrl($rootScope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                  });
+
             }
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
