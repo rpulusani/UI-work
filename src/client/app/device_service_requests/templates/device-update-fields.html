@@ -2,26 +2,38 @@
 
 <hr />
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></h3>
-
-<div class="contact-info">
-    <div ng-bind-html="formattedInstalledAddress"></div>
+<h3 ng-hide="device.addressSelected" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></h3>
+<div ng-show="device.addressSelected">
+    <h3 translate="DEVICE_SERVICE_REQUEST.PREVIOUS_INSTALL_ADDRESS"></h3>
+    <div class="contact-info">
+        <div ng-bind-html="formattedCurrentAddress"></div>
+    </div>
+    <a href="" translate="DEVICE_SERVICE_REQUEST.REVERT_TO_THIS" ng-click="revertAddress()"></a>
+    <h3 translate="DEVICE_SERVICE_REQUEST.NEW_INSTALL_ADDRESS"></h3>
 </div>
-<a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('updateInstallAddress')"></a>
-
+<div class="contact-info">
+    <div ng-bind-html="formattedDeviceAddress"></div>
+</div>
+<div ng-hide="device.addressSelected">
+    <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('updateInstallAddress')"></a>
+</div>
+<div ng-show="device.addressSelected">
+    <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_DIFFERENT_INSTALL_ADDRESS" 
+        ng-click="goToAddressPicker('updateInstallAddress')"></a>
+</div>
 <div class="form__field">
     <label translate="ADDRESS.BUILDING_NAME"></label>
-    <input name="buildingName" type="text" ng-model="device.updateInstallAddress.building" value="" class="" />
+    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" />
 </div>
 
 <div class="form__field">
     <label translate="ADDRESS.FLOOR_NAME"></label>
-    <input name="floorName" type="text" ng-model="device.updateInstallAddress.floor" value="" class="" />
+    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" />
 </div>
 
 <div class="form__field">
     <label translate="ADDRESS.SITE_NAME"></label>
-    <input name="siteName" type="text" ng-model="device.updateInstallAddress.office" value="" class="" />
+    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" />
 </div>
 
 <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_MOVE_QUESTION"></strong>

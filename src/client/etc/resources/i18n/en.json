@@ -142,7 +142,11 @@
         "CHANGE_CONTACT": "Change Contact",
         "CURRENTLY_INSTALLED_AT": "Device currently installed at",
         "REPLACE_ADDRESS_WITH": "Replace device installation address with...",
-        "CHANGE_INSTALL_ADDRESS": "Change device install address"
+        "CHANGE_INSTALL_ADDRESS": "Change device install address",
+        "PREVIOUS_INSTALL_ADDRESS": "Previous install address",
+        "NEW_INSTALL_ADDRESS": "New install address",
+        "SELECT_DIFFERENT_INSTALL_ADDRESS": "Select a different install address",
+        "REVERT_TO_THIS": "Revert to this address"
     },
 
     "ADDRESS": {

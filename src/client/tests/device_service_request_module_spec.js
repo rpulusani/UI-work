@@ -1,4 +1,4 @@
-define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mocks, deviceServiceRequest) {
+define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasFactory'], function(angular, mocks, fixtures, deviceServiceRequest) {
     describe('Device Service Request Module', function() {
         beforeEach(module('mps'));
 
@@ -129,13 +129,13 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 });
             });*/
         });
-/*
+
         describe('DeviceUpdateController', function() {
             var scope, ctrl, location, form, deferred, blankCheck, mockedFactory, $httpBackend,
-            MockDeviceServiceRequest, mockContacts, compile;
+            MockDeviceServiceRequest, mockContacts, mockSRControllerHelperService, compile;
 
-            beforeEach(inject(function($rootScope, $controller, $location, $compile, $q, BlankCheck, HATEAOSFactory, $httpBackend,
-                Devices, DeviceServiceRequest, Contacts) {
+            beforeEach(inject(function($rootScope, $controller, $location, $compile, $q, BlankCheck, HATEOASFactory, $httpBackend,
+                Devices, DeviceServiceRequest, Contacts, SRControllerHelperService) {
                 scope = $rootScope.$new();
                 rootScope = $rootScope;
                 location = $location;
@@ -143,202 +143,23 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 deferred = $q.defer();
                 blankCheck = BlankCheck;
                 MockDeviceServiceRequest = DeviceServiceRequest;
-                mockFactory = Devices;
+                mockDevices = Devices;
+                mockSRControllerHelperService = SRControllerHelperService;
 
-                mockFactory.get = function(device) {
-                    return deferred.promise;
-                };
-
-                mockFactory.save = function(device) {
-                    device.id = 'assigned';
-                    return deferred.promise;
-                };
-
-                mockFactory.update = function(device) {
-                    return deferred.promise;
-                };
-
-                mockFactory.route = 'http://127.0.0.1/test';
-                mockFactory.item = {
-                    "serialNumber": "406336990F9Y5",
-                    "assetTag": null,
-                    "hostName": null,
-                    "ipAddress": null,
-                    "contractType": null,
-                    "assetPhase": null,
-                    "costCenter": null,
-                    "productModel": null,
-                    "partNumber": "Lexmark MS811dn",
-                    "machineType": "MS811dn",
-                    "installDate": "2014-08-21 00:00:00.0",
-                    "id": "1-T7X0-266",
-                    "_embeddedItems": {
-                        "address": {
-                          "name": "Walmart Chile Comercial Limitada",
-                          "storeFrontName": null,
-                          "addressLine1": "Avda.NeptunoN°720",
-                          "addressLine2": null,
-                          "city": "PUDAHUEL",
-                          "stateCode": null,
-                          "province": "Santiago",
-                          "county": null,
-                          "district": null,
-                          "country": "Chile",
-                          "countryIsoCode": null,
-                          "postalCode": "8991560",
-                          "siteId": null,
-                          "siteName": null,
-                          "buildingId": null,
-                          "buildingName": null,
-                          "floorId": null,
-                          "floorName": null,
-                          "zoneId": null,
-                          "zoneName": null,
-                          "lbsIdentifierFlag": null,
-                          "region": null,
-                          "latitude": null,
-                          "longitude": null,
-                          "lbsGridX": null,
-                          "lbsGridY": null,
-                          "assets": null,
-                          "id": "1-CMP8BEW",
-                          "state": null
-                        },
-                        "primaryContact": {
-                          "firstName": "TAMARA",
-                          "middleName": null,
-                          "lastName": "GALLARDO",
-                          "email": null,
-                          "workPhone": "+000000000",
-                          "alternatePhone": "",
-                          "department": "",
-                          "type": null,
-                          "userFavorite": null,
-                          "physicalAddress": null,
-                          "id": "1-CMN655B"
-                        }
-                    },
-                    "_links" : {
-                        "self" : {
-                            "href" : mockFactory.url + "/1-ACCT-ID"
-                        },
-                        "meterReads": {
-                          "href": mockFactory.url + "/1-ACCT-ID/meter-reads"
-                        }
-                    }
-                };
+                mockDevices.url = 'http://127.0.0.1/test';
+                mockDevices.item = fixtures.devices.regular;
 
                 httpBackend = $httpBackend;
-                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
-                httpBackend.when('GET', '/').respond({it: 'works'});
                 MockDeviceServiceRequest.route = 'http://127.0.0.1/request';
 
-                MockDeviceServiceRequest.get = function(device) {
-                    return deferred.promise;
-                };
-
-                MockDeviceServiceRequest.save = function(device) {
-                    device.id = 'assigned';
-                    return deferred.promise;
-                };
-
-                MockDeviceServiceRequest.saveMADC = function(device) {
-                    location.path(MockDeviceServiceRequest.route + '/update/' + device.id + '/receipt');
-                    return deferred.promise;
-                };
-
-                MockDeviceServiceRequest.update = function(device) {
-                    return deferred.promise;
-                };
-
                 mockContacts = Contacts;
-                mockContacts.get = function(item){
-                  return deferred.promise;
-                };
-                mockContacts.save = function(item) {
-                    item.id = 'assigned';
-                    return deferred.promise;
-                };
-                mockContacts.update = function(item) {
-                    return deferred.promise;
-                };
 
                 mockContacts.serviceName = 'contact';
 
-                $rootScope.currentUser = {
-                    item: {
-                    "id": "122345",
-                    "userId": "122345",
-                    "idpId": "122345",
-                    "contactId": "122345",
-                    "type": "enduser",
-                    "created": "2015-01-26 00:00:00",
-                    "createdBy": "12342",
-                    "updated": "2015-01-26 00:00:00",
-                    "updatedBy": "12342",
-                    "invitedStatus": "pending",
-                    "activeStatus": "Y",
-                    "resetPassword": "Y",
-                    "firstName": "shankar",
-                    "lastName": "matta",
-                    "email": "test@test.com",
-                    "password": "tbd",
-                    "workPhone": "111-11-1111",
-                    "address1": "111-11-1111",
-                    "address2": "111-11-1111",
-                    "city": "lexington",
-                    "country": "usa",
-                    "state": "ky",
-                    "postalCode": "40509",
-                    "preferredLanguage": "en_US",
-                    "permissions": [
-                    "viewInvoices"
-                    ],
-                    "_links": {
-                    "self": {
-                      "href": "/users/{userId}"
-                    },
-                    "accounts": [
-                      {
-                        "href": "/accounts/123"
-                      }
-                    ],
-                    "roles": [
-                      {
-                        "href": "/roles/123"
-                      }
-                    ],
-                    "contact": {
-                      "href": "/contacts/{contactId}"
-                    }
-                  },
-                  "_embedded": {
-                    "accounts": [
-                      {
-                        "name": "string",
-                        "id": 0,
-                        "additionalProperties": "tbd"
-                      }
-                    ],
-                    "roles": [
-                      {
-                        "roleId": "122345",
-                        "description": "account manager",
-                        "permissions": [
-                          "viewInvoices"
-                        ],
-                        "_links": {
-                          "self": {
-                            "href": "/roles/{applicationName}/{roleId}"
-                          }
-                        }
-                      }
-                    ],
-                    "preferences": [
-                      "SEND EMAIL ETC"
-                    ]
-                  }
-                };
+                $rootScope.currentUser = fixtures.users.regular;
+                $rootScope.currentUser.deferred = $q.defer();
+
+                scope.device = mockDevices.item;
 
                 element = angular.element(
                     '<form name="updateDevice">' +
@@ -348,202 +169,10 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 );
                 element = compile(element)(scope);
 
-                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockFactory,
-                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts});
+                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockDevices,
+                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
+                    SRControllerHelperService:mockSRControllerHelperService});
             }));
-
-
-            describe('goToContactPicker', function() {
-                it('should take to contact picker page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var currentSelected = 'updateDeviceContact';
-
-                    "id": "122345",
-                    "userId": "122345",
-                    "idpId": "122345",
-                    "contactId": "122345",
-                    "type": "enduser",
-                    "created": "2015-01-26 00:00:00",
-                    "createdBy": "12342",
-                    "updated": "2015-01-26 00:00:00",
-                    "updatedBy": "12342",
-                    "invitedStatus": "pending",
-                    "activeStatus": "Y",
-                    "resetPassword": "Y",
-                    "firstName": "shankar",
-                    "lastName": "matta",
-                    "email": "test@test.com",
-                    "password": "tbd",
-                    "workPhone": "111-11-1111",
-                    "address1": "111-11-1111",
-                    "address2": "111-11-1111",
-                    "city": "lexington",
-                    "country": "usa",
-                    "state": "ky",
-                    "postalCode": "40509",
-                    "preferredLanguage": "en_US",
-                    "permissions": [
-                    "viewInvoices"
-                    ],
-                    "_links": {
-                    "self": {
-                      "href": "/users/{userId}"
-                    },
-                    "accounts": [
-                      {
-                        "href": "/accounts/123"
-                      }
-                    ],
-                    "roles": [
-                      {
-                        "href": "/roles/123"
-                      }
-                    ],
-                    "contact": {
-                      "href": "/contacts/{contactId}"
-                    }
-                  },
-                  "_embedded": {
-                    "accounts": [
-                      {
-                        "name": "string",
-                        "id": 0,
-                        "additionalProperties": "tbd"
-                      }
-                    ],
-                    "roles": [
-                      {
-                        "roleId": "122345",
-                        "description": "account manager",
-                        "permissions": [
-                          "viewInvoices"
-                        ],
-                        "_links": {
-                          "self": {
-                            "href": "/roles/{applicationName}/{roleId}"
-                          }
-                        }
-                      }
-                    ],
-                    "preferences": [
-                      "SEND EMAIL ETC"
-                    ]
-                  }
-                };
-
-                element = angular.element(
-                    '<form name="updateDevice">' +
-                    '   <input name="myFirst" ng-model="myFirst"></input>' +
-                    '   <input name="mySecond" ng-model="mySecond"></input>' +
-                    '</form>'
-                );
-                element = compile(element)(scope);
-
-                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockFactory,
-                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts});
-            }));
-
-
-            describe('goToContactPicker', function() {
-                it('should take to contact picker page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var currentSelected = 'updateDeviceContact';
-
-                    "id": "122345",
-                    "userId": "122345",
-                    "idpId": "122345",
-                    "contactId": "122345",
-                    "type": "enduser",
-                    "created": "2015-01-26 00:00:00",
-                    "createdBy": "12342",
-                    "updated": "2015-01-26 00:00:00",
-                    "updatedBy": "12342",
-                    "invitedStatus": "pending",
-                    "activeStatus": "Y",
-                    "resetPassword": "Y",
-                    "firstName": "shankar",
-                    "lastName": "matta",
-                    "email": "test@test.com",
-                    "password": "tbd",
-                    "workPhone": "111-11-1111",
-                    "address1": "111-11-1111",
-                    "address2": "111-11-1111",
-                    "city": "lexington",
-                    "country": "usa",
-                    "state": "ky",
-                    "postalCode": "40509",
-                    "preferredLanguage": "en_US",
-                    "permissions": [
-                    "viewInvoices"
-                    ],
-                    "_links": {
-                    "self": {
-                      "href": "/users/{userId}"
-                    },
-                    "accounts": [
-                      {
-                        "href": "/accounts/123"
-                      }
-                    ],
-                    "roles": [
-                      {
-                        "href": "/roles/123"
-                      }
-                    ],
-                    "contact": {
-                      "href": "/contacts/{contactId}"
-                    }
-                  },
-                  "_embedded": {
-                    "accounts": [
-                      {
-                        "name": "string",
-                        "id": 0,
-                        "additionalProperties": "tbd"
-                      }
-                    ],
-                    "roles": [
-                      {
-                        "roleId": "122345",
-                        "description": "account manager",
-                        "permissions": [
-                          "viewInvoices"
-                        ],
-                        "_links": {
-                          "self": {
-                            "href": "/roles/{applicationName}/{roleId}"
-                          }
-                        }
-                      }
-                    ],
-                    "preferences": [
-                      "SEND EMAIL ETC"
-                    ]
-                  }
-                };
-
-                element = angular.element(
-                    '<form name="updateDevice">' +
-                    '   <input name="myFirst" ng-model="myFirst"></input>' +
-                    '   <input name="mySecond" ng-model="mySecond"></input>' +
-                    '</form>'
-                );
-                element = compile(element)(scope);
-
-                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockFactory,
-                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts});
-            }));
-
-
-            describe('goToContactPicker', function() {
-                it('should take to contact picker page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var currentSelected = 'updateDeviceContact';
-
-                    scope.goToContactPicker();
-                    expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/pick_contact');
-                });
-            });
 
             describe('goToReview', function() {
                 it('should take the user to the review page based on device id', function() {
@@ -554,48 +183,15 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 });
             });
 
-            describe('goToSubmit', function() {
-                it('should take the user to the receipt page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.device.id="1234";
-                    scope.madcDevice = {
-                        "id": "1234",
-                        "type":"DATA_ASSET_CHANGE",
-                        "assetInfo":{
-                            "ipAddress":"10.19.136.24",
-                            "hostName":null,
-                            "assetTag":"DHSPRN05111",
-                            "costCenter":"211"
-                        },
-                        "notes":"",
-                        "customerReferenceNumber":"1221",
-                        "_links":{
-                            "self":{
-                                "href":"https://api.venus-dev.lexmark.com/mps/contacts/1-RGUUJBD"
-                            },
-                            "account":{
-                                "href":"https://api.venus-dev.lexmark.com/mps/accounts/1-13PHWSV"
-                            },
-                            "primaryContact":{
-                                "href":"https://api.venus-dev.lexmark.com/mps/contacts/1-H2DNJ8"
-                            },
-                            "requester":{
-                                "href":"https://api.venus-dev.lexmark.com/mps/contacts/1-RGUUJBD"
-                            },
-                            "sourceAddress":{
-                                "href":"https://api.venus-dev.lexmark.com/mps/accounts/62117/addresses/1-RGUUJBD"
-                            },
-                            "asset":{
-                                "href":"https://api.venus-dev.lexmark.com/mps/assets/1-NC6G-247"
-                            }
-                        }
-                    };
-
-                    spyOn(scope, 'goToSubmit').and.callThrough();
-                    spyOn(MockDeviceServiceRequest, 'saveMADC').and.callThrough();
-                    scope.goToSubmit();
-                    expect(MockDeviceServiceRequest.saveMADC).toHaveBeenCalledWith(scope.madcDevice);
-                    expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/update/1234/receipt');
+            describe('revertAddress', function(){
+                it('should reset the address values to an existing address', function(){
+                    scope.device.addressSelected = true;
+                    scope.device.currentInstalledAddress = {
+                        addressLine1: '740 W New Circle Rd'
+                    }
+                    scope.revertAddress();
+                    expect(scope.device.addressSelected).toBe(false);
+                    expect(scope.device.updatedInstallAddress).toEqual(scope.device.currentInstalledAddress);
                 });
             });
 
@@ -617,12 +213,10 @@ define(['angular','angular-mocks', 'deviceServiceRequest'], function(angular, mo
                 inject(function($route) {
                     expect($route.routes['/service_requests/devices/new'].controller).toBe('DeviceAddController');
                     expect($route.routes['/service_requests/devices/new'].templateUrl).toEqual('/app/device_service_requests/templates/new.html');
-                    expect($route.routes['/service_requests/devices/pick_contact'].controller).toBe('ContactPickerController');
-                    expect($route.routes['/service_requests/devices/pick_contact'].templateUrl).toEqual('/app/device_service_requests/templates/contact-picker.html');
                     expect($route.routes['/service_requests/devices/search'].controller).toBe('DeviceSearchController');
                     expect($route.routes['/service_requests/devices/search'].templateUrl).toEqual('/app/device_service_requests/templates/search.html');
                 });
             });
-        });*/
+        });
     });
 });
