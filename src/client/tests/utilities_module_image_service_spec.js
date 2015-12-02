@@ -12,6 +12,7 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
                 httpBackend.when('GET', 'http://www.lexmark.com/common/xml/123/123456.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/></media></product></xml>');
                 httpBackend.when('GET', 'http://www.lexmark.com/common/xml/777/777555.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium"/></media></product></xml>');
                 httpBackend.when('GET', 'http://www.lexmark.com/common/xml/111/111111.xml').respond('<xml/>');
+                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/000/000000.xml').respond(null);
         }]));
 
         describe('parsePartNumber', function(){
@@ -140,6 +141,14 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
             it('should not return the part url since the xml is malformed and should return default image url', function(){
                 var expectedDefaultUrl = '/etc/resources/img/part_na_color.png';
                 var promise = imageService.getPartMediumImageUrl('111111');
+                httpBackend.flush();
+                var result = spyOn(imageService, 'getPartMediumImageUrl');
+                var actual = promise.$$state.value;
+                expect(expectedDefaultUrl).toEqual(actual);
+            });
+            it('should not return the part url since the xml is null and should return default image url', function(){
+                var expectedDefaultUrl = '/etc/resources/img/part_na_color.png';
+                var promise = imageService.getPartMediumImageUrl('000000');
                 httpBackend.flush();
                 var result = spyOn(imageService, 'getPartMediumImageUrl');
                 var actual = promise.$$state.value;

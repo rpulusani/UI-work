@@ -29,19 +29,16 @@ define(['angular', 'utility'], function(angular) {
                 return builtUrl + item.prefix + '/' + item.number + '.xml';
             };
             Image.prototype.getPartMediumImageUrl = function(partNumber){
-                // DONE use the test cases for partNumber for undefined, null, less 3 characters
-
-
                 var self = this,
                 item  = self.parsePartNumber(partNumber),
                 deferred = $q.defer(),
-                url  = self.buildUrl(item);
+                url  = self.buildUrl(item),
+                medUrl = self.defaultImageUrl;
 
-                // DONE what do you do here if url is undefined???
                 if(!url){
-                    return self.defaultImageUrl;
+                    return medUrl;
                 }
-                console.log(url);
+
                $http({
                      method: 'GET',
                      url: url,
@@ -51,34 +48,26 @@ define(['angular', 'utility'], function(angular) {
                      },
                      params: {},
                      transformResponse : function(data) {
-                        // string -> XML document object
                         return $.parseXML(data);
                      }
                 }).success(function(data, status, headers, config) {
-                    // DONE (tested empty xml) what if the xml is bad?
-
-                    var medUrl = self.defaultImageUrl; //<--- DONE set default url here
-                    // DONE test for img
+                    if(!data){
+                        deferred.resolve(medUrl);
+                        return;
+                    }
                     var x = data.getElementsByTagName('img');
                     for (var i = 0; i < x.length; i++) {
-                    // DONE what if its missing medium?
                         if(x[i].getAttribute('key')==='medium'){
-                            // DONE what happens if src does not exist?
                             if(x[i].getAttribute('src')){
                                 medUrl = x[i].getAttribute('src');
                             }
                         }
                     }
-                    console.log(medUrl);
-                    // DONE if medUrl is not found should we should return default image
                     deferred.resolve(medUrl);
                 }).error(function(data, status, headers, config) {
-                     // capture the error and resolve to default image url
                      NREUM.noticeError('Failed to get imageService xml ' + data);
                      deferred.resolve(self.defaultImageUrl);
-                     //deferred.reject(data);
                 });
-
                 return deferred.promise;
             };
             //http://www.lexmark.com/common/xml/35S/35S0332.xml

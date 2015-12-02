@@ -7,7 +7,7 @@
    	<hr>
 	<div class="media">
 		<div class="media__visual">
-	    	<img ng-src="{{medImage}}" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+	    	<img ng-src="{{medImage}}" ng-show="medImage" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
 	    </div>
 		<div class="media__body">
 		    <ul class="info-list vertical-space--none">
