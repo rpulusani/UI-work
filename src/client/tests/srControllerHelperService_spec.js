@@ -196,6 +196,9 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                     expect(scope.formatReceiptData).toBeDefined();
                     expect(scope.setupTemplates).toBeDefined();
                     expect(scope.setupSR).toBeDefined();
+                    expect(scope.setupPhysicalLocations).toBeDefined();
+                    expect(scope.resetAddressPicker).toBeDefined();
+                    expect(scope.resetContactPicker).toBeDefined();
                 });
                 it('should setup all functions', function(){
                     var halObj = {
@@ -357,6 +360,69 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                     expect(scope.formattedCostCenter).toBe('LABEL.NONE');
                     expect(scope.formattedAttachments).toBe('LABEL.NONE');
                     expect(scope.cat).toBe('sam');
+                });
+            });
+            describe('resetAddressPicker', function(){
+                it('should reset all the rootscope objects created for Address picker', function(){
+                    rootScope.returnPickerObjectAddress = {
+                        id: '123'
+                    };
+                    rootScope.returnPickerSRObjectAddress = {
+                        requestNumber: '123456'
+                    };
+                    rootScope.selectedAddress = {
+                        addressLine1: '740 W New Circle Rd'
+                    };
+                    var halObj = {
+                        route: '/dark'
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    scope.resetAddressPicker();
+                    expect(rootScope.returnPickerObjectAddress).toBe(undefined);
+                    expect(rootScope.returnPickerSRObjectAddress).toBe(undefined);
+                    expect(rootScope.selectedAddress).toBe(undefined);
+                });
+            });
+            describe('resetContactPicker', function(){
+                it('should reset all the rootscope objects created for Contact picker', function(){
+                    rootScope.returnPickerObject = {
+                        id: '123'
+                    };
+                    rootScope.returnPickerSRObject = {
+                        requestNumber: '123456'
+                    };
+                    rootScope.selectedContact = {
+                        firstName: 'test'
+                    };
+                    rootScope.currentSelected = 'testContact';
+                    var halObj = {
+                        route: '/dark'
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    scope.resetContactPicker();
+                    expect(rootScope.returnPickerObject).toBe(undefined);
+                    expect(rootScope.returnPickerSRObject).toBe(undefined);
+                    expect(rootScope.selectedContact).toBe(undefined);
+                    expect(rootScope.currentSelected).toBe(undefined);
+                });
+            });
+            describe('setupPhysicalLocations', function(){
+                it('should add building, floor, office to addresses', function(){
+                    var address = {
+                        id: '123',
+                        addressLine1: '740 W N Circle Rd'
+                    };
+                    var building = 'building1';
+                    var floor = 'floor';
+                    var office = 'office';
+                    var halObj = {
+                        route: '/dark'
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    scope.setupPhysicalLocations(address,building,floor,office);
+                    expect(address.building).toBe('building1');
+                    expect(address.floor).toBe('floor');
+                    expect(address.office).toBe('office');
                 });
             });
         });

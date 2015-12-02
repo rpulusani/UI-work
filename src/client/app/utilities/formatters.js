@@ -128,6 +128,44 @@ define(['angular', 'utility'], function(angular) {
                     }
                     return formattedAddress;
                 },
+                formatAddresswoPhysicalLocation: function(address){
+                    var formattedAddress = '';
+                    if (BlankCheck.checkNotNullOrUndefined(address) ) {
+                        if (BlankCheck.checkNotBlank(address.storeFrontName)){
+                            formattedAddress += address.storeFrontName + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine1)){
+                            formattedAddress += address.addressLine1 + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine2)){
+                            formattedAddress += address.addressLine2 + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.city)){
+                            formattedAddress = formattedAddress + address.city;
+                            if (!BlankCheck.checkNotBlank(address.postalCode) && !BlankCheck.checkNotBlank(address.state)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ', ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.state)){
+                            formattedAddress = formattedAddress + address.state;
+                            if (!BlankCheck.checkNotBlank(address.postalCode)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ' ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.postalCode)){
+                            formattedAddress = formattedAddress + address.postalCode + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.country)){
+                             formattedAddress = formattedAddress + address.country + '<br/>';
+                        }
+
+                    }
+                    return formattedAddress;
+                },
                 formatContact: function(contact){
                     var formattedContact = '';
                     if (BlankCheck.checkNotNullOrUndefined(contact)) {
