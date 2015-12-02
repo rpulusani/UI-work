@@ -22,6 +22,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     if (!serviceDefinition.columnDefs) {
                         serviceDefinition.columnDefs = {defaultSet: []};
                     }
+
+                    if (!serviceDefinition.columns || serviceDefinition.columns.toLowerCase() === 'default') {
+                        serviceDefinition.columns = 'defaultSet';
+                    }
                 }
 
                 return angular.extend(self, serviceDefinition);
@@ -144,14 +148,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 link;
 
                 for (link in links) {
-                    if (links[link].href) {
+                    if (links[link].href && link !== 'self') {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
                             }
 
                             item[link].serviceName = link;
-
                             item[link].url = self.setupUrl(item._links[link].href);
                             item[link].params = self.setupParams({url: item._links[link].href});
 
@@ -266,15 +269,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
-            HATEOASFactory.prototype.getHalUrl = function(halObj){
+            HATEOASFactory.prototype.getHalUrl = function(halObj) {
                 var url = '',
                 i = 0;
 
-                if (halObj.item && halObj.item.postURL){
+                if (halObj.item && halObj.item.postURL) {
                     url = halObj.item.postURL;
                 } else if (halObj.item && halObj.item._links){
                     for (i; i < halObj.item._links.length; i += 1) {
-                        if (halObj.item._links[i].self && halObj.item._links[i].self.href){
+                        if (halObj.item._links[i].self && halObj.item._links[i].self.href) {
                             url = halObj.item._links[i].self.href;
                         }
                     }
@@ -488,7 +491,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.setupItem = function(processedResponse) {
                 var self = this,
                 prop;
-                
+
                 if (processedResponse.data._embedded && processedResponse.data.page) {
                     if (!self.embeddedName) {
                         self.data = processedResponse.data._embedded[self.serviceName];
@@ -497,12 +500,22 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-                        self.setItem(processedResponse.data);
+                        if (self.serviceName && (processedResponse.data._embedded 
+                            && processedResponse.data._embedded[self.serviceName]) ) {
+
+                            if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
+                                self.data = processedResponse.data._embedded[self.serviceName];
+                            } else {
+                                self.item = processedResponse.data._embedded[self.serviceName];
+                            }
+                        } else {
+                            self.setItem(processedResponse.data);
+                        }
                     } else {
                         self.data = processedResponse.data;
                     }
 
-                    if (self.item._embedded) {
+                    if (self.item && self.item._embedded) {
                         for (prop in self.item._embedded) {
                             if (!self.item[prop]) {
                                 self.item[prop] = self.setItemDefaults();

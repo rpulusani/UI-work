@@ -25,6 +25,9 @@ define([], function() {
         "_links" : {
             "self" : {
                 "href" : 'http://127.0.0.1/test/itemOne'
+            }, 
+            "itemTwo": {
+                "href" : 'http://127.0.0.1/test/itemTwo'
             }
         }
     };
@@ -36,6 +39,9 @@ define([], function() {
         "_links" : {
             "self" : {
                 "href" : 'http://127.0.0.1/test/itemTwo'
+            },
+            "itemOne": {
+                "href": 'http://127.0.0.1/test/itemOne'
             }
         }
     };
@@ -50,6 +56,12 @@ define([], function() {
                 "_links" : {
                     "self" : {
                         "href" : "http://127.0.0.1/device/1-DEVICE"
+                    },
+                    "itemOne": {
+                        "href": 'http://127.0.0.1/test/itemOne'
+                    },
+                    "itemTwo": {
+                        "href": 'http://127.0.0.1/test/itemTwo'
                     }
                 }
             }

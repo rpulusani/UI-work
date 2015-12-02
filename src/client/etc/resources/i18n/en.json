@@ -391,7 +391,30 @@
         "PHY_LOC_3": "Physical Loc 3",
         "AGREEMENT": "Agreement",
         "KEY_PERFORMANCE_INDICATORS": "Key Performance Indicators",
-        "CHARTS": "Charts"
+        "CHARTS": "Charts",
+        "FLEET_AVAILABILITY": "Fleet Availability",
+        "RESPONSE_TIME": "Response Time",
+        "CONSUMABLES": "Consumables",
+        "ASSET_COUNT": "Asset Count",
+        "MADC_EVENTS": "MADC Events",
+        "METER_READS": "Meter Reads",
+        "CONSUMABLES_ORDERS": "Consumable Orders",
+        "HARDWARE_ORDERS": "Hardware Orders",
+        "BILLED_PAGES": "Billed Pages",
+        "MOVES": "Moves",
+        "ADDITIONS": "Additions",
+        "IP_CHANGES": "IP Changes",
+        "DECOMMISSIONS": "Decommissions",
+        "SWAPS": "Swaps",
+        "ALL_READS": "All Reads",
+        "MISSED_READS": "Missed Reads",
+        "SUCCESSFUL_READS_PERCENT": "{{successPercent}}% successful reads",
+        "MISSED_READS_PERCENT": "{{missedPercent}}% missed reads ({{assetCount}} assets)",
+        "AUTO_COUNT": "Auto ({{autoCount}} assets)",
+        "MANUAL_COUNT": "Manual ({{manualCount}} assets)",
+        "SHIPPED_LAST_THIRTY_DAYS": "Shipped last 30 days",
+        "COLOR_PAGES_COUNT": "{{colorCount}} color",
+        "MONO_PAGES_COUNT": "{{monoCount}} mono"
     },
 
     "INVOICE": {
@@ -521,7 +544,8 @@
         "CREATED": "Created",
         "TAGGED_AS": "Tagged as",
         "FILE": "File",
-        "ATTACHMENTS": "Attachements"
+        "ATTACHMENTS": "Attachements",
+        "OPEN": "Open"
     },
 
     "PAGINATION": {
