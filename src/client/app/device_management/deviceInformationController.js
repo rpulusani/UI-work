@@ -1,9 +1,9 @@
-define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.grid', 'serviceRequest'], function(angular) {
+define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.imageService', 'utility.grid', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
+    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'imageService',
         'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
+        function($scope, $location, $routeParams, BlankCheck, Devices, ImageService, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
             var redirect_to_list = function() {
                $location.path(Devices.route + '/');
             };
@@ -67,6 +67,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                         }
                     }
                 }
+
             };
 
             if (Devices.item === null) {
@@ -110,6 +111,14 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     }
 
                     $scope.meterReads = reorderedData.concat(tempData);
+
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                  });
+                
                 });
 
                 if (!BlankCheck.isNull($scope.device['address'])) {

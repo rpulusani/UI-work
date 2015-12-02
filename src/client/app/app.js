@@ -64,7 +64,8 @@ define([
     'utility.formatters',
     'utility.hateaosConfig',
     'utility.hateaosFactory',
-    'utility.grid'
+    'utility.grid',
+    'utility.imageService'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
