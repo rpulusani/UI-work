@@ -100,6 +100,6 @@
 <h2 class="vertical-space--none" translate="DEVICE_SERVICE_REQUEST.CHANGE_HISTORY"></h2>
 
 <hr />
-<div ng-if="gridOptions.data.length > 0" ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+<div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
 <span ng-if="!gridOptions.data || gridOptions.data.length === 0" translate="LABEL.ZERO_RECORDS"></span>
 <div pagination grid="{{gridOptions}}"></div>
