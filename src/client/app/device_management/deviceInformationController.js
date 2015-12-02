@@ -10,13 +10,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             $scope.getMeterReadPriorDate = function(item){
                 if(item.updateDate){
-                    return item.updateDate;
+                    return FormatterService.formatDate(item.updateDate);
                 }
-                return item.createDate;
+                return FormatterService.formatDate(item.createDate);
             };
 
             $scope.saveMeterReads = function() {
-            /* 
+            /*
             desc:   Loops through all meter reads and submits put requests
                     for all that were updated (bulk update)
             */
@@ -159,7 +159,14 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.gridOptions = {};
-             ServiceRequest.getPage().then(function() {
+            var options =  {
+                params:{
+                    type: 'MADC_ALL'
+                }
+            };
+            ServiceRequest.reset();
+            ServiceRequest.getPage(0, 20, options).then(function() {
+                ServiceRequest.columns = 'madcSet';
                 Grid.display(ServiceRequest, $scope);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);

@@ -60,10 +60,10 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         Grid.prototype.setColumnDefaults = function(service) {
             var columns = [],
             i = 0;
-            
+
             //do something with a personal set of columns configured
-            if (!service.columns || (service.columns === 'default' 
-                || service.columns === 'defaultSet') && service.columnDefs.defaultSet) {
+            if (!service.columns || (service.columns === 'default' ||
+                 service.columns === 'defaultSet') && service.columnDefs.defaultSet) {
                 if (typeof service.columnDefs[service.columns] === 'function') {
                      columns = service.columnDefs.defaultSet();
                 } else {
@@ -86,7 +86,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
-            var newHeight =  46 + (31 * service.params.size);
+            var size = service.data.length < service.params.size? service.data.length: service.params.size;
+            var newHeight =  46 + (31 * size);
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service);
             scope.gridOptions.showGridFooter = false;

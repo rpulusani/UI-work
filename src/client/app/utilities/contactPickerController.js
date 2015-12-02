@@ -28,11 +28,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 }
             };
 
-            console.log('current selected in contact picker',$rootScope.currentSelected)
-            console.log('returnpath is',$rootScope.contactReturnPath);
 
             $scope.goToCallingPage = function(){
-                console.log('contactReturnPath',$rootScope.contactReturnPath)
                 $location.path($rootScope.contactReturnPath);
             };
 

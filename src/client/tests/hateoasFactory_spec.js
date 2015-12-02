@@ -65,7 +65,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-                    
+
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.item.id).toEqual('itemOne');
                     expect(typeof mockFactory.item.links.itemTwo).toEqual('function');
@@ -74,7 +74,9 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
             describe('testing embedded items' , function() {
                 it('a call to a service with embeds=name,name2 should return those items attached to the response', function() {
-                    httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&embeds=device').respond(fixtures.api.test.embedItem);
+                    httpBackend
+                        .when('GET', mockFactory.url + '?embeds=device&page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL')
+                        .respond(fixtures.api.test.embedItem);
 
                     mockFactory.get({
                         params: {
@@ -97,7 +99,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-                    
+
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.item).toEqual(null); // create item does not set the item!!
                     expect(item.id).toEqual('itemTwo');
@@ -135,17 +137,18 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
             describe('get({params: {key:value}}) options check against the generalized query service' , function() {
                 it('passing in options.params = {key:value} should modify current parameters', function() {
-                    httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&key=value').respond(fixtures.api.test.pageTwo);
+                    httpBackend
+                    .when('GET', mockFactory.url + '?key=value&page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL')
+                    .respond(fixtures.api.test.pageTwo);
 
                     mockFactory.get({
-                        params: {
-                            key: 'value'
+                        params:{
+                           key: 'value'
                         }
                     });
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-
                     expect(mockFactory.params.key).toEqual('value');
                 });
             });
@@ -178,7 +181,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-                    
+
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
             });
@@ -193,7 +196,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-                    
+
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
             });
@@ -207,7 +210,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
-                    
+
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.params.page).toEqual(1);
                     expect(mockFactory.params.size).toEqual(20);

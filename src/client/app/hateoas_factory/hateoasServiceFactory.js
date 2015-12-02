@@ -73,6 +73,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
+                this.data = null;
             };
 
             HATEOASFactory.prototype.newMessage  = function(){
@@ -422,7 +423,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return this.send(halObj, 'put', 'put');
             };
 
-            HATEOASFactory.prototype.getPage = function(page, size) {
+            HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
                 var self = this;
 
                 if (page !== 0 && !page) {
@@ -436,11 +437,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 } else {
                     self.params.page = page;
                 }
-
-                return this.get({
+                var options = {
                     page: page,
                     size: size
-                });
+                };
+                if(additionalOptions){
+                    angular.extend(options, additionalOptions);
+                }
+                return this.get(options);
             };
 
             HATEOASFactory.prototype.setupOptions = function(optionsObj, fn) {
@@ -457,8 +461,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-                if (options.params) {
-                    angular.extend(self.params, options.params);
+                if (options.params) { // if params exist extend from self params list
+                    angular.extend(options.params, self.params);
+                }else{ //if not then set params list based on self params list
+                    options.params = self.params;
                 }
 
                 if (options.page && options.page >= 0) {
@@ -485,6 +491,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.columnDefs = options.columnDefs;
                 }
 
+                //update self params to match the latest options param calls
+                self.params = options.params;
+
                 return options;
             };
 
@@ -500,8 +509,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-                        if (self.serviceName && (processedResponse.data._embedded 
-                            && processedResponse.data._embedded[self.serviceName]) ) {
+                        if (self.serviceName &&
+                            (processedResponse.data._embedded &&
+                                processedResponse.data._embedded[self.serviceName]) ) {
 
                             if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
                                 self.data = processedResponse.data._embedded[self.serviceName];
@@ -563,12 +573,17 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 } else {
                    self.setParamsToNull();
                 }
+                if(options && options.params){
+                   angular.extend(options.params, self.params);
+                }else{
+                    options.params = self.params;
+                }
 
                 if (!options.url) {
                     self.url = self.setupUrl(self.url);
-                    options.url = self.buildUrl(self.url, self.params);
+                    options.url = self.buildUrl(self.url, options.params);
                 } else {
-                    options.url = self.buildUrl(options.url, self.params);
+                    options.url = self.buildUrl(options.url, options.params);
                 }
 
                 self.checkForEvent(self.item, 'onGet');
@@ -600,8 +615,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var item,
-                            options = self.setupOptions(optionsObj);
-
+                                options = self.setupOptions(optionsObj);
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;

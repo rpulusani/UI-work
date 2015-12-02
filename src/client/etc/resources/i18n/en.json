@@ -27,6 +27,8 @@
 
     "SERVICE_REQUEST": {
         "TITLE": "Requests",
+        "HELPDESK_REFERENCE":"Helpdesk reference number",
+        "COST_CENTER": "Cost center",
         "ORDERS": "Orders",
         "REQUEST_NUMBER": "Reqeust number",
         "CONTACT_INFORMATION": "Request contact information",
@@ -60,6 +62,7 @@
 
     "DEVICE_SERVICE_REQUEST": {
         "ADD": "Add a Device",
+        "RESOLUTION": "Resolution",
         "SUBMITTED": "Add a Device Request Submitted",
         "ABANDON": "Abandon Device Request",
         "DEVICE_SELECTION": "Device Selection",
@@ -545,7 +548,8 @@
         "TAGGED_AS": "Tagged as",
         "FILE": "File",
         "ATTACHMENTS": "Attachements",
-        "OPEN": "Open"
+        "OPEN": "Open",
+        "ZERO_RECORDS": "No Records Found"
     },
 
     "PAGINATION": {
