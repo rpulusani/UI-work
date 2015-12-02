@@ -4,7 +4,7 @@ define(['angular', 'utility'], function(angular) {
     .factory('imageService', ['$http', '$q',
         function($http, $q) {
             var Image = function(){
-                this.url = 'http://www.lexmark.com/common/xml/';
+                this.url = 'https://www.lexmark.com/common/xml/';
                 this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
             };
 
