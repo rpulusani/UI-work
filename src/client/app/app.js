@@ -138,9 +138,7 @@ define([
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService',
     function(Gatekeeper, $rootScope, $cookies, $q, UserService) {
 
-        //TODO: Get appropriate organization
-        // Gatekeeper.login({organization: 'lexmark'});
-        Gatekeeper.login();
+        Gatekeeper.login({organization_id: '3'});
 
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {

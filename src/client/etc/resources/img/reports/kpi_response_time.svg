@@ -27,11 +27,11 @@
 	</g>
 </g>
 <g id="Layer_3">
-	<g id="XMLID_83_"><!--
+	<g id="XMLID_83_">
 		<rect id="XMLID_88_" x="58.6" y="7.8" fill="none" width="247.8" height="28.1"/>
 		<text id="XMLID_3118_" transform="matrix(1 0 0 1 135.3072 18.1393)" font-family="'TPHero-Regular'" font-size="13px">Response Time</text>
 		<rect id="XMLID_86_" x="94" y="51.2" fill="none" width="26.9" height="14.5"/>
-		-->
+		
 			<text id="XMLID_2686_" transform="matrix(1 0 0 1 94.0362 59.2331)" fill="#1D1D26" font-family="'TPHero-Regular'" font-size="10px">100%</text>
 		<rect id="XMLID_85_" x="100" y="212.2" fill="none" width="26.9" height="14.5"/>
 		

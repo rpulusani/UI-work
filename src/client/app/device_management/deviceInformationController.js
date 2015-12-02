@@ -150,10 +150,12 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.gridOptions = {};
-            var options = {
-                type: 'MADC_ALL'
+            var options =  {
+                params:{
+                    type: 'MADC_ALL'
+                }
             };
-
+            ServiceRequest.reset();
             ServiceRequest.getPage(0, 20, options).then(function() {
                 ServiceRequest.columns = 'madcSet';
                 Grid.display(ServiceRequest, $scope);

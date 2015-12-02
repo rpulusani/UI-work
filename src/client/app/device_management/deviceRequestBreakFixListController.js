@@ -14,6 +14,7 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
                 //type: 'BREAK_FIX',
                 assetId: Devices.item.id
                };
+              ServiceRequest.reset();
               ServiceRequest.getPage(0,20, options).then(function(){
                   ServiceRequest.columns = 'breakfixSet';
                   Grid.display(ServiceRequest, $scope, personal);

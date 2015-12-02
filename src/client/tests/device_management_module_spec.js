@@ -358,24 +358,26 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
               describe('if a meter read does not have an updated date', function(){
                 it('should return the createDate of the meter read', function(){
                   var item = {
-                    createDate: '1234',
+                    createDate: '2015-11-29T19:22:11',
                     updateDate: null
                   };
+                  var expected = '11/29/2015';
                   var result = scope.getMeterReadPriorDate(item);
 
-                  expect(result).toEqual(item.createDate);
+                  expect(result).toEqual(expected);
                 });
               });
 
               describe('if a meter read has an updated date', function(){
                 it('should return the updateDate of the meter read', function(){
                   var item = {
-                    createDate: '1234',
-                    updateDate: '5678'
+                    createDate: '2015-11-29T19:22:11',
+                    updateDate: '2015-12-29T19:22:11'
                   };
+                  var expected = '12/29/2015';
                   var result = scope.getMeterReadPriorDate(item);
 
-                  expect(result).toEqual(item.updateDate);
+                  expect(result).toEqual(expected);
                 });
               });
             });
