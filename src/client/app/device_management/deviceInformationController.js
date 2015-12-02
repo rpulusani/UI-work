@@ -10,9 +10,9 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             $scope.getMeterReadPriorDate = function(item){
                 if(item.updateDate){
-                    return item.updateDate;
+                    return FormatterService.formatDate(item.updateDate);
                 }
-                return item.createDate;
+                return FormatterService.formatDate(item.createDate);
             };
 
             $scope.saveMeterReads = function() {
