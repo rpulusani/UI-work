@@ -148,7 +148,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 link;
 
                 for (link in links) {
-                    if (links[link].href && link !== 'self') {
+                    if (links[link].href) {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
