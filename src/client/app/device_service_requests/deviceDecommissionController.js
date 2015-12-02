@@ -1,6 +1,7 @@
 define(['angular',
     'deviceServiceRequest',
-    'deviceManagement.deviceFactory'], function(angular) {
+    'deviceManagement.deviceFactory', 
+    'utility.imageService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
     .controller('DeviceDecommissionController', [
@@ -10,6 +11,7 @@ define(['angular',
         '$location',
         '$translate',
         'Devices',
+        'imageService',
         'ServiceRequestService',
          'FormatterService',
          'BlankCheck',
@@ -22,6 +24,7 @@ define(['angular',
              $location,
              $translate,
              Devices,
+             ImageService,
              ServiceRequest,
              FormatterService,
             BlankCheck,
@@ -70,6 +73,14 @@ define(['angular',
                 if (BlankCheck.isNullOrWhiteSpace($scope.pageCountQuestion)) {
                     $scope.device.pageCountQuestion = false;
                 }
+
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                  });
+
             }
 
             $scope.setupSR(ServiceRequest, configureSR);
