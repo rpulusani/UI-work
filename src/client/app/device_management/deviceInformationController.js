@@ -88,6 +88,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
                 var image = new ImageService();
                 image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    console.log("image url is " + url);
                     $scope.medImage = url;
                 }, function(reason){
                      NREUM.noticeError('Image url was not found reason: ' + reason);

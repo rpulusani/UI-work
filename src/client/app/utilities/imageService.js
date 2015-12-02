@@ -5,6 +5,7 @@ define(['angular', 'utility'], function(angular) {
         function($http, $q) {
             var Image = function(){
                 this.url = 'http://www.lexmark.com/common/xml/';
+                this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
             };
 
             Image.prototype.parsePartNumber = function(partNumber){
@@ -34,14 +35,13 @@ define(['angular', 'utility'], function(angular) {
                 var self = this,
                 item  = self.parsePartNumber(partNumber),
                 deferred = $q.defer(),
-                url  = self.buildUrl(item),
-                defaultImageUrl = '/etc/resources/img/part_na_color.png';
+                url  = self.buildUrl(item);
 
                 // DONE what do you do here if url is undefined???
                 if(!url){
-                    return defaultImageUrl;
+                    return self.defaultImageUrl;
                 }
-                //console.log(url);
+                console.log(url);
                $http({
                      method: 'GET',
                      url: url,
@@ -55,9 +55,10 @@ define(['angular', 'utility'], function(angular) {
                         return $.parseXML(data);
                      }
                 }).success(function(data, status, headers, config) {
-                    // TODO what if the xml is bad?
+                    // DONE (tested empty xml) what if the xml is bad?
 
-                    var medUrl = defaultImageUrl; //<--- DONE set default url here
+                    var medUrl = self.defaultImageUrl; //<--- DONE set default url here
+                    // DONE test for img
                     var x = data.getElementsByTagName('img');
                     for (var i = 0; i < x.length; i++) {
                     // DONE what if its missing medium?
@@ -68,13 +69,13 @@ define(['angular', 'utility'], function(angular) {
                             }
                         }
                     }
-                    //console.log(medUrl);
+                    console.log(medUrl);
                     // DONE if medUrl is not found should we should return default image
                     deferred.resolve(medUrl);
                 }).error(function(data, status, headers, config) {
                      // capture the error and resolve to default image url
-                     // how do we do this? NREUM.noticeError('Failed to get imageService xml ' + data);
-                     deferred.resolve(defaultImageUrl);
+                     NREUM.noticeError('Failed to get imageService xml ' + data);
+                     deferred.resolve(self.defaultImageUrl);
                      //deferred.reject(data);
                 });
 

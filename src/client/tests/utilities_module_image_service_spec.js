@@ -8,9 +8,10 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
                 httpBackend = $httpBackend;
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', 'http://www.lexmark.com/common/xml/abc/abcdef.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></media></product></xml>');
+                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/cat/catdog.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><image key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><image key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><image key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></media></product></xml>');
                 httpBackend.when('GET', 'http://www.lexmark.com/common/xml/123/123456.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/></media></product></xml>');
                 httpBackend.when('GET', 'http://www.lexmark.com/common/xml/777/777555.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium"/></media></product></xml>');
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/111/111111.xml').respond('<xml><product><name>Lexmark MS510dn</name><mediacat><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></mediacat></product></xml>');
+                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/111/111111.xml').respond('<xml/>');
         }]));
 
         describe('parsePartNumber', function(){
@@ -112,7 +113,15 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
                 var actual = imageService.getPartMediumImageUrl(null);
                 expect(defaultUrl).toEqual(actual);
             });
-            it('should not find the img medium xml node since it is missing and should return default image url', function(){
+            it('should not find the img xml node since it is missing and should return default image url', function(){
+                var expectedDefaultUrl = '/etc/resources/img/part_na_color.png';
+                var promise = imageService.getPartMediumImageUrl('catdog');
+                var result = spyOn(imageService, 'getPartMediumImageUrl');
+                httpBackend.flush();
+                var actual = promise.$$state.value;
+                expect(expectedDefaultUrl).toEqual(actual);
+            });
+            it('should not find the img xml nodes medium attribute since it is missing and should return default image url', function(){
                 var expectedDefaultUrl = '/etc/resources/img/part_na_color.png';
                 var promise = imageService.getPartMediumImageUrl('123456');
                 var result = spyOn(imageService, 'getPartMediumImageUrl');
@@ -120,7 +129,7 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
                 var actual = promise.$$state.value;
                 expect(expectedDefaultUrl).toEqual(actual);
             });
-            it('should not find the img medium xml nodes src since it is missing and should return default image url', function(){
+            it('should not find the img xml nodes medium src attribute since it is missing and should return default image url', function(){
                 var expectedDefaultUrl = '/etc/resources/img/part_na_color.png';
                 var promise = imageService.getPartMediumImageUrl('777555');
                 var result = spyOn(imageService, 'getPartMediumImageUrl');
