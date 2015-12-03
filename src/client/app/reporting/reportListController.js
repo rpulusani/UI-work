@@ -35,7 +35,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.gridOptions.enableGridMenu = true;
                 $scope.exporterPdfOrientation =  'landscape';
                 $scope.exporterPdfPageSize = 'TABLOID';
-                $scope.gridOptions.showBookmarkColumn = false;
 
                 Reports.item.links.results({
                     serviceName: 'results',
