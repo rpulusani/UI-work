@@ -7,8 +7,9 @@ define(['angular', 'report'], function(angular) {
                 params: {page: 0, size: 20, sort: ''},
                 serviceName: 'reports',
                 embeddedName: 'reportTypes',
-                columns: 'default',
+                columns: 'defaultSet',
                 columnDefs: {
+                    defaultSet: [],
                     /* Asset Register */
                     mp9058sp: [
                         // Reporting Hierarchy
