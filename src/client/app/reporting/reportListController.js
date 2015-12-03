@@ -8,7 +8,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             var params;
 
             if (Reports.item === null) {
-                $location.path(Reports.route + '/');
+                $location.path(Reports.route);
             } else {
                 $scope.report = Reports.item;
 
