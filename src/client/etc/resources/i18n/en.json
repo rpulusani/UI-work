@@ -419,7 +419,8 @@
         "SHIPPED_LAST_THIRTY_DAYS": "Shipped last 30 days",
         "COLOR_PAGES_COUNT": "{{colorCount}} color",
         "MONO_PAGES_COUNT": "{{monoCount}} mono",
-        "ACCOUNT_NAME": "Account Name"
+        "ACCOUNT_NAME": "Account Name",
+        "REPORTING_HIERARCHY": "Reporting Hierarchy"
     },
 
     "INVOICE": {

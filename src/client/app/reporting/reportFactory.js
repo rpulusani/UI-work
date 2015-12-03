@@ -12,7 +12,7 @@ define(['angular', 'report'], function(angular) {
                     defaultSet: [],
                     /* Asset Register */
                     mp9058sp: [
-                        // Reporting Hierarchy
+                        {'name': $translate.instant('REPORTING.REPORTING_HIERARCHY'), 'field': 'chl', minWidth: 400},
                         {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName', minWidth: 250},
                         {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device', minWidth: 120},
                         {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field': 'serialNumber', minWidth: 150},
