@@ -11,7 +11,7 @@ define(['angular', 'report'], function(angular) {
                 columnDefs: {
                     /* Asset Register */
                     mp9058sp: [
-                        {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl'},
+                        // Reporting Hierarchy
                         {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName'},
                         {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
                         {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field': 'serialNumber'},
@@ -25,6 +25,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.MAC_ADDRESS'), 'field': 'macAddress'},
                         {'name': $translate.instant('REPORTING.DIVISION'), 'field': 'division'},
                         {'name': $translate.instant('REPORTING.LIFE_CYCLE'), 'field': 'lifeCycle'},
+                        // Store_Front_Name
                         {'name': $translate.instant('REPORTING.COST_CENTER'), 'field': 'costCenter'},
                         {'name': $translate.instant('REPORTING.DEPT_NUMBER'), 'field': 'departNumber'},
                         {'name': $translate.instant('REPORTING.DEPT_NAME'), 'field': 'departmentName'},
@@ -39,30 +40,28 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.ZIPCODE'), 'field': 'zipcode'},
                         {'name': $translate.instant('REPORTING.COUNTY'), 'field': 'county'},
                         {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country'},
-                        {'name': $translate.instant('REPORTING.PHY_LOC_1'), 'field': 'phyLoc1'},
-                        {'name': $translate.instant('REPORTING.PHY_LOC_2'), 'field': 'phyLoc2'},
-                        {'name': $translate.instant('REPORTING.PHY_LOC_3'), 'field': 'phyLoc3'},
+                        {'name': $translate.instant('REPORTING.PHYSICAL_LOC_1'), 'field': 'phyLoc1'},
+                        {'name': $translate.instant('REPORTING.PHYSICAL_LOC_2'), 'field': 'phyLoc2'},
+                        {'name': $translate.instant('REPORTING.PHYSICAL_LOC_3'), 'field': 'phyLoc3'},
                         {'name': $translate.instant('REPORTING.AGREEMENT'), 'field': 'agreement'}
                     ],
                     /* MADC */
                     mp9073: [
-                        {'name': $translate.instant('REPORTING.EVENT_TYPE'), 'field': 'type'},
-                        {'name': $translate.instant('REPORTING.EVENT_DT'), 'field': 'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
-                        {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer'},
-                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
+                        {'name': $translate.instant('REPORTING.ACCOUNT_NAME'), 'field': 'accountName'},
                         {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
-                        {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo'},
-                        {'name': $translate.instant('REPORTING.ORIG_SN'), 'field':'origSerialNumber'}
-                        /*
-                        {'name': $translate.instant('REPORTING.NEW_SN'), 'field': 'newSerialNumber'},
-                        {'name': $translate.instant('REPORTING.OLD_ADDRESS'), 'field': 'oldAddress'},
-                        {'name': $translate.instant('REPORTING.NEW_ADDRESS'), 'field': 'newAddress'},
                         {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country'},
-                        {'name': $translate.instant('REPORTING.OLD_IP'), 'field': 'oldIp'},
-                        {'name': $translate.instant('REPORTING.NEW_IP'), 'field': 'newIp'},
-                        {'name': $translate.instant('REPORTING.OLD_CHL'), 'field': 'oldChl'},
-                        {'name': $translate.instant('REPORTING.NEW_CHL'), 'field': 'newChl'}
-                        */
+                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
+                        {'name': $translate.instant('REPORTING.EVENT_DATE'), 'field': 'eventDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
+                        {'name': $translate.instant('REPORTING.EVENT_TYPE'), 'field': 'type'},
+                        {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo'},
+                        {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer'},
+                        {'name': $translate.instant('REPORTING.NEW_ADDRESS_NAME'), 'field': 'newAddress'},
+                        {'name': $translate.instant('REPORTING.NEW_ASSET_SERIAL_NUMBER'), 'field': 'newSerialNumber'},
+                        {'name': $translate.instant('REPORTING.NEW_IP_ADDRESS'), 'field': 'newIp'},
+                        // New Rpt Hierarchy
+                        {'name': $translate.instant('REPORTING.OLD_ADDRESS_NAME'), 'field': 'oldAddress'},
+                        {'name': $translate.instant('REPORTING.OLD_IP_ADDRESS'), 'field': 'oldIp'},
+                        {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field':'origSerialNumber'}
                     ],
                     /* Missing Meter Reads */
                     mp0075: [],
