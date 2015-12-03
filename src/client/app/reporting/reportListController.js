@@ -43,6 +43,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     embeddedName: 'reportData',
                     columns: Reports.item.id,
                     columnsDefs: Reports.columnsDefs,
+                    columnDefs: Reports.columnDefs,
                     params: params
                 }).then(function(res) {
                     Grid.display(Reports.item.results, $scope, personal);
