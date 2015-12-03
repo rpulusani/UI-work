@@ -13,20 +13,19 @@ define(['angular', 'report'], function(angular) {
                     mp9058sp: [
                         {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl'},
                         {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName'},
-                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},     
+                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device'},
                         {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field': 'serialNumber'},
                         {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag'},
-                        {'name': $translate.instant('REPORTING.DEVICE_TAG_CUSTOMER'), 'field': 'deviceTagCustomer'}
-                        /*
-                        {'name': $translate.instant('REPORTING.DEVICE_STATUS'), 'field': 'deviceStatus'},     
+                        {'name': $translate.instant('REPORTING.DEVICE_TAG_CUSTOMER'), 'field': 'deviceTagCustomer'},
+                        {'name': $translate.instant('REPORTING.DEVICE_STATUS'), 'field': 'deviceStatus'},
                         {'name': $translate.instant('REPORTING.LAST_LTPC'), 'field': 'lastLtpc'},
                         {'name': $translate.instant('REPORTING.LAST_LTPC_DATE'), 'field': 'lastLtpcDate', 'cellFilter': 'date:\'yyyy-MM-dd\'' },
                         {'name': $translate.instant('REPORTING.IP_ADDRESS'), 'field': 'ipAddress'},
-                        {'name': $translate.instant('REPORTING.HOST_NAME'), 'field': 'hostName'},     
+                        {'name': $translate.instant('REPORTING.HOST_NAME'), 'field': 'hostName'},
                         {'name': $translate.instant('REPORTING.MAC_ADDRESS'), 'field': 'macAddress'},
                         {'name': $translate.instant('REPORTING.DIVISION'), 'field': 'division'},
                         {'name': $translate.instant('REPORTING.LIFE_CYCLE'), 'field': 'lifeCycle'},
-                        {'name': $translate.instant('REPORTING.COST_CENTER'), 'field': 'costCenter'},     
+                        {'name': $translate.instant('REPORTING.COST_CENTER'), 'field': 'costCenter'},
                         {'name': $translate.instant('REPORTING.DEPT_NUMBER'), 'field': 'departNumber'},
                         {'name': $translate.instant('REPORTING.DEPT_NAME'), 'field': 'departmentName'},
                         {'name': $translate.instant('REPORTING.INSTALL_DATE'), 'field': 'installDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
@@ -34,7 +33,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.TERM_END_DATE'), 'field': 'termEndDate', 'cellFilter': 'date:\'yyyy-MM-dd\''},
                         {'name': $translate.instant('REPORTING.TERMS'), 'field': 'terms'},
                         {'name': $translate.instant('REPORTING.ADDRESS'), 'field': 'address'},
-                        {'name': $translate.instant('REPORTING.CITY'), 'field': 'city'},     
+                        {'name': $translate.instant('REPORTING.CITY'), 'field': 'city'},
                         {'name': $translate.instant('REPORTING.STATE'), 'field': 'state'},
                         {'name': $translate.instant('REPORTING.PROVINCE'), 'field': 'province'},
                         {'name': $translate.instant('REPORTING.ZIPCODE'), 'field': 'zipcode'},
@@ -44,7 +43,6 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.PHY_LOC_2'), 'field': 'phyLoc2'},
                         {'name': $translate.instant('REPORTING.PHY_LOC_3'), 'field': 'phyLoc3'},
                         {'name': $translate.instant('REPORTING.AGREEMENT'), 'field': 'agreement'}
-                        */
                     ],
                     /* MADC */
                     mp9073: [
