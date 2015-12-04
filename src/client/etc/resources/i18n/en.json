@@ -337,7 +337,7 @@
         "FCC_RATE": "FCC Rate",
         "REPORT_NAME": "Report",
         "ACTION": "Action",
-        "RUN": "RUN THIS REPORT",
+        "RUN_REPORT": "RUN REPORT",
         "RUN_TITLE": "Run Report | {{report}}",
         "TITLE_CNT": "Records ({{total}})",
         "RESULTS_TITLE": "MADC Report -  ({{total}} records)",
