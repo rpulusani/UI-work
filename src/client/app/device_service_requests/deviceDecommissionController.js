@@ -1,6 +1,7 @@
 define(['angular',
     'deviceServiceRequest',
-    'deviceManagement.deviceFactory'], function(angular) {
+    'deviceManagement.deviceFactory', 
+    'utility.imageService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
     .controller('DeviceDecommissionController', [
@@ -10,20 +11,22 @@ define(['angular',
         '$location',
         '$translate',
         'Devices',
+        'imageService',
         'ServiceRequestService',
-         'FormatterService',
-         'BlankCheck',
-         'DeviceServiceRequest',
-         'Contacts',
-         'SRControllerHelperService',
+        'FormatterService',
+        'BlankCheck',
+        'DeviceServiceRequest',
+        'Contacts',
+        'SRControllerHelperService',
         function($scope,
             $rootScope,
             $routeParams,
-             $location,
-             $translate,
-             Devices,
-             ServiceRequest,
-             FormatterService,
+            $location,
+            $translate,
+            Devices,
+            ImageService,
+            ServiceRequest,
+            FormatterService,
             BlankCheck,
             DeviceServiceRequest,
             Contacts,
@@ -74,6 +77,13 @@ define(['angular',
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                     $scope.resetContactPicker();
                 }
+
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                });
             }
 
             $scope.setupSR(ServiceRequest, configureSR);

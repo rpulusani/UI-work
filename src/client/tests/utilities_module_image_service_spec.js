@@ -7,12 +7,12 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
                 q = $q.defer();
                 httpBackend = $httpBackend;
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/abc/abcdef.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></media></product></xml>');
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/cat/catdog.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><image key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><image key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><image key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></media></product></xml>');
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/123/123456.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/></media></product></xml>');
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/777/777555.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium"/></media></product></xml>');
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/111/111111.xml').respond('<xml/>');
-                httpBackend.when('GET', 'http://www.lexmark.com/common/xml/000/000000.xml').respond(null);
+                httpBackend.when('GET', 'https://www.lexmark.com/common/xml/abc/abcdef.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></media></product></xml>');
+                httpBackend.when('GET', 'https://www.lexmark.com/common/xml/cat/catdog.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><image key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><image key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><image key="medium" src="//media.lexmark.com/www/asset/19/7694/+image_medium.jpg"/></media></product></xml>');
+                httpBackend.when('GET', 'https://www.lexmark.com/common/xml/123/123456.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/></media></product></xml>');
+                httpBackend.when('GET', 'https://www.lexmark.com/common/xml/777/777555.xml').respond('<xml><product><name>Lexmark MS510dn</name><media><thumbnail src="//media.lexmark.com/www/asset/19/7694/+image_thumbnail.gif"/><img key="icon" src="//media.lexmark.com/www/asset/19/7694/+image_icon.png"/><img key="large" src="//media.lexmark.com/www/asset/19/7694/+image_wide.png"/><img key="medium"/></media></product></xml>');
+                httpBackend.when('GET', 'https://www.lexmark.com/common/xml/111/111111.xml').respond('<xml/>');
+                httpBackend.when('GET', 'https://www.lexmark.com/common/xml/000/000000.xml').respond(null);
         }]));
 
         describe('parsePartNumber', function(){
@@ -44,7 +44,7 @@ define(['angular', 'angular-mocks', 'utility.imageService'], function(angular, m
                     prefix: 'abc',
                     number: 'abcdef',
                 };
-                var expectedUrl = 'http://www.lexmark.com/common/xml/abc/abcdef.xml';
+                var expectedUrl = 'https://www.lexmark.com/common/xml/abc/abcdef.xml';
                 var actual = imageService.buildUrl(item);
                 expect(expectedUrl).toEqual(actual);
             });
