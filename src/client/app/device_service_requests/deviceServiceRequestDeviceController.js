@@ -41,13 +41,13 @@ define(['angular',
 
             if (Devices.item === null) {
                 $scope.redirectToList();
-            } else if($rootScope.selectedContact){
-                $rootScope.device = $rootScope.returnPickerObject;
-                $rootScope.sr = $rootScope.returnPickerSRObject;
-                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
-                $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
-                $rootScope.contactPickerReset = true;
-                Devices.item = $rootScope.device;
+            } else if($rootScope.selectedContact 
+                && $rootScope.returnPickerObject 
+                && $rootScope.selectionId === Devices.item.id){
+                $scope.device = $rootScope.returnPickerObject;
+                $scope.sr = $rootScope.returnPickerSRObject;
+                ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 $rootScope.contactPickerReset = false;
@@ -58,6 +58,9 @@ define(['angular',
                 }
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
                     $scope.device.primaryContact = Devices.item['contact']['item'];
+                }
+                if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
+                    $scope.resetContactPicker();
                 }
             }
             $scope.setupSR(ServiceRequest, configureSR);
@@ -134,7 +137,8 @@ define(['angular',
                         },
                         show:{
                             primaryAction : true
-                        }
+                        },
+                        source: 'DeviceServiceRequestDevice'
                     },
                     detail:{
                         translate:{

@@ -133,7 +133,8 @@
         "SUBMIT_DEVICE_DECOMMISSION": "Submit device decommission",
         "DECOMMISSION_DEVICE_REQUEST_SUBMITTED": "Decommission Device Request Submitted",
         "DECOMMISION_DEVICE_SUBMIT_HEADER_BODY": "Your decommission device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
-        "DECOMMISION_DEVICE_DETAIL": "Details for Decommission Device Request Number: {{srNumber}}","UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
+        "DECOMMISION_DEVICE_DETAIL": "Details for Decommission Device Request Number: {{srNumber}}",
+        "UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
         "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
         "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
         "CHANGE_HISTORY": "Device change history",
@@ -146,7 +147,11 @@
         "PREVIOUS_INSTALL_ADDRESS": "Previous install address",
         "NEW_INSTALL_ADDRESS": "New install address",
         "SELECT_DIFFERENT_INSTALL_ADDRESS": "Select a different install address",
-        "REVERT_TO_THIS": "Revert to this address"
+        "REVERT_TO_THIS": "Revert to this address",
+        "ADD_DEVICE_REQUEST_SUBMITTED": "Add a Device Request Submitted",
+        "SELECT_INSTALL_ADDRESS": "Please select an install address",
+        "DEVICE_SELECTED_FOR_REMOVAL": "Device currently selected for removal",
+        "REPLACE_DEVICE_WITH": "Replace device to be removed with.."
     },
 
     "ADDRESS": {
@@ -264,7 +269,11 @@
         "MACHINE_TYPE": "Machine type",
         "SERVICE_CONTACT": "Service contact",
         "SERVICE_ADDRESS": "Service address",
-        "NO_OF_PAGES": "{{pageCount}} Pages"
+        "NO_OF_PAGES": "{{pageCount}} Pages",
+        "REMOVE_A_DEVICE": "Remove a Device",
+        "DISCARD_DEVICE_REMOVAL_CHANGES": "DISCARD DEVICE REMOVAL CHANGES",
+        "CHANGE_DEVICE_TO_BE_REMOVED": "CHANGE DEVICE TO BE REMOVED",
+        "DEVICES_COUNT_MSG": "{{count}} devices at {{address}}"
     },
 
     "ORDER_MGT": {

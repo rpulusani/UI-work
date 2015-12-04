@@ -1,76 +1,48 @@
-define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], function(angular) {
+define(['angular', 
+    'deviceServiceRequest', 
+    'deviceManagement.deviceFactory',
+    'utility.formatters'], 
+    function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceAddController', ['$scope', '$location', '$filter', '$routeParams', '$rootScope', 'FormatterService', 'Devices',
-        function($scope, $location, $filter, $routeParams, $rootScope, FormatterService, Devices) {
+    .controller('DeviceAddController', ['$scope', 
+        '$location', 
+        '$filter', 
+        '$routeParams', 
+        '$rootScope', 
+        'ServiceRequestService', 
+        'FormatterService',
+        'BlankCheck',
+        'DeviceServiceRequest',
+        'Devices',
+        'Contacts',
+        'SRControllerHelperService',
+        function($scope, 
+            $location, 
+            $filter, 
+            $routeParams, 
+            $rootScope,
+            ServiceRequest,
+            FormatterService,
+            BlankCheck,
+            DeviceServiceRequest, 
+            Devices,
+            Contacts,
+            SRHelper) {
 
-            $scope.device = {};
-            $scope.device.selectedDevice = {};
-            $scope.device.selectedContact = {};
-            $scope.device.lexmarkDeviceQuestion = 'true';
-            $scope.isSubmitted = false;
-            $scope.isReview = false;
-            $scope.isPrimarySelected = false;
-            $scope.isSecondarySelected = false;
-            $scope.currentDate = $filter('date')(new Date(), "MM/dd/yyyy");
+            SRHelper.addMethods(Devices, $scope, $rootScope);
 
-            /* Remove this varibale after real call and getting the list of products
-               based on serial number */
-            $scope.productNumbers = [{id: 1, name: 'Product 1'}, {id: 2, name: 'Product 2'}, {id: 3, name: 'Product 3'}];
-
-            if ($rootScope.newDevice !== undefined && $routeParams.return) {
-                $scope.device = $rootScope.newDevice;
-            }
-
-
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
-                && $routeParams.return && $routeParams.return !== 'discard') {
-                if ($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.serialNumber !== undefined) {
-                    console.log("inside device condition");
-                    $scope.device.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                } else {
-                    if ($rootScope.currentSelected) {
-                        switch($rootScope.currentSelected){
-                            case 'deviceContact':
-                                $scope.device.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                            case 'requestPrimaryContact':
-                                $scope.device.requestPrimaryContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                            case 'requestSecondaryContact':
-                                $scope.device.requestSecondaryContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-                            break;
-                        }
-                    }
-
-                }
-            }
+            $scope.goToReview = function() {
+                $location.path(DeviceServiceRequest.route + '/add/' + $scope.device.id + '/review');
+            };
 
             $scope.goToBrowse = function(device) {
                 $rootScope.newDevice = device;
                 $location.path('/device_management/pick_device');
             };
 
-            $scope.goToReview = function() {
-                $scope.isReview = true;
-            };
-
-            $scope.goToAdd = function() {
-                $scope.isReview = false;
-            };
-
-            $scope.goToSubmit = function() {
-                $scope.isSubmitted = true;
-            };
-
             $scope.goToCreate = function() {
                 $location.path('/service_requests/devices/new');
-            };
-
-            $scope.goToContactPicker = function(device,currentSelected) {
-                $rootScope.currentSelected = currentSelected;
-                $rootScope.newDevice = device;
-                $location.path('/service_requests/devices/pick_contact');
             };
 
             $scope.isDeviceSelected = function(){
@@ -82,28 +54,77 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                 }
             };
 
-            if ($scope.device.address) {
-                $scope.installAddress = FormatterService.formatAddress($scope.device.address);
+            var configureSR = function(ServiceRequest){
+                ServiceRequest.addRelationship('account', $scope.device);
+                ServiceRequest.addRelationship('asset', $scope.device, 'self');
+                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
+            };
+
+            if ($rootScope.selectedContact 
+                    && $rootScope.returnPickerObject){
+                $scope.device = $rootScope.returnPickerObject;
+                $scope.sr = $rootScope.returnPickerSRObject;
+                if ($rootScope.currentSelected) {
+                    console.log('in contact');
+                    if ($rootScope.currentSelected === 'updateRequestContact') {
+                        ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                        $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                    } else if ($rootScope.currentSelected === 'updateDeviceContact') {
+                        ServiceRequest.addRelationship('contact', $rootScope.selectedContact, 'self');
+                        $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
+                    }
+                }
+            } else if($rootScope.selectedAddress
+                    && $rootScope.returnPickerObjectAddress){
+                console.log('in address');
+                $scope.device = $rootScope.returnPickerObjectAddress;
+                $scope.sr = $rootScope.returnPickerSRObjectAddress;
+                if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
+                    $scope.device.addressSelected = true;
+                    ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
+                    $scope.device.address = $rootScope.selectedAddress;
+                    //$scope.configure.devicePicker.sourceAddress = $rootScope.selectedAddress;
+                    //console.log('$scope.configure inside address',$scope.configure);
+                }
+            } else if($rootScope.selectedDevice
+                    && $rootScope.returnPickerObjectDevice){
+                console.log('in device');
+                $scope.device = $rootScope.returnPickerObjectDevice;
+                $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
+                    $scope.device.isDeviceSelected = true;
+                    ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
+                    $scope.device.selectedDevice = $rootScope.selectedDevice;
+                }
+            } else {
+                console.log('in default');
+                $scope.device = {};
+                $scope.device.address = {};
+                $scope.device.selectedDevice = {};
+                $scope.device.lexmarkDeviceQuestion = 'true';
+                $scope.currentDate = $filter('date')(new Date(), "MM/dd/yyyy");
+                /* Remove this varibale after real call and getting the list of products
+                   based on serial number */
+                $scope.productNumbers = [{id: 1, name: 'Product 1'}, {id: 2, name: 'Product 2'}, {id: 3, name: 'Product 3'}];
+
+                /*if ($rootScope.returnPickerObjectAddress) {
+                    $scope.resetAddressPicker();
+                }
+
+                if ($rootScope.returnPickerObject) {
+                    $scope.resetContactPicker();
+                }
+
+                if ($rootScope.returnPickerObjectDevice) {
+                    $scope.resetDevicePicker();
+                }*/
             }
 
-            if ($scope.device.selectedContact) {
-                $scope.devicePrimaryContact = FormatterService.formatContact($scope.device.selectedContact);
-                $scope.isReview = false;
-            }
 
-            if ($scope.device.requestPrimaryContact) {
-                $scope.requestPrimaryContact = FormatterService.formatContact($scope.device.requestPrimaryContact);
-                $scope.isPrimarySelected = true;
-                $scope.isReview = true;
-            }
-
-            if ($scope.device.requestSecondaryContact) {
-                $scope.requestSecondaryContact = FormatterService.formatContact($scope.device.requestSecondaryContact);
-                $scope.isSecondarySelected = true;
-                $scope.isReview = true;
-            }
-
-            configureTemplates();
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+            $scope.getRequestor(ServiceRequest, Contacts);
+            console.log('$scope.configure outside address',$scope.configure);
 
             function configureTemplates() {
                 $scope.configure = {
@@ -115,18 +136,35 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                         },
                         readMoreUrl: '#'
                     },
+                    device: {
+                        information:{
+                            translate: {
+                                title: 'DEVICE_MGT.DEVICE_INFO',
+                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
+                                partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
+                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
+                            }
+                        }
+                    },
                     actions: {
                         translate: {
                             abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON',
                             submit: 'LABEL.REVIEW_SUBMIT'
                         },
-                        submit: function() {
-                            if($scope.isReview){
-                                $scope.goToSubmit();
-                            }else{
-                                $scope.goToReview();
-                            }
-                        }
+                        submit: $scope.goToReview
+                    },
+                    contact:{
+                        translate: {
+                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
+                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        },
+                        show:{
+                            primaryAction : true
+                        },
+                        source: 'DeviceAdd'
                     },
                     modal: {
                         translate: {
@@ -136,9 +174,98 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
                         },
                         returnPath: Devices.route + '/'
+                    },
+                    contactPicker: {
+                        translate: {
+                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
+                        }
+                    },
+                    addressPicker: {
+                        translate: {
+                            currentInstalledAddressTitle: 'DEVICE_SERVICE_REQUEST.CURRENTLY_INSTALLED_AT',
+                            replaceAddressTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_ADDRESS_WITH'
+                        },
+                        sourceAddress: $scope.device.address
+                    },
+                    devicePicker: {
+                        translate: {
+                            currentDeviceTitle: 'DEVICE_SERVICE_REQUEST.DEVICE_SELECTED_FOR_REMOVAL',
+                            replaceDeviceTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_DEVICE_WITH'
+                        },
+                        sourceDevice: $scope.device.selectedDevice
                     }
                 };
             }
+
+            function configureReceiptTemplate() {
+                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_SUBMITTED";
+                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.bodyValues= {
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                    'srHours': 24,
+                    'deviceManagementUrl': 'device_management/',
+                };
+                $scope.configure.receipt = {
+                    translate: {
+                        title:"DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL",
+                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+            }
+
+            function configureReviewTemplate(){
+                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                $scope.configure.actions.submit = function(){
+                    if ($scope.device.deviceInstallQuestion === 'true') {
+                        ServiceRequest.addField('type', 'MADC_INSTALL');
+                    } else {
+                        ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
+                    }
+                    var assetInfo = {
+                        ipAddress: $scope.device.ipAddress,
+                        hostName: $scope.device.hostName,
+                        assetTag: $scope.device.assetTag,
+                        costCenter: $scope.device.costCenter,
+                        physicalLocation1: $scope.device.physicalLocation1,
+                        physicalLocation2: $scope.device.physicalLocation2,
+                        physicalLocation3: $scope.device.physicalLocation3
+                    };
+                    ServiceRequest.addField('assetInfo', assetInfo);
+
+                    var deferred = DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    });
+
+                    deferred.then(function(result){
+                        ServiceRequest.item = DeviceServiceRequest.item;
+                        $location.path(DeviceServiceRequest.route + '/add/' + $scope.device.id + '/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+
+                };
+            }
+
+            var formatAdditionalData = function() {
+                if (!BlankCheck.isNull($scope.device.address)) {
+                    $scope.formattedAddress = FormatterService.formatAddress($scope.device.address);
+                }
+
+                if (!BlankCheck.isNull($scope.device.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+                }
+
+                if (!BlankCheck.isNull($scope.device.deviceContact)) {
+                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+                }
+
+                if (!BlankCheck.isNull($scope.device.requestedByContact)) {
+                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.device.requestedByContact);
+                }
+            };
+            
+            $scope.formatReceiptData(formatAdditionalData);
         }
     ]);
 });

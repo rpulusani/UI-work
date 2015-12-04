@@ -147,9 +147,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 deferred = $q.defer(),
                 link;
-
                 for (link in links) {
-                    if (links[link].href) {
+                    if (links[link] && links[link].href) {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
@@ -444,6 +443,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if(additionalOptions){
                     angular.extend(options, additionalOptions);
                 }
+                console.log('options is',options);
                 return this.get(options);
             };
 
