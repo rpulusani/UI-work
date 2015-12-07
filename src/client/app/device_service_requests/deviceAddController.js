@@ -15,6 +15,7 @@ define(['angular',
         'BlankCheck',
         'DeviceServiceRequest',
         'Devices',
+        'imageService',
         'Contacts',
         'SRControllerHelperService',
         function($scope, 
@@ -27,6 +28,7 @@ define(['angular',
             BlankCheck,
             DeviceServiceRequest, 
             Devices,
+            ImageService,
             Contacts,
             SRHelper) {
 
@@ -76,28 +78,39 @@ define(['angular',
                 }
             } else if($rootScope.selectedAddress
                     && $rootScope.returnPickerObjectAddress){
-                console.log('in address');
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                     $scope.device.addressSelected = true;
                     ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
                     $scope.device.address = $rootScope.selectedAddress;
-                    //$scope.configure.devicePicker.sourceAddress = $rootScope.selectedAddress;
-                    //console.log('$scope.configure inside address',$scope.configure);
                 }
             } else if($rootScope.selectedDevice
                     && $rootScope.returnPickerObjectDevice){
-                console.log('in device');
                 $scope.device = $rootScope.returnPickerObjectDevice;
                 $scope.sr = $rootScope.returnPickerSRObjectDevice;
                 if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
                     $scope.device.isDeviceSelected = true;
                     ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
                     $scope.device.selectedDevice = $rootScope.selectedDevice;
+                    ImageService.getPartMediumImageUrl($scope.device.selectedDevice.partNumber).then(function(url){
+                        $scope.device.selectedDevice.medImage = url;
+                    }, function(reason){
+                         NREUM.noticeError('Image url was not found reason: ' + reason);
+                    });
+
+                    Devices.setItem($scope.device.selectedDevice);
+                    var options = {
+                        params:{
+                            embed:'contact'
+                        }
+                    };
+                    Devices.item.links.self(options).then(function(){
+                        $scope.device.selectedDevice.contact = Devices.item.self.item.contact.item;
+                        $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.device.selectedDevice.contact);
+                    });
                 }
             } else {
-                console.log('in default');
                 $scope.device = {};
                 $scope.device.address = {};
                 $scope.device.selectedDevice = {};
@@ -124,7 +137,6 @@ define(['angular',
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
             $scope.getRequestor(ServiceRequest, Contacts);
-            console.log('$scope.configure outside address',$scope.configure);
 
             function configureTemplates() {
                 $scope.configure = {
@@ -191,8 +203,7 @@ define(['angular',
                         translate: {
                             currentDeviceTitle: 'DEVICE_SERVICE_REQUEST.DEVICE_SELECTED_FOR_REMOVAL',
                             replaceDeviceTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_DEVICE_WITH'
-                        },
-                        sourceDevice: $scope.device.selectedDevice
+                        }
                     }
                 };
             }

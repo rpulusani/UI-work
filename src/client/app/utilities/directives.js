@@ -65,11 +65,19 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             scope: {
                 currentDeviceTitle: '@',
-                replaceDeviceTitle: '@',
-                sourceDevice: '@',
-                sourceAddress: '@'
+                replaceDeviceTitle: '@'
             },
             templateUrl: '/app/utilities/templates/pick-device.html',
+            controller: 'DevicePickerController'
+        };
+    })
+    .directive('partImage', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                partNumber: '@'
+            },
+            template: '{{partImageUrl}}',
             controller: 'DevicePickerController'
         };
     })
