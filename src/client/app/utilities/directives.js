@@ -60,6 +60,17 @@ define(['angular', 'utility'], function(angular) {
             controller: 'AddressPickerController'
         };
     })
+    .directive('pickDevice', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                currentDeviceTitle: '@',
+                replaceDeviceTitle: '@'
+            },
+            templateUrl: '/app/utilities/templates/pick-device.html',
+            controller: 'DevicePickerController'
+        };
+    })
     .directive('selectPageCount', function(){
          return {
             restrict: 'A',

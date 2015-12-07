@@ -34,23 +34,6 @@ define(['angular',
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
-            $scope.goToContactPicker = function(currentSelected) {
-                $rootScope.currentSelected = currentSelected;
-                $rootScope.selectionId = $scope.device.id;
-                $rootScope.contactReturnPath = $location.url();
-                $rootScope.returnPickerObject = $scope.device;
-                $rootScope.returnPickerSRObject = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/update/pick_contact');
-            };
-
-            $scope.goToAddressPicker = function() {
-                $rootScope.addressReturnPath = $location.url();
-                $rootScope.selectionId = $scope.device.id;
-                $rootScope.returnPickerObjectAddress = $scope.device;
-                $rootScope.returnPickerSRObjectAddress = $scope.sr;
-                $location.path(DeviceServiceRequest.route + '/update/pick_address');
-            };
-
             $scope.goToReview = function() {
                 $rootScope.formChangedValues = $scope.getChangedValues();
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -104,7 +87,7 @@ define(['angular',
                 Devices.item = $scope.device;
             } else {
                 $scope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item.address.item)) {
+                if (!BlankCheck.isNull(Devices.item.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                     $scope.device.currentInstalledAddress = Devices.item.address.item;
                     $scope.setupPhysicalLocations($scope.device.currentInstalledAddress, 
                                                 $scope.device.physicalLocation1,
@@ -113,7 +96,7 @@ define(['angular',
                     $scope.device.updatedInstallAddress = $scope.device.currentInstalledAddress;
                 }
 
-                if (!BlankCheck.isNull(Devices.item.contact.item)) {
+                if (!BlankCheck.isNull(Devices.item.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
                     $scope.device.deviceContact = Devices.item.contact.item;
                 }
 
@@ -122,11 +105,11 @@ define(['angular',
                 }
 
                 if ($rootScope.returnPickerObjectAddress && $rootScope.selectionId !== Devices.item.id) {
-                    resetAddressPicker();
+                    $scope.resetAddressPicker();
                 }
 
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
-                    resetContactPicker();
+                    $scope.resetContactPicker();
                 }
 
             }
@@ -153,14 +136,13 @@ define(['angular',
                         physicalLocation3: $scope.device.physicalLocation3
                     };
                     ServiceRequest.addField('assetInfo', assetInfo);
-
                     var deferred = DeviceServiceRequest.post({
                         item:  $scope.sr
                     });
 
                     deferred.then(function(result){
                         ServiceRequest.item = DeviceServiceRequest.item;
-                        $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                        $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
@@ -217,7 +199,8 @@ define(['angular',
                         },
                         show: {
                             primaryAction : true
-                        }
+                        },
+                        source: 'DeviceUpdate'
                     },
                     detail: {
                         translate: {
