@@ -37,27 +37,8 @@ define(['angular',
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             $scope.goToReview = function() {
-                console.log('$scope.device', $scope.device);
                 $rootScope.newDevice = $scope.device;
                 $location.path(DeviceServiceRequest.route + '/add/review');
-            };
-
-            $scope.goToBrowse = function(device) {
-                $rootScope.newDevice = device;
-                $location.path('/device_management/pick_device');
-            };
-
-            $scope.goToCreate = function() {
-                $location.path('/service_requests/devices/new');
-            };
-
-            $scope.isDeviceSelected = function(){
-                if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
-                    && $routeParams.return && $routeParams.return !== 'discard') {
-                    return true;
-                } else {
-                    return false;
-                }
             };
 
             var configureSR = function(ServiceRequest){
@@ -69,7 +50,6 @@ define(['angular',
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
-                    console.log('in contact');
                     if ($rootScope.currentSelected === 'updateRequestContact') {
                         ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                         $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
@@ -81,7 +61,6 @@ define(['angular',
                 $scope.resetContactPicker();
             } else if($rootScope.selectedAddress
                     && $rootScope.returnPickerObjectAddress){
-                console.log('in address');
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
@@ -92,7 +71,6 @@ define(['angular',
                 $scope.resetAddressPicker();
             } else if($rootScope.selectedDevice
                     && $rootScope.returnPickerObjectDevice){
-                console.log('in default');
                 $scope.device = $rootScope.returnPickerObjectDevice;
                 $scope.sr = $rootScope.returnPickerSRObjectDevice;
                 if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
@@ -132,18 +110,6 @@ define(['angular',
                 } else {
                     $scope.getRequestor(ServiceRequest, Contacts);
                 }
-                
-                /*if ($rootScope.returnPickerObjectAddress) {
-                    $scope.resetAddressPicker();
-                }
-
-                if ($rootScope.returnPickerObject) {
-                    $scope.resetContactPicker();
-                }
-
-                if ($rootScope.returnPickerObjectDevice) {
-                    $scope.resetDevicePicker();
-                }*/
             }
 
             
@@ -257,7 +223,6 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
-                    console.log('inside review template');
                     if ($scope.device.deviceDeInstallQuestion === 'true') {
                         ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
                     } else if ($scope.device.deviceInstallQuestion === 'true') {
@@ -282,9 +247,6 @@ define(['angular',
                             ServiceRequest.item.postURL = api.url;
                         });
                     }
-                    console.log('before post');
-                    console.log('$scope.sr', $scope.sr);
-                    console.log('ServiceRequest.url', ServiceRequest.url);
                     var deferred = DeviceServiceRequest.post({
                         item:  $scope.sr
                     });

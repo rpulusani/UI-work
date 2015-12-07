@@ -3,81 +3,55 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
         beforeEach(module('mps'));
 
         describe('DeviceAddController', function() {
-            var scope, ctrl, location;
+            var scope, ctrl, location, form, deferred, blankCheck, mockedFactory, $httpBackend,
+            MockDeviceServiceRequest, mockContacts, mockSRControllerHelperService, compile;
 
-            beforeEach(inject(function($rootScope, $controller, $location) {
+            beforeEach(inject(function($rootScope, $controller, $location, $compile, $q, BlankCheck, HATEOASFactory, $httpBackend,
+                Devices, DeviceServiceRequest, Contacts, SRControllerHelperService) {
                 scope = $rootScope.$new();
                 rootScope = $rootScope;
                 location = $location;
-                ctrl = $controller('DeviceAddController', {$scope: scope});
+                compile = $compile;
+                deferred = $q.defer();
+                blankCheck = BlankCheck;
+                MockDeviceServiceRequest = DeviceServiceRequest;
+                mockDevices = Devices;
+                mockSRControllerHelperService = SRControllerHelperService;
+
+                mockDevices.url = 'http://127.0.0.1/test';
+                //mockDevices.item = fixtures.devices.regular;
+
+                httpBackend = $httpBackend;
+                MockDeviceServiceRequest.route = 'http://127.0.0.1/request';
+
+                mockContacts = Contacts;
+
+                mockContacts.serviceName = 'contact';
+
+                $rootScope.currentUser = fixtures.users.regular;
+                $rootScope.currentUser.deferred = $q.defer();
+
+                ctrl = $controller('DeviceAddController', {$scope: scope, Devices:mockDevices,
+                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
+                    SRControllerHelperService:mockSRControllerHelperService});
             }));
 
-            describe('goToBrowse', function() {
-                it('should take to device picker page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var device = [{id: 1}];
-                    scope.goToBrowse(device);
-                    expect(location.path).toHaveBeenCalledWith('/device_management/pick_device');
-                });
-            });
-
-            describe('goToContactPicker', function() {
-                it('should take to contact picker page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var device = [{id: 1}];
-                    scope.goToContactPicker(device);
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/devices/pick_contact');
-                });
-            });
-
-            describe('isDeviceSelected', function() {
-                beforeEach(inject(function($routeParams, $controller){
-                    $routeParams.return = 'return';
-                    ctrl = $controller('DeviceAddController', {$scope: scope});
-                }));
-                it('should decide whether device selected or not', function() {
-                    rootScope.currentRowList = [{ entity: {
-                            id: 1
-                        }
-                    }];
-                    var checkOutput = scope.isDeviceSelected();
-                    expect(checkOutput).toBe(true);
-                });
-            });
-
             describe('goToReview', function() {
-                it('should decide review page should be displayed', function() {
-                    scope.isReview = false;
-                    scope.goToReview();
-                    expect(scope.isReview).toBe(true);
-                });
-            });
-
-            describe('goToAdd', function() {
-                it('should decide add page should be displayed', function() {
-                    scope.isReview = true;
-                    scope.goToAdd();
-                    expect(scope.isReview).toBe(false);
-                });
-            });
-
-            describe('goToSubmit', function() {
-                it('should decide submit page should be displayed', function() {
-                    scope.isSubmitted = false;
-                    scope.goToSubmit();
-                    expect(scope.isSubmitted).toBe(true);
-                });
-            });
-
-            describe('goToCreate', function() {
-                it('should navigate to add a new device page', function() {
+                it('should take the user to the add review page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    scope.goToCreate();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/devices/new');
+                    scope.goToReview();
+                    expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/add/review');
+                });
+                it('should set the scope device object to rootScope', function() {
+                    scope.device = {
+                        serialNumber: '123'
+                    };
+                    scope.goToReview();
+                    expect(rootScope.newDevice).toBe(scope.device);
                 });
             });
-        });
 
+        });
 
         describe('DeviceSearchController', function() {
             var scope, ctrl, location;

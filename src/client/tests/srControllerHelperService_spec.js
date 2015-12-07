@@ -120,6 +120,110 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                         .toThrow('Failed to route to pick a contact either pickerObject or sr object are empty');
                 });
             });
+            describe('goToAddressPicker', function(){
+                it('should go to the hal address pick list', function(){
+                    var halObj = {
+                        route: '/dark'
+                    },
+                    source = 'testPath';
+                    scope.device = {
+                        cat:true
+                    };
+                    scope.sr = {
+                        dog:false
+                    };
+
+                    spyOn(location, 'path').and.returnValue('/dark/pick_address');
+                    service.addMethods(halObj, scope, rootScope);
+                    scope.goToAddressPicker(source, scope.device);
+                    expect(location.path).toHaveBeenCalledWith('/dark/pick_address/testPath');
+                    expect(rootScope.returnPickerObjectAddress).toBe(scope.device);
+                    expect(rootScope.returnPickerSRObjectAddress).toBe(scope.sr);
+                });
+                it('pickerObject is null, should produce an error', function(){
+                    var halObj = {
+                        route: '/dark'
+                    },
+                    source = 'testPath';
+                    scope.sr = {
+                        dog:false
+                    };
+                    var actual = function(){
+                        scope.goToAddressPicker(source);
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    expect(actual)
+                        .toThrow('Failed to route to pick an Address either pickerObject or sr object are empty');
+                });
+                it('sr object is null, should produce an error', function(){
+                    var halObj = {
+                        route: '/dark'
+                    },
+                    source = 'testPath';
+                    scope.device = {
+                        cat:true
+                    };
+                    scope.sr = null;
+                    var actual = function(){
+                        scope.goToAddressPicker(source, scope.device);
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    expect(actual)
+                        .toThrow('Failed to route to pick an Address either pickerObject or sr object are empty');
+                });
+            });
+            describe('goToDevicePicker', function(){
+                it('should go to the hal device pick list', function(){
+                    var halObj = {
+                        route: '/dark'
+                    },
+                    source = 'testPath';
+                    scope.device = {
+                        cat:true
+                    };
+                    scope.sr = {
+                        dog:false
+                    };
+
+                    spyOn(location, 'path').and.returnValue('/dark/pick_device');
+                    service.addMethods(halObj, scope, rootScope);
+                    scope.goToDevicePicker(source, scope.device);
+                    expect(location.path).toHaveBeenCalledWith('/dark/pick_device/testPath');
+                    expect(rootScope.returnPickerObjectDevice).toBe(scope.device);
+                    expect(rootScope.returnPickerSRObjectDevice).toBe(scope.sr);
+                });
+                it('pickerObject is null, should produce an error', function(){
+                    var halObj = {
+                        route: '/dark'
+                    },
+                    source = 'testPath';
+                    scope.sr = {
+                        dog:false
+                    };
+                    var actual = function(){
+                        scope.goToDevicePicker(source);
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    expect(actual)
+                        .toThrow('Failed to route to pick a Device either pickerObject or sr object are empty');
+                });
+                it('sr object is null, should produce an error', function(){
+                    var halObj = {
+                        route: '/dark'
+                    },
+                    source = 'testPath';
+                    scope.device = {
+                        cat:true
+                    };
+                    scope.sr = null;
+                    var actual = function(){
+                        scope.goToDevicePicker(source, scope.device);
+                    };
+                    service.addMethods(halObj, scope, rootScope);
+                    expect(actual)
+                        .toThrow('Failed to route to pick a Device either pickerObject or sr object are empty');
+                });
+            });
             describe('setupSR', function(){
                 it('should setup an basic sr message', function(){
                     var halObj = {
