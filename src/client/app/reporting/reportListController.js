@@ -4,14 +4,15 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
     .controller('ReportListController', ['$scope', '$location', 'grid', 'Reports', '$rootScope',
         'PersonalizationServiceFactory', '$filter',
         function($scope, $location, Grid, Reports, $rootScope, Personalize, $filter) {
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            params;
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var params;
 
-            // if we have an item switch to a column set that shares its id
-            if (!Reports.item) {
+            if (Reports.item === null) {
                 $location.path(Reports.route);
             } else {
                 $scope.report = Reports.item;
+
+                configureTemplates();
 
                 // if this report has an associated eventType from the finder form add these
                 // parameters to the next call.
@@ -32,23 +33,34 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.gridOptions = {};
                 $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
                 $scope.gridOptions.enableGridMenu = true;
-                $scope.gridOptions.enableSelectAll = false;
-                $scope.gridOptions.enableRowSelection = false;
-                $scope.exporterPdfOrientation =  'landscape';
-                $scope.exporterPdfPageSize = 'TABLOID';
-                $scope.gridOptions.showBookmarkColumn = false;
+                $scope.gridOptions.exporterMenuPdf = false;
+                $scope.gridOptions.exporterCsvFilename = $scope.report.name + '.csv';
+                //$scope.exporterPdfOrientation =  'landscape';
+                //$scope.exporterPdfPageSize = 'TABLOID';
 
                 Reports.item.links.results({
                     serviceName: 'results',
                     embeddedName: 'reportData',
                     columns: Reports.item.id,
-                    columnsDefs: Reports.columnsDefs,
+                    columnDefs: Reports.columnDefs,
                     params: params
                 }).then(function(res) {
                     Grid.display(Reports.item.results, $scope, personal);
                 }, function(reason) {
                     NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
                 });
+            }
+
+            function configureTemplates() {
+                $scope.configure = {
+                    header: {
+                        translate: {
+                            h1: 'REPORTING.RUN_TITLE',
+                            h1Values: {'report': $scope.report.name },
+                            body: 'MESSAGE.LIPSUM',
+                        },
+                    },
+                }
             }
         }
     ]);
