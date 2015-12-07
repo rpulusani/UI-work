@@ -100,7 +100,6 @@ define(['angular',
                 $scope.device.address = {};
                 $scope.device.selectedDevice = {};
                 $scope.device.lexmarkDeviceQuestion = 'true';
-                $scope.currentDate = $filter('date')(new Date(), "MM/dd/yyyy");
                 /* Remove this varibale after real call and getting the list of products
                    based on serial number */
                 $scope.productNumbers = [{id: 1, name: 'Product 1'}, {id: 2, name: 'Product 2'}, {id: 3, name: 'Product 3'}];
