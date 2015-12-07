@@ -71,16 +71,6 @@ define(['angular', 'utility'], function(angular) {
             controller: 'DevicePickerController'
         };
     })
-    .directive('partImage', function(){
-         return {
-            restrict: 'A',
-            scope: {
-                partNumber: '@'
-            },
-            template: '{{partImageUrl}}',
-            controller: 'DevicePickerController'
-        };
-    })
     .directive('selectPageCount', function(){
          return {
             restrict: 'A',

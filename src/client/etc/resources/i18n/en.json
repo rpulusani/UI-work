@@ -137,6 +137,7 @@
         "UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
         "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
         "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
+        "ADD_DEVICE_DETAIL": "Details for Add Device Request Number: {{srNumber}}",
         "CHANGE_HISTORY": "Device change history",
         "LEARN_MORE": "Learn more about requests",
         "CHANGE_INSTALL_ADDRESS": "Change install address",

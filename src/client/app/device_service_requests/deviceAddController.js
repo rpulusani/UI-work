@@ -18,6 +18,7 @@ define(['angular',
         'imageService',
         'Contacts',
         'SRControllerHelperService',
+        'HATEAOSConfig',
         function($scope, 
             $location, 
             $filter, 
@@ -30,12 +31,15 @@ define(['angular',
             Devices,
             ImageService,
             Contacts,
-            SRHelper) {
+            SRHelper,
+            HATEAOSConfig) {
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             $scope.goToReview = function() {
-                $location.path(DeviceServiceRequest.route + '/add/' + $scope.device.id + '/review');
+                console.log('$scope.device', $scope.device);
+                $rootScope.newDevice = $scope.device;
+                $location.path(DeviceServiceRequest.route + '/add/review');
             };
 
             $scope.goToBrowse = function(device) {
@@ -57,8 +61,6 @@ define(['angular',
             };
 
             var configureSR = function(ServiceRequest){
-                ServiceRequest.addRelationship('account', $scope.device);
-                ServiceRequest.addRelationship('asset', $scope.device, 'self');
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
             };
 
@@ -76,8 +78,10 @@ define(['angular',
                         $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                     }
                 }
+                $scope.resetContactPicker();
             } else if($rootScope.selectedAddress
                     && $rootScope.returnPickerObjectAddress){
+                console.log('in address');
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
@@ -85,8 +89,10 @@ define(['angular',
                     ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
                     $scope.device.address = $rootScope.selectedAddress;
                 }
+                $scope.resetAddressPicker();
             } else if($rootScope.selectedDevice
                     && $rootScope.returnPickerObjectDevice){
+                console.log('in default');
                 $scope.device = $rootScope.returnPickerObjectDevice;
                 $scope.sr = $rootScope.returnPickerSRObjectDevice;
                 if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
@@ -109,6 +115,7 @@ define(['angular',
                         $scope.device.selectedDevice.contact = Devices.item.self.item.contact.item;
                         $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.device.selectedDevice.contact);
                     });
+                    $scope.resetDevicePicker();
                 }
             } else {
                 $scope.device = {};
@@ -119,7 +126,13 @@ define(['angular',
                 /* Remove this varibale after real call and getting the list of products
                    based on serial number */
                 $scope.productNumbers = [{id: 1, name: 'Product 1'}, {id: 2, name: 'Product 2'}, {id: 3, name: 'Product 3'}];
-
+                if ($rootScope.newDevice) {
+                    $scope.device = $rootScope.newDevice;
+                    $rootScope.newDevice = undefined;
+                } else {
+                    $scope.getRequestor(ServiceRequest, Contacts);
+                }
+                
                 /*if ($rootScope.returnPickerObjectAddress) {
                     $scope.resetAddressPicker();
                 }
@@ -133,10 +146,9 @@ define(['angular',
                 }*/
             }
 
-
+            
             $scope.setupSR(ServiceRequest, configureSR);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
-            $scope.getRequestor(ServiceRequest, Contacts);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
             function configureTemplates() {
                 $scope.configure = {
@@ -157,6 +169,23 @@ define(['angular',
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
                             }
+                        }
+                    },
+                    detail: {
+                        translate: {
+                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
+                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                            comments: 'LABEL.COMMENTS',
+                            attachments: 'LABEL.ATTACHMENTS',
+                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
+                        },
+                        show: {
+                            referenceId: true,
+                            costCenter: true,
+                            comments: true,
+                            attachements: true
                         }
                     },
                     actions: {
@@ -218,7 +247,7 @@ define(['angular',
                 };
                 $scope.configure.receipt = {
                     translate: {
-                        title:"DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL",
+                        title:"DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };
@@ -228,7 +257,10 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
-                    if ($scope.device.deviceInstallQuestion === 'true') {
+                    console.log('inside review template');
+                    if ($scope.device.deviceDeInstallQuestion === 'true') {
+                        ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
+                    } else if ($scope.device.deviceInstallQuestion === 'true') {
                         ServiceRequest.addField('type', 'MADC_INSTALL');
                     } else {
                         ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
@@ -243,14 +275,23 @@ define(['angular',
                         physicalLocation3: $scope.device.physicalLocation3
                     };
                     ServiceRequest.addField('assetInfo', assetInfo);
-
+                    ServiceRequest.addField('requestChangeDate', $scope.device.deviceInstallDate); 
+                    ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
+                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
+                            ServiceRequest.item.postURL = api.url;
+                        });
+                    }
+                    console.log('before post');
+                    console.log('$scope.sr', $scope.sr);
+                    console.log('ServiceRequest.url', ServiceRequest.url);
                     var deferred = DeviceServiceRequest.post({
                         item:  $scope.sr
                     });
 
                     deferred.then(function(result){
                         ServiceRequest.item = DeviceServiceRequest.item;
-                        $location.path(DeviceServiceRequest.route + '/add/' + $scope.device.id + '/receipt');
+                        $location.path(DeviceServiceRequest.route + '/add/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });

@@ -384,7 +384,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         url = self.buildUrl(itemUrl, self.params, []);
 
                         self.checkForEvent(self.item, 'on' + verbName);
-
                         $http({
                             method: method,
                             url: url,
@@ -443,7 +442,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if(additionalOptions){
                     angular.extend(options, additionalOptions);
                 }
-                console.log('options is',options);
                 return this.get(options);
             };
 

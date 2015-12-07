@@ -6,11 +6,13 @@ define(['angular', 'serviceRequest'], function(angular) {
         '$location',
         'BlankCheck',
         'FormatterService',
+        'HATEAOSConfig',
         function(
             $translate,
             $location,
             BlankCheck,
-            FormatterService
+            FormatterService,
+            HATEAOSConfig
             ) {
             var scope,
             rootScope,
@@ -46,7 +48,6 @@ define(['angular', 'serviceRequest'], function(angular) {
             }
 
             function goToDevicePicker(source, pickerObject) {
-                console.log('in device picker',source);
                 if (pickerObject && scope.sr) {
                     rootScope.deviceReturnPath = $location.url();
                     if (pickerObject.id) {
@@ -89,7 +90,6 @@ define(['angular', 'serviceRequest'], function(angular) {
 
             function getRequestor(ServiceRequest, Contacts){
                 var user = {item: {}}; 
-                console.log(rootScope.currentUser.item);
                 user.item = Contacts.createItem(rootScope.currentUser.item);
                 user.item.links.contact().then(function() {
                     scope.device.requestedByContact = user.item.contact.item;

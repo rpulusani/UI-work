@@ -18,18 +18,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $rootScope.selectedAddress = undefined;
             }
 
-            if(BlankCheck.checkNotBlank($scope.partNumber)) {
-                console.log('inside scope partnumber');
-                console.log('$scope.partNumber',$scope.partNumber);
-                var imageUrl = '';
-                ImageService.getPartMediumImageUrl($scope.partNumber).then(function(url){
-                    console.log('url',url);
-                    $scope.partImageUrl = url;
-                }, function(reason){
-                     NREUM.noticeError('Image url was not found reason: ' + reason);
-                });
-            }
-
             configureTemplates();
 
             $scope.sourceController = function() {
@@ -40,31 +28,38 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 if ($rootScope.currentRowList.length >= 1) {
                    $rootScope.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                    $scope.selectedDevice = $rootScope.selectedDevice;
-                   console.log('$scope.selectedDevice',$scope.selectedDevice);
-                   //  Devices.setItem($scope.selectedDevice);
-                   //  var options = {
-                   //      params:{
-                   //          embed:'contact'
-                   //      }
-                   //  };
-                   //  Devices.item.links.self(options).then(function(){
-                   //      $scope.selectedDevice.contact = Devices.item.self.item.contact.item;
-                   //      $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
-                   //  });
                    return true;
                 } else {
                    return false;
                 }
             };
 
+            $scope.$watch('selectedDevice', function() {
+                if ($scope.selectedDevice.partNumber) {
+                    $scope.getPartImage($scope.selectedDevice.partNumber);
+                    $scope.getSelectedDeviceContact();
+                }
+            });
+
             $scope.getPartImage = function(partNumber) {
-                console.log('partNumber',partNumber);
                 var imageUrl = '';
                 ImageService.getPartMediumImageUrl(partNumber).then(function(url){
-                    console.log('url',url);
-                    return url;
+                    $scope.selectedImageUrl = url;
                 }, function(reason){
                      NREUM.noticeError('Image url was not found reason: ' + reason);
+                });
+            };
+
+            $scope.getSelectedDeviceContact = function() {
+                Devices.setItem($scope.selectedDevice);
+                var options = {
+                    params:{
+                        embed:'contact'
+                    }
+                };
+                Devices.item.links.self(options).then(function(){
+                    $scope.selectedDevice.contact = Devices.item.self.item.contact.item;
+                    $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
                 });
             };
 
@@ -82,27 +77,26 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
             var options = {};
-            if ($rootScope.returnPickerObjectDevice) {
+            if ($rootScope.returnPickerObjectDevice && $rootScope.returnPickerObjectDevice.selectedDevice) {
                 $scope.prevDevice = $rootScope.returnPickerObjectDevice;
-                console.log('$scope.prevDevice',$scope.prevDevice);
-                if ($scope.prevDevice.partNumber) {
-                    ImageService.getPartMediumImageUrl($scope.prevDevice.partNumber).then(function(url){
+                if ($scope.prevDevice.selectedDevice.partNumber) {
+                    ImageService.getPartMediumImageUrl($scope.prevDevice.selectedDevice.partNumber).then(function(url){
                         $scope.prevDevice.medImage = url;
                     }, function(reason){
                          NREUM.noticeError('Image url was not found reason: ' + reason);
                     });
                 }
         
-                if ($scope.prevDevice.contact) {
-                    Devices.setItem($scope.prevDevice);
+                if ($scope.prevDevice.selectedDevice.contact) {
+                    Devices.setItem($scope.prevDevice.selectedDevice);
                     var options = {
                         params:{
                             embed:'contact'
                         }
                     };
                     Devices.item.links.self(options).then(function(){
-                        $scope.prevDevice.contact = Devices.item.self.item.contact.item;
-                        $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.prevDevice.contact);
+                        $scope.prevDevice.selectedDevice.contact = Devices.item.self.item.contact.item;
+                        $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.prevDevice.selectedDevice.contact);
                     });
                 }
 

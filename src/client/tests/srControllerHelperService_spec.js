@@ -68,44 +68,52 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                 it('should go to the hal contact pick list', function(){
                     var halObj = {
                         route: '/dark'
-                    };
+                    },
+                    source = 'testPath',
+                    currentSelected = 'deviceContact';
                     scope.device = {
                         cat:true
                     };
                     scope.sr = {
                         dog:false
                     };
+
                     spyOn(location, 'path').and.returnValue('/dark/pick_contact');
                     service.addMethods(halObj, scope, rootScope);
-                    scope.goToContactPicker(scope.device);
-                    expect(location.path).toHaveBeenCalledWith('/dark/pick_contact');
+                    scope.goToContactPicker(source, currentSelected, scope.device);
+                    expect(location.path).toHaveBeenCalledWith('/dark/pick_contact/testPath');
                     expect(rootScope.returnPickerObject).toBe(scope.device);
                     expect(rootScope.returnPickerSRObject).toBe(scope.sr);
+                    expect(rootScope.currentSelected).toBe('deviceContact');
                 });
                 it('pickerObject is null, should produce an error', function(){
                     var halObj = {
                         route: '/dark'
-                    };
-                    scope.device = {
-                        cat:true
-                    };
+                    },
+                    source = 'testPath',
+                    currentSelected = 'deviceContact';
                     scope.sr = {
                         dog:false
                     };
+                    var actual = function(){
+                        scope.goToContactPicker(source, currentSelected);
+                    };
                     service.addMethods(halObj, scope, rootScope);
-                    expect(scope.goToContactPicker)
+                    expect(actual)
                         .toThrow('Failed to route to pick a contact either pickerObject or sr object are empty');
                 });
                 it('sr object is null, should produce an error', function(){
                     var halObj = {
                         route: '/dark'
-                    };
+                    },
+                    source = 'testPath',
+                    currentSelected = 'deviceContact';
                     scope.device = {
                         cat:true
                     };
                     scope.sr = null;
                     var actual = function(){
-                        scope.goToContactPicker(scope.device);
+                        scope.goToContactPicker(source, currentSelected, scope.device);
                     };
                     service.addMethods(halObj, scope, rootScope);
                     expect(actual)
