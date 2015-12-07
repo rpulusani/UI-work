@@ -33,8 +33,10 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.gridOptions = {};
                 $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
                 $scope.gridOptions.enableGridMenu = true;
-                $scope.exporterPdfOrientation =  'landscape';
-                $scope.exporterPdfPageSize = 'TABLOID';
+                $scope.gridOptions.exporterMenuPdf = false;
+                $scope.gridOptions.exporterCsvFilename = $scope.report.name + '.csv';
+                //$scope.exporterPdfOrientation =  'landscape';
+                //$scope.exporterPdfPageSize = 'TABLOID';
 
                 Reports.item.links.results({
                     serviceName: 'results',
