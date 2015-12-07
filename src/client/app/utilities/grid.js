@@ -44,6 +44,15 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 return null;
             }
         };
+        Grid.prototype.getVisibleColumns = function(service){
+            var columnList = this.setColumnDefaults(service),
+            visibleColumns = [];
+
+            for(var i = 0; i < columnList.length; ++i){
+                visibleColumns.push({ name: columnList[i]['name'] });
+            }
+            return visibleColumns;
+        };
 
         Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
             var data = angular.copy(incommingData);

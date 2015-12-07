@@ -8,11 +8,12 @@
         <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.MANAGE_PAGE_COUNTS"></button>
     </div>
 
-    <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+    <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
     translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
-    
-    <hr/>
 
+    <hr/>
+    <div grid-filter options="filterOptions"></div>
+    <div grid-search columns="visibleColumns"></div>
     <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
     <div pagination grid="{{gridOptions}}"></div>
 </div>

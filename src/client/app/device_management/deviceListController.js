@@ -5,6 +5,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
         'PersonalizationServiceFactory',
         function($scope, $location, Grid, Devices, $rootScope, Personalize) {
             $rootScope.currentRowList = [];
+            $scope.visibleColumns = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.goToCreate = function() {
                 Devices.item = {};
@@ -25,13 +26,40 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                 });
             };
 
+            $scope.visibleColumns =  Grid.getVisibleColumns(Devices); //sets initial columns visibility
+
+            function display() {
+                Grid.display(Devices, $scope, personal);
+            }
+            function failure(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
+            }
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
-            Devices.getPage().then(function() {
-                Grid.display(Devices, $scope, personal);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
-            });
+
+            $scope.filterOptions =
+                [   {
+                        display:'DEVICE_MGT.ALL_DEVICES',
+                        functionDef: function(){
+                          Devices.getPage().then(display,failure);
+                        }
+                    },
+                    {
+                        display: 'DEVICE_MGT.BOOKMARKED_DEVICES',
+                        functionDef: function(){
+                            console.log('Filtering Bookmarked Devices');
+                        }
+                    },
+                    {
+                        display: 'Filter By Location',
+                        optionsPanel: 'locationFilter'
+                    },
+                    {
+                        display: 'Filter By CHL',
+                        optionsPanel: 'CHLFilter'
+                    }
+                ];
+
         }
     ]);
 });

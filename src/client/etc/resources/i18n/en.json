@@ -264,7 +264,9 @@
         "MACHINE_TYPE": "Machine type",
         "SERVICE_CONTACT": "Service contact",
         "SERVICE_ADDRESS": "Service address",
-        "NO_OF_PAGES": "{{pageCount}} Pages"
+        "NO_OF_PAGES": "{{pageCount}} Pages",
+        "ALL_DEVICES": "All Devices",
+        "BOOKMARKED_DEVICES": "Bookmarked Devices"
     },
 
     "ORDER_MGT": {
