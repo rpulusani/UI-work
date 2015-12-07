@@ -47,9 +47,9 @@ define(['angular',
             };
 
             var configureSR = function(ServiceRequest){
-                // ServiceRequest.addRelationship('account', $scope.device);
-                // ServiceRequest.addRelationship('asset', $scope.device, 'self');
-                //ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
+                ServiceRequest.addRelationship('account', $scope.device);
+                ServiceRequest.addRelationship('asset', $scope.device, 'self');
+                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
             };
 
             if (Devices.item === null) {
@@ -136,7 +136,6 @@ define(['angular',
                         physicalLocation3: $scope.device.physicalLocation3
                     };
                     ServiceRequest.addField('assetInfo', assetInfo);
-                    console.log('$scope.sr',$scope.sr);
                     var deferred = DeviceServiceRequest.post({
                         item:  $scope.sr
                     });

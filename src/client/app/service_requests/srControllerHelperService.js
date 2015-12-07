@@ -6,13 +6,11 @@ define(['angular', 'serviceRequest'], function(angular) {
         '$location',
         'BlankCheck',
         'FormatterService',
-        'HATEAOSConfig',
         function(
             $translate,
             $location,
             BlankCheck,
-            FormatterService,
-            HATEAOSConfig
+            FormatterService
             ) {
             var scope,
             rootScope,
