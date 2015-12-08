@@ -36,7 +36,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             $scope.$watch('selectedDevice', function() {
                 if ($scope.selectedDevice.partNumber) {
-                    $scope.getPartImage($scope.selectedDevice.partNumber);
+                    if ($scope.selectedDevice.partNumber) {
+                        $scope.getPartImage($scope.selectedDevice.partNumber);
+                    }
                     $scope.getSelectedDeviceContact();
                 }
             });
