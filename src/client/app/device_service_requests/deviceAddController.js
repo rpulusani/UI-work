@@ -77,12 +77,14 @@ define(['angular',
                     $scope.device.isDeviceSelected = true;
                     ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
                     $scope.device.selectedDevice = $rootScope.selectedDevice;
-                    ImageService.getPartMediumImageUrl($scope.device.selectedDevice.partNumber).then(function(url){
-                        $scope.device.selectedDevice.medImage = url;
-                    }, function(reason){
-                         NREUM.noticeError('Image url was not found reason: ' + reason);
-                    });
-
+                    if ($scope.device.selectedDevice.partNumber) {
+                        ImageService.getPartMediumImageUrl($scope.device.selectedDevice.partNumber).then(function(url){
+                            $scope.device.selectedDevice.medImage = url;
+                        }, function(reason){
+                             NREUM.noticeError('Image url was not found reason: ' + reason);
+                        });
+                    }
+                    
                     Devices.setItem($scope.device.selectedDevice);
                     var options = {
                         params:{
