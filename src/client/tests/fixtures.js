@@ -25,6 +25,9 @@ define([], function() {
         "_links" : {
             "self" : {
                 "href" : 'http://127.0.0.1/test/itemOne'
+            }, 
+            "itemTwo": {
+                "href" : 'http://127.0.0.1/test/itemTwo'
             }
         }
     };
@@ -36,6 +39,9 @@ define([], function() {
         "_links" : {
             "self" : {
                 "href" : 'http://127.0.0.1/test/itemTwo'
+            },
+            "itemOne": {
+                "href": 'http://127.0.0.1/test/itemOne'
             }
         }
     };
@@ -50,6 +56,12 @@ define([], function() {
                 "_links" : {
                     "self" : {
                         "href" : "http://127.0.0.1/device/1-DEVICE"
+                    },
+                    "itemOne": {
+                        "href": 'http://127.0.0.1/test/itemOne'
+                    },
+                    "itemTwo": {
+                        "href": 'http://127.0.0.1/test/itemTwo'
                     }
                 }
             }
@@ -114,9 +126,49 @@ define([], function() {
                     accountId: '1-21AYVOT',
                     accountLevel: 'GLOBAL'
                 }
-            ]
+            ],
+            "_links" : {
+                "self" : {
+                    "href" : 'http://127.0.0.1/test{?page,size,sort}'
+                },
+                "contact" : {
+                    "href" : 'http://127.0.0.1/contact{?page,size,sort}'
+                }
+            }
         }
        
+    };
+
+    fixtures.devices = {};
+    fixtures.devices.regular = {
+        "serialNumber": "406336990F9Y5",
+        "address": {
+            "item": {
+                "addressLine1":"123"
+            }
+        },
+        "contact": {
+            "item": {
+                "firstName":"testName"
+            }
+        },
+        "_embeddedItems": {
+            "address": {
+              "name": "Walmart Chile Comercial Limitada",
+              "id": "1-CMP8BEW"
+            },
+            "primaryContact": {
+              "firstName": "TAMARA"
+            }
+        },
+        "_links" : {
+            "self" : {
+                "href" : 'http://127.0.0.1/test/1-ACCT-ID'
+            },
+            "meterReads": {
+              "href": 'http://127.0.0.1/test/1-ACCT-ID/meter-reads'
+            }
+        }
     };
 
     return fixtures;

@@ -1,8 +1,8 @@
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('FormatterService', [ '$translate', 'BlankCheck',
-        function($translate, BlankCheck) {
+    .factory('FormatterService', [ '$translate', 'BlankCheck','$filter',
+        function($translate, BlankCheck, $filter) {
             return{
                 getFormattedSRNumber: function(serviceRequest){
 
@@ -123,6 +123,84 @@ define(['angular', 'utility'], function(angular) {
                         }
                         if (BlankCheck.checkNotBlank(address.country)){
                              formattedAddress = formattedAddress + address.country + '<br/>';
+                        }
+
+                    }
+                    return formattedAddress;
+                },
+                formatDate: function(dateToBeFormatted){
+                    var d = new Date(dateToBeFormatted);
+                    return $filter('date')(d, 'MM/dd/yyyy');
+                },
+                formatAddresswoPhysicalLocation: function(address){
+                    var formattedAddress = '';
+                    if (BlankCheck.checkNotNullOrUndefined(address) ) {
+                        if (BlankCheck.checkNotBlank(address.storeFrontName)){
+                            formattedAddress += address.storeFrontName + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine1)){
+                            formattedAddress += address.addressLine1 + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine2)){
+                            formattedAddress += address.addressLine2 + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.city)){
+                            formattedAddress = formattedAddress + address.city;
+                            if (!BlankCheck.checkNotBlank(address.postalCode) && !BlankCheck.checkNotBlank(address.state)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ', ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.state)){
+                            formattedAddress = formattedAddress + address.state;
+                            if (!BlankCheck.checkNotBlank(address.postalCode)) {
+                                formattedAddress = formattedAddress + '<br/>';
+                            } else {
+                                formattedAddress = formattedAddress + ' ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.postalCode)){
+                            formattedAddress = formattedAddress + address.postalCode + '<br/>';
+                        }
+                        if (BlankCheck.checkNotBlank(address.country)){
+                             formattedAddress = formattedAddress + address.country + '<br/>';
+                        }
+
+                    }
+                    return formattedAddress;
+                },
+                formatAddressSingleLine: function(address){
+                    var formattedAddress = '';
+                    if (BlankCheck.checkNotNullOrUndefined(address) ) {
+                        if (BlankCheck.checkNotBlank(address.addressLine1)){
+                            formattedAddress += address.addressLine1 + ' ';
+                        }
+                        if (BlankCheck.checkNotBlank(address.addressLine2)){
+                            formattedAddress += address.addressLine2 + ' ';
+                        }
+                        if (BlankCheck.checkNotBlank(address.city)){
+                            formattedAddress = formattedAddress + address.city;
+                            if (BlankCheck.checkNotBlank(address.postalCode) 
+                                || BlankCheck.checkNotBlank(address.state)
+                                || BlankCheck.checkNotBlank(address.country)) {
+                                formattedAddress = formattedAddress + ', ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.state)){
+                            formattedAddress = formattedAddress + address.state;
+                            if (BlankCheck.checkNotBlank(address.postalCode) || BlankCheck.checkNotBlank(address.country)) {
+                                formattedAddress = formattedAddress + ' ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.postalCode)){
+                            formattedAddress = formattedAddress + address.postalCode;
+                            if (BlankCheck.checkNotBlank(address.country)) {
+                                formattedAddress = formattedAddress + ' ';
+                            }
+                        }
+                        if (BlankCheck.checkNotBlank(address.country)){
+                             formattedAddress = formattedAddress + address.country;
                         }
 
                     }

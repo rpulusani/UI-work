@@ -10,7 +10,13 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);
             if(Devices.item){
-              Devices.getAdditional(Devices.item, ServiceRequest).then(function(){
+              var options = {
+                //type: 'BREAK_FIX',
+                assetId: Devices.item.id
+               };
+              ServiceRequest.reset();
+              ServiceRequest.getPage(0,20, options).then(function(){
+                  ServiceRequest.columns = 'breakfixSet';
                   Grid.display(ServiceRequest, $scope, personal);
               }, function(reason){
                   NREUM.noticeError('Grid Load Failed for getting ServiceRequests ' + Devices.serviceName +  ' reason: ' + reason);

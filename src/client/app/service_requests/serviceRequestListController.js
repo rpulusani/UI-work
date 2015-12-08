@@ -4,7 +4,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
     .controller('ServiceRequestListController', ['$scope', '$location', '$rootScope','ServiceRequestService', 'grid',
         'PersonalizationServiceFactory',
         function($scope,  $location, $rootScope, ServiceRequest, Grid, Personalize) {
-            $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
 

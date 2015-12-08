@@ -4,7 +4,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
     .controller('DeviceListController', ['$scope', '$location', 'grid', 'Devices', '$rootScope',
         'PersonalizationServiceFactory',
         function($scope, $location, Grid, Devices, $rootScope, Personalize) {
-            $rootScope.currentAccount = '1-21AYVOT';
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.goToCreate = function() {

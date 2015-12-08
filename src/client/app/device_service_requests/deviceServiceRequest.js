@@ -7,16 +7,20 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/new.html',
                 controller: 'DeviceAddController'
             })
+            .when('/service_requests/devices/add/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'DeviceAddController'
+            })
+            .when('/service_requests/devices/add/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'DeviceAddController'
+            })
             .when('/service_requests/devices/new/:return', {
                 templateUrl: '/app/device_service_requests/templates/new.html',
                 controller: 'DeviceAddController'
             })
             .when('/service_requests/devices/update/pick_contact', {
                 templateUrl: '/app/device_service_requests/templates/contact-picker.html',
-                controller: 'DeviceUpdateController'
-            })
-            .when('/service_requests/devices/update/pick_address', {
-                templateUrl: '/app/device_service_requests/templates/address-picker.html',
                 controller: 'DeviceUpdateController'
             })
             .when('/service_requests/devices/search', {

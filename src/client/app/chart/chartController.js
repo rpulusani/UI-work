@@ -9,18 +9,17 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
             legend,
             chartData,
             centered,
-            chartOptions,
             chart;
+
+            var chartOptions = {};
+            chartOptions.maintainAspectRatio = false;
+            chartOptions.responsive = true;
 
             if  (attrs.showlegend === '' || attrs.showlegend) {
                 legend = document.createElement('div');
             }
 
-            if  (attrs.centered !== 'false') {
-                node.style.textAlign = 'center';
-                node.style.verticalAlign = 'middle';
-                node.style.margin = '0  auto';
-            }
+            node.className = 'text--align-center';
 
             // move to scope.on and broadcast the event
             scope.$watch('data', function() {
@@ -30,11 +29,13 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                     chartData = null;
                 }
 
-                if (scope.options) {
-                    chartOptions = JSON.parse(scope.options);
-                } else {
-                    chartOptions = {};
-                }
+                // if pie/doughnut has more than one value, display segments
+                if (attrs.draw.toLowerCase() === 'piechart' || attrs.draw.toLowerCase() === 'doughnutchart') {
+                    if (chartData !== null && chartData.length > 1)
+                        chartOptions.segmentShowStroke = true;
+                    else
+                        chartOptions.segmentShowStroke = false;
+                };
 
                 if (chartData !== null) {
                     node.appendChild(canvas);
@@ -50,7 +51,8 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
                         case 'doughnutchart':
                             chart = chart.Doughnut(chartData, chartOptions);
                             break;
-                        default: chart = chart.Bar(chartData, chartOptions);
+                        default:
+                            chart = chart.Bar(chartData, chartOptions);
                     }
 
                     if (legend) {

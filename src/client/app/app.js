@@ -30,7 +30,6 @@ define([
     'deviceManagement',
     'deviceManagement.deviceController',
     'deviceManagement.deviceListController',
-    'deviceManagement.devicePickerController',
     'deviceManagement.deviceInformationController',
     'deviceManagement.deviceOrderController',
     'deviceManagement.deviceRequestBreakFixController',
@@ -38,7 +37,6 @@ define([
     'deviceManagement.meterReadFactory',
     'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
-    'deviceManagement.devicePickerFactory',
     'deviceManagement.directives',
     'deviceServiceRequest',
     'deviceServiceRequest.deviceAddController',
@@ -57,6 +55,7 @@ define([
     'utility.controller',
     'utility.contactPickerController',
     'utility.addressPickerController',
+    'utility.devicePickerController',
     'utility.pageCountSelectController',
     'utility.pageCountSelectService',
     'utility.recursionHelper',
@@ -64,7 +63,8 @@ define([
     'utility.formatters',
     'utility.hateaosConfig',
     'utility.hateaosFactory',
-    'utility.grid'
+    'utility.grid',
+    'utility.imageService'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -138,15 +138,14 @@ define([
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService',
     function(Gatekeeper, $rootScope, $cookies, $q, UserService) {
 
-        //TODO: Get appropriate organization
-        // Gatekeeper.login({organization: 'lexmark'});
-        Gatekeeper.login();
+        Gatekeeper.login({organization_id: '3'});
 
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {
             deferred: $q.defer()
         };
         $rootScope.idpUser.$promise.then(function(){
+            angular.element(document.getElementsByTagName('body')).attr('style','');
             var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
                 promise.then(function(user){
                     angular.extend($rootScope.currentUser, user);

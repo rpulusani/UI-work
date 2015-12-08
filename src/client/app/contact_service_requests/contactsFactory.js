@@ -6,7 +6,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
-                columns: 'default',
+                columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
                         {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},

@@ -3,7 +3,6 @@ define(['angular', 'deviceManagement'], function(angular) {
     angular.module('mps.deviceManagement')
     .factory('Orders', ['$translate',
         function($translate) {
-            console.log(123123213);
             var Orders = function() {
                 this.columns = {
                     defaultSet: []

@@ -1,16 +1,22 @@
-<div class="row row--alley-2">
-    <div class="col-1">
-        <h1 translate="REPORTING.RUN_TITLE" translate-values="{report: report.name}"></h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+<div class="page-header">
+    <div class="row">
+        <div class="col-2-3">
+            <h1 translate="{{ configure.header.translate.h1 }}" translate-values="{{ configure.header.translate.h1Values }}"></h1>
+            <p class="text--large" translate="{{ configure.header.translate.body }}"></p>
+        </div>
     </div>
 </div>
-<div class="row" ng-show="report.name === 'MADC'">
-    <div report-finder></div>
-</div>
-<div class="row">
-    <div class="col-1">
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter class="grid"></div>
 
-        <div grid-pagination pagination="pagination"></div>
+<div class="page-content">
+
+    <div class="row" ng-show="report.name === 'MADC'">
+        <div report-finder></div>
     </div>
+    <div class="row">
+        <div class="col-1">
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+            <div pagination grid="{{gridOptions}}"></div>
+        </div>
+    </div>
+
 </div>

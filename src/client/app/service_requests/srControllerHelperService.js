@@ -16,13 +16,46 @@ define(['angular', 'serviceRequest'], function(angular) {
             rootScope,
             halObj;
 
-            function goToContactPicker(pickerObject) {
+            function goToContactPicker(source, currentSelected, pickerObject) {
                 if(pickerObject && scope.sr){
+                    rootScope.currentSelected = currentSelected;
+                    if (pickerObject.id) {
+                        rootScope.selectionId = pickerObject.id;
+                    }
+                    rootScope.contactReturnPath = $location.url();
                     rootScope.returnPickerObject = pickerObject;
                     rootScope.returnPickerSRObject = scope.sr;
-                    $location.path(halObj.route + '/pick_contact');
+                    $location.path(halObj.route + '/pick_contact/' + source);
                 }else{
                     throw 'Failed to route to pick a contact either pickerObject or sr object are empty';
+                }
+            }
+
+            function goToAddressPicker(source, pickerObject) {
+                if (pickerObject && scope.sr) {
+                    rootScope.addressReturnPath = $location.url();
+                    if (pickerObject.id) {
+                        rootScope.selectionId = pickerObject.id;
+                    }
+                    rootScope.returnPickerObjectAddress = pickerObject;
+                    rootScope.returnPickerSRObjectAddress = scope.sr;
+                    $location.path(halObj.route + '/pick_address/' + source);
+                } else{
+                    throw 'Failed to route to pick an Address either pickerObject or sr object are empty';
+                }
+            }
+
+            function goToDevicePicker(source, pickerObject) {
+                if (pickerObject && scope.sr) {
+                    rootScope.deviceReturnPath = $location.url();
+                    if (pickerObject.id) {
+                        rootScope.selectionId = pickerObject.id;
+                    }
+                    rootScope.returnPickerObjectDevice = pickerObject;
+                    rootScope.returnPickerSRObjectDevice = scope.sr;
+                    $location.path(halObj.route + '/pick_device/' + source);
+                } else{
+                    throw 'Failed to route to pick a Device either pickerObject or sr object are empty';
                 }
             }
 
@@ -56,7 +89,6 @@ define(['angular', 'serviceRequest'], function(angular) {
             function getRequestor(ServiceRequest, Contacts){
                 var user = {item: {}}; 
                 user.item = Contacts.createItem(rootScope.currentUser.item);
-
                 user.item.links.contact().then(function() {
                     scope.device.requestedByContact = user.item.contact.item;
                     ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
@@ -99,6 +131,31 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
+            function resetAddressPicker(){
+                rootScope.returnPickerObjectAddress = undefined;
+                rootScope.returnPickerSRObjectAddress = undefined;
+                rootScope.selectedAddress = undefined;
+            }
+
+            function resetContactPicker(){
+                rootScope.returnPickerObject = undefined;
+                rootScope.returnPickerSRObject = undefined;
+                rootScope.selectedContact = undefined;
+                rootScope.currentSelected = undefined;
+            }
+
+            function resetDevicePicker(){
+                rootScope.returnPickerObjectDevice = undefined;
+                rootScope.returnPickerSRObjectDevice = undefined;
+                rootScope.selectedDevice = undefined;
+            }
+
+            function setupPhysicalLocations(address, building, floor, office) {
+                address.building = building;
+                address.floor = floor;
+                address.office = office;
+            }
+
             function addMethods(halObject, $scope, $rootScope){
                 halObj = halObject;
                 scope = $scope;
@@ -106,11 +163,17 @@ define(['angular', 'serviceRequest'], function(angular) {
 
                 if(scope){
                     scope.goToContactPicker = goToContactPicker;
+                    scope.goToAddressPicker = goToAddressPicker;
+                    scope.goToDevicePicker = goToDevicePicker;
                     scope.redirectToList = redirectToList;
                     scope.getRequestor = getRequestor;
                     scope.formatReceiptData = formatReceiptData;
                     scope.setupTemplates = setupTemplates;
                     scope.setupSR = setupSR;
+                    scope.setupPhysicalLocations = setupPhysicalLocations;
+                    scope.resetAddressPicker = resetAddressPicker;
+                    scope.resetContactPicker = resetContactPicker;
+                    scope.resetDevicePicker = resetDevicePicker;
                 }else{
                     throw 'scope was not passed in to addMethods';
                 }
