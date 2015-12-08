@@ -45,6 +45,12 @@ requirejs.config({
 
             'rome',
 
+            'address',
+            'address.addressController',
+            'address.addressListController',
+            'address.directives',
+            'address.factory',
+
             'form',
             'form.datePicker',
             'form.directives',
@@ -99,6 +105,12 @@ requirejs.config({
         'user.usersController': ['user'],
         'user.accountListController': ['user','account.accountFactory'],
         'user.roleListController': ['user','account.roleFactory'],
+
+        'address': ['angular'],
+        'address.addressController': ['address'],
+        'address.addressListController': ['address'],
+        'address.directives': ['address'],
+        'address.factory': ['address'],
 
         'invoice': ['angular', 'angular-route'],
 
