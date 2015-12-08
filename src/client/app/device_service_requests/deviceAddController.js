@@ -77,7 +77,6 @@ define(['angular',
                     $scope.device.isDeviceSelected = true;
                     ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
                     $scope.device.selectedDevice = $rootScope.selectedDevice;
-                    console.log('$scope.device.selectedDevice.partNumber',$scope.device.selectedDevice.partNumber);
                     if ($scope.device.selectedDevice.partNumber) {
                         ImageService.getPartMediumImageUrl($scope.device.selectedDevice.partNumber).then(function(url){
                             $scope.device.selectedDevice.medImage = url;
