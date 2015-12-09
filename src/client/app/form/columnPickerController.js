@@ -87,7 +87,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 selectorContent,
                 links = [],
                 dropdown = $('<div class="dropdown"><button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
-                    '<div class="dropdown__menu dropdown--500px"><div class="dropdown__menu-inner"><div class="row"><div class="col-1 l-pad">' + 
+                    '<div class="dropdown__menu dropdown--500px"><div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
                     '<p class="selector-title">Column Selector</p><div class="selector-content"></div></div></div></div></div></div>');
 
                 element.append(dropdown);

@@ -1,3 +1,7 @@
+.dropdown__menu {
+  border: 1px solid red;
+  min-width: 720px;
+}
 .site-wrapper:after,
 .site-header:after,
 .site-nav:after,
