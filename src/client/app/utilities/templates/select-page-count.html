@@ -1,56 +1,29 @@
-<div ng-show="readonly === true">
-    <table class="table table--condensed table--even table--responsive" data-js="responsive-table">
-        <thead>
-            <tr>
-                <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
-                <th translate="DEVICE_MGT.PRIOR_COUNT"></th>
-                <th translate="DEVICE_MGT.PRIOR_DATE"></th>
-                <th translate="DEVICE_MGT.NEW_COUNT"></th>
-                <th translate="LABEL.DATE"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="pageCount in pageCountList | filter:(showLess || '') && filterByIds">
-                <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate }}" translate="{{pageCount.text}}"></td>
-                <td data-label="{{'DEVICE_MGT.PRIOR_COUNT' | translate }}"></td>
-                <td data-label="{{'DEVICE_MGT.PRIOR_DATE' | translate }}"></td>
-                <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate }}">
-                    <p>{{module.newCount[pageCount.id]}}</p>
-                </td>
-                <td data-label="{{'LABEL.DATE' | translate }}">
-                    <p>{{currentDate}}</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<table class="table table--condensed table--even table--responsive vertical-space--none">
+    <thead>
+        <tr>
+            <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
+            <th translate="DEVICE_MGT.NEW_COUNT"></th>
+            <th translate="LABEL.DATE"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in sourceObj.meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
+            <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate}}" ng-bind="item.type"></td>
+            <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate}}">
+                <div class="form__field vertical-space--none">
+                    <input type="number" ng-model="item.newVal"/>
+                </div>
+            </td>
+            <td data-label="{{'LABEL.DATE' | translate}}">
+                <div class="form__field vertical-space--none">
+                    <input datepicker type="date" ng-model="item.newDate"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<a href="#" ng-click="showAllMeterReads = !showAllMeterReads">
+    <span ng-hide="showAllMeterReads" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT"></span>
+    <span ng-show="showAllMeterReads" translate="DEVICE_MGT.VIEW_LESS"></span>
+</a>
 
-<div ng-show="readonly === false || readonly === undefined">
-    <table class="table table--condensed table--even table--responsive" data-js="responsive-table">
-        <thead>
-            <tr>
-                <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
-                <th translate="DEVICE_MGT.PRIOR_COUNT"></th>
-                <th translate="DEVICE_MGT.PRIOR_DATE"></th>
-                <th translate="DEVICE_MGT.NEW_COUNT"></th>
-                <th translate="LABEL.DATE"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="pageCount in pageCountList | filter:(showLess || '') && filterByIds">
-                <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate }}" translate="{{pageCount.text}}"></td>
-                <td data-label="{{'DEVICE_MGT.PRIOR_COUNT' | translate }}"></td>
-                <td data-label="{{'DEVICE_MGT.PRIOR_DATE' | translate }}"></td>
-                <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate }}">
-                    <input type="text" name="newPageCount" ng-model="module.newCount[pageCount.id]"/>
-                </td>
-                <td data-label="{{'LABEL.DATE' | translate }}">
-                    <input type="text" name="newDate" ng-model="currentDate"/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="" ng-show="showLess" ng-click="toggleDisplay()" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT"></a>
-    <a href="" ng-hide="showLess" ng-click="toggleDisplay()" translate="DEVICE_MGT.VIEW_LESS"></a>
-</div>

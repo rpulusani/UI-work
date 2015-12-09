@@ -1,98 +1,61 @@
-[
-	{
-		"id": "lifetime-1",
-		"text": "PAGE_COUNT_TYPE.LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "color-1",
-		"text": "PAGE_COUNT_TYPE.COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "mono-1",
-		"text": "PAGE_COUNT_TYPE.MONO_PAGE_COUNT"
-	},
-	{
-		"id": "a3lifetime",
-		"text": "PAGE_COUNT_TYPE.A3_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "a3color",
-		"text": "PAGE_COUNT_TYPE.A3_COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "a4lifetime",
-		"text": "PAGE_COUNT_TYPE.A4_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "a4color",
-		"text": "PAGE_COUNT_TYPE.A4_COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "a5lifetime",
-		"text": "PAGE_COUNT_TYPE.A5_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "a5color",
-		"text": "PAGE_COUNT_TYPE.A5_COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "cyan",
-		"text": "PAGE_COUNT_TYPE.CYAN_PAGE_COUNT"
-	},
-	{
-		"id": "legalLifetime",
-		"text": "PAGE_COUNT_TYPE.LEGAL_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "legalColor",
-		"text": "PAGE_COUNT_TYPE.LEGAL_COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "letterLifetime",
-		"text": "PAGE_COUNT_TYPE.LEGAL_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "letterColor",
-		"text": "PAGE_COUNT_TYPE.LEGAL_COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "scanCopy",
-		"text": "PAGE_COUNT_TYPE.SCAN_COPY_COUNT"
-	},
-	{
-		"id": "scanFax",
-		"text": "PAGE_COUNT_TYPE.SCAN_FAX_COUNT"
-	},
-	{
-		"id": "scanNetwork",
-		"text": "PAGE_COUNT_TYPE.SCAN_NETWORK_COUNT"
-	},
-	{
-		"id": "scanUSB",
-		"text": "PAGE_COUNT_TYPE.SCAN_USB_COUNT"
-	},
-	{
-		"id": "scanLifetime",
-		"text": "PAGE_COUNT_TYPE.SCAN_LIFE_TIME"
-	},
-	{
-		"id": "software",
-		"text": "PAGE_COUNT_TYPE.SOFTWARE_COUNT"
-	},
-	{
-		"id": "statementLifetime",
-		"text": "PAGE_COUNT_TYPE.STATEMENT_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "statementColor",
-		"text": "PAGE_COUNT_TYPE.STATEMENT_COLOR_PAGE_COUNT"
-	},
-	{
-		"id": "tabloidLifetime",
-		"text": "PAGE_COUNT_TYPE.TABLOID_LIFETIME_PAGE_COUNT"
-	},
-	{
-		"id": "tabloidColor",
-		"text": "PAGE_COUNT_TYPE.TABLOID_COLOR_PAGE_COUNT"
-	}
-]
+[ {
+      "type" : "A3 LTPC",
+      "value" : ""
+    }, {
+      "type" : "A3 Mono",
+      "value" : ""
+    }, {
+      "type" : "A4 LTPC",
+      "value" : ""
+    }, {
+      "type" : "A4 Mono",
+      "value" : ""
+    }, {
+      "type" : "A5 LTPC",
+      "value" : ""
+    }, {
+      "type" : "A5 Mono",
+      "value" : ""
+    }, {
+      "type" : "LTPC",
+      "value" : ""
+    }, {
+      "type" : "Legal LTPC",
+      "value" : ""
+    }, {
+      "type" : "Legal Mono",
+      "value" : ""
+    }, {
+      "type" : "Letter LTPC",
+      "value" : ""
+    }, {
+      "type" : "Letter Mono",
+      "value" : ""
+    }, {
+      "type" : "Mono",
+      "value" : ""
+    }, {
+      "type" : "PGS_SCAN_COPY",
+      "value" : ""
+    }, {
+      "type" : "PGS_SCAN_FAX",
+      "value" : ""
+    }, {
+      "type" : "PGS_SCAN_NETWORK",
+      "value" : ""
+    }, {
+      "type" : "PGS_SCAN_USB",
+      "value" : ""
+    }, {
+      "type" : "Statement LTPC",
+      "value" : ""
+    }, {
+      "type" : "Statement Mono",
+      "value" : ""
+    }, {
+      "type" : "Tabloid LTPC",
+      "value" : ""
+    }, {
+      "type" : "Tabloid Mono",
+      "value" : ""
+    } ]
