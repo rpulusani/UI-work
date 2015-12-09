@@ -2,8 +2,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
-     'BlankCheck', 'FormatterService', '$rootScope', 'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, Personalize) {
+     'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
+        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams, 
+            Personalize, $controller) {
             $scope.selectedAddress = [];
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
@@ -21,6 +22,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             }
 
             configureTemplates();
+
+            $scope.sourceController = function() {
+                return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
+            };
 
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {

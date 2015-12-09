@@ -163,9 +163,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 deferred = $q.defer(),
                 link;
-
                 for (link in links) {
-                    if (links[link].href) {
+                    if (links[link] && links[link].href) {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
@@ -401,7 +400,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         url = self.buildUrl(itemUrl, self.params, []);
 
                         self.checkForEvent(self.item, 'on' + verbName);
-
                         $http({
                             method: method,
                             url: url,
