@@ -15,11 +15,11 @@
     <div ng-bind-html="formattedDeviceAddress"></div>
 </div>
 <div ng-hide="device.addressSelected">
-    <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('updateInstallAddress')"></a>
+    <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
 <div ng-show="device.addressSelected">
     <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_DIFFERENT_INSTALL_ADDRESS" 
-        ng-click="goToAddressPicker('updateInstallAddress')"></a>
+        ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
 <div class="form__field">
     <label translate="ADDRESS.BUILDING_NAME"></label>
@@ -123,4 +123,4 @@
     <div ng-bind-html="formattedDeviceContact"></div>
 </div>
 
-<a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('updateDeviceContact')"></a>
+<a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('DeviceUpdate','updateDeviceContact',device)"></a>

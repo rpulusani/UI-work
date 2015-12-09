@@ -45,6 +45,12 @@ requirejs.config({
 
             'rome',
 
+            'address',
+            'address.addressController',
+            'address.addressListController',
+            'address.directives',
+            'address.factory',
+
             'form',
             'form.datePicker',
             'form.directives',
@@ -99,6 +105,12 @@ requirejs.config({
         'user.usersController': ['user'],
         'user.accountListController': ['user','account.accountFactory'],
         'user.roleListController': ['user','account.roleFactory'],
+
+        'address': ['angular'],
+        'address.addressController': ['address'],
+        'address.addressListController': ['address'],
+        'address.directives': ['address'],
+        'address.factory': ['address'],
 
         'invoice': ['angular', 'angular-route'],
 
@@ -170,6 +182,7 @@ requirejs.config({
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
         'utility.addressPickerController': 'app/utilities/addressPickerController',
+        'utility.devicePickerController': 'app/utilities/devicePickerController',
         'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
         'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',
         'utility.personalizationService': 'app/utilities/personalizationService',
@@ -222,13 +235,11 @@ requirejs.config({
         'deviceManagement.deviceInformationController': 'app/device_management/deviceInformationController',
         'deviceManagement.deviceOrderController': 'app/device_management/deviceOrderController',
         'deviceManagement.deviceRequestBreakFixController': 'app/device_management/deviceRequestBreakFixListController',
-        'deviceManagement.devicePickerController': 'app/device_management/devicePickerController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
-        'deviceManagement.devicePickerFactory': 'app/device_management/devicePickerFactory',
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',

@@ -129,10 +129,13 @@ define([], function() {
             ],
             "_links" : {
                 "self" : {
-                    "href" : 'http://127.0.0.1/test{?page,size,sort}'
+                    "href" : 'http://127.0.0.1/user/1-21AYVOT'
                 },
                 "contact" : {
-                    "href" : 'http://127.0.0.1/contact{?page,size,sort}'
+                    "href" : 'http://127.0.0.1/contact/1-21AYVOT'
+                },
+                "account": {
+                    "href" : 'http://127.0.0.1/account/1-21AYVOT'
                 }
             }
         }

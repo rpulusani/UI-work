@@ -50,7 +50,7 @@
                 <a href="#" translate="{{ configure.report.charts.translate.assetCount }}"></a>
             </div>
             <div class="well">
-                <div draw="piechart" data="{{ chartData.assetCount }}"></div>
+                <div draw="piechart" data="{{ chartData.assetRegister }}"></div>
             </div>
         </div>
         <div class="col-1-3">
@@ -142,7 +142,7 @@
                 <tbody>
                     <tr ng-repeat="report in reports">
                         <td>
-                            <a href="#" ng-click="(report.id == 'mp9073' || report.id == 'mp9058sp') && goToFinder(report)" ng-bind="report.name"></a>
+                            <a href="#" ng-click="(report.id == 'mp9073' || report.id == 'mp9058sp' || report.id == 'hw0008' || report.id == 'mp0021') && goToFinder(report)" ng-bind="report.name"></a>
                         </td>
                     </tr>
                 </tbody>
