@@ -4,7 +4,8 @@ define(['angular', 'utility', 'utility.pageCountSelectService'], function(angula
     .controller('PageCountSelectController', ['$scope', '$location', '$filter', '$routeParams', 'PageCountSelect',
         function($scope, $location, $filter, $routeParams, PageCountSelect) {
             $scope.showAllMeterReads = false;
-            $scope.sourceObj.meterReads = PageCountSelect.pageCountTypes.query();
+            $scope.meterReads = PageCountSelect.pageCountTypes.query();
+            console.log($scope.meterReads);
         }
     ]);
 });

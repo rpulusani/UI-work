@@ -7,7 +7,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in sourceObj.meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
+        <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
             <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate}}" ng-bind="item.type"></td>
             <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate}}">
                 <div class="form__field vertical-space--none">
