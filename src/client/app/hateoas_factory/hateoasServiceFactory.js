@@ -54,17 +54,29 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return obj;
             };
 
-             HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId){
+             HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
 
+                if (!loginId) {
+                    loginId = $rootScope.idpUser.email;
+                }
+
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     self.url = api.url;
                     url = self.url + '/' + loginId;
+
                     $http.get(url).then(function(processedResponse) {
-                        self.item = processedResponse.data;
-                        deferred.resolve(self);
+                        var user = processedResponse.data;
+                        // this should be working directly with UserService
+                        if (self.serviceName === 'users' && !self.item) {
+                            self.item = user;
+                        }
+
+                       $rootScope.currentUser.item = user;
+
+                        deferred.resolve(user);
                     });
                 });
 
@@ -128,9 +140,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
                 }
 
+                if (!newService.params.accountId) {
+
+                }
+
                 $rootScope.currentUser.deferred.promise.then(function() {
-                    newService.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                    newService.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                    newService.params.accountId = $rootScope.currentUser.accounts[0].accountId;
+                    newService.params.accountLevel = $rootScope.currentUser.accounts[0].level;
 
                     newService.get({
                         page: newService.params.page,
@@ -372,8 +388,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         if (method === 'get') {
                             //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                            self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                            self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
+                            self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                         }
 
                         if(halObj.item.id && halObj.item.id === ''){
@@ -422,7 +438,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
-                var self = this;
+                var self = this,
+                options;
 
                 if (page !== 0 && !page) {
                     page = self.params.page;
@@ -435,13 +452,17 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 } else {
                     self.params.page = page;
                 }
-                var options = {
+
+                options = {
                     page: page,
                     size: size
                 };
-                if(additionalOptions){
+                
+                if (additionalOptions) {
                     angular.extend(options, additionalOptions);
+                
                 }
+
                 return this.get(options);
             };
 
@@ -628,8 +649,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.item.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.item.accounts[0].level;
+                                    self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
+                                    self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
 
                                     self.processCall(options, deferred);
                                 });
