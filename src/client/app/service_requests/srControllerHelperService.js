@@ -6,11 +6,13 @@ define(['angular', 'serviceRequest'], function(angular) {
         '$location',
         'BlankCheck',
         'FormatterService',
+        'UserService',
         function(
             $translate,
             $location,
             BlankCheck,
-            FormatterService
+            FormatterService,
+            Users
             ) {
             var scope,
             rootScope,
@@ -86,15 +88,15 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
-            function getRequestor(ServiceRequest, Contacts){
-                var user = {item: {}}; 
-                user.item = Contacts.createItem(rootScope.currentUser.item);
-                user.item.links.contact().then(function() {
-                    scope.device.requestedByContact = user.item.contact.item;
-                    ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
-                    ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
-                    scope.requestedByContactFormatted =
-                    FormatterService.formatContact(scope.device.requestedByContact);
+            function getRequestor(ServiceRequest, Contacts) {
+                Users.getLoggedInUserInfo().then(function() {
+                    Users.item.links.contact().then(function() {
+                        scope.device.requestedByContact = Users.item.contact.item;
+                        ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
+                        ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
+                        scope.requestedByContactFormatted =
+                        FormatterService.formatContact(scope.device.requestedByContact);
+                    });
                 });
             }
 
