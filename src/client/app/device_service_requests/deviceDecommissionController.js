@@ -1,6 +1,7 @@
 define(['angular',
     'deviceServiceRequest',
-    'deviceManagement.deviceFactory'], function(angular) {
+    'deviceManagement.deviceFactory', 
+    'utility.imageService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
     .controller('DeviceDecommissionController', [
@@ -10,20 +11,22 @@ define(['angular',
         '$location',
         '$translate',
         'Devices',
+        'imageService',
         'ServiceRequestService',
-         'FormatterService',
-         'BlankCheck',
-         'DeviceServiceRequest',
-         'Contacts',
-         'SRControllerHelperService',
+        'FormatterService',
+        'BlankCheck',
+        'DeviceServiceRequest',
+        'Contacts',
+        'SRControllerHelperService',
         function($scope,
             $rootScope,
             $routeParams,
-             $location,
-             $translate,
-             Devices,
-             ServiceRequest,
-             FormatterService,
+            $location,
+            $translate,
+            Devices,
+            ImageService,
+            ServiceRequest,
+            FormatterService,
             BlankCheck,
             DeviceServiceRequest,
             Contacts,
@@ -41,14 +44,14 @@ define(['angular',
 
             if (Devices.item === null) {
                 $scope.redirectToList();
-            } else if($rootScope.selectedContact){
-                $rootScope.device = $rootScope.returnPickerObject;
-                $rootScope.sr = $rootScope.returnPickerSRObject;
-                $rootScope.sr._links['primaryContact'] = $rootScope.selectedContact._links['self'];
-                $rootScope.device.primaryContact = angular.copy($rootScope.selectedContact);
-                $rootScope.contactPickerReset = true;
-                Devices.item = $rootScope.device;
-            } else if($rootScope.contactPickerReset){
+            } else if($rootScope.selectedContact 
+                && $rootScope.returnPickerObject 
+                && $rootScope.selectionId === Devices.item.id){
+                $scope.device = $rootScope.returnPickerObject;
+                $scope.sr = $rootScope.returnPickerSRObject;
+                ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+            }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 $rootScope.contactPickerReset = false;
             }else {
@@ -70,6 +73,17 @@ define(['angular',
                 if (BlankCheck.isNullOrWhiteSpace($scope.pageCountQuestion)) {
                     $scope.device.pageCountQuestion = false;
                 }
+
+                if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
+                    $scope.resetContactPicker();
+                }
+
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                });
             }
 
             $scope.setupSR(ServiceRequest, configureSR);
@@ -165,7 +179,8 @@ define(['angular',
                         },
                         show:{
                             primaryAction : true
-                        }
+                        },
+                        source: 'DeviceDecommission'
                     },
                     detail:{
                         translate:{

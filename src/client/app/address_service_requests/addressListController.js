@@ -1,4 +1,4 @@
-define(['angular', 'address','account', 'utility.grid'], function(angular) {
+define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',
@@ -6,7 +6,7 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
         function($scope,  $location,  Grid, Addresses, $rootScope, $q, Personalize, Account, User) {
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-            /* Actions */
+            // Actions
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path(Addresses.route + '/new');
@@ -18,37 +18,40 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
                     $location.path(Addresses.route + '/' + id + '/update');
                 }
             };
+            
             $scope.goToRemove = function(){
                 var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
                 if(id !== null){
                     $location.path(Addresses.route + '/' + id + '/delete');
                 }
             };
-            /* grid Check Items   - should prototype*/
+
+            // grid Check Items - should prototype
             $scope.isSingleSelected = function(){
-                 if($scope.currentRowList.length === 1){
+                 if ($scope.currentRowList.length === 1) {
                     return true;
-                 }else{
+                 } else {
                     return false;
                  }
             };
 
             $scope.isMultipleSelected = function(){
-                if($scope.currentRowList.length > 1){
+                if ($scope.currentRowList.length > 1) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             };
 
-            /* grid configuration */
+            // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
 
-            $rootScope.currentUser.deferred.promise.then(function(user) {
-                user.item._links.accounts = user.item._links.accounts[0];
+            User.getLoggedInUserInfo().then(function(user) {
+                console.log(User)
+                User.item._links.accounts = User.item._links.accounts[0];
 
-                User.getAdditional(user.item, Account).then(function() {
+                User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
 
                         Addresses.getPage().then(function() {

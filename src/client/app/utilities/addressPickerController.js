@@ -2,8 +2,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
-     'BlankCheck', 'FormatterService', '$rootScope', 'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, Personalize) {
+     'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
+        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams, 
+            Personalize, $controller) {
             $scope.selectedAddress = [];
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
@@ -21,6 +22,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             }
 
             configureTemplates();
+
+            $scope.sourceController = function() {
+                return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
+            };
 
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
@@ -45,10 +50,11 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            $rootScope.currentUser.deferred.promise.then(function(user) {
-                user.item._links.accounts = user.item._links.accounts[0];
+            
+            User.getLoggedInUserInfo().then(function() {
+                User.item._links.accounts = User.item._links.accounts[0];
 
-                User.getAdditional(user.item, Account).then(function() {
+                User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);

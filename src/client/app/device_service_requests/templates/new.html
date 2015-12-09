@@ -1,24 +1,6 @@
 <div sr-header></div>
 
 <div class="page-content">
-    <div ng-show="isSubmitted">
-        <div class="well">
-            <p>
-                <span translate="SERVICE_REQUEST.SUBMISSION_TEXT" translate-values="{refId: 12345678, hours: 4}"></span>
-            </p>
-            <p>
-                <span translate="ADDRESS_SERVICE_REQUEST.WOULD_YOU_LIKE"></span>
-                <a href="" ng-click="goToCreate()" translate="DEVICE_SERVICE_REQUEST.ADD_ANOTHER_DEVICE"></a>
-            </p>
-        </div>
-        
-        <h4 translate="DEVICE_SERVICE_REQUEST.DETAILS_FOR_DEVICE_REQUEST" translate-values="{requestNumber: 12345678}"></h4>
-        
-        <hr />
-
-        <div submit-device></div>
-    </div>
-
     <div ng-hide="isSubmitted">
 
         <form class="form" data-form="" name="newDevice" novalidate>

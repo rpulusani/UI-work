@@ -1,22 +1,22 @@
-define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.grid', 'serviceRequest'], function(angular) {
+define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.imageService', 'utility.grid', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices',
+    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'imageService',
         'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
+        function($scope, $location, $routeParams, BlankCheck, Devices, ImageService, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
             var redirect_to_list = function() {
                $location.path(Devices.route + '/');
             };
 
             $scope.getMeterReadPriorDate = function(item){
                 if(item.updateDate){
-                    return item.updateDate;
+                    return FormatterService.formatDate(item.updateDate);
                 }
-                return item.createDate;
+                return FormatterService.formatDate(item.createDate);
             };
 
             $scope.saveMeterReads = function() {
-            /* 
+            /*
             desc:   Loops through all meter reads and submits put requests
                     for all that were updated (bulk update)
             */
@@ -67,6 +67,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                         }
                     }
                 }
+
             };
 
             if (Devices.item === null) {
@@ -110,6 +111,14 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     }
 
                     $scope.meterReads = reorderedData.concat(tempData);
+
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                     NREUM.noticeError('Image url was not found reason: ' + reason);
+                  });
+                
                 });
 
                 if (!BlankCheck.isNull($scope.device['address'])) {
@@ -150,7 +159,14 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.gridOptions = {};
-             ServiceRequest.getPage().then(function() {
+            var options =  {
+                params:{
+                    type: 'MADC_ALL'
+                }
+            };
+            ServiceRequest.reset();
+            ServiceRequest.getPage(0, 20, options).then(function() {
+                ServiceRequest.columns = 'madcSet';
                 Grid.display(ServiceRequest, $scope);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);

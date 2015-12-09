@@ -1,9 +1,9 @@
 define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .controller('ContactPickerController', ['$scope', '$location', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
+    .controller('ContactPickerController', ['$scope', '$location', '$controller', '$routeParams', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
         'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
+        function($scope, $location, $controller, $routeParams, Grid, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
             $scope.selectedContact = [];
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
@@ -18,6 +18,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             configureTemplates();
 
+            $scope.sourceController = function() {
+                return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
+            };
+
             $scope.isRowSelected = function(){
                 if ($rootScope.currentRowList.length >= 1) {
                    $rootScope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
@@ -28,11 +32,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 }
             };
 
-            console.log('current selected in contact picker',$rootScope.currentSelected)
-            console.log('returnpath is',$rootScope.contactReturnPath);
 
             $scope.goToCallingPage = function(){
-                console.log('contactReturnPath',$rootScope.contactReturnPath)
                 $location.path($rootScope.contactReturnPath);
             };
 

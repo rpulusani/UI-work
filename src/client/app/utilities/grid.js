@@ -92,7 +92,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
-            var newHeight =  46 + (31 * service.params.size);
+            var size = service.data.length < service.params.size? service.data.length: service.params.size;
+            var newHeight =  46 + (31 * size);
 
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
 

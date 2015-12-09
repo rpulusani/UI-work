@@ -6,9 +6,7 @@ define(['angular', 'chart'], function(angular) {
             restrict: 'A',
             scope: {
                 showlegend: '=',
-                options: '@',
-                data: '@',
-                centered: '='
+                data: '@'
             },
             controller: 'ChartController'
         };

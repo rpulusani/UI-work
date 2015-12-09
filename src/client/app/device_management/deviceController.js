@@ -6,6 +6,13 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             $scope.goToReview = function(device) {
                 $location.path('/device_management/' + device.id + '/review');
             };
+            $scope.currentTab = "deviceInfoTab";
+            $scope.isActive = function(tabId){
+               return tabId === $scope.currentTab;
+            };
+            $scope.onClickTb = function(tab){
+                $scope.currentTab = tab;
+            };
         }
     ]);
 });
