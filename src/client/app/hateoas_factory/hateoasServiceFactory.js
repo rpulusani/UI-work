@@ -68,13 +68,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     url = self.url + '/' + loginId;
 
                     $http.get(url).then(function(processedResponse) {
-                        var user = processedResponse.data;
+                        var user = self.createItem(processedResponse.data);
                         // this should be working directly with UserService
                         if (self.serviceName === 'users' && !self.item) {
                             self.item = user;
                         }
 
-                       $rootScope.currentUser.item = user;
+                       $rootScope.currentUser.item = self.setItem(user);
 
                         deferred.resolve(user);
                     });
