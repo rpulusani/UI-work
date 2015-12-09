@@ -44,12 +44,15 @@ define(['angular', 'address','account', 'utility.grid'], function(angular) {
             /* grid configuration */
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
+            $scope.gridOptions.columnDefs = Addresses.columnDefs.defaultSet;
+
 
             $rootScope.currentUser.deferred.promise.then(function(user) {
                 user.item._links.accounts = user.item._links.accounts[0];
 
                 User.getAdditional(user.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
+
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);
                         }, function(reason) {

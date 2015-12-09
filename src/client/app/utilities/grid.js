@@ -104,6 +104,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
+            scope.gridOptions.enableHorizontalScrollbar = 0; 
+            scope.gridOptions.enableVerticalScrollbar = 0;
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
