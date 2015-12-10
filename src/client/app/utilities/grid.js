@@ -92,10 +92,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
-            var size = service.data.length < service.params.size? service.data.length: service.params.size;
-            var newHeight =  46 + (31 * size);
-
-            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            var size = service.data.length < service.params.size ? service.data.length: service.params.size,
+            newHeight =  46 + (31 * size);
 
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
             scope.gridOptions.showGridFooter = false;
@@ -107,10 +105,11 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.virtualizationThreshold = service.params.size;
             scope.gridOptions.enableHorizontalScrollbar = 0; 
             scope.gridOptions.enableVerticalScrollbar = 0;
+            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                 scope.gridOptions.showBookmarkColumn === true)) {
+                scope.gridOptions.showBookmarkColumn === true)) {
                 //this.hasBookmarkCol = true;
 
                 scope.gridOptions.columnDefs.unshift({

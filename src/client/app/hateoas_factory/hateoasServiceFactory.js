@@ -39,7 +39,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 obj.item = null;
                 obj.data = [];
                 obj.page = {};
-
                 obj.params = {};
                 obj.page = {};
                 obj.links = {};
@@ -163,7 +162,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 deferred = $q.defer(),
                 link;
-                
+
                 for (link in links) {
                     if (links[link].href && link !== 'self') {
                         (function(item, link) {
@@ -511,12 +510,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.columnDefs = options.columnDefs;
                 }
 
-<<<<<<< HEAD
-=======
                 //update self params to match the latest options param calls
                 self.params = options.params;
 
->>>>>>> rbevins/bugFixes
                 return options;
             };
 
@@ -532,14 +528,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-<<<<<<< HEAD
-                        if (self.serviceName && (processedResponse.data._embedded 
+                         if (self.serviceName && (processedResponse.data._embedded 
                             && processedResponse.data._embedded[self.serviceName]) ) {
-=======
-                        if (self.serviceName &&
-                            (processedResponse.data._embedded &&
-                                processedResponse.data._embedded[self.serviceName]) ) {
->>>>>>> rbevins/bugFixes
 
                             if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
                                 self.data = processedResponse.data._embedded[self.serviceName];
@@ -601,9 +591,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 } else {
                    self.setParamsToNull();
                 }
-                if(options && options.params){
+
+                if (options.params) {
                    angular.extend(options.params, self.params);
-                }else{
+                } else {
                     options.params = self.params;
                 }
 
@@ -622,7 +613,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.setupItem(processedResponse);
 
                     self.processedResponse = processedResponse;
-
+                    
                     self.params = currentParams;
 
                     self.checkForEvent(self.item, 'afterGet');
@@ -643,7 +634,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var item,
-                                options = self.setupOptions(optionsObj);
+                            options = self.setupOptions(optionsObj);
+                            
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;
