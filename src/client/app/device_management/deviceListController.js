@@ -19,12 +19,12 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                         embed:'contact,address'
                     }
                 };
-                Devices.item.links.self(options).then(function(){
-                    Devices.item = Devices.item.self.item;
-                    $location.path(Devices.route + '/' + device.id + '/review');
 
+                Devices.item.get(options).then(function(){
+                    $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
+
 
             $scope.visibleColumns =  Grid.getVisibleColumns(Devices); //sets initial columns visibility
 

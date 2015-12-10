@@ -86,7 +86,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
-                this.data = null;
+                this.data = [];
             };
 
             HATEOASFactory.prototype.newMessage  = function(){
@@ -119,7 +119,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 this.getMessage();
 
                 if (halObj && halObj._links && halObj._links[calculatedName] &&
-                     halObj._links[calculatedName].href) {
+                    halObj._links[calculatedName].href) {
                     tempObject[name] = { href: halObj._links[calculatedName].href};
                     angular.extend(this.item._links, tempObject);
                 }
@@ -195,7 +195,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 link;
 
                 for (link in links) {
-                    if (links[link].href && link !== 'self') {
+                    if (links[link] && links[link].href && link !== 'self') {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
