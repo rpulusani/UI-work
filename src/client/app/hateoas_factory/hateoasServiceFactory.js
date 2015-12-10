@@ -28,7 +28,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-                return angular.extend(self, serviceDefinition);
+                self = angular.extend(self, serviceDefinition);
+
+                return self;
             };
 
             HATEOASFactory.prototype.setItemDefaults = function(obj) {
@@ -39,7 +41,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 obj.item = null;
                 obj.data = [];
                 obj.page = {};
-
                 obj.params = {};
                 obj.page = {};
                 obj.links = {};
@@ -135,13 +136,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (!newService.url) {
                     newService.params = self.setupParams({
-                        url: halObj._links[newService.embeddedName].href
+                        url: halObj._links[newService.embeddedName].href,
+                        params: newService.params
                     });
                     newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
-                }
-
-                if (!newService.params.accountId) {
-
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
@@ -159,12 +157,45 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
+            HATEOASFactory.prototype.setupDefaultFunctions = function(obj) {
+                var self = this;
+
+                obj.createItem = self.createItem;
+                obj.setItemDefaults = self.setItemDefaults;
+                obj.checkForEvent = self.checkForEvent;
+                obj.setupItem = self.setupItem;
+                obj.setupOptions = self.setupOptions;
+                obj.setItem = self.setItem;
+                obj.get = self.get;
+                obj.getPage = self.getPage;
+                obj.buildUrl = self.buildUrl;
+                obj.setupUrl = self.setupUrl;
+                obj.setupParams = self.setupParams;
+                obj.send = self.send;
+                obj.post = self.post;
+                obj.put = self.put;
+                obj.setParamsToNull = self.setParamsToNull;
+                obj.getHalUrl = self.getHalUrl;
+                obj.processCall = self.processCall;
+                obj.getAdditional = self.getAdditional;
+                obj.reset = self.reset;
+                obj.newMessage = self.newMessage;
+                obj.addField = self.addField;
+                obj.getMessage = self.getMessage;
+                obj.addRelationship = self.addRelationship;
+                obj.attachLinksAsFunctions = self.attachLinksAsFunctions;
+                obj.setupDefaultFunctions = self.setupDefaultFunctions;
+
+                return obj;
+            }
+
             HATEOASFactory.prototype.attachLinksAsFunctions = function(item, links, itemOptions) {
                 var self = this,
                 deferred = $q.defer(),
                 link;
+
                 for (link in links) {
-                    if (links[link] && links[link].href) {
+                    if (links[link].href && link !== 'self') {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
@@ -176,33 +207,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                             item.linkNames.push(link);
 
-                            item[link].get = self.get;
-
                             item.links[link] = function(options) {
-                                item[link].createItem = self.createItem;
-                                item[link].setItemDefaults = self.setItemDefaults;
-                                item[link].checkForEvent = self.checkForEvent;
-                                item[link].setupItem = self.setupItem;
-                                item[link].setupOptions = self.setupOptions;
-                                item[link].setItem = self.setItem;
-                                item[link].get = self.get;
-                                item[link].getPage = self.getPage;
-                                item[link].buildUrl = self.buildUrl;
-                                item[link].setupUrl = self.setupUrl;
-                                item[link].setupParams = self.setupParams;
-                                item[link].send = self.send;
-                                item[link].post = self.post;
-                                item[link].put = self.put;
-                                item[link].setParamsToNull = self.setParamsToNull;
-                                item[link].getHalUrl = self.getHalUrl;
-                                item[link].processCall = self.processCall;
-                                item[link].getAdditional = self.getAdditional;
-                                item[link].reset = self.reset;
-                                item[link].newMessage = self.newMessage;
-                                item[link].addField = self.addField;
-                                item[link].getMessage = self.getMessage;
-                                item[link].addRelationship = self.addRelationship;
-                                item[link].attachLinksAsFunctions = self.attachLinksAsFunctions;
+                                item[link] = self.setupDefaultFunctions(item[link]);
 
                                 item[link].get(options).then(function(res) {
                                     deferred.resolve(res);
@@ -246,6 +252,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     item.links = {};
                     item.url = self.setupUrl(item._links.self.href);
                     item.params = self.setupParams({url: item._links.self.href});
+
+                    if (!item.get) {
+                        item = self.setupDefaultFunctions(item);
+                    }
 
                     if (item._links) {
                         item = self.attachLinksAsFunctions(item, item._links, itemOptions);
@@ -392,7 +402,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                         }
 
-                        if(halObj.item.id && halObj.item.id === ''){
+                        if (halObj.item.id && halObj.item.id === '') {
                             delete halObj.item.id;
                         }
 
@@ -400,6 +410,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         url = self.buildUrl(itemUrl, self.params, []);
 
                         self.checkForEvent(self.item, 'on' + verbName);
+
                         $http({
                             method: method,
                             url: url,
@@ -528,9 +539,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-                        if (self.serviceName &&
-                            (processedResponse.data._embedded &&
-                                processedResponse.data._embedded[self.serviceName]) ) {
+                         if (self.serviceName && (processedResponse.data._embedded 
+                            && processedResponse.data._embedded[self.serviceName]) ) {
 
                             if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
                                 self.data = processedResponse.data._embedded[self.serviceName];
@@ -592,9 +602,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 } else {
                    self.setParamsToNull();
                 }
-                if(options && options.params){
+
+                if (options.params) {
                    angular.extend(options.params, self.params);
-                }else{
+                } else {
                     options.params = self.params;
                 }
 
@@ -607,7 +618,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(self.item, 'onGet');
 
-                options.params = {};
+                options.params = {};    
 
                 $http(options).then(function(processedResponse) {
                     self.setupItem(processedResponse);
@@ -634,7 +645,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var item,
-                                options = self.setupOptions(optionsObj);
+                            options = self.setupOptions(optionsObj);
+                            
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;
