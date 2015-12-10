@@ -18,15 +18,15 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                         embed:'contact,address'
                     }
                 };
-                Devices.item.links.self(options).then(function(){
-                    Devices.item = Devices.item.self.item;
-                    $location.path(Devices.route + '/' + device.id + '/review');
 
+                Devices.item.get(options).then(function(){
+                    $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
+            
             Devices.getPage().then(function() {
                 Grid.display(Devices, $scope, personal);
             }, function(reason) {
