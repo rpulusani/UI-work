@@ -1,9 +1,9 @@
 <div class="form__field filter--search">
 <div selectric class="search-menu"
-            model="searchByColumn"
+            model="column"
             options="columns"
             value="field"
             label="name"
-            on-select="searchByColumn(columns)">
+            on-select="searchByColumn(option)">
 </div><input type="text" ng-model="searchByValue" /><a href="#" ng-click="gridSearch();"><i class="icon icon--ui icon--search-dark"></i></a> <div columns-menu></div>
 </div>

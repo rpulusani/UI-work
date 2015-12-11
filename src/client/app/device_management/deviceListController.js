@@ -7,6 +7,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+
             $scope.goToCreate = function() {
                 Devices.item = {};
                 $location.path('/service_requests/devices/new');

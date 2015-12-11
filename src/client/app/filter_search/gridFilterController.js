@@ -3,7 +3,6 @@ define(['angular', 'filterSearch'], function(angular) {
     angular.module('mps.filterSearch')
     .controller('GridFilterController', ['$scope', '$translate',
         function($scope, $translate) {
-
             $scope.selectedFilter = function(selectedOption){
                 if(selectedOption.optionsPanel){
                     $scope.currentFilterPanel = selectedOption.optionsPanel;
