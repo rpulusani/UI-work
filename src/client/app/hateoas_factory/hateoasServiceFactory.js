@@ -488,7 +488,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             url: self.url + optionsObj
                         };
                     }
-                }
+                } 
 
                 if (options.params) { // if params exist extend from self params list
                     options.params = angular.extend(options.params, self.params);
@@ -519,9 +519,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (options.columnDefs) {
                     self.columnDefs = options.columnDefs;
                 }
-
-                //update self params to match the latest options param calls
-                self.params = options.params;
 
                 return options;
             };
@@ -590,9 +587,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.processCall = function(options, deferred) {
                 var self = this,
-                currentParams = self.params,
+                currentParams = angular.copy(self.params),
                 url;
-                                    
+
+                if (options.params) {
+                    options.params = angular.extend(self.params, options.params);
+                } else {
+                    options.params = self.params;
+                }
+
                 if (!options.preventDefaultParams) {
                     self.params = self.setupParams({
                         url: self.url,
@@ -600,12 +603,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     });
                 } else {
                    self.setParamsToNull();
-                }
-
-                if (options.params) {
-                   angular.extend(options.params, self.params);
-                } else {
-                    options.params = self.params;
                 }
 
                 if (!options.url) {
@@ -617,15 +614,19 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(self.item, 'onGet');
 
-                options.params = {};    
+                self.params = angular.extend(self.params, options.params);
+
+                options.params = {}; 
 
                 $http(options).then(function(processedResponse) {
                     self.setupItem(processedResponse);
 
                     self.processedResponse = processedResponse;
 
-                    self.params = currentParams;
-
+                    if (options.updateParams === false) {
+                        self.params = currentParams;
+                    }
+                    
                     self.checkForEvent(self.item, 'afterGet');
 
                     deferred.resolve(processedResponse);
@@ -660,11 +661,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    if (!options.params.accountId || !self.params.accountId ) {                                        
+                                    if (!options.params.accountId || !self.params.accountId ) {
                                         self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                                     }
 
-                                    if (!options.params.accountLevel || !self.params.accountLevel ) {                                        
+                                    if (!options.params.accountLevel || !self.params.accountLevel ) {
                                         self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                                     }
 
