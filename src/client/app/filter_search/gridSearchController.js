@@ -11,7 +11,6 @@ define(['angular', 'filterSearch'], function(angular) {
                 $scope.search($scope.params);
             };
             $scope.searchByColumn = function(selectedOption){
-                console.log('searchByColumn ', selectedOption.field);
                 $scope.searchBy = selectedOption.field;
             };
 

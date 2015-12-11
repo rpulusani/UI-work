@@ -23,10 +23,9 @@ define(['angular', 'deviceServiceRequest', 'deviceManagement.deviceFactory'], fu
             }
 
 
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1
-                && $routeParams.return && $routeParams.return !== 'discard') {
+            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1 &&
+                 $routeParams.return && $routeParams.return !== 'discard') {
                 if ($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.serialNumber !== undefined) {
-                    console.log("inside device condition");
                     $scope.device.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
                 } else {
                     if ($rootScope.currentSelected) {
