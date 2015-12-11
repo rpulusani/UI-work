@@ -102,7 +102,7 @@ define([], function() {
                 "templated" : true
             },
             "next" : {
-                "href" :  'http://127.0.0.1/test?page=1&size=20{&sort}',
+                "href" :  'http://127.0.0.1/test?page=2&size=20{&sort}',
                 "templated" : true
             }
         },
@@ -110,7 +110,7 @@ define([], function() {
             "test" : [ fixtures.api.test.itemOne, fixtures.api.test.itemTwo ]
         },
         "page" : {
-            "size" : 2,
+            "size" : 20,
             "totalElements" : 3,
             "totalPages" : 2,
             "number" : 1
