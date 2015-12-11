@@ -490,9 +490,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } 
 
-                if (options.params) { // if params exist extend from self params list
-                    options.params = angular.extend(options.params, self.params);
-                }else{ //if not then set params list based on self params list
+                if (!options.params) {
                     options.params = self.params;
                 }
 
