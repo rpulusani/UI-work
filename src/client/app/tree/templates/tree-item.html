@@ -1,5 +1,5 @@
 <li class="tree__item">
-    <div ng-show="item.items.length > 0" class="tree__toggle" ng-click="item.expanded = !item.expanded">
+    <div class="tree__toggle" ng-click="expandCall()">
         <span class="icon icon--lxk-ui" ng-class="{'icon--collapse': item.expanded, 'icon--expand': !item.expanded}"></span>
     </div>
 
@@ -17,6 +17,6 @@
     </div>
 
     <ul class="tree" ng-show="item.items.length > 0 && item.expanded">
-        <li ng-repeat="child in item.items" tree-item item="child"></li>
+        <li ng-repeat="child in item.items" tree-item item="child" tree-type="{{treeType}}"></li>
     </ul>
 </li>
