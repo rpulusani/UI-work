@@ -15,7 +15,9 @@ define([
                 //                                     accountLevel: Account.item.level
                 //                                 }});
                 //$scope.tempItem.items = [];
+
                 var options = {
+                    updateParams: false ,
                     params:{
                         accountId: Account.item.accountId,
                         accountLevel: Account.item.level,
