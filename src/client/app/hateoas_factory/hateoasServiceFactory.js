@@ -470,8 +470,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 };
                 
                 if (additionalOptions) {
-                    angular.extend(options, additionalOptions);
-                
+                    options = angular.extend(options, additionalOptions);
                 }
 
                 return this.get(options);
@@ -492,7 +491,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 if (options.params) { // if params exist extend from self params list
-                    angular.extend(options.params, self.params);
+                    options.params = angular.extend(options.params, self.params);
                 }else{ //if not then set params list based on self params list
                     options.params = self.params;
                 }
@@ -593,7 +592,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 currentParams = self.params,
                 url;
-
+                                    
                 if (!options.preventDefaultParams) {
                     self.params = self.setupParams({
                         url: self.url,
@@ -646,7 +645,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var item,
                             options = self.setupOptions(optionsObj);
-                            
+
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;
@@ -661,8 +660,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
+                                    if (!options.params.accountId || !self.params.accountId ) {                                        
+                                        self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
+                                    }
+
+                                    if (!options.params.accountLevel || !self.params.accountLevel ) {                                        
+                                        self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
+                                    }
 
                                     self.processCall(options, deferred);
                                 });
