@@ -4,15 +4,15 @@
     </div>
 
     <div>
-        <label for="{{item.id}}">
+        <label for="{{item.accountId}}">
             <input type="checkbox"
-                id="{{item.id}}"
-                name="{{item.id}}"
+                id="{{item.accountId}}"
+                name="{{item.accountId}}"
                 ng-model="item.selected"
                 ng-disabled="item.disabled"
                 ng-change="toggleChildren(item)"
             />
-            {{item.title}}
+            {{item.name}}
         </label>
     </div>
 
