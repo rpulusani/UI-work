@@ -16,7 +16,6 @@ define([
                 //                                 }});
                 //$scope.tempItem.items = [];
                 var options = {
-                    preventDefaultParams: true,
                     params:{
                         accountId: Account.item.accountId,
                         accountLevel: Account.item.level,
