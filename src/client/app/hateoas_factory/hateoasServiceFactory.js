@@ -517,7 +517,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (options.columnDefs) {
                     self.columnDefs = options.columnDefs;
                 }
-
+                
                 return options;
             };
 

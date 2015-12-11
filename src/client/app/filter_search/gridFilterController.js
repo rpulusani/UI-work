@@ -3,25 +3,15 @@ define(['angular', 'filterSearch'], function(angular) {
     angular.module('mps.filterSearch')
     .controller('GridFilterController', ['$scope', '$translate',
         function($scope, $translate) {
-            $scope.currentFilterPanel = undefined;
 
             $scope.selectedFilter = function(selectedOption){
-                if(selectedOption.functionDef){
-                    $scope.currentFilterPanel = undefined;
-                    selectedOption.functionDef();
+                if(selectedOption.optionsPanel){
+                    $scope.currentFilterPanel = selectedOption.optionsPanel;
+                    $scope.currentParams = selectedOption.params;
+                    $scope.currentFunctionDef = selectedOption.functionDef;
                 }else{
-                    console.log(selectedOption.optionsPanel);
-                    switch(selectedOption.optionsPanel){
-                        case 'locationFilter':
-                            $scope.currentFilterPanel = selectedOption.optionsPanel;
-                        break;
-                        case 'CHLFilter':
-                            $scope.currentFilterPanel = selectedOption.optionsPanel;
-                        break;
-                        default:
-                            $scope.currentFilterPanel = undefined;
-                        break;
-                    }
+                    $scope.currentFilterPanel = undefined;
+                    selectedOption.functionDef(selectedOption.params);
                 }
             };
             for(var item in $scope.options){

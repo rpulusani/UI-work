@@ -50,7 +50,9 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             visibleColumns = [];
 
             for(var i = 0; i < columnList.length; ++i){
-                visibleColumns.push({ name: columnList[i]['name'] });
+                if(!columnList[i]['notSearchable'] && columnList[i]['field']){
+                    visibleColumns.push({ name: columnList[i]['name'], field: columnList[i]['field'] });
+                }
             }
             return visibleColumns;
         };
