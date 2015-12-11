@@ -4,7 +4,7 @@ define(['angular', 'address'], function(angular) {
     .factory('Addresses', [ 'serviceUrl', '$translate','HATEOASFactory',
         function(serviceUrl, $translate, HATEOASFactory) {
             var Addresses = {
-
+                params: {page: 0, size: 20, sort: ''},
                 //customize Address
                 serviceName: 'addresses',
                 embeddedName: 'addresses',

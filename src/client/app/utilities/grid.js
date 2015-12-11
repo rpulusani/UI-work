@@ -11,6 +11,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 {items: 100}
             ];
             this.hasBookmarkCol = false; // has a bookmark column
+            this.serviceInfo = {};
         };
 
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
@@ -86,8 +87,19 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
-            var size = service.data.length < service.params.size? service.data.length: service.params.size;
-            var newHeight =  46 + (31 * size);
+            var size = service.data.length < service.params.size? service.data.length: service.params.size,
+            serviceId = '',
+            newHeight =  46 + (31 * size);
+
+
+            if (service.gridName) {
+                serviceId = service.gridName;
+            } else if (service.serviceName) {
+                serviceId = service.serviceName;
+            } else {
+                serviceId = service.embeddedName;
+            }
+
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service);
             scope.gridOptions.showGridFooter = false;
@@ -97,11 +109,15 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
-
+            scope.gridOptions.enableHorizontalScrollbar = 0; 
+            scope.gridOptions.enableVerticalScrollbar = 0;
+            
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                 scope.gridOptions.showBookmarkColumn === true)) {
-                //this.hasBookmarkCol = true;
+                 scope.gridOptions.showBookmarkColumn === true) && 
+                ( !this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
+                
+                this.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
                 scope.gridOptions.columnDefs.unshift({
                     name: '',

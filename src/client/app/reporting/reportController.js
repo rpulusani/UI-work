@@ -236,12 +236,7 @@ define(['angular', 'report', 'chart'], function(angular) {
             $scope.report = Reports.item;
 
             if (!$scope.reports.length) {
-                Reports.getPage({
-                    params: {
-                        page: 1,
-                        hello: 'world'
-                    }
-                }).then(function() {
+                Reports.getPage().then(function() {
                    $scope.reports = Reports.data;
 
                     buildCharts();

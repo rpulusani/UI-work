@@ -91,10 +91,12 @@ define(['angular',
                             embed:'contact'
                         }
                     };
-                    Devices.item.links.self(options).then(function(){
-                        $scope.device.selectedDevice.contact = Devices.item.self.item.contact.item;
+
+                    Devices.item.get(options).then(function() {
+                        $scope.device.selectedDevice.contact = Devices.item.contact.item;
                         $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.device.selectedDevice.contact);
                     });
+
                     $scope.resetDevicePicker();
                 }
             } else {
