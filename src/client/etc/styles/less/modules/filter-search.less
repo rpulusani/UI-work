@@ -1,0 +1,81 @@
+.filter--search{
+
+    .selectricButton {
+            border-left: none;
+        }
+
+    button.search{
+        background: #e6e6f0;
+        background: -webkit-linear-gradient(#fff, #e6e6f0);
+        background: -o-linear-gradient(#fff, #e6e6f0);
+        background: linear-gradient(#fff, #e6e6f0);
+        border: 1px solid #7e7e85;
+        height: 54px;
+        width: 100%;
+    }
+
+    .clear-input{
+      border: 1px solid #7e7e85;  
+    }
+
+    .clear-input input{
+        border: none;
+    }
+
+    .close-icon {
+        position: relative;
+    }
+
+    .close-icon {
+        border:1px solid transparent;
+        background-color: #e6e6f0;
+        display: inline-block;
+        vertical-align: middle;
+        outline: 0;
+        cursor: pointer;
+        color: #a5a5aa;
+        font-size: 16px;
+        margin: 10px 0 -10px -10px;
+        padding: 5px 8px;
+
+        &:hover{
+            color: #000000;
+        }
+    }
+
+        .search-box:focus {
+            outline: none;
+        }
+
+
+    @media @mq-gt-tablet{
+        .clear-input{
+            border: 1px solid red;
+        }
+    }
+
+    @media @mq-lt-desktop{
+        .clear-input{
+            border: 1px solid purple;
+        }
+
+        /*.close-icon{
+            margin-left:-18px;
+        }*/
+    }
+
+    @media @mq-lt-laptop{
+        .clear-input{
+            border: 1px solid blue;
+        }
+
+        .selectricButton {
+            border-left: 1px solid #7e7e85;
+        }
+
+        /*.close-icon{
+            float: right;
+        }*/
+    }
+
+}

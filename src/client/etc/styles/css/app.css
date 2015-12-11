@@ -131,6 +131,9 @@ textarea {
 .selectric .form__field__current-option {
   margin-right: 60px;
 }
+.selectricButton {
+  height: 52px;
+}
 .info-list {
   list-style: none;
   padding: 0;
@@ -278,6 +281,7 @@ textarea {
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
+  min-height: 655px;
   font-size: 9pt;
 }
 .table .ui-grid-header-cell:first-child {
@@ -357,6 +361,73 @@ textarea {
   border-right: 1px solid #a5a5aa;
   padding: 12px 10px;
   margin-right: 10px;
+}
+.filter--search .selectricButton {
+  border-left: none;
+}
+.filter--search button.search {
+  background: #e6e6f0;
+  background: -webkit-linear-gradient(#fff, #e6e6f0);
+  background: -o-linear-gradient(#fff, #e6e6f0);
+  background: linear-gradient(#fff, #e6e6f0);
+  border: 1px solid #7e7e85;
+  height: 54px;
+  width: 100%;
+}
+.filter--search .clear-input {
+  border: 1px solid #7e7e85;
+}
+.filter--search .clear-input input {
+  border: none;
+}
+.filter--search .close-icon {
+  position: relative;
+}
+.filter--search .close-icon {
+  border: 1px solid transparent;
+  background-color: #e6e6f0;
+  display: inline-block;
+  vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+  color: #a5a5aa;
+  font-size: 16px;
+  margin: 10px 0 -10px -10px;
+  padding: 5px 8px;
+}
+.filter--search .close-icon:hover {
+  color: #000000;
+}
+.filter--search .search-box:focus {
+  outline: none;
+}
+@media only screen and (min-width: 54em) {
+  .filter--search .clear-input {
+    border: 1px solid red;
+  }
+}
+@media only screen and (max-width: 74em) {
+  .filter--search {
+    /*.close-icon{
+            margin-left:-18px;
+        }*/
+  }
+  .filter--search .clear-input {
+    border: 1px solid purple;
+  }
+}
+@media only screen and (max-width: 54em) {
+  .filter--search {
+    /*.close-icon{
+            float: right;
+        }*/
+  }
+  .filter--search .clear-input {
+    border: 1px solid blue;
+  }
+  .filter--search .selectricButton {
+    border-left: 1px solid #7e7e85;
+  }
 }
 .theme--dark {
   background: #32323c;
