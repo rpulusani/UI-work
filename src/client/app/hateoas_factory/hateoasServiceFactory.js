@@ -492,7 +492,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 //update self params to match the latest options param calls
-                self.params = options.params;
+               // self.params = options.params;
 
                 return options;
             };

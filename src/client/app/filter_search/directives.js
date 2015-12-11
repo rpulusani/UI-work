@@ -5,7 +5,8 @@ define(['angular', 'filterSearch'], function(angular) {
         return {
             restrict: 'A',
             scope:{
-                options: '='
+                options: '=',
+                params: '='
             },
             templateUrl: '/app/filter_search/templates/filter.html',
             controller: 'GridFilterController'
@@ -16,7 +17,9 @@ define(['angular', 'filterSearch'], function(angular) {
             restrict: 'A',
             scope:{
                 options: '=',
-                title: '@'
+                title: '@',
+                params: '=',
+                filterDef: '='
             },
             templateUrl: '/app/filter_search/templates/locationFilter.html',
         };
@@ -25,17 +28,21 @@ define(['angular', 'filterSearch'], function(angular) {
         return {
             restrict: 'A',
             scope:{
-                options: '=',
-                title: '@'
+                title: '@',
+                params:'=',
+                filterDef: '='
             },
             templateUrl: '/app/filter_search/templates/CHLFilter.html',
+            controller: 'CHLFilterController'
         };
     })
     .directive('gridSearch', function() {
         return {
             restrict: 'A',
             scope: {
-                columns: '='
+                columns: '=',
+                params: '=',
+                search: '='
             },
             templateUrl: '/app/filter_search/templates/search.html',
             controller: 'GridSearchController'

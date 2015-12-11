@@ -11,8 +11,10 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);
             if(Devices.item){
               var options = {
-                //type: 'BREAK_FIX',
-                assetId: Devices.item.id
+                params:{
+                  //type: 'BREAK_FIX',
+                  assetId: Devices.item.id
+                }
                };
               ServiceRequest.reset();
               ServiceRequest.getPage(0,20, options).then(function(){

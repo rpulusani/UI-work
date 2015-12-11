@@ -135,24 +135,6 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 });
             });
 
-            describe('get({params: {key:value}}) options check against the generalized query service' , function() {
-                it('passing in options.params = {key:value} should modify current parameters', function() {
-                    httpBackend
-                    .when('GET', mockFactory.url + '?key=value&page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL')
-                    .respond(fixtures.api.test.pageTwo);
-
-                    mockFactory.get({
-                        params:{
-                           key: 'value'
-                        }
-                    });
-
-                    rootScope.currentUser.deferred.resolve();
-                    httpBackend.flush();
-                    expect(mockFactory.params.key).toEqual('value');
-                });
-            });
-
             describe('get({preventDefaultParams: true}) options check against the generalized query service' , function() {
                 it('passing in options.preventDefaultParams = true should set all current params to null so they dont attach to url. Params should reattach when call completes', function() {
                     httpBackend.when('GET', mockFactory.url).respond(fixtures.api.test.pageOne);

@@ -2,8 +2,8 @@
 <div selectric class="search-menu"
             model="searchByColumn"
             options="columns"
-            value="name"
+            value="field"
             label="name"
-            on-select="selectedFilter(option)">
-</div><input type="text" model="searchByValue" /><button><i class="icon icon--ui icon--search-dark"></i></button> <div columns-menu></div>
+            on-select="searchByColumn(columns)">
+</div><input type="text" ng-model="searchByValue" /><a href="#" ng-click="gridSearch();"><i class="icon icon--ui icon--search-dark"></i></a> <div columns-menu></div>
 </div>
