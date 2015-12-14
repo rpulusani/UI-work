@@ -68,12 +68,32 @@ define([
             $scope.toggleChildren = function(item){
                 var children = item.items || [],
                     limit = children.length,
-                    i = 0;
+                    i = 0,
+                    options = {};
+                if(item.selected) {
+                    $scope.selectedItems.push(item.accountId);
+                    var searchString = $scope.selectedItems.join("%2C");
+                    if ($scope.treeType && $scope.treeType === 'chl' && $scope.action && $scope.action === 'filter') {
+                        $scope.params['chlFilter'] = searchString;
+                        $scope.filterDef($scope.params);
+                    }
+                    
+                } else {
+                    if($scope.selectedItems.indexOf(item.accountId) !== -1) {
+                        $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
+                        var searchString = $scope.selectedItems.join("%2C");
+                        if ($scope.treeType && $scope.treeType === 'chl' && $scope.action && $scope.action === 'filter') {
+                            $scope.params['chlFilter'] = searchString;
+                            $scope.filterDef($scope.params);
+                        }
+                    }
+                }
 
-                for(i=0;i<limit;i++){
+                /*commenting until getting other direction from UX team*/
+                /*for(i=0;i<limit;i++){
                     if(item.selected){
-                        children[i].selected = true;
-                        children[i].disabled = true;
+                        //children[i].selected = true;
+                        //children[i].disabled = true;
                     }else{
                         children[i].disabled = false;
                     }
@@ -81,7 +101,8 @@ define([
                     if(children[i].items && children[i].items.length > 0){
                         $scope.toggleChildren(children[i]);
                     }
-                }
+                }*/
+                console.log($scope.selectedItems);
             };
 
             $scope.$on('expandAll', function(evt){
