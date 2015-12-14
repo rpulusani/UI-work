@@ -4,28 +4,23 @@
             <div selectric class="search-menu"
                     model="searchByColumn"
                     options="columns"
-            value="field"
+                    value="field"
                     label="name"
             on-select="searchByColumn(columns)">
             </div>
         </div>
         <div class="col-4-5">
             <div class="row">
-                <div class="col-lg-11-12">
-                    <div class="clear-input">
-                        <div class="row">
-                            <div class="col-lg-4-5 col-md-4-5 col-sm-4-5 col-xs-4-5">
-                                <input type="text" model="searchByValue" class="search-box"/>
-                            </div>
-                            <div class="col-lg-1-24 col-md-1-24 col-sm-1-24 col-xs-1-24">
-                                <button class="close-icon">X</button>
-                            </div>
-                        </div>
+                <div class="form__field">
+                    <div class="col-lg-11-12 col-md-11-12 col-sm-11-12 col-xs-7-8">
+                        <input type="text" model="searchByValue" class="search-box"/>
+                        <i class="icon close-icon">X</i>
+                    </div>
+                    <div class="col-lg-1-12 col-md-1-12 col-sm-1-12 col-xs-1-8">
+                        <button class="search"><i class="icon icon--ui icon--search-secondary"></i></i></button> 
                     </div>
                 </div>
-                <div class="col-lg-1-12">
-                    <button class="search"><i class="icon icon--ui icon--search-secondary"></i></i></button> 
-                </div>
+
             </div>
         </div>
          

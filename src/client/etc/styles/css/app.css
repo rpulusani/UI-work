@@ -362,6 +362,12 @@ textarea {
   padding: 12px 10px;
   margin-right: 10px;
 }
+.filter--search {
+  padding-top: 24px;
+}
+.filter--search .selectric {
+  border-right: none;
+}
 .filter--search .selectricButton {
   border-left: none;
 }
@@ -373,27 +379,24 @@ textarea {
   border: 1px solid #7e7e85;
   height: 54px;
   width: 100%;
+  border-left: none;
 }
-.filter--search .clear-input {
-  border: 1px solid #7e7e85;
-}
-.filter--search .clear-input input {
-  border: none;
-}
-.filter--search .close-icon {
+.filter--search .form__field {
   position: relative;
 }
 .filter--search .close-icon {
-  border: 1px solid transparent;
   background-color: #e6e6f0;
-  display: inline-block;
-  vertical-align: middle;
-  outline: 0;
-  cursor: pointer;
   color: #a5a5aa;
   font-size: 16px;
-  margin: 10px 0 -10px -10px;
-  padding: 5px 8px;
+  font-style: normal;
+  padding-bottom: 3px;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  left: 86%;
+  top: 50%;
+  margin-top: -13px;
+  text-align: center;
 }
 .filter--search .close-icon:hover {
   color: #000000;
@@ -401,29 +404,24 @@ textarea {
 .filter--search .search-box:focus {
   outline: none;
 }
-@media only screen and (min-width: 54em) {
-  .filter--search .clear-input {
-    border: 1px solid red;
-  }
-}
 @media only screen and (max-width: 74em) {
-  .filter--search {
-    /*.close-icon{
-            margin-left:-18px;
-        }*/
-  }
-  .filter--search .clear-input {
-    border: 1px solid purple;
+  .filter--search .close-icon {
+    left: 84.5%;
   }
 }
 @media only screen and (max-width: 54em) {
-  .filter--search {
-    /*.close-icon{
-            float: right;
-        }*/
+  .filter--search .search-menu {
+    padding-top: 0;
   }
-  .filter--search .clear-input {
-    border: 1px solid blue;
+  .filter--search .selectric {
+    border-right: 1px solid #7E7E85;
+  }
+  .filter--search .form__field {
+    padding-top: 24px;
+  }
+  .filter--search .close-icon {
+    margin-top: 0;
+    left: 79.5%;
   }
   .filter--search .selectricButton {
     border-left: 1px solid #7e7e85;
