@@ -67,6 +67,7 @@ define([
         'ngResource',
         'ngCookies',
         'ngSanitize',
+        'googlechart',
         'pascalprecht.translate',
         'mps.hateoasFactory',
         'mps.dashboard',
