@@ -4,6 +4,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
     .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid',
         function($scope, $location, $translate, Reports, Grid) {
 
+            $scope.chartObject = {};
             $scope.chartData = {};
 
             function configureTemplates() {
@@ -132,11 +133,19 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     total += data.stat[i].value;
                 }
 
-                $scope.chartData.assetRegister = [{
-                    value: total,
-                    color: '#00ad21',
-                    label: $translate.instant($scope.configure.report.charts.translate.assetCount)
-                }];
+                $scope.chartObject.assetRegister = {};
+                $scope.chartObject.assetRegister.type = "PieChart";
+                $scope.chartObject.assetRegister.data = {
+                    "cols": [
+                        {id: "t", label: "Assets", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.assetCount) },
+                            {v: total },
+                        ]}
+                    ]};
             };
 
             var buildConsumablesOrdersChart = function(data) {
@@ -145,18 +154,33 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 for (var i = 0; i < data.stat.length; i++) {
                     d[data.stat[i].label] = data.stat[i].value;
                 }
+                $scope.chartObject.consumablesOrdersOpen = {};
+                $scope.chartObject.consumablesOrdersOpen.type = "PieChart";
+                $scope.chartObject.consumablesOrdersOpen.data = {
+                    "cols": [
+                        {id: "t", label: "Consumables Orders", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.consumableOrdersOpen) },
+                            {v: d.Open },
+                        ]}
+                    ]};
 
-                $scope.chartData.consumableOrdersOpen = [{
-                    value: d.Open,
-                    color: '#00ad21',
-                    label: $translate.instant($scope.configure.report.charts.translate.consumableOrdersOpen)
-                }];
-
-                $scope.chartData.consumableOrdersShipped = [{
-                    value: d.Shipped,
-                    color: '#7e7e85',
-                    label: $translate.instant($scope.configure.report.charts.translate.consumableOrdersShipped)
-                }];
+                $scope.chartObject.consumablesOrdersShipped = {};
+                $scope.chartObject.consumablesOrdersShipped.type = "PieChart";
+                $scope.chartObject.consumablesOrdersShipped.data = {
+                    "cols": [
+                        {id: "t", label: "Consumables Orders", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.consumableOrdersShipped) },
+                            {v: d.Shipped },
+                        ]}
+                    ]};
             };
 
             var buildHardwareOrdersChart = function(data) {
@@ -166,18 +190,33 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     d[data.stat[i].label] = data.stat[i].value;
                 }
 
-                $scope.chartData.hardwareOrdersOpen = [{
-                    value: d.Open,
-                    color: '#00ad21',
-                    label: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen)
-                }];
+                $scope.chartObject.hardwareOrdersOpen = {};
+                $scope.chartObject.hardwareOrdersOpen.type = "PieChart";
+                $scope.chartObject.hardwareOrdersOpen.data = {
+                    "cols": [
+                        {id: "t", label: "Hadware Orders", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen) },
+                            {v: d.Open },
+                        ]}
+                    ]};
 
-                $scope.chartData.hardwareOrdersShipped = [{
-                    value: d.Shipped,
-                    color: '#7e7e85',
-                    label: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped)
-                }];
-
+                $scope.chartObject.hardwareOrdersShipped = {};
+                $scope.chartObject.hardwareOrdersShipped.type = "PieChart";
+                $scope.chartObject.hardwareOrdersShipped.data = {
+                    "cols": [
+                        {id: "t", label: "Hardware Orders", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped) },
+                            {v: d.Shipped },
+                        ]}
+                    ]};
             };
 
             var buildCharts = function() {
