@@ -194,5 +194,124 @@ define(['angular', 'angular-mocks', 'filterSearch'], function(angular, mocks) {
                 );
 
         });
+        describe('CHLFilterController', function(){
+             var mockedCHLFilterController, scope;
+            beforeEach(inject(['$rootScope', function($rootScope){
+                scope = $rootScope.$new();
+                scope.optionParams = {};
+            }]));
+            describe('chlFilter', function(){
+                it('should create a comma delimited list and call a function', inject(['$controller',
+                    function($controller){
+                         var csv = 'apple,banana,pear';
+                         var array = ['apple', 'banana', 'pear'];
+                         var expected = undefined;
+                         var called = false;
+                         scope.params = {};
+                         scope.filterDef = function(params){
+                            called = true;
+                            expected = params;
+                         };
+                        mockedCHLFilterController = $controller('CHLFilterController',{$scope: scope});
+                        expect(scope.chlFilter).toBeDefined();
+                        expect(scope.filterDef).toBeDefined();
+                        expect(scope.params).toBeDefined();
+
+                        scope.chlFilter(array);
+
+                        expect(called).toBe(true);
+                        expect(expected.chlFilter).toBeDefined();
+                        expect(expected.chlFilter).toBe(csv);
+                }])
+                );
+                it('should  not create a comma delimited list and call a function because function call is missing',
+                    inject(['$controller',
+                    function($controller){
+                         var csv = 'apple,banana,pear';
+                         var array = ['apple', 'banana', 'pear'];
+                         var expected = undefined;
+                         var called = false;
+                         scope.params = {};
+                         scope.filterDef = undefined;
+                        mockedCHLFilterController = $controller('CHLFilterController',{$scope: scope});
+                        expect(scope.chlFilter).toBeDefined();
+                        expect(scope.filterDef).not.toBeDefined();
+                        expect(scope.params).toBeDefined();
+
+                        scope.chlFilter(array);
+
+                        expect(called).toBe(false);
+                        expect(expected).not.toBeDefined();
+                }])
+                );
+                it('should  not create a comma delimited list and call a function because function call is not a function',
+                    inject(['$controller',
+                    function($controller){
+                         var csv = 'apple,banana,pear';
+                         var array = ['apple', 'banana', 'pear'];
+                         var expected = undefined;
+                         var called = false;
+                         scope.params = {};
+                         scope.filterDef = 'cat';
+                        mockedCHLFilterController = $controller('CHLFilterController',{$scope: scope});
+                        expect(scope.chlFilter).toBeDefined();
+                        expect(scope.filterDef).toBeDefined();
+                        expect(scope.params).toBeDefined();
+
+                        scope.chlFilter(array);
+
+                        expect(called).toBe(false);
+                        expect(expected).not.toBeDefined();
+                }])
+                );
+                it('should  not create a comma delimited list and call a function because selected list is undefined',
+                 inject(['$controller',
+                    function($controller){
+                         var csv = 'apple,banana,pear';
+                         var array = undefined;
+                         var expected = undefined;
+                         var called = false;
+                         scope.params = {};
+                         scope.filterDef = function(params){
+                            called = true;
+                            expected = params;
+                         };
+                        mockedCHLFilterController = $controller('CHLFilterController',{$scope: scope});
+                        expect(scope.chlFilter).toBeDefined();
+                        expect(scope.filterDef).toBeDefined();
+                        expect(scope.params).toBeDefined();
+
+                        scope.chlFilter(array);
+
+                        expect(called).toBe(false);
+                        expect(expected).not.toBeDefined();
+                }])
+                );
+                it('should  not create a comma delimited list and should call function because selected list has zero items',
+                 inject(['$controller',
+                    function($controller){
+                         var csv = '';
+                         var array = [];
+                         var expected = undefined;
+                         var called = false;
+                         scope.params = {};
+                         scope.filterDef = function(params){
+                            called = true;
+                            expected = params;
+                         };
+                        mockedCHLFilterController = $controller('CHLFilterController',{$scope: scope});
+                        expect(scope.chlFilter).toBeDefined();
+                        expect(scope.filterDef).toBeDefined();
+                        expect(scope.params).toBeDefined();
+
+                        scope.chlFilter(array);
+
+                        expect(called).toBe(true);
+                        expect(expected).toBeDefined();
+                        expect(expected.chlFilter).toBe(csv);
+                }])
+                );
+            });
+        });
      });
 });
