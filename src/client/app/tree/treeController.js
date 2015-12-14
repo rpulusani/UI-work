@@ -27,28 +27,7 @@ define([
                                 embed:'childAccounts'
                             }
                         };
-                        Account.item.get(options).then(function(){
-                            Account.item = Account.item.item;
-                            if (Account.item._embedded.childAccounts && Account.item._embedded.childAccounts.length > 0) {
-                                var childAccounts = Account.item._embedded.childAccounts;
-                                for (var i=0; i<childAccounts.length; i++) {
-                                    var childItem = {};
-                                    childItem = childAccounts[i];
-                                    childItem._links = {
-                                        self: {}
-                                    };
-                                    if (Account.item._links.childAccounts) {
-                                        if (Account.item._links.childAccounts.length) {
-                                            childItem._links.self.href = Account.item._links.childAccounts[i].href;
-                                        } else {
-                                            childItem._links.self.href = Account.item._links.childAccounts.href;
-                                        }
-                                    }
-                                    $scope.tempItem.items.push(childItem);
-                                }
-                            }
-                            $scope.items.push($scope.tempItem);
-                        });
+                        $scope.items.push($scope.tempItem);
                     });
                 });
             }
