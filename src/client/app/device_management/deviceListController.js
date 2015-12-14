@@ -68,7 +68,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                         },
                         params: $scope.optionParams
                     },
-                    {
+                   /* {
                         display: 'DEVICE_MGT.BOOKMARKED_DEVICES',
                         functionDef: function(params){
                             var options  = {
@@ -95,7 +95,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                             $scope.optionParams  = params;
                         },
                         params: $scope.optionParams
-                    },
+                    },*/
                     {
                         display: 'Filter By CHL',
                         optionsPanel: 'CHLFilter',
