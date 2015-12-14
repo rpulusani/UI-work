@@ -72,19 +72,15 @@ define([
                     options = {};
                 if(item.selected) {
                     $scope.selectedItems.push(item.accountId);
-                    var searchString = $scope.selectedItems.join("%2C");
-                    if ($scope.treeType && $scope.treeType === 'chl' && $scope.action && $scope.action === 'filter') {
-                        $scope.params['chlFilter'] = searchString;
-                        $scope.filterDef($scope.params);
+                    if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                        $scope.filterChl($scope.selectedItems);
                     }
                     
                 } else {
                     if($scope.selectedItems.indexOf(item.accountId) !== -1) {
                         $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
-                        var searchString = $scope.selectedItems.join("%2C");
-                        if ($scope.treeType && $scope.treeType === 'chl' && $scope.action && $scope.action === 'filter') {
-                            $scope.params['chlFilter'] = searchString;
-                            $scope.filterDef($scope.params);
+                        if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                            $scope.filterChl($scope.selectedItems);
                         }
                     }
                 }
@@ -102,7 +98,6 @@ define([
                         $scope.toggleChildren(children[i]);
                     }
                 }*/
-                console.log($scope.selectedItems);
             };
 
             $scope.$on('expandAll', function(evt){

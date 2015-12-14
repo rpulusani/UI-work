@@ -13,9 +13,7 @@ define([
             templateUrl: '/app/tree/templates/tree.html',
             scope: {
                 treeType: '@',
-                action: '@',
-                params: '=',
-                filterDef: '='
+                filterChl: '='
             },
             controller: 'TreeController'
         };
@@ -29,9 +27,7 @@ define([
                 selectedItems: '=',
                 item: '=',
                 treeType: '@',
-                action: '@',
-                params: '=',
-                filterDef: '='
+                filterChl: '='
             },
             controller: 'TreeItemController',
             compile: function(element){
