@@ -59,16 +59,14 @@
 .site-footer .util-nav ul li:last-child {
   border-right: 0;
 }
-@media only screen and only screen and (min-width: 74em) {
-  .page-header,
-  .page-content {
-    padding: 24px 50px;
-  }
+.page-header,
+.page-content {
+  padding: 24px 20px;
 }
 @media only screen and (min-width: 54em) {
   .page-header,
   .page-content {
-    padding: 24px 40px;
+    padding: 24px 30px;
   }
 }
 .page-header:after,
@@ -78,7 +76,7 @@
   display: block;
 }
 .page-header {
-  background-color: #e6e6f0;
+  background-color: #eff0f6;
 }
 /** DASHBOARD MOCK **/
 .primary-contact-action {
@@ -206,7 +204,7 @@ textarea {
   }
 }
 .page-tabs > .set .set__tab-container {
-  background-color: #e6e6f0;
+  background-color: #eff0f6;
   border-bottom: 1px solid #a5a5aa;
   padding: 0 40px;
 }
@@ -221,8 +219,8 @@ textarea {
 .page-tabs > .set .set__tab-container .set__trigger a:hover,
 .page-tabs > .set .set__tab-container .set__trigger a:active,
 .page-tabs > .set .set__tab-container .set__trigger a:focus {
-  background-color: #e6e6f0;
-  border-top-color: #e6e6f0;
+  background-color: #eff0f6;
+  border-top-color: #eff0f6;
 }
 .page-tabs > .set .set__tab-container .set__trigger.set--is-active {
   border-bottom-color: #ffffff;
