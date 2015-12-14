@@ -68,12 +68,28 @@ define([
             $scope.toggleChildren = function(item){
                 var children = item.items || [],
                     limit = children.length,
-                    i = 0;
+                    i = 0,
+                    options = {};
+                if(item.selected) {
+                    $scope.selectedItems.push(item.accountId);
+                    if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                        $scope.filterChl($scope.selectedItems);
+                    }
+                    
+                } else {
+                    if($scope.selectedItems.indexOf(item.accountId) !== -1) {
+                        $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
+                        if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                            $scope.filterChl($scope.selectedItems);
+                        }
+                    }
+                }
 
-                for(i=0;i<limit;i++){
+                /*commenting until getting other direction from UX team*/
+                /*for(i=0;i<limit;i++){
                     if(item.selected){
-                        children[i].selected = true;
-                        children[i].disabled = true;
+                        //children[i].selected = true;
+                        //children[i].disabled = true;
                     }else{
                         children[i].disabled = false;
                     }
@@ -81,7 +97,7 @@ define([
                     if(children[i].items && children[i].items.length > 0){
                         $scope.toggleChildren(children[i]);
                     }
-                }
+                }*/
             };
 
             $scope.$on('expandAll', function(evt){

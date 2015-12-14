@@ -102,7 +102,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                         functionDef: function(params){
                             var options  = {
                                 'params':{
-                                  'type': 'locationFilter'
+                                  'type': 'chlFilter'
                                 }
                             };
                             angular.extend(options.params, params);

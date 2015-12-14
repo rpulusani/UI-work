@@ -30,7 +30,8 @@ define(['angular', 'filterSearch'], function(angular) {
             scope:{
                 title: '@',
                 params:'=',
-                filterDef: '='
+                filterDef: '=',
+                action: '@'
             },
             templateUrl: '/app/filter_search/templates/CHLFilter.html',
             controller: 'CHLFilterController'

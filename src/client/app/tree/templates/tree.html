@@ -6,5 +6,6 @@
     <button class="btn btn--small" ng-click="bulkAction('deselectAll')">Deselect All</button>
 </div> -->
 <ul class="tree">
-    <li ng-repeat="item in items" tree-item item="item" tree-type="{{treeType}}"></li>
+    <li ng-repeat="item in items" tree-item item="item" selected-items="selectedItems" tree-type="{{treeType}}" 
+    	filter-chl="filterChl"></li>
 </ul>

@@ -12,7 +12,8 @@ define([
             restrict: 'AE',
             templateUrl: '/app/tree/templates/tree.html',
             scope: {
-                treeType: '@'
+                treeType: '@',
+                filterChl: '='
             },
             controller: 'TreeController'
         };
@@ -23,8 +24,10 @@ define([
             replace: true,
             templateUrl: '/app/tree/templates/tree-item.html',
             scope: {
+                selectedItems: '=',
                 item: '=',
-                treeType: '@'
+                treeType: '@',
+                filterChl: '='
             },
             controller: 'TreeItemController',
             compile: function(element){

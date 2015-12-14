@@ -6,6 +6,7 @@ define([
     .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserService',
         function($scope, TreeItems, Account, User){
             $scope.items = [];
+            $scope.selectedItems = [];
             $scope.tempItem = {};
             $scope.bulkAction = function(evt){
                 $scope.$broadcast(evt);
