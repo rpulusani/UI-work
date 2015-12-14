@@ -363,10 +363,14 @@ textarea {
   margin-right: 10px;
 }
 .filter--search {
-  padding-top: 24px;
+  margin-top: 24px;
 }
 .filter--search.form__field {
   overflow: visible;
+  margin-bottom: 24px;
+}
+.filter--search.focus {
+  border: 1px solid #0061de;
 }
 .filter--search .selectric {
   border-right: none;
@@ -392,6 +396,7 @@ textarea {
 }
 .filter--search .form__field {
   position: relative;
+  margin-bottom: 0;
 }
 .filter--search .close-icon {
   background-color: #e6e6f0;
@@ -406,9 +411,10 @@ textarea {
   top: 50%;
   margin-top: -13px;
   text-align: center;
+  cursor: pointer;
 }
-.filter--search .close-icon:hover {
-  color: #000000;
+.filter--search .close-icon:active {
+  color: #1d1d25;
 }
 .filter--search .search-box:focus {
   outline: none;
@@ -426,7 +432,7 @@ textarea {
     border-right: 1px solid #7E7E85;
   }
   .filter--search .form__field {
-    padding-top: 24px;
+    margin-top: 24px;
   }
   .filter--search .close-icon {
     margin-top: 0;

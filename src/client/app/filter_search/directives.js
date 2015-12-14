@@ -46,7 +46,20 @@ define(['angular', 'filterSearch'], function(angular) {
                 search: '='
             },
             templateUrl: '/app/filter_search/templates/search.html',
-            controller: 'GridSearchController'
+            controller: 'GridSearchController',
+            link: function(scope, el, attr){
+                require(['lxk.fef'], function() {
+                    var $ = require('jquery'),
+                    filterInput = $(el).find(".search-box");
+                    $(filterInput).focus(function(){
+                        $(".filter--search").addClass("focus");
+                    });
+                    $(filterInput).blur(function(){
+                        $(".filter--search").removeClass("focus");
+                    });
+
+                });
+            }
         };
     });
 });

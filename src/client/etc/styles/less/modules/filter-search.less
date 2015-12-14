@@ -2,9 +2,14 @@
 
     &.form__field{
         overflow: visible;
+        margin-bottom: 24px;
     }
 
-    padding-top: 24px;
+    margin-top: 24px;
+
+    &.focus{
+        border: 1px solid #0061de;
+    }
 
     .selectric{
         border-right: none;
@@ -18,7 +23,6 @@
         }
 
     }
-
 
     .selectricButton {
             border-left: none;
@@ -37,6 +41,7 @@
 
     .form__field{
         position: relative;
+        margin-bottom: 0;
     }
 
     .close-icon {
@@ -52,9 +57,10 @@
         top: 50%;
         margin-top: -13px;
         text-align: center;
+        cursor: pointer;
 
-        &:hover{
-            color: #000000;
+        &:active{
+            color: #1d1d25;
         }
     }
 
@@ -85,7 +91,7 @@
         }
 
         .form__field {
-            padding-top: 24px;
+            margin-top: 24px;
         }
 
         .close-icon{

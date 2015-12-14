@@ -19,6 +19,11 @@ define(['angular', 'filterSearch'], function(angular) {
             if($scope.columns.length > 0){
                 $scope.searchByColumn($scope.columns[0]);
             }
+
+            $scope.clearSearch = function(){
+                this.searchByValue = '';
+            };
+
         }
     ]);
 });
