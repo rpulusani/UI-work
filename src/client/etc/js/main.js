@@ -49,7 +49,6 @@ requirejs.config({
 
             'form',
             'form.datePicker',
-            'form.columnPickerController',
             'form.directives',
 
             'account',
@@ -87,7 +86,6 @@ requirejs.config({
 
         'form':['angular', 'lxk.fef'],
         'form.datePicker' : ['form'],
-        'form.columnPickerController': ['form'],
         'form.directives': ['form'],
 
         'account': ['angular'],
@@ -160,7 +158,6 @@ requirejs.config({
 
         'form': 'app/form/form',
         'form.datePicker': 'app/form/datePickerController',
-        'form.columnPickerController': 'app/form/columnPickerController',
         'form.directives': 'app/form/directives',
 
         'utility': 'app/utilities/utility',
@@ -181,6 +178,7 @@ requirejs.config({
         'utility.hateaosFactory': 'app/utilities/hateaosFactory',
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
+        'utility.columnPickerController': 'app/utilities/columnPickerController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',

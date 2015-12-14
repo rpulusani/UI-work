@@ -59,7 +59,8 @@ define([
     'utility.hateaosConfig',
     'utility.hateaosFactory',
     'utility.grid',
-    'utility.imageService'
+    'utility.imageService',
+    'utility.columnPickerController'
 ], function(angular) {
     'use strict';
     angular.module('mps', [

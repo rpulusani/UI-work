@@ -5,7 +5,7 @@
 */
 define(['angular', 'utility.grid'], function(angular) {
     'use strict';
-    angular.module('mps.form')
+    angular.module('mps.utility')
     .controller('ColumnPickerController', ['$scope', '$element', '$attrs',
         function(scope, element, attrs) {
             var node = element[0],
