@@ -50,7 +50,7 @@
                 <a href="#" translate="{{ configure.report.charts.translate.assetCount }}"></a>
             </div>
             <div class="well">
-                <div draw="piechart" data="{{ chartData.assetRegister }}"></div>
+                <div google-chart chart="{{chartObject.assetRegister}}"></div>
             </div>
         </div>
         <div class="col-1-3">
@@ -90,10 +90,10 @@
             <div class="well">
                 <div class="row">
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ chartData.consumableOrdersOpen }}"></div>
+                        <div google-chart chart="{{chartObject.consumablesOrdersOpen}}"></div>
                     </div>
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ chartData.consumableOrdersShipped }}"></div>
+                        <div google-chart chart="{{chartObject.consumablesOrdersShipped}}"></div>
                     </div>
                 </div>
             </div>
@@ -105,10 +105,10 @@
             <div class="well">
                 <div class="row">
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ chartData.hardwareOrdersOpen }}"></div>
+                        <div google-chart chart="{{chartObject.hardwareOrdersOpen}}"></div>
                     </div>
                     <div class="col-1-2">
-                        <div draw="piechart" data="{{ chartData.hardwareOrdersShipped }}"></div>
+                        <div google-chart chart="{{chartObject.hardwareOrdersShipped}}"></div>
                     </div>
                 </div>
             </div>
