@@ -1,4 +1,4 @@
-define(['angular', 'report', 'chart'], function(angular) {
+define(['angular', 'report', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid',

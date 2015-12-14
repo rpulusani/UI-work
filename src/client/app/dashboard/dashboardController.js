@@ -1,4 +1,4 @@
-define(['angular', 'dashboard', 'chart'], function(angular) {
+define(['angular', 'dashboard', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
     .controller('DashboardController', ['$scope', '$location',

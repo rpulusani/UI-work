@@ -1,4 +1,4 @@
-define(['angular', 'chart'], function(angular) {
+define(['angular'], function(angular) {
     'use strict';
     angular.module('mps.report', []).config(['$routeProvider',
         function ($routeProvider) {
