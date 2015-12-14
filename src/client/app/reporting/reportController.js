@@ -125,14 +125,14 @@ define(['angular', 'report', 'chart'], function(angular) {
             configureTemplates();
             configureFauxCharts();
 
-            var buildAssetCountChart = function(data) {
+            var buildAssetRegisterChart = function(data) {
                 var total = 0;
 
                 for (var i = 0; i < data.stat.length; i++) {
                     total += data.stat[i].value;
                 }
 
-                $scope.chartData.assetCount = [{
+                $scope.chartData.assetRegister = [{
                     value: total,
                     color: '#00ad21',
                     label: $translate.instant($scope.configure.report.charts.translate.assetCount)
@@ -198,7 +198,7 @@ define(['angular', 'report', 'chart'], function(angular) {
                                     switch (report.id) {
                                         /* Asset Register */
                                         case 'mp9058sp':
-                                            buildAssetCountChart(report.stats.data[0]);
+                                            buildAssetRegisterChart(report.stats.data[0]);
                                             break;
                                         /* MADC */
                                         case 'mp9073':
@@ -236,12 +236,7 @@ define(['angular', 'report', 'chart'], function(angular) {
             $scope.report = Reports.item;
 
             if (!$scope.reports.length) {
-                Reports.getPage({
-                    params: {
-                        page: 1,
-                        hello: 'world'
-                    }
-                }).then(function() {
+                Reports.getPage().then(function() {
                    $scope.reports = Reports.data;
 
                     buildCharts();

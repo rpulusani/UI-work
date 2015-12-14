@@ -1,0 +1,82 @@
+<div sr-header></div>
+<h3 class="vertical-space--none" translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
+
+<hr />
+
+<p translate="{{currentDeviceTitle}}"></p>
+
+<div class="well">
+	<div ng-show="prevDevice">
+        <div class="media">
+            <div class="media__visual">
+                <img ng-src="{{prevDevice.medImage}}" ng-show="prevDevice.medImage" 
+                    alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+            </div>
+            <div class="media__body">
+                <ul class="info-list text--small vertical-space--none">
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+                        <div class="info-list__item-value" ng-bind="prevDevice.selectedDevice.productModel"></div>
+                    </li>
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                        <div class="info-list__item-value" ng-bind="prevDevice.selectedDevice.serialNumber"></div>
+                    </li>
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></div>
+                        <div class="info-list__item-value">
+                            <div ng-bind-html="formattedPrevDeviceContact"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p translate="{{replaceDeviceTitle}}"></p>
+
+<div class="well">
+	<div ng-show="isRowSelected()">
+        <div class="media">
+            <div class="media__visual">
+                <img ng-src="{{selectedImageUrl}}" ng-show="selectedDevice.partNumber" 
+                    alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+            </div>
+            <div class="media__body">
+                <ul class="info-list text--small vertical-space--none">
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+                        <div class="info-list__item-value" ng-bind="selectedDevice.productModel"></div>
+                    </li>
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                        <div class="info-list__item-value" ng-bind="selectedDevice.serialNumber"></div>
+                    </li>
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></div>
+                        <div class="info-list__item-value">
+                            <div ng-bind-html="formattedSelectedDeviceContact"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+    translate="DEVICE_MGT.DEVICES_COUNT_MSG" translate-values="{count: pagination.totalItems(), address: formattedSingleLineAddress}">
+</h3>
+
+<hr/>
+
+<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+
+<div pagination grid="{{gridOptions}}"></div>
+<div class="col-2-3"></div>
+<div class="col-1">
+    <button class="btn btn--secondary" translate="DEVICE_MGT.DISCARD_DEVICE_REMOVAL_CHANGES" ng-click="discardSelect()"></button>
+    <button class="btn btn--primary" translate="DEVICE_MGT.CHANGE_DEVICE_TO_BE_REMOVED" 
+            ng-click="goToCallingPage()"></button>
+</div>

@@ -14,8 +14,16 @@ define(['angular'], function(angular) {
             templateUrl: '/app/device_management/templates/device-page-count.html',
             controller: 'DevicePageCountsController'
         })
-        .when('/device_management/pick_device', {
-            templateUrl: '/app/device_management/templates/device-picker.html',
+        .when('/device_management/pick_address/:source', {
+            templateUrl: '/app/device_service_requests/templates/address-picker.html',
+            controller: 'AddressPickerController'
+        })
+        .when('/device_management/pick_contact/:source', {
+            templateUrl: '/app/device_service_requests/templates/contact-picker.html',
+            controller: 'ContactPickerController'
+        })
+        .when('/device_management/pick_device/:source', {
+            templateUrl: '/app/device_service_requests/templates/device-picker.html',
             controller: 'DevicePickerController'
         });
     }]);
