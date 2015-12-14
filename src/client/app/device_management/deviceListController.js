@@ -7,6 +7,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+
             $scope.goToCreate = function() {
                 Devices.item = {};
                 $location.path('/service_requests/devices/new');
@@ -50,7 +51,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                             };
                 angular.extend(options.params, params);
                 Devices.getPage(0, 20, options).then(display, failure);
-                console.log(params);
                 Devices.getPage(0, 20, options).then(display, failure);
             };
 
@@ -63,13 +63,12 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                                   'type': 'all_devices'
                                 }
                             };
-                            console.log(options);
                             Devices.getPage(0, 20, options).then(display, failure);
                             $scope.optionParams  = params;
                         },
                         params: $scope.optionParams
                     },
-                    {
+                   /* {
                         display: 'DEVICE_MGT.BOOKMARKED_DEVICES',
                         functionDef: function(params){
                             var options  = {
@@ -77,7 +76,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                                   'type': 'bookmarked'
                                 }
                             };
-                            console.log(options);
                             Devices.getPage(0, 20, options).then(display, failure);
                             $scope.optionParams  = params;
                         },
@@ -93,12 +91,11 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                                 }
                             };
                             angular.extend(options.params, params);
-                            console.log(options);
                             Devices.getPage(0, 20, options).then(display, failure);
                             $scope.optionParams  = params;
                         },
                         params: $scope.optionParams
-                    },
+                    },*/
                     {
                         display: 'Filter By CHL',
                         optionsPanel: 'CHLFilter',
@@ -109,7 +106,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                                 }
                             };
                             angular.extend(options.params, params);
-                            console.log(options);
                             Devices.getPage(0, 20, options).then(display, failure);
                             $scope.optionParams  = params;
                         },
