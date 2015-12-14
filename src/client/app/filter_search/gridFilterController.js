@@ -3,7 +3,6 @@ define(['angular', 'filterSearch'], function(angular) {
     angular.module('mps.filterSearch')
     .controller('GridFilterController', ['$scope', '$translate',
         function($scope, $translate) {
-
             $scope.selectedFilter = function(selectedOption){
                 if(selectedOption.optionsPanel){
                     $scope.currentFilterPanel = selectedOption.optionsPanel;
@@ -11,7 +10,9 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.currentFunctionDef = selectedOption.functionDef;
                 }else{
                     $scope.currentFilterPanel = undefined;
-                    selectedOption.functionDef(selectedOption.params);
+                    if(selectedOption.functionDef && typeof selectedOption.functionDef === 'function'){
+                        selectedOption.functionDef(selectedOption.params);
+                    }
                 }
             };
             for(var item in $scope.options){
