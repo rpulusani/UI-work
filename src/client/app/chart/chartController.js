@@ -12,8 +12,8 @@ define(['angular', 'chartjs', 'chart'], function(angular, ChartJs) {
             chart;
 
             var chartOptions = {};
-            chartOptions.responsive = true;
             chartOptions.maintainAspectRatio = false;
+            chartOptions.responsive = true;
 
             if  (attrs.showlegend === '' || attrs.showlegend) {
                 legend = document.createElement('div');

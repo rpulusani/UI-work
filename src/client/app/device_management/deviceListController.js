@@ -19,12 +19,12 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                         embed:'contact,address'
                     }
                 };
-                Devices.item.links.self(options).then(function(){
-                    Devices.item = Devices.item.self.item;
-                    $location.path(Devices.route + '/' + device.id + '/review');
 
+                Devices.item.get(options).then(function(){
+                    $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
+
 
             $scope.visibleColumns =  Grid.getVisibleColumns(Devices); //sets initial columns visibility
 
@@ -34,32 +34,88 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             function failure(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
             }
+
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
+
+            $scope.optionParams = {
+
+            };
+
+            $scope.searchFunctionDef  = function(params){
+                var options  = {
+                                'params':{
+                                  'type': 'bookmarked'
+                                }
+                            };
+                angular.extend(options.params, params);
+                Devices.getPage(0, 20, options).then(display, failure);
+                console.log(params);
+                Devices.getPage(0, 20, options).then(display, failure);
+            };
 
             $scope.filterOptions =
                 [   {
                         display:'DEVICE_MGT.ALL_DEVICES',
-                        functionDef: function(){
-                          Devices.getPage().then(display,failure);
-                        }
+                        functionDef: function(params){
+                            var options  = {
+                                'params':{
+                                  'type': 'all_devices'
+                                }
+                            };
+                            console.log(options);
+                            Devices.getPage(0, 20, options).then(display, failure);
+                            $scope.optionParams  = params;
+                        },
+                        params: $scope.optionParams
                     },
                     {
                         display: 'DEVICE_MGT.BOOKMARKED_DEVICES',
-                        functionDef: function(){
-                            console.log('Filtering Bookmarked Devices');
-                        }
+                        functionDef: function(params){
+                            var options  = {
+                                'params':{
+                                  'type': 'bookmarked'
+                                }
+                            };
+                            console.log(options);
+                            Devices.getPage(0, 20, options).then(display, failure);
+                            $scope.optionParams  = params;
+                        },
+                        params: $scope.optionParams
                     },
                     {
                         display: 'Filter By Location',
-                        optionsPanel: 'locationFilter'
+                        optionsPanel: 'locationFilter',
+                        functionDef: function(params){
+                            var options  = {
+                                'params':{
+                                  'type': 'locationFilter'
+                                }
+                            };
+                            angular.extend(options.params, params);
+                            console.log(options);
+                            Devices.getPage(0, 20, options).then(display, failure);
+                            $scope.optionParams  = params;
+                        },
+                        params: $scope.optionParams
                     },
                     {
                         display: 'Filter By CHL',
-                        optionsPanel: 'CHLFilter'
+                        optionsPanel: 'CHLFilter',
+                        functionDef: function(params){
+                            var options  = {
+                                'params':{
+                                  'type': 'locationFilter'
+                                }
+                            };
+                            angular.extend(options.params, params);
+                            console.log(options);
+                            Devices.getPage(0, 20, options).then(display, failure);
+                            $scope.optionParams  = params;
+                        },
+                        params: $scope.optionParams
                     }
                 ];
-
         }
     ]);
 });

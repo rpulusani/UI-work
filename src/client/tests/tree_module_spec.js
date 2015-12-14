@@ -21,13 +21,14 @@ define([
                 spyOn(scope, '$broadcast');
             }));
 
-            describe('Bulk Action', function(){
+            /*commenting as bulk action should not happen now*/
+            /*describe('Bulk Action', function(){
                 it('Should broadcast an event', function(){
                     var test = 'test';
                     scope.bulkAction(test);
                     expect(scope.$broadcast).toHaveBeenCalledWith(test);
                 });
-            });
+            });*/
         });
 
         describe("Tree Item Controller", function(){
@@ -36,7 +37,7 @@ define([
             beforeEach(inject(function($rootScope, $controller){
                 scope = $rootScope.$new();
                 ctrl = $controller('TreeItemController', {$scope: scope});
-
+                spyOn(scope, '$broadcast');
                 scope.item = {
                     "id": "item1",
                     "title": "Item 1",
@@ -74,6 +75,15 @@ define([
                     for(var i=0;i<limit;i++){
                         expect(scope.item.items[i].disabled).toEqual(true);
                     }
+                });
+            });
+
+            describe('expandCall', function(){
+                it('Should broadcast an event and toggle the value for expanded flag', function(){
+                    scope.item.expanded = true;
+                    scope.expandCall();
+                    expect(scope.$broadcast).toHaveBeenCalledWith('expanded');
+                    expect(scope.item.expanded).toEqual(false);
                 });
             });
 

@@ -85,7 +85,7 @@
 <div ng-hide="device.deviceInstallQuestion === 'true'">
     <div class="form__field" >
         <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
-        <input name="deviceInstallDate" type="text" ng-model="device.deviceInstallDate" value="" class="" />
+        <input datepicker type="date" ng-model="device.deviceInstallDate"/>
     </div>
 </div>
 
@@ -94,90 +94,30 @@
     <strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
 </div>
 
-<div class="form__field">
-    <input name="deviceInstallLocation" type="text" ng-model="device.address.storeFrontName" value="" class="" />
+<div ng-hide="device.addressSelected">
+    <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_INSTALL_ADDRESS" 
+        ng-click="goToAddressPicker('DeviceAdd',device)"></a>
 </div>
 
-<div class="form__field form__field--select form__field--required">
-    <label translate="ADDRESS.COUNTRY"></label>
-    <input name="country" type="hidden" ng-model="device.address.country" required/>
-    <div selectric
-        model="device.address.country"
-        options="countryHAL.countries"
-        value="code"
-        label="name"
-        placeholder="{{'LABEL.SELECT' | translate}}"
-        required
-        on-select="countrySelected(option)"
-    ></div>
-    <div ng-hide="!newDevice.country.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-        <i class="icon icon--ui icon--error-small"></i>
-        <span translate="LABEL.ERROR_REQUIRED"></span>
+<div ng-show="device.addressSelected">
+    <div class="contact-info">
+        <div ng-bind-html="formattedAddress"></div>
     </div>
-</div>
-
-<div class="form__field form__field--required">
-    <label translate="ADDRESS.LINE_1"></label>
-    <input name="addressLine1" type="text" ng-model="device.address.addressLine1" required/>
-    <div ng-hide="!newDevice.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-        <i class="icon icon--ui icon--error-small"></i>
-        <span translate="LABEL.ERROR_REQUIRED"></span>
+    <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceAdd',device)"></a>
+    <div class="form__field">
+        <label translate="ADDRESS.BUILDING_NAME"></label>
+        <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" />
     </div>
-</div>
 
-<div class="form__field">
-    <label translate="ADDRESS.LINE_2"></label>
-    <input name="addressLine2" type="text" ng-model="device.address.addressLine2"  />
-</div>
-
-<div class="form__field form__field--required">
-    <label translate="ADDRESS.CITY"></label>
-    <input name="city" type="text" ng-model="device.address.city" required />
-    <div ng-hide="!newDevice.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-        <i class="icon icon--ui icon--error-small"></i>
-        <span translate="LABEL.ERROR_REQUIRED"></span>
+    <div class="form__field">
+        <label translate="ADDRESS.FLOOR_NAME"></label>
+        <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" />
     </div>
-</div>
 
-<div class="form__field form__field--select form__field--required">
-    <label translate="ADDRESS.STATE"></label>
-    <input name="state" type="hidden" ng-model="device.address.state" required/>
-    <div selectric
-        options="country.provinces"
-        value="code"
-        label="name"
-        model="device.address.state"
-        required
-        placeholder="{{'LABEL.SELECT' | translate}}"
-    ></div>
-    <div ng-hide="!newDevice.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-        <i class="icon icon--ui icon--error-small"></i>
-        <span translate="LABEL.ERROR_REQUIRED"></span>
+    <div class="form__field">
+        <label translate="ADDRESS.SITE_NAME"></label>
+        <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" />
     </div>
-</div>
-
-<div class="form__field form__field--required">
-    <label translate="ADDRESS.ZIP"></label>
-    <input type="text" name="zipCode" ng-model="device.address.postalCode" value="" class="" required />
-    <div ng-hide="!newDevice.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-        <i class="icon icon--ui icon--error-small"></i>
-        <span translate="LABEL.ERROR_REQUIRED"></span>
-    </div>
-</div>
-
-<div class="form__field">
-    <label translate="ADDRESS.BUILDING_NAME"></label>
-    <input name="buildingName" type="text" ng-model="device.address.building" value="" class="" />
-</div>
-
-<div class="form__field">
-    <label translate="ADDRESS.FLOOR_NAME"></label>
-    <input name="floorName" type="text" ng-model="device.address.floor" value="" class="" />
-</div>
-
-<div class="form__field">
-    <label translate="ADDRESS.SITE_NAME"></label>
-    <input name="siteName" type="text" ng-model="device.address.office" value="" class="" />
 </div>
 
 <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
@@ -208,41 +148,39 @@
 <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 
 <div ng-show="device.deviceDeInstallQuestion === 'true'">
-    <div translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_TO_REMOVE_FROM_LOCATION"></div>
+    <strong translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_TO_REMOVE_FROM_LOCATION"></strong>
     
-    <button ng-hide="isDeviceSelected()"
-        name="selectDevice"
-        class="btn btn--secondary" 
-        translate="DEVICE_SERVICE_REQUEST.BROWSE_DEVICE"
-        ng-click="goToBrowse(device)"
-    ></button>
-
-    <div class="well">
-        <div ng-show="isDeviceSelected()">
-            <input type="hidden" name="selectedSerialNumber" ng-model="device.selectedDevice.serialNumber"/>
-            <input type="hidden" name="selectedIPAddress" ng-model="device.selectedDevice.ipAddress"/>
-            <ul class="info-list">
-                <li class="info-list__item">
-                    <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
-                    <div class="info-list__item-value" ng-bind="device.selectedDevice.serialNumber"></div>
-                </li>
-                <li class="info-list__item">
-                    <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
-                    <div class="info-list__item-value" ng-bind="device.selectedDevice.ipAddress"></div>
-                </li>
-            </ul>
-        </div>
-        <div ng-hide="isDeviceSelected()">
-            <span translate="LABEL.NONE_SELECTED"></span>
-        </div>
+    <div ng-hide="device.isDeviceSelected">
+        <a href="" translate="DEVICE_SERVICE_REQUEST.BROWSE_DEVICE" ng-click="goToDevicePicker('DeviceAdd',device)"></a>
     </div>
 
-    <button ng-show="isDeviceSelected()"
-        name="selectDevice"
-        class="btn btn--secondary" 
-        translate="DEVICE_SERVICE_REQUEST.REMOVE_DIFFERENT_DEVICE"
-        ng-click="goToBrowse(device)"
-    ></button>
+    <div ng-show="device.isDeviceSelected">
+        <div class="media">
+            <div class="media__visual">
+                <img ng-src="{{device.selectedDevice.medImage}}" ng-show="device.selectedDevice.medImage" 
+                    alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+            </div>
+            <div class="media__body">
+                <ul class="info-list text--small vertical-space--none">
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+                        <div class="info-list__item-value" ng-bind="device.selectedDevice.productModel"></div>
+                    </li>
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                        <div class="info-list__item-value" ng-bind="device.selectedDevice.serialNumber"></div>
+                    </li>
+                    <li class="info-list__item vertical-space--none">
+                        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></div>
+                        <div class="info-list__item-value">
+                            <div ng-bind-html="formattedSelectedDeviceContact"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a href="" translate="DEVICE_SERVICE_REQUEST.REMOVE_DIFFERENT_DEVICE"  ng-click="goToDevicePicker('DeviceAdd',device)"></a>
+    </div>
 </div>
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
@@ -332,19 +270,13 @@
     <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class="" />
 </div>
 
+
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
 
-<div><strong translate="LABEL.PRIMARY_CONTACT"></strong></div>
-<div class="well">
-    <div>
-        <span ng-bind="device.selectedContact.firstName"></span>
-        <span ng-bind="device.selectedContact.lastName"></span>
-    </div>
-    <div ng-bind="device.selectedContact.email"></div>
-    <div ng-bind="device.selectedContact.workPhone"></div>
-</div>
-<a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker(device,'deviceContact')"></a>
+<label translate="SERVICE_REQUEST.PRIMARY_CONTACT"></label>
 
-<div ng-show="isReview && !isSubmitted">
-    <div read-device></div>
+<div class="contact-info">
+    <div ng-bind-html="formattedDeviceContact"></div>
 </div>
+
+<a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('DeviceAdd','updateDeviceContact',device)"></a>

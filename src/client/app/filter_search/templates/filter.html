@@ -6,5 +6,7 @@
             label="display"
             on-select="selectedFilter(option)">
 </div>
-<div location-filter ng-if="currentFilterPanel == 'locationFilter'"></div>
-<div chl-filter ng-if="currentFilterPanel == 'CHLFilter'"></div>
+<div location-filter ng-if="currentFilterPanel == 'locationFilter'"
+    params="currentParams" filterDef="selectedOption.functionDef"></div>
+<div chl-filter ng-if="currentFilterPanel == 'CHLFilter'"
+    params="currentParams" filterDef="selectedOption.functionDef"></div>

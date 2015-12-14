@@ -1,12 +1,13 @@
 <div class="form__field filter--search">
+<<<<<<< HEAD
     <div class="row">
         <div class="col-1-5">
             <div selectric class="search-menu"
                     model="searchByColumn"
                     options="columns"
-            value="field"
+                    value="name"
                     label="name"
-            on-select="searchByColumn(columns)">
+                    on-select="selectedFilter(option)">
             </div>
         </div>
         <div class="col-4-5">
@@ -31,4 +32,13 @@
          
     </div>
     <div columns-menu></div>
+=======
+<div selectric class="search-menu"
+            model="searchByColumn"
+            options="columns"
+            value="field"
+            label="name"
+            on-select="searchByColumn(columns)">
+</div><input type="text" ng-model="searchByValue" /><a href="#" ng-click="gridSearch();"><i class="icon icon--ui icon--search-dark"></i></a> <div columns-menu></div>
+>>>>>>> e9cc4f69ebb13c38ecc3607e0f322a0f3b65d6ff
 </div>
