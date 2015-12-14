@@ -1,7 +1,3 @@
-.dropdown__menu {
-  border: 1px solid red;
-  min-width: 720px;
-}
 .site-wrapper:after,
 .site-header:after,
 .site-nav:after,
@@ -430,4 +426,8 @@ textarea {
 .theme--dark .rail-nav .sub-nav .nav-item {
   background: #1d1d25;
   border-color: #1d1d25;
+}
+/* Column Selector Directive -- Using FeFs dropdown */
+.dropdown__menu {
+  min-width: 720px;
 }

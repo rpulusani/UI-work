@@ -35,10 +35,10 @@ define(['angular', 'utility.grid'], function(angular) {
                 return gridOptions;
             },
             createColumnSelection = function(column, gridOptions) {
-                var listItem = angular.element('<li>'),
+                var listItem = angular.element('<div class="col-1-2">'),
                 checkBoxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
                 checkbox = $('<input type="checkbox" id="' + column.name + '" name="' + column.field  + '" value="">'),
-                checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name + '</label>');
+                checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
 
                 checkBoxWrapper.append(checkbox);
                 checkBoxWrapper.append(checkboxLabel);
@@ -52,7 +52,7 @@ define(['angular', 'utility.grid'], function(angular) {
 
                 checkbox.customInput();
                 
-                if (checkbox) {
+                if (checkbox && (column.dynamic === undefined || column.dynamic === true)) {
                     checkbox.on('change', function(e) {
                         e.preventDefault();
               
@@ -82,13 +82,21 @@ define(['angular', 'utility.grid'], function(angular) {
 
             scope.$on('setupColumnPicker', function(e, Grid) {
                 var i = 0,
+                columnMax = 7,
                 columns = [],
-                list = angular.element('<ul class="form"></ul>'),
+                list = angular.element('<div class="form"></div>'),
                 selectorContent,
                 links = [],
-                dropdown = $('<div class="dropdown"><button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
-                    '<div class="dropdown__menu dropdown--500px"><div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
-                    '<p class="selector-title">Column Selector</p><div class="selector-content"></div></div></div></div></div></div>');
+                dropdown = $(
+                    '<div class="dropdown">' + 
+                        '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
+                        '<div class="dropdown__menu">' +
+                            '<div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
+                                '<h4 class="selector-title">Column Selector</h4>' + 
+                                '<div class="row selector-content"></div>' +
+                            '</div></div></div>' + 
+                        '</div>' + 
+                    '</div>');
 
                 element.append(dropdown);
                 
@@ -110,8 +118,6 @@ define(['angular', 'utility.grid'], function(angular) {
                     for (i; i < links.length; i += 1) {
                         list.append(links[i]);
                     }
-
-                    element.append(dropdown);
 
                     selectorContent = $('.selector-content');
 
