@@ -59,9 +59,11 @@
 .site-footer .util-nav ul li:last-child {
   border-right: 0;
 }
-.page-header,
-.page-content {
-  padding: 24px 20px;
+@media only screen and only screen and (min-width: 74em) {
+  .page-header,
+  .page-content {
+    padding: 24px 50px;
+  }
 }
 @media only screen and (min-width: 54em) {
   .page-header,
@@ -278,6 +280,7 @@ textarea {
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
+  min-height: 655px;
   font-size: 9pt;
 }
 .table .ui-grid-header-cell:first-child {
