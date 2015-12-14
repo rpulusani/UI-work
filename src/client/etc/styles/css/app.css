@@ -62,8 +62,17 @@
 .page-header,
 .page-content {
   padding: 24px 20px;
+  /*@media @mq-gt-tablet{
+        padding: (2)*@base-grid-v (3)*@base-grid-h;
+    }*/
 }
-@media only screen and (min-width: 54em) {
+@media only screen and (min-width: 74em) {
+  .page-header,
+  .page-content {
+    padding: 24px 50px;
+  }
+}
+@media only screen and (min-width: 54em) and (max-width: 74em) {
   .page-header,
   .page-content {
     padding: 24px 30px;
@@ -360,7 +369,7 @@ textarea {
   margin-right: 10px;
 }
 .theme--dark {
-  background: #32323c;
+  background: #44434e;
 }
 .theme--dark h1,
 .theme--dark h2,
@@ -371,7 +380,7 @@ textarea {
 .theme--dark .site-nav,
 .theme--dark .site-header,
 .theme--dark .site-footer {
-  background: #32323c;
+  background: #44434e;
   color: #eff0f6;
 }
 .theme--dark .site-nav a {
@@ -400,24 +409,28 @@ textarea {
   background: #00ad21;
   color: #ffffff;
 }
+.theme--dark .rail-nav li {
+  border-top: 1px solid #32323c;
+  border-bottom: 1px solid #5a5a64;
+}
 .theme--dark .rail-nav .nav-item {
-  background: #32323c;
+  background: #44434e;
   color: #eff0f6;
-  border-color: #32323c;
+  border-color: #44434e;
 }
 .theme--dark .rail-nav a.nav-item:hover,
 .theme--dark .rail-nav a.nav-item:focus {
-  background: #c9c9d1;
+  background: #7e7e85;
   border-color: #3af23a;
-  color: #1d1d25;
+  color: #ffffff;
 }
 .theme--dark .rail-nav a.nav-item:active {
-  background: #a5a5aa;
+  background: #32323c;
   border-color: #3af23a;
-  color: #1d1d25;
+  color: #e6e6f0;
 }
 .theme--dark .rail-nav a.nav-item.is-active {
-  background: #00c425;
+  background: #00ad21;
   border-color: #3af23a;
   color: #ffffff;
 }

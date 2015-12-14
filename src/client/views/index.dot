@@ -82,6 +82,7 @@
       </div>
 
       <footer class="site-footer">
+        <a class="top-btn l-hidden--gt-tablet" href="#top" title="Scroll to top">Back to top</a>
         <div class="util-nav pull text--small">
           <ul footer-nav></ul>
         </div>
@@ -93,7 +94,6 @@
           </div>
         </div>
       </footer>
-      <a class="top-btn l-hidden--gt-tablet" href="#top" title="Scroll to top">Back to top</a>
     </div>
 
     <script type="text/javascript">
