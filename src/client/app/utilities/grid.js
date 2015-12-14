@@ -11,7 +11,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 {items: 100}
             ];
             this.hasBookmarkCol = false; // has a bookmark column
-            this.gridOptions = {};
             this.serviceInfo = {};
         };
 
@@ -105,7 +104,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             } else {
                 serviceId = service.embeddedName;
             }
-
+            
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
             scope.gridOptions.showGridFooter = false;
@@ -152,12 +151,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
                 scope.itemsPerPage = service.params.size;
             }
-
-            this.gridOptions = scope.gridOptions;
-        };
-
-        Grid.prototype.update = function(scope) {
-            this.gridOptions = scope.gridOptions;
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

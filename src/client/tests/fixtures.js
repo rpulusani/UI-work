@@ -1,6 +1,25 @@
 define([], function() {
     var fixtures = {};
 
+    /* HATEOAS Mock Service Definitions */
+    fixtures.services = {};
+
+    fixtures.services.test = {
+        serviceName: 'test',
+        embeddedName: 'test',
+        params: {
+            page: 0, 
+            size: 20, 
+            sort: null, 
+            accountId: '1-21AYVOT', 
+            accountLevel: 'GLOBAL'
+        },
+        columns: [
+            {'name': 'test', 'field': 'test'}
+        ],
+        route: ''
+    };
+
     /* HATEOAS Service Mock Data Structures */
     fixtures.api = {
         test: {}
