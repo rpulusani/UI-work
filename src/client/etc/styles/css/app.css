@@ -365,8 +365,17 @@ textarea {
 .filter--search {
   padding-top: 24px;
 }
+.filter--search.form__field {
+  overflow: visible;
+}
 .filter--search .selectric {
   border-right: none;
+}
+.filter--search .selectricItems li:hover,
+.filter--search .selectricItems li:active,
+.filter--search .selectricItems li.selected {
+  background: #0061de;
+  color: #ffffff;
 }
 .filter--search .selectricButton {
   border-left: none;
