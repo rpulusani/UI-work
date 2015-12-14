@@ -28,7 +28,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-                return angular.extend(self, serviceDefinition);
+                self = angular.extend(self, serviceDefinition);
+
+                return self;
             };
 
             HATEOASFactory.prototype.setItemDefaults = function(obj) {
@@ -84,7 +86,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
-                this.data = null;
+                this.data = [];
             };
 
             HATEOASFactory.prototype.newMessage  = function(){
@@ -117,7 +119,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 this.getMessage();
 
                 if (halObj && halObj._links && halObj._links[calculatedName] &&
-                     halObj._links[calculatedName].href) {
+                    halObj._links[calculatedName].href) {
                     tempObject[name] = { href: halObj._links[calculatedName].href};
                     angular.extend(this.item._links, tempObject);
                 }
@@ -134,13 +136,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (!newService.url) {
                     newService.params = self.setupParams({
-                        url: halObj._links[newService.embeddedName].href
+                        url: halObj._links[newService.embeddedName].href,
+                        params: newService.params
                     });
                     newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
-                }
-
-                if (!newService.params.accountId) {
-
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
@@ -158,13 +157,46 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
+            HATEOASFactory.prototype.setupDefaultFunctions = function(obj) {
+                var self = this;
+
+                obj.createItem = self.createItem;
+                obj.setItemDefaults = self.setItemDefaults;
+                obj.checkForEvent = self.checkForEvent;
+                obj.setupItem = self.setupItem;
+                obj.setupOptions = self.setupOptions;
+                obj.setItem = self.setItem;
+                obj.get = self.get;
+                obj.getPage = self.getPage;
+                obj.buildUrl = self.buildUrl;
+                obj.setupUrl = self.setupUrl;
+                obj.setupParams = self.setupParams;
+                obj.send = self.send;
+                obj.post = self.post;
+                obj.put = self.put;
+                obj.setParamsToNull = self.setParamsToNull;
+                obj.getHalUrl = self.getHalUrl;
+                obj.processCall = self.processCall;
+                obj.getAdditional = self.getAdditional;
+                obj.reset = self.reset;
+                obj.newMessage = self.newMessage;
+                obj.addField = self.addField;
+                obj.getMessage = self.getMessage;
+                obj.addRelationship = self.addRelationship;
+                obj.attachLinksAsFunctions = self.attachLinksAsFunctions;
+                obj.setupDefaultFunctions = self.setupDefaultFunctions;
+
+                return obj;
+            }
+
             HATEOASFactory.prototype.attachLinksAsFunctions = function(item, links, itemOptions) {
                 var self = this,
                 deferred = $q.defer(),
                 link;
 
                 for (link in links) {
-                    if (links[link].href && link !== 'self') {
+
+                    if (links[link] && links[link].href && link !== 'self') {
                         (function(item, link) {
                             if (!links[link].serviceName && !links[link].embeddedName) {
                                 item[link] = self.setItemDefaults();
@@ -176,33 +208,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                             item.linkNames.push(link);
 
-                            item[link].get = self.get;
-
                             item.links[link] = function(options) {
-                                item[link].createItem = self.createItem;
-                                item[link].setItemDefaults = self.setItemDefaults;
-                                item[link].checkForEvent = self.checkForEvent;
-                                item[link].setupItem = self.setupItem;
-                                item[link].setupOptions = self.setupOptions;
-                                item[link].setItem = self.setItem;
-                                item[link].get = self.get;
-                                item[link].getPage = self.getPage;
-                                item[link].buildUrl = self.buildUrl;
-                                item[link].setupUrl = self.setupUrl;
-                                item[link].setupParams = self.setupParams;
-                                item[link].send = self.send;
-                                item[link].post = self.post;
-                                item[link].put = self.put;
-                                item[link].setParamsToNull = self.setParamsToNull;
-                                item[link].getHalUrl = self.getHalUrl;
-                                item[link].processCall = self.processCall;
-                                item[link].getAdditional = self.getAdditional;
-                                item[link].reset = self.reset;
-                                item[link].newMessage = self.newMessage;
-                                item[link].addField = self.addField;
-                                item[link].getMessage = self.getMessage;
-                                item[link].addRelationship = self.addRelationship;
-                                item[link].attachLinksAsFunctions = self.attachLinksAsFunctions;
+                                item[link] = self.setupDefaultFunctions(item[link]);
 
                                 item[link].get(options).then(function(res) {
                                     deferred.resolve(res);
@@ -246,6 +253,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     item.links = {};
                     item.url = self.setupUrl(item._links.self.href);
                     item.params = self.setupParams({url: item._links.self.href});
+
+                    if (!item.get) {
+                        item = self.setupDefaultFunctions(item);
+                    }
 
                     if (item._links) {
                         item = self.attachLinksAsFunctions(item, item._links, itemOptions);
@@ -392,7 +403,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                         }
 
-                        if(halObj.item.id && halObj.item.id === ''){
+                        if (halObj.item.id && halObj.item.id === '') {
                             delete halObj.item.id;
                         }
 
@@ -400,6 +411,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         url = self.buildUrl(itemUrl, self.params, []);
 
                         self.checkForEvent(self.item, 'on' + verbName);
+
                         $http({
                             method: method,
                             url: url,
@@ -459,8 +471,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 };
                 
                 if (additionalOptions) {
-                    angular.extend(options, additionalOptions);
-                
+                    options = angular.extend(options, additionalOptions);
                 }
 
                 return this.get(options);
@@ -478,11 +489,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             url: self.url + optionsObj
                         };
                     }
-                }
+                } 
 
-                if (options.params) { // if params exist extend from self params list
-                    angular.extend(options.params, self.params);
-                }else{ //if not then set params list based on self params list
+                if (!options.params) {
                     options.params = self.params;
                 }
 
@@ -509,9 +518,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (options.columnDefs) {
                     self.columnDefs = options.columnDefs;
                 }
-
-                //update self params to match the latest options param calls
-                self.params = options.params;
 
                 return options;
             };
@@ -580,8 +586,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.processCall = function(options, deferred) {
                 var self = this,
-                currentParams = self.params,
+                currentParams = angular.copy(self.params),
                 url;
+
+                if (options.params) {
+                    options.params = angular.extend(self.params, options.params);
+                } else {
+                    options.params = self.params;
+                }
 
                 if (!options.preventDefaultParams) {
                     self.params = self.setupParams({
@@ -590,12 +602,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     });
                 } else {
                    self.setParamsToNull();
-                }
-
-                if (options.params) {
-                   angular.extend(options.params, self.params);
-                } else {
-                    options.params = self.params;
                 }
 
                 if (!options.url) {
@@ -607,15 +613,19 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.checkForEvent(self.item, 'onGet');
 
-                options.params = {};
+                self.params = angular.extend(self.params, options.params);
+
+                options.params = {}; 
 
                 $http(options).then(function(processedResponse) {
                     self.setupItem(processedResponse);
 
                     self.processedResponse = processedResponse;
-                    
-                    self.params = currentParams;
 
+                    if (options.updateParams === false) {
+                        self.params = currentParams;
+                    }
+                    
                     self.checkForEvent(self.item, 'afterGet');
 
                     deferred.resolve(processedResponse);
@@ -635,7 +645,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         $rootScope.currentUser.deferred.promise.then(function() {
                             var item,
                             options = self.setupOptions(optionsObj);
-                            
+
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;
@@ -650,8 +660,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
-                                    self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
+                                    if (!options.params.accountId || !self.params.accountId ) {
+                                        self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
+                                    }
+
+                                    if (!options.params.accountLevel || !self.params.accountLevel ) {
+                                        self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
+                                    }
 
                                     self.processCall(options, deferred);
                                 });

@@ -11,7 +11,11 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 {items: 100}
             ];
             this.hasBookmarkCol = false; // has a bookmark column
+<<<<<<< HEAD
             this.gridOptions = {};
+=======
+            this.serviceInfo = {};
+>>>>>>> upstream/integrated
         };
 
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
@@ -92,10 +96,28 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         };
 
         Grid.prototype.display = function(service, scope, personal) {
+<<<<<<< HEAD
             var size = service.data.length < service.params.size ? service.data.length: service.params.size,
             newHeight =  46 + (31 * size);
 
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
+=======
+            var size = service.data.length < service.params.size? service.data.length: service.params.size,
+            serviceId = '',
+            newHeight =  46 + (31 * size);
+
+
+            if (service.gridName) {
+                serviceId = service.gridName;
+            } else if (service.serviceName) {
+                serviceId = service.serviceName;
+            } else {
+                serviceId = service.embeddedName;
+            }
+
+            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            scope.gridOptions.columnDefs = this.setColumnDefaults(service);
+>>>>>>> upstream/integrated
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
@@ -109,8 +131,15 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
+<<<<<<< HEAD
                 scope.gridOptions.showBookmarkColumn === true)) {
                 //this.hasBookmarkCol = true;
+=======
+                 scope.gridOptions.showBookmarkColumn === true) && 
+                ( !this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
+                
+                this.serviceInfo[serviceId] = {hasBookmarkCol: true};
+>>>>>>> upstream/integrated
 
                 scope.gridOptions.columnDefs.unshift({
                     name: '',

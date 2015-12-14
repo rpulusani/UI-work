@@ -51,7 +51,6 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
             
             User.getLoggedInUserInfo().then(function(user) {
                 User.item._links.accounts = User.item._links.accounts[0];
-
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         Addresses.getPage().then(function() {

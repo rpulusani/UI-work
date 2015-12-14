@@ -57,8 +57,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         embed:'contact'
                     }
                 };
-                Devices.item.links.self(options).then(function(){
-                    $scope.selectedDevice.contact = Devices.item.self.item.contact.item;
+                Devices.item.get(options).then(function(){
+                    $scope.selectedDevice.contact = Devices.item.contact.item;
                     $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
                 });
             };
