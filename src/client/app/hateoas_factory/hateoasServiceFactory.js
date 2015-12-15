@@ -571,15 +571,23 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             }
 
                             if ( angular.isArray(self.item._embedded[prop]) ) {
-                                for (i; i < self.item._embedded[prop].length; i +=1) {
-                                    if (!self.item._embedded[prop][i]._links) {
-                                        self.item._embedded[prop][i]._links = {
-                                            href: self.item._links[prop].href
+                               self.item[prop].data = self.item._embedded[prop];
+
+                                for (i; i <  self.item[prop].data.length; i +=1) {
+                                    if (!self.item[prop].data[i]._links || !self.item[prop].data[i]._links.self) {
+                                        self.item._embedded[prop][i]._links = {};
+
+                                        if (angular.isArray(self.item._links[prop])) {
+                                            self.item._embedded[prop][i]._links.self = {
+                                                href: self.item._links[prop][i].href
+                                            }
+                                        } else {
+                                            self.item._embedded[prop][i]._links.self = {
+                                                href: self.item._links[prop].href
+                                            }
                                         }
                                     }
                                 }
-                                console.log('Was an array', self.item._embedded);
-
                             }
 
                             if (self.item._embedded[prop] instanceof Array) {
