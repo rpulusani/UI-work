@@ -54,19 +54,19 @@ define(['angular', 'filterSearch'], function(angular) {
                     $(filterDiv).hover(function(){
                         $(this).toggleClass("hover");
                         $(".search-box").toggleClass("hover");
-                        $(".btn-search").toggleClass("hover");
+                        $(".search").toggleClass("hover");
                         $(".selectric").toggleClass("hover");
                     });
                     $(filterDiv).find(".search-box").focus(function(){
                         $(filterDiv).addClass("focus");
                         $(".search-box").addClass("focus");
-                        $(".btn-search").addClass("focus");
+                        $(".search").addClass("focus");
                         $(".selectric").addClass("focus");
                     });
                     $(filterDiv).find(".search-box").blur(function(){
                         $(filterDiv).removeClass("focus");
                         $(".search-box").removeClass("focus");
-                        $(".btn-search").removeClass("focus");
+                        $(".search").removeClass("focus");
                         $(".selectric").removeClass("focus");
                     });
                     $(filterDiv).find(".selectric").click(function(){

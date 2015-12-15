@@ -404,7 +404,7 @@ textarea {
 .filter--search .selectricButton {
   border-left: none;
 }
-.filter--search .btn-search {
+.filter--search .search {
   background: #e6e6f0;
   background: -webkit-linear-gradient(#fff, #e6e6f0);
   background: -o-linear-gradient(#fff, #e6e6f0);
@@ -415,8 +415,8 @@ textarea {
   border-left: none;
   cursor: pointer;
 }
-.filter--search .btn-search.hover,
-.filter--search .btn-search.focus {
+.filter--search .search.hover,
+.filter--search .search.focus {
   border-top: 1px solid #0061de;
   border-right: 1px solid #0061de;
   border-bottom: 1px solid #0061de;
