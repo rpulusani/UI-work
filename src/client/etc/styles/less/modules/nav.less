@@ -22,7 +22,7 @@
     }
 
     a{
-        
+
     }
 
     .nav-item{
@@ -50,5 +50,36 @@
         .nav-item{
             padding: @base-grid-v (2)*@base-grid-h;
         }
+    }
+}
+
+.top-logo{
+    background-image: url('http://www.lexmark.com/common/common-mce/styles/css/v2/images/lxk-logo-2x.png');
+    width: 284px;
+    height:56px;
+    float:left;
+    display:inline;
+    @media @mq-lt-medium{
+        display:none;
+    }
+}
+.title{
+    display:inline;
+    float:left;
+}
+
+.title h1{
+    padding: 0 (2)*@base-grid-h;
+    position: absolute;
+    top: 18px;
+
+    @media @mq-desktop{
+        padding: 0 (5)*@base-grid-h;
+    }
+    @media @mq-laptop{
+        padding: 0 (3)*@base-grid-h;
+    }
+    @media @mq-lt-medium {
+        display:none;
     }
 }

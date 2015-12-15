@@ -54,7 +54,6 @@
 .site-footer .util-nav ul li {
   float: left;
   padding: 0 10px;
-  border-right: 1px dotted;
 }
 .site-footer .util-nav ul li:last-child {
   border-right: 0;
@@ -62,9 +61,6 @@
 .page-header,
 .page-content {
   padding: 24px 20px;
-  /*@media @mq-gt-tablet{
-        padding: (2)*@base-grid-v (3)*@base-grid-h;
-    }*/
 }
 @media only screen and (min-width: 74em) {
   .page-header,
@@ -202,6 +198,42 @@ textarea {
 }
 .rail-nav .sub-nav .nav-item {
   padding: 12px 20px;
+}
+.top-logo {
+  background-image: url('http://www.lexmark.com/common/common-mce/styles/css/v2/images/lxk-logo-2x.png');
+  width: 284px;
+  height: 56px;
+  float: left;
+  display: inline;
+}
+@media (max-width: 54em) {
+  .top-logo {
+    display: none;
+  }
+}
+.title {
+  display: inline;
+  float: left;
+}
+.title h1 {
+  padding: 0 20px;
+  position: absolute;
+  top: 18px;
+}
+@media only screen and (min-width: 74em) {
+  .title h1 {
+    padding: 0 50px;
+  }
+}
+@media only screen and (min-width: 54em) and (max-width: 74em) {
+  .title h1 {
+    padding: 0 30px;
+  }
+}
+@media (max-width: 54em) {
+  .title h1 {
+    display: none;
+  }
 }
 /* <tabs> */
 .page-tabs {
@@ -375,6 +407,9 @@ textarea {
 .theme--dark h2,
 .theme--dark p {
   color: #1d1d25;
+}
+.theme--dark .title h1 {
+  color: #00ad21;
 }
 .theme--dark #mobileNav,
 .theme--dark .site-nav,

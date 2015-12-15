@@ -50,6 +50,11 @@
   <body class="theme--dark" style="display:none">
     <a id="top" name="top"></a>
     <header class="site-header">
+    <div class="top-logo">
+    </div>
+    <div class="title">
+      <h1 translate="{{sectionTitle}}">Devices</h1>
+    </div>
 <!-- <Nav Button> -->
       <a href="#mobileNav" data-target="#mobileNav" class="nav-btn pull l-hidden--gt-tablet">
         <span class="icon icon--lxk-ui icon--menu text--h2"></span>
