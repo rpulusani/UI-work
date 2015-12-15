@@ -14,7 +14,7 @@
                 <div class="form__field">
                     <div class="col-lg-11-12 col-md-11-12 col-sm-11-12 col-xs-7-8">
                         <input type="text" ng-model="searchByValue" class="search-box"/>
-                        <a class="icon close-icon" ng-click="clearSearch()">X</a>
+                        <a class="icon close-icon" ng-show="searchByValue" ng-click="clearSearch()">X</a>
                     </div>
                     <div class="col-lg-1-12 col-md-1-12 col-sm-1-12 col-xs-1-8">
                         <button class="search" ng-click="gridSearch()"><i class="icon icon--ui icon--search-secondary"></i></i></button>
