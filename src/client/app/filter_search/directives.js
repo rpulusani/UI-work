@@ -50,12 +50,24 @@ define(['angular', 'filterSearch'], function(angular) {
             link: function(scope, el, attr){
                 require(['lxk.fef'], function() {
                     var $ = require('jquery'),
-                    filterInput = $(el).find(".search-box");
-                    $(filterInput).focus(function(){
-                        $(".filter--search").addClass("focus");
+                    filterDiv = $(el).find(".filter--search");
+                    $(filterDiv).hover(function(){
+                        $(this).toggleClass("hover");
+                        $(".search-box").toggleClass("hover");
+                        $(".btn-search").toggleClass("hover");
+                        $(".selectric").toggleClass("hover");
                     });
-                    $(filterInput).blur(function(){
-                        $(".filter--search").removeClass("focus");
+                    $(filterDiv).find(".search-box").focus(function(){
+                        $(filterDiv).addClass("focus");
+                        $(".search-box").addClass("focus");
+                        $(".btn-search").addClass("focus");
+                        $(".selectric").addClass("focus");
+                    });
+                    $(filterDiv).find(".search-box").blur(function(){
+                        $(filterDiv).removeClass("focus");
+                        $(".search-box").removeClass("focus");
+                        $(".btn-search").removeClass("focus");
+                        $(".selectric").removeClass("focus");
                     });
 
                 });
