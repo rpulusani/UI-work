@@ -1,0 +1,11 @@
+.filter-search{
+    .search-menu{
+        width: 20%;
+        display: inline;
+    }
+    input{
+        width: 70%;
+        display: inline;
+    }
+
+}

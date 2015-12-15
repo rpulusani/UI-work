@@ -517,7 +517,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (options.columnDefs) {
                     self.columnDefs = options.columnDefs;
                 }
-
+                
                 return options;
             };
 
@@ -587,7 +587,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 currentParams = angular.copy(self.params),
                 url;
-
                 if (options.params) {
                     options.params = angular.extend(self.params, options.params);
                 } else {

@@ -1,0 +1,107 @@
+.filter--search{
+
+    &.form__field{
+        overflow: visible;
+        margin-bottom: 24px;
+    }
+
+    margin-top: 24px;
+
+    &.focus{
+        border: 1px solid #0061de;
+    }
+
+    .selectric{
+        border-right: none;
+    }
+
+    .selectricItems {
+
+        li:hover, li:active, li.selected{
+            background: #0061de;
+            color: #ffffff;
+        }
+
+    }
+
+    .selectricButton {
+            border-left: none;
+        }
+
+    button.search{
+        background: #e6e6f0;
+        background: -webkit-linear-gradient(#fff, #e6e6f0);
+        background: -o-linear-gradient(#fff, #e6e6f0);
+        background: linear-gradient(#fff, #e6e6f0);
+        border: 1px solid #7e7e85;
+        height: 54px;
+        width: 100%;
+        border-left: none;
+    }
+
+    .form__field{
+        position: relative;
+        margin-bottom: 0;
+    }
+
+    .close-icon {
+        background-color: #e6e6f0;
+        color: #a5a5aa;
+        font-size: 16px;
+        font-style: normal;
+        padding-bottom: 3px;
+        height: 24px;
+        width: 24px;
+        position: absolute;
+        left: 86%;
+        top: 50%;
+        margin-top: -13px;
+        text-align: center;
+        cursor: pointer;
+
+        &:active{
+            color: #1d1d25;
+        }
+    }
+
+    .search-box:focus {
+        outline: none;
+    }
+
+
+    @media @mq-gt-tablet{
+ 
+    }
+
+    @media @mq-lt-desktop{
+
+        .close-icon{
+            left: 84.5%
+        }
+    }
+
+    @media @mq-lt-laptop{
+
+        .search-menu{
+            padding-top: 0;
+        }
+
+        .selectric{
+            border-right: 1px solid #7E7E85;
+        }
+
+        .form__field {
+            margin-top: 24px;
+        }
+
+        .close-icon{
+            margin-top: 0;
+            left: 79.5%
+        }
+
+        .selectricButton {
+            border-left: 1px solid #7e7e85;
+        }
+    }
+
+}

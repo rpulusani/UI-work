@@ -59,7 +59,12 @@ define([
     'utility.hateaosConfig',
     'utility.hateaosFactory',
     'utility.grid',
-    'utility.imageService'
+    'utility.imageService',
+    'filterSearch',
+    'filterSearch.directives',
+    'filterSearch.gridFilterController',
+    'filterSearch.gridSearchController',
+    'filterSearch.chlFilterController'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -85,6 +90,7 @@ define([
         'mps.utility',
         'angular-gatekeeper',
         'mps.form',
+        'mps.filterSearch',
         'ui.grid',
         'ui.grid.resizeColumns',
         'ui.grid.moveColumns',

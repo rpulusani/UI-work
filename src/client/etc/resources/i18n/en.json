@@ -271,6 +271,8 @@
         "SERVICE_CONTACT": "Service contact",
         "SERVICE_ADDRESS": "Service address",
         "NO_OF_PAGES": "{{pageCount}} Pages",
+        "ALL_DEVICES": "All Devices",
+        "BOOKMARKED_DEVICES": "Bookmarked Devices",
         "REMOVE_A_DEVICE": "Remove a Device",
         "DISCARD_DEVICE_REMOVAL_CHANGES": "DISCARD DEVICE REMOVAL CHANGES",
         "CHANGE_DEVICE_TO_BE_REMOVED": "CHANGE DEVICE TO BE REMOVED",
