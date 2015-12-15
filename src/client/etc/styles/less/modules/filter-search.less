@@ -5,14 +5,36 @@
         margin-bottom: 24px;
     }
 
+    height: 54px;
     margin-top: 24px;
+    border: 1px solid transparent;
 
     &.focus{
-        border: 1px solid #0061de;
+          box-shadow: 0 0 5px 0px #b5cff5;
+          border-color: #6ca0eb;
+          outline: none;
     }
 
     .selectric{
         border-right: none;
+
+        &:hover{
+            border-right: none;
+        }
+
+        &.hover, &.focus{
+            border-top: 1px solid #0061de;
+            border-right: none;
+            border-bottom: 1px solid #0061de;
+            border-left:  1px solid #0061de;
+        }
+    }
+
+    .selectricHover .selectric {
+        border-top: 1px solid #0061de;
+        border-right: none;
+        border-bottom: 1px solid #0061de;
+        border-left:  1px solid #0061de;
     }
 
     .selectricItems {
@@ -28,7 +50,7 @@
             border-left: none;
         }
 
-    button.search{
+    .search{
         background: #e6e6f0;
         background: -webkit-linear-gradient(#fff, #e6e6f0);
         background: -o-linear-gradient(#fff, #e6e6f0);
@@ -37,11 +59,28 @@
         height: 54px;
         width: 100%;
         border-left: none;
+        cursor: pointer;
+
+        &.hover, &.focus{
+            border-top: 1px solid #0061de;
+            border-right: 1px solid #0061de;
+            border-bottom: 1px solid #0061de;
+            border-left: none;
+        }
+
     }
 
     .form__field{
         position: relative;
         margin-bottom: 0;
+
+        input.hover, input.focus{
+            border-top: 1px solid #0061de;
+            border-right: 1px solid #7e7e85;
+            border-bottom: 1px solid #0061de;
+            border-left: 1px solid #7e7e85;
+        }
+
     }
 
     .close-icon {

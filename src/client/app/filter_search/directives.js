@@ -50,14 +50,28 @@ define(['angular', 'filterSearch'], function(angular) {
             link: function(scope, el, attr){
                 require(['lxk.fef'], function() {
                     var $ = require('jquery'),
-                    filterInput = $(el).find(".search-box");
-                    $(filterInput).focus(function(){
-                        $(".filter--search").addClass("focus");
+                    filterDiv = $(el).find(".filter--search");
+                    $(filterDiv).hover(function(){
+                        $(this).toggleClass("hover");
+                        $(".search-box").toggleClass("hover");
+                        $(".search").toggleClass("hover");
+                        $(".selectric").toggleClass("hover");
                     });
-                    $(filterInput).blur(function(){
-                        $(".filter--search").removeClass("focus");
+                    $(filterDiv).find(".search-box").focus(function(){
+                        $(filterDiv).addClass("focus");
+                        $(".search-box").addClass("focus");
+                        $(".search").addClass("focus");
+                        $(".selectric").addClass("focus");
                     });
-
+                    $(filterDiv).find(".search-box").blur(function(){
+                        $(filterDiv).removeClass("focus");
+                        $(".search-box").removeClass("focus");
+                        $(".search").removeClass("focus");
+                        $(".selectric").removeClass("focus");
+                    });
+                    $(filterDiv).find(".selectric").click(function(){
+                        $(".selectricItems").width(filterDiv.width()-1);
+                    });
                 });
             }
         };
