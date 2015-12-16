@@ -12,7 +12,7 @@
     translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
 
     <hr/>
-    <div grid-filter options="filterOptions" params="optionParams"></div>
+    <div grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
     <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
     <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
     <div pagination grid="{{gridOptions}}"></div>

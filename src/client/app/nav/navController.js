@@ -20,6 +20,9 @@ define([
                     $scope.items = Nav.items;
                 });
             }
+            $scope.setActive = function(text){
+
+            };
         }
     ]);
 });

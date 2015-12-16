@@ -5,11 +5,14 @@ define(['angular', 'filterSearch'], function(angular) {
         function($scope) {
             $scope.searchBy = undefined;
             $scope.searchByValue = '';
+            var paramsList = ['search', 'searchOn'];
             $scope.gridSearch = function(){
                 $scope.params['search'] = $scope.searchByValue;
-                if($scope.searchBy && typeof $scope.search === 'function'){
+                if($scope.searchBy && typeof $scope.search === 'function' && $scope.searchByValue){
                     $scope.params['searchOn'] = $scope.searchBy;
-                    $scope.search($scope.params);
+                    $scope.search($scope.params, paramsList);
+                }else{
+                    $scope.clearSearch();
                 }
             };
             $scope.searchByColumn = function(selectedOption){
@@ -21,7 +24,9 @@ define(['angular', 'filterSearch'], function(angular) {
             }
 
             $scope.clearSearch = function(){
-                this.searchByValue = '';
+                $scope.searchByValue = '';
+                $scope.params = {};
+                $scope.search($scope.params, paramsList);
             };
 
         }

@@ -154,6 +154,7 @@ requirejs.config({
         'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
         'filterSearch.gridSearchController': 'app/filter_search/gridSearchController',
         'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
+        'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
 
         'nav': 'app/nav/nav',
