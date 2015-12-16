@@ -12,6 +12,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             ];
             this.hasBookmarkCol = false; // has a bookmark column
             this.serviceInfo = {};
+            this.gridOptions = {};
         };
 
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
@@ -151,6 +152,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
                 scope.itemsPerPage = service.params.size;
             }
+
+            this.gridOptions = scope.gridOptions;
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

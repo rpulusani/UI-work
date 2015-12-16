@@ -672,5 +672,9 @@
         "NO_IMAGE_FOUND": "No Image Found",
         "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
         "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+    },
+
+    "COLUMNPICKER": {
+        "TITLE": "Column Selector"
     }
 }

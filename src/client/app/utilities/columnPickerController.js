@@ -6,8 +6,8 @@
 define(['angular', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .controller('ColumnPickerController', ['$scope', '$element', '$attrs',
-        function(scope, element, attrs) {
+    .controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate',
+        function(scope, element, attrs, translate) {
             var node = element[0],
             $ = require('jquery'),
             addColumn = function(column, gridOptions) {
@@ -53,9 +53,9 @@ define(['angular', 'utility.grid'], function(angular) {
                 checkbox.customInput();
                 
                 if (checkbox && (column.dynamic === undefined || column.dynamic === true)) {
-                    checkbox.on('change', function(e) {
+                    $(checkbox[0]).on('change', function(e) {
                         e.preventDefault();
-              
+
                         if (checkbox.checked === false) {
                             checkbox.checked = true;
                             gridOptions = addColumn(column, gridOptions);
@@ -88,11 +88,11 @@ define(['angular', 'utility.grid'], function(angular) {
                 selectorContent,
                 links = [],
                 dropdown = $(
-                    '<div class="dropdown">' + 
+                    '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
                         '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
                         '<div class="dropdown__menu">' +
                             '<div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
-                                '<h4 class="selector-title">Column Selector</h4>' + 
+                                '<h4 class="selector-title">' + translate.instant('COLUMNPICKER.TITLE') + '</h4>' + 
                                 '<div class="row selector-content"></div>' +
                             '</div></div></div>' + 
                         '</div>' + 

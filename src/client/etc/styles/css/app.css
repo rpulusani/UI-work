@@ -278,6 +278,7 @@ textarea {
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
+  min-height: 655px;
   font-size: 9pt;
 }
 .table .ui-grid-header-cell:first-child {
@@ -358,6 +359,10 @@ textarea {
   padding: 12px 10px;
   margin-right: 10px;
 }
+/* columnpicker directive, logic in columnPickerController.js */
+.dropdown__menu {
+  min-width: 720px;
+}
 .theme--dark {
   background: #32323c;
 }
@@ -426,8 +431,4 @@ textarea {
 .theme--dark .rail-nav .sub-nav .nav-item {
   background: #1d1d25;
   border-color: #1d1d25;
-}
-/* Column Selector Directive -- Using FeFs dropdown */
-.dropdown__menu {
-  min-width: 720px;
 }
