@@ -47,7 +47,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
         };
         Grid.prototype.getVisibleColumns = function(service){
-            var columnList = this.setColumnDefaults(service),
+            var columnList = this.setColumnDefaults(service.columns, service.columnDefs),
             visibleColumns = [];
 
             for(var i = 0; i < columnList.length; ++i){

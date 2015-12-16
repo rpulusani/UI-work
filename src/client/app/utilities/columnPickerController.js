@@ -53,7 +53,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 checkbox.customInput();
                 
                 if (checkbox && (column.dynamic === undefined || column.dynamic === true)) {
-                    $(checkbox[0]).on('change', function(e) {
+                    checkbox.on('change', function(e) {
                         e.preventDefault();
 
                         if (checkbox.checked === false) {
