@@ -1,8 +1,8 @@
-define(['angular', 'filterSearch'], function(angular) {
+define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .factory('FilterSearchService', ['grid',
-        function(Grid) {
+    .factory('FilterSearchService', ['grid', 'HATEOASFactory',
+        function(Grid, HATEOASFactory) {
             var localScope = {},
             service,
             display,
@@ -10,19 +10,23 @@ define(['angular', 'filterSearch'], function(angular) {
             columnSet,
             personalization;
             var FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet){
+                if(!serviceDefinition){
+                    throw new Error('Service Definition is Required!');
+                }
+                if(!(serviceDefinition instanceof HATEOASFactory)){
+                    throw new Error('Only Services of type HATEOASFactory allowed!');
+                }
+                if(!scope){
+                    throw new Error('Scope is required!');
+                }
+                if(!rootScope || !personalization){
+                    throw new Error('Grid Options onRegisterAPI was not setup, possibly missing rootScope, Service Definition or Personalization');
+                }
                 var self = this;
                 this.service = serviceDefinition;
                 this.localScope = scope;
                 this.columnSet = columnSet;
-                this.localScope.searchFunctionDef = function(params, removeParams){
-                    var options  = {
-                        'params':{}
-                    };
-
-                    self.clearParameters(removeParams);
-                    angular.extend(options.params, params);
-                    self.service.getPage(0, 20, options).then(self.display, self.failure);
-                };
+                this.personalization = personalization;
                 this.display =  function(){
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
@@ -32,16 +36,30 @@ define(['angular', 'filterSearch'], function(angular) {
                 this.failure = function(reason){
                     NREUM.noticeError('Grid Load Failed for ' + self.service.serviceName +  ' reason: ' + reason);
                 };
+
+                this.localScope.searchFunctionDef = function(params, removeParams){
+                    var options  = {
+                        'params':{}
+                    };
+
+                    self.clearParameters(removeParams);
+                    angular.extend(options.params, params);
+                    self.service.getPage(0, 20, options).then(self.display, self.failure);
+                };
+
                 this.localScope.optionParams = {};
                 this.localScope.filterOptions = [];
-                this.personalization = personalization;
                 this.localScope.visibleColumns =  Grid.getVisibleColumns(this.service); //sets initial columns visibility
                 this.localScope.gridOptions = {};
                 this.localScope.gridOptions.onRegisterApi = Grid.getGridActions(rootScope,
-                    this.service, this.personalization);
+                        this.service, this.personalization);
+
             };
 
             FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams){
+                if(!displayText){
+                    throw new Error('DisplayText is required');
+                }
                 var self  = this,
                 filter = {
                     display: displayText,
@@ -52,14 +70,24 @@ define(['angular', 'filterSearch'], function(angular) {
                             if(configuredParams){
                                 angular.extend(options.params, configuredParams);
                             }
-                            self.service.getPage(0, 20, options).then(self.display, self.failure);
-                        },
-                        params: self.localScope.optionParams
+
+                            angular.extend(options.params, params);
+
+                            var promise = self.service.getPage(0, 20, options);
+                            promise.then(self.display, self.failure);
+                    },
+                    params: self.localScope.optionParams
                 };
                 self.localScope.filterOptions.push(filter);
             };
 
             FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams){
+                if(!displayText){
+                    throw new Error('DisplayText is required');
+                }
+                if(!optionsPanel){
+                    throw new Error('OptionsPanel is required');
+                }
                 var self  = this,
                 filter = {
                         display: displayText,
@@ -72,17 +100,21 @@ define(['angular', 'filterSearch'], function(angular) {
                                 angular.extend(options.params, configuredParams);
                             }
                             angular.extend(options.params, params);
-                            self.service.getPage(0, 20, options).then(self.display, self.failure);
+
+                            var promise = self.service.getPage(0, 20, options);
+                            promise.then(self.display, self.failure);
                         },
                         params: self.localScope.optionParams
                 };
                 self.localScope.filterOptions.push(filter);
             };
 
-            FilterSearchService.prototype.clearParameters = function(params){
+            FilterSearchService.prototype.clearParameters = function(paramsArray){
                 var self = this;
-                for(var i = 0; i < params.length; ++i){
-                    delete self.service.params[params[i]];
+                if(paramsArray){
+                    for(var i = 0; i < paramsArray.length; ++i){
+                        delete self.service.params[paramsArray[i]];
+                    }
                 }
             };
 
