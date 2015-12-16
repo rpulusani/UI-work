@@ -293,7 +293,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                     item.linkNames = [];
                     item.links = {};
-                    //console.log('item', item);
                     item.url = self.setupUrl(item._links.self.href);
                     item.params = self.setupParams({url: item._links.self.href});
 
