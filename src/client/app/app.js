@@ -60,6 +60,7 @@ define([
     'utility.hateaosFactory',
     'utility.grid',
     'utility.imageService',
+    'utility.columnPickerController',
     'filterSearch',
     'filterSearch.directives',
     'filterSearch.gridFilterController',

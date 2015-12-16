@@ -37,6 +37,17 @@ define(['angular', 'utility'], function(angular) {
             templateUrl: '/app/utilities/templates/alerts.html',
         };
     })
+    .directive('columnpicker', [function () {
+        return {
+          restrict: 'A',
+          scope: {
+            target: '=',
+            columns: '@',
+            grid: '@'
+          },
+          controller: 'ColumnPickerController'
+        };
+    }])
     .directive('pickContact', function(){
          return {
             restrict: 'A',
