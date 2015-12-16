@@ -8,6 +8,10 @@ define([
                 $scope.item.disabled = false;
                 $scope.item.selected = false;
                 $scope.item.expanded = false;
+                $scope.item.showExpandIcon = true;
+                if ($scope.item.numberOfChildren && parseInt($scope.item.numberOfChildren) === 0) {
+                    $scope.item.showExpandIcon = false;
+                }
             }
 
             $scope.expandCall = function(){

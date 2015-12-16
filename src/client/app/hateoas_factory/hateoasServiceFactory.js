@@ -84,6 +84,33 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
+            HATEOASFactory.prototype.getTransactionalAccounts = function(loginId) {
+                var self  = this,
+                deferred = $q.defer(),
+                url = '';
+
+                if (!loginId) {
+                    loginId = $rootScope.idpUser.email;
+                }
+
+                url = self.url + '/' + loginId + '/transactional-accounts';
+
+                $http.get(url).then(function(processedResponse) {
+                    var accountInfo = self.createItem(processedResponse.data);
+                    // this should be working directly with UserService
+                    if (self.serviceName === 'user-info' && !self.item) {
+                        self.item = accountInfo;
+                    }
+
+                   $rootScope.currentUser.accounts = self.setItem(accountInfo);
+
+                    deferred.resolve(accountInfo);
+                });
+               
+
+                return deferred.promise;
+            };
+
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
                 this.data = [];

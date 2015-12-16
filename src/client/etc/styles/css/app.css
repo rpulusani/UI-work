@@ -249,6 +249,8 @@ textarea {
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
+  max-height: 160px;
 }
 .tree__item {
   margin: 0;
