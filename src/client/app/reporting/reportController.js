@@ -6,6 +6,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
 
             $scope.chartObject = {};
             $scope.chartData = {};
+            $scope.chartOptions = {};
 
             function configureTemplates() {
                 $scope.configure = {
@@ -27,6 +28,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         charts: {
                             translate: {
                                 h2: 'REPORTING.CHARTS',
+                                noDataAvailable: 'LABEL.ZERO_RECORDS',
                                 assetCount: 'REPORTING.ASSET_COUNT',
                                 madcEvents: 'REPORTING.MADC_EVENTS',
                                 meterReads: 'REPORTING.METER_READS',
@@ -44,8 +46,8 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                 missedReadsPercent: 'REPORTING.MISSED_READS_PERCENT',
                                 autoCount: 'REPORTING.AUTO_COUNT',
                                 manualCount: 'REPORTING.MANUAL_COUNT',
-                                consumableOrdersOpen: 'LABEL.OPEN',
-                                consumableOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
+                                consumablesOrdersOpen: 'LABEL.OPEN',
+                                consumablesOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
                                 hardwareOrdersOpen: 'LABEL.OPEN',
                                 hardwareOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
                                 billedPagesColor: 'REPORTING.COLOR_PAGES_COUNT',
@@ -119,12 +121,26 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         value: 311941,
                         color: '#7e7e85',
                         label: $translate.instant($scope.configure.report.charts.translate.billedPagesMono, { manualCount: 311941 })
-                    }],
+                    }]
+                };
+            };
+
+            function configureChartOptions() {
+                $scope.chartOptions.pieChartOptions = {
+                    backgroundColor: '#eff0f6',
+                    enableInteractivity: true,
+                    title: '',
+                    titlePosition: 'none',
+                    pieSliceText: 'value',
+                    legend: {
+                        position: 'none'
+                    }
                 };
             };
 
             configureTemplates();
             configureFauxCharts();
+            configureChartOptions();
 
             var buildAssetRegisterChart = function(data) {
                 var total = 0;
@@ -135,6 +151,10 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
 
                 $scope.chartObject.assetRegister = {};
                 $scope.chartObject.assetRegister.type = "PieChart";
+                $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
+                $scope.chartObject.assetRegister.optSize = total;
+
                 $scope.chartObject.assetRegister.data = {
                     "cols": [
                         {id: "t", label: "Assets", type: "string"},
@@ -143,9 +163,23 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     "rows": [
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.assetCount) },
-                            {v: total },
+                            {v: total }
                         ]}
                     ]};
+            };
+
+            var buildMissingMeterReadsChart = function(data) {
+                var d = {};
+
+                // iterate over array, zero is missed, one is all.
+                for (var i = 0; i < data.length; i++) {
+                    d[i] = {};
+
+                    for (var j = 0; j < data[i].stat.length; j++) {
+                        d[i][data[i].stat[j].label] = data[i].stat[j].value;
+                    }
+                    console.log(d[i]);
+                }
             };
 
             var buildConsumablesOrdersChart = function(data) {
@@ -154,8 +188,13 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 for (var i = 0; i < data.stat.length; i++) {
                     d[data.stat[i].label] = data.stat[i].value;
                 }
+
                 $scope.chartObject.consumablesOrdersOpen = {};
                 $scope.chartObject.consumablesOrdersOpen.type = "PieChart";
+                $scope.chartObject.consumablesOrdersOpen.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.consumablesOrdersOpen.options.slices = [{color: '#00ad21'}];
+                $scope.chartObject.consumablesOrdersOpen.optSize = d.Open; 
+
                 $scope.chartObject.consumablesOrdersOpen.data = {
                     "cols": [
                         {id: "t", label: "Consumables Orders", type: "string"},
@@ -163,13 +202,17 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                            {v: $translate.instant($scope.configure.report.charts.translate.consumableOrdersOpen) },
-                            {v: d.Open },
+                            {v: $translate.instant($scope.configure.report.charts.translate.consumablesOrdersOpen) },
+                            {v: d.Open }
                         ]}
                     ]};
 
                 $scope.chartObject.consumablesOrdersShipped = {};
                 $scope.chartObject.consumablesOrdersShipped.type = "PieChart";
+                $scope.chartObject.consumablesOrdersShipped.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.consumablesOrdersShipped.options.slices = [{color: '#7e7e85'}];
+                $scope.chartObject.consumablesOrdersShipped.optSize = d.Shipped;
+
                 $scope.chartObject.consumablesOrdersShipped.data = {
                     "cols": [
                         {id: "t", label: "Consumables Orders", type: "string"},
@@ -178,7 +221,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     "rows": [
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.consumableOrdersShipped) },
-                            {v: d.Shipped },
+                            {v: d.Shipped }
                         ]}
                     ]};
             };
@@ -192,6 +235,10 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
 
                 $scope.chartObject.hardwareOrdersOpen = {};
                 $scope.chartObject.hardwareOrdersOpen.type = "PieChart";
+                $scope.chartObject.hardwareOrdersOpen.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.hardwareOrdersOpen.options.slices = [{color: '#00ad21'}];
+                $scope.chartObject.hardwareOrdersOpen.optSize = d.Open;
+
                 $scope.chartObject.hardwareOrdersOpen.data = {
                     "cols": [
                         {id: "t", label: "Hadware Orders", type: "string"},
@@ -200,12 +247,16 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     "rows": [
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen) },
-                            {v: d.Open },
+                            {v: d.Open }
                         ]}
                     ]};
 
                 $scope.chartObject.hardwareOrdersShipped = {};
                 $scope.chartObject.hardwareOrdersShipped.type = "PieChart";
+                $scope.chartObject.hardwareOrdersShipped.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.hardwareOrdersShipped.options.slices = [{color: '#7e7e85'}];
+                $scope.chartObject.hardwareOrdersShipped.optSize = d.Shipped;
+
                 $scope.chartObject.hardwareOrdersShipped.data = {
                     "cols": [
                         {id: "t", label: "Hardware Orders", type: "string"},
@@ -214,7 +265,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     "rows": [
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped) },
-                            {v: d.Shipped },
+                            {v: d.Shipped }
                         ]}
                     ]};
             };
@@ -244,6 +295,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                             break;
                                         /* Missing Meter Reads */
                                         case 'mp0075':
+                                            buildMissingMeterReadsChart(report.stats.data);
                                             break;
                                         /* Consumables Orders */
                                         case 'mp0021':
@@ -291,6 +343,14 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     $location.path(Reports.route + '/' + Reports.item.id + '/find');
                 } else {
                     $scope.runReport(report);
+                }
+            };
+
+            $scope.goToFinderById = function(reportId) {
+                for (var i = 0; i < $scope.reports.length; i++) {
+                    if ($scope.reports[i].id === reportId) {
+                        $scope.goToFinder($scope.reports[i]);
+                    }
                 }
             };
 
