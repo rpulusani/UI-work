@@ -363,17 +363,37 @@ textarea {
   margin-right: 10px;
 }
 .filter--search {
+  height: 54px;
   margin-top: 24px;
+  border: 1px solid transparent;
 }
 .filter--search.form__field {
   overflow: visible;
   margin-bottom: 24px;
 }
 .filter--search.focus {
-  border: 1px solid #0061de;
+  box-shadow: 0 0 5px 0px #b5cff5;
+  border-color: #6ca0eb;
+  outline: none;
 }
 .filter--search .selectric {
   border-right: none;
+}
+.filter--search .selectric:hover {
+  border-right: none;
+}
+.filter--search .selectric.hover,
+.filter--search .selectric.focus {
+  border-top: 1px solid #0061de;
+  border-right: none;
+  border-bottom: 1px solid #0061de;
+  border-left: 1px solid #0061de;
+}
+.filter--search .selectricHover .selectric {
+  border-top: 1px solid #0061de;
+  border-right: none;
+  border-bottom: 1px solid #0061de;
+  border-left: 1px solid #0061de;
 }
 .filter--search .selectricItems li:hover,
 .filter--search .selectricItems li:active,
@@ -384,7 +404,7 @@ textarea {
 .filter--search .selectricButton {
   border-left: none;
 }
-.filter--search button.search {
+.filter--search .search {
   background: #e6e6f0;
   background: -webkit-linear-gradient(#fff, #e6e6f0);
   background: -o-linear-gradient(#fff, #e6e6f0);
@@ -393,10 +413,25 @@ textarea {
   height: 54px;
   width: 100%;
   border-left: none;
+  cursor: pointer;
+}
+.filter--search .search.hover,
+.filter--search .search.focus {
+  border-top: 1px solid #0061de;
+  border-right: 1px solid #0061de;
+  border-bottom: 1px solid #0061de;
+  border-left: none;
 }
 .filter--search .form__field {
   position: relative;
   margin-bottom: 0;
+}
+.filter--search .form__field input.hover,
+.filter--search .form__field input.focus {
+  border-top: 1px solid #0061de;
+  border-right: 1px solid #7e7e85;
+  border-bottom: 1px solid #0061de;
+  border-left: 1px solid #7e7e85;
 }
 .filter--search .close-icon {
   background-color: #e6e6f0;
