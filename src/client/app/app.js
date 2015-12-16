@@ -60,15 +60,12 @@ define([
     'utility.hateaosFactory',
     'utility.grid',
     'utility.imageService',
-<<<<<<< HEAD
     'utility.columnPickerController'
-=======
     'filterSearch',
     'filterSearch.directives',
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController'
->>>>>>> upstream/integrated
 ], function(angular) {
     'use strict';
     angular.module('mps', [
