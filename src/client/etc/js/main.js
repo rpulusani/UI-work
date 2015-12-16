@@ -57,6 +57,7 @@ requirejs.config({
 
             'user',
             'user.factory',
+            'user.userInfoFactory',
             'user.directives',
             'user.userController',
             'user.usersController',
@@ -94,6 +95,7 @@ requirejs.config({
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
+        'user.userInfoFactory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
         'user.usersController': ['user'],
@@ -191,6 +193,7 @@ requirejs.config({
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
+        'user.userInfoFactory': 'app/users/userInfoFactory',
         'user.directives': 'app/users/directives',
         'user.userController': 'app/users/userController',
         'user.usersController': 'app/users/usersController',
