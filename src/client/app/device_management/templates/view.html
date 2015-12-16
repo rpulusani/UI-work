@@ -1,6 +1,4 @@
 <div class="page-content">
-    <h1 translate="DEVICE_MGT.TITLE"></h1>
-
     <div class="btns">
         <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MGT.ADD"></button>
         <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.IMPORT"></button>
@@ -8,9 +6,9 @@
         <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.MANAGE_PAGE_COUNTS"></button>
     </div>
 
-    <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+    <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
     translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
-    
+
     <hr/>
 
     <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
