@@ -39,10 +39,6 @@ requirejs.config({
             'nav.navItemFactory',
             'nav.directives',
 
-            'chart',
-            'chart.chartingController',
-            'chart.directives',
-
             'rome',
 
             'address',
@@ -84,9 +80,7 @@ requirejs.config({
             'tree.directives'
         ],
 
-        'chart': ['angular', 'chartjs'],
-        'chart.chartingController': ['chartjs'],
-        'chart.directives': ['chartjs'],
+        'googlecharting': ['angular'],
 
         'rome': ['angular'],
 
@@ -140,7 +134,7 @@ requirejs.config({
         'angular-translate-loader-url': 'app/libs/angular-translate-loader-url.min',
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
 
-        'chartjs': 'app/libs/Chart.min',
+        'googlecharting': 'app/libs/ng-google-chart',
 
         'rome': 'app/libs/rome.min',
 
@@ -171,10 +165,6 @@ requirejs.config({
         'form': 'app/form/form',
         'form.datePicker': 'app/form/datePickerController',
         'form.directives': 'app/form/directives',
-
-        'chart': 'app/chart/charts',
-        'chart.chartingController': 'app/chart/chartController',
-        'chart.directives': 'app/chart/directives',
 
         'utility': 'app/utilities/utility',
         'utility.historyUtility': 'app/utilities/historyUtility',

@@ -51,7 +51,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                             };
                 angular.extend(options.params, params);
                 Devices.getPage(0, 20, options).then(display, failure);
-                Devices.getPage(0, 20, options).then(display, failure);
             };
 
             $scope.filterOptions =
@@ -63,6 +62,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                                   'type': 'all_devices'
                                 }
                             };
+                            Devices.params = Devices.defaultParams;
                             Devices.getPage(0, 20, options).then(display, failure);
                             $scope.optionParams  = params;
                         },
@@ -76,6 +76,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                                   'type': 'bookmarked'
                                 }
                             };
+                            Devices.params = Devices.defaultParams;
                             Devices.getPage(0, 20, options).then(display, failure);
                             $scope.optionParams  = params;
                         },
