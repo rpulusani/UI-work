@@ -186,6 +186,7 @@ requirejs.config({
         'utility.hateaosFactory': 'app/utilities/hateaosFactory',
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
+        'utility.columnPickerController': 'app/utilities/columnPickerController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',

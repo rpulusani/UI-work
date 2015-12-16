@@ -222,6 +222,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 link;
 
                 for (link in links) {
+
                     if (link !== 'self') {
                         (function(item, link) {
                             if (!item[link]) {

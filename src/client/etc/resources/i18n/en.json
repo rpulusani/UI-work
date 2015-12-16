@@ -205,6 +205,9 @@
         "WORK_PHONE": "Work Phone",
         "ALT_PHONE": "Alternate Phone",
         "EMAIL": "Email Address",
+        "DEPARTMENT": "Department",
+        "ID": "ID",
+        "TYPE": "Type",
         "SELECT_CONTACT": "Select a Contact",
         "SELECTED_CONTACT_IS": "Selected Contact is...",
         "SEARCH_EXISTING_CONTACT": "Search existing contacts",
@@ -671,5 +674,9 @@
         "NO_IMAGE_FOUND": "No Image Found",
         "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
         "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+    },
+
+    "COLUMNPICKER": {
+        "TITLE": "Column Selector"
     }
 }
