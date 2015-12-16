@@ -9,7 +9,13 @@ define(['angular', 'report'], function(angular) {
                 embeddedName: 'reportTypes',
                 columns: 'defaultSet',
                 columnDefs: {
-                    defaultSet: [],
+                    defaultSet: [
+                        {'name': $translate.instant('REPORTING.NAME'), 'field': 'name',
+                         'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.goToFinder(row.entity);">{{row.entity.name}}</a>' +
+                                        '</div>'
+                        }
+                    ],
                     /* Asset Register */
                     mp9058sp: [
                         {'name': $translate.instant('REPORTING.REPORTING_HIERARCHY'), 'field': 'chl', minWidth: 420},
