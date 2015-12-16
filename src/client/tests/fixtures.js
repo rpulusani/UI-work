@@ -70,12 +70,9 @@ define([], function() {
         "id" : "1-EMBED",
         "saved": true,
         "_embedded": {
-            'device': {
+            'device': [{
                 "name": "testDevice",
                 "_links" : {
-                    "self" : {
-                        "href" : "http://127.0.0.1/device/1-DEVICE"
-                    },
                     "itemOne": {
                         "href": 'http://127.0.0.1/test/itemOne'
                     },
@@ -83,11 +80,14 @@ define([], function() {
                         "href": 'http://127.0.0.1/test/itemTwo'
                     }
                 }
-            }
+            }]
         },
         "_links" : {
             "self" : {
                 "href" : "http://127.0.0.1/test/1-EMBED"
+            },
+            "device" : {
+                "href" : "http://127.0.0.1/test/1-TESTDEVICE"
             }
         }
     };

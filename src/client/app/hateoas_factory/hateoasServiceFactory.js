@@ -196,20 +196,35 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 for (link in links) {
 
-                    if (links[link] && links[link].href && link !== 'self') {
+                    if (link !== 'self') {
                         (function(item, link) {
-                            if (!links[link].serviceName && !links[link].embeddedName) {
+                            if (!item[link]) {
                                 item[link] = self.setItemDefaults();
                             }
 
                             item[link].serviceName = link;
-                            item[link].url = self.setupUrl(item._links[link].href);
-                            item[link].params = self.setupParams({url: item._links[link].href});
+
+                            if (!angular.isArray(links[link])) {
+                                item[link].url = self.setupUrl(item._links[link].href);
+                                item[link].params = self.setupParams({url: item._links[link].href});
+                            } else {
+                                item[link].url = self.setupUrl(links[link][0].href);
+                                item[link].params = self.setupParams({url: links[link][0].href});
+                            }
 
                             item.linkNames.push(link);
 
-                            item.links[link] = function(options) {
-                                item[link] = self.setupDefaultFunctions(item[link]);
+                            item.links[link] = function(options, linkIndex) {
+                                if (!angular.isArray(links[link])) {
+                                    item[link] = self.setupDefaultFunctions(item[link]);
+                                } else {
+                                    if (!linkIndex) {
+                                        linkIndex = 0;
+                                    }
+
+                                    item[link].url = self.setupUrl(links[link][linkIndex].href);
+                                    item[link] = self.setupDefaultFunctions(item[link][linkIndex]);
+                                }
 
                                 item[link].get(options).then(function(res) {
                                     deferred.resolve(res);
@@ -518,12 +533,13 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (options.columnDefs) {
                     self.columnDefs = options.columnDefs;
                 }
-
+                
                 return options;
             };
 
             HATEOASFactory.prototype.setupItem = function(processedResponse) {
                 var self = this,
+                i = 0,
                 prop;
 
                 if (processedResponse.data._embedded && processedResponse.data.page) {
@@ -553,6 +569,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         for (prop in self.item._embedded) {
                             if (!self.item[prop]) {
                                 self.item[prop] = self.setItemDefaults();
+                            }
+
+                            if ( angular.isArray(self.item._embedded[prop]) ) {
+                               self.item[prop].data = self.item._embedded[prop];
+
+                                for (i; i <  self.item[prop].data.length; i +=1) {
+                                    if (!self.item[prop].data[i]._links || !self.item[prop].data[i]._links.self) {
+                                        self.item._embedded[prop][i]._links = {};
+
+                                        if (angular.isArray(self.item._links[prop])) {
+                                            self.item._embedded[prop][i]._links.self = {
+                                                href: self.item._links[prop][i].href
+                                            }
+                                        } else {
+                                            self.item._embedded[prop][i]._links.self = {
+                                                href: self.item._links[prop].href
+                                            }
+                                        }
+                                    }
+                                }
                             }
 
                             if (self.item._embedded[prop] instanceof Array) {
@@ -588,7 +624,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 currentParams = angular.copy(self.params),
                 url;
-
                 if (options.params) {
                     options.params = angular.extend(self.params, options.params);
                 } else {

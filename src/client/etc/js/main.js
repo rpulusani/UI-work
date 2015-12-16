@@ -150,6 +150,12 @@ requirejs.config({
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
 
+        'filterSearch': 'app/filter_search/filterSearch',
+        'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
+        'filterSearch.gridSearchController': 'app/filter_search/gridSearchController',
+        'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
+        'filterSearch.directives': 'app/filter_search/directives',
+
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
         'nav.navFactory': 'app/nav/navFactory',

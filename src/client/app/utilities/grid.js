@@ -46,6 +46,17 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 return null;
             }
         };
+        Grid.prototype.getVisibleColumns = function(service){
+            var columnList = this.setColumnDefaults(service),
+            visibleColumns = [];
+
+            for(var i = 0; i < columnList.length; ++i){
+                if(!columnList[i]['notSearchable'] && columnList[i]['field']){
+                    visibleColumns.push({ name: columnList[i]['name'], field: columnList[i]['field'] });
+                }
+            }
+            return visibleColumns;
+        };
 
         Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray) {
             var data = angular.copy(incommingData);

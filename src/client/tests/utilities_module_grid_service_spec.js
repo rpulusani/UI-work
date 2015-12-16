@@ -17,12 +17,14 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                                 '<div>' +
                                     '<a href="" ng-click="grid.appScope.goToUpdate(row.entity)" ' +
                                     'ng-bind="row.entity.lastName + \', \' +  row.entity.firstName"></a>' +
-                                '</div>'
+                                '</div>',
+                                'notSearchable':true
                         },
                         {'name': 'address', 'field': 'address'},
                         {'name': 'work phone', 'field': 'workPhone'},
                         {'name': 'alternate phone', 'field': 'alternatePhone'},
-                        {'name': 'email', 'field': 'email'}
+                        {'name': 'email', 'field': 'email'},
+                        {'name': 'email2', 'field': ''}
                     ],
                     columnDefs: {
                         testCol: [
@@ -50,6 +52,51 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                 gridService = Grid;
             }]));
 
+            describe('getVisibleColumns()', function() {
+                it('should get a searchable list of columns', function(){
+                    var expected = [
+                        {name:'address', field:'address'},
+                        {name:'work phone', field:'workPhone'},
+                        {name: 'alternate phone', field: 'alternatePhone'},
+                        {name: 'email', field:'email'}
+                    ];
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                    expect(actual[0].name).toEqual(expected[0].name);
+                    expect(actual[0].field).toEqual(expected[0].field);
+                });
+                it('should get an empty array if undefined columns are included', function(){
+                    var expected = [];
+                    mockedAddressesFactory.columnDefs.defaultSet = undefined;
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                });
+                it('should get an empty array if notSearchable column are included and set to true', function(){
+                    var expected = [];
+                    mockedAddressesFactory.columnDefs.defaultSet = [
+                        {'name': 'address', 'field': 'address', notSearchable:true}
+                    ];
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                });
+                it('should get an 1 item array if notSearchable column are included and set to false', function(){
+                    var expected = [{'name': 'address', 'field': 'address'}];
+                    mockedAddressesFactory.columnDefs.defaultSet = [
+                        {'name': 'address', 'field': 'address', notSearchable:false}
+                    ];
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                });
+                it('should get an empty array if field for column is missing', function(){
+                    var expected = [];
+                    mockedAddressesFactory.columnDefs.defaultSet = [
+                        {'name': 'address', 'field': ''}
+                    ];
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                });
+            });
+
             describe('setColumnDefaults()', function() {
                 it('should return an array of columns', function() {
                     var columns;
@@ -59,7 +106,7 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                     columns = gridService.setColumnDefaults(mockedAddressesFactory.columns, mockedAddressesFactory.columnDefs);
 
                     expect(mockedAddressesFactory.columns).toEqual('defaultSet');
-                    expect(columns.length).toEqual(5);
+                    expect(columns.length).toEqual(6);
                 });
 
                 it('should return an array of columns that we define', function() {
@@ -74,6 +121,7 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                     expect(mockedAddressesFactory.columns).toEqual('testCol');
                     expect(columns.length).toEqual(1);
                 });
+
             });
 
             describe('getCurrentEntityId', function() {
@@ -85,7 +133,7 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                     var result = gridService.getCurrentEntityId(null);
                     expect(result).toEqual(null);
                 });
-                
+
                 it('should return null', function(){
                     var row = {
 
