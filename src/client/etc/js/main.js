@@ -57,6 +57,7 @@ requirejs.config({
 
             'user',
             'user.factory',
+            'user.userInfoFactory',
             'user.directives',
             'user.userController',
             'user.usersController',
@@ -94,6 +95,7 @@ requirejs.config({
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
+        'user.userInfoFactory': ['user'],
         'user.directives': ['user'],
         'user.userController': ['user'],
         'user.usersController': ['user'],
@@ -150,6 +152,12 @@ requirejs.config({
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
 
+        'filterSearch': 'app/filter_search/filterSearch',
+        'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
+        'filterSearch.gridSearchController': 'app/filter_search/gridSearchController',
+        'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
+        'filterSearch.directives': 'app/filter_search/directives',
+
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
         'nav.navFactory': 'app/nav/navFactory',
@@ -178,6 +186,7 @@ requirejs.config({
         'utility.hateaosFactory': 'app/utilities/hateaosFactory',
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
+        'utility.columnPickerController': 'app/utilities/columnPickerController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
@@ -185,6 +194,7 @@ requirejs.config({
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
+        'user.userInfoFactory': 'app/users/userInfoFactory',
         'user.directives': 'app/users/directives',
         'user.userController': 'app/users/userController',
         'user.usersController': 'app/users/usersController',

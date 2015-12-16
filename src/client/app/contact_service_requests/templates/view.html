@@ -1,25 +1,31 @@
-<div class="row row--alley-2">
-    <div alert-message></div>
+<div class="page-content">
+    <div class="row row--alley-2">
+        <div class="col-1">
+            <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
+            <h2 translate="CONTACT.TITLE"></h2>
+            <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
 
-    <div class="col-1">
-        <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
-        <h2 translate="CONTACT.TITLE"></h2>
-        <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
+            <ul>
+                <li>
+                    <a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" href="" ng-click="goToCreate()"
+                       translate="CONTACT_SERVICE_REQUEST.ADD"></a>
+                </li>
+            </ul>
 
-        <ul>
-            <li>
-                <a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" href="" ng-click="goToCreate()"
-                   translate="CONTACT_SERVICE_REQUEST.ADD"></a>
-            </li>
-        </ul>
+            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+                translate="CONTACT.BOOK" translate-values="{total: pagination.totalItems()}">
+            </h2>
+            
+            <hr />
+        </div>
+        
+        <div class="col-1">
+            <div class="push l-pad-bottom" columnpicker></div>
+        </div>
+        <div class="col-1">
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
 
-        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="CONTACT.BOOK" translate-values="{total: pagination.totalItems()}">
-        </h2>
-
-        <hr />
-
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
-
-        <div pagination grid="{{gridOptions}}"></div>
+            <div pagination grid="{{gridOptions}}"></div>
+        </div>
     </div>
 </div>

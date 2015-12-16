@@ -1,22 +1,23 @@
 <li class="tree__item">
-    <div ng-show="item.items.length > 0" class="tree__toggle" ng-click="item.expanded = !item.expanded">
+    <div class="tree__toggle" ng-click="expandCall()" ng-show="item.showExpandIcon">
         <span class="icon icon--lxk-ui" ng-class="{'icon--collapse': item.expanded, 'icon--expand': !item.expanded}"></span>
     </div>
 
     <div>
-        <label for="{{item.id}}">
+        <label for="{{item.accountId}}">
             <input type="checkbox"
-                id="{{item.id}}"
-                name="{{item.id}}"
+                id="{{item.accountId}}"
+                name="{{item.accountId}}"
                 ng-model="item.selected"
                 ng-disabled="item.disabled"
                 ng-change="toggleChildren(item)"
             />
-            {{item.title}}
+            {{item.name}}
         </label>
     </div>
 
     <ul class="tree" ng-show="item.items.length > 0 && item.expanded">
-        <li ng-repeat="child in item.items" tree-item item="child"></li>
+        <li ng-repeat="child in item.items" tree-item item="child" selected-items="selectedItems" tree-type="{{treeType}}"
+            filter-chl="filterChl"></li>
     </ul>
 </li>

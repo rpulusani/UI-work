@@ -68,7 +68,7 @@ angular.module('mps.form')
 }])
 .directive('selectric', [function() {
   return {
-    restrict: 'A',
+    restrict: 'AC',
     scope: {
       options: '=',
       label: '@',

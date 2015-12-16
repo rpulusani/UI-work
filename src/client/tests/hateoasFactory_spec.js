@@ -87,9 +87,10 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
-                    expect(mockFactory.item.device.item.name).toEqual('testDevice');
-                    expect(typeof mockFactory.item.device.item.links.itemOne).toEqual('function');
-                    expect(typeof mockFactory.item.device.item.links.itemTwo).toEqual('function');
+                    expect(mockFactory.item.device.data[0].name).toEqual('testDevice');
+
+                    expect(mockFactory.item.device.data[0]._links.self.href).toEqual('http://127.0.0.1/test/1-TESTDEVICE');
+                    expect(typeof mockFactory.item.links.device).toEqual('function');
                 });
             });
 
