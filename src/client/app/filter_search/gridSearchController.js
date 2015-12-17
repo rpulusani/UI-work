@@ -7,8 +7,8 @@ define(['angular', 'filterSearch'], function(angular) {
             $scope.searchByValue = '';
             var paramsList = ['search', 'searchOn'];
             $scope.gridSearch = function(){
-                $scope.params['search'] = $scope.searchByValue;
                 if($scope.searchBy && typeof $scope.search === 'function' && $scope.searchByValue){
+                    $scope.params['search'] = $scope.searchByValue;
                     $scope.params['searchOn'] = $scope.searchBy;
                     $scope.search($scope.params, paramsList);
                 }else{
