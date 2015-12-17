@@ -21,6 +21,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $scope.formattedInstalledAddress = FormatterService.formatAddress(JSON.parse($scope.sourceAddress));
             }
 
+            if (!Addresses.data.length) {
+                $location.path('/');
+            }
+
             configureTemplates();
 
             $scope.sourceController = function() {
@@ -37,7 +41,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 }
             };
 
-            $scope.goToCallingPage = function(){
+            $scope.goToCallingPage = function() {
                 $location.path($rootScope.addressReturnPath);
             };
 
