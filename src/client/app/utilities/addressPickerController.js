@@ -52,7 +52,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
             
             User.getLoggedInUserInfo().then(function() {
-                User.item._links.accounts = User.item._links.accounts[0];
+                if (angular.isArray(User.item._links.accounts)) {
+                    User.item._links.accounts = User.item._links.accounts[0];
+                }
 
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
