@@ -50,11 +50,13 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
             $scope.gridOptions.enableVerticalScrollbar = 0;
             
             User.getLoggedInUserInfo().then(function(user) {
-                User.item._links.accounts = User.item._links.accounts[0];
+                if (angular.isArray(User.item._links.accounts)) {
+                    User.item._links.accounts = User.item._links.accounts[0];
+                }
+
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         Addresses.getPage().then(function() {
-                            console.log(Addresses.params)
                             Grid.display(Addresses, $scope, personal);
                         }, function(reason) {
                             NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);

@@ -11,6 +11,10 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/reporting/templates/search.html',
                 controller: 'ReportController'
             })
+            .when('/reporting/:reportId/results', {
+                templateUrl: '/app/reporting/templates/results.html',
+                controller: 'ReportListController'
+            })
             .when('/reporting/results', {
                 templateUrl: '/app/reporting/templates/results.html',
                 controller: 'ReportListController'

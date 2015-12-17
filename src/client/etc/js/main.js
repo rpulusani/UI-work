@@ -71,6 +71,7 @@ requirejs.config({
             'report',
             'report.reportController',
             'report.reportListController',
+            'report.reportFinderController',
             'report.directives',
             'report.factory',
 
@@ -115,6 +116,7 @@ requirejs.config({
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
         'report.reportListController': ['report', 'report.factory'],
+        'report.reportFinderController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
 
@@ -232,6 +234,7 @@ requirejs.config({
         'deviceManagement.deviceRequestBreakFixController': 'app/device_management/deviceRequestBreakFixListController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
+        'deviceManagement.productModelFactory': 'app/device_management/productModelFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
@@ -249,6 +252,7 @@ requirejs.config({
         'report': 'app/reporting/report',
         'report.reportController': 'app/reporting/reportController',
         'report.reportListController': 'app/reporting/reportListController',
+        'report.reportFinderController': 'app/reporting/reportFinderController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
 

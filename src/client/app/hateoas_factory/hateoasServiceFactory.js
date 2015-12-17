@@ -610,9 +610,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                                 href: self.item._links[prop][i].href
                                             }
                                         } else {
-                                            self.item._embedded[prop][i]._links.self = {
-                                                href: self.item._links[prop].href
+                                            if (self.item._links[prop] && self.item._links[prop].href) {
+                                                self.item._embedded[prop][i]._links.self = {
+                                                    href: self.item._links[prop].href
+                                                }
                                             }
+                                            
                                         }
                                     }
                                 }
