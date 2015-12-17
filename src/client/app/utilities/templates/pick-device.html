@@ -71,7 +71,7 @@
 
 <hr/>
 
-<div ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined && pagination.totalItems() > 0">
+<div ng-if="pagination.totalItems() > 0">
     <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
     <div pagination grid="{{gridOptions}}"></div>
 </div>

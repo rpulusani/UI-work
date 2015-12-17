@@ -15,7 +15,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             }
 
             if (!Devices.data.length) {
-                $location.path(Devices.route + '/');
+                $location.path('/');
             }
 
             if($rootScope.selectedAddress) {

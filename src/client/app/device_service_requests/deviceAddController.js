@@ -93,7 +93,13 @@ define(['angular',
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
+                        
+                    if ($scope.device.isDeviceSelected && $scope.device.isDeviceSelected === true) {
+                        $scope.device.isDeviceSelected = false;
+                    }
+
                     $scope.device.addressSelected = true;
+
                     ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
                     $scope.device.address = $rootScope.selectedAddress;
                 }
@@ -104,6 +110,7 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObjectDevice;
                 if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
                     $scope.device.isDeviceSelected = true;
+
                     ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
                     $scope.device.selectedDevice = $rootScope.selectedDevice;
                     if ($scope.device.selectedDevice.partNumber) {
