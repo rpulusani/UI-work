@@ -232,6 +232,7 @@ requirejs.config({
         'deviceManagement.deviceRequestBreakFixController': 'app/device_management/deviceRequestBreakFixListController',
         'deviceManagement.directives': 'app/device_management/directives',
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
+        'deviceManagement.productModelFactory': 'app/device_management/productModelFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
