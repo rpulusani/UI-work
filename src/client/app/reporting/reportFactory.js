@@ -195,10 +195,14 @@ define(['angular', 'report'], function(angular) {
                 },    
                 route: '/reporting',
                 finder: {
-                    dateFrom: '',
-                    dateTo: '',
+                    eventDateFrom: '',
+                    eventDateTo: '',
                     eventType: '',
-                    eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}]
+                    eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}],
+                    orderDateFrom: '',
+                    orderDateTo: '',
+                    orderType: '',
+                    orderTypes: [{value: 'Consumable Supplies'}, {value: 'Consumable SVC Parts'}, {value: 'Consumable SVC Parts & Install'}]
                 }
             };
 

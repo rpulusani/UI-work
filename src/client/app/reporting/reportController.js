@@ -79,6 +79,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartOptions.pieChartOptions = {
                     backgroundColor: '#eff0f6',
                     enableInteractivity: true,
+                    fontName: 'tpHero',
                     title: '',
                     titlePosition: 'none',
                     pieSliceText: 'value',
@@ -120,14 +121,8 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
             var buildMissingMeterReadsChart = function(data) {
                 var d = {};
 
-                // iterate over array, zero is missed, one is all.
-                for (var i = 0; i < data.length; i++) {
-                    d[i] = {};
-
-                    for (var j = 0; j < data[i].stat.length; j++) {
-                        d[i][data[i].stat[j].label] = data[i].stat[j].value;
-                    }
-                    console.log(d[i]);
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
                 }
 
                 $scope.chartObject.missingMeterReadsAll = {};
@@ -145,11 +140,11 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     "rows": [
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.successfulReads) },
-                            {v: d[1].automatedAssets }
+                            {v: d.allSuccessful }
                         ]},
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.missedReads) },
-                            {v: d[1].automatedMmr }
+                            {v: d.allMissed }
                         ]}
                     ]};
 
@@ -167,12 +162,12 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                            {v: $translate.instant($scope.configure.report.charts.translate.autoCount, {autoCount: d[0].automatedAssets}) },
-                            {v: d[0].automatedAssets }
+                            {v: $translate.instant($scope.configure.report.charts.translate.autoCount, {autoCount: d.allAssets}) },
+                            {v: d.automatedMmr }
                         ]},
                         {c: [
-                            {v: $translate.instant($scope.configure.report.charts.translate.manualCount, {manualCount: d[0].automatedMmr}) },
-                            {v: d[0].automatedMmr }
+                            {v: $translate.instant($scope.configure.report.charts.translate.manualCount, {manualCount: d.allAssets}) },
+                            {v: d.manualMmr }
                         ]}
                     ]};
             };
@@ -290,7 +285,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                             break;
                                         /* Missing Meter Reads */
                                         case 'mp0075':
-                                            buildMissingMeterReadsChart(report.stats.data);
+                                            buildMissingMeterReadsChart(report.stats.data[0]);
                                             break;
                                         /* Consumables Orders */
                                         case 'mp0021':
@@ -341,11 +336,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
             $scope.goToFinder = function(report) {
                 Reports.setItem(report);
 
-                if (Reports.item.name === 'MADC') {
-                    $location.path(Reports.route + '/' + Reports.item.id + '/find');
-                } else {
-                    $scope.runReport(report);
-                }
+                $location.path(Reports.route + '/' + Reports.item.id + '/results');
             };
 
             $scope.goToFinderById = function(reportId) {
@@ -354,14 +345,6 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         $scope.goToFinder($scope.reports[i]);
                     }
                 }
-            };
-
-            $scope.runReport = function(report) {
-                Reports.finder = $scope.finder;
-                
-                Reports.setItem(report);
-                
-               $location.path(Reports.route + '/results');
             };
         }
     ]);
