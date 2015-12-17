@@ -35,9 +35,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.$watch('selectedDevice', function() {
-                if ($scope.selectedDevice.partNumber) {
-                    $scope.getPartImage($scope.selectedDevice.partNumber);
-                }
                 $scope.getSelectedDeviceContact();
             });
 
@@ -79,14 +76,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             var options = {};
             if ($rootScope.returnPickerObjectDevice && $rootScope.returnPickerObjectDevice.selectedDevice) {
                 $scope.prevDevice = $rootScope.returnPickerObjectDevice;
-                if ($scope.prevDevice.selectedDevice.partNumber) {
-                    ImageService.getPartMediumImageUrl($scope.prevDevice.selectedDevice.partNumber).then(function(url){
-                        $scope.prevDevice.medImage = url;
-                    }, function(reason){
-                         NREUM.noticeError('Image url was not found reason: ' + reason);
-                    });
-                }
-        
+                
                 if ($scope.prevDevice.selectedDevice.contact) {
                     Devices.setItem($scope.prevDevice.selectedDevice);
                     var options = {
@@ -95,6 +85,13 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         }
                     };
                     Devices.item.links.self(options).then(function(){
+                        if (Devices.item.self.item.partNumber) {
+                            ImageService.getPartMediumImageUrl(Devices.item.self.item.partNumber).then(function(url){
+                                $scope.prevDevice.medImage = url;
+                            }, function(reason){
+                                 NREUM.noticeError('Image url was not found reason: ' + reason);
+                            });
+                        }
                         $scope.prevDevice.selectedDevice.contact = Devices.item.self.item.contact.item;
                         $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.prevDevice.selectedDevice.contact);
                     });
