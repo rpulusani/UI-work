@@ -336,11 +336,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
             $scope.goToFinder = function(report) {
                 Reports.setItem(report);
 
-                if (Reports.item.name === 'MADC') {
-                    $location.path(Reports.route + '/' + Reports.item.id + '/find');
-                } else {
-                    $scope.runReport(report);
-                }
+                $location.path(Reports.route + '/' + Reports.item.id + '/results');
             };
 
             $scope.goToFinderById = function(reportId) {
@@ -349,14 +345,6 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         $scope.goToFinder($scope.reports[i]);
                     }
                 }
-            };
-
-            $scope.runReport = function(report) {
-                Reports.finder = $scope.finder;
-                
-                Reports.setItem(report);
-                
-               $location.path(Reports.route + '/results');
             };
         }
     ]);
