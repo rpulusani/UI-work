@@ -9,7 +9,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                     columns: 'defaultSet',
                     columnDefs: {
                         defaultSet: [
-                            {'name': 'id', 'field': 'id', visible:false},
+                            {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()'},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
@@ -17,7 +17,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': ''}
                         ],
                         madcSet: [
-                            {'name': 'id', 'field': 'id', visible:false},
+                            {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()'},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
@@ -26,7 +26,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                             {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter'}
                         ],
                         breakfixSet: [
-                            {'name': 'id', 'field': 'id', visible:false},
+                            {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()'},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
