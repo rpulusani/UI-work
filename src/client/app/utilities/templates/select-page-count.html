@@ -9,18 +9,20 @@
     <tbody>
         <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
             <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate}}" ng-bind="item.type"></td>
+            <input type="hidden" ng-model="source.type" ng-bind="item.type">
             <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate}}">
                 <div class="form__field vertical-space--none">
-                    <input type="number" ng-model="item.newVal"/>
+                    <input type="number" ng-model="source.newCount[item.type]"/>
                 </div>
             </td>
             <td data-label="{{'LABEL.DATE' | translate}}">
                 <div class="form__field vertical-space--none">
-                    <input datepicker type="date" ng-model="item.newDate"/>
+                    <input datepicker type="date" ng-model="source.newDate[item.type]"/>
                 </div>
             </td>
         </tr>
     </tbody>
+    <button ng-click="collectData()">Collect</button>
 </table>
 <a href="#" ng-click="showAllMeterReads = !showAllMeterReads">
     <span ng-hide="showAllMeterReads" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT"></span>
