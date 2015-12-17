@@ -17,6 +17,7 @@ define(['angular',
         'Devices',
         'imageService',
         'Contacts',
+        'ProductModel',
         'SRControllerHelperService',
         'HATEAOSConfig',
         function($scope, 
@@ -31,6 +32,7 @@ define(['angular',
             Devices,
             ImageService,
             Contacts,
+            ProductModel,
             SRHelper,
             HATEAOSConfig) {
 
@@ -41,9 +43,36 @@ define(['angular',
                 $location.path(DeviceServiceRequest.route + '/add/review');
             };
 
+            $scope.setModels = function() {
+                $scope.$broadcast('searchProductModel');
+            }
+
             var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
             };
+
+            $scope.$on('searchProductModel', function(evt){
+                if($scope.device && $scope.device.serialNumber) {
+                    var options = {
+                        updateParams: false,
+                        params:{
+                            serialNumber: $scope.device.serialNumber
+                        }
+                    };
+                    ProductModel.get(options).then(function(){
+                        if (ProductModel && ProductModel.item 
+                            && ProductModel.item._embedded && ProductModel.item._embedded.models) {
+                            $scope.productNumbers = [];
+                            var modelList = ProductModel.item._embedded.models;
+                            for(var i=0; i<modelList.length; i++) {
+                                var tempModel = {};
+                                tempModel.productNo = modelList[i].productModel;
+                                $scope.productNumbers.push(tempModel);
+                            }
+                        }
+                    });
+                }
+            });
 
             if ($rootScope.selectedContact 
                     && $rootScope.returnPickerObject){
@@ -106,7 +135,7 @@ define(['angular',
                 $scope.device.lexmarkDeviceQuestion = 'true';
                 /* Remove this varibale after real call and getting the list of products
                    based on serial number */
-                $scope.productNumbers = [{id: 1, name: 'Product 1'}, {id: 2, name: 'Product 2'}, {id: 3, name: 'Product 3'}];
+                $scope.productNumbers = [];
                 if ($rootScope.newDevice) {
                     $scope.device = $rootScope.newDevice;
                     $rootScope.newDevice = undefined;

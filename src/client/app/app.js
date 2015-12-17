@@ -29,6 +29,7 @@ define([
     'deviceManagement.deviceOrderController',
     'deviceManagement.deviceRequestBreakFixController',
     'deviceManagement.deviceFactory',
+    'deviceManagement.productModelFactory',
     'deviceManagement.meterReadFactory',
     'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',

@@ -40,7 +40,7 @@
 <div ng-show="device.lexmarkDeviceQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_MGT.SERIAL_NO"></label>
-        <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
+        <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels()" value="" class="" />
     </div>
     
     <div class="form__field form__field--select" >
@@ -48,8 +48,8 @@
         <div selectric
             model="device.productNumber"
             options="productNumbers"
-            value="id"
-            label="name"
+            value="productNo"
+            label="productNo"
             placeholder="{{'LABEL.SELECT' | translate}}"
         ></div>
     </div>

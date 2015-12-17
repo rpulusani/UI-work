@@ -34,6 +34,7 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 ctrl = $controller('DeviceAddController', {$scope: scope, Devices:mockDevices,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
                     SRControllerHelperService:mockSRControllerHelperService});
+                spyOn(scope, '$broadcast');
             }));
 
             describe('goToReview', function() {
@@ -48,6 +49,13 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                     };
                     scope.goToReview();
                     expect(rootScope.newDevice).toBe(scope.device);
+                });
+            });
+
+            describe('setModels', function(){
+                it('Should broadcast an event and toggle the value for expanded flag', function(){
+                    scope.setModels();
+                    expect(scope.$broadcast).toHaveBeenCalledWith('searchProductModel');
                 });
             });
 
