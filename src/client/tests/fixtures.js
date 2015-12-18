@@ -164,16 +164,14 @@ define([], function() {
     fixtures.devices = {};
     fixtures.devices.regular = {
         "serialNumber": "406336990F9Y5",
-        "item": {
-            "address": {
-                "item": {
-                    "addressLine1":"123"
-                }
-            },
-            "contact": {
-                "item": {
-                    "firstName":"testName"
-                }
+        "address": {
+            "item": {
+                "addressLine1":"123"
+            }
+        },
+        "contact": {
+            "item": {
+                "firstName":"testName"
             }
         },
         "_embeddedItems": {
