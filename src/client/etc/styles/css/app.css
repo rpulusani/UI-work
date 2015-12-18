@@ -250,27 +250,36 @@ textarea {
 .page-tabs > .set .set__tab-container {
   background-color: #eff0f6;
   border-bottom: 1px solid #a5a5aa;
-  padding: 0 40px;
+  padding: 0 50px;
 }
 .page-tabs > .set .set__tab-container .set__trigger {
-  border: 1px solid #a5a5aa;
+  border-right: 1px solid #ffffff;
+  border-left: 0;
+  border-top: 1px solid #c9c9d1;
+  border-bottom: 1px solid #a5a5aa;
   margin: 0 0 -1px 0;
 }
 .page-tabs > .set .set__tab-container .set__trigger a {
   background-color: #c9c9d1;
+  color: #1d1d25;
+  display: block;
   border-top: 3px solid #c9c9d1;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .page-tabs > .set .set__tab-container .set__trigger a:hover,
 .page-tabs > .set .set__tab-container .set__trigger a:active,
 .page-tabs > .set .set__tab-container .set__trigger a:focus {
-  background-color: #eff0f6;
-  border-top-color: #eff0f6;
+  background-color: #e6e6f0;
+  border-top-color: #e6e6f0;
 }
 .page-tabs > .set .set__tab-container .set__trigger.set--is-active {
   border-bottom-color: #ffffff;
 }
 .page-tabs > .set .set__tab-container .set__trigger.set--is-active a {
   background-color: #ffffff;
+  color: #006446;
+  font-weight: 500;
   border-top-color: #00ad21;
   border-bottom-color: #ffffff;
 }

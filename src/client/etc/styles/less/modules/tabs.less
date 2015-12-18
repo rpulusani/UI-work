@@ -15,21 +15,28 @@
         .set__tab-container{
             background-color: @grey1;
             border-bottom: 1px solid @grey4;
-            padding: 0 (4)*@base-grid-h;
+            padding: 0 (5)*@base-grid-h;
 
             .set__trigger{
-                border: 1px solid @grey4;
+                border-right: 1px solid @white;
+                border-left: 0;
+                border-top: 1px solid @grey3;
+                border-bottom: 1px solid @grey4;
                 margin: 0 0 -1px 0;
 
                 a{
                     background-color: @grey3;
+                    color: @grey9;
+                    display: block;
                     border-top: 3px solid @grey3;
+                    padding-left: (2)*@base-grid-h;
+                    padding-right: (2)*@base-grid-h;
 
                     &:hover,
                     &:active,
                     &:focus{
-                        background-color: @grey1;
-                        border-top-color: @grey1;
+                        background-color: @grey2;
+                        border-top-color: @grey2;
                     }
                 }
 
@@ -38,6 +45,8 @@
 
                     a{
                         background-color: @white;
+                        color: @green5;
+                        font-weight: 500;
                         border-top-color: @green3;
                         border-bottom-color: @white;
                     }
