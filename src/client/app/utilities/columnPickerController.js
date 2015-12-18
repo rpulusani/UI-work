@@ -81,47 +81,49 @@ define(['angular', 'utility.grid'], function(angular) {
             prop;
 
             scope.$on('setupColumnPicker', function(e, Grid) {
-                var i = 0,
-                columnMax = 7,
-                columns = [],
-                list = angular.element('<div class="form"></div>'),
-                selectorContent,
-                links = [],
-                dropdown = $(
-                    '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
-                        '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
-                        '<div class="dropdown__menu">' +
-                            '<div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
-                                '<h4 class="selector-title">' + translate.instant('COLUMNPICKER.TITLE') + '</h4>' + 
-                                '<div class="row selector-content"></div>' +
-                            '</div></div></div>' + 
-                        '</div>' + 
-                    '</div>');
+                if (!element.html()) {
+                    var i = 0,
+                    columnMax = 7,
+                    columns = [],
+                    list = angular.element('<div class="form"></div>'),
+                    selectorContent,
+                    links = [],
+                    dropdown = $(
+                        '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
+                            '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
+                            '<div class="dropdown__menu">' +
+                                '<div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
+                                    '<h4 class="selector-title">' + translate.instant('COLUMNPICKER.TITLE') + '</h4>' + 
+                                    '<div class="row selector-content"></div>' +
+                                '</div></div></div>' + 
+                            '</div>' + 
+                        '</div>');
 
-                element.append(dropdown);
+                    element.append(dropdown);
 
-                dropdown.dropdown();
+                    dropdown.dropdown();
 
-                if (e.targetScope.gridOptions) {
-                    if (Grid.gridOptions.columnDefs.length > 0) {
-                        columns = e.targetScope.gridOptions.columnDefs;
-                    }
-
-                    for (i; i < columns.length; i += 1) {
-                        if (columns[i].field !== 'bookmark') {
-                            links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
+                    if (e.targetScope.gridOptions) {
+                        if (Grid.gridOptions.columnDefs.length > 0) {
+                            columns = e.targetScope.gridOptions.columnDefs;
                         }
+
+                        for (i; i < columns.length; i += 1) {
+                            if (columns[i].field !== 'bookmark') {
+                                links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
+                            }
+                        }
+
+                        i = 0;
+
+                        for (i; i < links.length; i += 1) {
+                            list.append(links[i]);
+                        }
+
+                        selectorContent = $('.selector-content');
+
+                        selectorContent.append(list)
                     }
-
-                    i = 0;
-
-                    for (i; i < links.length; i += 1) {
-                        list.append(links[i]);
-                    }
-
-                    selectorContent = $('.selector-content');
-
-                    selectorContent.append(list)
                 }
             });
         }
