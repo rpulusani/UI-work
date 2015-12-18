@@ -81,27 +81,27 @@ define(['angular', 'utility.grid'], function(angular) {
             prop;
 
             scope.$on('setupColumnPicker', function(e, Grid) {
-                if (!element.html()) {
+                // make sure we only answer this call once
+                if (!element.hasClass('columnpicker')) {
                     var i = 0,
                     columnMax = 7,
                     columns = [],
                     list = angular.element('<div class="form"></div>'),
                     selectorContent,
                     links = [],
-                    dropdown = $(
+                    dropdownBtn = $(
                         '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
-                            '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
-                            '<div class="dropdown__menu">' +
-                                '<div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
-                                    '<h4 class="selector-title">' + translate.instant('COLUMNPICKER.TITLE') + '</h4>' + 
-                                    '<div class="row selector-content"></div>' +
-                                '</div></div></div>' + 
-                            '</div>' + 
-                        '</div>');
+                            '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' + 
+                        '</div>'),
+                    dropdownMenu = $('<div class="row"><div class="col-1"><div class="columnpicker__menu"><h2>' + translate.i128 + '</h2></div></div></div>');
 
-                    element.append(dropdown);
+                    element.addClass('columnpicker');
+                    element.append(dropdownBtn);
 
-                    dropdown.dropdown();
+                    element.on('click', function(e) {
+                        var parentWrapper = dropdownBtn.parent().parent();
+                        parentWrapper.after(dropdownMenu)
+                    });
 
                     if (e.targetScope.gridOptions) {
                         if (Grid.gridOptions.columnDefs.length > 0) {

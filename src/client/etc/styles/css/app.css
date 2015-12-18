@@ -364,10 +364,6 @@ textarea {
   padding: 12px 10px;
   margin-right: 10px;
 }
-/* columnpicker directive, logic in columnPickerController.js */
-.dropdown__menu {
-  min-width: 720px;
-}
 .filter--search {
   height: 54px;
   margin-top: 24px;
