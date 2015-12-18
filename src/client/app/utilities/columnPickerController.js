@@ -99,7 +99,7 @@ define(['angular', 'utility.grid'], function(angular) {
                     '</div>');
 
                 element.append(dropdown);
-                
+
                 dropdown.dropdown();
 
                 if (e.targetScope.gridOptions) {

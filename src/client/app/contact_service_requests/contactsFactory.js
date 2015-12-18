@@ -9,7 +9,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
-                        {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()', dynamic: false},
+                        {name: $translate.instant('CONTACT.FULLNAME'), field: 'getFullname()'},
                         {name: $translate.instant('CONTACT.ADDRESS'), field: 'getAddress()'},
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
                         {name: $translate.instant('CONTACT.ALT_PHONE'), field: 'getAltPhone()'},

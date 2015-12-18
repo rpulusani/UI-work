@@ -40,7 +40,7 @@
 <div ng-show="device.lexmarkDeviceQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_MGT.SERIAL_NO"></label>
-        <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
+        <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels()" value="" class="" />
     </div>
     
     <div class="form__field form__field--select" >
@@ -48,8 +48,8 @@
         <div selectric
             model="device.productNumber"
             options="productNumbers"
-            value="id"
-            label="name"
+            value="productNo"
+            label="productNo"
             placeholder="{{'LABEL.SELECT' | translate}}"
         ></div>
     </div>
@@ -120,32 +120,34 @@
     </div>
 </div>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
+<div ng-show="device.address && device.address.id">
+    <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-deinstall-question-no"
-        name="device-deinstall-question"
-        ng-model="device.deviceDeInstallQuestion"
-        value="false"
-        data-js="customInput"
-        checked
-    />
-    <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    <div class="form__field form__field--radio form__field--no-margin">
+        <input type="radio"
+            id="device-deinstall-question-no"
+            name="device-deinstall-question"
+            ng-model="device.deviceDeInstallQuestion"
+            value="false"
+            data-js="customInput"
+            checked
+        />
+        <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    </div>
+
+    <div class="form__field form__field--radio form__field--no-margin">
+        <input type="radio"
+            id="device-deinstall-question-yes"
+            name="device-deinstall-question"
+            ng-model="device.deviceDeInstallQuestion"
+            value="true"
+            data-js="customInput"
+        />
+        <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+    </div>
+
+    <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 </div>
-
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-deinstall-question-yes"
-        name="device-deinstall-question"
-        ng-model="device.deviceDeInstallQuestion"
-        value="true"
-        data-js="customInput"
-    />
-    <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
-</div>
-
-<p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 
 <div ng-show="device.deviceDeInstallQuestion === 'true'">
     <strong translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_TO_REMOVE_FROM_LOCATION"></strong>
