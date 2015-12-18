@@ -9,11 +9,6 @@ define([
     'angular-translate-loader-static-files',
     'angular-translate-loader-url',
     'angular-sanitize',
-    'address',
-    'address.directives',
-    'address.factory',
-    'address.addressController',
-    'address.addressListController',
     'ui.grid',
     'angular-spring-data-rest',
     'serviceRequest',
@@ -34,6 +29,7 @@ define([
     'deviceManagement.deviceOrderController',
     'deviceManagement.deviceRequestBreakFixController',
     'deviceManagement.deviceFactory',
+    'deviceManagement.productModelFactory',
     'deviceManagement.meterReadFactory',
     'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
@@ -64,7 +60,13 @@ define([
     'utility.hateaosConfig',
     'utility.hateaosFactory',
     'utility.grid',
-    'utility.imageService'
+    'utility.imageService',
+    'utility.columnPickerController',
+    'filterSearch',
+    'filterSearch.directives',
+    'filterSearch.gridFilterController',
+    'filterSearch.gridSearchController',
+    'filterSearch.chlFilterController'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -72,6 +74,7 @@ define([
         'ngResource',
         'ngCookies',
         'ngSanitize',
+        'googlechart',
         'pascalprecht.translate',
         'mps.hateoasFactory',
         'mps.dashboard',
@@ -87,9 +90,9 @@ define([
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
-        'mps.chart',
         'angular-gatekeeper',
         'mps.form',
+        'mps.filterSearch',
         'ui.grid',
         'ui.grid.resizeColumns',
         'ui.grid.moveColumns',

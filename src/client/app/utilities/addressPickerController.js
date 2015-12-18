@@ -21,6 +21,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $scope.formattedInstalledAddress = FormatterService.formatAddress(JSON.parse($scope.sourceAddress));
             }
 
+            if (!Addresses.data.length) {
+                $location.path('/');
+            }
+
             configureTemplates();
 
             $scope.sourceController = function() {
@@ -37,7 +41,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 }
             };
 
-            $scope.goToCallingPage = function(){
+            $scope.goToCallingPage = function() {
                 $location.path($rootScope.addressReturnPath);
             };
 
@@ -50,10 +54,13 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            $rootScope.currentUser.deferred.promise.then(function(user) {
-                user.item._links.accounts = user.item._links.accounts[0];
+            
+            User.getLoggedInUserInfo().then(function() {
+                if (angular.isArray(User.item._links.accounts)) {
+                    User.item._links.accounts = User.item._links.accounts[0];
+                }
 
-                User.getAdditional(user.item, Account).then(function() {
+                User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);

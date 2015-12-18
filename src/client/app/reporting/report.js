@@ -1,4 +1,4 @@
-define(['angular', 'chart'], function(angular) {
+define(['angular'], function(angular) {
     'use strict';
     angular.module('mps.report', []).config(['$routeProvider',
         function ($routeProvider) {
@@ -10,6 +10,10 @@ define(['angular', 'chart'], function(angular) {
             .when('/reporting/:definitionId/find', {
                 templateUrl: '/app/reporting/templates/search.html',
                 controller: 'ReportController'
+            })
+            .when('/reporting/:reportId/results', {
+                templateUrl: '/app/reporting/templates/results.html',
+                controller: 'ReportListController'
             })
             .when('/reporting/results', {
                 templateUrl: '/app/reporting/templates/results.html',

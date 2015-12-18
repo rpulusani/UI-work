@@ -1,0 +1,30 @@
+<form name="newReport" method="post" enctype="multipart/form-data" novalidate>
+    <div class="row">
+        <div class="col-1-3">
+            <div class="row row--alley-thick">
+                <div class="col-1-2">
+                    <div class="form__field">
+                        <label translate="REPORTING.DATE_FROM"></label>
+                        <input type="text" ng-model="finder.orderDateFrom" date-val="finder.orderDateFrom" datepicker />
+                    </div>
+                 </div>
+
+                <div class="col-1-2">
+                     <div class="form__field">
+                        <label translate="REPORTING.DATE_TO"></label>
+                        <input type="text" ng-model="finder.orderDateTo" date-val="finder.orderDateTo" datepicker />
+                    </div>
+               </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1">
+                    <button name="submit" class="btn btn--primary" ng-click="runReport(report)" type="submit"
+                        translate="REPORTING.RUN_REPORT"></button>
+
+                    <input type="hidden" name="report.id" ng-value="report.id"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -34,6 +34,7 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 ctrl = $controller('DeviceAddController', {$scope: scope, Devices:mockDevices,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
                     SRControllerHelperService:mockSRControllerHelperService});
+                spyOn(scope, '$broadcast');
             }));
 
             describe('goToReview', function() {
@@ -48,6 +49,13 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                     };
                     scope.goToReview();
                     expect(rootScope.newDevice).toBe(scope.device);
+                });
+            });
+
+            describe('setModels', function(){
+                it('Should broadcast an event and toggle the value for expanded flag', function(){
+                    scope.setModels();
+                    expect(scope.$broadcast).toHaveBeenCalledWith('searchProductModel');
                 });
             });
 
@@ -121,13 +129,12 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 mockSRControllerHelperService = SRControllerHelperService;
 
                 mockDevices.url = 'http://127.0.0.1/test';
-                mockDevices.item = fixtures.devices.regular;
+                mockDevices.setItem(fixtures.devices.regular);
 
                 httpBackend = $httpBackend;
                 MockDeviceServiceRequest.route = 'http://127.0.0.1/request';
 
                 mockContacts = Contacts;
-
                 mockContacts.serviceName = 'contact';
 
                 $rootScope.currentUser = fixtures.users.regular;
@@ -143,7 +150,7 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 );
                 element = compile(element)(scope);
 
-                ctrl = $controller('DeviceUpdateController', {$scope: scope, Devices:mockDevices,
+                ctrl = $controller('DeviceUpdateController', {$scope: scope, $rootScope: rootScope, Devices:mockDevices,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
                     SRControllerHelperService:mockSRControllerHelperService});
             }));
@@ -151,8 +158,10 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
             describe('goToReview', function() {
                 it('should take the user to the review page based on device id', function() {
                     spyOn(location, 'path').and.returnValue('/');
+                    
                     scope.device.id='1234';
                     scope.goToReview();
+                    
                     expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/update/1234/review');
                 });
             });
@@ -179,7 +188,6 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                     expect(updateArr).toEqual(expectedArr);
                 });
             });
-
         });
 
         describe('Routes', function(){

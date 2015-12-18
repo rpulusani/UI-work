@@ -205,6 +205,9 @@
         "WORK_PHONE": "Work Phone",
         "ALT_PHONE": "Alternate Phone",
         "EMAIL": "Email Address",
+        "DEPARTMENT": "Department",
+        "ID": "ID",
+        "TYPE": "Type",
         "SELECT_CONTACT": "Select a Contact",
         "SELECTED_CONTACT_IS": "Selected Contact is...",
         "SEARCH_EXISTING_CONTACT": "Search existing contacts",
@@ -271,6 +274,8 @@
         "SERVICE_CONTACT": "Service contact",
         "SERVICE_ADDRESS": "Service address",
         "NO_OF_PAGES": "{{pageCount}} Pages",
+        "ALL_DEVICES": "All Devices",
+        "BOOKMARKED_DEVICES": "Bookmarked Devices",
         "REMOVE_A_DEVICE": "Remove a Device",
         "DISCARD_DEVICE_REMOVAL_CHANGES": "DISCARD DEVICE REMOVAL CHANGES",
         "CHANGE_DEVICE_TO_BE_REMOVED": "CHANGE DEVICE TO BE REMOVED",
@@ -366,10 +371,10 @@
         "NEW_IP_ADDRESS": "New IP Address",
         "OLD_REPORTING_HIERARCHY": "Old Reporting Hierarchy",
         "NEW_REPORTING_HIERARCHY": "New Reporting Hierarchy",
-        "EVENT_DATE_FROM": "From",
-        "EVENT_DATE_TO": "To",
+        "DATE_FROM": "From",
+        "DATE_TO": "To",
         "TYPE": "Report Type",
-        "STANDARD_REPORTS": "Standard Reports",
+        "STANDARD_REPORTS_COUNT": "Standard Reports ({{total}})",
         "OTHER_REPORTS": "Other Reports",
         "NAME": "Report name",
         "MADC": "MADC",
@@ -423,6 +428,7 @@
         "SWAPS": "Swaps",
         "ALL_READS": "All Reads",
         "MISSED_READS": "Missed Reads",
+        "SUCCESSFUL_READS": "Successful Reads",
         "SUCCESSFUL_READS_PERCENT": "{{successPercent}}% successful reads",
         "MISSED_READS_PERCENT": "{{missedPercent}}% missed reads ({{assetCount}} assets)",
         "AUTO_COUNT": "Auto ({{autoCount}} assets)",
@@ -669,5 +675,9 @@
         "NO_IMAGE_FOUND": "No Image Found",
         "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
         "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+    },
+
+    "COLUMNPICKER": {
+        "TITLE": "Column Selector"
     }
 }

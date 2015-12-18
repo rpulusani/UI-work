@@ -75,7 +75,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
             describe('testing embedded items' , function() {
                 it('a call to a service with embeds=name,name2 should return those items attached to the response', function() {
                     httpBackend
-                        .when('GET', mockFactory.url + '?embeds=device&page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL')
+                        .when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&embeds=device')
                         .respond(fixtures.api.test.embedItem);
 
                     mockFactory.get({
@@ -87,9 +87,10 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 
-                    expect(mockFactory.item.device.item.name).toEqual('testDevice');
-                    expect(typeof mockFactory.item.device.item.links.itemOne).toEqual('function');
-                    expect(typeof mockFactory.item.device.item.links.itemTwo).toEqual('function');
+                    expect(mockFactory.item.device.data[0].name).toEqual('testDevice');
+
+                    expect(mockFactory.item.device.data[0]._links.self.href).toEqual('http://127.0.0.1/test/1-TESTDEVICE');
+                    expect(typeof mockFactory.item.links.device).toEqual('function');
                 });
             });
 
@@ -138,7 +139,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
             describe('get({params: {key:value}}) options check against the generalized query service' , function() {
                 it('passing in options.params = {key:value} should modify current parameters', function() {
                     httpBackend
-                    .when('GET', mockFactory.url + '?key=value&page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL')
+                    .when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&key=value')
                     .respond(fixtures.api.test.pageTwo);
 
                     mockFactory.get({
@@ -207,7 +208,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                         page: 1,
                         size: 20
                     });
-
+                    
                     rootScope.currentUser.deferred.resolve();
                     httpBackend.flush();
 

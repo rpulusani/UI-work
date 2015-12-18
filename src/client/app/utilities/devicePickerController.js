@@ -14,6 +14,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $rootScope.selectedContact = undefined;
             }
 
+            if (!Devices.data.length) {
+                $location.path('/');
+            }
+
             if($rootScope.selectedAddress) {
                 $rootScope.selectedAddress = undefined;
             }
@@ -57,8 +61,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         embed:'contact'
                     }
                 };
-                Devices.item.links.self(options).then(function(){
-                    $scope.selectedDevice.contact = Devices.item.self.item.contact.item;
+                Devices.item.get(options).then(function(){
+                    $scope.selectedDevice.contact = Devices.item.contact.item;
                     $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
                 });
             };
@@ -112,6 +116,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 
             }
             Devices.getPage(0, 20, options).then(function() {
+                $scope.itemCount = Devices.data.length;
+                console.log($scope.itemCount);
                 Grid.display(Devices, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);

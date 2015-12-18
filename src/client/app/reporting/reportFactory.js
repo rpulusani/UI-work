@@ -9,7 +9,13 @@ define(['angular', 'report'], function(angular) {
                 embeddedName: 'reportTypes',
                 columns: 'defaultSet',
                 columnDefs: {
-                    defaultSet: [],
+                    defaultSet: [
+                        {'name': $translate.instant('REPORTING.NAME'), 'field': 'name',
+                         'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.goToFinder(row.entity);">{{row.entity.name}}</a>' +
+                                        '</div>'
+                        }
+                    ],
                     /* Asset Register */
                     mp9058sp: [
                         {'name': $translate.instant('REPORTING.REPORTING_HIERARCHY'), 'field': 'chl', minWidth: 420},
@@ -189,10 +195,14 @@ define(['angular', 'report'], function(angular) {
                 },    
                 route: '/reporting',
                 finder: {
-                    dateFrom: '',
-                    dateTo: '',
+                    eventDateFrom: '',
+                    eventDateTo: '',
                     eventType: '',
-                    eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}]
+                    eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}],
+                    orderDateFrom: '',
+                    orderDateTo: '',
+                    orderType: '',
+                    orderTypes: [{value: 'Consumable Supplies'}, {value: 'Consumable SVC Parts'}, {value: 'Consumable SVC Parts & Install'}]
                 }
             };
 

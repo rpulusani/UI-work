@@ -131,6 +131,9 @@ textarea {
 .selectric .form__field__current-option {
   margin-right: 60px;
 }
+.selectricButton {
+  height: 52px;
+}
 .info-list {
   list-style: none;
   padding: 0;
@@ -246,6 +249,8 @@ textarea {
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
+  max-height: 160px;
 }
 .tree__item {
   margin: 0;
@@ -278,6 +283,7 @@ textarea {
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
+  min-height: 655px;
   font-size: 9pt;
 }
 .table .ui-grid-header-cell:first-child {
@@ -357,6 +363,125 @@ textarea {
   border-right: 1px solid #a5a5aa;
   padding: 12px 10px;
   margin-right: 10px;
+}
+/* columnpicker directive, logic in columnPickerController.js */
+.dropdown__menu {
+  min-width: 720px;
+}
+.filter--search {
+  height: 54px;
+  margin-top: 24px;
+  border: 1px solid transparent;
+}
+.filter--search.form__field {
+  overflow: visible;
+  margin-bottom: 24px;
+}
+.filter--search.focus {
+  box-shadow: 0 0 5px 0px #b5cff5;
+  border-color: #6ca0eb;
+  outline: none;
+}
+.filter--search .selectric {
+  border-right: none;
+}
+.filter--search .selectric:hover {
+  border-right: none;
+}
+.filter--search .selectric.hover,
+.filter--search .selectric.focus {
+  border-top: 1px solid #0061de;
+  border-right: none;
+  border-bottom: 1px solid #0061de;
+  border-left: 1px solid #0061de;
+}
+.filter--search .selectricHover .selectric {
+  border-top: 1px solid #0061de;
+  border-right: none;
+  border-bottom: 1px solid #0061de;
+  border-left: 1px solid #0061de;
+}
+.filter--search .selectricItems li:hover,
+.filter--search .selectricItems li:active,
+.filter--search .selectricItems li.selected {
+  background: #0061de;
+  color: #ffffff;
+}
+.filter--search .selectricButton {
+  border-left: none;
+}
+.filter--search .search {
+  background: #e6e6f0;
+  background: -webkit-linear-gradient(#fff, #e6e6f0);
+  background: -o-linear-gradient(#fff, #e6e6f0);
+  background: linear-gradient(#fff, #e6e6f0);
+  border: 1px solid #7e7e85;
+  height: 54px;
+  width: 100%;
+  border-left: none;
+  cursor: pointer;
+}
+.filter--search .search.hover,
+.filter--search .search.focus {
+  border-top: 1px solid #0061de;
+  border-right: 1px solid #0061de;
+  border-bottom: 1px solid #0061de;
+  border-left: none;
+}
+.filter--search .form__field {
+  position: relative;
+  margin-bottom: 0;
+}
+.filter--search .form__field input.hover,
+.filter--search .form__field input.focus {
+  border-top: 1px solid #0061de;
+  border-right: 1px solid #7e7e85;
+  border-bottom: 1px solid #0061de;
+  border-left: 1px solid #7e7e85;
+}
+.filter--search .close-icon {
+  background-color: #e6e6f0;
+  color: #a5a5aa;
+  font-size: 16px;
+  font-style: normal;
+  padding-bottom: 3px;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  left: 86%;
+  top: 50%;
+  margin-top: -13px;
+  text-align: center;
+  cursor: pointer;
+}
+.filter--search .close-icon:active {
+  color: #1d1d25;
+}
+.filter--search .search-box:focus {
+  outline: none;
+}
+@media only screen and (max-width: 74em) {
+  .filter--search .close-icon {
+    left: 84.5%;
+  }
+}
+@media only screen and (max-width: 54em) {
+  .filter--search .search-menu {
+    padding-top: 0;
+  }
+  .filter--search .selectric {
+    border-right: 1px solid #7E7E85;
+  }
+  .filter--search .form__field {
+    margin-top: 24px;
+  }
+  .filter--search .close-icon {
+    margin-top: 0;
+    left: 79.5%;
+  }
+  .filter--search .selectricButton {
+    border-left: 1px solid #7e7e85;
+  }
 }
 .theme--dark {
   background: #32323c;

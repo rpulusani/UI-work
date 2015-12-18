@@ -1,4 +1,4 @@
 define(['angular'], function(angular) {
     'use strict';
-    angular.module('mps.chart', []);
+    angular.module('mps.filterSearch', []);
 });
