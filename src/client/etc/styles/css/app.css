@@ -421,6 +421,9 @@ textarea {
   border-left: none;
   cursor: pointer;
 }
+.filter--search .search:focus {
+  outline: none;
+}
 .filter--search .search.hover,
 .filter--search .search.focus {
   border-top: 1px solid #0061de;

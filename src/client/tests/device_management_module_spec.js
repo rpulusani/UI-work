@@ -1,5 +1,5 @@
 /* global describe it beforeEach inject expect */
-define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], function(angular, mocks, deviceManagement, deviceServiceRequest) {
+define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest', 'filterSearch'], function(angular, mocks, deviceManagement, deviceServiceRequest) {
     describe('Device Management Module', function() {
         beforeEach(module('mps'));
 
@@ -180,14 +180,15 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
         });
 
         describe('DeviceInformationController', function() {
-            var scope, ctrl, location, deferred, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest, mockMeterReads;
+            var scope, ctrl, location, deferred, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest, mockMeterReads, personal;
 
             beforeEach(inject(function($rootScope, $controller, $location, $q, BlankCheck, HATEAOSFactory, $httpBackend,
-                Devices, DeviceServiceRequest, MeterReadService) {
+                Devices, DeviceServiceRequest, MeterReadService, Personalize) {
                 scope = $rootScope.$new();
                 location = $location;
                 deferred = $q.defer();
                 blankCheck = BlankCheck;
+                personal = new Personalize('/',0);
 
                 MockDeviceServiceRequest = DeviceServiceRequest;
                 mockFactory = Devices;
@@ -411,6 +412,21 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
                                 .toEqual('/app/device_management/templates/view.html');
                 });
             });
+        });
+
+        describe('addBasicFilter', function(){
+            it('should add a single filter with display text and parameters', inject(['FilterSearchService', function(FilterSearchService){
+              var filterSearch = new FilterSearchService(mockFactory, scope, rootScope, personal,'catColumnSet');
+              var expected_displayText = "All Devices";
+              var expected_options =  {
+                params:{
+                    type: 'MADC_ALL'
+                }
+              };
+              var actual = filterSearchService.addBasicFilter(expected_displayText, expected_options);
+              //no idea what to expect
+              expect();
+            }]));
         });
     });
 });
