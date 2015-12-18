@@ -122,10 +122,10 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 });
 
                 if (!BlankCheck.isNull($scope.device['address'])) {
-                    $scope.installAddress = $scope.device.item['address']['item'];
+                    $scope.installAddress = $scope.device['address']['item'];
                 }
                 if (!BlankCheck.isNull($scope.device['contact'])) {
-                    $scope.primaryContact = $scope.device.item['contact']['item'];
+                    $scope.primaryContact = $scope.device['contact']['item'];
                 }
 
             }

@@ -87,8 +87,8 @@ define(['angular',
                 Devices.item = $scope.device;
             } else {
                 $scope.device = Devices.item;
-                if (!BlankCheck.isNull($scope.device.item.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
-                    $scope.device.currentInstalledAddress = $scope.device.item.address.item;
+                if (!BlankCheck.isNull($scope.device.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
+                    $scope.device.currentInstalledAddress = $scope.device.address.item;
                     $scope.setupPhysicalLocations($scope.device.currentInstalledAddress, 
                                                 $scope.device.physicalLocation1,
                                                 $scope.device.physicalLocation2,
@@ -96,8 +96,8 @@ define(['angular',
                     $scope.device.updatedInstallAddress = $scope.device.currentInstalledAddress;
                 }
 
-                if (!BlankCheck.isNull($scope.device.item.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
-                    $scope.device.deviceContact = $scope.device.item.contact.item;
+                if (!BlankCheck.isNull($scope.device.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
+                    $scope.device.deviceContact = $scope.device.contact.item;
                 }
 
                 if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
