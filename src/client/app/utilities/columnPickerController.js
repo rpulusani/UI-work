@@ -35,7 +35,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 return gridOptions;
             },
             createColumnSelection = function(column, gridOptions) {
-                var listItem = angular.element('<div class="col-1-2">'),
+                var listItem = angular.element('<div class="col-1-3">'),
                 checkBoxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
                 checkbox = $('<input type="checkbox" id="' + column.name + '" name="' + column.field  + '" value="">'),
                 checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
