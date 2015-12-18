@@ -18,18 +18,18 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                         madcSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()'},
+                            {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
-                            {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
-                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                            {'name': $translate.instant('LABEL.TYPE'), 'field':'type', 'notSearchable': true},
+                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId'},
                             {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter'}
                         ],
                         breakfixSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()'},
+                            {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
-                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                             {'name': $translate.instant('DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION'), 'field':'description'},
                             {'name': $translate.instant('DEVICE_SERVICE_REQUEST.RESOLUTION'), 'field':''},
                             {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter'}
