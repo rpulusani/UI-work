@@ -1,4 +1,13 @@
 [ {
+      "type" : "Mono",
+      "value" : ""
+    }, {
+      "type" : "Color",
+      "value" : ""
+    }, {
+      "type" : "LTPC",
+      "value" : ""
+    }, {
       "type" : "A3 LTPC",
       "value" : ""
     }, {
@@ -17,9 +26,6 @@
       "type" : "A5 Mono",
       "value" : ""
     }, {
-      "type" : "LTPC",
-      "value" : ""
-    }, {
       "type" : "Legal LTPC",
       "value" : ""
     }, {
@@ -30,9 +36,6 @@
       "value" : ""
     }, {
       "type" : "Letter Mono",
-      "value" : ""
-    }, {
-      "type" : "Mono",
       "value" : ""
     }, {
       "type" : "PGS_SCAN_COPY",

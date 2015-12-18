@@ -12,18 +12,28 @@
             <input type="hidden" ng-model="source.type" ng-bind="item.type">
             <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate}}">
                 <div class="form__field vertical-space--none">
-                    <input type="number" ng-model="source.newCount[item.type]"/>
+                    <div ng-show="readonly === true">
+                        <p>{{source.newCount[item.type]}}</p>
+                    </div>
+                    <div ng-show="readonly === false || readonly === undefined">
+                        <input type="number" ng-model="source.newCount[item.type]"/>
+                    </div>
                 </div>
             </td>
             <td data-label="{{'LABEL.DATE' | translate}}">
                 <div class="form__field vertical-space--none">
-                    <input datepicker type="date" ng-model="source.newDate[item.type]"/>
+                    <div ng-show="readonly === true">
+                        <p>{{source.newDate[item.type]}}</p>
+                    </div>
+                    <div ng-show="readonly === false || readonly === undefined">
+                        <input datepicker type="text" ng-model="source.newDate[item.type]" date-val="source.newDate[item.type]"/>
+                    </div>
                 </div>
             </td>
         </tr>
     </tbody>
-    <button ng-click="collectData()">Collect</button>
 </table>
+
 <a href="#" ng-click="showAllMeterReads = !showAllMeterReads">
     <span ng-hide="showAllMeterReads" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT"></span>
     <span ng-show="showAllMeterReads" translate="DEVICE_MGT.VIEW_LESS"></span>

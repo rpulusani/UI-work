@@ -159,6 +159,11 @@ define(['angular',
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
                             }
+                        },
+                        pageCount:{
+                            translate: {
+                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
+                            }
                         }
                     },
                     detail: {
@@ -263,8 +268,25 @@ define(['angular',
                         physicalLocation2: $scope.device.physicalLocation2,
                         physicalLocation3: $scope.device.physicalLocation3
                     };
+                    var meterReads = [];
+                    for (var countObj in $scope.device.newCount) {
+                        var meterRead = {};
+                        meterRead.type = countObj;
+                        meterRead.value = $scope.device.newCount[countObj];
+                        meterReads.push(meterRead);
+                    }
+
+                    for (var dateObj in $scope.device.newDate) {
+                        for (var i=0; i<meterReads.length; i++) {
+                            if(meterReads[i].type && meterReads[i].type === dateObj) {
+                                meterReads[i].updateDate = $filter('date')($scope.device.newDate[dateObj], 'yyyy-MM-dd H:mm:ss');
+                            }
+                        }
+                    }
+                                      
+                    ServiceRequest.addField('meterReads', meterReads);
                     ServiceRequest.addField('assetInfo', assetInfo);
-                    ServiceRequest.addField('requestChangeDate', $scope.device.deviceInstallDate); 
+                    ServiceRequest.addField('requestChangeDate', $filter('date')($scope.device.deviceInstallDate, 'yyyy-MM-dd H:mm:ss')); 
                     ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                         HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {

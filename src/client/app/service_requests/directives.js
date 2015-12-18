@@ -38,6 +38,12 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/device-information.html'
         };
     })
+    .directive('srDevicePageCounts', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/device-page-counts.html'
+        };
+    })
     .directive('srDeviceRemoval', function() {
         return {
             restrict: 'A',
