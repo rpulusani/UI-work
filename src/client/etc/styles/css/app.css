@@ -54,7 +54,6 @@
 .site-footer .util-nav ul li {
   float: left;
   padding: 0 10px;
-  border-right: 1px dotted;
 }
 .site-footer .util-nav ul li:last-child {
   border-right: 0;
@@ -63,10 +62,16 @@
 .page-content {
   padding: 24px 20px;
 }
-@media only screen and (min-width: 54em) {
+@media only screen and (min-width: 74em) {
   .page-header,
   .page-content {
-    padding: 24px 40px;
+    padding: 24px 50px;
+  }
+}
+@media only screen and (min-width: 54em) and (max-width: 74em) {
+  .page-header,
+  .page-content {
+    padding: 24px 30px;
   }
 }
 .page-header:after,
@@ -76,7 +81,7 @@
   display: block;
 }
 .page-header {
-  background-color: #e6e6f0;
+  background-color: #eff0f6;
 }
 /** DASHBOARD MOCK **/
 .primary-contact-action {
@@ -197,6 +202,42 @@ textarea {
 .rail-nav .sub-nav .nav-item {
   padding: 12px 20px;
 }
+.top-logo {
+  background-image: url('http://www.lexmark.com/common/common-mce/styles/css/v2/images/lxk-logo-2x.png');
+  width: 284px;
+  height: 56px;
+  float: left;
+  display: inline;
+}
+@media (max-width: 54em) {
+  .top-logo {
+    display: none;
+  }
+}
+.title {
+  display: inline;
+  float: left;
+}
+.title h1 {
+  padding: 0 20px;
+  position: absolute;
+  top: 18px;
+}
+@media only screen and (min-width: 74em) {
+  .title h1 {
+    padding: 0 50px;
+  }
+}
+@media only screen and (min-width: 54em) and (max-width: 74em) {
+  .title h1 {
+    padding: 0 30px;
+  }
+}
+@media (max-width: 54em) {
+  .title h1 {
+    display: none;
+  }
+}
 /* <tabs> */
 .page-tabs {
   padding: 24px 20px;
@@ -207,17 +248,24 @@ textarea {
   }
 }
 .page-tabs > .set .set__tab-container {
-  background-color: #e6e6f0;
+  background-color: #eff0f6;
   border-bottom: 1px solid #a5a5aa;
-  padding: 0 40px;
+  padding: 0 50px;
 }
 .page-tabs > .set .set__tab-container .set__trigger {
-  border: 1px solid #a5a5aa;
+  border-right: 1px solid #ffffff;
+  border-left: 0;
+  border-top: 1px solid #c9c9d1;
+  border-bottom: 1px solid #a5a5aa;
   margin: 0 0 -1px 0;
 }
 .page-tabs > .set .set__tab-container .set__trigger a {
   background-color: #c9c9d1;
+  color: #1d1d25;
+  display: block;
   border-top: 3px solid #c9c9d1;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .page-tabs > .set .set__tab-container .set__trigger a:hover,
 .page-tabs > .set .set__tab-container .set__trigger a:active,
@@ -230,6 +278,8 @@ textarea {
 }
 .page-tabs > .set .set__tab-container .set__trigger.set--is-active a {
   background-color: #ffffff;
+  color: #006446;
+  font-weight: 500;
   border-top-color: #00ad21;
   border-bottom-color: #ffffff;
 }
@@ -484,18 +534,21 @@ textarea {
   }
 }
 .theme--dark {
-  background: #32323c;
+  background: #44434e;
 }
 .theme--dark h1,
 .theme--dark h2,
 .theme--dark p {
   color: #1d1d25;
 }
+.theme--dark .title h1 {
+  color: #00ad21;
+}
 .theme--dark #mobileNav,
 .theme--dark .site-nav,
 .theme--dark .site-header,
 .theme--dark .site-footer {
-  background: #32323c;
+  background: #44434e;
   color: #eff0f6;
 }
 .theme--dark .site-nav a {
@@ -524,24 +577,28 @@ textarea {
   background: #00ad21;
   color: #ffffff;
 }
+.theme--dark .rail-nav li {
+  border-top: 1px solid #32323c;
+  border-bottom: 1px solid #5a5a64;
+}
 .theme--dark .rail-nav .nav-item {
-  background: #32323c;
+  background: #44434e;
   color: #eff0f6;
-  border-color: #32323c;
+  border-color: #44434e;
 }
 .theme--dark .rail-nav a.nav-item:hover,
 .theme--dark .rail-nav a.nav-item:focus {
-  background: #c9c9d1;
+  background: #7e7e85;
   border-color: #3af23a;
-  color: #1d1d25;
+  color: #ffffff;
 }
 .theme--dark .rail-nav a.nav-item:active {
-  background: #a5a5aa;
+  background: #32323c;
   border-color: #3af23a;
-  color: #1d1d25;
+  color: #e6e6f0;
 }
 .theme--dark .rail-nav a.nav-item.is-active {
-  background: #00c425;
+  background: #00ad21;
   border-color: #3af23a;
   color: #ffffff;
 }
