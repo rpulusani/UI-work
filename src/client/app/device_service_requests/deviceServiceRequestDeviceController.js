@@ -57,10 +57,10 @@ define(['angular',
             }else {
                 $rootScope.device = Devices.item;
                 if (!BlankCheck.isNull(Devices.item['address'])) {
-                    $scope.device.installAddress = Devices.item['address']['item'];
+                    $scope.device.installAddress = Devices.item.item['address']['item'];
                 }
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
-                    $scope.device.primaryContact = Devices.item['contact']['item'];
+                    $scope.device.primaryContact = Devices.item.item['contact']['item'];
                 }
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                     $scope.resetContactPicker();
