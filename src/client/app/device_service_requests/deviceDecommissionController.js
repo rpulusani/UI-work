@@ -59,10 +59,10 @@ define(['angular',
                 $scope.device = Devices.item;
 
                 if (!BlankCheck.isNull(Devices.item['address'])) {
-                    $scope.device.installAddress = Devices.item['address']['item'];
+                    $scope.device.installAddress = $scope.device.item['address']['item'];
                 }
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
-                    $scope.device.primaryContact = Devices.item['contact']['item'];
+                    $scope.device.primaryContact = $scope.device.item['contact']['item'];
                 }
 
 
