@@ -93,37 +93,47 @@ define(['angular', 'utility.grid'], function(angular) {
                         '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
                             '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' + 
                         '</div>'),
-                    dropdownMenu = $('<div class="row"><div class="col-1"><div class="columnpicker__menu"><h2>' + translate.i128 + '</h2></div></div></div>');
+                    dropdownMenu = $('<div class="row l-hidden"><div class="col-1"><div class="columnpicker__menu"><h2>' + translate.instant('COLUMNPICKER.TITLE') + '</h2></div></div></div>');
 
                     element.addClass('columnpicker');
                     element.append(dropdownBtn);
 
-                    element.on('click', function(e) {
+                    element.on('click', function(evt) {
                         var parentWrapper = dropdownBtn.parent().parent();
+                            
+                        evt.preventDefault();
+
                         parentWrapper.after(dropdownMenu)
-                    });
 
-                    if (e.targetScope.gridOptions) {
-                        if (Grid.gridOptions.columnDefs.length > 0) {
-                            columns = e.targetScope.gridOptions.columnDefs;
-                        }
+                        if (dropdownMenu.hasClass('l-hidden')) {
+                            dropdownMenu.removeClass('l-hidden');
 
-                        for (i; i < columns.length; i += 1) {
-                            if (columns[i].field !== 'bookmark') {
-                                links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
+                            if (e.targetScope.gridOptions) {
+                                if (Grid.gridOptions.columnDefs.length > 0) {
+                                    columns = e.targetScope.gridOptions.columnDefs;
+                                }
+
+                                for (i; i < columns.length; i += 1) {
+                                    if (columns[i].field !== 'bookmark' && !columns[i].inColumnSelector) {
+                                        columns[i].inColumnSelector = true;
+                                        links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
+                                    }
+                                }
+
+                                i = 0;
+
+                                for (i; i < links.length; i += 1) {
+                                    list.append(links[i]);
+                                }
+
+                                selectorContent = $('.columnpicker__menu');
+
+                                selectorContent.append(list)
                             }
+                        } else {
+                            dropdownMenu.addClass('l-hidden');
                         }
-
-                        i = 0;
-
-                        for (i; i < links.length; i += 1) {
-                            list.append(links[i]);
-                        }
-
-                        selectorContent = $('.selector-content');
-
-                        selectorContent.append(list)
-                    }
+                    });
                 }
             });
         }

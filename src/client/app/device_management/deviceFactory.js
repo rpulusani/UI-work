@@ -18,7 +18,12 @@ define(['angular', 'deviceManagement'], function(angular) {
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'productModel'},
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetTag'},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress'},
-                        {'name': $translate.instant('ADDRESS.NAME'), 'field':'getAddressName()', 'notSearchable': true}
+                        {'name': $translate.instant('ADDRESS.NAME'), 'field':'getAddressName()', 'notSearchable': true},
+                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'hostName', visible: false},
+                        {'name': $translate.instant('LABEL.COST_CENTER'), 'field':'costCenter', visible: false},
+                        {'name': $translate.instant('ADDRESS.BUILDING_NAME'), 'field':'physicalLocation1', visible: false},
+                        {'name': $translate.instant('ADDRESS.FLOOR_NAME'), 'field':'physicalLocation2', visible: false},
+                        {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false}
                     ]
                 },
                 route: '/device_management',
