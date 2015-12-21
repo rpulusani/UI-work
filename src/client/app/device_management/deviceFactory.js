@@ -23,19 +23,19 @@ define(['angular', 'deviceManagement'], function(angular) {
                         {'name': $translate.instant('LABEL.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('ADDRESS.BUILDING_NAME'), 'field':'physicalLocation1', visible: false},
                         {'name': $translate.instant('ADDRESS.FLOOR_NAME'), 'field':'physicalLocation2', visible: false},
-                        {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false}
-                        /*
-                        {'name': $translate.instant('LABEL.CITY'), 'field':'', visible: false},
-                        {'name': $translate.instant('ADDRESS.STATE'), 'field':'', visible: false},
-                        {'name': $translate.instant('ADDRESS.STORE_FRONT_NAME'), 'field':'', visible: false},
-                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field':'', visible: false},
-                        {'name': $translate.instant('ADDRESS.ZIPCODE'), 'field':'', visible: false},
-                        {'name': $translate.instant('DEVICE_MGT.CONSUMABLE_FIRSTNAME'), 'field':'', visible: false},
-                        {'name': $translate.instant('DEVICE_MGT.CONSUMABLE_LASTNAME'), 'field':'', visible: false},
-                        {'name': $translate.instant('DEVICE_MGT.DISTRICT'), 'field':'', visible: false},
-                        {'name': $translate.instant('ADDRESS.PROVINCE'), 'field':'', notSearchable: true, visible: false},
-                        */
-                    ]
+                        {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false},
+                        {'name': $translate.instant('ADDRESS.CITY'), 'field':'_embedded.address.city', visible: false},
+                        {'name': $translate.instant('ADDRESS.STATE'), 'field':'_embedded.address.state', visible: false},
+                        {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.address.storeFrontName', visible: false},
+                        {'name': $translate.instant('ADDRESS.ZIP'), 'field':'_embedded.address.postalCode', visible: false},
+                        {'name': $translate.instant('CONTACT.FIRST_NAME'), 'field':'_embedded.contact.firstName', visible: false},
+                        {'name': $translate.instant('CONTACT.LAST_NAME'), 'field':'_embedded.contact.lastName', visible: false},
+                        {'name': $translate.instant('ADDRESS.DISTRICT'), 'field':'_embedded.address.district', visible: false},
+                        {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field':'_embedded.address.province', notSearchable: true, visible: false},
+                    ],
+                    brazilColumns: function() {
+                         return this.defaultSet.push({'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field':'_embedded.address.houseNumber', visible: false});
+                    }
                 },
                 route: '/device_management',
                 functionArray: [
