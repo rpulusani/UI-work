@@ -93,7 +93,8 @@ define(['angular', 'utility.grid'], function(angular) {
                         '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
                             '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' + 
                         '</div>'),
-                    dropdownMenu = $('<div class="row l-hidden"><div class="col-1"><div class="columnpicker__menu"><h2>' + translate.instant('COLUMNPICKER.TITLE') + '</h2></div></div></div>');
+                    dropdownMenu = $('<div class="row l-hidden"><div class="col-1"><div class="row columnpicker__menu"><div class="col-1-5"><h2>' + 
+                        translate.instant('COLUMNPICKER.TITLE') + '</h2></div></div></div></div>');
 
                     element.addClass('columnpicker');
                     element.append(dropdownBtn);
