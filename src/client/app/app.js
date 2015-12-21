@@ -66,7 +66,9 @@ define([
     'filterSearch.directives',
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
-    'filterSearch.chlFilterController'
+    'filterSearch.chlFilterController',
+    'security',
+    'security.securityService'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -84,6 +86,7 @@ define([
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
         'mps.user',
+        'mps.security',
         'mps.report',
         'mps.invoice',
         'mps.deviceManagement',
@@ -123,6 +126,76 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .constant('permissionSet', {
+        dashboard:{
+            view: 'VIEW_HOME_PAGE'
+        },
+        userManagement: {
+            impersonate: 'IMPERSONATE_VIEW',
+            createUser: 'CREATE_NEW_USER',
+            manageUser: 'MANAGE_USER_PROFILE',
+            profileReport: 'USER_PROFILE_REPORT',
+            disableUser: 'DISABLE_USER',
+            reactivateUser: 'REACTIVATE_USER',
+            approvals: 'MY_APPROVALS',
+            manageMyProfile: 'MANAGE_MY_PROFILE',
+            inviteUser: 'INVITE_NEW_USER'
+        },
+        deviceManagement:{
+            search: 'SEARCH_ASSET',
+            view: 'VIEW_DEVICE_DETAIL',
+            controlPanel: 'VIEW_DEVICE_CONTROL_PANEL',
+            updatePageCount: 'UPDATE_PAGE_COUNTS',
+            viewSRHistory: 'VIEW_SR_HISTORY',
+            viewOpenSR: 'VIEW_OPEN_SRS',
+            viewOpenOrders: 'VIEW_OPEN_ORDERS'
+        },
+        serviceRequestManagement:{
+            viewBreakFix:'VIEW_BREAKFIX_REQUESTS',
+            createBreakFix: 'REQUEST_BREAKFIX',
+            viewSuppliesOrder: 'VIEW_SUPPLIES_ORDER',
+            orderSuppliesCatelog: 'ORDER_SUPPLIES_CATALOG',
+            orderSuppliesAsset: 'ORDER_SUPPLIES_ASSET',
+            createSuppliesReturn: 'CREATE_SUPPLIES_RETURN_REQUEST',
+            orderHardware: 'ORDER_HARDWARE',
+            uploadConsumableOrder: 'MASS_UPLOAD_FOR_CONSUMABLES_ORDER',
+            uploadHardwareOrder: 'MASS_UPLOAD_FOR_HARDWARE_ORDER',
+            createPONumber: 'INITIATE_NEW_PO_NUMBER',
+            viewMADC: 'VIEW_MADC_REQUESTS',
+            moveMADC: 'MOVE_MADC_REQUEST',
+            addMADC: 'ADD_MADC_REQUEST',
+            deinstallMADC: 'DEINSTALL_MADC_REQUEST',
+            decommissionMADC: 'DECOMMISSION_MADC_REQUEST',
+            changeMADC: 'CHANGE_MADC_REQUEST',
+            uploadMADC: 'MASS_UPLOAD_MADC',
+            viewContactAddress: 'VIEW_CONTACT_AND_ADDRESS',
+            contactMADC: 'CONTACT_MADC_REQUEST',
+            addressMADC: 'ADDRESS_MADC_REQUEST',
+            chlMADC: 'CHL_MADC_REQUEST'
+        },
+        invoices: {
+            view: 'VIEW_INVOICES'
+        },
+        reports: {
+            viewRunStandard: 'VIEW_AND_RUN_STANDARD',
+            viewStrategic: 'VIEW_STRATEGIC_REPORTS',
+            upload: 'UPLOAD_REPORT'
+        },
+        contentManagement:{
+            viewNonstrategic: 'VIEW_NONSTRATEGIC_DOCS',
+            viewStrategic: 'VIEW_STRATEGIC_DOCS',
+            upload: 'UPLOAD_DOCS',
+            deleteMy: 'DELETE_ONLY_MY_DOCS',
+            delete: 'DELETE_ALL_DOCS',
+            manageAccountTag: 'MANAGE_ACCOUNT_TAG',
+            manageGlobalTag: 'MANAGE_GLOBAL_TAG'
+        },
+        admin:{
+            report: 'ADMIN_REPORT_DOCUMENT',
+            homepage:'ADMIN_HOME_PAGE',
+            translationManager: 'ADMIN_TRANSLATION_MANAGER'
+        }
+    })
     .config(function (SpringDataRestAdapterProvider) {
 
         // set the links key to _myLinks

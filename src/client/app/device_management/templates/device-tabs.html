@@ -19,10 +19,11 @@
 		<div request-break-fix-list ng-if="isActive('requestTab');"></div>
 	</div>
 
-	<div class="set__trigger" data-toggle="pageCountTab" ng-click="onClickTb('pageCountTab')">
+	<div class="set__trigger" data-toggle="pageCountTab" ng-click="onClickTb('pageCountTab')"
+	ng-if="security.isAllowed(permissions.deviceManagement.updatePageCount)">
 		<a href="#pageCountTab" translate="DEVICE_MGT.PAGE_COUNTS"><i class="set__icon"></i></a>
 	</div>
-	<div class="set__content" id="pageCountTab">
+	<div class="set__content" id="pageCountTab" ng-if="security.isAllowed(permissions.deviceManagement.updatePageCount)">
 		<div device-page-count ng-if="isActive('pageCountTab');"></div>
 	</div>
 </div>

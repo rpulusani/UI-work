@@ -160,6 +160,9 @@ requirejs.config({
         'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
         'filterSearch.directives': 'app/filter_search/directives',
 
+        'security': 'app/security/security',
+        'security.securityService': 'app/security/securityService',
+
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
         'nav.navFactory': 'app/nav/navFactory',
