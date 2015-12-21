@@ -35,7 +35,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 return gridOptions;
             },
             createColumnSelection = function(column, gridOptions) {
-                var listItem = angular.element('<div class="col-1-2">'),
+                var listItem = angular.element('<div class="col-1-3">'),
                 checkBoxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
                 checkbox = $('<input type="checkbox" id="' + column.name + '" name="' + column.field  + '" value="">'),
                 checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
@@ -81,47 +81,60 @@ define(['angular', 'utility.grid'], function(angular) {
             prop;
 
             scope.$on('setupColumnPicker', function(e, Grid) {
-                var i = 0,
-                columnMax = 7,
-                columns = [],
-                list = angular.element('<div class="form"></div>'),
-                selectorContent,
-                links = [],
-                dropdown = $(
-                    '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
-                        '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' +
-                        '<div class="dropdown__menu">' +
-                            '<div class="dropdown__menu-inner"><div class="row"><div class="col-1-2 l-pad">' + 
-                                '<h4 class="selector-title">' + translate.instant('COLUMNPICKER.TITLE') + '</h4>' + 
-                                '<div class="row selector-content"></div>' +
-                            '</div></div></div>' + 
-                        '</div>' + 
-                    '</div>');
+                // make sure we only answer this call once
+                if (!element.hasClass('columnpicker')) {
+                    var i = 0,
+                    columnMax = 7,
+                    columns = [],
+                    list = angular.element('<div class="form"></div>'),
+                    selectorContent,
+                    links = [],
+                    dropdownBtn = $(
+                        '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
+                            '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' + 
+                        '</div>'),
+                    dropdownMenu = $('<div class="row l-hidden"><div class="col-1"><div class="row columnpicker__menu"><div class="col-1-5"><h2>' + 
+                        translate.instant('COLUMNPICKER.TITLE') + '</h2></div></div></div></div>');
 
-                element.append(dropdown);
+                    element.addClass('columnpicker');
+                    element.append(dropdownBtn);
 
-                dropdown.dropdown();
+                    element.on('click', function(evt) {
+                        var parentWrapper = dropdownBtn.parent().parent();
+                            
+                        evt.preventDefault();
 
-                if (e.targetScope.gridOptions) {
-                    if (Grid.gridOptions.columnDefs.length > 0) {
-                        columns = e.targetScope.gridOptions.columnDefs;
-                    }
+                        parentWrapper.after(dropdownMenu)
 
-                    for (i; i < columns.length; i += 1) {
-                        if (columns[i].field !== 'bookmark') {
-                            links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
+                        if (dropdownMenu.hasClass('l-hidden')) {
+                            dropdownMenu.removeClass('l-hidden');
+
+                            if (e.targetScope.gridOptions) {
+                                if (Grid.gridOptions.columnDefs.length > 0) {
+                                    columns = e.targetScope.gridOptions.columnDefs;
+                                }
+
+                                for (i; i < columns.length; i += 1) {
+                                    if (columns[i].field !== 'bookmark' && !columns[i].inColumnSelector) {
+                                        columns[i].inColumnSelector = true;
+                                        links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
+                                    }
+                                }
+
+                                i = 0;
+
+                                for (i; i < links.length; i += 1) {
+                                    list.append(links[i]);
+                                }
+
+                                selectorContent = $('.columnpicker__menu');
+
+                                selectorContent.append(list)
+                            }
+                        } else {
+                            dropdownMenu.addClass('l-hidden');
                         }
-                    }
-
-                    i = 0;
-
-                    for (i; i < links.length; i += 1) {
-                        list.append(links[i]);
-                    }
-
-                    selectorContent = $('.selector-content');
-
-                    selectorContent.append(list)
+                    });
                 }
             });
         }
