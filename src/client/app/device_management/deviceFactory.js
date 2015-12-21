@@ -32,10 +32,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                         {'name': $translate.instant('CONTACT.LAST_NAME'), 'field':'_embedded.contact.lastName', visible: false},
                         {'name': $translate.instant('ADDRESS.DISTRICT'), 'field':'_embedded.address.district', visible: false},
                         {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field':'_embedded.address.province', notSearchable: true, visible: false},
-                    ],
-                    brazilColumns: function() {
-                         return this.defaultSet.push({'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field':'_embedded.address.houseNumber', visible: false});
-                    }
+                    ]
                 },
                 route: '/device_management',
                 functionArray: [
