@@ -120,32 +120,34 @@
     </div>
 </div>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
+<div ng-show="device.address && device.address.id">
+    <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-deinstall-question-no"
-        name="device-deinstall-question"
-        ng-model="device.deviceDeInstallQuestion"
-        value="false"
-        data-js="customInput"
-        checked
-    />
-    <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    <div class="form__field form__field--radio form__field--no-margin">
+        <input type="radio"
+            id="device-deinstall-question-no"
+            name="device-deinstall-question"
+            ng-model="device.deviceDeInstallQuestion"
+            value="false"
+            data-js="customInput"
+            checked
+        />
+        <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    </div>
+
+    <div class="form__field form__field--radio form__field--no-margin">
+        <input type="radio"
+            id="device-deinstall-question-yes"
+            name="device-deinstall-question"
+            ng-model="device.deviceDeInstallQuestion"
+            value="true"
+            data-js="customInput"
+        />
+        <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+    </div>
+
+    <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 </div>
-
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-deinstall-question-yes"
-        name="device-deinstall-question"
-        ng-model="device.deviceDeInstallQuestion"
-        value="true"
-        data-js="customInput"
-    />
-    <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
-</div>
-
-<p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 
 <div ng-show="device.deviceDeInstallQuestion === 'true'">
     <strong translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_TO_REMOVE_FROM_LOCATION"></strong>

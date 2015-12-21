@@ -1,4 +1,4 @@
-@dark-bg: @grey8;
+@dark-bg: @grey7;
 @dark-content-bg: @white;
 @dark-color: @grey1;
 @dark-link: @white;
@@ -8,6 +8,10 @@
 
     h1, h2, p{
         color: @grey9;
+    }
+
+    .title h1{
+        color: #00ad21;
     }
 
     a{
@@ -69,6 +73,11 @@
     }
 
     .rail-nav{
+        li{
+            border-top: 1px solid @grey8;
+            border-bottom: 1px solid @grey6;
+
+        }
         .nav-item{
             background: @dark-bg;
             color: @dark-color;
@@ -78,19 +87,19 @@
         a.nav-item{
             &:hover,
             &:focus{
-                background: @grey3;
+                background: @grey5;
                 border-color: @green1;
-                color: @grey9;
+                color: @white;
             }
 
             &:active{
-                background: @grey4;
+                background: @grey8;
                 border-color: @green1;
-                color: @grey9;
+                color: @grey2;
             }
 
             &.is-active{
-                background: @green2;
+                background: @green3;
                 border-color: @green1;
                 color: @white;
             }
