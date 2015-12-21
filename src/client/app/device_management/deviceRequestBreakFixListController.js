@@ -24,8 +24,11 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
               }, function(reason){
                   NREUM.noticeError('Grid Load Failed for getting ServiceRequests ' + Devices.serviceName +  ' reason: ' + reason);
               });
-              filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', options);
-              filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+            var params =  {
+                type: 'BREAK_FIX'
+            };
+              filterSearchService.addBasicFilter('REQUEST_MGMT.SERVICE_REQUESTS', params);
+              //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
           }
         }
     ]);

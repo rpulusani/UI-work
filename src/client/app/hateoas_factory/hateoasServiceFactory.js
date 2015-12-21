@@ -345,7 +345,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         }
                     });
                 }
-
+                console.log(url += paramsUrl);
                 return url += paramsUrl;
             };
 

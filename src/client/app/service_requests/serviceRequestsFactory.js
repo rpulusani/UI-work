@@ -10,7 +10,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                     columnDefs: {
                         defaultSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()'},
+                            {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},

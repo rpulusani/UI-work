@@ -9,7 +9,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
 
             $scope.getMeterReadPriorDate = function(item){
                 if(item.updateDate){
@@ -161,23 +161,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
 
-            $scope.gridOptions = {};
-            var options =  {
-                params:{
-                    type: 'MADC_ALL'
-                }
+            var params =  {
+                type: 'MADC_ALL'
             };
-            ServiceRequest.reset();
-            ServiceRequest.getPage(0, 20, options).then(function() {
-                ServiceRequest.columns = 'madcSet';
-                Grid.display(ServiceRequest, $scope);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);
-            });
 
 
-            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', options);
-            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params);
+            //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
         }
     ]);
 });

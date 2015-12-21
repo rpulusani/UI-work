@@ -26,7 +26,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
                     $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
-            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES');
+            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'});
             //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');
             //filterSearchService.addPanelFilter('Filter By Location', 'locationFilter');
             filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');

@@ -28,12 +28,14 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.columnSet = columnSet;
                 this.personalization = personalization;
                 this.display =  function(){
+                    console.log('or here');
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
                     Grid.display(self.service, self.localScope, self.personalization);
                 };
                 this.failure = function(reason){
+                            console.log('here');
                     NREUM.noticeError('Grid Load Failed for ' + self.service.serviceName +  ' reason: ' + reason);
                 };
 
@@ -64,6 +66,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 filter = {
                     display: displayText,
                     functionDef: function(params){
+                            console.log('filterSearch', params, configuredParams);
                             var options  = {
                                 'params':{}
                             };
@@ -72,8 +75,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
 
                             angular.extend(options.params, params);
-
+                            console.log('here!!!');
                             var promise = self.service.getPage(0, 20, options);
+                            console.log('what!!!');
                             promise.then(self.display, self.failure);
                     },
                     params: self.localScope.optionParams
