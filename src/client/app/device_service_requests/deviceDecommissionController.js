@@ -95,7 +95,7 @@ define(['angular',
             $scope.getRequestor(ServiceRequest, Contacts);
 
             var updateSRObjectForSubmit = function() {
-
+                var meterReads = [];
                 if ($scope.device.lexmarkPickupDevice === 'true') {
                     $scope.sr = ServiceRequest.item;
                     $scope.sr.type = 'MADC_DECOMMISSION';
@@ -104,8 +104,20 @@ define(['angular',
                 }
 
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
-
-
+                for (var countObj in $scope.device.newCount) {
+                    var meterRead = {};
+                    meterRead.type = countObj;
+                    meterRead.value = $scope.device.newCount[countObj];
+                    meterReads.push(meterRead);
+                }
+                for (var dateObj in $scope.device.newDate) {
+                    for (var i=0; i<meterReads.length; i++) {
+                        if(meterReads[i].type && meterReads[i].type === dateObj) {
+                            meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
+                        }
+                    }
+                }           
+                ServiceRequest.addField('meterReads', meterReads);
             };
 
             function configureReviewTemplate(){

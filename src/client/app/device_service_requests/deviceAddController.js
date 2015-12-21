@@ -257,45 +257,47 @@ define(['angular',
                 $scope.configure.contact.show.primaryAction = false;
             }
 
+            var updateSRObjectForSubmit = function() {
+                if ($scope.device.deviceDeInstallQuestion === 'true') {
+                    ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
+                } else if ($scope.device.deviceInstallQuestion === 'true') {
+                    ServiceRequest.addField('type', 'MADC_INSTALL');
+                } else {
+                    ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
+                }
+                var assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.assetTag,
+                    costCenter: $scope.device.costCenter,
+                    physicalLocation1: $scope.device.physicalLocation1,
+                    physicalLocation2: $scope.device.physicalLocation2,
+                    physicalLocation3: $scope.device.physicalLocation3
+                };
+                var meterReads = [];
+                for (var countObj in $scope.device.newCount) {
+                    var meterRead = {};
+                    meterRead.type = countObj;
+                    meterRead.value = $scope.device.newCount[countObj];
+                    meterReads.push(meterRead);
+                }
+                for (var dateObj in $scope.device.newDate) {
+                    for (var i=0; i<meterReads.length; i++) {
+                        if(meterReads[i].type && meterReads[i].type === dateObj) {
+                            meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
+                        }
+                    }
+                }             
+                ServiceRequest.addField('meterReads', meterReads);
+                ServiceRequest.addField('assetInfo', assetInfo);
+                ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate)); 
+                ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+            };
+
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
-                    if ($scope.device.deviceDeInstallQuestion === 'true') {
-                        ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
-                    } else if ($scope.device.deviceInstallQuestion === 'true') {
-                        ServiceRequest.addField('type', 'MADC_INSTALL');
-                    } else {
-                        ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
-                    }
-                    var assetInfo = {
-                        ipAddress: $scope.device.ipAddress,
-                        hostName: $scope.device.hostName,
-                        assetTag: $scope.device.assetTag,
-                        costCenter: $scope.device.costCenter,
-                        physicalLocation1: $scope.device.physicalLocation1,
-                        physicalLocation2: $scope.device.physicalLocation2,
-                        physicalLocation3: $scope.device.physicalLocation3
-                    };
-                    var meterReads = [];
-                    for (var countObj in $scope.device.newCount) {
-                        var meterRead = {};
-                        meterRead.type = countObj;
-                        meterRead.value = $scope.device.newCount[countObj];
-                        meterReads.push(meterRead);
-                    }
-
-                    for (var dateObj in $scope.device.newDate) {
-                        for (var i=0; i<meterReads.length; i++) {
-                            if(meterReads[i].type && meterReads[i].type === dateObj) {
-                                meterReads[i].updateDate = $filter('date')($scope.device.newDate[dateObj], 'yyyy-MM-dd H:mm:ss');
-                            }
-                        }
-                    }
-                                      
-                    ServiceRequest.addField('meterReads', meterReads);
-                    ServiceRequest.addField('assetInfo', assetInfo);
-                    ServiceRequest.addField('requestChangeDate', $filter('date')($scope.device.deviceInstallDate, 'yyyy-MM-dd H:mm:ss')); 
-                    ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+                    updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                         HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
                             ServiceRequest.item.postURL = api.url;

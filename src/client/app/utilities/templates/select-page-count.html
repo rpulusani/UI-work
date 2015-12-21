@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in meterReads" ng-show="item.view === true && showAllMeterReads || item.type ==='Mono' || item.type === 'Color' || item.type === 'LTPC'">
+        <tr ng-repeat="item in meterReads" ng-show="item.view === true && (showAllMeterReads || item.type ==='Mono' || item.type === 'Color' || item.type === 'LTPC')">
             <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate}}" ng-bind="item.type"></td>
             <input type="hidden" ng-model="module.type" ng-bind="item.type">
             <td ng-show="updateFlag" data-label="{{'DEVICE_MGT.PRIOR_COUNT' | translate}}">
@@ -21,7 +21,8 @@
                         <div ng-bind="module.newCount[item.type]"></div>
                     </div>
                     <div ng-show="readonly === false || readonly === undefined">
-                        <input type="number" ng-model="module.newCount[item.type]"/>
+                        <input type="number" ng-model="module.newCount[item.type]" 
+                            ng-if="item.type !== 'Mono' || updateFlag === false"/>
                     </div>
                     <span ng-if="item.type === 'Mono' && updateFlag === true" ng-bind="item.value"></span>
                 </div>
@@ -32,7 +33,8 @@
                         <div ng-bind="getFormattedDate(module.newDate[item.type])"></div>
                     </div>
                     <div ng-show="readonly === false || readonly === undefined">
-                        <input datepicker type="text" ng-model="module.newDate[item.type]" date-val="module.newDate[item.type]"/>
+                        <input datepicker type="text" ng-model="module.newDate[item.type]" date-val="module.newDate[item.type]"
+                            ng-if="item.type !== 'Mono' || updateFlag === false"/>
                     </div>
                     <span ng-if="item.type === 'Mono' && updateFlag === true" ng-bind="getMeterReadPriorDate(item)"></span>
                 </div>

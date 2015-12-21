@@ -72,29 +72,25 @@ define(['angular', 'utility', 'utility.pageCountSelectService'], function(angula
                     $scope.meterReads = reorderedData.concat(tempData);
                 });
             } else {
-                $scope.meterReads = PageCountSelect.pageCountTypes.query();
-                $scope.meterReads.success(function() {
+                PageCountSelect.query(function(){
+                    $scope.meterReads = PageCountSelect.data;
                     for (var i=0 ; i<= $scope.meterReads.length; i++) {
-                        console.log('in loop', $scope.meterReads[i]);
-                    }
-                });
-                for (var i=0 ; i<= $scope.meterReads.length; i++) {
-                    console.log('in loop', $scope.meterReads[i]);
-                    if($scope.meterReads[i] && $scope.meterReads[i].type){
-                        $scope.meterReads[i].view = true;
-                        if ($scope.readonly && $scope.readonly === true) {
-                            $scope.showAllMeterReads = true;
-                            if((BlankCheck.checkNotBlank($scope.module.newCount) 
-                                && BlankCheck.checkNotBlank($scope.module.newCount[$scope.meterReads[i].type])) 
-                                || (BlankCheck.checkNotBlank($scope.module.newDate) 
-                                && BlankCheck.checkNotBlank($scope.module.newDate[$scope.meterReads[i].type]))) {
-                                $scope.meterReads[i].view = true;
-                            } else {
-                                $scope.meterReads[i].view = false;
+                        if($scope.meterReads[i] && $scope.meterReads[i].type){
+                            $scope.meterReads[i].view = true;
+                            if ($scope.readonly && $scope.readonly === true) {
+                                $scope.showAllMeterReads = true;
+                                if((BlankCheck.checkNotBlank($scope.module.newCount) 
+                                    && BlankCheck.checkNotBlank($scope.module.newCount[$scope.meterReads[i].type])) 
+                                    || (BlankCheck.checkNotBlank($scope.module.newDate) 
+                                    && BlankCheck.checkNotBlank($scope.module.newDate[$scope.meterReads[i].type]))) {
+                                    $scope.meterReads[i].view = true;
+                                } else {
+                                    $scope.meterReads[i].view = false;
+                                }
                             }
                         }
                     }
-                } 
+                });
             }
         }
     ]);
