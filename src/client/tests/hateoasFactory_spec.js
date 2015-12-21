@@ -31,7 +31,8 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                         {'name': 'email', 'field': 'email'}
                     ],
                     route: ''
-                };
+                },
+                deferred= $q.defer();
 
                 $rootScope.currentUser = fixtures.users.regular;
                 $rootScope.currentUser.deferred = $q.defer();
@@ -136,7 +137,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 });
             });
 
-            describe('get({params: {key:value}}) options check against the generalized query service' , function() {
+            describe('get() generalized query function' , function() {
                 it('passing in options.params = {key:value} should modify current parameters', function() {
                     httpBackend
                     .when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL&key=value')
@@ -152,9 +153,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     httpBackend.flush();
                     expect(mockFactory.params.key).toEqual('value');
                 });
-            });
 
-            describe('get({preventDefaultParams: true}) options check against the generalized query service' , function() {
                 it('passing in options.preventDefaultParams = true should set all current params to null so they dont attach to url. Params should reattach when call completes', function() {
                     httpBackend.when('GET', mockFactory.url).respond(fixtures.api.test.pageOne);
 
@@ -167,9 +166,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     expect(mockFactory.params.page).toEqual(0);
                 });
-            });
 
-            describe('get({url: ""}) options check against the generalized query service' , function() {
                 it('passing in options.url = "www.google.com" should make the next call with a base url of www.google.com', function() {
                     var overrideURL = 'www.google.com';
 
@@ -185,9 +182,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
-            });
 
-            describe('get({method: ""}) options check against the generalized query service' , function() {
                 it('passing in options.method = "post" should make the next call with POST', function() {
                     httpBackend.when('POST', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.itemOne);
 
@@ -200,9 +195,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
 
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                 });
-            });
 
-            describe('get({page: 1, size: 20}) options check against the generalized query service' , function() {
                 it('passing in options.page = 2 should make a call for the second page and update our params', function() {
                     mockFactory.get({
                         page: 1,
@@ -215,6 +208,26 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                     expect(mockFactory.url).toEqual('http://127.0.0.1/test');
                     expect(mockFactory.params.page).toEqual(1);
                     expect(mockFactory.params.size).toEqual(20);
+                });
+
+                it('trigging from an attached item should avoid attaching a new item and work with attached', function() {
+                    httpBackend.when('GET', mockFactory.url + '/itemTwo?accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.itemOne);
+
+                    mockFactory.setItem(fixtures.api.test.itemOne);
+
+                    mockFactory.item.links.itemTwo().then(function() {
+                        if (!mockFactory.item.item) {
+                            mockFactory.item.processed = true;
+                        }
+                    });
+
+                    rootScope.currentUser.deferred.resolve();
+                    httpBackend.flush();
+
+                    // if it were 'setup' we'd expect null
+                    expect(mockFactory.item.item).toEqual(undefined); 
+                    // confirm this wasn't a joke and get() was processed
+                    expect(mockFactory.item.processed).toEqual(true);
                 });
             });
 

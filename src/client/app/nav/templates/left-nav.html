@@ -7,7 +7,8 @@
             </a>
             <ul class="sub-nav" ng-if="getItemsByTag(item.id).length > 0">
                 <li ng-repeat="child in getItemsByTag(item.id)">
-                    <a class="nav-item" href="{{child.action}}" title="{{child.description}}" ng-class="{'is-active': child.isActive()}">
+                    <a class="nav-item" href="{{child.action}}" title="{{child.description}}"
+                    ng-class="{'is-active': child.isActive()}" ng-click="setActive(child.text)">
                         <span class="item-icon {{child.icon}}" ng-if="child.icon != ''"></span>
                         <span translate="{{child.text}}"></span>
                     </a>
