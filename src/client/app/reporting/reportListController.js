@@ -66,6 +66,10 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                         break;
                     /* Missing Meter Reads */
                     case 'mp0075':
+                        params = {
+                            meterSource: Reports.finder ? Reports.finder.mmrType : '',
+                            numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
+                        };
                         break;
                     /* Consumables Orders */
                     case 'mp0021':
@@ -87,6 +91,10 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                         break;
                     /* Hardware Installation Requests */
                     case 'hw0015':
+                        params = {
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.hwDateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.hwDateTo, 'yyyy-MM-dd') : ''
+                        };
                         break;
                     /* Service Detail Report */
                     case 'sd0101':
