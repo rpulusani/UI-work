@@ -181,6 +181,7 @@
         "BUILDING_NAME": "Building",
         "FLOOR_NAME": "Floor",
         "SITE_NAME": "Office",
+        "HOUSE_NUMBER": "House Number",
         "IS_STORE_FRONT": "Will this address be a store-front?",
         "ADDRESS_LOCATION": "What is the location of this address?",
         "USER_ENTERED": "You entered...",
