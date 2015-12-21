@@ -17,6 +17,7 @@ define(['angular',
         'BlankCheck',
         'DeviceServiceRequest',
         'Contacts',
+        'MeterReadService',
         'SRControllerHelperService',
         function($scope,
             $rootScope,
@@ -30,6 +31,7 @@ define(['angular',
             BlankCheck,
             DeviceServiceRequest,
             Contacts,
+            MeterReads,
             SRHelper) {
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
@@ -57,6 +59,8 @@ define(['angular',
             }else {
 
                 $scope.device = Devices.item;
+                //$scope.meterReads = [];
+                
 
                 if (!BlankCheck.isNull(Devices.item['address'])) {
                     $scope.device.installAddress = $scope.device['address']['item'];
@@ -154,6 +158,7 @@ define(['angular',
                                 pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
                                 pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
                             },
+                            source: 'decommission'
                         },
                         information:{
                             translate: {

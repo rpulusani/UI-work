@@ -88,7 +88,8 @@ define(['angular', 'utility'], function(angular) {
             scope: {
                 module: '=',
                 readonly: '=',
-                source: '='
+                source: '@',
+                meterReadsList: '='
             },
             templateUrl: '/app/utilities/templates/select-page-count.html',
             controller: 'PageCountSelectController'

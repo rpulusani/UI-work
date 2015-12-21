@@ -170,7 +170,8 @@ define(['angular',
                         pageCount:{
                             translate: {
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
-                            }
+                            },
+                            source: 'add'
                         }
                     },
                     detail: {
