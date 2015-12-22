@@ -579,7 +579,12 @@
         "IB_DEINSTALL_BRAND": "IB Deinstall Brand",
         "IB_DEINSTALL_PRODUCT_NUMBER": "IB Deinstall Product Number",
         "IB_DEINSTALL_MODEL": "IB Deinstall Model",
-        "IB_DEINSTALL_REMOVAL_DATE": "IB Deinstall Removal Date"
+        "IB_DEINSTALL_REMOVAL_DATE": "IB Deinstall Removal Date",
+        "DEVICE_DESCRIPTION": "Device Description",
+        "ASSET_NUMBER": "Asset Number",
+        "ASSET_IP": "Asset IP",
+        "PAGES_BILLED_MONO": "Pages Billed Mono",
+        "PAGES_BILLED_COLOR": "Pages Billed Color"
     },
 
     "INVOICE": {

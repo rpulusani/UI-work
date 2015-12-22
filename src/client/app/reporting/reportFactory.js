@@ -213,7 +213,32 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.WHITE_GLOVE'), 'field': 'whiteGlove', minWidth: 150}
                     ],
                     /* Pages Billed */
-                    pb0001: [],
+                    pb0001: [
+                        {'name': $translate.instant('REPORTING.ACCOUNT'), 'field': 'account', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field': 'serialNum', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.MODEL'), 'field': 'model', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.PHYSICAL_LOC_1'), 'field': 'phyLoc1', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.PHYSICAL_LOC_2'), 'field': 'phyLoc2', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.PHYSICAL_LOC_3'), 'field': 'phyLoc3', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.DEVICE_DESCRIPTION'), 'field': 'deviceDesc', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ASSET_NUMBER'), 'field': 'assetNum', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.INSTALL_ADDRESS_LINE_1'), 'field': 'installAddressLn1', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.INSTALL_ADDRESS_LINE_2'), 'field': 'installAddressLn2', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.INSTALL_CITY'), 'field': 'installCity', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.STATE'), 'field': 'installState', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ZIPCODE'), 'field': 'installZipcode', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.INSTALL_DATE'), 'field': 'installDate', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.MANUFACTURER'), 'field': 'manufacturer', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ASSET_IP'), 'field': 'assetIp', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ASSET_TAG'), 'field': 'assetTag', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.AGREEMENT'), 'field': 'agreement', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.PAGES_BILLED_MONO'), 'field': 'pagesBilledMono', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.PAGES_BILLED_COLOR'), 'field': 'pagesBilledColor', minWidth: 150}
+                    ],
                     /* Hardware Installation Requests */
                     hw0015: [
                         {'name': $translate.instant('REPORTING.ACTIVITY_NUMBER'), 'field': 'activityNum', minWidth: 150},
@@ -240,7 +265,7 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.PRODUCT_GROUP'), 'field': 'productGroup', minWidth: 150},
                         {'name': $translate.instant('REPORTING.QUANTITY'), 'field': 'quantity', minWidth: 150},
                         {'name': $translate.instant('REPORTING.USED_QUANTITY'), 'field': 'usedQty', minWidth: 150},
-                        {'name': $translate.instant('REPORTING.DOA_QUANTITY'), 'field': 'doaQQty', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.DOA_QUANTITY'), 'field': 'doaQty', minWidth: 150},
                         {'name': $translate.instant('REPORTING.OB_PHYSICAL_LOC_1'), 'field': 'obPhysicalLoc1', minWidth: 210},
                         {'name': $translate.instant('REPORTING.OB_PHYSICAL_LOC_2'), 'field': 'obPhysicalLoc2', minWidth: 210},
                         {'name': $translate.instant('REPORTING.OB_PHYSICAL_LOC_3'), 'field': 'obPhysicalLoc3', minWidth: 210},
@@ -276,8 +301,8 @@ define(['angular', 'report'], function(angular) {
                 },    
                 route: '/reporting',
                 finder: {
-                    eventDateFrom: '',
-                    eventDateTo: '',
+                    dateFrom: '',
+                    dateTo: '',
                     eventType: '',
                     eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}],
                     orderDateFrom: '',

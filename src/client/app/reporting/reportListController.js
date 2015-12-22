@@ -60,8 +60,8 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     case 'mp9073':
                         params = {
                             eventType: Reports.finder ? Reports.finder.eventType : '',
-                            eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.eventDateFrom, 'yyyy-MM-dd') : '',
-                            eventDateTo: Reports.finder ? $filter('date')(Reports.finder.eventDateTo, 'yyyy-MM-dd') : ''
+                            eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            eventDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Missing Meter Reads */
@@ -75,25 +75,29 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     case 'mp0021':
                         params = {
                             orderType: Reports.finder ? Reports.finder.orderType : '',
-                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.orderDateFrom, 'yyyy-MM-dd') : '',
-                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.orderDateTo, 'yyyy-MM-dd') : ''
+                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Hardware Orders */
                     case 'hw0008':
                         params = {
-                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.orderDateFrom, 'yyyy-MM-dd') : '',
-                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.orderDateTo, 'yyyy-MM-dd') : ''
+                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Pages Billed */
                     case 'pb0001':
+                        params = {
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
+                        };
                         break;
                     /* Hardware Installation Requests */
                     case 'hw0015':
                         params = {
-                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.hwDateFrom, 'yyyy-MM-dd') : '',
-                            dateTo: Reports.finder ? $filter('date')(Reports.finder.hwDateTo, 'yyyy-MM-dd') : ''
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Service Detail Report */
