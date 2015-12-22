@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-1">
                     <div class="form__field form__field--select">
-                        <label translate="REPORTING.EVENT_TYPE"></label>
-                        <div selectric model="finder.eventType" options="finder.eventTypes" label="value" value="value"
+                        <label translate="REPORTING.METER_SOURCE"></label>
+                        <div selectric model="finder.mmrType" options="finder.mmrTypes" label="value" value="value"
                             placeholder="{{'LABEL.SELECT' | translate}}">
                         </div>
                     </div>
@@ -15,17 +15,10 @@
             <div class="row row--alley-thick">
                 <div class="col-1-2">
                     <div class="form__field">
-                        <label translate="REPORTING.DATE_FROM"></label>
+                        <label translate="REPORTING.ACTIVITY_CREATED_DATE"></label>
                         <input type="text" ng-model="finder.dateFrom" date-val="finder.dateFrom" datepicker />
                     </div>
                  </div>
-
-                <div class="col-1-2">
-                     <div class="form__field">
-                        <label translate="REPORTING.DATE_TO"></label>
-                        <input type="text" ng-model="finder.dateTo" date-val="finder.dateTo" datepicker />
-                    </div>
-               </div>
             </div>
 
             <div class="row">
