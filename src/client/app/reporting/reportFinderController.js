@@ -15,7 +15,7 @@ define(['angular', 'report'], function(angular) {
 
                 Reports.setItem(report);
 
-                $location.path(Reports.route + '/results');
+                $location.path(Reports.route + '/' + $scope.report.id + '/results');
             };
 
         }
