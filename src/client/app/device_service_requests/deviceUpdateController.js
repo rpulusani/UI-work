@@ -87,7 +87,6 @@ define(['angular',
                 Devices.item = $scope.device;
             } else {
                 $scope.device = Devices.item;
-
                 if (!BlankCheck.isNull($scope.device.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                     $scope.device.currentInstalledAddress = $scope.device.address.item;
                     $scope.setupPhysicalLocations($scope.device.currentInstalledAddress, 

@@ -113,7 +113,14 @@ define(['angular',
 
                     ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
                     $scope.device.selectedDevice = $rootScope.selectedDevice;
-                    
+                    if ($scope.device.selectedDevice.partNumber) {      
+                        ImageService.getPartMediumImageUrl($scope.device.selectedDevice.partNumber).then(function(url){        
+                            $scope.device.selectedDevice.medImage = url;       
+                        }, function(reason){       
+                             NREUM.noticeError('Image url was not found reason: ' + reason);       
+                        });        
+                    }
+
                     Devices.setItem($scope.device.selectedDevice);
                     var options = {
                         params:{
@@ -132,8 +139,6 @@ define(['angular',
                 $scope.device.address = {};
                 $scope.device.selectedDevice = {};
                 $scope.device.lexmarkDeviceQuestion = 'true';
-                /* Remove this varibale after real call and getting the list of products
-                   based on serial number */
                 $scope.productNumbers = [];
                 if ($rootScope.newDevice) {
                     $scope.device = $rootScope.newDevice;
