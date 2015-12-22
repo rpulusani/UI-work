@@ -9,8 +9,8 @@ define(['angular', 'report'], function(angular) {
 
             $scope.runReport = function(report) {
                 Reports.finder = $scope.finder;
-                if (Reports.finder.eventType === $translate.instant('LABEL.SELECT')) {
-                    Reports.finder.eventType = '';
+                if (Reports.finder.selectType === $translate.instant('LABEL.SELECT')) {
+                    Reports.finder.selectType = '';
                 }
 
                 Reports.setItem(report);

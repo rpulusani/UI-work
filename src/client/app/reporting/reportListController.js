@@ -59,7 +59,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     /* MADC */
                     case 'mp9073':
                         params = {
-                            eventType: Reports.finder ? Reports.finder.eventType : '',
+                            eventType: Reports.finder ? Reports.finder.selectType : '',
                             eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                             eventDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
@@ -67,14 +67,14 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     /* Missing Meter Reads */
                     case 'mp0075':
                         params = {
-                            meterSource: Reports.finder ? Reports.finder.mmrType : '',
+                            meterSource: Reports.finder ? Reports.finder.selectType : '',
                             numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
                         };
                         break;
                     /* Consumables Orders */
                     case 'mp0021':
                         params = {
-                            orderType: Reports.finder ? Reports.finder.orderType : '',
+                            orderType: Reports.finder ? Reports.finder.selectType : '',
                             orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                             orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };

@@ -303,19 +303,11 @@ define(['angular', 'report'], function(angular) {
                 finder: {
                     dateFrom: '',
                     dateTo: '',
-                    eventType: '',
+                    selectType: '',
                     eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}],
-                    orderDateFrom: '',
-                    orderDateTo: '',
-                    orderType: '',
                     orderTypes: [{value: 'Consumable Supplies'}, {value: 'Consumable SVC Parts'}, {value: 'Consumable SVC Parts & Install'}],
-                    mmrDateFrom: '',
-                    mmrDateTo: '',
                     mmrDays: '60',
-                    mmrType: '',
                     mmrTypes: [{value: 'Manual'}, {value: 'Automated Electronic'}],
-                    hwDateFrom: '',
-                    hwDateTo: ''
                 }
             };
 
