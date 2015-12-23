@@ -11,8 +11,24 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             Device,
             SecurityService,
             permissionSet) {
-            $scope.security = SecurityService;
-            $scope.permissions = permissionSet;
+            $scope.security = new SecurityService();
+            $scope.pageCountAccess = false;
+            $scope.serviceHistoryAccess = false;
+            $scope.openOrderAccess = false;
+            $scope.deviceInfoAccess = false;
+            $scope.security.isAllowed(permissionSet.deviceManagement.updatePageCount).then(function(passed){
+                $scope.pageCountAccess  = passed;
+            });
+            $scope.security.isAllowed(permissionSet.deviceManagement.viewSRHistory).then(function(passed){
+                $scope.serviceHistoryAccess = passed;
+            });
+            $scope.security.isAllowed(permissionSet.deviceManagement.viewOpenOrders).then(function(passed){
+                $scope.openOrderAccess = passed;
+            });
+            $scope.security.isAllowed(permissionSet.deviceManagement.view).then(function(passed){
+                $scope.deviceInfoAccess = passed;
+            });
+
             $scope.goToReview = function(device) {
                 $location.path('/device_management/' + device.id + '/review');
             };

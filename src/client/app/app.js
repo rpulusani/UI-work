@@ -211,8 +211,8 @@ define([
         GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService',
-    function(Gatekeeper, $rootScope, $cookies, $q, UserService) {
+    .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService',
+    function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService) {
 
         Gatekeeper.login({organization_id: '3'});
 
@@ -220,6 +220,7 @@ define([
         $rootScope.currentUser = {
             deferred: $q.defer()
         };
+        new SecurityService();
         $rootScope.idpUser.$promise.then(function(){
             angular.element(document.getElementsByTagName('body')).attr('style','');
             var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
