@@ -345,6 +345,11 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 var report;
 
                  for (var i = 0; i < $scope.reports.length; i++) {
+
+                    if ($scope.reports[i].id === 'sd0101' || $scope.reports[i].id === 'hw0015') {
+                        return;
+                    }
+
                     report = Reports.createItem($scope.reports[i]);
 
                     report.stats.params.page = null;
