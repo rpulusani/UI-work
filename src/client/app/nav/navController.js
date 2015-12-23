@@ -15,6 +15,17 @@ define([
                 return Nav.getItemsByTag(tag);
             };
 
+            $scope.setActive = function(item){
+                $scope.activeItem = item;
+            };
+
+            $scope.isInitial = function(item){
+                if(!item){
+                    return undefined;
+                }
+                return($location.path() === item.action);
+            };
+
             if($scope.items.length === 0){
                 Nav.query(function(){
                     $scope.items = Nav.items;

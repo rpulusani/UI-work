@@ -1,7 +1,7 @@
 <nav class="rail-nav">
     <ul>
         <li ng-repeat="item in getItemsByTag('primary')">
-            <a class="nav-item" href="{{item.action}}" title="{{item.description}}" ng-class="{'is-active': item.isActive()}">
+            <a class="nav-item" href="{{item.action}}" title="{{item.description}}" ng-click="setActive(item)"  ng-class="{'is-active' : activeItem === item, 'is-initial' : isInitial(item) }">
                 <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
                 <span translate="{{item.text}}"></span>
             </a>

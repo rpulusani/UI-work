@@ -20,17 +20,6 @@ define([
                 self.icon = item.icon;
                 self.target = item.target;
                 self.tags = item.tags;
-                self.isActive = function(){
-                    var currentPath = $location.path();
-                    var selfActionLength = self.action.length;
-                    if($location.path() === self.action){
-                        return true;
-                    }else if(currentPath.substring(0, selfActionLength) === self.action && selfActionLength > 1){
-                        console.log("self.action length is " + selfActionLength);
-                        return true;
-                    }
-                    
-                };
             };
 
             return new Item();

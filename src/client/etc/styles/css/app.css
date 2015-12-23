@@ -612,7 +612,8 @@ textarea {
   border-color: #3af23a;
   color: #e6e6f0;
 }
-.theme--dark .rail-nav a.nav-item.is-active {
+.theme--dark .rail-nav a.nav-item.is-active,
+.theme--dark .rail-nav a.nav-item.is-initial {
   background: #00ad21;
   border-color: #3af23a;
   color: #ffffff;

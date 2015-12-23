@@ -3,14 +3,16 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
         describe('Nav Module', function() {
             var scope,
             httpBackend,
+            location,
             mockCtrl,
             mockNavFactory;
 
             beforeEach(module('mps'));
 
-            beforeEach(inject(function($rootScope, $httpBackend, $controller, Nav) {
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Nav) {
                 scope = $rootScope.$new();
                 httpBackend = $httpBackend;
+                location = $location;
                 mockNavFactory = Nav;
                 mockCtrl = $controller('NavController', {$scope: scope});
 
@@ -28,6 +30,13 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     "description": "Some description of this link",
                     "icon": "icon icon--lxk-ui icon--error",
                     "tags":["device"]
+                }, {
+                    "id": "3",
+                    "action": "/device_management",
+                    "text": "DEVICE_MGT.TITLE",
+                    "description": "Some description of this link",
+                    "icon": "icon icon--lxk-ui icon--error",
+                    "tags":["primary"]
                 }];
 
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
@@ -51,7 +60,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
 
                     expect(mockNavFactory.query).toHaveBeenCalled();
                     expect(mockNavFactory.items).toBeDefined();
-                    expect(mockNavFactory.items.length).toBe(2);
+                    expect(mockNavFactory.items.length).toBe(3);
                     expect(mockNavFactory.items[0].id).toBe('1');
                 });
 
@@ -65,7 +74,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     httpBackend.flush();
 
                     expect(mockNavFactory.getItemsByTag).toHaveBeenCalled();
-                    expect(mockNavFactory.items.length).toBe(2);
+                    expect(mockNavFactory.items.length).toBe(3);
                     expect(tags.length).toBe(1);
                     expect(tags[0].id).toBe('2');
                 });
@@ -99,6 +108,34 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                     expect(items[0].tags[0]).toBe('device');
                  });
             });
+
+            it('setActive() - set active item when item is passed in', function(){
+                    spyOn(scope, 'setActive').and.callThrough();
+
+                    var activeItem;
+                    var item = scope.item;
+                    var testActive = scope.setActive(item);
+
+
+                    expect(scope.setActive).toHaveBeenCalled();
+                    expect(activeItem).toBe(item);
+                });
+
+            it('isInitial() - set initial item as active if it matches location path', function(){
+                    mockNavFactory.items = scope.items;
+
+                    spyOn(scope, 'isInitial').and.callThrough();
+                    spyOn(location, 'path').and.returnValue('/device_management');
+
+                    var items = scope.getItemsByTag("primary");
+                    var item = items[1];
+                    var testInitial = scope.isInitial(item);
+
+
+                    expect(scope.isInitial).toHaveBeenCalled();
+                    expect(items[1].action).toBe('/device_management');
+                    expect(location.path === items[1].action);
+                });
         });
     }
 );
