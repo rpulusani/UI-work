@@ -400,26 +400,22 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     }
             };
 
-            $scope.finder = Reports.finder;
-            $scope.reports = Reports.data;
-            $scope.report = Reports.item;
-
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 
-           if (!$scope.reports.length) {
-                Reports.getPage().then(function() {
-                    $scope.reports = Reports.data;
-                    buildCharts();
+            Reports.getPage().then(function() {
+                $scope.finder = Reports.finder;
+                $scope.reports = Reports.data;
+                $scope.report = Reports.item;
 
-                    Grid.display(Reports, $scope, personal);
-                }, function(reason) {
-                    NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
-                });
-            } else {
                 buildCharts();
-            }
+
+                Grid.display(Reports, $scope, personal);
+
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
+            });
 
             $scope.goToFinder = function(report) {
                 Reports.setItem(report);
