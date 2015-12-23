@@ -87,6 +87,12 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         position: 'none'
                     }
                 };
+                $scope.chartOptions.columnChartOptions = {
+                    backgroundColor: '#eff0f6',
+                    fontName: 'tpHero',
+                    title: '',
+                    titlePosition: 'none'
+                };
             };
 
             configureTemplates();
@@ -117,6 +123,47 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         ]}
                     ]};
             };
+
+            var buildMADCChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.mADC = {};
+                $scope.chartObject.mADC.type = "ColumnChart";
+                $scope.chartObject.mADC.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.mADC.dataPoint = 1;
+
+                $scope.chartObject.mADC.data = {
+                    "cols": [
+                        {id: "t", label: "MADC", type: "string"},
+                        {id: "s", label: "Month", type: "number" }
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.moves) },
+                            {v: d.moves }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.additions) },
+                            {v: d.additions }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.ipChanges) },
+                            {v: d.ipChanges }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.decommissions) },
+                            {v: d.decommissions }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.swaps) },
+                            {v: d.swaps }
+                        ]}
+                    ]};
+                };
 
             var buildMissingMeterReadsChart = function(data) {
                 var d = {};
@@ -282,6 +329,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                             break;
                                         /* MADC */
                                         case 'mp9073':
+                                            buildMADCChart(report.stats.data[0]);
                                             break;
                                         /* Missing Meter Reads */
                                         case 'mp0075':

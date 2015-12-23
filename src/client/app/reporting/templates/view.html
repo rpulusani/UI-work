@@ -59,7 +59,8 @@
                 <a href="#" ng-click="goToFinderById('mp9073')" translate="{{ configure.report.charts.translate.madcEvents }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/madc_events.svg" />
+                <p class="text--align-center" ng-if="chartObject.mADC.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                <div google-chart chart="{{ chartObject.mADC }}"></div>
             </div>
         </div>
         <div class="col-1-3">
