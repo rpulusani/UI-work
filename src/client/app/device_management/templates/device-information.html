@@ -21,7 +21,8 @@
 <h2 class="vertical-space--none" translate="DEVICE_MGT.DEVICE_INFO"></h2>
 <div class="clearfix">
     <span translate="DEVICE_MGT.LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span>
-    <a href="" class="push call-to-action call-to-action--after" ng-click="goToUpdate(device);" translate="LABEL.UPDATE_LINK"></a>
+    <a href="" class="push call-to-action call-to-action--after" ng-click="goToUpdate(device);"
+        translate="LABEL.UPDATE_LINK" ng-if="updateDeviceAccess"></a>
 </div>
 
 <hr />
@@ -96,10 +97,11 @@
         </ul>
     </div>
 </div>
-
+<span ng-if="srHistoryAccess">
 <h2 class="vertical-space--none" translate="DEVICE_SERVICE_REQUEST.CHANGE_HISTORY"></h2>
 
 <hr />
 <div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
 <span ng-if="!gridOptions.data || gridOptions.data.length === 0" translate="LABEL.ZERO_RECORDS"></span>
 <div pagination grid="{{gridOptions}}"></div>
+</span>

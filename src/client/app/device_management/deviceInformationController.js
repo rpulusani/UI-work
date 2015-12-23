@@ -47,6 +47,10 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 {
                     name: 'controlPanelAccess',
                     permission: permissionSet.deviceManagement.controlPanel
+                },
+                {
+                    name:'updateDeviceAccess',
+                    permission: permissionSet.serviceRequestManagement.changeMADC
                 }
             ];
 
