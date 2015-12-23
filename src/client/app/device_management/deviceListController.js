@@ -1,12 +1,45 @@
 define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceListController', ['$scope', '$location', 'grid', 'Devices', '$rootScope',
+    .controller('DeviceListController', [
+        '$scope',
+        '$location',
+        'grid',
+        'Devices',
+        '$rootScope',
         'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Devices, $rootScope, Personalize) {
+        'SecurityHelper',
+        'permissionSet',
+        function(
+            $scope,
+            $location,
+            Grid,
+            Devices,
+            $rootScope,
+            Personalize,
+            SecurityHelper,
+            permissionSet) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+
+
+            var configurePermissions = [
+                {
+                    name: 'pageCountAccess',
+                    permission: permissionSet.deviceManagement.updatePageCount
+                },
+                {
+                    name: 'addDevice',
+                    permission: permissionSet.serviceRequestManagement.addMADC
+                },
+                {
+                    name: 'searchDevice',
+                    permission: permissionSet.deviceManagement.search
+                }
+            ];
+
+            new SecurityHelper($scope).setupPermissionList(configurePermissions);
 
             $scope.goToCreate = function() {
                 Devices.item = {};

@@ -162,6 +162,7 @@ requirejs.config({
 
         'security': 'app/security/security',
         'security.securityService': 'app/security/securityService',
+        'security.securityHelper': 'app/security/securityHelper',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',

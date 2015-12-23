@@ -1,36 +1,36 @@
 <div class="set" data-js="set">
 	<div class="set__trigger" data-toggle="deviceInfoTab" ng-click="onClickTb('deviceInfoTab')"
-		ng-if="deviceInfoAccess">
+		ng-show="deviceInfoAccess">
 		<a href="#deviceInfoTab" translate="DEVICE_MGT.OVERVIEW"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="deviceInfoTab"
-		ng-if="deviceInfoAccess">
+		ng-show="deviceInfoAccess">
 		<div device-information ng-if="isActive('deviceInfoTab');"></div>
 	</div>
 	<div class="set__trigger" data-toggle="orderTab" ng-click="onClickTb('orderTab')"
-		ng-if="openOrderAccess">
+		ng-show="openOrderAccess">
 		<a href="#orderTab" translate="DEVICE_MGT.SUPPLY_ORDERS"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="orderTab"
-		ng-if="openOrderAccess">
+		ng-show="openOrderAccess">
 		<div order-list ng-if="isActive('orderTab');"></div>
 	</div>
 
 	<div class="set__trigger" data-toggle="requestTab" ng-click="onClickTb('requestTab')"
-	 	ng-if="serviceHistoryAccess">
+	 	ng-show="serviceHistoryAccess">
 		<a href="#requestTab" translate="DEVICE_MGT.SERVICE_HISTORY"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="requestTab"
-		ng-if="serviceHistoryAccess">
+		ng-show="serviceHistoryAccess">
 		<div request-break-fix-list ng-if="isActive('requestTab');"></div>
 	</div>
 
 	<div class="set__trigger" data-toggle="pageCountTab" ng-click="onClickTb('pageCountTab')"
-		ng-if="pageCountAccess">
+		ng-show="pageCountAccess">
 		<a href="#pageCountTab" translate="DEVICE_MGT.PAGE_COUNTS"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="pageCountTab"
-		ng-if="pageCountAccess">
+		ng-show="pageCountAccess">
 		<div device-page-count ng-if="isActive('pageCountTab');"></div>
 	</div>
 </div>

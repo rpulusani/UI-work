@@ -8,8 +8,9 @@ define(['angular', 'security'], function(angular) {
             $rootScope,
             $q
             ) {
-            var workingPermissionSet = {},
+            var workingPermissionSet,
             SecurityService = function() {
+                workingPermissionSet = {};
                 workingPermissionSet.deferred = $q.defer();
                 var workingPermissionSetPromise = getUser();
                  workingPermissionSetPromise.then(function(){
@@ -71,9 +72,7 @@ define(['angular', 'security'], function(angular) {
                 });
                 return workingPermissionSetPromise.promise;
             }
-            function clearLocalPermisionSet (){
-                workingPermissionSet = undefined;
-            }
+
             function getPermissions(currentUser){
                 var permissions = $q.defer(),
                 options = {

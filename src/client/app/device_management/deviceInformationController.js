@@ -1,9 +1,57 @@
 define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.imageService', 'utility.grid', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'imageService',
-        'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, ImageService, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
+    .controller('DeviceInformationController', [
+        '$scope',
+        '$location',
+        '$routeParams',
+        'BlankCheck',
+        'Devices',
+        'imageService',
+        'DeviceServiceRequest',
+        'FormatterService',
+        'MeterReadService',
+        'grid',
+        'ServiceRequestService',
+        'SecurityHelper',
+        'permissionSet',
+        function(
+            $scope,
+            $location,
+            $routeParams,
+            BlankCheck,
+            Devices,
+            ImageService,
+            DeviceServiceRequest,
+            FormatterService,
+            MeterReads,
+            Grid,
+            ServiceRequest,
+            SecurityHelper,
+            permissionSet
+            ) {
+
+            var configurePermissions = [
+                {
+                    name: 'decommissionAccess',
+                    permission: permissionSet.serviceRequestManagement.decommissionMADC
+                },
+                {
+                    name: 'createBreakFixAccess',
+                    permission: permissionSet.serviceRequestManagement.createBreakFix
+                },
+                {
+                    name: 'srHistoryAccess',
+                    permission: permissionSet.deviceManagement.viewSRHistory
+                },
+                {
+                    name: 'controlPanelAccess',
+                    permission: permissionSet.deviceManagement.controlPanel
+                }
+            ];
+
+            new SecurityHelper($scope).setupPermissionList(configurePermissions);
+
             var redirect_to_list = function() {
                $location.path(Devices.route + '/');
             };
@@ -118,7 +166,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 }, function(reason){
                      NREUM.noticeError('Image url was not found reason: ' + reason);
                   });
-                
+
                 });
 
                 if (!BlankCheck.isNull($scope.device['address'])) {

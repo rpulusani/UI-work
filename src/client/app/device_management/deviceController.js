@@ -4,30 +4,34 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
     .controller('DeviceController', ['$scope',
         '$location',
         'Devices',
-        'SecurityService',
+        'SecurityHelper',
         'permissionSet',
         function($scope,
             $location,
             Device,
-            SecurityService,
+            SecurityHelper,
             permissionSet) {
-            $scope.security = new SecurityService();
-            $scope.pageCountAccess = false;
-            $scope.serviceHistoryAccess = false;
-            $scope.openOrderAccess = false;
-            $scope.deviceInfoAccess = false;
-            $scope.security.isAllowed(permissionSet.deviceManagement.updatePageCount).then(function(passed){
-                $scope.pageCountAccess  = passed;
-            });
-            $scope.security.isAllowed(permissionSet.deviceManagement.viewSRHistory).then(function(passed){
-                $scope.serviceHistoryAccess = passed;
-            });
-            $scope.security.isAllowed(permissionSet.deviceManagement.viewOpenOrders).then(function(passed){
-                $scope.openOrderAccess = passed;
-            });
-            $scope.security.isAllowed(permissionSet.deviceManagement.view).then(function(passed){
-                $scope.deviceInfoAccess = passed;
-            });
+
+            var configurePermissions = [
+                {
+                    name: 'deviceInfoAccess',
+                    permission: permissionSet.deviceManagement.view
+                },
+                {
+                    name: 'pageCountAccess',
+                    permission: permissionSet.deviceManagement.updatePageCount
+                },
+                {
+                    name: 'serviceHistoryAccess',
+                    permission: permissionSet.serviceRequestManagement.viewBreakFix
+                },
+                {
+                    name: 'openOrderAccess',
+                    permission: permissionSet.deviceManagement.viewOpenOrders
+                }
+            ];
+
+            new SecurityHelper($scope).setupPermissionList(configurePermissions);
 
             $scope.goToReview = function(device) {
                 $location.path('/device_management/' + device.id + '/review');

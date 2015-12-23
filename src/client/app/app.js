@@ -68,7 +68,8 @@ define([
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController',
     'security',
-    'security.securityService'
+    'security.securityService',
+    'security.securityHelper'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
