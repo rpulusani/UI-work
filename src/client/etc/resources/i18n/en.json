@@ -585,7 +585,9 @@
         "ASSET_NUMBER": "Asset Number",
         "ASSET_IP": "Asset IP",
         "PAGES_BILLED_MONO": "Pages Billed Mono",
-        "PAGES_BILLED_COLOR": "Pages Billed Color"
+        "PAGES_BILLED_COLOR": "Pages Billed Color",
+        "MONO": "Mono",
+        "COLOR": "Color"
     },
 
     "INVOICE": {

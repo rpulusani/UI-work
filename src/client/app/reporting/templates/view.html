@@ -132,7 +132,8 @@
                 <a href="#" ng-click="goToFinderById('pb0001')" translate="{{ configure.report.charts.translate.billedPages }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/billed_pages.svg" />
+                <p class="text--align-center" ng-if="chartObject.pagesBilled.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                <div google-chart chart="{{ chartObject.pagesBilled }}"></div>
             </div>
         </div>
     </div>

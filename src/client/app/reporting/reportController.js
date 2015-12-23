@@ -52,7 +52,9 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                 hardwareOrdersOpen: 'LABEL.OPEN',
                                 hardwareOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
                                 billedPagesColor: 'REPORTING.COLOR_PAGES_COUNT',
-                                billedPagesMono: 'REPORTING.MONO_PAGES_COUNT'
+                                billedPagesMono: 'REPORTING.MONO_PAGES_COUNT',
+                                pagesBilledColor: 'REPORTING.COLOR',
+                                pagesBilledMono: 'REPORTING.MONO',
                             },
                         },
                         grids: {
@@ -307,6 +309,38 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     ]};
             };
 
+            var buildPagesBilledChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.pagesBilled = {};
+                $scope.chartObject.pagesBilled.type = "PieChart";
+                $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
+                $scope.chartObject.pagesBilled.options.pieHole = 0.4;
+                $scope.chartObject.pagesBilled.dataPoint = 1; 
+
+                $scope.chartObject.pagesBilled.data = {
+                    "cols": [
+                        {id: "t", label: "Pages Billed", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledMono) },
+                            {v: d.pagesBilledMono }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledColor) },
+                            {v: d.pagesBilledColor }
+                        ]}
+                    ]};
+
+            };
+
             var buildCharts = function() {
                 var report;
 
@@ -345,6 +379,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                             break;
                                         /* Pages Billed */
                                         case 'pb0001':
+                                            buildPagesBilledChart(report.stats.data[0]);
                                             break;
                                         /* Hardware Installation Requests */
                                         case 'hw0015':
