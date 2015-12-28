@@ -8,7 +8,8 @@ define(['angular'], function(angular) {
         })
         .when('/device_management/:id/review', {
             templateUrl: '/app/device_management/templates/review.html',
-            controller: 'DeviceInformationController'
+            controller: 'DeviceInformationController',
+            activeItem: '/device_management'
         })
         .when('/device_management/:id/page_count', {
             templateUrl: '/app/device_management/templates/device-page-count.html',
