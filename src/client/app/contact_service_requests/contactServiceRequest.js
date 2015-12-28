@@ -8,19 +8,23 @@ define(['angular'], function(angular) {
         })
         .when('/service_requests/contacts/:id/delete', {
             templateUrl: '/app/contact_service_requests/templates/delete.html',
-            controller: 'ContactController'
+            controller: 'ContactController',
+            activeItem: '/service_requests/contacts'
         })
         .when('/service_requests/contacts/new', {
             templateUrl: '/app/contact_service_requests/templates/new.html',
-            controller: 'ContactController'
+            controller: 'ContactController',
+            activeItem: '/service_requests/contacts'
         })
         .when('/service_requests/contacts/:id/update', {
             templateUrl: '/app/contact_service_requests/templates/update.html',
-            controller: 'ContactController'
+            controller: 'ContactController',
+            activeItem: '/service_requests/contacts'
         })
         .when('/service_requests/contacts/:id/review', {
             templateUrl: '/app/contact_service_requests/templates/review.html',
-            controller: 'ContactController'
+            controller: 'ContactController',
+            activeItem: '/service_requests/contacts'
         });
     }]);
 });

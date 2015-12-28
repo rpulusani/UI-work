@@ -9,10 +9,11 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
 
             beforeEach(module('mps'));
 
-            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Nav) {
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, $route, Nav) {
                 scope = $rootScope.$new();
                 httpBackend = $httpBackend;
                 location = $location;
+                scope.route = $route;
                 mockNavFactory = Nav;
                 mockCtrl = $controller('NavController', {$scope: scope});
 
@@ -109,30 +110,18 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                  });
             });
 
-            it('setActive() - set active item when item is passed in', function(){
-                    spyOn(scope, 'setActive').and.callThrough();
-
-                    var activeItem;
-                    var item = scope.item;
-                    var testActive = scope.setActive(item);
-
-
-                    expect(scope.setActive).toHaveBeenCalled();
-                    expect(activeItem).toBe(item);
-                });
-
-            it('isInitial() - set initial item as active if it matches location path', function(){
+            it('isActive() - set left nav item as active if it matches location path or route activeItem property', function(){
                     mockNavFactory.items = scope.items;
 
-                    spyOn(scope, 'isInitial').and.callThrough();
+                    spyOn(scope, 'isActive').and.callThrough();
                     spyOn(location, 'path').and.returnValue('/device_management');
 
                     var items = scope.getItemsByTag("primary");
                     var item = items[1];
-                    var testInitial = scope.isInitial(item);
+                    var testActive = scope.isActive(item);
 
 
-                    expect(scope.isInitial).toHaveBeenCalled();
+                    expect(scope.isActive).toHaveBeenCalled();
                     expect(items[1].action).toBe('/device_management');
                     expect(location.path === items[1].action);
                 });
