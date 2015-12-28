@@ -9,11 +9,10 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
 
             beforeEach(module('mps'));
 
-            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, $route, Nav) {
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Nav) {
                 scope = $rootScope.$new();
                 httpBackend = $httpBackend;
                 location = $location;
-                scope.route = $route;
                 mockNavFactory = Nav;
                 mockCtrl = $controller('NavController', {$scope: scope});
 
@@ -41,6 +40,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                 }];
 
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', '/app/dashboard/templates/home.html').respond({it: 'works'});
                 httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
                 httpBackend.when('GET', 'app/nav/data/navigation.json').respond(200, scope.items);
             }));
@@ -110,7 +110,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
                  });
             });
 
-            it('isActive() - set left nav item as active if it matches location path or route activeItem property', function(){
+            it('isActive() - set left nav item as active if it matches location path', function(){
                     mockNavFactory.items = scope.items;
 
                     spyOn(scope, 'isActive').and.callThrough();
