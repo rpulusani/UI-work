@@ -64,17 +64,6 @@ define([
                     expect(scope.value.id).toEqual('item1');
                     expect(scope.value.name).toEqual('Item 1');
                 });
-                it("if action is selectLevel then set the value object based on the selected item", function(){
-                    scope.treeType = 'chl';
-                    scope.selectedItems = [];
-                    scope.filterChl = function(item) {
-                        item.name = 'abc';
-                    };
-                    scope.item.selected = true;
-                    scope.toggleChildren(scope.item);
-                    expect(scope.value.id).toEqual('item1');
-                    expect(scope.value.name).toEqual('Item 1');
-                });
             });
 
             describe('expandCall', function(){

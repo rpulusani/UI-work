@@ -102,8 +102,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         self.item = accountInfo;
                     }
 
-                   //$rootScope.currentUser.accounts = self.setItem(accountInfo);
-
                     deferred.resolve(accountInfo);
                 });
                
