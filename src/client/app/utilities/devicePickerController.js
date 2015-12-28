@@ -14,9 +14,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $rootScope.selectedContact = undefined;
             }
 
-            if (!Devices.data.length) {
+            /*if (!Devices.data.length) {
                 $location.path('/');
-            }
+            }*/
 
             if($rootScope.selectedAddress) {
                 $rootScope.selectedAddress = undefined;
@@ -87,10 +87,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                     ImageService.getPartMediumImageUrl($scope.prevDevice.selectedDevice.partNumber).then(function(url){
                         $scope.prevDevice.medImage = url;
                     }, function(reason){
-                         NREUM.noticeError('Image url was not found reason: ' + reason);
+                         NREUM.noticeError('Image url was not found reason: ' + reason);       
                     });
                 }
-        
+            
                 if ($scope.prevDevice.selectedDevice.contact) {
                     Devices.setItem($scope.prevDevice.selectedDevice);
                     var options = {

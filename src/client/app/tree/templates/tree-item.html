@@ -18,6 +18,6 @@
 
     <ul class="tree" ng-show="item.items.length > 0 && item.expanded">
         <li ng-repeat="child in item.items" tree-item item="child" selected-items="selectedItems" tree-type="{{treeType}}"
-            filter-chl="filterChl"></li>
+            action="{{action}}" value="value" filter-chl="filterChl" tree-nodes="treeNodes"></li>
     </ul>
 </li>

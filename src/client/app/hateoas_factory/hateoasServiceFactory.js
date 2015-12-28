@@ -102,8 +102,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         self.item = accountInfo;
                     }
 
-                   $rootScope.currentUser.accounts = self.setItem(accountInfo);
-
                     deferred.resolve(accountInfo);
                 });
                
@@ -170,6 +168,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
+
                     newService.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                     newService.params.accountLevel = $rootScope.currentUser.accounts[0].level;
 
