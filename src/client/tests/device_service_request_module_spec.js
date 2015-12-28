@@ -142,14 +142,6 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
 
                 scope.device = mockDevices.item;
 
-                element = angular.element(
-                    '<form name="updateDevice">' +
-                    '   <input name="myFirst" ng-model="myFirst"></input>' +
-                    '   <input name="mySecond" ng-model="mySecond"></input>' +
-                    '</form>'
-                );
-                element = compile(element)(scope);
-
                 ctrl = $controller('DeviceUpdateController', {$scope: scope, $rootScope: rootScope, Devices:mockDevices,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
                     SRControllerHelperService:mockSRControllerHelperService});
@@ -178,16 +170,6 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 });
             });
 
-            describe('getChangedValues', function() {
-                it('should return all the values changed in a form', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var currentSelected = 'updateDeviceContact',
-                    expectedArr = ['myFirst'];
-                    scope.updateDevice.myFirst.$pristine = false;
-                    var updateArr = scope.getChangedValues();
-                    expect(updateArr).toEqual(expectedArr);
-                });
-            });
         });
 
         describe('Routes', function(){

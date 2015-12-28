@@ -62,24 +62,6 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/device-contact.html'
         };
     })
-    .directive('srDeviceUpdate', function() {
-        return {
-            restrict: 'A',
-            templateUrl: '/app/service_requests/templates/device-update.html'
-        };
-    })
-    .directive('srDeviceNetworkConfig', function() {
-        return {
-            restrict: 'A',
-            templateUrl: '/app/service_requests/templates/device-network-config.html'
-        };
-    })
-    .directive('srDeviceBilling', function() {
-        return {
-            restrict: 'A',
-            templateUrl: '/app/service_requests/templates/device-billing.html'
-        };
-    })
     .directive('additionalRequestInfo', function() {
         return {
             restrict: 'A',

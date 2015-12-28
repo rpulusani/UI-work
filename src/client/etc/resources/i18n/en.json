@@ -280,7 +280,8 @@
         "REMOVE_A_DEVICE": "Remove a Device",
         "DISCARD_DEVICE_REMOVAL_CHANGES": "DISCARD DEVICE REMOVAL CHANGES",
         "CHANGE_DEVICE_TO_BE_REMOVED": "CHANGE DEVICE TO BE REMOVED",
-        "DEVICES_COUNT_MSG": "{{count}} devices at {{address}}"
+        "DEVICES_COUNT_MSG": "{{count}} devices at {{address}}",
+        "CHL": "CHL"
     },
 
     "ORDER_MGT": {

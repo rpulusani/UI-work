@@ -14,9 +14,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $rootScope.selectedContact = undefined;
             }
 
-            if (!Devices.data.length) {
+            /*if (!Devices.data.length) {
                 $location.path('/');
-            }
+            }*/
 
             if($rootScope.selectedAddress) {
                 $rootScope.selectedAddress = undefined;

@@ -134,7 +134,7 @@ define(['angular', 'utility'], function(angular) {
                 },
                 formatDateForPost: function(dateToBeFormatted){
                     var d = new Date(dateToBeFormatted);
-                    return $filter('date')(d, 'yyyy-MM-dd H:mm:ss');
+                    return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
                 },
                 formatAddresswoPhysicalLocation: function(address){
                     var formattedAddress = '';

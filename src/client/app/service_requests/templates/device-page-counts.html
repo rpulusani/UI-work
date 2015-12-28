@@ -1,4 +1,4 @@
-<div ng-if="configure.device.pageCount">
+<div ng-if="configure.device.pageCount && (device.newCount || device.newDate)">
     <h2 translate="{{configure.device.pageCount.translate.title}}"></h2>
 
     <div select-page-count readonly="true" module="device" source="{{configure.device.pageCount.source}}"></div>

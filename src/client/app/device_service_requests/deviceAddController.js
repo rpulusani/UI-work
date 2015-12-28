@@ -62,12 +62,12 @@ define(['angular',
                     ProductModel.get(options).then(function(){
                         if (ProductModel && ProductModel.item 
                             && ProductModel.item._embedded && ProductModel.item._embedded.models) {
-                            $scope.productNumbers = [];
+                            $scope.device.productNumbers = [];
                             var modelList = ProductModel.item._embedded.models;
                             for(var i=0; i<modelList.length; i++) {
                                 var tempModel = {};
                                 tempModel.productNo = modelList[i].productModel;
-                                $scope.productNumbers.push(tempModel);
+                                $scope.device.productNumbers.push(tempModel);
                             }
                         }
                     });
@@ -83,7 +83,7 @@ define(['angular',
                         ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                         $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                     } else if ($rootScope.currentSelected === 'updateDeviceContact') {
-                        ServiceRequest.addRelationship('contact', $rootScope.selectedContact, 'self');
+                        ServiceRequest.addRelationship('assetContact', $rootScope.selectedContact, 'self');
                         $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                     }
                 }
@@ -137,11 +137,18 @@ define(['angular',
                 $scope.device = {};
                 $scope.device.address = {};
                 $scope.device.selectedDevice = {};
+                $scope.device.chl = {};
                 $scope.device.lexmarkDeviceQuestion = 'true';
-                $scope.productNumbers = [];
-                if ($rootScope.newDevice) {
-                    $scope.device = $rootScope.newDevice;
-                    $rootScope.newDevice = undefined;
+                $scope.device.productNumbers = [];
+                if ($rootScope.newDevice || $rootScope.newSr) {
+                    if ($rootScope.newDevice) {
+                        $scope.device = $rootScope.newDevice;
+                        $rootScope.newDevice = undefined;
+                    }
+                    if ($rootScope.newSr) {
+                        $scope.sr = $rootScope.newSr;
+                        $rootScope.newSr = undefined;
+                    }
                 } else {
                     $scope.getRequestor(ServiceRequest, Contacts);
                 }
@@ -150,6 +157,93 @@ define(['angular',
             
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
+
+            var updateSRObjectForSubmit = function() {
+                if ($scope.device.deviceDeInstallQuestion === 'true') {
+                    ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
+                } else if ($scope.device.deviceInstallQuestion === 'true') {
+                    ServiceRequest.addField('type', 'MADC_INSTALL');
+                } else {
+                    ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
+                }
+                var assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    serialNumber: $scope.device.serialNumber,
+                    productModel: $scope.device.productModel,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.customerDeviceTag,
+                    costCenter: $scope.device.costCenter,
+                    physicalLocation1: $scope.device.physicalLocation1,
+                    physicalLocation2: $scope.device.physicalLocation2,
+                    physicalLocation3: $scope.device.physicalLocation3
+                };
+
+                if ($scope.device.chl && $scope.device.chl.id) {
+                    assetInfo.customerHierarchyLevel = $scope.device.chl.id;
+                }
+                var meterReads = [];
+                for (var countObj in $scope.device.newCount) {
+                    var meterRead = {};
+                    meterRead.type = countObj;
+                    meterRead.value = $scope.device.newCount[countObj];
+                    meterReads.push(meterRead);
+                }
+                for (var dateObj in $scope.device.newDate) {
+                    for (var i=0; i<meterReads.length; i++) {
+                        if(meterReads[i].type && meterReads[i].type === dateObj) {
+                            meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
+                        }
+                    }
+                }             
+                ServiceRequest.addField('meterReads', meterReads);
+                ServiceRequest.addField('assetInfo', assetInfo);
+                if (BlankCheck.checkNotBlank($scope.device.deviceInstallDate)) {
+                    ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate)); 
+                }
+                ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+            };
+
+            function configureReviewTemplate(){
+                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                $scope.configure.actions.submit = function(){
+                    updateSRObjectForSubmit();
+                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
+                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
+                            ServiceRequest.item.postURL = api.url;
+                        });
+                    }
+                    var deferred = DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    });
+
+                    deferred.then(function(result){
+                        ServiceRequest.item = DeviceServiceRequest.item;
+                        $rootScope.newDevice = $scope.device;
+                        $rootScope.newSr = $scope.sr;
+                        $location.path(DeviceServiceRequest.route + '/add/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+
+                };
+            }
+
+            function configureReceiptTemplate() {
+                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_SUBMITTED";
+                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.bodyValues= {
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                    'srHours': 24,
+                    'deviceManagementUrl': 'device_management/',
+                };
+                $scope.configure.receipt = {
+                    translate: {
+                        title:"DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL",
+                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+            }
 
             function configureTemplates() {
                 $scope.configure = {
@@ -167,8 +261,14 @@ define(['angular',
                                 title: 'DEVICE_MGT.DEVICE_INFO',
                                 serialNumber: 'DEVICE_MGT.SERIAL_NO',
                                 partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                product: 'DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER',
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
+                                hostName: 'DEVICE_MGT.HOST_NAME',
+                                costCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
+                                chl: 'DEVICE_MGT.CHL',
+                                customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
+                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
+                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                             }
                         },
                         pageCount:{
@@ -244,86 +344,9 @@ define(['angular',
                 };
             }
 
-            function configureReceiptTemplate() {
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
-                $scope.configure.header.translate.bodyValues= {
-                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
-                    'srHours': 24,
-                    'deviceManagementUrl': 'device_management/',
-                };
-                $scope.configure.receipt = {
-                    translate: {
-                        title:"DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL",
-                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
-                };
-                $scope.configure.contact.show.primaryAction = false;
-            }
-
-            var updateSRObjectForSubmit = function() {
-                if ($scope.device.deviceDeInstallQuestion === 'true') {
-                    ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
-                } else if ($scope.device.deviceInstallQuestion === 'true') {
-                    ServiceRequest.addField('type', 'MADC_INSTALL');
-                } else {
-                    ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
-                }
-                var assetInfo = {
-                    ipAddress: $scope.device.ipAddress,
-                    hostName: $scope.device.hostName,
-                    assetTag: $scope.device.assetTag,
-                    costCenter: $scope.device.costCenter,
-                    physicalLocation1: $scope.device.physicalLocation1,
-                    physicalLocation2: $scope.device.physicalLocation2,
-                    physicalLocation3: $scope.device.physicalLocation3
-                };
-                var meterReads = [];
-                for (var countObj in $scope.device.newCount) {
-                    var meterRead = {};
-                    meterRead.type = countObj;
-                    meterRead.value = $scope.device.newCount[countObj];
-                    meterReads.push(meterRead);
-                }
-                for (var dateObj in $scope.device.newDate) {
-                    for (var i=0; i<meterReads.length; i++) {
-                        if(meterReads[i].type && meterReads[i].type === dateObj) {
-                            meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
-                        }
-                    }
-                }             
-                ServiceRequest.addField('meterReads', meterReads);
-                ServiceRequest.addField('assetInfo', assetInfo);
-                ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate)); 
-                ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
-            };
-
-            function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
-                $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
-                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
-                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
-                            ServiceRequest.item.postURL = api.url;
-                        });
-                    }
-                    var deferred = DeviceServiceRequest.post({
-                        item:  $scope.sr
-                    });
-
-                    deferred.then(function(result){
-                        ServiceRequest.item = DeviceServiceRequest.item;
-                        $location.path(DeviceServiceRequest.route + '/add/receipt');
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create SR because: ' + reason);
-                    });
-
-                };
-            }
-
             var formatAdditionalData = function() {
                 if (!BlankCheck.isNull($scope.device.address)) {
-                    $scope.formattedAddress = FormatterService.formatAddress($scope.device.address);
+                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.address);
                 }
 
                 if (!BlankCheck.isNull($scope.device.primaryContact)) {
