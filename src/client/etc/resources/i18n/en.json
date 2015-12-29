@@ -157,13 +157,13 @@
 
     "ADDRESS": {
         "TITLE": "Addresses",
-        "LIST_TITLE": "Manage addresses",
+        "LIST_TITLE": "Manage Addresses",
         "BOOK": "Addresss Book ({{total}})",
         "INFO": "Address Information",
         "NAME": "Address Name",
         "STORE_NAME": "Store-front Name",
-        "LINE_1": "Address Line 1",
-        "LINE_2": "Address Line 2",
+        "LINE_1": "Address 1",
+        "LINE_2": "Address 2",
         "CITY": "City",
         "COUNTRY": "Country",
         "STATE": "State",
@@ -205,7 +205,7 @@
         "LAST_NAME": "Last Name",
         "WORK_PHONE": "Work Phone",
         "ALT_PHONE": "Alternate Phone",
-        "EMAIL": "Email Address",
+        "EMAIL": "Email",
         "DEPARTMENT": "Department",
         "ID": "ID",
         "TYPE": "Type",
@@ -609,7 +609,7 @@
         "SEARCH_USER": "Search for a user",
         "CREATE_TITLE": "Create a new user",
         "INVITE_TITLE": "Invite User(s)",
-        "INFO": "User information",
+        "INFO": "User Information",
         "ADD_WHO": "Who would you like to add as a user?",
         "INVITE_WHO": "Who would you like to invite as a user?",
         "WHO": "Who is the user?",
@@ -647,7 +647,7 @@
     "ACCOUNT": {
         "TITLE": "Account access",
         "LOGIN": "Portal login",
-        "COMPANY_ASSO": "Company association",
+        "COMPANY_ASSO": "Company Association",
         "ORG_STRUCT": "Organization structure"
     },
 
