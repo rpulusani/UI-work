@@ -28,6 +28,9 @@
 .site-content > :last-child {
   margin-bottom: 0;
 }
+.site-content p a {
+  text-decoration: none;
+}
 .site-footer {
   padding: 12px 10px;
 }
@@ -71,7 +74,7 @@
 @media only screen and (min-width: 54em) and (max-width: 74em) {
   .page-header,
   .page-content {
-    padding: 24px 30px;
+    padding: 24px 50px;
   }
 }
 .page-header:after,
@@ -134,6 +137,10 @@ a.read-more {
   padding: 12px 10px;
   text-align: center;
 }
+.site-content .btn {
+  margin-right: 20px;
+  margin-bottom: 36px;
+}
 textarea {
   width: 100%;
   box-sizing: border-box;
@@ -143,6 +150,12 @@ textarea {
 }
 .selectricButton {
   height: 52px;
+}
+.form__field label:after {
+  content: "";
+}
+label.question {
+  font-weight: 300;
 }
 .info-list {
   list-style: none;
@@ -419,6 +432,10 @@ textarea {
   padding: 12px 10px;
   margin-right: 10px;
 }
+/* columnpicker directive, logic in columnPickerController.js */
+.dropdown__menu {
+  min-width: 720px;
+}
 .filter--search {
   height: 54px;
   margin-top: 24px;
@@ -548,6 +565,10 @@ textarea {
 .print-export span {
   margin-left: 20px;
 }
+.media > .media__visual > .card {
+  display: inline-block;
+  margin-right: 30px;
+}
 .theme--dark {
   background: #44434e;
 }
@@ -558,6 +579,15 @@ textarea {
 }
 .theme--dark .title h1 {
   color: #00ad21;
+}
+.theme--dark h1.heading {
+  color: #00ad21;
+}
+.theme--dark h2.heading {
+  color: #7e7e85;
+}
+.theme--dark hr.thick {
+  border-width: 2px;
 }
 .theme--dark #mobileNav,
 .theme--dark .site-nav,
