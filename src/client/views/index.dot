@@ -53,7 +53,7 @@
     <div class="top-logo">
     </div>
     <div class="title">
-      <h1 translate="{{sectionTitle}}">Devices</h1>
+      <h1 class="text--light" translate="{{sectionTitle}}">Devices</h1>
     </div>
 <!-- <Nav Button> -->
       <a href="#mobileNav" data-target="#mobileNav" class="nav-btn pull l-hidden--gt-tablet">

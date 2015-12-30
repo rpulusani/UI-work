@@ -1,41 +1,33 @@
 <div class="page-header">
-	<strong translate="DEVICE_MGT.MANAGING_DEVICE"></strong>
+	
 	<div class="clearfix">
-		<a class="pull" href="#bookmark"><i class="icon icon--ui icon--not-favorite"></i></a>
-		<h1 class="pull vertical-space--none" ng-bind="device.productModel"></h1>
+		<a class="pull" href="#bookmark"><i class="icon icon--mps icon--bookmark"></i></a>
+		<h1 class="pull vertical-space--none"><span translate="DEVICE_MGT.MANAGING_DEVICE"></span> <span ng-bind="device.productModel"></span></h1>
 		<div class="print-export">
 			<span>
-				<i class="icon icon--lxk-ui icon--print"></i><a href="#">Print</a>
+				<i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
 			</span>
 			<span>
-				<i class="icon icon--lxk-ui icon--download"></i><a href="#">Export</a>
+				<i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
 			</span>
 		</div>
 	</div>
    	<hr>
 	<div class="media">
 		<div class="media__visual">
-	    	<img ng-src="{{medImage}}" ng-show="medImage" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+			<div class="card">
+				<div class="card__content">
+	    			<img ng-src="{{medImage}}" ng-show="medImage" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+	    		</div>
+	    	</div>
 	    </div>
 		<div class="media__body">
-		    <ul class="info-list vertical-space--none">
-	    		<li class="info-list__item vertical-space--none">
-			    	<div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
-			    	<div class="info-list__item-value" ng-bind="device.productModel"></div>
-			    </li>
-			    <li class="info-list__item vertical-space--none">
-			    	<div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
-			    	<div class="info-list__item-value" ng-bind="device.serialNumber"></div>
-			    </li>
-			    <li class="info-list__item vertical-space--none">
-			    	<div class="info-list__item-name" translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></div>
-			    	<div class="info-list__item-value" ng-bind="device.serialNumber"></div>
-			    </li>
-		    </ul>
-
-		    <div class="vertical-space--thin">
-		    	<a href="" class="call-to-action call-to-action--after text--small" translate="DEVICE_MGT.VISIT_SUPPORT_PAGE"></a>
-		    </div>
+		    <p class="info-list">
+		    	<span class="item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></span> <span ng-bind="device.productModel"></span><br>
+		    	<span class="item-name" translate="DEVICE_MGT.SERIAL_NO"></span> <span ng-bind="device.serialNumber"></span><br>
+		    	<span class="item-name" translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></span> <span ng-bind="device.serialNumber"></span><br>
+		    	<a href="" class="call-to-action call-to-action--after" translate="DEVICE_MGT.VISIT_SUPPORT_PAGE"></a>
+		    </p>
 
 		    <div class="btns">
 		        <button class="btn" ng-click="btnRequestService(device);" translate="DEVICE_MGT.REQUEST_SERVICE"></button>
