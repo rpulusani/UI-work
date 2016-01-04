@@ -1,0 +1,88 @@
+.call-to-action--after:after, .call-to-action:before {
+    content: ">";
+}
+
+.call-to-action:hover {
+    color: @purple;
+}
+
+/** Sprite based icons **/
+
+.icon--mps {
+    background-image: url(/etc/resources/img/mps-icons.png);
+
+    &.icon--bookmark {
+        background-position: 0 0;
+        height: 22px;
+        width: 19px;
+        margin: 6px 7px 0 0;
+    }
+
+    &.icon--print {
+        background-position: -20px 0;
+        height: 18px;
+        width: 21px;
+        margin: 1px 7px 0 0;
+    }
+
+    &.icon--download {
+        background-position: -41px 0;
+        height: 18px;
+        width: 21px;
+        margin: 3px 2px 0 0;
+    }
+}
+
+/** Font based icons **/
+
+[class^="icon-mps"], [class*=" icon-mps"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'mps' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;   
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mps-location:before {
+    content: "\e900";
+}
+.icon-mps-strategic:before {
+    content: "\e901";
+}
+.icon-mps-requests:before {
+    content: "\e902";
+}
+.icon-mps-report:before {
+    content: "\e903";
+}
+.icon-mps-pin:before {
+    content: "\e904";
+}
+.icon-mps-orders:before {
+    content: "\e905";
+}
+.icon-mps-invoice:before {
+    content: "\e906";
+}
+.icon-mps-global:before {
+    content: "\e907";
+}
+.icon-mps-device:before {
+    content: "\e908";
+}
+.icon-mps-contact:before {
+    content: "\e909";
+}
+.icon-mps-browse:before {
+    content: "\e90a";
+}
+.icon-mps-admin:before {
+    content: "\e90b";
+}
