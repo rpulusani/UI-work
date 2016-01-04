@@ -120,50 +120,59 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
             });
         });
 
-
-
-
-
-
-
         describe('ReportFinderController', function() {
-            beforeEach(inject(function ($rootScope, $httpBackend, $controller, $location,  Reports, $q){
+            beforeEach(inject(function ($rootScope, $httpBackend, $controller, $location, $translate, Reports, $q){
                 scope = $rootScope.$new();
                 deferred = $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
+                translate = $translate;
                 mockedFactory = Reports;
 
                 ctrl = $controller('ReportFinderController', {$scope: scope, Reports: mockedFactory});
 
-                mockedFactory.category = {
-                    name: 'MADC',
+                mockedFactory.reports = [
+                {
+                    name: 'Asset Register',
+                    id: 'mp9058sp',
                     _links: {
-                        self: {
-                            href: 'http://www.lexmark.com'
-                        }
+                        self: { href: 'https://api.venus-dev.lexmark.com/mps/reports/mp9058sp' },
+                        results: { href: 'https://api.venus-dev.lexmark.com/mps/reports/mp9058sp/results' },
+                        stats: { href: 'https://api.venus-dev.lexmark.com/mps/reports/mp9058sp/stats' }
                     }
+                }];
+
+                mockedFactory.finder = {
+                    dateFrom: '',
+                    dateTo: '',
+                    selectType: ''
                 };
-                mockedFactory.category.id = 1;
+
+                scope.reports = mockedFactory.reports;
+                scope.finder = mockedFactory.finder;
+
             }));
 
-            /*
             describe('runReport', function() {
-                it('should redirect to report finder page', function() {
+                it('should redirect to the report results page', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    scope.runReport();
-                    expect(location.path).toHaveBeenCalledWith('/reporting/results');
+                    var reportItem = scope.reports[0];
+                    scope.item = reportItem;
+
+                    scope.runReport(reportItem);
+                    expect(location.path).toHaveBeenCalledWith('/reporting/' + reportItem.id + '/results');
                 });
 
-                it('should redirect to report result page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.finder = {};
-                    scope.finder.dateFrom = '2015-01-01';
-                    scope.finder.dateTo = '2015-01-01';
-                    scope.runReport();
-                    expect(location.path).toHaveBeenCalledWith('/reporting/results');
+                it('should set the finder selectType to \'\' if label is select', function() {
+                    var reportItem = scope.reports[0];
+                    scope.finder.selectType = translate.instant('LABEL.SELECT');
+                    console.log(translate.instant);
+
+                    scope.runReport(reportItem);
+                    expect(scope.finder.selectType).toEqual('');
                 });
-            });*/
+
+            });
         });
 
     });
