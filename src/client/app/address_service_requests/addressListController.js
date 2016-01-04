@@ -46,9 +46,14 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-
+            $scope.gridOptions.enableHorizontalScrollbar = 0; 
+            $scope.gridOptions.enableVerticalScrollbar = 0;
+            
             User.getLoggedInUserInfo().then(function(user) {
-                User.item._links.accounts = User.item._links.accounts[0];
+                if (angular.isArray(User.item._links.accounts)) {
+                    User.item._links.accounts = User.item._links.accounts[0];
+                }
+
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         Addresses.getPage().then(function() {

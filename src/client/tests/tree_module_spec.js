@@ -39,45 +39,32 @@ define([
                 ctrl = $controller('TreeItemController', {$scope: scope});
                 spyOn(scope, '$broadcast');
                 scope.item = {
-                    "id": "item1",
-                    "title": "Item 1",
+                    "accountId": "item1",
+                    "name": "Item 1",
                     "items": [
                         {
-                            "id": "item1.1",
-                            "title": "Item 1.1"
+                            "accountId": "item1.1",
+                            "name": "Item 1.1"
                         },
                         {
-                            "id": "item1.2",
-                            "title": "Item 1.2"
+                            "accountId": "item1.2",
+                            "name": "Item 1.2"
                         }
                     ]
                 };
             }));
 
             /*Commenting test as this functionality needs to be revisited*/
-            /*describe("When an item is selected", function(){
-                it("all of it's children should be selected", function(){
-                    var limit = scope.item.items ? scope.item.items.length : 0;
-
+            describe("When an item is selected", function(){
+                it("if action is selectLevel then set the value object based on the selected item", function(){
+                    scope.action = 'selectLevel';
+                    scope.value = {};
                     scope.item.selected = true;
                     scope.toggleChildren(scope.item);
-
-                    for(var i=0;i<limit;i++){
-                        expect(scope.item.items[i].selected).toEqual(true);
-                    }
+                    expect(scope.value.id).toEqual('item1');
+                    expect(scope.value.name).toEqual('Item 1');
                 });
-
-                it("all of it's children should be disabled", function(){
-                    var limit = scope.item.items ? scope.item.items.length : 0;
-
-                    scope.item.selected = true;
-                    scope.toggleChildren(scope.item);
-
-                    for(var i=0;i<limit;i++){
-                        expect(scope.item.items[i].disabled).toEqual(true);
-                    }
-                });
-            });*/
+            });
 
             describe('expandCall', function(){
                 it('Should broadcast an event and toggle the value for expanded flag', function(){

@@ -37,6 +37,17 @@ define(['angular', 'utility'], function(angular) {
             templateUrl: '/app/utilities/templates/alerts.html',
         };
     })
+    .directive('columnpicker', [function () {
+        return {
+          restrict: 'A',
+          scope: {
+            target: '=',
+            columns: '@',
+            grid: '@'
+          },
+          controller: 'ColumnPickerController'
+        };
+    }])
     .directive('pickContact', function(){
          return {
             restrict: 'A',
@@ -76,7 +87,8 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             scope: {
                 module: '=',
-                readonly: '='
+                readonly: '=',
+                source: '@'
             },
             templateUrl: '/app/utilities/templates/select-page-count.html',
             controller: 'PageCountSelectController'

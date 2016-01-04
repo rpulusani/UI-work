@@ -84,6 +84,31 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return deferred.promise;
             };
 
+            HATEOASFactory.prototype.getTransactionalAccounts = function(loginId) {
+                var self  = this,
+                deferred = $q.defer(),
+                url = '';
+
+                if (!loginId) {
+                    loginId = $rootScope.idpUser.email;
+                }
+
+                url = self.url + '/' + loginId + '/transactional-accounts';
+
+                $http.get(url).then(function(processedResponse) {
+                    var accountInfo = self.createItem(processedResponse.data);
+                    // this should be working directly with UserService
+                    if (self.serviceName === 'user-info' && !self.item) {
+                        self.item = accountInfo;
+                    }
+
+                    deferred.resolve(accountInfo);
+                });
+               
+
+                return deferred.promise;
+            };
+
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
                 this.data = [];
@@ -143,6 +168,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
+
                     newService.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                     newService.params.accountLevel = $rootScope.currentUser.accounts[0].level;
 
@@ -195,6 +221,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 link;
 
                 for (link in links) {
+
                     if (link !== 'self') {
                         (function(item, link) {
                             if (!item[link]) {
@@ -581,9 +608,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                                 href: self.item._links[prop][i].href
                                             }
                                         } else {
-                                            self.item._embedded[prop][i]._links.self = {
-                                                href: self.item._links[prop].href
+                                            if (self.item._links[prop] && self.item._links[prop].href) {
+                                                self.item._embedded[prop][i]._links.self = {
+                                                    href: self.item._links[prop].href
+                                                }
                                             }
+                                            
                                         }
                                     }
                                 }
@@ -593,7 +623,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 self.item[prop].data = self.item._embedded[prop];
                             } else {
                                 if (!self.item._embedded[prop]._links) {
-                                    self.item[prop].item = self.item._embedded[prop];
+                                    if (!self[prop].item) {
+                                        self[prop].item = self.item._embedded[prop];
+                                    } else {
+                                         self.item[prop].item = self.item._embedded[prop];
+                                    }
                                 } else {
                                     self.item[prop].item = self.createItem(self.item._embedded[prop]);
                                 }
@@ -622,6 +656,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 currentParams = angular.copy(self.params),
                 url;
+
                 if (options.params) {
                     options.params = angular.extend(self.params, options.params);
                 } else {

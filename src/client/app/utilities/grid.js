@@ -1,4 +1,4 @@
-define(['angular', 'utility', 'ui.grid'], function(angular) {
+define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .factory('grid', ['uiGridConstants',  function(uiGridConstants) {
@@ -12,6 +12,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             ];
             this.hasBookmarkCol = false; // has a bookmark column
             this.serviceInfo = {};
+            this.gridOptions = {};
         };
 
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
@@ -46,7 +47,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             }
         };
         Grid.prototype.getVisibleColumns = function(service){
-            var columnList = this.setColumnDefaults(service),
+            var columnList = this.setColumnDefaults(service.columns, service.columnDefs),
             visibleColumns = [];
 
             for(var i = 0; i < columnList.length; ++i){
@@ -58,7 +59,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             return visibleColumns;
         };
 
-        Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray){
+        Grid.prototype.getDataWithDataFormatters = function(incommingData, functionArray) {
             var data = angular.copy(incommingData);
             if(functionArray && data){
                 for(var i = 0; i < data.length; ++i){
@@ -70,29 +71,34 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             return angular.copy(data);
         };
 
-        Grid.prototype.setColumnDefaults = function(service) {
+        /*
+            @columnSet'' is a key pointing to a property in @columnDefs{}.
+            @columnSet'' can also be an array of columns.
+        */
+        Grid.prototype.setColumnDefaults = function(columnSet, columnDefs, enableColumnMenu) {
             var columns = [],
             i = 0;
 
-            //do something with a personal set of columns configured
-            if (!service.columns || (service.columns === 'default' ||
-                 service.columns === 'defaultSet') && service.columnDefs.defaultSet) {
-                if (typeof service.columnDefs[service.columns] === 'function') {
-                     columns = service.columnDefs.defaultSet();
-                } else {
-                     columns = service.columnDefs.defaultSet;
+            if (!angular.isArray(columnSet)) {
+                //do something with a personal set of columns configured
+                if (columnDefs[columnSet]) {
+                    if (typeof columnDefs[columnSet] !== 'function') {
+                        columns = columnDefs[columnSet];
+                    } else {
+                        columns = columnDefs[columnSet]();
+                    }
                 }
-            } else if (service.columnDefs[service.columns]) {
-                if (typeof service.columnDefs[service.columns] === 'function') {
-                    columns = service.columnDefs[service.columns]();
-                } else {
-                    columns = service.columnDefs[service.columns];
-                }
+            } else {
+                columns = columnSet;
+            }
+
+            if (!enableColumnMenu) {
+                enableColumnMenu = false;
             }
 
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
-                columns[i].enableColumnMenu = false;
+                columns[i].enableColumnMenu = enableColumnMenu;
             }
 
             return columns;
@@ -111,9 +117,9 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             } else {
                 serviceId = service.embeddedName;
             }
-
+            
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
-            scope.gridOptions.columnDefs = this.setColumnDefaults(service);
+            scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
@@ -123,12 +129,14 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
             scope.gridOptions.virtualizationThreshold = service.params.size;
             scope.gridOptions.enableHorizontalScrollbar = 0; 
             scope.gridOptions.enableVerticalScrollbar = 0;
-            
+            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                 scope.gridOptions.showBookmarkColumn === true) && 
-                ( !this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
+                scope.gridOptions.showBookmarkColumn === true) && 
+                (!this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
                 
+                scope.gridOptions.showBookmarkColumn = true;
                 this.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
                 scope.gridOptions.columnDefs.unshift({
@@ -142,6 +150,7 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
+            
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
@@ -155,6 +164,8 @@ define(['angular', 'utility', 'ui.grid'], function(angular) {
                 scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
                 scope.itemsPerPage = service.params.size;
             }
+
+            this.gridOptions = scope.gridOptions;
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

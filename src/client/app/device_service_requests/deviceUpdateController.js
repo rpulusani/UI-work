@@ -35,7 +35,6 @@ define(['angular',
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             $scope.goToReview = function() {
-                $rootScope.formChangedValues = $scope.getChangedValues();
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
             };
 
@@ -64,11 +63,12 @@ define(['angular',
                         ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                         $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                     } else if ($rootScope.currentSelected === 'updateDeviceContact') {
-                        ServiceRequest.addRelationship('contact', $rootScope.selectedContact, 'self');
+                        ServiceRequest.addRelationship('assetContact', $rootScope.selectedContact, 'self');
                         $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                     }
                 }
                 Devices.item = $scope.device;
+                $scope.resetContactPicker();
             } else if($rootScope.selectedAddress
                     && $rootScope.returnPickerObjectAddress 
                     && $rootScope.selectionId === Devices.item.id){
@@ -83,12 +83,13 @@ define(['angular',
                                                     $scope.device.physicalLocation2,
                                                     $scope.device.physicalLocation3);
                 }
-                
                 Devices.item = $scope.device;
+                $scope.resetAddressPicker();
             } else {
                 $scope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
-                    $scope.device.currentInstalledAddress = Devices.item.address.item;
+                $scope.device.chl = {};
+                if (!BlankCheck.isNull($scope.device.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
+                    $scope.device.currentInstalledAddress = $scope.device.address.item;
                     $scope.setupPhysicalLocations($scope.device.currentInstalledAddress, 
                                                 $scope.device.physicalLocation1,
                                                 $scope.device.physicalLocation2,
@@ -96,46 +97,44 @@ define(['angular',
                     $scope.device.updatedInstallAddress = $scope.device.currentInstalledAddress;
                 }
 
-                if (!BlankCheck.isNull(Devices.item.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
-                    $scope.device.deviceContact = Devices.item.contact.item;
+                if (!BlankCheck.isNull($scope.device.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
+                    $scope.device.deviceContact = $scope.device.contact.item;
                 }
 
                 if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
                     $scope.device.lexmarkMoveDevice = false;
                 }
-
-                if ($rootScope.returnPickerObjectAddress && $rootScope.selectionId !== Devices.item.id) {
-                    $scope.resetAddressPicker();
-                }
-
-                if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
-                    $scope.resetContactPicker();
-                }
-
             }
 
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
             $scope.getRequestor(ServiceRequest, Contacts);
+
+            var updateSRObjectForSubmit = function() {
+                if ($scope.device.lexmarkMoveDevice === 'true') {
+                    ServiceRequest.addField('type', 'MADC_MOVE');
+                } else {
+                    ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
+                }
+                var assetInfo = {
+                    ipAddress: $scope.device.ipAddress,
+                    hostName: $scope.device.hostName,
+                    assetTag: $scope.device.assetTag,
+                    costCenter: $scope.device.costCenter,
+                    physicalLocation1: $scope.device.physicalLocation1,
+                    physicalLocation2: $scope.device.physicalLocation2,
+                    physicalLocation3: $scope.device.physicalLocation3
+                };
+                if ($scope.device.chl && $scope.device.chl.id) {
+                    assetInfo.customerHierarchyLevel = $scope.device.chl.id;
+                }
+                ServiceRequest.addField('assetInfo', assetInfo);
+            };
             
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
-                    if ($scope.device.lexmarkMoveDevice === 'true') {
-                        ServiceRequest.addField('type', 'MADC_MOVE');
-                    } else {
-                        ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
-                    }
-                    var assetInfo = {
-                        ipAddress: $scope.device.ipAddress,
-                        hostName: $scope.device.hostName,
-                        assetTag: $scope.device.assetTag,
-                        costCenter: $scope.device.costCenter,
-                        physicalLocation1: $scope.device.physicalLocation1,
-                        physicalLocation2: $scope.device.physicalLocation2,
-                        physicalLocation3: $scope.device.physicalLocation3
-                    };
-                    ServiceRequest.addField('assetInfo', assetInfo);
+                    updateSRObjectForSubmit();
                     var deferred = DeviceServiceRequest.post({
                         item:  $scope.sr
                     });
@@ -177,16 +176,20 @@ define(['angular',
                         readMoreUrl: ''
                     },
                     device: {
-                        update: {
+                        information:{
                             translate: {
                                 title: 'DEVICE_SERVICE_REQUEST.REQUESTED_UPDATE_TO_DEVICE',
+                                move: 'DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE',
+                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
+                                partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                product: 'DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER',
+                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
+                                hostName: 'DEVICE_MGT.HOST_NAME',
+                                costCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
+                                chl: 'DEVICE_MGT.CHL',
+                                customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                move: 'DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE'
-                            }
-                        },
-                        contact: {
-                            translate:{
-                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT',
+                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                             }
                         }
                     },
@@ -249,48 +252,7 @@ define(['angular',
                     }
                 };
 
-                if ($rootScope.formChangedValues) {
-                    if ($rootScope.formChangedValues.indexOf('ipAddress') > -1 ||
-                        $rootScope.formChangedValues.indexOf('hostName') > -1) {
-                        $scope.configure.device.networkConfig = {
-                            translate: {
-                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION',
-                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                hostName: 'DEVICE_MGT.HOST_NAME'
-                            }
-                        };
-                    }
-
-                    if ($rootScope.formChangedValues.indexOf('costCenter') > -1 ||
-                        $rootScope.formChangedValues.indexOf('customerDeviceTag') > -1) {
-                        $scope.configure.device.deviceBilling = {
-                            translate: {
-                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING',
-                                deviceCostCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
-                                customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG'
-                            }
-                        };
-
-                    }
-                }
-
             }
-
-            $scope.getChangedValues = function() {
-                var formUpdatedValues = [];
-                if ($rootScope.formChangedValues && $scope.returnedForm) {
-                    formUpdatedValues = $rootScope.formChangedValues;
-                }
-                angular.forEach($scope.updateDevice, function(value, key) {
-                    if(key[0] === '$') {
-                        return;
-                    }
-                    if(!value.$pristine && formUpdatedValues.indexOf(value) === -1) {
-                        formUpdatedValues.push(key);
-                    }
-                });
-                return formUpdatedValues;
-            };
 
             var formatAdditionalData = function() {
                 if (!BlankCheck.isNull($scope.device.currentInstalledAddress)) {

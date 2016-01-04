@@ -40,16 +40,16 @@
 <div ng-show="device.lexmarkDeviceQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_MGT.SERIAL_NO"></label>
-        <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
+        <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels()" value="" class="" />
     </div>
     
     <div class="form__field form__field--select" >
         <label translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></label>
         <div selectric
-            model="device.productNumber"
-            options="productNumbers"
-            value="id"
-            label="name"
+            model="device.productModel"
+            options="device.productNumbers"
+            value="productNo"
+            label="productNo"
             placeholder="{{'LABEL.SELECT' | translate}}"
         ></div>
     </div>
@@ -85,7 +85,7 @@
 <div ng-hide="device.deviceInstallQuestion === 'true'">
     <div class="form__field" >
         <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
-        <input datepicker type="date" ng-model="device.deviceInstallDate"/>
+        <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"/>
     </div>
 </div>
 
@@ -101,7 +101,7 @@
 
 <div ng-show="device.addressSelected">
     <div class="contact-info">
-        <div ng-bind-html="formattedAddress"></div>
+        <div ng-bind-html="formattedDeviceAddress"></div>
     </div>
     <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceAdd',device)"></a>
     <div class="form__field">
@@ -120,32 +120,34 @@
     </div>
 </div>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
+<div ng-show="device.address && device.address.id">
+    <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-deinstall-question-no"
-        name="device-deinstall-question"
-        ng-model="device.deviceDeInstallQuestion"
-        value="false"
-        data-js="customInput"
-        checked
-    />
-    <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    <div class="form__field form__field--radio form__field--no-margin">
+        <input type="radio"
+            id="device-deinstall-question-no"
+            name="device-deinstall-question"
+            ng-model="device.deviceDeInstallQuestion"
+            value="false"
+            data-js="customInput"
+            checked
+        />
+        <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    </div>
+
+    <div class="form__field form__field--radio form__field--no-margin">
+        <input type="radio"
+            id="device-deinstall-question-yes"
+            name="device-deinstall-question"
+            ng-model="device.deviceDeInstallQuestion"
+            value="true"
+            data-js="customInput"
+        />
+        <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+    </div>
+
+    <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 </div>
-
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-deinstall-question-yes"
-        name="device-deinstall-question"
-        ng-model="device.deviceDeInstallQuestion"
-        value="true"
-        data-js="customInput"
-    />
-    <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
-</div>
-
-<p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
 
 <div ng-show="device.deviceDeInstallQuestion === 'true'">
     <strong translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_TO_REMOVE_FROM_LOCATION"></strong>
@@ -224,7 +226,7 @@
 <div ng-show="device.devicePageCountQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
-        <div select-page-count module="device"></div>
+        <div select-page-count module="device" source='add'></div>
     </div>
 </div>
 
@@ -262,7 +264,8 @@
 
 <div ng-show="device.deviceCHLQuestion === 'true'">
     <strong translate="ACCOUNT.ORG_STRUCT"></strong>
-    <div tree class="well"></div>
+    <div tree class="well" tree-type='chl' action='selectLevel' value="device.chl"></div>
+    <input type="hidden" ng-model="device.chl.id" name="chl-id"/>
 </div>
 
 <div class="form__field" >

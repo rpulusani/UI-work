@@ -3,21 +3,53 @@
 
     <div class="well">
         <ul class="info-list">
-            <li class="info-list__item">
+            <li class="info-list__item" ng-if="formattedMoveDevice && configure.device.information.translate.move">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.move}}"></div>
+                <div class="info-list__item-value" ng-bind="formattedMoveDevice"></div>
+            </li>
+            <li class="info-list__item" ng-if="device.serialNumber && configure.device.information.translate.serialNumber">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.serialNumber}}"></div>
                 <div class="info-list__item-value" ng-bind="device.serialNumber"></div>
             </li>
-            <li class="info-list__item">
+            <li class="info-list__item" ng-if="device.partNumber && configure.device.information.translate.partNumber">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.partNumber}}"></div>
                 <div class="info-list__item-value" ng-bind="device.partNumber"></div>
             </li>
-            <li class="info-list__item">
+            <li class="info-list__item" ng-if="device.productModel && configure.device.information.translate.product">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.product}}"></div>
+                <div class="info-list__item-value" ng-bind="device.productModel"></div>
+            </li>
+            <li class="info-list__item" ng-if="device.ipAddress && configure.device.information.translate.ipAddress">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.ipAddress}}"></div>
                 <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
             </li>
-            <li class="info-list__item">
+            <li class="info-list__item" ng-if="device.hostName && configure.device.information.translate.hostName">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.hostName}}"></div>
+                <div class="info-list__item-value" ng-bind="device.hostName"></div>
+            </li>
+            <li class="info-list__item" ng-if="device.costCenter && configure.device.information.translate.costCenter">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.costCenter}}"></div>
+                <div class="info-list__item-value" ng-bind="device.costCenter"></div>
+            </li>
+            <li class="info-list__item" ng-if="device.assetTag && configure.device.information.translate.customerDeviceTag">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.customerDeviceTag}}"></div>
+                <div class="info-list__item-value" ng-bind="device.assetTag"></div>
+            </li>
+            <li class="info-list__item" ng-if="device.chl && configure.device.information.translate.chl">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.chl}}"></div>
+                <div class="info-list__item-value" ng-bind="device.chl.name"></div>
+            </li>
+            <li class="info-list__item" ng-if="device.customerDeviceTag && configure.device.information.translate.customerDeviceTag">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.customerDeviceTag}}"></div>
+                <div class="info-list__item-value" ng-bind="device.customerDeviceTag"></div>
+            </li>
+            <li class="info-list__item" ng-if="formattedDeviceAddress && configure.device.information.translate.installAddress">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.installAddress}}"></div>
                 <div class="info-list__item-value" ng-bind-html="formattedDeviceAddress"></div>
+            </li>
+            <li class="info-list__item" ng-if="formattedDeviceContact && configure.device.information.translate.contact">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.contact}}"></div>
+                <div class="info-list__item-value" ng-bind-html="formattedDeviceContact"></div>
             </li>
         </ul>
     </div>

@@ -9,11 +9,18 @@ define(['angular'], function(angular) {
             })
             .when('/reporting/:definitionId/find', {
                 templateUrl: '/app/reporting/templates/search.html',
-                controller: 'ReportController'
+                controller: 'ReportController',
+                activeItem: '/reporting'
+            })
+            .when('/reporting/:reportId/results', {
+                templateUrl: '/app/reporting/templates/results.html',
+                controller: 'ReportListController',
+                activeItem: '/reporting'
             })
             .when('/reporting/results', {
                 templateUrl: '/app/reporting/templates/results.html',
-                controller: 'ReportListController'
+                controller: 'ReportListController',
+                activeItem: '/reporting'
             });
         }
     ]);

@@ -20,9 +20,6 @@ define([
                 self.icon = item.icon;
                 self.target = item.target;
                 self.tags = item.tags;
-                self.isActive = function(){
-                    return ($location.path() === self.action);
-                };
             };
 
             return new Item();

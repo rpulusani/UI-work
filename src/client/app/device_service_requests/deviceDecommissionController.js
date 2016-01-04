@@ -51,18 +51,19 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObject;
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.resetContactPicker();
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 $rootScope.contactPickerReset = false;
             }else {
 
                 $scope.device = Devices.item;
-
+                
                 if (!BlankCheck.isNull(Devices.item['address'])) {
-                    $scope.device.installAddress = Devices.item['address']['item'];
+                    $scope.device.installAddress = $scope.device['address']['item'];
                 }
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
-                    $scope.device.primaryContact = Devices.item['contact']['item'];
+                    $scope.device.primaryContact = $scope.device['contact']['item'];
                 }
 
 
@@ -91,7 +92,7 @@ define(['angular',
             $scope.getRequestor(ServiceRequest, Contacts);
 
             var updateSRObjectForSubmit = function() {
-
+                var meterReads = [];
                 if ($scope.device.lexmarkPickupDevice === 'true') {
                     $scope.sr = ServiceRequest.item;
                     $scope.sr.type = 'MADC_DECOMMISSION';
@@ -100,8 +101,20 @@ define(['angular',
                 }
 
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
-
-
+                for (var countObj in $scope.device.newCount) {
+                    var meterRead = {};
+                    meterRead.type = countObj;
+                    meterRead.value = $scope.device.newCount[countObj];
+                    meterReads.push(meterRead);
+                }
+                for (var dateObj in $scope.device.newDate) {
+                    for (var i=0; i<meterReads.length; i++) {
+                        if(meterReads[i].type && meterReads[i].type === dateObj) {
+                            meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
+                        }
+                    }
+                }           
+                ServiceRequest.addField('meterReads', meterReads);
             };
 
             function configureReviewTemplate(){
@@ -154,19 +167,18 @@ define(['angular',
                                 pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
                                 pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
                             },
+                            source: 'decommission'
                         },
                         information:{
                             translate: {
                                 title: 'DEVICE_MGT.DEVICE_INFO',
                                 serialNumber: 'DEVICE_MGT.SERIAL_NO',
                                 partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                product: 'DEVICE_MGT.PRODUCT_MODEL',
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
-                            }
-                        },
-                        contact:{
-                            translate:{
-                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT',
+                                hostName: 'DEVICE_MGT.HOST_NAME',
+                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
+                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                             }
                         }
                     },

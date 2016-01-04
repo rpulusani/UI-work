@@ -1,4 +1,4 @@
-define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], function(angular) {
+define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceListController', ['$scope', '$location', 'grid', 'Devices', '$rootScope',
@@ -30,6 +30,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
             //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');
             //filterSearchService.addPanelFilter('Filter By Location', 'locationFilter');
             filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+                $scope.$broadcast('setupColumnPicker', Grid);
         }
     ]);
 });

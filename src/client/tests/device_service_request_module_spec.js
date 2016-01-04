@@ -34,6 +34,7 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 ctrl = $controller('DeviceAddController', {$scope: scope, Devices:mockDevices,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
                     SRControllerHelperService:mockSRControllerHelperService});
+                spyOn(scope, '$broadcast');
             }));
 
             describe('goToReview', function() {
@@ -48,6 +49,13 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                     };
                     scope.goToReview();
                     expect(rootScope.newDevice).toBe(scope.device);
+                });
+            });
+
+            describe('setModels', function(){
+                it('Should broadcast an event and toggle the value for expanded flag', function(){
+                    scope.setModels();
+                    expect(scope.$broadcast).toHaveBeenCalledWith('searchProductModel');
                 });
             });
 
@@ -134,14 +142,6 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
 
                 scope.device = mockDevices.item;
 
-                element = angular.element(
-                    '<form name="updateDevice">' +
-                    '   <input name="myFirst" ng-model="myFirst"></input>' +
-                    '   <input name="mySecond" ng-model="mySecond"></input>' +
-                    '</form>'
-                );
-                element = compile(element)(scope);
-
                 ctrl = $controller('DeviceUpdateController', {$scope: scope, $rootScope: rootScope, Devices:mockDevices,
                     DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
                     SRControllerHelperService:mockSRControllerHelperService});
@@ -170,16 +170,6 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 });
             });
 
-            describe('getChangedValues', function() {
-                it('should return all the values changed in a form', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var currentSelected = 'updateDeviceContact',
-                    expectedArr = ['myFirst'];
-                    scope.updateDevice.myFirst.$pristine = false;
-                    var updateArr = scope.getChangedValues();
-                    expect(updateArr).toEqual(expectedArr);
-                });
-            });
         });
 
         describe('Routes', function(){

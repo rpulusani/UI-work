@@ -51,6 +51,7 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObject;
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.resetContactPicker();
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 $rootScope.contactPickerReset = false;
@@ -127,6 +128,7 @@ define(['angular',
                                 title: 'DEVICE_MGT.DEVICE_INFO',
                                 serialNumber: 'DEVICE_MGT.SERIAL_NO',
                                 partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                product: 'DEVICE_MGT.PRODUCT_MODEL',
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
                             }

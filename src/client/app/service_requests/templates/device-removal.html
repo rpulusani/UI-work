@@ -10,7 +10,10 @@
 
             <li class="info-list__item">
                 <div class="info-list__item-name" translate="{{configure.device.removal.translate.pageCount}}"></div>
-                <div select-page-count module="device" readonly="true"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-value" select-page-count module="device" readonly="true" 
+                    source="{{configure.device.removal.source}}"></div>
             </li>
         </ul>
     </div>

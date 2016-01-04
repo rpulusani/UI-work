@@ -1,19 +1,34 @@
 <div class="page-content">
-    <h1 translate="DEVICE_MGT.TITLE"></h1>
-
-    <div class="btns">
+    <div class="col-1 btns">
         <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MGT.ADD"></button>
         <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.IMPORT"></button>
         <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.ORDER_NEW"></button>
         <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.MANAGE_PAGE_COUNTS"></button>
     </div>
 
-    <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-    translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
+    <div class="col-1">
+        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+        translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
 
-    <hr/>
-    <div grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
-    <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-    <div pagination grid="{{gridOptions}}"></div>
+        <hr/>
+    </div>
+
+    <div class="col-1">
+        <div grid-filter options="filterOptions" params="optionParams"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-7-8">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
+        </div>
+
+        <div class="col-1-8 l-pad-top">
+            <div columnpicker></div>
+        </div>
+    </div>
+
+    <div class="col-1">
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+        <div pagination grid="{{gridOptions}}"></div>
+    </div>
 </div>
