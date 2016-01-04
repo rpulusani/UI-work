@@ -12,9 +12,7 @@ define(['angular', 'filterSearch'], function(angular) {
 
                     $scope.currentFilterPanel = undefined;
                     if(selectedOption.functionDef && typeof selectedOption.functionDef === 'function'){
-                        console.log('gridFilterBasic', selectedOption.params);
                         selectedOption.functionDef(selectedOption.params);
-                        console.log('gridFilterBasic end');
                     }
                 }
             };

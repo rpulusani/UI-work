@@ -402,45 +402,6 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest', '
                     expect(location.path).toHaveBeenCalledWith(MockDeviceServiceRequest.route + '/decommission/' + scope.device.id +'/view');
                 });
             });
-
-            describe('addBasicFilter', function(){
-                it('should get the correct parameters for the url', inject(['FilterSearchService', 'PersonalizationServiceFactory', '$httpBackend', '$controller',
-                  function(FilterSearchService, Personalize, $httpBackend, controller){
-                  var personal = new Personalize('/',0);
-                  var filterSearch = new FilterSearchService(mockFactory, scope, rootScope, personal);
-                  var url = 'https://api.venus-dev.lexmark.com/mps/service-requests?page=0&size=20&accountId=62117&accountLevel=legal&type=MADC_ALL';
-                  var httpResponse = {
-                    _embedded: {
-                      serviceRequests: [{
-                        attachments: null,
-                        chlLevel: null,
-                        costCenter: "123345",
-                        createDate: "2015-12-15T19:21:15",
-                        customerReferenceId: "12345",
-                        description: null,
-                        destinationAddress: null,
-                        id: "1-1DSG8W2L",
-                        meterReads: null,
-                        notes: "Siebel SR test",
-                        requestChangeDate: "2016-01-01T17:00:00",
-                        requestNumber: "1-108382676061",
-                        sourceAddress: null,
-                        status: "SUBMITTED",
-                        type: "MADC_DECOMMISSION"
-                      }]
-                    }
-                  };
-                  
-                  filterSearch.addBasicFilter('dummy label', {type:'MADC_ALL'});
-                  console.log(scope.filterOptions);
-                  scope.options = scope.filterOptions;
-                  mockedGridFilterController = controller('GridFilterController',{$scope: scope});
-                  $httpBackend.expectGET(url).respond(200, httpResponse);
-                  $httpBackend.flush();
-                  expect(mockFactory.data.length).toBe(1);
-                }]));
-            });
-
         });
 
         describe('Routes', function(){
