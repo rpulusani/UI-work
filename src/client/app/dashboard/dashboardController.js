@@ -1,8 +1,26 @@
 define(['angular', 'dashboard', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
-    .controller('DashboardController', ['$scope', '$location',
-        function($scope, $location) {
+    .controller('DashboardController', ['$scope',
+      '$location',
+      'SecurityHelper',
+      'permissionSet',
+        function(
+          $scope,
+          $location,
+          SecurityHelper,
+          permissionSet) {
+
+           var configurePermissions = [
+                {
+                    name: 'viewHomePage',
+                    permission: permissionSet.dashboard.view
+                }
+            ];
+
+            new SecurityHelper($scope).setupPermissionList(configurePermissions);
+
+
 
             // Dummy Chart Data
             $scope.columnChartObject = {};

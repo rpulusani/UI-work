@@ -6,8 +6,28 @@ define([
     'use strict';
 
     nav
-    .controller('NavController', ['$scope', '$location', 'Nav',
-        function($scope, $location, Nav) {
+    .controller('NavController', ['$scope',
+        '$location',
+        'Nav',
+        'SecurityHelper',
+        'permissionSet',
+        function(
+            $scope,
+            $location,
+            Nav,
+            SecurityHelper,
+            permissionSet
+            ) {
+
+            var configurePermissions = [
+                {
+                    name: 'viewHomePage',
+                    permission: permissionSet.dashboard.view
+                }
+            ];
+
+            new SecurityHelper($scope).setupPermissionList(configurePermissions);
+
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
 
