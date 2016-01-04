@@ -4,7 +4,6 @@ define(['angular', 'report'], function(angular) {
     .factory('Reports', ['$translate', 'HATEOASFactory',
         function($translate, HATEOASFactory) {
             var Report = {
-                params: {page: 0, size: 20, sort: ''},
                 serviceName: 'reports',
                 embeddedName: 'reportTypes',
                 columns: 'defaultSet',
