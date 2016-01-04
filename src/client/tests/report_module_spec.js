@@ -154,6 +154,15 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
             }));
 
             describe('runReport', function() {
+
+                it('should set the finder selectType to \'\' if label is select', function() {
+                    var reportItem = scope.reports[0];
+                    scope.finder.selectType = translate.instant('LABEL.SELECT');
+
+                    scope.runReport(reportItem);
+                    expect(scope.finder.selectType).toEqual('');
+                });
+
                 it('should redirect to the report results page', function() {
                     spyOn(location, 'path').and.returnValue('/');
                     var reportItem = scope.reports[0];
@@ -161,15 +170,6 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
 
                     scope.runReport(reportItem);
                     expect(location.path).toHaveBeenCalledWith('/reporting/' + reportItem.id + '/results');
-                });
-
-                it('should set the finder selectType to \'\' if label is select', function() {
-                    var reportItem = scope.reports[0];
-                    scope.finder.selectType = translate.instant('LABEL.SELECT');
-                    console.log(translate.instant);
-
-                    scope.runReport(reportItem);
-                    expect(scope.finder.selectType).toEqual('');
                 });
 
             });
