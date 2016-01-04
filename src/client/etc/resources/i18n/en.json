@@ -30,7 +30,7 @@
         "HELPDESK_REFERENCE":"Helpdesk reference number",
         "COST_CENTER": "Cost center",
         "ORDERS": "Orders",
-        "REQUEST_NUMBER": "Reqeust number",
+        "REQUEST_NUMBER": "Request number",
         "CONTACT_INFORMATION": "Request contact information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary Contact",
@@ -281,6 +281,7 @@
         "DISCARD_DEVICE_REMOVAL_CHANGES": "DISCARD DEVICE REMOVAL CHANGES",
         "CHANGE_DEVICE_TO_BE_REMOVED": "CHANGE DEVICE TO BE REMOVED",
         "DEVICES_COUNT_MSG": "{{count}} devices at {{address}}",
+        "LOOKING_FOR_A_REQUEST": "Looking for a request?",
         "CHL": "CHL"
     },
 

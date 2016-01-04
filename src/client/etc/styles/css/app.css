@@ -190,11 +190,20 @@ textarea {
 .selectricButton {
   height: 52px;
 }
+.selectricHover .selectric {
+  border: 1px solid #0061de;
+}
 .form__field label:after {
   content: "";
 }
 label.question {
   font-weight: 300;
+}
+.selectricItems li:hover,
+.selectricItems li:active,
+.selectricItems li.selected {
+  background: #0061de;
+  color: #ffffff;
 }
 .info-list {
   list-style: none;
@@ -519,9 +528,6 @@ p.info-list .item-name:after {
   background: #0061de;
   color: #ffffff;
 }
-.filter--search .selectricButton {
-  border-left: none;
-}
 .filter--search .search {
   background: #e6e6f0;
   background: -webkit-linear-gradient(#fff, #e6e6f0);
@@ -532,6 +538,9 @@ p.info-list .item-name:after {
   width: 100%;
   border-left: none;
   cursor: pointer;
+}
+.filter--search .search:focus {
+  outline: none;
 }
 .filter--search .search.hover,
 .filter--search .search.focus {
@@ -578,21 +587,42 @@ p.info-list .item-name:after {
   }
 }
 @media only screen and (max-width: 54em) {
+  .filter--search {
+    height: 132px;
+  }
+  .filter--search.focus {
+    box-shadow: none;
+    border-color: transparent;
+    outline: none;
+  }
   .filter--search .search-menu {
     padding-top: 0;
   }
   .filter--search .selectric {
     border-right: 1px solid #7E7E85;
   }
+  .filter--search .selectric.hover,
+  .filter--search .selectric.focus,
+  .filter--search .selectric:hover {
+    border: 1px solid #0061de;
+  }
   .filter--search .form__field {
     margin-top: 24px;
   }
   .filter--search .close-icon {
-    margin-top: 0;
     left: 79.5%;
   }
-  .filter--search .selectricButton {
-    border-left: 1px solid #7e7e85;
+  .filter--search .selectricHover .selectric {
+    border: 1px solid #0061de;
+  }
+  .filter--search .form__field.form__field-btn.focus {
+    box-shadow: 0 0 5px 0px #b5cff5;
+    border-color: #6ca0eb;
+    outline: none;
+  }
+  .filter--search .form__field input.hover,
+  .filter--search .form__field input.focus {
+    border: 1px solid #0061de;
   }
 }
 .print-export {

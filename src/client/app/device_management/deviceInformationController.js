@@ -1,12 +1,15 @@
 define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.imageService', 'utility.grid', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', 'imageService',
-        'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, ImageService, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest) {
+    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', '$rootScope', 'imageService',
+        'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService', 'PersonalizationServiceFactory', 'FilterSearchService',
+        function($scope, $location, $routeParams, BlankCheck, Devices, $rootScope, ImageService, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest, Personalize, FilterSearchService) {
             var redirect_to_list = function() {
                $location.path(Devices.route + '/');
             };
+
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
 
             $scope.getMeterReadPriorDate = function(item){
                 if(item.updateDate){
@@ -158,19 +161,13 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
 
-            $scope.gridOptions = {};
-            var options =  {
-                params:{
-                    type: 'MADC_ALL'
-                }
+            var params =  {
+                type: 'MADC_ALL'
             };
-            ServiceRequest.reset();
-            ServiceRequest.getPage(0, 20, options).then(function() {
-                ServiceRequest.columns = 'madcSet';
-                Grid.display(ServiceRequest, $scope);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);
-            });
+
+
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params);
+            //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
         }
     ]);
 });

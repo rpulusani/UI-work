@@ -372,7 +372,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         }
                     });
                 }
-
                 return url += paramsUrl;
             };
 
@@ -510,7 +509,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     page: page,
                     size: size
                 };
-                
+
                 if (additionalOptions) {
                     options = angular.extend(options, additionalOptions);
                 }
@@ -530,7 +529,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             url: self.url + optionsObj
                         };
                     }
-                } 
+                }
 
                 if (!options.params) {
                     options.params = self.params;
@@ -559,7 +558,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (options.columnDefs) {
                     self.columnDefs = options.columnDefs;
                 }
-                
+
                 return options;
             };
 
@@ -576,7 +575,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 } else {
                     if (processedResponse.data._links) {
-                         if (self.serviceName && (processedResponse.data._embedded 
+                         if (self.serviceName && (processedResponse.data._embedded
                             && processedResponse.data._embedded[self.serviceName]) ) {
 
                             if (processedResponse.data._embedded[self.serviceName] instanceof Array) {
@@ -684,7 +683,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.params = angular.extend(self.params, options.params);
 
-                options.params = {}; 
+                options.params = {};
 
                 $http(options).then(function(processedResponse) {
                     self.setupItem(processedResponse);
@@ -694,7 +693,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     if (options.updateParams === false) {
                         self.params = currentParams;
                     }
-                    
+
                     self.checkForEvent(self.item, 'afterGet');
 
                     deferred.resolve(processedResponse);

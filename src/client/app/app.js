@@ -66,7 +66,8 @@ define([
     'filterSearch.directives',
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
-    'filterSearch.chlFilterController'
+    'filterSearch.chlFilterController',
+    'filterSearch.filterSearchService'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
