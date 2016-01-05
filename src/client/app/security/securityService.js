@@ -85,7 +85,7 @@ define(['angular', 'security'], function(angular) {
                     }else{
                         permissions.reject(defaultPermissionsSet);
                     }
-
+                    angular.element(document.getElementsByTagName('body')).attr('style','');
                 }, function (){
                     permissions.resolve(defaultPermissionsSet);
                 });

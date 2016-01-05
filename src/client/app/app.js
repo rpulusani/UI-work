@@ -223,7 +223,6 @@ define([
         };
         new SecurityService();
         $rootScope.idpUser.$promise.then(function(){
-            angular.element(document.getElementsByTagName('body')).attr('style','');
             var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
                 promise.then(function(user){
                     angular.extend($rootScope.currentUser, user);
