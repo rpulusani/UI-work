@@ -52,7 +52,9 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                 hardwareOrdersOpen: 'LABEL.OPEN',
                                 hardwareOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
                                 billedPagesColor: 'REPORTING.COLOR_PAGES_COUNT',
-                                billedPagesMono: 'REPORTING.MONO_PAGES_COUNT'
+                                billedPagesMono: 'REPORTING.MONO_PAGES_COUNT',
+                                pagesBilledColor: 'REPORTING.COLOR',
+                                pagesBilledMono: 'REPORTING.MONO',
                             },
                         },
                         grids: {
@@ -87,6 +89,12 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         position: 'none'
                     }
                 };
+                $scope.chartOptions.columnChartOptions = {
+                    backgroundColor: '#eff0f6',
+                    fontName: 'tpHero',
+                    title: '',
+                    titlePosition: 'none'
+                };
             };
 
             configureTemplates();
@@ -117,6 +125,47 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                         ]}
                     ]};
             };
+
+            var buildMADCChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.madc = {};
+                $scope.chartObject.madc.type = "ColumnChart";
+                $scope.chartObject.madc.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.madc.dataPoint = 1;
+
+                $scope.chartObject.madc.data = {
+                    "cols": [
+                        {id: "t", label: "MADC", type: "string"},
+                        {id: "s", label: "Month", type: "number" }
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.moves) },
+                            {v: d.moves }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.additions) },
+                            {v: d.additions }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.ipChanges) },
+                            {v: d.ipChanges }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.decommissions) },
+                            {v: d.decommissions }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.swaps) },
+                            {v: d.swaps }
+                        ]}
+                    ]};
+                };
 
             var buildMissingMeterReadsChart = function(data) {
                 var d = {};
@@ -260,10 +309,47 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     ]};
             };
 
+            var buildPagesBilledChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.pagesBilled = {};
+                $scope.chartObject.pagesBilled.type = "PieChart";
+                $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
+                $scope.chartObject.pagesBilled.options.pieHole = 0.4;
+                $scope.chartObject.pagesBilled.dataPoint = 1; 
+
+                $scope.chartObject.pagesBilled.data = {
+                    "cols": [
+                        {id: "t", label: "Pages Billed", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledMono) },
+                            {v: d.pagesBilledMono }
+                        ]},
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledColor) },
+                            {v: d.pagesBilledColor }
+                        ]}
+                    ]};
+
+            };
+
             var buildCharts = function() {
                 var report;
 
                  for (var i = 0; i < $scope.reports.length; i++) {
+
+                    if ($scope.reports[i].id === 'sd0101' || $scope.reports[i].id === 'hw0015') {
+                        return;
+                    }
+
                     report = Reports.createItem($scope.reports[i]);
 
                     report.stats.params.page = null;
@@ -282,6 +368,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                             break;
                                         /* MADC */
                                         case 'mp9073':
+                                            buildMADCChart(report.stats.data[0]);
                                             break;
                                         /* Missing Meter Reads */
                                         case 'mp0075':
@@ -297,6 +384,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                             break;
                                         /* Pages Billed */
                                         case 'pb0001':
+                                            buildPagesBilledChart(report.stats.data[0]);
                                             break;
                                         /* Hardware Installation Requests */
                                         case 'hw0015':
@@ -312,26 +400,22 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     }
             };
 
-            $scope.finder = Reports.finder;
-            $scope.reports = Reports.data;
-            $scope.report = Reports.item;
-
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 
-           if (!$scope.reports.length) {
-                Reports.getPage().then(function() {
-                    $scope.reports = Reports.data;
-                    buildCharts();
+            Reports.getPage().then(function() {
+                $scope.finder = Reports.finder;
+                $scope.reports = Reports.data;
+                $scope.report = Reports.item;
 
-                    Grid.display(Reports, $scope, personal);
-                }, function(reason) {
-                    NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
-                });
-            } else {
                 buildCharts();
-            }
+
+                Grid.display(Reports, $scope, personal);
+
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
+            });
 
             $scope.goToFinder = function(report) {
                 Reports.setItem(report);
