@@ -9,24 +9,11 @@ define([
     .controller('NavController', ['$scope',
         '$location',
         'Nav',
-        'SecurityHelper',
-        'permissionSet',
         function(
             $scope,
             $location,
-            Nav,
-            SecurityHelper,
-            permissionSet
+            Nav
             ) {
-
-            var configurePermissions = [
-                {
-                    name: 'viewHomePage',
-                    permission: permissionSet.dashboard.view
-                }
-            ];
-
-            new SecurityHelper($scope).setupPermissionList(configurePermissions);
 
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();

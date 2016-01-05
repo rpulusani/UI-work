@@ -3,13 +3,20 @@ define(['angular', 'security'], function(angular) {
     angular.module('mps.security')
     .factory('SecurityHelper', [
         'SecurityService',
+        '$location',
         function(
-            SecurityService
+            SecurityService,
+            $location
             ) {
                 var scope,
                 SecurityHelper = function(incommingScope){
                     scope = incommingScope;
                     scope.security = new SecurityService();
+                };
+                SecurityHelper.prototype.redirectCheck =  function(passing){
+                    if(!passing){
+                        $location.path('/');
+                    }
                 };
                 SecurityHelper.prototype.singlePermissionCheck = function(permissionCheckHolderName,
                     permissionToBeChecked){

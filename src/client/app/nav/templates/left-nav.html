@@ -1,12 +1,12 @@
 <nav class="rail-nav">
     <ul>
-        <li ng-repeat="item in getItemsByTag('primary')" >
+        <li ng-repeat="item in getItemsByTag('primary')" ng-if="item.permissionFlag">
             <a class="nav-item" href="{{item.action}}" title="{{item.description}}" ng-class="{'is-active': item.isActive()}">
                 <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
                 <span translate="{{item.text}}"></span>
             </a>
             <ul class="sub-nav" ng-if="getItemsByTag(item.id).length > 0">
-                <li ng-repeat="child in getItemsByTag(item.id)">
+                <li ng-repeat="child in getItemsByTag(item.id)" ng-if="item.permissionFlag">
                     <a class="nav-item" href="{{child.action}}" title="{{child.description}}" ng-class="{'is-active': child.isActive()}">
                         <span class="item-icon {{child.icon}}" ng-if="child.icon != ''"></span>
                         <span translate="{{child.text}}"></span>

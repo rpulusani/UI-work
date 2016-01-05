@@ -212,8 +212,8 @@ define([
         GatekeeperProvider.protect(serviceUrl);
     })
 
-    .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService',
-    function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService) {
+    .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
+    function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet) {
 
         Gatekeeper.login({organization_id: '3'});
 
@@ -221,7 +221,135 @@ define([
         $rootScope.currentUser = {
             deferred: $q.defer()
         };
-        new SecurityService();
+        var security = new SecurityService();
+        var configurePermissions = [
+            {
+                name: 'deviceView',
+                permission: permissionSet.deviceManagement.view
+            },
+            {
+                name: 'pageCountAccess',
+                permission: permissionSet.deviceManagement.updatePageCount
+            },
+            {
+                name: 'addDevice',
+                permission: permissionSet.serviceRequestManagement.addMADC
+            },
+            {
+                name: 'orderDevice',
+                permission: permissionSet.serviceRequestManagement.orderHardware
+            },
+            {
+                name: 'searchDevice',
+                permission: permissionSet.deviceManagement.search
+            },
+            {
+                name: 'viewHomePage',
+                permission: permissionSet.dashboard.view
+            },
+            {
+                name: 'decommissionAccess',
+                permission: [
+                    permissionSet.serviceRequestManagement.decommissionMADC,
+                    permissionSet.serviceRequestManagement.deinstallMADC
+                ]
+            },
+            {
+                name: 'createBreakFixAccess',
+                permission: permissionSet.serviceRequestManagement.createBreakFix
+            },
+            {
+                name: 'serviceHistoryAccess',
+                permission: [
+                    permissionSet.serviceRequestManagement.viewSRHistory,
+                    permissionSet.serviceRequestManagement.viewOpenSR
+                 ]
+            },
+            {
+                name: 'controlPanelAccess',
+                permission: permissionSet.deviceManagement.controlPanel
+            },
+            {
+                name:'updateDevice',
+                permission: permissionSet.serviceRequestManagement.changeMADC
+            },
+            {
+                name:'updateDeviceAccess',
+                permission: [
+                    permissionSet.serviceRequestManagement.changeMADC,
+                    permissionSet.serviceRequestManagement.moveMADC
+                ]
+            },
+            {
+                name:'deviceAccess',
+                permission: [
+                    permissionSet.deviceManagement.search,
+                    permissionSet.deviceManagement.view
+                ]
+            },
+            {
+                name:'addressContactAccess',
+                permission: permissionSet.serviceRequestManagement.viewContactAddress
+            },
+            {
+                name: 'openOrderAccess',
+                 permission: permissionSet.deviceManagement.viewOpenOrders
+            },
+            {
+                name:'orderSupplies',
+                permission: permissionSet.serviceRequestManagement.uploadConsumableOrder
+
+            },
+            {
+                name:'orderAccess',
+                permission: [
+                    permissionSet.serviceRequestManagement.orderHardware,
+                    permissionSet.serviceRequestManagement.viewSuppliesOrder,
+                    permissionSet.serviceRequestManagement.uploadConsumableOrder,
+                    permissionSet.serviceRequestManagement.uploadHardwareOrder
+                ]
+            },
+            {
+                name:'serviceRequestAccess',
+                permission: [
+                     permissionSet.serviceRequestManagement.viewBreakFix,
+                     permissionSet.serviceRequestManagement.viewSuppliesOrder,
+                     permissionSet.serviceRequestManagement.viewMADC,
+                     permissionSet.serviceRequestManagement.viewContactAddress
+                ]
+            },
+            {
+                name:'reportAccess',
+                permission: [
+                     permissionSet.reports.viewRunStandard,
+                     permissionSet.reports.viewStrategic
+                ]
+            },
+            {
+                name:'viewInvoicesAccess',
+                permission: permissionSet.invoices.view
+            },
+            {
+                name: 'userManagementAccess',
+                permission:[
+                    permissionSet.userManagement.impersonate,
+                    permissionSet.userManagement.manageUser,
+                    permissionSet.userManagement.createUser,
+                    permissionSet.userManagement.profileReport,
+                    permissionSet.userManagement.disableUser,
+                    permissionSet.userManagement.reactivateUser,
+                    permissionSet.userManagement.approvals,
+                    permissionSet.userManagement.manageMyProfile,
+                    permissionSet.userManagement.inviteUser
+                ]
+            }
+        ];
+        new SecurityHelper($rootScope).setupPermissionList(configurePermissions);
+
+        $q.all(security.requests).then(function(){
+            angular.element(document.getElementsByTagName('body')).attr('style',''); // show the application
+        });
+
         $rootScope.idpUser.$promise.then(function(){
             var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
                 promise.then(function(user){
@@ -241,14 +369,6 @@ define([
             3.) load current user info
             4.) load current user's default account information
         */
-       /* $q.when(Gatekeeper.user, function(){
-            UserService.get({idpId: Gatekeeper.user.id}, function(user){
-                if (user._embedded && user._embedded.users.length > 0) {
-                    $rootScope.currentAccount = $rootScope.currentUser._links.accounts[0].href.split('/').pop();
-                }
-            });
-        });*/
-
 
         $rootScope.logout = Gatekeeper.logout;
     }])

@@ -62,6 +62,7 @@
     <label for="device-move-question-yes"><span></span> {{ 'DEVICE_SERVICE_REQUEST.DEVICE_MOVE_YES' | translate }}</label>
 </div>
 </span>
+<span ng-if="updateDevices">
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
 
 <div class="form__field" >
@@ -125,3 +126,4 @@
 </div>
 
 <a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('DeviceUpdate','updateDeviceContact',device)"></a>
+</span>

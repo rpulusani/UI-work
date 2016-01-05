@@ -104,6 +104,37 @@ define(['angular', 'angular-mocks', 'security'], function(angular, mocks) {
                         $timeout.flush();
                 }]));
             });
+            describe('requests', function(){
+                it('should hold an array of pending requests',
+                 inject(['SecurityService', function(SecurityService){
+                    var expected = 3;
+                    var service = new SecurityService();
+                    service.requests = [];
+                    var promise1 = service.isAllowed('cat');
+                    var promise2 = service.isAllowed('dog');
+                    var promise3 = service.isAllowed('rat');
+
+                    expect(service.requests.length).toBe(expected);
+
+                }]));
+
+            });
+            describe('deRegister', function(){
+                it('should hold nothing in the array of pending requests',
+                inject(['SecurityService', function(SecurityService){
+                    var expected = 3;
+                    var service = new SecurityService();
+                    service.requests = [];
+                    var promise1 = service.isAllowed('cat');
+                    var promise2 = service.isAllowed('dog');
+                    var promise3 = service.isAllowed('rat');
+
+                    expect(service.requests.length).toBe(expected);
+                    service.deRegister(service.requests[1]);
+                    expect(service.requests.length).toBe(2);
+
+                }]));
+            });
             describe('checkPermission', function(){
                 it('should find the requested permission',
                     inject(['SecurityService', function(SecurityService){

@@ -9,7 +9,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
         '$rootScope',
         'PersonalizationServiceFactory',
         'SecurityHelper',
-        'permissionSet',
         function(
             $scope,
             $location,
@@ -17,29 +16,14 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             Devices,
             $rootScope,
             Personalize,
-            SecurityHelper,
-            permissionSet) {
+            SecurityHelper
+            ) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
+
+            new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
+
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
-
-
-            var configurePermissions = [
-                {
-                    name: 'pageCountAccess',
-                    permission: permissionSet.deviceManagement.updatePageCount
-                },
-                {
-                    name: 'addDevice',
-                    permission: permissionSet.serviceRequestManagement.addMADC
-                },
-                {
-                    name: 'searchDevice',
-                    permission: permissionSet.deviceManagement.search
-                }
-            ];
-
-            new SecurityHelper($scope).setupPermissionList(configurePermissions);
 
             $scope.goToCreate = function() {
                 Devices.item = {};

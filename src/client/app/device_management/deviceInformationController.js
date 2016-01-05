@@ -2,6 +2,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceInformationController', [
+        '$rootScope',
         '$scope',
         '$location',
         '$routeParams',
@@ -14,8 +15,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
         'grid',
         'ServiceRequestService',
         'SecurityHelper',
-        'permissionSet',
         function(
+            $rootScope,
             $scope,
             $location,
             $routeParams,
@@ -27,34 +28,10 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             MeterReads,
             Grid,
             ServiceRequest,
-            SecurityHelper,
-            permissionSet
+            SecurityHelper
             ) {
 
-            var configurePermissions = [
-                {
-                    name: 'decommissionAccess',
-                    permission: permissionSet.serviceRequestManagement.decommissionMADC
-                },
-                {
-                    name: 'createBreakFixAccess',
-                    permission: permissionSet.serviceRequestManagement.createBreakFix
-                },
-                {
-                    name: 'srHistoryAccess',
-                    permission: permissionSet.deviceManagement.viewSRHistory
-                },
-                {
-                    name: 'controlPanelAccess',
-                    permission: permissionSet.deviceManagement.controlPanel
-                },
-                {
-                    name:'updateDeviceAccess',
-                    permission: permissionSet.serviceRequestManagement.changeMADC
-                }
-            ];
-
-            new SecurityHelper($scope).setupPermissionList(configurePermissions);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
             var redirect_to_list = function() {
                $location.path(Devices.route + '/');

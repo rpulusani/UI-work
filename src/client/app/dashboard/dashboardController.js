@@ -3,23 +3,10 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
     angular.module('mps.dashboard')
     .controller('DashboardController', ['$scope',
       '$location',
-      'SecurityHelper',
-      'permissionSet',
         function(
           $scope,
-          $location,
-          SecurityHelper,
-          permissionSet) {
-
-           var configurePermissions = [
-                {
-                    name: 'viewHomePage',
-                    permission: permissionSet.dashboard.view
-                }
-            ];
-
-            new SecurityHelper($scope).setupPermissionList(configurePermissions);
-
+          $location
+          ) {
 
 
             // Dummy Chart Data

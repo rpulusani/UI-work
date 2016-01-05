@@ -11,6 +11,8 @@ define(['angular', 'security'], function(angular) {
             var SecurityService = function() {
 
             };
+            SecurityService.prototype.requestPermission = null;
+            SecurityService.prototype.requests = [];
             SecurityService.prototype.workingPermissionSet = {
                 deferred: $q.defer(),
                 data:[]
@@ -23,27 +25,56 @@ define(['angular', 'security'], function(angular) {
                     pass = self.checkPermission(requestedPermission);
                     passPromise.resolve(pass);
                 }else{
-                    var workingPermissionSetPromise = self.getWorkingPermissionSet();
-                    workingPermissionSetPromise.then(function(){
+                    if(!self.requestPermission){
+                        self.requestPermission = self.getWorkingPermissionSet();
+                    }
+                     self.requests.push(self.requestPermission);
+                     self.requestPermission.then(function(){
                         self.workingPermissionSet.deferred.resolve();
                         pass = self.checkPermission(requestedPermission);
+                        self.deRegister();
                         passPromise.resolve(pass);
                     }, function(){
+                        self.deRegister();
                         passPromise.resolve(pass);
                     });
                 }
                 return passPromise.promise;
             };
 
+            SecurityService.prototype.deRegister = function(){
+                var self = this;
+                self.requests.pop();
+            };
+
+            //this is an or check of permissions as long as one is found.
+            SecurityService.prototype.checkPermissions = function(requestedPermissionSet){
+                var pass = false,
+                    self = this;
+                    if(self.workingPermissionSet && self.workingPermissionSet.data){
+                        for(var i = 0; i < self.workingPermissionSet.data.length; ++i){
+                            for(var j = 0; j < requestedPermissionSet.length; ++j){
+                                if(self.workingPermissionSet.data[i] === requestedPermissionSet[j]){
+                                    pass = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                return pass;
+            };
             SecurityService.prototype.checkPermission = function(requestedPermission){
                 var pass = false,
-                self = this;
-                if(self.workingPermissionSet && self.workingPermissionSet.data){
-                    for(var i = 0; i < self.workingPermissionSet.data.length; ++i){
-                        if(self.workingPermissionSet.data[i] === requestedPermission){
-                            console.log(requestedPermission + " Passed Check");
-                            pass = true;
-                            break;
+                    self = this;
+                if(Object.prototype.toString.call( requestedPermission ) === '[object Array]'){
+                    pass = self.checkPermissions(requestedPermission);
+                }else{
+                    if(self.workingPermissionSet && self.workingPermissionSet.data){
+                        for(var i = 0; i < self.workingPermissionSet.data.length; ++i){
+                            if(self.workingPermissionSet.data[i] === requestedPermission){
+                                pass = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -85,7 +116,6 @@ define(['angular', 'security'], function(angular) {
                     }else{
                         permissions.reject(defaultPermissionsSet);
                     }
-                    angular.element(document.getElementsByTagName('body')).attr('style','');
                 }, function (){
                     permissions.resolve(defaultPermissionsSet);
                 });

@@ -5,8 +5,10 @@
         <div class="btns">
             <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MGT.ADD"
                 ng-if="addDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.IMPORT"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.ORDER_NEW"></button>
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.IMPORT"
+                ng-if="addDevice"></button>
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.ORDER_NEW"
+                ng-if="orderDevice"></button>
             <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.MANAGE_PAGE_COUNTS"
                 ng-if="pageCountAccess"></button>
         </div>
