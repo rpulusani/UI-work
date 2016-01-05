@@ -757,6 +757,7 @@
     },
 
     "MESSAGE": {
+        "NO_ACCESS": "You do not have access to this application please contact support.",
         "CANCEL": "Do you really want to cancel?",
         "DATA_LOSS": "All data will be lost",
         "ATTACHMENT": "<strong>Note:</strong> Only {{file_list}} file format are supported.  Only a max of 2 files of max. 1 mb each can be attached.",

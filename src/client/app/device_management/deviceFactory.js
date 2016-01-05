@@ -11,9 +11,12 @@ define(['angular', 'deviceManagement'], function(angular) {
                 columnDefs: {
                     defaultSet: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber', dynamic: false,
-                         'cellTemplate':'<div>' +
-                                            '<a href="#" ng-click="grid.appScope.view(row.entity);">{{row.entity.serialNumber}}</a>' +
+                         'cellTemplate':'<div >' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            'ng-if="grid.appScope.deviceView">{{row.entity.serialNumber}}</a>' +
+                                            '<span ng-if="!grid.appScope.deviceView">{{row.entity.serialNumber}}</span>' +
                                         '</div>'
+
                         },
                         {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'hostName'},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'productModel'},

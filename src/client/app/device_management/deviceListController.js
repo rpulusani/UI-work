@@ -1,13 +1,32 @@
 define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceListController', ['$scope', '$location', 'grid', 'Devices', '$rootScope',
-        'PersonalizationServiceFactory', 'FilterSearchService',
-        function($scope, $location, Grid, Devices, $rootScope, Personalize, FilterSearchService) {
+    .controller('DeviceListController', [
+        '$scope',
+        '$location',
+        'grid',
+        'Devices',
+        '$rootScope',
+        'PersonalizationServiceFactory',
+        'FilterSearchService',
+        'SecurityHelper',
+        function(
+            $scope,
+            $location,
+            Grid,
+            Devices,
+            $rootScope,
+            Personalize,
+            FilterSearchService,
+            SecurityHelper
+            ) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
+
+            new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
+
 
             $scope.goToCreate = function() {
                 Devices.item = {};

@@ -1,8 +1,13 @@
 define(['angular', 'dashboard', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
-    .controller('DashboardController', ['$scope', '$location',
-        function($scope, $location) {
+    .controller('DashboardController', ['$scope',
+      '$location',
+        function(
+          $scope,
+          $location
+          ) {
+
 
             // Dummy Chart Data
             $scope.columnChartObject = {};

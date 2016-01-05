@@ -163,6 +163,10 @@ requirejs.config({
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
 
+        'security': 'app/security/security',
+        'security.securityService': 'app/security/securityService',
+        'security.securityHelper': 'app/security/securityHelper',
+
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
         'nav.navFactory': 'app/nav/navFactory',

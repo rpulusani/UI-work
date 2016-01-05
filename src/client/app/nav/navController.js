@@ -6,8 +6,17 @@ define([
     'use strict';
 
     nav
-    .controller('NavController', ['$scope', '$route', '$location', 'Nav',
-        function($scope, $route, $location, Nav) {
+    .controller('NavController', ['$scope',
+        '$location',
+        '$route',
+        'Nav',
+        function(
+            $scope,
+            $location,
+            $route,
+            Nav
+            ) {
+
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
             $scope.$route = $route;

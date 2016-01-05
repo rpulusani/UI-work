@@ -104,7 +104,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                     deferred.resolve(accountInfo);
                 });
-               
+
 
                 return deferred.promise;
             };
@@ -253,7 +253,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 }
 
                                 item[link].get(options).then(function(res) {
-                                    deferred.resolve(res);
+                                    if(res.data){
+                                        deferred.resolve(res.data);
+                                    }else{
+                                        deferred.resolve(res);
+                                    }
                                 });
 
                                 return deferred.promise;
@@ -613,7 +617,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                                     href: self.item._links[prop].href
                                                 }
                                             }
-                                            
+
                                         }
                                     }
                                 }

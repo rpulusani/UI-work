@@ -12,7 +12,6 @@ define([
                 restrict: 'A',
                 templateUrl: '/app/nav/templates/left-nav.html',
                 controller: 'NavController',
-                scope: {}
             };
         }
     ])
@@ -22,7 +21,6 @@ define([
                 restrict: 'A',
                 templateUrl: '/app/nav/templates/footer-nav.html',
                 controller: 'NavController',
-                scope: {}
             };
         }
     ]);
