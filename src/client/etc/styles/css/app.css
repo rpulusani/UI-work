@@ -1,3 +1,8 @@
+.screen-reader {
+  display: block !important;
+  left: -9999px !important;
+  position: absolute !important;
+}
 .site-wrapper:after,
 .site-header:after,
 .site-nav:after,
@@ -30,34 +35,6 @@
 }
 .site-content p a {
   text-decoration: none;
-}
-.call-to-action--after:after,
-.call-to-action:before {
-  content: ">";
-}
-.call-to-action:hover {
-  color: #884fad;
-}
-.icon--mps {
-  background-image: url(/etc/resources/img/mps-icons.png);
-}
-.icon--mps.icon--bookmark {
-  background-position: 0 0;
-  height: 22px;
-  width: 19px;
-  margin: 6px 7px 0 0;
-}
-.icon--mps.icon--print {
-  background-position: -20px 0;
-  height: 18px;
-  width: 21px;
-  margin: 1px 7px 0 0;
-}
-.icon--mps.icon--download {
-  background-position: -41px 0;
-  height: 18px;
-  width: 21px;
-  margin: 3px 2px 0 0;
 }
 .site-footer {
   padding: 12px 10px;
@@ -118,6 +95,11 @@
 .page-header hr {
   border: 0;
   border-top: 2px solid #c9c9d1;
+}
+@media only screen and (max-width: 34em) {
+  .page-header hr {
+    margin-bottom: 24px;
+  }
 }
 .page-content hr,
 .page-tabs hr {
@@ -262,21 +244,22 @@ p.info-list .item-name:after {
   transition: .1s;
 }
 .rail-nav .nav-item .icon {
-  vertical-align: baseline;
-  line-height: 1;
+  line-height: .95;
 }
 .rail-nav .nav-item .item-icon {
-  font-size: 1.25em;
+  font-size: 1.45em;
+  padding-right: 5px;
 }
 .rail-nav .sub-nav .nav-item {
   padding: 12px 20px;
 }
 .top-logo {
-  background-image: url('http://www.lexmark.com/common/common-mce/styles/css/v2/images/lxk-logo-2x.png');
-  width: 284px;
-  height: 56px;
+  width: 200px;
+  height: 41px;
   float: left;
   display: inline;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 @media (max-width: 54em) {
   .top-logo {
@@ -294,12 +277,12 @@ p.info-list .item-name:after {
 }
 @media only screen and (min-width: 74em) {
   .title h1 {
-    padding: 0 50px;
+    padding: 12px 125px;
   }
 }
 @media only screen and (min-width: 54em) and (max-width: 74em) {
   .title h1 {
-    padding: 0 30px;
+    padding: 12px 125px;
   }
 }
 @media (max-width: 54em) {
@@ -645,6 +628,86 @@ p.info-list .item-name:after {
   margin-right: 10px;
   box-shadow: none;
 }
+.call-to-action--after:after,
+.call-to-action:before {
+  content: ">";
+}
+.call-to-action:hover {
+  color: #884fad;
+}
+/** Sprite based icons **/
+.icon--mps {
+  background-image: url(/etc/resources/img/mps-icons.png);
+}
+.icon--mps.icon--bookmark {
+  background-position: 0 0;
+  height: 22px;
+  width: 19px;
+  margin: 6px 7px 0 0;
+}
+.icon--mps.icon--print {
+  background-position: -20px 0;
+  height: 18px;
+  width: 21px;
+  margin: 1px 7px 0 0;
+}
+.icon--mps.icon--download {
+  background-position: -41px 0;
+  height: 18px;
+  width: 21px;
+  margin: 3px 2px 0 0;
+}
+/** Font based icons **/
+[class^="icon-mps"],
+[class*=" icon-mps"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'mps' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-mps-location:before {
+  content: "\e900";
+}
+.icon-mps-strategic:before {
+  content: "\e901";
+}
+.icon-mps-requests:before {
+  content: "\e902";
+}
+.icon-mps-report:before {
+  content: "\e903";
+}
+.icon-mps-pin:before {
+  content: "\e904";
+}
+.icon-mps-orders:before {
+  content: "\e905";
+}
+.icon-mps-invoice:before {
+  content: "\e906";
+}
+.icon-mps-global:before {
+  content: "\e907";
+}
+.icon-mps-device:before {
+  content: "\e908";
+}
+.icon-mps-contact:before {
+  content: "\e909";
+}
+.icon-mps-browse:before {
+  content: "\e90a";
+}
+.icon-mps-admin:before {
+  content: "\e90b";
+}
 .theme--dark {
   background: #44434e;
 }
@@ -654,7 +717,7 @@ p.info-list .item-name:after {
   color: #1d1d25;
 }
 .theme--dark .title h1 {
-  color: #ffffff;
+  color: #00ad21;
 }
 .theme--dark h1.heading {
   color: #00ad21;
@@ -729,4 +792,11 @@ p.info-list .item-name:after {
 .theme--dark .rail-nav .sub-nav .nav-item {
   background: #1d1d25;
   border-color: #1d1d25;
+}
+@font-face {
+  font-family: 'mps';
+  src: url('/etc/resources/fonts/glyphs/mps.eot?hic213');
+  src: url('/etc/resources/fonts/glyphs/mps.eot?hic213#iefix') format('embedded-opentype'), url('/etc/resources/fonts/glyphs/mps.ttf?hic213') format('truetype'), url('/etc/resources/fonts/glyphs/mps.woff?hic213') format('woff'), url('/etc/resources/fonts/glyphs/mps.svg?hic213#mps') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
