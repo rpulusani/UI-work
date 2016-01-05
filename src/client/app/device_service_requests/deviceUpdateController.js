@@ -87,7 +87,9 @@ define(['angular',
                 $scope.resetAddressPicker();
             } else {
                 $scope.device = Devices.item;
-                $scope.device.chl = {};
+                if (BlankCheck.isNull($scope.device.chl)) {
+                    $scope.device.chl = {};
+                }
                 if (!BlankCheck.isNull($scope.device.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                     $scope.device.currentInstalledAddress = $scope.device.address.item;
                     $scope.setupPhysicalLocations($scope.device.currentInstalledAddress, 
