@@ -133,12 +133,12 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     d[data.stat[i].label] = data.stat[i].value;
                 }
 
-                $scope.chartObject.mADC = {};
-                $scope.chartObject.mADC.type = "ColumnChart";
-                $scope.chartObject.mADC.options = angular.copy($scope.chartOptions.columnChartOptions);
-                $scope.chartObject.mADC.dataPoint = 1;
+                $scope.chartObject.madc = {};
+                $scope.chartObject.madc.type = "ColumnChart";
+                $scope.chartObject.madc.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.madc.dataPoint = 1;
 
-                $scope.chartObject.mADC.data = {
+                $scope.chartObject.madc.data = {
                     "cols": [
                         {id: "t", label: "MADC", type: "string"},
                         {id: "s", label: "Month", type: "number" }
