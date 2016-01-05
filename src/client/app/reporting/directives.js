@@ -42,5 +42,12 @@ define(['angular', 'report'], function(angular) {
             templateUrl: '/app/reporting/templates/finder-pb0001.html',
             controller: 'ReportFinderController'
         };
+    })
+    .directive('reportServiceDetail', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/reporting/templates/finder-sd0101.html',
+            controller: 'ReportFinderController'
+        };
     });
 });

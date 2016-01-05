@@ -4,7 +4,6 @@ define(['angular', 'report'], function(angular) {
     .factory('Reports', ['$translate', 'HATEOASFactory',
         function($translate, HATEOASFactory) {
             var Report = {
-                params: {page: 0, size: 20, sort: ''},
                 serviceName: 'reports',
                 embeddedName: 'reportTypes',
                 columns: 'defaultSet',
@@ -297,7 +296,58 @@ define(['angular', 'report'], function(angular) {
                         {'name': $translate.instant('REPORTING.IB_DEINSTALL_REMOVAL_DATE'), 'field': 'ibDeInstallModel', minWidth: 150}
                     ],
                     /* Service Detail Report */
-                    sd0101: []
+                    sd0101: [
+                        {'name': $translate.instant('REPORTING.GEO'), 'field': 'geo', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.COUNTRY'), 'field': 'country', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SERVICE_PARTNER'), 'field': 'servicePartner', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SR_REFERENCE_NUMBER'), 'field': 'spReferenceNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.TECHNICIAN_NAME'), 'field': 'technicianName', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SR_NUMBER'), 'field': 'srNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_NUMBER'), 'field': 'orderNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.EXTERNAL_ORDER_NUMBER'), 'field': 'externalOrderNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.MACHINE_TYPE_MODEL'), 'field': 'machineTypeModel', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SR_CREATE_DATE'), 'field': 'srCreateDate', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CUSTOMER_ACCOUNT_NAME'), 'field': 'customerAccountName', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.HELP_DESK_REFERENCE_NUMBER'), 'field': 'helpDeskRefNum', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SERVICE_SUMMARY'), 'field': 'serviceSummary', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SERIAL_NUMBER'), 'field': 'serialNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.IP_ADDRESS'), 'field': 'ipAddress', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CITY'), 'field': 'city', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.STATE'), 'field': 'state', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ZIPCODE'), 'field': 'zipcode', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.TECH_DEBRIEF'), 'field': 'techDebrief', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ACTUAL_START'), 'field': 'actualStart', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ACTUAL_END'), 'field': 'actualEnd', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CONTACT2_LASTNAME'), 'field': 'contactLastName', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CONTACT2_FIRSTNAME'), 'field': 'contactFirstName', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CONTACT2_PHONE_NUMBER'), 'field': 'contactPhoneNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ASSET_TAG_CUSTOMER'), 'field': 'assetTagCustomer', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ASSET_TAG_LEXMARK'), 'field': 'assetTagLexmark', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CPN_SHORT_NAME'), 'field': 'cpnShortName', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SERVICE_TYPE'), 'field': 'serviceType', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.COST_CENTER'), 'field': 'costCenter', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.DEVICE_TAG_SERVICE_PARTNER'), 'field': 'deviceTagServicePartner', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.DEVICE_TAG_SERVICE_TAG'), 'field': 'deviceTagServiceTag', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.READY_FOR_SERVICE'), 'field': 'readyForServiceFlag', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.CHL'), 'field': 'chl', minWidth: 150},
+
+                        {'name': $translate.instant('REPORTING.ORDER_TYPE'), 'field': 'orderType', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_LINE_TYPE'), 'field': 'orderLineType', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_LINE_PN'), 'field': 'orderLinePn', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_LINE_PRODUCT_DESCRIPTION'), 'field': 'orderLineProdDesc', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.QUANTITY'), 'field': 'quantity', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.TRACKING_NUMBER'), 'field': 'trackingNumber', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_STATUS'), 'field': 'orderStatus', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_LINE_STATUS'), 'field': 'orderLineStatus', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SHIP_TO_ADDRESS'), 'field': 'shipToAddress', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_CREATED_DATE'), 'field': 'orderCreatedDate', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_LINE_ITEM_CREATED'), 'field': 'orderLineItemCreated', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.SHIPPED_DATE'), 'field': 'shippedDate', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.RECEIVED_DATE'), 'field': 'receivedDate', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.DELIVERED_DATE'), 'field': 'deliveredDate', minWidth: 150},
+                        {'name': $translate.instant('REPORTING.ORDER_STATUS_DATE'), 'field': 'orderStatusDate', minWidth: 150}
+                    ]
                 },    
                 route: '/reporting',
                 finder: {
@@ -308,6 +358,10 @@ define(['angular', 'report'], function(angular) {
                     orderTypes: [{value: 'Consumable Supplies'}, {value: 'Consumable SVC Parts'}, {value: 'Consumable SVC Parts & Install'}],
                     mmrDays: '60',
                     mmrTypes: [{value: 'Manual'}, {value: 'Automated Electronic'}],
+                    srStatus: '',
+                    srStatusTypes: [{value: 'Open'}, {value: 'Close'}],
+                    withParts: '',
+                    withPartsTypes: [{value: 'yes'}, {value: 'no'}]
                 }
             };
 

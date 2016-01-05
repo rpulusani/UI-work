@@ -17,6 +17,8 @@ define(['angular',
         'Contacts',
         'UserService',
         'SRControllerHelperService',
+        'SecurityHelper',
+        'permissionSet',
         function($scope,
             $location,
             $routeParams,
@@ -28,7 +30,19 @@ define(['angular',
             Devices,
             Contacts,
             Users,
-            SRHelper) {
+            SRHelper,
+            SecurityHelper,
+            permissionSet
+            ) {
+
+            var configurePermissions = [
+                {
+                    name: 'moveMADCAccess',
+                    permission: permissionSet.serviceRequestManagement.moveMADC
+                }
+            ];
+
+            new SecurityHelper($scope).setupPermissionList(configurePermissions);
 
             $scope.returnedForm = false;
 
@@ -53,8 +67,8 @@ define(['angular',
 
             if (Devices.item === null) {
                 $scope.redirectToList();
-            } else if($rootScope.selectedContact 
-                    && $rootScope.returnPickerObject 
+            } else if($rootScope.selectedContact
+                    && $rootScope.returnPickerObject
                     && $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
@@ -70,7 +84,7 @@ define(['angular',
                 Devices.item = $scope.device;
                 $scope.resetContactPicker();
             } else if($rootScope.selectedAddress
-                    && $rootScope.returnPickerObjectAddress 
+                    && $rootScope.returnPickerObjectAddress
                     && $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
@@ -78,7 +92,7 @@ define(['angular',
                     $scope.device.addressSelected = true;
                     ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
                     $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
-                    $scope.setupPhysicalLocations($scope.device.updatedInstallAddress, 
+                    $scope.setupPhysicalLocations($scope.device.updatedInstallAddress,
                                                     $scope.device.physicalLocation1,
                                                     $scope.device.physicalLocation2,
                                                     $scope.device.physicalLocation3);
@@ -87,10 +101,12 @@ define(['angular',
                 $scope.resetAddressPicker();
             } else {
                 $scope.device = Devices.item;
-                $scope.device.chl = {};
+                if (BlankCheck.isNull($scope.device.chl)) {
+                    $scope.device.chl = {};
+                }
                 if (!BlankCheck.isNull($scope.device.address.item) && BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                     $scope.device.currentInstalledAddress = $scope.device.address.item;
-                    $scope.setupPhysicalLocations($scope.device.currentInstalledAddress, 
+                    $scope.setupPhysicalLocations($scope.device.currentInstalledAddress,
                                                 $scope.device.physicalLocation1,
                                                 $scope.device.physicalLocation2,
                                                 $scope.device.physicalLocation3);
@@ -248,7 +264,13 @@ define(['angular',
                             currentInstalledAddressTitle: 'DEVICE_SERVICE_REQUEST.CURRENTLY_INSTALLED_AT',
                             replaceAddressTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_ADDRESS_WITH'
                         },
-                        sourceAddress: $scope.device.updatedInstallAddress
+                        sourceAddress: function(){
+                            if(updatedInstallAddress){
+                                return $scope.device.updatedInstallAddress;
+                            }else{
+                                return {};
+                            }
+                        }
                     }
                 };
 
@@ -279,7 +301,7 @@ define(['angular',
                     $scope.formattedMoveDevice = FormatterService.formatYesNo($scope.device.lexmarkMoveDevice);
                 }
             };
-            
+
             $scope.formatReceiptData(formatAdditionalData);
         }
     ]);

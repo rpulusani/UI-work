@@ -1,9 +1,42 @@
 define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManagement.deviceFactory', 'utility.imageService', 'utility.grid', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.deviceManagement')
-    .controller('DeviceInformationController', ['$scope', '$location', '$routeParams', 'BlankCheck', 'Devices', '$rootScope', 'imageService',
-        'DeviceServiceRequest','FormatterService', 'MeterReadService', 'grid', 'ServiceRequestService', 'PersonalizationServiceFactory', 'FilterSearchService',
-        function($scope, $location, $routeParams, BlankCheck, Devices, $rootScope, ImageService, DeviceServiceRequest, FormatterService, MeterReads, Grid, ServiceRequest, Personalize, FilterSearchService) {
+    .controller('DeviceInformationController', [
+        '$rootScope',
+        '$scope',
+        '$location',
+        '$routeParams',
+        'BlankCheck',
+        'Devices',
+        'imageService',
+        'DeviceServiceRequest',
+        'FormatterService',
+        'MeterReadService',
+        'grid',
+        'PersonalizationServiceFactory',
+        'ServiceRequestService',
+        'SecurityHelper',
+        'FilterSearchService',
+        function(
+            $rootScope,
+            $scope,
+            $location,
+            $routeParams,
+            BlankCheck,
+            Devices,
+            ImageService,
+            DeviceServiceRequest,
+            FormatterService,
+            MeterReads,
+            Grid,
+            Personalize,
+            ServiceRequest,
+            SecurityHelper,
+            FilterSearchService
+            ) {
+
+            new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
+
             var redirect_to_list = function() {
                $location.path(Devices.route + '/');
             };
@@ -121,7 +154,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 }, function(reason){
                      NREUM.noticeError('Image url was not found reason: ' + reason);
                   });
-                
+
                 });
 
                 if (!BlankCheck.isNull($scope.device['address'])) {

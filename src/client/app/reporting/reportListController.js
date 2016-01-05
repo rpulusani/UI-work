@@ -7,7 +7,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             var params = {};
 
-
             if (Reports.item === null) {
                 $location.path(Reports.route);
             } else {
@@ -102,6 +101,12 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                         break;
                     /* Service Detail Report */
                     case 'sd0101':
+                        params = {
+                            srStatus: Reports.finder ? Reports.finder.srStatus : '',
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : '',
+                            withParts: Reports.finder ? Reports.finder.withParts : '',
+                        };
                         break;
                     default:
                         params = null;
