@@ -50,8 +50,12 @@
   <body class="theme--dark" style="display:none">
     <a id="top" name="top"></a>
     <header class="site-header">
-    <div class="top-logo">
-    </div>
+    <h1 class="top-logo" itemtype="http://schema.org/Organization">
+      <a itemprop="url" tabindex="-1" title="Lexmark MPS home page" href="/">
+        <img itemprop="logo" alt"Lexmark" src="/etc/resources/img/LexmarkLogo_RGB_Reversed_200.png" />
+      </a>
+      <span class="screen-reader" itemprop="name">Lexmark</span>
+    </h1>
     <div class="title">
       <h1 class="text--light" translate="{{sectionTitle}}">Devices</h1>
     </div>

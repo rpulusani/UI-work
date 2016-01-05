@@ -12,7 +12,7 @@
     "action": "/device_management",
     "text": "DEVICE_MGT.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-device",
     "tags":["primary"]
   },
   {
@@ -20,7 +20,7 @@
     "action": "/service_requests/addresses",
     "text": "ADDRESS.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-location",
     "tags":["primary"]
   },
     {
@@ -28,7 +28,7 @@
     "action": "/service_requests/contacts",
     "text": "NAVIGATION.CONTACT",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-contact",
     "tags":["primary"]
   },
   {
@@ -36,7 +36,7 @@
     "action": "/service_requests/order_request",
     "text": "NAVIGATION.ORDER_REQUEST",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-orders",
     "tags":["primary"]
   },
   {
@@ -44,7 +44,7 @@
     "action": "/service_requests",
     "text": "SERVICE_REQUEST.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-requests",
     "tags":["primary"]
   },
 
@@ -53,7 +53,7 @@
     "action": "/reporting",
     "text": "REPORTING.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-report",
     "tags":["primary"]
   },
   {
@@ -61,7 +61,7 @@
     "action": "/invoices",
     "text": "NAVIGATION.INVOICES",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-invoice",
     "tags":["primary"]
   },
   {
@@ -69,7 +69,7 @@
     "action": "/delegated_admin",
     "text": "DELEGATED_ADMIN.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-admin",
     "tags":["primary"]
   },
   {

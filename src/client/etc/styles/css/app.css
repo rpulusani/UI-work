@@ -1,3 +1,8 @@
+.screen-reader {
+  display: block !important;
+  left: -9999px !important;
+  position: absolute !important;
+}
 .site-wrapper:after,
 .site-header:after,
 .site-nav:after,
@@ -90,6 +95,11 @@
 .page-header hr {
   border: 0;
   border-top: 2px solid #c9c9d1;
+}
+@media only screen and (max-width: 34em) {
+  .page-header hr {
+    margin-bottom: 24px;
+  }
 }
 .page-content hr,
 .page-tabs hr {
@@ -234,21 +244,22 @@ p.info-list .item-name:after {
   transition: .1s;
 }
 .rail-nav .nav-item .icon {
-  vertical-align: baseline;
-  line-height: 1;
+  line-height: .95;
 }
 .rail-nav .nav-item .item-icon {
-  font-size: 1.25em;
+  font-size: 1.45em;
+  padding-right: 5px;
 }
 .rail-nav .sub-nav .nav-item {
   padding: 12px 20px;
 }
 .top-logo {
-  background-image: url('http://www.lexmark.com/common/common-mce/styles/css/v2/images/lxk-logo-2x.png');
-  width: 284px;
-  height: 56px;
+  width: 200px;
+  height: 41px;
   float: left;
   display: inline;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 @media (max-width: 54em) {
   .top-logo {
@@ -266,12 +277,12 @@ p.info-list .item-name:after {
 }
 @media only screen and (min-width: 74em) {
   .title h1 {
-    padding: 0 50px;
+    padding: 12px 125px;
   }
 }
 @media only screen and (min-width: 54em) and (max-width: 74em) {
   .title h1 {
-    padding: 0 30px;
+    padding: 12px 125px;
   }
 }
 @media (max-width: 54em) {
@@ -706,7 +717,7 @@ p.info-list .item-name:after {
   color: #1d1d25;
 }
 .theme--dark .title h1 {
-  color: #ffffff;
+  color: #00ad21;
 }
 .theme--dark h1.heading {
   color: #00ad21;
