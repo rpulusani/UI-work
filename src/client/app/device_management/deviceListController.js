@@ -45,11 +45,15 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                     $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
-            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'});
+            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'}, 
+                function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }
+            );
             //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');
             //filterSearchService.addPanelFilter('Filter By Location', 'locationFilter');
             filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
-                $scope.$broadcast('setupColumnPicker', Grid);
+                
         }
     ]);
 });
