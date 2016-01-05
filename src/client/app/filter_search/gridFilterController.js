@@ -9,6 +9,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.currentParams = selectedOption.params;
                     $scope.currentFunctionDef = selectedOption.functionDef;
                 }else{
+
                     $scope.currentFilterPanel = undefined;
                     if(selectedOption.functionDef && typeof selectedOption.functionDef === 'function'){
                         selectedOption.functionDef(selectedOption.params);

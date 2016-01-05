@@ -10,6 +10,7 @@ define(['angular'], function(angular) {
             .when('/service_requests/addresses/:id/delete', {
                 templateUrl: '/app/address_service_requests/templates/review.html',
                 controller: 'AddressController',
+                activeItem: '/service_requests/addresses',
                 resolve: {
                      translationPlaceHolder: function(){
                         return {
@@ -27,6 +28,7 @@ define(['angular'], function(angular) {
             .when('/service_requests/addresses/new', {
                 templateUrl: '/app/address_service_requests/templates/new_update.html',
                 controller: 'AddressController',
+                activeItem: '/service_requests/addresses',
                  resolve: {
                     translationPlaceHolder: function(){
                         return {
@@ -44,6 +46,7 @@ define(['angular'], function(angular) {
             .when('/service_requests/addresses/:id/review', {
                 templateUrl: '/app/address_service_requests/templates/review.html',
                 controller: 'AddressController',
+                activeItem: '/service_requests/addresses',
                 resolve: {
                      translationPlaceHolder: function(){
                         return {
@@ -60,11 +63,13 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/addresses/:id/submitted', {
                 templateUrl: '/app/address_service_requests/templates/submitted.html',
-                controller: 'AddressController'
+                controller: 'AddressController',
+                activeItem: '/service_requests/addresses'
             })
             .when('/service_requests/addresses/:id/update', {
                 templateUrl: '/app/address_service_requests/templates/new_update.html',
                 controller: 'AddressController',
+                activeItem: '/service_requests/addresses',
                  resolve: {
                     translationPlaceHolder: function(){
                         return {
@@ -82,6 +87,7 @@ define(['angular'], function(angular) {
             .when('/service_requests/addresses/:id/verify', {
                 templateUrl: '/app/address_service_requests/templates/address-bod.html',
                 controller: 'AddressController',
+                activeItem: '/service_requests/addresses',
                  resolve: {
                     translationPlaceHolder: function(){
                         return {

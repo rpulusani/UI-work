@@ -16,13 +16,21 @@
     font-weight: bold;
     margin-right: (2)*@base-grid-h;
     width: 150px;
-
-    &:after{
-        content: ":";
-    }
 }
 
 .info-list__item-value{
     float: left;
     margin-right: (2)*@base-grid-h;
 }
+
+p.info-list{
+    .item-name{
+        font-weight: bold;
+
+        &:after{
+            content: ":";
+        }
+    }
+
+}
+

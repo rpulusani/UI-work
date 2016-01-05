@@ -102,8 +102,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         self.item = accountInfo;
                     }
 
-                   $rootScope.currentUser.accounts = self.setItem(accountInfo);
-
                     deferred.resolve(accountInfo);
                 });
 
@@ -170,6 +168,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
+
                     newService.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                     newService.params.accountLevel = $rootScope.currentUser.accounts[0].level;
 
@@ -377,7 +376,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         }
                     });
                 }
-
                 return url += paramsUrl;
             };
 
@@ -629,7 +627,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 self.item[prop].data = self.item._embedded[prop];
                             } else {
                                 if (!self.item._embedded[prop]._links) {
-                                    self.item[prop].item = self.item._embedded[prop];
+                                    if (!self[prop].item) {
+                                        self[prop].item = self.item._embedded[prop];
+                                    } else {
+                                         self.item[prop].item = self.item._embedded[prop];
+                                    }
                                 } else {
                                     self.item[prop].item = self.createItem(self.item._embedded[prop]);
                                 }
@@ -658,6 +660,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 currentParams = angular.copy(self.params),
                 url;
+
                 if (options.params) {
                     options.params = angular.extend(self.params, options.params);
                 } else {

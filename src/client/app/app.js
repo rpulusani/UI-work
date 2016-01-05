@@ -67,6 +67,7 @@ define([
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController',
+    'filterSearch.filterSearchService',
     'security',
     'security.securityService',
     'security.securityHelper'
@@ -224,8 +225,19 @@ define([
         var security = new SecurityService();
         var configurePermissions = [
             {
+                name: 'deviceInfoAccess',
+                permission: permissionSet.deviceManagement.view
+            },
+            {
                 name: 'deviceView',
                 permission: permissionSet.deviceManagement.view
+            },
+            {
+                name: 'serviceHistoryAccess',
+                permission: [
+                    permissionSet.deviceManagement.viewSRHistory,
+                    permissionSet.deviceManagement.viewOpenSR
+                ]
             },
             {
                 name: 'pageCountAccess',
@@ -257,13 +269,6 @@ define([
             {
                 name: 'createBreakFixAccess',
                 permission: permissionSet.serviceRequestManagement.createBreakFix
-            },
-            {
-                name: 'serviceHistoryAccess',
-                permission: [
-                    permissionSet.serviceRequestManagement.viewSRHistory,
-                    permissionSet.serviceRequestManagement.viewOpenSR
-                 ]
             },
             {
                 name: 'controlPanelAccess',

@@ -36,6 +36,43 @@ body{
     > :last-child{
         margin-bottom: 0;
     }
+
+    p a{
+        text-decoration: none;
+    }
+}
+
+.call-to-action--after:after, .call-to-action:before {
+    content: ">";
+}
+
+.call-to-action:hover {
+    color: @purple;
+}
+
+.icon--mps {
+    background-image: url(/etc/resources/img/mps-icons.png);
+
+    &.icon--bookmark {
+        background-position: 0 0;
+        height: 22px;
+        width: 19px;
+        margin: 6px 7px 0 0;
+    }
+
+    &.icon--print {
+        background-position: -20px 0;
+        height: 18px;
+        width: 21px;
+        margin: 1px 7px 0 0;
+    }
+
+    &.icon--download {
+        background-position: -41px 0;
+        height: 18px;
+        width: 21px;
+        margin: 3px 2px 0 0;
+    }
 }
 
 .site-footer{
@@ -67,7 +104,6 @@ body{
             li{
                 float: left;
                 padding: 0 @base-grid-h;
-                border-right: 1px dotted;
 
                 &:last-child{
                     border-right: 0;

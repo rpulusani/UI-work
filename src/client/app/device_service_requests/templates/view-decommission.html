@@ -11,9 +11,8 @@
         enctype="multipart/form-data"
         novalidate
     >
-        <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h3>
-
         <h2 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h2>
+        <hr>
 
         <strong translate="DEVICE_SERVICE_REQUEST.DO_YOU_REQUIRE_PICKUP_DEVICE"></strong>
         
@@ -65,7 +64,7 @@
             <div class="form__field" >
                 <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
                 <div class="col-2-3">
-                    <div select-page-count module="device"></div>
+                    <div select-page-count module="device" source='decommission'></div>
                 </div>
             </div>
         </div>

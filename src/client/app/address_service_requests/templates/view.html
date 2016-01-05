@@ -1,25 +1,24 @@
-<div class="row row--alley-2">
-    <div alert-message></div>
+<div class="page-content">
+        <div alert-message></div>
 
-    <div class="col-1">
-        <h1 translate="ADDRESS.LIST_TITLE"></h1>
+        <div class="col-lg-2-3 col-md-1-1">
+            <h1 translate="ADDRESS.LIST_TITLE"></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
+              sit amet lacus accumsan et viverra justo commodo. Learn more about requests ></p>
+            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
+            translate="ADDRESS_SERVICE_REQUEST.ADD"></button>
+            <button type="button" class="btn btn--default" href=""
+            ng-click="goToUpdate()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
+            <button type="button" class="btn btn--default" href=""
+            ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
+        </div>
 
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
-          sit amet lacus accumsan et viverra justo commodo. Learn more about requests >
-        </p>
-
-        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
-        translate="ADDRESS_SERVICE_REQUEST.ADD"></button>
-        <button type="button" class="btn btn--default" href=""
-        ng-click="goToUpdate()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
-        <button type="button" class="btn btn--default" href=""
-        ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
-        <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="ADDRESS.BOOK"
-          translate-values="{total: pagination.totalItems()}">
-        </h2>
-        <hr/>
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-        <div pagination grid="{{gridOptions}}"></div>
-    </div>
+        <div class="col-1">
+            <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="ADDRESS.BOOK"
+              translate-values="{total: pagination.totalItems()}">
+            </h2>
+            <hr/>
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+            <div pagination grid="{{gridOptions}}"></div>
+        </div>
 </div>

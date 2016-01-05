@@ -2,17 +2,36 @@
 .page-content{
     padding: (2)*@base-grid-v (2)*@base-grid-h;
 
-    @media @mq-gt-tablet{
-        padding: (2)*@base-grid-v (4)*@base-grid-h;
+    @media @mq-desktop{
+        padding: (2)*@base-grid-v (5)*@base-grid-h;
+    }
+    @media @mq-laptop{
+        padding: (2)*@base-grid-v (5)*@base-grid-h;
     }
 
     .fn-clearfix();
 }
 
 .page-header{
-    background-color: @grey2;
+    background-color: @grey1;
+    font-size: 16px;
+    hr {
+		border: 0;
+		border-top: 2px solid @grey3;
+	}
 }
 
-.page-content{
-    
+.page-content, .page-tabs{
+        hr {
+        border: 0;
+        border-top: 2px solid @grey3;
+    }
 }
+
+.page-tabs{
+    h2{
+        display: inline-block;
+    }
+}
+
+

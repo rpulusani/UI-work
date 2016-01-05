@@ -26,9 +26,6 @@ define([
                       self.permissionFlag = $rootScope[item.permissionFlag];
                     });
 
-                    self.isActive = function(){
-                        return ($location.path() === self.action);
-                    };
             };
 
             return new Item();

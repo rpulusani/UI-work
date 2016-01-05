@@ -8,6 +8,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
         'Devices',
         '$rootScope',
         'PersonalizationServiceFactory',
+        'FilterSearchService',
         'SecurityHelper',
         function(
             $scope,
@@ -16,14 +17,16 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             Devices,
             $rootScope,
             Personalize,
+            FilterSearchService,
             SecurityHelper
             ) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
 
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
 
             $scope.goToCreate = function() {
                 Devices.item = {};
@@ -42,95 +45,11 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                     $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
-
-
-            $scope.visibleColumns =  Grid.getVisibleColumns(Devices); //sets initial columns visibility
-
-            function display() {
-                Grid.display(Devices, $scope, personal);
+            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'});
+            //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');
+            //filterSearchService.addPanelFilter('Filter By Location', 'locationFilter');
+            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
                 $scope.$broadcast('setupColumnPicker', Grid);
-            }
-            function failure(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
-            }
-
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
-
-            $scope.optionParams = {
-
-            };
-
-            $scope.searchFunctionDef  = function(params){
-                var options  = {
-                                'params':{
-                                  'type': 'bookmarked'
-                                }
-                            };
-                angular.extend(options.params, params);
-                Devices.getPage(0, 20, options).then(display, failure);
-            };
-
-            $scope.filterOptions =
-                [   {
-                        display:'DEVICE_MGT.ALL_DEVICES',
-                        functionDef: function(params){
-                            var options  = {
-                                'params':{
-                                  'type': 'all_devices'
-                                }
-                            };
-                            Devices.params = Devices.defaultParams;
-                            Devices.getPage(0, 20, options).then(display, failure);
-                            $scope.optionParams  = params;
-                        },
-                        params: $scope.optionParams
-                    },
-                   /* {
-                        display: 'DEVICE_MGT.BOOKMARKED_DEVICES',
-                        functionDef: function(params){
-                            var options  = {
-                                'params':{
-                                  'type': 'bookmarked'
-                                }
-                            };
-                            Devices.params = Devices.defaultParams;
-                            Devices.getPage(0, 20, options).then(display, failure);
-                            $scope.optionParams  = params;
-                        },
-                        params: $scope.optionParams
-                    },
-                    {
-                        display: 'Filter By Location',
-                        optionsPanel: 'locationFilter',
-                        functionDef: function(params){
-                            var options  = {
-                                'params':{
-                                  'type': 'locationFilter'
-                                }
-                            };
-                            angular.extend(options.params, params);
-                            Devices.getPage(0, 20, options).then(display, failure);
-                            $scope.optionParams  = params;
-                        },
-                        params: $scope.optionParams
-                    },*/
-                    {
-                        display: 'Filter By CHL',
-                        optionsPanel: 'CHLFilter',
-                        functionDef: function(params){
-                            var options  = {
-                                'params':{
-                                  'type': 'chlFilter'
-                                }
-                            };
-                            angular.extend(options.params, params);
-                            Devices.getPage(0, 20, options).then(display, failure);
-                            $scope.optionParams  = params;
-                        },
-                        params: $scope.optionParams
-                    }
-                ];
         }
     ]);
 });

@@ -8,6 +8,13 @@ define(['angular', 'report'], function(angular) {
             controller: 'ReportFinderController'
         };
     })
+    .directive('reportHardwareInstallationRequests', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/reporting/templates/finder-hw0015.html',
+            controller: 'ReportFinderController'
+        };
+    })
     .directive('reportConsumablesOrders', function() {
         return {
             restrict: 'A',
@@ -19,6 +26,20 @@ define(['angular', 'report'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/reporting/templates/finder-mp9073.html',
+            controller: 'ReportFinderController'
+        };
+    })
+    .directive('reportMissingMeterReads', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/reporting/templates/finder-mp0075.html',
+            controller: 'ReportFinderController'
+        };
+    })
+    .directive('reportPagesBilled', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/reporting/templates/finder-pb0001.html',
             controller: 'ReportFinderController'
         };
     });

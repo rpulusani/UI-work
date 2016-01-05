@@ -5,33 +5,11 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
         '$location',
         'Devices',
         'SecurityHelper',
-        'permissionSet',
         function($scope,
             $location,
             Device,
-            SecurityHelper,
-            permissionSet) {
-
-            var configurePermissions = [
-                {
-                    name: 'deviceInfoAccess',
-                    permission: permissionSet.deviceManagement.view
-                },
-                {
-                    name: 'pageCountAccess',
-                    permission: permissionSet.deviceManagement.updatePageCount
-                },
-                {
-                    name: 'serviceHistoryAccess',
-                    permission: permissionSet.serviceRequestManagement.viewBreakFix
-                },
-                {
-                    name: 'openOrderAccess',
-                    permission: permissionSet.deviceManagement.viewOpenOrders
-                }
-            ];
-
-            new SecurityHelper($scope).setupPermissionList(configurePermissions);
+            SecurityHelper
+            ) {
 
             $scope.goToReview = function(device) {
                 $location.path('/device_management/' + device.id + '/review');

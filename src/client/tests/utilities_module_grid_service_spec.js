@@ -87,6 +87,15 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                     var actual = gridService.getVisibleColumns(mockedAddressesFactory);
                     expect(actual.length).toEqual(expected.length);
                 });
+
+                    it('should get an 1 item array if notSearchable column is not included', function(){
+                    var expected = [{'name': 'address', 'field': 'address'}];
+                    mockedAddressesFactory.columnDefs.defaultSet = [
+                        {'name': 'address', 'field': 'address'}
+                    ];
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                });
                 it('should get an empty array if field for column is missing', function(){
                     var expected = [];
                     mockedAddressesFactory.columnDefs.defaultSet = [
@@ -94,6 +103,28 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                     ];
                     var actual = gridService.getVisibleColumns(mockedAddressesFactory);
                     expect(actual.length).toEqual(expected.length);
+                });
+                it('should get back 3 items in the array and exclude 3 items', function(){
+                    var expected = [
+                        {'name': 'SERVICE_REQUEST.REQUEST_NUMBER', 'field':'requestNumber'},
+                        {'name': 'SERVICE_REQUEST.HELPDESK_REFERENCE', 'field':'customerReferenceId'},
+                        {'name': 'SERVICE_REQUEST.COST_CENTER', 'field':'costCenter'}
+                    ];
+                    mockedAddressesFactory.columnDefs.defaultSet = [
+                            {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                            {'name': 'LABEL.DATE', 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                            {'name': 'SERVICE_REQUEST.REQUEST_NUMBER', 'field':'requestNumber'},
+                            {'name': 'LABEL.TYPE', 'field':'type', 'notSearchable': true},
+                            {'name': 'LABEL.STATUS', 'field':'status', 'notSearchable': true},
+                            {'name': 'SERVICE_REQUEST.HELPDESK_REFERENCE', 'field':'customerReferenceId'},
+                            {'name': 'SERVICE_REQUEST.COST_CENTER', 'field':'costCenter'}
+                        ];
+                    var actual = gridService.getVisibleColumns(mockedAddressesFactory);
+                    expect(actual.length).toEqual(expected.length);
+                    expect(actual[0].name).toBeDefined();
+                    expect(actual[0].name).toBe(expected[0].name);
+                    expect(actual[0].field).toBeDefined();
+                    expect(actual[0].field).toBe(expected[0].field);
                 });
             });
 
