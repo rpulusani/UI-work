@@ -473,8 +473,12 @@ p.info-list .item-name:after {
   min-width: 720px;
 }
 .dropdown.columnpicker {
-  margin-top: 24px;
   border: 1px solid transparent;
+}
+@media only screen and (min-width: 54em) {
+  .dropdown.columnpicker {
+    margin-top: 24px;
+  }
 }
 .dropdown.columnpicker .btn {
   background: #e6e6f0;
@@ -503,7 +507,11 @@ p.info-list .item-name:after {
 }
 .columnpicker__menu {
   border: 1px solid #000000;
-  margin-top: -25px;
+}
+@media only screen and (min-width: 54em) {
+  .columnpicker__menu {
+    margin-top: -25px;
+  }
 }
 .filter--search {
   height: 54px;
@@ -512,7 +520,6 @@ p.info-list .item-name:after {
 }
 .filter--search.form__field {
   overflow: visible;
-  margin-bottom: 24px;
 }
 .filter--search.focus {
   box-shadow: 0 0 5px 0px #b5cff5;

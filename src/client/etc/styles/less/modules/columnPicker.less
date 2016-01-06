@@ -6,8 +6,12 @@
 .dropdown{
 
     &.columnpicker{
-    margin-top: (2)*@base-grid-v;
-    border: 1px solid transparent;
+        
+        @media @mq-gt-tablet{
+             margin-top: (2)*@base-grid-v;
+        }
+    
+        border: 1px solid transparent;
     
         .btn{
             background: @grey2;
@@ -46,6 +50,9 @@
 
 .columnpicker__menu{
     border: 1px solid @black;
-    margin-top: -25px;
+
+    @media @mq-gt-tablet{
+        margin-top: -25px;
+    }
 }
 
