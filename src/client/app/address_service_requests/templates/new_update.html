@@ -1,37 +1,32 @@
-<div class="row">
-    <div class="col-1">
-        <h1 translate="{{translationPlaceHolder.h1}}"></h1>
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-2-3 col-md-1-1">
+            <h1 class="heading" translate="{{translationPlaceHolder.h1}}"></h1>
+            <p translate="{{translationPlaceHolder.paragraph}}"></p>
+            <hr class="border--n5 thick">
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-2-3">
-        <p translate="{{translationPlaceHolder.paragraph}}"></p>
+    <div class="row">
+        <div class="col-lg-2-3 col-md-1-1">
+            <form class="form" data-form="" name="newAddress" novalidate>
+                <div address-new-fields></div address-new-fields>
+                <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+     cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+     return-path="/service_requests/addresses">
+                </div>
     </div>
-</div>
-<div class="row">
-    <form class="form" data-form="" name="newAddress" novalidate>
-        <div address-new-fields></div address-new-fields>
-            <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
- cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
- return-path="/service_requests/addresses"></div>
-<div class="row">
-    <div class="col-1">
-        <hr/>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-1">
-          <button name="cancel" class="col-1-3 btn btn--secondary"
-          data-js="modalOpen" data-target="#cancel"
-                translate="{{translationPlaceHolder.cancel}}"></button>
-        <button name="submit" class="col-1-3 btn btn--primary" type="submit"
-                translate="{{translationPlaceHolder.submit}}" value="submit" ng-click="goToVerify();"></button>
+    <div class="row">
+        <div class="col-lg-2-3 col-md-1-1">
+              <button name="cancel" class="btn btn--secondary"
+              data-js="modalOpen" data-target="#cancel"
+                    translate="{{translationPlaceHolder.cancel}}"></button>
+            <button name="submit" class="btn btn--primary" type="submit"
+                    translate="{{translationPlaceHolder.submit}}" value="submit" ng-click="goToVerify();"></button>
+        </div>
     </div>
-    <div class="col-1-3">
+        </form>
     </div>
-</div>
-    </form>
 </div>
 
 

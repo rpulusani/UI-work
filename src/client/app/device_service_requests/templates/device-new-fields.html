@@ -46,8 +46,8 @@
     <div class="form__field form__field--select" >
         <label translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></label>
         <div selectric
-            model="device.productNumber"
-            options="productNumbers"
+            model="device.productModel"
+            options="device.productNumbers"
             value="productNo"
             label="productNo"
             placeholder="{{'LABEL.SELECT' | translate}}"
@@ -85,7 +85,7 @@
 <div ng-hide="device.deviceInstallQuestion === 'true'">
     <div class="form__field" >
         <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
-        <input datepicker type="date" ng-model="device.deviceInstallDate"/>
+        <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"/>
     </div>
 </div>
 
@@ -101,7 +101,7 @@
 
 <div ng-show="device.addressSelected">
     <div class="contact-info">
-        <div ng-bind-html="formattedAddress"></div>
+        <div ng-bind-html="formattedDeviceAddress"></div>
     </div>
     <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceAdd',device)"></a>
     <div class="form__field">
@@ -226,7 +226,7 @@
 <div ng-show="device.devicePageCountQuestion === 'true'">
     <div class="form__field" >
         <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
-        <div select-page-count module="device"></div>
+        <div select-page-count module="device" source='add'></div>
     </div>
 </div>
 
@@ -264,7 +264,8 @@
 
 <div ng-show="device.deviceCHLQuestion === 'true'">
     <strong translate="ACCOUNT.ORG_STRUCT"></strong>
-    <div tree class="well"></div>
+    <div tree class="well" tree-type='chl' action='selectLevel' value="device.chl"></div>
+    <input type="hidden" ng-model="device.chl.id" name="chl-id"/>
 </div>
 
 <div class="form__field" >

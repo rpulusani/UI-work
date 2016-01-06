@@ -21,9 +21,11 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $scope.formattedInstalledAddress = FormatterService.formatAddress(JSON.parse($scope.sourceAddress));
             }
 
+            /*commenting the validation until fixing*/
+            /*
             if (!Addresses.data.length) {
                 $location.path('/');
-            }
+            }*/
 
             configureTemplates();
 

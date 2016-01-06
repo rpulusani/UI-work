@@ -65,26 +65,55 @@ define([
                 }
             });
 
-            $scope.toggleChildren = function() {
+            var deselectOthers = function(item, itemList) {
+                if (itemList && itemList.length > 0) {
+                    for(var i=0;i<itemList.length;i++) {
+                        if(itemList[i].accountId !== item.accountId) {
+                            itemList[i].selected = false;
+                        }
+                        if(itemList[i].items && itemList[i].items.length > 0) {
+                            deselectChildren(itemList[i].items, item);
+                        }
+                        
+                    }
+                }
+            };
 
+            var deselectChildren = function(children, item) {
+                for(var j=0;j<children.length;j++) {
+                    if(children[j].accountId !== item.accountId) {
+                        children[j].selected = false;
+                    }
+                    if(children[j].items && children[j].items.length > 0){
+                        deselectChildren(children[j].items, item);
+                    }
+                }
             }
 
             $scope.toggleChildren = function(item){
                 var children = item.items || [],
-                    limit = children.length,
                     i = 0,
                     options = {};
-                if(item.selected) {
-                    $scope.selectedItems.push(item.accountId);
-                    if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
-                        $scope.filterChl($scope.selectedItems);
+
+                if ($scope.action && $scope.action === 'selectLevel') {
+                    if (item.selected) {
+                        $scope.value.id = item.accountId;
+                        $scope.value.name = item.name;
+                        deselectOthers(item, $scope.treeNodes);
                     }
-                    
                 } else {
-                    if($scope.selectedItems.indexOf(item.accountId) !== -1) {
-                        $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
+                    if (item.selected) {
+                        $scope.selectedItems.push(item.accountId);
                         if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
                             $scope.filterChl($scope.selectedItems);
+                        }
+                        
+                    } else {
+                        if($scope.selectedItems.indexOf(item.accountId) !== -1) {
+                            $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
+                            if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                                $scope.filterChl($scope.selectedItems);
+                            }
                         }
                     }
                 }
@@ -118,6 +147,7 @@ define([
                 $scope.item.selected = false;
                 $scope.toggleChildren($scope.item);
             });
+            
         }
     ]);
 });

@@ -7,7 +7,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             var params = {};
 
-
             if (Reports.item === null) {
                 $location.path(Reports.route);
             } else {
@@ -59,37 +58,55 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     /* MADC */
                     case 'mp9073':
                         params = {
-                            eventType: Reports.finder ? Reports.finder.eventType : '',
-                            eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.eventDateFrom, 'yyyy-MM-dd') : '',
-                            eventDateTo: Reports.finder ? $filter('date')(Reports.finder.eventDateTo, 'yyyy-MM-dd') : ''
+                            eventType: Reports.finder ? Reports.finder.selectType : '',
+                            eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            eventDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Missing Meter Reads */
                     case 'mp0075':
+                        params = {
+                            meterSource: Reports.finder ? Reports.finder.selectType : '',
+                            numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
+                        };
                         break;
                     /* Consumables Orders */
                     case 'mp0021':
                         params = {
-                            orderType: Reports.finder ? Reports.finder.orderType : '',
-                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.orderDateFrom, 'yyyy-MM-dd') : '',
-                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.orderDateTo, 'yyyy-MM-dd') : ''
+                            orderType: Reports.finder ? Reports.finder.selectType : '',
+                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Hardware Orders */
                     case 'hw0008':
                         params = {
-                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.orderDateFrom, 'yyyy-MM-dd') : '',
-                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.orderDateTo, 'yyyy-MM-dd') : ''
+                            orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                         };
                         break;
                     /* Pages Billed */
                     case 'pb0001':
+                        params = {
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
+                        };
                         break;
                     /* Hardware Installation Requests */
                     case 'hw0015':
+                        params = {
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
+                        };
                         break;
                     /* Service Detail Report */
                     case 'sd0101':
+                        params = {
+                            srStatus: Reports.finder ? Reports.finder.srStatus : '',
+                            dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                            dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : '',
+                            withParts: Reports.finder ? Reports.finder.withParts : '',
+                        };
                         break;
                     default:
                         params = null;

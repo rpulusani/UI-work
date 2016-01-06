@@ -1,5 +1,5 @@
 /* global describe it beforeEach inject expect */
-define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], function(angular, mocks, deviceManagement, deviceServiceRequest) {
+define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest', 'filterSearch'], function(angular, mocks, deviceManagement, deviceServiceRequest) {
     describe('Device Management Module', function() {
         beforeEach(module('mps'));
 
@@ -180,11 +180,12 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest'], 
         });
 
         describe('DeviceInformationController', function() {
-            var scope, ctrl, location, deferred, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest, mockMeterReads;
+            var scope, rootScope, ctrl, location, deferred, blankCheck, mockedFactory, $httpBackend, MockDeviceServiceRequest, mockMeterReads;
 
             beforeEach(inject(function($rootScope, $controller, $location, $q, BlankCheck, HATEAOSFactory, $httpBackend,
                 Devices, DeviceServiceRequest, MeterReadService) {
                 scope = $rootScope.$new();
+                rootScope = $rootScope.$new();
                 location = $location;
                 deferred = $q.defer();
                 blankCheck = BlankCheck;

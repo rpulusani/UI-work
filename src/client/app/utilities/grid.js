@@ -51,7 +51,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             visibleColumns = [];
 
             for(var i = 0; i < columnList.length; ++i){
-                if(!columnList[i]['notSearchable'] && columnList[i]['field']){
+                if( 
+                 !columnList[i]['notSearchable'] && columnList[i]['field']){
                     visibleColumns.push({ name: columnList[i]['name'], field: columnList[i]['field'] });
                 }
             }

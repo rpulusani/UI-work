@@ -93,6 +93,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     Users.item.links.contact().then(function() {
                         scope.device.requestedByContact = Users.item.contact.item;
                         ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
+                        scope.device.primaryContact = scope.device.requestedByContact;
                         ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
                         scope.requestedByContactFormatted =
                         FormatterService.formatContact(scope.device.requestedByContact);

@@ -62,12 +62,14 @@ define(['angular', 'filterSearch'], function(angular) {
                         $(".search-box").addClass("focus");
                         $(".search").addClass("focus");
                         $(".selectric").addClass("focus");
+                        $(".form__field-btn").addClass("focus");
                     });
                     $(filterDiv).find(".search-box").blur(function(){
                         $(filterDiv).removeClass("focus");
                         $(".search-box").removeClass("focus");
                         $(".search").removeClass("focus");
                         $(".selectric").removeClass("focus");
+                        $(".form__field-btn").removeClass("focus");
                     });
                     $(filterDiv).find(".selectric").click(function(){
                         $(".selectricItems").width(filterDiv.width()-1);

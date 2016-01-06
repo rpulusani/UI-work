@@ -14,11 +14,12 @@
 <div class="contact-info">
     <div ng-bind-html="formattedDeviceAddress"></div>
 </div>
+<span ng-if="moveMADCAccess">
 <div ng-hide="device.addressSelected">
     <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
 <div ng-show="device.addressSelected">
-    <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_DIFFERENT_INSTALL_ADDRESS" 
+    <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_DIFFERENT_INSTALL_ADDRESS"
         ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
 <div class="form__field">
@@ -60,7 +61,8 @@
     />
     <label for="device-move-question-yes"><span></span> {{ 'DEVICE_SERVICE_REQUEST.DEVICE_MOVE_YES' | translate }}</label>
 </div>
-
+</span>
+<span ng-if="updateDevices">
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
 
 <div class="form__field" >
@@ -107,14 +109,14 @@
 
 <div ng-show="device.deviceCHLQuestion === 'true'">
     <strong translate="ACCOUNT.ORG_STRUCT"></strong>
-    <div tree class="well"></div>
+    <div tree class="well" tree-type='chl' action='selectLevel' value="device.chl"></div>
 </div>
-    
+
 <div class="form__field" >
     <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
     <input name="customerDeviceTag" type="text" ng-model="device.assetTag" value="" class="" />
 </div>
-        
+
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
 
 <label translate="SERVICE_REQUEST.PRIMARY_CONTACT"></label>
@@ -124,3 +126,4 @@
 </div>
 
 <a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('DeviceUpdate','updateDeviceContact',device)"></a>
+</span>

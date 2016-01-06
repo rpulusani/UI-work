@@ -51,16 +51,17 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObject;
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.resetContactPicker();
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 $rootScope.contactPickerReset = false;
             }else {
                 $rootScope.device = Devices.item;
                 if (!BlankCheck.isNull(Devices.item['address'])) {
-                    $scope.device.installAddress = Devices.item.item['address']['item'];
+                    $scope.device.installAddress = Devices.item['address']['item'];
                 }
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
-                    $scope.device.primaryContact = Devices.item.item['contact']['item'];
+                    $scope.device.primaryContact = Devices.item['contact']['item'];
                 }
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                     $scope.resetContactPicker();
@@ -127,6 +128,7 @@ define(['angular',
                                 title: 'DEVICE_MGT.DEVICE_INFO',
                                 serialNumber: 'DEVICE_MGT.SERIAL_NO',
                                 partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                product: 'DEVICE_MGT.PRODUCT_MODEL',
                                 ipAddress: 'DEVICE_MGT.IP_ADDRESS',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
                             }

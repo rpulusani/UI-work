@@ -2,22 +2,25 @@
 
 <div class="page-content">
     <div device-info-section></div>
+    <div class="row">
+        <div class="col-lg-2-3 col-md-1-1">
+            <form class="form"
+                data-form=""
+                name="breakFixDevice"
+                method="post"
+                ng-submit="breakFixDevice.$valid && goToReview()"
+                enctype="multipart/form-data"
+                novalidate
+            >
+                <h2 translate="DEVICE_SERVICE_REQUEST.SERVICE_REQUEST_DETAIL"></h2>
+                
+                <div class="form__field">
+                    <label translate="DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION"></label>
+                    <textarea name="description" type="text" rows="8" cols="129" ng-model="sr.description"></textarea>
+                </div>
 
-    <form class="form"
-        data-form=""
-        name="breakFixDevice"
-        method="post"
-        ng-submit="breakFixDevice.$valid && goToReview()"
-        enctype="multipart/form-data"
-        novalidate
-    >
-        <h2 translate="DEVICE_SERVICE_REQUEST.SERVICE_REQUEST_DETAIL"></h2>
-        
-        <div class="form__field">
-            <label translate="DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION"></label>
-            <textarea name="description" type="text" rows="8" cols="129" ng-model="sr.description"></textarea>
+                <div sr-form-buttons></div>
+            </form>
         </div>
-
-        <div sr-form-buttons></div>
-    </form>
+    </div>
 </div>

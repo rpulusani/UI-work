@@ -74,6 +74,7 @@ requirejs.config({
             'report.reportFinderController',
             'report.directives',
             'report.factory',
+            'report.visualizationFactory',
 
             'tree',
             'tree.treeItemsService',
@@ -119,6 +120,7 @@ requirejs.config({
         'report.reportFinderController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
+        'report.visualizationFactory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
@@ -158,7 +160,12 @@ requirejs.config({
         'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
         'filterSearch.gridSearchController': 'app/filter_search/gridSearchController',
         'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
+        'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
+
+        'security': 'app/security/security',
+        'security.securityService': 'app/security/securityService',
+        'security.securityHelper': 'app/security/securityHelper',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
@@ -255,6 +262,7 @@ requirejs.config({
         'report.reportFinderController': 'app/reporting/reportFinderController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
+        'report.visualizationFactory': 'app/reporting/visualizationFactory',
 
         'dashboard': 'app/dashboard/dashboard',
         'dashboard.dashboardController': 'app/dashboard/dashboardController',

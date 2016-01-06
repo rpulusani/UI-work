@@ -2,17 +2,18 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
     'use strict';
     angular.module('mps.deviceManagement')
     .controller('DeviceRequestBreakFixListController', ['$scope', '$translate', 'grid', '$rootScope',
-        'PersonalizationServiceFactory', 'ServiceRequestService', '$location', 'Devices',
-        function($scope, $translate, Grid, $rootScope, Personalize, ServiceRequest,  $location, Devices) {
+        'PersonalizationServiceFactory', 'ServiceRequestService', '$location', 'Devices', 'FilterSearchService',
+        function($scope, $translate, Grid, $rootScope, Personalize, ServiceRequest,  $location, Devices, FilterSearchService) {
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);
             if(Devices.item){
               var options = {
                 params:{
-                  //type: 'BREAK_FIX',
+                  type: 'BREAK_FIX',
                   assetId: Devices.item.id
                 }
                };
@@ -23,6 +24,11 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
               }, function(reason){
                   NREUM.noticeError('Grid Load Failed for getting ServiceRequests ' + Devices.serviceName +  ' reason: ' + reason);
               });
+            var params =  {
+                type: 'BREAK_FIX'
+            };
+              filterSearchService.addBasicFilter('REQUEST_MGMT.SERVICE_REQUESTS', params);
+              //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
           }
         }
     ]);
