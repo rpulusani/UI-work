@@ -17,6 +17,7 @@ define([
     'serviceRequest.listController',
     'serviceRequest.serviceRequestController',
     'serviceRequest.controllerHelperService',
+    'serviceRequest.TabController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
