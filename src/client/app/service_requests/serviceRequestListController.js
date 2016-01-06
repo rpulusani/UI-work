@@ -1,19 +1,45 @@
 define(['angular','serviceRequest', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('ServiceRequestListController', ['$scope', '$location', '$rootScope','ServiceRequestService', 'grid',
+    .controller('ServiceRequestListController', [
+        '$scope',
+        '$location',
+        '$rootScope',
+        'ServiceRequestService',
+        'grid',
         'PersonalizationServiceFactory',
-        function($scope,  $location, $rootScope, ServiceRequest, Grid, Personalize) {
+        'FilterSearchService',
+        'SecurityHelper',
+        function(
+            $scope,
+            $location,
+            $rootScope,
+            ServiceRequest,
+            Grid,
+            Personalize,
+            FilterSearchService,
+            SecurityHelper) {
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
 
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);
-            ServiceRequest.getPage().then(function() {
-                Grid.display(ServiceRequest, $scope, personal);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + ServiceRequest.serviceName +  ' reason: ' + reason);
-            });
+            new SecurityHelper($rootScope).redirectCheck($rootScope.serviceRequestAccess);
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
+
+
+            $scope.view = function(SR){
+                ServiceRequest.setItem(SR);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+            };
+
+            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {'embed': 'address,contact'},
+                function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }
+            );
         }
     ]);
 });
