@@ -3,7 +3,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     angular.module('mps.utility')
     .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
      'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
-        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams, 
+        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams,
             Personalize, $controller) {
             $scope.selectedAddress = [];
             $rootScope.currentRowList = [];
@@ -17,7 +17,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $rootScope.selectedContact = undefined;
             }
 
-            if (!BlankCheck.isNull($scope.sourceAddress)) {
+            if (!BlankCheck.isNullOrWhiteSpace($scope.sourceAddress)) {
                 $scope.formattedInstalledAddress = FormatterService.formatAddress(JSON.parse($scope.sourceAddress));
             }
 
@@ -56,7 +56,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            
+
             User.getLoggedInUserInfo().then(function() {
                 if (angular.isArray(User.item._links.accounts)) {
                     User.item._links.accounts = User.item._links.accounts[0];
