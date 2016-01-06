@@ -2,3 +2,50 @@
 .dropdown__menu {
     min-width: 720px;
 }
+
+.dropdown{
+
+    &.columnpicker{
+    margin-top: (2)*@base-grid-v;
+    border: 1px solid transparent;
+    
+        .btn{
+            background: @grey2;
+            background: -webkit-linear-gradient(@white, @grey2);
+            background: -o-linear-gradient(@white, @grey2);
+            background: linear-gradient(@white, @grey2);
+            border: 1px solid @grey5;
+            padding: 10px 0 5px 10px;
+            height: 54px;
+            width: 54px;
+            margin-bottom: 0;
+
+            &:hover, &.focus{
+                background: @black;
+            }
+
+            .icon{
+                &.rotate{
+                      -webkit-transform:rotate(90deg);
+                      -moz-transform:rotate(90deg);
+                      -o-transform:rotate(90deg);
+                      /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=.9); */
+                      -ms-transform:rotate(90deg);
+                }
+            }
+        }
+
+        &.active{
+            .btn{
+                background: @black;
+            }
+        }
+    }
+
+}
+
+.columnpicker__menu{
+    border: 1px solid @black;
+    margin-top: -25px;
+}
+

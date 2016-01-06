@@ -90,10 +90,10 @@ define(['angular', 'utility.grid'], function(angular) {
                     selectorContent,
                     links = [],
                     dropdownBtn = $(
-                        '<div class="dropdown" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
-                            '<button class="btn dropdown__trigger"><span class="dropdown__caret dropdown__caret--light"></span></button>' + 
+                        '<div class="dropdown columnpicker" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
+                            '<button class="btn dropdown__trigger"><i class="icon icon--ui icon--navicon-secondary rotate"></i></button>' + 
                         '</div>'),
-                    dropdownMenu = $('<div class="row l-hidden"><div class="col-1"><div class="row columnpicker__menu"><div class="col-1-5"><h2>' + 
+                    dropdownMenu = $('<div class="row l-hidden"><div class="col-lg-3-4 col-md-1-1"><div class="row l-pad columnpicker__menu"><div class="col-1-1"><h2>' + 
                         translate.instant('COLUMNPICKER.TITLE') + '</h2></div></div></div></div>');
 
                     element.addClass('columnpicker');
@@ -108,6 +108,7 @@ define(['angular', 'utility.grid'], function(angular) {
 
                         if (dropdownMenu.hasClass('l-hidden')) {
                             dropdownMenu.removeClass('l-hidden');
+                            dropdownBtn.addClass('active');
 
                             if (e.targetScope.gridOptions) {
                                 if (Grid.gridOptions.columnDefs.length > 0) {
@@ -133,6 +134,7 @@ define(['angular', 'utility.grid'], function(angular) {
                             }
                         } else {
                             dropdownMenu.addClass('l-hidden');
+                            dropdownBtn.removeClass('active');
                         }
                     });
                 }
