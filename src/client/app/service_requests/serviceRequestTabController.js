@@ -6,7 +6,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         'SecurityHelper',
         function(
             $rootScope,
-            SecurityHelper) {
+            SecurityHelper
+        ) {
             new SecurityHelper($rootScope).redirectCheck($rootScope.serviceRequestAccess);
         }
     ]);
