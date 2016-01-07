@@ -43,7 +43,9 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
         filterSearchService.addBasicFilter('CONTACT.ALL', false,
             function() {
-                $scope.$broadcast('setupColumnPicker', Grid);
+                setTimeout(function() {
+                    $scope.$broadcast('setupColumnPicker', Grid)
+                }, 0);
             }
         );
     }]); // End Controller

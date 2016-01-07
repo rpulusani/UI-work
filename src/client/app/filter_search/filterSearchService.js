@@ -27,17 +27,11 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope = scope;
                 this.columnSet = columnSet;
                 this.personalization = personalization;
-
                 this.display =  function(fn){
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
-
-                    Grid.display(self.service, self.localScope, self.personalization, function() {
-                        if (fn) {
-                            return fn(Grid);
-                        }
-                    });
+                    Grid.display(self.service, self.localScope, self.personalization);
                 };
                 this.failure = function(reason){
                     NREUM.noticeError('Grid Load Failed for ' + self.service.serviceName +  ' reason: ' + reason);
@@ -78,10 +72,12 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
 
                             angular.extend(options.params, params);
-
-                            self.service.getPage(0, 20, options).then(function() {
-                                self.display(fn);
-                            }, self.failure);
+                            var promise = self.service.getPage(0, 20, options);
+                            promise.then(self.display, self.failure).then(function() {
+                                if (typeof fn === 'function') {
+                                    return fn();
+                                }
+                            });
 
                     },
                     params: self.localScope.optionParams
@@ -109,9 +105,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
                             angular.extend(options.params, params);
 
-                            self.service.getPage(0, 20, options).then(function() {
-                                self.display(fn);
-                            }, self.failure)
+                            var promise = self.service.getPage(0, 20, options);
+                            promise.then(self.display, self.failure);
                         },
                         params: self.localScope.optionParams
                 };
