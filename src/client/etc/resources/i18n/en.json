@@ -775,6 +775,7 @@
     },
 
     "COLUMNPICKER": {
-        "TITLE": "Column Selector"
+        "TITLE": "Column Selector",
+        "CUSTOMIZE_COLUMNS": "Customize columns"
     }
 }
