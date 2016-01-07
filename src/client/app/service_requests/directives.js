@@ -15,6 +15,30 @@ define(['angular', 'serviceRequest'], function(angular) {
             scope: {}
         };
     })
+    .directive('breakFixSrTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/tabs/breakfix-sr-tab.html',
+            controller: 'ServiceRequestBreakFixListController',
+            scope: {}
+        };
+    })
+    .directive('addressSrTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/tabs/address-sr-tab.html',
+            controller: 'ServiceRequestAddressListController',
+            scope: {}
+        };
+    })
+    .directive('contactSrTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/tabs/contact-sr-tab.html',
+            controller: 'ServiceRequestContactListController',
+            scope: {}
+        };
+    })
     .directive('allSrTab', function(){
         return {
             restrict: 'A',

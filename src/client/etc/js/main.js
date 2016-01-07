@@ -215,6 +215,9 @@ requirejs.config({
         'serviceRequest.directives': 'app/service_requests/directives',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
         'serviceRequest.listDeviceController': 'app/service_requests/serviceRequestDeviceListController',
+        'serviceRequest.listBreakFixController': 'app/service_requests/serviceRequestBreakFixListController',
+        'serviceRequest.listAddressController': 'app/service_requests/serviceRequestAddressListController',
+        'serviceRequest.listContactController': 'app/service_requests/serviceRequestContactListController',
         'serviceRequest.TabController': 'app/service_requests/serviceRequestTabController',
         'serviceRequest.controllerHelperService': 'app/service_requests/srControllerHelperService',
 
