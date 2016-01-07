@@ -196,6 +196,8 @@
 
     "CONTACT": {
         "TITLE": "Contacts",
+        "LIST_TITLE": "Manage Contacts",
+        "ALL": "All Contacts",
         "ADDRESS": "Address",
         "BOOK": "Contacts ({{total}})",
         "INFO": "Contact Information",

@@ -1,33 +1,50 @@
 define(['angular', 'contact', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactListController', ['$scope', '$location', 'grid', 'Contacts', '$rootScope',
-        'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Contacts, $rootScope, Personalize) {
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+    .controller('ContactListController', [
+    '$scope',
+    '$location',
+    'grid',
+    'Contacts',
+    '$rootScope',
+    'PersonalizationServiceFactory',
+    'FilterSearchService',
+    'SecurityHelper',
+    'FormatterService',
+    function(
+        $scope,
+        $location,
+        Grid,
+        Contacts,
+        $rootScope,
+        Personalize,
+        FilterSearchService,
+        SecurityHelper,
+        formatter
+    ) {
+        var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+        filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
 
-            $rootScope.currentRowList = [];
+        $rootScope.currentRowList = [];
 
-            $scope.goToCreate = function() {
-                Contacts.item = {};
-                $location.path(Contacts.route + '/new');
-            };
+        $scope.goToCreate = function() {
+            Contacts.item = {};
+            $location.path(Contacts.route + '/new');
+        };
 
-            $scope.goToUpdate = function(contact) {
-                Contacts.item = contact;
-                $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
-            };
+        $scope.goToUpdate = function(contact) {
+            Contacts.item = contact;
+            $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
+        };
 
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-
-            Contacts.getPage().then(function() {
-                Grid.display(Contacts, $scope, personal);
-                
-                $scope.$broadcast('setupColumnPicker', Grid);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
-            });
+        $scope.getFullname = function(rowInfo) {
+            return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
         }
-    ]);
+
+        filterSearchService.addBasicFilter('CONTACTS.ALL', {'embed': 'address,contact'},
+            function() {
+                $scope.$broadcast('setupColumnPicker', Grid);
+            }
+        );
+    }]); // End Controller
 });
