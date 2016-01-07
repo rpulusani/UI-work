@@ -41,7 +41,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
         }
 
-        filterSearchService.addBasicFilter('CONTACTS.ALL', {'embed': 'address,contact'},
+        filterSearchService.addBasicFilter('CONTACT.ALL', false,
             function() {
                 $scope.$broadcast('setupColumnPicker', Grid);
             }
