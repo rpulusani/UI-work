@@ -16,7 +16,6 @@ define([
     'serviceRequest.directives',
     'serviceRequest.listController',
     'serviceRequest.listDeviceController',
-    'serviceRequest.serviceRequestController',
     'serviceRequest.controllerHelperService',
     'serviceRequest.TabController',
     'contact',

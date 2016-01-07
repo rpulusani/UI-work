@@ -1,68 +1,35 @@
 <div class="set" data-js="set">
-    <div class="set__trigger" data-toggle="serviceRequestsAllTab" >
+    <div class="set__trigger" data-toggle="serviceRequestsAllTab" ng-click="active('serviceRequestsAllTab')">
         <a href="#serviceRequestsAllTab" translate="REQUEST_MGMT.ALL_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsAllTab" ng-controller="ServiceRequestListController">
-    <div class="row">
-        <div class="col-lg-2-3 col-md-1-1">
-            <div grid-filter options="filterOptions" params="optionParams"></div>
-        </div>
+    <div class="set__content" id="serviceRequestsAllTab">
+        <span all-sr-tab ng-if="isActive('serviceRequestsAllTab')"></span>
     </div>
 
-    <div class="row l-pad-bottom" ng-if="searchDevice">
-        <div class="col-lg-2-3 col-md-1-1">
-            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-        </div>
-
-        <div class="col-1-8 l-alley-before-thick">
-            <div columnpicker></div>
-        </div>
-    </div>
-       <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-       <div pagination grid="{{gridOptions}}"></div>
-    </div>
-
-    <div class="set__trigger" data-toggle="serviceRequestsDeviceTab">
+    <div class="set__trigger" data-toggle="serviceRequestsDeviceTab" ng-click="active('serviceRequestsDeviceTab')">
         <a href="#serviceRequestsDeviceTab" translate="REQUEST_MGMT.DEVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsDeviceTab" ng-controller="ServiceRequestDeviceListController">
-    <div class="row">
-        <div class="col-lg-2-3 col-md-1-1">
-            <div grid-filter options="filterOptions" params="optionParams"></div>
-        </div>
+    <div class="set__content" id="serviceRequestsDeviceTab" >
+        <span device-sr-tab ng-if="isActive('serviceRequestsDeviceTab')"></span>
     </div>
-
-    <div class="row l-pad-bottom" ng-if="searchDevice">
-        <div class="col-lg-2-3 col-md-1-1">
-            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-        </div>
-
-        <div class="col-1-8 l-alley-before-thick">
-            <div columnpicker></div>
-        </div>
-    </div>
-       <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-       <div pagination grid="{{gridOptions}}"></div>
-    </div>
-
-    <div class="set__trigger" data-toggle="serviceRequestsServiceTab">
+    <div class="set__trigger" data-toggle="serviceRequestsServiceTab" ng-click="active('serviceRequestsServiceTab')">
         <a href="#serviceRequestsServiceTab" translate="REQUEST_MGMT.SERVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsServiceTab">
-        <p>Service tab</p>
+        <span  ng-if="isActive('serviceRequestsServiceTab')"></span>
     </div>
 
-    <div class="set__trigger" data-toggle="serviceRequestsAddressTab">
+    <div class="set__trigger" data-toggle="serviceRequestsAddressTab" ng-click="active('serviceRequestsAddressTab')">
         <a href="#serviceRequestsAddressTab" translate="REQUEST_MGMT.ADDRESS_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsAddressTab">
-        <p>Address tab</p>
+        <span  ng-if="isActive('serviceRequestsAddressTab')"></span>
     </div>
 
-    <div class="set__trigger" data-toggle="serviceRequestsContactTab">
+    <div class="set__trigger" data-toggle="serviceRequestsContactTab" ng-click="active('serviceRequestsContactTab')">
         <a href="#serviceRequestsContactTab" translate="REQUEST_MGMT.CONTACT_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsContactTab">
-        <p>Contact tab</p>
+        <span  ng-if="isActive('serviceRequestsContactTab')"></span>
     </div>
 </div>

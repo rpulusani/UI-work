@@ -212,7 +212,6 @@ requirejs.config({
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
-        'serviceRequest.serviceRequestController': 'app/service_requests/serviceRequestController',
         'serviceRequest.directives': 'app/service_requests/directives',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
         'serviceRequest.listDeviceController': 'app/service_requests/serviceRequestDeviceListController',

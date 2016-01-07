@@ -334,6 +334,8 @@
         "REQUEST_SEARCH": "What request are you looking for?",
         "CREATE_NEW_REQUEST": "Create new request",
         "ALL_REQUESTS": "All requests",
+        "ALL_REQUESTS_W_TOTALS": "All requests ({{total}} total requests)",
+        "DEVICE_REQUESTS_W_TOTALS": "Device requests ({{total}} total requests)",
         "DEVICE_REQUESTS": "Device requests",
         "SERVICE_REQUESTS": "Service requests",
         "ADDRESS_REQUESTS": "Address requests",

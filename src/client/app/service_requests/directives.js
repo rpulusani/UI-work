@@ -7,6 +7,22 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/primary-request-contact.html'
         };
     })
+    .directive('deviceSrTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/tabs/device-sr-tab.html',
+            controller: 'ServiceRequestDeviceListController',
+            scope: {}
+        };
+    })
+    .directive('allSrTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/tabs/all-sr-tab.html',
+            controller: 'ServiceRequestListController',
+            scope: {}
+        };
+    })
     .directive('srHeader', function() {
         return {
             restrict: 'A',
@@ -68,6 +84,12 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/additional-request-info.html'
         };
     })
+    .directive('srActionButtons', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/sr-action-buttons.html'
+        };
+    })
     .directive('addressUpload', function() {
         return {
             restrict: 'A',
@@ -82,7 +104,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/service_requests/templates/service-request-tabs.html',
-            controller: 'ServiceRequestController',
+            controller: 'ServiceRequestTabController',
             link: function(scope, el, attr){
                 require(['lxk.fef'], function() {
                     var $ = require('jquery'),

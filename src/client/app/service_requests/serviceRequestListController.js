@@ -9,7 +9,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
-        'SecurityHelper',
         function(
             $scope,
             $location,
@@ -17,11 +16,10 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             ServiceRequest,
             Grid,
             Personalize,
-            FilterSearchService,
-            SecurityHelper) {
+            FilterSearchService) {
             $rootScope.currentRowList = [];
 
-            new SecurityHelper($rootScope).redirectCheck($rootScope.serviceRequestAccess);
+            ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
 
