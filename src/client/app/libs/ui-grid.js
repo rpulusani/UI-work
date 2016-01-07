@@ -4425,10 +4425,7 @@ angular.module('ui.grid')
     var self = this;
 
     var preCompileTemplate = function( col ) {
-      var html;
-
-
-      html = col.cellTemplate.replace(uiGridConstants.MODEL_COL_FIELD, self.getQualifiedColField(col));
+      var html = col.cellTemplate.replace(uiGridConstants.MODEL_COL_FIELD, self.getQualifiedColField(col));
       html = html.replace(uiGridConstants.COL_FIELD, 'grid.getCellValue(row, col)');
 
       var compiledElementFn = $compile(html);
