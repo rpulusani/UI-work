@@ -14,9 +14,14 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             this.serviceInfo = {};
             this.gridOptions = {};
         };
-
+        Grid.prototype.clearGridParamsRootScope = function($rootScope){
+            $rootScope.gridApi = undefined;
+            $rootScope.currentRowList = undefined;
+        };
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
+            var self = this;
             return function( gridApi ) {
+                self.clearGridParamsRootScope($rootScope);
                 $rootScope.gridApi = gridApi;
                 gridApi.selection.on.rowSelectionChanged($rootScope,
                     function(row){
@@ -51,7 +56,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             visibleColumns = [];
 
             for(var i = 0; i < columnList.length; ++i){
-                if( 
+                if(
                  !columnList[i]['notSearchable'] && columnList[i]['field']){
                     visibleColumns.push({ name: columnList[i]['name'], field: columnList[i]['field'] });
                 }
@@ -117,7 +122,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             } else {
                 serviceId = service.embeddedName;
             }
-            
+
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
             scope.gridOptions.showGridFooter = false;
@@ -127,15 +132,15 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
-            scope.gridOptions.enableHorizontalScrollbar = 0; 
+            scope.gridOptions.enableHorizontalScrollbar = 0;
             scope.gridOptions.enableVerticalScrollbar = 0;
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                scope.gridOptions.showBookmarkColumn === true) && 
+                scope.gridOptions.showBookmarkColumn === true) &&
                 (!this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
-                
+
                 scope.gridOptions.showBookmarkColumn = true;
                 this.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
@@ -150,7 +155,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
-            
+
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
