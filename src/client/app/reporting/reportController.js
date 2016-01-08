@@ -1,8 +1,8 @@
 define(['angular', 'report', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid', '$rootScope', 'PersonalizationServiceFactory',
-        function($scope, $location, $translate, Reports, Grid, $rootScope, Personalize) {
+    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'Visualizations', 'grid', '$rootScope', 'PersonalizationServiceFactory',
+        function($scope, $location, $translate, Reports, Visualizations, Grid, $rootScope, Personalize) {
 
             $scope.chartObject = {};
             $scope.chartData = {};
@@ -19,7 +19,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     report: {
                         kpi: {
                             translate: {
-                                h2: 'REPORTING.FLEET_AVAILABILITY',
+                                h2: 'REPORTING.KEY_PERFORMANCE_INDICATORS',
                                 fleetAvailability: 'REPORTING.FLEET_AVAILABILITY',
                                 responseTime: 'REPORTING.RESPONSE_TIME',
                                 consumables: 'REPORTING.CONSUMABLES'
@@ -82,16 +82,22 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     backgroundColor: '#eff0f6',
                     enableInteractivity: true,
                     fontName: 'tpHero',
-                    title: '',
-                    titlePosition: 'none',
-                    pieSliceText: 'value',
                     legend: {
                         position: 'none'
+                    },
+                    pieSliceText: 'value',
+                    title: '',
+                    titlePosition: 'none',
+                    tooltip: {
+                        text: 'percentage'
                     }
                 };
                 $scope.chartOptions.columnChartOptions = {
                     backgroundColor: '#eff0f6',
                     fontName: 'tpHero',
+                    legend: {
+                        position: 'none'
+                    },
                     title: '',
                     titlePosition: 'none'
                 };
@@ -99,6 +105,90 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
 
             configureTemplates();
             configureChartOptions();
+
+            var buildFleetAvailabilityChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.fleetAvailability = {};
+                $scope.chartObject.fleetAvailability.type = "ColumnChart";
+                $scope.chartObject.fleetAvailability.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.fleetAvailability.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
+                $scope.chartObject.fleetAvailability.dataPoint = 1;
+
+                $scope.chartObject.fleetAvailability.data = {
+                    "cols": [
+                        {id: "t", label: "Fleet Availability", type: "string"},
+                        {id: "s", label: "Percent", type: "number" },
+                        {role: "style", type: "string"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.kpi.translate.fleetAvailability) },
+                            {v: d.fleetAvailability },
+                            {v: "#00ad21" }
+                        ]}
+                    ]};
+            };
+
+            var buildResponseTimeChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.responseTime = {};
+                $scope.chartObject.responseTime.type = "ColumnChart";
+                $scope.chartObject.responseTime.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.responseTime.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
+                $scope.chartObject.responseTime.dataPoint = 1;
+
+                $scope.chartObject.responseTime.data = {
+                    "cols": [
+                        {id: "t", label: "Response Time", type: "string"},
+                        {id: "s", label: "Percent", type: "number" },
+                        {role: "style", type: "string"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.kpi.translate.responseTime) },
+                            {v: d.responseTime },
+                            {v: "#1c64b4" }
+                        ]}
+                    ]};
+            };
+
+            var buildConsumablesChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.consumables = {};
+                $scope.chartObject.consumables.type = "ColumnChart";
+                $scope.chartObject.consumables.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.consumables.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
+                $scope.chartObject.consumables.dataPoint = 1;
+
+                $scope.chartObject.consumables.data = {
+                    "cols": [
+                        {id: "t", label: "Fleet Availability", type: "string"},
+                        {id: "s", label: "Percent", type: "number" },
+                        {role: "style", type: "string"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: $translate.instant($scope.configure.report.kpi.translate.consumables) },
+                            {v: d.consumables },
+                            {v: "#faa519" }
+                        ]}
+                    ]};
+            };
 
             var buildAssetRegisterChart = function(data) {
                 var total = 0;
@@ -141,28 +231,34 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.madc.data = {
                     "cols": [
                         {id: "t", label: "MADC", type: "string"},
-                        {id: "s", label: "Month", type: "number" }
+                        {id: "s", label: "Month", type: "number" },
+                        {role: "style", type: "string"}
                     ],
                     "rows": [
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.moves) },
-                            {v: d.moves }
+                            {v: d.moves },
+                            {v: "#00ad21" }
                         ]},
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.additions) },
-                            {v: d.additions }
+                            {v: d.additions },
+                            {v: "#faa519" }
                         ]},
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.ipChanges) },
-                            {v: d.ipChanges }
+                            {v: d.ipChanges },
+                            {v: "#1c64b4" }
                         ]},
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.decommissions) },
-                            {v: d.decommissions }
+                            {v: d.decommissions },
+                            {v: "#884fad" }
                         ]},
                         {c: [
                             {v: $translate.instant($scope.configure.report.charts.translate.swaps) },
-                            {v: d.swaps }
+                            {v: d.swaps },
+                            {v: "#006446" }
                         ]}
                     ]};
                 };
@@ -362,6 +458,18 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
 
                                 if (report.stats.data[0]) {
                                     switch (report.id) {
+                                        /* Fleet Availability */
+                                        case 'fleet-availability':
+                                            buildFleetAvailabilityChart(report.stats.data[0]);
+                                            break;
+                                        /* Response Time */
+                                        case 'response-time':
+                                            buildResponseTimeChart(report.stats.data[0]);
+                                            break;
+                                        /* Consumables */
+                                        case 'consumables':
+                                            buildConsumablesChart(report.stats.data[0]);
+                                            break;
                                         /* Asset Register */
                                         case 'mp9058sp':
                                             buildAssetRegisterChart(report.stats.data[0]);
@@ -385,12 +493,6 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                                         /* Pages Billed */
                                         case 'pb0001':
                                             buildPagesBilledChart(report.stats.data[0]);
-                                            break;
-                                        /* Hardware Installation Requests */
-                                        case 'hw0015':
-                                            break;
-                                        /* Service Detail Report */
-                                        case 'sd0101':
                                             break;
                                         default:
                                     }
