@@ -4,7 +4,7 @@ define(['angular', 'contact'], function(angular) {
     .controller('ContactController', ['$scope', '$location', 'Contacts', 'ServiceRequestService',
         function($scope, $location, Contacts, ServiceRequestService) {
             var redirect_to_list = function() {
-               //$location.path(Contacts.route + '/');
+               $location.path(Contacts.route + '/');
             };
 
             $scope.reviewing = false;

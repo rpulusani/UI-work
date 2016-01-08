@@ -1,23 +1,21 @@
-<div class="page-content">
-    <h1 translate="CONTACT_SERVICE_REQUEST.UPDATE"></h1>
-    <p translate="MESSAGE.LIPSUM"></p>
-
-    <div class="col-1 btns">
-        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
-        translate="CONTACT_SERVICE_REQUEST.DELETE"></button>
+<div class="row">
+    <div class="col-1">
+        <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
+        <h2>Pets At Home / Pets At Home_MSA2010_MPS-UK</h2>
+        <h3 translate="CONTACT_SERVICE_REQUEST.UPDATE" ng-hide="reviewing"></h3>
     </div>
 
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && continue()"
           enctype="mulitpart/form-data" novalidate ng-hide="reviewing">
         <div class="col-1">
             <div new-contact-fields></div>
-            <h4 translate="CONTACT_SERVICE_REQUEST.IDENTIFY_ADDRESS"></h4>
-
         </div>
+
         <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
                 translate="LABEL.CANCEL"></button>
         <button name="submit" class="col-1-3 btn btn--primary" ng-click="review()" type="submit"
                 translate="LABEL.CONTINUE"></button>
+
     </form>
 
     <div class="col-1" ng-show="reviewing">
