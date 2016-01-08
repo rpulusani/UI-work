@@ -196,8 +196,10 @@
 
     "CONTACT": {
         "TITLE": "Contacts",
+        "LIST_TITLE": "Manage Contacts",
+        "ALL": "All Contacts",
         "ADDRESS": "Address",
-        "BOOK": "Contacts ({{total}})",
+        "TITLE_CNT": "Contacts ({{total}})",
         "INFO": "Contact Information",
         "FULLNAME": "Name (Last, First Middle)",
         "FIRST_NAME": "First Name",
