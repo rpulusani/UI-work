@@ -14,7 +14,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             field: 'getFullname()',
                             dynamic: false, // field cannot be removed by column selector
                             cellTemplate: '<div>'+
-                                            '<a href="#" ng-click="grid.appScope.goToUpdate(row.entity);" ng-bind="grid.appScope.getFullname(row.entity)"></a>' +
+                                            '<a href="#" ng-click="grid.appScope.goToUpdate(row.entity);" ng-bind="grid.appScope.getFullname(row.entity)"></a><p>123</p>' +
                                         '</div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},

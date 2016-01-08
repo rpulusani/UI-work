@@ -1,12 +1,16 @@
-<div class="page-content">
-    <h1 translate="CONTACT.LIST_TITLE"></h1>
-    <p translate="MESSAGE.LIPSUM"></p>
-    
-    <div class="col-1 btns">
-        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
-        translate="CONTACT_SERVICE_REQUEST.ADD"></button>
+<div class="page-header">
+    <div class="col-lg-2-3 col-md-1">
+        <h1 translate="CONTACT.LIST_TITLE"></h1>
+        <p translate="MESSAGE.LIPSUM"></p>
+        
+        <div class="col-1 btns">
+            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
+            translate="CONTACT_SERVICE_REQUEST.ADD"></button>
+        </div>
     </div>
+</div>
 
+<div class="page-content">
     <div class="col-1">
         <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
         translate="CONTACT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>

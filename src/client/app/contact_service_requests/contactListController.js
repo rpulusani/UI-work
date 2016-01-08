@@ -11,6 +11,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     'FilterSearchService',
     'SecurityHelper',
     'FormatterService',
+    'SRControllerHelperService',
     function(
         $scope,
         $location,
@@ -20,10 +21,13 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         Personalize,
         FilterSearchService,
         SecurityHelper,
-        formatter
+        formatter,
+        SRHelper
     ) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
+
+        SRHelper.addMethods(Contacts, $scope, $rootScope);
 
         $rootScope.currentRowList = [];
 
