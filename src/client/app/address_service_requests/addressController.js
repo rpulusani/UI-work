@@ -1,17 +1,33 @@
 define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressController', ['$scope', '$location', '$routeParams', 'Addresses',
-        '$rootScope', '$q', 'translationPlaceHolder', 'allowMakeChange',
-        function($scope, $location, $routeParams,  Addresses, $rootScope, $q, translationPlaceHolder,
-         allowMakeChange) {
+    .controller('AddressController', [
+        '$scope',
+        '$location',
+        '$routeParams',
+        'Addresses',
+        '$rootScope',
+        '$q',
+        'translationPlaceHolder',
+        'allowMakeChange',
+        function(
+            $scope,
+            $location,
+            $routeParams,
+            Addresses,
+            $rootScope,
+            $q,
+            translationPlaceHolder,
+            allowMakeChange) {
+
             $scope.continueForm = false;
             $scope.submitForm = false;
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.allowMakeChange = allowMakeChange;
 
             if ($routeParams.id) { //doing work on a current address
-                var promise = Addresses.getSelfResource($routeParams.id);
+                //var promise = Addresses.getSelfResource($routeParams.id);
+                var promise = $routeParams.id;
                 $q.when(promise,
                     function(item){
                         $scope.address = item;
