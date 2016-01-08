@@ -21,7 +21,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'breakfixSRSet');
 
             $scope.view = function(SR){
                 ServiceRequest.setItem(SR);
@@ -31,7 +31,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 };
             };
             var params =  {
-                type: 'BREAK_FIX'
+                type: 'BREAK_FIX',
+                embed: 'primaryContact,requester,asset,sourceAddress'
             };
 
             filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_SERVICE_REQUESTS', params,
@@ -39,7 +40,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }
             );
-            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter');
         }
     ]);
 });

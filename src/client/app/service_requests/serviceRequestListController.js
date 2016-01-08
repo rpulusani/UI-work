@@ -21,7 +21,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'defaultSet');
 
             $scope.view = function(SR){
                 ServiceRequest.setItem(SR);
@@ -31,7 +31,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 };
             };
 
-            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {},
+            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester'},
                 function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }
