@@ -1,7 +1,12 @@
-<h4 translate="CONTACT.INFO"></h4>
-<div class="form__field">
+<div class="col-1">
+    <h2 class="vertical-space--none" translate="CONTACT.INFO"></h2>
+    <hr/>
+</div>
+
+<h4 translate="CONTACT_SERVICE_REQUEST.ADD_WHO"></h4>
+<div class="form__field form__field--required">
     <label translate="CONTACT.FIRST_NAME"></label>
-    <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" />
+    <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" required />
 </div>
 <div class="form__field">
     <label translate="CONTACT.MIDDLE_NAME"></label>
@@ -11,15 +16,66 @@
     <label translate="CONTACT.LAST_NAME"></label>
     <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" />
 </div>
-<div class="form__field">
-    <label translate="CONTACT.WORK_PHONE"></label>
-    <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" />
-</div>
-<div class="form__field">
-    <label translate="CONTACT.ALT_PHONE"></label>
-    <input name="alternatePhone" type="text" ng-model="contact.alternatePhone" value="" class="" />
-</div>
-<div class="form__field">
+
+<h4 translate="CONTACT_SERVICE_REQUEST.CONTACT_INFO"></h4>
+<div class="form__field form__field--required">
     <label translate="CONTACT.EMAIL"></label>
-    <input name="email" type="text" ng-model="contact.emailAddress" value="" class="" />
+    <input name="email" type="text" ng-model="contact.emailAddress" value="" class="" required />
 </div>
+<div class="form__field form__field--required">
+    <label translate="CONTACT.WORK_PHONE"></label>
+    <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" required />
+</div>
+
+<h4 translate="USER.WHERE"></h4>
+<div class="form__field form__field--select form__field--required">
+    <label translate="ADDRESS.COUNTRY"></label>
+    <div country-selector></div>
+    <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i>
+        <span translate="LABEL.ERROR_REQUIRED"></span>
+    </span>
+</div>
+<div class="form__field form__field--required">
+    <label translate="ADDRESS.LINE_1"></label>
+    <input name="addressLine1" type="text" ng-model="address.addressLine1" required/>
+    <span ng-hide="!newAddress.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i>
+        <span translate="LABEL.ERROR_REQUIRED"></span>
+    </span>
+</div>
+<div class="form__field">
+    <label translate="ADDRESS.LINE_2"></label>
+    <input name="addressLine2" type="text" ng-model="address.addressLine2" />
+</div>
+<div class="form__field form__field--required">
+    <label translate="ADDRESS.CITY"></label>
+    <input name="city" type="text" ng-model="address.city" required />
+    <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i>
+        <span translate="LABEL.ERROR_REQUIRED"></span>
+    </span>
+</div>
+<div class="form__field form__field--select form__field--required">
+    <label translate="ADDRESS.STATE"></label>
+    <div selectric options="country.provinces" value="code" label="name" model="address.state" required
+         placeholder="{{'LABEL.SELECT' | translate}}"></div>
+    <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i>
+        <span translate="LABEL.ERROR_REQUIRED"></span>
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-1-3">
+        <div class="form__field form__field--required">
+            <label translate="ADDRESS.ZIP"></label>
+            <input type="text" name="zipCode" ng-model="address.zipCode" value="" class="" required />
+            <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+                <i class="icon icon--ui icon--error-small"></i>
+                <span translate="LABEL.ERROR_REQUIRED"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div address-location-fields></div>

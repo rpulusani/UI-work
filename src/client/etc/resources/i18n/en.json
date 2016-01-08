@@ -57,7 +57,9 @@
         "CHANGE": "Change Request Contacts",
         "ADD": "Add New Contact",
         "UPDATE": "Update Contact",
-        "DELETE": "Delete Contact"
+        "DELETE": "Delete Contact",
+        "ADD_WHO": "Who would you like to add as a contact?",
+        "CONTACT_INFO": "What is their contact information?"
     },
 
     "DEVICE_SERVICE_REQUEST": {
