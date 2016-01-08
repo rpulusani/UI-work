@@ -264,6 +264,14 @@ define([
                 permission: permissionSet.dashboard.view
             },
             {
+                name: 'addressAccess',
+                permission: permissionSet.serviceRequestManagement.addressMADC
+            },
+            {
+                name: 'contactAccess',
+                permission: permissionSet.serviceRequestManagement.contactMADC
+            },
+            {
                 name: 'decommissionAccess',
                 permission: [
                     permissionSet.serviceRequestManagement.decommissionMADC,
