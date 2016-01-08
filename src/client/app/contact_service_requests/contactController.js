@@ -4,18 +4,11 @@ define(['angular', 'contact'], function(angular) {
     .controller('ContactController', ['$scope', '$location', 'Contacts', 'ServiceRequestService',
         function($scope, $location, Contacts, ServiceRequestService) {
             var redirect_to_list = function() {
-               //$location.path(Contacts.route + '/');
+                // YOU ADJUSTED THIS CHANGE IT BACK IDIOT
+                //$location.path(Contacts.route + '/');
             };
 
-            $scope.reviewing = false;
-
-            $scope.review = function() {
-                $scope.reviewing = true;
-            };
-
-            $scope.edit = function() {
-                $scope.reviewing = false;
-            };
+            $scope.service = {};
 
             $scope.save = function() {
                 if ($scope.contact._links) {
@@ -28,8 +21,6 @@ define(['angular', 'contact'], function(angular) {
                     });
                 }
             };
-
-            $scope.service = {};
 
             $scope.saveServiceRequest = function(type) {
                 $scope.service.type = type;
@@ -44,9 +35,13 @@ define(['angular', 'contact'], function(angular) {
                 ServiceRequestService.save($scope.service, redirect_to_list);
             };
 
-            $scope.goToReview = function(contact) {
+            $scope.goToDelete = function(contact) {
                 $location.path(Contacts.route + '/' + contact.id + '/review');
             };
+
+            $scope.submitDelete = function(contact) {
+
+            }
 
             $scope.cancel = function() {
                 redirect_to_list();

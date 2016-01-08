@@ -33,8 +33,11 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         };
 
         $scope.goToUpdate = function(contact) {
-            Contacts.item = contact;
-            $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
+            console.log(contact);
+            Contacts.setItem(contact);
+
+            // YOU ADJUSTED THIS CHANGE IT BACK IDIOT
+            $location.path(Contacts.route + '/' + Contacts.item.id + '/delete');
         };
 
         $scope.getFullname = function(rowInfo) {

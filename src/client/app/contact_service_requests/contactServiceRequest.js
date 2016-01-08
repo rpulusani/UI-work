@@ -20,11 +20,6 @@ define(['angular'], function(angular) {
             templateUrl: '/app/contact_service_requests/templates/update.html',
             controller: 'ContactController',
             activeItem: '/service_requests/contacts'
-        })
-        .when('/service_requests/contacts/:id/review', {
-            templateUrl: '/app/contact_service_requests/templates/review.html',
-            controller: 'ContactController',
-            activeItem: '/service_requests/contacts'
         });
     }]);
 });
