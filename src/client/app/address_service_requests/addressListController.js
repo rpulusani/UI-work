@@ -1,16 +1,52 @@
 define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',
-        'PersonalizationServiceFactory', 'AccountService', 'UserService',
-        function($scope,  $location,  Grid, Addresses, $rootScope, $q, Personalize, Account, User) {
+    .controller('AddressListController', [
+        '$scope',
+        '$location',
+        '$rootScope',
+        'grid',
+        'Addresses',
+        '$q',
+        'PersonalizationServiceFactory',
+        'AccountService',
+        'UserService',
+        'FilterSearchService',
+        function(
+            $scope,
+            $location,
+            $rootScope,
+            Grid,
+            Addresses,
+            $q,
+            Personalize,
+            Account,
+            User,
+            FilterSearchService) {
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+
+            $scope.view = function(address){
+                Addresses.setItem(address);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+
+                Addresses.item.get(options).then(function(){
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                });
+            };
+            
             // Actions
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path(Addresses.route + '/new');
             };
+
 
             $scope.goToUpdate = function() {
                 var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
@@ -43,11 +79,19 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
                 }
             };
 
+            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'address,contact'},
+                function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }
+            );
+
+            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            $scope.gridOptions.enableHorizontalScrollbar = 0; 
-            $scope.gridOptions.enableVerticalScrollbar = 0;
+            //$scope.gridOptions.enableHorizontalScrollbar = 0;
+            //$scope.gridOptions.enableVerticalScrollbar = 0;
             
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {

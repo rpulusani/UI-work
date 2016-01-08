@@ -1,17 +1,18 @@
 define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .factory('Addresses', [ 'serviceUrl', '$translate','HATEOASFactory',
+    .factory('Addresses', [ 'serviceUrl', '$translate', 'HATEOASFactory',
         function(serviceUrl, $translate, HATEOASFactory) {
             var Addresses = {
-                params: {page: 0, size: 20, sort: ''},
+                //params: {page: 0, size: 20, sort: ''},
                 //customize Address
                 serviceName: 'addresses',
+                singular: 'address',
                 embeddedName: 'addresses',
                 columns: [
-                        {'name': 'id', 'field': 'id', visible:false},
+                        {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
-                        {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName'},
+                        {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName', visible:false},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
                         {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2'},
                         {'name': $translate.instant('ADDRESS.CITY'), 'field': 'city'},

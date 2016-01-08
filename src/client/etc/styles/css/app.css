@@ -178,6 +178,12 @@ textarea {
 .form__field label:after {
   content: "";
 }
+.form__field--required.form__field label:before {
+  content: "";
+}
+.form__field--required.form__field label:after {
+  content: " *";
+}
 label.question {
   font-weight: 300;
 }
@@ -475,11 +481,6 @@ p.info-list .item-name:after {
 .dropdown.columnpicker {
   border: 1px solid transparent;
 }
-@media only screen and (min-width: 54em) {
-  .dropdown.columnpicker {
-    margin-top: 24px;
-  }
-}
 .dropdown.columnpicker .btn {
   background: #e6e6f0;
   background: -webkit-linear-gradient(#ffffff, #e6e6f0);
@@ -515,7 +516,6 @@ p.info-list .item-name:after {
 }
 .filter--search {
   height: 54px;
-  margin-top: 24px;
   border: 1px solid transparent;
 }
 .filter--search.form__field {
