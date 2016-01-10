@@ -156,9 +156,10 @@
     },
 
     "ADDRESS": {
+        "ADDRESS": "Address",
         "TITLE": "Addresses",
         "LIST_TITLE": "Manage Addresses",
-        "BOOK": "Addresss book ({{total}} total addresses)",
+        "BOOK": "Address book ({{total}} total addresses)",
         "INFO": "Address Information",
         "NAME": "Address Name",
         "STORE_NAME": "Store-front Name",

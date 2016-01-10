@@ -7,13 +7,22 @@
 </div>
 
 <div class="page-content">
-        <div alert-message></div>
+    <div alert-message></div>
 
-        <div class="col-1">
-            <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="ADDRESS.BOOK"
-              translate-values="{total: pagination.totalItems()}">
-            </h2>
-            <hr/>
+    <div class="clearfix">
+        <h2 class="pull vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="ADDRESS.BOOK"
+          translate-values="{total: pagination.totalItems()}">
+        </h2>
+        <div class="print-export">
+            <span>
+                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
+            </span>
+            <span>
+                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
+            </span>
+        </div>
+    </div>
+        <hr>
             <div class="row">
                 <div class="col-lg-2-3 col-md-1-1">
                     <p class="text--bold vertical-space--none" translate="ADDRESS.BROWSE_ADDRESSES"></p> 
