@@ -21,7 +21,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'contactSet');
 
             $scope.view = function(SR){
                 ServiceRequest.setItem(SR);
@@ -31,7 +31,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 };
             };
             var params =  {
-                type: 'DATA_CONTACT_ALL'
+                type: 'DATA_CONTACT_ALL',
+                embed: 'primaryContact,requester'
             };
 
             filterSearchService.addBasicFilter('All contact service requests', params,

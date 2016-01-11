@@ -34,6 +34,7 @@
         "CONTACT_INFORMATION": "Request Contact Information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary Contact",
+        "REQUESTOR_CONTACT": "Requestor",
         "SECONDARY_CONTACT": "Secondary contact",
         "CHANGE_PRIMARY_CONTACT": "Change primary contact",
         "ADD_SECONDARY_CONTACT": "Add secondary contact",
@@ -45,11 +46,13 @@
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
         "SUBMITED": "Submitted",
+        "PO": "PO",
         "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
         "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
         "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
         "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST",
-        "ABANDON_SERVICE_REQUEST": "Abandon Service Request"
+        "ABANDON_SERVICE_REQUEST": "Abandon Service Request",
+        "FILTER_BY_CHL": "Filter By CHL"
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -61,6 +64,7 @@
     },
 
     "DEVICE_SERVICE_REQUEST": {
+        "ALL_DEVICES_REQUESTS": "All devices requests",
         "ADD": "Add a Device",
         "RESOLUTION": "Resolution",
         "SUBMITTED": "Add a Device Request Submitted",
