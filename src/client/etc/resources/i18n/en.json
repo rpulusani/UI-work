@@ -59,7 +59,9 @@
         "UPDATE": "Update Contact",
         "DELETE": "Delete Contact",
         "ADD_WHO": "Who would you like to add as a contact?",
-        "CONTACT_INFO": "What is their contact information?"
+        "CONTACT_INFO": "What is their contact information?",
+        "ABANDON": "ABONDON DELETE CONTACT REQUEST",
+        "SUBMIT": "SUBMIT DELETE CONTACT REQUEST"
     },
 
     "DEVICE_SERVICE_REQUEST": {
@@ -201,7 +203,7 @@
         "LIST_TITLE": "Manage Contacts",
         "ALL": "All Contacts",
         "ADDRESS": "Address",
-        "TITLE_CNT": "Contacts ({{total}})",
+        "TITLE_CNT": "All contacts ({{total}} total contacts)",
         "INFO": "Contact Information",
         "FULLNAME": "Name (Last, First Middle)",
         "FIRST_NAME": "First Name",

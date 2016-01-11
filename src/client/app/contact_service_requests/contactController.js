@@ -1,14 +1,26 @@
 define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactController', ['$scope', '$location', 'Contacts', 'ServiceRequestService',
-        function($scope, $location, Contacts, ServiceRequestService) {
+    .controller('ContactController', [
+        '$scope',
+        '$location',
+        'Contacts',
+        'ServiceRequestService',
+        'translationPlaceHolder',
+        function(
+            $scope,
+            $location,
+            Contacts,
+            ServiceRequestService,
+            translationPlaceHolder
+        ) {
             var redirect_to_list = function() {
                 // YOU ADJUSTED THIS CHANGE IT BACK IDIOT
                 //$location.path(Contacts.route + '/');
             };
 
             $scope.service = {};
+            $scope.translationPlaceHolder = translationPlaceHolder;
 
             $scope.save = function() {
                 if ($scope.contact._links) {

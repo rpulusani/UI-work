@@ -40,8 +40,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             console.log(contact);
             Contacts.setItem(contact);
 
-            // YOU ADJUSTED THIS CHANGE IT BACK IDIOT
-            $location.path(Contacts.route + '/' + Contacts.item.id + '/delete');
+            $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
         };
 
         $scope.getFullname = function(rowInfo) {

@@ -1,9 +1,17 @@
 <div class="page-header">
+    <div class="col-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a></li>
+        </ul>
+    </div>
+
     <div class="col-lg-2-3 col-md-1">
         <h1 translate="CONTACT.LIST_TITLE"></h1>
-        <p translate="MESSAGE.LIPSUM"></p>
-        
-        <div class="col-1 btns">
+
+        <p class="vertical-space--none" translate="MESSAGE.LIPSUM"></p>
+        <a href="#">Learn more about requests</a>
+
+        <div class="l-pad-top">
             <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
             translate="CONTACT_SERVICE_REQUEST.ADD"></button>
         </div>
@@ -11,15 +19,28 @@
 </div>
 
 <div class="page-content">
-    <div class="col-1">
-        <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-        translate="CONTACT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
-        
-        <hr/>
+    <div>
+        <div class="col-2-3">
+            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+                translate="CONTACT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
+        </div>
+
+        <div class="print-export">
+            <span class="">
+                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
+            </span>
+            
+            <span class="">
+                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
+            </span>
+        </div>
+
+        <hr />
     </div>
 
     <div class="row">
         <div class="col-lg-2-3 col-md-1-1">
+            <span class="text--semi-bold">Looking for a contact?</span>
             <div grid-filter options="filterOptions" params="optionParams"></div>
         </div>
     </div>
