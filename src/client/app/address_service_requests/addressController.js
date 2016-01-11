@@ -34,10 +34,10 @@ define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
                $location.path(Addresses.route + '/');
             };
 
-            console.log("Id is " + $routeParams.id);
+            //console.log("Id is " + $routeParams.id);
 
             if ($routeParams.id) { //doing work on a current address
-                console.log("Id is " + $routeParams.id);
+                //console.log("Id is " + $routeParams.id);
                 //var promise = Addresses.getSelfResource($routeParams.id);
                 var promise = $routeParams.id;
                 $q.when(promise,
