@@ -13,7 +13,11 @@ define(['angular', 'address', 'hateoasFactory.serviceFactory'], function(angular
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
-                        {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name'},
+                        {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name', width: "20%",
+                                'cellTemplate':'<div>' +
+                                    '<a href="#" ng-click="grid.appScope.view(row.entity);">{{row.entity.name}}</a>' +
+                                '</div>'
+                        },
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName', visible:false},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1', visible:false},
                         {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2', visible:false},
@@ -21,7 +25,7 @@ define(['angular', 'address', 'hateoasFactory.serviceFactory'], function(angular
                         {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': 'stateCode', visible:false},
                         {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode', visible:false},
                         {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country', visible:false},
-                        {'name': $translate.instant('ADDRESS.ADDRESS'), 'field': 'getConcatAddress()'}
+                        {'name': $translate.instant('ADDRESS.ADDRESS'), 'field': 'getConcatAddress()', width: "80%"}
                     ]
                 },
                 route: '/service_requests/addresses',
