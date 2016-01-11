@@ -219,6 +219,7 @@ requirejs.config({
         'serviceRequest.listAddressController': 'app/service_requests/serviceRequestAddressListController',
         'serviceRequest.listContactController': 'app/service_requests/serviceRequestContactListController',
         'serviceRequest.TabController': 'app/service_requests/serviceRequestTabController',
+        'serviceRequest.ActionButtonController': 'app/service_requests/serviceRequestActionButtonsController',
         'serviceRequest.controllerHelperService': 'app/service_requests/srControllerHelperService',
 
         'address': 'app/address_service_requests/addressServiceRequest',

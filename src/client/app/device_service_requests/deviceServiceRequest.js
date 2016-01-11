@@ -82,7 +82,7 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController',
                 activeItem: '/device_management'
-            })
+            });
         }
     ]);
 });

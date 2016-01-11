@@ -27,6 +27,8 @@
 
     "SERVICE_REQUEST": {
         "TITLE": "Requests",
+        "SERVICE_REQUEST_DEVICE": "Select a Device",
+        "SERVICE_REQUEST_PICKER_SELECTED": "Device currently selected for service",
         "HELPDESK_REFERENCE":"Helpdesk reference number",
         "COST_CENTER": "Cost center",
         "ORDERS": "Orders",
