@@ -12,6 +12,7 @@ define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
         '$q',
         'translationPlaceHolder',
         'allowMakeChange',
+        'SRControllerHelperService',
         function(
             $rootScope,
             $scope,
@@ -22,8 +23,8 @@ define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
             Account,
             $q,
             translationPlaceHolder,
-            allowMakeChange
-            ) {
+            allowMakeChange,
+            SRHelper) {
 
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.continueForm = false;
