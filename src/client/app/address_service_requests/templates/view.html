@@ -39,9 +39,9 @@
 
             <div class="col-lg-2-3 col-md-1-1">
                 <button type="button" class="btn btn--default" href=""
-                ng-click="goToUpdate()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
+                ng-click="contacts.goToUpdate()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
                 <button type="button" class="btn btn--default" href=""
-                ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
+                ng-click="contacts.goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
             </div>
             <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
             <div pagination grid="{{gridOptions}}"></div>

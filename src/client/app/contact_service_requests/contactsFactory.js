@@ -1,8 +1,8 @@
 define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService',
-        function($translate, HATEOASFactory, formatter) {
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location',
+        function($translate, HATEOASFactory, formatter, $location) {
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
@@ -14,12 +14,12 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             field: 'getFullname()',
                             dynamic: false, // field cannot be removed by column selector
                             cellTemplate: '<div>'+
-                                            '<a href="#" ng-click="grid.appScope.goToUpdate(row.entity);" ng-bind="grid.appScope.getFullname(row.entity)"></a><p>123</p>' +
+                                            '<a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ng-bind="grid.appScope.getFullname(row.entity)"></a><p>123</p>' +
                                         '</div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
                         {name: $translate.instant('CONTACT.EMAIL'), field: 'email'},
-                        {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false},
+                        {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
                         {name: $translate.instant('CONTACT.TYPE'), field: 'type', visible: false},
                         {name: $translate.instant('CONTACT.DEPARTMENT'), field: 'department', visible: false},
                         {name: $translate.instant('DEVICE_MGT.HOST_NAME'), field:'hostName', visible: false},
@@ -43,13 +43,92 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     ]
                 },
                 route: '/service_requests/contacts',
-                beforeSave: function(halObj, deferred) {
-                    halObj.physicalAddress = {
-                        addressId: '1-2CPY6UA',
-                        country: 'US'
-                    };
+                goToCreate: function() {
+                    this.item = Contacts.getModel();
+                    this.saved = false;
 
-                    deferred.resolve(true, halObj);
+                    $location.path(this.route + '/new');
+                },
+                goToUpdate: function(contact) {
+                    this.setItem(contact);
+
+                    $location.path(this.route + '/' + this.item.id + '/update');
+                },
+                saveContact: function(contactForm) {
+                    var Contacts = this;
+
+                    if (Contacts.item && Contacts.item.id) {
+                        Contacts.update(Contacts).then(function() {
+                            Contacts.updated = true;
+                            Contacts.saved = false;
+                            Contacts.goToUpdate();
+                        });
+                    } else {
+                        Contacts.save(Contacts).then(function(r) {
+                            Contacts.saved = true;
+                            Contacts.goToUpdate();
+                        });
+                    }
+                },
+                goToList: function() {
+                    $location.path(this.route + '/');
+                },
+                goToDelete: function(contact) {
+                    $location.path(this.route + '/' + contact.id + '/review');
+                },
+                cancel: function() {
+                    $location.path(this.route + '/');
+                },
+                getModel: function() {
+                    return {
+                      "id": '',
+                      "firstName": '',
+                      "middleName": '',
+                      "lastName": '',
+                      "email": '',
+                      "workPhone": '',
+                      "alternatePhone": '',
+                      "department": '',
+                      "type": '',
+                      "userFavorite": true,
+                      "address": {
+                        "id": '',
+                        "name": '',
+                        "storeFrontName": '',
+                        "addressLine1": '',
+                        "addressLin2": '',
+                        "city": '',
+                        "state": '',
+                        "stateCode": '',
+                        "province": '',
+                        "county": '',
+                        "countyIsoCode": '',
+                        "district": '',
+                        "country": '',
+                        "postalCode": '',
+                        "zoneId": '',
+                        "zoneName": '',
+                        "lbsIndentifierFlag": true,
+                        "region": '',
+                        "latitude": '',
+                        "longitude": '',
+                        "lbsGridX": '',
+                        "lbsGridY": '',
+                        "_links": {
+                          "self": {
+                            "href": ''
+                          }
+                        }
+                      },
+                      "_links": {
+                        "self": {
+                          "href": ''
+                        },
+                        "account": {
+                          "href": ''
+                        }
+                      }
+                    }
                 },
                 functionArray: [
                     {

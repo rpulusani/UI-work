@@ -446,7 +446,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                             self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                         }
-
+                        
                         if (halObj.item.id && halObj.item.id === '') {
                             delete halObj.item.id;
                         }

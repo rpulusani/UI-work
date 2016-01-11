@@ -25,7 +25,12 @@ define(['angular'], function(angular) {
             .when('/service_requests/contacts/new', {
                 templateUrl: '/app/contact_service_requests/templates/new.html',
                 controller: 'ContactController',
-                activeItem: '/service_requests/contacts'
+                activeItem: '/service_requests/contacts',
+                resolve: {
+                     translationPlaceHolder: function() {
+                        return { };
+                    }
+                }
             })
             .when('/service_requests/contacts/:id/update', {
                 templateUrl: '/app/contact_service_requests/templates/update.html',

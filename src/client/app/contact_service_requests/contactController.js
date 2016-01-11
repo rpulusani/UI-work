@@ -14,55 +14,12 @@ define(['angular', 'contact'], function(angular) {
             ServiceRequestService,
             translationPlaceHolder
         ) {
-            var redirect_to_list = function() {
-                // YOU ADJUSTED THIS CHANGE IT BACK IDIOT
-                //$location.path(Contacts.route + '/');
-            };
-
-            $scope.service = {};
             $scope.translationPlaceHolder = translationPlaceHolder;
 
-            $scope.save = function() {
-                if ($scope.contact._links) {
-                    Contacts.update($scope.contact).then(function() {
-                        redirect_to_list();
-                    });
-                } else {
-                    Contacts.save($scope.contact).then(function() {
-                        redirect_to_list();
-                    });
-                }
-            };
-
-            $scope.saveServiceRequest = function(type) {
-                $scope.service.type = type;
-                $scope.service._link = $scope.contact._links;
-                // TODO: following attributes should come from contact
-                $scope.service.customerReferenceId = 'cust1234';
-                $scope.service.costCenter = 'Boston';
-                $scope.service.description = 'blah blah blah';
-                $scope.service.assetCostCenter = 'Lexington';
-                $scope.service.chlLevel = 'tbd';
-
-                ServiceRequestService.save($scope.service, redirect_to_list);
-            };
-
-            $scope.goToDelete = function(contact) {
-                $location.path(Contacts.route + '/' + contact.id + '/review');
-            };
-
-            $scope.submitDelete = function(contact) {
-
-            }
-
-            $scope.cancel = function() {
-                redirect_to_list();
-            };
+            $scope.contacts = Contacts;
 
             if (Contacts.item === null) {
-                redirect_to_list();
-            } else {
-                $scope.contact = Contacts.item;
+                Contacts.goToList();
             }
         }
     ]);

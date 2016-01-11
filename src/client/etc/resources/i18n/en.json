@@ -60,7 +60,13 @@
         "DELETE": "Delete Contact",
         "ADD_WHO": "Who would you like to add as a contact?",
         "CONTACT_INFO": "What is their contact information?",
-        "ABANDON": "ABONDON DELETE CONTACT REQUEST",
+        "ABANDON_DELETE": "ABONDON DELETE CONTACT REQUEST",
+        "SUBMIT_DELETE": "SUBMIT DELETE CONTACT REQUEST",
+        "ABANDON_ADD": "ABONDON CONTACT CREATION",
+        "SUBMIT": "CREATE CONTACT",
+        "UPDATE": "UPDATE CONTACT",
+        "CANCEL": "DISCARD CHANGES TO CONTACT",
+        "SAVE_MSG": " has been added as a contact! You can update their details below."
     },
 
     "DEVICE_SERVICE_REQUEST": {
@@ -712,6 +718,8 @@
     },
 
     "LABEL": {
+        "EXPORT": "Export",
+        "PRINT": "Print",
         "BACK": "Back",
         "TYPE": "Type",
         "MAKE_CHANGES": "Make Changes",

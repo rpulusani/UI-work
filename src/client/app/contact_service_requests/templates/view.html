@@ -1,7 +1,8 @@
 <div class="page-header">
     <div class="col-1">
         <ul class="breadcrumb">
-            <li><a href="/" translate="DASHBOARD.TITLE"></a></li>
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li translate="CONTACT.TITLE"></li>
         </ul>
     </div>
 
@@ -12,7 +13,7 @@
         <a href="#">Learn more about requests</a>
 
         <div class="l-pad-top">
-            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
+            <button type="button" class="btn btn--default" href="" ng-click="contacts.goToCreate()"
             translate="CONTACT_SERVICE_REQUEST.ADD"></button>
         </div>
     </div>
@@ -27,25 +28,27 @@
 
         <div class="print-export">
             <span class="">
-                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
+                <i class="icon icon--mps icon--print"></i>
+                <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold"></a>
             </span>
             
             <span class="">
-                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
+                <i class="icon icon--mps icon--download"></i>
+                <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold"></a>
             </span>
         </div>
 
         <hr />
     </div>
 
-    <div class="row">
-        <div class="col-lg-2-3 col-md-1-1">
+    <div class="row l-pad-bottom">
+        <div class="col-1">
             <span class="text--semi-bold">Looking for a contact?</span>
             <div grid-filter options="filterOptions" params="optionParams"></div>
         </div>
     </div>
 
-    <div class="row l-pad-bottom" ng-if="searchDevice">
+    <div class="row" ng-if="searchDevice">
         <div class="col-lg-2-3 col-md-1-1">
             <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
         </div>

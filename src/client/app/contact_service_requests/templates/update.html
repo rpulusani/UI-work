@@ -4,34 +4,30 @@
         <p translate="MESSAGE.LIPSUM"></p>
 
         <div class="col-1 btns">
-            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
+            <button type="button" class="btn btn--default" href="" ng-click="contacts.goToCreate()"
             translate="CONTACT_SERVICE_REQUEST.DELETE"></button>
         </div>
     </div>
 </div>
 
 <div class="page-content">
+    <div ng-show="contacts.saved" class="alert">
+        "<span ng-bind="contacts.item.firstName"></span> <span ng-bind="contacts.item.lastName"></span>"
+        <span translate="CONTACT_SERVICE_REQUEST.SAVE_MSG"></span>
+    </div>
+    
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && continue()"
           enctype="mulitpart/form-data" novalidate ng-hide="reviewing">
+
         <div class="col-1 l-alley-after">
             <div new-contact-fields></div>
         </div>
 
         <div class="col-1">
-            <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="cancel()"
-                    translate="LABEL.CANCEL"></button>
-            <button name="submit" class="col-1-3 btn btn--primary" ng-click="review()" type="submit"
-                    translate="LABEL.CONTINUE"></button>
+            <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="contacts.cancel()"
+                    translate="CONTACT_SERVICE_REQUEST.CANCEL"></button>
+            <button name="submit" class="col-1-3 btn btn--primary" ng-click="contacts.saveContact(editContact)" type="submit"
+                    translate="CONTACT_SERVICE_REQUEST.UPDATE"></button>
         </div>  
     </form>
-<!--
-    <div class="col-1" ng-show="reviewing">
-        <div read-contact></div>
-
-        <button name="back" class="col-1-3 btn btn--secondary" ng-click="edit()"
-                translate="LABEL.BACK"></button>
-        <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit"
-                translate="LABEL.SUBMIT"></button>
-    </div>
-    -->
 </div>

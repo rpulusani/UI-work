@@ -31,17 +31,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
         $rootScope.currentRowList = [];
 
-        $scope.goToCreate = function() {
-            Contacts.item = {};
-            $location.path(Contacts.route + '/new');
-        };
-
-        $scope.goToUpdate = function(contact) {
-            console.log(contact);
-            Contacts.setItem(contact);
-
-            $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
-        };
+        $scope.contacts = Contacts;
 
         $scope.getFullname = function(rowInfo) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
@@ -50,9 +40,11 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         filterSearchService.addBasicFilter('CONTACT.ALL', false,
             function() {
                 setTimeout(function() {
-                    $scope.$broadcast('setupColumnPicker', Grid)
+                    $scope.$broadcast('setupColumnPicker', Grid);
                 }, 0);
             }
         );
+
+        filterSearchService.addPanelFilter('Filter by last name', 'lastName');
     }]); // End Controller
 });
