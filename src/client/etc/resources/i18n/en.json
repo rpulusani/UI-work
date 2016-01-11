@@ -168,7 +168,7 @@
         "CITY": "City",
         "COUNTRY": "Country",
         "STATE": "State",
-        "STATE_PROVINCE": "State / Province",
+        "PROVINCE": "Province",
         "ZIP": "Zip code",
         "ZIP_POSTAL": "Zip / Postal Code",
         "COUNTY": "County",
@@ -195,7 +195,8 @@
         "CHANGE_DEVICE_INSTALL_ADDRESS": "CHANGE DEVICE INSTALL ADDRESS",
         "ALL_ADDRESSES": "All addresses",
         "BROWSE_ADDRESSES": "Browse addresses by",
-        "WHAT_ADDRESS": "What address are you looking for?"
+        "WHAT_ADDRESS": "What address are you looking for?",
+        "REGION": "Region"
     },
 
     "CONTACT": {

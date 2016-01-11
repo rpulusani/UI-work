@@ -36,10 +36,15 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 $location.path(Addresses.route + '/new');
             };
 
-            $scope.goToUpdate = function() {
-                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                if(id !== null){
-                    $location.path(Addresses.route + '/' + id + '/update');
+            $scope.goToUpdate = function(address) { // not tested yet
+                ServiceRequest.reset();
+                if(address !== null){ // for direct link
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                }else{ // for button click
+                    var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
+                    if(id !== null){
+                        $location.path(Addresses.route + '/' + id + '/update');
+                    }
                 }
             };
             
@@ -54,7 +59,6 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 Addresses.setItem(address);
                 var options = {
                     params:{
-                        embed:'contact,address'
                     }
                 };
 
@@ -63,13 +67,12 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 });
             };
 
-            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'address,contact'},
+            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES',
                 function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }
             );
 
-            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
 
             // grid Check Items - should prototype
             $scope.isSingleSelected = function(){
