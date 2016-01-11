@@ -5,7 +5,7 @@ define(['angular'], function(angular) {
         $routeProvider
         .when('/service_requests', {
             templateUrl: '/app/service_requests/templates/service-request-dashboard.html',
-            controller: 'ServiceRequestListController'
+            controller: 'ServiceRequestTabController'
         })
         .when('/service_requests/requests/overview', {
             templateUrl: '/app/service_requests/templates/service-request-request-overview.html',

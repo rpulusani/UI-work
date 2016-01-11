@@ -1,7 +1,7 @@
 {
     "ADDRESS_SERVICE_REQUEST": {
         "CHANGE": "Change Request Addresses",
-        "ADD": "Add Address",
+        "ADD": "Add New Address",
         "ADD_MULTI": "Add Multiple Addresses",
         "UPDATE": "Update Address",
         "UPDATE_MULTI": "Update Multiple Addresses",
@@ -31,7 +31,7 @@
         "COST_CENTER": "Cost center",
         "ORDERS": "Orders",
         "REQUEST_NUMBER": "Request number",
-        "CONTACT_INFORMATION": "Request contact information",
+        "CONTACT_INFORMATION": "Request Contact Information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary Contact",
         "SECONDARY_CONTACT": "Secondary contact",
@@ -61,7 +61,6 @@
         "ADD_WHO": "Who would you like to add as a contact?",
         "CONTACT_INFO": "What is their contact information?",
         "ABANDON": "ABONDON DELETE CONTACT REQUEST",
-        "SUBMIT": "SUBMIT DELETE CONTACT REQUEST"
     },
 
     "DEVICE_SERVICE_REQUEST": {
@@ -162,7 +161,7 @@
     "ADDRESS": {
         "TITLE": "Addresses",
         "LIST_TITLE": "Manage Addresses",
-        "BOOK": "Addresss Book ({{total}})",
+        "BOOK": "Addresss book ({{total}} total addresses)",
         "INFO": "Address Information",
         "NAME": "Address Name",
         "STORE_NAME": "Store-front Name",
@@ -195,7 +194,10 @@
         "SEARCH_FOR_ADDRESS": "Search for an address",
         "ADDRESS_SELECTION": "Address selection",
         "DISCARD_INSTALL_ADDRESS_CHANGES": "DISCARD INSTALL ADDRESS CHANGES",
-        "CHANGE_DEVICE_INSTALL_ADDRESS": "CHANGE DEVICE INSTALL ADDRESS"
+        "CHANGE_DEVICE_INSTALL_ADDRESS": "CHANGE DEVICE INSTALL ADDRESS",
+        "ALL_ADDRESSES": "All addresses",
+        "BROWSE_ADDRESSES": "Browse addresses by",
+        "WHAT_ADDRESS": "What address are you looking for?"
     },
 
     "CONTACT": {
@@ -340,10 +342,16 @@
         "REQUEST_SEARCH": "What request are you looking for?",
         "CREATE_NEW_REQUEST": "Create new request",
         "ALL_REQUESTS": "All requests",
+        "ALL_REQUESTS_W_TOTALS": "All requests ({{total}} total requests)",
+        "DEVICE_REQUESTS_W_TOTALS": "Device requests ({{total}} total device requests)",
+        "SERVICE_REQUESTS_W_TOTALS": "Service requests ({{total}} total service requests)",
+        "ADRESS_W_TOTALS": "All address requests ({{total}} total address requests)",
+        "CONTACT_W_TOTALS": "All address requests ({{total}} total contact requests)",
+        "ALL_SERVICE_REQUESTS": "All service requests",
         "DEVICE_REQUESTS": "Device requests",
-        "SERVICE_REQUESTS": "Service requests",
         "ADDRESS_REQUESTS": "Address requests",
         "CONTACT_REQUESTS": "Contact requests",
+        "SERVICE_REQUESTS": "Service requests",
         "NEW_REQUEST": "New request",
         "WHAT_WOULD_YOU_LIKE_TO_DO": "What would you like to do?",
         "MANAGE_A_DEVICE": "Manage a device",
