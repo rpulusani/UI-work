@@ -10,6 +10,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         'PersonalizationServiceFactory',
         'FilterSearchService',
         'SecurityHelper',
+        'ServiceRequestService',
         '$q',
         'AccountService',
         'UserService',
@@ -22,6 +23,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             Personalize,
             FilterSearchService,
             SecurityHelper,
+            ServiceRequest,
             $q,
             Account,
             User) {

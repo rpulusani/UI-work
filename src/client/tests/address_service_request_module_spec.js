@@ -58,12 +58,13 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
 
             describe('goToUpdate', function() {
                 it('should take to update page', function() {
+                    var address = null;
                     spyOn(location, 'path').and.returnValue('/');
                     scope.currentRowList = [{ entity: {
                             id: 1
                         }
                     }];
-                    scope.goToUpdate();
+                    scope.goToUpdate(address);
                     expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/update');
                 });
             });
