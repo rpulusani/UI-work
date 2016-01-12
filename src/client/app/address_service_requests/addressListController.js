@@ -38,16 +38,15 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 $location.path(Addresses.route + '/new');
             };
 
-            $scope.goToUpdate = function(address) { // not tested yet
+            $scope.goToUpdate = function(address) { // update unit test
                 ServiceRequest.reset();
-                if(address !== null){ // for direct link
-                    $location.path(Addresses.route + '/' + address.id + '/update');
-                }else{ // for button click
-                    var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                    if(id !== null){
-                        $location.path(Addresses.route + '/' + id + '/update');
-                    }
+                var addressId = address;
+                if(addressId === null){ // for button click
+                    addressId = Grid.getCurrentEntityId($scope.currentRowList[0]);
+                }else{ // for anchor link
+                    addressId = address.id;
                 }
+                $location.path(Addresses.route + '/' + addressId + '/update');
             };
             
             $scope.goToRemove = function(){
@@ -96,7 +95,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            //$scope.gridOptions.enableHorizontalScrollbar = 0;
+            //$scope.gridOptions.enableHorizontalScrollbar =  2;
             //$scope.gridOptions.enableVerticalScrollbar = 0;
             
             User.getLoggedInUserInfo().then(function(user) {
