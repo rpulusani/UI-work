@@ -27,7 +27,7 @@ define(['angular', 'filterSearch'], function(angular) {
                 $scope.searchBy = selectedOption.field;
             };
 
-            if($scope.columns.length > 0){
+            if($scope.columns && $scope.columns.length > 0){
                 $scope.searchByColumn($scope.columns[0]);
             }
 

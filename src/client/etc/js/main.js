@@ -72,6 +72,7 @@ requirejs.config({
             'report.reportFinderController',
             'report.directives',
             'report.factory',
+            'report.visualizationFactory',
 
             'tree',
             'tree.treeItemsService',
@@ -115,6 +116,7 @@ requirejs.config({
         'report.reportFinderController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
+        'report.visualizationFactory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
@@ -156,6 +158,10 @@ requirejs.config({
         'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
+
+        'security': 'app/security/security',
+        'security.securityService': 'app/security/securityService',
+        'security.securityHelper': 'app/security/securityHelper',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
@@ -202,9 +208,13 @@ requirejs.config({
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
-        'serviceRequest.serviceRequestController': 'app/service_requests/serviceRequestController',
         'serviceRequest.directives': 'app/service_requests/directives',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
+        'serviceRequest.listDeviceController': 'app/service_requests/serviceRequestDeviceListController',
+        'serviceRequest.listBreakFixController': 'app/service_requests/serviceRequestBreakFixListController',
+        'serviceRequest.listAddressController': 'app/service_requests/serviceRequestAddressListController',
+        'serviceRequest.listContactController': 'app/service_requests/serviceRequestContactListController',
+        'serviceRequest.TabController': 'app/service_requests/serviceRequestTabController',
         'serviceRequest.controllerHelperService': 'app/service_requests/srControllerHelperService',
 
         'address': 'app/address_service_requests/addressServiceRequest',
@@ -256,6 +266,7 @@ requirejs.config({
         'report.reportFinderController': 'app/reporting/reportFinderController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
+        'report.visualizationFactory': 'app/reporting/visualizationFactory',
 
         'dashboard': 'app/dashboard/dashboard',
         'dashboard.dashboardController': 'app/dashboard/dashboardController',

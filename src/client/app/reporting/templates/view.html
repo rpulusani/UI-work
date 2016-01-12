@@ -59,7 +59,8 @@
                 <a href="#" ng-click="goToFinderById('mp9073')" translate="{{ configure.report.charts.translate.madcEvents }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/madc_events.svg" />
+                <p class="text--align-center" ng-if="chartObject.madc.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                <div google-chart chart="{{ chartObject.madc }}"></div>
             </div>
         </div>
         <div class="col-1-3">
@@ -131,7 +132,8 @@
                 <a href="#" ng-click="goToFinderById('pb0001')" translate="{{ configure.report.charts.translate.billedPages }}"></a>
             </div>
             <div class="well">
-                <img src="/etc/resources/img/reports/billed_pages.svg" />
+                <p class="text--align-center" ng-if="chartObject.pagesBilled.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                <div google-chart chart="{{ chartObject.pagesBilled }}"></div>
             </div>
         </div>
     </div>

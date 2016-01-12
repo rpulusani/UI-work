@@ -33,12 +33,12 @@
         transition: .1s;
 
         .icon{
-            vertical-align: baseline;
-            line-height: 1;
+            line-height: .95;
         }
 
         .item-icon{
-            font-size: 1.25em;
+            font-size: 1.45em;
+            padding-right: 5px;
         }
     }
 
@@ -54,11 +54,12 @@
 }
 
 .top-logo{
-    background-image: url('http://www.lexmark.com/common/common-mce/styles/css/v2/images/lxk-logo-2x.png');
-    width: 284px;
-    height:56px;
+    width: 200px;
+    height:41px;
     float:left;
     display:inline;
+    margin-top: 20px;
+    margin-left: 10px;
     @media @mq-lt-medium{
         display:none;
     }
@@ -74,10 +75,10 @@
     top: 18px;
 
     @media @mq-desktop{
-        padding: 0 (5)*@base-grid-h;
+        padding: (1)*@base-grid-v (12.5)*@base-grid-h;
     }
     @media @mq-laptop{
-        padding: 0 (3)*@base-grid-h;
+        padding: (1)*@base-grid-v (12.5)*@base-grid-h;
     }
     @media @mq-lt-medium {
         display:none;

@@ -1,21 +1,52 @@
-define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
+define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',
-        'PersonalizationServiceFactory', 'AccountService', 'UserService',
-        function($scope,  $location,  Grid, Addresses, $rootScope, $q, Personalize, Account, User) {
+    .controller('AddressListController', [
+        '$scope',
+        '$location',
+        'grid',
+        'Addresses',
+        '$rootScope',
+        'PersonalizationServiceFactory',
+        'FilterSearchService',
+        'SecurityHelper',
+        'ServiceRequestService',
+        '$q',
+        'AccountService',
+        'UserService',
+        function(
+            $scope,
+            $location,
+            Grid,
+            Addresses,
+            $rootScope,
+            Personalize,
+            FilterSearchService,
+            SecurityHelper,
+            ServiceRequest,
+            $q,
+            Account,
+            User) {
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-            // Actions
+            $scope.visibleColumns = [];
+
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path(Addresses.route + '/new');
             };
 
-            $scope.goToUpdate = function() {
-                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                if(id !== null){
-                    $location.path(Addresses.route + '/' + id + '/update');
+            $scope.goToUpdate = function(address) { // not tested yet
+                ServiceRequest.reset();
+                if(address !== null){ // for direct link
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                }else{ // for button click
+                    var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
+                    if(id !== null){
+                        $location.path(Addresses.route + '/' + id + '/update');
+                    }
                 }
             };
             
@@ -25,6 +56,25 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
                     $location.path(Addresses.route + '/' + id + '/delete');
                 }
             };
+
+            $scope.view = function(address){
+                Addresses.setItem(address);
+                var options = {
+                    params:{
+                    }
+                };
+
+                Addresses.item.get(options).then(function(){
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                });
+            };
+
+            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES',
+                function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }
+            );
+
 
             // grid Check Items - should prototype
             $scope.isSingleSelected = function(){
@@ -46,8 +96,8 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            $scope.gridOptions.enableHorizontalScrollbar = 0; 
-            $scope.gridOptions.enableVerticalScrollbar = 0;
+            //$scope.gridOptions.enableHorizontalScrollbar = 0;
+            //$scope.gridOptions.enableVerticalScrollbar = 0;
             
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {

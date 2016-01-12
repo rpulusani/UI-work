@@ -5,6 +5,7 @@
     "text": "DASHBOARD.TITLE",
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",
+    "permissionFlag":"viewHomePage",
     "tags":["primary"]
   },
     {
@@ -12,7 +13,8 @@
     "action": "/device_management",
     "text": "DEVICE_MGT.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-device",
+    "permissionFlag":"deviceAccess",
     "tags":["primary"]
   },
   {
@@ -20,7 +22,8 @@
     "action": "/service_requests/addresses",
     "text": "ADDRESS.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-location",
+    "permissionFlag":"addressContactAccess",
     "tags":["primary"]
   },
     {
@@ -28,7 +31,8 @@
     "action": "/service_requests/contacts",
     "text": "NAVIGATION.CONTACT",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-contact",
+    "permissionFlag":"addressContactAccess",
     "tags":["primary"]
   },
   {
@@ -36,7 +40,8 @@
     "action": "/service_requests/order_request",
     "text": "NAVIGATION.ORDER_REQUEST",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-orders",
+    "permissionFlag":"orderAccess",
     "tags":["primary"]
   },
   {
@@ -44,7 +49,8 @@
     "action": "/service_requests",
     "text": "SERVICE_REQUEST.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-requests",
+    "permissionFlag":"serviceRequestAccess",
     "tags":["primary"]
   },
 
@@ -53,7 +59,8 @@
     "action": "/reporting",
     "text": "REPORTING.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-report",
+    "permissionFlag":"reportAccess",
     "tags":["primary"]
   },
   {
@@ -61,7 +68,8 @@
     "action": "/invoices",
     "text": "NAVIGATION.INVOICES",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-invoice",
+    "permissionFlag":"viewInvoicesAccess",
     "tags":["primary"]
   },
   {
@@ -69,7 +77,8 @@
     "action": "/delegated_admin",
     "text": "DELEGATED_ADMIN.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-admin",
+    "permissionFlag":"userManagementAccess",
     "tags":["primary"]
   },
   {

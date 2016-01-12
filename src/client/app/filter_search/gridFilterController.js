@@ -19,7 +19,7 @@ define(['angular', 'filterSearch'], function(angular) {
             for(var item in $scope.options){
                 $scope.options[item].display = $translate.instant($scope.options[item].display);
             }
-            if($scope.options.length > 0){
+            if($scope.options && $scope.options.length > 0){
                 $scope.filterBy =  $scope.options[0].display;
                 $scope.selectedFilter($scope.options[0]);
             }
