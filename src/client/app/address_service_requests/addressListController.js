@@ -1,57 +1,52 @@
-define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
+define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressListController', [
         '$scope',
         '$location',
-        '$rootScope',
         'grid',
         'Addresses',
-        '$q',
+        '$rootScope',
         'PersonalizationServiceFactory',
+        'FilterSearchService',
+        'SecurityHelper',
+        'ServiceRequestService',
+        '$q',
         'AccountService',
         'UserService',
-        'FilterSearchService',
         function(
             $scope,
             $location,
-            $rootScope,
             Grid,
             Addresses,
-            $q,
+            $rootScope,
             Personalize,
+            FilterSearchService,
+            SecurityHelper,
+            ServiceRequest,
+            $q,
             Account,
-            User,
-            FilterSearchService) {
+            User) {
             $rootScope.currentRowList = [];
+            $scope.visibleColumns = [];
 
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
 
-            $scope.view = function(address){
-                Addresses.setItem(address);
-                var options = {
-                    params:{
-                        embed:'contact,address'
-                    }
-                };
-
-                Addresses.item.get(options).then(function(){
-                    $location.path(Addresses.route + '/' + address.id + '/update');
-                });
-            };
-            
-            // Actions
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path(Addresses.route + '/new');
             };
 
-
-            $scope.goToUpdate = function() {
-                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                if(id !== null){
-                    $location.path(Addresses.route + '/' + id + '/update');
+            $scope.goToUpdate = function(address) { // not tested yet
+                ServiceRequest.reset();
+                if(address !== null){ // for direct link
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                }else{ // for button click
+                    var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
+                    if(id !== null){
+                        $location.path(Addresses.route + '/' + id + '/update');
+                    }
                 }
             };
             
@@ -61,6 +56,25 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
                     $location.path(Addresses.route + '/' + id + '/delete');
                 }
             };
+
+            $scope.view = function(address){
+                Addresses.setItem(address);
+                var options = {
+                    params:{
+                    }
+                };
+
+                Addresses.item.get(options).then(function(){
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                });
+            };
+
+            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES',
+                function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }
+            );
+
 
             // grid Check Items - should prototype
             $scope.isSingleSelected = function(){
@@ -78,14 +92,6 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
                     return false;
                 }
             };
-
-            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'address,contact'},
-                function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
-                }
-            );
-
-            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
 
             // grid configuration
             $scope.gridOptions = {};

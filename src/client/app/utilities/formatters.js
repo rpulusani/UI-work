@@ -228,6 +228,9 @@ define(['angular', 'utility'], function(angular) {
                 },
                 formatNoneIfEmpty: function(value) {
                     return (BlankCheck.isNullOrWhiteSpace(value) === true) ? $translate.instant('LABEL.NONE') : value;
+                },
+                getAmountWithCurrency: function(amount, currency){
+                    return amount + ' (' + currency + ')';
                 }
             };
 

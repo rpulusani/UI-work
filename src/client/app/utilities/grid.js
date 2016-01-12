@@ -109,11 +109,16 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             return columns;
         };
 
-        Grid.prototype.display = function(service, scope, personal) {
+        Grid.prototype.display = function(service, scope, personal, rowHeight) {
             var size = service.data.length < service.params.size? service.data.length: service.params.size,
             serviceId = '',
-            newHeight =  46 + (31 * size);
+            newHeight = '';
 
+            if (rowHeight) {
+                newHeight = 46 + (parseInt(rowHeight) + 1) * size;
+            } else {
+                newHeight = 46 + (31 * size);
+            }
 
             if (service.gridName) {
                 serviceId = service.gridName;
