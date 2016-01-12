@@ -64,8 +64,6 @@ requirejs.config({
             'user.accountListController',
             'user.roleListController',
 
-            'invoice',
-
             'pageCount',
 
             'report',
@@ -108,8 +106,6 @@ requirejs.config({
         'address.addressListController': ['address'],
         'address.directives': ['address'],
         'address.factory': ['address'],
-
-        'invoice': ['angular', 'angular-route'],
 
         'pageCount': ['angular', 'angular-route'],
 
@@ -224,6 +220,10 @@ requirejs.config({
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
         'invoice': 'app/invoices/invoice',
+        'invoice.invoiceController': 'app/invoices/invoiceController',
+        'invoice.directives': 'app/invoices/directives',
+        'invoice.invoiceListController': 'app/invoices/invoiceListController',
+        'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
 

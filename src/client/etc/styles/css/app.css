@@ -434,11 +434,11 @@ p.info-list .item-name:after {
   border-right: none;
   border-bottom: none;
 }
-.ui-grid-row,
+/*.ui-grid-row,
 .ui-grid-cell,
 .ui-grid-cell .ui-grid-vertical-bar {
   height: 30px !important;
-}
+}*/
 .table .ui-grid-canvas .ui-grid-cell:first-child {
   padding-top: 8px;
 }

@@ -9,7 +9,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
             failure,
             columnSet,
             personalization;
-            var FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet){
+            var FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight){
                 if(!serviceDefinition){
                     throw new Error('Service Definition is Required!');
                 }
@@ -51,9 +51,11 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope.filterOptions = [];
                 this.localScope.visibleColumns =  Grid.getVisibleColumns(this.service); //sets initial columns visibility
                 this.localScope.gridOptions = {};
+                if (rowHeight) {
+                    this.localScope.gridOptions.rowHeight = rowHeight;
+                }
                 this.localScope.gridOptions.onRegisterApi = Grid.getGridActions(rootScope,
                         this.service, this.personalization);
-
             };
 
             FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams){

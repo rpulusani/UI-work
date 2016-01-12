@@ -591,7 +591,20 @@
     },
 
     "INVOICE": {
-        "TITLE": "Invoices"
+        "TITLE": "Invoices",
+        "TITLE_CNT": "{{status}} Invoices ({{total}})",
+        "ALL_INVOICES": "All Invoices",
+        "OPEN_INVOICES": "Open Invoices",
+        "CLOSED_INVOICES": "Closed Invoices",
+        "INVOICE_DATE": "Invoice date",
+        "DUE_DATE": "Due date",
+        "PAID_DATE": "Paid date",
+        "INVOICE_NUMBER": "Invoice number",
+        "AMOUNT": "Amount",
+        "ACCOUNT_NAME": "Account name",
+        "SOLD_TO": "Sold To",
+        "BILL_TO": "Bill To",
+        "DOWNLOAD_AS_TXT": "Download as .txt"
     },
 
     "DELEGATED_ADMIN": {
