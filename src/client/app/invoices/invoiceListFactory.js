@@ -12,7 +12,7 @@ define(['angular', 'invoice'], function(angular) {
                         {'name': $translate.instant('INVOICE.INVOICE_DATE'), 'field':'getInvoiceDate()', 'notSearchable': true},
                         {'name': $translate.instant('INVOICE.DUE_DATE'), 'field':'getDueDate()', 'notSearchable': true},
                         {'name': $translate.instant('INVOICE.PAID_DATE'), 'field':'getPaidDate()', 'notSearchable': true},
-                        {'name': $translate.instant('INVOICE.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '*',
+                        {'name': $translate.instant('INVOICE.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',
                          'cellTemplate':'<div><div>' +
                                             '<a href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);" ng-bind="grid.appScope.getFormattedInvoiceNo(row.entity.invoiceNumber)"></a>' +
                                         '</div><div>' +
