@@ -456,7 +456,8 @@
             "TXT_DEVICE_SELECTION": "Device Selection",
             "TXT_SELECT_DEVICE_FOR_REMOVAL": "Select device for removal",
             "TXT_SELECT_DEVICE_FOR_REMOVAL_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
-        },
+        }
+    },
 
         "ADDRESS_SERVICE_REQUEST": {
             "CHANGE": "Change Request Addresses",
@@ -1251,9 +1252,8 @@
         "COLUMNPICKER": {
             "TITLE": "Column Selector",
             "CUSTOMIZE_COLUMNS": "Customize columns"
-        }
+        },
 
-    },
     "ADDRESS_SERVICE_REQUEST": {
         "CHANGE": "Change Request Addresses",
         "ADD": "Add New Address",
