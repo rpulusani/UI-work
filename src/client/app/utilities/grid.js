@@ -116,7 +116,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
 
             if (rowHeight) {
                 newHeight = 46 + (parseInt(rowHeight) + 1) * size;
-                console.log('newHeight', newHeight);
             } else {
                 newHeight = 46 + (31 * size);
             }
