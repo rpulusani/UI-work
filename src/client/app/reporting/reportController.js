@@ -117,7 +117,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.fleetAvailability.type = "ColumnChart";
                 $scope.chartObject.fleetAvailability.options = angular.copy($scope.chartOptions.columnChartOptions);
                 $scope.chartObject.fleetAvailability.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
-                $scope.chartObject.fleetAvailability.dataPoint = 1;
+                $scope.chartObject.fleetAvailability.dataPoint = d.fleetAvailability;
 
                 $scope.chartObject.fleetAvailability.data = {
                     "cols": [
@@ -145,7 +145,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.responseTime.type = "ColumnChart";
                 $scope.chartObject.responseTime.options = angular.copy($scope.chartOptions.columnChartOptions);
                 $scope.chartObject.responseTime.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
-                $scope.chartObject.responseTime.dataPoint = 1;
+                $scope.chartObject.responseTime.dataPoint = d.responseTime;
 
                 $scope.chartObject.responseTime.data = {
                     "cols": [
@@ -173,7 +173,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.consumables.type = "ColumnChart";
                 $scope.chartObject.consumables.options = angular.copy($scope.chartOptions.columnChartOptions);
                 $scope.chartObject.consumables.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
-                $scope.chartObject.consumables.dataPoint = 1;
+                $scope.chartObject.consumables.dataPoint = d.consumables;
 
                 $scope.chartObject.consumables.data = {
                     "cols": [
@@ -226,7 +226,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.madc = {};
                 $scope.chartObject.madc.type = "ColumnChart";
                 $scope.chartObject.madc.options = angular.copy($scope.chartOptions.columnChartOptions);
-                $scope.chartObject.madc.dataPoint = 1;
+                $scope.chartObject.madc.dataPoint = d.moves + d.additions + d.ipChanges + d.decommissions + d.swaps;
 
                 $scope.chartObject.madc.data = {
                     "cols": [
@@ -275,7 +275,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.missingMeterReadsAll.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.missingMeterReadsAll.options.slices = [{color: '#00ad21'}, {color: '#7e7e85'}];
                 $scope.chartObject.missingMeterReadsAll.options.pieHole = 0.4;
-                $scope.chartObject.missingMeterReadsAll.dataPoint = 1; 
+                $scope.chartObject.missingMeterReadsAll.dataPoint = d.allSuccessful + d.allMissed; 
 
                 $scope.chartObject.missingMeterReadsAll.data = {
                     "cols": [
@@ -298,7 +298,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.missingMeterReadsMissed.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.missingMeterReadsMissed.options.slices = [{color: '#7e7e85'}, {color: '#000'}];
                 $scope.chartObject.missingMeterReadsMissed.options.pieHole = 0.4;
-                $scope.chartObject.missingMeterReadsMissed.dataPoint = 1; 
+                $scope.chartObject.missingMeterReadsMissed.dataPoint = d.automatedMmr + d.manualMmr; 
 
                 $scope.chartObject.missingMeterReadsMissed.data = {
                     "cols": [
@@ -417,7 +417,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
                 $scope.chartObject.pagesBilled.options.pieHole = 0.4;
-                $scope.chartObject.pagesBilled.dataPoint = 1; 
+                $scope.chartObject.pagesBilled.dataPoint = d.pagesBilledTotal;
 
                 $scope.chartObject.pagesBilled.data = {
                     "cols": [
