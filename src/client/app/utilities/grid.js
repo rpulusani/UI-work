@@ -140,7 +140,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.virtualizationThreshold = service.params.size;
             scope.gridOptions.enableHorizontalScrollbar = 0;
             scope.gridOptions.enableVerticalScrollbar = 0;
-            //scope.gridOptions.rowHeight = 60;
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
 
             // Setup special columns
