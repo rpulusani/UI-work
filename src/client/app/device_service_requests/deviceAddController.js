@@ -1,16 +1,16 @@
-define(['angular', 
-    'deviceServiceRequest', 
+define(['angular',
+    'deviceServiceRequest',
     'deviceManagement.deviceFactory',
-    'utility.formatters'], 
+    'utility.formatters'],
     function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
-    .controller('DeviceAddController', ['$scope', 
-        '$location', 
-        '$filter', 
-        '$routeParams', 
-        '$rootScope', 
-        'ServiceRequestService', 
+    .controller('DeviceAddController', ['$scope',
+        '$location',
+        '$filter',
+        '$routeParams',
+        '$rootScope',
+        'ServiceRequestService',
         'FormatterService',
         'BlankCheck',
         'DeviceServiceRequest',
@@ -20,15 +20,15 @@ define(['angular',
         'ProductModel',
         'SRControllerHelperService',
         'HATEAOSConfig',
-        function($scope, 
-            $location, 
-            $filter, 
-            $routeParams, 
+        function($scope,
+            $location,
+            $filter,
+            $routeParams,
             $rootScope,
             ServiceRequest,
             FormatterService,
             BlankCheck,
-            DeviceServiceRequest, 
+            DeviceServiceRequest,
             Devices,
             ImageService,
             Contacts,
@@ -60,7 +60,7 @@ define(['angular',
                         }
                     };
                     ProductModel.get(options).then(function(){
-                        if (ProductModel && ProductModel.item 
+                        if (ProductModel && ProductModel.item
                             && ProductModel.item._embedded && ProductModel.item._embedded.models) {
                             $scope.device.productNumbers = [];
                             var modelList = ProductModel.item._embedded.models;
@@ -74,7 +74,7 @@ define(['angular',
                 }
             });
 
-            if ($rootScope.selectedContact 
+            if ($rootScope.selectedContact
                     && $rootScope.returnPickerObject){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
@@ -93,7 +93,7 @@ define(['angular',
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
-                        
+
                     if ($scope.device.isDeviceSelected && $scope.device.isDeviceSelected === true) {
                         $scope.device.isDeviceSelected = false;
                     }
@@ -154,7 +154,7 @@ define(['angular',
                 }
             }
 
-            
+
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
@@ -194,11 +194,11 @@ define(['angular',
                             meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
                         }
                     }
-                }             
+                }
                 ServiceRequest.addField('meterReads', meterReads);
                 ServiceRequest.addField('assetInfo', assetInfo);
                 if (BlankCheck.checkNotBlank($scope.device.deviceInstallDate)) {
-                    ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate)); 
+                    ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate));
                 }
                 ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
             };
@@ -338,8 +338,16 @@ define(['angular',
                     devicePicker: {
                         translate: {
                             currentDeviceTitle: 'DEVICE_SERVICE_REQUEST.DEVICE_SELECTED_FOR_REMOVAL',
-                            replaceDeviceTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_DEVICE_WITH'
-                        }
+                            replaceDeviceTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_DEVICE_WITH',
+                            h1: 'DEVICE_MGT.REMOVE_A_DEVICE',
+                            body: 'MESSAGE.LIPSUM',
+                            readMore: '',
+                            confirmation:{
+                                    abandon:'DEVICE_MGT.DISCARD_DEVICE_REMOVAL_CHANGES',
+                                    submit: 'DEVICE_MGT.CHANGE_DEVICE_TO_BE_REMOVED'
+                            }
+                        },
+                        readMoreUrl: ''
                     }
                 };
             }
@@ -361,7 +369,7 @@ define(['angular',
                     $scope.requestedByContactFormatted = FormatterService.formatContact($scope.device.requestedByContact);
                 }
             };
-            
+
             $scope.formatReceiptData(formatAdditionalData);
         }
     ]);

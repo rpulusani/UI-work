@@ -44,8 +44,8 @@ define(['angular',
 
             if (Devices.item === null) {
                 $scope.redirectToList();
-            } else if($rootScope.selectedContact 
-                && $rootScope.returnPickerObject 
+            } else if($rootScope.selectedContact
+                && $rootScope.returnPickerObject
                 && $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
@@ -57,11 +57,15 @@ define(['angular',
                 $rootScope.contactPickerReset = false;
             }else {
                 $rootScope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item['address'])) {
+                if (!BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                     $scope.device.installAddress = Devices.item['address']['item'];
+                }else if(!BlankCheck.isNull(Devices.item['address'])){
+                    $scope.device.installAddress = Devices.item['address'];
                 }
-                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                if (!BlankCheck.isNull(Devices.item['contact']) && Devices.item['contact']['item']) {
                     $scope.device.primaryContact = Devices.item['contact']['item'];
+                }else if(!BlankCheck.isNull(Devices.item['contact'])){
+                    $scope.device.primaryContact = Devices.item['contact'];
                 }
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                     $scope.resetContactPicker();

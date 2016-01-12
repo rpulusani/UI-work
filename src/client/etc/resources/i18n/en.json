@@ -267,6 +267,7 @@
         "PRIOR_DATE": "Prior Date",
         "NEW_COUNT": "New Count",
         "REQUEST_SERVICE": "Schedule Service",
+        "REQUEST_SERVICE_DEVICE": "Schedule Service for this device",
         "ORDER_SUPPLIES": "Order supplies",
         "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
         "DECOMMISSION_THIS_DEVICE": "Decommission \"{{productModel}}\"",

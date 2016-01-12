@@ -10,6 +10,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         'ServiceRequestService',
         'SRControllerHelperService',
         'Devices',
+        'BlankCheck',
+        'DeviceServiceRequest',
         function(
             $rootScope,
             $scope,
@@ -18,9 +20,54 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             Addresses,
             ServiceRequest,
             SRHelper,
-            Devices
+            Devices,
+            BlankCheck,
+            DeviceServiceRequest
         ) {
             SRHelper.addMethods(Devices, $scope, $rootScope);
+
+            if($rootScope.selectedDevice &&
+                $rootScope.returnPickerObjectDevice){
+                    $scope.device = $rootScope.returnPickerObjectDevice;
+                    $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                    if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
+                        $scope.device.isDeviceSelected = true;
+                        $scope.resetDevicePicker();
+                        ServiceRequest.reset();
+                        ServiceRequest.item = null;
+                        $location.path(DeviceServiceRequest.route + "/" + $scope.device.item.id + '/view');
+                    }
+            }else{
+                $scope.device = {};
+                ServiceRequest.reset();
+                $scope.setupSR(ServiceRequest, function(){});
+            }
+
+            function configureReviewTemplate(){
+            }
+            function configureReceiptTemplate(){
+
+            }
+            function configureTemplates() {
+                $scope.configure = {
+                        devicePicker: {
+                            singleDeviceSelection: true,
+                            readMoreUrl: '',
+                            translate: {
+                                replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
+                                h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
+                                body: 'MESSAGE.LIPSUM',
+                                readMore: '',
+                                confirmation:{
+                                    abandon:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
+                                    submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
+                                }
+                            }
+
+                        }
+                    };
+            }
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
             $scope.goToContactCreate = function(){
                 Contacts.item = {};
@@ -32,33 +79,16 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             };
             $scope.goToServiceCreate = function(){
                 $scope.resetDevicePicker();
-                $scope.configure = {
-                    header: {
-                            translate: {
-                                h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
-                                body: 'MESSAGE.LIPSUM',
-                                readMore: ''
-                            },
-                            readMoreUrl: ''
-                    },
-                    devicePicker: {
-                        translate: {
-                            replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED'
-                        }
-                    }
-                };
 
-                $scope.setupSR(ServiceRequest, function(){
 
-                });
+
                 if ($rootScope.newSr) {
                         $scope.sr = $rootScope.newSr;
                         $rootScope.newSr = undefined;
                 }
                 $scope.goToDevicePicker('ServiceRequestActionButtons', Devices);
                 /*
-                ServiceRequest.reset();
-                $location.path(DeviceServiceRequest.route + "/" + device.id + '/view');*/
+                */
             };
         }
     ]);
