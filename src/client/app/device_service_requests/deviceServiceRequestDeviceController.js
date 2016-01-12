@@ -42,9 +42,13 @@ define(['angular',
                     ServiceRequest.addField('type', 'BREAK_FIX');
             };
 
-            if (Devices.item === null && $location.path() !== DeviceServiceRequest.route + "/picker") {
+            if (Devices.item === null &&
+                $location.path() !== DeviceServiceRequest.route + "/picker" &&
+                $location.path() !== "/device_management/pick_device/DeviceServiceRequestDevice") {
                 $scope.redirectToList();
             } else if($location.path() === DeviceServiceRequest.route + "/picker" && !$rootScope.selectedDevice){
+                ServiceRequest.reset();
+                Devices.reset();
                 $scope.setupSR(ServiceRequest, configureSR);
                 $scope.goToDevicePicker('DeviceServiceRequestDevice',Devices);
             } else if($location.path() === "/device_management/pick_device/DeviceServiceRequestDevice"){
@@ -136,8 +140,8 @@ define(['angular',
                 };
             }
             function configureReceiptTemplate(){
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR_SUBMITTED";
+                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -145,7 +149,7 @@ define(['angular',
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL",
+                        title:"DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };
