@@ -1,8 +1,8 @@
 define(['angular', 'report', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'Visualizations', 'grid', '$rootScope', 'PersonalizationServiceFactory',
-        function($scope, $location, $translate, Reports, Visualizations, Grid, $rootScope, Personalize) {
+    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid', '$rootScope', 'PersonalizationServiceFactory',
+        function($scope, $location, $translate, Reports, Grid, $rootScope, Personalize) {
 
             $scope.chartObject = {};
             $scope.chartData = {};
