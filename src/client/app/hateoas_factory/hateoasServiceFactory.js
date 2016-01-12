@@ -355,6 +355,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
+
+                console.log(halObj.item._links);
                 return url;
             };
 

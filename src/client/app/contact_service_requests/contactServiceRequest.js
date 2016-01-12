@@ -16,8 +16,8 @@ define(['angular'], function(angular) {
                         return {
                             contactInfo:'CONTACT.INFO',
                             requestContactInfo:'DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION',
-                            submit: 'CONTACT_SERVICE_REQUEST.SUBMIT',
-                            cancel: 'CONTACT_SERVICE_REQUEST.ABANDON'
+                            submit: 'CONTACT_SERVICE_REQUEST.SUBMIT_DELETE',
+                            cancel: 'CONTACT_SERVICE_REQUEST.ABANDON_DELETE'
                         };
                     }
                 }

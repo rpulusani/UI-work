@@ -60,11 +60,12 @@
         "DELETE": "Delete Contact",
         "ADD_WHO": "Who would you like to add as a contact?",
         "CONTACT_INFO": "What is their contact information?",
+        "UPDATE": "Update Contact",
         "ABANDON_DELETE": "ABONDON DELETE CONTACT REQUEST",
         "SUBMIT_DELETE": "SUBMIT DELETE CONTACT REQUEST",
         "ABANDON_ADD": "ABONDON CONTACT CREATION",
         "SUBMIT": "CREATE CONTACT",
-        "UPDATE": "UPDATE CONTACT",
+        "UPDATE_SUBMIT": "UPDATE CONTACT",
         "CANCEL": "DISCARD CHANGES TO CONTACT",
         "SAVE_MSG": " has been added as a contact! You can update their details below."
     },
@@ -230,7 +231,8 @@
         "CHANGE_CONTACT": "Change Contact",
         "CURRENT_CONTACT": "Current Contact",
         "REPLACE_CONTACT": "Replace current contact with...",
-        "CONTACT_SELECTION": "Contact Selection"
+        "CONTACT_SELECTION": "Contact Selection",
+        "FILTER_LABEL": "Looking for a contact?"
     },
 
     "DEVICE_MGMT_REQUEST": {

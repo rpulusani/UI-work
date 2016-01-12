@@ -2,7 +2,7 @@
     <div class="col-1">
         <ul class="breadcrumb">
             <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
-            <li><a href="" ng-click="goToList()" translate="CONTACT.TITLE"></a> >&nbsp;</li>
+            <li><a href="" ng-click="contacts.goToList()" translate="CONTACT.TITLE"></a> >&nbsp;</li>
             <li translate="CONTACT_SERVICE_REQUEST.ADD"></li>
         </ul>
     </div>
@@ -16,7 +16,7 @@
     <form class="form" data-form="" name="newContact" method="post"
           ng-submit="newContact.$valid && continue()" enctype="multipart/form-data" novalidate>
 
-        <div class="col-1-2 l-alley-after">
+        <div class="col-2-3 l-alley-after">
             <div new-contact-fields></div>
         </div>
 

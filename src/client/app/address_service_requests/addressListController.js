@@ -47,7 +47,6 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
                 $location.path(Addresses.route + '/new');
             };
 
-
             $scope.goToUpdate = function() {
                 var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
                 if(id !== null){
