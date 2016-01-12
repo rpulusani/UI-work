@@ -76,7 +76,15 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             scope: {
                 currentDeviceTitle: '@',
-                replaceDeviceTitle: '@'
+                replaceDeviceTitle: '@',
+                singleDeviceSelection: '@',
+                header:'@',
+                bodyText:'@',
+                readMore: '@',
+                readMoreUrl:'@',
+                abandonText: '@',
+                submitText: '@'
+
             },
             templateUrl: '/app/utilities/templates/pick-device.html',
             controller: 'DevicePickerController'
