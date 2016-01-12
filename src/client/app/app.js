@@ -47,6 +47,11 @@ define([
     'deviceServiceRequest.directives',
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
+    'invoice',
+    'invoice.invoiceController',
+    'invoice.invoiceListController',
+    'invoice.invoiceListFactory',
+    'invoice.directives',
     'hateoasFactory.serviceFactory',
     'utility',
     'utility.historyUtility',
@@ -132,6 +137,8 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .constant('imageNowSecret', 'UeV5DfuEzXsLsTzRP1a3ragNAQRt73GrOK2XZkjm6zIXyNZD66LZt4LvUuVh3O8RUnoZhDPADxu6lXW030i9NSv_dfciMO3JDA-Dm5ePlvVUKW7RMXuVrJG8wjfOiiQQA7VoTXYiYPdTfawRvzaiqrwLD06dKXA4Mww2KLJppGA')
+    .constant('imageNowUrl', 'https://in-qa.lexmark.com/SecureFileDelivery/SAP/')
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
