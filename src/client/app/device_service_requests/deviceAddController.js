@@ -45,7 +45,7 @@ define(['angular',
 
             $scope.setModels = function() {
                 $scope.$broadcast('searchProductModel');
-            }
+            };
 
             var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');

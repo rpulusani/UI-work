@@ -78,7 +78,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $location.path(Addresses.route + '/new');
             };
             $scope.goToServiceCreate = function(){
-                $scope.resetDevicePicker();
+                $location.path(DeviceServiceRequest.route + "/picker");
+
+                /*$scope.resetDevicePicker();
 
 
 
@@ -86,7 +88,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         $scope.sr = $rootScope.newSr;
                         $rootScope.newSr = undefined;
                 }
-                $scope.goToDevicePicker('ServiceRequestActionButtons', Devices);
+                $scope.goToDevicePicker('ServiceRequestActionButtons', Devices);*/
                 /*
                 */
             };
