@@ -31,7 +31,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             name: $translate.instant('CONTACT.FULLNAME'), 
                             field: 'getFullname()',
                             dynamic: false,
-                            cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
+                            cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity, false);" ' +
                                 'ng-bind="grid.appScope.getFullname(row.entity)"></a></div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
@@ -48,25 +48,37 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     this.updated = false;
                     this.saved = false;
 
+                    console.log(this.route + '/new');
+
                     $location.path(this.route + '/new');
                 },
-                goToUpdate: function(contact) {
-                    console.log(contact);
-                    this.setItem(contact);
-                    
+                goToUpdate: function(contact, updated) {
+                    if (contact) {
+                        this.setItem(contact);
+                    }
+
+                    if (updated) {
+                        this.updated = true;
+                        window.scrollTo(0,0)
+                    } else {
+                        this.updated = false;
+                    }
+
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
                 saveContact: function(contactForm) {
-                    var Contacts = this,
-                    contactItem;
+                    var Contacts = this;
+
+                    // test
+                    var hldItem = Contacts.item
 
                     if (Contacts.item && Contacts.item.id) {
                         Contacts.put(Contacts).then(function() {
                             Contacts.saved = false;
 
-                            if (contacts.item._links) {
+                            if (hldItem._links) {
                                 Contacts.updated = true; // flag to manage state
-                                Contacts.goToUpdate(Contacts.item);
+                                Contacts.goToUpdate(hldItem, true);
                             } else {
                                 Contacts.goToList();
                             }
@@ -74,7 +86,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     } else {
                         Contacts.post(Contacts).then(function(r) {
                             Contacts.saved = true;
-                            Contacts.goToUpdate(contactItem);
+                            Contacts.goToUpdate(contactItem, true);
                         });
                     }
                 },

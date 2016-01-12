@@ -78,14 +78,6 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
                 }
             };
 
-            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'address,contact'},
-                function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
-                }
-            );
-
-            filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
-
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
@@ -99,6 +91,14 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
 
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
+                        var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+
+                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES',
+                            function() {
+                                $scope.$broadcast('setupColumnPicker', Grid);
+                            }
+                        );
+
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);
                         }, function(reason) {
