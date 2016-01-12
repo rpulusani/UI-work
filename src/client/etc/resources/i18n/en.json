@@ -651,7 +651,8 @@
         "ACCOUNT_NAME": "Account name",
         "SOLD_TO": "Sold To",
         "BILL_TO": "Bill To",
-        "DOWNLOAD_AS_TXT": "Download as .txt"
+        "DOWNLOAD_AS_TXT": "Download as .txt",
+        "ACCOUNT": "Account"
     },
 
     "DELEGATED_ADMIN": {
