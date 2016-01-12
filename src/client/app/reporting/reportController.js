@@ -440,13 +440,9 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
             var buildCharts = function() {
                 var report;
 
-                 for (var i = 0; i < $scope.reports.length; i++) {
+                 for (var i = 0; i < $scope.visualizations.length; i++) {
 
-                    if ($scope.reports[i].id === 'sd0101' || $scope.reports[i].id === 'hw0015') {
-                        return;
-                    }
-
-                    report = Reports.createItem($scope.reports[i]);
+                    report = Reports.createItem($scope.visualizations[i]);
 
                     report.stats.params.page = null;
                     report.stats.params.size = null;
@@ -502,14 +498,27 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     }
             };
 
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 
             Reports.getPage().then(function() {
                 $scope.finder = Reports.finder;
-                $scope.reports = Reports.data;
-                $scope.report = Reports.item;
+                $scope.visualizations = [];
+                $scope.reports = [];
+
+                var tmp = Reports.data;
+
+                for (var i = 0; i < tmp.length; i++) {
+
+                    if (tmp[i]._links.stats !== undefined) {
+                        $scope.visualizations.push(tmp[i]);
+                    }
+
+                    if (tmp[i]._links.results !== undefined) {
+                        $scope.reports.push(tmp[i]);
+                    }
+                }
 
                 buildCharts();
 
