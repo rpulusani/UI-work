@@ -51,7 +51,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 }
 
                 checkbox.customInput();
-                
+
                 if (checkbox && (column.dynamic === undefined || column.dynamic === true)) {
                     checkbox.on('change', function(e) {
                         e.preventDefault();
@@ -90,10 +90,10 @@ define(['angular', 'utility.grid'], function(angular) {
                     selectorContent,
                     links = [],
                     dropdownBtn = $(
-                        '<p class="l-visible--lt-laptop"><strong>' + translate.instant('COLUMNPICKER.CUSTOMIZE_COLUMNS') + '</strong></p><div class="dropdown columnpicker" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' + 
-                            '<button class="btn dropdown__trigger"><i class="icon icon--ui icon--navicon-secondary rotate"></i></button>' + 
+                        '<p class="l-visible--lt-laptop"><strong>' + translate.instant('COLUMNPICKER.CUSTOMIZE_COLUMNS') + '</strong></p><div class="dropdown columnpicker" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' +
+                            '<button class="btn dropdown__trigger"><i class="icon icon--ui icon--navicon-secondary rotate"></i></button>' +
                         '</div>'),
-                    dropdownMenu = $('<div class="row l-hidden"><div class="col-lg-3-4 col-md-1-1"><div class="row l-pad columnpicker__menu"><div class="col-1-1"><h2>' + 
+                    dropdownMenu = $('<div class="row l-hidden"><div class="col-lg-3-4 col-md-1-1"><div class="row l-pad columnpicker__menu"><div class="col-1-1"><h2>' +
                         translate.instant('COLUMNPICKER.TITLE') + '</h2></div></div></div></div>');
 
                     element.addClass('columnpicker');
@@ -101,10 +101,10 @@ define(['angular', 'utility.grid'], function(angular) {
 
                     element.on('click', function(evt) {
                         var parentWrapper = dropdownBtn.parent().parent();
-                            
+
                         evt.preventDefault();
 
-                        parentWrapper.after(dropdownMenu)
+                        parentWrapper.after(dropdownMenu);
 
                         if (dropdownMenu.hasClass('l-hidden')) {
                             dropdownMenu.removeClass('l-hidden');
@@ -130,7 +130,7 @@ define(['angular', 'utility.grid'], function(angular) {
 
                                 selectorContent = $('.columnpicker__menu');
 
-                                selectorContent.append(list)
+                                selectorContent.append(list);
                             }
                         } else {
                             dropdownMenu.addClass('l-hidden');

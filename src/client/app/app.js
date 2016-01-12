@@ -15,8 +15,12 @@ define([
     'serviceRequest.factory',
     'serviceRequest.directives',
     'serviceRequest.listController',
-    'serviceRequest.serviceRequestController',
+    'serviceRequest.listDeviceController',
+    'serviceRequest.listBreakFixController',
+    'serviceRequest.listAddressController',
+    'serviceRequest.listContactController',
     'serviceRequest.controllerHelperService',
+    'serviceRequest.TabController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -258,6 +262,14 @@ define([
             {
                 name: 'viewHomePage',
                 permission: permissionSet.dashboard.view
+            },
+            {
+                name: 'addressAccess',
+                permission: permissionSet.serviceRequestManagement.addressMADC
+            },
+            {
+                name: 'contactAccess',
+                permission: permissionSet.serviceRequestManagement.contactMADC
             },
             {
                 name: 'decommissionAccess',

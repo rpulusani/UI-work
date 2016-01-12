@@ -127,13 +127,15 @@ angular.module('mps.form')
           options = [];
         }
         $.each(options, function(_index, item) {
-          var option = $('<option></option>')
-                       .attr('value', item[value])
-                       .text(item[label]);
-          if(model == item[value]) {
-            option.attr('selected', 'selected');
+          if (item[label]) {
+            var option = $('<option></option>').attr('value', item[value]).text(item[label]);
+
+            if (model == item[value]) {
+              option.attr('selected', 'selected');
+            }
+
+            selectric.append(option);
           }
-          selectric.append(option);
         });
         element.empty();
         element.append(selectric[0]);

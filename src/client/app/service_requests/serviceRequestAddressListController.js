@@ -1,7 +1,7 @@
 define(['angular','serviceRequest', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('ServiceRequestListController', [
+    .controller('ServiceRequestAddressListController', [
         '$scope',
         '$location',
         '$rootScope',
@@ -21,7 +21,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'defaultSet');
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'addressSet');
 
             $scope.view = function(SR){
                 ServiceRequest.setItem(SR);
@@ -30,8 +30,12 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     }
                 };
             };
+            var params =  {
+                type: 'DATA_ADDRESS_ALL',
+                embed: 'primaryContact,requester,sourceAddress'
+            };
 
-            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester'},
+            filterSearchService.addBasicFilter('All address service requests', params,
                 function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }

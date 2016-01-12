@@ -34,6 +34,7 @@
         "CONTACT_INFORMATION": "Request Contact Information",
         "REQUEST_CREATED_BY": "Request created by",
         "PRIMARY_CONTACT": "Primary Contact",
+        "REQUESTOR_CONTACT": "Requestor",
         "SECONDARY_CONTACT": "Secondary contact",
         "CHANGE_PRIMARY_CONTACT": "Change primary contact",
         "ADD_SECONDARY_CONTACT": "Add secondary contact",
@@ -45,11 +46,13 @@
         "REQUEST_STATUS": "Request status",
         "IN_PROCESS": "In Process",
         "SUBMITED": "Submitted",
+        "PO": "PO",
         "TITLE_ABANDON_MODAL": "Are you sure you want to abandon this request?",
         "BODY_ABANDON_MODAL": "The information you have entered will not be saved.",
         "ABANDON_MODAL_CANCEL": "NO, DO NOT ABANDON THIS REQUEST",
         "ABANDON_MODAL_CONFIRM": "YES, ABANDON THIS REQUEST",
-        "ABANDON_SERVICE_REQUEST": "Abandon Service Request"
+        "ABANDON_SERVICE_REQUEST": "Abandon Service Request",
+        "FILTER_BY_CHL": "Filter By CHL"
     },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -61,6 +64,7 @@
     },
 
     "DEVICE_SERVICE_REQUEST": {
+        "ALL_DEVICES_REQUESTS": "All devices requests",
         "ADD": "Add a Device",
         "RESOLUTION": "Resolution",
         "SUBMITTED": "Add a Device Request Submitted",
@@ -201,8 +205,10 @@
 
     "CONTACT": {
         "TITLE": "Contacts",
+        "LIST_TITLE": "Manage Contacts",
+        "ALL": "All Contacts",
         "ADDRESS": "Address",
-        "BOOK": "Contacts ({{total}})",
+        "TITLE_CNT": "Contacts ({{total}})",
         "INFO": "Contact Information",
         "FULLNAME": "Name (Last, First Middle)",
         "FIRST_NAME": "First Name",
@@ -339,10 +345,16 @@
         "REQUEST_SEARCH": "What request are you looking for?",
         "CREATE_NEW_REQUEST": "Create new request",
         "ALL_REQUESTS": "All requests",
+        "ALL_REQUESTS_W_TOTALS": "All requests ({{total}} total requests)",
+        "DEVICE_REQUESTS_W_TOTALS": "Device requests ({{total}} total device requests)",
+        "SERVICE_REQUESTS_W_TOTALS": "Service requests ({{total}} total service requests)",
+        "ADRESS_W_TOTALS": "All address requests ({{total}} total address requests)",
+        "CONTACT_W_TOTALS": "All address requests ({{total}} total contact requests)",
+        "ALL_SERVICE_REQUESTS": "All service requests",
         "DEVICE_REQUESTS": "Device requests",
-        "SERVICE_REQUESTS": "Service requests",
         "ADDRESS_REQUESTS": "Address requests",
         "CONTACT_REQUESTS": "Contact requests",
+        "SERVICE_REQUESTS": "Service requests",
         "NEW_REQUEST": "New request",
         "WHAT_WOULD_YOU_LIKE_TO_DO": "What would you like to do?",
         "MANAGE_A_DEVICE": "Manage a device",

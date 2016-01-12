@@ -1,7 +1,7 @@
 define(['angular','serviceRequest', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('ServiceRequestListController', [
+    .controller('ServiceRequestDeviceListController', [
         '$scope',
         '$location',
         '$rootScope',
@@ -21,7 +21,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'defaultSet');
+            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'madcSetSR');
 
             $scope.view = function(SR){
                 ServiceRequest.setItem(SR);
@@ -30,12 +30,17 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     }
                 };
             };
+            var params =  {
+                type: 'MADC_ALL',
+                embed: 'primaryContact,requester'
+            };
 
-            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester'},
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.ALL_DEVICES_REQUESTS', params,
                 function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }
             );
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter');
         }
     ]);
 });
