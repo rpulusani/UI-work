@@ -13,6 +13,9 @@ define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
         'translationPlaceHolder',
         'allowMakeChange',
         'SRControllerHelperService',
+        'BlankCheck',
+        'UserService',
+        'SecurityHelper',
         function(
             $rootScope,
             $scope,
@@ -24,32 +27,41 @@ define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
             $q,
             translationPlaceHolder,
             allowMakeChange,
-            SRHelper) {
+            SRHelper,
+            BlankCheck,
+            User,
+            SecurityHelper) {
 
-            $scope.translationPlaceHolder = translationPlaceHolder;
-            $scope.continueForm = false;
-            $scope.submitForm = false;
-            $scope.allowMakeChange = allowMakeChange;
+            new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             var redirect_to_list = function() {
                $location.path(Addresses.route + '/');
             };
 
-            //console.log("Id is " + $routeParams.id);
+            $scope.translationPlaceHolder = translationPlaceHolder;
+            //$scope.continueForm = false;
+            //$scope.submitForm = false;
+            //$scope.allowMakeChange = allowMakeChange;
+            
+            SRHelper.addMethods(Addresses, $scope, $rootScope);
 
-            if ($routeParams.id) { //doing work on a current address
-                //console.log("Id is " + $routeParams.id);
-                //var promise = Addresses.getSelfResource($routeParams.id);
-                var promise = $routeParams.id;
-                $q.when(promise,
-                    function(item){
-                        $scope.address = item;
-                    }
-                );
-            } else { //doing work on a new address
-                //console.log("Account id is: " + Account.item.accountId);
-                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
+            if (Addresses.item === null) {
+                redirect_to_list();
             }
+            if(!$routeParams.id){
+                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
+            }else{
+                $scope.address = Addresses.item;
+            }
+
+            var configureSR = function(ServiceRequest){
+                    ServiceRequest.addRelationship('account', $scope.address);
+                    ServiceRequest.addRelationship('address', $scope.address, 'self');
+                    ServiceRequest.addRelationship('primaryContact', $scope.address, 'contact');
+
+                    ServiceRequest.addField('type', 'DATA_ADDRESS_CHANGE'); //could be DATA_ADDRESS_ADD or DATA_ADDRESS_REMOVE
+            };
+
 
             $scope.contact = {}; //set current user
 
