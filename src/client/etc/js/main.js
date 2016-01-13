@@ -207,6 +207,7 @@ requirejs.config({
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
         'serviceRequest.directives': 'app/service_requests/directives',
+        'serviceRequest.detailController': 'app/service_requests/serviceRequestDetailController',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
         'serviceRequest.listDeviceController': 'app/service_requests/serviceRequestDeviceListController',
         'serviceRequest.listBreakFixController': 'app/service_requests/serviceRequestBreakFixListController',
