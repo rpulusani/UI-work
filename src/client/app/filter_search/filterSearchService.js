@@ -27,10 +27,12 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope = scope;
                 this.columnSet = columnSet;
                 this.personalization = personalization;
-                this.display =  function(fn){
+                this.display =  function(){
+
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
+
                     if (rowHeight) {
                         Grid.display(self.service, self.localScope, self.personalization, rowHeight);
                     } else {
@@ -81,6 +83,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             if (removeParams) {
                                 self.clearParameters(removeParams);
                             }
+
                             var promise = self.service.getPage(0, 20, options);
                             promise.then(self.display, self.failure).then(function() {
                                 if (typeof fn === 'function') {
@@ -91,6 +94,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     },
                     params: self.localScope.optionParams
                 };
+
+                self.display();
                 self.localScope.filterOptions.push(filter);
             };
 

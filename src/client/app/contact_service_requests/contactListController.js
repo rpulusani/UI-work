@@ -32,20 +32,21 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $rootScope.currentRowList = [];
 
         $scope.contacts = Contacts;
-
+        $scope.gridOptions = {};
+        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+        
         $scope.getFullname = function(rowInfo) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
-        }
+        };
 
-        filterSearchService.addBasicFilter('CONTACT.ALL', false,
+        filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function() {
-                
-                filterSearchService.addPanelFilter('Filter by Location', 'state');
-
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }, 0);
             }
         );
+
+        filterSearchService.addPanelFilter('Filter by Location', 'state');
     }]); // End Controller
 });
