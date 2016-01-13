@@ -668,7 +668,8 @@
             "ALL_ADDRESSES": "All addresses",
             "BROWSE_ADDRESSES": "Browse addresses by",
             "WHAT_ADDRESS": "What address are you looking for?",
-            "REGION": "Region"
+            "REGION": "Region",
+            "USE_THIS_ADDRESS": "Use this address"
         },
 
         "CONTACT": {

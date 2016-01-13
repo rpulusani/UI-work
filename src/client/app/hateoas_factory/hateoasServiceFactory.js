@@ -517,20 +517,20 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.post = function(halObj, options) {
-                return this.send(halObj, 'post', 'post', options);
+                return this.send(halObj, 'post', 'Post', options);
             };
 
             HATEOASFactory.prototype.put = function(halObj, options) {
-                return this.send(halObj, 'put', 'put', options);
+                return this.send(halObj, 'put', 'Put', options);
             };
 
             // Provided for convenience
             HATEOASFactory.prototype.save = function(halObj, options) {
-                return this.send(halObj, 'post', 'post', options);
+                return this.send(halObj, 'post', 'Save', options);
             };
 
             HATEOASFactory.prototype.update = function(halObj, options) {
-                return this.send(halObj, 'put', 'put', options);
+                return this.send(halObj, 'put', 'Update', options);
             };
 
             HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
