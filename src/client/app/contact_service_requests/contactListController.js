@@ -11,6 +11,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     'FilterSearchService',
     'SecurityHelper',
     'FormatterService',
+    'SRControllerHelperService',
     function(
         $scope,
         $location,
@@ -20,33 +21,32 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         Personalize,
         FilterSearchService,
         SecurityHelper,
-        formatter
+        formatter,
+        SRHelper
     ) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
 
+        SRHelper.addMethods(Contacts, $scope, $rootScope);
+
         $rootScope.currentRowList = [];
 
-        $scope.goToCreate = function() {
-            Contacts.item = {};
-            $location.path(Contacts.route + '/new');
-        };
-
-        $scope.goToUpdate = function(contact) {
-            Contacts.item = contact;
-            $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
-        };
-
+        $scope.contacts = Contacts;
+        $scope.gridOptions = {};
+        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+        
         $scope.getFullname = function(rowInfo) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
-        }
+        };
 
-        filterSearchService.addBasicFilter('CONTACT.ALL', false,
+        filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function() {
                 setTimeout(function() {
-                    $scope.$broadcast('setupColumnPicker', Grid)
+                    $scope.$broadcast('setupColumnPicker', Grid);
                 }, 0);
             }
         );
+
+        filterSearchService.addPanelFilter('Filter by Location', 'state');
     }]); // End Controller
 });
