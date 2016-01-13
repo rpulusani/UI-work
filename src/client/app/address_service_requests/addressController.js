@@ -1,31 +1,44 @@
-define(['angular', 'address'], function(angular) {
+define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressController', [
+        '$rootScope',
         '$scope',
         '$location',
         '$routeParams',
         'Addresses',
-        '$rootScope',
+        'ServiceRequestService',
+        'AccountService',
         '$q',
         'translationPlaceHolder',
         'allowMakeChange',
+        'SRControllerHelperService',
         function(
+            $rootScope,
             $scope,
             $location,
             $routeParams,
             Addresses,
-            $rootScope,
+            ServiceRequestService,
+            Account,
             $q,
             translationPlaceHolder,
-            allowMakeChange) {
+            allowMakeChange,
+            SRHelper) {
 
+            $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.continueForm = false;
             $scope.submitForm = false;
-            $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.allowMakeChange = allowMakeChange;
 
+            var redirect_to_list = function() {
+               $location.path(Addresses.route + '/');
+            };
+
+            //console.log("Id is " + $routeParams.id);
+
             if ($routeParams.id) { //doing work on a current address
+                //console.log("Id is " + $routeParams.id);
                 //var promise = Addresses.getSelfResource($routeParams.id);
                 var promise = $routeParams.id;
                 $q.when(promise,
@@ -34,6 +47,7 @@ define(['angular', 'address'], function(angular) {
                     }
                 );
             } else { //doing work on a new address
+                //console.log("Account id is: " + Account.item.accountId);
                 $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
             }
 
@@ -85,6 +99,7 @@ define(['angular', 'address'], function(angular) {
             $scope.cancel = function() {
                 $location.path('/service_requests/addresses');
             };
+
 
 
     }]);

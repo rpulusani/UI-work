@@ -64,8 +64,6 @@ requirejs.config({
             'user.accountListController',
             'user.roleListController',
 
-            'invoice',
-
             'pageCount',
 
             'report',
@@ -74,7 +72,6 @@ requirejs.config({
             'report.reportFinderController',
             'report.directives',
             'report.factory',
-            'report.visualizationFactory',
 
             'tree',
             'tree.treeItemsService',
@@ -110,8 +107,6 @@ requirejs.config({
         'address.directives': ['address'],
         'address.factory': ['address'],
 
-        'invoice': ['angular', 'angular-route'],
-
         'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
@@ -120,7 +115,6 @@ requirejs.config({
         'report.reportFinderController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
-        'report.visualizationFactory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
@@ -234,6 +228,10 @@ requirejs.config({
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
         'invoice': 'app/invoices/invoice',
+        'invoice.invoiceController': 'app/invoices/invoiceController',
+        'invoice.directives': 'app/invoices/directives',
+        'invoice.invoiceListController': 'app/invoices/invoiceListController',
+        'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
 
@@ -266,7 +264,6 @@ requirejs.config({
         'report.reportFinderController': 'app/reporting/reportFinderController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-        'report.visualizationFactory': 'app/reporting/visualizationFactory',
 
         'dashboard': 'app/dashboard/dashboard',
         'dashboard.dashboardController': 'app/dashboard/dashboardController',
