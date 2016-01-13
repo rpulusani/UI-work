@@ -38,6 +38,19 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             };
 
 
+            $scope.goToUpdate = function(address) { // may be able to remove
+                ServiceRequest.reset();
+                if(address !== null){ 
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                }else{ 
+                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
+                    if(id !== null){
+                        $location.path(Addresses.route + '/' + id + '/update');
+                    }
+                }
+            };
+
+
             $scope.view = function(address){
                 if(address === null){
                     address = $rootScope.currentSelectedRow;

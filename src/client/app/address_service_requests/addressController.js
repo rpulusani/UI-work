@@ -46,14 +46,11 @@ define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
             SRHelper.addMethods(Addresses, $scope, $rootScope);
 
             if (Addresses.item === null) {
-                console.log("Addresses item is null");
-                //redirect_to_list();
+                redirect_to_list();
             }
             if(!$routeParams.id){
-                console.log("New Address");
                 $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
             }else{
-                console.log("Addresses item is: " + Addresses.item);
                 $scope.address = Addresses.item;
             }
 
