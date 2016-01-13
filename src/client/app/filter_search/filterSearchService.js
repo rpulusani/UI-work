@@ -8,8 +8,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
             display,
             failure,
             columnSet,
-            personalization;
-            var FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight){
+            personalization,
+
+            FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight){
                 if(!serviceDefinition){
                     throw new Error('Service Definition is Required!');
                 }
@@ -136,7 +137,6 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 }
             };
 
-         return FilterSearchService;
-
+            return FilterSearchService;
     }]);
 });
