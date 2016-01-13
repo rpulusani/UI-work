@@ -8,13 +8,15 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         'ServiceRequestService',
         'SRControllerHelperService',
         'FormatterService',
+        'BlankCheck',
         function(
             $scope,
             $location,
             $rootScope,
             ServiceRequest,
             SRHelper,
-            FormatterService
+            FormatterService,
+            BlankCheck
         ) {
             $scope.sr = ServiceRequest.item;
             if(ServiceRequest && ServiceRequest.item &&
@@ -36,6 +38,20 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 default:
                 break;
+            }
+
+            if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
+                !BlankCheck.isNull($scope.sr.primaryContact.item)){
+                        $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact.item);
+            }
+            if(!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.requester) &&
+                !BlankCheck.isNull($scope.sr.requester.item)){
+                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
+            }
+             if (!BlankCheck.isNull($scope.sr)) {
+                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
+                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
             }
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
