@@ -1,26 +1,8 @@
 define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location',
-        function($translate, HATEOASFactory, formatter, $location) {
-            var contactItem = {
-                id: 'PH-TTYS1',
-                firstName: 'Test',
-                lastName: 'Test',
-                address: {
-                    country: 'USA'
-                },
-                _links: {
-                    self: {
-                        href: "https://api.venus-dev.lexmark.com/mps/contacts/PH-TTYS1"
-                    },
-                    account: {
-                        href: "https://api.venus-dev.lexmark.com/mps/accounts/1-1L9SRP?accountLevel=seibel"
-                    }
-                }
-            };
-
-
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl',
+        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl) {
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
@@ -28,10 +10,10 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 columnDefs: {
                     defaultSet: [
                         {
-                            name: $translate.instant('CONTACT.FULLNAME'), 
+                            name: $translate.instant('CONTACT.FULLNAME'),
                             field: 'getFullname()',
                             dynamic: false,
-                            cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity, false);" ' +
+                            cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
                                 'ng-bind="grid.appScope.getFullname(row.entity)"></a></div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
@@ -43,54 +25,27 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     ]
                 },
                 route: '/service_requests/contacts',
+                needsToVerify: false, // if verify directive needs to be displayed
                 goToCreate: function() {
                     this.item = this.getModel();
                     this.updated = false;
                     this.saved = false;
 
-                    console.log(this.route + '/new');
-
                     $location.path(this.route + '/new');
                 },
-                goToUpdate: function(contact, updated) {
+                goToUpdate: function(contact) {
                     if (contact) {
                         this.setItem(contact);
                     }
-
-                    if (updated) {
-                        this.updated = true;
-                        window.scrollTo(0,0)
-                    } else {
-                        this.updated = false;
-                    }
+                    
+                    window.scrollTo(0,0)
 
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
-                saveContact: function(contactForm) {
-                    var Contacts = this;
-
-                    // test
-                    var hldItem = Contacts.item
-
-                    if (Contacts.item && Contacts.item.id) {
-                        Contacts.put(Contacts).then(function() {
-                            Contacts.saved = false;
-
-                            if (hldItem._links) {
-                                Contacts.updated = true; // flag to manage state
-                                Contacts.goToUpdate(hldItem, true);
-                            } else {
-                                Contacts.goToList();
-                            }
-                        });
-                    } else {
-                        Contacts.post(Contacts).then(function(r) {
-                            Contacts.saved = true;
-                            Contacts.goToUpdate(contactItem, true);
-                        });
-                    }
-                },
                 goToList: function() {
+                    Contacts.saved = false;
+                    Contacts.updated = false;
+
                     $location.path(this.route + '/');
                 },
                 goToDelete: function(contact) {
@@ -103,17 +58,34 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 cancel: function() {
                     $location.path(this.route + '/');
                 },
+                verifyAddress: function(addressObj, fn) {
+                    this.get({
+                        method: 'post',
+                        url: serviceUrl + 'address-validation',
+                        data: addressObj,
+                        preventDefaultParams: true
+                    }).then(function(bodsRes) {
+                        return fn(bodsRes.status, bodsRes.data);
+                    });
+                },
                 getModel: function() {
-                    return  {
+                    return {
                         firstName: '',
                         lastName: '',
                         address: {
                            country: ''
                         },
                         _links: {
-                            account: ''
+                            account: {
+                                href: ''
+                            }
                         }
                     };
+                },
+                beforesave: function(contact, deferred) {
+                    contact._links.account.href = $rootScope.currentUser.accounts.url;
+
+                    deferred.resolve(true, contact);
                 },
                 functionArray: [
                     {

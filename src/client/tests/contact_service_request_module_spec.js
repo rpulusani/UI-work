@@ -19,26 +19,13 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
 
                 mockContactFactory = Contacts;
 
-                mockContactFactory.get = function(contact) {
-                    return deferred.promise;
-                };
-
-                mockContactFactory.save = function(contact) {
-                    contact.id = 'assigned';
-                    return deferred.promise;
-                };
-
-                mockContactFactory.update = function(contact) {
-                    return deferred.promise;
-                };
-
                 mockContactFactory.item = {id:'123', _links: {self: {href: '/contacts/123'}}};
                 mockContactFactory.route = '/service_requests/contacts';
 
                 scope.contacts = mockContactFactory;
 
                 mockContactListCtrl = $controller('ContactListController', {$scope: scope, Contacts: mockContactFactory});
-                mockContactCtrl = $controller('ContactController', {$scope: scope, Contacts: mockContactFactory, translationPlaceHolder:  {}});
+                mockContactCtrl = $controller('ContactController', {$scope: scope, Contacts: mockContactFactory, translationPlaceHolder: {}});
 
                 httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({it: 'works'});
@@ -50,7 +37,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                     spyOn(location, 'path').and.returnValue('/');
 
                     scope.contacts.goToCreate();
-
+                    
                     expect(scope.contacts.item.firstName).toEqual(mockContactFactory.getModel().firstName);
                     expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/new');
                  });
@@ -64,63 +51,12 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                     expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/123/update');
                  });
             });
+
             describe('ContactController', function() {
-                describe('scope.contacts.goToReview', function() {
-                    it('should take to review page', function() {
-                        spyOn(scope.contacts, 'goToReview').and.callThrough();
-                        spyOn(location, 'path').and.returnValue('/');
-
-                        scope.contacts.goToReview(scope.contacts.item);
-
-                        expect(scope.contacts.item.id).toEqual('123');
-                        expect(location.path).toHaveBeenCalledWith('/service_requests/contacts/' + scope.contact.id + '/review');
-                    });
-                });
-
-                describe('scope.conctacts.saveContact()', function() {
-                    describe('when scope.contact.id is not found', function() {
-                        it('it should save a new contact', function() {
-                            spyOn(scope, 'save').and.callThrough();
-                            spyOn(location, 'path').and.returnValue('/');
-
-                            deferred.resolve();
-
-                            scope.contacts.item = {
-                                firstName: 'test',
-                                lastName:'test',
-                                email: 'test'
-                            };
-
-                            scope.save();
-                            scope.$digest();
-
-                            expect(scope.contacts.saveContact).toHaveBeenCalled();
-                            expect(scopes.contacts.item.id).toEqual('assigned');
-                            expect(location.path).toHaveBeenCalled();
-                        });
-                    });
-
-                    describe('when scope.contact.id is defined', function() {
-                        it('it should save contact', function() {
-                            spyOn(scope, 'save').and.callThrough();
-                            spyOn(location, 'path').and.returnValue('/');
-
-                            deferred.resolve();
-
-                            scope.save();
-                            scope.$digest();
-
-                            expect(scope.save).toHaveBeenCalled();
-                            expect(scope.contact.id).toEqual('123');
-                            expect(location.path).toHaveBeenCalled();
-                        });
-                    });
-                });
-
                 describe('cancel', function() {
-                    it('should redirect to list', function() {
+                    it('should redirect to overall contact listing', function() {
                         spyOn(location, 'path').and.returnValue('/');
-                        scope.cancel();
+                        scope.contacts.cancel();
                         expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/');
                     });
                 });

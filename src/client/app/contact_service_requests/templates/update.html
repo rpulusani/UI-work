@@ -19,9 +19,14 @@
 </div>
 
 <div class="page-content">
-    <div ng-show="contacts.saved || contacts.updated" class="alert">
+    <div ng-show="contacts.saved" class="alert">
         "<span ng-bind="contacts.item.firstName"></span> <span ng-bind="contacts.item.lastName"></span>"
         <span translate="CONTACT_SERVICE_REQUEST.SAVE_MSG"></span>
+    </div>
+
+    <div ng-show="contacts.updated" class="alert">
+        "<span ng-bind="contacts.item.firstName"></span> <span ng-bind="contacts.item.lastName"></span>"
+        <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG"></span>
     </div>
     
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && continue()"

@@ -67,7 +67,11 @@
         "SUBMIT": "CREATE CONTACT",
         "UPDATE_SUBMIT": "UPDATE CONTACT",
         "CANCEL": "DISCARD CHANGES TO CONTACT",
-        "SAVE_MSG": " has been added as a contact! You can update their details below."
+        "SAVE_MSG": " has been added as a contact! You can update their details below.",
+        "UPDATE_MSG": " has been saved! You can update their details below.",
+        "ENTERED_ADDRESS": "You entered...",
+        "FOUND_ADDRESS": "We found...",
+        "EDIT_INFO": "Edit address information"
     },
 
     "DEVICE_SERVICE_REQUEST": {

@@ -39,12 +39,13 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
         filterSearchService.addBasicFilter('CONTACT.ALL', false,
             function() {
+                
+                filterSearchService.addPanelFilter('Filter by Location', 'state');
+
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }, 0);
             }
         );
-
-        filterSearchService.addPanelFilter('Filter by last name', 'lastName');
     }]); // End Controller
 });
