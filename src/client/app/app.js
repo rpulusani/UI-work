@@ -139,8 +139,8 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
-    .constant('imageNowSecret', 'UeV5DfuEzXsLsTzRP1a3ragNAQRt73GrOK2XZkjm6zIXyNZD66LZt4LvUuVh3O8RUnoZhDPADxu6lXW030i9NSv_dfciMO3JDA-Dm5ePlvVUKW7RMXuVrJG8wjfOiiQQA7VoTXYiYPdTfawRvzaiqrwLD06dKXA4Mww2KLJppGA')
-    .constant('imageNowUrl', 'https://in-qa.lexmark.com/SecureFileDelivery/SAP/')
+    .constant('imageNowSecret', config.portal.imageNowSecret)
+    .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'

@@ -7,6 +7,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
             mockAddressCtrl,
             location,
             deferred,
+            rootScope,
             mockedAddressesFactory;
         beforeEach(module('mps'));
         describe('AddressListController', function(){
@@ -15,6 +16,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 var translationPlaceHolder = {};
                 var allowMakeChange = false;
                 scope = $rootScope.$new();
+                rootScope = $rootScope.$new();
                 deferred= $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
@@ -35,7 +37,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                 mockedAddressesFactory.item = {id:'123', _links: {self: {href: '/account/12345/addresses/123'}}};
                 mockedAddressesFactory.route = '/service_requests/addresses';
 
-                mockAddressListCtrl = $controller('AddressListController', {$scope: scope,
+                mockAddressListCtrl = $controller('AddressListController', {$scope: scope, $rootScope: rootScope,
                     Adresses: mockedAddressesFactory});
                 mockAddressCtrl = $controller('AddressController', {$scope: scope, Adresses: mockedAddressesFactory,
                     translationPlaceHolder: translationPlaceHolder, allowMakeChange: allowMakeChange});
@@ -70,13 +72,14 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
             });
             describe('goToRemove', function() {
                 it('should take to delete page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    scope.currentRowList = [{ entity: {
-                            id: 1
-                        }
-                    }];
+                    spyOn(scope, 'goToRemove').and.callThrough();
+                    spyOn(location, 'path').and.returnValue('');
+                    var testItem = { id: '123', _links:{self: {href: '/account/12345/addresses/123'}}};
+                    rootScope.currentSelectedRow = testItem;
                     scope.goToRemove();
-                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/1/delete');
+                    expect(mockedAddressesFactory.item).toEqual(testItem);
+                    expect(location.path).toHaveBeenCalledWith('/service_requests/addresses/123/delete');
+
                 });
             });
 

@@ -2,7 +2,7 @@
     <div class="col-lg-2-3 col-md-1-1">
         <h1 translate="ADDRESS.LIST_TITLE"></h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="#">Learn more about requests</a></p>
-        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
     </div>
 </div>
 
@@ -23,12 +23,6 @@
         </div>
     </div>
         <hr>
-            <div class="row">
-                <div class="col-lg-2-3 col-md-1-1">
-                    <p class="text--bold vertical-space--none" translate="ADDRESS.BROWSE_ADDRESSES"></p> 
-                    <div grid-filter options="filterOptions" params="optionParams"></div>
-                </div>
-            </div>
 
              <div class="row l-pad-top">
                 <div class="col-lg-2-3 col-md-1-1">
@@ -48,9 +42,9 @@
 
             <div class="col-lg-2-3 col-md-1-1">
                 <button type="button" class="btn btn--default" href=""
-                ng-click="goToUpdate()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
+                ng-click="view(null)" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
                 <button type="button" class="btn btn--default" href=""
-                ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
+                ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
             </div>
             <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
             <div pagination grid="{{gridOptions}}"></div>

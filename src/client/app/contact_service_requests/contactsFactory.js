@@ -1,8 +1,8 @@
 define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService',
-        function($translate, HATEOASFactory, formatter) {
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl',
+        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl) {
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
@@ -10,46 +10,82 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 columnDefs: {
                     defaultSet: [
                         {
-                            name: $translate.instant('CONTACT.FULLNAME'), 
+                            name: $translate.instant('CONTACT.FULLNAME'),
                             field: 'getFullname()',
-                            dynamic: false, // field cannot be removed by column selector
-                            cellTemplate: '<div>'+
-                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ng-bind="grid.appScope.getFullname(row.entity)"></a>' +
-                                      '</div>'
+                            dynamic: false,
+                            cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
+                                'ng-bind="grid.appScope.getFullname(row.entity)"></a></div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
                         {name: $translate.instant('CONTACT.EMAIL'), field: 'email'},
-                        {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false},
-                        {name: $translate.instant('CONTACT.TYPE'), field: 'type', visible: false},
-                        {name: $translate.instant('CONTACT.DEPARTMENT'), field: 'department', visible: false},
-                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'hostName'},
-                        {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'productModel'},
-                        {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetTag'},
-                        {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress'},
-                        {'name': $translate.instant('ADDRESS.NAME'), 'field':'getAddressName()', 'notSearchable': true},
-                        {'name': $translate.instant('LABEL.COST_CENTER'), 'field':'costCenter', visible: false},
-                        {'name': $translate.instant('ADDRESS.BUILDING_NAME'), 'field':'physicalLocation1', visible: false},
-                        {'name': $translate.instant('ADDRESS.FLOOR_NAME'), 'field':'physicalLocation2', visible: false},
-                        {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false},
-                        {'name': $translate.instant('ADDRESS.CITY'), 'field':'_embedded.address.city', visible: false},
-                        {'name': $translate.instant('ADDRESS.STATE'), 'field':'_embedded.address.state', visible: false},
-                        {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.address.storeFrontName', visible: false},
-                        {'name': $translate.instant('ADDRESS.ZIP'), 'field':'_embedded.address.postalCode', visible: false},
-                        {'name': $translate.instant('CONTACT.FIRST_NAME'), 'field':'_embedded.contact.firstName', visible: false},
-                        {'name': $translate.instant('CONTACT.LAST_NAME'), 'field':'_embedded.contact.lastName', visible: false},
-                        {'name': $translate.instant('ADDRESS.DISTRICT'), 'field':'_embedded.address.district', visible: false},
-                        {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field':'_embedded.address.province', notSearchable: true, visible: false},
-                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field':'_embedded.address.houseNumber', visible: false}
+                        {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
+                        {name: $translate.instant('LABEL.COST_CENTER'), field:'costCenter', visible: false},
+                        {name: $translate.instant('CONTACT.FIRST_NAME'), field:'_embedded.contact.firstName', visible: false},
+                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false}
                     ]
                 },
                 route: '/service_requests/contacts',
-                beforeSave: function(halObj, deferred) {
-                    halObj.physicalAddress = {
-                        addressId: '1-2CPY6UA',
-                        country: 'US'
-                    };
+                needsToVerify: false, // if verify directive needs to be displayed
+                goToCreate: function() {
+                    this.item = this.getModel();
+                    this.updated = false;
+                    this.saved = false;
 
-                    deferred.resolve(true, halObj);
+                    $location.path(this.route + '/new');
+                },
+                goToUpdate: function(contact) {
+                    if (contact) {
+                        this.setItem(contact);
+                    }
+                    
+                    window.scrollTo(0,0)
+
+                    $location.path(this.route + '/' + this.item.id + '/update');
+                },
+                goToList: function() {
+                    Contacts.saved = false;
+                    Contacts.updated = false;
+
+                    $location.path(this.route + '/');
+                },
+                goToDelete: function(contact) {
+                    if (!contact) {
+                        contact = Contacts.item;
+                    }
+
+                    $location.path(this.route + '/' + contact.id + '/delete');
+                },
+                cancel: function() {
+                    $location.path(this.route + '/');
+                },
+                verifyAddress: function(addressObj, fn) {
+                    this.get({
+                        method: 'post',
+                        url: serviceUrl + 'address-validation',
+                        data: addressObj,
+                        preventDefaultParams: true
+                    }).then(function(bodsRes) {
+                        return fn(bodsRes.status, bodsRes.data);
+                    });
+                },
+                getModel: function() {
+                    return {
+                        firstName: '',
+                        lastName: '',
+                        address: {
+                           country: ''
+                        },
+                        _links: {
+                            account: {
+                                href: ''
+                            }
+                        }
+                    };
+                },
+                beforesave: function(contact, deferred) {
+                    contact._links.account.href = $rootScope.currentUser.accounts.url;
+
+                    deferred.resolve(true, contact);
                 },
                 functionArray: [
                     {

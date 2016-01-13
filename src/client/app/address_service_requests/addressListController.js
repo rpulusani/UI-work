@@ -30,37 +30,37 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
 
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
 
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path(Addresses.route + '/new');
             };
 
-            $scope.goToUpdate = function(address) { // not tested yet
+
+            $scope.goToUpdate = function(address) { // may be able to remove
                 ServiceRequest.reset();
-                if(address !== null){ // for direct link
+                if(address !== null){ 
                     $location.path(Addresses.route + '/' + address.id + '/update');
-                }else{ // for button click
-                    var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
+                }else{ 
+                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
                     if(id !== null){
                         $location.path(Addresses.route + '/' + id + '/update');
                     }
                 }
             };
-            
-            $scope.goToRemove = function(){
-                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                if(id !== null){
-                    $location.path(Addresses.route + '/' + id + '/delete');
-                }
-            };
+
 
             $scope.view = function(address){
-                Addresses.setItem(address);
+                if(address === null){
+                    address = $rootScope.currentSelectedRow;
+                    Addresses.setItem(address);
+                }else{
+                    Addresses.setItem(address);
+                }
                 var options = {
                     params:{
+                        embed:'contact'
                     }
                 };
 
@@ -69,11 +69,12 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 });
             };
 
-            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES',
-                function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
-                }
-            );
+            $scope.goToRemove = function(){
+                ServiceRequest.reset();
+                var address = $rootScope.currentSelectedRow;
+                Addresses.setItem(address);
+                $location.path(Addresses.route + '/' + address.id + '/delete');
+            };
 
 
             // grid Check Items - should prototype
@@ -96,7 +97,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            //$scope.gridOptions.enableHorizontalScrollbar = 0;
+            //$scope.gridOptions.enableHorizontalScrollbar =  2;
             //$scope.gridOptions.enableVerticalScrollbar = 0;
             
             User.getLoggedInUserInfo().then(function(user) {
@@ -106,6 +107,16 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
+                        var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+
+                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'},
+                            function() {
+                                setTimeout(function() {
+                                    $scope.$broadcast('setupColumnPicker', Grid);
+                                }, 0);
+                            }
+                        );
+
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal);
                         }, function(reason) {
@@ -113,7 +124,10 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                         });
                     });
                 });
+
             });
+
+
         }
       ]);
 });
