@@ -28,6 +28,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                         if(row.isSelected){
                             //add if not already there
                             $rootScope.currentRowList.push(row);
+                            $rootScope.currentSelectedRow = row.entity;
                         }else{
                             //find and remove
                             var length = $rootScope.currentRowList.length,
