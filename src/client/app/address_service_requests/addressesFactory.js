@@ -14,7 +14,9 @@ define(['angular', 'address'], function(angular) {
                         {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name', width: "17%",
                                 'cellTemplate':'<div>' +
-                                    '<a href="#" ng-click="grid.appScope.goToUpdate(row.entity);">{{row.entity.name}}</a>' +
+                                    '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                    'ng-if="grid.appScope.addressAccess">{{row.entity.name}}</a>' +
+                                    '<span ng-if="!grid.appScope.addressAccess">{{row.entity.name}}</span>' +
                                 '</div>'
                         },
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName', visible:false, 'notSearchable': true},
