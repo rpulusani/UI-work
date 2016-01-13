@@ -296,8 +296,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                     item.linkNames = [];
                     item.links = {};
-                    item.url = self.setupUrl(item._links.self.href);
-                    item.params = self.setupParams({url: item._links.self.href});
+                    if(item && item._links && item._links.self && item._links.self.href){
+                        item.url = self.setupUrl(item._links.self.href);
+                        item.params = self.setupParams({url: item._links.self.href});
+                    }
 
                     if (!item.get) {
                         item = self.setupDefaultFunctions(item);
@@ -389,7 +391,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             // given a _link address return its url and parameters {url: '', params: {}}
             HATEOASFactory.prototype.setupUrl = function(url) {
-                return url.replace(/{.*}/,'').replace(/\?.*/,'');
+                if(url){
+                    return url.replace(/{.*}/,'').replace(/\?.*/,'');
+                }else{
+                    return '';
+                }
             };
 
             // Get the default url and parameters and then merge with any given params
@@ -753,22 +759,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;
-
-                                    self.url = api.url;
-
-                                    // will change once hateoasConfig is its own module as this is handled in this file now
-                                    for (prop in api.params) {
-                                        if (!self.params[prop]) {
-                                            self.params[prop] = api.params[prop];
-                                            self.defaultParams[prop] = api.params[prop];
+                                    if(api){
+                                        self.url = api.url;
+                                        // will change once hateoasConfig is its own module as this is handled in this file now
+                                        for (prop in api.params) {
+                                            if (!self.params[prop]) {
+                                                self.params[prop] = api.params[prop];
+                                                self.defaultParams[prop] = api.params[prop];
+                                            }
                                         }
                                     }
 
-                                    if (!options.params.accountId || !self.params.accountId ) {
+                                    if(!self.params){
+                                        self.params = {};
+                                    }
+
+                                    if (!options.params.accountId || !self.params.accountId) {
                                         self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                                     }
 
-                                    if (!options.params.accountLevel || !self.params.accountLevel ) {
+                                    if (!options.params.accountLevel || !self.params.accountLevel) {
                                         self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                                     }
 

@@ -21,7 +21,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
             var self = this;
             return function( gridApi ) {
-                self.clearGridParamsRootScope($rootScope);
+                //self.clearGridParamsRootScope($rootScope);
                 $rootScope.gridApi = gridApi;
                 gridApi.selection.on.rowSelectionChanged($rootScope,
                     function(row){

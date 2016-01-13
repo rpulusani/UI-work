@@ -23,9 +23,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 return passed;
             };
 
-            if(!$rootScope.serviceTabSelected){
                 $scope.active('serviceRequestsAllTab');
-            }
         }
     ]);
 });

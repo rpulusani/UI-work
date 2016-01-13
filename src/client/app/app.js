@@ -21,6 +21,7 @@ define([
     'serviceRequest.listContactController',
     'serviceRequest.controllerHelperService',
     'serviceRequest.TabController',
+    'serviceRequest.ActionButtonController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
