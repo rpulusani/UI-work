@@ -29,8 +29,6 @@ define(['angular', 'contact'], function(angular) {
                             }
                         });
                     } else {
-                        console.log($scope);
-
                         Contacts.item = Contacts.getModel();
                         Contacts.item.firstName = $scope.firstName;
                         Contacts.item.lastName = $scope.lastName;
@@ -41,12 +39,9 @@ define(['angular', 'contact'], function(angular) {
                             Contacts.item.address.postalCode = $scope.address.postalCode;
                         }
 
-                        console.log('attempting to process', Contacts.item);
-
                         Contacts.verifyAddress(Contacts.item.address, function(statusCode, bodsData) {
                             if (statusCode === 200) {
                                 $scope.comparisonAddress = bodsData;
-                                /*
                                 Contacts.save(Contacts.item, {
                                     preventDefaultParams: true
                                 }).then(function(r) {
@@ -54,7 +49,6 @@ define(['angular', 'contact'], function(angular) {
                                     $scope.updated = false;
                                     Contacts.goToUpdate(Contacts.item);
                                 });
-                                */
                             }
                         });
                     }
