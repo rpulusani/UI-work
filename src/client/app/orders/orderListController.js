@@ -18,7 +18,6 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
             Personalize,
             FilterSearchService) {
             $rootScope.currentRowList = [];
-            console.log('Orders', Orders);
             Orders.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal, 'defaultSet');
@@ -31,7 +30,7 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
                 };
             };
 
-            filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'},
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, false, 
                 function() {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid)

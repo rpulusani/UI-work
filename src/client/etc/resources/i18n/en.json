@@ -1592,6 +1592,8 @@
         "DEVICE_ORDERS_W_TOTALS": "Device orders ({{total}} total orders)",
         "SUPPLY_ORDERS_W_TOTALS": "Supply orders ({{total}} total orders)",
         "ALL_ORDERS": "All orders",
+        "DEVICE_ORDERS": "Device orders",
+        "SUPPLY_ORDERS": "Supply orders",
         "ALL_DEVICE_ORDERS": "All device orders",
         "ALL_SUPPLY_ORDERS": "All supply orders",
         "DATE_TIME_CREATED": "Date/Time Created",

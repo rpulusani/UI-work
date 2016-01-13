@@ -361,6 +361,9 @@ define([
                 permission: [
                     permissionSet.serviceRequestManagement.orderHardware,
                     permissionSet.serviceRequestManagement.viewSuppliesOrder,
+                    permissionSet.serviceRequestManagement.orderSuppliesAsset,
+                    permissionSet.serviceRequestManagement.orderSuppliesCatalog,
+                    permissionSet.serviceRequestManagement.createSuppliesReturn,
                     permissionSet.serviceRequestManagement.uploadConsumableOrder,
                     permissionSet.serviceRequestManagement.uploadHardwareOrder
                 ]

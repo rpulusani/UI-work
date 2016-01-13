@@ -35,14 +35,13 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 embed: 'primaryContact,requester'
             };
 
-            filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params,
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params, false, 
                 function() {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid)
                     }, 0);
                 }
             );
-            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter');
         }
     ]);
 });
