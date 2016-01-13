@@ -42,41 +42,86 @@ define(['angular',
                     ServiceRequest.addField('type', 'BREAK_FIX');
             };
 
-            if (Devices.item === null) {
+            if (Devices.item === null &&
+                $location.path() !== DeviceServiceRequest.route + "/picker" &&
+                $location.path() !== "/device_management/pick_device/DeviceServiceRequestDevice") {
                 $scope.redirectToList();
-            } else if($rootScope.selectedContact 
-                && $rootScope.returnPickerObject 
-                && $rootScope.selectionId === Devices.item.id){
-                $scope.device = $rootScope.returnPickerObject;
-                $scope.sr = $rootScope.returnPickerSRObject;
-                ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
-                $scope.resetContactPicker();
+            } else if($location.path() === DeviceServiceRequest.route + "/picker" && !$rootScope.selectedDevice){
+                ServiceRequest.reset();
+                Devices.reset();
+                $scope.setupSR(ServiceRequest, configureSR);
+                $scope.goToDevicePicker('DeviceServiceRequestDevice',Devices);
+            } else if($location.path() === "/device_management/pick_device/DeviceServiceRequestDevice"){
+                //do nothing
+            }else if($rootScope.selectedContact &&
+                $rootScope.returnPickerObject &&
+                $rootScope.selectionId === Devices.item.id){
+                    $scope.device = $rootScope.returnPickerObject;
+                    $scope.sr = $rootScope.returnPickerSRObject;
+                    ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                    $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                    $scope.resetContactPicker();
             }else if($rootScope.contactPickerReset){
                 $rootScope.device = Devices.item;
                 $rootScope.contactPickerReset = false;
-            }else {
+            }else if($rootScope.selectedDevice &&
+                $rootScope.returnPickerObjectDevice){
+                    $scope.device = $rootScope.returnPickerObjectDevice;
+                    $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                    if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
+                        $scope.device.isDeviceSelected = true;
+
+                        ServiceRequest.addRelationship('asset', $rootScope.selectedDevice, 'self');
+                        $scope.device.selectedDevice = $rootScope.selectedDevice;
+                        if ($scope.device.selectedDevice.partNumber) {
+                            ImageService.getPartMediumImageUrl($scope.device.selectedDevice.partNumber).then(function(url){
+                                $scope.device.selectedDevice.medImage = url;
+                            }, function(reason){
+                                NREUM.noticeError('Image url was not found reason: ' + reason);
+                            });
+                        }
+                        Devices.setItem($scope.device.selectedDevice);
+                        var options = {
+                            params:{
+                                embed:'contact, address'
+                            }
+                        };
+                        Devices.item.get(options).then(function() {
+                            $scope.device.selectedDevice.contact = Devices.item.contact.item;
+                            $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.device.selectedDevice.contact);
+                        });
+                        $scope.resetDevicePicker();
+                        $location.path(DeviceServiceRequest.route + "/" + $scope.device.id + '/view');
+                    }
+            } else {
                 $rootScope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item['address'])) {
+                if (Devices.item && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                     $scope.device.installAddress = Devices.item['address']['item'];
+                }else if(Devices.item && !BlankCheck.isNull(Devices.item['address'])){
+                    $scope.device.installAddress = Devices.item['address'];
                 }
-                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                if (Devices.item && !BlankCheck.isNull(Devices.item['contact']) && Devices.item['contact']['item']) {
                     $scope.device.primaryContact = Devices.item['contact']['item'];
+                }else if(Devices.item && !BlankCheck.isNull(Devices.item['contact'])){
+                    $scope.device.primaryContact = Devices.item['contact'];
                 }
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                     $scope.resetContactPicker();
                 }
-
-                var image =  ImageService;
-                image.getPartMediumImageUrl($rootScope.device.partNumber).then(function(url){
-                    $scope.medImage = url;
-                }, function(reason){
-                    NREUM.noticeError('Image url was not found reason: ' + reason);
-                });
+                if($rootScope.device){
+                    var image =  ImageService;
+                    image.getPartMediumImageUrl($rootScope.device.partNumber).then(function(url){
+                        $scope.medImage = url;
+                    }, function(reason){
+                        NREUM.noticeError('Image url was not found reason: ' + reason);
+                    });
+                }
             }
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
-            $scope.getRequestor(ServiceRequest, Contacts);
+            if($rootScope.device){
+                $scope.getRequestor(ServiceRequest, Contacts);
+            }
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
@@ -95,8 +140,8 @@ define(['angular',
                 };
             }
             function configureReceiptTemplate(){
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR_SUBMITTED";
+                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -104,14 +149,15 @@ define(['angular',
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL",
+                        title:"DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
             function configureTemplates(){
-                $scope.configure = {
+                if($scope.device){
+                     $scope.configure = {
                     header: {
                         translate:{
                             h1: 'DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR',
@@ -195,6 +241,26 @@ define(['angular',
                         returnPath: DeviceServiceRequest.route + '/' + $scope.device.id + '/review'
                     }
                 };
+                }else{
+                   $scope.configure = {
+                        devicePicker: {
+                            singleDeviceSelection: true,
+                            readMoreUrl: '',
+                            translate: {
+                                replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
+                                h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
+                                body: 'MESSAGE.LIPSUM',
+                                readMore: '',
+                                confirmation:{
+                                    abandon:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
+                                    submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
+                                }
+                            }
+
+                        }
+                    };
+                }
+
             }
 
             /* Format Data for receipt */

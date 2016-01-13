@@ -21,6 +21,7 @@ define([
     'serviceRequest.listContactController',
     'serviceRequest.controllerHelperService',
     'serviceRequest.TabController',
+    'serviceRequest.ActionButtonController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -47,6 +48,11 @@ define([
     'deviceServiceRequest.directives',
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
+    'invoice',
+    'invoice.invoiceController',
+    'invoice.invoiceListController',
+    'invoice.invoiceListFactory',
+    'invoice.directives',
     'hateoasFactory.serviceFactory',
     'utility',
     'utility.historyUtility',
@@ -132,6 +138,8 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .constant('imageNowSecret', config.portal.imageNowSecret)
+    .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
