@@ -1,21 +1,26 @@
 define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactController', ['$scope', 'Contacts', 'translationPlaceHolder', '$translate',
-        function($scope, Contacts, translationPlaceHolder, $translate) {
-            $scope.translationPlaceHolder = translationPlaceHolder;
+    .controller('ContactController', ['$scope', 'Contacts', '$translate',
+        function($scope, Contacts, $translate) {
+            $scope.translationPlaceHolder = {
+                contactInfo: $translate.instant('CONTACT.INFO'),
+                requestContactInfo: $translate.instant('DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION'),
+                submit: $translate.instant('CONTACT_SERVICE_REQUEST.SUBMIT_DELETE'),
+                cancel: $translate.instant('CONTACT_SERVICE_REQUEST.ABANDON_DELETE')
+            };
 
             $scope.contacts = Contacts;
             // Address information entered into form
-            $scope.enteredAddress = {}; 
+            $scope.enteredAddress = {};
             // Address information from /address-validation
-            $scope.comparisonAddress = {}; 
+            $scope.comparisonAddress = {};
             // the verify radio btn value 
-            $scope.acceptedEnteredAddress = 1; 
+            $scope.acceptedEnteredAddress = 1;
             // verify address, hide-when
-            $scope.needToVerify = false; 
+            $scope.needToVerify = false;
             // User has been prompted with the need to verify and can now save
-            $scope.canSave = false; 
+            $scope.canSave = false;
 
             if (Contacts.item === null) {
                 Contacts.goToList();
@@ -31,6 +36,7 @@ define(['angular', 'contact'], function(angular) {
 
                             if (Contacts.item._links) {
                                 $scope.updated = true;
+                                
                                 Contacts.goToUpdate(Contacts.item);
                             } else {
                                 Contacts.goToList();
@@ -73,6 +79,7 @@ define(['angular', 'contact'], function(angular) {
                             }).then(function(r) {
                                 $scope.saved = true;
                                 $scope.updated = false;
+
                                 Contacts.goToUpdate(Contacts.item);
                             });
                         }
