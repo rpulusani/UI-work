@@ -1,13 +1,21 @@
 define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactController', ['$scope', 'Contacts', 'translationPlaceHolder',
-        function($scope, Contacts, translationPlaceHolder) {
+    .controller('ContactController', ['$scope', 'Contacts', 'translationPlaceHolder', '$translate',
+        function($scope, Contacts, translationPlaceHolder, $translate) {
             $scope.translationPlaceHolder = translationPlaceHolder;
 
             $scope.contacts = Contacts;
-            $scope.comparisonAddress = null;
-            $scope.acceptedEnteredAddress = 1;
+            // Address information entered into form
+            $scope.enteredAddress = {}; 
+            // Address information from /address-validation
+            $scope.comparisonAddress = {}; 
+            // the verify radio btn value 
+            $scope.acceptedEnteredAddress = 1; 
+            // verify address, hide-when
+            $scope.needToVerify = false; 
+            // User has been prompted with the need to verify and can now save
+            $scope.canSave = false; 
 
             if (Contacts.item === null) {
                 Contacts.goToList();
@@ -30,27 +38,44 @@ define(['angular', 'contact'], function(angular) {
                         });
                     } else {
                         Contacts.item = Contacts.getModel();
-                        Contacts.item.firstName = $scope.firstName;
-                        Contacts.item.lastName = $scope.lastName;
+                        Contacts.item.firstName = contactForm.firstName.$modelValue;
+                        Contacts.item.middleName = contactForm.middleName.$modelValue;
+                        Contacts.item.lastName = contactForm.lastName.$modelValue;
+                        Contacts.item.email = contactForm.email.$modelValue;
+                        Contacts.item.workPhone = contactForm.workPhone.$modelValue;
 
-                        if ($scope.address.addressLine1) {
-                            Contacts.item.address.country = 'USA';
-                            Contacts.item.address.addressLine1 = $scope.address.addressLine1;
-                            Contacts.item.address.postalCode = $scope.address.postalCode;
-                        }
+                        if ($scope.canSave === false) {
+                            $scope.enteredAddress = {
+                                country: 'USA',
+                                addressLine1: contactForm.addressLine1.$modelValue,
+                                postalCode: contactForm.zipCode.$modelValue
+                            };
 
-                        Contacts.verifyAddress(Contacts.item.address, function(statusCode, bodsData) {
-                            if (statusCode === 200) {
-                                $scope.comparisonAddress = bodsData;
-                                Contacts.save(Contacts.item, {
-                                    preventDefaultParams: true
-                                }).then(function(r) {
-                                    $scope.saved = true;
-                                    $scope.updated = false;
-                                    Contacts.goToUpdate(Contacts.item);
-                                });
+                            Contacts.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
+                                var currentAddress = Contacts.item.address;
+
+                                if (statusCode === 200) {
+                                    $scope.comparisonAddress = bodsData;
+                                    $scope.needToVerify = true;
+                                }
+
+                                $scope.canSave = true;
+                            });
+                        } else {
+                            if ($scope.acceptedEnteredAddress === 2) {
+                                Contacts.item.address = $scope.comparisonAddress;
+                            } else {
+                                Contacts.item.address = $scope.enteredAddress;
                             }
-                        });
+
+                            Contacts.save(Contacts.item, {
+                                preventDefaultParams: true
+                            }).then(function(r) {
+                                $scope.saved = true;
+                                $scope.updated = false;
+                                Contacts.goToUpdate(Contacts.item);
+                            });
+                        }
                     }
                 }
             }

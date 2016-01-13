@@ -82,7 +82,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         }
                     };
                 },
-                beforesave: function(contact, deferred) {
+                beforeSave: function(contact, deferred) {
                     contact._links.account.href = $rootScope.currentUser.accounts.url;
 
                     deferred.resolve(true, contact);

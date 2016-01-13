@@ -665,7 +665,8 @@
             "ALL_ADDRESSES": "All addresses",
             "BROWSE_ADDRESSES": "Browse addresses by",
             "WHAT_ADDRESS": "What address are you looking for?",
-            "REGION": "Region"
+            "REGION": "Region",
+            "USE_THIS_ADDRESS": "Use this address"
         },
 
         "CONTACT": {
@@ -1333,8 +1334,6 @@
         "CANCEL": "DISCARD CHANGES TO CONTACT",
         "SAVE_MSG": " has been added as a contact! You can update their details below.",
         "UPDATE_MSG": " has been saved! You can update their details below.",
-        "ENTERED_ADDRESS": "You entered...",
-        "FOUND_ADDRESS": "We found...",
         "EDIT_INFO": "Edit address information"
     },
 
