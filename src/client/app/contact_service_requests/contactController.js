@@ -6,11 +6,16 @@ define(['angular', 'contact'], function(angular) {
             $scope.translationPlaceHolder = translationPlaceHolder;
 
             $scope.contacts = Contacts;
-            $scope.enteredAddress = {}; // Address information entered into form
-            $scope.comparisonAddress = {}; // Address information from /address-validation
-            $scope.acceptedEnteredAddress = 1; // radio btn value 
-            $scope.needToVerify = false; // verify address, hide-when
-            $scope.canSave = false; // User has been prompted with the need to verify and can now save
+            // Address information entered into form
+            $scope.enteredAddress = {}; 
+            // Address information from /address-validation
+            $scope.comparisonAddress = {}; 
+            // the verify radio btn value 
+            $scope.acceptedEnteredAddress = 1; 
+            // verify address, hide-when
+            $scope.needToVerify = false; 
+            // User has been prompted with the need to verify and can now save
+            $scope.canSave = false; 
 
             if (Contacts.item === null) {
                 Contacts.goToList();
