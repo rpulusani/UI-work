@@ -487,6 +487,8 @@
 
         "SERVICE_REQUEST": {
             "TITLE": "Requests",
+        "SERVICE_REQUEST_DEVICE": "Select a Device",
+        "SERVICE_REQUEST_PICKER_SELECTED": "Device currently selected for service",
             "HELPDESK_REFERENCE": "Helpdesk reference number",
             "COST_CENTER": "Cost center",
             "ORDERS": "Orders",
@@ -569,6 +571,9 @@
             "REQUEST_SEARCH": "What request are you looking for?",
             "DEVICE_PAGE_COUNT_QUESTION": "Would you like to enter page counts for this device?",
             "REQUEST_SERVICE_FOR": "Request service for {{productModel}}",
+        "REQUEST_SERVICE_FOR_SUBMITTED": "Request service for {{productModel}} submitted!",
+        "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "Your device service request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
+        "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}",
             "DEVICE_DETAILS": "Device details",
             "SERVICE_REQUEST_DETAIL": "Service request details",
             "TYPE_OF_SERVICE_NEEDED": "Type of service needed",
@@ -727,6 +732,7 @@
             "PRIOR_DATE": "Prior Date",
             "NEW_COUNT": "New Count",
             "REQUEST_SERVICE": "Schedule Service",
+        "REQUEST_SERVICE_DEVICE": "Schedule Service for this device",
             "ORDER_SUPPLIES": "Order supplies",
             "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
             "DECOMMISSION_THIS_DEVICE": "Decommission \"{{productModel}}\"",

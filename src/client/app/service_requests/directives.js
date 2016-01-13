@@ -111,7 +111,8 @@ define(['angular', 'serviceRequest'], function(angular) {
     .directive('srActionButtons', function() {
         return {
             restrict: 'A',
-            templateUrl: '/app/service_requests/templates/sr-action-buttons.html'
+            templateUrl: '/app/service_requests/templates/sr-action-buttons.html',
+            controller:'ServiceRequestActionButtonsController'
         };
     })
     .directive('addressUpload', function() {

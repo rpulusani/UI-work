@@ -1,6 +1,6 @@
 define(['angular',
     'deviceServiceRequest',
-    'deviceManagement.deviceFactory', 
+    'deviceManagement.deviceFactory',
     'utility.imageService'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestDevices')
@@ -44,8 +44,8 @@ define(['angular',
 
             if (Devices.item === null) {
                 $scope.redirectToList();
-            } else if($rootScope.selectedContact 
-                && $rootScope.returnPickerObject 
+            } else if($rootScope.selectedContact
+                && $rootScope.returnPickerObject
                 && $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
@@ -58,7 +58,7 @@ define(['angular',
             }else {
 
                 $scope.device = Devices.item;
-                
+
                 if (!BlankCheck.isNull(Devices.item['address'])) {
                     $scope.device.installAddress = $scope.device['address']['item'];
                 }
@@ -113,7 +113,7 @@ define(['angular',
                             meterReads[i].updateDate = FormatterService.formatDateForPost($scope.device.newDate[dateObj]);
                         }
                     }
-                }           
+                }
                 ServiceRequest.addField('meterReads', meterReads);
             };
 
