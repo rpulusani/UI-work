@@ -22,6 +22,14 @@ define([
     'serviceRequest.controllerHelperService',
     'serviceRequest.TabController',
     'serviceRequest.ActionButtonController',
+    'order',
+    'order.factory',
+    'order.directives',
+    'order.orderListController',
+    'order.deviceOrderListController',
+    'order.supplyOrderListController',
+    'order.tabController',
+    'order.actionButtonController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -97,6 +105,7 @@ define([
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
+        'mps.orders',
         'mps.user',
         'mps.security',
         'mps.report',
@@ -167,11 +176,12 @@ define([
         serviceRequestManagement:{
             viewBreakFix:'VIEW_BREAKFIX_REQUESTS',
             createBreakFix: 'REQUEST_BREAKFIX',
-            viewSuppliesOrder: 'VIEW_SUPPLIES_ORDER',
-            orderSuppliesCatelog: 'ORDER_SUPPLIES_CATALOG',
+            viewSuppliesOrder: 'VIEW_SUPPLIES_ORDERS',
+            orderSuppliesCatalog: 'ORDER_SUPPLIES_CATALOG',
             orderSuppliesAsset: 'ORDER_SUPPLIES_ASSET',
             createSuppliesReturn: 'CREATE_SUPPLIES_RETURN_REQUEST',
             orderHardware: 'ORDER_HARDWARE',
+            orderInstallHardware: 'ORDER_INSTALL_HARDWARE',
             uploadConsumableOrder: 'MASS_UPLOAD_FOR_CONSUMABLES_ORDER',
             uploadHardwareOrder: 'MASS_UPLOAD_FOR_HARDWARE_ORDER',
             createPONumber: 'INITIATE_NEW_PO_NUMBER',
@@ -323,6 +333,27 @@ define([
             {
                 name:'orderSupplies',
                 permission: permissionSet.serviceRequestManagement.uploadConsumableOrder
+
+            },
+            {
+                name:'orderSuppliesAsset',
+                permission: permissionSet.serviceRequestManagement.orderSuppliesAsset
+
+            },
+            {
+                name:'orderSuppliesCatalog',
+                permission: permissionSet.serviceRequestManagement.orderSuppliesCatalog
+            },
+            {
+                name:'orderHardware',
+                permission: [
+                    permissionSet.serviceRequestManagement.orderHardware,
+                    permissionSet.serviceRequestManagement.orderInstallHardware
+                ]
+            },
+            {
+                name:'createSuppliesReturn',
+                permission: permissionSet.serviceRequestManagement.createSuppliesReturn
 
             },
             {

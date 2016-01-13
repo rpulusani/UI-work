@@ -1,0 +1,20 @@
+<div class="set" data-js="set">
+    <div class="set__trigger" data-toggle="orderAllTab" ng-click="active('orderAllTab')">
+        <a href="#orderAllTab" translate="REQUEST_MGMT.ALL_REQUESTS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="orderAllTab">
+        <span all-order-tab ng-if="isActive('orderAllTab')"></span>
+    </div>
+    <div class="set__trigger" data-toggle="deviceOrderTab" ng-click="active('deviceOrderTab')">
+        <a href="#deviceOrderTab" translate="REQUEST_MGMT.DEVICE_REQUESTS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="deviceOrderTab" >
+        <span device-order-tab ng-if="isActive('deviceOrderTab')"></span>
+    </div>
+    <div class="set__trigger" data-toggle="supplyOrderTab" ng-click="active('supplyOrderTab')">
+        <a href="#supplyOrderTab" translate="REQUEST_MGMT.SERVICE_REQUESTS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="supplyOrderTab">
+        <span  supply-order-tab ng-if="isActive('supplyOrderTab')"></span>
+    </div>
+</div>

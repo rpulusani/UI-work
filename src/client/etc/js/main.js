@@ -216,6 +216,15 @@ requirejs.config({
         'serviceRequest.ActionButtonController': 'app/service_requests/serviceRequestActionButtonsController',
         'serviceRequest.controllerHelperService': 'app/service_requests/srControllerHelperService',
 
+        'order': 'app/orders/order',
+        'order.factory': 'app/orders/ordersFactory',
+        'order.directives': 'app/orders/directives',
+        'order.orderListController': 'app/orders/orderListController',
+        'order.deviceOrderListController': 'app/orders/deviceOrderListController',
+        'order.supplyOrderListController': 'app/orders/supplyOrderListController',
+        'order.tabController': 'app/orders/orderTabController',
+        'order.actionButtonController': 'app/orders/orderActionButtonsController',
+
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressController': 'app/address_service_requests/addressController',
         'address.addressListController': 'app/address_service_requests/addressListController',

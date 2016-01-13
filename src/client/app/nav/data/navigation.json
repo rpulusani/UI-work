@@ -37,7 +37,7 @@
   },
   {
     "id": "5",
-    "action": "/service_requests/order_request",
+    "action": "/orders",
     "text": "NAVIGATION.ORDER_REQUEST",
     "description": "Some description of this link",
     "icon": "icon icon-mps-orders",
