@@ -8,6 +8,7 @@ define(['angular', 'contact'], function(angular) {
             $scope.contacts = Contacts;
             $scope.comparisonAddress = null;
             $scope.acceptedEnteredAddress = 1;
+            $scope.needToVerify = false;
 
             if (Contacts.item === null) {
                 Contacts.goToList();
@@ -30,19 +31,24 @@ define(['angular', 'contact'], function(angular) {
                         });
                     } else {
                         Contacts.item = Contacts.getModel();
-                        Contacts.item.firstName = $scope.firstName;
-                        Contacts.item.lastName = $scope.lastName;
+                        Contacts.item.firstName = contactForm.firstName.$modelValue;
+                        Contacts.item.lastName = contactForm.lastName.$modelValue;
 
-                        if ($scope.address.addressLine1) {
+                        if (contactForm.addressLine1.$modelValue) {
                             Contacts.item.address.country = 'USA';
-                            Contacts.item.address.addressLine1 = $scope.address.addressLine1;
-                            Contacts.item.address.postalCode = $scope.address.postalCode;
+                            Contacts.item.address.addressLine1 = contactForm.addressLine1.$modelValue;
+                            Contacts.item.address.postalCode = contactForm.zipCode.$modelValue;
                         }
+
+                        console.log(contactForm);
+                        console.log(Contacts.item);
 
                         Contacts.verifyAddress(Contacts.item.address, function(statusCode, bodsData) {
                             if (statusCode === 200) {
+                                $scope.needToVerify = true;
                                 $scope.comparisonAddress = bodsData;
-                                Contacts.save(Contacts.item, {
+                            } else {
+                                 Contacts.save(Contacts.item, {
                                     preventDefaultParams: true
                                 }).then(function(r) {
                                     $scope.saved = true;
