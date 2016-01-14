@@ -1146,6 +1146,7 @@
                 "TXT_SELECTED_ACCOUNTS" : "Selected accounts"
             },
             "COMMON" : {
+                "BTN_DOCUMENT_LIBRARY": "Document Library",
                 "BTN_ADD_TAG" : "ADD TAG",
                 "BTN_DELETE_DOCUMENT" : "DELETE DOCUMENT",
                 "CTRL_CANCEL_DELETE" : "Cancel",
@@ -1306,14 +1307,17 @@
         },
 
         "NAVIGATION": {
+            "LBS": "Location Based Services",
+            "ACCOUNT": "Account",
             "QUICK_ACTION": "Quick Action",
             "ORDER_REQUEST": "Orders",
             "INVOICES": "Invoices",
             "QUICK_REQUEST": "Quick Request",
             "COMPANY_ADMIN": "Company Administration",
             "CONTACT": "Contacts",
-            "UPDATE_PAGE_COUNT": "Update Page Count"
-        },
+            "UPDATE_PAGE_COUNT": "Update Page Count",
+            "DASHBOARD": "Dashboard"
+         },
 
       "LABEL": {
         "EXPORT": "Export",
