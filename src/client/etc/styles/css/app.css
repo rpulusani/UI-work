@@ -232,7 +232,9 @@ label.question {
   float: left;
   font-weight: bold;
   margin-right: 20px;
-  width: 150px;
+}
+.info-list__item-name:after {
+  content: ":";
 }
 .info-list__item-value {
   float: left;

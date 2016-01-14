@@ -1,4 +1,5 @@
-<table class="table table--condensed table--even table--responsive vertical-space--none">
+<span translate="REPORTING.NO_METER_READS" ng-if="!meterReads || meterReads.length === 0"></span>
+<table class="table table--condensed table--even table--responsive vertical-space--none" ng-if="meterReads && meterReads.length > 0">
     <thead>
         <tr>
             <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
@@ -21,7 +22,7 @@
                         <div ng-bind="module.newCount[item.type]"></div>
                     </div>
                     <div ng-show="readonly === false || readonly === undefined">
-                        <input type="number" ng-model="module.newCount[item.type]" 
+                        <input type="number" ng-model="module.newCount[item.type]"
                             ng-if="item.type !== 'Mono' || updateFlag === false"/>
                     </div>
                     <span ng-if="item.type === 'Mono' && updateFlag === true" ng-bind="item.value"></span>
