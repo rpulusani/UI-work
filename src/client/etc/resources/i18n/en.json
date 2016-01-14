@@ -1186,6 +1186,7 @@
         },
 
         "LABEL": {
+            "LBS": "LBS",
             "BACK": "Back",
             "TYPE": "Type",
             "MAKE_CHANGES": "Make Changes",
