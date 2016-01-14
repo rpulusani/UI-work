@@ -38,7 +38,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             lbsURL,
             $window
             ) {
-
+            ServiceRequest.setParamsToNull();
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
             var redirect_to_list = function() {
@@ -49,6 +49,19 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
             $scope.gotToLBS = function(){
                  $window.open(lbsURL + "?sno=" + $scope.device.serialNumber);
+            };
+
+            $scope.view = function(SR){
+              ServiceRequest.setItem(SR);
+                var options = {
+                    params:{
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress'
+                    }
+                };
+                ServiceRequest.item.get(options).then(function(){
+                    $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+                });
+
             };
 
             $scope.getMeterReadPriorDate = function(item){

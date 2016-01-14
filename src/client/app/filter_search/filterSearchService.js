@@ -28,16 +28,24 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope = scope;
                 this.columnSet = columnSet;
                 this.personalization = personalization;
-                this.display =  function(){
+                this.display = function(fn) {
 
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
 
                     if (rowHeight) {
-                        Grid.display(self.service, self.localScope, self.personalization, rowHeight);
+                        Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
+                            if (typeof fn === 'function') {
+                                return fn(Grid);
+                            }
+                        });
                     } else {
-                        Grid.display(self.service, self.localScope, self.personalization);
+                        Grid.display(self.service, self.localScope, self.personalization, false, function() {
+                            if (typeof fn === 'function') {
+                                return fn(Grid);
+                            }
+                        });
                     }
                 };
                 this.failure = function(reason){
@@ -86,12 +94,10 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
 
                             var promise = self.service.getPage(0, 20, options);
-                            promise.then(self.display, self.failure).then(function() {
-                                if (typeof fn === 'function') {
-                                    return fn();
-                                }
-                            });
 
+                            promise.then(function() {
+                                self.display(fn);
+                            }, self.failure);
                     },
                     params: self.localScope.optionParams
                 };

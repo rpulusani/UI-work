@@ -91,6 +91,16 @@
     "permissionFlag":"viewInvoicesAccess",
     "tags":["primary"]
   },
+    {
+    "id": "11",
+    "action": "/library",
+    "text": "DOCUMENT_LIBRARY.TITLE",
+    "description": "Some description of this link",
+    "icon": "icon icon-mps-library",
+    "permissionFlag":"reportAccess",
+    "tags":["primary"]
+  },
+
   {
     "id": "12",
     "action": "/delegated_admin",
