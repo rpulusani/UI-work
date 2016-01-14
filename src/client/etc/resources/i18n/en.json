@@ -717,7 +717,19 @@
         },
 
         "DASHBOARD": {
-            "TITLE": "Dashboard"
+            "TITLE": "Dashboard",
+            "ROLLUP_REQUESTS_TITLE": "Requests For service (B/F)",
+            "ROLLUP_ORDERS_TITLE": "Orders",
+            "ROLLUP_MADC_TITLE": "MADC Requests",
+            "SEARCH_FOR_DEVICE": "Search for a device",
+            "PERFORMANCE_REPORTS": "Performance Reports",
+            "REPORT_FLEET_OVERVIEW": "Fleet Overview",
+            "REPORT_MANAGED_DEVICES": "Managed Devices",
+            "REPORT_BILLED_PAGES": "Billed Pages Last Cycle",
+            "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
+            "CARD_ACTION": "Unlock the potential",
+            "NUMBER_CLOSED_REQUESTS": "15 Closed Requests",
+            "NUMBER_OPEN_REQUESTS": "open"
         },
 
         "DEVICE_MGT": {
