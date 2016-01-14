@@ -7,40 +7,25 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/contact_service_requests/templates/view.html',
                 controller: 'ContactListController'
             })
-            .when('/service_requests/contacts/:id/delete', {
-                templateUrl: '/app/contact_service_requests/templates/review.html',
+            .when('/service_requests/contacts/:id/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'ContactController',
-                activeItem: '/service_requests/contacts',
-                resolve: {
-                     translationPlaceHolder: function() {
-                        return {
-                            contactInfo:'CONTACT.INFO',
-                            requestContactInfo:'DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION',
-                            submit: 'CONTACT_SERVICE_REQUEST.SUBMIT_DELETE',
-                            cancel: 'CONTACT_SERVICE_REQUEST.ABANDON_DELETE'
-                        };
-                    }
-                }
+                activeItem: '/device_management'
+            })
+            .when('/service_requests/devices/:id/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'ContactController',
+                activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/new', {
                 templateUrl: '/app/contact_service_requests/templates/new.html',
                 controller: 'ContactController',
-                activeItem: '/service_requests/contacts',
-                resolve: {
-                     translationPlaceHolder: function() {
-                        return { };
-                    }
-                }
+                activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/:id/update', {
                 templateUrl: '/app/contact_service_requests/templates/update.html',
                 controller: 'ContactController',
-                activeItem: '/service_requests/contacts',
-                resolve: {
-                     translationPlaceHolder: function() {
-                        return { };
-                    }
-                }
+                activeItem: '/service_requests/contacts'
             });
         }
     ]);

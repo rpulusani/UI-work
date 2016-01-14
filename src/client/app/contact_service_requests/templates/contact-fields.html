@@ -31,7 +31,7 @@
 <div ng-if="needToVerify===false">
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS.COUNTRY"></label>
-        <div country-selector></div>
+        <div country-selector name="country"></div>
         <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
             <span translate="LABEL.ERROR_REQUIRED"></span>

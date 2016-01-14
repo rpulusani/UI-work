@@ -37,7 +37,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     if (contact) {
                         this.setItem(contact);
                     }
-                    
+
                     window.scrollTo(0,0)
 
                     $location.path(this.route + '/' + this.item.id + '/update');
@@ -48,15 +48,19 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
 
                     $location.path(this.route + '/');
                 },
-                goToDelete: function(contact) {
-                    if (!contact) {
-                        contact = Contacts.item;
+                goToReview: function(contact) {
+                    if (contact) {
+                        this.setItem(contact);
                     }
-
-                    $location.path(this.route + '/' + contact.id + '/delete');
+                    
+                    $location.path(this.route + '/' + contact.id + '/review');
                 },
-                cancel: function() {
-                    $location.path(this.route + '/');
+                goToDelete: function(contact) {
+                    if (contact) {
+                        this.setItem(contact);
+                    }
+                    
+                    $location.path(this.route + '/' + contact.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
                     this.get({
