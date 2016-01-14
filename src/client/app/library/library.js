@@ -1,0 +1,14 @@
+define(['angular'], function(angular) {
+    'use strict';
+    angular.module('mps.library', []).config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+        .when('/library', {
+            templateUrl: '/app/library/templates/view.html',
+            controller: 'LibraryListController'
+        })
+        .when('/library/add', {
+            templateUrl: '/app/library/templates/add.html',
+            controller: 'LibraryAddController'
+        });
+    }]);
+});
