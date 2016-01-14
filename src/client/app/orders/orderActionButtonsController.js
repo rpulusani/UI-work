@@ -5,28 +5,26 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         '$rootScope',
         '$scope',
         '$location',
+        'OrderRequest',
         'BlankCheck',
         function(
             $rootScope,
             $scope,
             $location,
+            Orders,
             BlankCheck
         ){
             $scope.goToSuppliesDeviceCreate = function(){
-                Contacts.item = {};
-                $location.path(Contacts.route + '/new');
+                $location.path(Orders.route + '/create_asset_supplies');
             };
             $scope.goToHardwareCreate = function(){
-                Addresses.item = {};
-                $location.path(Addresses.route + '/new');
+                $location.path(Orders.route + '/create_hardware');
             };
             $scope.goToReturnSuppliesCreate = function(){
-                Contacts.item = {};
-                $location.path(Contacts.route + '/new');
+                $location.path(Orders.route + '/create_return');
             };
             $scope.goToSuppliesCatalogCreate = function(){
-                Addresses.item = {};
-                $location.path(Addresses.route + '/new');
+                $location.path(Orders.route + '/create_catalog_supplies');
             };
         }
     ]);
