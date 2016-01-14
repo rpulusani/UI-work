@@ -37,6 +37,8 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     if (contact) {
                         this.setItem(contact);
                     }
+
+                    console.log(123, this.item.id);
                     
                     window.scrollTo(0,0)
 

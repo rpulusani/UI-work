@@ -34,6 +34,14 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $scope.contacts = Contacts;
         $scope.gridOptions = {};
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+
+        $scope.selectRow = function(btnType) {
+            if (btnType !== 'delete') {
+                Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+            } else {
+                console.log('DELETING? BALLSY!');
+            }
+        };
         
         $scope.getFullname = function(rowInfo) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);

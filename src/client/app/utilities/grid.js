@@ -176,6 +176,23 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
 
             this.gridOptions = scope.gridOptions;
+
+            // Generalized row selection
+            scope.isSingleSelected = function() {
+                 if (scope.currentRowList.length === 1) {
+                    return true;
+                 } else {
+                    return false;
+                 }
+            };
+
+            scope.isMultipleSelected = function() {
+                if (scope.currentRowList.length > 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {
