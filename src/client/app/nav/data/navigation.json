@@ -20,7 +20,7 @@
   {
     "id": "3",
     "action": "http://venus-beta-lbs.lexmark.com",
-    "text": "LABEL.LBS",
+    "text": "DEVICE_MAN.MANAGE_DEVICES.TAB_MAP_VIEW",
     "description": "Location Base Services",
     "icon": "icon icon--lxk-ui icon--error",
     "permissionFlag":"viewHomePage",
