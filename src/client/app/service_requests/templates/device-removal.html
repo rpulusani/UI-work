@@ -1,6 +1,6 @@
-<div ng-if="configure.device.removal">
+<div ng-if="configure.device.removal" class="col-2-3">
     <h2 translate="{{configure.device.removal.translate.title}}"></h2>
-    
+
     <div class="well">
         <ul class="info-list">
             <li class="info-list__item">
@@ -12,7 +12,7 @@
                 <div class="info-list__item-name" translate="{{configure.device.removal.translate.pageCount}}"></div>
             </li>
             <li class="info-list__item">
-                <div class="info-list__item-value" select-page-count module="device" readonly="true" 
+                <div class="info-list__item-value" select-page-count module="device" readonly="true"
                     source="{{configure.device.removal.source}}"></div>
             </li>
         </ul>
