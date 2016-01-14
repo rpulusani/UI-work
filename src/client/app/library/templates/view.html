@@ -1,11 +1,42 @@
 <div class="page-header">
     <div class="row">
         <div class="col-2-3">
-            <h1 translate="{{ configure.header.translate.h1 }}"></h1>
-            <p class="text--large" translate="{{ configure.header.translate.body }}"></p>
+            <h1 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY"></h1>
+            <p class="text--large" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY_PAR"></p>
             <div class="col-1 btns">
-                <button type="button" class="btn btn--default" href="" ng-click="addNewDocument()" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT"></button>
+                <button type="button" class="btn btn--default" href="" ng-click="addNewDocument()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_ADD_NEW_DOC"></button>
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="page-content">
+
+    <div>
+        <div class="col-2-3">
+            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+                translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS" translate-values="{ total: pagination.totalItems() }"></h2>
+        </div>
+
+        <div class="print-export">
+            <span class="">
+                <i class="icon icon--mps icon--print"></i>
+                <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold"></a>
+            </span>
+            
+            <span class="">
+                <i class="icon icon--mps icon--download"></i>
+                <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold"></a>
+            </span>
+        </div>
+
+        <hr />
+    </div>
+
+    <div class="col-1">
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+        <div pagination grid="{{gridOptions}}"></div>
+    </div>
+
 </div>

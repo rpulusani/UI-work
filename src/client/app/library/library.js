@@ -6,6 +6,10 @@ define(['angular'], function(angular) {
             templateUrl: '/app/library/templates/view.html',
             controller: 'LibraryListController'
         })
+        .when('/library/:id/view', {
+            templateUrl: '/app/library/templates/document.html',
+            controller: 'LibraryViewController'
+        })
         .when('/library/add', {
             templateUrl: '/app/library/templates/add.html',
             controller: 'LibraryAddController'

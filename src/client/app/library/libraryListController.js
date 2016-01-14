@@ -22,6 +22,7 @@ console.log(Documents);
             };
 
             $scope.goToView = function(documentItem) {
+                documentItem.id = '1-ABCDEF';
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/view');

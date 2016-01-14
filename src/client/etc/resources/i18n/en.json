@@ -1158,7 +1158,7 @@
                 "BTN_MANAGE_TAGS" : "MANAGE TAGS",
                 "CTRL_GRID_CANCEL" : "Cancel",
                 "CTRL_GRID_DELETE" : "Delete document",
-                "TXT_ALL_DOCS" : "All documents",
+                "TXT_ALL_DOCS" : "All documents ({{total}})",
                 "TXT_FILTER_ACCOUNT" : "Accounts",
                 "TXT_FILTER_CATEGORY" : "Category",
                 "TXT_FILTER_CLEAR_SELECTIONS" : "Clear selections",

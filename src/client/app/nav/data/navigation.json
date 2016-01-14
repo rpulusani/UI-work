@@ -56,7 +56,7 @@
   {
     "id": "7",
     "action": "/library",
-    "text": "DOCUMENT_LIBRARY.TEST",
+    "text": "DOCUMENT_LIBRARY.TITLE",
     "description": "Some description of this link",
     "icon": "icon icon-mps-library",
     "permissionFlag":"reportAccess",
