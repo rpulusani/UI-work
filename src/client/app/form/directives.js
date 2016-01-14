@@ -21,6 +21,40 @@ angular.module('mps.form')
         };
     }
 ])
+.directive('countrySelector', [function() {
+    return {
+        restrict: 'A',
+        template: '<div name="country" ng-model="country" selectric model="country" options="countryHAL.countries" ' + 
+            'value="code" label="name" placeholder="{{\'LABEL.SELECT\' | translate}}" ' + 
+            'on-select="countrySelected(option)" required></div>',
+        controller: ['$scope', 'CountryService', function($scope, CountryService) {
+            var loaded = false;
+
+            $scope.countryHAL = CountryService.getHAL();
+
+            $scope.countrySelected = function(country) {
+                $scope.country = country;
+            };
+
+            $scope.$watchGroup(['countryHAL', 'address'], function(vals) {
+                var countries = vals[0],
+                address = vals[1];
+                
+                if (countries && address && !loaded) {
+                    countries.$promise.then(function() {
+                        $.each(countries.countries, function(_i, c) {
+                            if(c.code == address.country) {
+                                $scope.country = c;
+                            }
+                        });
+                        
+                        loaded = true;
+                    });
+                }
+            });
+        }]
+    }
+}])
 .directive('datepicker', [function () {
     return {
       restrict: 'A',

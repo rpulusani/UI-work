@@ -27,9 +27,8 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 route: '/service_requests/contacts',
                 needsToVerify: false, // if verify directive needs to be displayed
                 goToCreate: function() {
+                    this.wasSaved = false;
                     this.item = this.getModel();
-                    this.updated = false;
-                    this.saved = false;
 
                     $location.path(this.route + '/new');
                 },
@@ -37,26 +36,29 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     if (contact) {
                         this.setItem(contact);
                     }
-                    
+
                     window.scrollTo(0,0)
 
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
                 goToList: function() {
-                    Contacts.saved = false;
-                    Contacts.updated = false;
+                    this.wasSaved = false;
 
                     $location.path(this.route + '/');
+                },
+                goToReview: function(contact) {
+                    if (contact) {
+                        this.setItem(contact);
+                    }
+                    
+                    $location.path(this.route + '/' + contact.id + '/review');
                 },
                 goToDelete: function(contact) {
-                    if (!contact) {
-                        contact = Contacts.item;
+                    if (contact) {
+                        this.setItem(contact);
                     }
-
-                    $location.path(this.route + '/' + contact.id + '/delete');
-                },
-                cancel: function() {
-                    $location.path(this.route + '/');
+                    
+                    $location.path(this.route + '/' + this.item.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
                     this.get({

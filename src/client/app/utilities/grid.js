@@ -110,7 +110,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             return columns;
         };
 
-        Grid.prototype.display = function(service, scope, personal, rowHeight) {
+        Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
             var size = service.data.length < service.params.size? service.data.length: service.params.size,
             serviceId = '',
             newHeight = '';
@@ -177,6 +177,27 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
 
             this.gridOptions = scope.gridOptions;
+
+            // Generalized row selection
+            scope.isSingleSelected = function() {
+                 if (scope.currentRowList.length === 1) {
+                    return true;
+                 } else {
+                    return false;
+                 }
+            };
+
+            scope.isMultipleSelected = function() {
+                if (scope.currentRowList.length > 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
+            if (typeof fn === 'function') {
+                return fn(this);
+            }
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

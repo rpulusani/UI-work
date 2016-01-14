@@ -34,6 +34,14 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $scope.contacts = Contacts;
         $scope.gridOptions = {};
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+
+        $scope.selectRow = function(btnType) {
+            if (btnType !== 'delete') {
+                Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+            } else {
+                Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
+            }
+        };
         
         $scope.getFullname = function(rowInfo) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
@@ -41,12 +49,12 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function() {
+                filterSearchService.addPanelFilter('Filter by Location', 'state', false);
+
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
-                }, 0);
+                }, 500); // Stupid hack, need to look closely at FSS bit who has the time?
             }
         );
-
-        filterSearchService.addPanelFilter('Filter by Location', 'state');
-    }]); // End Controller
+    }]);
 });
