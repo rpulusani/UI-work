@@ -10,7 +10,12 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                     columnDefs: {
                         defaultSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                             'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
@@ -32,7 +37,11 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                         madcSetSR: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                            'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
@@ -60,7 +69,11 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                         breakfixSRSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                            'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                              {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'_embedded.asset.serialNumber', 'notSearchable': true},
@@ -99,7 +112,11 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                         addressSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                            'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                             {'name': $translate.instant('ADDRESS.NAME'), 'field':'', visible: true},
@@ -110,7 +127,11 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                          contactSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                            'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                             {'name': $translate.instant('CONTACT.FULLNAME'), 'field':'', 'notSearchable': true},

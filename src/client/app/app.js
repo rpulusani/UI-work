@@ -22,6 +22,7 @@ define([
     'serviceRequest.controllerHelperService',
     'serviceRequest.TabController',
     'serviceRequest.ActionButtonController',
+    'serviceRequest.detailController',
     'order',
     'order.factory',
     'order.directives',
@@ -210,7 +211,7 @@ define([
             viewStrategic: 'VIEW_STRATEGIC_DOCS',
             upload: 'UPLOAD_DOCS',
             deleteMy: 'DELETE_ONLY_MY_DOCS',
-            delete: 'DELETE_ALL_DOCS',
+            deleteAll: 'DELETE_ALL_DOCS',
             manageAccountTag: 'MANAGE_ACCOUNT_TAG',
             manageGlobalTag: 'MANAGE_GLOBAL_TAG'
         },

@@ -7,11 +7,11 @@
         <div class="info-list__item-name">Name:</div>
         <div class="info-list__item-value" ng-bind="contact.name"></div>
     </li>
-    <li class="info-list__item">
+    <li class="info-list__item" ng-if="contact.phoneNumber">
         <div class="info-list__item-name">Phone Number:</div>
         <div class="info-list__item-value" ng-bind="contact.phoneNumber"></div>
     </li>
-    <li class="info-list__item">
+    <li class="info-list__item" ng-if="contact.emailAddress">
         <div class="info-list__item-name">Email Address:</div>
         <div class="info-list__item-value" ng-bind="contact.emailAddress"></div>
     </li>
