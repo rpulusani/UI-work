@@ -1,11 +1,11 @@
-define(['angular','serviceRequest', 'utility.grid'], function(angular) {
+define(['angular','order', 'utility.grid'], function(angular) {
     'use strict';
-    angular.module('mps.serviceRequestAddresses')
-    .controller('ServiceRequestAddressListController', [
+    angular.module('mps.orders')
+    .controller('DeviceOrderListController', [
         '$scope',
         '$location',
         '$rootScope',
-        'ServiceRequestService',
+        'OrderRequest',
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
@@ -13,31 +13,33 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             $scope,
             $location,
             $rootScope,
-            ServiceRequest,
+            Orders,
             Grid,
             Personalize,
             FilterSearchService) {
             $rootScope.currentRowList = [];
 
-            ServiceRequest.setParamsToNull();
+            Orders.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'addressSet');
+            filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal,'hardwareSet');
 
             $scope.view = function(SR){
-                ServiceRequest.setItem(SR);
+                Orders.setItem(SR);
                 var options = {
                     params:{
                     }
                 };
             };
             var params =  {
-                type: 'DATA_ADDRESS_ALL',
-                embed: 'primaryContact,requester,sourceAddress'
+                type: 'HARDWARE_ORDER',
+                embed: 'primaryContact,requester'
             };
 
-            filterSearchService.addBasicFilter('All address service requests', params, false, 
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params, false, 
                 function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid)
+                    }, 0);
                 }
             );
         }

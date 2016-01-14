@@ -736,7 +736,7 @@
             "PRIOR_DATE": "Prior Date",
             "NEW_COUNT": "New Count",
             "REQUEST_SERVICE": "Schedule Service",
-        "REQUEST_SERVICE_DEVICE": "Schedule Service for this device",
+            "REQUEST_SERVICE_DEVICE": "Schedule Service for this device",
             "ORDER_SUPPLIES": "Order supplies",
             "ORDER_SAME_DEVICE": "ORDER SAME DEVICE",
             "DECOMMISSION_THIS_DEVICE": "Decommission \"{{productModel}}\"",
@@ -1260,7 +1260,6 @@
             "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
         },
 
-
     "INVOICE": {
         "TITLE": "Invoices",
         "TITLE_CNT": "{{status}} Invoices ({{total}})",
@@ -1277,6 +1276,35 @@
         "BILL_TO": "Bill To",
         "DOWNLOAD_AS_TXT": "Download as .txt",
         "ACCOUNT": "Account"
+    },
+    "ORDER_MGT": {
+        "DATE": "Date",
+        "ORDER_NO": "Order Number",
+        "STATUS": "Status",
+        "PRIMARY_CONTACT": "Primary Contact",
+        "PRIMARY_EMAIL": "Primary Contact Email",
+        "PRIMARY_PHONE": "Primary Contact Phone",
+        "DESCRIPTION": "Description",
+        "ORDERS_FOR_DEVICE": "Orders for this device",
+        "ORDER_SEARCH": "What order are you looking for?",
+        "MANAGE_ORDERS": "Manage Orders",
+        "ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR DEVICE",
+        "ORDER_NEW_DEVICE": "ORDER NEW DEVICE",
+        "RETURN_SUPPLIES": "RETURN SUPPLIES",
+        "ORDER_SUPPLIES_CATALOG": "ORDER FROM SUPPLIES CATALOG",
+        "ALL_ORDERS_W_TOTALS": "All orders ({{total}} total orders)",
+        "DEVICE_ORDERS_W_TOTALS": "Device orders ({{total}} total orders)",
+        "SUPPLY_ORDERS_W_TOTALS": "Supply orders ({{total}} total orders)",
+        "ALL_ORDERS": "All orders",
+        "DEVICE_ORDERS": "Device orders",
+        "SUPPLY_ORDERS": "Supply orders",
+        "ALL_DEVICE_ORDERS": "All device orders",
+        "ALL_SUPPLY_ORDERS": "All supply orders",
+        "DATE_TIME_CREATED": "Date/Time Created",
+        "ORDER_TYPE": "Order Type",
+        "TRACKING_NUMBER": "Tracking #",
+        "PART_NO": "Part No.",
+        "PO": "PO"
     },
 
         "COLUMNPICKER": {
