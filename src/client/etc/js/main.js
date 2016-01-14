@@ -33,6 +33,11 @@ requirejs.config({
             'dashboard',
             'dashboard.dashboardController',
 
+            'library',
+            'library.libraryFactory',
+            'library.libraryListController',
+            'library.libraryAddController',
+
             'nav',
             'nav.navController',
             'nav.navFactory',
@@ -91,6 +96,13 @@ requirejs.config({
         'account': ['angular'],
         'account.accountFactory': ['account'],
         'account.roleFactory': ['account'],
+
+        'library': ['angular'],
+        'library.libraryListController': ['library'],
+        'library.libraryAddController': ['library'],
+        'library.libraryViewController': ['library'],
+        'library.libraryFactory': ['library'],
+        'library.directives': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
@@ -268,6 +280,13 @@ requirejs.config({
         'deviceServiceRequest.directives': 'app/device_service_requests/directives',
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
+
+        'library': 'app/library/library',
+        'library.libraryListController': 'app/library/libraryListController',
+        'library.libraryAddController': 'app/library/libraryAddController',
+        'library.libraryViewController': 'app/library/libraryViewController',
+        'library.libraryFactory': 'app/library/libraryFactory',
+        'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',
         'report.reportController': 'app/reporting/reportController',

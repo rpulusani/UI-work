@@ -231,6 +231,9 @@ define(['angular', 'utility'], function(angular) {
                 },
                 getAmountWithCurrency: function(amount, currency){
                     return amount + ' (' + currency + ')';
+                },
+                getFileSize: function(fileSize) {
+                    return Math.abs(fileSize/1024).toFixed(0) + 'KB';
                 }
             };
 
