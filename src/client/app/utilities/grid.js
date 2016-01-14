@@ -134,11 +134,11 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
-            scope.gridOptions.gridCss = 'table';
+           // scope.gridOptions.gridCss = 'table';
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
-            scope.gridOptions.enableHorizontalScrollbar = 0;
+            scope.gridOptions.enableHorizontalScrollbar = 2;
             scope.gridOptions.enableVerticalScrollbar = 0;
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
 

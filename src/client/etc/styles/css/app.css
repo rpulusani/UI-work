@@ -395,15 +395,17 @@ p.info-list .item-name:after {
   position: relative;
   padding-top: 0;
 }
-.table {
-  max-width: 100%;
-  width: 100%;
+.grid-wrapper {
+overflow: scroll; width: 500px; height: 210px;
+}
+.grid {
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
   min-height: 655px;
   font-size: 9pt;
+  width: 10000px;
 }
 .table .ui-grid-header-cell:first-child {
   border-left: 1px solid #a5a5aa;
