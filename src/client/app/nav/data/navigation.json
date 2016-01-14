@@ -94,10 +94,10 @@
     {
     "id": "11",
     "action": "/library",
-    "text": "DOCUMENT_LIBRARY.TITLE",
+    "text": "DOCUMENT_LIBRARY.COMMON.BTN_DOCUMENT_LIBRARY",
     "description": "Some description of this link",
     "icon": "icon icon-mps-library",
-    "permissionFlag":"reportAccess",
+    "permissionFlag":"documentLibraryAccess",
     "tags":["primary"]
   },
 

@@ -259,6 +259,13 @@ define([
         var security = new SecurityService();
         var configurePermissions = [
             {
+                name: 'documentLibraryAccess',
+                permission: [
+                    permissionSet.contentManagement.viewNonstrategic,
+                    permissionSet.contentManagement.viewStrategic
+                ]
+            },
+            {
                 name: 'deviceInfoAccess',
                 permission: permissionSet.deviceManagement.view
             },

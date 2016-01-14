@@ -1146,6 +1146,7 @@
                 "TXT_SELECTED_ACCOUNTS" : "Selected accounts"
             },
             "COMMON" : {
+                "BTN_DOCUMENT_LIBRARY": "Document Library",
                 "BTN_ADD_TAG" : "ADD TAG",
                 "BTN_DELETE_DOCUMENT" : "DELETE DOCUMENT",
                 "CTRL_CANCEL_DELETE" : "Cancel",
