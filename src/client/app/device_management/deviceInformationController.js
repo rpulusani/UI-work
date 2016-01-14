@@ -34,7 +34,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             SecurityHelper,
             FilterSearchService
             ) {
-
+            ServiceRequest.setParamsToNull();
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
             var redirect_to_list = function() {
@@ -43,6 +43,19 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
+
+            $scope.view = function(SR){
+              ServiceRequest.setItem(SR);
+                var options = {
+                    params:{
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress'
+                    }
+                };
+                ServiceRequest.item.get(options).then(function(){
+                    $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+                });
+
+            };
 
             $scope.getMeterReadPriorDate = function(item){
                 if(item.updateDate){
