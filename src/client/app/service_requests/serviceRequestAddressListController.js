@@ -35,7 +35,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 embed: 'primaryContact,requester,sourceAddress'
             };
 
-            filterSearchService.addBasicFilter('All address service requests', params,
+            filterSearchService.addBasicFilter('All address service requests', params, false, 
                 function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }

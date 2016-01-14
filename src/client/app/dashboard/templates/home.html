@@ -1,73 +1,155 @@
-<div class="page-header">
-    <div class="row"><!-- add translations -->
-        <div class="col-1-3 l-pad"><!-- add ng-if permission -->
-            <div class="rollup">
-                <div class="rollup-label">
-                    <h4 class="text--thick">Requests For service (B/F)</h4>
-                </div>
-                <div class="rollup-content">
-                    <a href="" title=""><h1 class="blue text--bold">30 open <i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
-                </div>
-                <div class="rollup-footer">
-                    <a href=""><p>15 Closed Requests <i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-1-3 l-pad"><!-- add ng-if permission -->
-            <div class="rollup">
-                <div class="rollup-label">
-                    <h4 class="text--thick">Orders</h4>
-                </div>
-                <div class="rollup-content">
-                    <a href="" title=""><h1 class="blue text--bold">100 open <i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
-                </div>
-                <div class="rollup-footer">
-                    <a href=""><p>15 Closed Requests <i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-1-3 l-pad"><!-- add ng-if permission -->
-            <div class="rollup">
-                <div class="rollup-label">
-                    <h4 class="text--thick">MADC Requests</h4>
-                </div>
-                <div class="rollup-content">
-                    <a href="" title=""><h1 class="blue text--bold">3 open <i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
-                </div>
-                <div class="rollup-footer">
-                    <a href=""><p>15 Closed Requests <i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row l-pad" ng-if="!viewHomePage">
+    <div class="col-1" translate="MESSAGE.NO_ACCESS"></div>
 </div>
 
-<div class="page-content dashboard">
-    <div class="row l-pad-top">
-        <div class="col--1-1">
-            <p class="text--bold vertical-space--none">Search for a device</p>
-        </div>
-    </div>
-
-    <div class="row l-pad-bottom">
-        <div class="col-1-1">
-            <p>will remedy this layout next</p>
-            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-        </div>
-        <hr>
-    </div>
-
-    <div class="row l-pad" ng-if="!viewHomePage">
-        <div class="col-1" translate="MESSAGE.NO_ACCESS"></div>
-    </div>
-    <div ng-if="viewHomePage"><!-- is this a permission set? and what should it contain...everything???-->
-        <div class="row">
-            <div class="col-1-2 l-alley-after">
-                <h3 class="blue">Performance Reports</h3>
-                <div class="l-pad">
-                    <div google-chart chart="columnChartObject"></div>
+<div ng-if="viewHomePage">
+    <div class="page-header">
+        <div class="row l-pad-bottom-thick"><!-- add translations -->
+            <div class="col-lg-1-3 l-pad"><!-- add ng-if permission -->
+                <div class="rollup">
+                    <div class="rollup-label">
+                        <h4 class="text--thick" translate="DASHBOARD.ROLLUP_REQUESTS_TITLE"></h4>
+                    </div>
+                    <div class="rollup-content">
+                        <a href="" title=""><h1 class="blue text--bold">30 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
+                    </div>
+                    <div class="rollup-footer">
+                        <a href=""><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1-3 l-pad"><!-- add ng-if permission -->
+                <div class="rollup">
+                    <div class="rollup-label">
+                        <h4 class="text--thick" translate="DASHBOARD.ROLLUP_ORDERS_TITLE"></h4>
+                    </div>
+                    <div class="rollup-content">
+                        <a href="" title=""><h1 class="blue text--bold">100 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
+                    </div>
+                    <div class="rollup-footer">
+                        <a href=""><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1-3 l-pad"><!-- add ng-if permission -->
+                <div class="rollup">
+                    <div class="rollup-label">
+                        <h4 class="text--thick" translate="DASHBOARD.ROLLUP_MADC_TITLE"></h4>
+                    </div>
+                    <div class="rollup-content">
+                        <a href="" title=""><h1 class="blue text--bold">3 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
+                    </div>
+                    <div class="rollup-footer">
+                        <a href=""><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div><!-- end ng-if view home page -->
-</div><!-- end page content -->
+    </div><!-- end page header -->
+
+    <div class="page-content dashboard">
+        <div class="row">
+            <div class="col-1">
+                <p class="text--bold" translate="DASHBOARD.SEARCH_FOR_DEVICE"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-1">
+                <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
+            </div>
+            <hr class="vertical-space--none">
+        </div>
+
+        <div class="row l-pad-top-thick">
+            <div class="col-1-1">
+                <h3 class="blue vertical-space--none" translate="DASHBOARD.PERFORMANCE_REPORTS"></h3>
+            </div>
+        </div>
+        <div class="row l-pad-top-thick" ng-controller="ReportController">
+            <div class="col-lg-1-2 l-alley-after-thick">
+                <!-- need an include template for this-->
+                    <h5 class="text--semi-bold" translate="{{ configure.report.kpi.translate.h2 }}"></h5>
+
+                    <div class="row row--alley-thin">
+                        <div class="col-1-3 l-alley-after-thin border--right">
+                            <div class="text--align-center">
+                                <h6 translate="{{ configure.report.kpi.translate.fleetAvailability }}"></h6>
+                            </div>
+                            <div>
+                                <!--<p class="text--align-center" ng-if="chartObject.fleetAvailability.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                                <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>-->
+                                <img src="/etc/resources/img/temporary-chart-fleet.png"/>
+                            </div>
+                        </div>
+
+                        <div class="col-1-3 l-alley-after-thin border--right">
+                            <div class="text--align-center">
+                                <h6 translate="{{ configure.report.kpi.translate.responseTime }}"></h6>
+                            </div>
+                            <div>
+                                <!--<p class="text--align-center" ng-if="chartObject.responseTime.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                                <div google-chart chart="{{ chartObject.responseTime }}"></div>-->
+                                <img src="/etc/resources/img/temporary-chart-response.png"/>
+                            </div>
+                        </div>
+                        <div class="col-1-3 l-alley-after-thin">
+                            <div class="text--align-center">
+                                <h6 translate="{{ configure.report.kpi.translate.consumables }}"></h6>
+                            </div>
+                            <div>
+                                <!--<p class="text--align-center" ng-if="chartObject.consumables.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                                <div google-chart chart="{{ chartObject.consumables }}"></div>-->
+                                <img src="/etc/resources/img/temporary-chart-consumables.png"/>
+                            </div>
+                        </div>
+                    </div>
+                <!-- end kpi-->
+            </div>
+            <div class="col-lg-1-2 l-alley-before-thick">
+                <h5 class="text--semi-bold" translate="DASHBOARD.REPORT_FLEET_OVERVIEW"></h5>
+                <div class="row row--alley-thin">
+                        <div class="col-3-8 l-alley-after-thin border--right">
+                            <div class="text--align-center">
+                                <h6 translate="DASHBOARD.REPORT_MANAGED_DEVICES"></h6>
+                            </div>
+                            <div>
+                                <!--<p class="text--align-center" ng-if="chartObject.assetRegister.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                                <div google-chart chart="{{ chartObject.assetRegister }}"></div>-->
+                                <img src="/etc/resources/img/temporary-chart-managed-devices.png"/>
+                            </div>
+                        </div>
+                        <div class="col-3-8">
+                            <div class="text--align-center">
+                                <h6 translate="DASHBOARD.REPORT_BILLED_PAGES"></h6>
+                            </div>
+                            <div>
+                                 <!--<p class="text--align-center" ng-if="chartObject.missingMeterReadsAll.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                                <div google-chart chart="{{ chartObject.missingMeterReadsAll }}"></div>-->
+                                <img src="/etc/resources/img/temporary-chart-billed-pages.png"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="vertical-space--thick">
+            <div class="row">
+                <div class="col-1-2">
+                    <div class="card card--overlay bg--white" data-card="">
+                        <div class="card__visual" title="" desc="" alt="" id="">
+                            <a href="http://www.lexmark.com/en_us/services/managed-print-services.html">
+                                <img title="" alt="" class="cq-dd-image" src="/etc/resources/img/MPS_marketing_image_v01.png"></a>
+                        </div>
+                        <div class="card__content">
+                            <div class="card__title text--h3">
+                                <p translate="DASHBOARD.CARD_CONTENT"></p>
+                            </div>
+                            <a class="call-to-action text--b3 text--h5 card__action" href="http://www.lexmark.com/en_us/services/managed-print-services.html" data-tracker="link" translate="DASHBOARD.CARD_ACTION"></a>
+                        </div>
+                        <a id="" class="card__action-overlay" href="http://www.lexmark.com/en_us/services/managed-print-services.html" data-tracker="link"></a>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</div><!-- end ng-if view home page -->

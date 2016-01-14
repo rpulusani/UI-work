@@ -19,3 +19,4 @@ web:
    - REDIRECT_URL=/auth/users/sign_out?redirect_uri=http://192.168.99.101:8080/
    - IMAGE_NOW_SECRET=UeV5DfuEzXsLsTzRP1a3ragNAQRt73GrOK2XZkjm6zIXyNZD66LZt4LvUuVh3O8RUnoZhDPADxu6lXW030i9NSv_dfciMO3JDA-Dm5ePlvVUKW7RMXuVrJG8wjfOiiQQA7VoTXYiYPdTfawRvzaiqrwLD06dKXA4Mww2KLJppGA
    - IMAGE_NOW_URL=https://in-qa.lexmark.com/SecureFileDelivery/SAP/
+   - LBS_URL=http://venus-beta-lbs.lexmark.com/

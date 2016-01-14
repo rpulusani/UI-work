@@ -1,0 +1,13 @@
+<div class="btns">
+    <button class="btn" ng-click="goToSuppliesDeviceCreate()" translate="ORDER_MGT.ORDER_SUPPLIES_DEVICE"
+        ng-if="orderSuppliesAsset"></button>
+     <button type="button" class="btn btn--default" href="" ng-click="goToHardwareCreate()"
+        translate="ORDER_MGT.ORDER_NEW_DEVICE"
+        ng-if="orderHardware"></button>
+     <button type="button" class="btn btn--default" href="" ng-click="goToReturnSuppliesCreate()"
+        translate="ORDER_MGT.RETURN_SUPPLIES"
+        ng-if="createSuppliesReturn"></button>
+     <button type="button" class="btn btn--default" href="" ng-click="goToSuppliesCatalogCreate()"
+        translate="ORDER_MGT.ORDER_SUPPLIES_CATALOG"
+        ng-if="orderSuppliesCatalog"></button>
+</div>

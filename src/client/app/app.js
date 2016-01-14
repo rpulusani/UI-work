@@ -23,6 +23,14 @@ define([
     'serviceRequest.TabController',
     'serviceRequest.ActionButtonController',
     'serviceRequest.detailController',
+    'order',
+    'order.factory',
+    'order.directives',
+    'order.orderListController',
+    'order.deviceOrderListController',
+    'order.supplyOrderListController',
+    'order.tabController',
+    'order.actionButtonController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -49,6 +57,12 @@ define([
     'deviceServiceRequest.directives',
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
+    'library',
+    'library.libraryListController',
+    'library.libraryAddController',
+    'library.libraryViewController',
+    'library.libraryFactory',
+    'library.directives',
     'invoice',
     'invoice.invoiceController',
     'invoice.invoiceListController',
@@ -98,11 +112,13 @@ define([
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
+        'mps.orders',
         'mps.user',
         'mps.security',
         'mps.report',
         'mps.invoice',
         'mps.deviceManagement',
+        'mps.library',
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
@@ -141,9 +157,13 @@ define([
     .constant('serviceUrl', config.portal.serviceUrl)
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
+    .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
+        },
+        lbs:{
+            view: 'LBS_ENABLED'
         },
         userManagement: {
             impersonate: 'IMPERSONATE_VIEW',
@@ -168,11 +188,12 @@ define([
         serviceRequestManagement:{
             viewBreakFix:'VIEW_BREAKFIX_REQUESTS',
             createBreakFix: 'REQUEST_BREAKFIX',
-            viewSuppliesOrder: 'VIEW_SUPPLIES_ORDER',
-            orderSuppliesCatelog: 'ORDER_SUPPLIES_CATALOG',
+            viewSuppliesOrder: 'VIEW_SUPPLIES_ORDERS',
+            orderSuppliesCatalog: 'ORDER_SUPPLIES_CATALOG',
             orderSuppliesAsset: 'ORDER_SUPPLIES_ASSET',
             createSuppliesReturn: 'CREATE_SUPPLIES_RETURN_REQUEST',
             orderHardware: 'ORDER_HARDWARE',
+            orderInstallHardware: 'ORDER_INSTALL_HARDWARE',
             uploadConsumableOrder: 'MASS_UPLOAD_FOR_CONSUMABLES_ORDER',
             uploadHardwareOrder: 'MASS_UPLOAD_FOR_HARDWARE_ORDER',
             createPONumber: 'INITIATE_NEW_PO_NUMBER',
@@ -238,8 +259,19 @@ define([
         var security = new SecurityService();
         var configurePermissions = [
             {
+                name: 'documentLibraryAccess',
+                permission: [
+                    permissionSet.contentManagement.viewNonstrategic,
+                    permissionSet.contentManagement.viewStrategic
+                ]
+            },
+            {
                 name: 'deviceInfoAccess',
                 permission: permissionSet.deviceManagement.view
+            },
+            {
+                name:'lbsAccess',
+                permission: permissionSet.lbs.view
             },
             {
                 name: 'deviceView',
@@ -327,10 +359,34 @@ define([
 
             },
             {
+                name:'orderSuppliesAsset',
+                permission: permissionSet.serviceRequestManagement.orderSuppliesAsset
+
+            },
+            {
+                name:'orderSuppliesCatalog',
+                permission: permissionSet.serviceRequestManagement.orderSuppliesCatalog
+            },
+            {
+                name:'orderHardware',
+                permission: [
+                    permissionSet.serviceRequestManagement.orderHardware,
+                    permissionSet.serviceRequestManagement.orderInstallHardware
+                ]
+            },
+            {
+                name:'createSuppliesReturn',
+                permission: permissionSet.serviceRequestManagement.createSuppliesReturn
+
+            },
+            {
                 name:'orderAccess',
                 permission: [
                     permissionSet.serviceRequestManagement.orderHardware,
                     permissionSet.serviceRequestManagement.viewSuppliesOrder,
+                    permissionSet.serviceRequestManagement.orderSuppliesAsset,
+                    permissionSet.serviceRequestManagement.orderSuppliesCatalog,
+                    permissionSet.serviceRequestManagement.createSuppliesReturn,
                     permissionSet.serviceRequestManagement.uploadConsumableOrder,
                     permissionSet.serviceRequestManagement.uploadHardwareOrder
                 ]

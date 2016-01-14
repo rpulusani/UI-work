@@ -201,6 +201,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.assetRegister.type = "PieChart";
                 $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
+                //$scope.chartObject.assetRegister.options.fontSize = 36;
                 $scope.chartObject.assetRegister.dataPoint = total;
 
                 $scope.chartObject.assetRegister.data = {
@@ -214,6 +215,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                             {v: total }
                         ]}
                     ]};
+
             };
 
             var buildMADCChart = function(data) {
@@ -328,7 +330,8 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.consumablesOrdersOpen.type = "PieChart";
                 $scope.chartObject.consumablesOrdersOpen.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.consumablesOrdersOpen.options.slices = [{color: '#00ad21'}];
-                $scope.chartObject.consumablesOrdersOpen.dataPoint = d.Open; 
+                //$scope.chartObject.consumablesOrdersOpen.options.fontSize = 36;
+                $scope.chartObject.consumablesOrdersOpen.dataPoint = d.Open;
 
                 $scope.chartObject.consumablesOrdersOpen.data = {
                     "cols": [
@@ -346,6 +349,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.consumablesOrdersShipped.type = "PieChart";
                 $scope.chartObject.consumablesOrdersShipped.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.consumablesOrdersShipped.options.slices = [{color: '#7e7e85'}];
+                //$scope.chartObject.consumablesOrdersShipped.options.fontSize = 36;
                 $scope.chartObject.consumablesOrdersShipped.dataPoint = d.Shipped;
 
                 $scope.chartObject.consumablesOrdersShipped.data = {
@@ -372,6 +376,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.hardwareOrdersOpen.type = "PieChart";
                 $scope.chartObject.hardwareOrdersOpen.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.hardwareOrdersOpen.options.slices = [{color: '#00ad21'}];
+                //$scope.chartObject.hardwareOrdersOpen.options.fontSize = 36;
                 $scope.chartObject.hardwareOrdersOpen.dataPoint = d.Open;
 
                 $scope.chartObject.hardwareOrdersOpen.data = {
@@ -390,6 +395,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.hardwareOrdersShipped.type = "PieChart";
                 $scope.chartObject.hardwareOrdersShipped.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.hardwareOrdersShipped.options.slices = [{color: '#7e7e85'}];
+                //$scope.chartObject.hardwareOrdersShipped.options.fontSize = 36;
                 $scope.chartObject.hardwareOrdersShipped.dataPoint = d.Shipped;
 
                 $scope.chartObject.hardwareOrdersShipped.data = {
