@@ -4,8 +4,8 @@ define(['angular', 'library'], function(angular) {
     .factory('Documents', ['serviceUrl', '$translate', '$rootScope', 'HATEOASFactory',
         function(serviceUrl, $translate, $rootScope, HATEOASFactory) {
             var Documents = {
-                serviceName: '',
-                embeddedName: '',
+                serviceName: 'documents',
+                embeddedName: 'documents',
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
@@ -19,7 +19,8 @@ define(['angular', 'library'], function(angular) {
                         {'name': $translate.instant('DOCUMENT_LIBRARY.FILE_SIZE'), 'field': 'fileSize' }
                     ]
                 },    
-                route: '/library'
+                route: '/library',
+                url: 'http://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com' //documents
             };
 
             return new HATEOASFactory(Documents);

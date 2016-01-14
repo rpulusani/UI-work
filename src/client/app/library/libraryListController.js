@@ -4,26 +4,13 @@ define(['angular', 'library'], function(angular) {
     .controller('LibraryListController', ['$scope', '$location', '$translate', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory',
         function($scope, $location, $translate, Documents, Grid, $rootScope, Personalize) {
 
-            function configureTemplates() {
-                $scope.configure = {
-                    header: {
-                        translate: {
-                            h1: 'DOCUMENT_LIBRARY.TITLE',
-                            body: 'MESSAGE.LIPSUM'
-                        }
-                    }
-                };
-            }
-
-            configureTemplates();
-
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
 
             Documents.getPage().then(function() {
-
+console.log(Documents);
                 Grid.display(Documents, $scope, personal);
 
             }, function(reason) {

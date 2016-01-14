@@ -271,10 +271,10 @@ requirejs.config({
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
 
-        'library': 'app/library/documentLibrary',
-        'library.documentLibraryListController': 'app/library/libraryListController',
-        'library.documentLibraryAddController': 'app/library/libraryAddController',
-        'library.documentLibraryFactory': 'app/library/libraryFactory',
+        'library': 'app/library/library',
+        'library.libraryListController': 'app/library/libraryListController',
+        'library.libraryAddController': 'app/library/libraryAddController',
+        'library.libraryFactory': 'app/library/libraryFactory',
         'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',

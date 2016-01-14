@@ -56,10 +56,10 @@
   {
     "id": "7",
     "action": "/library",
-    "text": "DOCUMENT LIBRARY",
+    "text": "DOCUMENT_LIBRARY.TEST",
     "description": "Some description of this link",
     "icon": "icon icon-mps-library",
-    //"permissionFlag":"libraryAccess",
+    "permissionFlag":"reportAccess",
     "tags":["primary"]
   },
   {
