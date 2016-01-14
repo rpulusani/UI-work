@@ -159,12 +159,14 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 newService.item = null;
                 newService.data = [];
 
-                if (!newService.url) {
-                    newService.params = self.setupParams({
-                        url: halObj._links[newService.embeddedName].href,
-                        params: newService.params
-                    });
-                    newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
+                if (!newService.url && halObj._links &&
+                    halObj._links[newService.embeddedName] &&
+                    halObj._links[newService.embeddedName].href) {
+                        newService.params = self.setupParams({
+                            url: halObj._links[newService.embeddedName].href,
+                            params: newService.params
+                        });
+                        newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
                 }
 
                 $rootScope.currentUser.deferred.promise.then(function() {
@@ -741,7 +743,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     deferred.resolve(processedResponse);
                 });
             };
-            
+
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
                 deferred = $q.defer();
