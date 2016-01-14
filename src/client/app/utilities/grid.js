@@ -105,6 +105,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
                 columns[i].enableColumnMenu = enableColumnMenu;
+                columns[i].minWidth = 400;
             }
 
             return columns;
@@ -120,6 +121,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             } else {
                 newHeight = 46 + (31 * size);
             }
+
+
+            angular.element(document.getElementsByClassName('grid-wrapper')[0]).css('height', (newHeight + 70) + 'px' );
+         
 
             if (service.gridName) {
                 serviceId = service.gridName;
@@ -138,7 +143,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
-            scope.gridOptions.enableHorizontalScrollbar = 2;
+            scope.gridOptions.enableHorizontalScrollbar = 0;
             scope.gridOptions.enableVerticalScrollbar = 0;
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
 
@@ -162,6 +167,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 });
             }
 
+
+
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
@@ -177,6 +184,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
 
             this.gridOptions = scope.gridOptions;
+        
+            if (document.getElementsByClassName('table').length > 0 ) {
+               
+            } 
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

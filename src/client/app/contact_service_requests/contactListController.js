@@ -43,7 +43,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             function() {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
-                }, 0);
+                }, 1000);
             }
         );
 

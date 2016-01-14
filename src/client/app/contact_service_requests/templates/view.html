@@ -57,9 +57,12 @@
             <div columnpicker></div>
         </div>
     </div>
-</div>
+    
+    <div class="col-1">
+        <div class="grid-wrapper">
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+        </div>
 
-    <div class="grid-wrapper">
-        <div ui-grid="gridOptions" class="grid" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
         <div pagination grid="{{gridOptions}}"></div>
     </div>
+</div>
