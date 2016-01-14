@@ -5,15 +5,19 @@ define(['angular', 'contact'], function(angular) {
         '$scope',
         'Contacts',
         '$translate',
-        'SRControllerHelperService',
         '$rootScope',
         'FormatterService',
-        function($scope, Contacts, $translate, SRHelper, $rootScope, FormatterService) {
+        function($scope, Contacts, $translate, $rootScope, FormatterService) {
+
             $scope.contacts = Contacts;
 
             if (Contacts.item === null) {
                 Contacts.goToList();
             } else {
+                if (Contacts.wasSaved) {
+                    $scope.saved = true;
+                }
+
                 // Address information entered into form
                 $scope.enteredAddress = {};
                 // Address information from /address-validation
@@ -33,8 +37,9 @@ define(['angular', 'contact'], function(angular) {
                 };
 
                 $scope.formattedPrimaryContact = FormatterService.formatContact(Contacts.item);
+                $scope.requestedByContactFormatted = FormatterService.formatContact(Contacts.item);
 
-                 $scope.configure = {
+                $scope.configure = {
                     header: {
                         translate:{
                             h1: 'CONTACT_SERVICE_REQUEST.DELETE',
@@ -61,22 +66,42 @@ define(['angular', 'contact'], function(angular) {
                     },
                     contact: {
                         translate: {
-                            title: 'CONTACT.INFO',
+                            title: 'DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION',
                             primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT',
+                            requestedByTitle: 'Request created by',
+
                         },
                         show:{
                             primaryAction : true
+                        }
+                    },
+                    contactsr: {
+                        translate: {
+                            title: 'CONTACT.INFO',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        }
+                    },
+                    actions:{
+                        translate: {
+                            abandonRequest:'CONTACT_SERVICE_REQUEST.CANCEL',
+                            submit: 'CONTACT_SERVICE_REQUEST.SR_UPDATE'
                         },
-                        source: 'DeviceDecommission'
+                        submit: function() {
+                            Contacts.goToDelete();
+                        }
+                    },
+                    receipt: {
+                        translate:{
+                            title:"DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL",
+                            titleValues: {'srNumber': 'test' }
+                        }
                     }
                 };
 
-                SRHelper.addMethods(Contacts, $scope, $rootScope);
-
                 // Submit a delete SR
                 $scope.deleteContact = function() {
-                    console.log("calling delete contact");
                     if (Contact.item) {
 
                     }
@@ -84,17 +109,16 @@ define(['angular', 'contact'], function(angular) {
 
                 $scope.saveContact = function(contactForm) {
                     if (Contacts.item && Contacts.item.id) {
+                        Contacts.wasSaved = false;
                         Contacts.item.postURL = Contacts.url + '/' + Contacts.item.id;
 
                         Contacts.update(Contacts.item, {
                             preventDefaultParams: true
                         }).then(function() {
-                            $scope.saved = false;
-
                             if (Contacts.item._links) {
                                 $scope.updated = true;
                                 
-                                Contacts.goToUpdate(Contacts.item);
+                                Contacts.goToUpdate();
                             } else {
                                 Contacts.goToList();
                             }
@@ -107,14 +131,12 @@ define(['angular', 'contact'], function(angular) {
                         Contacts.item.email = contactForm.email.$modelValue;
                         Contacts.item.workPhone = contactForm.workPhone.$modelValue;
 
-                        console.log($scope);
-                        console.log(contactForm);
-
                         if ($scope.canSave === false) {
                             $scope.enteredAddress = {
-                                country: 'USA',
+                                country: contactForm.country.$modelValue,
                                 addressLine1: contactForm.addressLine1.$modelValue,
-                                postalCode: contactForm.zipCode.$modelValue
+                                postalCode: contactForm.zipCode.$modelValue,
+                                city: contactForm.city.$modelValue
                             };
 
                             Contacts.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
@@ -137,10 +159,10 @@ define(['angular', 'contact'], function(angular) {
                             Contacts.save(Contacts.item, {
                                 preventDefaultParams: true
                             }).then(function(r) {
-                                $scope.saved = true;
+                                Contacts.wasSaved = true;
                                 $scope.updated = false;
 
-                                Contacts.goToUpdate(Contacts.item);
+                                Contacts.goToUpdate();
                             });
                         }
                     }

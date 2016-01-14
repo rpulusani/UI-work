@@ -24,7 +24,7 @@ angular.module('mps.form')
 .directive('countrySelector', [function() {
     return {
         restrict: 'A',
-        template: '<div selectric model="country" options="countryHAL.countries" ' + 
+        template: '<div name="country" ng-model="country" selectric model="country" options="countryHAL.countries" ' + 
             'value="code" label="name" placeholder="{{\'LABEL.SELECT\' | translate}}" ' + 
             'on-select="countrySelected(option)" required></div>',
         controller: ['$scope', 'CountryService', function($scope, CountryService) {
