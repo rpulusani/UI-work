@@ -112,10 +112,12 @@
 /** DASHBOARD MOCK **/
 .dashboard .blue {
   color: #0061de;
+}
+.dashboard .form__field {
   margin-bottom: 36px;
 }
-.dashboard .filter--search {
-  padding-bottom: 36px;
+.dashboard .border--right {
+  border-right: 1px solid #c9c9d1;
 }
 .primary-contact-action {
   margin-top: 24px;
