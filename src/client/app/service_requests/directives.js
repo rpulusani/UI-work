@@ -125,6 +125,12 @@ define(['angular', 'serviceRequest'], function(angular) {
             }]
         };
     })
+    .directive('srContact', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/contact.html'
+        };
+    })
     .directive('serviceRequestTabs', function() {
         return {
             restrict: 'A',
