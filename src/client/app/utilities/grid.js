@@ -110,7 +110,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             return columns;
         };
 
-        Grid.prototype.display = function(service, scope, personal, rowHeight) {
+        Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
             var size = service.data.length < service.params.size? service.data.length: service.params.size,
             serviceId = '',
             newHeight = '';
@@ -194,6 +194,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     return false;
                 }
             };
+
+            if (typeof fn === 'function') {
+                return fn(this);
+            }
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {
