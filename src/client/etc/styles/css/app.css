@@ -110,6 +110,13 @@
   display: inline-block;
 }
 /** DASHBOARD MOCK **/
+.dashboard .blue {
+  color: #0061de;
+  margin-bottom: 36px;
+}
+.dashboard .filter--search {
+  padding-bottom: 36px;
+}
 .primary-contact-action {
   margin-top: 24px;
 }
@@ -700,6 +707,12 @@ p.info-list .item-name:after {
   margin: 3px 2px 0 0;
 }
 /** Font based icons **/
+.icon-16 {
+  font-size: 16px;
+}
+.icon-24 {
+  font-size: 24px;
+}
 [class^="icon-mps"],
 [class*=" icon-mps"] {
   /* use !important to prevent issues with browser extensions that change fonts */
@@ -749,6 +762,64 @@ p.info-list .item-name:after {
 }
 .icon-mps-admin:before {
   content: "\e90b";
+}
+/** From https://pswgithub.rds.lexmark.com/pages/ClientFramework/controls/icons.html **/
+[class^="icon-psw"],
+[class*=" icon-psw"] {
+  font-family: 'Action-Icons-Library';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-psw-disclosure_right_triangle:before {
+  content: "\e020";
+}
+.rollup {
+  background-color: #e6e6f0;
+  border-top: 3px solid #00ad21;
+  border-right: 1px solid #7e7e85;
+  border-bottom: 1px solid #7e7e85;
+  border-left: 1px solid #7e7e85;
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(29, 29, 38, 0.2);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(29, 29, 38, 0.2);
+  box-shadow: 0px 4px 5px 0px rgba(29, 29, 38, 0.2);
+}
+.rollup h1 {
+  padding: 12px 24px 0;
+  margin: 0 0 12px 0;
+}
+.rollup h1.blue {
+  color: #0061de;
+}
+.rollup h1 .icon-psw-disclosure_right_triangle {
+  margin-top: 15px;
+}
+.rollup h4 {
+  color: #008945;
+  padding: 12px 24px 0;
+  margin: 0 0 12px 0;
+}
+.rollup .rollup-label {
+  background-color: #ffffff;
+  border-bottom: 1px solid #eff0f6;
+}
+.rollup .rollup-content {
+  background-color: #ffffff;
+  border-bottom: 1px solid #c9c9d1;
+}
+.rollup .rollup-footer {
+  border-top: 2px solid #ffffff;
+}
+.rollup .rollup-footer p {
+  color: #0061de;
+  padding: 12px 24px 0;
+  margin: 0 0 12px 0;
 }
 .theme--dark {
   background: #44434e;
@@ -839,6 +910,13 @@ p.info-list .item-name:after {
   font-family: 'mps';
   src: url('/etc/resources/fonts/glyphs/mps.eot?hic213');
   src: url('/etc/resources/fonts/glyphs/mps.eot?hic213#iefix') format('embedded-opentype'), url('/etc/resources/fonts/glyphs/mps.ttf?hic213') format('truetype'), url('/etc/resources/fonts/glyphs/mps.woff?hic213') format('woff'), url('/etc/resources/fonts/glyphs/mps.svg?hic213#mps') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Action-Icons-Library';
+  src: url('/etc/resources/fonts/glyphs/Action-Icons-Library.eot?4ska39');
+  src: url('/etc/resources/fonts/glyphs/Action-Icons-Library.eot?4ska39#iefix') format('embedded-opentype'), url('/etc/resources/fonts/glyphs/Action-Icons-Library.ttf?4ska39') format('truetype'), url('/etc/resources/fonts/glyphs/Action-Icons-Library.woff?4ska39') format('woff'), url('/etc/resources/fonts/glyphs/Action-Icons-Library.svg?4ska39#Action-Icons-Library') format('svg');
   font-weight: normal;
   font-style: normal;
 }
