@@ -4,7 +4,7 @@
     "action": "/",
     "text": "DASHBOARD.TITLE",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-psw-dashboard",
     "permissionFlag":"viewHomePage",
     "tags":["primary"]
   },
