@@ -52,6 +52,7 @@ define([
     'library',
     'library.libraryListController',
     'library.libraryAddController',
+    'library.libraryViewController',
     'library.libraryFactory',
     'library.directives',
     'invoice',

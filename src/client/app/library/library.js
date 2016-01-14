@@ -7,7 +7,7 @@ define(['angular'], function(angular) {
             controller: 'LibraryListController'
         })
         .when('/library/:id/view', {
-            templateUrl: '/app/library/templates/document.html',
+            templateUrl: '/app/library/templates/view-document.html',
             controller: 'LibraryViewController'
         })
         .when('/library/add', {

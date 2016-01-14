@@ -1185,7 +1185,7 @@
                 "TXT_PUBLISHED" : "Published",
                 "TXT_SIZE" : "Size",
                 "TXT_TAGS" : "Tags",
-                "TXT_VIEWING_DOCUMENT" : "Viewing Document",
+                "TXT_VIEWING_DOCUMENT" : "Viewing Document | {{fileName}}",
                 "TXT_YOU" : "you"
             },
             "MANAGE_TAGS" : {

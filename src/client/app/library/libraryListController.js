@@ -10,7 +10,7 @@ define(['angular', 'library'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
 
             Documents.getPage().then(function() {
-console.log(Documents);
+
                 Grid.display(Documents, $scope, personal);
 
             }, function(reason) {
