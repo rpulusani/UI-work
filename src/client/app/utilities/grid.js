@@ -105,7 +105,14 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
                 columns[i].enableColumnMenu = enableColumnMenu;
-                columns[i].minWidth = 400;
+                
+                if (!columns[i].width && !columns[i].minWidth) {
+                    columns[i].minWidth = columns[i].name.length * 6;
+                   
+                    if (columns[i].minWidth < 100) {
+                        columns[i].minWidth = 100;
+                    }
+                }
             }
 
             return columns;
@@ -184,10 +191,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
 
             this.gridOptions = scope.gridOptions;
-        
-            if (document.getElementsByClassName('table').length > 0 ) {
-               
-            } 
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {
