@@ -26,7 +26,12 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                         madcSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                             'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
@@ -100,7 +105,12 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                         ],
                         breakfixSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber'},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',
+                             'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter'},

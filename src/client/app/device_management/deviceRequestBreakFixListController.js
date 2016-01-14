@@ -5,6 +5,7 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
         'PersonalizationServiceFactory', 'ServiceRequestService', '$location', 'Devices', 'FilterSearchService',
         function($scope, $translate, Grid, $rootScope, Personalize, ServiceRequest,  $location, Devices, FilterSearchService) {
             $rootScope.currentRowList = [];
+            ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
 
@@ -29,6 +30,18 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
             };
               filterSearchService.addBasicFilter('REQUEST_MGMT.SERVICE_REQUESTS', params);
               //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+
+            $scope.view = function(SR){
+              ServiceRequest.setItem(SR);
+                var options = {
+                    params:{
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress'
+                    }
+                };
+                ServiceRequest.item.get(options).then(function(){
+                    $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+                });
+            };
           }
         }
     ]);
