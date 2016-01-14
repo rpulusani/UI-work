@@ -2,13 +2,13 @@
     <h1 translate="DEVICE_MGT.MANAGE_DEVICES"></h1>
     <p translate="MESSAGE.LIPSUM"></p>
     <div class="col-1 btns">
-            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MGT.ADD"
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SUPPLIES_CATALOG"
                 ng-if="addDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.IMPORT"
-                ng-if="addDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.ORDER_NEW"
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_DEVICE"
                 ng-if="orderDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.MANAGE_PAGE_COUNTS"
+            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ADD_DEVICE"
+                ng-if="addDevice"></button>
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MANAGE_PAGE_COUNTS"
                 ng-if="pageCountAccess"></button>
     </div>
 </div>

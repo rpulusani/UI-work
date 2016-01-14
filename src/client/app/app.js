@@ -141,9 +141,13 @@ define([
     .constant('serviceUrl', config.portal.serviceUrl)
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
+    .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
+        },
+        lbs:{
+            view: 'LBS_ENABLED'
         },
         userManagement: {
             impersonate: 'IMPERSONATE_VIEW',
@@ -240,6 +244,10 @@ define([
             {
                 name: 'deviceInfoAccess',
                 permission: permissionSet.deviceManagement.view
+            },
+            {
+                name:'lbsAccess',
+                permission: permissionSet.lbs.view
             },
             {
                 name: 'deviceView',

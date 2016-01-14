@@ -12,6 +12,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
         'SecurityHelper',
         '$window',
         '$timeout',
+        'lbsURL',
         function(
             $scope,
             $location,
@@ -22,7 +23,8 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             FilterSearchService,
             SecurityHelper,
             $window,
-            $timeout
+            $timeout,
+            lbsURL
             ) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
@@ -37,7 +39,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                 $location.path('/service_requests/devices/new');
             };
             $scope.goToLBS = function(){
-                $window.open('http://venus-beta-lbs.lexmark.com/');
+                $window.open(lbsURL);
                 $timeout(function(){
                     $('#deviceListTabOutter a').click();
                 }, 0);
