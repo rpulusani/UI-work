@@ -4,7 +4,7 @@
     "action": "",
     "text": "NAVIGATION.ACCOUNT",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",
     "tags":["primary"]
   },
@@ -31,7 +31,7 @@
     "action": "http://venus-beta-lbs.lexmark.com",
     "text": "NAVIGATION.LBS",
     "description": "Location Base Services",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-mps-lbs_map",
     "permissionFlag":"lbsAccess",
     "newWindow":"true",
     "tags":["primary"]
@@ -56,7 +56,7 @@
   },
   {
     "id": "7",
-    "action": "/service_requests/order_request",
+    "action": "/orders",
     "text": "NAVIGATION.ORDER_REQUEST",
     "description": "Some description of this link",
     "icon": "icon icon-mps-orders",
@@ -96,7 +96,7 @@
     "action": "/library",
     "text": "DOCUMENT_LIBRARY.COMMON.BTN_DOCUMENT_LIBRARY",
     "description": "Some description of this link",
-    "icon": "icon icon-mps-library",
+    "icon": "icon icon-psw-library",
     "permissionFlag":"documentLibraryAccess",
     "tags":["primary"]
   },
