@@ -39,7 +39,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             if (btnType !== 'delete') {
                 Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
             } else {
-                console.log('DELETING? BALLSY!');
+                Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
             }
         };
         
@@ -56,5 +56,5 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         );
 
         filterSearchService.addPanelFilter('Filter by Location', 'state');
-    }]); // End Controller
+    }]);
 });

@@ -741,6 +741,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     deferred.resolve(processedResponse);
                 });
             };
+
+            HATEOASFactory.prototype.xhr = function() { alert(1) };
             
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
