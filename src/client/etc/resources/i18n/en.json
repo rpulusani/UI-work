@@ -1581,7 +1581,25 @@
         "PRIMARY_PHONE": "Primary Contact Phone",
         "DESCRIPTION": "Description",
         "ORDERS_FOR_DEVICE": "Orders for this device",
-        "ORDER_SEARCH": "What order are you looking for?"
+        "ORDER_SEARCH": "What order are you looking for?",
+        "MANAGE_ORDERS": "Manage Orders",
+        "ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR DEVICE",
+        "ORDER_NEW_DEVICE": "ORDER NEW DEVICE",
+        "RETURN_SUPPLIES": "RETURN SUPPLIES",
+        "ORDER_SUPPLIES_CATALOG": "ORDER FROM SUPPLIES CATALOG",
+        "ALL_ORDERS_W_TOTALS": "All orders ({{total}} total orders)",
+        "DEVICE_ORDERS_W_TOTALS": "Device orders ({{total}} total orders)",
+        "SUPPLY_ORDERS_W_TOTALS": "Supply orders ({{total}} total orders)",
+        "ALL_ORDERS": "All orders",
+        "DEVICE_ORDERS": "Device orders",
+        "SUPPLY_ORDERS": "Supply orders",
+        "ALL_DEVICE_ORDERS": "All device orders",
+        "ALL_SUPPLY_ORDERS": "All supply orders",
+        "DATE_TIME_CREATED": "Date/Time Created",
+        "ORDER_TYPE": "Order Type",
+        "TRACKING_NUMBER": "Tracking #",
+        "PART_NO": "Part No.",
+        "PO": "PO"
     },
 
     "PAGE_COUNT_TYPE": {
@@ -1912,7 +1930,7 @@
         "WITH_PARTS": "With Parts"
     },
 
-    "INVOICE": {
+      "INVOICE": {
         "TITLE": "Invoices",
         "TITLE_CNT": "{{status}} Invoices ({{total}})",
         "ALL_INVOICES": "All Invoices",
