@@ -21,7 +21,7 @@ define(['angular', 'report'], function(angular) {
                 newRoute = Reports.route + '/' + Reports.item.id + '/results';
 
                 if ($location.path() === newRoute) {
-                    //$route.reload();
+                    $route.reload();
                 } else {
                     $location.path(newRoute);
                 }
