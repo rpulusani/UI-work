@@ -77,7 +77,14 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             {'name': $translate.instant('ADDRESS.DISTRICT'), 'field': '_embedded.sourceAddress.district', visible: false},
                             {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': '_embedded.sourceAddress.country', visible: false},
                             {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '_embedded.sourceAddress.postalCode', visible: false}
-                        ]
+                        ],
+                        singleAssetOrderSet:[
+                            {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                            {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber'},
+                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                            {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'}
+                        ],
                     },
 
                     functionArray: [

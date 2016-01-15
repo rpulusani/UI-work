@@ -52,16 +52,6 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                  });
             });
 
-            describe('ContactController', function() {
-                describe('cancel', function() {
-                    it('should redirect to overall contact listing', function() {
-                        spyOn(location, 'path').and.returnValue('/');
-                        scope.contacts.cancel();
-                        expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/');
-                    });
-                });
-            });
-
             describe('Routes', function(){
                 it('should map routes to controllers', function() {
                     inject(function($route) {

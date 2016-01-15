@@ -21,15 +21,46 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
                         {name: $translate.instant('LABEL.COST_CENTER'), field:'costCenter', visible: false},
                         {name: $translate.instant('CONTACT.FIRST_NAME'), field:'_embedded.contact.firstName', visible: false},
-                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false}
+                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false, minWidth: 500}
                     ]
                 },
                 route: '/service_requests/contacts',
                 needsToVerify: false, // if verify directive needs to be displayed
+                createSRFromContact: function(contact, srType) {
+                    var sr = {
+                        id: '',
+                        type: '',
+                        _links: {
+                            account: {
+                              href: ''
+                            },
+                            primaryContact: {
+                              href: ''
+                            },
+                            requester: {
+                              href: ''
+                            }
+                        }
+                    };
+
+                    if (!contact && this.item) {
+                        contact = this.item;
+                    }
+
+                    if (!srType) {
+                        srType = 'DATA_CONTACT_REMOVE';
+                        sr.type = srType;
+                    }
+
+                    sr._links.account = $rootScope.currentUser.accounts.url;
+                    sr._links.primaryContact = this.url + '/' + this.item.id;
+                    sr._links.requester = this.url + '/' + this.item.id;
+
+                    return sr;
+                },
                 goToCreate: function() {
+                    this.wasSaved = false;
                     this.item = this.getModel();
-                    this.updated = false;
-                    this.saved = false;
 
                     $location.path(this.route + '/new');
                 },
@@ -37,26 +68,26 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     if (contact) {
                         this.setItem(contact);
                     }
-                    
+
                     window.scrollTo(0,0)
 
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
                 goToList: function() {
-                    Contacts.saved = false;
-                    Contacts.updated = false;
+                    this.wasSaved = false;
+                    this.submitedSR = false;
 
                     $location.path(this.route + '/');
+                },
+                goToReview: function(contact) {
+                    if (contact) {
+                        this.setItem(contact);
+                    }
+             
+                    $location.path(this.route + '/' + contact.id + '/review');
                 },
                 goToDelete: function(contact) {
-                    if (!contact) {
-                        contact = Contacts.item;
-                    }
-
-                    $location.path(this.route + '/' + contact.id + '/delete');
-                },
-                cancel: function() {
-                    $location.path(this.route + '/');
+                    $location.path(this.route + '/' + this.item.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
                     this.get({

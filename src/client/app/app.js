@@ -45,7 +45,6 @@ define([
     'deviceManagement.deviceFactory',
     'deviceManagement.productModelFactory',
     'deviceManagement.meterReadFactory',
-    'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
     'deviceManagement.directives',
     'deviceServiceRequest',
@@ -57,6 +56,12 @@ define([
     'deviceServiceRequest.directives',
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
+    'library',
+    'library.libraryListController',
+    'library.libraryAddController',
+    'library.libraryViewController',
+    'library.libraryFactory',
+    'library.directives',
     'invoice',
     'invoice.invoiceController',
     'invoice.invoiceListController',
@@ -112,6 +117,7 @@ define([
         'mps.report',
         'mps.invoice',
         'mps.deviceManagement',
+        'mps.library',
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
@@ -150,9 +156,13 @@ define([
     .constant('serviceUrl', config.portal.serviceUrl)
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
+    .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
+        },
+        lbs:{
+            view: 'LBS_ENABLED'
         },
         userManagement: {
             impersonate: 'IMPERSONATE_VIEW',
@@ -248,8 +258,19 @@ define([
         var security = new SecurityService();
         var configurePermissions = [
             {
+                name: 'documentLibraryAccess',
+                permission: [
+                    permissionSet.contentManagement.viewNonstrategic,
+                    permissionSet.contentManagement.viewStrategic
+                ]
+            },
+            {
                 name: 'deviceInfoAccess',
                 permission: permissionSet.deviceManagement.view
+            },
+            {
+                name:'lbsAccess',
+                permission: permissionSet.lbs.view
             },
             {
                 name: 'deviceView',

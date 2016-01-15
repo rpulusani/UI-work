@@ -20,6 +20,11 @@ define([
                     self.icon = item.icon;
                     self.target = item.target;
                     self.tags = item.tags;
+                    if(item.newWindow){
+                        self.window = "_blank";
+                    }else{
+                        self.window = "";
+                    }
                     self.permissionFlag = $rootScope[item.permissionFlag] = false;
                     var security = new SecurityService();
                     $q.all(security.requests).then(function(){
