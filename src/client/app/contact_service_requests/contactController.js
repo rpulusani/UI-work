@@ -130,14 +130,18 @@ define(['angular', 'contact'], function(angular) {
                 },
 
                 $scope.saveContact = function(contactForm) {
-                    $scope.enteredAddress = {
-                        country: contactForm.country.$modelValue,
-                        addressLine1: contactForm.addressLine1.$modelValue,
-                        postalCode: contactForm.zipCode.$modelValue,
-                        city: contactForm.city.$modelValue
-                    };
+                    if (!$scope.enteredAddress) {
+             
+                    }
 
                     if (Contacts.item && Contacts.item.id) {
+                        $scope.enteredAddress = {
+                            country: contactForm.country.$modelValue,
+                            addressLine1: contactForm.addressLine1.$modelValue,
+                            postalCode: contactForm.zipCode.$modelValue,
+                            city: contactForm.city.$modelValue
+                        };
+
                         Contacts.wasSaved = false;
                         Contacts.item.postURL = Contacts.url + '/' + Contacts.item.id;
 
@@ -178,8 +182,17 @@ define(['angular', 'contact'], function(angular) {
                         Contacts.item.lastName = contactForm.lastName.$modelValue;
                         Contacts.item.email = contactForm.email.$modelValue;
                         Contacts.item.workPhone = contactForm.workPhone.$modelValue;
+                        
+                        $scope.updated = false;
 
                         if ($scope.canSave === false) {
+                            $scope.enteredAddress = {
+                                country: contactForm.country.$modelValue,
+                                addressLine1: contactForm.addressLine1.$modelValue,
+                                postalCode: contactForm.zipCode.$modelValue,
+                                city: contactForm.city.$modelValue
+                            };
+
                             Contacts.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
                                 if (statusCode === 200) {
                                     $scope.comparisonAddress = bodsData;
