@@ -34,13 +34,12 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
             templateUrl: '/app/users/templates/user-list.html',
             controller: 'UsersController',
             link: function(scope, el, attr){
-                    require(['lxk.fef'], function() {
+                require(['lxk.fef'], function() {
                     var $ = require('jquery'),
-                        sets = $(el).find("[data-js=tab]");
+                        sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                     sets.each(function(i,set){
-                        $(set).set({
-                        });
-                    });            
+                        $(set).set({});
+                    });
                 });
             }
         };
