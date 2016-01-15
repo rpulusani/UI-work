@@ -4,17 +4,12 @@ define(['angular', 'library'], function(angular) {
     .controller('LibraryListController', ['$scope', '$location', '$translate', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FilterSearchService',
         function($scope, $location, $translate, Documents, Grid, $rootScope, Personalize, FilterSearchService) {
 
-            $rootScope.currentRowList = [];
-            $scope.visibleColumns = [];
-
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
 
-
             var filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal);
-            filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'}, false);
 
             Documents.getPage().then(function() {
                 Grid.display(Documents, $scope, personal, false, function() {
