@@ -13,7 +13,9 @@
 	</div>
 	<div class="set__content" id="orderTab"
 		ng-if="openOrderAccess">
-		<div order-list ng-if="isActive('orderTab');"></div>
+		<div ng-if="isActive('orderTab');">
+			<div supplies-accessory-order></div>
+		</div>
 	</div>
 
 	<div class="set__trigger" data-toggle="requestTab" ng-click="onClickTb('requestTab')"
