@@ -108,6 +108,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 
                 if (!columns[i].width && !columns[i].minWidth) {
                     columns[i].minWidth = columns[i].name.length * 15;
+                   
+                    if (columns[i].minWidth < 120) {
+                        columns[i].minWidth = 120;
+                    }
                 }
             }
 
@@ -124,6 +128,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             } else {
                 newHeight = 46 + (31 * size);
             }
+
+
+            angular.element(document.getElementsByClassName('grid-wrapper')[0]).css('height', (newHeight + 70) + 'px' );
+         
 
             if (service.gridName) {
                 serviceId = service.gridName;
