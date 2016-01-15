@@ -51,12 +51,12 @@ define(['angular', 'angular-mocks', 'library'], function(angular, mocks, library
               })
           );
 
-          describe('addNewDocument', function() {
+          describe('goToNew', function() {
               it('should direct the user to upload a new document', function() {
                   spyOn(location, 'path').and.returnValue('/');
 
-                  scope.addNewDocument();
-                  expect(location.path).toHaveBeenCalledWith('/library/add');
+                  scope.goToNew();
+                  expect(location.path).toHaveBeenCalledWith('/library/new');
               });
           });
       });
