@@ -721,7 +721,7 @@
 
         "DASHBOARD": {
             "TITLE": "Dashboard",
-            "ROLLUP_REQUESTS_TITLE": "Requests For service (B/F)",
+            "ROLLUP_REQUESTS_TITLE": "Requests for service (B/F)",
             "ROLLUP_ORDERS_TITLE": "Orders",
             "ROLLUP_MADC_TITLE": "MADC Requests",
             "SEARCH_FOR_DEVICE": "Search for a device",
