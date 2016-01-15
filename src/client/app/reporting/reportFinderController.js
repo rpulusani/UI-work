@@ -10,7 +10,7 @@ define(['angular', 'report'], function(angular) {
             $scope.runReport = function(report) {
                 var newRoute = '';
 
-               $scope.finder = Reports.finder;
+                Reports.finder = $scope.finder;
 
                 if (Reports.finder.selectType === $translate.instant('LABEL.SELECT')) {
                     Reports.finder.selectType = '';
