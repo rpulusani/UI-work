@@ -12,7 +12,7 @@ define(['angular'], function(angular) {
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'
             })
-            .when('/service_requests/devices/:id/receipt', {
+            .when('/service_requests/contacts/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'
