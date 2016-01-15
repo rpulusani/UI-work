@@ -130,14 +130,18 @@ define(['angular', 'contact'], function(angular) {
                 },
 
                 $scope.saveContact = function(contactForm) {
-                    $scope.enteredAddress = {
-                        country: contactForm.country.$modelValue,
-                        addressLine1: contactForm.addressLine1.$modelValue,
-                        postalCode: contactForm.zipCode.$modelValue,
-                        city: contactForm.city.$modelValue
-                    };
+                    if (!$scope.enteredAddress) {
+             
+                    }
 
                     if (Contacts.item && Contacts.item.id) {
+                        $scope.enteredAddress = {
+                            country: contactForm.country.$modelValue,
+                            addressLine1: contactForm.addressLine1.$modelValue,
+                            postalCode: contactForm.zipCode.$modelValue,
+                            city: contactForm.city.$modelValue
+                        };
+
                         Contacts.wasSaved = false;
                         Contacts.item.postURL = Contacts.url + '/' + Contacts.item.id;
 
@@ -180,6 +184,13 @@ define(['angular', 'contact'], function(angular) {
                         Contacts.item.workPhone = contactForm.workPhone.$modelValue;
 
                         if ($scope.canSave === false) {
+                            $scope.enteredAddress = {
+                                country: contactForm.country.$modelValue,
+                                addressLine1: contactForm.addressLine1.$modelValue,
+                                postalCode: contactForm.zipCode.$modelValue,
+                                city: contactForm.city.$modelValue
+                            };
+
                             Contacts.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
                                 if (statusCode === 200) {
                                     $scope.comparisonAddress = bodsData;
