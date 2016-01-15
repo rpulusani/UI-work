@@ -21,7 +21,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
                         {name: $translate.instant('LABEL.COST_CENTER'), field:'costCenter', visible: false},
                         {name: $translate.instant('CONTACT.FIRST_NAME'), field:'_embedded.contact.firstName', visible: false},
-                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false}
+                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false, minWidth: 500}
                     ]
                 },
                 route: '/service_requests/contacts',

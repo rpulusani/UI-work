@@ -416,6 +416,7 @@ p.info-list .item-name:after {
   border: none;
   min-height: 655px;
   font-size: 9pt;
+  padding-bottom: 30px;
 }
 .table .ui-grid-header-cell:first-child {
   border-left: 1px solid #a5a5aa;

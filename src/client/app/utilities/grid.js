@@ -105,6 +105,14 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
                 columns[i].enableColumnMenu = enableColumnMenu;
+                
+                if (!columns[i].width && !columns[i].minWidth) {
+                    columns[i].minWidth = columns[i].name.length * 15;
+                   
+                    if (columns[i].minWidth < 120) {
+                        columns[i].minWidth = 120;
+                    }
+                }
             }
 
             return columns;
@@ -134,7 +142,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
-            scope.gridOptions.gridCss = 'table';
+           // scope.gridOptions.gridCss = 'table';
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
@@ -161,6 +169,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     cellClass: 'bookmark'
                 });
             }
+
+
 
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
