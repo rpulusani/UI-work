@@ -92,7 +92,6 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             if (removeParams) {
                                 self.clearParameters(removeParams);
                             }
-
                             var promise = self.service.getPage(0, 20, options);
 
                             promise.then(function() {

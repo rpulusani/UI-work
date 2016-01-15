@@ -45,7 +45,6 @@ define([
     'deviceManagement.deviceFactory',
     'deviceManagement.productModelFactory',
     'deviceManagement.meterReadFactory',
-    'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
     'deviceManagement.directives',
     'deviceServiceRequest',
