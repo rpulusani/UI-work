@@ -15,6 +15,10 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 return calculatedSize;
             };
 
+            $scope.getFormatDate = function(date) {
+                return FormatterService.formatDate(date);
+            };
+
             $scope.getOwner = function(email) {
                 var currentUserEmail = $rootScope.idpUser.email;
                 if (email === currentUserEmail) {

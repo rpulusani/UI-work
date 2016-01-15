@@ -41,11 +41,11 @@
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_PUBLISHED"></div>
-                    <div class="info-list__item-value" ng-bind="documentItem.published"></div>
+                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.published)"></div>
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_EXPIRES"></div>
-                    <div class="info-list__item-value" ng-bind="documentItem.expires"></div>
+                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.expires)"></div>
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_OWNER"></div>
