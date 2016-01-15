@@ -28,7 +28,8 @@
   },
   {
     "id": "4",
-    "action": "http://venus-beta-lbs.lexmark.com",
+    "action": "//venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
+    "target": "_blank",
     "text": "NAVIGATION.LBS",
     "description": "Location Base Services",
     "icon": "icon icon-mps-lbs_map",
@@ -121,7 +122,7 @@
   },
   {
     "id": "14",
-    "action": "#FAQ",
+    "action": "/faq",
     "text": "FAQ",
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",

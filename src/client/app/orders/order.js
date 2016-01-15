@@ -8,6 +8,10 @@ define(['angular'], function(angular) {
             controller: 'OrderTabController',
             activeItem: '/orders'
         })
+        .when('/orders/learn_more', {
+            templateUrl: '/app/orders/templates/learn-more.html',
+            activeItem: '/orders'
+        })
         .when('/orders/create_asset_supplies', {
             templateUrl: '/app/orders/templates/create-asset-supplies.html',
             activeItem: '/orders'

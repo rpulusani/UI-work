@@ -1412,7 +1412,9 @@
             "LIKE_TO": "Would you like to {{addItem}}",
             "NO_IMAGE_FOUND": "No Image Found",
             "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
-            "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+            "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "FAQ": "FAQ Page is coming soon",
+            "LEARN_MORE": "Learn More Page is coming soon"
         },
 
     "INVOICE": {
