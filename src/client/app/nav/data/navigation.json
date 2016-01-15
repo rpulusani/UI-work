@@ -134,13 +134,5 @@
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
-  },
-  {
-    "id": "16",
-    "action": "#contact",
-    "text": "Contact Lexmark",
-    "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
-    "tags": ["footer"]
   }
 ]
