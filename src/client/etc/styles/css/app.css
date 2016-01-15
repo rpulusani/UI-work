@@ -529,6 +529,7 @@ p.info-list .item-name:after {
 }
 .columnpicker__menu {
   border: 1px solid #000000;
+  margin-bottom: 10px;
 }
 @media only screen and (min-width: 54em) {
   .columnpicker__menu {
