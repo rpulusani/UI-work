@@ -538,7 +538,9 @@
         "SAVE_MSG": " has been added as a contact! You can update their details below.",
         "UPDATE_MSG": " has been saved! You can update their details below.",
         "EDIT_INFO": "Edit address information",
-        "SR_UPDATE": "SUBMIT UPDATE CONTACT REQUEST"
+        "SR_UPDATE": "SUBMIT UPDATE CONTACT REQUEST",
+        "SR_DELETE_SUBMITTED": "Update Contact Request Submitted",
+        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}"
     },
 
         "DEVICE_SERVICE_REQUEST": {

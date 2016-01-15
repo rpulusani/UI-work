@@ -26,6 +26,38 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 route: '/service_requests/contacts',
                 needsToVerify: false, // if verify directive needs to be displayed
+                createSRFromContact: function(contact, srType) {
+                    var sr = {
+                        id: '',
+                        type: '',
+                        _links: {
+                            account: {
+                              href: ''
+                            },
+                            primaryContact: {
+                              href: ''
+                            },
+                            requester: {
+                              href: ''
+                            }
+                        }
+                    };
+
+                    if (!contact && this.item) {
+                        contact = this.item;
+                    }
+
+                    if (!srType) {
+                        srType = 'DATA_CONTACT_REMOVE';
+                        sr.type = srType;
+                    }
+
+                    sr._links.account = $rootScope.currentUser.accounts.url;
+                    sr._links.primaryContact = this.url + '/' + this.item.id;
+                    sr._links.requester = this.url + '/' + this.item.id;
+
+                    return sr;
+                },
                 goToCreate: function() {
                     this.wasSaved = false;
                     this.item = this.getModel();
@@ -43,6 +75,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 goToList: function() {
                     this.wasSaved = false;
+                    this.submitedSR = false;
 
                     $location.path(this.route + '/');
                 },
@@ -50,14 +83,10 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     if (contact) {
                         this.setItem(contact);
                     }
-                    
+             
                     $location.path(this.route + '/' + contact.id + '/review');
                 },
                 goToDelete: function(contact) {
-                    if (contact) {
-                        this.setItem(contact);
-                    }
-                    
                     $location.path(this.route + '/' + this.item.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
