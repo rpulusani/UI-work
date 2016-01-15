@@ -12,8 +12,7 @@ define(['angular', 'contact'], function(angular) {
 
             $scope.contacts = Contacts;
 
-            if (1 > 2) {
-            //if (Contacts.item === null) {
+            if (Contacts.item === null) {
                 Contacts.goToList();
             } else {
                 if (Contacts.wasSaved) {
