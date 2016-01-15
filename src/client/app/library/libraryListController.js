@@ -10,22 +10,40 @@ define(['angular', 'library'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
 
             Documents.getPage().then(function() {
-
                 Grid.display(Documents, $scope, personal);
 
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Documents.serviceName +  ' reason: ' + reason);
             });
 
-            $scope.addNewDocument = function() {
-                $location.path(Documents.route + '/add');
+            $scope.goToNew = function() {
+                Documents.item = {};
+                $location.path(Documents.route + '/new');
             };
 
             $scope.goToView = function(documentItem) {
-                documentItem.id = '1-ABCDEF';
+                var selfHrefArr = documentItem._links.self.href.split('/');
+                var documentId = selfHrefArr.pop();
+
+                documentItem.id = documentId;
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/view');
+            };
+
+            $scope.goToUpdate = function(documentItem) {
+                var selfHrefArr = documentItem._links.self.href.split('/');
+                var documentId = selfHrefArr.pop();
+
+                documentItem.id = documentId;
+                Documents.setItem(documentItem);
+
+                $location.path(Documents.route + '/' + documentItem.id + '/update');
+            };
+
+            $scope.goToDelete = function(documentItem) {
+                Documents.setItem(documentItem);
+
             };
         }
     ]);

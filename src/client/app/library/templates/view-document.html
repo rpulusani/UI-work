@@ -13,7 +13,7 @@
             
             <span class="">
                 <i class="icon icon--mps icon--download"></i>
-                <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold"></a>
+                <a translate="LABEL.EXPORT" ng-href="{{documentItem.download.url}}" ng-click="goToDownload(documentItem);" class="text--small text--semi-bold"></a>
             </span>
         </div>
 
@@ -60,7 +60,6 @@
             <button type="button" class="btn btn--default" href=""
                 ng-click="goToUpdate()" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.BTN_EDIT_DOCUMENT"></button>
             <button type="button" class="btn btn--default" href=""
-
                 ng-click="goToDelete()" translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT"></button>
         </div>
 

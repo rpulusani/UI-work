@@ -10,9 +10,13 @@ define(['angular'], function(angular) {
             templateUrl: '/app/library/templates/view-document.html',
             controller: 'LibraryViewController'
         })
-        .when('/library/add', {
-            templateUrl: '/app/library/templates/add.html',
-            controller: 'LibraryAddController'
+        .when('/library/:id/update', {
+            templateUrl: '/app/library/templates/update-document.html',
+            controller: 'LibraryUpdateController'
+        })
+        .when('/library/new', {
+            templateUrl: '/app/library/templates/new-document.html',
+            controller: 'LibraryNewController'
         });
     }]);
 });
