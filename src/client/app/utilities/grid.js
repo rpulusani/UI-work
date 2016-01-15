@@ -105,10 +105,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
                 columns[i].enableColumnMenu = enableColumnMenu;
-                
+
                 if (!columns[i].width && !columns[i].minWidth) {
                     columns[i].minWidth = columns[i].name.length * 15;
-                   
+
                     if (columns[i].minWidth < 120) {
                         columns[i].minWidth = 120;
                     }
@@ -124,7 +124,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             newHeight = '';
 
             if (rowHeight) {
-                newHeight = 46 + (parseInt(rowHeight) + 1) * size;
+                newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
             } else {
                 newHeight = 46 + (31 * size);
             }
@@ -149,6 +149,12 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.enableHorizontalScrollbar = 0;
             scope.gridOptions.enableVerticalScrollbar = 0;
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            //printing Options
+            scope.gridOptions.exporterPdfDefaultStyle = {fontSize: 9};
+            scope.gridOptions.exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
+            scope.gridOptions.exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
+            scope.gridOptions.exporterPdfPageSize = 'LETTER';
+            scope.gridOptions.exporterPdfMaxGridWidth = 500;
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
@@ -166,7 +172,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     enableSorting: false,
                     cellTemplate: '<i class="icon icon--ui icon--not-favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,
-                    cellClass: 'bookmark'
+                    cellClass: 'bookmark',
+                    exporterSuppressExport: true
                 });
             }
 
