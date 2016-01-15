@@ -5,11 +5,11 @@
 
 <p translate="{{currentDeviceTitle}}"></p>
 
-<div class="well">
+<div class="well" ng-if="!singleDeviceSelection">
 	<div ng-show="prevDevice">
         <div class="media">
             <div class="media__visual">
-                <img ng-src="{{prevDevice.medImage}}" ng-show="prevDevice.medImage" 
+                <img ng-src="{{prevDevice.medImage}}" ng-show="prevDevice.medImage"
                     alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
             </div>
             <div class="media__body">
@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<h3 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
+<h3  ng-show="(pagination.totalItems() !== -1 && pagination.totalItems() !== undefined) && !singleDeviceSelection"
     translate="DEVICE_MGT.DEVICES_COUNT_MSG" translate-values="{count: pagination.totalItems(), address: formattedSingleLineAddress}">
 </h3>
 
@@ -78,7 +78,7 @@
 
 <div class="col-2-3"></div>
 <div class="col-1">
-    <button class="btn btn--secondary" translate="DEVICE_MGT.DISCARD_DEVICE_REMOVAL_CHANGES" ng-click="discardSelect()"></button>
-    <button class="btn btn--primary" translate="DEVICE_MGT.CHANGE_DEVICE_TO_BE_REMOVED" 
+    <button class="btn btn--secondary" translate="{{abandonText}}" ng-click="discardSelect()"></button>
+    <button class="btn btn--primary" translate="{{submitText}}"
             ng-click="goToCallingPage()"></button>
 </div>

@@ -1,13 +1,6 @@
 <div class="page-header">
     <h1 translate="REQUEST_MGMT.TITLE"></h1>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="#">Learn more about requests</a></p>
-
-    <div class="btns">
-        <button class="btn btn--default" ng-click="serviceRequestOverview()" translate="REQUEST_MGMT.CREATE_NEW_REQUEST"></button>
-    </div>
+    <p>{{'MESSAGE.LIPSUM' | translate}} <a href="/service_requests/learn_more">Learn more about requests</a></p>
+    <div  sr-action-buttons></div>
 </div>
-
-<div class="page-content">
-    <div service-request-tabs></div>
-</div>
+<div  class = "page-tabs" service-request-tabs></div>

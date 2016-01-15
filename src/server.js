@@ -766,7 +766,10 @@ router.all('/*', function(req, res, next) {
         config: JSON.stringify({
             idp: { serviceUrl: process.env.IDP_SERVICE_URL,
                    clientId: process.env.IDP_CLIENT_ID },
-            portal: { serviceUrl: process.env.PORTAL_API_URL }
+            portal: { serviceUrl: process.env.PORTAL_API_URL,
+                      imageNowSecret: process.env.IMAGE_NOW_SECRET,
+                      imageNowUrl: process.env.IMAGE_NOW_URL,
+                      lbsUrl: process.env.LBS_URL  }
         })
     });
 });

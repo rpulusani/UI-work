@@ -1,25 +1,67 @@
-define(['angular', 'address'], function(angular) {
+define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressController', ['$scope', '$location', '$routeParams', 'Addresses',
-        '$rootScope', '$q', 'translationPlaceHolder', 'allowMakeChange',
-        function($scope, $location, $routeParams,  Addresses, $rootScope, $q, translationPlaceHolder,
-         allowMakeChange) {
-            $scope.continueForm = false;
-            $scope.submitForm = false;
-            $scope.translationPlaceHolder = translationPlaceHolder;
-            $scope.allowMakeChange = allowMakeChange;
+    .controller('AddressController', [
+        '$rootScope',
+        '$scope',
+        '$location',
+        '$routeParams',
+        'Addresses',
+        'ServiceRequestService',
+        'AccountService',
+        '$q',
+        'translationPlaceHolder',
+        'allowMakeChange',
+        'SRControllerHelperService',
+        'BlankCheck',
+        'UserService',
+        'SecurityHelper',
+        function(
+            $rootScope,
+            $scope,
+            $location,
+            $routeParams,
+            Addresses,
+            ServiceRequestService,
+            Account,
+            $q,
+            translationPlaceHolder,
+            allowMakeChange,
+            SRHelper,
+            BlankCheck,
+            User,
+            SecurityHelper) {
 
-            if ($routeParams.id) { //doing work on a current address
-                var promise = Addresses.getSelfResource($routeParams.id);
-                $q.when(promise,
-                    function(item){
-                        $scope.address = item;
-                    }
-                );
-            } else { //doing work on a new address
-                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
+            new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
+
+            var redirect_to_list = function() {
+               $location.path(Addresses.route + '/');
+            };
+
+            $scope.translationPlaceHolder = translationPlaceHolder;
+            //$scope.continueForm = false;
+            //$scope.submitForm = false;
+            //$scope.allowMakeChange = allowMakeChange;
+            
+            SRHelper.addMethods(Addresses, $scope, $rootScope);
+
+            if (Addresses.item === null) {
+                redirect_to_list();
             }
+            if(!$routeParams.id){
+                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
+            }else{
+                $scope.address = Addresses.item;
+            }
+
+            var configureSR = function(ServiceRequest){
+                    ServiceRequest.addRelationship('account', $scope.address);
+                    ServiceRequest.addRelationship('address', $scope.address, 'self');
+                    ServiceRequest.addRelationship('primaryContact', $scope.address, 'contact');
+
+                    ServiceRequest.addField('type', 'DATA_ADDRESS_CHANGE'); //could be DATA_ADDRESS_ADD or DATA_ADDRESS_REMOVE
+            };
+
 
             $scope.contact = {}; //set current user
 
@@ -69,6 +111,7 @@ define(['angular', 'address'], function(angular) {
             $scope.cancel = function() {
                 $location.path('/service_requests/addresses');
             };
+
 
 
     }]);

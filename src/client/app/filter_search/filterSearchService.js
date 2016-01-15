@@ -8,8 +8,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
             display,
             failure,
             columnSet,
-            personalization;
-            var FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet){
+            personalization,
+
+            FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight){
                 if(!serviceDefinition){
                     throw new Error('Service Definition is Required!');
                 }
@@ -27,11 +28,25 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope = scope;
                 this.columnSet = columnSet;
                 this.personalization = personalization;
-                this.display =  function(fn){
+                this.display = function(fn) {
+
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
-                    Grid.display(self.service, self.localScope, self.personalization);
+
+                    if (rowHeight) {
+                        Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
+                            if (typeof fn === 'function') {
+                                return fn(Grid);
+                            }
+                        });
+                    } else {
+                        Grid.display(self.service, self.localScope, self.personalization, false, function() {
+                            if (typeof fn === 'function') {
+                                return fn(Grid);
+                            }
+                        });
+                    }
                 };
                 this.failure = function(reason){
                     NREUM.noticeError('Grid Load Failed for ' + self.service.serviceName +  ' reason: ' + reason);
@@ -51,12 +66,14 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope.filterOptions = [];
                 this.localScope.visibleColumns =  Grid.getVisibleColumns(this.service); //sets initial columns visibility
                 this.localScope.gridOptions = {};
+                if (rowHeight) {
+                    this.localScope.gridOptions.rowHeight = rowHeight;
+                }
                 this.localScope.gridOptions.onRegisterApi = Grid.getGridActions(rootScope,
                         this.service, this.personalization);
-
             };
 
-            FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams, fn) {
+            FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams, removeParams, fn) {
                 if(!displayText){
                     throw new Error('DisplayText is required');
                 }
@@ -72,20 +89,23 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
 
                             angular.extend(options.params, params);
+                            if (removeParams) {
+                                self.clearParameters(removeParams);
+                            }
                             var promise = self.service.getPage(0, 20, options);
-                            promise.then(self.display, self.failure).then(function() {
-                                if (typeof fn === 'function') {
-                                    return fn();
-                                }
-                            });
 
+                            promise.then(function() {
+                                self.display(fn);
+                            }, self.failure);
                     },
                     params: self.localScope.optionParams
                 };
+
+                self.display();
                 self.localScope.filterOptions.push(filter);
             };
 
-            FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams){
+            FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams, fn){
                 if(!displayText){
                     throw new Error('DisplayText is required');
                 }
@@ -106,7 +126,10 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             angular.extend(options.params, params);
 
                             var promise = self.service.getPage(0, 20, options);
-                            promise.then(self.display, self.failure);
+                            
+                            promise.then(function() {
+                                self.display(fn);
+                            }, self.failure);
                         },
                         params: self.localScope.optionParams
                 };
@@ -122,7 +145,6 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 }
             };
 
-         return FilterSearchService;
-
+            return FilterSearchService;
     }]);
 });

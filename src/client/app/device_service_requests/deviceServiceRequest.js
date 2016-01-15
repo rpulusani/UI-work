@@ -33,6 +33,11 @@ define(['angular'], function(angular) {
                 controller: 'DeviceSearchController',
                 activeItem: '/device_management'
             })
+            .when('/service_requests/devices/picker', {
+                templateUrl: '/app/device_service_requests/templates/device-picker.html',
+                controller: 'DeviceServiceRequestDeviceController',
+                activeItem: '/device_management'
+            })
             .when('/service_requests/devices/:id/view', {
                 templateUrl: '/app/device_service_requests/templates/view-breakfix.html',
                 controller: 'DeviceServiceRequestDeviceController',
@@ -82,7 +87,7 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/device_service_requests/templates/review.html',
                 controller: 'DeviceReviewController',
                 activeItem: '/device_management'
-            })
+            });
         }
     ]);
 });

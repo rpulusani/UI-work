@@ -1,28 +1,72 @@
+<div class="page-header">
+    <div class="col-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li translate="CONTACT.TITLE"></li>
+        </ul>
+    </div>
+
+    <div class="col-lg-2-3 col-md-1">
+        <h1 translate="CONTACT.LIST_TITLE"></h1>
+
+        <p class="vertical-space--none" translate="MESSAGE.LIPSUM"></p>
+        <a href="/service_requests/learn_more" translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></a>
+        <div class="l-pad-top">
+            <button type="button" class="btn btn--default" href="" ng-click="contacts.goToCreate()"
+            translate="CONTACT_SERVICE_REQUEST.ADD"></button>
+        </div>
+    </div>
+</div>
+
 <div class="page-content">
-    <div class="row row--alley-2">
-        <div class="col-1">
-            <h1 translate="CONTACT_SERVICE_REQUEST.TITLE"></h1>
-            <h2 translate="CONTACT.TITLE"></h2>
-            <h3>Pets At Home / Pets At Home_MSA2010_MPS-UK</h3>
-
-            <ul>
-                <li>
-                    <a title="{{ CONTACT_SERVICE_REQUEST.ADD | translate }}" href="" ng-click="goToCreate()"
-                       translate="CONTACT_SERVICE_REQUEST.ADD"></a>
-                </li>
-            </ul>
-
-            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
-                translate="CONTACT.BOOK" translate-values="{total: pagination.totalItems()}">
-            </h2>
-            
-            <hr />
+    <div>
+        <div class="col-2-3">
+            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+                translate="CONTACT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
         </div>
-        
-        <div class="col-1">
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
 
-            <div pagination grid="{{gridOptions}}"></div>
+        <div class="print-export">
+            <span class="">
+                <i class="icon icon--mps icon--print"></i>
+                <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="print()"></a>
+            </span>
+
+            <span class="">
+                <i class="icon icon--mps icon--download"></i>
+                <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="export()"></a>
+            </span>
         </div>
+
+        <hr />
+    </div>
+
+    <div class="row l-pad-bottom">
+        <div class="col-1">
+            <span class="text--semi-bold" translate="CONTACT.FILTER_LABEL"></span>
+            <div grid-filter options="filterOptions" params="optionParams"></div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="searchDevice">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
+        </div>
+
+        <div class="col-1-8 l-alley-before-thick">
+            <div columnpicker></div>
+        </div>
+    </div>
+
+    <div class="col-lg-2-3 col-md-1-1">
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
+            translate="CONTACT_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
+            translate="CONTACT_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
+    </div>
+
+    <div class="col-1">
+        <div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+
+        <div pagination grid="{{gridOptions}}"></div>
     </div>
 </div>

@@ -14,15 +14,21 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             this.serviceInfo = {};
             this.gridOptions = {};
         };
-
+        Grid.prototype.clearGridParamsRootScope = function($rootScope){
+            $rootScope.gridApi = undefined;
+            $rootScope.currentRowList = undefined;
+        };
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
+            var self = this;
             return function( gridApi ) {
+                //self.clearGridParamsRootScope($rootScope);
                 $rootScope.gridApi = gridApi;
                 gridApi.selection.on.rowSelectionChanged($rootScope,
                     function(row){
                         if(row.isSelected){
                             //add if not already there
                             $rootScope.currentRowList.push(row);
+                            $rootScope.currentSelectedRow = row.entity;
                         }else{
                             //find and remove
                             var length = $rootScope.currentRowList.length,
@@ -51,7 +57,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             visibleColumns = [];
 
             for(var i = 0; i < columnList.length; ++i){
-                if( 
+                if(
                  !columnList[i]['notSearchable'] && columnList[i]['field']){
                     visibleColumns.push({ name: columnList[i]['name'], field: columnList[i]['field'] });
                 }
@@ -99,16 +105,29 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             //disabled column menu keep last so that it can not be overridden by personal settings.
             for (i; i < columns.length; i += 1) {
                 columns[i].enableColumnMenu = enableColumnMenu;
+
+                if (!columns[i].width && !columns[i].minWidth) {
+                    columns[i].minWidth = columns[i].name.length * 15;
+
+                    if (columns[i].minWidth < 120) {
+                        columns[i].minWidth = 120;
+                    }
+                }
             }
 
             return columns;
         };
 
-        Grid.prototype.display = function(service, scope, personal) {
+        Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
             var size = service.data.length < service.params.size? service.data.length: service.params.size,
             serviceId = '',
-            newHeight =  46 + (31 * size);
+            newHeight = '';
 
+            if (rowHeight) {
+                newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
+            } else {
+                newHeight = 46 + (31 * size);
+            }
 
             if (service.gridName) {
                 serviceId = service.gridName;
@@ -117,25 +136,31 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             } else {
                 serviceId = service.embeddedName;
             }
-            
+
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
             scope.gridOptions.showGridFooter = false;
             scope.gridOptions.enableRowSelection = true;
             scope.gridOptions.enableSelectAll = true;
-            scope.gridOptions.gridCss = 'table';
+           // scope.gridOptions.gridCss = 'table';
             scope.gridOptions.enableMinHeightCheck = true;
             scope.gridOptions.minRowsToShow = service.params.size;
             scope.gridOptions.virtualizationThreshold = service.params.size;
-            scope.gridOptions.enableHorizontalScrollbar = 0; 
+            scope.gridOptions.enableHorizontalScrollbar = 0;
             scope.gridOptions.enableVerticalScrollbar = 0;
             scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            //printing Options
+            scope.gridOptions.exporterPdfDefaultStyle = {fontSize: 9};
+            scope.gridOptions.exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
+            scope.gridOptions.exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
+            scope.gridOptions.exporterPdfPageSize = 'LETTER';
+            scope.gridOptions.exporterPdfMaxGridWidth = 500;
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                scope.gridOptions.showBookmarkColumn === true) && 
+                scope.gridOptions.showBookmarkColumn === true) &&
                 (!this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
-                
+
                 scope.gridOptions.showBookmarkColumn = true;
                 this.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
@@ -147,10 +172,13 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     enableSorting: false,
                     cellTemplate: '<i class="icon icon--ui icon--not-favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,
-                    cellClass: 'bookmark'
+                    cellClass: 'bookmark',
+                    exporterSuppressExport: true
                 });
             }
-            
+
+
+
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
@@ -166,6 +194,27 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
 
             this.gridOptions = scope.gridOptions;
+
+            // Generalized row selection
+            scope.isSingleSelected = function() {
+                 if (scope.currentRowList.length === 1) {
+                    return true;
+                 } else {
+                    return false;
+                 }
+            };
+
+            scope.isMultipleSelected = function() {
+                if (scope.currentRowList.length > 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
+            if (typeof fn === 'function') {
+                return fn(this);
+            }
         };
 
         Grid.prototype.pagination = function(service, scope, personal) {

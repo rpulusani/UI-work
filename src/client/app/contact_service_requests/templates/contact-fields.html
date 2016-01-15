@@ -1,25 +1,133 @@
-<h4 translate="CONTACT.INFO"></h4>
-<div class="form__field">
+<div class="col-1">
+    <h2 class="vertical-space--none" translate="CONTACT.INFO"></h2>
+    <hr/>
+</div>
+
+<h4 translate="CONTACT_SERVICE_REQUEST.ADD_WHO"></h4>
+<div class="form__field form__field--required">
     <label translate="CONTACT.FIRST_NAME"></label>
-    <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" />
+    <input name="firstName" type="text" ng-model="contacts.item.firstName" value="" class="" required />
 </div>
 <div class="form__field">
     <label translate="CONTACT.MIDDLE_NAME"></label>
-    <input name="middleName" type="text" ng-model="contact.middleName" value="" class="" />
+    <input name="middleName" type="text" ng-model="contacts.item.middleName" value="" class="" />
 </div>
 <div class="form__field">
     <label translate="CONTACT.LAST_NAME"></label>
-    <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" />
+    <input name="lastName" type="text" ng-model="contacts.item.lastName" value="" class="" />
 </div>
-<div class="form__field">
-    <label translate="CONTACT.WORK_PHONE"></label>
-    <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" />
-</div>
-<div class="form__field">
-    <label translate="CONTACT.ALT_PHONE"></label>
-    <input name="alternatePhone" type="text" ng-model="contact.alternatePhone" value="" class="" />
-</div>
-<div class="form__field">
+
+<h4 translate="CONTACT_SERVICE_REQUEST.CONTACT_INFO"></h4>
+<div class="form__field form__field--required">
     <label translate="CONTACT.EMAIL"></label>
-    <input name="email" type="text" ng-model="contact.emailAddress" value="" class="" />
+    <input name="email" type="text" ng-model="contacts.item.emailAddress" value="" class="" required />
+</div>
+<div class="form__field form__field--required">
+    <label translate="CONTACT.WORK_PHONE"></label>
+    <input name="workPhone" type="text" ng-model="contacts.item.workPhone" value="" class="" required />
+</div>
+
+<h4 translate="USER.WHERE"></h4>
+<div ng-if="needToVerify===false">
+    <div class="form__field form__field--select form__field--required">
+        <label translate="ADDRESS.COUNTRY"></label>
+        <div country-selector name="country"></div>
+        <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+            <i class="icon icon--ui icon--error-small"></i>
+            <span translate="LABEL.ERROR_REQUIRED"></span>
+        </span>
+    </div>
+    <div class="form__field form__field--required">
+        <label translate="ADDRESS.LINE_1"></label>
+        <input name="addressLine1" type="text" ng-model="address.addressLine1" required/>
+        <span ng-hide="!newAddress.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+            <i class="icon icon--ui icon--error-small"></i>
+            <span translate="LABEL.ERROR_REQUIRED"></span>
+        </span>
+    </div>
+    <div class="form__field">
+        <label translate="ADDRESS.LINE_2"></label>
+        <input name="addressLine2" type="text" ng-model="contacts.item.address.addressLine2" />
+    </div>
+    <div class="form__field form__field--required">
+        <label translate="ADDRESS.CITY"></label>
+        <input name="city" type="text" ng-model="contacts.item.address.city" required />
+        <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+            <i class="icon icon--ui icon--error-small"></i>
+            <span translate="LABEL.ERROR_REQUIRED"></span>
+        </span>
+    </div>
+    <div class="form__field form__field--select form__field--required">
+        <label translate="ADDRESS.STATE"></label>
+        <div selectric options="country.provinces" value="code" label="name" model="contacts.item.address.state" required
+             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+        <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+            <i class="icon icon--ui icon--error-small"></i>
+            <span translate="LABEL.ERROR_REQUIRED"></span>
+        </span>
+    </div>
+    <div class="row">
+        <div class="col-md-1-3">
+            <div class="form__field form__field--required">
+                <label translate="ADDRESS.ZIP"></label>
+                <input type="text" name="zipCode" ng-model="contacts.item.address.zipCode" value="" class="" required />
+                <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+                    <i class="icon icon--ui icon--error-small"></i>
+                    <span translate="LABEL.ERROR_REQUIRED"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div address-location-fields></div>
+</div>
+
+<div ng-if="needToVerify===true" class="row">
+    <div ng-init="acceptedEnteredAddress=1" class="col-1-2 entered-address l-pad">
+        <h3 translate="ADDRESS.USER_ENTERED"></h3>
+        <input type="radio" ng-model="acceptedEnteredAddress" value="1" />
+        <label for="store-front-question-no">
+            <span></span>
+            {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
+        </label>
+
+        <div class="l-pad-top">
+            <div ng-bind="enteredAddress.addressLine1"></div>
+            <div>
+                <span ng-bind="enteredAddress.city"></span>,
+                <span ng-bind="enteredAddress.state"></span>
+                <span ng-bind="enteredAddress.postalCode"></span>
+            </div>
+            <div ng-bind="enteredAddress.country"></div>
+        </div>
+        <div class="l-pad-top">
+            <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO" href="" title=""></a>
+        </div>
+    </div>
+
+    <div class="col-1-2 found-address l-pad">
+        <h3 translate="ADDRESS.ADDRESS_FOUND"></h3>
+        <input type="radio" ng-model="acceptedEnteredAddress" value="2" />
+        <label for="store-front-question-no">
+            <span></span>
+            {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
+        </label>
+
+        <div class="l-pad-top">
+            <div ng-bind="comparisonAddress.addressLine1"></div>
+            <div>
+                <span ng-bind="comparisonAddress.city"></span>,
+                <span ng-bind="comparisonAddress.state"></span>
+                <span ng-bind="comparisonAddress.postalCode"></span>
+            </div>
+            <div ng-bind="comparisonAddress.country"></div>
+        </div>
+
+        <div class="l-pad-top">
+            <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO"  href="" title=""></a>
+        </div>
+    </div>
+    <div class="col-1 l-pad">
+        <a translate="ADDRESS.ADDRESS_RESET"  href="" title=""></a>
+    </div>
 </div>

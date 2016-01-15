@@ -1,0 +1,69 @@
+<div class="page-content">
+
+    <div>
+        <div class="col-2-3">
+            <h2 translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_VIEWING_DOCUMENT" translate-values="{ fileName: documentItem.name }"></h2>
+        </div>
+
+        <div class="print-export">
+            <span class="">
+                <i class="icon icon--mps icon--print"></i>
+                <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold"></a>
+            </span>
+            
+            <span class="">
+                <i class="icon icon--mps icon--download"></i>
+                <a translate="LABEL.EXPORT" ng-href="{{documentItem.download.url}}" ng-click="goToDownload(documentItem);" class="text--small text--semi-bold"></a>
+            </span>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-2-3">
+
+            <ul class="info-list text--small">
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_NAME"></div>
+                    <div class="info-list__item-value" ng-bind="documentItem.name"></div>
+                </li>
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION"></div>
+                    <div class="info-list__item-value" ng-bind="documentItem.description"></div>
+                </li>
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_TAGS"></div>
+                    <div class="info-list__item-value" ng-bind="documentItem.tagNames"></div>
+                </li>
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_SIZE"></div>
+                    <div class="info-list__item-value" ng-bind="getFileSize(documentItem.size)"></div>
+                </li>
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_PUBLISHED"></div>
+                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.published)"></div>
+                </li>
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_EXPIRES"></div>
+                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.expires)"></div>
+                </li>
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_OWNER"></div>
+                    <div class="info-list__item-value" ng-bind="getOwner(documentItem.owner)"></div>
+                </li>
+            </ul>
+
+        </div>
+
+
+        <div class="col-lg-2-3 col-md-1-1">
+            <button type="button" class="btn btn--default" href=""
+                ng-click="goToUpdate()" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.BTN_EDIT_DOCUMENT"></button>
+            <button type="button" class="btn btn--default" href=""
+                ng-click="goToDelete()" translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT"></button>
+        </div>
+
+    </div>
+
+</div>
+

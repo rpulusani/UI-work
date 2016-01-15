@@ -1,12 +1,24 @@
-define(['angular', 'dashboard', 'googlecharting'], function(angular) {
+define(['angular', 'dashboard'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
-    .controller('DashboardController', ['$scope',
+    .controller('DashboardController', [
+      '$scope',
       '$location',
+      '$rootScope',
+      'Devices',
+      'FilterSearchService',
+      'PersonalizationServiceFactory',
         function(
           $scope,
-          $location
+          $location,
+          $rootScope,
+          Devices,
+          FilterSearchService,
+          Personalize
           ) {
+
+           var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+          filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
 
             // Dummy Chart Data

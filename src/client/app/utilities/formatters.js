@@ -228,6 +228,12 @@ define(['angular', 'utility'], function(angular) {
                 },
                 formatNoneIfEmpty: function(value) {
                     return (BlankCheck.isNullOrWhiteSpace(value) === true) ? $translate.instant('LABEL.NONE') : value;
+                },
+                getAmountWithCurrency: function(amount, currency){
+                    return amount + ' (' + currency + ')';
+                },
+                getFileSize: function(fileSize) {
+                    return Math.abs(fileSize/1024).toFixed(0) + 'KB';
                 }
             };
 

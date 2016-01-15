@@ -1,7 +1,3 @@
-.call-to-action--after:after, .call-to-action:before {
-    content: ">";
-}
-
 .call-to-action:hover {
     color: @purple;
 }
@@ -35,6 +31,14 @@
 
 /** Font based icons **/
 
+.icon-16 {
+    font-size: 16px;
+}
+
+.icon-24 {
+    font-size: 24px;
+}
+
 [class^="icon-mps"], [class*=" icon-mps"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'mps' !important;
@@ -48,6 +52,22 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mps-lbs_map:before {
+    content: "\e90c";
+}
+
+.icon-mps-spreadsheet:before {
+    content: "\e90d";
+}
+
+.icon-mps-pdf_document:before {
+    content: "\e90e";
+}
+
+.icon-mps-blank_document:before {
+    content: "\e90f";
 }
 
 .icon-mps-location:before {
@@ -85,4 +105,36 @@
 }
 .icon-mps-admin:before {
     content: "\e90b";
+}
+
+/** From https://pswgithub.rds.lexmark.com/pages/ClientFramework/controls/icons.html **/
+
+[class^="icon-psw"], [class*=" icon-psw"] {
+    font-family: 'Action-Icons-Library';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-psw-disclosure_right_triangle:before {
+    content: "\e020";
+}
+
+.icon-psw-project:before {
+    content: "\e636";
+}
+
+.icon-psw-dashboard:before {
+    content: "\e63b";
+}
+
+.icon-psw-library:before {
+    content: "\e654";
 }

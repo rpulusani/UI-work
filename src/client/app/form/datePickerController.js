@@ -17,6 +17,7 @@ define(['angular', 'rome'], function(angular, Rome) {
             // Watch was avoided due to performance concerns
             calendar.on('data', function(val) {
                 scope.dateVal = val;
+                scope.$apply();
             });
 
             // Add apply() call to top of event queue; hence 0 milliseconds

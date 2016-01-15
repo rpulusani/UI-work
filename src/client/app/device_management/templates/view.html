@@ -1,40 +1,19 @@
-<div class="page-content">
+<div class="page-header">
     <h1 translate="DEVICE_MGT.MANAGE_DEVICES"></h1>
     <p translate="MESSAGE.LIPSUM"></p>
     <div class="col-1 btns">
-            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MGT.ADD"
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SUPPLIES_CATALOG"
                 ng-if="addDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.IMPORT"
-                ng-if="addDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.ORDER_NEW"
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_DEVICE"
                 ng-if="orderDevice"></button>
-            <button type="button" class="btn btn--default" href="" translate="DEVICE_MGT.MANAGE_PAGE_COUNTS"
+            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ADD_DEVICE"
+                ng-if="addDevice"></button>
+            <button type="button" class="btn btn--default" href="" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MANAGE_PAGE_COUNTS"
                 ng-if="pageCountAccess"></button>
     </div>
-
-    <div class="col-1">
-        <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-        translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
-
-        <hr/>
-    </div>
-
-    <div class="col-1">
-        <div grid-filter options="filterOptions" params="optionParams"></div>
-    </div>
-
-    <div class="row" ng-if="searchDevice">
-        <div class="col-7-8">
-            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-        </div>
-
-        <div class="col-1-8 l-pad-top">
-            <div columnpicker></div>
-        </div>
-    </div>
-
-    <div class="col-1">
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-        <div pagination grid="{{gridOptions}}"></div>
-    </div>
 </div>
+<div class="page-tabs" device-listing-tabs></div>
+
+
+
+

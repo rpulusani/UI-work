@@ -37,6 +37,9 @@
     <link rel="stylesheet" href="/etc/styles/css/rome.css" />
     <link rel="stylesheet" href="/etc/styles/css/app.css" />
 
+    <script src="//crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
+    <script src="//crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+
     <script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>
     <script src="/etc/js/main.js"></script>
     <script>
@@ -57,7 +60,7 @@
       <span class="screen-reader" itemprop="name">Lexmark</span>
     </h1>
     <div class="title">
-      <h1 class="text--light" translate="{{sectionTitle}}">Devices</h1>
+      <h1 class="text--light" translate="{{sectionTitle}}"></h1>
     </div>
 <!-- <Nav Button> -->
       <a href="#mobileNav" data-target="#mobileNav" class="nav-btn pull l-hidden--gt-tablet">

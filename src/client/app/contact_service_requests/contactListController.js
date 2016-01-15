@@ -1,33 +1,69 @@
 define(['angular', 'contact', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactListController', ['$scope', '$location', 'grid', 'Contacts', '$rootScope',
-        'PersonalizationServiceFactory',
-        function($scope, $location, Grid, Contacts, $rootScope, Personalize) {
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+    .controller('ContactListController', [
+    '$scope',
+    '$location',
+    'grid',
+    'Contacts',
+    '$rootScope',
+    'PersonalizationServiceFactory',
+    'FilterSearchService',
+    'SecurityHelper',
+    'FormatterService',
+    'SRControllerHelperService',
+    'uiGridExporterConstants',
+    function(
+        $scope,
+        $location,
+        Grid,
+        Contacts,
+        $rootScope,
+        Personalize,
+        FilterSearchService,
+        SecurityHelper,
+        formatter,
+        SRHelper,
+        uiGridExporterConstants
+    ) {
+        var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+        filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
 
-            $rootScope.currentRowList = [];
+        SRHelper.addMethods(Contacts, $scope, $rootScope);
 
-            $scope.goToCreate = function() {
-                Contacts.item = {};
-                $location.path(Contacts.route + '/new');
-            };
+        $rootScope.currentRowList = [];
 
-            $scope.goToUpdate = function(contact) {
-                Contacts.item = contact;
-                $location.path(Contacts.route + '/' + Contacts.item.id + '/update');
-            };
+        $scope.contacts = Contacts;
 
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
+        $scope.print = function(){
+            $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
+        };
 
-            Contacts.getPage().then(function() {
-                Grid.display(Contacts, $scope, personal);
-                
-                $scope.$broadcast('setupColumnPicker', Grid);
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
-            });
-        }
-    ]);
+        $scope.export = function(){
+            var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+            $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
+        };
+
+        $scope.selectRow = function(btnType) {
+            if (btnType !== 'delete') {
+                Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+            } else {
+                Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
+            }
+        };
+
+        $scope.getFullname = function(rowInfo) {
+            return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
+        };
+
+        filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
+            function() {
+                filterSearchService.addPanelFilter('Filter by Location', 'state', false);
+
+                setTimeout(function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }, 500); // Stupid hack, need to look closely at FSS bit who has the time?
+            }
+        );
+    }]);
 });

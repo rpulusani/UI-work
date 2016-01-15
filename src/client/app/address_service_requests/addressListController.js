@@ -1,30 +1,81 @@
-define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
+define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressListController', ['$scope', '$location', 'grid', 'Addresses', '$rootScope','$q',
-        'PersonalizationServiceFactory', 'AccountService', 'UserService',
-        function($scope,  $location,  Grid, Addresses, $rootScope, $q, Personalize, Account, User) {
+    .controller('AddressListController', [
+        '$scope',
+        '$location',
+        'grid',
+        'Addresses',
+        '$rootScope',
+        'PersonalizationServiceFactory',
+        'FilterSearchService',
+        'SecurityHelper',
+        'ServiceRequestService',
+        '$q',
+        'AccountService',
+        'UserService',
+        function(
+            $scope,
+            $location,
+            Grid,
+            Addresses,
+            $rootScope,
+            Personalize,
+            FilterSearchService,
+            SecurityHelper,
+            ServiceRequest,
+            $q,
+            Account,
+            User) {
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-            // Actions
+            $scope.visibleColumns = [];
+
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path(Addresses.route + '/new');
             };
 
-            $scope.goToUpdate = function() {
+
+            $scope.goToUpdate = function(address) { // may be able to remove
+                ServiceRequest.reset();
+                if(address !== null){ 
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                }else{ 
                 var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                if(id !== null){
-                    $location.path(Addresses.route + '/' + id + '/update');
+                    if(id !== null){
+                        $location.path(Addresses.route + '/' + id + '/update');
+                    }
                 }
             };
-            
+
+
+            $scope.view = function(address){
+                if(address === null){
+                    address = $rootScope.currentSelectedRow;
+                    Addresses.setItem(address);
+                }else{
+                    Addresses.setItem(address);
+                }
+                var options = {
+                    params:{
+                        embed:'contact'
+                    }
+                };
+
+                Addresses.item.get(options).then(function(){
+                    $location.path(Addresses.route + '/' + address.id + '/update');
+                });
+            };
+
             $scope.goToRemove = function(){
-                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                if(id !== null){
-                    $location.path(Addresses.route + '/' + id + '/delete');
-                }
+                ServiceRequest.reset();
+                var address = $rootScope.currentSelectedRow;
+                Addresses.setItem(address);
+                $location.path(Addresses.route + '/' + address.id + '/delete');
             };
+
 
             // grid Check Items - should prototype
             $scope.isSingleSelected = function(){
@@ -46,8 +97,8 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            $scope.gridOptions.enableHorizontalScrollbar = 0; 
-            $scope.gridOptions.enableVerticalScrollbar = 0;
+            //$scope.gridOptions.enableHorizontalScrollbar =  2;
+            //$scope.gridOptions.enableVerticalScrollbar = 0;
             
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {
@@ -56,14 +107,23 @@ define(['angular', 'address', 'account', 'utility.grid'], function(angular) {
 
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
+                        var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+
+                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'}, false);
+
                         Addresses.getPage().then(function() {
-                            Grid.display(Addresses, $scope, personal);
+                            Grid.display(Addresses, $scope, personal, false, function() {
+                                $scope.$broadcast('setupColumnPicker', Grid);
+                            });
                         }, function(reason) {
                             NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
                         });
                     });
                 });
+
             });
+
+
         }
       ]);
 });

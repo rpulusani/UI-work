@@ -33,6 +33,13 @@ requirejs.config({
             'dashboard',
             'dashboard.dashboardController',
 
+            'library',
+            'library.libraryFactory',
+            'library.libraryListController',
+            'library.libraryNewController',
+            'library.libraryUpdateController',
+            'library.libraryViewController',
+
             'nav',
             'nav.navController',
             'nav.navFactory',
@@ -64,8 +71,6 @@ requirejs.config({
             'user.accountListController',
             'user.roleListController',
 
-            'invoice',
-
             'pageCount',
 
             'report',
@@ -74,7 +79,6 @@ requirejs.config({
             'report.reportFinderController',
             'report.directives',
             'report.factory',
-            'report.visualizationFactory',
 
             'tree',
             'tree.treeItemsService',
@@ -95,6 +99,14 @@ requirejs.config({
         'account.accountFactory': ['account'],
         'account.roleFactory': ['account'],
 
+        'library': ['angular'],
+        'library.libraryListController': ['library'],
+        'library.libraryNewController': ['library'],
+        'library.libraryUpdateController': ['library'],
+        'library.libraryViewController': ['library'],
+        'library.libraryFactory': ['library'],
+        'library.directives': ['library'],
+
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
         'user.userInfoFactory': ['user'],
@@ -110,8 +122,6 @@ requirejs.config({
         'address.directives': ['address'],
         'address.factory': ['address'],
 
-        'invoice': ['angular', 'angular-route'],
-
         'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
@@ -120,7 +130,6 @@ requirejs.config({
         'report.reportFinderController': ['report', 'report.factory'],
         'report.directives': ['report'],
         'report.factory': ['report'],
-        'report.visualizationFactory': ['report'],
 
         'angular-gatekeeper': ['angular-cookies', 'angular-route'],
 
@@ -212,10 +221,25 @@ requirejs.config({
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
-        'serviceRequest.serviceRequestController': 'app/service_requests/serviceRequestController',
         'serviceRequest.directives': 'app/service_requests/directives',
+        'serviceRequest.detailController': 'app/service_requests/serviceRequestDetailController',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
+        'serviceRequest.listDeviceController': 'app/service_requests/serviceRequestDeviceListController',
+        'serviceRequest.listBreakFixController': 'app/service_requests/serviceRequestBreakFixListController',
+        'serviceRequest.listAddressController': 'app/service_requests/serviceRequestAddressListController',
+        'serviceRequest.listContactController': 'app/service_requests/serviceRequestContactListController',
+        'serviceRequest.TabController': 'app/service_requests/serviceRequestTabController',
+        'serviceRequest.ActionButtonController': 'app/service_requests/serviceRequestActionButtonsController',
         'serviceRequest.controllerHelperService': 'app/service_requests/srControllerHelperService',
+
+        'order': 'app/orders/order',
+        'order.factory': 'app/orders/ordersFactory',
+        'order.directives': 'app/orders/directives',
+        'order.orderListController': 'app/orders/orderListController',
+        'order.deviceOrderListController': 'app/orders/deviceOrderListController',
+        'order.supplyOrderListController': 'app/orders/supplyOrderListController',
+        'order.tabController': 'app/orders/orderTabController',
+        'order.actionButtonController': 'app/orders/orderActionButtonsController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressController': 'app/address_service_requests/addressController',
@@ -230,6 +254,10 @@ requirejs.config({
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
         'invoice': 'app/invoices/invoice',
+        'invoice.invoiceController': 'app/invoices/invoiceController',
+        'invoice.directives': 'app/invoices/directives',
+        'invoice.invoiceListController': 'app/invoices/invoiceListController',
+        'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
 
@@ -243,7 +271,6 @@ requirejs.config({
         'deviceManagement.deviceFactory': 'app/device_management/deviceFactory',
         'deviceManagement.productModelFactory': 'app/device_management/productModelFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
-        'deviceManagement.deviceOrderFactory': 'app/device_management/deviceOrderFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
@@ -256,13 +283,20 @@ requirejs.config({
         'deviceServiceRequest.deviceSearchFactory': 'app/device_service_requests/deviceSearchFactory',
         'deviceServiceRequest.deviceServiceRequestFactory': 'app/device_service_requests/deviceServiceRequestFactory',
 
+        'library': 'app/library/library',
+        'library.libraryListController': 'app/library/libraryListController',
+        'library.libraryNewController': 'app/library/libraryNewController',
+        'library.libraryUpdateController': 'app/library/libraryUpdateController',
+        'library.libraryViewController': 'app/library/libraryViewController',
+        'library.libraryFactory': 'app/library/libraryFactory',
+        'library.directives': 'app/library/directives',
+
         'report': 'app/reporting/report',
         'report.reportController': 'app/reporting/reportController',
         'report.reportListController': 'app/reporting/reportListController',
         'report.reportFinderController': 'app/reporting/reportFinderController',
         'report.directives': 'app/reporting/directives',
         'report.factory': 'app/reporting/reportFactory',
-        'report.visualizationFactory': 'app/reporting/visualizationFactory',
 
         'dashboard': 'app/dashboard/dashboard',
         'dashboard.dashboardController': 'app/dashboard/dashboardController',

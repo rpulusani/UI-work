@@ -3,14 +3,11 @@
 <hr />
 
 <span class="text--thick" translate="ORDER_MGT.ORDER_SEARCH"></span>
-<form class="form clearfix" data-form="">
-    <div class="pull" selectric options="orderColumns" value="id" label="name" placeholder="{{'LABEL.SELECT' | translate}}"></div>
-    <div class="pull form__field" style="border-radius: 0;">
-        <input type="text" name="search" id="search" placeholder="Search">
+<div class="row l-pad-bottom">
+    <div class="col-lg-2-3 col-md-1-1">
+        <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
     </div>
-    <button class="pull btn btn--secondary" translate="LABEL.SEARCH" ng-click="search()"></button>
-</form>
+</div>
+<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+<div pagination grid="{{gridOptions}}"></div>
 
-<div ui-grid="orderGridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-
-<div grid-pagination pagination="pagination"></div>

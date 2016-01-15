@@ -11,7 +11,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                 columnDefs: {
                     defaultSet: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber', dynamic: false,
-                         'cellTemplate':'<div >' +
+                         'cellTemplate':'<div>' +
                                             '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                             'ng-if="grid.appScope.deviceView">{{row.entity.serialNumber}}</a>' +
                                             '<span ng-if="!grid.appScope.deviceView">{{row.entity.serialNumber}}</span>' +
