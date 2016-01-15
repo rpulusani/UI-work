@@ -29,12 +29,12 @@
         <div class="print-export">
             <span class="">
                 <i class="icon icon--mps icon--print"></i>
-                <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold"></a>
+                <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="print()"></a>
             </span>
-            
+
             <span class="">
                 <i class="icon icon--mps icon--download"></i>
-                <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold"></a>
+                <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="export()"></a>
             </span>
         </div>
 
@@ -59,14 +59,14 @@
     </div>
 
     <div class="col-lg-2-3 col-md-1-1">
-        <button type="button" class="btn btn--default" href="" ng-click="selectRow()" 
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
             translate="CONTACT_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
-        <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')" 
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
             translate="CONTACT_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
     </div>
 
     <div class="col-1">
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+        <div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
 
         <div pagination grid="{{gridOptions}}"></div>
     </div>
