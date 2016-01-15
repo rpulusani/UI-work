@@ -182,6 +182,8 @@ define(['angular', 'contact'], function(angular) {
                         Contacts.item.lastName = contactForm.lastName.$modelValue;
                         Contacts.item.email = contactForm.email.$modelValue;
                         Contacts.item.workPhone = contactForm.workPhone.$modelValue;
+                        
+                        $scope.updated = false;
 
                         if ($scope.canSave === false) {
                             $scope.enteredAddress = {
