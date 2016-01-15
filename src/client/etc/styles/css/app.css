@@ -408,7 +408,6 @@ p.info-list .item-name:after {
   padding-top: 0;
 }
 .table {
-  float: left;
   max-width: 100%;
   width: 100%;
   background-color: transparent;
