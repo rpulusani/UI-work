@@ -29,7 +29,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                     ]
                 },    
                 route: '/library',
-                url: 'http://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com/documents',
+                url: 'https://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com/documents',
                 functionArray: [
                     {
                         name: 'getFileSize',
