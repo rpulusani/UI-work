@@ -8,13 +8,15 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 $location.path(Documents.route);
             } else {
                 $scope.documentItem = Documents.item;
-                
-                console.log($rootScope.idpUser.email);
             }
 
             $scope.getFileSize = function(size) {
                 var calculatedSize = FormatterService.getFileSize(size);
                 return calculatedSize;
+            };
+
+            $scope.getFormatDate = function(date) {
+                return FormatterService.formatDate(date);
             };
 
             $scope.getOwner = function(email) {
@@ -36,8 +38,11 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             $scope.goToDelete = function(documentItem) {
                 Documents.setItem(documentItem);
 
-                $location.path(Documents.route + '/' + $scope.documentItem.id + '/delete');
             };
+
+            $scope.goToDownload = function(documentItem) {
+
+            }
         }
     ]);
 });
