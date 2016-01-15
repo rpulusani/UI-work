@@ -8,6 +8,10 @@ define(['angular'], function(angular) {
             controller: 'ServiceRequestTabController',
             activeItem: '/service_requests'
         })
+        .when('/service_requests/learn_more', {
+            templateUrl: '/app/service_requests/templates/learn-more.html',
+            activeItem: '/service_requests'
+        })
         .when('/service_requests/requests/overview', {
             templateUrl: '/app/service_requests/templates/service-request-request-overview.html',
             activeItem: '/service_requests'
