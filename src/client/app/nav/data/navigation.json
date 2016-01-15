@@ -28,7 +28,7 @@
   },
   {
     "id": "4",
-    "action": "//venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
+    "action": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
     "target": "_blank",
     "text": "NAVIGATION.LBS",
     "description": "Location Base Services",
