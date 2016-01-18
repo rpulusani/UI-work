@@ -189,7 +189,7 @@ define([
             viewBreakFix:'VIEW_BREAKFIX_REQUEST',
             createBreakFix: 'REQUEST_BREAKFIX',
             viewSuppliesOrder: 'VIEW_SUPPLIES_ORDERS',
-            viewHardwareOrder: 'VIEW_HARDWARE_ORDERS',
+            viewHardwareOrder: 'VIEW_HARDWARE_ORDER',
             orderSuppliesCatalog: 'ORDER_SUPPLIES_CATALOG',
             orderSuppliesAsset: 'ORDER_SUPPLIES_ASSET',
             createSuppliesReturn: 'CREATE_SUPPLIES_RETURN_REQUEST',
