@@ -736,7 +736,8 @@
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
             "NUMBER_CLOSED_REQUESTS": "15 Closed Requests",
-            "NUMBER_OPEN_REQUESTS": "open"
+            "NUMBER_OPEN_REQUESTS": "open",
+            "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },
 
         "DEVICE_MGT": {
