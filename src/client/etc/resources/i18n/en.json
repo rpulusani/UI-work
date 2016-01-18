@@ -538,7 +538,10 @@
         "CANCEL": "DISCARD CHANGES TO CONTACT",
         "SAVE_MSG": " has been added as a contact! You can update their details below.",
         "UPDATE_MSG": " has been saved! You can update their details below.",
-        "EDIT_INFO": "Edit address information"
+        "EDIT_INFO": "Edit address information",
+        "SR_UPDATE": "SUBMIT UPDATE CONTACT REQUEST",
+        "SR_DELETE_SUBMITTED": "Update Contact Request Submitted",
+        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}"
     },
 
         "DEVICE_SERVICE_REQUEST": {
@@ -718,7 +721,23 @@
         },
 
         "DASHBOARD": {
-            "TITLE": "Dashboard"
+            "TITLE": "Dashboard",
+            "ROLLUP_REQUESTS_TITLE": "Requests for service (B/F)",
+            "ROLLUP_ORDERS_TITLE": "Orders",
+            "ROLLUP_MADC_TITLE": "MADC Requests",
+            "SEARCH_FOR_DEVICE": "Search for a device",
+            "PERFORMANCE_REPORTS": "Performance Reports",
+            "REPORT_KEY_PERFORMANCE": "Key Performance Indicators",
+            "REPORT_AVAILABILITY": "Availability",
+            "REPORT_RESPONSE_TIME": "Response Time",
+            "REPORT_CONSUMABLES": "Consumables",
+            "REPORT_FLEET_OVERVIEW": "Fleet Overview",
+            "REPORT_MANAGED_DEVICES": "Managed Devices",
+            "REPORT_BILLED_PAGES": "Billed Pages Last Cycle",
+            "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
+            "CARD_ACTION": "Unlock the potential",
+            "NUMBER_CLOSED_REQUESTS": "15 Closed Requests",
+            "NUMBER_OPEN_REQUESTS": "open"
         },
 
         "DEVICE_MGT": {
@@ -1147,6 +1166,7 @@
                 "TXT_SELECTED_ACCOUNTS" : "Selected accounts"
             },
             "COMMON" : {
+                "BTN_DOCUMENT_LIBRARY": "Document Library",
                 "BTN_ADD_TAG" : "ADD TAG",
                 "BTN_DELETE_DOCUMENT" : "DELETE DOCUMENT",
                 "CTRL_CANCEL_DELETE" : "Cancel",
@@ -1307,14 +1327,17 @@
         },
 
         "NAVIGATION": {
+            "LBS": "Location Based Services",
+            "ACCOUNT": "Account",
             "QUICK_ACTION": "Quick Action",
             "ORDER_REQUEST": "Orders",
             "INVOICES": "Invoices",
             "QUICK_REQUEST": "Quick Request",
             "COMPANY_ADMIN": "Company Administration",
             "CONTACT": "Contacts",
-            "UPDATE_PAGE_COUNT": "Update Page Count"
-        },
+            "UPDATE_PAGE_COUNT": "Update Page Count",
+            "DASHBOARD": "Dashboard"
+         },
 
       "LABEL": {
         "EXPORT": "Export",
@@ -1390,7 +1413,9 @@
             "LIKE_TO": "Would you like to {{addItem}}",
             "NO_IMAGE_FOUND": "No Image Found",
             "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
-            "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+            "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "FAQ": "FAQ Page is coming soon",
+            "LEARN_MORE": "Learn More Page is coming soon"
         },
 
     "INVOICE": {

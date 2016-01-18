@@ -18,7 +18,7 @@
 
 <h2 class="vertical-space--none" translate="DEVICE_MGT.DEVICE_INFO"></h2>
 <em><span translate="DEVICE_MGT.LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
-<hr class="vertical-space--thin">
+<hr class="vertical-space--thin" >
 <a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);" translate="DEVICE_MGT.UPDATE_DEVICE_INFO_LINK"></a>
 
 <h3 class="text--n9 vertical-space--thin" translate="LABEL.LOCATION"></h3>
@@ -31,7 +31,7 @@
         <div class="info-list__item-name" translate="DEVICE_MGT.INSTALL_ADDRESS"></div>
         <div class="info-list__item-value">
             <span style="white-space: pre;" ng-bind-html="formattedAddress"></span>
-            <a href="#" class="call-to-action call-to-action--after" translate="LABEL.VIEW_ON_MAP"></a>
+            <a ng-if="lbsAccess" ng-click="gotToLBS()" href="#" class="call-to-action call-to-action--after" translate="LABEL.VIEW_ON_MAP"></a>
         </div>
     </li>
 </ul>

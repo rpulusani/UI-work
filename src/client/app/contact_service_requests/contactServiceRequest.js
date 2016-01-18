@@ -10,9 +10,9 @@ define(['angular'], function(angular) {
             .when('/service_requests/contacts/:id/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'ContactController',
-                activeItem: '/device_management'
+                activeItem: '/service_requests/contacts'
             })
-            .when('/service_requests/devices/:id/receipt', {
+            .when('/service_requests/contacts/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'

@@ -1,15 +1,24 @@
 [
-  {
+{
     "id": "1",
-    "action": "/",
-    "text": "DASHBOARD.TITLE",
+    "action": "",
+    "text": "NAVIGATION.ACCOUNT",
     "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
+    "icon": "icon icon-psw-project",
+    "permissionFlag":"viewHomePage",
+    "tags":["primary"]
+  },
+  {
+    "id": "2",
+    "action": "/",
+    "text": "NAVIGATION.DASHBOARD",
+    "description": "Some description of this link",
+    "icon": "icon icon-psw-dashboard",
     "permissionFlag":"viewHomePage",
     "tags":["primary"]
   },
     {
-    "id": "2",
+    "id": "3",
     "action": "/device_management",
     "text": "DEVICE_MGT.TITLE",
     "description": "Some description of this link",
@@ -18,7 +27,18 @@
     "tags":["primary"]
   },
   {
-    "id": "3",
+    "id": "4",
+    "action": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
+    "target": "_blank",
+    "text": "NAVIGATION.LBS",
+    "description": "Location Base Services",
+    "icon": "icon icon-mps-lbs_map",
+    "permissionFlag":"lbsAccess",
+    "newWindow":"true",
+    "tags":["primary"]
+  },
+  {
+    "id": "5",
     "action": "/service_requests/addresses",
     "text": "ADDRESS.TITLE",
     "description": "Some description of this link",
@@ -27,7 +47,7 @@
     "tags":["primary"]
   },
     {
-    "id": "4",
+    "id": "6",
     "action": "/service_requests/contacts",
     "text": "NAVIGATION.CONTACT",
     "description": "Some description of this link",
@@ -36,7 +56,7 @@
     "tags":["primary"]
   },
   {
-    "id": "5",
+    "id": "7",
     "action": "/orders",
     "text": "NAVIGATION.ORDER_REQUEST",
     "description": "Some description of this link",
@@ -45,7 +65,7 @@
     "tags":["primary"]
   },
   {
-    "id": "6",
+    "id": "8",
     "action": "/service_requests",
     "text": "SERVICE_REQUEST.TITLE",
     "description": "Some description of this link",
@@ -53,17 +73,9 @@
     "permissionFlag":"serviceRequestAccess",
     "tags":["primary"]
   },
+
   {
-    "id": "7",
-    "action": "/library",
-    "text": "DOCUMENT_LIBRARY.TITLE",
-    "description": "Some description of this link",
-    "icon": "icon icon-mps-library",
-    "permissionFlag":"reportAccess",
-    "tags":["primary"]
-  },
-  {
-    "id": "8",
+    "id": "9",
     "action": "/reporting",
     "text": "REPORTING.TITLE",
     "description": "Some description of this link",
@@ -72,7 +84,7 @@
     "tags":["primary"]
   },
   {
-    "id": "9",
+    "id": "10",
     "action": "/invoices",
     "text": "NAVIGATION.INVOICES",
     "description": "Some description of this link",
@@ -80,8 +92,18 @@
     "permissionFlag":"viewInvoicesAccess",
     "tags":["primary"]
   },
+    {
+    "id": "11",
+    "action": "/library",
+    "text": "DOCUMENT_LIBRARY.COMMON.BTN_DOCUMENT_LIBRARY",
+    "description": "Some description of this link",
+    "icon": "icon icon-psw-library",
+    "permissionFlag":"documentLibraryAccess",
+    "tags":["primary"]
+  },
+
   {
-    "id": "10",
+    "id": "12",
     "action": "/delegated_admin",
     "text": "DELEGATED_ADMIN.TITLE",
     "description": "Some description of this link",
@@ -90,7 +112,7 @@
     "tags":["primary"]
   },
   {
-    "id": "11",
+    "id": "13",
     "action": "http://www.lexmark.com",
     "target": "_blank",
     "text": "Lexmark.com",
@@ -99,25 +121,17 @@
     "tags": ["footer"]
   },
   {
-    "id": "12",
-    "action": "#FAQ",
+    "id": "14",
+    "action": "/faq",
     "text": "FAQ",
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
   },
   {
-    "id": "13",
+    "id": "15",
     "action": "#help",
     "text": "Get Help",
-    "description": "Some description of this link",
-    "icon": "icon icon--lxk-ui icon--error",
-    "tags": ["footer"]
-  },
-  {
-    "id": "14",
-    "action": "#contact",
-    "text": "Contact Lexmark",
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]

@@ -92,7 +92,6 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             if (removeParams) {
                                 self.clearParameters(removeParams);
                             }
-
                             var promise = self.service.getPage(0, 20, options);
 
                             promise.then(function() {
@@ -106,7 +105,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 self.localScope.filterOptions.push(filter);
             };
 
-            FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams){
+            FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams, fn){
                 if(!displayText){
                     throw new Error('DisplayText is required');
                 }
@@ -127,7 +126,10 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             angular.extend(options.params, params);
 
                             var promise = self.service.getPage(0, 20, options);
-                            promise.then(self.display, self.failure);
+                            
+                            promise.then(function() {
+                                self.display(fn);
+                            }, self.failure);
                         },
                         params: self.localScope.optionParams
                 };

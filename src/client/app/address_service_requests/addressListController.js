@@ -109,16 +109,12 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
 
-                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'},
-                            function() {
-                                setTimeout(function() {
-                                    $scope.$broadcast('setupColumnPicker', Grid);
-                                }, 0);
-                            }
-                        );
+                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'}, false);
 
                         Addresses.getPage().then(function() {
-                            Grid.display(Addresses, $scope, personal);
+                            Grid.display(Addresses, $scope, personal, false, function() {
+                                $scope.$broadcast('setupColumnPicker', Grid);
+                            });
                         }, function(reason) {
                             NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
                         });

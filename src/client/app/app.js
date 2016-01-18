@@ -45,7 +45,6 @@ define([
     'deviceManagement.deviceFactory',
     'deviceManagement.productModelFactory',
     'deviceManagement.meterReadFactory',
-    'deviceManagement.deviceOrderFactory',
     'deviceManagement.deviceRequestFactory',
     'deviceManagement.directives',
     'deviceServiceRequest',
@@ -59,7 +58,8 @@ define([
     'deviceServiceRequest.deviceServiceRequestFactory',
     'library',
     'library.libraryListController',
-    'library.libraryAddController',
+    'library.libraryNewController',
+    'library.libraryUpdateController',
     'library.libraryViewController',
     'library.libraryFactory',
     'library.directives',
@@ -157,9 +157,13 @@ define([
     .constant('serviceUrl', config.portal.serviceUrl)
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
+    .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
+        },
+        lbs:{
+            view: 'LBS_ENABLED'
         },
         userManagement: {
             impersonate: 'IMPERSONATE_VIEW',
@@ -255,8 +259,19 @@ define([
         var security = new SecurityService();
         var configurePermissions = [
             {
+                name: 'documentLibraryAccess',
+                permission: [
+                    permissionSet.contentManagement.viewNonstrategic,
+                    permissionSet.contentManagement.viewStrategic
+                ]
+            },
+            {
                 name: 'deviceInfoAccess',
                 permission: permissionSet.deviceManagement.view
+            },
+            {
+                name:'lbsAccess',
+                permission: permissionSet.lbs.view
             },
             {
                 name: 'deviceView',

@@ -1,4 +1,4 @@
-define(['angular', 'dashboard', 'report.reportController', 'googlecharting'], function(angular) {
+define(['angular', 'dashboard'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
     .controller('DashboardController', [

@@ -253,7 +253,7 @@ define(['angular',
                             body: 'MESSAGE.LIPSUM',
                             readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: '#'
+                        readMoreUrl: '/service_requests/learn_more'
                     },
                     device: {
                         information:{
