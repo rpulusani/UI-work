@@ -20,10 +20,9 @@ define(['angular', 'dashboard'], function(angular) {
           var personal = new Personalize($location.url(),$rootScope.idpUser.id),
           filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
-          $scope.showNotification = true;
 
-          $scope.hideNotification = function(){
-            $scope.showNotification = false;
+          $scope.hideDashboardNotification = function(){
+            $rootScope.showDashboardNotification = false;
           };
 
 
