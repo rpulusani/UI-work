@@ -40,7 +40,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         };
 
         $scope.export = function(){
-            var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+            var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
             $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
         };
 
