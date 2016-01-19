@@ -469,6 +469,8 @@ define([
             4.) load current user's default account information
         */
 
+        $rootScope.showDashboardNotification = true;
+
         $rootScope.logout = Gatekeeper.logout;
     }])
 
