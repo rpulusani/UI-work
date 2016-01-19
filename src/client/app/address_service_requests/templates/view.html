@@ -1,8 +1,12 @@
 <div class="page-header">
     <div class="col-lg-2-3 col-md-1-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li translate="ADDRESS.TITLE"></li>
+        </ul>
         <h1 translate="ADDRESS.LIST_TITLE"></h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="/service_requests/learn_more">Learn more about requests</a></p>
-        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
+        <p><span translate="MESSAGE.LIPSUM"></span> <a href="/service_requests/learn_more"><span translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></span></a></p>
+        <button type="button" class="btn btn--default" href="" ng-click="addresses.goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
     </div>
 </div>
 
@@ -41,10 +45,8 @@
             </div>
 
             <div class="col-lg-2-3 col-md-1-1">
-                <button type="button" class="btn btn--default" href=""
-                ng-click="view(null)" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
-                <button type="button" class="btn btn--default" href=""
-                ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
+                <button type="button" class="btn btn--default" href="" ng-click="selectRow()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
+                <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
             </div>
             
             <div class="col-1">

@@ -479,10 +479,16 @@
             "WOULD_YOU_LIKE": "Would you like to ",
             "ADD_ANOTHER_ADDRESS": "add another address",
             "DETAILS_TITLE": "Details for Address Request Number: {{refId}}",
-            "ADD_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "UPDATE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_SUBMIT": "Submit Delete Address Request"
+            "DELETE_SUBMIT": "Submit Delete Address Request",
+            "SR_DELETE_SUBMITTED": "Update Address Request Submitted",
+            "REQUEST_SERVICE_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
+            "CANCEL": "Discard Changes to Address",
+            "SR_UPDATE": "Submit Update Address Request",
+            "SAVE_MSG": " has been added as an address! You can update the details below.",
+            "UPDATE_MSG": " has been saved! You can update the details below.",
+            "UPDATE_SUBMIT": "Update Address",
+            "ABANDON_ADD": "Abandon Address Creation",
+            "SUBMIT": "Create Address"
         },
 
         "SERVICE_REQUEST": {

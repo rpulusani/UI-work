@@ -1,118 +1,230 @@
-define(['angular', 'address', 'account', 'serviceRequest'], function(angular) {
+define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
     .controller('AddressController', [
-        '$rootScope',
         '$scope',
-        '$location',
-        '$routeParams',
         'Addresses',
+        '$translate',
+        '$rootScope',
+        'FormatterService',
         'ServiceRequestService',
-        'AccountService',
-        '$q',
-        'translationPlaceHolder',
-        'allowMakeChange',
-        'SRControllerHelperService',
-        'BlankCheck',
-        'UserService',
         'SecurityHelper',
+        'Contacts',
         function(
-            $rootScope,
-            $scope,
-            $location,
-            $routeParams,
-            Addresses,
-            ServiceRequestService,
-            Account,
-            $q,
-            translationPlaceHolder,
-            allowMakeChange,
-            SRHelper,
-            BlankCheck,
-            User,
-            SecurityHelper) {
+            $scope, Addresses, $translate, $rootScope, FormatterService, ServiceRequest, SecurityHelper, Contacts) {
 
-            new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
-
-            var redirect_to_list = function() {
-               $location.path(Addresses.route + '/');
-            };
-
-            $scope.translationPlaceHolder = translationPlaceHolder;
-            //$scope.continueForm = false;
-            //$scope.submitForm = false;
-            //$scope.allowMakeChange = allowMakeChange;
-            
-            SRHelper.addMethods(Addresses, $scope, $rootScope);
+            $scope.addresses = Addresses;
 
             if (Addresses.item === null) {
-                redirect_to_list();
-            }
-            if(!$routeParams.id){
-                $scope.address = {accountId: $rootScope.currentAccount, id:'new'};
-            }else{
-                $scope.address = Addresses.item;
-            }
-
-            var configureSR = function(ServiceRequest){
-                    ServiceRequest.addRelationship('account', $scope.address);
-                    ServiceRequest.addRelationship('address', $scope.address, 'self');
-                    ServiceRequest.addRelationship('primaryContact', $scope.address, 'contact');
-
-                    ServiceRequest.addField('type', 'DATA_ADDRESS_CHANGE'); //could be DATA_ADDRESS_ADD or DATA_ADDRESS_REMOVE
-            };
-
-
-            $scope.contact = {}; //set current user
-
-            $scope.setStoreFrontName = function() {
-                $scope.address.storeFrontName =  $scope.address.name;
-            };
-
-            $scope['continue'] = function() {
-                $scope.continueForm = true;
-            };
-
-            $scope.goToReview = function(address) {
-                $location.path('/service_requests/addresses/' + address.id + '/review');
-            };
-
-            $scope.goToViewAll = function(address) {
-                $location.path('/service_requests/addresses');
-            };
-
-
-            $scope.goToVerify = function() {
-               // Addresses.verify($scope.address, function(res) {
-                    Addresses.addresss = $scope.address;
-                    $location.path('/service_requests/addresses/' + $scope.address.id + '/verify');
-                //});
-            };
-
-             $scope.save = function() {
-                if ($scope.address.id) {
-                    Addresses.update({
-                        id: $scope.address.id,
-                        accountId: $scope.address.accountId
-                    }, $scope.address, $scope.goToViewAll);
-                } else {
-                    Addresses.save({
-                        accountId: $scope.address.accountId
-                    }, $scope.address, $scope.goToViewAll);
+                Addresses.goToList();
+            }else {
+                if (Addresses.wasSaved) {
+                    $scope.saved = true;
                 }
-            };
 
-            $scope.removeAddress = function(address) {
-                Addresses.remove($scope.address, function() {
-                    $scope.addresses.splice($scope.addresses.indexOf(address), 1);
+                // Address information entered into form
+                $scope.enteredAddress = {};
+                // Address information from /address-validation
+                $scope.comparisonAddress = {};
+                // the verify radio btn value 
+                $scope.acceptedEnteredAddress = 1;
+                // verify address, hide-when
+                $scope.needToVerify = false;
+                // User has been prompted with the need to verify and can now save/update
+                $scope.canSave = false;
+                $scope.canUpdate = false;
+
+                //TODO UPDATES?
+                 $scope.translationPlaceHolder = {
+                    contactInfo: $translate.instant('CONTACT.INFO'),
+                    requestContactInfo: $translate.instant('DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION'),
+                    submit: $translate.instant('CONTACT_SERVICE_REQUEST.SUBMIT_DELETE'),
+                    cancel: $translate.instant('CONTACT_SERVICE_REQUEST.ABANDON_DELETE')
+                };
+
+                //NEED FOR DELETE TEMPLATE?
+                $scope.formattedPrimaryContact = FormatterService.formatContact(Contacts.item);
+                $scope.requestedByContactFormatted = FormatterService.formatContact({
+                    firstName: $rootScope.currentUser.firstName,
+                    lastName: $rootScope.currentUser.lastName,
+                    workPhone: $rootScope.currentUser.workPhone
                 });
-            };
 
-            $scope.cancel = function() {
-                $location.path('/service_requests/addresses');
-            };
+                $scope.configure = {
+                    header: {
+                        translate:{
+                            h1: 'ADDRESS_SERVICE_REQUEST.DELETE',
+                            body: 'MESSAGE.LIPSUM'
+                        },
+                        readMoreUrl: ''
+                    },
+                    detail:{
+                        translate:{
+                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
+                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                            comments: 'LABEL.COMMENTS',
+                            attachments: 'LABEL.ATTACHMENTS',
+                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
+                        },
+                        show:{
+                            referenceId: true,
+                            costCenter: true,
+                            comments: true,
+                            attachements: true
+                        }
+                    },
+                    contact: {
+                        translate: {
+                            title: 'DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT',
+                            requestedByTitle: 'Request created by',
+
+                        },
+                        show:{
+                            primaryAction : true
+                        }
+                    },
+                    contactsr: {
+                        translate: {
+                            title: 'CONTACT.INFO',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        }
+                    },
+                    actions: {
+                        translate: {
+                            abandonRequest:'ADDRESS_SERVICE_REQUEST.CANCEL',
+                            submit: 'ADDRESS_SERVICE_REQUEST.SR_UPDATE'
+                        },
+                        submit: function() {
+                            $scope.processDelete();
+                        }
+                    }
+                };
+
+                 if (Addresses.submitedSR) {
+                    $scope.configure.header.translate.h1 = 'ADDRESS_SERVICE_REQUEST.SR_DELETE_SUBMITTED';
+
+                    $scope.configure.receipt = {
+                        translate: {
+                            title: 'ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL',
+                            titleValues: {'srNumber': ServiceRequest.item.id },
+                            abandonRequest:'ADDRESS_SERVICE_REQUEST.CANCEL',
+                            submit: 'ADDRESS_SERVICE_REQUEST.SR_UPDATE'
+                        }
+                    };
+                }
+
+                $scope.processDelete = function(fn) {
+                    ServiceRequest.setItem(Addresses.createSRFromAddress());
+
+                    ServiceRequest.get({
+                        method: 'post',
+                        preventDefaultParams: true,
+                        data: ServiceRequest.item
+                    }).then(function(res) {
+                        if (res.status === 201) {
+                            ServiceRequest.setItem(res.data);
+                            Addresses.submitedSR = true;
+                            Addresses.goToDelete();
+                        }
+                    });
+                },
+
+                $scope.saveAddress = function(addressForm) {
+                    if (!$scope.enteredAddress) {
+             
+                    }
+
+                    if (Addresses.item && Addresses.item.id) {
+                        $scope.enteredAddress = {
+                            country: addressForm.country.$modelValue,
+                            addressLine1: addressForm.addressLine1.$modelValue,
+                            postalCode: addressForm.zipCode.$modelValue,
+                            city: addressForm.city.$modelValue
+                        };
+
+                        Addresses.wasSaved = false;
+                        Addresses.item.postURL = Addresses.url + '/' + Addresses.item.id;
+
+                        if ($scope.enteredAddress.addressLine1 !== Addresses.item.address.addressLine1 || $scope.enteredAddress.city !== Addresses.item.address.city) {
+
+                            $scope.canUpdate = false;
+
+                        } else {
+                            $scope.canUpdate = true;
+                        }
 
 
+                        if ($scope.canUpdate || $scope.canUpdate === false && !$scope.enteredAddress.addressLine1) {
+                            
+                            Addresses.update(Addresses.item, {
+                                preventDefaultParams: true
+                            }).then(function() {
+                                $scope.updated = true;
+                                
+                                Addresses.goToUpdate();
+                            });
+                        } else {
+                            Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
+                                if (statusCode === 200) {
+                                    $scope.comparisonAddress = bodsData;
+                                    $scope.needToVerify = true;
+                                }
 
+                                $scope.canUpdate = true;
+                            });
+                        }
+                    } else {
+                        Addresses.item = Addresses.getModel();
+                        Addresses.item.name = addressForm.name.$modelValue;
+                        Addresses.item.storeFrontName = addressForm.storeFrontName.$modelValue;
+                        Addresses.item.country = addressForm.country.$modelValue;
+                        Addresses.item.addressLine1 = addressForm.addressLine1.$modelValue;
+                        Addresses.item.addressLine2 = addressForm.addressLine2.$modelValue;
+                        Addresses.item.city = addressForm.city.$modelValue;
+                        Addresses.item.state = addressForm.state.$modelValue;
+                        Addresses.item.zipCode = addressForm.zipCode.$modelValue;
+                        
+                        $scope.updated = false;
+
+                        if ($scope.canSave === false) {
+                            $scope.enteredAddress = {
+                                country: addressForm.country.$modelValue,
+                                addressLine1: addressForm.addressLine1.$modelValue,
+                                postalCode: addressForm.zipCode.$modelValue,
+                                city: addressForm.city.$modelValue
+                            };
+
+                            Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
+                                if (statusCode === 200) {
+                                    $scope.comparisonAddress = bodsData;
+                                    $scope.needToVerify = true;
+                                }
+
+                                $scope.canSave = true;
+                            });
+                        } else {
+                            if ($scope.acceptedEnteredAddress === 2) {
+                                Addresses.item.address = $scope.comparisonAddress;
+                            } else {
+                                Addresses.item.address = $scope.enteredAddress;
+                            }
+
+                            Addresses.save(Addresses.item, {
+                                preventDefaultParams: true
+                            }).then(function(r) {
+                                Addresses.wasSaved = true;
+                                $scope.updated = false;
+
+                                Addresses.goToUpdate();
+                            });
+                        }
+                    }
+                }
+            }
     }]);
 });

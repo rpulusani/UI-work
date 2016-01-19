@@ -1,0 +1,37 @@
+<div class="page-header">
+    <div class="col-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li><a ng-click="addresses.goToList()" href="" translate="ADDRESS.TITLE"></a> >&nbsp;</li>
+            <li translate="ADDRESS_SERVICE_REQUEST.UPDATE"></li>
+        </ul>
+    </div>
+
+    <div class="col-lg-2-3 col-md-1">
+        <h1 translate="ADDRESS_SERVICE_REQUEST.UPDATE"></h1>
+        <p translate="MESSAGE.LIPSUM"></p>
+    </div>
+</div>
+
+<div class="page-content">
+    <div ng-show="saved" class="alert">
+        "<span ng-bind="addresses.item.name"></span>"
+        <span translate="ADDRESS_SERVICE_REQUEST.SAVE_MSG"></span>
+    </div>
+
+    <div ng-show="updated" class="alert">
+        "<span ng-bind="addresses.item.name"></span>"
+        <span translate="ADDRESS_SERVICE_REQUEST.UPDATE_MSG"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2-3 col-md-1-1">
+            <form class="form" data-form="" name="editAddress" method="post" ng-submit="editAddress.$valid && continue()" enctype="mulitpart/form-data" novalidate ng-hide="reviewing">
+                <div new-address-fields></div>
+
+                <button name="cancel" class="btn btn--secondary" ng-click="addresses.goToList()" translate="ADDRESS_SERVICE_REQUEST.CANCEL"></button>
+                <button name="submit" class="btn btn--primary" ng-click="saveAddress(editAddress)" type="submit" translate="ADDRESS_SERVICE_REQUEST.UPDATE_SUBMIT"></button>
+            </form>
+        </div>
+    </div>
+</div>

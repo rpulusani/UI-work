@@ -11,9 +11,10 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         'FilterSearchService',
         'SecurityHelper',
         'ServiceRequestService',
-        '$q',
-        'AccountService',
-        'UserService',
+        'SRControllerHelperService',
+        '$q', //delete?
+        'AccountService', //delete?
+        'UserService', //delete?
         function(
             $scope,
             $location,
@@ -24,75 +25,38 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             FilterSearchService,
             SecurityHelper,
             ServiceRequest,
-            $q,
-            Account,
-            User) {
+            SRHelper,
+            $q, //delete?
+            Account, //delete?
+            User //delete?
+            ) {
             $rootScope.currentRowList = [];
-            $scope.visibleColumns = [];
+            $scope.visibleColumns = []; //delete?
 
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
 
-            $scope.goToCreate = function() {
-                Addresses.item = {};
-                $location.path(Addresses.route + '/new');
+            SRHelper.addMethods(Addresses, $scope, $rootScope);
+
+            $scope.addresses = Addresses;
+
+            $scope.print = function(){
+                $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
             };
 
-
-            $scope.goToUpdate = function(address) { // may be able to remove
-                ServiceRequest.reset();
-                if(address !== null){ 
-                    $location.path(Addresses.route + '/' + address.id + '/update');
-                }else{ 
-                var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
-                    if(id !== null){
-                        $location.path(Addresses.route + '/' + id + '/update');
-                    }
-                }
+            $scope.export = function(){
+                var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+                $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
             };
 
-
-            $scope.view = function(address){
-                if(address === null){
-                    address = $rootScope.currentSelectedRow;
-                    Addresses.setItem(address);
-                }else{
-                    Addresses.setItem(address);
-                }
-                var options = {
-                    params:{
-                        embed:'contact'
-                    }
-                };
-
-                Addresses.item.get(options).then(function(){
-                    $location.path(Addresses.route + '/' + address.id + '/update');
-                });
-            };
-
-            $scope.goToRemove = function(){
-                ServiceRequest.reset();
-                var address = $rootScope.currentSelectedRow;
-                Addresses.setItem(address);
-                $location.path(Addresses.route + '/' + address.id + '/delete');
-            };
-
-
-            // grid Check Items - should prototype
-            $scope.isSingleSelected = function(){
-                 if ($scope.currentRowList.length === 1) {
-                    return true;
-                 } else {
-                    return false;
-                 }
-            };
-
-            $scope.isMultipleSelected = function(){
-                if ($scope.currentRowList.length > 1) {
-                    return true;
+            $scope.selectRow = function(btnType) {
+                if (btnType !== 'delete') {
+                    Addresses.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
                 } else {
-                    return false;
+                    Addresses.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
                 }
             };
+
 
             // grid configuration
             $scope.gridOptions = {};
