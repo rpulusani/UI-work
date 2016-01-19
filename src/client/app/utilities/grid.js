@@ -148,13 +148,24 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope.gridOptions.virtualizationThreshold = service.params.size;
             scope.gridOptions.enableHorizontalScrollbar = 0;
             scope.gridOptions.enableVerticalScrollbar = 0;
-            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
             //printing Options
             scope.gridOptions.exporterPdfDefaultStyle = {fontSize: 9};
             scope.gridOptions.exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
             scope.gridOptions.exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
             scope.gridOptions.exporterPdfPageSize = 'LETTER';
             scope.gridOptions.exporterPdfMaxGridWidth = 500;
+            scope.gridOptions.exporterAllDataPromise = function() {
+                scope.gridOptions.currentPageData = scope.gridOptions.data;
+                scope.gridOptions.servicePage = service.page;
+
+                return service.getPage(0, 100000).then(function() {
+                    scope.gridOptions.data = service.data;
+                    setTimeout(function() {
+                        service.page = scope.gridOptions.servicePage;
+                        scope.gridOptions.data = scope.gridOptions.currentPageData;
+                    }, 0)
+                });
+            };
 
             // Setup special columns
             if ((scope.gridOptions.showBookmarkColumn === undefined ||
