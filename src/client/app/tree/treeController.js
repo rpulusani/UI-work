@@ -3,8 +3,8 @@ define([
     'tree.treeItemsService'
 ], function(tree){
     tree
-    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', '$q',
-        function($scope, TreeItems, Account, UserInfo, $q){
+    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', '$q',
+        function($scope, TreeItems, Account, UserInfo, Users, $q){
             $scope.items = [];
             $scope.tempItems = [];
             $scope.selectedItems = [];
@@ -32,7 +32,7 @@ define([
             }
 
             if ($scope.treeType && $scope.treeType === 'chl') {
-                UserInfo.getTransactionalAccounts().then(function(accounts) {
+                Users.getTransactionalAccounts().then(function(accounts) {
                     if(accounts._embedded && accounts._embedded.transactionalAccounts 
                         && accounts._embedded.transactionalAccounts.length > 0) {
                         var promises = [];
