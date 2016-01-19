@@ -776,11 +776,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         self.params = {};
                                     }
 
-                                    if (!options.params.accountId || !self.params.accountId) {
+                                    if (options.params && !options.params.accountId || !self.params.accountId) {
                                         self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                                     }
 
-                                    if (!options.params.accountLevel || !self.params.accountLevel) {
+                                    if (options.params && !options.params.accountLevel || !self.params.accountLevel) {
                                         self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                                     }
 

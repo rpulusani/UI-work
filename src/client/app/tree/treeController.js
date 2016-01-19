@@ -3,8 +3,8 @@ define([
     'tree.treeItemsService'
 ], function(tree){
     tree
-    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', '$q',
-        function($scope, TreeItems, Account, UserInfo, $q){
+    .controller('TreeController', ['$scope', '$rootScope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', '$q',
+        function($scope, $rootScope, TreeItems, Account, UserInfo, Users, $q){
             $scope.items = [];
             $scope.tempItems = [];
             $scope.selectedItems = [];
@@ -62,6 +62,14 @@ define([
                             }
                         });
                     }
+                });
+            } else if ($scope.treeType && $scope.treeType === 'daAccounts') {
+                console.log('in right place');
+                console.log('$rootScope.currentUser', $rootScope.currentUser);
+                Users.getLoggedInUserInfo().then(function() {
+                    Users.item.links.accounts().then(function() {
+                        console.log('Users.item.accounts', Users.item.accounts);
+                    });
                 });
             }
         }
