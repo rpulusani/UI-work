@@ -85,6 +85,16 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
                             {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'}
                         ],
+                        suppliesCatalogSet:[
+                            {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                            {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
+                                'field':''},
+                            {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
+                                'field':''},
+                            {'name': $translate.instant('EVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'), 'field':''},
+                            {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'), 'field':''}
+
+                        ]
                     },
 
                     functionArray: [

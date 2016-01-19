@@ -178,6 +178,7 @@
             "TXT_GRID_ORDER_QUANTITY": "Quantity",
             "TXT_GRID_RECENT_ORDER_CONTENTS": "Order summary",
             "TXT_GRID_SUPPLIES_DESC": "Description",
+            "TXT_GRID_SUPPLIES_TYPE": "Supply Type",
             "TXT_GRID_SUPPLIES_QUANTITY": "Quantity",
             "TXT_LAST_UPDATED_IN_PROCESS": "Last updated {{date}} - In process",
             "TXT_ORDER_CARRIER": "Carrier",

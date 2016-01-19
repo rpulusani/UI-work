@@ -12,7 +12,12 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             ];
             this.hasBookmarkCol = false; // has a bookmark column
             this.serviceInfo = {};
+            this.optionsName = 'gridOptions';
             this.gridOptions = {};
+        };
+        Grid.prototype.setGridOptionsName = function(newName){
+            this.optionsName = newName;
+            this[this.optionsName] = {};
         };
         Grid.prototype.clearGridParamsRootScope = function($rootScope){
             $rootScope.gridApi = undefined;
@@ -117,9 +122,17 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
 
             return columns;
         };
-
+        Grid.prototype.getSize = function(service){
+            var size = 0;
+            if(service.params && service.params.size && service && service.data){
+                size =  service.data.length < service.params.size? service.data.length: service.params.size;
+            }else{
+                size = service.data.length;
+            }
+            return size;
+        };
         Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
-            var size = service.data.length < service.params.size? service.data.length: service.params.size,
+            var size =  this.getSize(service),
             serviceId = '',
             newHeight = '';
 
@@ -137,34 +150,37 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 serviceId = service.embeddedName;
             }
 
-            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
-            scope.gridOptions.columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
-            scope.gridOptions.showGridFooter = false;
-            scope.gridOptions.enableRowSelection = true;
-            scope.gridOptions.enableSelectAll = true;
+            if(rowHeight){
+                scope[this.optionsName].rowHeight = rowHeight;
+            }
+            scope[this.optionsName].data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            scope[this.optionsName].columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
+            scope[this.optionsName].showGridFooter = false;
+            scope[this.optionsName].enableRowSelection = true;
+            scope[this.optionsName].enableSelectAll = true;
            // scope.gridOptions.gridCss = 'table';
-            scope.gridOptions.enableMinHeightCheck = true;
-            scope.gridOptions.minRowsToShow = service.params.size;
-            scope.gridOptions.virtualizationThreshold = service.params.size;
-            scope.gridOptions.enableHorizontalScrollbar = 0;
-            scope.gridOptions.enableVerticalScrollbar = 0;
-            scope.gridOptions.data = this.getDataWithDataFormatters(service.data, service.functionArray);
+            scope[this.optionsName].enableMinHeightCheck = true;
+            scope[this.optionsName].minRowsToShow = service.params.size;
+            scope[this.optionsName].virtualizationThreshold = service.params.size;
+            scope[this.optionsName].enableHorizontalScrollbar = 0;
+            scope[this.optionsName].enableVerticalScrollbar = 0;
+            scope[this.optionsName].data = this.getDataWithDataFormatters(service.data, service.functionArray);
             //printing Options
-            scope.gridOptions.exporterPdfDefaultStyle = {fontSize: 9};
-            scope.gridOptions.exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
-            scope.gridOptions.exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
-            scope.gridOptions.exporterPdfPageSize = 'LETTER';
-            scope.gridOptions.exporterPdfMaxGridWidth = 500;
+            scope[this.optionsName].exporterPdfDefaultStyle = {fontSize: 9};
+            scope[this.optionsName].exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
+            scope[this.optionsName].exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
+            scope[this.optionsName].exporterPdfPageSize = 'LETTER';
+            scope[this.optionsName].exporterPdfMaxGridWidth = 500;
 
             // Setup special columns
-            if ((scope.gridOptions.showBookmarkColumn === undefined ||
-                scope.gridOptions.showBookmarkColumn === true) &&
+            if ((scope[this.optionsName].showBookmarkColumn === undefined ||
+                scope[this.optionsName].showBookmarkColumn === true) &&
                 (!this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
 
-                scope.gridOptions.showBookmarkColumn = true;
+                scope[this.optionsName].showBookmarkColumn = true;
                 this.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
-                scope.gridOptions.columnDefs.unshift({
+                scope[this.optionsName].columnDefs.unshift({
                     name: '',
                     field: 'bookmark',
                     width:'30',
@@ -193,7 +209,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 scope.itemsPerPage = service.params.size;
             }
 
-            this.gridOptions = scope.gridOptions;
+            this[this.optionsName] = scope.gridOptions;
 
             // Generalized row selection
             scope.isSingleSelected = function() {
@@ -378,6 +394,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             };
         };
 
-        return new Grid();
+        return Grid;
     }]);
 });

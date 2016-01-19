@@ -31,6 +31,8 @@ define([
     'order.supplyOrderListController',
     'order.tabController',
     'order.actionButtonController',
+    'order.orderSupplyController',
+    'order.orderItemsfactory',
     'contact',
     'contact.contactController',
     'contact.contactListController',

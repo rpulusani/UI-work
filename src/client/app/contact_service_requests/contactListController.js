@@ -16,7 +16,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     function(
         $scope,
         $location,
-        Grid,
+        GridService,
         Contacts,
         $rootScope,
         Personalize,
@@ -61,7 +61,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
 
                 setTimeout(function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupColumnPicker', new GridService());
                 }, 500); // Stupid hack, need to look closely at FSS bit who has the time?
             }
         );
