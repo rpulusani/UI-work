@@ -19,10 +19,10 @@ define(['angular'], function(angular) {
             resolve: {
                 translationPlaceHolder: function(){
                     return {
-                        h1:'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_MANAGING_DOCUMENT',
-                        paragraph: 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_MANAGING_DOCUMENT_PAR',
-                        submit: 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_UPLOAD_SAVE_DOC',
-                        cancel: 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_ABANDON_DOC_UPLOAD'
+                        h1:'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_MANAGING_DOCUMENT',
+                        paragraph: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_MANAGING_DOCUMENT_PAR',
+                        submit: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.BTN_SAVE_DOC_CHANGES',
+                        cancel: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.BTN_DISCARD_DOC_CHANGES'
                     };
                 }
             }
