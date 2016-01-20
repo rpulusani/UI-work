@@ -23,7 +23,8 @@ define(['angular', 'library'], function(angular) {
             $scope.setDocumentName = function() {
                 var tmp = event.target.files[0].name;
                 var l = tmp.split('.').pop();
-
+                
+                $scope.documentItem.extension = l;
                 $scope.documentItem.name = tmp.slice(0, -(l.length+1));
             };
 
