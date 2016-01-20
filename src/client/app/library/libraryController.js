@@ -43,7 +43,11 @@ define(['angular', 'library'], function(angular) {
             };
 
             $scope.addTag = function() {
-            }
+            };
+
+            $scope.remove = function() {
+                Documents.remove();
+            };
 
             $scope.cancel = function() {
                 redirect_to_list();
