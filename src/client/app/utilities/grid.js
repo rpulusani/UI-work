@@ -26,27 +26,33 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
             var self = this;
             return function( gridApi ) {
-                //self.clearGridParamsRootScope($rootScope);
                 $rootScope.gridApi = gridApi;
-                gridApi.selection.on.rowSelectionChanged($rootScope,
-                    function(row){
-                        if(row.isSelected){
-                            //add if not already there
-                            $rootScope.currentRowList.push(row);
-                            $rootScope.currentSelectedRow = row.entity;
-                        }else{
-                            //find and remove
-                            var length = $rootScope.currentRowList.length,
-                                items = $rootScope.currentRowList;
-                            for(var i = 0; i <  length; ++i){
-                                if(items[i].uid === row.uid){
-                                    items = items.splice(i,1);
-                                    break;
+                if(gridApi && gridApi.selection){
+                    gridApi.selection.on.rowSelectionChanged($rootScope,
+                        function(row){
+                            if(row.isSelected){
+                                //add if not already there
+                                $rootScope.currentRowList.push(row);
+                                $rootScope.currentSelectedRow = row.entity;
+                            }else{
+                                //find and remove
+                                var length = $rootScope.currentRowList.length,
+                                    items = $rootScope.currentRowList;
+                                for(var i = 0; i <  length; ++i){
+                                    if(items[i].uid === row.uid){
+                                        items = items.splice(i,1);
+                                        break;
+                                    }
                                 }
                             }
                         }
-                    }
-                );
+                    );
+                }
+                if(gridApi && gridApi.rowEdit){
+                    gridApi.rowEdit.on.saveRow($rootScope, function(rowEntity){
+                        console.log(rowEntity);
+                    });
+                }
             };
         };
 
@@ -171,6 +177,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope[this.optionsName].exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
             scope[this.optionsName].exporterPdfPageSize = 'LETTER';
             scope[this.optionsName].exporterPdfMaxGridWidth = 500;
+            scope[this.optionsName].rowEditWaitInterval = 0;
 
             // Setup special columns
             if ((scope[this.optionsName].showBookmarkColumn === undefined ||

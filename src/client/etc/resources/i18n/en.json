@@ -167,6 +167,8 @@
             "BTN_NEW_ORDER_SUBMIT": "REVIEW AND SUBMIT ORDER",
             "LNK_CATALOG_ORDER": "Order from catalog",
             "LNK_VIEW_ALL_ORDERS": "View all orders for this device",
+            "MAX_QTY_VALIDATION": "{{partNumber}} max quantity is {{maxQuantity}}",
+            "TXT_HEADER_ITEMS_COUNT_SUMMARY": "({{count}} items)",
             "TXT_GRID_DEVICE_ORDER_HISTORY": "Device order history",
             "TXT_GRID_NEW_ORDER_SUMMARY": "New order summary",
             "TXT_GRID_ORDER_HIST_DATE": "Date",

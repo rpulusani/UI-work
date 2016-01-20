@@ -1,72 +1,6 @@
-.ui-grid {
-  border-left: none !important;
-}
-.ui-grid .ui-grid-pinned-container {
-  background: none;
-}
-.ui-grid .ui-grid-top-panel {
-  background: #c9c9d1;
-}
-.ui-grid .ui-grid-header {
-  border-bottom: 0;
-}
-.ui-grid .ui-grid-header .ui-grid-header-cell {
-  padding: 12px 20px;
-}
-.ui-grid .ui-grid-header .ui-grid-header-cell .ui-grid-column-menu-button {
-  top: 13px;
-}
-.ui-grid .ui-grid-cell-contents {
-  outline: none;
-}
-.ui-grid .ui-grid-footer-panel {
-  background: white;
-}
-.ui-grid .ui-grid-canvas {
-  padding-top: 0;
-}
-.ui-grid .ui-grid-row {
-  border-top: 1px solid #a5a5aa;
-}
-.ui-grid .ui-grid-row .ui-grid-cell {
-  padding: 12px 20px;
-  border-right: 0;
-}
-.ui-grid .ui-grid-row:nth-child(odd) .ui-grid-cell {
-  background-color: #e6e6f0;
-}
-.ui-grid .ui-grid-row:nth-child(even) .ui-grid-cell {
-  background-color: #ffffff;
-}
-.ui-grid .ui-grid-menu .ui-grid-menu-inner li {
-  margin: 0;
-}
-.ui-grid .ui-grid-menu .ui-grid-menu-inner li button {
-  padding: 1em;
-  cursor: pointer;
-}
-.ui-grid .ui-grid-menu .ui-grid-menu-inner li button:hover {
-  box-shadow: none;
-  background: #fafafa;
-}
-.ui-grid .ui-grid-render-container-body .ui-grid-viewport .ui-grid-canvas {
-  position: absolute;
-}
-.ui-grid .ui-grid-filter-container {
-  padding: 0;
-  margin: 0;
-}
-.ui-grid .ui-grid-filter-container .ui-grid-filter-input {
-  padding: 8px 8px;
-  margin-left: -8px;
-}
-.ui-grid .ui-grid-filter-container .ui-grid-filter-button .ui-grid-icon-cancel {
-  right: 0;
-}
-
 /*!
- * ui-grid - v3.0.5 - 2015-08-26
- * Copyright (c) 2015 ; License: MIT
+ * ui-grid - v3.1.0 - 2016-01-19
+ * Copyright (c) 2016 ; License: MIT 
  */
 #ui-grid-twbs #ui-grid-twbs .form-horizontal .form-group:before,
 #ui-grid-twbs #ui-grid-twbs .form-horizontal .form-group:after,
@@ -221,6 +155,9 @@
 }
 .ui-grid-header-cell .sortable {
   cursor: pointer;
+}
+.ui-grid-header-cell .ui-grid-sort-priority-number {
+  margin-left: -8px;
 }
 .ui-grid-header .ui-grid-vertical-bar {
   top: 0;
@@ -405,6 +342,8 @@ select.ui-grid-filter-select:hover {
 .ui-grid-viewport {
   min-height: 20px;
   position: relative;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .ui-grid-viewport:focus {
   outline: none !important;
@@ -618,7 +557,6 @@ input[type="text"].ui-grid-filter-input:hover {
 }
 .ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid {
   overflow: scroll;
-  max-height: 300px;
   border: 1px solid #d4d4d4;
 }
 .ui-grid-menu {
@@ -819,8 +757,7 @@ fieldset[disabled] .ui-grid-menu .ui-grid-menu-inner .ui-grid-menu-close-button.
 @font-face {
   font-family: 'ui-grid';
   src: url('ui-grid.eot');
-  src: url('ui-grid.eot#iefix') format('embedded-opentype'), url('/etc/styles/css/ui-grid/3.1.0/ui-grid.woff') format('woff'),
-  url('/etc/styles/css/ui-grid/3.1.0/ui-grid.ttf') format('truetype'), url('/etc/styles/css/ui-grid/3.1.0/ui-grid.svg?#ui-grid') format('svg');
+  src: url('ui-grid.eot#iefix') format('embedded-opentype'), url('ui-grid.woff') format('woff'), url('ui-grid.ttf') format('truetype'), url('ui-grid.svg?#ui-grid') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -830,7 +767,7 @@ fieldset[disabled] .ui-grid-menu .ui-grid-menu-inner .ui-grid-menu-close-button.
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'ui-grid';
-    src: url('../font/ui-grid.svg?12312827#ui-grid') format('svg');
+    src: url('@{font-path}ui-grid.svg?12312827#ui-grid') format('svg');
   }
 }
 */
@@ -1164,6 +1101,12 @@ div.ui-grid-cell input.ng-valid {
 .expandableRow .ui-grid-row:nth-child(even) .ui-grid-cell {
   background-color: #f3f3f3;
 }
+.ui-grid-cell.ui-grid-disable-selection.ui-grid-row-header-cell {
+  pointer-events: none;
+}
+.ui-grid-expandable-buttons-cell i {
+  pointer-events: all;
+}
 .scrollFiller {
   float: left;
   border: 1px solid #d4d4d4;
@@ -1327,6 +1270,7 @@ div.ui-grid-cell input.ng-valid {
   width: 100%;
   padding-top: 3px;
   padding-bottom: 3px;
+  box-sizing: content-box;
 }
 .ui-grid-pager-container {
   float: left;
@@ -1591,7 +1535,7 @@ select[multiple].ui-grid-pager-control input {
   line-height: 1.5;
   border-radius: 3px;
   height: 26px;
-  width: 60px;
+  width: 67px;
   display: inline;
 }
 .ui-grid-pager-row-count-picker select:focus {
@@ -1925,6 +1869,36 @@ select[multiple].ui-grid-pager-row-count-picker select {
 .ui-grid-tree-header-row {
   font-weight: bold !important;
 }
+.ui-grid-tree-header-row .ui-grid-cell.ui-grid-disable-selection.ui-grid-row-header-cell {
+  pointer-events: all;
+}
+
+/* This file contains variable declarations (do not remove this line) */
+/*-- VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
+/**
+* @section Grid styles
+*/
+/**
+* @section Header styles
+*/
+/** @description Colors for header gradient */
+/**
+* @section Grid body styles
+*/
+/** @description Colors used for row alternation */
+/**
+* @section Sort arrow colors
+*/
+/**
+* @section Scrollbar styles
+*/
+/**
+* @section font library path
+*/
+/*-- END VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
+div.ui-grid-cell-contents.invalid {
+  border: 1px solid #fc8f8f;
+}
 
 .ui-grid-icon-plus-squared:before {
   content: '\c350';
@@ -2018,6 +1992,3 @@ select[multiple].ui-grid-pager-row-count-picker select {
   content: '\ea61';
 }
 /* '' */
-
-
-/*# sourceMappingURL=angular-ui-grid-lxk-framework.css.map*/

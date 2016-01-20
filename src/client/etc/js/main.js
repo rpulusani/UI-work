@@ -158,7 +158,7 @@ requirejs.config({
 
         'angular-sanitize': 'app/libs/angular-sanitize.min',
 
-        'ui.grid' : 'app/libs/ui-grid',
+        'ui.grid' : 'app/libs/ui-grid/3.1.0/ui-grid',
 
         'app': 'app/app',
 

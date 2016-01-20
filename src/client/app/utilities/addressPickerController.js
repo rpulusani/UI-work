@@ -84,7 +84,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         },
                         readMoreUrl: ''
                     }
-                }
+                };
             }
 
         }
