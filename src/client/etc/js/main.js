@@ -36,8 +36,7 @@ requirejs.config({
             'library',
             'library.libraryFactory',
             'library.libraryListController',
-            'library.libraryNewController',
-            'library.libraryUpdateController',
+            'library.libraryController',
             'library.libraryViewController',
 
             'nav',
@@ -101,8 +100,7 @@ requirejs.config({
 
         'library': ['angular'],
         'library.libraryListController': ['library'],
-        'library.libraryNewController': ['library'],
-        'library.libraryUpdateController': ['library'],
+        'library.libraryController': ['library'],
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
         'library.directives': ['library'],
@@ -285,8 +283,7 @@ requirejs.config({
 
         'library': 'app/library/library',
         'library.libraryListController': 'app/library/libraryListController',
-        'library.libraryNewController': 'app/library/libraryNewController',
-        'library.libraryUpdateController': 'app/library/libraryUpdateController',
+        'library.libraryController': 'app/library/libraryController',
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
         'library.directives': 'app/library/directives',

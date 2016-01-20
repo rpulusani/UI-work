@@ -1,8 +1,8 @@
 define(['angular', 'library', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .factory('Documents', ['serviceUrl', '$translate', '$rootScope', 'FormatterService', 'HATEOASFactory',
-        function(serviceUrl, $translate, $rootScope, formatter, HATEOASFactory) {
+    .factory('Documents', ['serviceUrl', 'libraryServiceUrl', '$translate', '$rootScope', 'FormatterService', 'HATEOASFactory',
+        function(serviceUrl, libraryServiceUrl, $translate, $rootScope, formatter, HATEOASFactory) {
             var Documents = {
                 serviceName: 'documents',
                 embeddedName: 'documents',
@@ -29,7 +29,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                     ]
                 },    
                 route: '/library',
-                url: 'https://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com/documents',
+                url: libraryServiceUrl,
                 functionArray: [
                     {
                         name: 'getFileSize',
