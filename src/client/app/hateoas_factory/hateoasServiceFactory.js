@@ -533,6 +533,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return this.send(halObj, 'put', 'Update', options);
             };
 
+            HATEOASFactory.prototype.delete = function(halObj, options) {
+                return this.send(halObj, 'delete', 'Delete', options);
+            };
+
             HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
                 var self = this,
                 options;
