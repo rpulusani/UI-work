@@ -87,6 +87,7 @@ define([
     'utility.grid',
     'utility.imageService',
     'utility.columnPickerController',
+    'utility.printExportTitleController',
     'filterSearch',
     'filterSearch.directives',
     'filterSearch.gridFilterController',
