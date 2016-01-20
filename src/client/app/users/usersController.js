@@ -37,7 +37,7 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             };
 
             $scope.goToCreateUser = function() {
-                $location.path('/delegated_admin/new_user');
+                $location.path('/delegated_admin/new');
             };
 
             $scope.goToInviteUser = function() {

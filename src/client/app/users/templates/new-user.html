@@ -1,10 +1,13 @@
 <div class="page-header">
-    <div class="row">
-        <div class="col-lg-2-3 col-md-1-1">
-            <h1 translate="USER.CREATE_TITLE"></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-    </div>
-    </div>
+    <ul class="breadcrumb">
+        <li><a href="#root">Root</a> &#62;&nbsp;</li>
+        <li><a href="#parent">Parent</a> &#62;&nbsp;</li>
+        <li>Child</li>
+    </ul>
+
+    <h1 translate="USER.CREATE_TITLE"></h1>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
 </div>
 
 <div class="page-content">
@@ -26,9 +29,11 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
                 <div class="left-pad">
                     <h5 translate='ACCOUNT.ORG_STRUCT' class="text--thick"></h5>
-                    <div class="row">
-                        <div class="col-3-5">
-                            <div tree class="well" tree-type='daAccounts' action='selectLevel'></div>
+                    <div class="row well">
+                        <div class="col-3-5" ng-repeat="account in accountList">
+                            <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
+                                value="user.orgLevel">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,13 +41,16 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
                 <div class="form__field form__field--select form__field--required">
                     <label translate='USER.BASIC_ROLE'></label>
-                    <div selectric options="userRoles" value="id" label="name">
+                    <div selectric options="basicRoles" value="id" label="description">
                     </div>
                 </div>
                 <div class="form__field">
                     <label translate='USER.ADD_ROLE' class="text--thick"></label>
                     <div class="well bg--white">
-                        <div user-roles></div>
+                        <div class="form__field" ng-repeat="role in addonRoles">
+                            <input type="checkbox" value="" ng-model="role.id">
+                            <label><span ng-bind="role.description"></span></label>
+                        </div>
                     </div>
                 </div>
 

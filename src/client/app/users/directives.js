@@ -28,6 +28,31 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
             controller: 'RoleListController'
         };
     })
+    .directive('userNewFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/user-new-fields.html',
+            controller: 'UserAddController'
+        };
+    })
+    .directive('userCoreFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/user-core-fields.html'
+        };
+    })
+    .directive('userLocationFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/user-location-fields.html'
+        };
+    })
+    .directive('userFormButtons', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/user-form-buttons.html'
+        };
+    })
     .directive('userList', function() {
         return {
             restrict: 'A',

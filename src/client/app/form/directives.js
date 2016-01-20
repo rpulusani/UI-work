@@ -121,6 +121,7 @@ angular.module('mps.form')
         placeholder: null
       };
       var dirty = function(values) {
+        console.log('values[0]', values[0]);
         var newv = {
           options: values[0],
           label: values[1],

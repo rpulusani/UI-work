@@ -1,0 +1,39 @@
+<h2 translate="USER.INFO"></h2>
+<h4 translate="USER.ADD_WHO"></h4>
+<div user-core-fields></div>
+<h4 translate="USER.WHERE"></h4>
+<div user-location-fields></div>
+<h2 translate="ACCOUNT.TITLE"></h2>
+<h4 translate="ACCOUNT.LOGIN"></h4>
+<div user-login-fields></div>
+
+<h4 translate="ACCOUNT.COMPANY_ASSO"></h4>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+<strong translate="ACCOUNT.ORG_STRUCT"></strong>
+<div class="row well">
+    <div ng-repeat="account in accountList">
+        <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
+            value="user.orgLevel">
+        </div>
+    </div>
+</div>
+{{user.basicRoles}}
+<h4 translate="USER.ROLE_PERM"></h4>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+<div class="form__field form__field--select form__field--required">
+    <label translate='USER.BASIC_ROLE'></label>
+    <div selectric model="user.basicRoles" 
+        options="user.basicRoles" value="id" label="description" placeholder="{{'LABEL.SELECT' | translate}}">
+    </div>
+</div>
+<!-- <div class="form__field">
+    <label translate='USER.ADD_ROLE' class="text--thick"></label>
+    <div class="well bg--white">
+        <div class="form__field" ng-repeat="role in addonRoles">
+            <input type="checkbox" value="" ng-model="role.id">
+            <label><span ng-bind="role.description"></span></label>
+        </div>
+    </div>
+</div> -->
+
+<label translate="USER.PERM"></label>

@@ -1,7 +1,7 @@
 define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UserController', ['$scope', '$location', '$translate', '$routeParams', 
+    .controller('UserAddController', ['$scope', '$location', '$translate', '$routeParams', 
         '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q',
         function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q) {
 
@@ -9,11 +9,12 @@ define(['angular', 'user'], function(angular) {
             
             $scope.user_info_active = true;
             $scope.account_access_active = false;
-            $scope.basicRoles = [];
-            $scope.addonRoles = [];
             $scope.user = {};
             $scope.user.orgLevel = {};
             $scope.accountList = [];
+            $scope.basicRoles = [];
+            $scope.user.basicRoles = [];
+            $scope.user.addonRoles = [];
 
             var removeParams,
             basicRoleOptions =  {
@@ -32,23 +33,41 @@ define(['angular', 'user'], function(angular) {
             promise2 = Roles.get(addonRoleOptions),
             rolePromiseList = [promise1,promise2];
 
+            
             $q.all(rolePromiseList).then(function(response) {
-                console.log('role resposne', response);
                 if(response[0] && response[0].data && response[0].data._embedded && response[0].data._embedded.roles) {
                     var roleList = response[0].data._embedded.roles;
                     for (var j=0; j<roleList.length; j++) {
                         var role = roleList[j];
-                        $scope.basicRoles.push(role);  
+                        if($scope.user.basicRoles.length < roleList.length) {
+                            var tempRole = {};
+                            tempRole.id = role.id;
+                            tempRole.description = role.description;
+                            $scope.user.basicRoles.push(tempRole); 
+                        }
                     }
+                    //console.log('$scope.user.basicRoles', $scope.user.basicRoles);
                 }
+            
                 if(response[1] && response[1].data && response[1].data._embedded && response[1].data._embedded.roles) {
                     var roleList = response[1].data._embedded.roles;
                     for (var j=0; j<roleList.length; j++) {
                         var role = roleList[j];
-                        $scope.addonRoles.push(role);  
+                        if($scope.user.addonRoles.length < roleList.length) {
+                            $scope.user.addonRoles.push(role); 
+                        }
                     }
+                    //console.log('$scope.user.addonRoles', $scope.user.addonRoles);
                 }
             });
+            // $scope.$watch('basicRoles', function() {
+            //     console.log('$scope.basicRoles in watch', $scope.basicRoles);
+            //     console.log('$scope.basicRoles.length', $scope.basicRoles.length);
+            //     if ($scope.basicRoles) {
+            //         $scope.user.basicRoles = $scope.basicRoles;
+            //         console.log('$scope.user.basicRoles in watch', $scope.user.basicRoles);
+            //     }
+            // });
             
             
             User.getLoggedInUserInfo().then(function() {

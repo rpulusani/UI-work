@@ -7,17 +7,17 @@ define(['angular'], function(angular) {
 
         $routeProvider
         .when('/delegated_admin', {
-            templateUrl: templateUrl('view'),
+            templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController'
         })
         .when('/delegated_admin/return/:returnParam', {
-            templateUrl: templateUrl('view'),
+            templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController',
             activeItem: '/delegated_admin'
         })
-        .when('/delegated_admin/new_user', {
-            templateUrl: templateUrl('new-user'),
-            controller: 'UserController',
+        .when('/delegated_admin/new', {
+            templateUrl: '/app/users/templates/new.html',
+            controller: 'UserAddController',
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/invite_user', {

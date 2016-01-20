@@ -17,8 +17,14 @@ define(['angular', 'dashboard'], function(angular) {
           Personalize
           ) {
 
-           var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+          var personal = new Personalize($location.url(),$rootScope.idpUser.id),
           filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
+
+          $scope.showNotification = true;
+
+          $scope.hideNotification = function(){
+            $scope.showNotification = false;
+          };
 
 
             // Dummy Chart Data

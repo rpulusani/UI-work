@@ -186,9 +186,10 @@ define([
             viewOpenOrders: 'VIEW_OPEN_ORDERS'
         },
         serviceRequestManagement:{
-            viewBreakFix:'VIEW_BREAKFIX_REQUESTS',
+            viewBreakFix:'VIEW_BREAKFIX_REQUEST',
             createBreakFix: 'REQUEST_BREAKFIX',
             viewSuppliesOrder: 'VIEW_SUPPLIES_ORDERS',
+            viewHardwareOrder: 'VIEW_HARDWARE_ORDER',
             orderSuppliesCatalog: 'ORDER_SUPPLIES_CATALOG',
             orderSuppliesAsset: 'ORDER_SUPPLIES_ASSET',
             createSuppliesReturn: 'CREATE_SUPPLIES_RETURN_REQUEST',
@@ -384,6 +385,7 @@ define([
                 permission: [
                     permissionSet.serviceRequestManagement.orderHardware,
                     permissionSet.serviceRequestManagement.viewSuppliesOrder,
+                    permissionSet.serviceRequestManagement.viewHardwareOrder,
                     permissionSet.serviceRequestManagement.orderSuppliesAsset,
                     permissionSet.serviceRequestManagement.orderSuppliesCatalog,
                     permissionSet.serviceRequestManagement.createSuppliesReturn,
@@ -423,6 +425,21 @@ define([
                     permissionSet.userManagement.approvals,
                     permissionSet.userManagement.manageMyProfile,
                     permissionSet.userManagement.inviteUser
+                ]
+            },
+            {
+                name: 'serviceRequestBreakFixAccess',
+                permission: permissionSet.serviceRequestManagement.viewBreakFix
+            },
+            {
+                name: 'serviceRequestMADCAccess',
+                permission: permissionSet.serviceRequestManagement.viewMADC
+            },
+            {
+                name: 'orderSuppliesHardwareAccess',
+                permission:[
+                    permissionSet.serviceRequestManagement.viewSuppliesOrder,
+                    permissionSet.serviceRequestManagement.viewHardwareOrder
                 ]
             }
         ];
