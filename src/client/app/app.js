@@ -57,9 +57,8 @@ define([
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
     'library',
+    'library.libraryController',
     'library.libraryListController',
-    'library.libraryNewController',
-    'library.libraryUpdateController',
     'library.libraryViewController',
     'library.libraryFactory',
     'library.directives',
@@ -158,6 +157,7 @@ define([
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('lbsURL', config.portal.lbsUrl)
+    .constant('libraryServiceUrl', config.portal.libraryServiceUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'

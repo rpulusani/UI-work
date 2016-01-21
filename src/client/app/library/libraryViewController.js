@@ -1,8 +1,8 @@
 define(['angular', 'library', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryViewController', ['$scope', '$location', '$translate', 'Documents', '$rootScope', 'FormatterService',
-        function($scope, $location, $translate, Documents, $rootScope, FormatterService) {
+    .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', 'Documents', '$rootScope', 'FormatterService',
+        function($scope, $location, $translate, $http, Documents, $rootScope, FormatterService) {
 
             if (Documents.item === null) {
                 $location.path(Documents.route);
@@ -35,9 +35,15 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 $location.path(Documents.route + '/' + $scope.documentItem.id + '/update');
             };
 
-            $scope.goToDelete = function(documentItem) {
-                Documents.setItem(documentItem);
-
+            $scope.goToDelete = function() {
+                $http({
+                    method: 'DELETE',
+                    url: $scope.documentItem.url
+                }).then(function successCallback(response) {
+                    $location.path(Documents.route);
+                }, function errorCallback(response) {
+                    NREUM.noticeError('Failed to DELETE existing document library file: ' + response.statusText);
+                });
             };
 
             $scope.goToDownload = function(documentItem) {
