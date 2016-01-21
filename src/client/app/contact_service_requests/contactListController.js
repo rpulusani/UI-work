@@ -57,11 +57,11 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         };
 
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
-            function() {
+            function(Grid) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
 
                 setTimeout(function() {
-                    $scope.$broadcast('setupColumnPicker', new GridService());
+                    $scope.$broadcast('setupColumnPicker', Grid);
                 }, 500); // Stupid hack, need to look closely at FSS bit who has the time?
             }
         );

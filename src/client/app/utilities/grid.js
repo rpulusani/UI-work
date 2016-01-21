@@ -213,7 +213,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             var tempOptionName = this.optionsName;
             $timeout(function(){
                 if(typeof $ === 'function'){
-                    console.log(tempOptionName);
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
                     $('[ui-grid="' + tempOptionName + '"].table').css('height', newHeight + 'px');
                     $('[ui-grid="' + tempOptionName + '"].table').css('margin-bottom', '60px');

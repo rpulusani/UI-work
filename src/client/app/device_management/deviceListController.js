@@ -60,9 +60,9 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             };
 
             filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'}, false,
-                function() {
+                function(Grid) {
                     setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', new GridService());
+                        $scope.$broadcast('setupColumnPicker', Grid);
                     }, 500);
                 }
             );
