@@ -49,6 +49,7 @@ requirejs.config({
             'rome',
 
             'address',
+            'address.addressAddController',
             'address.addressController',
             'address.addressListController',
             'address.directives',
@@ -117,6 +118,7 @@ requirejs.config({
         'user.roleListController': ['user','account.roleFactory'],
 
         'address': ['angular'],
+        'address.addressAddController': ['address'],
         'address.addressController': ['address'],
         'address.addressListController': ['address'],
         'address.directives': ['address'],
@@ -242,6 +244,7 @@ requirejs.config({
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
+        'address.addressAddController': 'app/address_service_requests/addressAddController',
         'address.addressController': 'app/address_service_requests/addressController',
         'address.addressListController': 'app/address_service_requests/addressListController',
         'address.directives': 'app/address_service_requests/directives',

@@ -1,26 +1,14 @@
-<div class="page-header">
-    <div class="col-1">
-        <ul class="breadcrumb">
-            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
-            <li><a href="" ng-click="addresses.goToList()" translate="ADDRESS.TITLE"></a> >&nbsp;</li>
-            <li translate="ADDRESS_SERVICE_REQUEST.ADD"></li>
-        </ul>
-    </div>
-
-    <div class="col-lg-2-3 col-md-1">
-        <h1 translate="ADDRESS_SERVICE_REQUEST.ADD"></h1>
-        <p translate="MESSAGE.LIPSUM"></p>
-    </div>
-</div>
+<div sr-header></div>
 
 <div class="page-content">
-    <div class="row">
+    <div ng-hide="isSubmitted">
         <div class="col-lg-2-3 col-md-1-1">
-            <form class="form" ng-submit="saveAddress(newAddress)" data-form="" name="newAddress" method="post" enctype="multipart/form-data" novalidate>
-                <div new-address-fields></div>
+            <form class="form" data-form="" name="newAddress" novalidate>
+                <div address-new-fields></div>
+            
+                <hr/>
 
-                <button name="cancel" class="btn btn--secondary" ng-click="addresses.goToList()" translate="ADDRESS_SERVICE_REQUEST.ABANDON_ADD"></button>
-                <button name="submit" class="btn btn--primary" ng-click="saveAddress(newAddress)" type="submit" translate="ADDRESS_SERVICE_REQUEST.SUBMIT"></button>
+                <div sr-form-buttons></div>
             </form>
         </div>
     </div>

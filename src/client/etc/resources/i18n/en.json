@@ -488,7 +488,9 @@
             "UPDATE_MSG": " has been saved! You can update the details below.",
             "UPDATE_SUBMIT": "Update Address",
             "ABANDON_ADD": "Abandon Address Creation",
-            "SUBMIT": "Create Address"
+            "SUBMIT": "Create Address",
+            "ADDRESS_CONTACT": "Address contact",
+            "ADDITIONAL_REQUEST_DETAILS": "Additional request details"
         },
 
         "SERVICE_REQUEST": {
@@ -523,7 +525,8 @@
             "FILTER_BY_CHL": "Filter By CHL",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Service Request Number: {{srNumber}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "",
-            "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}"
+            "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}",
+            "ADD_ADDRESS_REQUEST_SUBMITTED": "Add an Address Request Submitted"
         },
 
     "CONTACT_SERVICE_REQUEST": {

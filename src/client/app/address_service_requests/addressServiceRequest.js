@@ -7,18 +7,23 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/address_service_requests/templates/view.html',
                 controller: 'AddressListController'
             })
-            .when('/service_requests/addresses/:id/review', {
+            .when('/service_requests/addresses/new', {
+                templateUrl: '/app/address_service_requests/templates/new.html',
+                controller: 'AddressAddController',
+                activeItem: '/service_requests/addresses'
+            })
+            .when('/service_requests/addresses/add/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'AddressController',
+                controller: 'AddressAddController',
+                activeItem: '/service_requests/addresses'
+            })
+            .when('/service_requests/addresses/add/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'AddressAddController',
                 activeItem: '/service_requests/addresses'
             })
             .when('/service_requests/addresses/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
-                controller: 'AddressController',
-                activeItem: '/service_requests/addresses'
-            })
-            .when('/service_requests/addresses/new', {
-                templateUrl: '/app/address_service_requests/templates/new.html',
                 controller: 'AddressController',
                 activeItem: '/service_requests/addresses'
             })
