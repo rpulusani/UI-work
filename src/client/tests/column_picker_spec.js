@@ -20,17 +20,17 @@ define(['angular','angular-mocks', 'fixtures', 'utility.grid'], function(angular
 
             scope.gridOptions = {
 
-            }
+            };
 
             ele = compile('<div columnpicker></div>')(scope);
         }));
 
         beforeEach(inject(['grid', function(Grid) {
-            mockGrid = Grid;
+            mockGrid = new Grid();
         }]));
 
         it('is setup by broadcasting setupColumnPicker', function () {
-            
+
             mockGrid.display(mockService, scope);
 
             scope.$broadcast('setupColumnPicker', mockGrid);
@@ -38,7 +38,7 @@ define(['angular','angular-mocks', 'fixtures', 'utility.grid'], function(angular
             expect(ele.html()).toContain('dropdown');
         });
 
-        it('should have a listing of available columns', function () {           
+        it('should have a listing of available columns', function () {
             mockGrid.display(mockService, scope);
 
             scope.$broadcast('setupColumnPicker', mockGrid);
