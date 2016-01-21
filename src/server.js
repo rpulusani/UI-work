@@ -769,7 +769,8 @@ router.all('/*', function(req, res, next) {
             portal: { serviceUrl: process.env.PORTAL_API_URL,
                       imageNowSecret: process.env.IMAGE_NOW_SECRET,
                       imageNowUrl: process.env.IMAGE_NOW_URL,
-                      lbsUrl: process.env.LBS_URL  }
+                      lbsUrl: process.env.LBS_URL,
+                      libraryServiceUrl: process.env.LIBRARY_API_URL  }
         })
     });
 });

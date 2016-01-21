@@ -165,13 +165,11 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope[this.optionsName].showGridFooter = false;
             scope[this.optionsName].enableRowSelection = true;
             scope[this.optionsName].enableSelectAll = true;
-           // scope.gridOptions.gridCss = 'table';
             scope[this.optionsName].enableMinHeightCheck = true;
             scope[this.optionsName].minRowsToShow = service.params.size;
             scope[this.optionsName].virtualizationThreshold = service.params.size;
             scope[this.optionsName].enableHorizontalScrollbar = 0;
             scope[this.optionsName].enableVerticalScrollbar = 0;
-            scope[this.optionsName].data = this.getDataWithDataFormatters(service.data, service.functionArray);
             //printing Options
             scope[this.optionsName].exporterPdfDefaultStyle = {fontSize: 9};
             scope[this.optionsName].exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
@@ -179,6 +177,18 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope[this.optionsName].exporterPdfPageSize = 'LETTER';
             scope[this.optionsName].exporterPdfMaxGridWidth = 500;
             scope[this.optionsName].rowEditWaitInterval = 0;
+            scope[this.optionsName].exporterAllDataPromise = function() {
+                scope[this.optionsName].currentPageData = scope[this.optionsName].data;
+                scope[this.optionsName].servicePage = service.page;
+
+                return service.getPage(0, 100000).then(function() {
+                    scope[this.optionsName].data = service.data;
+                    setTimeout(function() {
+                        service.page = scope[this.optionsName].servicePage;
+                        scope[this.optionsName].data = scope[this.optionsName].currentPageData;
+                    }, 0);
+                });
+            };
 
             // Setup special columns
             if ((scope[this.optionsName].showBookmarkColumn === undefined ||
@@ -222,7 +232,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 scope.itemsPerPage = service.params.size;
             }
 
-            this[this.optionsName] = scope.gridOptions;
+            this[this.optionsName] = scope[this.optionsName];
 
             // Generalized row selection
             scope.isSingleSelected = function() {

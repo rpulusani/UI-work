@@ -740,7 +740,8 @@
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
             "NUMBER_CLOSED_REQUESTS": "15 Closed Requests",
-            "NUMBER_OPEN_REQUESTS": "open"
+            "NUMBER_OPEN_REQUESTS": "open",
+            "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },
 
         "DEVICE_MGT": {
@@ -1150,6 +1151,7 @@
                 "BTN_ADD_ACCOUNT" : "ADD TO LIST",
                 "BTN_BROWSE" : "BROWSE",
                 "BTN_UPLOAD_SAVE_DOC" : "UPLOAD DOCUMENT AND SAVE",
+                "BTN_ABANDON_DOC_UPLOAD": "ABANDON DOCUMENT UPLOAD",
                 "CHK_VISIBILITY__ALL_ACCOUNTS" : "File is visible to all accounts",
                 "CHK_VISIBILITY_STRATEGIC" : "File is only visible to users with strategic access",
                 "CTRL_GRID_REMOVE" : "Remove from list",
@@ -1159,7 +1161,7 @@
                 "TXT_ADD_ACCOUNT" : "Add account",
                 "TXT_ADD_NEW_DOCUMENT" : "Add a New Document",
                 "TXT_ADD_NEW_DOCUMENT_PAR" : "TBD",
-                "TXT_BROWSE_FILE" : "Browse file *",
+                "TXT_BROWSE_FILE" : "Browse file",
                 "TXT_CAN_SEE" : "Can see",
                 "TXT_GRID_ACCOUNT_NAME" : "Account name",
                 "TXT_GRID_VISIBILITY" : "Visibility",
@@ -1180,7 +1182,7 @@
                 "TXT_DELETE_DOC_ARE_YOU_SURE" : "Are you sure you wish to delete this document?",
                 "TXT_DESCRIPTION" : "Description",
                 "TXT_DOCUMENT_DETAILS" : "Document details",
-                "TXT_DOCUMENT_NAME" : "Document name *",
+                "TXT_DOCUMENT_NAME" : "Document name",
                 "TXT_FILE_DETAILS" : "File details",
                 "TXT_PUBLISH_FROM" : "Publish from",
                 "TXT_PUBLISH_TO" : "Publish to",

@@ -1,8 +1,8 @@
 define(['angular', 'library', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .factory('Documents', ['serviceUrl', '$translate', '$rootScope', 'FormatterService', 'HATEOASFactory',
-        function(serviceUrl, $translate, $rootScope, formatter, HATEOASFactory) {
+    .factory('Documents', ['serviceUrl', 'libraryServiceUrl', '$translate', '$rootScope', 'FormatterService', 'HATEOASFactory',
+        function(serviceUrl, libraryServiceUrl, $translate, $rootScope, formatter, HATEOASFactory) {
             var Documents = {
                 serviceName: 'documents',
                 embeddedName: 'documents',
@@ -21,15 +21,15 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), 'field': 'getPublishedDate()' },
                         {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), 'field': 'owner' },
                         {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), 'field': 'getFileSize()' },
-                        {'name': 'Action', 'field': 'name',
+                        {'name': 'Action',
                          'cellTemplate':'<div>' +
-                                            '<i class="icon icon--lxk-ui icon--settings" ng-click="grid.appScope.goToUpdate(row.entity);">Edit</i> | ' +
-                                            '<i class="icon icon--lxk-ui icon--cancel" ng-click="grid.appScope.goToDelete(row.entity);">Trash</i>' +
+                                            '<i class="icon icon-psw-gear" ng-click="grid.appScope.goToUpdate(row.entity);"></i> | ' +
+                                            '<i class="icon icon-psw-error" ng-click="grid.appScope.goToDelete(row.entity);"></i>' +
                                         '</div>' }
                     ]
                 },    
                 route: '/library',
-                url: 'https://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com/documents',
+                url: libraryServiceUrl,
                 functionArray: [
                     {
                         name: 'getFileSize',

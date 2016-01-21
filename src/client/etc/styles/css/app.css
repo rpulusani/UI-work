@@ -824,6 +824,12 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-library:before {
   content: "\e654";
 }
+.icon-psw-error:before {
+  content: "\e017";
+}
+.icon-psw-gear:before {
+  content: "\e030";
+}
 .rollup {
   background-color: #e6e6f0;
   border-top: 3px solid #00ad21;
