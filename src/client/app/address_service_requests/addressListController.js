@@ -17,7 +17,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         function(
             $scope,
             $location,
-            Grid,
+            GridService,
             Addresses,
             $rootScope,
             Personalize,
@@ -40,9 +40,9 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
             $scope.goToUpdate = function(address) { // may be able to remove
                 ServiceRequest.reset();
-                if(address !== null){ 
+                if(address !== null){
                     $location.path(Addresses.route + '/' + address.id + '/update');
-                }else{ 
+                }else{
                 var id = Grid.getCurrentEntityId($scope.currentRowList[0]);
                     if(id !== null){
                         $location.path(Addresses.route + '/' + id + '/update');
@@ -93,13 +93,13 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                     return false;
                 }
             };
-
+            var Grid = new GridService();
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
             //$scope.gridOptions.enableHorizontalScrollbar =  2;
             //$scope.gridOptions.enableVerticalScrollbar = 0;
-            
+
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {
                     User.item._links.accounts = User.item._links.accounts[0];
@@ -114,6 +114,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal, false, function() {
                                 $scope.$broadcast('setupColumnPicker', Grid);
+                                $scope.$broadcast('setupPrintAndExport', $scope);
                             });
                         }, function(reason) {
                             NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);

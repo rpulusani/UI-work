@@ -36,8 +36,7 @@ requirejs.config({
             'library',
             'library.libraryFactory',
             'library.libraryListController',
-            'library.libraryNewController',
-            'library.libraryUpdateController',
+            'library.libraryController',
             'library.libraryViewController',
 
             'nav',
@@ -104,8 +103,7 @@ requirejs.config({
 
         'library': ['angular'],
         'library.libraryListController': ['library'],
-        'library.libraryNewController': ['library'],
-        'library.libraryUpdateController': ['library'],
+        'library.libraryController': ['library'],
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
         'library.directives': ['library'],
@@ -164,7 +162,7 @@ requirejs.config({
 
         'angular-sanitize': 'app/libs/angular-sanitize.min',
 
-        'ui.grid' : 'app/libs/ui-grid',
+        'ui.grid' : 'app/libs/ui-grid/3.0.6/ui-grid',
 
         'app': 'app/app',
 
@@ -211,6 +209,7 @@ requirejs.config({
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
         'utility.columnPickerController': 'app/utilities/columnPickerController',
+        'utility.printExportTitleController': 'app/utilities/printExportTitleController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
@@ -243,10 +242,13 @@ requirejs.config({
 
         'order': 'app/orders/order',
         'order.factory': 'app/orders/ordersFactory',
+        'order.orderItemsfactory': 'app/orders/orderItemsFactory',
         'order.directives': 'app/orders/directives',
         'order.orderListController': 'app/orders/orderListController',
         'order.deviceOrderListController': 'app/orders/deviceOrderListController',
         'order.supplyOrderListController': 'app/orders/supplyOrderListController',
+        'order.orderSupplyController': 'app/orders/orderSupplyController',
+        'order.orderContentsController': 'app/orders/orderContentsController',
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
 
@@ -294,8 +296,7 @@ requirejs.config({
 
         'library': 'app/library/library',
         'library.libraryListController': 'app/library/libraryListController',
-        'library.libraryNewController': 'app/library/libraryNewController',
-        'library.libraryUpdateController': 'app/library/libraryUpdateController',
+        'library.libraryController': 'app/library/libraryController',
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
         'library.directives': 'app/library/directives',

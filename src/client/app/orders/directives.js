@@ -25,7 +25,19 @@ define(['angular', 'order'], function(angular) {
             scope: {}
         };
     })
-    
+    .directive('orderContent', function(){
+        return {
+            restrict: 'A',
+            templateUrl: '/app/orders/templates/order-contents.html',
+            scope:{
+                columnDef: '=',
+                editable:"=",
+                submitAction:"=",
+                datasource:"="
+            },
+            controller: 'OrderContentsController'
+        };
+    })
     .directive('orderActionButtons', function() {
         return {
             restrict: 'A',

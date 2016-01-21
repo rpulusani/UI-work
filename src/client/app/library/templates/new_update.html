@@ -1,0 +1,24 @@
+<div class="page-header">
+    <div class="row">
+        <div class="col-2-3">
+            <h1 translate="{{ translationPlaceHolder.h1 }}"></h1>
+            <p class="text--large" translate="{{ translationPlaceHolder.paragraph }}"></p>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <form class="form" data-form="" name="newDocument" novalidate>
+        <div library-new-fields></div>
+        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL" cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM" return-path="/library"></div>
+
+        <div class="row">
+            <div class="col-lg-2-3 col-md-1-1">
+                <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
+                        translate="{{ translationPlaceHolder.cancel }}"></button>
+                <button name="submit" class="btn btn--primary" type="submit" value="submit" 
+                        translate="{{ translationPlaceHolder.submit }}" ng-click="save();"></button>
+            </div>
+        </div>
+    </form>
+</div>
