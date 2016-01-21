@@ -1274,9 +1274,8 @@
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}})",
-            "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
-            "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
+            "USERS": "Users ({{userCount}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
             "ALL_USER": "All users",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",

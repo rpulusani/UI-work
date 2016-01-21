@@ -1,28 +1,15 @@
 define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .controller('UserController', ['$scope', '$location', '$translate', '$routeParams', '$rootScope', 'UrlHelper',
-        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper) {
+    .controller('UserController', ['$scope', '$location', '$translate', '$routeParams', 
+        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q',
+        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q) {
 
             $scope.templateUrl = UrlHelper.user_template;
             
             $scope.user_info_active = true;
             $scope.account_access_active = false;
-
-            $scope.userRoles = [{id: 1, name: $translate.instant('ROLE.VIEW_OP')}, 
-                                {id: 2, name: $translate.instant('ROLE.VIEW_STR')}];
-
-            if ($routeParams.id) {
-                // TODO: remove hardcode when api is ready.
-                // $scope.user = UserService.get();
-                $scope.user = {status: 'Active', created: '09/01/15', id: 1234567890,
-                               lastName: 'Public', firstName: 'John', emailAddress: 'jpublic@lexmark.com',
-                               account: {name: 'Lexmark International, Inc'}, roles: 'End user'};
-                $scope.userFullName = $scope.user.firstName + ' ' + $scope.user.lastName;
-            } else {
-                $scope.user = {};
-            }
-
+            $scope.user = {};
             $scope.setUserInfo = function() {
                 $scope.user_info_active = true;
                 $scope.account_access_active = false;
