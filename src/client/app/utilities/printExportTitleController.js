@@ -10,6 +10,7 @@ define(['angular', 'utility.grid'], function(angular) {
             $ = require('jquery');
 
             $scope.print = function() {
+                alert(2);
                 $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
             };
 
@@ -24,10 +25,15 @@ define(['angular', 'utility.grid'], function(angular) {
                 $scope.itemtotal = attrs.itemtotal;
             }
             
-            console.log($scope.itemtotal);
-            console.log(attrs);
+            var interval = setInterval(function() {
+                attrs.itemtotal = parseInt(attrs.itemtotal);
 
-            $scope.$apply();
+                if (angular.isNumber(attrs.itemtotal) && attrs.itemtotal >= 0 ) {
+                    clearInterval(interval);
+                    $scope.itemtotal = attrs.itemtotal;
+                }
+            }, 500);
+
         }
     ]);
 });
