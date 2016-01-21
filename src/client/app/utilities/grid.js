@@ -188,8 +188,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 });
             }
 
-
-
             angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
             angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
             angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');

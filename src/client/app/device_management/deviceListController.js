@@ -64,6 +64,9 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
                     }, 500);
+                    
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+
                 }
             );
             //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');

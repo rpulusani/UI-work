@@ -1,27 +1,19 @@
 <div class="col-1">
-        <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-        translate="ORDER_MGT.SUPPLY_ORDERS_W_TOTALS" translate-values="{total: pagination.totalItems()}"></h2>
-        <div class="print-export">
-            <span>
-                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
-            </span>
-            <span>
-                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
-            </span>
-        </div>
-        <hr/>
+    <div print-export-title title="ORDER_MGT.DEVICE_ORDERS_W_TOTALS"></div>
+    <hr/>
 </div>
 
-    <div grid-filter options="filterOptions" params="optionParams"></div>
+<div grid-filter options="filterOptions" params="optionParams"></div>
 
-    <div class="row l-pad-bottom">
-        <div class="col-lg-2-3 col-md-1-1">
-            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-        </div>
+<div class="row l-pad-bottom">
+    <div class="col-lg-2-3 col-md-1-1">
+        <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
+    </div>
 
-        <div class="col-1-8 l-alley-before-thick">
-            <div columnpicker></div>
-        </div>
+    <div class="col-1-8 l-alley-before-thick">
+        <div columnpicker></div>
+    </div>
 </div>
-<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+
+<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
 <div pagination grid="{{gridOptions}}"></div>

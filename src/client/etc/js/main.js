@@ -203,6 +203,7 @@ requirejs.config({
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
         'utility.columnPickerController': 'app/utilities/columnPickerController',
+        'utility.printExportTitleController': 'app/utilities/printExportTitleController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
