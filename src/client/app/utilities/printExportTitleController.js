@@ -1,39 +1,40 @@
-/*
-    Controller for Grid headers with print / export links.
-*/
 define(['angular', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate',
-        function($scope, element, attrs, $translate) {
-            var node = element[0],
-            $ = require('jquery');
-
-            $scope.print = function() {
-                alert(2);
-                $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
-            };
-
-            $scope.export = function() {
-                var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
-            };
-
+    .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate', 'uiGridExporterConstants',
+        function($scope, element, attrs, $translate, uiGridExporterConstants) {
             $scope.title = attrs.title;
 
-            if (attrs.itemtotal) {
-                $scope.itemtotal = attrs.itemtotal;
-            }
-            
-            var interval = setInterval(function() {
-                attrs.itemtotal = parseInt(attrs.itemtotal);
+            $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
+                $scope.itemtotal = ctrlScope.pagination.totalItems();
 
-                if (angular.isNumber(attrs.itemtotal) && attrs.itemtotal >= 0 ) {
-                    clearInterval(interval);
-                    $scope.itemtotal = attrs.itemtotal;
+                if ($scope.itemtotal >= 0) {
+                    $scope.displayTitle = true;
+                    
+                    if (attrs.print === undefined || attrs.print === true) {
+                        $scope.displayPrint = true;
+                    } else {
+                        $scope.displayPrint = false;
+                    }
+
+                    if (attrs.export === undefined || attrs.export === true) {
+                        $scope.displayExport = true;
+                    } else {
+                        $scope.displayExport = false;
+                    }
+                } else {
+                    $scope.displayTitle = false;
                 }
-            }, 500);
 
+                $scope.printGrid = function() {
+                    ctrlScope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
+                };
+
+                $scope.exportGrid = function() {
+                    var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
+                    ctrlScope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
+                };
+            });
         }
     ]);
 });

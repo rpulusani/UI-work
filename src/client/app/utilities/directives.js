@@ -53,7 +53,7 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             scope: {
                 title: '=',
-                itemTotal: '@'
+                print: '='
             },
             templateUrl: '/app/utilities/templates/print-export-title.html',
             controller: 'PrintExportTitleController'

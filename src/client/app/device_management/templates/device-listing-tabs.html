@@ -4,9 +4,7 @@
     </div>
     <div class="set__content" id="deviceListTab">
     <div class="col-1">
-        <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-        translate="DEVICE_MGT.TITLE_CNT" translate-values="{total: pagination.totalItems()}"></h2>
-
+        <div print-export-title title="DEVICE_MGT.TITLE_CNT"></div>
         <hr/>
     </div>
     <div grid-filter options="filterOptions" params="optionParams"></div>
@@ -23,7 +21,7 @@
     </div>
 
     <div class="col-1">
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
         <div pagination grid="{{gridOptions}}"></div>
     </div>
   </div>

@@ -12,7 +12,6 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     'SecurityHelper',
     'FormatterService',
     'SRControllerHelperService',
-    'uiGridExporterConstants',
     function(
         $scope,
         $location,
@@ -23,8 +22,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         FilterSearchService,
         SecurityHelper,
         formatter,
-        SRHelper,
-        uiGridExporterConstants
+        SRHelper
     ) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
@@ -34,15 +32,6 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $rootScope.currentRowList = [];
 
         $scope.contacts = Contacts;
-
-        $scope.print = function(){
-            $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
-        };
-
-        $scope.export = function(){
-            var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-            $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
-        };
 
         $scope.selectRow = function(btnType) {
             if (btnType !== 'delete') {
@@ -59,6 +48,8 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function() {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
+                
+                $scope.$broadcast('setupPrintAndExport', $scope);
 
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
