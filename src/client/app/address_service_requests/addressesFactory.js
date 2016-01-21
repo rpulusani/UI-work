@@ -78,7 +78,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                         this.setItem(address);
                     }
 
-                    window.scrollTo(0,0)
+                    window.scrollTo(0,0);
 
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },

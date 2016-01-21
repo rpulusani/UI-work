@@ -42,7 +42,18 @@ define(['angular', 'address'], function(angular) {
                     cancel: $translate.instant('CONTACT_SERVICE_REQUEST.ABANDON_DELETE')
                 };
 
-                //NEED FOR DELETE TEMPLATE?
+             $scope.formattedAddress = FormatterService.formatAddress(Addresses.item);
+                $scope.requestedByAddressFormatted = FormatterService.formatAddress({
+                    name: $scope.addresses.item.name,
+                    storeFrontname: $scope.addresses.item.storeFrontName,
+                    addressLine1: $scope.addresses.item.addressLine1,
+                    addressLine2: $scope.addresses.item.addressLine2,
+                    city: $scope.addresses.item.city,
+                    state: $scope.addresses.item.state,
+                    postalCode: $scope.addresses.item.postalCode,
+                    country: $scope.addresses.item.country
+                });
+
                 $scope.formattedPrimaryContact = FormatterService.formatContact(Contacts.item);
                 $scope.requestedByContactFormatted = FormatterService.formatContact({
                     firstName: $rootScope.currentUser.firstName,
@@ -75,6 +86,13 @@ define(['angular', 'address'], function(angular) {
                             attachements: true
                         }
                     },
+                    addresssr: {
+                        translate: {
+                            title: 'ADDRESS.INFO',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        }
+                    },
                     contact: {
                         translate: {
                             title: 'DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION',
@@ -85,13 +103,6 @@ define(['angular', 'address'], function(angular) {
                         },
                         show:{
                             primaryAction : true
-                        }
-                    },
-                    contactsr: {
-                        translate: {
-                            title: 'CONTACT.INFO',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         }
                     },
                     actions: {
