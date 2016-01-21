@@ -202,7 +202,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 obj.send = self.send;
                 obj.post = self.post;
                 obj.put = self.put;
-                obj.remove = self.remove;
                 obj.setParamsToNull = self.setParamsToNull;
                 obj.getHalUrl = self.getHalUrl;
                 obj.processCall = self.processCall;
@@ -532,10 +531,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.update = function(halObj, options) {
                 return this.send(halObj, 'put', 'Update', options);
-            };
-
-            HATEOASFactory.prototype.remove = function(halObj, options) {
-                return this.send(halObj, 'delete', 'Delete', options);
             };
 
             HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
