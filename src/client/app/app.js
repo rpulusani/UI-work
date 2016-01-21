@@ -33,6 +33,7 @@ define([
     'order.actionButtonController',
     'order.orderSupplyController',
     'order.orderItemsfactory',
+    'order.orderContentsController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -136,6 +137,7 @@ define([
         'ui.grid.selection',
         'ui.grid.pagination',
         'ui.grid.exporter',
+        'ui.grid.autoResize',
         'spring-data-rest',
         'tree'
     ])

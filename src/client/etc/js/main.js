@@ -158,7 +158,7 @@ requirejs.config({
 
         'angular-sanitize': 'app/libs/angular-sanitize.min',
 
-        'ui.grid' : 'app/libs/ui-grid/3.1.0/ui-grid',
+        'ui.grid' : 'app/libs/ui-grid/3.0.6/ui-grid',
 
         'app': 'app/app',
 
@@ -240,6 +240,7 @@ requirejs.config({
         'order.deviceOrderListController': 'app/orders/deviceOrderListController',
         'order.supplyOrderListController': 'app/orders/supplyOrderListController',
         'order.orderSupplyController': 'app/orders/orderSupplyController',
+        'order.orderContentsController': 'app/orders/orderContentsController',
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
 

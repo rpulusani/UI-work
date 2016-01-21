@@ -1,7 +1,7 @@
 define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
     'use strict';
     angular.module('mps.utility')
-    .factory('grid', ['uiGridConstants',  function(uiGridConstants) {
+    .factory('grid', ['uiGridConstants', '$timeout',  function(uiGridConstants, $timeout) {
         var Grid = function() {
             this.itemsPerPageArr = [
                 {items: 20},
@@ -138,6 +138,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             return size;
         };
         Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
+
             var size =  this.getSize(service),
             serviceId = '',
             newHeight = '';
@@ -199,16 +200,21 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     exporterSuppressExport: true
                 });
             }
+            var tempOptionName = this.optionsName;
+            $timeout(function(){
+                if(typeof $ === 'function'){
+                    console.log(tempOptionName);
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
+                    $('[ui-grid="' + tempOptionName + '"].table').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"].table').css('margin-bottom', '60px');
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-render-container').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('overflow-x', 'auto');
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"]').show();
+                }
 
+            }, 100);
 
-
-            angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','');
-            angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','');
-            angular.element(document.getElementsByClassName('table')[0]).css('height', newHeight + 'px');
-            angular.element(document.getElementsByClassName('ui-grid-render-container')[0]).css('height', newHeight + 'px');
-            angular.element(document.getElementsByClassName('ui-grid-viewport')[0]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
-            angular.element(document.getElementsByClassName('ui-grid-viewport')[1]).attr('style','overflow-x: auto;height: '+ newHeight + 'px;');
-            //scope.gridApi.core.refresh();
             // Setting up pagination
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);
