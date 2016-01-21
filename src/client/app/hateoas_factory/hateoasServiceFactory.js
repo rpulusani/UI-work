@@ -150,6 +150,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
             };
 
+            HATEOASFactory.prototype.addMultipleRelationship = function(name, halObjArr, altName){
+                var tempObjectArr = [],
+                calculatedName = (altName) ? altName: name;
+
+                this.getMessage();
+
+                if (halObjArr && halObjArr.length && halObjArr.length > 0) {
+                    for (var i=0; i<halObjArr.length; i++) {
+                        if(halObjArr[i] && halObjArr[i]._links && halObjArr[i]._links[calculatedName] &&
+                            halObjArr[i]._links[calculatedName].href) {
+                            var tempObject = { href: halObjArr[i]._links[calculatedName].href};
+                            tempObjectArr.push(tempObject);
+                        }
+                    }
+                    var finalObj = {};
+                    finalObj[name] = tempObjectArr;
+                    angular.extend(this.item._links, finalObj);
+                }
+            };
+
             // Update a secondary service with a matching link in a given envelope
             HATEOASFactory.prototype.getAdditional = function(halObj, newService) {
                 var self = this,

@@ -97,8 +97,16 @@ define([
 
                 if ($scope.action && $scope.action === 'selectLevel') {
                     if (item.selected) {
-                        $scope.value.id = item.accountId;
-                        $scope.value.name = item.name;
+                        if ($scope.treeType) {
+                            if ($scope.treeType === 'chl') {
+                                $scope.value.id = item.accountId;
+                                $scope.value.name = item.name;
+                            } 
+                            else if ($scope.treeType === 'daAccounts') {
+                                $scope.value.push(item);
+                            }
+                        }
+                        
                         deselectOthers(item, $scope.treeNodes);
                     }
                 } else {

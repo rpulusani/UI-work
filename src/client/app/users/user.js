@@ -21,8 +21,8 @@ define(['angular'], function(angular) {
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/invite_user', {
-            templateUrl: templateUrl('invite-user'),
-            controller: 'UserController',
+            templateUrl: '/app/users/templates/invite-user.html',
+            controller: 'UserAddController',
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/:id/read', {
