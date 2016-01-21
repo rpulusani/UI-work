@@ -3,7 +3,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
     angular.module('mps.report')
     .controller('ReportListController', ['$scope', '$location', 'grid', 'Reports', '$rootScope',
         'PersonalizationServiceFactory', '$filter',
-        function($scope, $location, Grid, Reports, $rootScope, Personalize, $filter) {
+        function($scope, $location, GridService, Reports, $rootScope, Personalize, $filter) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             var params = {};
 
@@ -16,6 +16,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 configureFinderType();
 
                 // Setting up the grid
+                var Grid = new GridService();
                 $scope.gridOptions = {};
                 $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
                 $scope.gridOptions.enableGridMenu = true;
@@ -46,8 +47,8 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                             body: 'MESSAGE.LIPSUM',
                         },
                     },
-                }
-            };
+                };
+            }
 
             function configureFinderType() {
                 switch ($scope.report.id) {
@@ -111,7 +112,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     default:
                         params = null;
                 }
-            };
+            }
         }
     ]);
 });

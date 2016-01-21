@@ -4,6 +4,78 @@ define(['angular', 'utility'], function(angular) {
     .factory('FormatterService', [ '$translate', 'BlankCheck','$filter',
         function($translate, BlankCheck, $filter) {
             return{
+                formatPercentage: function(incommingValue){
+                    var percentage;
+                    if(incommingValue !== '-' && typeof incommingValue === "number"){
+                        if(incommingValue % 1 === 0){
+                            percentage = incommingValue + '%';
+                        }else{
+                            percentage = $filter('number')(incommingValue * 100, 2) + '%';
+                        }
+                    }else if(incommingValue !== '-' && typeof incommingValue === "string"){
+                        var floatValue = parseFloat(incommingValue);
+                        if(floatValue % 1 !== 0){
+                            percentage = $filter('number')(incommingValue * 100, 2) + '%';
+                        }else{
+                             percentage = floatValue + '%';
+                        }
+                    }else{
+                        percentage = '-';
+                    }
+                    return percentage;
+                },
+                formatCurrency: function(incommingMoney){
+                    var moneyValue = 0.0,
+                    price;
+                    if(incommingMoney !== '-' && typeof incommingMoney === "number"){
+                        moneyValue = $filter('currency')(incommingMoney, 'USD$');
+                    }else if(incommingMoney !== '-' && typeof incommingMoney === "string"){
+                        var money = parseFloat(incommingMoney);
+                        if( money === 0){
+                            moneyValue = '-';
+                        }else{
+                            moneyValue = $filter('currency')(money, 'USD$');
+                        }
+                    }else{
+                        moneyValue = '-';
+                    }
+
+                    return moneyValue;
+                },
+                itemSubTotal: function(incommingPrice, incommingQty){
+                     var price = 0.0,
+                                qty = 0.0,
+                                subtotal;
+
+
+                                if(incommingPrice !== '-' && typeof incommingPrice === "number"){
+                                    price = incommingPrice;
+                                }else if(this.price !== '-' && typeof incommingPrice === "string"){
+                                    price = parseFloat(incommingPrice);
+                                }else{
+                                    price = 0.0;
+                                }
+                                if(incommingQty !== '-' && typeof incommingQty === "number"){
+                                    qty = incommingQty;
+                                }else if(incommingQty !== '-' && typeof incommingQty === "string"){
+                                    qty = parseInt(incommingQty, 10);
+                                }else{
+                                    qty = 0.0;
+                                }
+
+                                if(incommingPrice === '-'){
+                                    subtotal = 0.0;
+                                }else if(price === 0.0 && incommingPrice !== '-'){
+                                    subtotal = 0.0;
+                                }else if(price > 0.0 && qty > 0){
+                                    subtotal = price * qty;
+                                }else if(qty === 0){
+                                    subtotal = 0.0;
+                                }else {
+                                    subtotal = 0.0;
+                                }
+                                return subtotal;
+                },
                 getFormattedSRNumber: function(serviceRequest){
 
                     if(serviceRequest && serviceRequest._links && serviceRequest.requestNumber &&
@@ -185,7 +257,7 @@ define(['angular', 'utility'], function(angular) {
                         }
                         if (BlankCheck.checkNotBlank(address.city)){
                             formattedAddress = formattedAddress + address.city;
-                            if (BlankCheck.checkNotBlank(address.postalCode) 
+                            if (BlankCheck.checkNotBlank(address.postalCode)
                                 || BlankCheck.checkNotBlank(address.state)
                                 || BlankCheck.checkNotBlank(address.country)) {
                                 formattedAddress = formattedAddress + ', ';

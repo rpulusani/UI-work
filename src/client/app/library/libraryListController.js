@@ -2,10 +2,10 @@ define(['angular', 'library'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FilterSearchService',
-        function($scope, $location, $translate, $route, $http, Documents, Grid, $rootScope, Personalize, FilterSearchService) {
+        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, FilterSearchService) {
 
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-
+            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
 

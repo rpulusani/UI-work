@@ -15,7 +15,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     function(
         $scope,
         $location,
-        Grid,
+        GridService,
         Contacts,
         $rootScope,
         Personalize,
@@ -46,7 +46,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         };
 
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
-            function() {
+            function(Grid) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
                 
                 $scope.$broadcast('setupPrintAndExport', $scope);
