@@ -5,7 +5,8 @@
 <div ng-show="documentItem.id !== 'new'">
     <div class="form__field form__field--required vertical-space--thick">
         <button name="deleteDocument" class="btn btn--default" type="submit" value="submit" 
-                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-click="remove();"></button>
+                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-click="goToDelete();"></button>
+    </div>
 </div>
 
 <div ng-show="documentItem.id === 'new'">

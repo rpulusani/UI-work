@@ -1,8 +1,8 @@
 define(['angular', 'library'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', 'translationPlaceHolder', 'Documents', '$rootScope', '$http',
-        function($scope, $location, $routeParams, $translate, translationPlaceHolder, Documents, $rootScope, $http) {
+    .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http', 'translationPlaceHolder', 'Documents', '$rootScope', '$http',
+        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, $rootScope) {
 
             $scope.translationPlaceHolder = translationPlaceHolder;
 
@@ -29,24 +29,36 @@ define(['angular', 'library'], function(angular) {
             };
 
             $scope.save = function() {
-                /*
-                if ($scope.documentItem.id) {
-                    Documents.update({
-                        id: $scope.address.id,
-                        accountId: $scope.documentItem.documentId
-                    }, $scope.documentItem, redirect_to_list);
+                if ($scope.documentItem.id !== 'new') {
+                    /* update, not impl. yet. */
                 } else {
-                    Documents.save({
-                        accountId: $scope.documentItem.documentId
-                    }, $scope.documentItem, redirect_to_list);
-                }*/
+                    /* upload */
+                    var fd = new FormData();
+                    fd.append('file', $scope.documentFile);
+                    $http({
+                        method: 'POST',
+                        url: Documents.url + '/upload',
+                        data: fd
+                    }).then(function successCallback(response) {
+                        $location.path(Documents.route);
+                    }, function errorCallback(response) {
+                        NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
+                    });
+                }
             };
 
             $scope.addTag = function() {
             };
 
-            $scope.remove = function() {
-                Documents.remove();
+            $scope.goToDelete = function() {
+                $http({
+                    method: 'DELETE',
+                    url: $scope.documentItem.url
+                }).then(function successCallback(response) {
+                    $location.path(Documents.route);
+                }, function errorCallback(response) {
+                    NREUM.noticeError('Failed to DELETE existing document library file: ' + response.statusText);
+                });
             };
 
             $scope.cancel = function() {
