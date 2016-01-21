@@ -223,7 +223,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 }
 
             }, 100);
-
             // Setting up pagination
             if (scope.pagination !== false) {
                 scope.pagination = this.pagination(service, scope, personal);

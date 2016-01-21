@@ -39,13 +39,24 @@ define(['angular', 'utility'], function(angular) {
     })
     .directive('columnpicker', [function () {
         return {
-          restrict: 'A',
-          scope: {
-            target: '=',
-            columns: '@',
-            grid: '@'
-          },
-          controller: 'ColumnPickerController'
+            restrict: 'A',
+            scope: {
+                target: '=',
+                columns: '@',
+                grid: '@'
+            },
+            controller: 'ColumnPickerController'
+        };
+    }])
+    .directive('printExportTitle', [function () {
+        return {
+            restrict: 'A',
+            scope: {
+                title: '=',
+                print: '='
+            },
+            templateUrl: '/app/utilities/templates/print-export-title.html',
+            controller: 'PrintExportTitleController'
         };
     }])
     .directive('pickContact', function(){

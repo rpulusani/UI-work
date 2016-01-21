@@ -38,7 +38,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
             filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params, false,
                 function(Grid) {
                     setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                        $scope.$broadcast('setupColumnPicker', Grid)
                     }, 0);
                 }
             );

@@ -114,6 +114,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal, false, function() {
                                 $scope.$broadcast('setupColumnPicker', Grid);
+                                $scope.$broadcast('setupPrintAndExport', $scope);
                             });
                         }, function(reason) {
                             NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);

@@ -39,6 +39,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
+                        $scope.$broadcast('setupPrintAndExport', $scope);
                     }, 0);
                 }
             );
