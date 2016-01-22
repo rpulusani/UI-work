@@ -220,7 +220,7 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.addField('firstName', $scope.user.firstName);
                 UserAdminstration.addField('lastName', $scope.user.lastName);
                 //UserAdminstration.addField('password', $scope.user.password);
-                //UserAdminstration.addField('email', $scope.user.email);
+                UserAdminstration.addField('email', $scope.user.email);
                 UserAdminstration.addField('userId', $scope.user.email);
                 UserAdminstration.addField('workPhone', $scope.user.workPhone);
                 var addressInfo = {
