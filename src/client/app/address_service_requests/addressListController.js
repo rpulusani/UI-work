@@ -12,9 +12,9 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         'SecurityHelper',
         'ServiceRequestService',
         'SRControllerHelperService',
-        '$q', //delete?
-        'AccountService', //delete?
-        'UserService', //delete?
+        '$q',
+        'AccountService',
+        'UserService',
         function(
             $scope,
             $location,
@@ -26,12 +26,12 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             SecurityHelper,
             ServiceRequest,
             SRHelper,
-            $q, //delete?
-            Account, //delete?
-            User //delete?
+            $q,
+            Account,
+            User
             ) {
             $rootScope.currentRowList = [];
-            $scope.visibleColumns = []; //delete?
+            $scope.visibleColumns = [];
 
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
