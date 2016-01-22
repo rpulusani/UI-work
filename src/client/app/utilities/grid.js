@@ -15,7 +15,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             this.optionsName = 'gridOptions';
             this.gridOptions = {};
         };
-        Grid.prototype.setGridOptionsName = function(newName){
+        Grid.prototype.setGridOptionsName = function(newName) {
             this.optionsName = newName;
             this[this.optionsName] = {};
         };
@@ -138,10 +138,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             return size;
         };
         Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
-            var size =  this.getSize(service),
+            var self = this,
             serviceId = '',
             newHeight = '',
-            self = this;
+            size = self.getSize(service);
 
             if (rowHeight) {
                 newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
@@ -158,47 +158,48 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }
 
             if(rowHeight){
-                scope[this.optionsName].rowHeight = rowHeight;
+                scope[self.optionsName].rowHeight = rowHeight;
             }
-            scope[this.optionsName].data = this.getDataWithDataFormatters(service.data, service.functionArray);
-            scope[this.optionsName].columnDefs = this.setColumnDefaults(service.columns, service.columnDefs);
-            scope[this.optionsName].showGridFooter = false;
-            scope[this.optionsName].enableRowSelection = true;
-            scope[this.optionsName].enableSelectAll = true;
-            scope[this.optionsName].enableMinHeightCheck = true;
-            scope[this.optionsName].minRowsToShow = service.params.size;
-            scope[this.optionsName].virtualizationThreshold = service.params.size;
-            scope[this.optionsName].enableHorizontalScrollbar = 0;
-            scope[this.optionsName].enableVerticalScrollbar = 0;
+            scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
+            scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
+            scope[self.optionsName].showGridFooter = false;
+            scope[self.optionsName].enableRowSelection = true;
+            scope[self.optionsName].enableSelectAll = true;
+            scope[self.optionsName].enableMinHeightCheck = true;
+            scope[self.optionsName].minRowsToShow = service.params.size;
+            scope[self.optionsName].virtualizationThreshold = service.params.size;
+            scope[self.optionsName].enableHorizontalScrollbar = 0;
+            scope[self.optionsName].enableVerticalScrollbar = 0;
             //printing Options
-            scope[this.optionsName].exporterPdfDefaultStyle = {fontSize: 9};
-            scope[this.optionsName].exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
-            scope[this.optionsName].exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
-            scope[this.optionsName].exporterPdfPageSize = 'LETTER';
-            scope[this.optionsName].exporterPdfMaxGridWidth = 500;
-            scope[this.optionsName].rowEditWaitInterval = 0;
-            scope[this.optionsName].exporterAllDataPromise = function() {
-                scope[self.optionsName].currentPageData = scope[this.optionsName].data;
+            scope[self.optionsName].exporterPdfDefaultStyle = {fontSize: 9};
+            scope[self.optionsName].exporterPdfTableStyle = {margin: [30, 30, 30, 30]};
+            scope[self.optionsName].exporterPdfTableHeaderStyle = {fontSize: 10, bold: true, italics: true, color: 'black'};
+            scope[self.optionsName].exporterPdfPageSize = 'LETTER';
+            scope[self.optionsName].exporterPdfMaxGridWidth = 500;
+            scope[self.optionsName].rowEditWaitInterval = 0;
+            scope[self.optionsName].exporterAllDataPromise = function() {
+                scope[self.optionsName].currentGridData = scope[self.optionsName].data;
                 scope[self.optionsName].servicePage = service.page;
 
                 return service.getPage(0, 100000).then(function() {
                     scope[self.optionsName].data = service.data;
+                    
                     setTimeout(function() {
                         service.page = scope[self.optionsName].servicePage;
-                        scope[self.optionsName].data = scope[self.optionsName].currentPageData;
+                        scope[self.optionsName].data = scope[self.optionsName].currentGridData;
                     }, 0);
                 });
             };
 
             // Setup special columns
-            if ((scope[this.optionsName].showBookmarkColumn === undefined ||
-                scope[this.optionsName].showBookmarkColumn === true) &&
-                (!this.serviceInfo[serviceId] || !this.serviceInfo[serviceId].hasBookmarkCol)) {
+            if ((scope[self.optionsName].showBookmarkColumn === undefined ||
+                scope[self.optionsName].showBookmarkColumn === true) &&
+                (!self.serviceInfo[serviceId] || !self.serviceInfo[serviceId].hasBookmarkCol)) {
 
-                scope[this.optionsName].showBookmarkColumn = true;
-                this.serviceInfo[serviceId] = {hasBookmarkCol: true};
+                scope[self.optionsName].showBookmarkColumn = true;
+                self.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
-                scope[this.optionsName].columnDefs.unshift({
+                scope[self.optionsName].columnDefs.unshift({
                     name: '',
                     field: 'bookmark',
                     width:'30',
@@ -210,7 +211,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     exporterSuppressExport: true
                 });
             }
-            var tempOptionName = this.optionsName;
+            var tempOptionName = self.optionsName;
             $timeout(function(){
                 if(typeof $ === 'function'){
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
@@ -225,12 +226,12 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             }, 100);
             // Setting up pagination
             if (scope.pagination !== false) {
-                scope.pagination = this.pagination(service, scope, personal);
-                scope.pagination.itemsPerPageArr = this.itemsPerPageArr;
+                scope.pagination = self.pagination(service, scope, personal);
+                scope.pagination.itemsPerPageArr = self.itemsPerPageArr;
                 scope.itemsPerPage = service.params.size;
             }
 
-            this[this.optionsName] = scope[this.optionsName];
+            self[self.optionsName] = scope[self.optionsName];
 
             // Generalized row selection
             scope.isSingleSelected = function() {
@@ -250,7 +251,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             };
 
             if (typeof fn === 'function') {
-                return fn(this);
+                return fn(self);
             }
         };
 
