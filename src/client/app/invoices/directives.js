@@ -7,6 +7,7 @@ define(['angular', 'invoice'], function(angular) {
             scope: {
                 status: '@'
             },
+            transclude: false,
             templateUrl: '/app/invoices/templates/invoice-list.html',
             controller: 'InvoiceListController'
         };
