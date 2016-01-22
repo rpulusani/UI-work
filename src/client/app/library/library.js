@@ -13,14 +13,34 @@ define(['angular'], function(angular) {
             controller: 'LibraryViewController'
         })
         .when('/library/:id/update', {
-            templateUrl: '/app/library/templates/update-document.html',
+            templateUrl: '/app/library/templates/new_update.html',
+            controller: 'LibraryController',
             activeItem: '/library',
-            controller: 'LibraryUpdateController'
+            resolve: {
+                translationPlaceHolder: function(){
+                    return {
+                        h1:'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_MANAGING_DOCUMENT',
+                        paragraph: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_MANAGING_DOCUMENT_PAR',
+                        submit: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.BTN_SAVE_DOC_CHANGES',
+                        cancel: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.BTN_DISCARD_DOC_CHANGES'
+                    };
+                }
+            }
         })
         .when('/library/new', {
-            templateUrl: '/app/library/templates/new-document.html',
+            templateUrl: '/app/library/templates/new_update.html',
+            controller: 'LibraryController',
             activeItem: '/library',
-            controller: 'LibraryNewController'
+            resolve: {
+                translationPlaceHolder: function(){
+                    return {
+                        h1:'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_NEW_DOCUMENT',
+                        paragraph: 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_NEW_DOCUMENT_PAR',
+                        submit: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.BTN_SAVE_DOC_CHANGES',
+                        cancel: 'DOCUMENT_LIBRARY.MANAGING_DOCUMENT.BTN_DISCARD_DOC_CHANGES'
+                    };
+                }
+            }
         });
     }]);
 });

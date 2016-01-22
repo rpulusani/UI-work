@@ -15,7 +15,8 @@ define([
                 treeType: '@',
                 filterChl: '=',
                 action: '@',
-                value: '='
+                value: '=',
+                initialItem: '='
             },
             controller: 'TreeController'
         };

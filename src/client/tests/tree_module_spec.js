@@ -60,6 +60,7 @@ define([
                     scope.action = 'selectLevel';
                     scope.value = {};
                     scope.item.selected = true;
+                    scope.treeType = 'chl';
                     scope.toggleChildren(scope.item);
                     expect(scope.value.id).toEqual('item1');
                     expect(scope.value.name).toEqual('Item 1');

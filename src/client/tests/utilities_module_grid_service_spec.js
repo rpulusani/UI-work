@@ -49,7 +49,7 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
             }));
 
             beforeEach(inject(['grid', function(Grid){
-                gridService = Grid;
+                gridService = new Grid();
             }]));
 
             describe('getVisibleColumns()', function() {

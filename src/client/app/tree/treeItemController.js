@@ -22,7 +22,7 @@ define([
             $scope.$on('expanded', function(evt){
                 if ($scope.item.expanded === true) {
                     $scope.item.items = [];
-                    if ($scope.treeType && $scope.treeType === 'chl') {
+                    if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                         Account.setItem($scope.item);
                         var options = {
                             updateParams: false,
@@ -97,8 +97,16 @@ define([
 
                 if ($scope.action && $scope.action === 'selectLevel') {
                     if (item.selected) {
-                        $scope.value.id = item.accountId;
-                        $scope.value.name = item.name;
+                        if ($scope.treeType) {
+                            if ($scope.treeType === 'chl') {
+                                $scope.value.id = item.accountId;
+                                $scope.value.name = item.name;
+                            } 
+                            else if ($scope.treeType === 'daAccounts') {
+                                $scope.value.push(item);
+                            }
+                        }
+                        
                         deselectOthers(item, $scope.treeNodes);
                     }
                 } else {

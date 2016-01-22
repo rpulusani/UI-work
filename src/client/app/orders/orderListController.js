@@ -30,9 +30,7 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
                 };
             };
 
-            $scope.orders = Orders;
-
-            filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, false, 
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, false,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);

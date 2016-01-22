@@ -2,7 +2,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.report')
     .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid', '$rootScope', 'PersonalizationServiceFactory',
-        function($scope, $location, $translate, Reports, Grid, $rootScope, Personalize) {
+        function($scope, $location, $translate, Reports, GridService, $rootScope, Personalize) {
 
             $scope.chartObject = {};
             $scope.chartData = {};
@@ -101,7 +101,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     title: '',
                     titlePosition: 'none'
                 };
-            };
+            }
 
             configureTemplates();
             configureChartOptions();
@@ -277,7 +277,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.missingMeterReadsAll.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.missingMeterReadsAll.options.slices = [{color: '#00ad21'}, {color: '#7e7e85'}];
                 $scope.chartObject.missingMeterReadsAll.options.pieHole = 0.4;
-                $scope.chartObject.missingMeterReadsAll.dataPoint = d.allSuccessful + d.allMissed; 
+                $scope.chartObject.missingMeterReadsAll.dataPoint = d.allSuccessful + d.allMissed;
 
                 $scope.chartObject.missingMeterReadsAll.data = {
                     "cols": [
@@ -300,7 +300,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                 $scope.chartObject.missingMeterReadsMissed.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.missingMeterReadsMissed.options.slices = [{color: '#7e7e85'}, {color: '#000'}];
                 $scope.chartObject.missingMeterReadsMissed.options.pieHole = 0.4;
-                $scope.chartObject.missingMeterReadsMissed.dataPoint = d.automatedMmr + d.manualMmr; 
+                $scope.chartObject.missingMeterReadsMissed.dataPoint = d.automatedMmr + d.manualMmr;
 
                 $scope.chartObject.missingMeterReadsMissed.data = {
                     "cols": [
@@ -505,6 +505,7 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
             };
 
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 

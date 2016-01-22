@@ -41,8 +41,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 embed: 'primaryContact,requester,asset,sourceAddress'
             };
 
-            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_SERVICE_REQUESTS', params, false, 
-                function() {
+            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_SERVICE_REQUESTS', params, false,
+                function(Grid) {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }
             );
