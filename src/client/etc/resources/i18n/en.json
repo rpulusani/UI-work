@@ -480,7 +480,8 @@
             "ADD_ANOTHER_ADDRESS": "add another address",
             "DETAILS_TITLE": "Details for Address Request Number: {{refId}}",
             "DELETE_SUBMIT": "Submit Delete Address Request",
-            "SR_DELETE_SUBMITTED": "Update Address Request Submitted",
+            "SR_DELETE_SUBMITTED": "Delete Address Request Submitted",
+            "SR_UPDATE_SUBMITTED": "Update Address Request Submitted",
             "REQUEST_SERVICE_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
             "CANCEL": "Discard Changes to Address",
             "SR_UPDATE": "Submit Update Address Request",
@@ -490,7 +491,8 @@
             "ABANDON_ADD": "Abandon Address Creation",
             "SUBMIT": "Create Address",
             "ADDRESS_CONTACT": "Address contact",
-            "ADDITIONAL_REQUEST_DETAILS": "Additional request details"
+            "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+            "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information"
         },
 
         "SERVICE_REQUEST": {

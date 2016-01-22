@@ -38,12 +38,12 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
 
+            $scope.addresses = Addresses;
+
             $scope.goToCreate = function() {
                 Addresses.item = {};
                 $location.path('/service_requests/addresses/new');
             };
-
-            $scope.addresses = Addresses;
 
             $scope.print = function(){
                 $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );

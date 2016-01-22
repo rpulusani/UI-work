@@ -1,10 +1,8 @@
 define(['angular', 'address'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .controller('AddressAddController', [
-        '$scope',
+    .controller('AddressUpdateController', ['$scope',
         '$location',
-        '$filter',
         '$routeParams',
         '$rootScope',
         'ServiceRequestService',
@@ -12,12 +10,12 @@ define(['angular', 'address'], function(angular) {
         'BlankCheck',
         'Addresses',
         'Contacts',
-        'SRControllerHelperService',
         'UserService',
-        'HATEAOSConfig',
+        'SRControllerHelperService',
+        'SecurityHelper',
+        'permissionSet',
         function($scope,
             $location,
-            $filter,
             $routeParams,
             $rootScope,
             ServiceRequest,
@@ -25,23 +23,23 @@ define(['angular', 'address'], function(angular) {
             BlankCheck,
             Addresses,
             Contacts,
-            SRHelper,
             Users,
-            HATEAOSConfig) {
+            SRHelper,
+            SecurityHelper,
+            permissionSet
+            ) {
+
+            $scope.returnedForm = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
 
-            $scope.setStoreFrontName = function(){
-                $scope.address.storeFrontName =  $scope.address.name;
-            };
-
             $scope.goToReview = function() {
-                $rootScope.newAddress = $scope.address;
-                $location.path(Addresses.route + '/add/review');
+                $location.path(Addresses.route + '/update/' + $scope.address.id + '/review');
             };
 
             var configureSR = function(ServiceRequest){
-                ServiceRequest.addRelationship('primaryContact', $scope.address, 'requestor');
+                ServiceRequest.addRelationship('account', $scope.address);
+                ServiceRequest.addRelationship('address', $scope.address, 'self');
             };
 
             $scope.getRequestor = function(ServiceRequest, Contacts) {
@@ -57,7 +55,9 @@ define(['angular', 'address'], function(angular) {
                 });
             };
 
-            if ($rootScope.selectedContact && $rootScope.returnPickerObject){
+            if (Addresses.item === null) {
+                $scope.redirectToList();
+            } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Addresses.item.id){
                 $scope.address = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
@@ -69,30 +69,18 @@ define(['angular', 'address'], function(angular) {
                         $scope.address.addressContact = angular.copy($rootScope.selectedContact);
                     }
                 }
+                Addresses.item = $scope.address;
                 $scope.resetContactPicker();
-            }else{
-                $scope.address = {};
-                if ($rootScope.newAddress || $rootScope.newSr) {
-                    if ($rootScope.newAddress) {
-                        $scope.address = $rootScope.newAddress;
-                        $rootScope.newAddress = undefined;
-                    }
-                    if ($rootScope.newSr) {
-                        $scope.sr = $rootScope.newSr;
-                        $rootScope.newSr = undefined;
-                    }
-                } else {
-                    $scope.getRequestor(ServiceRequest, Contacts);
-                }
+            }else {
+                $scope.address = Addresses.item;
             }
 
-
-
             $scope.setupSR(ServiceRequest, configureSR);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+            $scope.getRequestor(ServiceRequest, Contacts);
 
             var updateSRObjectForSubmit = function() {
-                var sourceAddress = {
+                var destinationAddress = {
                     name: $scope.address.name,
                     storeFrontName: $scope.address.storeFrontName,
                     country: $scope.address.country,
@@ -102,39 +90,29 @@ define(['angular', 'address'], function(angular) {
                     state: $scope.address.state,
                     postalCode: $scope.address.postalCode
                 };
-
-                ServiceRequest.addField('sourceAddress', sourceAddress);
-                ServiceRequest.addRelationship('account', $scope.address.requestedByContact, 'account');
+                ServiceRequest.addField('destinationAddress', destinationAddress);
             };
-
+            
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SUBMIT';
+                $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SR_UPDATE';
                 $scope.configure.actions.submit = function(){
                     updateSRObjectForSubmit();
-                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
-                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
-                            ServiceRequest.item.postURL = api.url;
-                        });
-                    }
                     var deferred = AddressServiceRequest.post({
                         item:  $scope.sr
                     });
 
                     deferred.then(function(result){
                         ServiceRequest.item = AddressServiceRequest.item;
-                        $rootScope.newAddress = $scope.address;
-                        $rootScope.newSr = $scope.sr;
-                        $location.path(Addresses.route + '/add/receipt');
+                        $location.path(Addresses.route + '/update/' + $scope.address.id + '/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
 
                 };
             }
-
             function configureReceiptTemplate() {
-                $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.ADD_ADDRESS_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.SUBMISSION_TEXT";
+                $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_UPDATE_SUBMITTED";
+                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.UBMISSION_TEXT";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -153,19 +131,31 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate: {
-                            h1: 'ADDRESS_SERVICE_REQUEST.ADD',
+                            h1: 'ADDRESS_SERVICE_REQUEST.UPDATE',
                             body: 'MESSAGE.LIPSUM',
-                            readMore: 'Learn more about requests'
+                            readMore: ''
                         },
-                        readMoreUrl: '/service_requests/learn_more'
+                        readMoreUrl: ''
                     },
                     address: {
                         information:{
                             translate: {
-                                title: 'ADDRESS.INFO',
+                                title: 'ADDRESS_SERVICE_REQUEST.REQUESTED_UPDATE_TO_ADDRESS',
                                 contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT'
                             }
                         }
+                    },
+                    contact: {
+                        translate: {
+                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
+                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        },
+                        show: {
+                            primaryAction : true
+                        },
+                        source: 'AddressUpdate'
                     },
                     detail: {
                         translate: {
@@ -186,31 +176,19 @@ define(['angular', 'address'], function(angular) {
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'ADDRESS_SERVICE_REQUEST.ABANDON_ADD',
+                            abandonRequest:'ADDRESS_SERVICE_REQUEST.CANCEL',
                             submit: 'LABEL.REVIEW_SUBMIT'
                         },
                         submit: $scope.goToReview
                     },
-                    contact:{
-                        translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
-                        },
-                        show:{
-                            primaryAction : true
-                        },
-                        source: 'AddressAdd'
-                    },
                     modal: {
                         translate: {
                             abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
-                            abandonBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                            abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
                         },
-                        returnPath: '/service_requests/addresses'
+                        returnPath: Addresses.route + '/'
                     },
                     contactPicker: {
                         translate: {
@@ -218,6 +196,7 @@ define(['angular', 'address'], function(angular) {
                         }
                     }
                 };
+
             }
 
             var formatAdditionalData = function() {
@@ -232,6 +211,7 @@ define(['angular', 'address'], function(angular) {
                 if (!BlankCheck.isNull($scope.address.requestedByContact)) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact($scope.address.requestedByContact);
                 }
+
             };
 
             $scope.formatReceiptData(formatAdditionalData);

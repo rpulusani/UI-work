@@ -1,8 +1,8 @@
 define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFactory'], function(angular, address) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .factory('Addresses', ['$translate', 'serviceUrl', '$location', '$rootScope', 'FormatterService', 'HATEOASFactory',
-        function($translate, serviceUrl, $location, $rootScope, formatter, HATEOASFactory) {
+    .factory('Addresses', ['$translate', 'serviceUrl', '$location', '$rootScope', 'FormatterService', 'ServiceRequestService', 'HATEOASFactory',
+        function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory) {
             var Addresses = {
                 serviceName: 'addresses',
                 embeddedName: 'addresses',
@@ -32,6 +32,14 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                     ]
                 },
                 route: '/service_requests/addresses',
+                goToUpdate: function(address) {
+                        ServiceRequest.reset();
+                        if (address) {
+                            this.setItem(address);
+                        }
+                        $location.path(this.route + '/' + this.item.id + '/update');
+                    },
+
                 };
                 
             return new HATEOASFactory(Addresses);

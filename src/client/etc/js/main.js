@@ -50,6 +50,7 @@ requirejs.config({
 
             'address',
             'address.addressAddController',
+            'address.addressUpdateController',
             'address.addressController',
             'address.addressListController',
             'address.directives',
@@ -119,6 +120,7 @@ requirejs.config({
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
+        'address.addressUpdateController': ['address'],
         'address.addressController': ['address'],
         'address.addressListController': ['address'],
         'address.directives': ['address'],
@@ -245,6 +247,7 @@ requirejs.config({
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',
+        'address.addressUpdateController': 'app/address_service_requests/addressUpdateController',
         'address.addressController': 'app/address_service_requests/addressController',
         'address.addressListController': 'app/address_service_requests/addressListController',
         'address.directives': 'app/address_service_requests/directives',
