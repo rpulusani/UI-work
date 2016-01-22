@@ -25,9 +25,13 @@ define(['angular'], function(angular) {
             controller: 'UserAddController',
             activeItem: '/delegated_admin'
         })
-        .when('/delegated_admin/:id/read', {
-            templateUrl: templateUrl('read'),
-            controller: 'UserController',
+        .when('/delegated_admin/lexmark_user', {
+            templateUrl: '/app/users/templates/lexmark-user.html',
+            activeItem: '/delegated_admin'
+        })
+        .when('/delegated_admin/:id/review', {
+            templateUrl: '/app/users/templates/review.html',
+            controller: 'ManageUserController',
             activeItem: '/delegated_admin'
         })
     }]);

@@ -1,13 +1,6 @@
 define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .directive('userRoles', function() {
-        return {
-            restrict: 'A',
-            templateUrl: '/app/users/templates/user-roles.html',
-            controller: 'UserController'
-        };
-    })
     .directive('allUsersTab', function(){
         return {
             restrict: 'A',
@@ -21,6 +14,22 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
             restrict: 'A',
             templateUrl : '/app/users/templates/tabs/invite-users-tab.html',
             controller: 'InvitedUsersController',
+            scope: {}
+        };
+    })
+    .directive('userProfileTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/users/templates/tabs/user-profile-tab.html',
+            controller: 'ManageUserController',
+            scope: {}
+        };
+    })
+    .directive('accountAccessTab', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/users/templates/tabs/account-access-tab.html',
+            controller: 'ManageUserController',
             scope: {}
         };
     })
@@ -99,6 +108,28 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
         return {
             restrict: 'A',
             templateUrl: '/app/users/templates/user-invite-buttons.html'
+        };
+    })
+    .directive('userUpdateButtons', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/user-update-buttons.html'
+        };
+    })
+    .directive('manageUserTabs', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/manage-user-tabs.html',
+            controller: 'ManageUserTabController',
+            link: function(scope, el, attr){
+                require(['lxk.fef'], function() {
+                    var $ = require('jquery'),
+                         sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+                    sets.each(function(i,set){
+                        $(set).set({});
+                    });
+                });
+            }
         };
     })
     .directive('userTabs', function() {

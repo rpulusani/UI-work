@@ -1,6 +1,6 @@
 <div class="form__field form__field--select form__field--required">
     <label translate="ADDRESS.COUNTRY"></label>
-    <div selectric model="address.country" options="countryHAL.countries" value="code" label="name"
+    <div selectric model="user.address.country" options="countryHAL.countries" value="code" label="name"
          placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
 </div>
 
@@ -21,7 +21,7 @@
 
 <div class="form__field form__field--select form__field--required">
     <label translate="ADDRESS.STATE"></label>
-    <div selectric options="country.provinces" value="code" label="name" model="address.state" required
+    <div selectric options="country.provinces" value="code" label="name" model="user.address.stateCode" required
          placeholder="{{'LABEL.SELECT' | translate}}"></div>
 </div>
 <div class="row">

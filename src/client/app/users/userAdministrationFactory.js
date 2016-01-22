@@ -11,8 +11,13 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                 columnDefs: {
                     defaultSet: [
                         {'name': 'Status', 'field': 'activeStatus'},
-                        {'name': 'Creation date', 'field':'created'},
-                        {'name': 'User ID', 'field':'userId'},
+                        {'name': 'Creation date', 'field':'getFormattedCreateDate()'},
+                        {'name': 'User ID', 'field': 'userId', dynamic: false,
+                         'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
+                                            '{{row.entity.userId}}</a>' +
+                                        '</div>'
+                        },
                         {'name': 'First Name', 'field':'firstName'},
                         {'name': 'Last Name', 'field':'lastName'},
                         {'name': 'Email', 'field': 'email'},
@@ -21,16 +26,19 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                     ],
                     invitedSet: [
                         {'name': 'Status', 'field': 'invitedStatus'},
-                        {'name': 'Creation date', 'field':'created'},
-                        {'name': 'User ID', 'field':'userId'},
-                        {'name': 'First Name', 'field':'firstName'},
-                        {'name': 'Last Name', 'field':'lastName'},
+                        {'name': 'Invitation date', 'field':'getFormattedCreateDate()'},
                         {'name': 'Email', 'field': 'email'},
                         {'name': 'Company account', 'field': 'getAccounts()' },
                         {'name': 'Roles', 'field': 'getRoles()' }
                     ]
                 },
                 functionArray: [
+                    {
+                        name: 'getFormattedCreateDate',
+                        functionDef: function(){
+                            return formatter.formatDate(this.created);
+                        }
+                    },
                     {
                         name: 'getAccounts',
                         functionDef: function() {

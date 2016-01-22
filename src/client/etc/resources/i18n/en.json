@@ -1269,7 +1269,8 @@
         },
 
         "DELEGATED_ADMIN": {
-            "TITLE": "Delegated admin"
+            "TITLE": "Delegated admin",
+            "MANAGE_PROFILE": "Managing User Profile"
         },
 
         "USER": {
@@ -1277,6 +1278,7 @@
             "USERS": "Users ({{userCount}} total users)",
             "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
             "ALL_USER": "All users",
+            "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",
             "IMPORT_USER": "IMPORT USERS",
@@ -1302,7 +1304,12 @@
             "DISCARD_INVITE": "DISCARD USER INVITATIONS",
             "INVITE_USERS": "INVITE USER(S)",
             "USER_CREATED_MSG": "User has been created successfully!",
-            "USER_INVITED_MSG": "users have been sent invites!"
+            "USER_INVITED_MSG": "users have been sent invites!",
+            "DEACTIVATE_USER": "DEACTIVATE USER",
+            "USER_PROFILE": "User profile",
+            "ACCOUNT_ACCESS": "Account access",
+            "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
+            "UPDATE_USER": "UPDATE USER"
         },
 
         "ROLE": {

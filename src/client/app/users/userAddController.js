@@ -18,6 +18,7 @@ define(['angular', 'user'], function(angular) {
             $scope.user.addonRoles = [];
             $scope.user.permissions = [];
             $scope.user.selectedRoleList = [];
+            $scope.accounts = [];
 
             var removeParams,
             basicRoleOptions =  {
@@ -185,8 +186,8 @@ define(['angular', 'user'], function(angular) {
                         addressLine1: $scope.user.address.addressLine1,
                         addressLine2: $scope.user.address.addressLine2,
                         city: $scope.user.address.city,
-                        stateCode: $scope.address.state,
-                        country: $scope.address.country,
+                        stateCode: $scope.user.address.stateCode,
+                        country: $scope.user.address.country,
                         postalCode: $scope.user.address.postalCode
                     };
                     UserAdminstration.addField('address', addressInfo);

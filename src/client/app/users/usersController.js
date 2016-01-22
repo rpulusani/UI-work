@@ -12,12 +12,29 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
                 }
             );
 
+            $scope.view = function(user){
+                UserAdminstration.setItem(user);
+                var options = {
+                    params:{
+                        embed:'roles,accounts'
+                    }
+                };
+
+                UserAdminstration.item.get(options).then(function(){
+                    $location.path(UserAdminstration.route + '/' + user.userId + '/review');
+                });
+            };
+
             $scope.goToCreateUser = function() {
                 $location.path('/delegated_admin/new');
             };
 
             $scope.goToInviteUser = function() {
                 $location.path('/delegated_admin/invite_user');
+            };
+
+            $scope.goToLexmrkUser = function() {
+                $location.path('/delegated_admin/lexmark_user');
             };
 
             $scope.getStatus = function(status) {
