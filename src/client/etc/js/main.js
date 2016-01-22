@@ -71,6 +71,8 @@ requirejs.config({
             'user.userAddController',
             'user.usersController',
             'user.userTabController',
+            'user.manageUserTabController',
+            'user.manageUserController',
             'user.invitedUserController',
 
             'pageCount',
@@ -118,6 +120,8 @@ requirejs.config({
         'user.userController': ['user'],
         'user.usersController': ['user'],
         'user.userTabController': ['user'],
+        'user.manageUserController': ['user'],
+        'user.manageUserTabController': ['user'],
         'user.invitedUserController': ['user'],
 
         'address': ['angular'],
@@ -225,6 +229,8 @@ requirejs.config({
         'user.userController': 'app/users/userController',
         'user.usersController': 'app/users/usersController',
         'user.userTabController': 'app/users/userTabController',
+        'user.manageUserTabController': 'app/users/manageUserTabController',
+        'user.manageUserController': 'app/users/manageUserController',
         'user.invitedUserController': 'app/users/invitedUserController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',

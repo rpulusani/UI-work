@@ -7,6 +7,13 @@ define([
             if($scope.item){
                 $scope.item.disabled = false;
                 $scope.item.selected = false;
+                if ($scope.previousItems && $scope.previousItems.length > 0) {
+                    for (var i=0;i<$scope.previousItems.length; i++) {
+                        if ($scope.previousItems[i].accountId && $scope.previousItems[i].accountId === $scope.item.accountId) {
+                            $scope.item.selected = true;
+                        }
+                    }
+                }
                 $scope.item.expanded = false;
                 $scope.item.showExpandIcon = true;
                 if ($scope.item.numberOfChildren && parseInt($scope.item.numberOfChildren) === 0) {

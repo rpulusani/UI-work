@@ -513,7 +513,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             if (!options.url) {
                                 options.url = self.buildUrl(itemUrl, self.params, []);
                             }
-
                             options.method = method;
                             options.data = halObj;
 
