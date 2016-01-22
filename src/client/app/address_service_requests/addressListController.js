@@ -58,7 +58,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 if (btnType !== 'delete') {
                     Addresses.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
                 } else {
-                    Addresses.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
+                    Addresses.goToDelete($scope.gridApi.selection.getSelectedRows()[0]);
                 }
             };
 

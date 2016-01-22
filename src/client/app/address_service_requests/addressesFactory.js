@@ -39,6 +39,13 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                         }
                         $location.path(this.route + '/' + this.item.id + '/update');
                     },
+                goToDelete: function(address) {
+                        ServiceRequest.reset();
+                        if (address) {
+                            this.setItem(address);
+                        }
+                        $location.path(this.route + '/delete/' + this.item.id + '/review');
+                    }
 
                 };
                 

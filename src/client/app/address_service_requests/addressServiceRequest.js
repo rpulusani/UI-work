@@ -46,6 +46,16 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'AddressUpdateController',
                 activeItem: '/service_requests/addresses'
+            })
+            .when('/service_requests/addresses/delete/:id/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'AddressDeleteController',
+                activeItem: '/service_requests/addresses'
+            })
+            .when('/service_requests/addresses/delete/:id/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'AddressDeleteController',
+                activeItem: '/service_requests/addresses'
             });
         }
     ]);
