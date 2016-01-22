@@ -30,11 +30,13 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
                 };
             };
 
+            $scope.orders = Orders;
+
             filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, false, 
-                function() {
+                function(Grid) {
                     setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
                         $scope.$broadcast('setupPrintAndExport', $scope);
+                        $scope.$broadcast('setupColumnPicker', Grid);
                     }, 0);
                 }
             );
