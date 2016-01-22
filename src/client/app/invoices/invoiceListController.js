@@ -39,7 +39,10 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
             } else {
                 removeParamsList.push('status');
             }
-            filterSearchService.addBasicFilter('INVOICE.ALL_INVOICES', configureParams, removeParamsList);
+            
+            filterSearchService.addBasicFilter('INVOICE.ALL_INVOICES', configureParams, removeParamsList, function() {
+                $scope.$broadcast('setupPrintAndExport', $scope);
+            });
         }
     ]);
 });
