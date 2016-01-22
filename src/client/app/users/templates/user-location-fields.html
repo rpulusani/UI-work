@@ -21,14 +21,14 @@
 
 <div class="form__field form__field--select form__field--required">
     <label translate="ADDRESS.STATE"></label>
-    <div selectric options="country.provinces" value="code" label="name" model="user.address.state" required
+    <div selectric options="country.provinces" value="code" label="name" model="user.address.stateCode" required
          placeholder="{{'LABEL.SELECT' | translate}}"></div>
 </div>
 <div class="row">
     <div class="col-md-1-3">
         <div class="form__field form__field--required">
             <label translate="ADDRESS.ZIP"></label>
-            <input type="text" name="zipCode" ng-model="user.address.zipCode" value="" class="" required />
+            <input type="text" name="zipCode" ng-model="user.address.postalCode" value="" class="" required />
         </div>
     </div>
 </div>

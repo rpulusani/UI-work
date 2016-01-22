@@ -1,59 +1,24 @@
 <div class="page-header">
-    <div class="row">
-        <div class="col-lg-2-3 col-md-1-1">
-            <h1 translate="USER.INVITE_TITLE"></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-    </div>
-    </div>
+    <ul class="breadcrumb">
+        <li><a href="#root">Root</a> &#62;&nbsp;</li>
+        <li><a href="#parent">Parent</a> &#62;&nbsp;</li>
+        <li>Child</li>
+    </ul>
+
+    <h1 translate="USER.INVITE_TITLE"></h1>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
 </div>
+
 <div class="page-content">
-    <div class="row">
+    <div ng-hide="isSubmitted">
         <div class="col-lg-2-3 col-md-1-1">
-            <form class="form" data-form="" name="newUser" method="post"
-              ng-submit="newUser.$valid && continue()" enctype="multipart/form-data" novalidate>
-                <h2 translate="LABEL.USERS"></h2>
-                <h4 translate="USER.INVITE_WHO"></h4>
-                <div class="form__field form__field--required">
-                	<label translate="USER.EMAILS"></label>
-                	<textarea cols="50" rows="6"></textarea>
-                </div>
-                <h2 translate="ACCOUNT.TITLE"></h2>
-
-                <h4 translate="ACCOUNT.COMPANY_ASSO"></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-                <div class="left-pad">
-                    <h5 translate='ACCOUNT.ORG_STRUCT' class="text--thick"></h5>
-                    <div tree class="well bg--white"></div>
-                </div>
-
-                <h4 translate="USER.ROLE_PERM"></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-                <div class="form__field form__field--select form__field--required">
-                    <label translate='USER.BASIC_ROLE'></label>
-                    <div selectric options="userRoles" value="id" label="name">
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label translate='USER.ADD_ROLE' class="text--thick"></label>
-                    <div class="well bg--white">
-                        <div user-roles></div>
-                    </div>
-                </div>
-
-                <div>
-                    <h5 translate="USER.PERM" class="text--thick left-pad"></h5>
-                </div>
-
-
-            <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
-                 cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
-                 return-path="/delegated_admin"></div>
-            <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
-                            translate="USER.DISCARD_INVITE"></button>
-            <button name="submit" class="btn btn--primary" ng-click="invite()" type="submit"
-                            translate="USER.INVITE_USERS"></button>
-
+            <form class="form" data-form="" name="inviteUser" novalidate>
+                <div user-invite-fields></div>
+                <hr/>
+                <div user-invite-buttons></div>
             </form>
         </div>
     </div>
 </div>
+

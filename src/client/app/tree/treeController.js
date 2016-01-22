@@ -63,6 +63,10 @@ define([
                         });
                     }
                 });
+            } else if ($scope.treeType && $scope.treeType === 'daAccounts') {
+                if($scope.initialItem) {
+                    $scope.items.push($scope.initialItem);  
+                }
             }
         }
     ]);

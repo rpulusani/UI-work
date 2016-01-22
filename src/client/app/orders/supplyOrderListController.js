@@ -35,10 +35,11 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 embed: 'primaryContact,requester'
             };
 
-            filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params, false, 
-                function() {
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params, false,
+                function(Grid) {
                     setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid)
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                        $scope.$broadcast('setupPrintAndExport', $scope);
                     }, 0);
                 }
             );

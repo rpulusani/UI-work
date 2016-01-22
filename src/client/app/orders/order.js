@@ -20,6 +20,11 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/create-hardware.html',
             activeItem: '/orders'
         })
+        .when('/orders/device/:id/supplies/new_order/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'SupplyOrderListController',
+                activeItem: '/orders'
+        })
         .when('/orders/create_catalog_supplies', {
             templateUrl: '/app/orders/templates/create-catalog-supplies.html',
             activeItem: '/orders'

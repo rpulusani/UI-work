@@ -18,7 +18,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         function(
             $scope,
             $location,
-            Grid,
+            GridService,
             Addresses,
             $rootScope,
             Personalize,
@@ -62,13 +62,13 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 }
             };
 
-
+            var Grid = new GridService();
             // grid configuration
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
             //$scope.gridOptions.enableHorizontalScrollbar =  2;
             //$scope.gridOptions.enableVerticalScrollbar = 0;
-            
+
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {
                     User.item._links.accounts = User.item._links.accounts[0];
@@ -83,6 +83,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                         Addresses.getPage().then(function() {
                             Grid.display(Addresses, $scope, personal, false, function() {
                                 $scope.$broadcast('setupColumnPicker', Grid);
+                                $scope.$broadcast('setupPrintAndExport', $scope);
                             });
                         }, function(reason) {
                             NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);

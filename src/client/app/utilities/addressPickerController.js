@@ -3,7 +3,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     angular.module('mps.utility')
     .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
      'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
-        function($scope, $location, Grid, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams,
+        function($scope, $location, GridService, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams,
             Personalize, $controller) {
             $scope.selectedAddress = [];
             $rootScope.currentRowList = [];
@@ -53,6 +53,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.addressReturnPath);
             };
 
+            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
@@ -83,7 +84,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         },
                         readMoreUrl: ''
                     }
-                }
+                };
             }
 
         }

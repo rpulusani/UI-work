@@ -31,6 +31,9 @@ define([
     'order.supplyOrderListController',
     'order.tabController',
     'order.actionButtonController',
+    'order.orderSupplyController',
+    'order.orderItemsfactory',
+    'order.orderContentsController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -57,9 +60,8 @@ define([
     'deviceServiceRequest.deviceSearchFactory',
     'deviceServiceRequest.deviceServiceRequestFactory',
     'library',
+    'library.libraryController',
     'library.libraryListController',
-    'library.libraryNewController',
-    'library.libraryUpdateController',
     'library.libraryViewController',
     'library.libraryFactory',
     'library.directives',
@@ -87,6 +89,7 @@ define([
     'utility.grid',
     'utility.imageService',
     'utility.columnPickerController',
+    'utility.printExportTitleController',
     'filterSearch',
     'filterSearch.directives',
     'filterSearch.gridFilterController',
@@ -126,11 +129,15 @@ define([
         'mps.form',
         'mps.filterSearch',
         'ui.grid',
+        'ui.grid.edit',
+        'ui.grid.rowEdit',
+        'ui.grid.cellNav',
         'ui.grid.resizeColumns',
         'ui.grid.moveColumns',
         'ui.grid.selection',
         'ui.grid.pagination',
         'ui.grid.exporter',
+        'ui.grid.autoResize',
         'spring-data-rest',
         'tree'
     ])
@@ -158,6 +165,7 @@ define([
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('lbsURL', config.portal.lbsUrl)
+    .constant('libraryServiceUrl', config.portal.libraryServiceUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'

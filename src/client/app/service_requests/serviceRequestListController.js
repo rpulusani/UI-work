@@ -37,8 +37,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             };
 
             filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester'}, false,
-                function() {
+                function(Grid) {
                     $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
         }

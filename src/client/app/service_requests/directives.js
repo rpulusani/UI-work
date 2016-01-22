@@ -19,32 +19,28 @@ define(['angular', 'serviceRequest'], function(angular) {
         return {
             restrict: 'A',
             templateUrl : '/app/service_requests/templates/tabs/breakfix-sr-tab.html',
-            controller: 'ServiceRequestBreakFixListController',
-            scope: {}
+            controller: 'ServiceRequestBreakFixListController'
         };
     })
     .directive('addressSrTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/service_requests/templates/tabs/address-sr-tab.html',
-            controller: 'ServiceRequestAddressListController',
-            scope: {}
+            controller: 'ServiceRequestAddressListController'
         };
     })
     .directive('contactSrTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/service_requests/templates/tabs/contact-sr-tab.html',
-            controller: 'ServiceRequestContactListController',
-            scope: {}
+            controller: 'ServiceRequestContactListController'
         };
     })
     .directive('allSrTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/service_requests/templates/tabs/all-sr-tab.html',
-            controller: 'ServiceRequestListController',
-            scope: {}
+            controller: 'ServiceRequestListController'
         };
     })
     .directive('srHeader', function() {

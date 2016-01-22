@@ -7,6 +7,13 @@ define([
             if($scope.item){
                 $scope.item.disabled = false;
                 $scope.item.selected = false;
+                if ($scope.previousItems && $scope.previousItems.length > 0) {
+                    for (var i=0;i<$scope.previousItems.length; i++) {
+                        if ($scope.previousItems[i].accountId && $scope.previousItems[i].accountId === $scope.item.accountId) {
+                            $scope.item.selected = true;
+                        }
+                    }
+                }
                 $scope.item.expanded = false;
                 $scope.item.showExpandIcon = true;
                 if ($scope.item.numberOfChildren && parseInt($scope.item.numberOfChildren) === 0) {
@@ -22,7 +29,7 @@ define([
             $scope.$on('expanded', function(evt){
                 if ($scope.item.expanded === true) {
                     $scope.item.items = [];
-                    if ($scope.treeType && $scope.treeType === 'chl') {
+                    if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                         Account.setItem($scope.item);
                         var options = {
                             updateParams: false,
@@ -97,8 +104,16 @@ define([
 
                 if ($scope.action && $scope.action === 'selectLevel') {
                     if (item.selected) {
-                        $scope.value.id = item.accountId;
-                        $scope.value.name = item.name;
+                        if ($scope.treeType) {
+                            if ($scope.treeType === 'chl') {
+                                $scope.value.id = item.accountId;
+                                $scope.value.name = item.name;
+                            } 
+                            else if ($scope.treeType === 'daAccounts') {
+                                $scope.value.push(item);
+                            }
+                        }
+                        
                         deselectOthers(item, $scope.treeNodes);
                     }
                 } else {

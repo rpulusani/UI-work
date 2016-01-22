@@ -3,12 +3,12 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
     angular.module('mps.deviceManagement')
     .controller('DeviceRequestBreakFixListController', ['$scope', '$translate', 'grid', '$rootScope',
         'PersonalizationServiceFactory', 'ServiceRequestService', '$location', 'Devices', 'FilterSearchService',
-        function($scope, $translate, Grid, $rootScope, Personalize, ServiceRequest,  $location, Devices, FilterSearchService) {
+        function($scope, $translate, GridService, $rootScope, Personalize, ServiceRequest,  $location, Devices, FilterSearchService) {
             $rootScope.currentRowList = [];
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
-
+            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);
             if(Devices.item){
