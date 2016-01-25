@@ -1,4 +1,4 @@
-define(['angular', 'order', 'utility.grid'], function(angular) {
+define(['angular', 'utility.grid', 'order.orderContentsController'], function(angular) {
     'use strict';
     angular.module('mps.orders')
     .controller('OrderSupplyController', [
@@ -10,6 +10,8 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
         '$location',
         'FormatterService',
         'Devices',
+        'AssetPartsFactory',
+        '$q',
         function(
             GridService,
             $scope,
@@ -18,74 +20,39 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             Personalize,
             $location,
             formatter,
-            Devices
+            Devices,
+            AssetParts,
+            $q
         ){
 
- var partsChoosen = [
-      {
-        "itemNumber": "X860H21G",
-        "displayItemNumber": "X860H21G",
-        "description": "X86x Black Toner Cartridge High Regular",
-        "type": "Black Cartridge",
-        "billingModel": "Usage Based Billing",
-        "agreementId": "1-59XQH2W",
-        "contractNumber": "0040000092",
-        "maxQuantity": 3,
-        "price": 0,
-        "quantity": 0
-      },
-      {
-        "itemNumber": "X860H22G",
-        "displayItemNumber": "X860H22G",
-        "description": "X86x 1-Pack Photoconductor Kit High Regular",
-        "type": "Photoconductor Kit 1 Pack",
-        "billingModel": "Usage Based Billing",
-        "agreementId": "1-59XQH2W",
-        "contractNumber": "0040000092",
-        "maxQuantity": 3,
-        "price": 0,
-        "quantity": 0
-      },
-      {
-        "itemNumber": "40X0398",
-        "displayItemNumber": "40X0398",
-        "description": "X85x SVC Maint Kit, Fuser Kit",
-        "type": "Maintenance Kit, Fuser",
-        "billingModel": "Usage Based Billing",
-        "agreementId": "1-59XQH2W",
-        "contractNumber": "0040000092",
-        "maxQuantity": 3,
-        "price": 13.50,
-        "quantity": 0
-      },
-      {
-        "itemNumber": "40X2734",
-        "displayItemNumber": "40X2734",
-        "description": "X85x SVC Maint Kit, ADF MAINTENANCE",
-        "type": "Maintenance Kit, ADF",
-        "billingModel": "Usage Based Billing",
-        "agreementId": "1-59XQH2W",
-        "contractNumber": "0040000092",
-        "maxQuantity": 3,
-        "price": 0,
-        "quantity": 0
-      },
-      {
-        "itemNumber": "25A0013",
-        "displayItemNumber": "25A0013",
-        "description": "Common 3-Pack Finisher Staples Standard Regular",
-        "type": "Staple Pack",
-        "billingModel": "Usage Based Billing",
-        "agreementId": "1-59XQH2W",
-        "contractNumber": "0040000092",
-        "maxQuantity": 3,
-        "price": 0,
-        "quantity": 0
-      }
-    ];
+    var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+    if(!OrderItems.data){
+            OrderItems.data = [];
+    }
 
-    OrderItems.data = partsChoosen;
-    $scope.orderItems = OrderItems.data;
+    Devices.getAdditional(Devices.item,AssetParts).then(function(){
+        var Grid = new GridService();
+        $scope.assetParts = AssetParts.data;
+        $scope.catalogOptions = {};
+        $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
+                        AssetParts, personal);
+        Grid.setGridOptionsName('catalogOptions');
+        $scope.catalogOptions.showBookmarkColumn = false;
+        AssetParts.getThumbnails();
+        $q.all(AssetParts.thumbnails).then(function(){
+            Grid.display(AssetParts,$scope,personal, 80);
+        });
+    });
+
+    $scope.addToOrder = function(item){
+        OrderItems.data.push(item);
+        $scope.orderItems = OrderItems.data;
+        $scope.$broadcast('OrderContentRefresh', {
+            'OrderItems': OrderItems.data // send whatever you want
+        });
+    };
+
+
     $scope.submit = function(){
         $location.path(OrderItems.route + '/device/'+ Devices.item.id +'/supplies/new_order/review');
     };

@@ -33,6 +33,7 @@ define([
     'order.actionButtonController',
     'order.orderSupplyController',
     'order.orderItemsfactory',
+    'order.assetsPartsFactory',
     'order.orderContentsController',
     'contact',
     'contact.contactController',

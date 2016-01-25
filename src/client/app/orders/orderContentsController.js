@@ -52,9 +52,10 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
         };
         $scope.editOnChange = function(row){
             var justAdded = false;
+            var message;
             var index = getValidationMessageIndex(row);
             if(row.entity.maxQuantity && row.entity.quantity > row.entity.maxQuantity && index === -1){
-                var message = {
+                message = {
                   partNumber: row.entity.displayItemNumber,
                   maxQuantity: row.entity.maxQuantity,
                   quantity: row.entity.quantity
@@ -66,6 +67,13 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             }else if(row.entity.maxQuantity && row.entity.quantity <=  row.entity.maxQuantity && index > -1){
                 $scope.validationMessages.splice(index,1);
                 row.entity.quantityError = false;
+            }else if(index > -1){
+                message = {
+                  partNumber: row.entity.displayItemNumber,
+                  maxQuantity: row.entity.maxQuantity,
+                  quantity: row.entity.quantity
+                };
+                $scope.validationMessages[index] = message;
             }
             $scope.calculate();
             $scope.submitDisable = $scope.validationMessages.length === 0? false: true;
@@ -82,16 +90,26 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             $scope.tax = OrderItems.formatTax();
             $scope.total = formatter.formatCurrency(subTotal + (subTotal * OrderItems.getTax()));
         };
-        var Grid = new GridService();
-        var personal = new Personalize($location.url(),$rootScope.idpUser.id);
-        $scope.orderSummaryGridOptions = {};
-        $scope.orderSummaryGridOptions.showBookmarkColumn = false;
-        Grid.setGridOptionsName('orderSummaryGridOptions');
-        $scope.orderSummaryGridOptions.onRegisterAPI = Grid.getGridActions($scope,
-                        OrderItems, personal);
-       OrderItems.data = $scope.datasource;
-        Grid.display(OrderItems,$scope,personal, 45);
-        $scope.calculate();
+
+        $scope.$on('OrderContentRefresh', function (event, data) {
+            if(data.OrderItems){
+                var Grid = new GridService();
+                var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+                $scope.orderSummaryGridOptions = {};
+                $scope.orderSummaryGridOptions.showBookmarkColumn = false;
+                Grid.setGridOptionsName('orderSummaryGridOptions');
+                $scope.orderSummaryGridOptions.onRegisterAPI = Grid.getGridActions($scope,
+                OrderItems, personal);
+                OrderItems.data = data.OrderItems;
+                Grid.display(OrderItems,$scope,personal, 45);
+                $scope.calculate();
+            }
+        });
+
+        $scope.refresh = function(datasource){
+
+        };
+
 
     }]);
 

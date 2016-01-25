@@ -25,6 +25,12 @@ define(['angular', 'order'], function(angular) {
             scope: {}
         };
     })
+    .directive('catalog', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/catalog.html',
+        };
+    })
     .directive('orderContent', function(){
         return {
             restrict: 'A',

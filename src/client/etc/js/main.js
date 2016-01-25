@@ -234,6 +234,7 @@ requirejs.config({
         'order': 'app/orders/order',
         'order.factory': 'app/orders/ordersFactory',
         'order.orderItemsfactory': 'app/orders/orderItemsFactory',
+        'order.assetsPartsFactory': 'app/orders/assetPartsFactory',
         'order.directives': 'app/orders/directives',
         'order.orderListController': 'app/orders/orderListController',
         'order.deviceOrderListController': 'app/orders/deviceOrderListController',
