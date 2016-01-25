@@ -39,7 +39,9 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
             } else {
                 removeParamsList.push('status');
             }
-            
+
+            Invoices.params.size = 100000;
+
             filterSearchService.addBasicFilter('INVOICE.ALL_INVOICES', configureParams, removeParamsList, function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             });
