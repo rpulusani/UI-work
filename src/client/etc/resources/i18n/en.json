@@ -483,10 +483,23 @@
             "WOULD_YOU_LIKE": "Would you like to ",
             "ADD_ANOTHER_ADDRESS": "add another address",
             "DETAILS_TITLE": "Details for Address Request Number: {{refId}}",
-            "ADD_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "UPDATE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_SUBMIT": "Submit Delete Address Request"
+            "DELETE_SUBMIT": "Submit Delete Address Request",
+            "SR_DELETE_SUBMITTED": "Delete Address Request Submitted",
+            "SR_UPDATE_SUBMITTED": "Update Address Request Submitted",
+            "REQUEST_SERVICE_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
+            "CANCEL": "Discard Changes to Address",
+            "SR_UPDATE": "Submit Update Address Request",
+            "SAVE_MSG": " has been added as an address! You can update the details below.",
+            "UPDATE_MSG": " has been saved! You can update the details below.",
+            "UPDATE_SUBMIT": "Update Address",
+            "ABANDON_ADD": "Abandon Address Creation",
+            "ABANDON_DELETE": "Abandon Address Delete",
+            "SUBMIT": "Create Address",
+            "ADDRESS_CONTACT": "Address contact",
+            "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+            "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information",
+            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}"
         },
 
         "SERVICE_REQUEST": {
@@ -521,7 +534,8 @@
             "FILTER_BY_CHL": "Filter By CHL",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Service Request Number: {{srNumber}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "",
-            "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}"
+            "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}",
+            "ADD_ADDRESS_REQUEST_SUBMITTED": "Add an Address Request Submitted"
         },
 
     "CONTACT_SERVICE_REQUEST": {

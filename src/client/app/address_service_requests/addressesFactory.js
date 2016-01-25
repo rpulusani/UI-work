@@ -1,12 +1,10 @@
-define(['angular', 'address'], function(angular) {
+define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFactory'], function(angular, address) {
     'use strict';
     angular.module('mps.serviceRequestAddresses')
-    .factory('Addresses', ['serviceUrl', '$translate', '$rootScope', 'HATEOASFactory',
-        function(serviceUrl, $translate, rootScope, HATEOASFactory) {
+    .factory('Addresses', ['$translate', 'serviceUrl', '$location', '$rootScope', 'FormatterService', 'ServiceRequestService', 'HATEOASFactory',
+        function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory) {
             var Addresses = {
-                //customize Address
                 serviceName: 'addresses',
-                singular: 'address',
                 embeddedName: 'addresses',
                 columns: 'default',
                 columnDefs: {
@@ -14,7 +12,7 @@ define(['angular', 'address'], function(angular) {
                         {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name', width: "17%",
                                 'cellTemplate':'<div>' +
-                                    '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                    '<a href="#" ng-click="grid.appScope.addresses.goToUpdate(row.entity);" ' +
                                     'ng-if="grid.appScope.addressAccess">{{row.entity.name}}</a>' +
                                     '<span ng-if="!grid.appScope.addressAccess">{{row.entity.name}}</span>' +
                                 '</div>'
@@ -34,8 +32,23 @@ define(['angular', 'address'], function(angular) {
                     ]
                 },
                 route: '/service_requests/addresses',
-            };
+                goToUpdate: function(address) {
+                        ServiceRequest.reset();
+                        if (address) {
+                            this.setItem(address);
+                        }
+                        $location.path(this.route + '/' + this.item.id + '/update');
+                    },
+                goToDelete: function(address) {
+                        ServiceRequest.reset();
+                        if (address) {
+                            this.setItem(address);
+                        }
+                        $location.path(this.route + '/delete/' + this.item.id + '/review');
+                    }
 
+                };
+                
             return new HATEOASFactory(Addresses);
         }
     ]);
