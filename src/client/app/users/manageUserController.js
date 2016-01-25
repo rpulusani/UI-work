@@ -266,16 +266,14 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.addField('preferredLanguage', 'en_US');
                 UserAdminstration.addField('resetPassword', true);
                 for (var i=0; i<$scope.user.basicRoles.length; i++) {
-                    console.log($scope.basicRole);
                     if ($scope.basicRole) {
-                        if ($scope.user.basicRoles[i].roleId === $scope.basicRole) {
+                        if ($scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
                             for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
                                 var selectedRole = $scope.user.selectedRoleList[j];
-                                if ($scope.basicRole === selectedRole.roleId) {
+                                if ($scope.basicRole.toString() === selectedRole.roleId.toString()) {
                                     $scope.user.selectedRoleList.splice(j,1);
                                 }
                             }
-                            console.log('$scope.user.basicRoles[i]', $scope.user.basicRoles[i]);
                             $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                         }
                     }

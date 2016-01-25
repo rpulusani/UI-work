@@ -124,7 +124,7 @@ define(['angular', 'user'], function(angular) {
                 Roles.item.get(options).then(function(){
                     if (Roles.item && Roles.item.permissions) {
                         for (var i=0; i<Roles.item.permissions.length; i++) {
-                            if (role.selected) {
+                            if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
                                 $scope.user.permissions.push(Roles.item.permissions[i]);
                             } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1) {
                                 $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
@@ -151,13 +151,22 @@ define(['angular', 'user'], function(angular) {
                             UserAdminstration.addField('invitedStatus', 'INVITED');
                             UserAdminstration.addField('active', false);
                             UserAdminstration.addField('resetPassword', false);
-                            UserAdminstration.addField('firstName', emailList[i]);
                             UserAdminstration.addField('email', emailList[i]);
                             UserAdminstration.addField('userId', emailList[i]);
-                            if ($scope.user.selectedRoleList || $scope.basicRole) {
+                            for (var j=0; j<$scope.user.basicRoles.length; j++) {
                                 if ($scope.basicRole) {
-                                    $scope.user.selectedRoleList.push($scope.basicRole);
+                                    if ($scope.user.basicRoles[j].roleId.toString() === $scope.basicRole.toString()) {
+                                        for (var k=0; k<$scope.user.selectedRoleList.length; k++) {
+                                            var selectedRole = $scope.user.selectedRoleList[k];
+                                            if ($scope.basicRole.toString() === selectedRole.roleId.toString()) {
+                                                $scope.user.selectedRoleList.splice(k,1);
+                                            }
+                                        }
+                                        $scope.user.selectedRoleList.push($scope.user.basicRoles[j]);
+                                    }
                                 }
+                            }
+                            if ($scope.user.selectedRoleList) {
                                 UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
                             }
 
@@ -193,10 +202,21 @@ define(['angular', 'user'], function(angular) {
                     UserAdminstration.addField('address', addressInfo);
                     UserAdminstration.addField('preferredLanguage', 'en_US');
                     UserAdminstration.addField('resetPassword', true);
-                    if ($scope.user.selectedRoleList || $scope.basicRole) {
+                    for (var i=0; i<$scope.user.basicRoles.length; i++) {
                         if ($scope.basicRole) {
-                            $scope.user.selectedRoleList.push($scope.basicRole);
+                            if ($scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                                for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
+                                    var selectedRole = $scope.user.selectedRoleList[j];
+                                    if ($scope.basicRole.toString() === selectedRole.roleId.toString()) {
+                                        $scope.user.selectedRoleList.splice(j,1);
+                                    }
+                                }
+                                $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
+                            }
                         }
+                        
+                    }
+                    if ($scope.user.selectedRoleList) {
                         UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
                     }
 
@@ -248,7 +268,7 @@ define(['angular', 'user'], function(angular) {
                     }
                 }
                 
-                $q.all(rolePromiseList).then(function(result) {
+                $q.all(deferredList).then(function(result) {
                     $location.path('/delegated_admin');
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
