@@ -27,9 +27,9 @@ define(['angular'], function(angular) {
                 controller: 'AddressAddController',
                 activeItem: '/service_requests/addresses'
             })
-            .when('/service_requests/addresses/update/pick_contact', {
+            .when('/service_requests/addresses/pick_contact/:source', {
                 templateUrl: '/app/address_service_requests/templates/contact-picker.html',
-                controller: 'AddressUpdateController',
+                controller: 'ContactPickerController',
                 activeItem: '/service_requests/addresses'
             })
             .when('/service_requests/addresses/:id/update', {

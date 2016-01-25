@@ -31,8 +31,9 @@ define(['angular', 'address'], function(angular) {
 
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addRelationship('account', $scope.address);
-                    ServiceRequest.addRelationship('address', $scope.address, 'self');
+                    ServiceRequest.addRelationship('sourceAddress', $scope.address, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.address, 'requestor');
+                    ServiceRequest.addField('type', 'DATA_ADDRESS_REMOVE');
 
             };
 
@@ -41,12 +42,36 @@ define(['angular', 'address'], function(angular) {
                     Users.item.links.contact().then(function() {
                         $scope.address.requestedByContact = Users.item.contact.item;
                         ServiceRequest.addRelationship('requester', $scope.address.requestedByContact, 'self');
-                        $scope.address.primaryContact = $scope.address.requestedByContact;
-                        ServiceRequest.addRelationship('primaryContact', $scope.address.requestedByContact, 'self');
-                        $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.address.requestedByContact);
+                        if(!$scope.address.primaryContact){
+                            $scope.address.primaryContact = $scope.address.requestedByContact;
+
+                            ServiceRequest.addRelationship('primaryContact', $scope.address.requestedByContact, 'self');
+                        }
+                        $scope.formatAdditionalData();
                     });
                 });
+            };
+
+            $scope.formatAdditionalData = function() {
+                if (!BlankCheck.isNull($scope.address)) {
+                    $scope.formattedAddress = FormatterService.formatAddress($scope.address);
+                }
+
+                if (!BlankCheck.isNull($scope.address.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.address.primaryContact);
+                }
+
+                if (!BlankCheck.isNull($scope.address.requestedByContact)) {
+                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.address.requestedByContact);
+                }
+                if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
+                    $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+                }
+
+                if (!BlankCheck.isNull($scope.sr.costCenter)) {
+                    $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+                }
+
             };
 
             if (Addresses.item === null) {
@@ -55,7 +80,8 @@ define(['angular', 'address'], function(angular) {
                 $scope.address = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.address.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.formatAdditionalData();
                 $scope.resetContactPicker();
             }else if($rootScope.contactPickerReset){
                 $rootScope.address = Addresses.item;
@@ -63,9 +89,10 @@ define(['angular', 'address'], function(angular) {
             }else {
 
                 $scope.address = Addresses.item;
-
-                if (!BlankCheck.isNull(Addresses.item['contact'])) {
-                    $scope.address.primaryContact = $scope.address['contact']['item'];
+                if (Addresses.item && !BlankCheck.isNull(Addresses.item['contact']) && Addresses.item['contact']['item']) {
+                    $scope.Addresses.primaryContact = Addresses.item['contact']['item'];
+                }else if(Addresses.item && !BlankCheck.isNull(Addresses.item['contact'])){
+                    $scope.Addresses.primaryContact = Addresses.item['contact'];
                 }
 
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Addresses.item.id) {
@@ -80,12 +107,12 @@ define(['angular', 'address'], function(angular) {
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.DELETE_SUBMIT';
                 $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
-                    var deferred = AddressServiceRequest.post({
+                    var deferred = ServiceRequest.post({
                          item:  $scope.sr
                     });
                     deferred.then(function(result){
-                        ServiceRequest.item = AddressServiceRequest.item;
+                        $rootScope.newAddress = $scope.address;
+                        $rootScope.newSr = $scope.sr;
                        $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -137,6 +164,7 @@ define(['angular', 'address'], function(angular) {
                         show:{
                             primaryAction : true
                         },
+                        pickerObject: $scope.address,
                         source: 'AddressDelete'
                     },
                     detail:{
@@ -184,26 +212,7 @@ define(['angular', 'address'], function(angular) {
                 };
             }
 
-            if (!BlankCheck.isNull($scope.address)) {
-                $scope.formattedAddress = FormatterService.formatAddress($scope.address);
-            }
-
-            if (!BlankCheck.isNull($scope.address.primaryContact)) {
-                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.address.primaryContact);
-            }
-
-            if (!BlankCheck.isNull($scope.address.requestedByContact)) {
-                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.address.requestedByContact);
-            }
-
-            if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
-                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
-            }
-
-            if (!BlankCheck.isNull($scope.sr.costCenter)) {
-                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
-            }
-
+            $scope.formatReceiptData($scope.formatAdditionalData);
         }
     ]);
 });
