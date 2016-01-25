@@ -46,16 +46,17 @@ define(['angular', 'utility'], function(angular) {
                      headers: {
                          'Content-Type': 'application/xml'
                      },
-                     params: {},
-                     transformResponse : function(data) {
-                        return $.parseXML(data);
-                     }
+                     params: {}
                 }).success(function(data, status, headers, config) {
                     if(!data){
                         deferred.resolve(medUrl);
                         return;
+                    } else {
+                        data = $.parseXML(data);
                     }
+
                     var x = data.getElementsByTagName('img');
+
                     for (var i = 0; i < x.length; i++) {
                         if(x[i].getAttribute('key')==='medium'){
                             if(x[i].getAttribute('src')){

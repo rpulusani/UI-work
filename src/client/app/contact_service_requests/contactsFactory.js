@@ -14,14 +14,15 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             field: 'getFullname()',
                             dynamic: false,
                             cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
-                                'ng-bind="grid.appScope.getFullname(row.entity)"></a></div>'
+                                'ng-bind="row.entity.getFullname()"></a></div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
                         {name: $translate.instant('CONTACT.EMAIL'), field: 'email'},
                         {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
                         {name: $translate.instant('LABEL.COST_CENTER'), field:'costCenter', visible: false},
                         {name: $translate.instant('CONTACT.FIRST_NAME'), field:'_embedded.contact.firstName', visible: false},
-                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false, minWidth: 500}
+                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false},
+                        {name: $translate.instant('ADDRESS.ADDRESS'), field:'_embedded.contact.address.addressLine1', visible: false}
                     ]
                 },
                 route: '/service_requests/contacts',

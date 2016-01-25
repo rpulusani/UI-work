@@ -5,27 +5,36 @@ define(['angular', 'order'], function(angular) {
         return {
             restrict: 'A',
             templateUrl : '/app/orders/templates/tabs/all-order-tab.html',
-            controller: 'OrderListController',
-            scope: {}
+            controller: 'OrderListController'
         };
     })
     .directive('deviceOrderTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/orders/templates/tabs/device-order-tab.html',
-            controller: 'DeviceOrderListController',
-            scope: {}
+            controller: 'DeviceOrderListController'
         };
     })
     .directive('supplyOrderTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/orders/templates/tabs/supply-order-tab.html',
-            controller: 'SupplyOrderListController',
-            scope: {}
+            controller: 'SupplyOrderListController'
         };
     })
-    
+    .directive('orderContent', function(){
+        return {
+            restrict: 'A',
+            templateUrl: '/app/orders/templates/order-contents.html',
+            scope:{
+                columnDef: '=',
+                editable:"=",
+                submitAction:"=",
+                datasource:"="
+            },
+            controller: 'OrderContentsController'
+        };
+    })
     .directive('orderActionButtons', function() {
         return {
             restrict: 'A',

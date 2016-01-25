@@ -165,8 +165,10 @@
             "BTN_GRID_SUPPLIES_UPDATE": "Update",
             "BTN_NEW_ORDER_CLEAR": "Remove all items",
             "BTN_NEW_ORDER_SUBMIT": "REVIEW AND SUBMIT ORDER",
-            "LNK_CATALOG_ORDER": "null",
+            "LNK_CATALOG_ORDER": "Order from catalog",
             "LNK_VIEW_ALL_ORDERS": "View all orders for this device",
+            "MAX_QTY_VALIDATION": "[{{partNumber}}]: You entered a quantity of ({{quantity}}). Max quantity for this item is ({{maxQuantity}})",
+            "TXT_HEADER_ITEMS_COUNT_SUMMARY": "({{count}} items)",
             "TXT_GRID_DEVICE_ORDER_HISTORY": "Device order history",
             "TXT_GRID_NEW_ORDER_SUMMARY": "New order summary",
             "TXT_GRID_ORDER_HIST_DATE": "Date",
@@ -178,6 +180,7 @@
             "TXT_GRID_ORDER_QUANTITY": "Quantity",
             "TXT_GRID_RECENT_ORDER_CONTENTS": "Order summary",
             "TXT_GRID_SUPPLIES_DESC": "Description",
+            "TXT_GRID_SUPPLIES_TYPE": "Supply Type",
             "TXT_GRID_SUPPLIES_QUANTITY": "Quantity",
             "TXT_LAST_UPDATED_IN_PROCESS": "Last updated {{date}} - In process",
             "TXT_ORDER_CARRIER": "Carrier",
@@ -190,6 +193,7 @@
             "TXT_ORDER_STATUS": "Order status",
             "TXT_ORDER_SUBMITTED": "Submitted",
             "TXT_ORDER_SUBTOTAL": "Subtotal",
+            "TXT_ORDER_TAX": "Tax %",
             "TXT_ORDER_TOTAL": "Total",
             "TXT_RECENT_ORDER": "Most recent order",
             "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order"
@@ -479,10 +483,26 @@
             "WOULD_YOU_LIKE": "Would you like to ",
             "ADD_ANOTHER_ADDRESS": "add another address",
             "DETAILS_TITLE": "Details for Address Request Number: {{refId}}",
-            "ADD_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "UPDATE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_SUBMIT": "Submit Delete Address Request"
+            "DELETE_SUBMIT": "Submit Delete Address Request",
+            "SR_DELETE_SUBMITTED": "Delete Address Request Submitted",
+            "SR_UPDATE_SUBMITTED": "Update Address Request Submitted",
+            "SR_ADD_SUBMITTED": "Add an Address Request Submitted",
+            "REQUEST_SERVICE_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
+            "CANCEL": "Discard Changes to Address",
+            "SR_UPDATE": "Submit Update Address Request",
+            "SAVE_MSG": " has been added as an address! You can update the details below.",
+            "UPDATE_MSG": " has been saved! You can update the details below.",
+            "UPDATE_SUBMIT": "Update Address",
+            "ABANDON_ADD": "Abandon Address Creation",
+            "ABANDON_DELETE": "Abandon Address Delete",
+            "SUBMIT": "Create Address",
+            "ADDRESS_CONTACT": "Address contact",
+            "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+            "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information",
+            "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
+            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request."
         },
 
         "SERVICE_REQUEST": {
@@ -736,7 +756,8 @@
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
             "NUMBER_CLOSED_REQUESTS": "15 Closed Requests",
-            "NUMBER_OPEN_REQUESTS": "open"
+            "NUMBER_OPEN_REQUESTS": "open",
+            "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },
 
         "DEVICE_MGT": {
@@ -1146,6 +1167,7 @@
                 "BTN_ADD_ACCOUNT" : "ADD TO LIST",
                 "BTN_BROWSE" : "BROWSE",
                 "BTN_UPLOAD_SAVE_DOC" : "UPLOAD DOCUMENT AND SAVE",
+                "BTN_ABANDON_DOC_UPLOAD": "ABANDON DOCUMENT UPLOAD",
                 "CHK_VISIBILITY__ALL_ACCOUNTS" : "File is visible to all accounts",
                 "CHK_VISIBILITY_STRATEGIC" : "File is only visible to users with strategic access",
                 "CTRL_GRID_REMOVE" : "Remove from list",
@@ -1155,7 +1177,7 @@
                 "TXT_ADD_ACCOUNT" : "Add account",
                 "TXT_ADD_NEW_DOCUMENT" : "Add a New Document",
                 "TXT_ADD_NEW_DOCUMENT_PAR" : "TBD",
-                "TXT_BROWSE_FILE" : "Browse file *",
+                "TXT_BROWSE_FILE" : "Browse file",
                 "TXT_CAN_SEE" : "Can see",
                 "TXT_GRID_ACCOUNT_NAME" : "Account name",
                 "TXT_GRID_VISIBILITY" : "Visibility",
@@ -1176,7 +1198,7 @@
                 "TXT_DELETE_DOC_ARE_YOU_SURE" : "Are you sure you wish to delete this document?",
                 "TXT_DESCRIPTION" : "Description",
                 "TXT_DOCUMENT_DETAILS" : "Document details",
-                "TXT_DOCUMENT_NAME" : "Document name *",
+                "TXT_DOCUMENT_NAME" : "Document name",
                 "TXT_FILE_DETAILS" : "File details",
                 "TXT_PUBLISH_FROM" : "Publish from",
                 "TXT_PUBLISH_TO" : "Publish to",
@@ -1263,15 +1285,16 @@
         },
 
         "DELEGATED_ADMIN": {
-            "TITLE": "Delegated admin"
+            "TITLE": "Delegated admin",
+            "MANAGE_PROFILE": "Managing User Profile"
         },
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}})",
-            "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
-            "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
+            "USERS": "Users ({{userCount}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
             "ALL_USER": "All users",
+            "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",
             "IMPORT_USER": "IMPORT USERS",
@@ -1297,7 +1320,12 @@
             "DISCARD_INVITE": "DISCARD USER INVITATIONS",
             "INVITE_USERS": "INVITE USER(S)",
             "USER_CREATED_MSG": "User has been created successfully!",
-            "USER_INVITED_MSG": "users have been sent invites!"
+            "USER_INVITED_MSG": "users have been sent invites!",
+            "DEACTIVATE_USER": "DEACTIVATE USER",
+            "USER_PROFILE": "User profile",
+            "ACCOUNT_ACCESS": "Account access",
+            "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
+            "UPDATE_USER": "UPDATE USER"
         },
 
         "ROLE": {

@@ -4,7 +4,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     .controller('DevicePickerController', ['$scope', '$location', 'grid', 'Devices',
         'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller', 'imageService',
         'Contacts',
-        function($scope, $location, Grid, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
+        function($scope, $location, GridService, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
             Personalize, $controller, ImageService, Contacts) {
             $scope.selectedDevice = [];
             $rootScope.currentRowList = [];
@@ -88,6 +88,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.deviceReturnPath);
             };
 
+            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
@@ -133,6 +134,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                     embed:'contact'
                 }
             };
+
 
             Devices.getPage(0, 20, options).then(function() {
                 $scope.itemCount = Devices.data.length;

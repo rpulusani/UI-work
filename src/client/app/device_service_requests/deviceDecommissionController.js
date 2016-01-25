@@ -192,6 +192,7 @@ define(['angular',
                         show:{
                             primaryAction : true
                         },
+                        pickerObject: $scope.device,
                         source: 'DeviceDecommission'
                     },
                     detail:{

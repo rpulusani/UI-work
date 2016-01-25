@@ -2,7 +2,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
     .factory('FilterSearchService', ['grid', 'HATEOASFactory',
-        function(Grid, HATEOASFactory) {
+        function(GridService, HATEOASFactory) {
             var localScope = {},
             service,
             display,
@@ -24,6 +24,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     throw new Error('Grid Options onRegisterAPI was not setup, possibly missing rootScope, Service Definition or Personalization');
                 }
                 var self = this;
+                self.Grid = new GridService();
                 this.service = serviceDefinition;
                 this.localScope = scope;
                 this.columnSet = columnSet;
@@ -35,15 +36,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     }
 
                     if (rowHeight) {
-                        Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
+                        self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
                             if (typeof fn === 'function') {
-                                return fn(Grid);
+                                return fn(self.Grid);
                             }
                         });
                     } else {
-                        Grid.display(self.service, self.localScope, self.personalization, false, function() {
+                        self.Grid.display(self.service, self.localScope, self.personalization, false, function() {
                             if (typeof fn === 'function') {
-                                return fn(Grid);
+                                return fn(self.Grid);
                             }
                         });
                     }
@@ -64,12 +65,12 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                 this.localScope.optionParams = {};
                 this.localScope.filterOptions = [];
-                this.localScope.visibleColumns =  Grid.getVisibleColumns(this.service); //sets initial columns visibility
+                this.localScope.visibleColumns =  self.Grid.getVisibleColumns(this.service); //sets initial columns visibility
                 this.localScope.gridOptions = {};
                 if (rowHeight) {
                     this.localScope.gridOptions.rowHeight = rowHeight;
                 }
-                this.localScope.gridOptions.onRegisterApi = Grid.getGridActions(rootScope,
+                this.localScope.gridOptions.onRegisterApi = self.Grid.getGridActions(rootScope,
                         this.service, this.personalization);
             };
 
@@ -92,7 +93,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             if (removeParams) {
                                 self.clearParameters(removeParams);
                             }
-                            var promise = self.service.getPage(0, 20, options);
+                            var promise = self.service.getPage(0, self.service.params.size, options);
 
                             promise.then(function() {
                                 self.display(fn);
@@ -125,8 +126,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
                             angular.extend(options.params, params);
 
-                            var promise = self.service.getPage(0, 20, options);
-                            
+                            var promise = self.service.getPage(0, self.service.params.size, options);
+
                             promise.then(function() {
                                 self.display(fn);
                             }, self.failure);

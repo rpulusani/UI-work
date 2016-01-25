@@ -150,6 +150,26 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
             };
 
+            HATEOASFactory.prototype.addMultipleRelationship = function(name, halObjArr, altName){
+                var tempObjectArr = [],
+                calculatedName = (altName) ? altName: name;
+
+                this.getMessage();
+
+                if (halObjArr && halObjArr.length && halObjArr.length > 0) {
+                    for (var i=0; i<halObjArr.length; i++) {
+                        if(halObjArr[i] && halObjArr[i]._links && halObjArr[i]._links[calculatedName] &&
+                            halObjArr[i]._links[calculatedName].href) {
+                            var tempObject = { href: halObjArr[i]._links[calculatedName].href};
+                            tempObjectArr.push(tempObject);
+                        }
+                    }
+                    var finalObj = {};
+                    finalObj[name] = tempObjectArr;
+                    angular.extend(this.item._links, finalObj);
+                }
+            };
+
             // Update a secondary service with a matching link in a given envelope
             HATEOASFactory.prototype.getAdditional = function(halObj, newService) {
                 var self = this,
@@ -493,7 +513,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             if (!options.url) {
                                 options.url = self.buildUrl(itemUrl, self.params, []);
                             }
-
                             options.method = method;
                             options.data = halObj;
 
@@ -776,11 +795,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         self.params = {};
                                     }
 
-                                    if (!options.params.accountId || !self.params.accountId) {
+                                    if (options.params && !options.params.accountId || !self.params.accountId) {
                                         self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
                                     }
 
-                                    if (!options.params.accountLevel || !self.params.accountLevel) {
+                                    if (options.params && !options.params.accountLevel || !self.params.accountLevel) {
                                         self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                                     }
 

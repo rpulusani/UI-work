@@ -1,7 +1,11 @@
 <div class="page-header">
     <div class="col-lg-2-3 col-md-1-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li translate="ADDRESS.TITLE"></li>
+        </ul>
         <h1 translate="ADDRESS.LIST_TITLE"></h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="/service_requests/learn_more">Learn more about requests</a></p>
+        <p><span translate="MESSAGE.LIPSUM"></span> <a href="/service_requests/learn_more"><span translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></span></a></p>
         <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
     </div>
 </div>
@@ -10,17 +14,7 @@
     <div alert-message></div>
 
     <div class="clearfix">
-        <h2 class="pull vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="ADDRESS.BOOK"
-          translate-values="{total: pagination.totalItems()}">
-        </h2>
-        <div class="print-export">
-            <span>
-                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
-            </span>
-            <span>
-                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
-            </span>
-        </div>
+        <div print-export-title title="ADDRESS.BOOK"></div>
     </div>
         <hr>
 
@@ -41,14 +35,12 @@
             </div>
 
             <div class="col-lg-2-3 col-md-1-1">
-                <button type="button" class="btn btn--default" href=""
-                ng-click="view(null)" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
-                <button type="button" class="btn btn--default" href=""
-                ng-click="goToRemove()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
+                <button type="button" class="btn btn--default" href="" ng-click="selectRow()" translate="ADDRESS_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
+                <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()" ng-if="addressAccess"></button>
             </div>
             
             <div class="col-1">
-                <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+                <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
 
                 <div pagination grid="{{gridOptions}}"></div>
             </div>

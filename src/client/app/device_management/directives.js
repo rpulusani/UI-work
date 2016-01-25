@@ -8,6 +8,13 @@ define(['angular', 'deviceManagement'], function(angular) {
             controller: 'DeviceInformationController'
         };
     })
+    .directive('suppliesAccessoryOrder', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/device_management/templates/order_supply_accessory.html',
+            controller: 'OrderSupplyController'
+        };
+    })
     .directive('orderList', function() {
         return {
             restrict: 'A',

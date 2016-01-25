@@ -1,15 +1,7 @@
 <div sr-header></div>
 <div class="clearfix page-content">
 <div class="col-1">
-      <h2 translate="{{configure.receipt.translate.title}}" class="pull" translate-values="{{configure.receipt.translate.titleValues}}"></h2>
-    <div class="print-export">
-            <span>
-                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
-            </span>
-            <span>
-                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
-            </span>
-        </div>
+    <div print-export-title title="{{configure.receipt.translate.title}}"></div>
 </div>
  </div>
 
@@ -42,11 +34,11 @@
             </ul>
         </div>
     </div>
-
     <!-- additional request Details go here -->
 
     <div sr-device-information></div>
     <div sr-device-removal></div>
     <div sr-device-contact></div>
     <div sr-device-service-details></div>
+    <div sr-address></div>
 </div>

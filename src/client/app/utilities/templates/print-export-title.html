@@ -1,0 +1,15 @@
+<div ng-if="displayTitle === true" class="col-2-3">
+    <h2 ng-if="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}"></h2>
+    <h2 ng-if="!itemtotal && title" translate="{{ title }}"></h2>
+</div>
+<div ng-if="displayPrint || displayExport" class="print-export">
+    <span ng-if="displayPrint" class="">
+        <i class="icon icon--mps icon--print"></i>
+        <a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>
+    </span>
+
+    <span ng-if="displayExport" class="">
+        <i class="icon icon--mps icon--download"></i>
+        <a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>
+    </span>
+</div>

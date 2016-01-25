@@ -3,7 +3,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     angular.module('mps.utility')
     .controller('ContactPickerController', ['$scope', '$location', '$controller', '$routeParams', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
         'PersonalizationServiceFactory',
-        function($scope, $location, $controller, $routeParams, Grid, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
+        function($scope, $location, $controller, $routeParams, GridService, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
             $scope.selectedContact = [];
             $rootScope.currentRowList = [];
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
@@ -43,6 +43,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.contactReturnPath);
             };
 
+            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
@@ -62,7 +63,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         },
                         readMoreUrl: ''
                     }
-                }
+                };
             }
 
         }
