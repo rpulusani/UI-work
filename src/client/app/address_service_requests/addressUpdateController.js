@@ -122,7 +122,7 @@ define(['angular', 'address'], function(angular) {
             }
             function configureReceiptTemplate() {
                 $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_UPDATE_SUBMITTED";
-                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.UBMISSION_TEXT";
+                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.ADD_ADDRESS_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
