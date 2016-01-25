@@ -46,7 +46,6 @@ define(['angular', 'user'], function(angular) {
                 $scope.user.permissions = [];
                 $scope.user.selectedRoleList = [];
                 $scope.userExistingRoles = [];
-                $scope.selectedAccountList = [];
                 $scope.accounts = [];
 
                 if ($scope.user.item && $scope.user.item.address) {
@@ -59,8 +58,8 @@ define(['angular', 'user'], function(angular) {
                         $scope.user.selectedRoleList.push($scope.userExistingRoles[i]);
                     }
                 }
-                if (!BlankCheck.isNull($scope.user['accounts'])) {
-                    $scope.accounts = $scope.user['accounts'];
+                if (!BlankCheck.isNull($scope.user.item._embedded.accounts)) {
+                    $scope.accounts = $scope.user.item._embedded.accounts;
                     if ($scope.accounts.length > 0) {
                         for (var i=0;i<$scope.accounts.length;i++) {
                             $scope.accounts[i]._links = {
@@ -68,8 +67,11 @@ define(['angular', 'user'], function(angular) {
                                     href: {}
                                 }
                             };
-                            $scope.accounts[i]._links.self.href = $scope.user._links.accounts.href;
-                            $scope.selectedAccountList.push($scope.accounts[i]);
+                            if (angular.isArray($scope.user._links.accounts)) {
+                                $scope.accounts[i]._links.self.href = $scope.user._links.accounts[i].href
+                            } else {
+                                $scope.accounts[i]._links.self.href = $scope.user._links.accounts.href;
+                            }
                         }
                     }
                 }
@@ -93,7 +95,8 @@ define(['angular', 'user'], function(angular) {
                 }, 
                 promise1 = Roles.get(basicRoleOptions),
                 promise2 = Roles.get(addonRoleOptions),
-                rolePromiseList = [promise1,promise2];
+                rolePromiseList = [promise1,promise2],
+                permissionPromiseList = [];
 
                 
                 $q.all(rolePromiseList).then(function(response) {
@@ -123,14 +126,32 @@ define(['angular', 'user'], function(angular) {
                                 if ($scope.userExistingRoles && $scope.userExistingRoles.length > 0) {
                                     for (var i=0;i<$scope.userExistingRoles.length;i++) {
                                         if ($scope.userExistingRoles[i].roleId === role.roleId) {
+                                            Roles.setItem(role);
                                             role.selected = true;
-                                            $scope.setPermissions(role);
+                                            var options = {
+                                                params:{
+                                                    'applicationName': 'customerPortal'
+                                                }
+                                            };
+                                            var permissionPromise = Roles.item.get(options);
+                                            permissionPromiseList.push(permissionPromise);
                                         }
                                     }
                                 }
                                 $scope.user.addonRoles.push(role); 
                             }
                         }
+                        $q.all(permissionPromiseList).then(function(response) {
+                            for (var i=0;i<permissionPromiseList.length;i++) {
+                                if (response[i] && response[i].data && response[i].data.permissions) {
+                                    for (var j=0; j<response[i].data.permissions.length; j++) {
+                                        if ($scope.user.permissions.indexOf(response[i].data.permissions[j]) === -1) {
+                                            $scope.user.permissions.push(response[i].data.permissions[j]);
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     }
                 });
 
@@ -196,17 +217,22 @@ define(['angular', 'user'], function(angular) {
                 Roles.item.get(options).then(function(){
                     if (Roles.item && Roles.item.permissions) {
                         for (var i=0; i<Roles.item.permissions.length; i++) {
-                            if (role.selected) {
+                            if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
                                 $scope.user.permissions.push(Roles.item.permissions[i]);
                             } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1) {
                                 $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
                             }
                         }
                     }
-                    if (Roles.item && role.selected && $scope.user.selectedRoleList.indexOf(role) !== -1) {
+                    if (Roles.item && role.selected) {
                         $scope.user.selectedRoleList.push(role);
-                    } else if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.indexOf(role) !== -1) {
-                        $scope.user.selectedRoleList.splice($scope.user.selectedRoleList.indexOf(role), 1);
+                    } else if ($scope.user.selectedRoleList) {
+                        for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
+                            var selectedRole = $scope.user.selectedRoleList[j];
+                            if (role.roleId === selectedRole.roleId) {
+                                $scope.user.selectedRoleList.splice(j,1);
+                            }
+                        }
                     }
                 });
             };
@@ -215,12 +241,17 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.reset();
                 UserAdminstration.newMessage();
                 $scope.userInfo = UserAdminstration.item;
+                UserAdminstration.addField('ldapId', $scope.user.ldapId);
+                UserAdminstration.addField('contactId', $scope.user.contactId);
+                UserAdminstration.addField('idpId', $scope.user.idpId);
                 UserAdminstration.addField('type', 'BUSINESS_PARTNER');
                 UserAdminstration.addField('active', true);
                 UserAdminstration.addField('firstName', $scope.user.firstName);
                 UserAdminstration.addField('lastName', $scope.user.lastName);
-                //UserAdminstration.addField('password', $scope.user.password);
-                //UserAdminstration.addField('email', $scope.user.email);
+                if (BlankCheck.checkNotBlank($scope.user.password)) {
+                    UserAdminstration.addField('password', $scope.user.password);
+                }
+                UserAdminstration.addField('email', $scope.user.email);
                 UserAdminstration.addField('userId', $scope.user.email);
                 UserAdminstration.addField('workPhone', $scope.user.workPhone);
                 var addressInfo = {
@@ -241,17 +272,15 @@ define(['angular', 'user'], function(angular) {
                 if ($scope.user.org) {
                     for (var countObj in $scope.user.org) {
                         var accountInfo = $scope.user.org[countObj];
-                        $scope.selectedAccountList.push(accountInfo);
+                        $scope.accounts.push(accountInfo);
                     }
                 }
-                UserAdminstration.addMultipleRelationship('accounts', $scope.selectedAccountList, 'self');
+                UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
             };
 
             $scope.update = function() {
                 updateAdminObjectForUpdate();
                 UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
-                console.log('UserAdminstration', UserAdminstration);
-                console.log('$scope.userInfo', $scope.userInfo);
                 var options = {
                     preventDefaultParams: true
                 }
