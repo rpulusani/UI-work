@@ -42,6 +42,7 @@ define(['angular', 'address'], function(angular) {
 
             var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('primaryContact', $scope.address, 'requestor');
+                ServiceRequest.addField('type', 'DATA_ADDRESS_ADD');
             };
 
             $scope.getRequestor = function(ServiceRequest, Contacts) {
@@ -116,12 +117,12 @@ define(['angular', 'address'], function(angular) {
                             ServiceRequest.item.postURL = api.url;
                         });
                     }
-                    var deferred = AddressServiceRequest.post({
+                    var deferred = ServiceRequest.post({
                         item:  $scope.sr
                     });
 
                     deferred.then(function(result){
-                        ServiceRequest.item = AddressServiceRequest.item;
+                        ServiceRequest.item = ServiceRequest.item;
                         $rootScope.newAddress = $scope.address;
                         $rootScope.newSr = $scope.sr;
                         $location.path(Addresses.route + '/add/receipt');

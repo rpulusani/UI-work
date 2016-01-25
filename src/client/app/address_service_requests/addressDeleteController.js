@@ -31,8 +31,9 @@ define(['angular', 'address'], function(angular) {
 
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addRelationship('account', $scope.address);
-                    ServiceRequest.addRelationship('address', $scope.address, 'self');
+                    ServiceRequest.addRelationship('sourceAddress', $scope.address, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.address, 'requestor');
+                    ServiceRequest.addField('type', 'DATA_ADDRESS_REMOVE');
 
             };
 
@@ -80,12 +81,12 @@ define(['angular', 'address'], function(angular) {
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.DELETE_SUBMIT';
                 $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
-                    var deferred = AddressServiceRequest.post({
+                    var deferred = ServiceRequest.post({
                          item:  $scope.sr
                     });
                     deferred.then(function(result){
-                        ServiceRequest.item = AddressServiceRequest.item;
+                        $rootScope.newAddress = $scope.address;
+                        $rootScope.newSr = $scope.sr;
                        $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);

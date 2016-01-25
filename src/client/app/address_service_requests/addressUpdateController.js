@@ -39,7 +39,8 @@ define(['angular', 'address'], function(angular) {
 
             var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('account', $scope.address);
-                ServiceRequest.addRelationship('address', $scope.address, 'self');
+                ServiceRequest.addRelationship('sourceAddress', $scope.address, 'self');
+                ServiceRequest.addField('type', 'DATA_ADDRESS_CHANGE');
             };
 
             $scope.getRequestor = function(ServiceRequest, Contacts) {
@@ -92,17 +93,18 @@ define(['angular', 'address'], function(angular) {
                 };
                 ServiceRequest.addField('destinationAddress', destinationAddress);
             };
-            
+
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SR_UPDATE';
                 $scope.configure.actions.submit = function(){
                     updateSRObjectForSubmit();
-                    var deferred = AddressServiceRequest.post({
+                    var deferred = ServiceRequest.post({
                         item:  $scope.sr
                     });
 
                     deferred.then(function(result){
-                        ServiceRequest.item = AddressServiceRequest.item;
+                        $rootScope.newAddress = $scope.address;
+                        $rootScope.newSr = $scope.sr;
                         $location.path(Addresses.route + '/update/' + $scope.address.id + '/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
