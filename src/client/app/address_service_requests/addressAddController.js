@@ -52,8 +52,7 @@ define(['angular', 'address'], function(angular) {
                         ServiceRequest.addRelationship('requester', $scope.address.requestedByContact, 'self');
                         $scope.address.primaryContact = $scope.address.requestedByContact;
                         ServiceRequest.addRelationship('primaryContact', $scope.address.requestedByContact, 'self');
-                        $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.address.requestedByContact);
+                        formatAdditionalData();
                     });
                 });
             };

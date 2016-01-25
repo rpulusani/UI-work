@@ -42,12 +42,36 @@ define(['angular', 'address'], function(angular) {
                     Users.item.links.contact().then(function() {
                         $scope.address.requestedByContact = Users.item.contact.item;
                         ServiceRequest.addRelationship('requester', $scope.address.requestedByContact, 'self');
-                        $scope.address.primaryContact = $scope.address.requestedByContact;
-                        ServiceRequest.addRelationship('primaryContact', $scope.address.requestedByContact, 'self');
-                        $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.address.requestedByContact);
+                        if(!$scope.address.primaryContact){
+                            $scope.address.primaryContact = $scope.address.requestedByContact;
+
+                            ServiceRequest.addRelationship('primaryContact', $scope.address.requestedByContact, 'self');
+                        }
+                        $scope.formatAdditionalData();
                     });
                 });
+            };
+
+            $scope.formatAdditionalData = function() {
+                if (!BlankCheck.isNull($scope.address)) {
+                    $scope.formattedAddress = FormatterService.formatAddress($scope.address);
+                }
+
+                if (!BlankCheck.isNull($scope.address.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.address.primaryContact);
+                }
+
+                if (!BlankCheck.isNull($scope.address.requestedByContact)) {
+                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.address.requestedByContact);
+                }
+                if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
+                    $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+                }
+
+                if (!BlankCheck.isNull($scope.sr.costCenter)) {
+                    $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+                }
+
             };
 
             if (Addresses.item === null) {
@@ -56,7 +80,8 @@ define(['angular', 'address'], function(angular) {
                 $scope.address = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.address.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.formatAdditionalData();
                 $scope.resetContactPicker();
             }else if($rootScope.contactPickerReset){
                 $rootScope.address = Addresses.item;
@@ -64,9 +89,10 @@ define(['angular', 'address'], function(angular) {
             }else {
 
                 $scope.address = Addresses.item;
-
-                if (!BlankCheck.isNull(Addresses.item['contact'])) {
-                    $scope.address.primaryContact = $scope.address['contact']['item'];
+                if (Addresses.item && !BlankCheck.isNull(Addresses.item['contact']) && Addresses.item['contact']['item']) {
+                    $scope.Addresses.primaryContact = Addresses.item['contact']['item'];
+                }else if(Addresses.item && !BlankCheck.isNull(Addresses.item['contact'])){
+                    $scope.Addresses.primaryContact = Addresses.item['contact'];
                 }
 
                 if ($rootScope.returnPickerObject && $rootScope.selectionId !== Addresses.item.id) {
@@ -138,6 +164,7 @@ define(['angular', 'address'], function(angular) {
                         show:{
                             primaryAction : true
                         },
+                        pickerObject: $scope.address,
                         source: 'AddressDelete'
                     },
                     detail:{
@@ -185,26 +212,7 @@ define(['angular', 'address'], function(angular) {
                 };
             }
 
-            if (!BlankCheck.isNull($scope.address)) {
-                $scope.formattedAddress = FormatterService.formatAddress($scope.address);
-            }
-
-            if (!BlankCheck.isNull($scope.address.primaryContact)) {
-                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.address.primaryContact);
-            }
-
-            if (!BlankCheck.isNull($scope.address.requestedByContact)) {
-                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.address.requestedByContact);
-            }
-
-            if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
-                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
-            }
-
-            if (!BlankCheck.isNull($scope.sr.costCenter)) {
-                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
-            }
-
+            $scope.formatReceiptData($scope.formatAdditionalData);
         }
     ]);
 });
