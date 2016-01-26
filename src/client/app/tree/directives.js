@@ -15,7 +15,9 @@ define([
                 treeType: '@',
                 filterChl: '=',
                 action: '@',
-                value: '='
+                value: '=',
+                initialItem: '=',
+                previousItems: '='
             },
             controller: 'TreeController'
         };
@@ -32,7 +34,8 @@ define([
                 filterChl: '=',
                 value: '=',
                 action: '@',
-                treeNodes: '='
+                treeNodes: '=',
+                previousItems: '='
             },
             controller: 'TreeItemController',
             compile: function(element){

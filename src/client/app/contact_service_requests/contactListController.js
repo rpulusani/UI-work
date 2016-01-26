@@ -40,20 +40,20 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
                 Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
             }
         };
-
+/*
         $scope.getFullname = function(rowInfo) {
             return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
         };
-
+*/
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function(Grid) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
-                
+
                 $scope.$broadcast('setupPrintAndExport', $scope);
 
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
-                }, 500); // Stupid hack, need to look closely at FSS bit who has the time?
+                }, 500);
             }
         );
     }]);

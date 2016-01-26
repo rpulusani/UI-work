@@ -1,0 +1,14 @@
+<div class="set" data-js="set">
+    <div class="set__trigger" data-toggle="userProfileTab" ng-click="active('userProfileTab')">
+        <a href="#userProfileTab" translate="USER.USER_PROFILE"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="userProfileTab">
+        <span user-profile-tab ng-if="isActive('userProfileTab')"></span>
+    </div>
+    <div class="set__trigger" data-toggle="accountAccessTab" ng-click="active('accountAccessTab')">
+        <a href="#accountAccessTab" translate="USER.ACCOUNT_ACCESS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="accountAccessTab" >
+        <span account-access-tab ng-if="isActive('accountAccessTab')"></span>
+    </div>
+</div>

@@ -484,10 +484,26 @@
             "WOULD_YOU_LIKE": "Would you like to ",
             "ADD_ANOTHER_ADDRESS": "add another address",
             "DETAILS_TITLE": "Details for Address Request Number: {{refId}}",
-            "ADD_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "UPDATE_PARAGRAPH": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href=\"\">Learn more about requests",
-            "DELETE_SUBMIT": "Submit Delete Address Request"
+            "DELETE_SUBMIT": "Submit Delete Address Request",
+            "SR_DELETE_SUBMITTED": "Delete Address Request Submitted",
+            "SR_UPDATE_SUBMITTED": "Update Address Request Submitted",
+            "SR_ADD_SUBMITTED": "Add an Address Request Submitted",
+            "REQUEST_SERVICE_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
+            "CANCEL": "Discard Changes to Address",
+            "SR_UPDATE": "Submit Update Address Request",
+            "SAVE_MSG": " has been added as an address! You can update the details below.",
+            "UPDATE_MSG": " has been saved! You can update the details below.",
+            "UPDATE_SUBMIT": "Update Address",
+            "ABANDON_ADD": "Abandon Address Creation",
+            "ABANDON_DELETE": "Abandon Address Delete",
+            "SUBMIT": "Create Address",
+            "ADDRESS_CONTACT": "Address contact",
+            "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
+            "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information",
+            "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
+            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request."
         },
 
         "SERVICE_REQUEST": {
@@ -1270,15 +1286,16 @@
         },
 
         "DELEGATED_ADMIN": {
-            "TITLE": "Delegated admin"
+            "TITLE": "Delegated admin",
+            "MANAGE_PROFILE": "Managing User Profile"
         },
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}})",
-            "COMPANY_USERS": "{{companyName}} Users ({{userCount}})",
-            "INVITED_USERS": "{{companyName}} Invited users ({{userCount}})",
+            "USERS": "Users ({{userCount}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
             "ALL_USER": "All users",
+            "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",
             "IMPORT_USER": "IMPORT USERS",
@@ -1304,7 +1321,12 @@
             "DISCARD_INVITE": "DISCARD USER INVITATIONS",
             "INVITE_USERS": "INVITE USER(S)",
             "USER_CREATED_MSG": "User has been created successfully!",
-            "USER_INVITED_MSG": "users have been sent invites!"
+            "USER_INVITED_MSG": "users have been sent invites!",
+            "DEACTIVATE_USER": "DEACTIVATE USER",
+            "USER_PROFILE": "User profile",
+            "ACCOUNT_ACCESS": "Account access",
+            "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
+            "UPDATE_USER": "UPDATE USER"
         },
 
         "ROLE": {

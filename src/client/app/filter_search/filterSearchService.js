@@ -93,7 +93,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             if (removeParams) {
                                 self.clearParameters(removeParams);
                             }
-                            var promise = self.service.getPage(0, 20, options);
+                            var promise = self.service.getPage(0, self.service.params.size, options);
 
                             promise.then(function() {
                                 self.display(fn);
@@ -126,7 +126,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
                             angular.extend(options.params, params);
 
-                            var promise = self.service.getPage(0, 20, options);
+                            var promise = self.service.getPage(0, self.service.params.size, options);
 
                             promise.then(function() {
                                 self.display(fn);

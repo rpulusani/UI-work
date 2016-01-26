@@ -146,7 +146,7 @@ define(['angular',
                 }
                 ServiceRequest.addField('assetInfo', assetInfo);
             };
-            
+
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.configure.actions.submit = function(){
@@ -219,6 +219,7 @@ define(['angular',
                         show: {
                             primaryAction : true
                         },
+                        pickerObject: $scope.device,
                         source: 'DeviceUpdate'
                     },
                     detail: {

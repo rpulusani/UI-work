@@ -23,7 +23,7 @@ define(['angular', 'contact'], function(angular) {
                 $scope.enteredAddress = {};
                 // Address information from /address-validation
                 $scope.comparisonAddress = {};
-                // the verify radio btn value 
+                // the verify radio btn value
                 $scope.acceptedEnteredAddress = 1;
                 // verify address, hide-when
                 $scope.needToVerify = false;
@@ -80,7 +80,9 @@ define(['angular', 'contact'], function(angular) {
                         },
                         show:{
                             primaryAction : true
-                        }
+                        },
+                        pickerObject: $scope.contact,
+                        source: 'contact'
                     },
                     contactsr: {
                         translate: {
@@ -95,7 +97,7 @@ define(['angular', 'contact'], function(angular) {
                             submit: 'CONTACT_SERVICE_REQUEST.SR_UPDATE'
                         },
                         submit: function() {
-                            $scope.processDelete()
+                            $scope.processDelete();
                         }
                     }
                 };
@@ -124,14 +126,14 @@ define(['angular', 'contact'], function(angular) {
                         if (res.status === 201) {
                             ServiceRequest.setItem(res.data);
                             Contacts.submitedSR = true;
-                            Contacts.goToDelete()
+                            Contacts.goToDelete();
                         }
                     });
                 },
 
                 $scope.saveContact = function(contactForm) {
                     if (!$scope.enteredAddress) {
-             
+
                     }
 
                     if (Contacts.item && Contacts.item.id) {
@@ -155,14 +157,14 @@ define(['angular', 'contact'], function(angular) {
                         }
 
 
-                        if ($scope.canUpdate || $scope.canUpdate === false 
+                        if ($scope.canUpdate || $scope.canUpdate === false
                             && !$scope.enteredAddress.addressLine1) {
-                            
+
                             Contacts.update(Contacts.item, {
                                 preventDefaultParams: true
                             }).then(function() {
                                 $scope.updated = true;
-                                
+
                                 Contacts.goToUpdate();
                             });
                         } else {
@@ -182,7 +184,7 @@ define(['angular', 'contact'], function(angular) {
                         Contacts.item.lastName = contactForm.lastName.$modelValue;
                         Contacts.item.email = contactForm.email.$modelValue;
                         Contacts.item.workPhone = contactForm.workPhone.$modelValue;
-                        
+
                         $scope.updated = false;
 
                         if ($scope.canSave === false) {

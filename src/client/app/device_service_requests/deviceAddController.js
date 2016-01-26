@@ -312,6 +312,7 @@ define(['angular',
                         show:{
                             primaryAction : true
                         },
+                        pickerObject: $scope.device,
                         source: 'DeviceAdd'
                     },
                     modal: {
