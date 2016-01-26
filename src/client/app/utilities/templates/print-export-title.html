@@ -1,6 +1,6 @@
 <div ng-if="displayTitle === true" class="col-2-3">
-    <h2 ng-if="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}"></h2>
-    <h2 ng-if="!itemtotal && title" translate="{{ title }}"></h2>
+    <h2 class="print-export-header" ng-if="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}"></h2>
+    <h2 class="print-export-header" ng-if="!itemtotal && title" translate="{{ title }}"></h2>
 </div>
 <div ng-if="displayPrint || displayExport" class="print-export">
     <span ng-if="displayPrint" class="">
