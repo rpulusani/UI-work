@@ -35,7 +35,7 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
                                 'field':'displayItemNumber', enableCellEdit:false, width:'12%'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'),
-                                'field':'description', enableCellEdit:false, width:'27%'},
+                                'field':'description', enableCellEdit:false, width:'27%', cellClass:'long-text-wrap'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
                                 'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%'},
 
@@ -44,7 +44,7 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                                 'cellTemplate':'<div>' +
                                     '<button ng-if="!grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--default" ng-click="grid.appScope.addToOrder(row.entity)"' +
                                     'translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_ADD"></button>' +
-                                    '<button ng-if="grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--default" ng-click="grid.appScope.removeFromOrder(row.entity)"' +
+                                    '<button ng-if="grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--secondary" ng-click="grid.appScope.removeFromOrder(row.entity)"' +
                                     'translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_REMOVE"></button>',
                                 width: '25%',
                                 enableCellEdit:false

@@ -146,7 +146,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             if (rowHeight) {
                 newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
             } else {
-                newHeight = 46 + (31 * size);
+                rowHeight = 45;
+                newHeight = 46 + (rowHeight * size);
             }
 
             if (service.gridName) {
@@ -183,7 +184,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
 
                 return service.getPage(0, 100000).then(function() {
                     scope[self.optionsName].data = service.data;
-                    
+
                     setTimeout(function() {
                         service.page = scope[self.optionsName].servicePage;
                         scope[self.optionsName].data = scope[self.optionsName].currentGridData;

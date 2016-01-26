@@ -20,7 +20,7 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
         ){
         $scope.validationMessages = [];
 
-        if($scope.editable){
+        if($scope.editable === "true"){
             $scope.showEmpty = true;
         }else{
             $scope.showEmpty = false;
@@ -128,15 +128,10 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
                 $scope.orderSummaryGridOptions.onRegisterAPI = Grid.getGridActions($scope,
                 OrderItems, personal);
                 OrderItems.data = data.OrderItems;
-                Grid.display(OrderItems,$scope,personal, 45);
+                Grid.display(OrderItems,$scope,personal, 48);
                 $scope.calculate();
             }
         });
-
-        $scope.refresh = function(datasource){
-
-        };
-
 
     }]);
 

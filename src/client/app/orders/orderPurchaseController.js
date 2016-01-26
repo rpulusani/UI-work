@@ -12,6 +12,9 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'ServiceRequestService',
         'OrderItems',
         '$translate',
+        'Devices',
+        '$timeout',
+        'Contacts',
         function(
             $scope,
             $location,
@@ -22,10 +25,19 @@ define(['angular','order', 'utility.grid'], function(angular) {
             SRHelper,
             ServiceRequest,
             OrderItems,
-            $translate) {
+            $translate,
+            Devices,
+            $timeout,
+            Contacts) {
 
             SRHelper.addMethods(Orders, $scope, $rootScope);
             $scope.editable = false; //make order summary not actionable
+            $timeout(function(){
+                $scope.$broadcast('OrderContentRefresh', {
+                    'OrderItems': OrderItems.data // send whatever you want
+                });
+            }, 50);
+
             $rootScope.currentRowList = [];
 
             var configureSR = function(ServiceRequest){
@@ -45,7 +57,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
 
             function configureReviewTemplate(){
                 configureTemplates();
-                $scope.configure.actions.translate.submit = 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES';
+                $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
                    var deferred = ServiceRequest.post({
                          item:  $scope.sr
@@ -80,11 +92,11 @@ define(['angular','order', 'utility.grid'], function(angular) {
                      $scope.configure = {
                         header: {
                             translate:{
-                                h1: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES',
-                                h1Values:{},
-                                body: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES_PAR',
+                                h1: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES',
+                                h1Values:{ productModel: Devices.item.productModel},
+                                body: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES_PAR',
                                 bodyValues: '',
-                                readMore: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.LNK_LEARN_MORE'
+                                readMore: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_LEARN_MORE'
                             },
                             readMoreUrl: '#'
                         },
@@ -93,7 +105,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                 title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
                                 requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
                                 primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                                changePrimary: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
+                                changePrimary: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
                             },
                             show:{
                                 primaryAction : true
@@ -102,12 +114,12 @@ define(['angular','order', 'utility.grid'], function(angular) {
                         },
                         detail:{
                             translate:{
-                                title: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ADDL_DETAILS',
+                                title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ADDL_DETAILS',
                                 referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
                                 costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
                                 comments: 'LABEL.COMMENTS',
-                                attachments: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
-                                attachmentMessage: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
+                                attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
+                                attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
                                 fileList: ''
                             },
                             show:{
@@ -119,8 +131,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                         },
                         actions:{
                             translate: {
-                                abandonRequest:'DEVICE_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_ABANDON_SUPPLIES',
-                                submit: 'DEVICE_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES'
+                                abandonRequest:'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_ABANDON_SUPPLIES',
+                                submit: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES'
                             },
                             submit: function() {
                                 $location.path(Orders.route + '/' + $scope.device.id + '/review');

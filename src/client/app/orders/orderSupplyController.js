@@ -38,7 +38,7 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
             $scope.catalogOptions.showBookmarkColumn = false;
             AssetParts.getThumbnails();
             $q.all(AssetParts.thumbnails).then(function(){
-                Grid.display(AssetParts,$scope,personal, 90);
+                Grid.display(AssetParts,$scope,personal, 92);
             });
         });
 
