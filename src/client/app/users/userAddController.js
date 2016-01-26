@@ -248,6 +248,7 @@ define(['angular', 'user'], function(angular) {
                 });
 
                 deferred.then(function(result){
+                    UserAdminstration.wasSaved = true;
                     $location.path('/delegated_admin');
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -268,6 +269,7 @@ define(['angular', 'user'], function(angular) {
                 }
                 
                 $q.all(deferredList).then(function(result) {
+                    UserAdminstration.wasInvited = true;
                     $location.path('/delegated_admin');
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);

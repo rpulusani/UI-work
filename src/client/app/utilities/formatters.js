@@ -295,6 +295,9 @@ define(['angular', 'utility'], function(angular) {
                     }
                     return formattedContact;
                 },
+                formatStatus: function(value) {
+                    return (value === true) ? $translate.instant('LABEL.ACTIVE') : $translate.instant('LABEL.INACTIVE');
+                },
                 formatYesNo: function(value) {
                     return (value === 'true') ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 },

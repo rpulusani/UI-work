@@ -1312,7 +1312,7 @@
             "PERM": "Permissions",
             "ABANDON": "ABANDON USER CREATION",
             "CREATE": "CREATE USER",
-            "MANAGE": "Managing {{user_name}}",
+            "MANAGE": "Manage {{user_name}}",
             "DEACTIVATE": "DEACTIVATE USER",
             "DELETE_CHANGES": "DISCARD USER CHANGES",
             "UPDATE": "UPDATE USER",
@@ -1325,7 +1325,8 @@
             "USER_PROFILE": "User profile",
             "ACCOUNT_ACCESS": "Account access",
             "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
-            "UPDATE_USER": "UPDATE USER"
+            "UPDATE_USER": "UPDATE USER",
+            "FILTER_BY_STATUS": "Filter By Status"
         },
 
         "ROLE": {

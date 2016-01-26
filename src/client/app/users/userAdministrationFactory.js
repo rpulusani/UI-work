@@ -10,7 +10,7 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [
-                        {'name': 'Status', 'field': 'activeStatus'},
+                        {'name': 'Status', 'field': 'getFormattedStatus()'},
                         {'name': 'Creation date', 'field':'getFormattedCreateDate()'},
                         {'name': 'User ID', 'field': 'userId', dynamic: false,
                          'cellTemplate':'<div>' +
@@ -37,6 +37,12 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                         name: 'getFormattedCreateDate',
                         functionDef: function(){
                             return formatter.formatDate(this.created);
+                        }
+                    },
+                    {
+                        name: 'getFormattedStatus',
+                        functionDef: function(){
+                            return formatter.formatStatus(this.active);
                         }
                     },
                     {

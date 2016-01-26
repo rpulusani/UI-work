@@ -95,6 +95,7 @@ define([
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController',
+    'filterSearch.statusFilterController',
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',

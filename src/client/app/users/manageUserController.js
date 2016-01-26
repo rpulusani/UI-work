@@ -237,7 +237,7 @@ define(['angular', 'user'], function(angular) {
                 });
             };
 
-            var updateAdminObjectForUpdate = function() {
+            var updateAdminObjectForUpdate = function(updateStatus) {
                 UserAdminstration.reset();
                 UserAdminstration.newMessage();
                 $scope.userInfo = UserAdminstration.item;
@@ -245,7 +245,11 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.addField('contactId', $scope.user.contactId);
                 UserAdminstration.addField('idpId', $scope.user.idpId);
                 UserAdminstration.addField('type', 'BUSINESS_PARTNER');
-                UserAdminstration.addField('active', true);
+                if (updateStatus && updateStatus === 'deactivate') {
+                    UserAdminstration.addField('active', false);
+                } else {
+                    UserAdminstration.addField('active', true);
+                }
                 UserAdminstration.addField('firstName', $scope.user.firstName);
                 UserAdminstration.addField('lastName', $scope.user.lastName);
                 if (BlankCheck.checkNotBlank($scope.user.password)) {
@@ -294,6 +298,23 @@ define(['angular', 'user'], function(angular) {
 
             $scope.update = function() {
                 updateAdminObjectForUpdate();
+                UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
+                var options = {
+                    preventDefaultParams: true
+                }
+                var deferred = UserAdminstration.put({
+                    item:  $scope.userInfo
+                }, options);
+
+                deferred.then(function(result){
+                    $location.path('/delegated_admin');
+                }, function(reason){
+                    NREUM.noticeError('Failed to update user because: ' + reason);
+                });
+            };
+
+            $scope.deactivate = function() {
+                updateAdminObjectForUpdate('deactivate');
                 UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
                 var options = {
                     preventDefaultParams: true
