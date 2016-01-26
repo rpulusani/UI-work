@@ -18,19 +18,36 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             $location,
             formatter
         ){
-        $scope.submitDisable = true;
         $scope.validationMessages = [];
+
+        if($scope.editable){
+            $scope.showEmpty = true;
+        }else{
+            $scope.showEmpty = false;
+        }
 
         $scope.removeItem  = function(row){
             var index = $scope.orderSummaryGridOptions.data.indexOf(row.entity);
             $scope.orderSummaryGridOptions.data.splice(index,1);
             OrderItems.data = $scope.orderSummaryGridOptions.data;
+            if(OrderItems.data.length === 0){
+                $scope.datasource = [];
+                $scope.validationMessages =[];
+                $scope.$broadcast('OrderContentRefresh', {
+                    'OrderItems': [] // send whatever you want
+                });
+            }
             $scope.calculate();
         };
         $scope.removeAllItems  = function(){
             $scope.orderSummaryGridOptions.data = [];
             OrderItems.data = $scope.orderSummaryGridOptions.data;
             $scope.calculate();
+            $scope.datasource = [];
+            $scope.validationMessages =[];
+            $scope.$broadcast('OrderContentRefresh', {
+                'OrderItems': [] // send whatever you want
+            });
         };
 
         function getValidationMessageIndex(row){
@@ -76,7 +93,6 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
                 $scope.validationMessages[index] = message;
             }
             $scope.calculate();
-            $scope.submitDisable = $scope.validationMessages.length === 0? false: true;
         };
 
         $scope.calculate = function(){
@@ -91,6 +107,17 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             $scope.total = formatter.formatCurrency(subTotal + (subTotal * OrderItems.getTax()));
         };
 
+        $scope.submitDisable = function(){
+            var disabled = true;
+
+            if($scope.validationMessages.length === 0 && OrderItems && OrderItems.data && OrderItems.data.length > 0){
+                disabled = false;
+            }else{
+                disabled = true;
+            }
+
+            return disabled;
+        };
         $scope.$on('OrderContentRefresh', function (event, data) {
             if(data.OrderItems){
                 var Grid = new GridService();

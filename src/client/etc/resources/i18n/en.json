@@ -196,7 +196,8 @@
             "TXT_ORDER_TAX": "Tax %",
             "TXT_ORDER_TOTAL": "Total",
             "TXT_RECENT_ORDER": "Most recent order",
-            "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order"
+            "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order",
+            "TXT_EMPTY_ORDER_SUMMARY": "Please add an item to this order from the catalog above."
         }
     },
 
@@ -247,7 +248,7 @@
             "TXT_ORDER_CHANGE_CONTACT": "Change contact for this order",
             "TXT_ORDER_DELIVERY_NOTE": "Note: These instructions show on the shipping label.",
             "TXT_ORDER_DETAILS": "Order details",
-            "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for",
+            "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for {{ productModel }}",
             "TXT_ORDER_REVIEW_SUPPLIES_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_SELECT_BILL_TO_FOR": "Please select a bill to address for this order >",
             "TXT_ORDER_SHIPPING_BILLING": "Shipping and Billing",

@@ -27,26 +27,26 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         defaultSet: [
                             {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
                             {'name': 'image', displayName:'',
-                                'field':'', enableCellEdit:false, width: '100',
+                                'field':'', enableCellEdit:false, width: '8%',
                                 'cellTemplate': '<img src="{{row.entity.imageUrl}}" style="width:80px; height:80px;" />'
                             },
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
-                                'field':'type', enableCellEdit:false, width:'250'},
+                                'field':'type', enableCellEdit:false, width:'20%'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
-                                'field':'displayItemNumber', enableCellEdit:false, width:'150'},
+                                'field':'displayItemNumber', enableCellEdit:false, width:'12%'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'),
-                                'field':'description', enableCellEdit:false, width:'400'},
+                                'field':'description', enableCellEdit:false, width:'27%'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
-                                'field':'priceCurrencyFormat()', enableCellEdit:false, width: '100'},
+                                'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%'},
 
                             {'name': 'actions', displayName: '',
                                 'field':'',
                                 'cellTemplate':'<div>' +
-                                    '<button ng-if="!grid.appScope.isAdded()" type="button" class="push btn btn--default" ng-click="grid.appScope.addToOrder(row.entity)"' +
+                                    '<button ng-if="!grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--default" ng-click="grid.appScope.addToOrder(row.entity)"' +
                                     'translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_ADD"></button>' +
-                                    '<button ng-if="grid.appScope.isAdded()" type="button" class="push btn btn--default" ng-click="grid.appScope.removeFromOrder(row.entity)"' +
+                                    '<button ng-if="grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--default" ng-click="grid.appScope.removeFromOrder(row.entity)"' +
                                     'translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_REMOVE"></button>',
-                                width: '300',
+                                width: '25%',
                                 enableCellEdit:false
                             }
                         ]

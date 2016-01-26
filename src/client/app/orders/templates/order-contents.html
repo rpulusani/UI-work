@@ -1,4 +1,4 @@
- <div class="col-1" ng-class="{well:editable}" ng-if="datasource">
+ <div class="col-1" ng-class="{well:editable}" ng-if="datasource || showEmpty">
             <h3 >
                 <span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_NEW_ORDER_SUMMARY"></span>
                 <span class="push" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_HEADER_ITEMS_COUNT_SUMMARY"
@@ -14,7 +14,11 @@
                     </ul>
                 </div>
             </div>
-            <div ui-grid="orderSummaryGridOptions" class="table" ui-grid-edit ui-grid-row-edit></div>
+            <div ng-if="datasource && datasource.length > 0">
+                <div ui-grid="orderSummaryGridOptions" class="table" ui-grid-edit ui-grid-row-edit></div>
+            </div>
+            <span ng-if="!datasource  || (datasource && datasource.length  === 0)"
+                translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_EMPTY_ORDER_SUMMARY"></span>
             <div class="row" ng-if="editable">
                 <div class="col-2-3">
 
@@ -22,6 +26,7 @@
                 <div class="col-1-3">
                         <button type="button" class="push btn btn--default"
                             ng-click="removeAllItems()"
+                            ng-disabled="!datasource  || (datasource && datasource.length  === 0)"
                             translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_NEW_ORDER_CLEAR"></button>
                 </div>
             </div>
@@ -49,7 +54,7 @@
         <div class="row" ng-if="editable">
             <div class="col-1">
                 <button type="button" class="push btn btn--default" ng-click="submit()"
-                    translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_NEW_ORDER_SUBMIT" ng-disabled="submitDisable"></button>
+                    translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_NEW_ORDER_SUBMIT" ng-disabled="submitDisable()"></button>
             </div>
         </div>
     </div>

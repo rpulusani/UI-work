@@ -20,9 +20,9 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/create-hardware.html',
             activeItem: '/orders'
         })
-        .when('/orders/device/:id/supplies/new_order/review', {
+        .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'SupplyOrderListController',
+                controller: 'OrderPurchaseController',
                 activeItem: '/orders'
         })
         .when('/orders/create_catalog_supplies', {

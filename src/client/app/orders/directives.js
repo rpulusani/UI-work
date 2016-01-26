@@ -37,7 +37,7 @@ define(['angular', 'order'], function(angular) {
             templateUrl: '/app/orders/templates/order-contents.html',
             scope:{
                 columnDef: '=',
-                editable:"=",
+                editable:"@",
                 submitAction:"=",
                 datasource:"="
             },

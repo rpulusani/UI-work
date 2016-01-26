@@ -17,7 +17,10 @@ define(['angular','order', 'utility.grid'], function(angular) {
             Grid,
             Personalize,
             FilterSearchService) {
+
             $rootScope.currentRowList = [];
+
+
 
             Orders.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
