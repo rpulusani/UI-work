@@ -45,8 +45,17 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                             this.setItem(address);
                         }
                         $location.path(this.route + '/delete/' + this.item.id + '/review');
+                    },
+                verifyAddress: function(addressObj, fn) {
+                        this.get({
+                            method: 'post',
+                            url: serviceUrl + 'address-validation',
+                            data: addressObj,
+                            preventDefaultParams: true
+                        }).then(function(bodsRes) {
+                            return fn(bodsRes.status, bodsRes.data);
+                        });
                     }
-
                 };
                 
             return new HATEOASFactory(Addresses);
