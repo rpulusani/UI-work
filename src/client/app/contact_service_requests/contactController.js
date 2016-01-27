@@ -30,7 +30,6 @@ define(['angular', 'contact'], function(angular) {
                         data: ServiceRequest.item
                     }).then(function(res) {
                         if (res.status === 201) {
-                            console.log('We made it!');
                             ServiceRequest.setItem(res.data);
                             Contacts.submitedSR = true;
                             Contacts.goToDelete()
