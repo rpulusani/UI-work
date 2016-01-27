@@ -14,7 +14,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             field: 'getFullname()',
                             dynamic: false,
                             cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
-                                'ng-bind="grid.appScope.getFullname(row.entity)"></a></div>'
+                                'ng-bind="row.entity.getFullname()"></a></div>'
                         },
                         {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
                         {name: $translate.instant('CONTACT.EMAIL'), field: 'email'},
@@ -27,6 +27,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 route: '/service_requests/contacts',
                 needsToVerify: false, // if verify directive needs to be displayed
+                alertState: false,
                 createSRFromContact: function(contact, srType) {
                     var sr = {
                         id: '',
@@ -60,7 +61,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     return sr;
                 },
                 goToCreate: function() {
-                    this.wasSaved = false;
+                    this.alertState = false;
                     this.item = this.getModel();
 
                     $location.path(this.route + '/new');
@@ -75,8 +76,8 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
                 goToList: function() {
-                    this.wasSaved = false;
                     this.submitedSR = false;
+                    this.alertState = false;
 
                     $location.path(this.route + '/');
                 },
@@ -116,6 +117,8 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 beforeSave: function(contact, deferred) {
                     contact._links.account.href = $rootScope.currentUser.accounts.url;
+
+                    console.log(contact);
 
                     deferred.resolve(true, contact);
                 },

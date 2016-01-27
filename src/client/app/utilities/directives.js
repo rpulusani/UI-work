@@ -56,8 +56,8 @@ define(['angular', 'utility'], function(angular) {
                 print: '='
             },
             template: '<div class="col-2-3">' +
-                '<h2 class="print-export-header" ng-show="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}"></h2>' +
-                '<h2 class="print-export-header" ng-show="!itemtotal && title" translate="{{ title }}"></h2>' +
+                '<h2 class="print-export-header" ng-show="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}" ng-cloak></h2>' +
+                '<h2 class="print-export-header" ng-show="!itemtotal && title" translate="{{ title }}" ng-cloak></h2>' +
             '</div>' +
             '<div ng-if="displayPrint || displayExport" class="print-export">' +
                 '<span ng-if="displayPrint" class="">' +

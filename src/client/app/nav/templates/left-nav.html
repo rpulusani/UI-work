@@ -6,6 +6,7 @@
             ng-class="{'is-active' : isActive(item) }">
                 <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
                 <span translate="{{item.text}}"></span>
+                <span class="item-icon {{item.dropdownIcon}}" ng-if="item.dropdown"></span>
             </a>
             <ul class="sub-nav" ng-if="getItemsByTag(item.id).length > 0">
                 <li ng-repeat="child in getItemsByTag(item.id)" ng-if="item.permissionFlag">

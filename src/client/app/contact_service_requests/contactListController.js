@@ -41,10 +41,6 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             }
         };
 
-        $scope.getFullname = function(rowInfo) {
-            return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
-        };
-
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function(Grid) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
