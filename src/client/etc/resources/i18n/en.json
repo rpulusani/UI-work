@@ -740,23 +740,23 @@
         },
 
         "DASHBOARD": {
-            "TITLE": "Dashboard",
-            "ROLLUP_REQUESTS_TITLE": "Requests for service (B/F)",
+            "TITLE": "Home",
+            "ROLLUP_REQUESTS_TITLE": "Requests for Service",
             "ROLLUP_ORDERS_TITLE": "Orders",
-            "ROLLUP_MADC_TITLE": "MADC Requests",
+            "ROLLUP_MADC_TITLE": "Device Change Requests",
             "SEARCH_FOR_DEVICE": "Search for a device",
-            "PERFORMANCE_REPORTS": "Performance Reports",
+            "PERFORMANCE_REPORTS": "Reports and Analysis",
             "REPORT_KEY_PERFORMANCE": "Key Performance Indicators",
-            "REPORT_AVAILABILITY": "Availability",
-            "REPORT_RESPONSE_TIME": "Response Time",
-            "REPORT_CONSUMABLES": "Consumables",
-            "REPORT_FLEET_OVERVIEW": "Fleet Overview",
-            "REPORT_MANAGED_DEVICES": "Managed Devices",
-            "REPORT_BILLED_PAGES": "Billed Pages Last Cycle",
+            "REPORT_AVAILABILITY": "Availability/Uptime",
+            "REPORT_RESPONSE_TIME": "Service Response Time",
+            "REPORT_CONSUMABLES": "Supplies",
+            "REPORT_FLEET_OVERVIEW": "Overview",
+            "REPORT_MANAGED_DEVICES": "Device Count",
+            "REPORT_BILLED_PAGES": "Billed Pages (last billing cycle)",
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
-            "NUMBER_CLOSED_REQUESTS": "15 Closed Requests",
-            "NUMBER_OPEN_REQUESTS": "open",
+            "NUMBER_CLOSED_REQUESTS": "15 Completed Requests",
+            "NUMBER_OPEN_REQUESTS": "Open",
             "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },
 
@@ -891,7 +891,7 @@
         "REPORTING": {
             "TITLE": "Reports",
             "ORDERS": "Orders",
-            "ASSET_REGISTER": "Asset Register",
+            "ASSET_REGISTER": "Device Register",
             "FUTURE_RATE": "Future Rate",
             "FCC_RATE": "FCC Rate",
             "REPORT_NAME": "Report",
@@ -899,7 +899,7 @@
             "RUN_REPORT": "RUN REPORT",
             "RUN_TITLE": "Run Report | {{report}}",
             "TITLE_CNT": "Records ({{total}})",
-            "RESULTS_TITLE": "MADC Report -  ({{total}} records)",
+            "RESULTS_TITLE": "Device Change Events Report -  ({{total}} records)",
             "EVENT_TYPE": "Event Type",
             "EVENT_DATE": "Event Date",
             "MANUFACTURER": "Manufacturer",
@@ -918,8 +918,8 @@
             "DATE_FROM": "From",
             "DATE_TO": "To",
             "TYPE": "Report Type",
-            "STANDARD_REPORTS_COUNT": "Standard Reports ({{total}})",
-            "OTHER_REPORTS": "Other Reports",
+            "STANDARD_REPORTS_COUNT": "",
+            "OTHER_REPORTS": "View Additional Reports",
             "NAME": "Report name",
             "MADC": "MADC",
             "VIEW_MADC": "View MADC Events",
@@ -956,14 +956,14 @@
             "AGREEMENT": "Agreement",
             "KEY_PERFORMANCE_INDICATORS": "Key Performance Indicators",
             "CHARTS": "Charts",
-            "FLEET_AVAILABILITY": "Fleet Availability",
-            "RESPONSE_TIME": "Response Time",
-            "CONSUMABLES": "Consumables",
-            "ASSET_COUNT": "Asset Count",
-            "MADC_EVENTS": "MADC Events",
+            "FLEET_AVAILABILITY": "Availability/Uptime",
+            "RESPONSE_TIME": "Service Response Time",
+            "CONSUMABLES": "Supplies",
+            "ASSET_COUNT": "Device Count",
+            "MADC_EVENTS": "Device Change Events (MADC)",
             "METER_READS": "Meter Reads",
             "NO_METER_READS": "There are no meter reads for this service request.",
-            "CONSUMABLES_ORDERS": "Consumable Orders",
+            "CONSUMABLES_ORDERS": "Supplies Orders",
             "HARDWARE_ORDERS": "Hardware Orders",
             "BILLED_PAGES": "Billed Pages",
             "MOVES": "Moves",
@@ -978,7 +978,7 @@
             "MISSED_READS_PERCENT": "{{missedPercent}}% missed reads ({{assetCount}} assets)",
             "AUTO_COUNT": "Auto ({{autoCount}} assets)",
             "MANUAL_COUNT": "Manual ({{manualCount}} assets)",
-            "SHIPPED_LAST_THIRTY_DAYS": "Shipped last 30 days",
+            "SHIPPED_LAST_THIRTY_DAYS": "Shipped in the last 30 days",
             "COLOR_PAGES_COUNT": "{{colorCount}} color",
             "MONO_PAGES_COUNT": "{{monoCount}} mono",
             "ACCOUNT_NAME": "Account Name",
@@ -1187,7 +1187,7 @@
                 "TXT_SELECTED_ACCOUNTS" : "Selected accounts"
             },
             "COMMON" : {
-                "BTN_DOCUMENT_LIBRARY": "Document Library",
+                "BTN_DOCUMENT_LIBRARY": "Documents",
                 "BTN_ADD_TAG" : "ADD TAG",
                 "BTN_DELETE_DOCUMENT" : "DELETE DOCUMENT",
                 "CTRL_CANCEL_DELETE" : "Cancel",
@@ -1285,7 +1285,7 @@
         },
 
         "DELEGATED_ADMIN": {
-            "TITLE": "Delegated admin",
+            "TITLE": "Users",
             "MANAGE_PROFILE": "Managing User Profile"
         },
 
@@ -1355,7 +1355,7 @@
         },
 
         "NAVIGATION": {
-            "LBS": "Location Based Services",
+            "LBS": "Locations",
             "ACCOUNT": "Account",
             "QUICK_ACTION": "Quick Action",
             "ORDER_REQUEST": "Orders",
@@ -1364,7 +1364,7 @@
             "COMPANY_ADMIN": "Company Administration",
             "CONTACT": "Contacts",
             "UPDATE_PAGE_COUNT": "Update Page Count",
-            "DASHBOARD": "Dashboard"
+            "DASHBOARD": "Home"
          },
 
       "LABEL": {

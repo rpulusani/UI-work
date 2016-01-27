@@ -42,6 +42,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $rootScope.formattedSelectedContact = undefined;
                 $location.path($rootScope.contactReturnPath);
             };
+
             var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.multiSelect = false;
