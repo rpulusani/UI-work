@@ -42,9 +42,11 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             {'name': 'actions', displayName: '',
                                 'field':'',
                                 'cellTemplate':'<div>' +
-                                    '<button ng-if="!grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--default" ng-click="grid.appScope.addToOrder(row.entity)"' +
+                                    '<button ng-if="!grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--default"'+
+                                    'ng-click="grid.appScope.addToOrder(row.entity); grid.appScope.selectRow(row);"' +
                                     'translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_ADD"></button>' +
-                                    '<button ng-if="grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--secondary" ng-click="grid.appScope.removeFromOrder(row.entity)"' +
+                                    '<button ng-if="grid.appScope.isAdded(row.entity)" type="button" class="push btn btn--secondary"' +
+                                    'ng-click="grid.appScope.removeFromOrder(row.entity); grid.appScope.deSelectRow(row);"' +
                                     'translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_REMOVE"></button>',
                                 width: '25%',
                                 enableCellEdit:false

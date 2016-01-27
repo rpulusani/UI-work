@@ -134,10 +134,21 @@ define(['angular', 'utility'], function(angular) {
             templateUrl: '/app/utilities/templates/pages.html',
         };
     })
-    .directive('pagination', function(){
+    .directive('pagination',['$timeout', function($timeout){
+        var link = function(scope, element, attrs, controllers){
+            $timeout(function(){
+            if(scope.optionsName){
+                scope.grid = scope[scope.optionsName];
+            }else{
+                scope.grid = scope['gridOptions'];
+            }
+            console.log(scope.grid);
+            },0);
+        };
         return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pagination.html',
+            link: link
         };
-    });
+    }]);
 });

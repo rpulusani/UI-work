@@ -12,6 +12,7 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
         'Devices',
         'AssetPartsFactory',
         '$q',
+        'uiGridConstants',
         function(
             GridService,
             $scope,
@@ -22,7 +23,8 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
             formatter,
             Devices,
             AssetParts,
-            $q
+            $q,
+            uiGridConstants
         ){
 
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
@@ -33,14 +35,34 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
             $scope.assetParts = AssetParts.data;
             $scope.catalogOptions = {};
             $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
-                            AssetParts, personal);
+                            AssetParts, personal,'catalogAPI');
             Grid.setGridOptionsName('catalogOptions');
             $scope.catalogOptions.showBookmarkColumn = false;
+            $scope.catalogOptions.enableRowHeaderSelection = false;
+            $scope.catalogOptions.enableFullRowSelection = false;
+
             AssetParts.getThumbnails();
             $q.all(AssetParts.thumbnails).then(function(){
                 Grid.display(AssetParts,$scope,personal, 92);
+                $scope.gridApi.grid.registerDataChangeCallback(function(){
+                    $scope.removeItemRow();
+                }, uiGridConstants.dataChange.ALL);
             });
         });
+
+        $scope.selectRow = function(row){
+            row.enableSelection = true;
+            row.setSelected(true);
+        };
+        $scope.deSelectRow = function(row){
+            row.enableSelection = false;
+            row.setSelected(false);
+        };
+
+        $scope.removeItemRow = function(item){
+           var row = $scope.catalogAPI.gridApi.grid.getRow(item);
+           $scope.deSelectRow(row);
+        };
 
         $scope.isAdded = function(item){
             var added = false;

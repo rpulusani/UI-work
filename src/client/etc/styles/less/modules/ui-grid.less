@@ -11,8 +11,8 @@
     font-size:9pt;
 
    .ui-grid-row:nth-child(odd) {
-    border-bottom: 1px solid @grey4;
-  }
+      border-bottom: 1px solid @grey4;
+    }
   .ui-grid-cell-contents {
     padding:0;
     margin:0;
@@ -35,19 +35,37 @@
   .ui-grid-canvas .ui-grid-row-header-cell:first-child {
     padding: 5px 5px 5px 0;
   }
-  .ui-grid-row:last-child{
+  .ui-grid-row:last-child, tfoot > tr:last-child{
     border-bottom:solid 1px @grey4;
   }
-  .ui-grid-cell:first-child{
-  border-left: solid 1px @grey4;
+  .ui-grid-cell:first-child, td:first-child{
+    border-left: solid 1px @grey4;
+  }
+
+  td{
+    border-right: solid 1px @grey4;
   }
 
   .ui-grid-canvas .ui-grid-cell,
   .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child{
     text-align: left;
     vertical-align: top;
+    padding:12px 10px;
     border-top: none;
     border-right: solid 1px @grey4;
+  }
+  .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+    background-color: @grey1;
+    border:@grey4;
+  }
+  .selection, .bookmark{
+    padding: 12px 5px !important;
+  }
+  .selection {
+    border-right:none !important;
+  }
+  tfoot{
+    background-color:@grey1;
   }
 }
 
@@ -111,10 +129,49 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
     .ui-grid .ui-grid-row {
       border-top: 0px solid none;
     }
+    .ui-grid-row .ui-grid-cell{
+      border:none;
+    }
+    .ui-grid-row .ui-grid-cell:first-child{
+      border-left:solid 1px @grey4;
+    }
+    .ui-grid-row .ui-grid-cell:last-child{
+      border-right:solid 1px @grey4;
+    }
+    /* hover state of row */
+    .ui-grid-row:hover .ui-grid-cell,
+    .ui-grid-row:last-child:hover .ui-grid-cell{
+      border-top: solid 2px @blue1;
+      border-bottom: solid 2px @blue1;
+    }
+
+   .ui-grid-row:hover .ui-grid-cell:first-child{
+      border-left: solid 2px @blue1;
+    }
+   .ui-grid-row:hover .ui-grid-cell:last-child{
+      border-right: solid 2px @blue1;
+    }
+    /* selected state of row */
+    .ui-grid-row-selected .ui-grid-cell{
+      border-top: solid 2px @grey4 !important;
+      border-bottom: solid 2px @grey4 !important;
+    }
+    .ui-grid-row-selected .ui-grid-cell:first-child{
+      border-left: solid 2px @grey4 !important;
+    }
+   .ui-grid-row-selected .ui-grid-cell:last-child{
+      border-right: solid 2px @grey4 !important;
+    }
 }
 .summary{
   .form__field{
     margin:0px;
+  }
+}
+.total {
+  td{
+      width:50%;
+      text-align:right;
   }
 }
 .catalog, .summary{
@@ -123,6 +180,7 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
   }
 }
 
+
 .long-text-wrap{
   overflow: visible;
   word-wrap:break-word;
@@ -130,5 +188,7 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
   overflow-wrap:break-word;
   white-space:normal !important;
 }
+
+
 
 /* </ui-grid> */

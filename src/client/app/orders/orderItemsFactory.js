@@ -36,9 +36,9 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             },
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_REMOVE'),
                                 'field':'',
-                                'cellTemplate':'<div>' +
+                                'cellTemplate':'<div style="text-align:center">' +
                                     '<a href="#" ng-click="grid.appScope.removeItem(row);" ' +
-                                '><span class="icon icon--feature icon--stop-cancel"></span></a>' +
+                                '><span class="icon icon-16 icon-psw-delete"></span></a>' +
                                 '</div>',
                                 width: '100',
                                 enableCellEdit:false

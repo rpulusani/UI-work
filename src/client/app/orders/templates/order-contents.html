@@ -28,7 +28,7 @@
 
                 </div>
                 <div class="col-1-3">
-                        <button type="button" class="push btn btn--default"
+                        <button type="button" class="push btn btn--default vertical-margin-bottom-24 horizontal-margin-right-0"
                             ng-click="removeAllItems()"
                             ng-disabled="!orderSummaryGridOptions  || (orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length   === 0)"
                             translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_NEW_ORDER_CLEAR"></button>
@@ -36,8 +36,8 @@
             </div>
 </div>
 <div class="row">
-    <div class="col-1-2 push">
-        <table class="table">
+    <div class="col-1-3 push">
+        <table class="table total">
             <tbody>
                 <tr>
                     <td><span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL"></span></td>
@@ -48,16 +48,16 @@
                     <td><span>{{tax}}</span></td>
                 </tr>
             </tbody>
-            <tfooter>
+            <tfoot>
                <tr>
                     <td><span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_TOTAL"></span></td>
                     <td><span>{{total}}</span></td>
                 </tr>
-            </tfooter>
+            </tfoot>
         </table>
         <div class="row" ng-if="editable === 'true'">
             <div class="col-1">
-                <button type="button" class="push btn btn--default" ng-click="submit()"
+                <button type="button" class="push btn btn--default horizontal-margin-right-0" ng-click="submit();"
                     translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_NEW_ORDER_SUBMIT" ng-disabled="submitDisable()"></button>
             </div>
         </div>

@@ -97,10 +97,12 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
 
         $scope.calculate = function(){
             var subTotal = 0.0;
-            for(var i = 0; i < $scope.orderSummaryGridOptions.data.length; ++i){
-                var lineTotal = formatter.itemSubTotal($scope.orderSummaryGridOptions.data[i].price,
-                    $scope.orderSummaryGridOptions.data[i].quantity);
-                subTotal += lineTotal;
+            if($scope.orderSummaryGridOptions && $scope.orderSummaryGridOptions.data){
+                for(var i = 0; i < $scope.orderSummaryGridOptions.data.length; ++i){
+                    var lineTotal = formatter.itemSubTotal($scope.orderSummaryGridOptions.data[i].price,
+                        $scope.orderSummaryGridOptions.data[i].quantity);
+                    subTotal += lineTotal;
+                }
             }
             $scope.subTotal = formatter.formatCurrency(subTotal);
             $scope.tax = OrderItems.formatTax();
@@ -132,6 +134,7 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
                 $scope.calculate();
             }
         });
+        $scope.calculate();
 
     }]);
 

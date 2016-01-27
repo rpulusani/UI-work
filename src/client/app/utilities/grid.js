@@ -206,7 +206,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     width:'30',
                     headerCellClass: 'no-border',
                     enableSorting: false,
-                    cellTemplate: '<i class="icon icon--ui icon--not-favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
+                    cellTemplate: '<i class="icon icon--ui icon--not-favorite favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,
                     cellClass: 'bookmark',
                     exporterSuppressExport: true
@@ -216,12 +216,15 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             $timeout(function(){
                 if(typeof $ === 'function'){
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
-                    $('[ui-grid="' + tempOptionName + '"].table').css('height', newHeight + 'px');
-                    $('[ui-grid="' + tempOptionName + '"].table').css('margin-bottom', '60px');
+                    $('[ui-grid="' + tempOptionName + '"].table,[ui-grid="' + tempOptionName + '"].table-image').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table-image').css('margin-bottom', '60px');
+                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table.summary').css('margin-bottom', '24px');
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-render-container').css('height', newHeight + 'px');
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('overflow-x', 'auto');
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('height', newHeight + 'px');
                     $('[ui-grid="' + tempOptionName + '"]').show();
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-disable-selection').parent().addClass('selection');
+                    $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
                 }
 
             }, 100);
