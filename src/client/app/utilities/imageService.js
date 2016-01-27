@@ -7,7 +7,8 @@ define(['angular', 'utility'], function(angular) {
                 this.url = 'https://www.lexmark.com/common/xml/';
                 this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
                 this.defaultThumbnailUrl = '';
-            };
+            $ = require('jquery');
+
 
             Image.prototype.parsePartNumber = function(partNumber){
                 var item = {
@@ -127,19 +128,20 @@ define(['angular', 'utility'], function(angular) {
                 }
 
                $http({
-                     method: 'GET',
-                     url: url,
-                     timeout: 10000,
-                     headers: {
-                         'Content-Type': 'application/xml'
-                     },
-                     params: {}
+                    method: 'GET',
+                    url: url,
+                    timeout: 10000,
+                    headers: {
+                        'Content-Type': 'application/xml'
+                    },
+                    params: {},
+                    transformResponse : function(data) {
+                        return $.parseXML(data);
+                    }
                 }).success(function(data, status, headers, config) {
                     if(!data){
                         deferred.resolve(medUrl);
                         return;
-                    } else {
-                        data = $.parseXML(data);
                     }
 
                     var x = data.getElementsByTagName('img');
