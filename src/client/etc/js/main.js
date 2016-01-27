@@ -48,6 +48,9 @@ requirejs.config({
             'rome',
 
             'address',
+            'address.addressAddController',
+            'address.addressUpdateController',
+            'address.addressDeleteController',
             'address.addressController',
             'address.addressListController',
             'address.directives',
@@ -125,6 +128,9 @@ requirejs.config({
         'user.invitedUserController': ['user'],
 
         'address': ['angular'],
+        'address.addressAddController': ['address'],
+        'address.addressUpdateController': ['address'],
+        'address.addressDeleteController': ['address'],
         'address.addressController': ['address'],
         'address.addressListController': ['address'],
         'address.directives': ['address'],
@@ -259,6 +265,9 @@ requirejs.config({
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
+        'address.addressAddController': 'app/address_service_requests/addressAddController',
+        'address.addressUpdateController': 'app/address_service_requests/addressUpdateController',
+        'address.addressDeleteController': 'app/address_service_requests/addressDeleteController',
         'address.addressController': 'app/address_service_requests/addressController',
         'address.addressListController': 'app/address_service_requests/addressListController',
         'address.directives': 'app/address_service_requests/directives',

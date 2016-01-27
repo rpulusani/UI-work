@@ -61,7 +61,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     return sr;
                 },
                 goToCreate: function() {
-                    this.alertState = false;
                     this.item = this.getModel();
 
                     $location.path(this.route + '/new');
@@ -77,7 +76,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 goToList: function() {
                     this.submitedSR = false;
-                    this.alertState = false;
 
                     $location.path(this.route + '/');
                 },
@@ -117,8 +115,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 beforeSave: function(contact, deferred) {
                     contact._links.account.href = $rootScope.currentUser.accounts.url;
-
-                    console.log(contact);
 
                     deferred.resolve(true, contact);
                 },

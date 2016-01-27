@@ -41,6 +41,8 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             }
         };
 
+        Contacts.alertState = false;
+
         filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
             function(Grid) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);

@@ -52,8 +52,8 @@ define(['angular', 'utility'], function(angular) {
         return {
             restrict: 'A',
             scope: {
-                title: '=',
-                print: '='
+                title: '@',
+                print: '@'
             },
             template: '<div class="col-2-3">' +
                 '<h2 class="print-export-header" ng-show="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}" ng-cloak></h2>' +

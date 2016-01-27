@@ -32,14 +32,15 @@ define(['angular', 'utility', 'utility.pageCountSelectService'], function(angula
                     for (var i=0 ; i<= $scope.meterReads.length; i++) {
                         if($scope.meterReads[i] && $scope.meterReads[i].type){
                             $scope.meterReads[i].view = true;
+
                             switch($scope.meterReads[i].type){
                                 case 'LTPC':
                                     $scope.ltpc = $scope.meterReads[i];
                                 break;
-                                case 'Color':
+                                case 'COLOR':
                                     $scope.color = $scope.meterReads[i];
                                 break;
-                                case 'Mono':
+                                case 'MONO':
                                     $scope.mono = $scope.meterReads[i];
                                 break;
                                 default:
