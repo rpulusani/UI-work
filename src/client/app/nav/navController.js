@@ -27,6 +27,16 @@ define([
                 return Nav.getItemsByTag(tag);
             };
 
+            $scope.dropdown = function(item) {
+                if (!item.isExpanded) {
+                    item.isExpanded = true;
+                    item.dropdownIcon = 'icon-mps-device';
+                } else {
+                    item.isExpanded = false;
+                    item.dropdownIcon = 'icon-psw-project';
+                }
+            }
+
             $scope.isActive = function(item){
                 var passed = false;
                 if(!item){
