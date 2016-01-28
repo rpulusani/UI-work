@@ -147,7 +147,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
             } else {
                 rowHeight = 45;
-                newHeight = 46 + (rowHeight * size);
+                newHeight = 46 + ((rowHeight + 2) * size);
             }
 
             if (service.gridName) {
@@ -204,7 +204,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     name: '',
                     field: 'bookmark',
                     width:'30',
-                    headerCellClass: 'no-border',
                     enableSorting: false,
                     cellTemplate: '<i class="icon icon--ui icon--not-favorite favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,

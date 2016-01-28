@@ -492,7 +492,7 @@ p.info-list .item-name:after {
   border-left: 0 none !important;
 }
 .ui-grid-header-cell {
-  border-right: 0 black none;
+  border-left: solid 1px #a5a5aa;
 }
 div.ui-grid-cell .form__field input {
   background-color: #fff;
@@ -516,6 +516,9 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 }
 .table .ui-grid-canvas .ui-grid-cell:first-child {
   padding-top: 8px;
+}
+.pagination {
+  margin-top: 48px;
 }
 .pagination button {
   padding: 12px 10px;

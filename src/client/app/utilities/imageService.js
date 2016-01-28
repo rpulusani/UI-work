@@ -7,8 +7,8 @@ define(['angular', 'utility'], function(angular) {
                 this.url = 'https://www.lexmark.com/common/xml/';
                 this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
                 this.defaultThumbnailUrl = '';
-            $ = require('jquery');
-
+                $ = require('jquery');
+            };
 
             Image.prototype.parsePartNumber = function(partNumber){
                 var item = {
@@ -160,7 +160,6 @@ define(['angular', 'utility'], function(angular) {
                 });
                 return deferred.promise;
             };
-            //http://www.lexmark.com/common/xml/35S/35S0332.xml
             return  new Image();
         }
     ]);

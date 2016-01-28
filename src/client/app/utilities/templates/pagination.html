@@ -1,4 +1,4 @@
-<div class="pagination" ng-show="grid && grid.data && grid.data.length > 0">
+<div class="pagination" ng-if="grid && grid.data && grid.data.length > 0 && pagination && pagination.totalPages() > 1">
   <div class="pagination__btn pagination__first"
   ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
     <a href="#"
