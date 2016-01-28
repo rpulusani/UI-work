@@ -151,12 +151,11 @@ define(['angular', 'utility'], function(angular) {
     .directive('pagination',['$timeout', function($timeout){
         var link = function(scope, element, attrs, controllers){
             $timeout(function(){
-            if(scope.optionsName){
-                scope.grid = scope[scope.optionsName];
-            }else{
-                scope.grid = scope['gridOptions'];
-            }
-            console.log(scope.grid);
+                if(scope.optionsName){
+                    scope.grid = scope[scope.optionsName];
+                }else{
+                    scope.grid = scope['gridOptions'];
+                }
             },0);
         };
         return {

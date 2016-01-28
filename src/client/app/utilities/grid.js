@@ -48,11 +48,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                         }
                     );
                 }
-                if(gridApi && gridApi.rowEdit){
-                    gridApi.rowEdit.on.saveRow($rootScope, function(rowEntity){
-                        console.log(rowEntity);
-                    });
-                }
             };
         };
 

@@ -138,7 +138,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             Devices.getPage(0, 20, options).then(function() {
                 $scope.itemCount = Devices.data.length;
-                console.log($scope.itemCount);
                 Grid.display(Devices, $scope, personal);
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
