@@ -15,6 +15,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'Devices',
         '$timeout',
         'Contacts',
+        'BlankCheck',
+        'FormatterService',
         function(
             $scope,
             $location,
@@ -28,16 +30,12 @@ define(['angular','order', 'utility.grid'], function(angular) {
             $translate,
             Devices,
             $timeout,
-            Contacts) {
+            Contacts,
+            BlankCheck,
+            FormatterService) {
 
             SRHelper.addMethods(Orders, $scope, $rootScope);
             $scope.editable = false; //make order summary not actionable
-            $timeout(function(){
-                $scope.$broadcast('OrderContentRefresh', {
-                    'OrderItems': OrderItems.data // send whatever you want
-                });
-            }, 50);
-
             $rootScope.currentRowList = [];
 
             var configureSR = function(ServiceRequest){
@@ -48,6 +46,16 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     ServiceRequest.addField('type', 'SUPPLIES_ASSET_REQUEST');
             };
 
+            if (Devices.item === null) {
+                $scope.redirectToList();
+            } else{
+                $rootScope.device = Devices.item;
+                 if (!BlankCheck.isNull(Devices.item['contact'])) {
+                    $scope.device.primaryContact = $scope.device['contact']['item'];
+                }else{
+
+                }
+            }
 
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
@@ -57,6 +65,12 @@ define(['angular','order', 'utility.grid'], function(angular) {
 
             function configureReviewTemplate(){
                 configureTemplates();
+                $timeout(function(){
+                OrderItems.columns = 'pruchaseSet';
+                    $scope.$broadcast('OrderContentRefresh', {
+                        'OrderItems': OrderItems // send whatever you want
+                    });
+                }, 50);
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
                    var deferred = ServiceRequest.post({
@@ -89,6 +103,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 $scope.configure.contact.show.primaryAction = false;
             }
             function configureTemplates(){
+                if($scope.device){
                      $scope.configure = {
                         header: {
                             translate:{
@@ -155,6 +170,12 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             returnPath: Orders.route + '/' +  '/review' //$scope.device.id +
                         }
                     };
+                }
+            }
+
+             if (!BlankCheck.isNull($scope.device.primaryContact)){
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+
             }
         }
     ]);

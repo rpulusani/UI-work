@@ -43,14 +43,37 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                                 width: '100',
                                 enableCellEdit:false
                             }
-                        ]
+                        ],
+                      pruchaseSet: [
+                        {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
+                            'field':'type', enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
+                            'field':'displayItemNumber', enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
+                            'field':'priceCurrencyFormat()', enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
+                                width: '125',
+                                type: 'number'
+                        },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL'),
+                            'cellClass': 'text--semi-bold',
+                            'field':'itemSubTotal()',
+                            enableCellEdit:false
+                        }
+                      ]
                     },
+
 
                     functionArray: [
                     {
                             name: 'priceCurrencyFormat',
                             functionDef: function(){
-                                return formatter.formatCurrency(this.price);
+                                if(this.billingModel === 'Usage Based Billing'){
+                                    return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
+                                }else{
+                                    return formatter.formatCurrency(this.price);
+                                }
                             }
                         },
                         {

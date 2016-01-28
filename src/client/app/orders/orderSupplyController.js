@@ -44,9 +44,6 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
             AssetParts.getThumbnails();
             $q.all(AssetParts.thumbnails).then(function(){
                 Grid.display(AssetParts,$scope,personal, 92);
-                $scope.gridApi.grid.registerDataChangeCallback(function(){
-                    $scope.removeItemRow();
-                }, uiGridConstants.dataChange.ALL);
             });
         });
 
@@ -84,8 +81,9 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
                 }
             }
             OrderItems.data.splice(index,1);
+            OrderItems.columns = 'defaultSet';
             $scope.$broadcast('OrderContentRefresh', {
-               'OrderItems': OrderItems.data // send whatever you want
+               'OrderItems': OrderItems // send whatever you want
             });
         };
         $scope.addToOrder = function(item){
@@ -93,8 +91,9 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
             newItem.quantity += 1;
             OrderItems.data.push(newItem);
             $scope.orderItems = OrderItems.data;
+            OrderItems.columns = 'defaultSet';
             $scope.$broadcast('OrderContentRefresh', {
-                'OrderItems': OrderItems.data // send whatever you want
+                'OrderItems': OrderItems // send whatever you want
             });
         };
 

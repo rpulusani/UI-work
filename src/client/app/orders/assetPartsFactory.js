@@ -37,7 +37,7 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'),
                                 'field':'description', enableCellEdit:false, width:'27%', cellClass:'long-text-wrap'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
-                                'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%'},
+                                'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%', cellClass:'long-text-wrap'},
 
                             {'name': 'actions', displayName: '',
                                 'field':'',
@@ -58,7 +58,11 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         {
                             name: 'priceCurrencyFormat',
                             functionDef: function(){
-                                return formatter.formatCurrency(this.price);
+                                if(this.billingModel === 'Usage Based Billing'){
+                                    return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
+                                }else{
+                                    return formatter.formatCurrency(this.price);
+                                }
                             }
                         }
                     ],

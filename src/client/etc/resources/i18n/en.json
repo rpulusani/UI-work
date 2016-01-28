@@ -217,7 +217,8 @@
             "TXT_ORDER_PO_DETAILS": "Purchase order details",
             "TXT_ORDER_PO_NUM": "Purchase order number:",
             "TXT_ORDER_REQ_DELIV_DATE": "Requested delivery date",
-            "TXT_ORDER_SUMMARY": "Order summary"
+            "TXT_ORDER_SUMMARY": "Order summary",
+            "TEXT_INCLUDED_IN_LEASE": "Included in Lease"
         },
 
         "ORDER_SELECT_BILL_TO_ADDR": {

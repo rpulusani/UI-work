@@ -67,10 +67,27 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
                     $scope.submitAction();
             }
         };
+        function getDataRow(entity){
+            var row;
+            if(OrderItems && OrderItems.data){
+                for(var i =0; i < OrderItems.data.length; ++i){
+                    if(OrderItems.data[i].itemNumber === entity.itemNumber){
+                        row = OrderItems.data[i];
+                        break;
+                    }
+                }
+            }
+
+            return row;
+        }
         $scope.editOnChange = function(row){
             var justAdded = false;
             var message;
             var index = getValidationMessageIndex(row);
+            var dataRow = getDataRow(row.entity);
+            if(dataRow){
+                dataRow.quantity = row.entity.quantity;
+            }
             if(row.entity.maxQuantity && row.entity.quantity > row.entity.maxQuantity && index === -1){
                 message = {
                   partNumber: row.entity.displayItemNumber,
@@ -120,8 +137,8 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
 
             return disabled;
         };
-        $scope.$on('OrderContentRefresh', function (event, data) {
-            if(data.OrderItems){
+        $scope.$on('OrderContentRefresh', function (event, service) {
+            if(service.OrderItems){
                 var Grid = new GridService();
                 var personal = new Personalize($location.url(),$rootScope.idpUser.id);
                 $scope.orderSummaryGridOptions = {};
@@ -129,7 +146,7 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
                 Grid.setGridOptionsName('orderSummaryGridOptions');
                 $scope.orderSummaryGridOptions.onRegisterAPI = Grid.getGridActions($scope,
                 OrderItems, personal);
-                OrderItems.data = data.OrderItems;
+                OrderItems = service.OrderItems;
                 Grid.display(OrderItems,$scope,personal, 48);
                 $scope.calculate();
             }
