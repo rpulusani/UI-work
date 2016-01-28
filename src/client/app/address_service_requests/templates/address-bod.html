@@ -1,62 +1,72 @@
+<h4 translate="ADDRESS_SERVICE_REQUEST.LOCATION_OF_ADDRESS"></h4>
+<div class="alert alert--info">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <div class="alert__body">
+        <span translate="ADDRESS.BOD_ALERT_SIMILAR"></span><br><span translate="ADDRESS.BOD_ALERT_SELECT"></span>
+    </div>
+</div>
 <div class="row">
-    <form class="form">
-        <div class="col-1">
-            <h1 translate="ADDRESS_SERVICE_REQUEST.ADD"></h1>
-            <hr />
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="/service_requests/learn_more">Learn more about requests</a></p>
-        </div>
-
-        <div class="col-1">
-            <h2 translate="ADDRESS.INFO"></h2>
-            <div class="form__field form__field--required">
-                <label translate="ADDRESS.NAME"></label>
-                <input name="name" value="" type="text" required ng-model="address.name"/>
-            </div>
-
-            <div class="form__field form__field--radio form__field--no-margin">
-                    <input type="radio" id="store-front-question-no" name="store-front-question" ng-model="address.storeFrontQuestion" value="false" data-js="customInput" />
-                    <label for="store-front-question-no">
+    <div class="col-1-2 l-alley-after">
+        <p class="text--bold vertical-space--thin" translate="ADDRESS.USER_ENTERED"></p>
+        <div class="well well--no-shadow">
+            <div class="form__field form__field--radio">
+                <input type="radio" 
+                    id="accepted-entered-address-entered-address"
+                    name="verify-question"
+                    ng-model="acceptedEnteredAddress"
+                    value="enteredAddress" 
+                    data-js="customInput"
+                    ng-click="setAcceptedAddress()"/>
+                    <label for="accepted-entered-address-entered-address">
                         <span></span>
-                        {{'LABEL.NO' | translate }}
+                        {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
                     </label>
             </div>
 
-            <div class="form__field form__field--radio form__field--no-margin">
-                <input type="radio" id="store-front-question-yes" name="store-front-question"
-                ng-model="address.storeFrontQuestion" value="true" data-js="customInput"/>
-
-                <label for="store-front-question-yes">
-                    <span></span>
-                    {{ 'ADDRESS_SERVICE_REQUEST.STORE_FRONT_QUESTION_YES' | translate }}
-                </label>
+            <div ng-bind="enteredAddress.addressLine1"></div>
+            <div>
+                <span ng-bind="enteredAddress.city"></span>,
+                <span ng-bind="enteredAddress.state"></span>
+                <span ng-bind="enteredAddress.postalCode"></span>
+            </div>
+            <div ng-bind="enteredAddress.country"></div>
+            <div class="l-pad-top">
+                <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO" ng-click="editAddress('enteredAddress')" href=""></a>
             </div>
         </div>
+    </div>
 
-        <div class="col-1 l-pad-top">
-            <h2 translate="ADDRESS.ADDRESS_LOCATION"></h2>
-            <div class="alert alert--info" translate="ADDRESS.BOD_ALERT"></div>
+    <div class="col-1-2">
+        <p class="text--bold vertical-space--thin" translate="ADDRESS.ADDRESS_FOUND"></p>
+        <div class="well well--no-shadow">
+            <div class="form__field form__field--radio">
+                <input type="radio" 
+                    id="accepted-entered-address-comparison-address"
+                    name="verify-question"
+                    ng-model="acceptedEnteredAddress"
+                    value="comparisonAddress" 
+                    data-js="customInput"
+                    ng-click="setAcceptedAddress()"/>
+                    <label for="accepted-entered-address-comparison-address">
+                        <span></span>
+                        {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
+                    </label>
+            </div>
+
+            <div ng-bind="comparisonAddress.addressLine1"></div>
+            <div>
+                <span ng-bind="comparisonAddress.city"></span>,
+                <span ng-bind="comparisonAddress.state"></span>
+                <span ng-bind="comparisonAddress.postalCode"></span>
+            </div>
+            <div ng-bind="comparisonAddress.country"></div>
+
+            <div class="l-pad-top">
+                <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO"  ng-click="editAddress('comparisonAddress')" href=""></a>
+            </div>
         </div>
-
-        <div class="col-1-2">
-            <h3 translate="ADDRESS.USER_ENTERED"></h3>
-        </div>
-
-        <div class="col-1-2">
-            <h3 translate="ADDRESS.ADDRESS_FOUND"></h3>
-        </div>
-
-        <div class="col-1">
-            <a href="#" translate="ADDRESS.ADDRESS_RESET"></a>
-        </div>
-
-        <div class="col-1">
-            <button name="cancel" class="col-1-3 btn btn--secondary"
-              data-js="modalOpen" data-target="#cancel"
-                    translate="ADDRESS_SERVICE_REQUEST.ABANDON"></button>
-
-            <button name="submit" class="col-1-3 btn btn--primary" type="submit"
-                translate="LABEL.REVIEW_SUBMIT" value="submit" ng-click="goToRead(newAddress);"></button>
-        </div>
-    </form>
+    </div>
+</div>
+<div class="col-1 vertical-space--thick">
+    <a translate="ADDRESS.ADDRESS_RESET"  href="" ng-click="resetAddress()"></a>
 </div>
