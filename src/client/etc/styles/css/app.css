@@ -830,6 +830,12 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-gear:before {
   content: "\e030";
 }
+.icon-psw-disclosure_down_triangle:before {
+  content: "\e04a";
+}
+.icon-psw-disclosure_up_triangle:before {
+  content: "\e049";
+}
 .rollup {
   background-color: #e6e6f0;
   border-top: 3px solid #00ad21;
