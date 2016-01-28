@@ -36,7 +36,8 @@ define(['angular', 'order'], function(angular) {
                 columnDef: '=',
                 editable:"@",
                 submitAction:"=",
-                datasource:"="
+                datasource:"=",
+                configure: "="
             },
             controller: 'OrderContentsController'
         };

@@ -21,9 +21,15 @@
     position: relative;
     padding-top: 0;
   }
+  .ui-grid-header-cell.bookmark-header{
+    padding: 10px 0 0 0 !important;
+  }
   .ui-grid-header-cell:first-child {
     border-left: 1px solid @grey4;
-    padding: 10px 0 0 0;
+    padding: 12px 20px;
+  }
+  .ui-grid-header-cell:last-child {
+    border-right: 2px solid @grey4;
   }
   .ui-grid-header-cell {
     font-weight: bold;
@@ -31,6 +37,7 @@
     text-align: left;
     vertical-align: top;
     border-top: 1px solid @grey4;
+    background-color:@grey1;
   }
   .ui-grid-canvas .ui-grid-row-header-cell:first-child {
     padding: 5px 5px 5px 0;
@@ -64,7 +71,7 @@
   .selection {
     border-right:none !important;
   }
-  tfoot{
+  tfoot td{
     background-color:@grey1;
   }
 }
@@ -172,9 +179,12 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .total {
   td{
       width:50%;
+      background-color:white;
       text-align:right;
   }
+
 }
+
 .catalog, .summary{
   .ui-grid-row:nth-child(odd) .ui-grid-cell {
     background-color: white;
@@ -182,7 +192,7 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 }
 
 
-.long-text-wrap{
+.long-text-wrap .ui-grid-cell-contents{
   overflow: visible;
   word-wrap:break-word;
   word-break:break-word;

@@ -207,6 +207,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     enableSorting: false,
                     cellTemplate: '<i class="icon icon--ui icon--not-favorite favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,
+                    headerCellClass:'bookmark-header',
                     cellClass: 'bookmark',
                     exporterSuppressExport: true
                 });

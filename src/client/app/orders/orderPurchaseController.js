@@ -115,17 +115,27 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             },
                             readMoreUrl: '#'
                         },
+                        order:{
+                            details:{
+                                translate:{
+                                    title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS',
+                                    action:'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_CHANGE'
+                                },
+                                actionLink:{}
+
+                            }
+                        },
                         contact:{
                             translate: {
-                                title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                                requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
+                                title: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACTS',
+                                requestedByTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY',
                                 primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
                                 changePrimary: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
                             },
                             show:{
                                 primaryAction : true
                             },
-                            source: 'DeviceOrder'
+                            source: 'OrderPurchase'
                         },
                         detail:{
                             translate:{
