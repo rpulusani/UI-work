@@ -32,22 +32,35 @@ define([
             };
 
             $scope.dropdown = function(item) {
+                var setupLinks = function() {
+                    Users.taAcctCache = Users.item.transactionalAccount.data;
+                    item.data = Users.taAcctCache;
+
+                    item.isExpanded = true;
+                    item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
+                };
+
+                if (!Users.taAcctCache) {
+                    Users.taAcctCache = [];
+                }
+
                 if (!item.isExpanded) {
-                    Users.getLoggedInUserInfo().then(function(user) {
-                        if (angular.isArray(Users.item._links.accounts)) {
-                            Users.item._links.accounts = Users.item._links.accounts[0];
-                        }
-                        
-                        // Plural within _embedded
-                        Users.item.transactionalAccount.serviceName = 'transactionalAccounts';
+                    if (!Users.taAcctCache.length) {
+                        Users.getLoggedInUserInfo().then(function(user) {
+                            if (angular.isArray(Users.item._links.accounts)) {
+                                Users.item._links.accounts = Users.item._links.accounts[0];
+                            }
+                            
+                            // Plural within _embedded
+                            Users.item.transactionalAccount.serviceName = 'transactionalAccounts';
 
-                        Users.item.links.transactionalAccount().then(function(res) {
-                            item.data = Users.item.transactionalAccount.data;
-
-                            item.isExpanded = true;
-                            item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
+                            Users.item.links.transactionalAccount().then(function(res) {
+                                setupLinks();
+                            });
                         });
-                    });
+                    } else {
+                       setupLinks();
+                    } 
                 } else {
                     item.isExpanded = false;
                     item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
@@ -55,7 +68,24 @@ define([
             };
 
             $scope.switchAccount = function(child) {
+                var i = 0, 
+                accts = Users.item.transactionalAccount.data;
+
                 Users.item._links.accounts = child._links.account;
+
+                for (i; i < accts.length; i += 1) {
+                    if (accts[i]._links.account.href === Users.item._links.accounts.href) {
+                        if (!accts[i].isActive) {
+                            accts[i].isActive = true;
+                        } else {
+                            accts[i].isActive = false;
+                            
+                            Users.item._links.accounts = Users.item._links.accounts[0];
+                        }
+                    } else {
+                        accts[i].isActive = false;
+                    }
+                }
             }
 
             $scope.isActive = function(item){
@@ -63,7 +93,7 @@ define([
                 if(!item){
                     return undefined;
                 }
-                if($location.path() === item.action || $route.current.activeItem === item.action){
+                if($location.path() === item.action || $route.current.activeItem === item.action || item.isActive === true){
                     passed = true;
                     $rootScope.sectionTitle = item.text;
                 }
