@@ -20,6 +20,9 @@ define([
                     self.icon = item.icon;
                     self.target = item.target;
                     self.tags = item.tags;
+                    self.dropdown = item.dropdown;
+                    self.dropdownIcon = item.dropdownIcon;
+                    
                     if(item.newWindow){
                         self.window = "_blank";
                     }else{

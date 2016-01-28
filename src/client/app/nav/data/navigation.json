@@ -7,7 +7,8 @@
     "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",
     "tags":["primary"],
-    "dropdown": true
+    "dropdown": true,
+    "dropdownIcon": "icon-psw-project"
   },
   {
     "id": "2",
