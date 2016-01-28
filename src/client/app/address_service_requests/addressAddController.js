@@ -35,9 +35,81 @@ define(['angular', 'address'], function(angular) {
                 $scope.address.storeFrontName =  $scope.address.name;
             };
 
+
+            $scope.checkAddress = function() {
+                if($scope.checkedAddress === 0){
+                    $scope.enteredAddress = {
+                        addressLine1: $scope.address.addressLine1,
+                        city: $scope.address.city,
+                        state:  $scope.address.state,
+                        country: $scope.address.country,
+                        postalCode: $scope.address.postalCode
+                    };
+                    Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
+                        if (statusCode === 200) {
+                            $scope.comparisonAddress = bodsData;
+                            if($scope.address.addressLine1 != $scope.comparisonAddress.addressLine1  || $scope.address.city != $scope.comparisonAddress.city || $scope.address.postalCode != $scope.comparisonAddress.postalCode){
+                                $scope.needToVerify = true;
+                                $scope.checkedAddress = 1;
+                            }else{
+                                $scope.canReview = true;
+                                $scope.checkedAddress = 1;
+                                $scope.goToReview();
+                            }
+                        }else{
+                            //an error validating address has occurred with bods (log a different way?)
+                            $scope.canReview = true;
+                            $scope.checkedAddress = 1;
+                            $scope.goToReview();
+                        }
+                    });
+                }
+            };
+
+            $scope.setAcceptedAddress =  function() {
+              if ($scope.acceptedEnteredAddress === 'comparisonAddress') {
+                    $scope.address.country = $scope.comparisonAddress.country;
+                    $scope.address.addressLine1 = $scope.comparisonAddress.addressLine1;
+                    $scope.address.addressLine2 = $scope.comparisonAddress.addressLine2;
+                    $scope.address.city = $scope.comparisonAddress.city;
+                    $scope.address.state = $scope.comparisonAddress.state;
+                    $scope.address.postalCode = $scope.comparisonAddress.postalCode;
+                } else {
+                    $scope.address.country = $scope.enteredAddress.country;
+                    $scope.address.addressLine1 = $scope.enteredAddress.addressLine1;
+                    $scope.address.addressLine2 = $scope.enteredAddress.addressLine2;
+                    $scope.address.city = $scope.enteredAddress.city;
+                    $scope.address.state = $scope.enteredAddress.state;
+                    $scope.address.postalCode = $scope.enteredAddress.postalCode;
+                }
+                $scope.canReview = true;
+            };
+
+            $scope.editAddress = function(addressType){
+                $scope.needToVerify = false;
+                if(addressType === 'comparisonAddress'){
+                    $scope.address.country = $scope.comparisonAddress.country;
+                    $scope.address.addressLine1 = $scope.comparisonAddress.addressLine1;
+                    $scope.address.addressLine2 = $scope.comparisonAddress.addressLine2;
+                    $scope.address.city = $scope.comparisonAddress.city;
+                    $scope.address.state = $scope.comparisonAddress.state;
+                    $scope.address.postalCode = $scope.comparisonAddress.postalCode;
+                }
+                $scope.canReview = true;
+            };
+
+            $scope.resetAddress = function(){
+                $scope.address = {};
+                $scope.needToVerify = false;
+                $scope.checkedAddress = 0;
+            };
+
             $scope.goToReview = function() {
-                $rootScope.newAddress = $scope.address;
-                $location.path(Addresses.route + '/add/review');
+                $scope.checkAddress();
+                if($scope.canReview === true && $scope.checkedAddress === 1){
+                    $rootScope.newAddress = $scope.address;
+                    $location.path(Addresses.route + '/add/review');
+                }
             };
 
             var configureSR = function(ServiceRequest){
@@ -90,6 +162,11 @@ define(['angular', 'address'], function(angular) {
                 $scope.resetContactPicker();
             }else{
                 $scope.address = {};
+                $scope.enteredAddress = {};
+                $scope.comparisonAddress = {};
+                $scope.checkedAddress = 0;
+                $scope.needToVerify = false;
+                $scope.canReview = false;
                 if ($rootScope.newAddress || $rootScope.newSr) {
                     if ($rootScope.newAddress) {
                         $scope.address = $rootScope.newAddress;
@@ -103,8 +180,6 @@ define(['angular', 'address'], function(angular) {
                     $scope.getRequestor(ServiceRequest, Contacts);
                 }
             }
-
-
 
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);

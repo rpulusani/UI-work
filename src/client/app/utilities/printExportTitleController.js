@@ -27,12 +27,13 @@ define(['angular', 'utility.grid'], function(angular) {
                 }
 
                 $scope.printGrid = function() {
-                    ctrlScope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
+                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
                 };
 
                 $scope.exportGrid = function() {
                     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                    ctrlScope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
+                    
+                    ctrlScope.gridApi.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             });
         }
