@@ -8,7 +8,7 @@
     "permissionFlag":"viewHomePage",
     "tags":["primary"],
     "dropdown": true,
-    "dropdownIcon": "icon-psw-project"
+    "dropdownIcon": "icon-psw-disclosure_down_triangle"
   },
   {
     "id": "2",
