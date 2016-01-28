@@ -11,12 +11,16 @@ define([
         '$location',
         '$route',
         'Nav',
+        'UserService',
+        'AccountService',
         function(
             $scope,
             $rootScope,
             $location,
             $route,
-            Nav
+            Nav,
+            Users,
+            Accounts
             ) {
 
             $scope.items = Nav.items;
@@ -29,12 +33,29 @@ define([
 
             $scope.dropdown = function(item) {
                 if (!item.isExpanded) {
-                    item.isExpanded = true;
-                    item.dropdownIcon = 'icon-mps-device';
+                    Users.getLoggedInUserInfo().then(function(user) {
+                        if (angular.isArray(Users.item._links.accounts)) {
+                            Users.item._links.accounts = Users.item._links.accounts[0];
+                        }
+                        
+                        // Plural within _embedded
+                        Users.item.transactionalAccount.serviceName = 'transactionalAccounts';
+
+                        Users.item.links.transactionalAccount().then(function(res) {
+                            item.data = Users.item.transactionalAccount.data;
+
+                            item.isExpanded = true;
+                            item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
+                        });
+                    });
                 } else {
                     item.isExpanded = false;
-                    item.dropdownIcon = 'icon-psw-project';
+                    item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
                 }
+            };
+
+            $scope.switchAccount = function(child) {
+                Users.item._links.accounts = child._links.account;
             }
 
             $scope.isActive = function(item){
@@ -54,6 +75,7 @@ define([
                     $scope.items = Nav.items;
                 });
             }
+
             $scope.setActive = function(text){
 
             };
