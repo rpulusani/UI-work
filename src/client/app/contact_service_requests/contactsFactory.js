@@ -27,6 +27,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 route: '/service_requests/contacts',
                 needsToVerify: false, // if verify directive needs to be displayed
+                alertState: false,
                 createSRFromContact: function(contact, srType) {
                     var sr = {
                         id: '',
@@ -60,7 +61,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     return sr;
                 },
                 goToCreate: function() {
-                    this.wasSaved = false;
                     this.item = this.getModel();
 
                     $location.path(this.route + '/new');
@@ -75,7 +75,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
                 goToList: function() {
-                    this.wasSaved = false;
                     this.submitedSR = false;
 
                     $location.path(this.route + '/');
@@ -115,7 +114,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     };
                 },
                 beforeSave: function(contact, deferred) {
-                    contact._links.account.href = $rootScope.currentUser.accounts.url;
+                    contact._links.account.href = this.data[0]._links.account.href;
 
                     deferred.resolve(true, contact);
                 },

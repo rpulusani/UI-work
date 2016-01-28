@@ -52,14 +52,14 @@ define(['angular', 'utility'], function(angular) {
         return {
             restrict: 'A',
             scope: {
-                title: '=',
-                print: '='
+                title: '@',
+                print: '@'
             },
-            template: '<div class="col-2-3">' +
+            template: '<div class="col-2-3" ng-cloak>' +
                 '<h2 class="print-export-header" ng-show="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}"></h2>' +
                 '<h2 class="print-export-header" ng-show="!itemtotal && title" translate="{{ title }}"></h2>' +
             '</div>' +
-            '<div ng-if="displayPrint || displayExport" class="print-export">' +
+            '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
                 '<span ng-if="displayPrint" class="">' +
                     '<i class="icon icon--mps icon--print"></i>' +
                     '<a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
