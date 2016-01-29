@@ -36,24 +36,53 @@ define(['angular','order', 'utility.grid'], function(angular) {
 
             SRHelper.addMethods(Orders, $scope, $rootScope);
             $scope.editable = false; //make order summary not actionable
-            $rootScope.currentRowList = [];
 
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addField('description', '');
-                    ServiceRequest.addRelationship('account', $scope.device);
+                    ServiceRequest.addRelationship('account', $scope.device, 'account');
                     ServiceRequest.addRelationship('asset', $scope.device, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
-                    ServiceRequest.addField('type', 'SUPPLIES_ASSET_REQUEST');
+                    ServiceRequest.addField('type', 'SUPPLIES_ASSET_ORDER');
             };
 
             if (Devices.item === null) {
                 $scope.redirectToList();
-            } else{
-                $rootScope.device = Devices.item;
-                 if (!BlankCheck.isNull(Devices.item['contact'])) {
-                    $scope.device.primaryContact = $scope.device['contact']['item'];
-                }else{
+            } else if($rootScope.selectedContact &&
+                $rootScope.returnPickerObject &&
+                $rootScope.selectionId === Devices.item.id){
 
+                    $scope.device = $rootScope.returnPickerObject;
+                    $scope.sr = $rootScope.returnPickerSRObject;
+                    ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                    $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                    $scope.resetContactPicker();
+
+            } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
+
+                $scope.sr = $rootScope.returnPickerSRObject;
+                ServiceRequest.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
+                $scope.orders.billToAddress = angular.copy($rootScope.selectedBillToAddress);
+                $scope.resetAddressBillToPicker();
+
+            } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){
+
+                $scope.sr = $rootScope.returnPickerSRObject;
+                ServiceRequest.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
+                $scope.orders.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
+                $scope.resetAddressShipToPicker();
+
+            } else{
+
+                $rootScope.device = Devices.item;
+                if(Orders.item){
+                    $rootScope.orders = Orders.item;
+                }else{
+                    Orders.item = {};
+                    $rootScope.orders = Orders.item;
+                }
+
+                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                    $scope.device.primaryContact = $scope.device['contact']['item'];
                 }
             }
 
@@ -73,6 +102,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 }, 50);
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
+
+                   ServiceRequest.addField('orderItems', OrderItems.buildSrArray());
                    var deferred = ServiceRequest.post({
                          item:  $scope.sr
                     });
@@ -121,8 +152,34 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                     title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS',
                                     action:'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_CHANGE'
                                 },
-                                actionLink:{}
-
+                                actionLink:{},
+                            },
+                            po:{
+                                translate:{
+                                    title:'ORDER_MAN.COMMON.TXT_ORDER_PO_DETAILS',
+                                    label: 'ORDER_MAN.COMMON.TXT_ORDER_PO_NUM'
+                                }
+                            },
+                            accountDetails:{
+                                translate:{
+                                    title:'ORDER_MAN.COMMON.TEXT_ACCOUNT_DETAILS'
+                                }
+                            },
+                            shipToBillTo:{
+                                translate:{
+                                    title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
+                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    shipToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_SHIP_TO_FOR',
+                                    office:'',
+                                    building:'',
+                                    floor:'',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    instructionsNote:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE',
+                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR',
+                                    billToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_BILL_TO_FOR'
+                                }
                             }
                         },
                         contact:{
@@ -177,15 +234,34 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                 title: 'CONTACT.SELECT_CONTACT',
                                 contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                             },
-                            returnPath: Orders.route + '/' +  '/review' //$scope.device.id +
+                            returnPath: Orders.route + '/' +  '/review'
+                        },
+                        billToPicker:{
+                            translate:{
+                                selectedAddressTitle:'ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.TXT_ORDER_SELECT_BILL_TO'
+                            },
+                            returnPath: Orders.route + '/' + '/review',
+                            source: 'OrderPurchase'
+                        },
+                        shipToPicker:{
+                            translate:{
+                                selectedAddressTitle:''
+                            },
+                            returnPath: Orders.route + '/' + '/review',
+                            source: 'OrderPurchase'
                         }
                     };
                 }
             }
 
-             if (!BlankCheck.isNull($scope.device.primaryContact)){
+             if ($scope.device && !BlankCheck.isNull($scope.device.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
-
+            }
+            if ($scope.orders && !BlankCheck.isNull($scope.orders.billToAddress)){
+                    $scope.formatedBillToAddress = FormatterService.formatAddress($scope.orders.billToAddress);
+            }
+            if ($scope.orders && !BlankCheck.isNull($scope.orders.shipToAddress)){
+                    $scope.formatedShipToAddress = FormatterService.formatAddress($scope.orders.shipToAddress);
             }
         }
     ]);

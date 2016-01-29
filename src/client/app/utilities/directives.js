@@ -96,6 +96,26 @@ define(['angular', 'utility'], function(angular) {
             controller: 'AddressPickerController'
         };
     })
+    .directive('pickBillToAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                selectedAddressTitle: '@',
+            },
+            templateUrl: '/app/utilities/templates/pick-bill-to-address.html',
+            controller: 'AddressBillToPickerController'
+        };
+    })
+    .directive('pickShipToAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                selectedAddressTitle: '@',
+            },
+            templateUrl: '/app/utilities/templates/pick-ship-to-address.html',
+            controller: 'AddressShipToPickerController'
+        };
+    })
     .directive('pickDevice', function(){
          return {
             restrict: 'A',

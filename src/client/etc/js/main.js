@@ -207,6 +207,8 @@ requirejs.config({
         'utility.controller': 'app/utilities/controller',
         'utility.contactPickerController': 'app/utilities/contactPickerController',
         'utility.addressPickerController': 'app/utilities/addressPickerController',
+        'utility.addressBillToPickerController': 'app/utilities/addressBillToPickerController',
+        'utility.addressShipToPickerController': 'app/utilities/addressShipToPickerController',
         'utility.devicePickerController': 'app/utilities/devicePickerController',
         'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
         'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',

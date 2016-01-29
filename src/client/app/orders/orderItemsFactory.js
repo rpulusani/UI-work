@@ -120,6 +120,18 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         subTotal = self.subTotal();
                         total = subTotal + (subTotal * tax);
                         return formatter.formatCurrency(total);
+                    },
+                    buildSrArray: function(){
+                        var arrayResult = [],
+                        self = this;
+                        for(var i = 0; i < self.data.length; ++i){
+                            var item = {
+                                'itemNumber': self.data[i].itemNumber,
+                                 'quantity': self.data[i].quantity
+                            };
+                            arrayResult.push(item);
+                        }
+                        return arrayResult;
                     }
             };
         return  new HATEOASFactory(OrderItems);

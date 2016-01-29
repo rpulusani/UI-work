@@ -44,6 +44,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                                         break;
                                     }
                                 }
+                                $rootScope.currentSelectedRow = undefined;
                             }
                         }
                     );

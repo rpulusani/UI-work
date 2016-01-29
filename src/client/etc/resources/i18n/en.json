@@ -218,18 +218,31 @@
             "TXT_ORDER_PO_NUM": "Purchase order number:",
             "TXT_ORDER_REQ_DELIV_DATE": "Requested delivery date",
             "TXT_ORDER_SUMMARY": "Order summary",
-            "TEXT_INCLUDED_IN_LEASE": "Included in Lease"
+            "TEXT_INCLUDED_IN_LEASE": "Included in Lease",
+            "TEXT_ACCOUNT_DETAILS": "Account details"
         },
 
         "ORDER_SELECT_BILL_TO_ADDR": {
             "BTN_ORDER_CHANGE_BILL_TO": "APPLY SELECTION",
             "BTN_ORDER_DISCARD_BILL_TO_CHANGE": "DISCARD BILL TO ADDRESS SELECTION",
             "CTRL_GRID_SELECT_ADDR": "Address name",
-            "TXT_GRID_ADDR_NAME": "Address",
+            "TXT_GRID_ADDR_NAME": "Selected Bill To Address",
             "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
             "TXT_ORDER_BILL_TO_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_NO_BILL_TO_SELECTED": "No bill to address selected",
             "TXT_ORDER_SELECT_BILL_TO": "Select bill to address",
+            "TXT_SEARCH": "Search",
+            "TXT_SELECT_ADDRESS": "Select address"
+        },
+        "ORDER_SELECT_SHIP_TO_ADDR": {
+            "BTN_ORDER_CHANGE_SHIP_TO": "APPLY SELECTION",
+            "BTN_ORDER_DISCARD_SHIP_TO_CHANGE": "DISCARD SHIP TO ADDRESS SELECTION",
+            "CTRL_GRID_SELECT_ADDR": "Address name",
+            "TXT_GRID_ADDR_NAME": "Selected Ship To Address",
+            "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
+            "TXT_ORDER_SHIP_TO_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_ORDER_NO_SHIP_TO_SELECTED": "No ship to address selected",
+            "TXT_ORDER_SELECT_SHIP_TO": "Select ship to address",
             "TXT_SEARCH": "Search",
             "TXT_SELECT_ADDRESS": "Select address"
         },
@@ -252,6 +265,7 @@
             "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for {{ productModel }}",
             "TXT_ORDER_REVIEW_SUPPLIES_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_SELECT_BILL_TO_FOR": "Please select a bill to address for this order >",
+            "TXT_ORDER_SELECT_SHIP_TO_FOR": "Please select a ship to address for this order >",
             "TXT_ORDER_SHIPPING_BILLING": "Shipping and Billing",
             "TXT_ORDER_SUBTOTAL": "Subtotal",
             "TXT_ORDER_SUPPLY_TYPE": "type",

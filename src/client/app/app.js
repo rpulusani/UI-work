@@ -80,6 +80,8 @@ define([
     'utility.controller',
     'utility.contactPickerController',
     'utility.addressPickerController',
+    'utility.addressBillToPickerController',
+    'utility.addressShipToPickerController',
     'utility.devicePickerController',
     'utility.pageCountSelectController',
     'utility.pageCountSelectService',
