@@ -45,7 +45,6 @@ define(['angular', 'user'], function(angular) {
                 $scope.user.addonRoles = [];
                 $scope.user.permissions = [];
                 $scope.user.selectedRoleList = [];
-                //$scope.userExistingRoles = [];
                 $scope.accounts = [];
 
                 if ($scope.user.item && $scope.user.item.address) {
@@ -54,9 +53,6 @@ define(['angular', 'user'], function(angular) {
 
                 if (!BlankCheck.isNull($scope.user.item._embedded.roles)) {
                     $scope.user.selectedRoleList = $scope.user.item._embedded.roles;
-                    // for (var i=0;i<$scope.userExistingRoles.length;i++) {
-                    //     $scope.user.selectedRoleList.push($scope.userExistingRoles[i]);
-                    // }
                 }
                 if (!BlankCheck.isNull($scope.user.item._embedded.accounts)) {
                     $scope.accounts = $scope.user.item._embedded.accounts;
