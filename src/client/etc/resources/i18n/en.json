@@ -838,6 +838,11 @@
             "CHL": "CHL"
         },
 
+        "FILTERS": {
+            "BROWSE_CHL": "Browse By CHL",
+            "BROWSE_STATUS": "Browse By Status"
+        },
+
         "ORDER_MGT": {
             "DATE": "Date",
             "ORDER_NO": "Order Number",
