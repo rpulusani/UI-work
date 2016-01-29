@@ -1309,8 +1309,8 @@
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}} total users)",
-            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
+            "USERS": "Users ({{total}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",
             "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
@@ -1330,7 +1330,7 @@
             "PERM": "Permissions",
             "ABANDON": "ABANDON USER CREATION",
             "CREATE": "CREATE USER",
-            "MANAGE": "Managing {{user_name}}",
+            "MANAGE": "Manage {{user_name}}",
             "DEACTIVATE": "DEACTIVATE USER",
             "DELETE_CHANGES": "DISCARD USER CHANGES",
             "UPDATE": "UPDATE USER",
@@ -1343,7 +1343,8 @@
             "USER_PROFILE": "User profile",
             "ACCOUNT_ACCESS": "Account access",
             "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
-            "UPDATE_USER": "UPDATE USER"
+            "UPDATE_USER": "UPDATE USER",
+            "FILTER_BY_STATUS": "Filter By Status"
         },
 
         "ROLE": {

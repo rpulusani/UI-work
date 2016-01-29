@@ -8,7 +8,8 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'invitedSet');
             filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'INVITED', 'embed': 'roles'}, false,
-                function() {
+                function(Grid) {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
 
