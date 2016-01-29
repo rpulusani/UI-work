@@ -6,7 +6,9 @@
     "description": "Some description of this link",
     "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",
-    "tags":["primary"]
+    "tags":["primary"],
+    "dropdown": true,
+    "dropdownIcon": "icon-psw-disclosure_down_triangle"
   },
   {
     "id": "2",

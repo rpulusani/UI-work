@@ -149,95 +149,97 @@ define(['angular',
                 $scope.configure.contact.show.primaryAction = false;
             }
             function configureTemplates(){
-                $scope.configure = {
-                    header: {
-                        translate:{
-                            h1: 'DEVICE_SERVICE_REQUEST.REQUEST_DECOMMISSION_FOR',
-                            h1Values:{'productModel': $scope.device.productModel},
-                            body: 'MESSAGE.LIPSUM',
-                            bodyValues: '',
-                            readMore: ''
-                        },
-                        readMoreUrl: ''
-                    },
-                    device: {
-                        removal:{
+                if($scope.device){
+                    $scope.configure = {
+                        header: {
                             translate:{
-                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
-                                pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
-                                pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
+                                h1: 'DEVICE_SERVICE_REQUEST.REQUEST_DECOMMISSION_FOR',
+                                h1Values:{'productModel': $scope.device.productModel},
+                                body: 'MESSAGE.LIPSUM',
+                                bodyValues: '',
+                                readMore: ''
                             },
-                            source: 'decommission'
+                            readMoreUrl: ''
                         },
-                        information:{
-                            translate: {
-                                title: 'DEVICE_MGT.DEVICE_INFO',
-                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                product: 'DEVICE_MGT.PRODUCT_MODEL',
-                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                hostName: 'DEVICE_MGT.HOST_NAME',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                        device: {
+                            removal:{
+                                translate:{
+                                    title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
+                                    pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
+                                    pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
+                                },
+                                source: 'decommission'
+                            },
+                            information:{
+                                translate: {
+                                    title: 'DEVICE_MGT.DEVICE_INFO',
+                                    serialNumber: 'DEVICE_MGT.SERIAL_NO',
+                                    partNumber: 'DEVICE_MGT.PART_NUMBER',
+                                    product: 'DEVICE_MGT.PRODUCT_MODEL',
+                                    ipAddress: 'DEVICE_MGT.IP_ADDRESS',
+                                    hostName: 'DEVICE_MGT.HOST_NAME',
+                                    installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
+                                    contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                                }
                             }
+                        },
+                        contact:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
+                                requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
+                                primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                                changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                            },
+                            show:{
+                                primaryAction : true
+                            },
+                            pickerObject: $scope.device,
+                            source: 'DeviceDecommission'
+                        },
+                        detail:{
+                            translate:{
+                                title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
+                                referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                                costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                                comments: 'LABEL.COMMENTS',
+                                attachments: 'LABEL.ATTACHMENTS',
+                                attachmentMessage: 'MESSAGE.ATTACHMENT',
+                                fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
+                            },
+                            show:{
+                                referenceId: true,
+                                costCenter: true,
+                                comments: true,
+                                attachements: true
+                            }
+                        },
+                        actions:{
+                            translate: {
+                                abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
+                                submit: 'LABEL.REVIEW_SUBMIT'
+                            },
+                            submit: function(){
+                                $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
+                            }
+                        },
+                        modal:{
+                            translate:{
+                                abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                                abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                                abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                                abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
+                            },
+                            returnPath: Devices.route + '/'
+                        },
+                        contactPicker:{
+                            translate:{
+                                title: 'CONTACT.SELECT_CONTACT',
+                                contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
+                            },
+                            returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
                         }
-                    },
-                    contact:{
-                        translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
-                        },
-                        show:{
-                            primaryAction : true
-                        },
-                        pickerObject: $scope.device,
-                        source: 'DeviceDecommission'
-                    },
-                    detail:{
-                        translate:{
-                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
-                            fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
-                        },
-                        show:{
-                            referenceId: true,
-                            costCenter: true,
-                            comments: true,
-                            attachements: true
-                        }
-                    },
-                    actions:{
-                        translate: {
-                            abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
-                            submit: 'LABEL.REVIEW_SUBMIT'
-                        },
-                        submit: function(){
-                            $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');
-                        }
-                    },
-                    modal:{
-                        translate:{
-                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
-                            abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
-                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
-                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
-                        },
-                        returnPath: Devices.route + '/'
-                    },
-                    contactPicker:{
-                        translate:{
-                            title: 'CONTACT.SELECT_CONTACT',
-                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
-                        },
-                        returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
-                    }
-                };
+                    };
+                }
             }
 
             if (!BlankCheck.isNull($scope.device.installAddress)) {

@@ -55,7 +55,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return obj;
             };
 
-             HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId) {
+            HATEOASFactory.prototype.getLoggedInUserInfo = function(loginId) {
                 var self  = this,
                 deferred = $q.defer(),
                 url = '';
@@ -67,6 +67,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     self.url = api.url;
                     url = self.url + '/' + loginId;
+                    
 
                     $http.get(url).then(function(processedResponse) {
                         var user = self.createItem(processedResponse.data);
@@ -75,9 +76,16 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             self.item = user;
                         }
 
-                       $rootScope.currentUser.item = self.setItem(user);
+                        $rootScope.currentUser.item = self.setItem(user);
 
-                        deferred.resolve(user);
+                        angular.extend($rootScope.currentUser, user);
+                        $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
+
+                        if (!$rootScope.currentAccount) {
+                            HATEAOSConfig.getLoggedInUserInfo();
+                        }
+
+                        deferred.resolve();
                     });
                 });
 
@@ -189,10 +197,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
                 }
 
-                $rootScope.currentUser.deferred.promise.then(function() {
-
-                    newService.params.accountId = $rootScope.currentUser.accounts[0].accountId;
-                    newService.params.accountLevel = $rootScope.currentUser.accounts[0].level;
+                HATEAOSConfig.getCurrentAccount().then(function(account) {
+                    newService.params.accountId = $rootScope.currentAccount.accountId;
+                    newService.params.accountLevel = $rootScope.currentAccount.accountLevel;
 
                     newService.get({
                         page: newService.params.page,
@@ -455,11 +462,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     }
                 }
 
-                if (!params.accountId) {
-                    params.accountId = self.params.accountId;
-                    params.accountLevel = self.params.accountLevel;
-                }
-
                 return params;
             };
 
@@ -505,8 +507,10 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         if (method === 'get') {
                             //get 0 index until account switching and preferences are 100% implemented
-                            self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
-                            self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
+                            HATEAOSConfig.getCurrentAccount().then(function(account) {
+                                self.params.accountId = $rootScope.currentAccount.accountId;
+                                self.params.accountLevel = $rootScope.currentAccount.level;
+                            });
                         }
 
                         self.getHalUrl(halObj, function(itemUrl) {
@@ -735,38 +739,45 @@ define(['angular', 'hateoasFactory'], function(angular) {
                    self.setParamsToNull();
                 }
 
-                if (!options.url) {
-                    self.url = self.setupUrl(self.url);
-                    options.url = self.buildUrl(self.url, options.params);
-                } else {
-                    options.url = self.buildUrl(options.url, options.params);
-                }
 
-                self.params = angular.extend(self.params, options.params);
-
-                options.params = {};
-
-                self.checkForEvent(self.item, 'onGet');
-
-                $http(options).then(function(processedResponse) {
-                    self.setupItem(processedResponse);
-
-                    self.processedResponse = processedResponse;
-
-                    if (options.updateParams === false) {
-                        self.params = currentParams;
+                HATEAOSConfig.getCurrentAccount().then(function() {
+                    if (!options.preventDefaultParams) {
+                        options.params.accountId = $rootScope.currentAccount.accountId;
+                        options.params.accountLevel = $rootScope.currentAccount.accountLevel;
+                    }
+                    
+                    if (!options.url) {
+                        self.url = self.setupUrl(self.url);
+                        options.url = self.buildUrl(self.url, options.params);
+                    } else {
+                        options.url = self.buildUrl(options.url, options.params);
                     }
 
-                    self.checkForEvent(self.item, 'afterGet');
+                    self.params = angular.extend(self.params, options.params);
 
-                    deferred.resolve(processedResponse);
+                    options.params = {};
+
+                    self.checkForEvent(self.item, 'onGet');
+
+                    $http(options).then(function(processedResponse) {
+                        self.setupItem(processedResponse);
+
+                        self.processedResponse = processedResponse;
+
+                        if (options.updateParams === false) {
+                            self.params = currentParams;
+                        }
+
+                        self.checkForEvent(self.item, 'afterGet');
+
+                        deferred.resolve(processedResponse);
+                    });
                 });
             };
 
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
                 deferred = $q.defer();
-
                 self.checkForEvent(self.item, 'beforeGet').then(function(canContinue, newObj) {
                     if (canContinue) {
                         if (newObj) {
@@ -780,7 +791,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             if (!self.url) {
                                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                                     var prop;
-                                    if(api){
+
+                                    if (api) {
                                         self.url = api.url;
                                         // will change once hateoasConfig is its own module as this is handled in this file now
                                         for (prop in api.params) {
@@ -791,16 +803,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                         }
                                     }
 
-                                    if(!self.params){
+                                    if (!self.params) {
                                         self.params = {};
-                                    }
-
-                                    if (options.params && !options.params.accountId || !self.params.accountId) {
-                                        self.params.accountId = $rootScope.currentUser.accounts[0].accountId;
-                                    }
-
-                                    if (options.params && !options.params.accountLevel || !self.params.accountLevel) {
-                                        self.params.accountLevel = $rootScope.currentUser.accounts[0].level;
                                     }
 
                                     self.processCall(options, deferred);

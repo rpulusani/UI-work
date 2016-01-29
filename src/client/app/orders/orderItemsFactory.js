@@ -36,21 +36,44 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             },
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_GRID_SUPPLIES_REMOVE'),
                                 'field':'',
-                                'cellTemplate':'<div>' +
+                                'cellTemplate':'<div style="text-align:center">' +
                                     '<a href="#" ng-click="grid.appScope.removeItem(row);" ' +
-                                '><span class="icon icon--feature icon--stop-cancel"></span></a>' +
+                                '><span class="icon icon-16 icon-psw-delete"></span></a>' +
                                 '</div>',
                                 width: '100',
                                 enableCellEdit:false
                             }
-                        ]
+                        ],
+                      pruchaseSet: [
+                        {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
+                            'field':'type', enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
+                            'field':'displayItemNumber', enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
+                            'field':'priceCurrencyFormat()', enableCellEdit:false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
+                                width: '125',
+                                type: 'number'
+                        },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL'),
+                            'cellClass': 'text--semi-bold',
+                            'field':'itemSubTotal()',
+                            enableCellEdit:false
+                        }
+                      ]
                     },
+
 
                     functionArray: [
                     {
                             name: 'priceCurrencyFormat',
                             functionDef: function(){
-                                return formatter.formatCurrency(this.price);
+                                if(this.billingModel === 'Usage Based Billing'){
+                                    return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
+                                }else{
+                                    return formatter.formatCurrency(this.price);
+                                }
                             }
                         },
                         {
@@ -97,6 +120,18 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         subTotal = self.subTotal();
                         total = subTotal + (subTotal * tax);
                         return formatter.formatCurrency(total);
+                    },
+                    buildSrArray: function(){
+                        var arrayResult = [],
+                        self = this;
+                        for(var i = 0; i < self.data.length; ++i){
+                            var item = {
+                                'itemNumber': self.data[i].itemNumber,
+                                 'quantity': self.data[i].quantity
+                            };
+                            arrayResult.push(item);
+                        }
+                        return arrayResult;
                     }
             };
         return  new HATEOASFactory(OrderItems);

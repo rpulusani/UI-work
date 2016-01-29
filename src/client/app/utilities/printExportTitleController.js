@@ -9,8 +9,6 @@ define(['angular', 'utility.grid'], function(angular) {
                 $scope.itemtotal = ctrlScope.pagination.totalItems();
 
                 if ($scope.itemtotal >= 0) {
-                    $scope.displayTitle = true;
-                    
                     if (attrs.print === undefined || attrs.print === true) {
                         $scope.displayPrint = true;
                     } else {
@@ -22,17 +20,16 @@ define(['angular', 'utility.grid'], function(angular) {
                     } else {
                         $scope.displayExport = false;
                     }
-                } else {
-                    $scope.displayTitle = false;
                 }
 
                 $scope.printGrid = function() {
-                    ctrlScope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
+                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
                 };
 
                 $scope.exportGrid = function() {
                     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                    ctrlScope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
+                    
+                    ctrlScope.gridApi.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             });
         }

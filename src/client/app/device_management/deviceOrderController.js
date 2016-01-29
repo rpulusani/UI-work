@@ -19,6 +19,10 @@ define(['angular','deviceManagement'], function(angular) {
             GridService,
             Personalize,
             FilterSearchService) {
+
+
+            $scope.editable = true; //make order summary actionable
+
             $rootScope.currentRowList = [];
             Orders.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),

@@ -40,12 +40,10 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
                 Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
             }
         };
-/*
-        $scope.getFullname = function(rowInfo) {
-            return formatter.getFullName(rowInfo.firstName, rowInfo.lastName, rowInfo.middleName);
-        };
-*/
-        filterSearchService.addBasicFilter('CONTACT.ALL', false, false,
+
+        Contacts.alertState = false;
+
+  filterSearchService.addBasicFilter('CONTACT.ALL', undefined, undefined,
             function(Grid) {
                 filterSearchService.addPanelFilter('Filter by Location', 'state', false);
 

@@ -13,20 +13,23 @@
     <div sr-device-service-details></div>
     <div sr-contact></div>
     <div sr-address></div>
-
+    <div order-account-details></div>
+    <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems" configure="configure"></div>
+    <div order-ship-to-bill-to-details></div>
+    <div order-po-number></div>
     <div ng-if="master">
         <h2>ipsum dolor</h2>
-        
+
         <div class="well"><!-- template --></div>
     </div>
 
     <!-- End Custom Modules for Requests -->
 
-    <div request-contacts></div>
-
+<div request-contacts></div>
+<div class="col-lg-2-3 col-md-1-1">
     <form class="form" data-form="" name="reviewDetail" novalidate>
         <h2 translate="{{configure.detail.translate.title}}"></h2>
-                
+
         <div class="form__field" ng-if="configure.detail.show.referenceId">
             <label translate="{{configure.detail.translate.referenceId}}"></label>
             <input name="internalReferenceId" type="text" class="" value="" ng-model="sr.customerReferenceId" />
