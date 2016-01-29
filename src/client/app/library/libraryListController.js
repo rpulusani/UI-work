@@ -1,23 +1,27 @@
-define(['angular', 'library'], function(angular) {
+define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FilterSearchService',
-        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, FilterSearchService) {
+    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FilterSearchService', 'SecurityHelper',
+        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, FilterSearchService, SecurityHelper) {
+            $rootScope.currentRowList = [];
+            $scope.visibleColumns = [];
 
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-            var Grid = new GridService();
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 140);
 
-            var filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal);
+            filterSearchService.addBasicFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS', false, false,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    
+                    //$scope.$broadcast('setupPrintAndExport', $scope);
 
-            Documents.getPage().then(function() {
-                Grid.display(Documents, $scope, personal, false, function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
-                });
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Documents.serviceName +  ' reason: ' + reason);
-            });
+                }
+            );
+
+            filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTERS', 'libraryFilter', false);
 
             $scope.goToNew = function() {
                 Documents.item = {};

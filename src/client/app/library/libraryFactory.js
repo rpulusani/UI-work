@@ -6,7 +6,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             var Documents = {
                 serviceName: 'documents',
                 embeddedName: 'documents',
-                columns: 'defaultSet',
+                columns: 'default',
                 columnDefs: {
                     defaultSet: [
                         {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), 'field': 'name',

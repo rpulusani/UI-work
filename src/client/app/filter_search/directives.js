@@ -37,6 +37,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'CHLFilterController'
         };
     })
+    .directive('libraryFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/libraryFilter.html',
+            controller: 'LibraryFilterController'
+        };
+    })
     .directive('gridSearch', function() {
         return {
             restrict: 'A',

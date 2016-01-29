@@ -11,22 +11,23 @@
 </div>
 
 <div class="page-content">
+    <div grid-filter options="filterOptions" params="optionParams"></div>
 
-        <div class="row l-pad-bottom">
-            <div class="col-lg-2-3 col-md-1-1">
-                <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-            </div>
-
-            <div class="col-1-8 l-alley-before-thick">
-                <div columnpicker></div>
-            </div>
+    <div class="row l-pad-top l-pad-bottom" ng-if="searchDevice">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
         </div>
+
+        <div class="col-1-8 l-alley-before-thick">
+            <div columnpicker></div>
+        </div>
+    </div>
 
 
     <div>
         <div class="col-2-3">
             <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-                translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS" translate-values="{ total: pagination.totalItems() }"></h2>
+                translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT" translate-values="{ total: pagination.totalItems() }"></h2>
         </div>
         <hr />
     </div>
