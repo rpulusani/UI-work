@@ -283,7 +283,7 @@
             "TXT_ORDER_CONTACT": "Contact for this order",
             "TXT_ORDER_DELIVERED": "Delivered:",
             "TXT_ORDER_DELIVERY_EXPEDITE": "Expedite",
-            "TXT_ORDER_DETAIL_SUPPLIES": "Details for supplies order number:",
+            "TXT_ORDER_DETAIL_SUPPLIES": "Details for supplies order number: {{srNumber}}",
             "TXT_ORDER_IN_PROCESS": "In Process:",
             "TXT_ORDER_NUMBER": "Order number",
             "TXT_ORDER_SHIPPED": "Shipped:",
@@ -291,7 +291,7 @@
             "TXT_ORDER_STATUS": "Status",
             "TXT_ORDER_SUBMITTED": "Submitted:",
             "TXT_ORDER_SUBMITTED_PAR": "Your supplies order {{order}} has been submitted.",
-            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for"
+            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}"
         }
     },
 

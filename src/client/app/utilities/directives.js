@@ -1,4 +1,4 @@
-define(['angular', 'utility'], function(angular) {
+define(['angular', 'utility','serviceRequests'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .directive('confirmCancel', ['$rootScope', function($rootScope){
