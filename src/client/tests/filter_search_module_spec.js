@@ -497,8 +497,8 @@ define(['angular', 'angular-mocks', 'filterSearch', 'hateoasFactory'], function(
                  it('should store searchBy Column',
                     inject(['$controller', function($controller){
                         scope.columns = [
-                            { dispaly: 'CAT', field: 'cat'},
-                            { display: 'DOG', field: 'dog'}
+                            { dispaly: 'CAT', searchOn: 'cat'},
+                            { display: 'DOG', searchOn: 'dog'}
                         ];
                         scope.params = {};
                         mockedGridSearchController = $controller('GridSearchController',{$scope: scope});
@@ -513,8 +513,8 @@ define(['angular', 'angular-mocks', 'filterSearch', 'hateoasFactory'], function(
                          var called = false;
                         var params = undefined;
                         scope.columns = [
-                            { dispaly: 'COW', field: 'cow'},
-                            { display: 'DOG', field: 'dog'}
+                            { dispaly: 'COW', searchOn: 'cow'},
+                            { display: 'DOG', searchOn: 'dog'}
                         ];
                         scope.params = {};
                         scope.search = function(options){
