@@ -45,7 +45,7 @@ define(['angular', 'user'], function(angular) {
                 $scope.user.addonRoles = [];
                 $scope.user.permissions = [];
                 $scope.user.selectedRoleList = [];
-                $scope.userExistingRoles = [];
+                //$scope.userExistingRoles = [];
                 $scope.accounts = [];
 
                 if ($scope.user.item && $scope.user.item.address) {
@@ -53,10 +53,10 @@ define(['angular', 'user'], function(angular) {
                 }
 
                 if (!BlankCheck.isNull($scope.user.item._embedded.roles)) {
-                    $scope.userExistingRoles = $scope.user.item._embedded.roles;
-                    for (var i=0;i<$scope.userExistingRoles.length;i++) {
-                        $scope.user.selectedRoleList.push($scope.userExistingRoles[i]);
-                    }
+                    $scope.user.selectedRoleList = $scope.user.item._embedded.roles;
+                    // for (var i=0;i<$scope.userExistingRoles.length;i++) {
+                    //     $scope.user.selectedRoleList.push($scope.userExistingRoles[i]);
+                    // }
                 }
                 if (!BlankCheck.isNull($scope.user.item._embedded.accounts)) {
                     $scope.accounts = $scope.user.item._embedded.accounts;
@@ -79,6 +79,81 @@ define(['angular', 'user'], function(angular) {
                 if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
                     $scope.user.fullName = $scope.user.firstName + $scope.user.lastName;
                 }
+
+                $scope.setPermissions = function(role){
+                    Roles.setItem(role);
+                    var options = {
+                        params:{
+                            'applicationName': 'customerPortal'
+                        }
+                    };
+
+                    Roles.item.get(options).then(function(){
+                        if (Roles.item && Roles.item.permissions) {
+                            for (var i=0; i<Roles.item.permissions.length; i++) {
+                                if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
+                                    $scope.user.permissions.push(Roles.item.permissions[i]);
+                                } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1) {
+                                    $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
+                                }
+                            }
+                        }
+                        if (Roles.item && role.selected) {
+                            $scope.user.selectedRoleList.push(role);
+                        } else if ($scope.user.selectedRoleList) {
+                            for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
+                                var selectedRole = $scope.user.selectedRoleList[j];
+                                if (role.roleId === selectedRole.roleId) {
+                                    $scope.user.selectedRoleList.splice(j,1);
+                                }
+                            }
+                        }
+                    });
+                };
+
+                $scope.setPermissionsForBasic = function(role){
+                    Roles.setItem(role);
+                    var options = {
+                        params:{
+                            'applicationName': 'customerPortal'
+                        }
+                    }, promises = [];
+
+                    promises.push(Roles.item.get(options));
+
+                    for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                        if ($scope.basicRole 
+                            && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                            Roles.setItem($scope.user.basicRoles[i]);
+                            var options = {
+                                params:{
+                                    'applicationName': 'customerPortal'
+                                }
+                            };
+                            promises.push(Roles.item.get(options));
+                        }
+                    }
+                    
+                    $q.all(promises).then(function(response) {
+                        if(response[1] && response[1].data && response[1].data.permissions) {
+                            var permissionList = response[1].data.permissions;
+                            for (var i=0; i<permissionList.length; i++) {
+                                if ($scope.user.permissions && $scope.user.permissions.indexOf(permissionList[i])!== -1) {
+                                    $scope.user.permissions.splice($scope.user.permissions.indexOf(permissionList[i]), 1);
+                                }
+                            }
+                        }
+
+                        if(response[0] && response[0].data && response[0].data.permissions) {
+                            var permissionList = response[0].data.permissions;
+                            for (var i=0; i<permissionList.length; i++) {
+                                if ($scope.user.permissions.indexOf(permissionList[i]) === -1) {
+                                    $scope.user.permissions.push(permissionList[i]);
+                                }
+                            }
+                        }
+                    });
+                };
 
                 var removeParams,
                 basicRoleOptions =  {
@@ -105,13 +180,6 @@ define(['angular', 'user'], function(angular) {
                         for (var j=0; j<roleList.length; j++) {
                             var role = roleList[j];
                             if ($scope.user.basicRoles.length < roleList.length) {
-                                if ($scope.userExistingRoles && $scope.userExistingRoles.length > 0) {
-                                    for (var i=0;i<$scope.userExistingRoles.length;i++) {
-                                        if ($scope.userExistingRoles[i].roleId === role.roleId) {
-                                            $scope.user.selectedRoleList.push(role);
-                                        }
-                                    }
-                                }
                                 $scope.user.basicRoles.push(role); 
                             }
                         }
@@ -123,9 +191,9 @@ define(['angular', 'user'], function(angular) {
                             var role = roleList[j];
                             if($scope.user.addonRoles.length < roleList.length) {
                                 role.selected = false;
-                                if ($scope.userExistingRoles && $scope.userExistingRoles.length > 0) {
-                                    for (var i=0;i<$scope.userExistingRoles.length;i++) {
-                                        if ($scope.userExistingRoles[i].roleId === role.roleId) {
+                                if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
+                                    for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
+                                        if ($scope.user.selectedRoleList[i].roleId === role.roleId) {
                                             Roles.setItem(role);
                                             role.selected = true;
                                             var options = {
@@ -163,6 +231,19 @@ define(['angular', 'user'], function(angular) {
                 {"id":2,"roleId":2,"description":"View Only - Strategic"
                 ,"customerType":"customer","roleType":"basic","_links":{"self":{"href"
                 :"https://api.venus-dev.lexmark.com/mps/roles/2"}}}];
+
+
+                for (var j=0;j<$scope.user.basicRoles.length; j++) {
+                    var tempRole = $scope.user.basicRoles[j];
+                    if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
+                        for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
+                            if ($scope.user.selectedRoleList[i].roleId.toString() === tempRole.roleId.toString()) {
+                                $scope.setPermissionsForBasic($scope.user.selectedRoleList[i]);
+                                $scope.basicRole = tempRole.roleId;
+                            }
+                        }
+                    }
+                }
                 
                 User.getLoggedInUserInfo().then(function() {
                     if (angular.isArray(User.item._links.accounts)) {
@@ -206,36 +287,7 @@ define(['angular', 'user'], function(angular) {
 
             }
 
-            $scope.setPermissions = function(role){
-                Roles.setItem(role);
-                var options = {
-                    params:{
-                        'applicationName': 'customerPortal'
-                    }
-                };
-
-                Roles.item.get(options).then(function(){
-                    if (Roles.item && Roles.item.permissions) {
-                        for (var i=0; i<Roles.item.permissions.length; i++) {
-                            if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
-                                $scope.user.permissions.push(Roles.item.permissions[i]);
-                            } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1) {
-                                $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
-                            }
-                        }
-                    }
-                    if (Roles.item && role.selected) {
-                        $scope.user.selectedRoleList.push(role);
-                    } else if ($scope.user.selectedRoleList) {
-                        for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
-                            var selectedRole = $scope.user.selectedRoleList[j];
-                            if (role.roleId === selectedRole.roleId) {
-                                $scope.user.selectedRoleList.splice(j,1);
-                            }
-                        }
-                    }
-                });
-            };
+            
 
             var updateAdminObjectForUpdate = function(updateStatus) {
                 UserAdminstration.reset();
@@ -269,31 +321,29 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.addField('address', addressInfo);
                 UserAdminstration.addField('preferredLanguage', 'en_US');
                 UserAdminstration.addField('resetPassword', true);
-                for (var i=0; i<$scope.user.basicRoles.length; i++) {
-                    if ($scope.basicRole) {
-                        if ($scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
-                            for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
-                                var selectedRole = $scope.user.selectedRoleList[j];
-                                if ($scope.basicRole.toString() === selectedRole.roleId.toString()) {
-                                    $scope.user.selectedRoleList.splice(j,1);
-                                }
-                            }
-                            $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
+                for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                    for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
+                        var selectedRole = $scope.user.selectedRoleList[j];
+                        if ($scope.user.basicRoles[i].roleId.toString() === selectedRole.roleId.toString()) {
+                            $scope.user.selectedRoleList.splice(j,1);
                         }
                     }
-                    
                 }
+
+                for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                    if ($scope.basicRole 
+                        && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                        $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
+                    }
+                }
+
                 if ($scope.user.selectedRoleList) {
                     UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
                 }
 
-                if ($scope.user.org) {
-                    for (var countObj in $scope.user.org) {
-                        var accountInfo = $scope.user.org[countObj];
-                        $scope.accounts.push(accountInfo);
-                    }
+                if ($scope.accounts && $scope.accounts.length > 0) {
+                    UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
                 }
-                UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
             };
 
             $scope.update = function() {
@@ -307,6 +357,8 @@ define(['angular', 'user'], function(angular) {
                 }, options);
 
                 deferred.then(function(result){
+                    UserAdminstration.wasInvited = false;
+                    UserAdminstration.wasSaved = false;
                     $location.path('/delegated_admin');
                 }, function(reason){
                     NREUM.noticeError('Failed to update user because: ' + reason);
@@ -324,6 +376,8 @@ define(['angular', 'user'], function(angular) {
                 }, options);
 
                 deferred.then(function(result){
+                    UserAdminstration.wasInvited = false;
+                    UserAdminstration.wasSaved = false;
                     $location.path('/delegated_admin');
                 }, function(reason){
                     NREUM.noticeError('Failed to update user because: ' + reason);

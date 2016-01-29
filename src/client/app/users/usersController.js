@@ -1,4 +1,4 @@
-define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], function(angular) {
+define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.user')
     .controller('UsersController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserAdminstration',
@@ -22,7 +22,8 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'defaultSet');
             filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, false,
-                function() {
+                function(Grid) {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
             filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'StatusFilter');

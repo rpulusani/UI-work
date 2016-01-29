@@ -1,13 +1,12 @@
-<div class="form__field filter--search">
-    <div class="row">
-        <div class="col-lg-1-5 col-md-1-5 col-sm-1-1 col-xs-1-1">
-            <div selectric class="search-menu"
-                    model="column"
-                    options="statuses"
-                    value="type"
-                    label="name"
-                    on-select="filterOnStatus(option)">
-            </div>
+<div class="form__field form__field--select">
+    <div class="col-lg-1-5 col-md-1-5 col-sm-1-1 col-xs-1-1">
+        <div selectric class="search-menu"
+            model="status"
+            options="statuses"
+            value="type"
+            label="name"
+            placeholder="{{'LABEL.SELECT' | translate}}"
+        >
         </div>
     </div>
 </div>

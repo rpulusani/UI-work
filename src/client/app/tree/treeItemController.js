@@ -81,8 +81,8 @@ define([
                             if ($scope.previousItems && $scope.previousItems.length > 0) {
                                 for (var j=0;j<$scope.previousItems.length; j++) {
                                     if ($scope.previousItems[j].accountId 
-                                        && $scope.previousItems[j].accountId === item.accountId
-                                        && $scope.previousItems[j].level === item.level) {
+                                        && $scope.previousItems[j].accountId === itemList[i].accountId
+                                        && $scope.previousItems[j].level === itemList[i].level) {
                                         $scope.previousItems.splice(j, 1);
                                     }
                                 }
@@ -103,8 +103,8 @@ define([
                         if ($scope.previousItems && $scope.previousItems.length > 0) {
                             for (var k=0;k<$scope.previousItems.length; k++) {
                                 if ($scope.previousItems[k].accountId 
-                                    && $scope.previousItems[k].accountId === item.accountId
-                                    && $scope.previousItems[k].level === item.level) {
+                                    && $scope.previousItems[k].accountId === children[j].accountId
+                                    && $scope.previousItems[k].level === children[j].level) {
                                     $scope.previousItems.splice(k, 1);
                                 }
                             }
@@ -130,7 +130,7 @@ define([
                                 $scope.value.name = item.name;
                             } 
                             else if ($scope.treeType === 'daAccounts') {
-                                $scope.value.push(item);
+                                $scope.previousItems.push(item);
                             }
                         }
                         

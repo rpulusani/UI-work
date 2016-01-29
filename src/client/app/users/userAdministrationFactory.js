@@ -10,9 +10,9 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [
-                        {'name': 'Status', 'field': 'getFormattedStatus()'},
-                        {'name': 'Creation date', 'field':'getFormattedCreateDate()'},
-                        {'name': 'User ID', 'field': 'userId', dynamic: false,
+                        {'name': 'Status', 'field': 'getFormattedStatus()', 'notSearchable':true},
+                        {'name': 'Creation date', 'field':'getFormattedCreateDate()', 'notSearchable':true},
+                        {'name': 'User ID', 'field': 'userId', 'notSearchable': true, dynamic: false,
                          'cellTemplate':'<div>' +
                                             '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
                                             '{{row.entity.userId}}</a>' +
@@ -21,15 +21,15 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                         {'name': 'First Name', 'field':'firstName'},
                         {'name': 'Last Name', 'field':'lastName'},
                         {'name': 'Email', 'field': 'email'},
-                        {'name': 'Company account', 'field': 'getAccounts()' },
-                        {'name': 'Roles', 'field': 'getRoles()' }
+                        {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true},
+                        {'name': 'Roles', 'field': 'getRoles()', 'notSearchable':true}
                     ],
                     invitedSet: [
-                        {'name': 'Status', 'field': 'invitedStatus'},
+                        {'name': 'Status', 'field': 'invitedStatus','notSearchable':true},
                         {'name': 'Invitation date', 'field':'getFormattedCreateDate()'},
                         {'name': 'Email', 'field': 'email'},
-                        {'name': 'Company account', 'field': 'getAccounts()' },
-                        {'name': 'Roles', 'field': 'getRoles()' }
+                        {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true},
+                        {'name': 'Roles', 'field': 'getRoles()', 'notSearchable':true}
                     ]
                 },
                 functionArray: [

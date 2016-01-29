@@ -139,6 +139,50 @@ define(['angular', 'user'], function(angular) {
                 });
             };
 
+            $scope.setPermissionsForBasic = function(role){
+                Roles.setItem(role);
+                var options = {
+                    params:{
+                        'applicationName': 'customerPortal'
+                    }
+                }, promises = [];
+
+                promises.push(Roles.item.get(options));
+
+                for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                    if ($scope.basicRole 
+                        && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                        Roles.setItem($scope.user.basicRoles[i]);
+                        var options = {
+                            params:{
+                                'applicationName': 'customerPortal'
+                            }
+                        };
+                        promises.push(Roles.item.get(options));
+                    }
+                }
+                
+                $q.all(promises).then(function(response) {
+                    if(response[1] && response[1].data && response[1].data.permissions) {
+                        var permissionList = response[1].data.permissions;
+                        for (var i=0; i<permissionList.length; i++) {
+                            if ($scope.user.permissions && $scope.user.permissions.indexOf(permissionList[i])!== -1) {
+                                $scope.user.permissions.splice($scope.user.permissions.indexOf(permissionList[i]), 1);
+                            }
+                        }
+                    }
+
+                    if(response[0] && response[0].data && response[0].data.permissions) {
+                        var permissionList = response[0].data.permissions;
+                        for (var i=0; i<permissionList.length; i++) {
+                            if ($scope.user.permissions.indexOf(permissionList[i]) === -1) {
+                                $scope.user.permissions.push(permissionList[i]);
+                            }
+                        }
+                    }
+                });
+            };
+
             var updateAdminObjectForSubmit = function() {
                 if ($location.path() === "/delegated_admin/invite_user") {
                     if ($scope.user.emails) {
@@ -153,30 +197,19 @@ define(['angular', 'user'], function(angular) {
                             UserAdminstration.addField('resetPassword', false);
                             UserAdminstration.addField('email', emailList[i]);
                             UserAdminstration.addField('userId', emailList[i]);
-                            for (var j=0; j<$scope.user.basicRoles.length; j++) {
-                                if ($scope.basicRole) {
-                                    if ($scope.user.basicRoles[j].roleId.toString() === $scope.basicRole.toString()) {
-                                        for (var k=0; k<$scope.user.selectedRoleList.length; k++) {
-                                            var selectedRole = $scope.user.selectedRoleList[k];
-                                            if ($scope.basicRole.toString() === selectedRole.roleId.toString()) {
-                                                $scope.user.selectedRoleList.splice(k,1);
-                                            }
-                                        }
-                                        $scope.user.selectedRoleList.push($scope.user.basicRoles[j]);
-                                    }
+
+                            for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                                if ($scope.basicRole 
+                                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                                    $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                                 }
                             }
                             if ($scope.user.selectedRoleList) {
                                 UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
                             }
 
-                            if ($scope.user.org) {
-                                var selectedAccountList = [];
-                                for (var countObj in $scope.user.org) {
-                                    var accountInfo = $scope.user.org[countObj];
-                                    selectedAccountList.push(accountInfo);
-                                }
-                                UserAdminstration.addMultipleRelationship('accounts', selectedAccountList, 'self');
+                            if ($scope.accounts && $scope.accounts.length > 0) {
+                                UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
                             }
                         }
                     }
@@ -202,30 +235,18 @@ define(['angular', 'user'], function(angular) {
                     UserAdminstration.addField('address', addressInfo);
                     UserAdminstration.addField('preferredLanguage', 'en_US');
                     UserAdminstration.addField('resetPassword', true);
-                    for (var j=0; j<$scope.user.basicRoles.length; j++) {
-                        if ($scope.basicRole) {
-                            if ($scope.user.basicRoles[j].roleId.toString() === $scope.basicRole.toString()) {
-                                for (var k=0; k<$scope.user.selectedRoleList.length; k++) {
-                                    var selectedRole = $scope.user.selectedRoleList[k];
-                                    if ($scope.basicRole.toString() === selectedRole.roleId.toString()) {
-                                        $scope.user.selectedRoleList.splice(k,1);
-                                    }
-                                }
-                                $scope.user.selectedRoleList.push($scope.user.basicRoles[j]);
-                            }
+                    for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                        if ($scope.basicRole 
+                            && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                            $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                         }
                     }
                     if ($scope.user.selectedRoleList) {
                         UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
                     }
 
-                    if ($scope.user.org) {
-                        var selectedAccountList = [];
-                        for (var countObj in $scope.user.org) {
-                            var accountInfo = $scope.user.org[countObj];
-                            selectedAccountList.push(accountInfo);
-                        }
-                        UserAdminstration.addMultipleRelationship('accounts', selectedAccountList, 'self');
+                    if ($scope.accounts && $scope.accounts.length > 0) {
+                        UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
                     }
                 }
             };
@@ -248,6 +269,7 @@ define(['angular', 'user'], function(angular) {
                 });
 
                 deferred.then(function(result){
+                    UserAdminstration.wasInvited = false;
                     UserAdminstration.wasSaved = true;
                     $location.path('/delegated_admin');
                 }, function(reason){
@@ -269,6 +291,7 @@ define(['angular', 'user'], function(angular) {
                 }
                 
                 $q.all(deferredList).then(function(result) {
+                    UserAdminstration.wasSaved = false;
                     UserAdminstration.wasInvited = true;
                     $location.path('/delegated_admin');
                 }, function(reason){

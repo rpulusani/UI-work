@@ -1291,8 +1291,8 @@
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}} total users)",
-            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
+            "USERS": "Users ({{total}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",
             "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
