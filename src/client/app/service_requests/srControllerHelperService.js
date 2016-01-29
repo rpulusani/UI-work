@@ -47,6 +47,34 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
+            function goToAddressBillToPicker(source, pickerObject) {
+                if (pickerObject && scope.sr) {
+                    rootScope.addressReturnPath = $location.url();
+                    if (pickerObject.id) {
+                        rootScope.selectionId = pickerObject.id;
+                    }
+                    rootScope.returnPickerObjectAddressBillTo = pickerObject;
+                    rootScope.returnPickerSRObjectAddressBillTo = scope.sr;
+                    $location.path(halObj.route + '/pick_address_bill_to/' + source);
+                } else{
+                    throw 'Failed to route to pick an Bill To Address either pickerObject or sr object are empty';
+                }
+            }
+
+            function goToAddressShipToPicker(source, pickerObject) {
+                if (pickerObject && scope.sr) {
+                    rootScope.addressReturnPath = $location.url();
+                    if (pickerObject.id) {
+                        rootScope.selectionId = pickerObject.id;
+                    }
+                    rootScope.returnPickerObjectAddressShipTo = pickerObject;
+                    rootScope.returnPickerSRObjectAddressShipTo = scope.sr;
+                    $location.path(halObj.route + '/pick_address_ship_to/' + source);
+                } else{
+                    throw 'Failed to route to pick an Ship To Address either pickerObject or sr object are empty';
+                }
+            }
+
             function goToDevicePicker(source, pickerObject) {
                 if (pickerObject && scope.sr) {
                     rootScope.deviceReturnPath = $location.url();
@@ -140,6 +168,17 @@ define(['angular', 'serviceRequest'], function(angular) {
                 rootScope.selectedAddress = undefined;
             }
 
+            function resetAddressBillToPicker(){
+                rootScope.returnPickerObjectAddressBillTo = undefined;
+                rootScope.returnPickerSRObjectAddress = undefined;
+                rootScope.selectedBillToAddress = undefined;
+            }
+            function resetAddressShipToPicker(){
+                rootScope.returnPickerObjectAddressBillTo = undefined;
+                rootScope.returnPickerSRObjectAddress = undefined;
+                rootScope.selectedShipToAddress = undefined;
+            }
+
             function resetContactPicker(){
                 rootScope.returnPickerObject = undefined;
                 rootScope.returnPickerSRObject = undefined;
@@ -177,6 +216,10 @@ define(['angular', 'serviceRequest'], function(angular) {
                     scope.resetAddressPicker = resetAddressPicker;
                     scope.resetContactPicker = resetContactPicker;
                     scope.resetDevicePicker = resetDevicePicker;
+                    scope.resetAddressBillToPicker = resetAddressBillToPicker;
+                    scope.resetAddressShipToPicker = resetAddressShipToPicker;
+                    scope.goToAddressBillToPicker = goToAddressBillToPicker;
+                    scope.goToAddressShipToPicker = goToAddressShipToPicker;
                 }else{
                     throw 'scope was not passed in to addMethods';
                 }
