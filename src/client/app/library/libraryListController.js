@@ -1,8 +1,8 @@
 define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FilterSearchService', 'SecurityHelper',
-        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, FilterSearchService, SecurityHelper) {
+    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
+        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
 
@@ -22,6 +22,38 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             );
 
             filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTERS', 'libraryFilter', false);
+
+            $scope.getFileOwner = function(owner) {
+                return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
+            };
+
+            $scope.getFileIcon = function(extension) {
+                var icon = 'icon ';
+
+                switch (extension) {
+                    case 'pdf':
+                        icon += 'icon-mps-pdf_document';
+                        break;
+                    default:
+                        icon += '';
+                }
+
+                return icon;
+            };
+
+            $scope.getStrategicIcon = function(strategic) {
+                var icon = 'icon ';
+
+                if (strategic === true) {
+                    icon += 'icon-mps-strategic';
+                }
+
+                return icon;
+            };
+
+            $scope.getEditDeleteAction = function (owner) {
+                return (owner === $rootScope.idpUser.email ? true : false);
+            };
 
             $scope.goToNew = function() {
                 Documents.item = {};

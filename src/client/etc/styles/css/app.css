@@ -827,8 +827,8 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-error:before {
   content: "\e017";
 }
-.icon-psw-gear:before {
-  content: "\e030";
+.icon-psw-edit:before {
+  content: "\e055";
 }
 .icon-psw-disclosure_down_triangle:before {
   content: "\e04a";
