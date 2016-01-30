@@ -1,20 +1,36 @@
 <div class="row" ng-if="options && options.length > 1">
     <div class="col-lg-2-3 col-md-1-1">
-        <span translate=""></span>
-        <div selectric
-                    model="filterBy"
-                    options="options"
-                    value="display"
-                    label="display"
-                    on-select="selectedFilter(option)">
-        </div>
-        <div location-filter ng-if="currentFilterPanel == 'locationFilter'"
-            params="currentParams" filterDef="selectedOption.functionDef"></div>
-        <div chl-filter ng-if="currentFilterPanel == 'CHLFilter'"
-            params="currentParams" filter-def="currentFunctionDef"></div>
-        <div status-filter ng-if="currentFilterPanel == 'StatusFilter'"
-            params="currentParams" filter-def="currentFunctionDef"></div>
-        <div library-filter ng-if="currentFilterPanel == 'LibraryFilter'"
+		<span translate=""></span>
+		<div selectric
+		            model="filterBy"
+		            options="options"
+		            value="display"
+		            label="display"
+		            on-select="selectedFilter(option)">
+		</div>
+		<div location-filter ng-if="currentFilterPanel == 'LocationFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div chl-filter ng-if="currentFilterPanel == 'CHLFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div status-filter ng-if="currentFilterPanel == 'StatusFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div invited-status-filter ng-if="currentFilterPanel == 'InvitedStatusFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div role-filter ng-if="currentFilterPanel == 'RoleFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div date-range-filter ng-if="currentFilterPanel == 'DateRangeFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div bookmark-filter ng-if="currentFilterPanel == 'BookmarkFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div order-status-filter ng-if="currentFilterPanel == 'OrderStatusFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div request-status-filter ng-if="currentFilterPanel == 'RequestStatusFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div supply-order-type-filter ng-if="currentFilterPanel == 'SupplyOrderTypeFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div device-request-type-filter ng-if="currentFilterPanel == 'DeviceRequestTypeFilter'"
+		    params="currentParams" filter-def="currentFunctionDef"></div>
+		<div library-filter ng-if="currentFilterPanel == 'LibraryFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
     </div>
 </div>

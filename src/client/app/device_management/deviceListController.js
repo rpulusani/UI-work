@@ -69,9 +69,30 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
 
                 }
             );
-            //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');
-            //filterSearchService.addPanelFilter('Filter By Location', 'locationFilter');
-            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter');
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_LOCATION', 'LocationFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_BOOKMARK', 'BookmarkFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
 
         }
     ]);

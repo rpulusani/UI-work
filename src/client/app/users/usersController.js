@@ -22,11 +22,20 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'defaultSet');
             filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, false,
-                function(Grid) {
+                function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'StatusFilter');
+            filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'StatusFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
 
             $scope.view = function(user){
                 UserAdminstration.setItem(user);

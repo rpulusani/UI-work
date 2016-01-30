@@ -7,7 +7,7 @@ define(['angular', 'filterSearch'], function(angular) {
                 if(selectedList && $scope.filterDef && typeof $scope.filterDef === 'function'){
                     var chl = selectedList.join();
                     $scope.params['chlFilter'] = chl;
-                    $scope.filterDef($scope.params);
+                    $scope.filterDef($scope.params, ['bookmarkFilter', 'location']);
                 }
             };
         }

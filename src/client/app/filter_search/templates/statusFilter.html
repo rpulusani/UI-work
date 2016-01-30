@@ -1,12 +1,8 @@
-<div class="form__field form__field--select">
-    <div class="col-lg-1-5 col-md-1-5 col-sm-1-1 col-xs-1-1">
-        <div selectric class="search-menu"
-            model="status"
-            options="statuses"
-            value="type"
-            label="name"
-            placeholder="{{'LABEL.SELECT' | translate}}"
-        >
-        </div>
-    </div>
+<br/>
+<h4 translate="FILTERS.BROWSE_STATUS"></h4>
+ <div ng-repeat="tempstatus in statuses">
+    <input type="radio" id="tempstatus.type" name="status-select"
+    ng-model="$parent.status" value="{{tempstatus.type}}"/>
+    <label for="tempstatus.type"><span></span>
+        {{tempstatus.name}}</label>
 </div>

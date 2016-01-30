@@ -42,6 +42,18 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
+                function(Grid) {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_REQUESTS', 'MyOrderFilter', undefined,
+                function(Grid) {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
         }
     ]);
 });

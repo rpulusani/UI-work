@@ -1,3 +1,4 @@
+
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
