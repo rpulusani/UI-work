@@ -19,8 +19,6 @@ define(['angular', 'filterSearch'], function(angular) {
             });
 
             $scope.orderStatusFilter = function(orderStatus){
-                console.log('orderStatus', orderStatus);
-                //console.log('$scope.orderStatusCheck', $scope.orderStatusCheck.selected);
                 if (orderStatus.selected) {
                     $scope.selectedStatusList.push(orderStatus.name);
                 } else {
