@@ -15,6 +15,12 @@ define(['angular', 'order'], function(angular) {
             controller: 'DeviceOrderListController'
         };
     })
+    .directive('openOrderSummary', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/open-order-summary.html'
+        };
+    })
     .directive('supplyOrderTab', function(){
         return {
             restrict: 'A',
