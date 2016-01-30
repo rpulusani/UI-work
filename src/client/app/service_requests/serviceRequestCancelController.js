@@ -20,6 +20,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                 BlankCheck,
                 $translate) {
 
+                $rootScope.showCancelBtn = false;
+
                 SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
                 if(!ServiceRequest || !ServiceRequest.item){

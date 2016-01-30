@@ -111,6 +111,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 };
             }
 
+            $rootScope.showCancelBtn = true;
 
             $scope.goToServiceCancel = function(requestNumber){
                 $location.path('/service_requests/' + requestNumber + '/cancel');

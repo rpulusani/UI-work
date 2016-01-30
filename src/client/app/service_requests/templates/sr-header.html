@@ -9,7 +9,7 @@
 
     <p translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
     <button class="btn" ng-click="goToServiceCancel('1-121808433777')" translate="SERVICE_REQUEST.CANCEL_REQUEST"
-        ng-if="cancelServiceRequest && ($location.path === '/service_requests')"></button>
+        ng-if="cancelServiceRequest && showCancelBtn === true"></button>
 
     <a ng-if="configure.header.readMoreUrl"
         class="read-more"
