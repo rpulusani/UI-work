@@ -1,0 +1,8 @@
+<div class="col-1">
+<h2 translate="configure.translate.title"></h2>
+    <div status-bar configure="configure"></div>
+</div>
+<div class="col-1-3">
+    <div status-details configure="configure"></div>
+</div>
+

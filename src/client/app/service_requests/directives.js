@@ -7,6 +7,16 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/primary-request-contact.html'
         };
     })
+    .directive('openSr', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/open_sr.html',
+            controller: 'OpenServiceRequestController',
+            scope: {
+               configure: "="
+            }
+        };
+    })
     .directive('deviceSrTab', function(){
         return {
             restrict: 'A',

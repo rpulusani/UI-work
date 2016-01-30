@@ -1,0 +1,6 @@
+<h4 translate="{{configure.statusDetails.translate.title}}"></h4>
+<ul class="status-details">
+    <li ng-repeat="status in configure.statusList" ng-class="{'active': status.current}">
+        <span>{{status.label}}: </span><span ng-show="status.date">({{status.date}})</span>
+    </li>
+</ul>

@@ -8,6 +8,50 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal);
+
+
+            $scope.configure = {
+              translate: {
+                title: 'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_OPEN_SR',
+                action: 'DEVICE_MAN.DEVICE_SERVICE_HISTORY.LNK_VIEW_SERVICE_HISTORY'
+              },
+              actionLink: function(){
+                  console.log('Clicked Action Link!');
+              },
+              statusDetails:{
+                translate:{
+                  title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_REQUEST_STATUS'
+                }
+              },
+                statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true,
+                    'progress': 'active'
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false,
+                    'progress': ''
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false,
+                    'progress': ''
+                  }
+                ],
+                dateCheck: function(incommingDateStr){
+                  if(incommingDateStr && incommingDateStr.trim() !== ''){
+                    return true;
+                  }else{
+                    return false;
+                  }
+                }
+            };
+
             var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, ServiceRequest, personal);

@@ -21,6 +21,51 @@ define(['angular','deviceManagement'], function(angular) {
             FilterSearchService) {
 
 
+            $scope.configure = {
+                translate: {
+                    title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_RECENT_ORDER',
+                    action: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.LNK_VIEW_ALL_ORDERS'
+                },
+                actionLink: function(){
+                    console.log('Clicked Action Link!');
+                },
+                statusDetails:{
+                    translate:{
+                        title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS'
+                    }
+                },
+                statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true,
+                    'progress': 'active'
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false,
+                    'progress': 'active'
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false,
+                    'progress': ''
+                  }
+                ],
+                dateCheck: function(incommingDateStr){
+                    console.log(incommingDateStr);
+                  if(incommingDateStr && incommingDateStr.trim() !== ''){
+                    console.log(incommingDateStr + ' true');
+                    return true;
+                  }else{
+                    console.log(incommingDateStr + ' false');
+                    return false;
+                  }
+                }
+            };
+
             $scope.editable = true; //make order summary actionable
 
             $rootScope.currentRowList = [];

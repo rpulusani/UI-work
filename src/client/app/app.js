@@ -23,6 +23,7 @@ define([
     'serviceRequest.TabController',
     'serviceRequest.ActionButtonController',
     'serviceRequest.detailController',
+    'serviceRequest.openServiceRequestController',
     'order',
     'order.factory',
     'order.directives',

@@ -31,6 +31,18 @@ define(['angular', 'utility'], function(angular) {
             link:link
         };
     }])
+    .directive('statusBar', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/utilities/templates/status-bar.html',
+        };
+    })
+    .directive('statusDetails', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/utilities/templates/status-details.html',
+        };
+    })
     .directive('alertMessage', function() {
         return {
             restrict: 'A',
