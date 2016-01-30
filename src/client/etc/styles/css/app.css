@@ -799,6 +799,10 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
     border: 1px solid #0061de;
   }
 }
+.scrollable {
+  overflow-y: auto;
+  max-height: 160px;
+}
 .print-export {
   float: right;
   margin-top: 10px;

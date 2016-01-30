@@ -1,0 +1,15 @@
+<br/>
+<h4 translate="FILTERS.BROWSE_REQUEST_STATUS"></h4>
+<div class="well scrollable">
+    <div ng-repeat="status in requestStatuses">
+        <label for="status.name">
+            <input type="checkbox"
+                id="status.name"
+                name="status.name"
+                ng-model="status.selected"
+                ng-change="requestStatusFilter(status)"
+            />
+            {{status.name}}
+        </label>
+    </div>
+</div>

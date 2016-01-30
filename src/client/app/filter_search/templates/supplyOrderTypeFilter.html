@@ -1,0 +1,8 @@
+<br/>
+<h4 translate="FILTERS.BROWSE_SUPPLY_ORDER_TYPE"></h4>
+ <div ng-repeat="tempType in supplyOrderTypes">
+    <input type="radio" id="tempType" name="supply-type-select"
+    ng-model="$parent.supplyType" value="{{tempType}}"/>
+    <label for="tempType"><span></span>
+        {{tempType}}</label>
+</div>

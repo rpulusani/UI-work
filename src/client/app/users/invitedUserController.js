@@ -7,8 +7,18 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             UserAdminstration.setParamsToNull();
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'invitedSet');
-            filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'INVITED', 'embed': 'roles'}, false,
+            filterSearchService.addBasicFilter('USER.ALL_INVITED_USER', {'type': 'INVITED', 'embed': 'roles'}, false,
                 function(Grid) {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'InvitedStatusFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
+                function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );

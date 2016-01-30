@@ -18,7 +18,7 @@ define([
                 }
                 $scope.item.expanded = false;
                 $scope.item.showExpandIcon = true;
-                if ($scope.item.numberOfChildren && parseInt($scope.item.numberOfChildren) === 0) {
+                if ($scope.item.numberOfChildren !== undefined && parseInt($scope.item.numberOfChildren) === 0) {
                     $scope.item.showExpandIcon = false;
                 }
             }
@@ -30,8 +30,8 @@ define([
 
             $scope.$on('expanded', function(evt){
                 if ($scope.item.expanded === true) {
-                    $scope.item.items = [];
                     if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
+                        $scope.item.items = [];
                         Account.setItem($scope.item);
                         var options = {
                             updateParams: false,
@@ -151,14 +151,16 @@ define([
                 } else {
                     if (item.selected) {
                         $scope.selectedItems.push(item.accountId);
-                        if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                        if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location')
+                            && $scope.filterChl && typeof $scope.filterChl === 'function') {
                             $scope.filterChl($scope.selectedItems);
                         }
                         
                     } else {
                         if($scope.selectedItems.indexOf(item.accountId) !== -1) {
                             $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
-                            if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                            if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location')
+                            && $scope.filterChl && typeof $scope.filterChl === 'function') {
                                 $scope.filterChl($scope.selectedItems);
                             }
                         }

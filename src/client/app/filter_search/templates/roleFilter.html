@@ -1,0 +1,15 @@
+<br/>
+<h4 translate="FILTERS.BROWSE_ROLE"></h4>
+<div class="well scrollable">
+    <div ng-repeat="role in totalRoleList">
+        <label for="role.roleId">
+            <input type="checkbox"
+                id="role.roleId"
+                name="role.roleId"
+                ng-model="role.selected"
+                ng-change="roleFilter(role)"
+            />
+            {{role.description}}
+        </label>
+    </div>
+</div>

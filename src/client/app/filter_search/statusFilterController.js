@@ -11,7 +11,7 @@ define(['angular', 'filterSearch'], function(angular) {
             $scope.$watch('status', function(status) {
                 if (status) {
                     $scope.params['activeStatus'] = status;
-                    $scope.filterDef($scope.params);
+                    $scope.filterDef($scope.params, ['roles']);
                 }
             });
         }

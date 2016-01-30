@@ -118,7 +118,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 filter = {
                     display: displayText,
                     optionsPanel: optionsPanel,
-                    functionDef: function(params){
+                    functionDef: function(params, removeParams){
                         var options  = {
                             'params':{}
                         };
@@ -126,6 +126,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             angular.extend(options.params, configuredParams);
                         }
                         angular.extend(options.params, params);
+
+                        if (removeParams) {
+                            if (removeParams) {
+                                for(var i = 0; i < removeParams.length; ++i){
+                                    delete options.params[removeParams[i]];
+                                }
+                                self.clearParameters(removeParams);
+                            }
+                        }
 
                         var promise = self.service.getPage(0, self.service.params.size, options);
 

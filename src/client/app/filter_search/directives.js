@@ -12,6 +12,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'GridFilterController'
         };
     })
+    .directive('bookmarkFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                options: '=',
+                title: '@',
+                params: '=',
+                filterDef: '='
+            },
+            templateUrl: '/app/filter_search/templates/bookmarkFilter.html',
+            controller: 'BookmarkFilterController'
+        };
+    })
     .directive('locationFilter', function() {
         return {
             restrict: 'A',
@@ -22,6 +35,7 @@ define(['angular', 'filterSearch'], function(angular) {
                 filterDef: '='
             },
             templateUrl: '/app/filter_search/templates/locationFilter.html',
+            controller: 'LocationFilterController'
         };
     })
     .directive('chlFilter', function() {
@@ -48,6 +62,97 @@ define(['angular', 'filterSearch'], function(angular) {
             },
             templateUrl: '/app/filter_search/templates/statusFilter.html',
             controller: 'StatusFilterController'
+        };
+    })
+    .directive('orderStatusFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/orderStatusFilter.html',
+            controller: 'OrderStatusFilterController'
+        };
+    })
+    .directive('requestStatusFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/requestStatusFilter.html',
+            controller: 'RequestStatusFilterController'
+        };
+    })
+    .directive('supplyOrderTypeFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/supplyOrderTypeFilter.html',
+            controller: 'SupplyOrderTypeFilterController'
+        };
+    })
+    .directive('deviceRequestTypeFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/deviceRequestTypeFilter.html',
+            controller: 'DeviceRequestTypeFilterController'
+        };
+    })
+    .directive('invitedStatusFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/invitedStatusFilter.html',
+            controller: 'InvitedStatusFilterController'
+        };
+    })
+    .directive('roleFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/roleFilter.html',
+            controller: 'RoleFilterController'
+        };
+    })
+    .directive('dateRangeFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/dateRangeFilter.html',
+            controller: 'DateRangeFilterController'
         };
     })
     .directive('gridSearch', function() {
