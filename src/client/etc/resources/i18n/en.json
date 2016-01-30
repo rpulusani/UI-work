@@ -1231,7 +1231,8 @@
                 "BTN_MANAGE_TAGS" : "MANAGE TAGS",
                 "CTRL_GRID_CANCEL" : "Cancel",
                 "CTRL_GRID_DELETE" : "Delete document",
-                "TXT_ALL_DOCS" : "All documents ({{total}})",
+                "TXT_ALL_DOCS" : "All Documents",
+                "TXT_ALL_DOCS_CNT" : "All documents ({{total}})",
                 "TXT_FILTER_ACCOUNT" : "Accounts",
                 "TXT_FILTER_CATEGORY" : "Category",
                 "TXT_FILTER_CLEAR_SELECTIONS" : "Clear selections",
@@ -1251,6 +1252,11 @@
                 "TXT_SEARCH" : "Search"
             },
             "DOCUMENT_VIEW" : {
+                "TITLE_DISCARD_MODAL": "Are you sure you want to discard document changes?",
+                "BODY_DISCARD_MODAL": "The information you have entered will not be saved.",
+                "DISCARD_MODAL_CANCEL": "No, do not discard document changes",
+                "DISCARD_MODAL_CONFIRM": "Yes, discard document change",
+
                 "BTN_EDIT_DOCUMENT" : "UPDATE DOCUMENT INFORMATION",
                 "TXT_EXPIRES" : "Expires",
                 "TXT_NAME" : "Name",

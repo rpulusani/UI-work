@@ -1,19 +1,21 @@
 <div class="row" ng-if="options && options.length > 1">
     <div class="col-lg-2-3 col-md-1-1">
-		<span translate=""></span>
-		<div selectric
-		            model="filterBy"
-		            options="options"
-		            value="display"
-		            label="display"
-		            on-select="selectedFilter(option)">
-		</div>
-		<div location-filter ng-if="currentFilterPanel == 'locationFilter'"
-		    params="currentParams" filterDef="selectedOption.functionDef"></div>
-		<div chl-filter ng-if="currentFilterPanel == 'CHLFilter'"
-		    params="currentParams" filter-def="currentFunctionDef"></div>
-		<div status-filter ng-if="currentFilterPanel == 'StatusFilter'"
-		    params="currentParams" filter-def="currentFunctionDef"></div>
+        <span translate=""></span>
+        <div selectric
+                    model="filterBy"
+                    options="options"
+                    value="display"
+                    label="display"
+                    on-select="selectedFilter(option)">
+        </div>
+        <div location-filter ng-if="currentFilterPanel == 'locationFilter'"
+            params="currentParams" filterDef="selectedOption.functionDef"></div>
+        <div chl-filter ng-if="currentFilterPanel == 'CHLFilter'"
+            params="currentParams" filter-def="currentFunctionDef"></div>
+        <div status-filter ng-if="currentFilterPanel == 'StatusFilter'"
+            params="currentParams" filter-def="currentFunctionDef"></div>
+        <div library-filter ng-if="currentFilterPanel == 'LibraryFilter'"
+            params="currentParams" filter-def="currentFunctionDef"></div>
     </div>
 </div>
 

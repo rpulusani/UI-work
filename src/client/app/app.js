@@ -99,6 +99,7 @@ define([
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController',
+    'filterSearch.libraryFilterController',
     'filterSearch.statusFilterController',
     'filterSearch.filterSearchService',
     'security',
