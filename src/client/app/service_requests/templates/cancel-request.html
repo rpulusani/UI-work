@@ -1,0 +1,14 @@
+<div ng-if="configure.cancel">
+    <h2 translate="{{configure.cancel.information.translate.title}}"></h2>
+
+    <div class="col-lg-2-3 col-md-1-1">
+        <form class="form" data-form="" name="cancelDescription" novalidate>
+            <div class="form__field">
+                <label translate="{{configure.cancel.information.translate.label}}"></label>
+                <input name="description" type="text" class="" value="" ng-model="sr.cancellationDescription" />
+            </div>
+
+            <div sr-form-buttons></div>
+        </form>
+    </div>
+</div>

@@ -537,7 +537,13 @@
             "FILTER_BY_CHL": "Filter By CHL",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Service Request Number: {{srNumber}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "",
-            "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}"
+            "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}",
+            "CANCEL_REQUEST": "Cancel Request",
+            "CANCEL_REQUEST_FOR_SUBMITTED": "Cancel Request Number: {{srNumber}}",
+            "REQUEST_CANCELLATION_INFORMATION": "Request cancellation information",
+            "CANCELLATION_DESCRIPTION": "Cancellation description",
+            "ABANDON_REQUEST_CANCELLATION": "Abandon request cancellation",
+            "SUBMIT_REQUEST_CANCELLATION": "Submit request cancellation"
         },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -549,9 +555,9 @@
         "ADD_WHO": "Who would you like to add as a contact?",
         "CONTACT_INFO": "What is their contact information?",
         "UPDATE": "Update Contact",
-        "ABANDON_DELETE": "ABONDON DELETE CONTACT REQUEST",
-        "SUBMIT_DELETE": "SUBMIT DELETE CONTACT REQUEST",
-        "ABANDON_ADD": "ABONDON CONTACT CREATION",
+        "ABANDON_DELETE": "Abandon Delete Contact Request",
+        "SUBMIT_DELETE": "Submit Delete Contact Request",
+        "ABANDON_ADD": "Abandon Contact Creation",
         "SUBMIT": "CREATE CONTACT",
         "UPDATE_SUBMIT": "UPDATE CONTACT",
         "CANCEL": "DISCARD CHANGES TO CONTACT",

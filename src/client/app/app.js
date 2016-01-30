@@ -23,6 +23,7 @@ define([
     'serviceRequest.TabController',
     'serviceRequest.ActionButtonController',
     'serviceRequest.detailController',
+    'serviceRequest.cancelController',
     'order',
     'order.factory',
     'order.directives',
@@ -448,6 +449,17 @@ define([
                 permission:[
                     permissionSet.serviceRequestManagement.viewSuppliesOrder,
                     permissionSet.serviceRequestManagement.viewHardwareOrder
+                ]
+            },
+            {
+                name: 'cancelServiceRequest',
+                permission:[
+                    permissionSet.serviceRequestManagement.changeMADC,
+                    permissionSet.serviceRequestManagement.moveMADC,
+                    permissionSet.serviceRequestManagement.decommissionMADC,
+                    permissionSet.serviceRequestManagement.deinstallMADC,
+                    permissionSet.serviceRequestManagement.addressMADC,
+                    permissionSet.serviceRequestManagement.contactMADC
                 ]
             }
         ];

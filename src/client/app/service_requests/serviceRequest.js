@@ -28,6 +28,10 @@ define(['angular'], function(angular) {
         .when('/service_requests/review-test', {
             templateUrl: '/app/service_requests/templates/review.html',
             activeItem: '/service_requests'
+        })
+        .when('/service_requests/:id/cancel', {
+            templateUrl: '/app/service_requests/templates/review.html',
+            activeItem: '/service_requests'
         });
     }]);
 });

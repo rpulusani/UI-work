@@ -37,7 +37,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                $scope.device =  ServiceRequest.item.assetInfo;
             }
 
-
             $scope.configure = {
                 header: {
                     translate: {}
@@ -111,6 +110,12 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     }
                 };
             }
+
+
+            $scope.goToServiceCancel = function(requestNumber){
+                $location.path('/service_requests/' + requestNumber + '/cancel');
+            };
+
 
             $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
             switch($scope.sr.type){
