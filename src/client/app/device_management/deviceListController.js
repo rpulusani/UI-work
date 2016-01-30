@@ -33,7 +33,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
-
             $scope.goToCreate = function() {
                 Devices.item = {};
                 $location.path('/service_requests/devices/new');
@@ -64,7 +63,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
                     }, 500);
-                    
+
                     $scope.$broadcast('setupPrintAndExport', $scope);
 
                 }

@@ -1,0 +1,10 @@
+<div ng-if="configure && configure.order && configure.order.accountDetails && formattedAccountDetails" class="col-1-3">
+    <h2 translate="{{configure.order.accountDetails.translate.title}}"></h2>
+    <div class="row--alley-thick">
+        <div class="col-1-3">
+            <div class="well">
+                {{formattedAccountDetails}}
+            </div>
+        </div>
+    </div>
+</div>

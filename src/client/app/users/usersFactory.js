@@ -11,17 +11,17 @@ define(['angular', 'user'], function(angular) {
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [
-                            {'name': 'Status', 'field': 'activeStatus'},
-                            {'name': 'Creation date', 'field':'created'},
-                            {'name': 'User ID', 'field':'userId'},
-                            {'name': 'Name (Last, First)',
-                             'cellTemplate':'<div>' +
-                                            '{{row.entity.lastName}}, {{row.entity.firstName}}' +
-                                            '</div>'
-                            },
-                            {'name': 'Email', 'field': 'email'},
-                            {'name': 'Company account', 'field': '' },
-                            {'name': 'Roles', 'field': '' }
+                        {'name': 'Status', 'field': 'activeStatus'},
+                        {'name': 'Creation date', 'field':'created'},
+                        {'name': 'User ID', 'field':'userId'},
+                        {'name': 'Name (Last, First)',
+                         'cellTemplate':'<div>' +
+                                        '{{row.entity.lastName}}, {{row.entity.firstName}}' +
+                                        '</div>'
+                        },
+                        {'name': 'Email', 'field': 'email'},
+                        {'name': 'Company account', 'field': '' },
+                        {'name': 'Roles', 'field': '' }
                     ]
                 },
                 route: '/delegated_admin'

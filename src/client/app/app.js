@@ -33,7 +33,9 @@ define([
     'order.actionButtonController',
     'order.orderSupplyController',
     'order.orderItemsfactory',
+    'order.assetsPartsFactory',
     'order.orderContentsController',
+    'order.orderPurchaseController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -78,6 +80,8 @@ define([
     'utility.controller',
     'utility.contactPickerController',
     'utility.addressPickerController',
+    'utility.addressBillToPickerController',
+    'utility.addressShipToPickerController',
     'utility.devicePickerController',
     'utility.pageCountSelectController',
     'utility.pageCountSelectService',
@@ -96,6 +100,7 @@ define([
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController',
     'filterSearch.libraryFilterController',
+    'filterSearch.statusFilterController',
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
@@ -459,16 +464,10 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
-                promise.then(function(user){
-                    angular.extend($rootScope.currentUser, user);
-                    $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
-                }, function(reason){
-                    NREUM.noticeError('API User Information failed to load for app.js reason: ' + reason);
-                });
+            UserService.getLoggedInUserInfo();
         }, function(reason) {
-                NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
-                $rootScope.currentUser.deferred.reject(reason);
+            NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
+            $rootScope.currentUser.deferred.reject(reason);
         });
 
         /*

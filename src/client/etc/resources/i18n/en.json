@@ -196,7 +196,8 @@
             "TXT_ORDER_TAX": "Tax %",
             "TXT_ORDER_TOTAL": "Total",
             "TXT_RECENT_ORDER": "Most recent order",
-            "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order"
+            "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order",
+            "TXT_EMPTY_ORDER_SUMMARY": "Please add an item to this order from the catalog above."
         }
     },
 
@@ -216,18 +217,32 @@
             "TXT_ORDER_PO_DETAILS": "Purchase order details",
             "TXT_ORDER_PO_NUM": "Purchase order number:",
             "TXT_ORDER_REQ_DELIV_DATE": "Requested delivery date",
-            "TXT_ORDER_SUMMARY": "Order summary"
+            "TXT_ORDER_SUMMARY": "Order summary",
+            "TEXT_INCLUDED_IN_LEASE": "Included in Lease",
+            "TEXT_ACCOUNT_DETAILS": "Account details"
         },
 
         "ORDER_SELECT_BILL_TO_ADDR": {
             "BTN_ORDER_CHANGE_BILL_TO": "APPLY SELECTION",
             "BTN_ORDER_DISCARD_BILL_TO_CHANGE": "DISCARD BILL TO ADDRESS SELECTION",
             "CTRL_GRID_SELECT_ADDR": "Address name",
-            "TXT_GRID_ADDR_NAME": "Address",
+            "TXT_GRID_ADDR_NAME": "Selected Bill To Address",
             "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
             "TXT_ORDER_BILL_TO_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_NO_BILL_TO_SELECTED": "No bill to address selected",
             "TXT_ORDER_SELECT_BILL_TO": "Select bill to address",
+            "TXT_SEARCH": "Search",
+            "TXT_SELECT_ADDRESS": "Select address"
+        },
+        "ORDER_SELECT_SHIP_TO_ADDR": {
+            "BTN_ORDER_CHANGE_SHIP_TO": "APPLY SELECTION",
+            "BTN_ORDER_DISCARD_SHIP_TO_CHANGE": "DISCARD SHIP TO ADDRESS SELECTION",
+            "CTRL_GRID_SELECT_ADDR": "Address name",
+            "TXT_GRID_ADDR_NAME": "Selected Ship To Address",
+            "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
+            "TXT_ORDER_SHIP_TO_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_ORDER_NO_SHIP_TO_SELECTED": "No ship to address selected",
+            "TXT_ORDER_SELECT_SHIP_TO": "Select ship to address",
             "TXT_SEARCH": "Search",
             "TXT_SELECT_ADDRESS": "Select address"
         },
@@ -247,9 +262,10 @@
             "TXT_ORDER_CHANGE_CONTACT": "Change contact for this order",
             "TXT_ORDER_DELIVERY_NOTE": "Note: These instructions show on the shipping label.",
             "TXT_ORDER_DETAILS": "Order details",
-            "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for",
+            "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for {{ productModel }}",
             "TXT_ORDER_REVIEW_SUPPLIES_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_SELECT_BILL_TO_FOR": "Please select a bill to address for this order >",
+            "TXT_ORDER_SELECT_SHIP_TO_FOR": "Please select a ship to address for this order >",
             "TXT_ORDER_SHIPPING_BILLING": "Shipping and Billing",
             "TXT_ORDER_SUBTOTAL": "Subtotal",
             "TXT_ORDER_SUPPLY_TYPE": "type",
@@ -267,7 +283,7 @@
             "TXT_ORDER_CONTACT": "Contact for this order",
             "TXT_ORDER_DELIVERED": "Delivered:",
             "TXT_ORDER_DELIVERY_EXPEDITE": "Expedite",
-            "TXT_ORDER_DETAIL_SUPPLIES": "Details for supplies order number:",
+            "TXT_ORDER_DETAIL_SUPPLIES": "Details for supplies order number: {{srNumber}}",
             "TXT_ORDER_IN_PROCESS": "In Process:",
             "TXT_ORDER_NUMBER": "Order number",
             "TXT_ORDER_SHIPPED": "Shipped:",
@@ -275,7 +291,7 @@
             "TXT_ORDER_STATUS": "Status",
             "TXT_ORDER_SUBMITTED": "Submitted:",
             "TXT_ORDER_SUBMITTED_PAR": "Your supplies order {{order}} has been submitted.",
-            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for"
+            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}"
         }
     },
 
@@ -1299,8 +1315,8 @@
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}} total users)",
-            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
+            "USERS": "Users ({{total}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",
             "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
@@ -1320,7 +1336,7 @@
             "PERM": "Permissions",
             "ABANDON": "ABANDON USER CREATION",
             "CREATE": "CREATE USER",
-            "MANAGE": "Managing {{user_name}}",
+            "MANAGE": "Manage {{user_name}}",
             "DEACTIVATE": "DEACTIVATE USER",
             "DELETE_CHANGES": "DISCARD USER CHANGES",
             "UPDATE": "UPDATE USER",
@@ -1333,7 +1349,8 @@
             "USER_PROFILE": "User profile",
             "ACCOUNT_ACCESS": "Account access",
             "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
-            "UPDATE_USER": "UPDATE USER"
+            "UPDATE_USER": "UPDATE USER",
+            "FILTER_BY_STATUS": "Filter By Status"
         },
 
         "ROLE": {

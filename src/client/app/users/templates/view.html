@@ -4,7 +4,15 @@
     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
     <div alert-message title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
          cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
-         return-path="/delegated_admin"></div>
+         return-path="/delegated_admin"></div><br/>
+    <div ng-show="saved" class="alert">
+        <span translate="USER.USER_CREATED_MSG"></span>
+        <a href="" translate="USER.MANAGE"  translate-values="{user_name: fullName}" ng-click="view(user)"></a>
+    </div>
+
+    <div ng-show="invited" class="alert">
+        <span translate="USER.USER_INVITED_MSG"></span>
+    </div>
 
     <div class="btns">
         <button type="button" class="btn btn--default" ng-click="goToCreateUser()" translate="USER.CREATE_USER"></button>

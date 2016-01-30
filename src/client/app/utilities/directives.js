@@ -96,6 +96,26 @@ define(['angular', 'utility'], function(angular) {
             controller: 'AddressPickerController'
         };
     })
+    .directive('pickBillToAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                selectedAddressTitle: '@',
+            },
+            templateUrl: '/app/utilities/templates/pick-bill-to-address.html',
+            controller: 'AddressBillToPickerController'
+        };
+    })
+    .directive('pickShipToAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                selectedAddressTitle: '@',
+            },
+            templateUrl: '/app/utilities/templates/pick-ship-to-address.html',
+            controller: 'AddressShipToPickerController'
+        };
+    })
     .directive('pickDevice', function(){
          return {
             restrict: 'A',
@@ -148,10 +168,20 @@ define(['angular', 'utility'], function(angular) {
             templateUrl: '/app/utilities/templates/pages.html',
         };
     })
-    .directive('pagination', function(){
+    .directive('pagination',['$timeout', function($timeout){
+        var link = function(scope, element, attrs, controllers){
+            $timeout(function(){
+                if(scope.optionsName){
+                    scope.grid = scope[scope.optionsName];
+                }else{
+                    scope.grid = scope['gridOptions'];
+                }
+            },0);
+        };
         return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pagination.html',
+            link: link
         };
-    });
+    }]);
 });

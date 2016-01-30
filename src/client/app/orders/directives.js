@@ -22,15 +22,40 @@ define(['angular', 'order'], function(angular) {
             controller: 'SupplyOrderListController'
         };
     })
+    .directive('catalog', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/catalog.html'
+        };
+    })
+    .directive('orderShipToBillToDetails', function(){
+        return{
+            restrict: 'A',
+            templateUrl: '/app/orders/templates/ship-to-bill-to.html'
+        };
+    })
+    .directive('orderAccountDetails', function(){
+        return{
+            restrict: 'A',
+            templateUrl: '/app/orders/templates/account-details.html'
+        };
+    })
+    .directive('orderPoNumber', function(){
+        return{
+            restrict: 'A',
+            templateUrl: '/app/orders/templates/po-number.html'
+        };
+    })
     .directive('orderContent', function(){
         return {
             restrict: 'A',
             templateUrl: '/app/orders/templates/order-contents.html',
             scope:{
                 columnDef: '=',
-                editable:"=",
+                editable:"@",
                 submitAction:"=",
-                datasource:"="
+                datasource:"=",
+                configure: "="
             },
             controller: 'OrderContentsController'
         };

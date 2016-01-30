@@ -16,7 +16,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
                                 'ng-bind="row.entity.getFullname()"></a></div>'
                         },
-                        {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()'},
+                        {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()', searchOn: 'workPhone'},
                         {name: $translate.instant('CONTACT.EMAIL'), field: 'email'},
                         {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
                         {name: $translate.instant('LABEL.COST_CENTER'), field:'costCenter', visible: false},
