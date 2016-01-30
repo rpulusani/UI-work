@@ -24,10 +24,12 @@ define(['angular','deviceManagement'], function(angular) {
             $scope.configure = {
                 translate: {
                     title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_RECENT_ORDER',
-                    action: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.LNK_VIEW_ALL_ORDERS'
+                    action: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.LNK_VIEW_ALL_ORDERS',
+                    subTitle: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_NUMBER'
                 },
                 actionLink: function(){
-                    console.log('Clicked Action Link!');
+                    $location.hash('orders-history');
+                    $anchorScroll();
                 },
                 statusDetails:{
                     translate:{

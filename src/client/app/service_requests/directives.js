@@ -17,6 +17,12 @@ define(['angular', 'serviceRequest'], function(angular) {
             }
         };
     })
+    .directive('openBreakFixSummary', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/open-service-history-summary.html'
+        };
+    })
     .directive('deviceSrTab', function(){
         return {
             restrict: 'A',
