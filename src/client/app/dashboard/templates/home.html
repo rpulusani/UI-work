@@ -22,11 +22,11 @@
                         <h4 class="text--thick" translate="DASHBOARD.ROLLUP_REQUESTS_TITLE"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests" ng-if="serviceRequestBreakFixAccess"><h1 class="blue text--bold">30 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
+                        <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess"><h1 class="blue text--bold">30 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
                         <h1 class="blue text--bold" ng-if="!serviceRequestBreakFixAccess">30 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests" ng-if="serviceRequestBreakFixAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
+                        <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
                         <p ng-if="!serviceRequestBreakFixAccess"><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p>
                     </div>
                 </div>
@@ -52,11 +52,11 @@
                         <h4 class="text--thick" translate="DASHBOARD.ROLLUP_MADC_TITLE"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests" ng-if="serviceRequestMADCAccess"><h1 class="blue text--bold">3 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess"><h1 class="blue text--bold">3 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
                         <h1 class="blue text--bold" ng-if="!serviceRequestMADCAccess">3 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests" ng-if="serviceRequestMADCAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
                         <p ng-if="!serviceRequestMADCAccess"><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p>
                     </div>
                 </div>

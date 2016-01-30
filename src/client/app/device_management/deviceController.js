@@ -5,22 +5,30 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory'], functi
         '$location',
         'Devices',
         'SecurityHelper',
+        '$routeParams',
+        '$rootScope',
         function($scope,
             $location,
             Device,
-            SecurityHelper
+            SecurityHelper,
+            $routeParams,
+            $rootScope
             ) {
 
-            $scope.goToReview = function(device) {
-                $location.path('/device_management/' + device.id + '/review');
-            };
-            $scope.currentTab = "deviceInfoTab";
             $scope.isActive = function(tabId){
-               return tabId === $scope.currentTab;
+               return tabId === $rootScope.currentDeviceTab;
             };
             $scope.onClickTb = function(tab){
-                $scope.currentTab = tab;
+                $rootScope.currentDeviceTab = tab;
+                $location.search('tab', tab);
             };
+            var tabId = $location.search().tab;
+            if(tabId){
+                $rootScope.currentDeviceTab = tabId;
+                $scope.isActive(tabId);
+            }else{
+                $scope.isActive('deviceInfoTab');
+            }
         }
     ]);
 });
