@@ -19,75 +19,96 @@ define(['angular','deviceManagement'], function(angular) {
             GridService,
             Personalize,
             FilterSearchService) {
+            Orders.setParamsToNull();
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+            function setupConfiguration(){
+                $scope.configure = {
+                    translate: {
+                        title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_RECENT_ORDER',
+                        action: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.LNK_VIEW_ALL_ORDERS',
+                        subTitle: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_NUMBER'
+                    },
+                    actionLink: function(){
+                        $location.hash('orders-history');
+                        $anchorScroll();
+                    },
+                    statusDetails:{
+                        translate:{
+                            title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS'
+                        }
+                    },
+                    orderHistorySr:{
+                        translate:{
+                            title:'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_RECENT_ORDER_CONTENTS'
+                        }
+                    },
+                    sr: $scope.openOrder,
+                    itemUrl: function(){
+                         $scope.view($scope.openOrder);
+                    },
+                    statusList:[
+                      {
+                        'label':'Submitted',
+                        'date': '1/29/2016',
+                        'current': true
+                      },
+                      {
+                        'label':'In progress',
+                        'date': '',
+                        'current': false
+                      },
+                      {
+                        'label':'Completed',
+                        'date': '',
+                        'current': false
+                      }
+                    ]
+                };
+            }
 
-
-            $scope.configure = {
-                translate: {
-                    title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_RECENT_ORDER',
-                    action: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.LNK_VIEW_ALL_ORDERS',
-                    subTitle: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_NUMBER'
-                },
-                actionLink: function(){
-                    $location.hash('orders-history');
-                    $anchorScroll();
-                },
-                statusDetails:{
-                    translate:{
-                        title: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS'
-                    }
-                },
-                statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true,
-                    'progress': 'active'
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false,
-                    'progress': 'active'
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false,
-                    'progress': ''
-                  }
-                ],
-                dateCheck: function(incommingDateStr){
-                    console.log(incommingDateStr);
-                  if(incommingDateStr && incommingDateStr.trim() !== ''){
-                    console.log(incommingDateStr + ' true');
-                    return true;
-                  }else{
-                    console.log(incommingDateStr + ' false');
-                    return false;
-                  }
+            var options  = {
+                'params':{
+                  'type': 'SUPPLIES_ORDERS_ALL',
+                  'assetId':Devices.item.id
                 }
-            };
-
+          };
+          Orders.getPage(0, 1, options).then(function() {
+              if(Orders.data && Orders.data.length === 1 ){
+                $scope.openOrder = angular.copy(Orders.data[0]);
+                setupConfiguration();
+              }
+          });
             $scope.editable = true; //make order summary actionable
 
-            $rootScope.currentRowList = [];
-            Orders.setParamsToNull();
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal, 'singleAssetOrderSet');
+            function setupOrderGrid(){
+                var Grid = new GridService();
+                Orders.data = [];
+                Orders.setParamsToNull();
+                Orders.params.size = 20;
+                var filterSearchService = new FilterSearchService(Orders, $scope, $rootScope,
+                    personal, 'singleAssetOrderSet', null, 'gridOrdersOptions');
 
+
+                if(Devices.item){
+                    var params =  {
+                        type: 'SUPPLIES_ORDERS_ALL',
+                        assetId: Devices.item.id
+                    };
+                    $scope.gridOrdersOptions.showBookmarkColumn = false;
+                    filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params);
+                }
+            }
             $scope.view = function(SR){
                 Orders.setItem(SR);
                 var options = {
                     params:{
                     }
                 };
-            };
-            if(Devices.item){
-                filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', {
-                        type: 'SUPPLIES_ORDERS_ALL',
-                        assetId: Devices.item.id
+                Orders.item.get(options).then(function(){
+                    $location.path(Orders.route + '/purchase/receipt');
                 });
-            }
+            };
+            setupOrderGrid();
         }
     ]);
 });

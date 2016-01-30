@@ -24,7 +24,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     if (pickerObject.id) {
                         rootScope.selectionId = pickerObject.id;
                     }
-                    rootScope.contactReturnPath = $location.url();
+                    rootScope.contactReturnPath = $location.path();
                     rootScope.returnPickerObject = pickerObject;
                     rootScope.returnPickerSRObject = scope.sr;
                     $location.path(halObj.route + '/pick_contact/' + source);
@@ -35,7 +35,7 @@ define(['angular', 'serviceRequest'], function(angular) {
 
             function goToAddressPicker(source, pickerObject) {
                 if (pickerObject && scope.sr) {
-                    rootScope.addressReturnPath = $location.url();
+                    rootScope.addressReturnPath = $location.path();
                     if (pickerObject.id) {
                         rootScope.selectionId = pickerObject.id;
                     }
@@ -49,7 +49,7 @@ define(['angular', 'serviceRequest'], function(angular) {
 
             function goToAddressBillToPicker(source, pickerObject) {
                 if (pickerObject && scope.sr) {
-                    rootScope.addressReturnPath = $location.url();
+                    rootScope.addressReturnPath = $location.path();
                     if (pickerObject.id) {
                         rootScope.selectionId = pickerObject.id;
                     }
@@ -63,7 +63,7 @@ define(['angular', 'serviceRequest'], function(angular) {
 
             function goToAddressShipToPicker(source, pickerObject) {
                 if (pickerObject && scope.sr) {
-                    rootScope.addressReturnPath = $location.url();
+                    rootScope.addressReturnPath = $location.path();
                     if (pickerObject.id) {
                         rootScope.selectionId = pickerObject.id;
                     }
