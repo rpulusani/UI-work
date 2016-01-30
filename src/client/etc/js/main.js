@@ -270,8 +270,8 @@ requirejs.config({
 
         'order': 'app/orders/order',
         'order.factory': 'app/orders/ordersFactory',
-        'order.orderTypefactory': 'app/orders/orderTypefactory',
-        'order.orderStatusfactory': 'app/orders/orderStatusfactory',
+        'order.orderTypeFactory': 'app/orders/orderTypeFactory',
+        'order.orderStatusFactory': 'app/orders/orderStatusFactory',
         'order.orderItemsfactory': 'app/orders/orderItemsFactory',
         'order.assetsPartsFactory': 'app/orders/assetPartsFactory',
         'order.directives': 'app/orders/directives',
