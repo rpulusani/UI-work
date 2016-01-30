@@ -1,0 +1,23 @@
+<div class="vertical-margin-48" ng-if="configure">
+    <div class="col-1 ">
+        <h2 translate="{{configure.translate.title}}" class="vertical-margin-bottom-0"></h2>
+        <hr class="vertical-margin-bottom-0"/>
+        <a href="" ng-click="actionLink(configure.actionLink);" translate="{{configure.translate.action}}"
+            ng-if="configure.translate.action"></a>
+        <h3 translate="{{configure.translate.subTitle}}" class="vertical-margin-top-48 vertical-margin-bottom-0"></h3>
+        <div class="col-1 vertical-margin-bottom-12">
+            <a ng-click="configure.itemUrl()" href="">{{configure.sr.requestNumber}}</a>
+        </div>
+        <div class="vertical-margin-bottom-48 col-1-2" status-bar configure=""></div>
+    </div>
+    <div class="row">
+        <div class="col-1-3">
+            <div status-details configure=""></div>
+        </div>
+        <div class="col-2-3">
+            <div open-order></div>
+            <div open-break-fix-summary></div>
+        </div>
+    </div>
+</div>
+

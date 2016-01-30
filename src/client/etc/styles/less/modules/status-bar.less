@@ -1,0 +1,61 @@
+/* Styles go here */
+
+.status-bar{
+  margin-top:12px;
+  width:100%;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.status-bar-circle{
+    position:relative;
+    background:@grey2;
+    height:24px;
+    width:24px;
+    -moz-border-radius:24px;
+    -webkit-border-radius:24px;
+    padding:2px;
+
+    text-align:center;
+    color:@white;
+    font-weight:bold;
+    margin-left:auto;
+    margin-right:auto;
+    z-index:2;
+    top:-16px;
+
+    span{
+      display: block;
+      margin-top: -1px;
+      color: @grey5;
+      margin-left:1px;
+      margin-right:auto;
+    }
+
+}
+
+.status-bar-bar-section{
+    float:left;
+
+    hr{
+      height:6px;
+      background:@grey2;
+      border:none;
+      z-index:1;
+      margin: 0px;
+      padding: 0px;
+  }
+}
+
+.status-state{
+  margin-top:-6px;
+  text-align:center;
+}
+
+.active{
+  .status-bar-circle, hr{
+    background:@green3;
+  }
+  span{
+    color:@white;
+  }
+}

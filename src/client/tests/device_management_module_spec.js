@@ -169,14 +169,6 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest', '
                 });
             }));
 
-            describe('goToReview', function() {
-                it('should navigate to device review page', function() {
-                    spyOn(location, 'path').and.returnValue('/');
-                    var device = {id: '12345'};
-                    scope.goToReview(device);
-                    expect(location.path).toHaveBeenCalledWith('/device_management/12345/review');
-                });
-            });
         });
 
         describe('DeviceInformationController', function() {

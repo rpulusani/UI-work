@@ -1001,6 +1001,65 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
   margin-left: 48px;
   margin-top: 12px;
 }
+/* Styles go here */
+.status-bar {
+  margin-top: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.status-bar-circle {
+  position: relative;
+  background: #e6e6f0;
+  height: 24px;
+  width: 24px;
+  -moz-border-radius: 24px;
+  -webkit-border-radius: 24px;
+  padding: 2px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
+  top: -16px;
+}
+.status-bar-circle span {
+  display: block;
+  margin-top: -1px;
+  color: #7e7e85;
+  margin-left: 1px;
+  margin-right: auto;
+}
+.status-bar-bar-section {
+  float: left;
+}
+.status-bar-bar-section hr {
+  height: 6px;
+  background: #e6e6f0;
+  border: none;
+  z-index: 1;
+  margin: 0px;
+  padding: 0px;
+}
+.status-state {
+  margin-top: -6px;
+  text-align: center;
+}
+.active .status-bar-circle,
+.active hr {
+  background: #00ad21;
+}
+.active span {
+  color: #ffffff;
+}
+.status-details .active span {
+  color: #006446;
+}
+ul.status-details {
+  list-style-type: none;
+  margin-left: 0px;
+}
 .theme--dark {
   background: #44434e;
 }
@@ -1017,6 +1076,10 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 }
 .theme--dark h2.heading {
   color: #7e7e85;
+}
+.theme--dark h4 {
+  font-weight: 500;
+  margin-bottom: 12px;
 }
 .theme--dark hr.thick {
   border-width: 2px;
@@ -1086,6 +1149,26 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
   background: #1d1d25;
   border-color: #1d1d25;
 }
+.vertical-margin-top-0 {
+  margin-top: 0px !important;
+}
+.vertical-margin-bottom-0 {
+  margin-bottom: 0px !important;
+}
+.vertical-margin-0 {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+.vertical-margin-top-12 {
+  margin-top: 12px !important;
+}
+.vertical-margin-bottom-12 {
+  margin-bottom: 12px !important;
+}
+.vertical-margin-12 {
+  margin-bottom: 12px !important;
+  margin-top: 12px !important;
+}
 .vertical-margin-top-24 {
   margin-top: 24px !important;
 }
@@ -1095,6 +1178,16 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .vertical-margin-24 {
   margin-bottom: 24px !important;
   margin-top: 24px !important;
+}
+.vertical-margin-top-48 {
+  margin-top: 48px !important;
+}
+.vertical-margin-bottom-48 {
+  margin-bottom: 48px !important;
+}
+.vertical-margin-48 {
+  margin-bottom: 48px !important;
+  margin-top: 48px !important;
 }
 .horizontal-margin-left-0 {
   margin-left: 0px !important;

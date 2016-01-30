@@ -1,35 +1,51 @@
 <div class="set" data-js="set">
-    <div class="set__trigger" data-toggle="serviceRequestsAllTab" ng-click="active('serviceRequestsAllTab')">
+    <div class="set__trigger" data-toggle="serviceRequestsAllTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsAllTab')}"
+        ng-click="active('serviceRequestsAllTab')">
         <a href="#serviceRequestsAllTab" translate="REQUEST_MGMT.ALL_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsAllTab">
+    <div class="set__content" id="serviceRequestsAllTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsAllTab')}">
         <span all-sr-tab ng-if="isActive('serviceRequestsAllTab')"></span>
     </div>
 
-    <div class="set__trigger" data-toggle="serviceRequestsDeviceTab" ng-click="active('serviceRequestsDeviceTab')">
+    <div class="set__trigger" data-toggle="serviceRequestsDeviceTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsDeviceTab')}"
+        ng-click="active('serviceRequestsDeviceTab')">
         <a href="#serviceRequestsDeviceTab" translate="REQUEST_MGMT.DEVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsDeviceTab" >
+    <div class="set__content" id="serviceRequestsDeviceTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsDeviceTab')}" >
         <span device-sr-tab ng-if="isActive('serviceRequestsDeviceTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="serviceRequestsServiceTab" ng-click="active('serviceRequestsServiceTab')">
+
+    <div class="set__trigger" data-toggle="serviceRequestsServiceTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsServiceTab')}"
+        ng-click="active('serviceRequestsServiceTab')">
         <a href="#serviceRequestsServiceTab" translate="REQUEST_MGMT.SERVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsServiceTab">
+    <div class="set__content" id="serviceRequestsServiceTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsServiceTab')}">
         <span  break-fix-sr-tab ng-if="isActive('serviceRequestsServiceTab')"></span>
     </div>
 
-    <div class="set__trigger" data-toggle="serviceRequestsAddressTab" ng-click="active('serviceRequestsAddressTab')">
+    <div class="set__trigger" data-toggle="serviceRequestsAddressTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsAddressTab')}"
+        ng-click="active('serviceRequestsAddressTab')">
         <a href="#serviceRequestsAddressTab" translate="REQUEST_MGMT.ADDRESS_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsAddressTab">
+    <div class="set__content" id="serviceRequestsAddressTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsAddressTab')}">
         <span  address-sr-tab ng-if="isActive('serviceRequestsAddressTab')"></span>
     </div>
 
-    <div class="set__trigger" data-toggle="serviceRequestsContactTab" ng-click="active('serviceRequestsContactTab')">
+    <div class="set__trigger" data-toggle="serviceRequestsContactTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsContactTab')}"
+        ng-click="active('serviceRequestsContactTab')">
         <a href="#serviceRequestsContactTab" translate="REQUEST_MGMT.CONTACT_REQUESTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="serviceRequestsContactTab">
+    <div class="set__content" id="serviceRequestsContactTab"
+        ng-class="{'set--is-active':isActive('serviceRequestsContactTab')}">
         <span  contact-sr-tab ng-if="isActive('serviceRequestsContactTab')"></span>
     </div>
 </div>

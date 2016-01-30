@@ -69,8 +69,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                         columnList[i].searchOn = columnList[i].field;
                     }
 
-                    visibleColumns.push({ 
-                        name: columnList[i]['name'], 
+                    visibleColumns.push({
+                        name: columnList[i]['name'],
                         field: columnList[i]['field'],
                         searchOn: columnList[i].searchOn
                     });
@@ -212,6 +212,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     enableColumnMenu: false,
                     headerCellClass:'bookmark-header',
                     cellClass: 'bookmark',
+                    notSearchable: true,
                     exporterSuppressExport: true
                 });
             }
