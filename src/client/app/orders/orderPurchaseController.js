@@ -109,7 +109,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     });
 
                     deferred.then(function(result){
-                        $location.path(Orders.route + '/' + $scope.device.id + '/receipt');
+                        $location.path(Orders.route + '/purchase/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
@@ -118,16 +118,19 @@ define(['angular','order', 'utility.grid'], function(angular) {
             }
 
             function configureReceiptTemplate(){
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
+                $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
+                $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                $scope.configure.header.readMoreUrl = Devices.route;
                 $scope.configure.header.translate.bodyValues= {
-                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                    'order': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
                     'deviceManagementUrl': 'device_management/',
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
+                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };

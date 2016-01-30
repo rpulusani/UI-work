@@ -67,7 +67,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                     self.url = api.url;
                     url = self.url + '/' + loginId;
-                    
+
 
                     $http.get(url).then(function(processedResponse) {
                         var user = self.createItem(processedResponse.data);
@@ -389,7 +389,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (!url) {
                     HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                        return fn(api.url)
+                        return fn(api.url);
                     });
                 } else {
                     return fn(url);
@@ -474,7 +474,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 if (!halObj && self.item) {
                     halObj = self.item;
                 } else if (halObj.item) {
-                    halObj = halObj.item
+                    halObj = halObj.item;
                 }
 
                 if (optionsObj) {
@@ -745,7 +745,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }
-                    
+
                     if (!options.url) {
                         self.url = self.setupUrl(self.url);
                         options.url = self.buildUrl(self.url, options.params);

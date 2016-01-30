@@ -54,6 +54,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                 };
 
                 Devices.item.get(options).then(function(){
+                    $location.search('tab', 'deviceInfoTab');
                     $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };

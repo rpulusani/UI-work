@@ -1,14 +1,13 @@
+<div open-sr configure="configure"></div>
 
 <div supplies-accessory-order></div>
-<h2 class="vertical-space--none" translate="ORDER_MGT.ORDERS_FOR_DEVICE"></h2>
 
-<hr />
-<span class="text--thick" translate="ORDER_MGT.ORDER_SEARCH"></span>
-<div class="row l-pad-bottom">
-    <div class="col-lg-2-3 col-md-1-1">
-        <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
-    </div>
-</div>
-<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-<div pagination grid="{{gridOptions}}"></div>
+<h2 id="orders-history" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+    class="vertical-space--none" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_DEVICE_ORDER_HISTORY"></h2>
 
+<hr ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"/>
+<div ng-show="gridOrdersOptions.data && gridOrdersOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
+<div ng-show="gridOrdersOptions.data && gridOrdersOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
+<div ng-show="gridOrdersOptions.data.length > 0" ui-grid="gridOrdersOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+<span ng-if="!gridOrdersOptions.data || gridOrdersOptions.data.length === 0" translate="LABEL.ZERO_RECORDS"></span>
+<div pagination grid="{{gridOrdersOptions}}"></div>

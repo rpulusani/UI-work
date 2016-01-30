@@ -28,18 +28,20 @@
 
 <div class="form__field vertical-space--thick">
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION"></label>
-    <input name="description" type="text" ng-model="documentItem.description" value=""  />
+    <input name="description" type="text" ng-model="documentItem.description" value="" />
 </div>
 
 <h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGING"></h4>
 <div class="form__field vertical-space--thick">
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS"></label>
-    <input name="tags2" type="text" ng-list ng-model="documentItem.tags2" value=""  />
+    <!--<input name="tags2" type="text" ng-list ng-model="documentItem.tags2" value=""  />-->
 </div>
 
 <div class="form__field vertical-space--thick">
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_ADD_TAGS"></label>
-    <input name="tags" type="text" ng-list ng-model="documentItem.tags" value=""  />
+        <input name="tags" type="text" ng-list ng-model="documentItem.tags" value="" />
+        <button name="addTags" class="btn btn--primary" translate="DOCUMENT_LIBRARY.COMMON.BTN_ADD_TAG"
+            ng-click="addTags();"></button>
 </div>
 
 <h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISHING"></h4>

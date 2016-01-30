@@ -33,7 +33,7 @@
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_TAGS"></div>
-                    <div class="info-list__item-value" ng-bind="documentItem.tagNames"></div>
+                    <div class="info-list__item-value" ng-bind="getTagNames(documentItem.tagNames)"></div>
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_SIZE"></div>
@@ -41,15 +41,15 @@
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_PUBLISHED"></div>
-                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.published)"></div>
+                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.publishDate)"></div>
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_EXPIRES"></div>
-                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.expires)"></div>
+                    <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.endDate)"></div>
                 </li>
                 <li class="info-list__item">
                     <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_OWNER"></div>
-                    <div class="info-list__item-value" ng-bind="getOwner(documentItem.owner)"></div>
+                    <div class="info-list__item-value" ng-bind="getFileOwner(documentItem.owner)"></div>
                 </li>
             </ul>
 
