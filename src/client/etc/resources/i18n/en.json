@@ -862,7 +862,8 @@
             "FILTER_MY_ORDERS": "Filter by my orders",
             "FILTER_MY_REQUESTS": "Filter by my requests",
             "BROWSE_SUPPLY_ORDER_TYPE": "Browse by supply order types",
-            "BROWSE_DEVICE_REQUEST_TYPE": "Browse by device request types"
+            "BROWSE_DEVICE_REQUEST_TYPE": "Browse by device request types",
+            "FIND_BY_ACCOUNT": "Find by account"
         },
 
         "ORDER_MGT": {
