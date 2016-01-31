@@ -21,11 +21,20 @@ define(['angular', 'utility.grid'], function(angular) {
             }
 
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
+
+
+
                 if($scope.title && attrs.titleCount !== false) {
                     $scope.titleValues = {
                         total: ctrlScope.pagination.totalItems()
                     };
                 }
+
+                ctrlScope.$watch('pagination', function(page) {
+                   $scope.titleValues = {
+                        total: page.totalItems()
+                    };
+                });
 
                 $scope.printGrid = function() {
                     ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
