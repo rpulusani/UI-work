@@ -5,6 +5,7 @@ define(['angular', 'utility.grid'], function(angular) {
         function($scope, element, attrs, $translate, uiGridExporterConstants) {
             $scope.title = attrs.title;
             
+
             $scope.displayPrint = true;
             $scope.displayExport = true;
 
@@ -17,7 +18,12 @@ define(['angular', 'utility.grid'], function(angular) {
             }
 
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-                $scope.itemtotal = ctrlScope.pagination.totalItems();
+                if(!$scope.titleValues){
+                    $scope.titleValues = {
+                        total: ctrlScope.pagination.totalItems()
+                    };
+                }
+
 
                 $scope.printGrid = function() {
                     ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
@@ -25,7 +31,7 @@ define(['angular', 'utility.grid'], function(angular) {
 
                 $scope.exportGrid = function() {
                     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                    
+
                     ctrlScope.gridApi.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             });
