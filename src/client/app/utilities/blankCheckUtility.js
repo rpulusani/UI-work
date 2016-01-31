@@ -19,7 +19,7 @@ define(['angular', 'utility'], function(angular) {
         };
 
         BlankCheck.prototype.isNullOrWhiteSpace = function(value) {
-            return value === undefined || value === null || value === '' && value.trim() !== '';
+            return value === undefined || value === null || value === '' && value.trim() === '';
         };
 
         return new BlankCheck();
