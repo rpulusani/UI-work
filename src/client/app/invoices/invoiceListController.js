@@ -45,6 +45,8 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
             filterSearchService.addBasicFilter('INVOICE.ALL_INVOICES', configureParams, removeParamsList, function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             });
+
+            filterSearchService.addPanelFilter('Filter by Account', 'AccountFilter', false);
         }
     ]);
 });
