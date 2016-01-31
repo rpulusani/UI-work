@@ -50,6 +50,8 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
+
+            filterSearchService.addPanelFilter('Filter by Account', 'AccountFilter', false);
         }
     ]);
 });

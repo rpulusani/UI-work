@@ -45,15 +45,6 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 $location.path('/service_requests/addresses/new');
             };
 
-            $scope.print = function(){
-                $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
-            };
-
-            $scope.export = function(){
-                var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
-                $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
-            };
-
             $scope.selectRow = function(btnType) {
                 if (btnType !== 'delete') {
                     Addresses.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
@@ -62,7 +53,6 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 }
             };
 
-
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {
                     User.item._links.accounts = User.item._links.accounts[0];
@@ -70,29 +60,18 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
-                        var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
-
-                        filterSearchService.addBasicFilter('All Addresses', {'embed': 'contact'}, undefined,
-                            function(Grid){
-                            setTimeout(function() {
-                                $scope.$broadcast('setupColumnPicker', Grid);
-                            }, 500);
+                        var grid = new GridService();
+                        grid.display(Addresses, $scope, personal, false, function() {
                             $scope.$broadcast('setupPrintAndExport', $scope);
+                            $scope.$broadcast('setupColumnPicker', grid);
+
+                            filterSearchService.addBasicFilter('ADDRESS.ALL', undefined, undefined);
+                            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined);
                         });
-                        filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined,
-                            function(Grid) {
-                                setTimeout(function() {
-                                    $scope.$broadcast('setupColumnPicker', Grid);
-                                }, 500);
-                                $scope.$broadcast('setupPrintAndExport', $scope);
-                            }
-                        );
+                        
                     });
                 });
-
             });
-
-
         }
-      ]);
+    ]);
 });

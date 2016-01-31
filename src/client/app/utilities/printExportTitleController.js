@@ -4,23 +4,26 @@ define(['angular', 'utility.grid'], function(angular) {
     .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate', 'uiGridExporterConstants',
         function($scope, element, attrs, $translate, uiGridExporterConstants) {
             $scope.title = attrs.title;
+            
+
+            $scope.displayPrint = true;
+            $scope.displayExport = true;
+
+            if (attrs.print && attrs.print === false) {
+                $scope.displayPrint = false;
+            }
+
+            if (attrs.export && attrs.export === false) {
+                $scope.displayExport = false;
+            }
 
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-                $scope.itemtotal = ctrlScope.pagination.totalItems();
-
-                if ($scope.itemtotal >= 0) {
-                    if (attrs.print === undefined || attrs.print === true) {
-                        $scope.displayPrint = true;
-                    } else {
-                        $scope.displayPrint = false;
-                    }
-
-                    if (attrs.export === undefined || attrs.export === true) {
-                        $scope.displayExport = true;
-                    } else {
-                        $scope.displayExport = false;
-                    }
+                if(!$scope.titleValues){
+                    $scope.titleValues = {
+                        total: ctrlScope.pagination.totalItems()
+                    };
                 }
+
 
                 $scope.printGrid = function() {
                     ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
@@ -28,7 +31,7 @@ define(['angular', 'utility.grid'], function(angular) {
 
                 $scope.exportGrid = function() {
                     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                    
+
                     ctrlScope.gridApi.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             });

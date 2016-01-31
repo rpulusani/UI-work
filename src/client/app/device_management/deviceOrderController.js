@@ -10,6 +10,7 @@ define(['angular','deviceManagement'], function(angular) {
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
+        'ServiceRequestService',
         function(
             $scope,
             $location,
@@ -18,7 +19,9 @@ define(['angular','deviceManagement'], function(angular) {
             Orders,
             GridService,
             Personalize,
-            FilterSearchService) {
+            FilterSearchService,
+            ServiceRequest
+            ) {
             Orders.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             function setupConfiguration(){
@@ -95,17 +98,21 @@ define(['angular','deviceManagement'], function(angular) {
                         assetId: Devices.item.id
                     };
                     $scope.gridOrdersOptions.showBookmarkColumn = false;
-                    filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params);
+                    filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params, false, function() {
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    });
                 }
             }
-            $scope.view = function(SR){
-                Orders.setItem(SR);
+             $scope.view = function(SR){
+              ServiceRequest.setItem(SR);
                 var options = {
                     params:{
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress,shipToAddress,billToAddress'
                     }
                 };
-                Orders.item.get(options).then(function(){
-                    $location.path(Orders.route + '/purchase/receipt');
+                ServiceRequest.item.get(options).then(function(){
+                    Devices.setItem(ServiceRequest.item.asset);
+                    $location.path(Orders.route + '/' + ServiceRequest.item.id + '/receipt');
                 });
             };
             setupOrderGrid();
