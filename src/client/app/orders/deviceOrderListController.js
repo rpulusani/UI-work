@@ -9,6 +9,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
+        'ServiceRequestService',
+        'Devices',
         function(
             $scope,
             $location,
@@ -16,7 +18,10 @@ define(['angular','order', 'utility.grid'], function(angular) {
             Orders,
             Grid,
             Personalize,
-            FilterSearchService) {
+            FilterSearchService,
+            ServiceRequest,
+            Devices
+            ) {
             $rootScope.currentRowList = [];
 
             Orders.setParamsToNull();
@@ -24,11 +29,16 @@ define(['angular','order', 'utility.grid'], function(angular) {
             filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal,'hardwareSet');
 
             $scope.view = function(SR){
-                Orders.setItem(SR);
+              ServiceRequest.setItem(SR);
                 var options = {
                     params:{
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress,shipToAddress,billToAddress'
                     }
                 };
+                ServiceRequest.item.get(options).then(function(){
+                    Devices.setItem(ServiceRequest.item.asset);
+                    $location.path(Orders.route + '/' + ServiceRequest.item.id + '/receipt');
+                });
             };
             var params =  {
                 type: 'HARDWARE_ORDER',
@@ -39,7 +49,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);
-                        $scope.$broadcast('setupColumnPicker', Grid)
+                        $scope.$broadcast('setupColumnPicker', Grid);
                     }, 0);
                 }
             );
