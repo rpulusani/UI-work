@@ -480,6 +480,8 @@
     },
 
         "ADDRESS_SERVICE_REQUEST": {
+            "DATA_ADDRESS_CHANGE":"Address update requested",
+            "DATA_ADDRESS_REMOVE":"Address requested for deletion",
             "CHANGE": "Change Request Addresses",
             "ADD": "Add New Address",
             "ADD_MULTI": "Add Multiple Addresses",
@@ -510,7 +512,7 @@
             "UPDATE_MSG": " has been saved! You can update the details below.",
             "UPDATE_SUBMIT": "Update Address",
             "ABANDON_ADD": "Abandon Address Creation",
-            "ABANDON_DELETE": "Abandon Address Delete",
+            "ABANDON_DELETE": "Abandon Address DelDEVICE_SERVICE_REQUESTete",
             "SUBMIT": "Create Address",
             "ADDRESS_CONTACT": "Address contact",
             "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
@@ -559,6 +561,8 @@
         },
 
     "CONTACT_SERVICE_REQUEST": {
+        "DATA_CONTACT_REMOVE_TITLE": "Contact requested for deletion",
+        "DATA_CONTACT_CHANGE": "Contact update requested",
         "TITLE": "Service Requests",
         "CHANGE": "Change Request Contacts",
         "ADD": "Add New Contact",
@@ -583,6 +587,7 @@
     },
 
         "DEVICE_SERVICE_REQUEST": {
+            "REQUEST_MOVE_TITLE": "Requested updates to device information",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Request service for {{productModel}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
             "REQUEST_SERVICE_DETAIL": "Details for Service Request Number: {{srNumber}}",

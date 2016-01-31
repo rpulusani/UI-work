@@ -1,19 +1,22 @@
 <div sr-header></div>
 <div class="clearfix page-content">
     <div class="col-1">
-        <div print-export-title title="{{configure.receipt.translate.title}}"></div>
+        <div  print-export-title title="{{configure.receipt.translate.title}}"
+            title-values="{{configure.receipt.translate.titleValues}}"
+            print="configure.receipt.print"></div>
     </div>
- </div>
 
-<div class="page-content">
-    <!-- request status goes here -->
+<hr class="vertical-margin-bottom-48"/>
+
+    <h4 translate="{{configure.receipt.translate.subtitle}}"></h4>
+    <div class="vertical-margin-bottom-48 col-1-2" status-bar></div>
 
     <div request-contacts></div>
 
     <div ng-if="configure.detail">
         <h2 translate="{{configure.detail.translate.title}}"></h2>
 
-        <div class="well col-1-3">
+        <div class="col-1-3">
             <ul class="info-list">
                 <li class="info-list__item" ng-show="configure.detail.show.referenceId">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.referenceId}}"></div>
@@ -41,4 +44,6 @@
     <div sr-device-removal></div>
     <div sr-device-contact></div>
     <div sr-device-service-details></div>
+    <div sr-address></div>
+    <div sr-contact></div>
 </div>

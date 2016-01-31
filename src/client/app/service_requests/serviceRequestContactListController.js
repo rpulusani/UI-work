@@ -24,11 +24,16 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'contactSet');
 
             $scope.view = function(SR){
-                ServiceRequest.setItem(SR);
+              ServiceRequest.setItem(SR);
                 var options = {
                     params:{
+                        embed:'primaryContact,requester,address,account,sourceAddress'
                     }
                 };
+                ServiceRequest.item.get(options).then(function(){
+                    $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+                });
+
             };
             var params =  {
                 type: 'DATA_CONTACT_ALL',
