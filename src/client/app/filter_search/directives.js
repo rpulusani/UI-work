@@ -181,6 +181,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'DateRangeFilterController'
         };
     })
+    .directive('invoiceDateFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/invoiceDateFilter.html',
+            controller: 'InvoiceDateFilterController'
+        };
+    })
     .directive('gridSearch', function() {
         return {
             restrict: 'A',

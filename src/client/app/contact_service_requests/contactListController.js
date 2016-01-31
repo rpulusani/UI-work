@@ -45,13 +45,19 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
         filterSearchService.addBasicFilter('CONTACT.ALL', undefined, undefined,
             function(Grid) {
-                filterSearchService.addPanelFilter('Filter by Location', 'state', false);
-
                 $scope.$broadcast('setupPrintAndExport', $scope);
 
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }, 500);
+            }
+        );
+        filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_LOCATION', 'LocationFilter', undefined,
+            function(Grid) {
+                setTimeout(function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                }, 500);
+                $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
     }]);
