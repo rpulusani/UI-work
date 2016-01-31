@@ -95,7 +95,9 @@ define(['angular','deviceManagement'], function(angular) {
                         assetId: Devices.item.id
                     };
                     $scope.gridOrdersOptions.showBookmarkColumn = false;
-                    filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params);
+                    filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params, false, function() {
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    });
                 }
             }
             $scope.view = function(SR){
