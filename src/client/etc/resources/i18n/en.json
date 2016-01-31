@@ -543,7 +543,10 @@
             "REQUEST_CANCELLATION_INFORMATION": "Request cancellation information",
             "CANCELLATION_DESCRIPTION": "Cancellation description",
             "ABANDON_REQUEST_CANCELLATION": "Abandon request cancellation",
-            "SUBMIT_REQUEST_CANCELLATION": "Submit request cancellation"
+            "SUBMIT_REQUEST_CANCELLATION": "Submit request cancellation",
+            "CANCEL_REQUEST_SUBMITTED": "Cancel Request Submitted",
+            "CANCEL_REQUEST_SUBMIT_HEADER_BODY": "Your request to cancel request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}"
         },
 
     "CONTACT_SERVICE_REQUEST": {
