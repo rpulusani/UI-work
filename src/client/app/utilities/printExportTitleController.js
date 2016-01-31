@@ -27,6 +27,12 @@ define(['angular', 'utility.grid'], function(angular) {
                     };
                 }
 
+                ctrlScope.$watch('pagination', function(page) {
+                   $scope.titleValues = {
+                        total: page.totalItems()
+                    };
+                });
+
                 $scope.printGrid = function() {
                     ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
                 };
