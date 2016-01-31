@@ -1,3 +1,4 @@
+
 define(['angular', 'utility'], function(angular) {
     'use strict';
     angular.module('mps.utility')
@@ -201,6 +202,9 @@ define(['angular', 'utility'], function(angular) {
                     return formattedAddress;
                 },
                 formatDate: function(dateToBeFormatted){
+                    if (dateToBeFormatted === undefined) {
+                        return '';
+                    }
                     var d = new Date(dateToBeFormatted);
                     return $filter('date')(d, 'MM/dd/yyyy');
                 },
@@ -295,6 +299,9 @@ define(['angular', 'utility'], function(angular) {
                     }
                     return formattedContact;
                 },
+                formatStatus: function(value) {
+                    return (value === true) ? $translate.instant('LABEL.ACTIVE') : $translate.instant('LABEL.INACTIVE');
+                },
                 formatYesNo: function(value) {
                     return (value === 'true') ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
                 },
@@ -306,8 +313,17 @@ define(['angular', 'utility'], function(angular) {
                 },
                 getFileSize: function(fileSize) {
                     return Math.abs(fileSize/1024).toFixed(0) + 'KB';
+                },
+                getFileOwnerForLibrary: function(owner, currentUser) {
+                    var strYou = $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_YOU');
+
+                    if (owner === currentUser) {
+                        return '<strong><i>' + owner + ' (' + strYou + ')</i></strong>';
+                    }
+                    else {
+                        return owner;
+                    }
                 }
             };
-
     }]);
 });

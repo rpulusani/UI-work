@@ -24,11 +24,16 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'contactSet');
 
             $scope.view = function(SR){
-                ServiceRequest.setItem(SR);
+              ServiceRequest.setItem(SR);
                 var options = {
                     params:{
+                        embed:'primaryContact,requester,address,account,sourceAddress'
                     }
                 };
+                ServiceRequest.item.get(options).then(function(){
+                    $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+                });
+
             };
             var params =  {
                 type: 'DATA_CONTACT_ALL',
@@ -37,7 +42,26 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             filterSearchService.addBasicFilter('All contact service requests', params, false,
                 function(Grid) {
-                    $scope.$broadcast('setupColumnPicker', Grid);
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_REQUESTS', 'MyOrderFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
         }

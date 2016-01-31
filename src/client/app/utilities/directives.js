@@ -31,6 +31,18 @@ define(['angular', 'utility'], function(angular) {
             link:link
         };
     }])
+    .directive('statusBar', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/utilities/templates/status-bar.html',
+        };
+    })
+    .directive('statusDetails', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/utilities/templates/status-details.html',
+        };
+    })
     .directive('alertMessage', function() {
         return {
             restrict: 'A',
@@ -53,11 +65,12 @@ define(['angular', 'utility'], function(angular) {
             restrict: 'A',
             scope: {
                 title: '@',
+                titleValues: '@',
                 print: '@'
             },
             template: '<div class="col-2-3" ng-cloak>' +
-                '<h2 class="print-export-header" ng-show="itemtotal && title" translate="{{ title }}" translate-values="{total: itemtotal}"></h2>' +
-                '<h2 class="print-export-header" ng-show="!itemtotal && title" translate="{{ title }}"></h2>' +
+                '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && title" translate="{{ title }}" translate-values="{{titleValues}}"></h2>' +
+                '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="!titleValues && title" translate="{{ title }}"></h2>' +
             '</div>' +
             '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
                 '<span ng-if="displayPrint" class="">' +
@@ -94,6 +107,26 @@ define(['angular', 'utility'], function(angular) {
             },
             templateUrl: '/app/utilities/templates/pick-address.html',
             controller: 'AddressPickerController'
+        };
+    })
+    .directive('pickBillToAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                selectedAddressTitle: '@',
+            },
+            templateUrl: '/app/utilities/templates/pick-bill-to-address.html',
+            controller: 'AddressBillToPickerController'
+        };
+    })
+    .directive('pickShipToAddress', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                selectedAddressTitle: '@',
+            },
+            templateUrl: '/app/utilities/templates/pick-ship-to-address.html',
+            controller: 'AddressShipToPickerController'
         };
     })
     .directive('pickDevice', function(){
@@ -148,10 +181,20 @@ define(['angular', 'utility'], function(angular) {
             templateUrl: '/app/utilities/templates/pages.html',
         };
     })
-    .directive('pagination', function(){
+    .directive('pagination',['$timeout', function($timeout){
+        var link = function(scope, element, attrs, controllers){
+            $timeout(function(){
+                if(scope.optionsName){
+                    scope.grid = scope[scope.optionsName];
+                }else{
+                    scope.grid = scope['gridOptions'];
+                }
+            },0);
+        };
         return {
             restrict: 'A',
             templateUrl: '/app/utilities/templates/pagination.html',
+            link: link
         };
-    });
+    }]);
 });

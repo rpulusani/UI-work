@@ -68,7 +68,7 @@
   },
   {
     "id": "8",
-    "action": "/service_requests",
+    "action": "/service_requests?tab=serviceRequestsAllTab",
     "text": "SERVICE_REQUEST.TITLE",
     "description": "Some description of this link",
     "icon": "icon icon-mps-requests",

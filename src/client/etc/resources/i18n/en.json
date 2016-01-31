@@ -196,7 +196,8 @@
             "TXT_ORDER_TAX": "Tax %",
             "TXT_ORDER_TOTAL": "Total",
             "TXT_RECENT_ORDER": "Most recent order",
-            "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order"
+            "TXT_SUPPLIES_ACCESSORIES": "Place a new supplies or service parts order",
+            "TXT_EMPTY_ORDER_SUMMARY": "Please add an item to this order from the catalog above."
         }
     },
 
@@ -216,18 +217,32 @@
             "TXT_ORDER_PO_DETAILS": "Purchase order details",
             "TXT_ORDER_PO_NUM": "Purchase order number:",
             "TXT_ORDER_REQ_DELIV_DATE": "Requested delivery date",
-            "TXT_ORDER_SUMMARY": "Order summary"
+            "TXT_ORDER_SUMMARY": "Order summary",
+            "TEXT_INCLUDED_IN_LEASE": "Included in Lease",
+            "TEXT_ACCOUNT_DETAILS": "Account details"
         },
 
         "ORDER_SELECT_BILL_TO_ADDR": {
             "BTN_ORDER_CHANGE_BILL_TO": "APPLY SELECTION",
             "BTN_ORDER_DISCARD_BILL_TO_CHANGE": "DISCARD BILL TO ADDRESS SELECTION",
             "CTRL_GRID_SELECT_ADDR": "Address name",
-            "TXT_GRID_ADDR_NAME": "Address",
+            "TXT_GRID_ADDR_NAME": "Selected Bill To Address",
             "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
             "TXT_ORDER_BILL_TO_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_NO_BILL_TO_SELECTED": "No bill to address selected",
             "TXT_ORDER_SELECT_BILL_TO": "Select bill to address",
+            "TXT_SEARCH": "Search",
+            "TXT_SELECT_ADDRESS": "Select address"
+        },
+        "ORDER_SELECT_SHIP_TO_ADDR": {
+            "BTN_ORDER_CHANGE_SHIP_TO": "APPLY SELECTION",
+            "BTN_ORDER_DISCARD_SHIP_TO_CHANGE": "DISCARD SHIP TO ADDRESS SELECTION",
+            "CTRL_GRID_SELECT_ADDR": "Address name",
+            "TXT_GRID_ADDR_NAME": "Selected Ship To Address",
+            "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
+            "TXT_ORDER_SHIP_TO_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_ORDER_NO_SHIP_TO_SELECTED": "No ship to address selected",
+            "TXT_ORDER_SELECT_SHIP_TO": "Select ship to address",
             "TXT_SEARCH": "Search",
             "TXT_SELECT_ADDRESS": "Select address"
         },
@@ -247,9 +262,10 @@
             "TXT_ORDER_CHANGE_CONTACT": "Change contact for this order",
             "TXT_ORDER_DELIVERY_NOTE": "Note: These instructions show on the shipping label.",
             "TXT_ORDER_DETAILS": "Order details",
-            "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for",
+            "TXT_ORDER_REVIEW_SUPPLIES": "Review | Supplies order for {{ productModel }}",
             "TXT_ORDER_REVIEW_SUPPLIES_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "TXT_ORDER_SELECT_BILL_TO_FOR": "Please select a bill to address for this order >",
+            "TXT_ORDER_SELECT_SHIP_TO_FOR": "Please select a ship to address for this order >",
             "TXT_ORDER_SHIPPING_BILLING": "Shipping and Billing",
             "TXT_ORDER_SUBTOTAL": "Subtotal",
             "TXT_ORDER_SUPPLY_TYPE": "type",
@@ -267,7 +283,7 @@
             "TXT_ORDER_CONTACT": "Contact for this order",
             "TXT_ORDER_DELIVERED": "Delivered:",
             "TXT_ORDER_DELIVERY_EXPEDITE": "Expedite",
-            "TXT_ORDER_DETAIL_SUPPLIES": "Details for supplies order number:",
+            "TXT_ORDER_DETAIL_SUPPLIES": "Details for supplies order number: {{srNumber}}",
             "TXT_ORDER_IN_PROCESS": "In Process:",
             "TXT_ORDER_NUMBER": "Order number",
             "TXT_ORDER_SHIPPED": "Shipped:",
@@ -275,7 +291,7 @@
             "TXT_ORDER_STATUS": "Status",
             "TXT_ORDER_SUBMITTED": "Submitted:",
             "TXT_ORDER_SUBMITTED_PAR": "Your supplies order {{order}} has been submitted.",
-            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for"
+            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}"
         }
     },
 
@@ -464,6 +480,8 @@
     },
 
         "ADDRESS_SERVICE_REQUEST": {
+            "DATA_ADDRESS_CHANGE":"Address update requested",
+            "DATA_ADDRESS_REMOVE":"Address requested for deletion",
             "CHANGE": "Change Request Addresses",
             "ADD": "Add New Address",
             "ADD_MULTI": "Add Multiple Addresses",
@@ -494,7 +512,7 @@
             "UPDATE_MSG": " has been saved! You can update the details below.",
             "UPDATE_SUBMIT": "Update Address",
             "ABANDON_ADD": "Abandon Address Creation",
-            "ABANDON_DELETE": "Abandon Address Delete",
+            "ABANDON_DELETE": "Abandon Address DelDEVICE_SERVICE_REQUESTete",
             "SUBMIT": "Create Address",
             "ADDRESS_CONTACT": "Address contact",
             "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
@@ -535,6 +553,8 @@
             "ABANDON_MODAL_CONFIRM": "Yes, abandon this request",
             "ABANDON_SERVICE_REQUEST": "Abandon Service Request",
             "FILTER_BY_CHL": "Filter By CHL",
+            "FILTER_BY_LOCATION": "Filter By Location",
+            "FILTER_BY_BOOKMARK": "Filter By Bookmarked Devices",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Service Request Number: {{srNumber}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "",
             "REQUEST_SERVICE_DETAIL": "Details for Device Service Request Number: {{srNumber}}",
@@ -550,6 +570,8 @@
         },
 
     "CONTACT_SERVICE_REQUEST": {
+        "DATA_CONTACT_REMOVE_TITLE": "Contact requested for deletion",
+        "DATA_CONTACT_CHANGE": "Contact update requested",
         "TITLE": "Service Requests",
         "CHANGE": "Change Request Contacts",
         "ADD": "Add New Contact",
@@ -574,6 +596,7 @@
     },
 
         "DEVICE_SERVICE_REQUEST": {
+            "REQUEST_MOVE_TITLE": "Requested updates to device information",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Request service for {{productModel}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
             "REQUEST_SERVICE_DETAIL": "Details for Service Request Number: {{srNumber}}",
@@ -829,6 +852,27 @@
             "DEVICES_COUNT_MSG": "{{count}} devices at {{address}}",
             "LOOKING_FOR_A_REQUEST": "Looking for a request?",
             "CHL": "CHL"
+        },
+
+        "FILTERS": {
+            "BROWSE_CHL": "Browse By CHL",
+            "BROWSE_STATUS": "Browse By Status",
+            "BROWSE_ROLE": "Browse By Role",
+            "BROWSE_DATE_RANGE": "Browse By date range",
+            "FILTER_BY_DATE": "Filter By Date Range",
+            "BROWSE_LOCATION": "Browse by location",
+            "BROWSE_BOOKMARKED": "Browse by bookmarked devices",
+            "FILTER_BY_ORDER_STATUS": "Filter By Order Status",
+            "FILTER_BY_REQUEST_TYPES": "Filter By Request Types",
+            "FILTER_BY_REQUEST_STATS": "Filter By Request Status",
+            "FILTER_BY_SUPPLY_ORDER_STATUS": "Filter By Supply Order Types",
+            "BROWSE_ORDER_STATUS": "Browse by order status",
+            "BROWSE_REQUEST_STATUS": "Browse by request status",
+            "FILTER_MY_ORDERS": "Filter by my orders",
+            "FILTER_MY_REQUESTS": "Filter by my requests",
+            "BROWSE_SUPPLY_ORDER_TYPE": "Browse by supply order types",
+            "BROWSE_DEVICE_REQUEST_TYPE": "Browse by device request types",
+            "FIND_BY_ACCOUNT": "Find by account"
         },
 
         "ORDER_MGT": {
@@ -1224,7 +1268,8 @@
                 "BTN_MANAGE_TAGS" : "MANAGE TAGS",
                 "CTRL_GRID_CANCEL" : "Cancel",
                 "CTRL_GRID_DELETE" : "Delete document",
-                "TXT_ALL_DOCS" : "All documents ({{total}})",
+                "TXT_ALL_DOCS" : "All Documents",
+                "TXT_ALL_DOCS_CNT" : "All documents ({{total}})",
                 "TXT_FILTER_ACCOUNT" : "Accounts",
                 "TXT_FILTER_CATEGORY" : "Category",
                 "TXT_FILTER_CLEAR_SELECTIONS" : "Clear selections",
@@ -1244,6 +1289,11 @@
                 "TXT_SEARCH" : "Search"
             },
             "DOCUMENT_VIEW" : {
+                "TITLE_DISCARD_MODAL": "Are you sure you want to discard document changes?",
+                "BODY_DISCARD_MODAL": "The information you have entered will not be saved.",
+                "DISCARD_MODAL_CANCEL": "No, do not discard document changes",
+                "DISCARD_MODAL_CONFIRM": "Yes, discard document change",
+
                 "BTN_EDIT_DOCUMENT" : "UPDATE DOCUMENT INFORMATION",
                 "TXT_EXPIRES" : "Expires",
                 "TXT_NAME" : "Name",
@@ -1302,9 +1352,10 @@
 
         "USER": {
             "INVITATION": "Invitations",
-            "USERS": "Users ({{userCount}} total users)",
-            "INVITED_USERS_COUNT": "Invited users ({{userCount}} total invited users)",
+            "USERS": "Users ({{total}} total users)",
+            "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",
+            "ALL_INVITED_USER": "All invited users",
             "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",
@@ -1323,7 +1374,7 @@
             "PERM": "Permissions",
             "ABANDON": "ABANDON USER CREATION",
             "CREATE": "CREATE USER",
-            "MANAGE": "Managing {{user_name}}",
+            "MANAGE": "Manage {{user_name}}",
             "DEACTIVATE": "DEACTIVATE USER",
             "DELETE_CHANGES": "DISCARD USER CHANGES",
             "UPDATE": "UPDATE USER",
@@ -1336,7 +1387,9 @@
             "USER_PROFILE": "User profile",
             "ACCOUNT_ACCESS": "Account access",
             "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
-            "UPDATE_USER": "UPDATE USER"
+            "UPDATE_USER": "UPDATE USER",
+            "FILTER_BY_STATUS": "Filter By Status",
+            "FILTER_BY_ROLE": "Filter By Role"
         },
 
         "ROLE": {
@@ -1431,7 +1484,14 @@
         "FILE": "File",
         "ATTACHMENTS": "Attachements",
         "OPEN": "Open",
-        "ZERO_RECORDS": "No Records Found"
+        "ZERO_RECORDS": "No Records Found",
+        "INVITED": "Invited",
+        "REJECTED": "Rejected",
+        "SUBMITTED": "SUBMITTED",
+        "IN_PROCESS": "IN_PROCESS",
+        "COMPLETED": "COMPLETED",
+        "SHIPPED": "SHIPPED",
+        "DELIVERED": "DELIVERED"
     },
 
         "PAGINATION": {

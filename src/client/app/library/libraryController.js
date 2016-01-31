@@ -35,9 +35,17 @@ define(['angular', 'library'], function(angular) {
                     /* upload */
                     var fd = new FormData();
                     fd.append('file', $scope.documentFile);
+                    //fd.append('name', $scope.documentItem.name);
+                    //fd.append('description', $scope.documentItem.description);
+                    //fd.append('tags', $scope.documentItem.tags);
+                    //fd.append('publishDate', $scope.documentItem.dateFrom);
+                    //fd.append('endDate', $scope.documentItem.dateTo);
+                    //fd.append('owner', $scope.documentItem.owner);
+
                     $http({
                         method: 'POST',
                         url: Documents.url + '/upload',
+                        headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
                         $location.path(Documents.route);
@@ -47,7 +55,7 @@ define(['angular', 'library'], function(angular) {
                 }
             };
 
-            $scope.addTag = function() {
+            $scope.addTags = function() {
             };
 
             $scope.goToDelete = function() {

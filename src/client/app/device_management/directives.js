@@ -26,6 +26,7 @@ define(['angular', 'deviceManagement'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/device_management/templates/request-break-fix-list.html',
+            scope:{},
             controller: 'DeviceRequestBreakFixListController'
         };
     })

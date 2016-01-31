@@ -10,7 +10,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
             columnSet,
             personalization,
 
-            FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight){
+            FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight, OptionName){
                 if(!serviceDefinition){
                     throw new Error('Service Definition is Required!');
                 }
@@ -42,7 +42,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
                         });
                     } else {
-                        self.Grid.display(self.service, self.localScope, self.personalization, false, function() {
+                        self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
                             if (typeof fn === 'function') {
                                 return fn(self.Grid);
                             }
@@ -66,12 +66,16 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.localScope.optionParams = {};
                 this.localScope.filterOptions = [];
                 this.localScope.visibleColumns =  self.Grid.getVisibleColumns(this.service); //sets initial columns visibility
-                this.localScope.gridOptions = {};
+                if(OptionName){
+                    self.Grid.setGridOptionsName(OptionName);
+                }
+                this.localScope[self.Grid.optionsName] = {};
                 if (rowHeight) {
-                    this.localScope.gridOptions.rowHeight = rowHeight;
+                    this.localScope[self.Grid.optionsName].rowHeight = rowHeight;
                 }
                 this.localScope.gridOptions.onRegisterApi = self.Grid.getGridActions(rootScope,
                         this.service, this.personalization);
+
             };
 
             FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams, removeParams, fn) {
@@ -103,8 +107,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     params: self.localScope.optionParams
                 };
 
-                self.display();
                 self.localScope.filterOptions.push(filter);
+                self.localScope.$broadcast('updateSearchFilter', filter);
             };
 
             FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams, fn){
@@ -118,7 +122,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 filter = {
                     display: displayText,
                     optionsPanel: optionsPanel,
-                    functionDef: function(params){
+                    functionDef: function(params, removeParams){
                         var options  = {
                             'params':{}
                         };
@@ -126,6 +130,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             angular.extend(options.params, configuredParams);
                         }
                         angular.extend(options.params, params);
+
+                        if (removeParams) {
+                            if (removeParams) {
+                                for(var i = 0; i < removeParams.length; ++i){
+                                    delete options.params[removeParams[i]];
+                                }
+                                self.clearParameters(removeParams);
+                            }
+                        }
 
                         var promise = self.service.getPage(0, self.service.params.size, options);
 

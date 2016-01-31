@@ -1,0 +1,23 @@
+<div sr-header></div>
+<div class="page-content">
+    <div class="well vertical-margin-top-24 col-1-3">
+        <p ng-show="isRowSelected()" ng-bind-html="formattedSelectedAddress"></p>
+        <p translate="ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.TXT_ORDER_NO_BILL_TO_SELECTED" ng-if="!formattedSelectedAddress"></p>
+    </div>
+
+    <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+        translate="ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.TXT_ORDER_SELECT_BILL_TO">
+    </h2>
+
+    <hr/>
+
+    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+
+    <div pagination grid="{{gridOptions}}"></div>
+    <div class="col-2-3"></div>
+    <div class="col-1">
+        <button class="btn btn--secondary" translate="ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.BTN_ORDER_DISCARD_BILL_TO_CHANGE" ng-click="discardSelect()"></button>
+        <button class="btn btn--primary" translate="ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.BTN_ORDER_CHANGE_BILL_TO"
+                ng-click="goToCallingPage()" ng-disabled="!isRowSelected()"></button>
+    </div>
+</div>

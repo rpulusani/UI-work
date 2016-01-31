@@ -4,26 +4,39 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
     .controller('ServiceRequestTabController', [
         '$rootScope',
         '$scope',
+        '$routeParams',
         'SecurityHelper',
+        '$location',
         function(
             $rootScope,
             $scope,
-            SecurityHelper
+            $routeParams,
+            SecurityHelper,
+            $location
         ) {
             new SecurityHelper($rootScope).redirectCheck($rootScope.serviceRequestAccess);
+
             $scope.active = function(value){
-                $rootScope.serviceTabSelected = value;
+                $rootScope.currentServiceRequestTab = value;
+                $location.search('tab', value);
             };
 
             $scope.isActive = function(value){
                 var passed = false;
-                if($rootScope.serviceTabSelected === value){
+                if($rootScope.currentServiceRequestTab === value){
                     passed = true;
                 }
                 return passed;
             };
 
+            var tabId = $location.search().tab;
+            if(tabId){
+                $rootScope.currentServiceRequestTab = tabId;
+                $scope.isActive(tabId);
+            }else{
                 $scope.active('serviceRequestsAllTab');
+            }
+
         }
     ]);
 });

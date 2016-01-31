@@ -45,15 +45,6 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 $location.path('/service_requests/addresses/new');
             };
 
-            $scope.print = function(){
-                $scope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
-            };
-
-            $scope.export = function(){
-                var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
-                $scope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
-            };
-
             $scope.selectRow = function(btnType) {
                 if (btnType !== 'delete') {
                     Addresses.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
@@ -62,13 +53,6 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 }
             };
 
-            var Grid = new GridService();
-            // grid configuration
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
-            //$scope.gridOptions.enableHorizontalScrollbar =  2;
-            //$scope.gridOptions.enableVerticalScrollbar = 0;
-
             User.getLoggedInUserInfo().then(function(user) {
                 if (angular.isArray(User.item._links.accounts)) {
                     User.item._links.accounts = User.item._links.accounts[0];
@@ -76,24 +60,16 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
                 User.getAdditional(User.item, Account).then(function() {
                     Account.getAdditional(Account.item, Addresses).then(function() {
-                        var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+                        var grid = new GridService();
+                        grid.display(Addresses, $scope, personal, false, function() {
+                            $scope.$broadcast('setupPrintAndExport', $scope);
+                            $scope.$broadcast('setupColumnPicker', grid);
 
-                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'}, false);
-
-                        Addresses.getPage().then(function() {
-                            Grid.display(Addresses, $scope, personal, false, function() {
-                                $scope.$broadcast('setupColumnPicker', Grid);
-                                $scope.$broadcast('setupPrintAndExport', $scope);
-                            });
-                        }, function(reason) {
-                            NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
+                            filterSearchService.addBasicFilter('CONTACT.ALL', undefined, undefined);
                         });
                     });
                 });
-
             });
-
-
         }
-      ]);
+    ]);
 });

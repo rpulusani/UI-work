@@ -13,6 +13,8 @@ define([
     'angular-spring-data-rest',
     'serviceRequest',
     'serviceRequest.factory',
+    'serviceRequest.serviceRequestStatusFactory',
+    'serviceRequest.serviceRequestTypeFactory',
     'serviceRequest.directives',
     'serviceRequest.listController',
     'serviceRequest.listDeviceController',
@@ -24,8 +26,11 @@ define([
     'serviceRequest.ActionButtonController',
     'serviceRequest.detailController',
     'serviceRequest.cancelController',
+    'serviceRequest.openServiceRequestController',
     'order',
     'order.factory',
+    'order.orderTypeFactory',
+    'order.orderStatusFactory',
     'order.directives',
     'order.orderListController',
     'order.deviceOrderListController',
@@ -34,7 +39,9 @@ define([
     'order.actionButtonController',
     'order.orderSupplyController',
     'order.orderItemsfactory',
+    'order.assetsPartsFactory',
     'order.orderContentsController',
+    'order.orderPurchaseController',
     'contact',
     'contact.contactController',
     'contact.contactListController',
@@ -47,6 +54,7 @@ define([
     'deviceManagement.deviceOrderController',
     'deviceManagement.deviceRequestBreakFixController',
     'deviceManagement.deviceFactory',
+    'deviceManagement.deviceLocationFactory',
     'deviceManagement.productModelFactory',
     'deviceManagement.meterReadFactory',
     'deviceManagement.deviceRequestFactory',
@@ -79,6 +87,8 @@ define([
     'utility.controller',
     'utility.contactPickerController',
     'utility.addressPickerController',
+    'utility.addressBillToPickerController',
+    'utility.addressShipToPickerController',
     'utility.devicePickerController',
     'utility.pageCountSelectController',
     'utility.pageCountSelectService',
@@ -96,6 +106,18 @@ define([
     'filterSearch.gridFilterController',
     'filterSearch.gridSearchController',
     'filterSearch.chlFilterController',
+    'filterSearch.locationFilterController',
+    'filterSearch.bookmarkFilterController',
+    'filterSearch.libraryFilterController',
+    'filterSearch.statusFilterController',
+    'filterSearch.orderStatusFilterController',
+    'filterSearch.requestStatusFilterController',
+    'filterSearch.supplyOrderTypeFilterController',
+    'filterSearch.deviceRequestTypeFilterController',
+    'filterSearch.invitedStatusFilterController',
+    'filterSearch.roleFilterController',
+    'filterSearch.dateRangeFilterController',
+    'filterSearch.accountFilterController',
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
@@ -470,16 +492,10 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            var promise = UserService.getLoggedInUserInfo($rootScope.idpUser.email);
-                promise.then(function(user){
-                    angular.extend($rootScope.currentUser, user);
-                    $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
-                }, function(reason){
-                    NREUM.noticeError('API User Information failed to load for app.js reason: ' + reason);
-                });
+            UserService.getLoggedInUserInfo();
         }, function(reason) {
-                NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
-                $rootScope.currentUser.deferred.reject(reason);
+            NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
+            $rootScope.currentUser.deferred.reject(reason);
         });
 
         /*

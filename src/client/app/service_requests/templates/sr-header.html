@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="page-header vertical-margin-bottom-72" >
     <ul class="breadcrumb">
         <li><a href="#root">Root</a> &#62;&nbsp;</li>
         <li><a href="#parent">Parent</a> &#62;&nbsp;</li>
@@ -8,13 +8,13 @@
     <h1 ng-if="!configure.cancel" translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
     <!--<h1 ng-if="configure.cancel" translate="{{configure.cancel.information.translate.h1}}" translate-values="{{configure.cancel.information.translate.h1Values}}"></h1>-->
 
-    <p translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+    <p class="vertical-margin-bottom-72" >
+        <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
     <button class="btn" ng-click="goToServiceCancel(sr.id)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
         ng-if="cancelServiceRequest && showCancelBtn === true"></button>
-
-    <a ng-if="configure.header.readMoreUrl"
+        <a ng-if="configure.header.readMoreUrl"
         class="read-more"
         href="{{configure.header.readMoreUrl}}"
-        translate="{{configure.header.translate.readMore}}"
-    >dolor sit amet</a>
+        translate="{{configure.header.translate.readMore}}"></a>
+    </p>
 </div>

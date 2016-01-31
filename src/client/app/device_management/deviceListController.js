@@ -33,7 +33,6 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
-
             $scope.goToCreate = function() {
                 Devices.item = {};
                 $location.path('/service_requests/devices/new');
@@ -55,6 +54,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                 };
 
                 Devices.item.get(options).then(function(){
+                    $location.search('tab', 'deviceInfoTab');
                     $location.path(Devices.route + '/' + device.id + '/review');
                 });
             };
@@ -64,14 +64,35 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
                     }, 500);
-                    
+
                     $scope.$broadcast('setupPrintAndExport', $scope);
 
                 }
             );
-            //filterSearchService.addBasicFilter('DEVICE_MGT.BOOKMARKED_DEVICES');
-            //filterSearchService.addPanelFilter('Filter By Location', 'locationFilter');
-            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter');
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_LOCATION', 'LocationFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_BOOKMARK', 'BookmarkFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
 
         }
     ]);

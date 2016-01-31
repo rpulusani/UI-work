@@ -2,7 +2,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', 'Documents', '$rootScope', 'FormatterService',
-        function($scope, $location, $translate, $http, Documents, $rootScope, FormatterService) {
+        function($scope, $location, $translate, $http, Documents, $rootScope, formatter) {
 
             if (Documents.item === null) {
                 $location.path(Documents.route);
@@ -10,23 +10,21 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 $scope.documentItem = Documents.item;
             }
 
+            $scope.getTagNames = function(tags) {
+                return tags.join(', ');
+            };
+
             $scope.getFileSize = function(size) {
-                var calculatedSize = FormatterService.getFileSize(size);
+                var calculatedSize = formatter.getFileSize(size);
                 return calculatedSize;
             };
 
             $scope.getFormatDate = function(date) {
-                return FormatterService.formatDate(date);
+                return formatter.formatDate(date);
             };
 
-            $scope.getOwner = function(email) {
-                var currentUserEmail = $rootScope.idpUser.email;
-                if (email === currentUserEmail) {
-                    return email + ' (' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LIST.TXT_YOU') + ')';
-                }
-                else {
-                    return email;
-                }
+            $scope.getFileOwner = function(owner) {
+                return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
             };
 
             $scope.goToUpdate = function(documentItem) {

@@ -44,14 +44,10 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                                         break;
                                     }
                                 }
+                                $rootScope.currentSelectedRow = undefined;
                             }
                         }
                     );
-                }
-                if(gridApi && gridApi.rowEdit){
-                    gridApi.rowEdit.on.saveRow($rootScope, function(rowEntity){
-                        console.log(rowEntity);
-                    });
                 }
             };
         };
@@ -73,8 +69,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                         columnList[i].searchOn = columnList[i].field;
                     }
 
-                    visibleColumns.push({ 
-                        name: columnList[i]['name'], 
+                    visibleColumns.push({
+                        name: columnList[i]['name'],
                         field: columnList[i]['field'],
                         searchOn: columnList[i].searchOn
                     });
@@ -153,7 +149,8 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             if (rowHeight) {
                 newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
             } else {
-                newHeight = 46 + (31 * size);
+                rowHeight = 45;
+                newHeight = 46 + ((rowHeight + 2) * size);
             }
 
             if (service.gridName) {
@@ -184,13 +181,13 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope[self.optionsName].exporterPdfPageSize = 'LETTER';
             scope[self.optionsName].exporterPdfMaxGridWidth = 500;
             scope[self.optionsName].rowEditWaitInterval = 0;
-            scope[self.optionsName].exporterAllDataPromise = function() {
+            scope[self.optionsName].exporterAllDataFn = function() {
                 scope[self.optionsName].currentGridData = scope[self.optionsName].data;
                 scope[self.optionsName].servicePage = service.page;
 
                 return service.getPage(0, 100000).then(function() {
                     scope[self.optionsName].data = service.data;
-                    
+
                     setTimeout(function() {
                         service.page = scope[self.optionsName].servicePage;
                         scope[self.optionsName].data = scope[self.optionsName].currentGridData;
@@ -210,11 +207,12 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     name: '',
                     field: 'bookmark',
                     width:'30',
-                    headerCellClass: 'no-border',
                     enableSorting: false,
-                    cellTemplate: '<i class="icon icon--ui icon--not-favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
+                    cellTemplate: '<i class="icon icon--ui icon--not-favorite favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,
+                    headerCellClass:'bookmark-header',
                     cellClass: 'bookmark',
+                    notSearchable: true,
                     exporterSuppressExport: true
                 });
             }
@@ -222,12 +220,15 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             $timeout(function(){
                 if(typeof $ === 'function'){
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
-                    $('[ui-grid="' + tempOptionName + '"].table').css('height', newHeight + 'px');
-                    $('[ui-grid="' + tempOptionName + '"].table').css('margin-bottom', '60px');
+                    $('[ui-grid="' + tempOptionName + '"].table,[ui-grid="' + tempOptionName + '"].table-image').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table-image').css('margin-bottom', '60px');
+                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table.summary').css('margin-bottom', '24px');
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-render-container').css('height', newHeight + 'px');
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('overflow-x', 'auto');
                     $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('height', newHeight + 'px');
                     $('[ui-grid="' + tempOptionName + '"]').show();
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-disable-selection').parent().addClass('selection');
+                    $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
                 }
 
             }, 100);

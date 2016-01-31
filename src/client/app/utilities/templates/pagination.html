@@ -1,8 +1,8 @@
-<div class="pagination" ng-show="gridOptions && gridOptions.data && gridOptions.data.length > 0">
+<div class="pagination" ng-if="grid && grid.data && grid.data.length > 0 && pagination && pagination.totalPages() > 1">
   <div class="pagination__btn pagination__first"
   ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
     <a href="#"
-      ng-click="pagination.firstPage(gridOptions)">
+      ng-click="pagination.firstPage(grid)">
         I<i class="icon icon--ui"
            ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
         </i>
@@ -12,7 +12,7 @@
   ng-class="{'pagination--is-disabled': pagination.canNotPrev()}">
     <a href="#"
     ng-disabled="pagination.canNotPrev()"
-    ng-click="pagination.prevPage(gridOptions)">
+    ng-click="pagination.prevPage(grid)">
       <i class="icon icon--ui"
          ng-class="{'icon--left-arrow-secondary': pagination.canNotPrev(),'icon--left-arrow-primary':  !pagination.canNotPrev() }">
       </i>
@@ -23,7 +23,7 @@
   <ul class="pagination__list">
      <li ng-repeat="pageNumber in pagination.pageArray()"
      class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pageNumber)}">
-      <a href="#" ng-click="pagination.gotoPage(pageNumber, gridOptions)">{{ pageNumber + 1 }}</a>
+      <a href="#" ng-click="pagination.gotoPage(pageNumber, grid)">{{ pageNumber + 1 }}</a>
       </li>
       <li ng-if="pagination.showTotal()"
         class="pagination__btn">
@@ -31,13 +31,13 @@
       </li>
       <li ng-if="pagination.showTotal()"
      class="pagination__btn" ng-class="{'pagination--is-active': pagination.isCurrent(pagination.totalPages() - 1)}">
-      <a href="#" ng-click="pagination.gotoPage(pagination.totalPages() - 1, gridOptions)">{{ pagination.totalPages() }}</a>
+      <a href="#" ng-click="pagination.gotoPage(pagination.totalPages() - 1, grid)">{{ pagination.totalPages() }}</a>
       </li>
   </ul>
   <div class="pagination__btn pagination__next" ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
     <a href="#"
     ng-disabled="pagination.canNotNext()"
-    ng-click="pagination.nextPage(gridOptions)">
+    ng-click="pagination.nextPage(grid)">
       <i class="icon icon--ui"
          ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
       </i>
@@ -46,13 +46,13 @@
   <div class="pagination__btn pagination__last"
   ng-class="{'pagination--is-disabled': pagination.canNotNext()}">
     <a href="#"
-      ng-click="pagination.lastPage(gridOptions)">
+      ng-click="pagination.lastPage(grid)">
       <i class="icon icon--ui"
            ng-class="{'icon--right-arrow-secondary': pagination.canNotNext(),'icon--right-arrow-primary':  !pagination.canNotNext() }">
       </i>I
     </a>
   </div>
   <div selectric model="itemsPerPage" options="pagination.itemsPerPageArray()" label="items" value="items" label="itemsPerPage"
-    class="items-per-page" on-select="pagination.onChangeItemsCount(option, gridOptions)"></div>
+    class="items-per-page" on-select="pagination.onChangeItemsCount(option, grid)"></div>
     <span class="message" translate="PAGINATION.ITEMS_PER_PAGE"></span>
 </div>

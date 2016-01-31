@@ -10,11 +10,6 @@ define(['angular', 'library'], function(angular) {
             }
         };
     })
-    .directive('docItem', function() {
-        return {
-            restrict: 'A'
-        };
-    })
     .directive('libraryViewFields', function() {
         return {
             restrict: 'A',

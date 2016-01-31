@@ -18,7 +18,7 @@ define([
                 }
                 $scope.item.expanded = false;
                 $scope.item.showExpandIcon = true;
-                if ($scope.item.numberOfChildren && parseInt($scope.item.numberOfChildren) === 0) {
+                if ($scope.item.numberOfChildren !== undefined && parseInt($scope.item.numberOfChildren) === 0) {
                     $scope.item.showExpandIcon = false;
                 }
             }
@@ -30,8 +30,8 @@ define([
 
             $scope.$on('expanded', function(evt){
                 if ($scope.item.expanded === true) {
-                    $scope.item.items = [];
                     if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
+                        $scope.item.items = [];
                         Account.setItem($scope.item);
                         var options = {
                             updateParams: false,
@@ -81,8 +81,8 @@ define([
                             if ($scope.previousItems && $scope.previousItems.length > 0) {
                                 for (var j=0;j<$scope.previousItems.length; j++) {
                                     if ($scope.previousItems[j].accountId 
-                                        && $scope.previousItems[j].accountId === item.accountId
-                                        && $scope.previousItems[j].level === item.level) {
+                                        && $scope.previousItems[j].accountId === itemList[i].accountId
+                                        && $scope.previousItems[j].level === itemList[i].level) {
                                         $scope.previousItems.splice(j, 1);
                                     }
                                 }
@@ -103,8 +103,8 @@ define([
                         if ($scope.previousItems && $scope.previousItems.length > 0) {
                             for (var k=0;k<$scope.previousItems.length; k++) {
                                 if ($scope.previousItems[k].accountId 
-                                    && $scope.previousItems[k].accountId === item.accountId
-                                    && $scope.previousItems[k].level === item.level) {
+                                    && $scope.previousItems[k].accountId === children[j].accountId
+                                    && $scope.previousItems[k].level === children[j].level) {
                                     $scope.previousItems.splice(k, 1);
                                 }
                             }
@@ -130,7 +130,7 @@ define([
                                 $scope.value.name = item.name;
                             } 
                             else if ($scope.treeType === 'daAccounts') {
-                                $scope.value.push(item);
+                                $scope.previousItems.push(item);
                             }
                         }
                         
@@ -151,14 +151,16 @@ define([
                 } else {
                     if (item.selected) {
                         $scope.selectedItems.push(item.accountId);
-                        if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                        if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location')
+                            && $scope.filterChl && typeof $scope.filterChl === 'function') {
                             $scope.filterChl($scope.selectedItems);
                         }
                         
                     } else {
                         if($scope.selectedItems.indexOf(item.accountId) !== -1) {
                             $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
-                            if ($scope.treeType && $scope.treeType === 'chl' && $scope.filterChl && typeof $scope.filterChl === 'function') {
+                            if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location')
+                            && $scope.filterChl && typeof $scope.filterChl === 'function') {
                                 $scope.filterChl($scope.selectedItems);
                             }
                         }

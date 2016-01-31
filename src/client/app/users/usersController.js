@@ -1,14 +1,39 @@
-define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], function(angular) {
+define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.user')
     .controller('UsersController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserAdminstration',
-        'PersonalizationServiceFactory','FilterSearchService',
-        function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration, Personalize,FilterSearchService) {
+        'PersonalizationServiceFactory','FilterSearchService', 'FormatterService',
+        function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration,
+            Personalize, FilterSearchService, formatter) {
             UserAdminstration.setParamsToNull();
+             if (UserAdminstration.item) {
+                $scope.saved = false;
+                $scope.invited = false;
+                $scope.user = UserAdminstration.item;
+                $scope.fullName = formatter.getFullName($scope.user.firstName, $scope.user.lastName);
+                if (UserAdminstration.wasSaved) {
+                    $scope.saved = true;
+                }
+
+                if (UserAdminstration.wasInvited) {
+                    $scope.invited = true;
+                }
+            }
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'defaultSet');
             filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, false,
                 function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'StatusFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
 
@@ -35,10 +60,6 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
 
             $scope.goToLexmrkUser = function() {
                 $location.path('/delegated_admin/lexmark_user');
-            };
-
-            $scope.getStatus = function(status) {
-                return BlankCheck.checkNotBlank(status) && status === 'Y' ? active : inactive;
             };
         }
     ]);

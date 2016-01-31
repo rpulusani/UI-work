@@ -13,6 +13,7 @@ define([
         'Nav',
         'UserService',
         'AccountService',
+        'HATEAOSConfig',
         function(
             $scope,
             $rootScope,
@@ -20,7 +21,8 @@ define([
             $route,
             Nav,
             Users,
-            Accounts
+            Accounts,
+            HATEAOSConfig
             ) {
 
             $scope.items = Nav.items;
@@ -36,9 +38,12 @@ define([
                     Users.taAcctCache = Users.item.transactionalAccount.data;
                     item.data = Users.taAcctCache;
 
+                    console.log(item.data);
+
                     item.isExpanded = true;
                     item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
                 };
+
 
                 if (!Users.taAcctCache) {
                     Users.taAcctCache = [];
@@ -71,22 +76,25 @@ define([
                 var i = 0, 
                 accts = Users.item.transactionalAccount.data;
 
-                Users.item._links.accounts = child._links.account;
+                HATEAOSConfig.updateCurrentAccount(child.account);
 
-                for (i; i < accts.length; i += 1) {
-                    if (accts[i]._links.account.href === Users.item._links.accounts.href) {
-                        if (!accts[i].isActive) {
-                            accts[i].isActive = true;
+                HATEAOSConfig.getCurrentAccount().then(function() {
+                    Users.item._links.accounts = child._links.account;
+                    
+                    for (i; i < accts.length; i += 1) {
+                        if (accts[i]._links.account.href === Users.item._links.accounts.href) {
+                            if (!accts[i].isActive) {
+                                accts[i].isActive = true;
+                            } else {
+                                accts[i].isActive = false;
+                                $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
+                            }
                         } else {
                             accts[i].isActive = false;
-                            
-                            Users.item._links.accounts = Users.item._links.accounts[0];
                         }
-                    } else {
-                        accts[i].isActive = false;
                     }
-                }
-            }
+                });
+            };
 
             $scope.isActive = function(item){
                 var passed = false;
