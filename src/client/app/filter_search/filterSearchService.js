@@ -75,6 +75,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 }
                 this.localScope.gridOptions.onRegisterApi = self.Grid.getGridActions(rootScope,
                         this.service, this.personalization);
+
             };
 
             FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams, removeParams, fn) {
@@ -106,8 +107,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     params: self.localScope.optionParams
                 };
 
-                self.display();
                 self.localScope.filterOptions.push(filter);
+                self.localScope.$broadcast('updateSearchFilter', filter);
             };
 
             FilterSearchService.prototype.addPanelFilter = function(displayText,  optionsPanel, configuredParams, fn){

@@ -219,7 +219,9 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
 
-            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params);
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params, false, function() {
+                $scope.$broadcast('setupPrintAndExport', $scope);
+            });
             //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
         }
     ]);
