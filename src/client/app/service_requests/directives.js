@@ -149,6 +149,13 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/address.html'
         };
     })
+    .directive('srCancel', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/cancel-request.html',
+            controller:'ServiceRequestCancelController'
+        };
+    })
     .directive('serviceRequestTabs', function() {
         return {
             restrict: 'A',
