@@ -21,9 +21,6 @@ define(['angular', 'utility.grid'], function(angular) {
             }
 
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-
-
-
                 if($scope.title && attrs.titleCount !== false) {
                     $scope.titleValues = {
                         total: ctrlScope.pagination.totalItems()
