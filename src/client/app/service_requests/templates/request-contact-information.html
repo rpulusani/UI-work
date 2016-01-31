@@ -3,7 +3,7 @@
     <div class="col-1-3">
         <p translate="{{configure.contact.translate.requestedByTitle}}"></p>
 
-        <div class="well">
+        <div class="well well--no-shadow">
             <p ng-bind-html="requestedByContactFormatted"></p>
             <div ng-if="configure.contact.show.primaryAction" class="primary-contact-action">&nbsp;</div>
         </div>
@@ -11,7 +11,7 @@
     <div class="col-1-3">
         <p translate="{{configure.contact.translate.primaryTitle}}"></p>
 
-        <div class="well">
+        <div class="well well--no-shadow">
             <p ng-bind-html="formattedPrimaryContact"></p>
 
             <a ng-if="configure.contact.show.primaryAction"

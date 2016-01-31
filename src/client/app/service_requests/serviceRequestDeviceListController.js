@@ -27,7 +27,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
               ServiceRequest.setItem(SR);
                 var options = {
                     params:{
-                        embed:'primaryContact,requester,address,account,asset,sourceAddress'
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress,destinationAddress'
                     }
                 };
                 ServiceRequest.item.get(options).then(function(){

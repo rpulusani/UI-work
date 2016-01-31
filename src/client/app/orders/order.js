@@ -40,6 +40,11 @@ define(['angular'], function(angular) {
                 controller: 'OrderPurchaseController',
                 activeItem: '/orders'
         })
+        .when('/orders/:id/receipt', {
+            templateUrl: '/app/service_requests/templates/receipt.html',
+            controller:'ServiceRequestDetailController',
+            activeItem: '/orders'
+        })
         .when('/orders/purchase/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'OrderPurchaseController',
