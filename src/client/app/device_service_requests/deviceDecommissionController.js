@@ -42,6 +42,9 @@ define(['angular',
                     ServiceRequest.addField('type', 'MADC_DECOMMISSION');
             };
 
+            $scope.$broadcast('setupPrintAndExport', $scope);
+            
+
             if (Devices.item === null) {
                 $scope.redirectToList();
             } else if($rootScope.selectedContact

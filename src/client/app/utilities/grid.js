@@ -181,7 +181,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             scope[self.optionsName].exporterPdfPageSize = 'LETTER';
             scope[self.optionsName].exporterPdfMaxGridWidth = 500;
             scope[self.optionsName].rowEditWaitInterval = 0;
-            scope[self.optionsName].exporterAllDataPromise = function() {
+            scope[self.optionsName].exporterAllDataFn = function() {
                 scope[self.optionsName].currentGridData = scope[self.optionsName].data;
                 scope[self.optionsName].servicePage = service.page;
 

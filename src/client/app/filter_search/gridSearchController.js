@@ -30,6 +30,10 @@ define(['angular', 'filterSearch'], function(angular) {
                 $scope.search($scope.params, paramsList);
             };
 
+            
+            $scope.$on('updateSearchFilter', function(evt, filter) {
+                return filter.functionDef();
+            });
         }
     ]);
 });
