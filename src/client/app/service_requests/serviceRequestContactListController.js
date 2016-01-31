@@ -6,6 +6,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         '$location',
         '$rootScope',
         'ServiceRequestService',
+        'Contacts',
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
@@ -14,11 +15,13 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             $location,
             $rootScope,
             ServiceRequest,
+            Contacts,
             Grid,
             Personalize,
             FilterSearchService) {
             $rootScope.currentRowList = [];
 
+            $scope.contacts = Contacts;
             ServiceRequest.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'contactSet');

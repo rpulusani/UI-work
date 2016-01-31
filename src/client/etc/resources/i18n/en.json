@@ -837,7 +837,9 @@
             "CHANGE_DEVICE_TO_BE_REMOVED": "CHANGE DEVICE TO BE REMOVED",
             "DEVICES_COUNT_MSG": "{{count}} devices at {{address}}",
             "LOOKING_FOR_A_REQUEST": "Looking for a request?",
-            "CHL": "CHL"
+            "CHL": "CHL",
+            "ORDER_ANOTHER_BTN": "ORDER ANOTHER",
+            "REMOVE_FROM_FLEET": "REMOVE FROM FLEET"
         },
 
         "FILTERS": {
@@ -1374,7 +1376,8 @@
             "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
             "UPDATE_USER": "UPDATE USER",
             "FILTER_BY_STATUS": "Filter By Status",
-            "FILTER_BY_ROLE": "Filter By Role"
+            "FILTER_BY_ROLE": "Filter By Role",
+            "CANCEL_INVITATION": "CANCEL INVITATION"
         },
 
         "ROLE": {
@@ -1476,7 +1479,9 @@
         "IN_PROCESS": "IN_PROCESS",
         "COMPLETED": "COMPLETED",
         "SHIPPED": "SHIPPED",
-        "DELIVERED": "DELIVERED"
+        "DELIVERED": "DELIVERED",
+        "EDIT": "EDIT",
+        "MOVE": "MOVE"
     },
 
         "PAGINATION": {
@@ -1498,7 +1503,8 @@
             "ACCEPTABLE_FILE_FORMAT": "Acceptable File Formats: {{file_list}}",
             "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "FAQ": "FAQ Page is coming soon",
-            "LEARN_MORE": "Learn More Page is coming soon"
+            "LEARN_MORE": "Learn More Page is coming soon",
+            "HELP": "Help Page is coming soon"
         },
 
     "INVOICE": {

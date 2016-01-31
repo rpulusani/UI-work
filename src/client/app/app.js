@@ -116,6 +116,7 @@ define([
     'filterSearch.invitedStatusFilterController',
     'filterSearch.roleFilterController',
     'filterSearch.dateRangeFilterController',
+    'filterSearch.invoiceDateFilterController',
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',

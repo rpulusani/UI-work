@@ -72,15 +72,21 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                     Account.getAdditional(Account.item, Addresses).then(function() {
                         var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
 
-                        filterSearchService.addBasicFilter('ADDRESS.ALL_ADDRESSES', {'embed': 'contact'}, undefined,
+                        filterSearchService.addBasicFilter('All Addresses', {'embed': 'contact'}, undefined,
                             function(Grid){
-                            $scope.$broadcast('setupPrintAndExport', $scope);
-
                             setTimeout(function() {
                                 $scope.$broadcast('setupColumnPicker', Grid);
                             }, 500);
-
+                            $scope.$broadcast('setupPrintAndExport', $scope);
                         });
+                        filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined,
+                            function(Grid) {
+                                setTimeout(function() {
+                                    $scope.$broadcast('setupColumnPicker', Grid);
+                                }, 500);
+                                $scope.$broadcast('setupPrintAndExport', $scope);
+                            }
+                        );
                     });
                 });
 
