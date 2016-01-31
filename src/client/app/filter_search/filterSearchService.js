@@ -75,6 +75,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 }
                 this.localScope.gridOptions.onRegisterApi = self.Grid.getGridActions(rootScope,
                         this.service, this.personalization);
+
             };
 
             FilterSearchService.prototype.addBasicFilter = function(displayText, configuredParams, removeParams, fn) {

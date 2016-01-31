@@ -16,7 +16,7 @@ define(['angular', 'filterSearch'], function(angular) {
                 }
             };
 
-            $scope.searchByColumn = function(selectedOption){
+            $scope.searchByColumn = function(selectedOption) {
                 $scope.searchBy = selectedOption.searchOn;
             };
 
@@ -29,11 +29,6 @@ define(['angular', 'filterSearch'], function(angular) {
                 $scope.params = {};
                 $scope.search($scope.params, paramsList);
             };
-
-            
-            $scope.$on('updateSearchFilter', function(evt, filter) {
-                return filter.functionDef();
-            });
         }
     ]);
 });
