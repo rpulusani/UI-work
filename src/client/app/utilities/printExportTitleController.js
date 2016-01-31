@@ -4,7 +4,6 @@ define(['angular', 'utility.grid'], function(angular) {
     .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate', 'uiGridExporterConstants',
         function($scope, element, attrs, $translate, uiGridExporterConstants) {
             $scope.title = attrs.title;
-            
 
             $scope.displayPrint = true;
             $scope.displayExport = true;
@@ -17,13 +16,16 @@ define(['angular', 'utility.grid'], function(angular) {
                 $scope.displayExport = false;
             }
 
+            if (!attrs.titleCount) {
+                attrs.titleCount = true;
+            }
+
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-                if(!$scope.titleValues){
+                if($scope.title && attrs.titleCount !== false) {
                     $scope.titleValues = {
                         total: ctrlScope.pagination.totalItems()
                     };
                 }
-
 
                 $scope.printGrid = function() {
                     ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
