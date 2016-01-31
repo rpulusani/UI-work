@@ -32,8 +32,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             ) {
             $scope.selectedBillToAddress = undefined;
             $rootScope.currentSelectedRow = undefined;
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             if ($rootScope.currentSelectedRow) {
                 $scope.selectedAddress = $rootScope.currentSelectedRow;
@@ -76,22 +75,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.addressReturnPath);
             };
 
-            User.getLoggedInUserInfo().then(function() {
-                if (angular.isArray(User.item._links.accounts)) {
-                    User.item._links.accounts = User.item._links.accounts[0];
-                }
-
-                User.getAdditional(User.item, Account).then(function() {
-                    Account.getAdditional(Account.item, Addresses).then(function() {
-                        $scope.gridOptions.showBookmarkColumn = false;
-                        $scope.gridOptions.multiSelect = false;
-                       filterSearchService.addBasicFilter('All Bill To Addresses', {'addressType': 'BILL_TO'}, false,
-                        function(Grid) {
-                         });
-                    });
-                });
-            });
-
             function configureTemplates() {
                 $scope.configure = {
                     header: {
@@ -104,6 +87,15 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                     }
                 };
             }
+
+            function setupGrid(){
+                var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+                $scope.gridOptions.showBookmarkColumn = false;
+                $scope.gridOptions.multiSelect = false;
+                filterSearchService.addBasicFilter('All Bill To Addresses', {'addressType': 'BILL_TO'}, undefined);
+            }
+
+            setupGrid();
 
         }
     ]);
