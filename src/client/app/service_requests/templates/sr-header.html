@@ -5,12 +5,12 @@
         <li>Child</li>
     </ul>
 
-    <h1 ng-if="!configure.cancel" translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
+    <h1 translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
     <!--<h1 ng-if="configure.cancel" translate="{{configure.cancel.information.translate.h1}}" translate-values="{{configure.cancel.information.translate.h1Values}}"></h1>-->
 
     <p class="vertical-margin-bottom-72" >
         <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
-    <button class="btn" ng-click="goToServiceCancel(sr.id)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
+        <button class="btn" ng-click="goToServiceCancel(sr.id)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
         ng-if="cancelServiceRequest && showCancelBtn === true"></button>
         <a ng-if="configure.header.readMoreUrl"
         class="read-more"
