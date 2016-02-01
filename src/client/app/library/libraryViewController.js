@@ -33,6 +33,12 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 $location.path(Documents.route + '/' + $scope.documentItem.id + '/update');
             };
 
+            $scope.goToDocumentView = function(documentItem) {
+                Documents.setItem(documentItem);
+
+                $location.path(Documents.route + '/' + $scope.documentItem.id + '/view');
+            };
+
             $scope.goToDelete = function() {
                 $http({
                     method: 'DELETE',

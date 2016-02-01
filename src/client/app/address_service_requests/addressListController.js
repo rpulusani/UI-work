@@ -65,8 +65,10 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                             $scope.$broadcast('setupPrintAndExport', $scope);
                             $scope.$broadcast('setupColumnPicker', grid);
 
-                            filterSearchService.addBasicFilter('CONTACT.ALL', undefined, undefined);
+                            filterSearchService.addBasicFilter('ADDRESS.ALL', undefined, undefined);
+                            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined);
                         });
+                        
                     });
                 });
             });

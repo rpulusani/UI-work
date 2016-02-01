@@ -1,8 +1,8 @@
-define(['angular', 'report', 'googlecharting'], function(angular) {
+define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.report')
-    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'grid', '$rootScope', 'PersonalizationServiceFactory',
-        function($scope, $location, $translate, Reports, GridService, $rootScope, Personalize) {
+    .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory',
+        function($scope, $location, $translate, Reports, Documents, GridService, $rootScope, Personalize) {
 
             $scope.chartObject = {};
             $scope.chartData = {};
@@ -504,11 +504,6 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
                     }
             };
 
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-            var Grid = new GridService();
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
-
             Reports.getPage().then(function() {
                 $scope.finder = Reports.finder;
                 $scope.visualizations = [];
@@ -529,11 +524,31 @@ define(['angular', 'report', 'googlecharting'], function(angular) {
 
                 buildCharts();
 
-                Grid.display(Reports, $scope, personal);
-
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
             });
+
+
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var Grid = new GridService();
+            $scope.gridOptions = {};
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
+            $scope.gridOptions.showBookmarkColumn = false;
+
+            Documents.columns = Documents.columnDefs['otherReports'];
+            Documents.getPage().then(function() {
+                Grid.display(Documents, $scope, personal);
+            });
+
+            $scope.goToDocumentView = function(documentItem) {
+                var selfHrefArr = documentItem._links.self.href.split('/');
+                var documentId = selfHrefArr.pop();
+
+                documentItem.id = documentId;
+                Documents.setItem(documentItem);
+
+                $location.path(Documents.route + '/' + documentItem.id + '/view');
+            };
 
             $scope.goToFinder = function(report) {
                 Reports.setItem(report);

@@ -149,12 +149,31 @@
 
     <div class="row">
         <div class="col-1">
+            <table class="table table--responsive table--condensed table--bordered" style="min-height:0;">
+                <thead>
+                    <tr>
+                        <th translate="REPORTING.NAME"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="report in reports">
+                        <td>
+                            <a href="#" ng-click="goToFinder(report)" ng-bind="report.name"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-1">
             <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
             translate="{{ configure.report.grids.standard.translate.h2 }}" translate-values="{total: pagination.totalItems()}"></h2>
             
             <hr/>
 
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ></div>
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>

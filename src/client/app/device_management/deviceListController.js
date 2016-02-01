@@ -45,6 +45,91 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
 
                 return false;
             };
+            $scope.goToSuppliesOrder = function(device) {
+                Devices.setItem(device);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+
+                Devices.item.get(options).then(function(){
+                    $location.search('tab', 'orderTab');
+                    $location.path(Devices.route + '/' + device.id + '/review');
+                });
+            };
+            $scope.goToRequestService = function(device) {
+                Devices.setItem(device);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+                window.scrollTo(0,0)
+                Devices.item.get(options).then(function(){
+                    $location.path('/service_requests/devices/' + device.id + '/view');
+                });
+            };
+            $scope.goToUpdatePageCount = function(device) {
+                Devices.setItem(device);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+
+                Devices.item.get(options).then(function(){
+                    $location.search('tab', 'pageCountTab');
+                    $location.path(Devices.route + '/' + device.id + '/review');
+                });
+            };
+            $scope.goToUpdate = function(device) {
+                Devices.setItem(device);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+                 window.scrollTo(0,0)
+                Devices.item.get(options).then(function(){
+                    $location.path('/service_requests/devices/' + device.id + '/update');
+                });
+            };
+            $scope.goToOrderAnother = function(device) {
+                Devices.item = {};
+                $location.path('/service_requests/devices/new');
+            };
+            $scope.goToDelete = function(device) {
+                Devices.setItem(device);
+                var options = {
+                    params:{
+                        embed:'contact,address'
+                    }
+                };
+                window.scrollTo(0,0)
+                Devices.item.get(options).then(function(){
+                    $location.path('/service_requests/devices/decommission/' + device.id + '/view');
+                });
+            };
+
+            $scope.selectRow = function(btnType) {
+                if (btnType === 'orderSupplies') {
+                    $scope.goToSuppliesOrder($scope.gridApi.selection.getSelectedRows()[0]);
+                } else if (btnType === 'requestService') {
+                    $scope.goToRequestService($scope.gridApi.selection.getSelectedRows()[0]);
+                } else if (btnType === 'updatePageCounts') {
+                    $scope.goToUpdatePageCount($scope.gridApi.selection.getSelectedRows()[0]);
+                } else if (btnType === 'edit') {
+                    $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+                } else if (btnType === 'move') {
+                    $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+                } else if (btnType === 'orderAnother') {
+                    $scope.goToOrderAnother($scope.gridApi.selection.getSelectedRows()[0]);
+                } else if (btnType === 'delete') {
+                    $scope.goToDelete($scope.gridApi.selection.getSelectedRows()[0]);
+                }
+            };
+
             $scope.view = function(device){
                 Devices.setItem(device);
                 var options = {

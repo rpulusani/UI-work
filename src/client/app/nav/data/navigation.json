@@ -132,7 +132,7 @@
   },
   {
     "id": "15",
-    "action": "#help",
+    "action": "/help",
     "text": "Get Help",
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",

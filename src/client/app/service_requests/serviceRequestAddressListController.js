@@ -6,6 +6,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         '$location',
         '$rootScope',
         'ServiceRequestService',
+        'Addresses',
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
@@ -14,6 +15,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             $location,
             $rootScope,
             ServiceRequest,
+            Addresses,
             Grid,
             Personalize,
             FilterSearchService) {
@@ -23,6 +25,10 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'addressSet');
 
+            $scope.goToCreate = function() {
+                Addresses.item = {};
+                $location.path('/service_requests/addresses/new');
+            };
             $scope.view = function(SR){
               ServiceRequest.setItem(SR);
                 var options = {

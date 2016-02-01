@@ -32,8 +32,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
         ) {
             $scope.selectedShipToAddress = undefined;
             $rootScope.currentSelectedRow = undefined;
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             if ($rootScope.currentSelectedRow ) {
                 $scope.selectedAddress = $rootScope.currentSelectedRow;
@@ -42,12 +41,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             if($rootScope.selectedShipToAddress) {
                 $rootScope.selectedShipToAddress = undefined;
             }
-
-            /*commenting the validation until fixing*/
-            /*
-            if (!Addresses.data.length) {
-                $location.path('/');
-            }*/
 
             configureTemplates();
 
@@ -76,21 +69,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.addressReturnPath);
             };
 
-            User.getLoggedInUserInfo().then(function() {
-                if (angular.isArray(User.item._links.accounts)) {
-                    User.item._links.accounts = User.item._links.accounts[0];
-                }
 
-                User.getAdditional(User.item, Account).then(function() {
-                    Account.getAdditional(Account.item, Addresses).then(function() {
-                        $scope.gridOptions.showBookmarkColumn = false;
-                        $scope.gridOptions.multiSelect = false;
-                       filterSearchService.addBasicFilter('All Ship To Addresses', {'addressType': 'SHIP_TO'}, false,
-                        function(Grid) {
-                        });
-                    });
-                });
-            });
+
+
 
             function configureTemplates() {
                 $scope.configure = {
@@ -105,6 +86,14 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 };
             }
 
+            function setupGrid(){
+                var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+                $scope.gridOptions.showBookmarkColumn = false;
+                $scope.gridOptions.multiSelect = false;
+                filterSearchService.addBasicFilter('All Ship To Addresses', {'addressType': 'SHIP_TO'}, undefined);
+            }
+
+            setupGrid();
         }
     ]);
 });
