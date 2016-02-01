@@ -51,6 +51,12 @@ define(['angular', 'filterSearch'], function(angular) {
                     }
                 }
                 if($scope.selectedRoleList && $scope.filterDef && typeof $scope.filterDef === 'function'){
+                    if ($scope.selectedRoleList.length > 0) {
+                        $scope.showClearMessage = true;
+                        $scope.noOfSelected = $scope.selectedRoleList.length;
+                    } else {
+                        $scope.showClearMessage = false;
+                    }
                     var roles = $scope.selectedRoleList.join();
                     if ($scope.selectedRoleList.length > 0) {
                         $scope.params['roles'] = roles;
@@ -59,6 +65,18 @@ define(['angular', 'filterSearch'], function(angular) {
                         $scope.params = {};
                         $scope.filterDef($scope.params,['roles', 'activeStatus', 'invitedStatus']);
                     }
+                }
+            };
+
+            $scope.clearRolesFilter = function(){
+                if($scope.filterDef && typeof $scope.filterDef === 'function'){
+                    $scope.params = {};
+                    $scope.noOfSelected = 0;
+                    $scope.selectedRoleList = [];
+                    for (var i=0; i<$scope.totalRoleList.length; i++) {
+                        $scope.totalRoleList[i].selected = false;
+                    }
+                    $scope.filterDef($scope.params, ['roles', 'activeStatus', 'invitedStatus']);
                 }
             };
 

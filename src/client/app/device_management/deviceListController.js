@@ -144,7 +144,9 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                 });
             };
 
-            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'}, false,
+            var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location'];
+
+            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);

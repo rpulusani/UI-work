@@ -39,7 +39,8 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
                 });
             };
 
-            filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, false,
+            var removeParamsList = ['from', 'to', 'status'];
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);

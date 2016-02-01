@@ -40,8 +40,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 type: 'MADC_ALL',
                 embed: 'primaryContact,requester'
             };
-
-            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.ALL_DEVICES_REQUESTS', params, false,
+            var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location'];
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.ALL_DEVICES_REQUESTS', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
