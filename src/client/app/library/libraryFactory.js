@@ -62,12 +62,6 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         functionDef: function(){
                             return formatter.formatDate(this.publishDate);
                         }
-                    },
-                    {
-                        name: 'getTags',
-                        functionDef: function(){
-                            return this.tagNames.join(", ");
-                        }
                     }
                 ]
             };
