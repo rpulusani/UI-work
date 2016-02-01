@@ -53,25 +53,24 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 }
             };
 
-            User.getLoggedInUserInfo().then(function(user) {
-                if (angular.isArray(User.item._links.accounts)) {
-                    User.item._links.accounts = User.item._links.accounts[0];
-                }
 
-                User.getAdditional(User.item, Account).then(function() {
-                    Account.getAdditional(Account.item, Addresses).then(function() {
-                        var grid = new GridService();
-                        grid.display(Addresses, $scope, personal, false, function() {
-                            $scope.$broadcast('setupPrintAndExport', $scope);
-                            $scope.$broadcast('setupColumnPicker', grid);
 
-                            filterSearchService.addBasicFilter('ADDRESS.ALL', undefined, undefined);
-                            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined);
-                        });
-                        
-                    });
-                });
+            filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, undefined,
+                 function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
             });
+            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', {'addressType': 'ACCOUNT'},
+                 function(Grid) {
+                     setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                });
+
+
         }
     ]);
 });
