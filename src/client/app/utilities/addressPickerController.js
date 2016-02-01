@@ -3,11 +3,13 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     angular.module('mps.utility')
     .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
      'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
+     'FilterSearchService',
         function($scope, $location, GridService, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams,
-            Personalize, $controller) {
+            Personalize, $controller, FilterSearchService) {
             $scope.selectedAddress = [];
             $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
 
             if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1) {
                 $scope.selectedAddress = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
@@ -20,12 +22,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             if (!BlankCheck.isNullOrWhiteSpace($scope.sourceAddress)) {
                 $scope.formattedInstalledAddress = FormatterService.formatAddress(JSON.parse($scope.sourceAddress));
             }
-
-            /*commenting the validation until fixing*/
-            /*
-            if (!Addresses.data.length) {
-                $location.path('/');
-            }*/
 
             configureTemplates();
 
@@ -53,25 +49,13 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.addressReturnPath);
             };
 
-            var Grid = new GridService();
-            $scope.gridOptions = {};
-            $scope.gridOptions.multiSelect = false;
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Addresses, personal);
 
-            User.getLoggedInUserInfo().then(function() {
-                if (angular.isArray(User.item._links.accounts)) {
-                    User.item._links.accounts = User.item._links.accounts[0];
-                }
-
-                User.getAdditional(User.item, Account).then(function() {
-                    Account.getAdditional(Account.item, Addresses).then(function() {
-                        Addresses.getPage().then(function() {
-                            Grid.display(Addresses, $scope, personal);
-                        }, function(reason) {
-                            NREUM.noticeError('Grid Load Failed for ' + Addresses.serviceName +  ' reason: ' + reason);
-                        });
-                    });
-                });
+            filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, undefined,
+                 function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
             });
 
             function configureTemplates() {
