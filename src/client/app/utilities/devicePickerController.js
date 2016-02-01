@@ -151,7 +151,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                             body: $scope.bodyText,
                             readMore: $scope.readMore
                         },
-                        readMoreUrl: $scope.readMoreUrl
+                        readMoreUrl: $scope.readMoreUrl,
+                        showCancelBtn: false
                     }
                 };
             }

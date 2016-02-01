@@ -65,7 +65,7 @@ define([
                         });
                     } else {
                        setupLinks();
-                    } 
+                    }
                 } else {
                     item.isExpanded = false;
                     item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
@@ -73,7 +73,7 @@ define([
             };
 
             $scope.switchAccount = function(child) {
-                var i = 0, 
+                var i = 0,
                 accts = Users.item.transactionalAccount.data;
 
                 HATEAOSConfig.updateCurrentAccount(child.account);

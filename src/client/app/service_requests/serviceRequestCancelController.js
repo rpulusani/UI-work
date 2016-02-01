@@ -4,6 +4,7 @@ define(['angular', 'serviceRequest'], function(angular) {
     .controller('ServiceRequestCancelController', [
         '$scope',
         '$location',
+        '$routeParams',
         '$rootScope',
         'ServiceRequestService',
         'SRControllerHelperService',
@@ -15,6 +16,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         function(
             $scope,
             $location,
+            $routeParams,
             $rootScope,
             ServiceRequest,
             SRHelper,
@@ -24,51 +26,54 @@ define(['angular', 'serviceRequest'], function(angular) {
             Users,
             $translate) {
 
-            $rootScope.showCancelBtn = false;
-
-            // configurations will overwrite other SR templates
-            // srCancel is not fully realized but need to name an sr that is being cancelled and the actual cancel of that sr differently to avoid confusion
-
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
             $scope.goToReview = function() {
-                $location.path(ServiceRequests.route + $scope.srCancel.id + '/receipt');
+                $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
+            };
+
+             var configureSR = function(ServiceRequest){
+                ServiceRequest.addRelationship('account', $scope.sr);
+                ServiceRequest.addRelationship('primaryContact', $scope.sr, 'contact');
+                ServiceRequest.addRelationship('relatedRequest', $scope.sr, 'self');
+                ServiceRequest.addField('type', $routeParams.type);
             };
 
             $scope.getRequestor = function(ServiceRequest, Contacts) {
                 Users.getLoggedInUserInfo().then(function() {
                     Users.item.links.contact().then(function() {
-                        $scope.srCancel.requestedByContact = Users.item.contact.item;
-                        ServiceRequest.addRelationship('requester', $scope.srCancel.requestedByContact, 'self');
-                        $scope.srCancel.primaryContact = $scope.srCancel.requestedByContact;
-                        ServiceRequest.addRelationship('primaryContact', $scope.srCancel.requestedByContact, 'self');
+                        $scope.sr.requestedByContact = Users.item.contact.item;
+                        ServiceRequest.addRelationship('requester', $scope.sr.requestedByContact, 'self');
+                        $scope.sr.primaryContact = $scope.sr.requestedByContact;
+                        ServiceRequest.addRelationship('primaryContact', $scope.sr.primaryContact, 'self');
                         $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.srCancel.requestedByContact);
+                        FormatterService.formatContact($scope.sr.requestedByContact);
+                        $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact);
                     });
                 });
             };
 
-            var configureSR = function(ServiceRequest){
-                ServiceRequest.addRelationship('account', $scope.srCancel);
-                ServiceRequest.addRelationship('primaryContact', $scope.srCancel, 'contact');
-                ServiceRequest.addField('type', 'CANCEL_HARDWARE_INSTALL');  //'CANCEL_INSTALL', 'CANCEL_LBS_UPDATE', 'CANCEL_MOVE'
-            };
-
             $scope.formatAdditionalData = function() {
-                if (!BlankCheck.isNull($scope.srCancel.primaryContact)) {
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.srCancel.primaryContact);
+                if (!BlankCheck.isNull($scope.sr.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact);
                 }
 
-                if (!BlankCheck.isNull($scope.srCancel.requestedByContact)) {
-                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.srCancel.requestedByContact);
+                if (!BlankCheck.isNull($scope.sr.requestedByContact)) {
+                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requestedByContact);
                 }
 
             };
 
             if(ServiceRequest.item === null){
                 $scope.redirectToList();
+            }else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === ServiceRequest.item.id){
+                $scope.sr = $rootScope.returnPickerSRObject;
+                ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                $scope.sr.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.formatAdditionalData();
+                $scope.resetContactPicker();
             }else{
-                $scope.srCancel = ServiceRequest.item;
+                $scope.sr = ServiceRequest.item;
             }
 
             $scope.setupSR(ServiceRequest, configureSR);
@@ -76,9 +81,6 @@ define(['angular', 'serviceRequest'], function(angular) {
             $scope.getRequestor(ServiceRequest, Contacts);
 
             function configureReviewTemplate(){
-                $scope.configure.header.translate.h1Values = {
-                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
-                };
                 $scope.configure.actions.translate.submit = 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION';
                 $scope.configure.actions.submit = function(){
                     updateSRObjectForSubmit();
@@ -94,7 +96,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     deferred.then(function(result){
                         ServiceRequest.item = ServiceRequest.item;
                         $rootScope.newSr = $scope.sr;
-                        $location.path(ServiceRequests.route + $scope.srCancel.id + '/receipt');
+                        $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
@@ -111,7 +113,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
-                    'addressUrl': '/service_requests',
+                    'srUrl': '/service_requests',
                 };
                 $scope.configure.receipt = {
                     translate: {
@@ -122,23 +124,24 @@ define(['angular', 'serviceRequest'], function(angular) {
                 $scope.configure.contact.show.primaryAction = false;
             }
 
-            //typed to ServiceRequest overwrites other SR headers
             function configureTemplates() {
                 $scope.configure = {
                     header: {
                         translate: {
                             h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
+                            h1Values: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) },
                             body: 'MESSAGE.LIPSUM',
                             readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: '/service_requests/learn_more'
+                        readMoreUrl: '/service_requests/learn_more',
+                        showCancelBtn: false
                     },
                     cancel: {
                         information:{
                             translate: {
                                 h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
                                 title: 'SERVICE_REQUEST.REQUEST_CANCELLATION_INFORMATION',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT',
+                                contact: 'SERVICE_REQUEST.SERVICE_REQUEST_CONTACT',
                                 label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
                             }
                         }
@@ -175,8 +178,10 @@ define(['angular', 'serviceRequest'], function(angular) {
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show:{
-                            primaryAction : false
-                        }
+                            primaryAction : true
+                        },
+                        pickerObject: $scope.sr,
+                        source: 'CancelSR'
                     },
                     modal: {
                         translate: {
@@ -186,6 +191,11 @@ define(['angular', 'serviceRequest'], function(angular) {
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
                         },
                         returnPath: '/service_requests'
+                    },
+                    contactPicker: {
+                        translate: {
+                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
+                        }
                     }
                 };
             }

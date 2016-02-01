@@ -144,7 +144,8 @@ define(['angular', 'address'], function(angular) {
                             bodyValues: '',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     address: {
                         information:{

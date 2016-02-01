@@ -82,7 +82,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                             body: 'MESSAGE.LIPSUM',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     }
                 };
             }
