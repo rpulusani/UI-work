@@ -1,3 +1,10 @@
 <br/>
 <h4 translate="FILTERS.BROWSE_CHL"></h4>
 <div tree tree-type='chl' filter-chl="chlFilter"></div>
+<br/>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+	<div class="footnotes">
+		<i>{{noOfSelected}} {{'DEVICE_MAN.COMMON.TXT_CHLS_SELECTED' | translate }}</i>
+	    <a href="" ng-click="clearCHLFilter()" translate="DEVICE_MAN.MANAGE_DEVICES.CTRL_CLEAR_CHLS"></a>
+    </div>
+</div>

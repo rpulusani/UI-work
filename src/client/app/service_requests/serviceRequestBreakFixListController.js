@@ -40,8 +40,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 type: 'BREAK_FIX',
                 embed: 'primaryContact,requester,asset,sourceAddress'
             };
-
-            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_SERVICE_REQUESTS', params, false,
+            var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location'];
+            filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_SERVICE_REQUESTS', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);

@@ -53,9 +53,8 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 }
             };
 
-
-
-            filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, undefined,
+            var removeParamsList = ['location'];
+            filterSearchService.addBasicFilter('All addresses', {'addressType': 'ACCOUNT'}, removeParamsList,
                  function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);

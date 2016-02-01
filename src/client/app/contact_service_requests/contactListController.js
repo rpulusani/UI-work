@@ -42,8 +42,8 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         };
 
         Contacts.alertState = false;
-
-        filterSearchService.addBasicFilter('CONTACT.ALL', undefined, undefined,
+        var removeParamsList = ['location'];
+        filterSearchService.addBasicFilter('CONTACT.ALL', undefined, removeParamsList,
             function(Grid) {
                 $scope.$broadcast('setupPrintAndExport', $scope);
 

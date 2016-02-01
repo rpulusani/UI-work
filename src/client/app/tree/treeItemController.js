@@ -115,7 +115,7 @@ define([
                         deselectChildren(children[j].items, item);
                     }
                 }
-            }
+            };
 
             $scope.toggleChildren = function(item){
                 var children = item.items || [],
@@ -192,11 +192,6 @@ define([
                 $scope.item.selected = true;
                 $scope.toggleChildren($scope.item);
             });
-            $scope.$on('deselectAll', function(evt){
-                $scope.item.selected = false;
-                $scope.toggleChildren($scope.item);
-            });
-            
         }
     ]);
 });

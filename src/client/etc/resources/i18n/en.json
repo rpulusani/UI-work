@@ -10,6 +10,9 @@
             "TXT_DEVICE_TAG": "Customer device tag",
             "TXT_LAST_UPDATED": "Last updated",
             "TXT_LOCATIONS_SELECTED": "locations selected",
+            "TXT_CHLS_SELECTED": "CHLs selected",
+            "TXT_REQUEST_STATUS_SELECTED": "Request status selected",
+            "TXT_ORDER_STATUS_SELECTED": "Order status selected",
             "TXT_LOCATION_SELECTED": "location selected",
             "TXT_ORDER_IN_PROCESS": "In Process",
             "TXT_ORDER_SHIPPED": "Shipped",
@@ -103,6 +106,10 @@
             "BTN_UPDATE_PAGE_COUNTS": "Update page counts",
             "BTN_UPDATE_PAGE_COUNTS_UC": "UPDATE PAGE COUNTS",
             "CTRL_CLEAR_LOCATIONS": "Clear locations",
+            "CTRL_CLEAR_CHLS": "Clear CHLs",
+            "CTRL_CLEAR_REQUEST_STATUS": "Clear request status filters",
+            "CTRL_CLEAR_ORDER_STATUS": "Clear order status filters",
+            "CTRL_CLEAR_DATE_RANGE": "Clear Date Filter",
             "CTRL_HIDE_SEARCH": "Hide search",
             "CTRL_RESET_COLS": "Reset columns",
             "CTRL_RESET_SEARCH": "Reset search",
@@ -929,7 +936,7 @@
             "DEVICE_REQUESTS_W_TOTALS": "Device requests ({{total}} total device requests)",
             "SERVICE_REQUESTS_W_TOTALS": "Service requests ({{total}} total service requests)",
             "ADRESS_W_TOTALS": "All address requests ({{total}} total address requests)",
-            "CONTACT_W_TOTALS": "All address requests ({{total}} total contact requests)",
+            "CONTACT_W_TOTALS": "All contact requests ({{total}} total contact requests)",
             "ALL_SERVICE_REQUESTS": "All service requests",
             "DEVICE_REQUESTS": "Device requests",
             "ADDRESS_REQUESTS": "Address requests",
@@ -1392,7 +1399,10 @@
             "UPDATE_USER": "UPDATE USER",
             "FILTER_BY_STATUS": "Filter By Status",
             "FILTER_BY_ROLE": "Filter By Role",
-            "CANCEL_INVITATION": "CANCEL INVITATION"
+            "CANCEL_INVITATION": "CANCEL INVITATION",
+            "ROLE_SELECTED": "Roles selected",
+            "CTRL_CLEAR_ROLES": "Clear roles",
+            "CTRL_CLEAR_STATUS": "Clear status"
         },
 
         "ROLE": {
