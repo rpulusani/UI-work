@@ -1,0 +1,13 @@
+<div ng-if="configure && configure.order && configure.order.po" >
+    <h2 translate="{{configure.order.po.translate.title}}"></h2>
+    <div class="row--alley-thick">
+        <div class="col-1-3">
+            <div class="well">
+                    <div class="form__field">
+                        <label translate="{{configure.order.po.translate.label}}"></label>
+                        <input name="purchaseOrderNumber" type="text" class="" value="" ng-model="sr.purchaseOrderNumber" />
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

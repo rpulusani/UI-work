@@ -6,7 +6,9 @@
     "description": "Some description of this link",
     "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",
-    "tags":["primary"]
+    "tags":["primary"],
+    "dropdown": true,
+    "dropdownIcon": "icon-psw-disclosure_down_triangle"
   },
   {
     "id": "2",
@@ -66,7 +68,7 @@
   },
   {
     "id": "8",
-    "action": "/service_requests",
+    "action": "/service_requests?tab=serviceRequestsAllTab",
     "text": "SERVICE_REQUEST.TITLE",
     "description": "Some description of this link",
     "icon": "icon icon-mps-requests",
@@ -130,7 +132,7 @@
   },
   {
     "id": "15",
-    "action": "#help",
+    "action": "/help",
     "text": "Get Help",
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",

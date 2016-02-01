@@ -7,6 +7,22 @@ define(['angular', 'serviceRequest'], function(angular) {
             templateUrl: '/app/service_requests/templates/primary-request-contact.html'
         };
     })
+    .directive('openSr', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/open_sr.html',
+            controller: 'OpenServiceRequestController',
+            scope: {
+               configure: "="
+            }
+        };
+    })
+    .directive('openBreakFixSummary', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/service_requests/templates/open-service-history-summary.html'
+        };
+    })
     .directive('deviceSrTab', function(){
         return {
             restrict: 'A',
@@ -131,6 +147,13 @@ define(['angular', 'serviceRequest'], function(angular) {
         return {
             restrict: 'A',
             templateUrl: '/app/service_requests/templates/address.html'
+        };
+    })
+    .directive('srCancel', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/service_requests/templates/cancel-request.html',
+            controller:'ServiceRequestCancelController'
         };
     })
     .directive('serviceRequestTabs', function() {

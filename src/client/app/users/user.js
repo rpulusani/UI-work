@@ -34,6 +34,11 @@ define(['angular'], function(angular) {
             controller: 'ManageUserController',
             activeItem: '/delegated_admin'
         })
+        .when('/delegated_admin/:id/cancel', {
+            templateUrl: '/app/users/templates/invite-user.html',
+            controller: 'ManageUserController',
+            activeItem: '/delegated_admin'
+        })
     }]);
 });
 

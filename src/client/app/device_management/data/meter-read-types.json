@@ -1,41 +1,41 @@
 [ {
-      "type" : "Mono",
+      "type" : "MONO",
       "value" : ""
     }, {
-      "type" : "Color",
+      "type" : "COLOR",
       "value" : ""
     }, {
       "type" : "LTPC",
       "value" : ""
     }, {
-      "type" : "A3 LTPC",
+      "type" : "A3_LTPC",
       "value" : ""
     }, {
-      "type" : "A3 Mono",
+      "type" : "A3_MONO",
       "value" : ""
     }, {
-      "type" : "A4 LTPC",
+      "type" : "A4_LTPC",
       "value" : ""
     }, {
-      "type" : "A4 Mono",
+      "type" : "A4_MONO",
       "value" : ""
     }, {
-      "type" : "A5 LTPC",
+      "type" : "A3_COLOR",
       "value" : ""
     }, {
-      "type" : "A5 Mono",
+      "type" : "A5_MONO",
       "value" : ""
     }, {
-      "type" : "Legal LTPC",
+      "type" : "LEGAL_LTPC",
       "value" : ""
     }, {
-      "type" : "Legal Mono",
+      "type" : "LEGAL_MONO",
       "value" : ""
     }, {
-      "type" : "Letter LTPC",
+      "type" : "LETTER_LTPC",
       "value" : ""
     }, {
-      "type" : "Letter Mono",
+      "type" : "LETTER_MONO",
       "value" : ""
     }, {
       "type" : "PGS_SCAN_COPY",
@@ -50,16 +50,16 @@
       "type" : "PGS_SCAN_USB",
       "value" : ""
     }, {
-      "type" : "Statement LTPC",
+      "type" : "STATEMENT_LTPC",
       "value" : ""
     }, {
-      "type" : "Statement Mono",
+      "type" : "STATEMENT_MONO",
       "value" : ""
     }, {
-      "type" : "Tabloid LTPC",
+      "type" : "TABLOID_LTPC",
       "value" : ""
     }, {
-      "type" : "Tabloid Mono",
+      "type" : "TABLOID_MONO",
       "value" : ""
     } 
   ]

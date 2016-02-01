@@ -5,34 +5,42 @@ define(['angular', 'utility.grid'], function(angular) {
         function($scope, element, attrs, $translate, uiGridExporterConstants) {
             $scope.title = attrs.title;
 
+            $scope.displayPrint = true;
+            $scope.displayExport = true;
+
+            if (attrs.print && attrs.print === false) {
+                $scope.displayPrint = false;
+            }
+
+            if (attrs.export && attrs.export === false) {
+                $scope.displayExport = false;
+            }
+
+            if (!attrs.titleCount) {
+                attrs.titleCount = true;
+            }
+
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-                $scope.itemtotal = ctrlScope.pagination.totalItems();
-
-                if ($scope.itemtotal >= 0) {
-                    $scope.displayTitle = true;
-                    
-                    if (attrs.print === undefined || attrs.print === true) {
-                        $scope.displayPrint = true;
-                    } else {
-                        $scope.displayPrint = false;
-                    }
-
-                    if (attrs.export === undefined || attrs.export === true) {
-                        $scope.displayExport = true;
-                    } else {
-                        $scope.displayExport = false;
-                    }
-                } else {
-                    $scope.displayTitle = false;
+                if($scope.title && attrs.titleCount !== false) {
+                    $scope.titleValues = {
+                        total: ctrlScope.pagination.totalItems()
+                    };
                 }
 
+                ctrlScope.$watch('pagination', function(page) {
+                   $scope.titleValues = {
+                        total: page.totalItems()
+                    };
+                });
+
                 $scope.printGrid = function() {
-                    ctrlScope.gridApi.exporter.pdfExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL );
+                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
                 };
 
                 $scope.exportGrid = function() {
                     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                    ctrlScope.gridApi.exporter.csvExport( uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement );
+
+                    ctrlScope.gridApi.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             });
         }

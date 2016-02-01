@@ -5,10 +5,41 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
         'PersonalizationServiceFactory','FilterSearchService',
         function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration, Personalize,FilterSearchService) {
             UserAdminstration.setParamsToNull();
+
+            $scope.selectRow = function() {
+                selectedUser = $scope.gridApi.selection.getSelectedRows()[0];
+                UserAdminstration.setItem(selectedUser);
+                var options = {
+                    params:{
+                        embed:'roles,accounts'
+                    }
+                };
+
+                UserAdminstration.item.get(options).then(function(){
+                    $location.path(UserAdminstration.route + '/' + user.userId + '/cancel');
+                });
+            };
+
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'invitedSet');
-            filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'INVITED', 'embed': 'roles'}, false,
+            filterSearchService.addBasicFilter('USER.ALL_INVITED_USER', {'type': 'INVITED', 'embed': 'roles'}, false,
+                function(Grid) {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'InvitedStatusFilter', undefined,
                 function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
 

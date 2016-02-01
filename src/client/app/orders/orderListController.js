@@ -8,7 +8,9 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
         'OrderRequest',
         'grid',
         'PersonalizationServiceFactory',
+        'ServiceRequestService',
         'FilterSearchService',
+        'Devices',
         function(
             $scope,
             $location,
@@ -16,18 +18,25 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
             Orders,
             Grid,
             Personalize,
-            FilterSearchService) {
+            ServiceRequest,
+            FilterSearchService,
+            Devices) {
             $rootScope.currentRowList = [];
             Orders.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal, 'defaultSet');
 
             $scope.view = function(SR){
-                Orders.setItem(SR);
+              ServiceRequest.setItem(SR);
                 var options = {
                     params:{
+                        embed:'primaryContact,requester,address,account,asset,sourceAddress,shipToAddress,billToAddress'
                     }
                 };
+                ServiceRequest.item.get(options).then(function(){
+                    Devices.setItem(ServiceRequest.item.asset);
+                    $location.path(Orders.route + '/' + ServiceRequest.item.id + '/receipt');
+                });
             };
 
             filterSearchService.addBasicFilter('ORDER_MGT.ALL_ORDERS', {embed: 'primaryContact,requester'}, false,
@@ -36,6 +45,24 @@ define(['angular','order', 'order.factory', 'utility.grid'], function(angular) {
                         $scope.$broadcast('setupPrintAndExport', $scope);
                         $scope.$broadcast('setupColumnPicker', Grid);
                     }, 0);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
+                function(Grid) {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ORDER_STATUS', 'OrderStatusFilter', undefined,
+                function(Grid) {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_ORDERS', 'MyOrderFilter', undefined,
+                function(Grid) {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
         }

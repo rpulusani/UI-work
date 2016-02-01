@@ -10,7 +10,12 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                     columnDefs: {
                         defaultSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber'},
+                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
+                              'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
@@ -24,7 +29,12 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         ],
                         suppliesSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber'},
+                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
+                                'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
@@ -54,7 +64,12 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         ],
                         hardwareSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber'},
+                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
+                                'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
@@ -81,7 +96,12 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         singleAssetOrderSet:[
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                             {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber'},
+                            {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
+                                'cellTemplate':'<div>' +
+                                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                            '>{{row.entity.requestNumber}}</a>' +
+                                        '</div>'
+                            },
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
                             {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'}
                         ],

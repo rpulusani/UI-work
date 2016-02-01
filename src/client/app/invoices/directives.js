@@ -4,10 +4,6 @@ define(['angular', 'invoice'], function(angular) {
     .directive('invoiceList', function() {
         return {
             restrict: 'A',
-            scope: {
-                status: '@'
-            },
-            transclude: false,
             templateUrl: '/app/invoices/templates/invoice-list.html',
             controller: 'InvoiceListController'
         };

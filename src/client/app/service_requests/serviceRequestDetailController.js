@@ -37,7 +37,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                $scope.device =  ServiceRequest.item.assetInfo;
             }
 
-
             $scope.configure = {
                 header: {
                     translate: {}
@@ -69,8 +68,25 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         costCenter: true,
                         comments: true,
                         attachements: true
-                    }
-                }
+                    },
+                },
+                statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
             };
             function addDeviceInformation(){
                 $scope.configure.device = {
@@ -86,6 +102,40 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     }
 
                 };
+            }
+            function addDeviceMove(){
+                $scope.configure.device = {
+                    information:{
+                        translate:{
+                            title:'DEVICE_SERVICE_REQUEST.REQUEST_MOVE_TITLE',
+                            move: 'DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE',
+                            installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
+                        }
+                    }
+                };
+            }
+            function addAddressInfo(Title){
+                $scope.configure.address = {
+                    information:{
+                        translate:{
+                            title: Title,
+                        }
+                    }
+                };
+            }
+            function addContactInfo(Title){
+                $scope.configure.contactsr = {
+                    translate:{
+                        title: Title,
+                    }
+                };
+                if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
+                    !BlankCheck.isNull($scope.sr.primaryContact.item) &&
+                    !BlankCheck.isNull($scope.sr.primaryContact.item.address)){
+
+                        $scope.formattedPrimaryContactAddress =
+                            FormatterService.formatAddress($scope.sr.primaryContact.item.address);
+                }
             }
             function addDecommissionInfo(){
                  $scope.configure.device.removal = {
@@ -107,13 +157,53 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.configure.receipt = {
                     translate:{
                         title:'SERVICE_REQUEST.REQUEST_SERVICE_DETAIL',
-                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
+                        titleValues: {
+                            'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                        },
+                        subtitle: 'SERVICE_REQUEST.REQUEST_STATUS'
+                    },
+                    print: true
                 };
             }
 
+            $rootScope.showCancelBtn = true;
+
+            $scope.goToServiceCancel = function(requestNumber){
+                $location.path('/service_requests/' + requestNumber + '/cancel');
+            };
+
+
             $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
             switch($scope.sr.type){
+                case 'DATA_ADDRESS_ADD':
+                    addAddressInfo('ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED');
+                    $scope.formattedAddress = "No Address information found";
+                break;
+                case 'DATA_ADDRESS_CHANGE':
+                    addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_CHANGE');
+                    $scope.formattedAddress = "No Address information found";
+                break;
+                case 'DATA_ADDRESS_REMOVE':
+                    addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
+                    $scope.formattedAddress = "No Address information found";
+                break;
+                case 'DATA_CONTACT_REMOVE':
+                    addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_REMOVE_TITLE');
+                break;
+                case 'DATA_CONTACT_CHANGE':
+                    addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE');
+                break;
+                case 'MADC_MOVE':
+                    addDeviceMove();
+                    $scope.formattedMoveDevice = 'Yes';
+                break;
+                case 'DATA_ASSET_CHANGE':
+                    addDeviceMove();
+                    $scope.formattedMoveDevice = 'No';
+                break;
+                case 'MADC_INSTALL':
+                    addDeviceInformation();
+                break;
                 case 'MADC_DECOMMISSION':
                     addDeviceInformation();
                     addDecommissionInfo();
@@ -137,6 +227,17 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 default:
                 break;
+            }
+            if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
+                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
+            }
+
+            if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
+                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+            }
+
+            if (!BlankCheck.isNull($scope.device.deviceContact)) {
+                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
             }
 
             if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&

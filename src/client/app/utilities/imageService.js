@@ -6,6 +6,8 @@ define(['angular', 'utility'], function(angular) {
             var Image = function(){
                 this.url = 'https://www.lexmark.com/common/xml/';
                 this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
+                this.defaultThumbnailUrl = '';
+                $ = require('jquery');
             };
 
             Image.prototype.parsePartNumber = function(partNumber){
@@ -28,15 +30,57 @@ define(['angular', 'utility'], function(angular) {
                 }
                 return builtUrl + item.prefix + '/' + item.number + '.xml';
             };
-            Image.prototype.getPartMediumImageUrl = function(partNumber){
+
+            Image.prototype.getPartThumbnailImageUrl = function(partNumber){
                 var self = this,
                 item  = self.parsePartNumber(partNumber),
                 deferred = $q.defer(),
                 url  = self.buildUrl(item),
-                medUrl = self.defaultImageUrl;
+                thumbnail = self.defaultImageUrl;
 
                 if(!url){
-                    return medUrl;
+                    return thumbnail;
+                }
+                 $http({
+                     method: 'GET',
+                     url: url,
+                     timeout: 10000,
+                     headers: {
+                         'Content-Type': 'application/xml'
+                     },
+                     params: {}
+                }).success(function(data, status, headers, config) {
+                    if(!data){
+                        deferred.resolve(thumbnail);
+                        return;
+                    } else {
+                        data = $.parseXML(data);
+                    }
+
+                    var x = data.getElementsByTagName('thumbnail');
+
+                    if(x  && x.length > 0 && x[0].getAttribute('src')){
+                        thumbnail = x[0].getAttribute('src');
+                        deferred.resolve(thumbnail);
+                    }else{
+                        deferred.resolve(self.defaultThumbnailUrl);
+                    }
+
+                }).error(function(data, status, headers, config) {
+                     NREUM.noticeError('Failed to get imageService xml ' + data);
+                     deferred.resolve(self.defaultThumbnailUrl);
+                });
+                return deferred.promise;
+            };
+             Image.prototype.getPartStandardImageUrl = function(partNumber){
+                var self = this,
+                item  = self.parsePartNumber(partNumber),
+                deferred = $q.defer(),
+                url  = self.buildUrl(item),
+                standardUrl = self.defaultImageUrl;
+
+                if(!url){
+                    return standardUrl;
                 }
 
                $http({
@@ -58,6 +102,51 @@ define(['angular', 'utility'], function(angular) {
                     var x = data.getElementsByTagName('img');
 
                     for (var i = 0; i < x.length; i++) {
+                        if(x[i].getAttribute('key')==='standard'){
+                            if(x[i].getAttribute('src')){
+                                standardUrl = x[i].getAttribute('src');
+                            }
+                        }
+                    }
+                    deferred.resolve(standardUrl);
+                }).error(function(data, status, headers, config) {
+                     NREUM.noticeError('Failed to get imageService xml ' + data);
+                     deferred.resolve(self.defaultImageUrl);
+                });
+                return deferred.promise;
+            };
+
+            Image.prototype.getPartMediumImageUrl = function(partNumber){
+                var self = this,
+                item  = self.parsePartNumber(partNumber),
+                deferred = $q.defer(),
+                url  = self.buildUrl(item),
+                medUrl = self.defaultImageUrl;
+
+                if(!url){
+                    return medUrl;
+                }
+
+               $http({
+                    method: 'GET',
+                    url: url,
+                    timeout: 10000,
+                    headers: {
+                        'Content-Type': 'application/xml'
+                    },
+                    params: {},
+                    transformResponse : function(data) {
+                        return $.parseXML(data);
+                    }
+                }).success(function(data, status, headers, config) {
+                    if(!data){
+                        deferred.resolve(medUrl);
+                        return;
+                    }
+
+                    var x = data.getElementsByTagName('img');
+
+                    for (var i = 0; i < x.length; i++) {
                         if(x[i].getAttribute('key')==='medium'){
                             if(x[i].getAttribute('src')){
                                 medUrl = x[i].getAttribute('src');
@@ -71,7 +160,6 @@ define(['angular', 'utility'], function(angular) {
                 });
                 return deferred.promise;
             };
-            //http://www.lexmark.com/common/xml/35S/35S0332.xml
             return  new Image();
         }
     ]);

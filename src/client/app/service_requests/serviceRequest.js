@@ -6,7 +6,8 @@ define(['angular'], function(angular) {
         .when('/service_requests', {
             templateUrl: '/app/service_requests/templates/service-request-dashboard.html',
             controller: 'ServiceRequestTabController',
-            activeItem: '/service_requests'
+            activeItem: '/service_requests',
+            reloadOnSearch: false
         })
         .when('/service_requests/learn_more', {
             templateUrl: '/app/service_requests/templates/learn-more.html',
@@ -26,6 +27,10 @@ define(['angular'], function(angular) {
             activeItem: '/service_requests'
         })
         .when('/service_requests/review-test', {
+            templateUrl: '/app/service_requests/templates/review.html',
+            activeItem: '/service_requests'
+        })
+        .when('/service_requests/:id/cancel', {
             templateUrl: '/app/service_requests/templates/review.html',
             activeItem: '/service_requests'
         });

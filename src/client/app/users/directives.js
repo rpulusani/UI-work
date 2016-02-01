@@ -5,32 +5,28 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
         return {
             restrict: 'A',
             templateUrl : '/app/users/templates/tabs/all-users-tab.html',
-            controller: 'UsersController',
-            scope: {}
+            controller: 'UsersController'
         };
     })
     .directive('invitedUsersTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/users/templates/tabs/invite-users-tab.html',
-            controller: 'InvitedUsersController',
-            scope: {}
+            controller: 'InvitedUsersController'
         };
     })
     .directive('userProfileTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/users/templates/tabs/user-profile-tab.html',
-            controller: 'ManageUserController',
-            scope: {}
+            controller: 'ManageUserController'
         };
     })
     .directive('accountAccessTab', function(){
         return {
             restrict: 'A',
             templateUrl : '/app/users/templates/tabs/account-access-tab.html',
-            controller: 'ManageUserController',
-            scope: {}
+            controller: 'ManageUserController'
         };
     })
     .directive('userNewFields', function() {

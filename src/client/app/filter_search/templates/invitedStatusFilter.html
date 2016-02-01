@@ -1,0 +1,8 @@
+<br/>
+<h4 translate="FILTERS.BROWSE_STATUS"></h4>
+ <div ng-repeat="tempstatus in invitedStatuses">
+    <input type="radio" id="tempstatus.type" name="invited-status-select"
+    ng-model="$parent.inviteStatus" value="{{tempstatus.type}}"/>
+    <label for="tempstatus.type"><span></span>
+        {{tempstatus.name}}</label>
+</div>

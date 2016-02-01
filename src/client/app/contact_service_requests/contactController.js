@@ -9,27 +9,98 @@ define(['angular', 'contact'], function(angular) {
         'FormatterService',
         'ServiceRequestService',
         function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest) {
-
             $scope.contacts = Contacts;
 
             if (Contacts.item === null) {
                 Contacts.goToList();
             } else {
-                if (Contacts.wasSaved) {
-                    $scope.saved = true;
-                }
-
-                // Address information entered into form
-                $scope.enteredAddress = {};
                 // Address information from /address-validation
-                $scope.comparisonAddress = {};
-                // the verify radio btn value
+                $scope.comparisonAddress = false;
+                // the verify radio btn value 
                 $scope.acceptedEnteredAddress = 1;
-                // verify address, hide-when
-                $scope.needToVerify = false;
                 // User has been prompted with the need to verify and can now save/update
                 $scope.canSave = false;
-                $scope.canUpdate = false;
+
+                $scope.processDelete = function(fn) {
+                    ServiceRequest.setItem(Contacts.createSRFromContact());
+
+                    ServiceRequest.get({
+                        method: 'post',
+                        preventDefaultParams: true,
+                        data: ServiceRequest.item
+                    }).then(function(res) {
+                        if (res.status === 201) {
+                            ServiceRequest.setItem(res.data);
+                            Contacts.submitedSR = true;
+                            Contacts.goToDelete()
+                        }
+                    });
+                };
+
+                $scope.updateContact = function(contactForm) {
+                    var runUpdate = function(item) {
+                         Contacts.update(item, {
+                            preventDefaultParams: true
+                        }).then(function() {
+                            $scope.canSave = false;
+
+                            Contacts.alertState = 'updated';
+                            Contacts.goToUpdate();
+                        });
+                    };
+
+                    Contacts.item.postURL = Contacts.url + '/' + Contacts.item.id;
+
+                    if ($scope.canSave === true) {
+                        runUpdate(Contacts.item);
+                    } else {
+                        if (!contactForm.addressLine1.$pristine || !contactForm.addressLine2.$pristine
+                            || !contactForm.postalCode.$pristine) {
+                            Contacts.verifyAddress($scope.contacts.item.address, function(statusCode, bodsData) {
+                                if (statusCode === 200) {
+                                    $scope.comparisonAddress = bodsData;
+                                } else {
+                                    runUpdate(Contacts.item);
+                                }
+
+                                if ($scope.acceptedEnteredAddress === 2) {
+                                    Contacts.item.address = $scope.comparisonAddress;
+                                }
+
+                                $scope.canSave = true;
+                            });
+                        } else {
+                             runUpdate(Contacts.item);
+                        }
+                    }
+                };
+
+                $scope.saveContact = function(contactForm) {
+                    Contacts.setItem($scope.contacts.item);
+
+                    if ($scope.canSave === true) {
+                        Contacts.save(Contacts.item, {
+                            preventDefaultParams: true
+                        }).then(function(r) {
+                            $scope.canSave = false;
+                      
+                            Contacts.alertState = 'saved';
+                            Contacts.goToUpdate();
+                        });
+                    } else {
+                        Contacts.verifyAddress($scope.contacts.item.address, function(statusCode, bodsData) {
+                            if (statusCode === 200) {
+                                $scope.comparisonAddress = bodsData;
+                            }
+
+                            if ($scope.acceptedEnteredAddress === 2) {
+                                Contacts.item.address = $scope.comparisonAddress;
+                            }
+
+                            $scope.canSave = true;
+                        });
+                    }
+                };
 
                 $scope.translationPlaceHolder = {
                     contactInfo: $translate.instant('CONTACT.INFO'),
@@ -80,9 +151,7 @@ define(['angular', 'contact'], function(angular) {
                         },
                         show:{
                             primaryAction : true
-                        },
-                        pickerObject: $scope.contact,
-                        source: 'contact'
+                        }
                     },
                     contactsr: {
                         translate: {
@@ -94,16 +163,16 @@ define(['angular', 'contact'], function(angular) {
                     actions: {
                         translate: {
                             abandonRequest:'CONTACT_SERVICE_REQUEST.CANCEL',
-                            submit: 'CONTACT_SERVICE_REQUEST.SR_UPDATE'
+                            submit: 'CONTACT_SERVICE_REQUEST.SR_DELETE'
                         },
                         submit: function() {
-                            $scope.processDelete();
+                            $scope.processDelete()
                         }
                     }
                 };
 
                 if (Contacts.submitedSR) {
-                    $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_SUBMITTED';
+                    $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_TITLE';
 
                     $scope.configure.receipt = {
                         translate: {
@@ -113,113 +182,6 @@ define(['angular', 'contact'], function(angular) {
                             submit: 'CONTACT_SERVICE_REQUEST.SR_UPDATE'
                         }
                     };
-                }
-
-                $scope.processDelete = function(fn) {
-                    ServiceRequest.setItem(Contacts.createSRFromContact());
-
-                    ServiceRequest.get({
-                        method: 'post',
-                        preventDefaultParams: true,
-                        data: ServiceRequest.item
-                    }).then(function(res) {
-                        if (res.status === 201) {
-                            ServiceRequest.setItem(res.data);
-                            Contacts.submitedSR = true;
-                            Contacts.goToDelete();
-                        }
-                    });
-                },
-
-                $scope.saveContact = function(contactForm) {
-                    if (!$scope.enteredAddress) {
-
-                    }
-
-                    if (Contacts.item && Contacts.item.id) {
-                        $scope.enteredAddress = {
-                            country: contactForm.country.$modelValue,
-                            addressLine1: contactForm.addressLine1.$modelValue,
-                            postalCode: contactForm.zipCode.$modelValue,
-                            city: contactForm.city.$modelValue
-                        };
-
-                        Contacts.wasSaved = false;
-                        Contacts.item.postURL = Contacts.url + '/' + Contacts.item.id;
-
-                        if ($scope.enteredAddress.addressLine1 !== Contacts.item.address.addressLine1
-                            || $scope.enteredAddress.city !== Contacts.item.address.city) {
-
-                            $scope.canUpdate = false;
-
-                        } else {
-                            $scope.canUpdate = true;
-                        }
-
-
-                        if ($scope.canUpdate || $scope.canUpdate === false
-                            && !$scope.enteredAddress.addressLine1) {
-
-                            Contacts.update(Contacts.item, {
-                                preventDefaultParams: true
-                            }).then(function() {
-                                $scope.updated = true;
-
-                                Contacts.goToUpdate();
-                            });
-                        } else {
-                            Contacts.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
-                                if (statusCode === 200) {
-                                    $scope.comparisonAddress = bodsData;
-                                    $scope.needToVerify = true;
-                                }
-
-                                $scope.canUpdate = true;
-                            });
-                        }
-                    } else {
-                        Contacts.item = Contacts.getModel();
-                        Contacts.item.firstName = contactForm.firstName.$modelValue;
-                        Contacts.item.middleName = contactForm.middleName.$modelValue;
-                        Contacts.item.lastName = contactForm.lastName.$modelValue;
-                        Contacts.item.email = contactForm.email.$modelValue;
-                        Contacts.item.workPhone = contactForm.workPhone.$modelValue;
-
-                        $scope.updated = false;
-
-                        if ($scope.canSave === false) {
-                            $scope.enteredAddress = {
-                                country: contactForm.country.$modelValue,
-                                addressLine1: contactForm.addressLine1.$modelValue,
-                                postalCode: contactForm.zipCode.$modelValue,
-                                city: contactForm.city.$modelValue
-                            };
-
-                            Contacts.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
-                                if (statusCode === 200) {
-                                    $scope.comparisonAddress = bodsData;
-                                    $scope.needToVerify = true;
-                                }
-
-                                $scope.canSave = true;
-                            });
-                        } else {
-                            if ($scope.acceptedEnteredAddress === 2) {
-                                Contacts.item.address = $scope.comparisonAddress;
-                            } else {
-                                Contacts.item.address = $scope.enteredAddress;
-                            }
-
-                            Contacts.save(Contacts.item, {
-                                preventDefaultParams: true
-                            }).then(function(r) {
-                                Contacts.wasSaved = true;
-                                $scope.updated = false;
-
-                                Contacts.goToUpdate();
-                            });
-                        }
-                    }
                 }
             }
         }

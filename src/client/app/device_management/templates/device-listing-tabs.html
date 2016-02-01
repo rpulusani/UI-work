@@ -19,10 +19,27 @@
             <div columnpicker></div>
         </div>
     </div>
-
+    <div class="col-md-1-1 btns">
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderSupplies')"
+            translate="DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES" ng-disabled="!isSingleSelected()" ng-if="orderSupplies"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('requestService')"
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_REQUEST_SERVICE" ng-disabled="!isSingleSelected()" 
+            ng-if="createBreakFixAccess"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('updatePageCounts')"
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess" 
+            ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')"
+            translate="LABEL.EDIT" ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')"
+            translate="LABEL.MOVE" ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderAnother')"
+            translate="DEVICE_MGT.ORDER_ANOTHER_BTN" ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
+            translate="DEVICE_MGT.REMOVE_FROM_FLEET" ng-disabled="!isSingleSelected()" ng-if="decommissionAccess"></button>
+    </div>
     <div class="col-1">
         <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
-        <div pagination grid="{{gridOptions}}"></div>
+        <div pagination grid="gridOptions" ></div>
     </div>
   </div>
 

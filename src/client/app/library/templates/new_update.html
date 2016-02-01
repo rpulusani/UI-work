@@ -8,15 +8,20 @@
 </div>
 
 <div class="page-content">
-    <form class="form" data-form="" name="newDocument" novalidate>
-        <div library-new-fields></div>
-        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL" cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM" return-path="/library"></div>
+    <form class="form" data-form="" name="newDocument" enctype="multipart/form-data" novalidate>
+        <div class="row">
+            <div class="col-2-3">
+                <div library-new-fields></div>
+            </div>
+        </div>
+
+        <div confirm-cancel title="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TITLE_DISCARD_MODAL" body="DOCUMENT_LIBRARY.DOCUMENT_VIEW.BODY_DISCARD_MODAL" cancel="DOCUMENT_LIBRARY.DOCUMENT_VIEW.DISCARD_MODAL_CANCEL" confirm="DOCUMENT_LIBRARY.DOCUMENT_VIEW.DISCARD_MODAL_CONFIRM" return-path="/library"></div>
 
         <div class="row">
-            <div class="col-lg-2-3 col-md-1-1">
+            <div class="col-1">
                 <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
                         translate="{{ translationPlaceHolder.cancel }}"></button>
-                <button name="submit" class="btn btn--primary" type="submit" value="submit" 
+                <button name="submit" class="btn btn--primary" type="submit" value="submit"
                         translate="{{ translationPlaceHolder.submit }}" ng-click="save();"></button>
             </div>
         </div>

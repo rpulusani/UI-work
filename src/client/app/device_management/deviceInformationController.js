@@ -84,7 +84,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     for(i=0; i<limit; i+=1){
                         // ignore Mono reads since they can't be updated
                         // ignore reads that weren't updated
-                        if($scope.meterReads[i].type !== 'Mono' && ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate)){
+                        if($scope.meterReads[i].type !== 'MONO' && ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate)){
                             // if a new value was added
                             if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value){
                                 $scope.meterReads[i].value = $scope.meterReads[i].newVal;
@@ -143,10 +143,10 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                                 case 'LTPC':
                                     $scope.ltpc = $scope.meterReads[i];
                                 break;
-                                case 'Color':
+                                case 'COLOR':
                                     $scope.color = $scope.meterReads[i];
                                 break;
-                                case 'Mono':
+                                case 'MONO':
                                     $scope.mono = $scope.meterReads[i];
                                 break;
                                 default:
@@ -219,7 +219,9 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
 
-            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params);
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params, false, function() {
+                $scope.$broadcast('setupPrintAndExport', $scope);
+            });
             //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
         }
     ]);
