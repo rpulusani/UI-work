@@ -680,7 +680,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                                     href: self.item._links[prop].href
                                                 }
                                             }
-
                                         }
                                     }
                                 }
@@ -739,7 +738,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                    self.setParamsToNull();
                 }
 
-
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     if (!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
@@ -760,7 +758,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.checkForEvent(self.item, 'onGet');
 
                     $http(options).then(function(processedResponse) {
-                        self.setupItem(processedResponse);
+                        if (!options.noUpdate) {
+                            self.setupItem(processedResponse);
+                        }
 
                         self.processedResponse = processedResponse;
 

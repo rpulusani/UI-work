@@ -90,11 +90,13 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + this.item.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
+                    console.log(this);
                     this.get({
                         method: 'post',
                         url: serviceUrl + 'address-validation',
                         data: addressObj,
-                        preventDefaultParams: true
+                        preventDefaultParams: true,
+                        noUpdate: true
                     }).then(function(bodsRes) {
                         return fn(bodsRes.status, bodsRes.data);
                     });
