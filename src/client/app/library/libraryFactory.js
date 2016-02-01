@@ -33,6 +33,19 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                             '<i class="icon icon-psw-edit" ng-click="grid.appScope.goToUpdate(row.entity);"></i> | ' +
                             '<i class="icon icon-psw-error" name="cancel" ng-click="grid.appScope.goToDelete(row.entity);"></i></div>'
                         }
+                    ],
+                    otherReports: [
+                        {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), 'field': 'getPublishedDate()'},
+                        {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS'), 'field': 'tagNames',
+                            'cellTemplate':'<div>' +
+                                '<span ng-repeat="tag in row.entity.tagNames">{{tag}}{{$last ? "" : ", "}}</span>' +
+                                '</div>'
+                        },
+                        {'name': $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), 'field': 'name',
+                            'cellTemplate':'<div>' +
+                                '<a class="text--small" href="#" ng-click="grid.appScope.goToDocumentView(row.entity);">{{row.entity.name}}</a>' +
+                                '</div>'
+                        },
                     ]
                 },    
                 route: '/library',
@@ -48,6 +61,12 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         name: 'getPublishedDate',
                         functionDef: function(){
                             return formatter.formatDate(this.publishDate);
+                        }
+                    },
+                    {
+                        name: 'getTags',
+                        functionDef: function(){
+                            return this.tagNames.join(", ");
                         }
                     }
                 ]
