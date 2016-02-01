@@ -95,13 +95,16 @@ Used to obtain info. Returns a promise. Options object can have a number of poss
     {
         // blocks all params for THIS call
         preventDefaultParams: true, 
-        // adding params
+        // adding params. will still append if preventDefaultParams = true
         params: { 
             firstName: 'Gob',
             lastName: 'Blooth'
         },
-        // seek out a _link in options.item or self.item
-        link: '',
+        // noUpdate allows you to work with an endpoint that is not in a propert envelope
+        // by avoiding the setup of service.item/service.data
+        noUpdate: false,
+        // Ensures we do not update account information
+        accountUpdate: true,
         // override url for this call
         url: '',
         method: '', // change the request method,

@@ -68,7 +68,6 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                             filterSearchService.addBasicFilter('ADDRESS.ALL', undefined, undefined);
                             filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined);
                         });
-                        
                     });
                 });
             });

@@ -723,6 +723,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 currentParams = angular.copy(self.params),
                 url;
 
+                if (self.serviceName === 'reports') {
+                    console.log(options);
+                    console.log(self.url);
+                }
+
                 if (options.params) {
                     options.params = angular.extend(self.params, options.params);
                 } else {
@@ -739,7 +744,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if (!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) {
+                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel)) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }

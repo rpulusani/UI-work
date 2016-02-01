@@ -504,7 +504,14 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                     }
             };
 
-            Reports.getPage().then(function() {
+            console.log(2);
+
+            Reports.getPage(0, 20, {
+                preventDefaultParams: true,
+                params: {
+                    test: 1
+                }
+            }).then(function() {
                 $scope.finder = Reports.finder;
                 $scope.visualizations = [];
                 $scope.reports = [];
