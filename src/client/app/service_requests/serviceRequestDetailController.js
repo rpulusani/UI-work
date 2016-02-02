@@ -113,6 +113,14 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         }
                     }
                 };
+                $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL';
+                $scope.configure.receipt.translate.titleValues = {
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                };
+                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_NUMBER';
+                $scope.configure.header.translate.h1Values = {
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                };
             }
             function addAddressInfo(Title){
                 $scope.configure.address = {
@@ -203,6 +211,11 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 case 'MADC_INSTALL':
                     addDeviceInformation();
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_NUMBER';
+                    $scope.configure.header.translate.h1Values = {
+                        'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                    };
                 break;
                 case 'MADC_DECOMMISSION':
                     addDeviceInformation();

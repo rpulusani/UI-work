@@ -97,12 +97,19 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                         if (removeParams) {
                             for(var i = 0; i < removeParams.length; ++i){
+                                if (removeParams[i] === 'preventDefaultParams') {
+                                    var preventDefaultParams = {
+                                        'preventDefaultParams': true
+                                    }
+                                    angular.extend(options, preventDefaultParams);
+                                }
                                 delete options.params[removeParams[i]];
                             }
                             self.clearParameters(removeParams);
                         }
-                        var promise = self.service.getPage(0, self.service.params.size, options);
 
+                        var promise = self.service.getPage(0, self.service.params.size, options);
+                        console.log('promise', promise);
                         promise.then(function() {
                             self.display(fn);
                         }, self.failure);
