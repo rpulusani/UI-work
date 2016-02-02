@@ -19,6 +19,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 $scope.show = false;
                 $scope.serviceHistoryMessage = false;
                 $scope.ordersMessage = false;
+                ServiceRequest.data = [];
+                Orders.data = [];
                 $scope.dismiss = function(){
                     $scope.show = false;
                 };
@@ -35,6 +37,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                         $scope.openOrder = angular.copy(Orders.data[0]);
                         $scope.ordersMessage = true;
                         $scope.show = true;
+                    }else{
+                        $scope.ordersMessage = false;
                     }
                  });
                 var srOptions  = {
@@ -49,6 +53,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     $scope.openSR = angular.copy(ServiceRequest.data[0]);
                     $scope.serviceHistoryMessage = true;
                     $scope.show = true;
+                  }else{
+                    $scope.serviceHistoryMessage = false;
                   }
 
               });
