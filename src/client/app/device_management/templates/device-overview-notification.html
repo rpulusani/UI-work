@@ -1,0 +1,13 @@
+<div class="alert alert--info" ng-show="show">
+    <span class="alert__close" ng-click="dismiss()"  aria-hidden="true">×</span><icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <div class="alert__body">
+        <div>
+            <span ng-if="ordersMessage" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_NOTIFICATION_ORDERS"></span>
+            <a ng-click="goto('orderTab')" href="#" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.LNK_NOTIFICATION_ORDERS"></a>
+        </div>
+        <div>
+            <span ng-if="serviceHistoryMessage" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_NOTIFICATION_SRHISTORY"></span>
+            <a ng-click="goto('requestTab')" href="#" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.LNK_NOTIFICATION_SRHISTORY"></a>
+        </div>
+    </div>
+</div>
