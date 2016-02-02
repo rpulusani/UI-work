@@ -66,7 +66,8 @@ define(['angular', 'utility'], function(angular) {
             scope: {
                 title: '@',
                 titleValues: '@',
-                print: '@'
+                print: '@',
+                export: '@'
             },
             template: '<div class="col-2-3" ng-cloak>' +
                 '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && title" translate="{{ title }}" translate-values="{{titleValues}}"></h2>' +

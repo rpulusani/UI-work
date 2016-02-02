@@ -78,7 +78,12 @@ requirejs.config({
             'user.manageUserController',
             'user.invitedUserController',
 
-            'pageCount',
+            // 'pageCount',
+            // 'pageCount.directives',
+            // 'pageCount.missingPageCountListController',
+            // 'pageCount.pageCountTabController',
+            // 'pageCount.pageCountListController',
+            // 'pageCount.pageCountFactory',
 
             'report',
             'report.reportController',
@@ -136,7 +141,12 @@ requirejs.config({
         'address.directives': ['address'],
         'address.factory': ['address'],
 
-        'pageCount': ['angular', 'angular-route'],
+        // 'pageCount': ['angular', 'angular-route'],
+        // 'pageCount.directives': ['pageCount'],
+        // 'pageCount.missingPageCountListController': ['pageCount'],
+        // 'pageCount.pageCountTabController': ['pageCount'],
+        // 'pageCount.pageCountListController': ['pageCount'],
+        // 'pageCount.pageCountFactory': ['pageCount'],
 
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
@@ -309,6 +319,11 @@ requirejs.config({
         'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
+        'pageCount.directives': 'app/page_count/directives',
+        'pageCount.missingPageCountListController': 'app/page_count/missingPageCountListController',
+        'pageCount.pageCountTabController': 'app/page_count/pageCountTabController',
+        'pageCount.pageCountListController': 'app/page_count/pageCountListController',
+        'pageCount.pageCountFactory': 'app/page_count/pageCountFactory',
 
         'deviceManagement': 'app/device_management/deviceManagement',
         'deviceManagement.deviceController': 'app/device_management/deviceController',
