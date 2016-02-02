@@ -61,6 +61,13 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                     }, 500);
                 }
             );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    }, 500);
+                }
+            );
         }
     ]);
 });

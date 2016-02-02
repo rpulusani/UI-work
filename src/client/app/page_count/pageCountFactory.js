@@ -18,11 +18,26 @@ define(['angular', 'pageCount', 'hateoasFactory.serviceFactory', 'utility.format
                             },
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field': 'productModel'},
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_LAST_READ_DATE'), 'field': 'getFormattedLastReadDate()', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT_READ_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT'), 'field':'ltpcValue', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT'), 'field':'status', 'notSearchable': true},
+                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT_READ_DATE'), 'field': 'getFormattedTodaysDate()', 'notSearchable': true},
+                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT'), 'field':'ltpcValue', 'notSearchable': true, width: '100',},
+                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate':'<div>' +
+                                            '<input type="number" ng-model="row.entity.newLtpcCount" ' +
+                                            '/>' +
+                                        '</div>',
+                            width: '150',
+                            enableCellEdit: true,
+                            enableCellEditOnFocus: true},
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_COLOR_COUNT'), 'field':'colorValue', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_COLOR_COUNT'), 'field':'', visible: false, 'notSearchable': true},
+                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_COLOR_COUNT'), 'field':'', 'notSearchable': true,
+                             'cellTemplate':'<div>' +
+                                            '<input type="number" ng-model="row.entity.newColorCount" ' +
+                                            '/>' +
+                                        '</div>',
+                            enableCellEdit: true,
+                            width: '150',
+                            enableCellEditOnFocus: true
+                            },
                             {'name': 'Save', 'field': 'assetId', 
                              'cellTemplate':'<div>' +
                                 '<a href="#" ng-click="grid.appScope.save(row.entity);" ' +
@@ -30,12 +45,17 @@ define(['angular', 'pageCount', 'hateoasFactory.serviceFactory', 'utility.format
                             '</div>', 'notSearchable': true}
                         ],
                     },
-
                     functionArray: [
                         {
                             name: 'getFormattedLastReadDate',
                             functionDef: function(){
                                 return formatter.formatDate(this.lastReadDate);
+                            }
+                        },
+                        {
+                            name: 'getFormattedTodaysDate',
+                            functionDef: function(){
+                                return formatter.formatDate(new Date);
                             }
                         }
                     ],

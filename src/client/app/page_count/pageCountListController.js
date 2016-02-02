@@ -10,6 +10,7 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
         'PersonalizationServiceFactory',
         'ServiceRequestService',
         'FilterSearchService',
+        'MeterReadService',
         'Devices',
         function(
             $scope,
@@ -20,7 +21,9 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
             Personalize,
             ServiceRequest,
             FilterSearchService,
-            Devices) {
+            MeterReads,
+            Devices
+            ) {
             $rootScope.currentRowList = [];
             PageCountService.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -40,6 +43,15 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                 });
             };
 
+            /*save not yet implemented. waiting for API*/
+            $scope.save = function(devicePageCount){
+                // $scope.meterReadList = [];
+                // $scope.ltpc = MeterReads.newMessage();
+                // var postUrl = 
+                // MeterReads.addField("postURL", $scope.meterReads[i]._links.self.href);
+                // console.log('devicePageCount', devicePageCount);
+            };
+
             var removeParamsList = ['from', 'to', 'source', 'location', 'chlFilter'];
             filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_PAGE_COUNTS', undefined, removeParamsList,
                 function(Grid) {
@@ -56,6 +68,13 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                 }
             );
             filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_LOCATION', 'LocationFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    }, 500);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);
