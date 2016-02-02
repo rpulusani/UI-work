@@ -43,11 +43,11 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             $scope.addresses = Addresses;
 
             $scope.goToLbs = function(){
-                $window.location.href = 'https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management';
+                $window.open('https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management');
             };
 
             $scope.goToCreate = function() {
-                Addresses.item = {};
+                Addresses.item = undefined;
                 $location.path('/service_requests/addresses/new');
             };
 

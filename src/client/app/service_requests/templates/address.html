@@ -7,5 +7,10 @@
                 <div class="info-list__item-value" ng-bind-html="formattedAddress"></div>
             </li>
         </ul>
+        <a ng-if="configure.address.information.translate.makeChanges"
+        class="read-more"
+        ng-click="makeChanges()"
+        href
+        translate="{{configure.address.information.translate.makeChanges}}"></a>
     </div>
 </div>
