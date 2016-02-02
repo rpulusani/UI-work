@@ -4,6 +4,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
     .controller('AddressListController', [
         '$scope',
         '$location',
+        '$window',
         'grid',
         'Addresses',
         '$rootScope',
@@ -18,6 +19,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         function(
             $scope,
             $location,
+            $window,
             GridService,
             Addresses,
             $rootScope,
@@ -39,6 +41,10 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             SRHelper.addMethods(Addresses, $scope, $rootScope);
 
             $scope.addresses = Addresses;
+
+            $scope.goToLbs = function(){
+                $window.location.href = 'https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management';
+            };
 
             $scope.goToCreate = function() {
                 Addresses.item = {};
