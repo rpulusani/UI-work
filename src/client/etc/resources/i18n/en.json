@@ -1,5 +1,23 @@
 {
 
+    "QUEUE":{
+        "COMMON":{
+            "COLUMN_DATE": "Date",
+            "COLUMN_TYPE": "Type",
+            "COLUMN_REQUESTOR_NAME":"Requester name",
+            "COLUMN_PRIMARY_CONTACT":"Primary contact",
+            "COLUMN_ACCOUNT":"Account",
+            "LINK_TXT_QUEUE":"view in Queued Items >",
+            "LINK_TXT_VIEW_QUEUE_ITEMS" : "View Queued Items >",
+            "TXT_INFORM_QUEUE": "You have ({{ total }}) requests currently queued for submission. "
+        },
+        "DASHBOARD":{
+            "TXT_QUEUE_TITLE": "Queued Items",
+            "LINK_LEARN_MORE": "Learn more about your queue >",
+            "TXT_QUEUE_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_HEADER_ITEMS_COUNT": "Queued Items ({{ total }} items queued)"
+        }
+    },
     "DEVICE_MAN": {
         "COMMON": {
             "BTN_ORDER_SUPPLIES": "ORDER SUPPLIES",

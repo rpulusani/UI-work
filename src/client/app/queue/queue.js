@@ -5,8 +5,8 @@ define(['angular'], function(angular) {
         $routeProvider
         .when('/queue', {
             templateUrl: '/app/queue/dashboard.html',
-            controller: 'OrderTabController',
-            activeItem: '/orders'
+            controller: '',
+            activeItem: ''
         });
     }]);
 });

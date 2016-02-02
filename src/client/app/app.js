@@ -11,6 +11,8 @@ define([
     'angular-sanitize',
     'ui.grid',
     'angular-spring-data-rest',
+    'queue',
+    'queue.directives',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.serviceRequestStatusFactory',

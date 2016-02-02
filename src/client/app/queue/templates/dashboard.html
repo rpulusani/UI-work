@@ -1,0 +1,20 @@
+<div class="page-header">
+    <div class="col-lg-2-3 col-md-1-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li translate="ADDRESS.TITLE"></li>
+        </ul>
+        <h1 translate="ADDRESS.LIST_TITLE"></h1>
+        <p><span translate="MESSAGE.LIPSUM"></span> <a href="/service_requests/learn_more"><span translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></span></a></p>
+        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
+    </div>
+</div>
+<div class="page-content">
+     <div class="clearfix">
+        <div print-export-title title="ADDRESS.BOOK"></div>
+    </div>
+        <hr>
+        <div grid-filter options="filterOptions" params="optionParams"></div>
+        <div grid-filter options="filterOptions" params="optionParams"></div>
+        <div pagination grid="{{gridOptions}}"></div>
+</div>

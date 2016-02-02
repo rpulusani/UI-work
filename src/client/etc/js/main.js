@@ -236,6 +236,9 @@ requirejs.config({
         'utility.columnPickerController': 'app/utilities/columnPickerController',
         'utility.printExportTitleController': 'app/utilities/printExportTitleController',
 
+        'queue': 'app/queue/queue',
+        'queue.directives': 'app/queue/directives',
+
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
         'account.roleFactory': 'app/accounts/roleFactory',
