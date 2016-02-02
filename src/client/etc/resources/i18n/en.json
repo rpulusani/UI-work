@@ -51,7 +51,17 @@
             "TXT_PAGE_COUNT_SUBMIT": "Submit page count update",
             "TXT_PAGE_COUNT_TABLOID_COLOR": "Tabloid Color",
             "TXT_PAGE_COUNT_TABLOID_LIFETIME": "Tabloid Lifetime",
-            "TXT_PAGE_COUNT_VIEW_LESS": "View less"
+            "TXT_PAGE_COUNT_VIEW_LESS": "View less",
+            "TXT_PAGE_COUNT_LAST_READ_DATE": "Last read date",
+            "TXT_PAGE_COUNT_CURRENT_READ_DATE": "Current read date",
+            "TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT": "Prior lifetime page count",
+            "TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT": "new lifetime page count",
+            "TXT_PAGE_COUNT_PRIOR_COLOR_COUNT": "Prior color count",
+            "TXT_PAGE_COUNT_NEW_COLOR_COUNT": "New color count",
+            "TXT_PAGE_COUNT_ALL_PAGE_COUNTS": "All page counts",
+            "TXT_PAGE_COUNT_MISSING_METER_READS": "Missing meter reads",
+            "TXT_PAGE_COUNT_ALL_W_TOTALS": "All meter reads device listing ({{total}} total devices)",
+            "TXT_PAGE_COUNT_MISSING_W_TOTALS": "Missing meter reads device listing ({{total}} total devices)"
         },
 
         "DEVICE_SERVICE_HISTORY": {
@@ -1527,7 +1537,8 @@
         "SHIPPED": "SHIPPED",
         "DELIVERED": "DELIVERED",
         "EDIT": "EDIT",
-        "MOVE": "MOVE"
+        "MOVE": "MOVE",
+        "SAVE": "Save"
     },
 
         "PAGINATION": {
