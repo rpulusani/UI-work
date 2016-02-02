@@ -81,7 +81,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                             body: 'ORDER_MAN.ORDER_SELECT_SHIP_TO_ADDR.TXT_ORDER_SHIP_TO_PAR',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     }
                 };
             }

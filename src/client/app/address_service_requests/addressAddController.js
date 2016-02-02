@@ -250,7 +250,8 @@ define(['angular', 'address'], function(angular) {
                             body: 'MESSAGE.LIPSUM',
                             readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: '/service_requests/learn_more'
+                        readMoreUrl: '/service_requests/learn_more',
+                        showCancelBtn: false
                     },
                     address: {
                         information:{

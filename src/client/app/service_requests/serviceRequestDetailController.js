@@ -168,10 +168,22 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 };
             }
 
-            $rootScope.showCancelBtn = true;
 
-            $scope.goToServiceCancel = function(requestNumber){
-                $location.path('/service_requests/' + requestNumber + '/cancel');
+            $scope.goToServiceCancel = function(requestNumber, type){
+                switch(type){
+                    case 'MADC_DECOMMISSION':
+                        $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_DECOMMISSION');
+                    break;
+                    case 'MADC_INSTALL':
+                        $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_INSTALL');
+                    break;
+                    case 'MADC_MOVE':
+                        $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_MOVE');
+                    break;
+                    default:
+                    $scope.redirectToList();
+                }
+                
             };
 
 
@@ -208,6 +220,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 case 'MADC_MOVE':
                     addDeviceMove();
                     $scope.formattedMoveDevice = 'Yes';
+                    $scope.configure.header.showCancelBtn = true;
                 break;
                 case 'DATA_ASSET_CHANGE':
                     addDeviceMove();
@@ -217,6 +230,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDeviceInformation();
                     $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
+                    $scope.configure.header.showCancelBtn = true;
                 break;
                 case 'MADC_DECOMMISSION':
                     addDeviceInformation();
@@ -225,6 +239,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
                     $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
+                    $scope.configure.header.showCancelBtn = true;
                 break;
                 case 'DATA_ASSET_DEREGISTER':
                     addDeviceInformation();
