@@ -169,9 +169,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             $scope.goToServiceCancel = function(requestNumber, type){
                 switch(type){
-                    case 'BREAK_FIX':
-                        $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_REQUEST');
-                    break;
                     case 'MADC_DECOMMISSION':
                         $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_DECOMMISSION');
                     break;
@@ -236,7 +233,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 case 'BREAK_FIX':
                 addDeviceInformation();
-                $scope.configure.header.showCancelBtn = true;
                 $scope.configure.device.service ={
                         translate:{
                             title:'DEVICE_SERVICE_REQUEST.SERVICE_DETAILS',
