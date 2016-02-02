@@ -560,14 +560,16 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 var self = this,
                 options = {};
 
-                if (page !== 0 && !page) {
-                    page = self.params.page;
+                if (!page) {
+                    page = 0;
+                    self.params.page = 0;
                 } else {
                     self.params.page = page;
                 }
 
                 if (!size) {
-                    size = self.params.size;
+                    size = 20;
+                    self.params.size = 20;
                 } else {
                     self.params.size = size;
                 }
