@@ -221,7 +221,8 @@ define(['angular', 'address'], function(angular) {
                             body: 'MESSAGE.LIPSUM',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     address: {
                         information:{

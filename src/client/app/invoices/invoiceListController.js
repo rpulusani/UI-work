@@ -21,7 +21,7 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
             $scope.columnSet = undefined;
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             configureParams = [],
-            removeParamsList = ['accountId','accountLevel', 'fromDate', 'toDate'],
+            removeParamsList = ['preventDefaultParams', 'fromDate', 'toDate'],
             filterSearchService = new FilterSearchService(Invoices, $scope, $rootScope, personal, $scope.columnSet, 70);
 
             $scope.getFormattedInvoiceNo = function(invoiceNumber) {

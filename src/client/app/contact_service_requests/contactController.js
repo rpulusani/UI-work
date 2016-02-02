@@ -122,7 +122,8 @@ define(['angular', 'contact'], function(angular) {
                             h1: 'CONTACT_SERVICE_REQUEST.DELETE',
                             body: 'MESSAGE.LIPSUM'
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     detail:{
                         translate:{

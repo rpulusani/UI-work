@@ -166,7 +166,8 @@ define(['angular',
                             bodyValues: '',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     device: {
                         information:{

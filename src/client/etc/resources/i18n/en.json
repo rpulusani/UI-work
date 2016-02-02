@@ -574,7 +574,8 @@
             "SUBMIT_REQUEST_CANCELLATION": "Submit request cancellation",
             "CANCEL_REQUEST_SUBMITTED": "Cancel Request Submitted",
             "CANCEL_REQUEST_SUBMIT_HEADER_BODY": "Your request to cancel request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}"
+            "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}",
+            "SERVICE_REQUEST_CONTACT": "Service Request contact"
         },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -687,6 +688,19 @@
             "UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
             "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
             "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
+            "UPDATE_DEVICE_REQUEST_NUMBER" : "Update Device Request Number: {{srNumber}}",
+            "ADD_DEVICE_REQUEST_NUMBER" : "Add Device Request Number: {{srNumber}}",
+            "ADD_ADDRESS_DETAIL": "Details for Add Address Request Number: {{srNumber}}",
+            "ADD_ADDRESS_REQUEST_NUMBER" : "Add Address Request Number: {{srNumber}}",
+            "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
+            "DELETE_ADDRESS_REQUEST_NUMBER" : "Delete Address Request Number: {{srNumber}}",
+            "UPDATE_ADDRESS_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
+            "UPDATE_ADDRESS_REQUEST_NUMBER" : "Update Address Request Number: {{srNumber}}",
+            "UPDATE_CONTACT_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
+            "UPDATE_CONTACT_REQUEST_NUMBER" : "Update Contact Request Number: {{srNumber}}",
+            "DELETE_CONTACT_DETAIL": "Details for Delete Contact Request Number: {{srNumber}}",
+            "DELETE_CONTACT_REQUEST_NUMBER" : "Delete Contact Request Number: {{srNumber}}",
+            "DECOMMISSION_DEVICE_REQUEST_NUMBER" : "Decommission Device Request Number: {{srNumber}}",
             "ADD_DEVICE_DETAIL": "Details for Add Device Request Number: {{srNumber}}",
             "CHANGE_HISTORY": "Device change history",
             "LEARN_MORE": "Learn more about requests",
