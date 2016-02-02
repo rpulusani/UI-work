@@ -45,7 +45,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 embed: 'primaryContact,requester'
             };
 
-            filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params, false,
+            var removeParamsList = ['from', 'to', 'status'];
+            filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);

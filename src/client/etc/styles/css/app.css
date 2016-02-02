@@ -958,6 +958,9 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-disclosure_up_triangle:before {
   content: "\e049";
 }
+.icon-psw-home:before {
+  content: "\e62b";
+}
 .rollup {
   background-color: #e6e6f0;
   border-top: 3px solid #00ad21;

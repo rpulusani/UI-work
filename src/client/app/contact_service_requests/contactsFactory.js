@@ -13,16 +13,46 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             name: $translate.instant('CONTACT.FULLNAME'),
                             field: 'getFullname()',
                             dynamic: false,
+                            searchOn: 'firstName',
                             cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
                                 'ng-bind="row.entity.getFullname()"></a></div>'
                         },
-                        {name: $translate.instant('CONTACT.WORK_PHONE'), field: 'getWorkPhone()', searchOn: 'workPhone'},
-                        {name: $translate.instant('CONTACT.EMAIL'), field: 'email'},
-                        {name: $translate.instant('CONTACT.ID'), field: 'id', visible: false, dynamic: false},
-                        {name: $translate.instant('LABEL.COST_CENTER'), field:'costCenter', visible: false},
-                        {name: $translate.instant('CONTACT.FIRST_NAME'), field:'_embedded.contact.firstName', visible: false},
-                        {name: $translate.instant('CONTACT.LAST_NAME'), field:'_embedded.contact.lastName', visible: false},
-                        {name: $translate.instant('ADDRESS.ADDRESS'), field:'_embedded.contact.address.addressLine1', visible: false}
+                        {
+                            name: $translate.instant('CONTACT.WORK_PHONE'),
+                            field: 'getWorkPhone()', 
+                            searchOn: 'workPhone'
+                        },
+                        {
+                            name: $translate.instant('CONTACT.EMAIL'),
+                            field: 'email',
+                            searchOn: 'emailAddress'
+                        },
+                        {
+                            name: $translate.instant('CONTACT.ID'), 
+                            field: 'id', 
+                            visible: false, 
+                            dynamic: false
+                        },
+                        {
+                            name: $translate.instant('LABEL.COST_CENTER'), 
+                            field:'costCenter', 
+                            visible: false
+                        },
+                        {
+                            name: $translate.instant('CONTACT.FIRST_NAME'), 
+                            field:'_embedded.contact.firstName', 
+                            visible: false
+                        },
+                        {
+                            name: $translate.instant('CONTACT.LAST_NAME'),
+                            field:'_embedded.contact.lastName',
+                            visible: false
+                        },
+                        {
+                            name: $translate.instant('ADDRESS.ADDRESS'),
+                            field:'_embedded.contact.address.addressLine1',
+                            visible: false
+                        }
                     ]
                 },
                 route: '/service_requests/contacts',
@@ -90,11 +120,13 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + this.item.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
+                    console.log(this);
                     this.get({
                         method: 'post',
                         url: serviceUrl + 'address-validation',
                         data: addressObj,
-                        preventDefaultParams: true
+                        preventDefaultParams: true,
+                        noUpdate: true
                     }).then(function(bodsRes) {
                         return fn(bodsRes.status, bodsRes.data);
                     });

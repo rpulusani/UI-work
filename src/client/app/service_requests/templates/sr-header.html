@@ -10,11 +10,11 @@
 
     <p class="vertical-margin-bottom-72" >
         <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
-    <button class="btn" ng-click="goToServiceCancel(sr.id)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
-        ng-if="cancelServiceRequest && showCancelBtn === true"></button>
-        <a ng-if="configure.header.readMoreUrl"
-        class="read-more"
-        href="{{configure.header.readMoreUrl}}"
-        translate="{{configure.header.translate.readMore}}"></a>
+        <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
+            ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
+        <a ng-if="configure.header.translate.readMoreUrl"
+            class="read-more"
+            href="{{configure.header.translate.readMoreUrl}}"
+            translate="{{configure.header.translate.readMore}}"></a>
     </p>
 </div>

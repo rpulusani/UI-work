@@ -325,6 +325,7 @@ requirejs.config({
         'deviceManagement.productModelFactory': 'app/device_management/productModelFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
+        'deviceManagement.deviceNotificationController': 'app/device_management/deviceNotificationController',
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',

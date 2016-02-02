@@ -6,3 +6,9 @@
     <label for="tempstatus.type"><span></span>
         {{tempstatus.name}}</label>
 </div>
+<br/>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+    <div class="footnotes">
+        <a href="" ng-click="clearUserStatusFilter()" translate="USER.CTRL_CLEAR_STATUS"></a>
+    </div>
+</div>

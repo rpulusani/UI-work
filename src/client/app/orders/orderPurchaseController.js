@@ -147,7 +147,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                 bodyValues: '',
                                 readMore: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_LEARN_MORE'
                             },
-                            readMoreUrl: '#'
+                            readMoreUrl: '#',
+                            showCancelBtn: false
                         },
                         order:{
                             details:{
