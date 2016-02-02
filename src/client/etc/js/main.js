@@ -78,13 +78,6 @@ requirejs.config({
             'user.manageUserController',
             'user.invitedUserController',
 
-            // 'pageCount',
-            // 'pageCount.directives',
-            // 'pageCount.missingPageCountListController',
-            // 'pageCount.pageCountTabController',
-            // 'pageCount.pageCountListController',
-            // 'pageCount.pageCountFactory',
-
             'report',
             'report.reportController',
             'report.reportListController',
@@ -140,13 +133,6 @@ requirejs.config({
         'address.addressListController': ['address'],
         'address.directives': ['address'],
         'address.factory': ['address'],
-
-        // 'pageCount': ['angular', 'angular-route'],
-        // 'pageCount.directives': ['pageCount'],
-        // 'pageCount.missingPageCountListController': ['pageCount'],
-        // 'pageCount.pageCountTabController': ['pageCount'],
-        // 'pageCount.pageCountListController': ['pageCount'],
-        // 'pageCount.pageCountFactory': ['pageCount'],
 
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
