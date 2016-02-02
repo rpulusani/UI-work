@@ -721,9 +721,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.processCall = function(options, deferred) {
                 var self = this,
                 currentParams = angular.copy(self.params),
+                optionsParams,
                 url;
 
                 if (options.params) {
+                    optionsParams = options.params;
                     options.params = angular.extend(self.params, options.params);
                 } else {
                     options.params = self.params;
@@ -735,11 +737,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         params: self.params
                     });
                 } else {
-                   self.setParamsToNull();
+                    self.setParamsToNull();
+
+                    if (optionsParams) {
+                        options.params = optionsParams
+                    }
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if (!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) {
+                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel)) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }
@@ -778,6 +784,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
                 deferred = $q.defer();
+
                 self.checkForEvent(self.item, 'beforeGet').then(function(canContinue, newObj) {
                     if (canContinue) {
                         if (newObj) {
