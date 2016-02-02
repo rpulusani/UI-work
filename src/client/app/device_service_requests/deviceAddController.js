@@ -253,7 +253,8 @@ define(['angular',
                             body: 'MESSAGE.LIPSUM',
                             readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: '/service_requests/learn_more'
+                        readMoreUrl: '/service_requests/learn_more',
+                        showCancelBtn: false
                     },
                     device: {
                         information:{
@@ -349,7 +350,24 @@ define(['angular',
                             }
                         },
                         readMoreUrl: ''
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
             }
 

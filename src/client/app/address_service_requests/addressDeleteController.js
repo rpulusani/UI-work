@@ -144,7 +144,8 @@ define(['angular', 'address'], function(angular) {
                             bodyValues: '',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     address: {
                         information:{
@@ -208,7 +209,24 @@ define(['angular', 'address'], function(angular) {
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: Addresses.route + '/delete/' + $scope.address.id + '/review'
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
             }
 
