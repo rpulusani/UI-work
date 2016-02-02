@@ -506,9 +506,11 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
 
             console.log(2);
 
-            Reports.getPage(0, 20, {
+            Reports.get({
                 preventDefaultParams: true,
                 params: {
+                    page: 1,
+                    size: 20,
                     test: 1
                 }
             }).then(function() {
