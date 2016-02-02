@@ -542,7 +542,7 @@
             "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
             "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
             "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">manage another address</a>?",
-            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">add another address</a>?"
+            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">add another address</a>?",
             "RETURN_LINK": "Would You Like to Manage Another Address?"
         },
 
