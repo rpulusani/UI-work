@@ -9,7 +9,6 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'grid',
         'FilterSearchService',
         'SRControllerHelperService',
-        'ServiceRequestService',
         'OrderItems',
         '$translate',
         'Devices',
@@ -25,7 +24,6 @@ define(['angular','order', 'utility.grid'], function(angular) {
             Grid,
             FilterSearchService,
             SRHelper,
-            ServiceRequest,
             OrderItems,
             $translate,
             Devices,
@@ -37,15 +35,16 @@ define(['angular','order', 'utility.grid'], function(angular) {
             SRHelper.addMethods(Orders, $scope, $rootScope);
             $scope.editable = false; //make order summary not actionable
 
-            var configureSR = function(ServiceRequest){
-                    ServiceRequest.addField('description', '');
-                    ServiceRequest.addRelationship('account', $scope.device, 'account');
-                    ServiceRequest.addRelationship('asset', $scope.device, 'self');
-                    ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
-                    ServiceRequest.addField('type', 'SUPPLIES_ASSET_ORDER');
+            var configureSR = function(Orders){
+                    Orders.addField('description', '');
+                    Orders.addRelationship('account', $scope.device, 'account');
+                    Orders.addRelationship('asset', $scope.device, 'self');
+                    Orders.addRelationship('primaryContact', $scope.device, 'contact');
+                    Orders.addField('type', 'SUPPLIES_ASSET_ORDER');
             };
 
             if (Devices.item === null) {
+                Orders.item = null;
                 $scope.redirectToList();
             } else if($rootScope.selectedContact &&
                 $rootScope.returnPickerObject &&
@@ -53,43 +52,38 @@ define(['angular','order', 'utility.grid'], function(angular) {
 
                     $scope.device = $rootScope.returnPickerObject;
                     $scope.sr = $rootScope.returnPickerSRObject;
-                    ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                    Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                     $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                     $scope.resetContactPicker();
 
             } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
 
-                $scope.sr = $rootScope.returnPickerSRObject;
-                ServiceRequest.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
-                $scope.orders.billToAddress = angular.copy($rootScope.selectedBillToAddress);
+                $scope.sr = $rootScope.returnPickerSRObjectAddressBillTo;
+                Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
+                $scope.billToAddress = angular.copy($rootScope.selectedBillToAddress);
                 $scope.resetAddressBillToPicker();
 
             } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){
 
-                $scope.sr = $rootScope.returnPickerSRObject;
-                ServiceRequest.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
-                $scope.orders.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
+                $scope.sr = $rootScope.returnPickerSRObjectAddressShipTo;
+                Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
+                $scope.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
                 $scope.resetAddressShipToPicker();
 
             } else{
 
                 $rootScope.device = Devices.item;
-                if(Orders.item){
-                    $rootScope.orders = Orders.item;
-                }else{
-                    Orders.item = {};
-                    $rootScope.orders = Orders.item;
-                }
-
                 if (!BlankCheck.isNull(Devices.item['contact'])) {
                     $scope.device.primaryContact = $scope.device['contact']['item'];
                 }
             }
-
-            $scope.setupSR(ServiceRequest, configureSR);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            function intitilize(){
+                $scope.setupSR(Orders, configureSR);
+                $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            }
             if($rootScope.device){
-                $scope.getRequestor(ServiceRequest, Contacts);
+                intitilize();
+                $scope.getRequestor(Orders, Contacts);
             }
 
             function configureReviewTemplate(){
@@ -102,9 +96,15 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 }, 50);
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
-
-                   ServiceRequest.addField('orderItems', OrderItems.buildSrArray());
-                   var deferred = ServiceRequest.post({
+                   if(Orders.item.shipToAddress){
+                     delete Orders.item.shipToAddress;
+                   }
+                   if(Orders.item.billToAddress){
+                     delete Orders.item.billToAddress;
+                   }
+                   Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
+                   Orders.addField('orderItems', OrderItems.buildSrArray());
+                   var deferred = Orders.post({
                          item:  $scope.sr
                     });
 
@@ -260,11 +260,11 @@ define(['angular','order', 'utility.grid'], function(angular) {
              if ($scope.device && !BlankCheck.isNull($scope.device.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
             }
-            if ($scope.orders && !BlankCheck.isNull($scope.orders.billToAddress)){
-                    $scope.formatedBillToAddress = FormatterService.formatAddress($scope.orders.billToAddress);
+            if (!BlankCheck.isNull($scope.billToAddress)){
+                    $scope.formatedBillToAddress = FormatterService.formatAddress($scope.billToAddress);
             }
-            if ($scope.orders && !BlankCheck.isNull($scope.orders.shipToAddress)){
-                    $scope.formatedShipToAddress = FormatterService.formatAddress($scope.orders.shipToAddress);
+            if (!BlankCheck.isNull($scope.shipToAddress)){
+                    $scope.formatedShipToAddress = FormatterService.formatAddress($scope.shipToAddress);
             }
         }
     ]);

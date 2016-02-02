@@ -108,6 +108,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                         ServiceRequest.addField('customerReferenceId', '');
                         ServiceRequest.addField('costCenter', '');
                         ServiceRequest.addField('notes', '');
+                        scope.sr = ServiceRequest.item;
                     }else{
                        scope.sr = ServiceRequest.item;
                     }
