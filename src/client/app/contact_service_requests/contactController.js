@@ -191,6 +191,14 @@ define(['angular', 'contact'], function(angular) {
                 if (Contacts.submitedSR) {
                     $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_TITLE';
 
+                    $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.DELETE_CONTACT_SUBMIT_HEADER_BODY";
+                    $scope.configure.header.translate.readMore = 'CONTACT_SERVICE_REQUEST.RETURN_LINK';
+                    $scope.configure.header.translate.readMoreUrl = Contacts.route;
+                    $scope.configure.header.translate.bodyValues = {
+                        srNumber: ServiceRequest.item.id,
+                        srHours: 24
+                    };
+
                     $scope.configure.receipt = {
                         translate: {
                             title: 'CONTACT_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL',
