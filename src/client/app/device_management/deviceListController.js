@@ -37,6 +37,10 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                 Devices.item = {};
                 $location.path('/service_requests/devices/new');
             };
+
+            $scope.goToPageCount = function() {
+                $location.path('/page_count');
+            };
             $scope.goToLBS = function(){
                 $window.open(lbsURL);
                 $timeout(function(){

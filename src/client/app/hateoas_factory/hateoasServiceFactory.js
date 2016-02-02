@@ -1,5 +1,4 @@
 define(['angular', 'hateoasFactory'], function(angular) {
-    'use strict';
     angular.module('mps.hateoasFactory')
     .factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope',
         function($http, $q, HATEAOSConfig, $rootScope) {

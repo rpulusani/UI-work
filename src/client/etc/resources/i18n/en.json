@@ -51,7 +51,17 @@
             "TXT_PAGE_COUNT_SUBMIT": "Submit page count update",
             "TXT_PAGE_COUNT_TABLOID_COLOR": "Tabloid Color",
             "TXT_PAGE_COUNT_TABLOID_LIFETIME": "Tabloid Lifetime",
-            "TXT_PAGE_COUNT_VIEW_LESS": "View less"
+            "TXT_PAGE_COUNT_VIEW_LESS": "View less",
+            "TXT_PAGE_COUNT_LAST_READ_DATE": "Last read date",
+            "TXT_PAGE_COUNT_CURRENT_READ_DATE": "Current read date",
+            "TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT": "Prior lifetime page count",
+            "TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT": "new lifetime page count",
+            "TXT_PAGE_COUNT_PRIOR_COLOR_COUNT": "Prior color count",
+            "TXT_PAGE_COUNT_NEW_COLOR_COUNT": "New color count",
+            "TXT_PAGE_COUNT_ALL_PAGE_COUNTS": "All page counts",
+            "TXT_PAGE_COUNT_MISSING_METER_READS": "Missing meter reads",
+            "TXT_PAGE_COUNT_ALL_W_TOTALS": "All meter reads device listing ({{total}} total devices)",
+            "TXT_PAGE_COUNT_MISSING_W_TOTALS": "Missing meter reads device listing ({{total}} total devices)"
         },
 
         "DEVICE_SERVICE_HISTORY": {
@@ -140,6 +150,10 @@
             "CTRL_UPDATE_DEVICE_INFO": "Update device information",
             "LNK_VIEW_ON_MAP": "View on map",
             "TXT_BILL_AND_TRACK": "Device billing and tracking",
+            "TXT_NOTIFICATION_ORDERS": "There are open orders for this device.",
+            "TXT_NOTIFICATION_SRHISTORY": "There are open service requests for this device.",
+            "LNK_NOTIFICATION_ORDERS" : "View orders >",
+            "LNK_NOTIFICATION_SRHISTORY" : "View service requests >",
             "TXT_CHANGE_HISTORY": "Device change history",
             "TXT_COLOR_PAGE_COUNTS": "Color",
             "TXT_CONTACT_ADDRESS": "Address",
@@ -491,6 +505,7 @@
             "DATA_ADDRESS_REMOVE":"Address requested for deletion",
             "CHANGE": "Change Request Addresses",
             "ADD": "Add New Address",
+            "ADD_NEW_MAP": "Add New Map",
             "ADD_MULTI": "Add Multiple Addresses",
             "UPDATE": "Update Address",
             "UPDATE_MULTI": "Update Multiple Addresses",
@@ -526,8 +541,9 @@
             "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information",
             "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
             "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request."
+            "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">manage another address</a>?",
+            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">add another address</a>?",
+            "RETURN_LINK": "Would You Like to Manage Another Address?"
         },
 
         "SERVICE_REQUEST": {
@@ -600,7 +616,9 @@
         "SR_UPDATE": "SUBMIT UPDATE CONTACT REQUEST",
         "SR_DELETE": "SUBMIT DELETE CONTACT REQUEST",
         "SR_DELETE_TITLE": "Update Contact Request Submitted",
-        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}"
+        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
+        "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+        "RETURN_LINK": "Would You Like to Manage another Contact?"
     },
 
         "DEVICE_SERVICE_REQUEST": {
@@ -700,7 +718,7 @@
             "DECOMMISSION_DEVICE_REQUEST_NUMBER" : "Decommission Device Request Number: {{srNumber}}",
             "ADD_DEVICE_DETAIL": "Details for Add Device Request Number: {{srNumber}}",
             "CHANGE_HISTORY": "Device change history",
-            "LEARN_MORE": "Learn more about requests",
+            "LEARN_MORE": "Learn more about requests.",
             "CHANGE_INSTALL_ADDRESS": "Change install address",
             "CHANGE_CONTACT": "Change Contact",
             "CURRENTLY_INSTALLED_AT": "Device currently installed at",
@@ -1520,7 +1538,8 @@
         "SHIPPED": "SHIPPED",
         "DELIVERED": "DELIVERED",
         "EDIT": "EDIT",
-        "MOVE": "MOVE"
+        "MOVE": "MOVE",
+        "SAVE": "Save"
     },
 
         "PAGINATION": {

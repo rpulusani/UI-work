@@ -78,8 +78,6 @@ requirejs.config({
             'user.manageUserController',
             'user.invitedUserController',
 
-            'pageCount',
-
             'report',
             'report.reportController',
             'report.reportListController',
@@ -135,8 +133,6 @@ requirejs.config({
         'address.addressListController': ['address'],
         'address.directives': ['address'],
         'address.factory': ['address'],
-
-        'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
@@ -309,6 +305,11 @@ requirejs.config({
         'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
+        'pageCount.directives': 'app/page_count/directives',
+        'pageCount.missingPageCountListController': 'app/page_count/missingPageCountListController',
+        'pageCount.pageCountTabController': 'app/page_count/pageCountTabController',
+        'pageCount.pageCountListController': 'app/page_count/pageCountListController',
+        'pageCount.pageCountFactory': 'app/page_count/pageCountFactory',
 
         'deviceManagement': 'app/device_management/deviceManagement',
         'deviceManagement.deviceController': 'app/device_management/deviceController',
@@ -322,6 +323,7 @@ requirejs.config({
         'deviceManagement.productModelFactory': 'app/device_management/productModelFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
+        'deviceManagement.deviceNotificationController': 'app/device_management/deviceNotificationController',
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',

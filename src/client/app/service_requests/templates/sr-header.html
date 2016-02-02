@@ -5,15 +5,20 @@
         <li>Child</li>
     </ul>
 
-    <h1 translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
+    <div class="row">
+        <div class="col-lg-2-3 col-md-1-1">
+            <h1 translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
 
-    <p class="vertical-margin-bottom-72" >
-        <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
-        <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
-        ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
-        <a ng-if="configure.header.readMoreUrl"
-        class="read-more"
-        href="{{configure.header.readMoreUrl}}"
-        translate="{{configure.header.translate.readMore}}"></a>
-    </p>
+            <p class="vertical-margin-bottom-72" >
+                <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
+                <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
+                ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
+                <a ng-if="configure.header.readMoreUrl"
+                class="read-more"
+                href="{{configure.header.readMoreUrl}}"
+                translate="{{configure.header.translate.readMore}}"></a>
+            </p>
+        </div>
+    </div>
+
 </div>
