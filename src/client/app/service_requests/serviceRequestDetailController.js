@@ -113,6 +113,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         }
                     }
                 };
+                $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL';
+                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_NUMBER';
             }
             function addAddressInfo(Title){
                 $scope.configure.address = {
@@ -190,20 +192,30 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 case 'DATA_ADDRESS_ADD':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED');
                     $scope.formattedAddress = "No Address information found";
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_ADDRESS_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
                 break;
                 case 'DATA_ADDRESS_CHANGE':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_CHANGE');
                     $scope.formattedAddress = "No Address information found";
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_ADDRESS_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_ADDRESS_REQUEST_NUMBER';
                 break;
                 case 'DATA_ADDRESS_REMOVE':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
                     $scope.formattedAddress = "No Address information found";
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DELETE_ADDRESS_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DELETE_ADDRESS_REQUEST_NUMBER';
                 break;
                 case 'DATA_CONTACT_REMOVE':
                     addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_REMOVE_TITLE');
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DELETE_CONTACT_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DELETE_CONTACT_REQUEST_NUMBER';
                 break;
                 case 'DATA_CONTACT_CHANGE':
                     addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE');
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_REQUEST_NUMBER';
                 break;
                 case 'MADC_MOVE':
                     addDeviceMove();
@@ -216,6 +228,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 case 'MADC_INSTALL':
                     addDeviceInformation();
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
                     $scope.configure.header.showCancelBtn = true;
                 break;
                 case 'MADC_DECOMMISSION':
@@ -223,6 +237,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDecommissionInfo();
                     $scope.device.lexmarkPickupDevice = 'true';
                     $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                     $scope.configure.header.showCancelBtn = true;
                 break;
                 case 'DATA_ASSET_DEREGISTER':
@@ -230,6 +246,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDecommissionInfo();
                     $scope.device.lexmarkPickupDevice = 'false';
                     $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
+                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL';
+                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                 break;
                 case 'BREAK_FIX':
                 addDeviceInformation();
