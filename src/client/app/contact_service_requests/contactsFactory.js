@@ -84,11 +84,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         sr.type = srType;
                     }
 
-                    if (angular.isArray($rootScope.currentUser._links.accounts)) {
-                        $rootScope.currentUser._links.accounts = $rootScope.currentUser._links.accounts[0];
-                    }
-
-                    sr._links.account = $rootScope.currentUser._links.accounts.href;
+                    sr._links.account = $rootScope.currentAccount.href;
                     sr._links.primaryContact = this.url + '/' + this.item.id;
                     sr._links.requester = this.url + '/' + this.item.id;
 
