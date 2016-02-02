@@ -53,7 +53,7 @@ define(['angular','angular-mocks', 'address'], function(angular, mocks, address)
                     spyOn(scope, 'goToCreate').and.callThrough();
                     spyOn(location, 'path').and.returnValue('/');
                     scope.goToCreate();
-                    expect(mockedAddressesFactory.item).toEqual({});
+                    expect(mockedAddressesFactory.item).toEqual(undefined);
                     expect(location.path).toHaveBeenCalledWith(mockedAddressesFactory.route + '/new');
                 });
             });
