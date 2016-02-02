@@ -24,7 +24,8 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         },
                         {
                             name: $translate.instant('CONTACT.EMAIL'),
-                            field: 'email'
+                            field: 'email',
+                            searchOn: 'emailAddress'
                         },
                         {
                             name: $translate.instant('CONTACT.ID'), 
