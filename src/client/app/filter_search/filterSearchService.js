@@ -109,7 +109,6 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                         }
 
                         var promise = self.service.getPage(0, self.service.params.size, options);
-                        console.log('promise', promise);
                         promise.then(function() {
                             self.display(fn);
                         }, self.failure);
