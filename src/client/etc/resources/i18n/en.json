@@ -150,6 +150,10 @@
             "CTRL_UPDATE_DEVICE_INFO": "Update device information",
             "LNK_VIEW_ON_MAP": "View on map",
             "TXT_BILL_AND_TRACK": "Device billing and tracking",
+            "TXT_NOTIFICATION_ORDERS": "There are open orders for this device.",
+            "TXT_NOTIFICATION_SRHISTORY": "There are open service requests for this device.",
+            "LNK_NOTIFICATION_ORDERS" : "View orders >",
+            "LNK_NOTIFICATION_SRHISTORY" : "View service requests >",
             "TXT_CHANGE_HISTORY": "Device change history",
             "TXT_COLOR_PAGE_COUNTS": "Color",
             "TXT_CONTACT_ADDRESS": "Address",
@@ -537,7 +541,8 @@
             "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
             "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
             "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request."
+            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "RETURN_LINK": "Would You Like to Manage Another Address?"
         },
 
         "SERVICE_REQUEST": {
@@ -610,7 +615,9 @@
         "SR_UPDATE": "SUBMIT UPDATE CONTACT REQUEST",
         "SR_DELETE": "SUBMIT DELETE CONTACT REQUEST",
         "SR_DELETE_TITLE": "Update Contact Request Submitted",
-        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}"
+        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
+        "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+        "RETURN_LINK": "Would You Like to Manage another Contact?"
     },
 
         "DEVICE_SERVICE_REQUEST": {

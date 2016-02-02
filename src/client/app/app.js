@@ -59,6 +59,7 @@ define([
     'deviceManagement.meterReadFactory',
     'deviceManagement.deviceRequestFactory',
     'deviceManagement.directives',
+    'deviceManagement.deviceNotificationController',
     'deviceServiceRequest',
     'deviceServiceRequest.deviceAddController',
     'deviceServiceRequest.deviceUpdateController',

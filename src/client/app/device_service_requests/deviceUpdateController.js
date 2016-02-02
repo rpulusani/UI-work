@@ -273,7 +273,24 @@ define(['angular',
                                 return {};
                             }
                         }
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
 
             }

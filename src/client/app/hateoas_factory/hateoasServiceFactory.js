@@ -789,6 +789,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
                 deferred = $q.defer();
+
                 self.checkForEvent(self.item, 'beforeGet').then(function(canContinue, newObj) {
                     if (canContinue) {
                         if (newObj) {
