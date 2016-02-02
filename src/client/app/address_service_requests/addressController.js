@@ -67,7 +67,8 @@ define(['angular', 'address'], function(angular) {
                             h1: 'ADDRESS_SERVICE_REQUEST.DELETE',
                             body: 'MESSAGE.LIPSUM'
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     detail:{
                         translate:{

@@ -15,7 +15,7 @@
     "action": "/",
     "text": "NAVIGATION.DASHBOARD",
     "description": "Some description of this link",
-    "icon": "icon icon-psw-dashboard",
+    "icon": "icon icon-psw-home",
     "permissionFlag":"viewHomePage",
     "tags":["primary"]
   },
