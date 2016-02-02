@@ -101,6 +101,10 @@ define(['angular', 'address'], function(angular) {
                 $scope.checkedAddress = 0;
             };
 
+            $scope.makeChanges = function(){
+                $location.path(Addresses.route + '/' + $scope.address.id + '/update');
+            };
+
             $scope.goToReview = function() {
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
@@ -198,7 +202,7 @@ define(['angular', 'address'], function(angular) {
             }
             function configureReceiptTemplate() {
                 $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_UPDATE_SUBMITTED";
-                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.ADD_ADDRESS_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.UPDATE_ADDRESS_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -227,8 +231,9 @@ define(['angular', 'address'], function(angular) {
                     address: {
                         information:{
                             translate: {
-                                title: 'ADDRESS_SERVICE_REQUEST.REQUESTED_UPDATE_TO_ADDRESS',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT'
+                                title: 'ADDRESS.INFO',
+                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT',
+                                makeChanges: 'LABEL.MAKE_CHANGES'
                             }
                         }
                     },
