@@ -1,8 +1,8 @@
 define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl',
-        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl) {
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl', 'UserService',
+        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users) {
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
@@ -84,7 +84,11 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         sr.type = srType;
                     }
 
-                    sr._links.account = $rootScope.currentUser.accounts.url;
+                    if (angular.isArray($rootScope.currentUser._links.accounts)) {
+                        $rootScope.currentUser._links.accounts = $rootScope.currentUser._links.accounts[0];
+                    }
+
+                    sr._links.account = $rootScope.currentUser._links.accounts.href;
                     sr._links.primaryContact = this.url + '/' + this.item.id;
                     sr._links.requester = this.url + '/' + this.item.id;
 
@@ -120,7 +124,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + this.item.id + '/receipt');
                 },
                 verifyAddress: function(addressObj, fn) {
-                    console.log(this);
                     this.get({
                         method: 'post',
                         url: serviceUrl + 'address-validation',
