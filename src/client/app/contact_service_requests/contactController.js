@@ -152,7 +152,9 @@ define(['angular', 'contact'], function(angular) {
                         },
                         show:{
                             primaryAction : true
-                        }
+                        },
+                        pickerObject: $scope.contact,
+                        source: 'contact'
                     },
                     contactsr: {
                         translate: {
