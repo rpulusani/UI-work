@@ -14,7 +14,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     }
                     var location = selectedList.join('|');
                     $scope.params['location'] = location;
-                    $scope.filterDef($scope.params, ['bookmarkFilter', 'chlFilter']);
+                    $scope.filterDef($scope.params, ['bookmarkFilter', 'chlFilter', 'requesterFilter']);
                 }
             };
 
@@ -23,7 +23,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.params = {};
                     $scope.$broadcast('deselectAll');
                     $scope.noOfSelected = 0;
-                    $scope.filterDef($scope.params, ['bookmarkFilter', 'chlFilter', 'location']);
+                    $scope.filterDef($scope.params, ['bookmarkFilter', 'chlFilter', 'location', 'requesterFilter']);
                 }
             };
 

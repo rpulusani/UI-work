@@ -213,12 +213,14 @@ define(['angular', 'address'], function(angular) {
                     'srHours': 24,
                     'addressUrl': '/service_requests/addresses',
                 };
+                $scope.configure.address.information.translate.makeChanges = false;
                 $scope.configure.header.showDeleteBtn = false;
                 $scope.configure.receipt = {
                     translate: {
                         title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
+                    },
+                    print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }

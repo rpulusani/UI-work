@@ -186,6 +186,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 
             };
 
+            $scope.goToServiceChange = function(requestNumber, type) {
+                $location.path('/service_requests');
+            };
 
             $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
             switch($scope.sr.type){
@@ -221,6 +224,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDeviceMove();
                     $scope.formattedMoveDevice = 'Yes';
                     $scope.configure.header.showCancelBtn = true;
+                    $scope.configure.header.showUpdateBtn = true;
                 break;
                 case 'DATA_ASSET_CHANGE':
                     addDeviceMove();
@@ -231,6 +235,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
                     $scope.configure.header.showCancelBtn = true;
+                    $scope.configure.header.showUpdateBtn = true;
                 break;
                 case 'MADC_DECOMMISSION':
                     addDeviceInformation();
@@ -240,6 +245,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                     $scope.configure.header.showCancelBtn = true;
+                    $scope.configure.header.showUpdateBtn = true;
                 break;
                 case 'DATA_ASSET_DEREGISTER':
                     addDeviceInformation();

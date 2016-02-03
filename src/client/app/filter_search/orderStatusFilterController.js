@@ -36,10 +36,10 @@ define(['angular', 'filterSearch'], function(angular) {
                     var orderStatusList = $scope.selectedStatusList.join();
                     if ($scope.selectedStatusList.length > 0) {
                         $scope.params['status'] = orderStatusList;
-                        $scope.filterDef($scope.params,['from', 'to', 'bookmark']);
+                        $scope.filterDef($scope.params,['from', 'to', 'bookmark', 'requesterFilter']);
                     } else {
                         $scope.params = {};
-                        $scope.filterDef($scope.params,['status', 'from', 'to', 'bookmark']);
+                        $scope.filterDef($scope.params,['status', 'from', 'to', 'bookmark', 'requesterFilter']);
                     }
                 }
             };
@@ -52,7 +52,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     for (var i=0; i<$scope.orderStatuses.length; i++) {
                         $scope.orderStatuses[i].selected = false;
                     }
-                    $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark']);
+                    $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark', 'requesterFilter']);
                 }
             };
         }

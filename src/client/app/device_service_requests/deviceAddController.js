@@ -133,6 +133,10 @@ define(['angular',
 
                     $scope.resetDevicePicker();
                 }
+            } else if(ServiceRequest.item && Devices.item){
+                $scope.sr = ServiceRequest.item;
+                $scope.device = Devices.item;
+
             } else {
                 $scope.device = {};
                 $scope.device.address = {};
@@ -153,12 +157,8 @@ define(['angular',
                     $scope.getRequestor(ServiceRequest, Contacts);
                 }
             }
-
-
-            $scope.setupSR(ServiceRequest, configureSR);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
-
-            var updateSRObjectForSubmit = function() {
+               $scope.updateSRObjectForSubmit = function() {
+                ServiceRequest.item =  $scope.sr;
                 if ($scope.device.deviceDeInstallQuestion === 'true') {
                     ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
                 } else if ($scope.device.deviceInstallQuestion === 'true') {
@@ -177,6 +177,8 @@ define(['angular',
                     physicalLocation2: $scope.device.physicalLocation2,
                     physicalLocation3: $scope.device.physicalLocation3
                 };
+
+
 
                 if ($scope.device.chl && $scope.device.chl.id) {
                     assetInfo.customerHierarchyLevel = $scope.device.chl.id;
@@ -201,12 +203,17 @@ define(['angular',
                     ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate));
                 }
                 ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+                Devices.item = $scope.device;
             };
+
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                $scope.updateSRObjectForSubmit();
                 $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
+                    $scope.updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                         HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
                             ServiceRequest.item.postURL = api.url;
@@ -269,7 +276,10 @@ define(['angular',
                                 chl: 'DEVICE_MGT.CHL',
                                 customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                            }
+                                linkMakeChangesTxt: 'LABEL.MAKE_CHANGES'
+                            },
+                            linkMakeChanges: '/service_requests/devices/new'
+
                         },
                         pageCount:{
                             translate: {

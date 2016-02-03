@@ -26,11 +26,6 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/contact_service_requests/templates/update.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'
-            })
-            .when('/service_requests/contacts/pick_contact/:source', {
-                templateUrl: '/app/address_service_requests/templates/contact-picker.html',
-                controller: 'ContactPickerController',
-                activeItem: '/service_requests/contacts'
             });
         }
     ]);
