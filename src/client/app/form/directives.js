@@ -113,6 +113,8 @@ angular.module('mps.form')
         var value = values[2];
         var model = values[3];
         var placeholder = values[4];
+        var selectedVal = '';
+
         if(selectric) {
           selectric.selectric('destroy');
         }
@@ -130,13 +132,15 @@ angular.module('mps.form')
           if (item[label]) {
             var option = $('<option></option>').attr('value', item[value]).text(item[label]);
 
-            if (model == item[value]) {
+            if (model === item[label]) {
               option.attr('selected', 'selected');
+              selectedVal = item[value];
             }
 
             selectric.append(option);
           }
         });
+
         element.empty();
         element.append(selectric[0]);
         selectric.selectric({
@@ -156,6 +160,8 @@ angular.module('mps.form')
              });
            }
         });
+
+        selectric.val(selectedVal).selectric('refresh').change();
       });
       scope.$on('$destroy', function() {
         selectric.selectric('destroy');
