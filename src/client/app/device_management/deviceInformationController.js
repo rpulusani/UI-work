@@ -45,8 +45,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                $location.path(Devices.route + '/');
             };
 
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
+            var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             $scope.gotToLBS = function(){
                  $window.open(lbsURL + "?sno=" + $scope.device.serialNumber);
             };
@@ -213,16 +212,21 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 ServiceRequest.reset();
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
+            function madcGrid(){
+            ServiceRequest.setParamsToNull();
+            ServiceRequest.data = [];
+            var filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
 
-            var params =  {
-                type: 'MADC_ALL'
-            };
+                var params =  {
+                    type: 'MADC_ALL'
+                };
 
 
-            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params, false, function() {
-                $scope.$broadcast('setupPrintAndExport', $scope);
-            });
-            //filterSearchService.addPanelFilter('Filter By CHL', 'CHLFilter');
+                filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params, false, function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                });
+            }
+            madcGrid();
         }
     ]);
 });
