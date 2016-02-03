@@ -1549,7 +1549,8 @@
         "SAVE": "Save",
         "ALL": "All",
         "MANUAL": "Manual",
-        "AUTOMATIC": "Automatic"
+        "AUTOMATIC": "Automatic",
+        "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)"
     },
 
         "PAGINATION": {

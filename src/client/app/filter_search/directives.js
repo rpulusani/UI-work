@@ -213,7 +213,8 @@ define(['angular', 'filterSearch'], function(angular) {
             scope: {
                 columns: '=',
                 params: '=',
-                search: '='
+                search: '=',
+                total: '='
             },
             templateUrl: '/app/filter_search/templates/search.html',
             controller: 'GridSearchController',
