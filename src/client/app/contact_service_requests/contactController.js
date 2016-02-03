@@ -8,7 +8,10 @@ define(['angular', 'contact'], function(angular) {
         '$rootScope',
         'FormatterService',
         'ServiceRequestService',
-        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest) {
+        'SRControllerHelperService',
+        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest, SRHelper) {
+            SRHelper.addMethods(Contacts, $scope, $rootScope);
+
             $scope.contacts = Contacts;
 
             if (Contacts.item === null) {
@@ -22,8 +25,7 @@ define(['angular', 'contact'], function(angular) {
                 $scope.canSave = false;
 
                 $scope.processDelete = function(fn) {
-                    ServiceRequest.setItem(Contacts.createSRFromContact());
-
+                    $scope.sr = $rootScope.returnPickerSRObject;
                     ServiceRequest.get({
                         method: 'post',
                         preventDefaultParams: true,
@@ -150,11 +152,11 @@ define(['angular', 'contact'], function(angular) {
                             requestedByTitle: 'Request created by',
 
                         },
-                        show:{
-                            primaryAction : true
+                        show: {
+                            primaryAction: true
                         },
-                        pickerObject: $scope.contact,
-                        source: 'contact'
+                        pickerObject: Contacts.item,
+                        source: 'Contact'
                     },
                     contactsr: {
                         translate: {
@@ -172,24 +174,23 @@ define(['angular', 'contact'], function(angular) {
                             $scope.processDelete();
                         }
                     },
-                    statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                    statusList:[{
+                        'label':'Submitted',
+                        'date': '1/29/2016',
+                        'current': true
+                    }, {
+                        'label':'In progress',
+                        'date': '',
+                        'current': false
+                    }, {
+                        'label':'Completed',
+                        'date': '',
+                        'current': false
+                    }]
                 };
+
+                ServiceRequest.setItem(Contacts.createSRFromContact());
+                $scope.setupSR(ServiceRequest);
 
                 if (Contacts.submitedSR) {
                     $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_TITLE';

@@ -59,7 +59,8 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 needsToVerify: false, // if verify directive needs to be displayed
                 alertState: false,
                 createSRFromContact: function(contact, srType) {
-                    var sr = {
+                    var self = this,
+                    sr = {
                         id: '',
                         type: '',
                         _links: {
@@ -84,9 +85,11 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         sr.type = srType;
                     }
 
-                    sr._links.account = $rootScope.currentAccount.href;
-                    sr._links.primaryContact = this.url + '/' + this.item.id;
-                    sr._links.requester = this.url + '/' + this.item.id;
+                    Users.getLoggedInUserInfo().then(function() {
+                        sr._links.account = $rootScope.currentAccount.href;
+                        sr._links.primaryContact = self.url + '/' + self.item.id;
+                        sr._links.requester = self.url + '/' + self.item.id;
+                    });
 
                     return sr;
                 },
