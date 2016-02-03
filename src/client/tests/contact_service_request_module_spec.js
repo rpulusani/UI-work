@@ -17,6 +17,13 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                 httpBackend = $httpBackend;
                 location = $location;
 
+                scope.currentAccount = {
+                    accountId: '123',
+                    accountLevel: 'legal',
+                    name: 'Bob Ross',
+                    href: '/contacts'
+                };
+
                 mockContactFactory = Contacts;
 
                 mockContactFactory.item = {id:'123', _links: {self: {href: '/contacts/123'}}};
