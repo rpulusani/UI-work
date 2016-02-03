@@ -187,9 +187,9 @@ define(['angular',
                         translate: {
                             h1: 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE',
                             body: 'MESSAGE.LIPSUM',
-                            readMore: ''
+                            readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: '',
+                        readMoreUrl: '/service_requests/learn_more',
                         showCancelBtn: false
                     },
                     device: {
