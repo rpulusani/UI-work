@@ -66,7 +66,7 @@ define(['angular',
                 $rootScope.contactPickerReset = false;
             }else if($rootScope.selectedDevice &&
                 $rootScope.returnPickerObjectDevice){
-                    $scope.device = $rootScope.returnPickerObjectDevice;
+                    $scope.device = $rootScope.currentSelectedRow;
                     $scope.sr = $rootScope.returnPickerSRObjectDevice;
                     if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
                         $scope.device.isDeviceSelected = true;
@@ -243,6 +243,20 @@ define(['angular',
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: DeviceServiceRequest.route + '/' + $scope.device.id + '/review'
+                    },
+                    devicePicker: {
+                        singleDeviceSelection: true,
+                        readMoreUrl: '',
+                        translate: {
+                            replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
+                            h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
+                            body: 'MESSAGE.LIPSUM',
+                            readMore: '',
+                            confirmation:{
+                                abandon:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
+                                submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
+                            }
+                        }
                     },
                     statusList:[
                   {

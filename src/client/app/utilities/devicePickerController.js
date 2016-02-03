@@ -6,23 +6,21 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
         'Contacts',
         function($scope, $location, GridService, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
             Personalize, $controller, ImageService, Contacts) {
-            $scope.selectedDevice = [];
-            $rootScope.currentRowList = [];
-            if(!$scope.singleDeviceSelection){
-                $scope.singleDeviceSelection = false;
-            }
+            $scope.selectedDevice = undefined;
+            $rootScope.currentSelectedRow = undefined;
+
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
-            if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1) {
-                $scope.selectedContact = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+            if ($rootScope.currentSelectedRow ) {
+                $scope.selectedDevice = $rootScope.currentSelectedRow;
             }
 
-            /*if (!Devices.data.length) {
-                $location.path('/');
-            }*/
+            if($rootScope.selectedDevice) {
+                $rootScope.selectedDevice = undefined;
+            }
 
-            if($rootScope.selectedAddress) {
-                $rootScope.selectedAddress = undefined;
+            if(!$scope.singleDeviceSelection){
+                $scope.singleDeviceSelection = false;
             }
 
             configureTemplates();
@@ -32,8 +30,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.isRowSelected = function(){
-                if ($rootScope.currentRowList.length >= 1) {
-                   $rootScope.selectedDevice = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+                if ($rootScope.currentSelectedRow) {
+                   $rootScope.selectedDevice = $rootScope.currentSelectedRow;
                    $scope.selectedDevice = $rootScope.selectedDevice;
                    return true;
                 } else {
@@ -60,21 +58,17 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.getSelectedDeviceContact = function() {
                 if($scope.selectedDevice){
                     Devices.setItem($scope.selectedDevice);
-                    /*if($scope.selectedDevice._embedded && $scope.selectedDevice._embedded.contact){
-                        $scope.selectedDevice.contact = $scope.selectedDevice._embedded.contact;
-                    }else{*/
-                        var options = {
-                            params:{
-                                embed:'contact,address'
-                            }
-                        };
-                        Devices.item.get(options).then(function(){
-                            if(Devices.item && Devices.item.contact){
-                                $scope.selectedDevice.contact = Devices.item.contact.item;
-                                $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
-                            }
-                        });
-                   // }
+                    var options = {
+                        params:{
+                            embed:'contact,address'
+                        }
+                    };
+                    Devices.item.get(options).then(function(){
+                        if(Devices.item && Devices.item.contact){
+                            $scope.selectedDevice.contact = Devices.item.contact.item;
+                            $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
+                        }
+                    });
                 }
             };
 
@@ -85,6 +79,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.discardSelect = function(){
                 $rootScope.selectedDevice = undefined;
                 $rootScope.formattedDevice = undefined;
+                $rootScope.currentSelectedRow = undefined;
                 $location.path($rootScope.deviceReturnPath);
             };
 
@@ -102,21 +97,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                          NREUM.noticeError('Image url was not found reason: ' + reason);
                     });
                 }
-
-                /*if ($scope.prevDevice.selectedDevice.contact) {
-                    Devices.setItem($scope.prevDevice.selectedDevice);
-                    options = {
-                        params:{
-                            embed:'contact'
-                        }
-                    };
-                    if(!$scope.singleDeviceSelection){
-                        Devices.item.links.self(options).then(function(){
-                            $scope.prevDevice.selectedDevice.contact = Devices.item.self.item.contact.item;
-                            $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.prevDevice.selectedDevice.contact);
-                        });
-                    }
-                }*/
 
                if ($scope.prevDevice.address && !$scope.singleDeviceSelection) {
                     $scope.formattedSingleLineAddress = FormatterService.formatAddressSingleLine($scope.prevDevice.address);

@@ -624,6 +624,7 @@
     },
 
         "DEVICE_SERVICE_REQUEST": {
+            "TXT_CHANGE_DEVICE": "Change device >",
             "REQUEST_MOVE_TITLE": "Requested updates to device information",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Request service for {{productModel}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
