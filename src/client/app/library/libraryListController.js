@@ -6,22 +6,62 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
 
+            $scope.query = [];
+            $scope.query.query = 'query';
+            $scope.query.categories = [];
+
             new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 140);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
-            filterSearchService.addBasicFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS', false, false,
-                function(Grid) {
-                    setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
-                    }, 500);
-                    
-                    //$scope.$broadcast('setupPrintAndExport', $scope);
+            var Grid = new GridService();
+            $scope.gridOptions = {};
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
 
+            $scope.buildGrid = function() {
+
+                Documents.getPage().then(function() {
+                    Grid.display(Documents, $scope, personal);
+
+                }, function(reason) {
+                    NREUM.noticeError('Grid Load Failed for ' + Documents.serviceName +  ' reason: ' + reason);
+                });
+
+            };
+
+            $scope.buildGrid();
+
+            $scope.categories = [
+                {name: 'strategic', label: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), selected: false },
+                {name: 'nonstrategic', label: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_NON_STRATEGIC'), selected: false }
+            ];
+
+            $scope.owners = [
+                {name: 'jdoe@customer.com', selected: false },
+                {name: 'jpublic@lexmark.com', selected: false },
+                {name: 'jpublic@lexmark.com', selected: false }
+            ];
+
+            $scope.tags = [
+                {name: 'business', selected: false },
+                {name: 'document', selected: false },
+                {name: 'internal', selected: false },
+                {name: 'MPS', selected: false },
+                {name: 'training', selected: false }
+            ];
+
+             $scope.$watch('categories', function() {
+                for (var i = 0; i <= $scope.categories.length; i++) {
+                    console.log($scope.categories[i].name);
                 }
-            );
+            }, true);
 
-            filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTERS', 'libraryFilter', false);
+            $scope.$watch('owners', function() {
+
+            }, true);
+
+            $scope.$watch('tags', function() {
+
+            }, true);
 
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
@@ -58,6 +98,15 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             $scope.goToNew = function() {
                 Documents.item = {};
                 $location.path(Documents.route + '/new');
+            };
+
+            $scope.goToQuery = function() {
+                Documents.params['search'] = $scope.query.search;
+                Documents.params['category'] = '';
+                Documents.params['owner'] = '';
+                Documents.params['tag'] = ''
+                
+                $scope.buildGrid();
             };
 
             $scope.goToView = function(documentItem) {

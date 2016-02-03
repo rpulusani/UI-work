@@ -16,6 +16,12 @@ define(['angular', 'library'], function(angular) {
             templateUrl: '/app/library/templates/library-view-fields.html'
         };
     })
+    .directive('libraryQueryFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/library/templates/library-query-fields.html'
+        };
+    })
     .directive('libraryNewFields', function() {
         return {
             restrict: 'A',
