@@ -19,7 +19,7 @@ define(['angular', 'filterSearch'], function(angular) {
             $scope.$watch('deviceRequestType', function(deviceRequestType) {
                 if (deviceRequestType) {
                     $scope.params['type'] = deviceRequestType;
-                    $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark', 'chlFilter', 'location']);
+                    $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark', 'chlFilter', 'location', 'requesterFilter']);
                 }
             });
         }

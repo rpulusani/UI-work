@@ -40,7 +40,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 type: 'BREAK_FIX',
                 embed: 'primaryContact,requester,asset,sourceAddress'
             };
-            var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location'];
+            var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location', 'requesterFilter'],
+                myRequestRemoveParamList = ['from', 'to', 'status', 'chlFilter', 'location'];
             filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_SERVICE_REQUESTS', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
@@ -81,11 +82,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_REQUESTS', 'MyOrderFilter', undefined,
+            filterSearchService.addBasicFilter('FILTERS.FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
                 function(Grid) {
-                    setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
-                    }, 500);
+                    $scope.$broadcast('setupColumnPicker', Grid);
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
