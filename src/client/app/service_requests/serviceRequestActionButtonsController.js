@@ -78,19 +78,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $location.path(Addresses.route + '/new');
             };
             $scope.goToServiceCreate = function(){
-                $location.path(DeviceServiceRequest.route + "/picker");
-
-                /*$scope.resetDevicePicker();
-
-
-
-                if ($rootScope.newSr) {
-                        $scope.sr = $rootScope.newSr;
-                        $rootScope.newSr = undefined;
-                }
-                $scope.goToDevicePicker('ServiceRequestActionButtons', Devices);*/
-                /*
-                */
+                $location.search('tab', null);
+                Devices.item = {};
+                $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
             };
         }
     ]);
