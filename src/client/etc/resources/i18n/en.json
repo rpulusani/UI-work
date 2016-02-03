@@ -1388,7 +1388,8 @@
 
         "DELEGATED_ADMIN": {
             "TITLE": "Users",
-            "MANAGE_PROFILE": "Managing User Profile"
+            "MANAGE_PROFILE": "Managing User Profile",
+            "PREFERRED_LANGUAGE": "Preferred language"
         },
 
         "USER": {
@@ -1615,5 +1616,39 @@
         "COLUMNPICKER": {
             "TITLE": "Column Selector",
             "CUSTOMIZE_COLUMNS": "Customize columns"
+        },
+
+        "LANGUAGES":{
+            "ARABIC": "Arabic",
+            "BULGARIAN": "Bulgarian",
+            "CHINESE_SIMPLIFIED": "Chinese (Simplified)",
+            "CHINESE_TRADITIONAL": "Chinese (Traditional)",
+            "CROATIAN": "Croatian",
+            "CZECH": "Czech",
+            "DANISH": "Danish",
+            "DUTCH": "Dutch",
+            "ENGLISH": "English",
+            "ENGLISH_UK": "English UK",
+            "ENGLISH_US": "English US",
+            "FINNISH": "Finnish",
+            "FRENCH": "French",
+            "FRENCH_CA": "French CA",
+            "GERMAN": "German",
+            "GREEK": "Greek",
+            "HUNGARIAN": "Hungarian",
+            "ITALIAN": "Italian",
+            "JAPANESE": "Japanese",
+            "KOREAN": "Korean",
+            "NORWEGIAN": "Norwegian",
+            "POLISH": "Polish",
+            "PORTUGUESE_BRAZIL": "Portuguese (Brazil)",
+            "PORTUGUESE_PORTUGAL": "Portuguese (Portugal)",
+            "ROMANIAN": "Romanian",
+            "RUSSIAN": "Russian",
+            "SPANISH_SPAIN": "Spanish Spain",
+            "SPANISH_MEXICO": "Spanish Mexico",
+            "SWEDISH": "Swedish",
+            "TURKISH": "Turkish",
+            "SLOVAK": "Slovak"
         }
 }
