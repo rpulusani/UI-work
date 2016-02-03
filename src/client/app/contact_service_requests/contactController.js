@@ -8,7 +8,10 @@ define(['angular', 'contact'], function(angular) {
         '$rootScope',
         'FormatterService',
         'ServiceRequestService',
-        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest) {
+        'SRControllerHelperService',
+        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest, SRHelper) {
+            SRHelper.addMethods(Contacts, $scope, $rootScope);
+
             $scope.contacts = Contacts;
 
             if (Contacts.item === null) {
