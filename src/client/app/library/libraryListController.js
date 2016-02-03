@@ -1,16 +1,12 @@
 define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
-        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
-            $rootScope.currentRowList = [];
-            $scope.visibleColumns = [];
+    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'SecurityHelper',
+        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, SecurityHelper) {
 
-            $scope.query = [];
-            $scope.query.query = 'query';
-            $scope.query.categories = [];
+            $scope.query = '';
 
-            new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
+            //new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             var Grid = new GridService();
@@ -20,7 +16,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             $scope.buildGrid = function() {
 
                 Documents.getPage().then(function() {
-                    Grid.display(Documents, $scope, personal);
+                    Grid.display(Documents, $scope, personal, 180);
 
                 }, function(reason) {
                     NREUM.noticeError('Grid Load Failed for ' + Documents.serviceName +  ' reason: ' + reason);
@@ -48,20 +44,6 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 {name: 'MPS', selected: false },
                 {name: 'training', selected: false }
             ];
-
-             $scope.$watch('categories', function() {
-                for (var i = 0; i <= $scope.categories.length; i++) {
-                    console.log($scope.categories[i].name);
-                }
-            }, true);
-
-            $scope.$watch('owners', function() {
-
-            }, true);
-
-            $scope.$watch('tags', function() {
-
-            }, true);
 
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
@@ -92,7 +74,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getEditDeleteAction = function (owner) {
-                return (owner === $rootScope.idpUser.email ? true : false);
+                return true; //(owner === $rootScope.idpUser.email ? true : false);
             };
 
             $scope.goToNew = function() {
@@ -101,12 +83,52 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.goToQuery = function() {
-                Documents.params['search'] = $scope.query.search;
-                Documents.params['category'] = '';
-                Documents.params['owner'] = '';
-                Documents.params['tag'] = ''
+                Documents.params['search'] = $scope.query;
+                Documents.params['category'] = $scope.getListOfSelectedItems($scope.categories);
+                Documents.params['owner'] =  $scope.getListOfSelectedItems($scope.owners);
+                Documents.params['tag'] =  $scope.getListOfSelectedItems($scope.tags);
                 
                 $scope.buildGrid();
+            };
+
+            $scope.getListOfSelectedItems = function(inArr) {
+                var retval = [];
+
+                angular.forEach(inArr, function(value, key) {
+                    if (value.selected === true) {
+                        retval.push(value.name);
+                    }
+                });
+
+                return retval.join(",");
+            };
+
+            $scope.goToResetQuery = function() {
+                $scope.query = '';
+                $scope.goToClearSelectionCheckboxes($scope.categories);
+                $scope.goToClearSelectionCheckboxes($scope.owners);
+                $scope.goToClearSelectionCheckboxes($scope.tags);
+
+                delete Documents.params['search'];
+                delete Documents.params['category'];
+                delete Documents.params['owner'];
+                delete Documents.params['tag'];
+
+                $scope.buildGrid();
+            };
+
+            $scope.goToClearSelectionCheckboxes = function(inArr) {
+                angular.forEach(inArr, function(value, key) {
+                    value.selected = false;
+                });
+            };
+
+            $scope.clearTag = function(tag) {
+                angular.forEach($scope.tags, function(value, key) {
+                    if (value.name === tag.name) {
+                        value.selected = false;
+                    }
+                });
             };
 
             $scope.goToView = function(documentItem) {

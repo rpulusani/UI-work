@@ -10,6 +10,15 @@ define(['angular', 'library'], function(angular) {
             }
         };
     })
+    .directive('libraryInlineDelete', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/library/templates/library-inline-delete.html',
+            replace: true,
+            scope: { onConfirmDelete: '&' },
+            controller: 'libraryDeleteInlineController',
+        };
+    })
     .directive('libraryViewFields', function() {
         return {
             restrict: 'A',

@@ -12,18 +12,31 @@
 
 <div class="page-content">
 
-    <form class="form" data-form="" name="newDocument" enctype="multipart/form-data" novalidate>
-        <div library-query-fields></div>
-    </form>
-
-    <p ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined && query !== undefined" translate="DOCUMENT_LIBRARY.COMMON.TXT_SEARCH_RESULTS_FOR" translate-values="{string: query, count: pagination.totalItems() }"></p>
-
     <div>
         <div class="col-2-3">
             <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
                 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT" translate-values="{ total: pagination.totalItems() }"></h2>
+            <hr />
         </div>
-        <hr />
+
+    </div>
+
+    <form class="form" data-form="" name="newDocument" enctype="multipart/form-data" novalidate>
+        <div library-query-fields></div>
+    </form>
+
+    <div ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined">  
+        <p>
+            <span translate="DOCUMENT_LIBRARY.COMMON.TXT_SEARCH_RESULTS_FOR" translate-values="{string: (query === '') ? '': query, count: pagination.totalItems() }"></span>
+            <a href="#" ng-click="goToResetQuery()" translate="DOCUMENT_LIBRARY.COMMON.TXT_RESET_SEARCH"></a>
+            <br />
+            <span translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGGED_AS"></span>
+
+            <span ng-repeat="tag in tags">
+                <button ng-if="tag.selected === true" ng-click="clearTag(tag);"><i class="icon-16 icon-psw-delete"></i> {{tag.name}}</button>
+            </span>
+            <a href="#" ng-click="goToClearSelectionCheckboxes(tags)" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_CLEAR_SELECTIONS"></a>
+        </p>
     </div>
 
     <div class="col-1">
