@@ -179,6 +179,7 @@ define(['angular',
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+                $scope.configure.device.information.translate.linkMakeChangesTxt = undefined;
             }
 
             function configureTemplates() {

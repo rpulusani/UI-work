@@ -13,6 +13,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
         '$window',
         '$timeout',
         'lbsURL',
+        'ServiceRequestService',
         function(
             $scope,
             $location,
@@ -24,7 +25,8 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             SecurityHelper,
             $window,
             $timeout,
-            lbsURL
+            lbsURL,
+            ServiceRequest
             ) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
@@ -35,6 +37,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
 
             $scope.goToCreate = function() {
                 Devices.item = {};
+                ServiceRequest.item = null;
                 $location.path('/service_requests/devices/new');
             };
 
