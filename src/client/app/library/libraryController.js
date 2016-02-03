@@ -1,8 +1,8 @@
 define(['angular', 'library'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http', 'translationPlaceHolder', 'Documents', '$rootScope', '$http',
-        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, $rootScope) {
+    .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http', 'translationPlaceHolder', 'Documents', 'BlankCheck', '$rootScope',
+        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, BlankCheck, $rootScope) {
 
             $scope.translationPlaceHolder = translationPlaceHolder;
 
@@ -30,21 +30,66 @@ define(['angular', 'library'], function(angular) {
 
             $scope.save = function() {
                 if ($scope.documentItem.id !== 'new') {
-                    /* update, not impl. yet. */
+                    /* update */
+                    var fd = new FormData();
+
+                    if (!BlankCheck.isNull($scope.documentItem.name)) {
+                        fd.append('name', $scope.documentItem.name);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.description)) {
+                        fd.append('description', $scope.documentItem.description);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.tags)) {
+                        fd.append('tags', $scope.documentItem.tags);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.publishDate)) {
+                        fd.append('publishDate', $scope.documentItem.publishDate);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.endDate)) {
+                        fd.append('endDate', $scope.documentItem.endDate);
+                    }
+
+                    $http({
+                        method: 'PUT',
+                        url: Documents.url + '/' + $scope.documentItem.id,
+                        headers: {'Content-Type': undefined },
+                        data: fd
+                    }).then(function successCallback(response) {
+                        $location.path(Documents.route);
+                    }, function errorCallback(response) {
+                        NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
+                    });
                 } else {
                     /* upload */
                     var fd = new FormData();
                     fd.append('file', $scope.documentFile);
-                    //fd.append('name', $scope.documentItem.name);
-                    //fd.append('description', $scope.documentItem.description);
-                    //fd.append('tags', $scope.documentItem.tags);
-                    //fd.append('publishDate', $scope.documentItem.dateFrom);
-                    //fd.append('endDate', $scope.documentItem.dateTo);
-                    //fd.append('owner', $scope.documentItem.owner);
+                    fd.append('name', $scope.documentItem.name);
+
+                    if (!BlankCheck.isNull($scope.documentItem.description)) {
+                        fd.append('description', $scope.documentItem.description);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.tags)) {
+                        fd.append('tags', $scope.documentItem.tags);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.publishDate)) {
+                        fd.append('publishDate', $scope.documentItem.publishDate);
+                    }
+
+                    if (!BlankCheck.isNull($scope.documentItem.endDate)) {
+                        fd.append('endDate', $scope.documentItem.endDate);
+                    }
+                    
+                    fd.append('owner', $rootScope.idpUser.email);
 
                     $http({
                         method: 'POST',
-                        url: Documents.url + '/upload',
+                        url: Documents.url,
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
