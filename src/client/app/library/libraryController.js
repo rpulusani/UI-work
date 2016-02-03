@@ -77,12 +77,12 @@ define(['angular', 'library'], function(angular) {
                         fd.append('tags', $scope.documentItem.tags);
                     }
 
-                    if (!BlankCheck.isNull($scope.documentItem.publishDate)) {
-                        fd.append('publishDate', $scope.documentItem.publishDate);
+                    if (!BlankCheck.isNull($scope.documentItem.dateFrom)) {
+                        fd.append('publishDate', $scope.documentItem.dateFrom);
                     }
 
-                    if (!BlankCheck.isNull($scope.documentItem.endDate)) {
-                        fd.append('endDate', $scope.documentItem.endDate);
+                    if (!BlankCheck.isNull($scope.documentItem.dateTo)) {
+                        fd.append('endDate', $scope.documentItem.dateTo);
                     }
                     
                     fd.append('owner', $rootScope.idpUser.email);
