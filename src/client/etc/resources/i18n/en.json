@@ -590,7 +590,8 @@
             "CANCEL_REQUEST_SUBMITTED": "Cancel Request Submitted",
             "CANCEL_REQUEST_SUBMIT_HEADER_BODY": "Your request to cancel request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
             "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}",
-            "SERVICE_REQUEST_CONTACT": "Service Request contact"
+            "SERVICE_REQUEST_CONTACT": "Service Request contact",
+            "CHANGE_REQUEST": "Change Request"
         },
 
     "CONTACT_SERVICE_REQUEST": {

@@ -12,7 +12,12 @@
             <p class="vertical-margin-bottom-72" >
                 <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
                 <div class="col-1 btns">
+                    <button class="btn" ng-click="goToServiceChange(sr.id, sr.type)" 
+                    translate="SERVICE_REQUEST.CHANGE_REQUEST" 
+                    ng-if="cancelServiceRequest && configure.header.showUpdateBtn"></button>
+
                     <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST" ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
+                    
                     <button class="btn" ng-click="goToDelete()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-if="cancelServiceRequest && configure.header.showDeleteBtn"></button>
                 </div>
                 <a ng-if="configure.header.readMoreUrl"
