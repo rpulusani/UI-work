@@ -238,6 +238,8 @@ requirejs.config({
 
         'queue': 'app/queue/queue',
         'queue.directives': 'app/queue/directives',
+        'queue.queueNotificationController': 'app/queue/queueNotificationController',
+        'queue.tombstoneFactory': 'app/queue/tombstoneFactory',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',

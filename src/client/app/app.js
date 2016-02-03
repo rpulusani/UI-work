@@ -13,6 +13,8 @@ define([
     'angular-spring-data-rest',
     'queue',
     'queue.directives',
+    'queue.queueNotificationController',
+    'queue.tombstoneFactory',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.serviceRequestStatusFactory',
