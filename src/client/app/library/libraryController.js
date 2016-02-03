@@ -61,7 +61,7 @@ define(['angular', 'library'], function(angular) {
                     }).then(function successCallback(response) {
                         $location.path(Documents.route);
                     }, function errorCallback(response) {
-                        NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
+                        NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                     });
                 } else {
                     /* upload */
