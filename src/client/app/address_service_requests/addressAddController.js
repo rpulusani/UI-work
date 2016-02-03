@@ -211,6 +211,7 @@ define(['angular', 'address'], function(angular) {
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SUBMIT';
+                updateSRObjectForSubmit();
                 $scope.configure.actions.submit = function(){
                     updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
