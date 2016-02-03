@@ -6,7 +6,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
 
             $scope.query = '';
 
-            //new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             var Grid = new GridService();
