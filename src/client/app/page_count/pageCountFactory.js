@@ -18,7 +18,14 @@ define(['angular', 'pageCount', 'hateoasFactory.serviceFactory', 'utility.format
                             },
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field': 'productModel'},
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_LAST_READ_DATE'), 'field': 'getFormattedLastReadDate()', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT_READ_DATE'), 'field': 'getFormattedTodaysDate()', 'notSearchable': true},
+                            {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT_READ_DATE'), 'field': 'getFormattedTodaysDate()', 'notSearchable': true,
+                             'cellTemplate':'<div class="ui-grid-cell-contents">' +
+                                                '<input datepicker type="text" ng-model="row.entity.currentReadDate" date-val="row.entity.currentReadDate"/> ' +
+                                            '</div>',
+                            enableCellEdit: true,
+                            width: '150',
+                            enableCellEditOnFocus: true
+                            },
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT'), 'field':'ltpcValue', 'notSearchable': true, width: '100',},
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT'), 'field':'status', 'notSearchable': true,
                             'cellTemplate':'<div>' +
@@ -30,7 +37,7 @@ define(['angular', 'pageCount', 'hateoasFactory.serviceFactory', 'utility.format
                             enableCellEditOnFocus: true},
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_COLOR_COUNT'), 'field':'colorValue', 'notSearchable': true},
                             {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_COLOR_COUNT'), 'field':'', 'notSearchable': true,
-                             'cellTemplate':'<div>' +
+                             'cellTemplate':'<div ng-if="row.entity.colorMeterReadId">' +
                                             '<input type="number" ng-model="row.entity.newColorCount" ' +
                                             '/>' +
                                         '</div>',

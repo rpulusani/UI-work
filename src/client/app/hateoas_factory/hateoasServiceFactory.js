@@ -694,7 +694,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 self.item[prop].data = self.item._embedded[prop];
                             } else {
                                 if (!self.item._embedded[prop]._links) {
-                                    if (!self[prop].item) {
+                                    if (self[prop] && !self[prop].item) {
                                         self[prop].item = self.item._embedded[prop];
                                     } else {
                                          self.item[prop].item = self.item._embedded[prop];
