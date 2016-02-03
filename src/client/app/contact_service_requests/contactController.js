@@ -25,8 +25,7 @@ define(['angular', 'contact'], function(angular) {
                 $scope.canSave = false;
 
                 $scope.processDelete = function(fn) {
-                    ServiceRequest.setItem(Contacts.createSRFromContact());
-
+                    $scope.sr = $rootScope.returnPickerSRObject;
                     ServiceRequest.get({
                         method: 'post',
                         preventDefaultParams: true,
@@ -193,6 +192,9 @@ define(['angular', 'contact'], function(angular) {
                   }
                 ]
                 };
+
+                ServiceRequest.setItem(Contacts.createSRFromContact());
+                 $scope.setupSR(ServiceRequest);
 
                 if (Contacts.submitedSR) {
                     $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_TITLE';
