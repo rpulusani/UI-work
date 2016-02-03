@@ -74,7 +74,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getEditDeleteAction = function (owner) {
-                return true; //(owner === $rootScope.idpUser.email ? true : false);
+                return (owner === $rootScope.idpUser.email ? true : false);
             };
 
             $scope.goToNew = function() {
