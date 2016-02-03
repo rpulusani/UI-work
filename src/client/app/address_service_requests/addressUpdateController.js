@@ -105,6 +105,10 @@ define(['angular', 'address'], function(angular) {
                 $location.path(Addresses.route + '/' + $scope.address.id + '/update');
             };
 
+            $scope.goToDelete = function(){
+                $location.path(Addresses.route + '/delete/' + $scope.address.id + '/review');
+            };
+
             $scope.goToReview = function() {
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
@@ -184,6 +188,7 @@ define(['angular', 'address'], function(angular) {
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SR_UPDATE';
+                $scope.configure.header.showDeleteBtn = false;
                 $scope.configure.actions.submit = function(){
                     updateSRObjectForSubmit();
                     var deferred = ServiceRequest.post({
@@ -208,6 +213,7 @@ define(['angular', 'address'], function(angular) {
                     'srHours': 24,
                     'addressUrl': '/service_requests/addresses',
                 };
+                $scope.configure.header.showDeleteBtn = false;
                 $scope.configure.receipt = {
                     translate: {
                         title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
@@ -226,7 +232,8 @@ define(['angular', 'address'], function(angular) {
                             readMore: ''
                         },
                         readMoreUrl: '',
-                        showCancelBtn: false
+                        showCancelBtn: false,
+                        showDeleteBtn: true
                     },
                     address: {
                         information:{

@@ -11,12 +11,14 @@
 
             <p class="vertical-margin-bottom-72" >
                 <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
-                <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST"
-                ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
+                <div class="col-1 btns">
+                    <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST" ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
+                    <button class="btn" ng-click="goToDelete()" translate="ADDRESS_SERVICE_REQUEST.DELETE" ng-if="cancelServiceRequest && configure.header.showDeleteBtn"></button>
+                </div>
                 <a ng-if="configure.header.readMoreUrl"
                 class="read-more"
                 href="{{configure.header.readMoreUrl}}"
-                translate="{{configure.header.translate.readMore}}"></a>
+                translate="{{configure.header.translate.readMore}}" href-target></a>
             </p>
         </div>
     </div>
