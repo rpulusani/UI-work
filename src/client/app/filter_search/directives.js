@@ -90,6 +90,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'OrderStatusFilterController'
         };
     })
+    .directive('meterReadTypeFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/meterReadTypeFilter.html',
+            controller: 'MeterReadTypeFilterController'
+        };
+    })
     .directive('accountFilter', function() {
         return {
             restrict: 'A',

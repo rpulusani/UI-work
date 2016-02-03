@@ -913,7 +913,10 @@
             "FILTER_MY_REQUESTS": "Filter by my requests",
             "BROWSE_SUPPLY_ORDER_TYPE": "Browse by supply order types",
             "BROWSE_DEVICE_REQUEST_TYPE": "Browse by device request types",
-            "FIND_BY_ACCOUNT": "Find by account"
+            "FIND_BY_ACCOUNT": "Find by account",
+            "CTRL_CLEAR_METER_READ_TYPE": "Clear Meter Read Type",
+            "FILTER_BY_METER_READ_TYPE": "Filter By Meter Read Type",
+            "BROWSE_METER_READ_TYPE": "Browse By Meter Read Type"
         },
 
         "ORDER_MGT": {
@@ -1539,7 +1542,10 @@
         "DELIVERED": "DELIVERED",
         "EDIT": "EDIT",
         "MOVE": "MOVE",
-        "SAVE": "Save"
+        "SAVE": "Save",
+        "ALL": "All",
+        "MANUAL": "Manual",
+        "AUTOMATIC": "Automatic"
     },
 
         "PAGINATION": {
