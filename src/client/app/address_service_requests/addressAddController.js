@@ -260,7 +260,8 @@ define(['angular', 'address'], function(angular) {
                             readMore: 'Learn more about requests'
                         },
                         readMoreUrl: '/service_requests/learn_more',
-                        showCancelBtn: false
+                        showCancelBtn: false,
+                        showDeleteBtn: false
                     },
                     address: {
                         information:{
