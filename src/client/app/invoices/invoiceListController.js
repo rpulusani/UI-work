@@ -49,8 +49,21 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-
-            filterSearchService.addPanelFilter('Filter by Account', 'AccountFilter', false);
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_SOLD_TO', 'SoldToFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
         }
     ]);
 });

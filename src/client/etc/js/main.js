@@ -191,6 +191,7 @@ requirejs.config({
         'filterSearch.roleFilterController': 'app/filter_search/roleFilterController',
         'filterSearch.dateRangeFilterController': 'app/filter_search/dateRangeFilterController',
         'filterSearch.invoiceDateFilterController': 'app/filter_search/invoiceDateFilterController',
+        'filterSearch.soldToFilterController': 'app/filter_search/soldToFilterController',
         'filterSearch.libraryFilterController': 'app/filter_search/libraryFilterController',
         'filterSearch.meterReadTypeFilterController': 'app/filter_search/meterReadTypeFilterController',
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',

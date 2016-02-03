@@ -59,7 +59,7 @@
             "TXT_PAGE_COUNT_PRIOR_COLOR_COUNT": "Prior color count",
             "TXT_PAGE_COUNT_NEW_COLOR_COUNT": "New color count",
             "TXT_PAGE_COUNT_ALL_PAGE_COUNTS": "All page counts",
-            "TXT_PAGE_COUNT_MISSING_METER_READS": "Missing meter reads",
+            "TXT_PAGE_COUNT_MISSING_METER_READS": "Missing page counts",
             "TXT_PAGE_COUNT_ALL_W_TOTALS": "All meter reads device listing ({{total}} total devices)",
             "TXT_PAGE_COUNT_MISSING_W_TOTALS": "Missing meter reads device listing ({{total}} total devices)"
         },
@@ -920,7 +920,9 @@
             "FIND_BY_ACCOUNT": "Find by account",
             "CTRL_CLEAR_METER_READ_TYPE": "Clear Meter Read Type",
             "FILTER_BY_METER_READ_TYPE": "Filter By Meter Read Type",
-            "BROWSE_METER_READ_TYPE": "Browse By Meter Read Type"
+            "BROWSE_METER_READ_TYPE": "Browse By Meter Read Type",
+            "FILTER_BY_ACCOUNT": "Filter by Account",
+            "FILTER_BY_SOLD_TO": "Filter By Sold To"
         },
 
         "ORDER_MGT": {
@@ -1441,7 +1443,12 @@
             "CANCEL_INVITATION": "CANCEL INVITATION",
             "ROLE_SELECTED": "Roles selected",
             "CTRL_CLEAR_ROLES": "Clear roles",
-            "CTRL_CLEAR_STATUS": "Clear status"
+            "CTRL_CLEAR_STATUS": "Clear status",
+            "TITLE_USER_ABANDON_MODAL": "Are you sure you want to abandon this user?",
+            "BODY_USER_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_USER_MODAL_CANCEL": "No, do not abandon this user",
+            "ABANDON_USER_MODAL_CONFIRM": "Yes, abandon this user",
+            "ABANDON_USER": "Abandon User"
         },
 
         "ROLE": {
