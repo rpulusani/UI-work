@@ -150,10 +150,10 @@ define(['angular', 'contact'], function(angular) {
                             requestedByTitle: 'Request created by',
 
                         },
-                        show:{
-                            primaryAction : true
+                        show: {
+                            primaryAction: true
                         },
-                        pickerObject: $scope.contact,
+                        pickerObject: $scope.contacts.item,
                         source: 'contact'
                     },
                     contactsr: {

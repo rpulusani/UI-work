@@ -21,6 +21,7 @@ define(['angular', 'serviceRequest'], function(angular) {
             halObj;
 
             function goToContactPicker(source, currentSelected, pickerObject) {
+                console.log(arguments);
                 if(pickerObject && scope.sr){
                     rootScope.currentSelected = currentSelected;
                     if (pickerObject.id) {
