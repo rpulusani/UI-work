@@ -246,7 +246,8 @@ define(['angular', 'address'], function(angular) {
                     translate: {
                         title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
+                    },
+                    print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
