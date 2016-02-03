@@ -207,6 +207,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'InvoiceDateFilterController'
         };
     })
+    .directive('soldToFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/soldToFilter.html',
+            controller: 'SoldToFilterController'
+        };
+    })
     .directive('gridSearch', function() {
         return {
             restrict: 'A',

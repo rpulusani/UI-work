@@ -126,6 +126,7 @@ define([
     'filterSearch.dateRangeFilterController',
     'filterSearch.invoiceDateFilterController',
     'filterSearch.accountFilterController',
+    'filterSearch.soldToFilterController',
     'filterSearch.meterReadTypeFilterController',
     'filterSearch.filterSearchService',
     'security',
