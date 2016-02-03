@@ -155,8 +155,8 @@ define(['angular', 'contact'], function(angular) {
                         show: {
                             primaryAction: true
                         },
-                        pickerObject: $scope.contacts.item,
-                        source: 'contact'
+                        pickerObject: Contacts.item,
+                        source: 'Contact'
                     },
                     contactsr: {
                         translate: {
@@ -174,23 +174,19 @@ define(['angular', 'contact'], function(angular) {
                             $scope.processDelete();
                         }
                     },
-                    statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                    statusList:[{
+                        'label':'Submitted',
+                        'date': '1/29/2016',
+                        'current': true
+                    }, {
+                        'label':'In progress',
+                        'date': '',
+                        'current': false
+                    }, {
+                        'label':'Completed',
+                        'date': '',
+                        'current': false
+                    }]
                 };
 
                 ServiceRequest.setItem(Contacts.createSRFromContact());

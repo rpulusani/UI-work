@@ -19,8 +19,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             configureTemplates();
 
             $scope.sourceController = function() {
-                console.log($routeParams.source);
-                console.log($scope);
                 return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
             };
 
