@@ -540,7 +540,7 @@
             "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
             "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information",
             "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
-            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">manage another address</a>?",
             "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">manage another address</a>?",
             "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">add another address</a>?",
             "RETURN_LINK": "Would You Like to Manage Another Address?"
@@ -618,7 +618,8 @@
         "SR_DELETE_TITLE": "Update Contact Request Submitted",
         "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
         "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-        "RETURN_LINK": "Would You Like to Manage another Contact?"
+        "RETURN_LINK": "Would You Like to Manage another Contact?",
+        "TXT_NONE": "None"
     },
 
         "DEVICE_SERVICE_REQUEST": {

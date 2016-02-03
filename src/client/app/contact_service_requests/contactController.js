@@ -200,6 +200,11 @@ define(['angular', 'contact'], function(angular) {
                         srHours: 24
                     };
 
+                    $scope.formattedReferenceId = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+                    $scope.formattedCostCenter = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+                    $scope.formattedNotes = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+                    $scope.formattedAttachments = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+
                     $scope.configure.receipt = {
                         translate: {
                             title: 'CONTACT_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL',
