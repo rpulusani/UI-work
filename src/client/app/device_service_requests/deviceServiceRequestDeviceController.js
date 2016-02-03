@@ -147,6 +147,7 @@ define(['angular',
                     'srHours': 24,
                     'deviceManagementUrl': 'device_management/',
                 };
+                $scope.configure.header.readMoreUrl = '';
                 $scope.configure.receipt = {
                     translate:{
                         title:"DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
@@ -162,11 +163,12 @@ define(['angular',
                         translate:{
                             h1: 'DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR',
                             h1Values:{'productModel': $scope.device.productModel},
-                            body: 'MESSAGE.LIPSUM',
+                            body: '',
                             bodyValues: '',
-                            readMore: ''
+                            readMore: 'DEVICE_SERVICE_REQUEST.LNK_SUPPORT'
                         },
-                        readMoreUrl: '',
+                        readMoreUrl: 'http://support.lexmark.com/index?page=productSelection&channel=supportAndDownloads&locale=EN&userlocale=EN_US',
+                        readMoreUrlTarget: true,
                         showCancelBtn: false
                     },
                     device: {

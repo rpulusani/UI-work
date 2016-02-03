@@ -31,6 +31,17 @@ define(['angular', 'utility'], function(angular) {
             link:link
         };
     }])
+    .directive('hrefTarget', function () {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+              var href = element.href;
+              if(scope && scope.configure && scope.configure.header && scope.configure.header.readMoreUrlTarget) {
+                element.attr("target", "_blank");
+              }
+            }
+        };
+    })
     .directive('statusBar', function() {
         return {
             restrict: 'A',
