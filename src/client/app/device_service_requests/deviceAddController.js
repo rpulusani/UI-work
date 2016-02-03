@@ -60,8 +60,8 @@ define(['angular',
                         }
                     };
                     ProductModel.get(options).then(function(){
-                        if (ProductModel && ProductModel.item
-                            && ProductModel.item._embedded && ProductModel.item._embedded.models) {
+                        if (ProductModel && ProductModel.item &&
+                                ProductModel.item._embedded && ProductModel.item._embedded.models) {
                             $scope.device.productNumbers = [];
                             var modelList = ProductModel.item._embedded.models;
                             for(var i=0; i<modelList.length; i++) {
@@ -74,8 +74,8 @@ define(['angular',
                 }
             });
 
-            if ($rootScope.selectedContact
-                    && $rootScope.returnPickerObject){
+            if ($rootScope.selectedContact &&
+                    $rootScope.returnPickerObject){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
@@ -88,8 +88,8 @@ define(['angular',
                     }
                 }
                 $scope.resetContactPicker();
-            } else if($rootScope.selectedAddress
-                    && $rootScope.returnPickerObjectAddress){
+            } else if($rootScope.selectedAddress &&
+                    $rootScope.returnPickerObjectAddress){
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
@@ -104,8 +104,8 @@ define(['angular',
                     $scope.device.address = $rootScope.selectedAddress;
                 }
                 $scope.resetAddressPicker();
-            } else if($rootScope.selectedDevice
-                    && $rootScope.returnPickerObjectDevice){
+            } else if($rootScope.selectedDevice &&
+                    $rootScope.returnPickerObjectDevice){
                 $scope.device = $rootScope.returnPickerObjectDevice;
                 $scope.sr = $rootScope.returnPickerSRObjectDevice;
                 if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
@@ -269,7 +269,6 @@ define(['angular',
                                 chl: 'DEVICE_MGT.CHL',
                                 customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                             }
                         },
                         pageCount:{
@@ -277,6 +276,11 @@ define(['angular',
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
                             },
                             source: 'add'
+                        },
+                        contact: {
+                            translate:{
+                                title:'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                            }
                         }
                     },
                     detail: {
