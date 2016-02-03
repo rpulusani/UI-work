@@ -133,7 +133,8 @@ define(['angular', 'address'], function(angular) {
                     translate:{
                         title:"ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
+                    },
+                    print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
