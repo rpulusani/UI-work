@@ -10,10 +10,25 @@ define(['angular', 'library'], function(angular) {
             }
         };
     })
+    .directive('libraryInlineDelete', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/library/templates/library-inline-delete.html',
+            replace: true,
+            scope: { onConfirmDelete: '&' },
+            controller: 'libraryDeleteInlineController',
+        };
+    })
     .directive('libraryViewFields', function() {
         return {
             restrict: 'A',
             templateUrl: '/app/library/templates/library-view-fields.html'
+        };
+    })
+    .directive('libraryQueryFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/library/templates/library-query-fields.html'
         };
     })
     .directive('libraryNewFields', function() {
