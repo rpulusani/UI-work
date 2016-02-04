@@ -14,6 +14,7 @@ define([
     'queue',
     'queue.directives',
     'queue.queueNotificationController',
+    'queue.queueListController',
     'queue.tombstoneFactory',
     'serviceRequest',
     'serviceRequest.factory',

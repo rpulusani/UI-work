@@ -17,9 +17,9 @@ define(['angular'], function(angular) {
             $scope.alertDataMap = {};
             $scope.link = TombstoneService.route;
                 TombstoneService.getPage(0, 1, {}).then(function() {
-                     if(TombstoneService.data && TombstoneService.data.length === 1 ){
+                     if(TombstoneService.page && TombstoneService.page.totalElements){
                         $scope.alertDataMap = {
-                            total: TombstoneService.data.length
+                            total: TombstoneService.page.totalElements
                         };
                     }else{
                        $scope.alertDataMap = {

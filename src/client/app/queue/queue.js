@@ -4,8 +4,8 @@ define(['angular'], function(angular) {
     function($routeProvider) {
         $routeProvider
         .when('/queue', {
-            templateUrl: '/app/queue/dashboard.html',
-            controller: '',
+            templateUrl: '/app/queue/templates/dashboard.html',
+            controller: 'QueueListController',
             activeItem: ''
         });
     }]);

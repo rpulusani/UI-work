@@ -12,13 +12,13 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                             {'name': $translate.instant('QUEUE.COMMON.COLUMN_DATE'),
                                 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                            {'name': $translate.instant('QUEUE.COMMON.COLUMN_TYPE'), 'field':'kind'},
+                            {'name': $translate.instant('QUEUE.COMMON.COLUMN_TYPE'), 'field':'kind'}/*,
                             {'name': $translate.instant('QUEUE.COMMON.COLUMN_REQUESTOR_NAME'),
                                 'field': 'getFullPrimaryName()', 'notSearchable': true},
                             {'name': $translate.instant('QUEUE.COMMON.COLUMN_PRIMARY_CONTACT'),
                                 'field': 'getFullRequestorName()',visible: false, 'notSearchable': true},
                             {'name': $translate.instant('QUEUE.COMMON.COLUMN_ACCOUNT'),
-                                'field': '',visible: false, 'notSearchable': true}
+                                'field': '',visible: false, 'notSearchable': true}*/
                         ]
                     },
 
