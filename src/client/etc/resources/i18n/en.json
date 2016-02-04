@@ -1337,7 +1337,8 @@
                 "TXT_GRID_PUBLISHED" : "Published",
                 "TXT_LIBRARY" : "Library",
                 "TXT_LIBRARY_PAR" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
-                "TXT_SEARCH" : "Search"
+                "TXT_SEARCH" : "Search",
+                "TXT_SEARCH_DOCUMENTS" : "Search documents" 
             },
             "DOCUMENT_VIEW" : {
                 "TITLE_DISCARD_MODAL": "Are you sure you want to discard document changes?",
