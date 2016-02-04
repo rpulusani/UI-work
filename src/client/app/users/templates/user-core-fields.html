@@ -14,3 +14,8 @@
     <label translate="CONTACT.EMAIL"></label>
     <input name="email" type="text" ng-model="user.email" value="" class="" required />
 </div>
+<div class="form__field form__field--select" >
+    <label translate="DELEGATED_ADMIN.PREFERRED_LANGUAGE"></label>
+    <div selectric options="languageOptions" value="code" label="name" model="address.state" required
+             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+</div>
