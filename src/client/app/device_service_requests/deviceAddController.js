@@ -240,7 +240,8 @@ define(['angular',
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
-                    'srHours': 24
+                    'srHours': 24,
+                    'deviceManagementUrl': '/service_requests/devices/new',
                 };
                 $scope.configure.receipt = {
                     translate: {
