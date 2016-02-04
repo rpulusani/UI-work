@@ -77,6 +77,7 @@ define([
     'pageCount.pageCountFactory',
     'library',
     'library.libraryController',
+    'library.libraryDeleteInlineController',
     'library.libraryListController',
     'library.libraryViewController',
     'library.libraryFactory',
