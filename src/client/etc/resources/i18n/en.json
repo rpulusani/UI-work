@@ -705,7 +705,7 @@
             "DECOMMISION_DEVICE_SUBMIT_HEADER_BODY": "Your decommission device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
             "DECOMMISION_DEVICE_DETAIL": "Details for Decommission Device Request Number: {{srNumber}}",
             "UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
-            "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
+            "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would You Like to <a href=\"{{deviceManagementUrl}}\">Add Another Device</a>?",
             "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
             "UPDATE_DEVICE_REQUEST_NUMBER" : "Update Device Request Number: {{srNumber}}",
             "ADD_DEVICE_REQUEST_NUMBER" : "Add Device Request Number: {{srNumber}}",
