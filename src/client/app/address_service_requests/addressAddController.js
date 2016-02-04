@@ -104,9 +104,16 @@ define(['angular', 'address'], function(angular) {
                 $scope.checkedAddress = 0;
             };
 
+            $scope.makeChanges = function(){
+                $scope.needToVerify = false;
+                $scope.checkedAddress = 0;
+                $location.path(Addresses.route + '/new');
+            };
+
             $scope.goToReview = function() {
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
+                    Addresses.item = $scope.address;
                     $rootScope.newAddress = $scope.address;
                     $location.path(Addresses.route + '/add/review');
                 }
@@ -160,6 +167,8 @@ define(['angular', 'address'], function(angular) {
                 $scope.address.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.formatAdditionalData();
                 $scope.resetContactPicker();
+            }else if(Addresses.item){
+                $scope.address = Addresses.item;
             }else{
                 $scope.address = {};
                 $scope.enteredAddress = {};
@@ -202,6 +211,7 @@ define(['angular', 'address'], function(angular) {
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SUBMIT';
+                updateSRObjectForSubmit();
                 $scope.configure.actions.submit = function(){
                     updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
@@ -237,7 +247,8 @@ define(['angular', 'address'], function(angular) {
                     translate: {
                         title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
+                    },
+                    print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
@@ -251,13 +262,15 @@ define(['angular', 'address'], function(angular) {
                             readMore: 'Learn more about requests'
                         },
                         readMoreUrl: '/service_requests/learn_more',
-                        showCancelBtn: false
+                        showCancelBtn: false,
+                        showDeleteBtn: false
                     },
                     address: {
                         information:{
                             translate: {
                                 title: 'ADDRESS.INFO',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT'
+                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT',
+                                makeChanges: 'LABEL.MAKE_CHANGES'
                             }
                         }
                     },

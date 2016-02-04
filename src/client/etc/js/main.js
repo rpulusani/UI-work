@@ -78,8 +78,6 @@ requirejs.config({
             'user.manageUserController',
             'user.invitedUserController',
 
-            'pageCount',
-
             'report',
             'report.reportController',
             'report.reportListController',
@@ -135,8 +133,6 @@ requirejs.config({
         'address.addressListController': ['address'],
         'address.directives': ['address'],
         'address.factory': ['address'],
-
-        'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
@@ -195,7 +191,9 @@ requirejs.config({
         'filterSearch.roleFilterController': 'app/filter_search/roleFilterController',
         'filterSearch.dateRangeFilterController': 'app/filter_search/dateRangeFilterController',
         'filterSearch.invoiceDateFilterController': 'app/filter_search/invoiceDateFilterController',
+        'filterSearch.soldToFilterController': 'app/filter_search/soldToFilterController',
         'filterSearch.libraryFilterController': 'app/filter_search/libraryFilterController',
+        'filterSearch.meterReadTypeFilterController': 'app/filter_search/meterReadTypeFilterController',
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
 
@@ -314,6 +312,11 @@ requirejs.config({
         'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
+        'pageCount.directives': 'app/page_count/directives',
+        'pageCount.missingPageCountListController': 'app/page_count/missingPageCountListController',
+        'pageCount.pageCountTabController': 'app/page_count/pageCountTabController',
+        'pageCount.pageCountListController': 'app/page_count/pageCountListController',
+        'pageCount.pageCountFactory': 'app/page_count/pageCountFactory',
 
         'deviceManagement': 'app/device_management/deviceManagement',
         'deviceManagement.deviceController': 'app/device_management/deviceController',

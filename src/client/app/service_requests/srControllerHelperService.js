@@ -77,9 +77,13 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
-            function goToDevicePicker(source, pickerObject) {
+            function goToDevicePicker(source, pickerObject, customUrl) {
                 if (pickerObject && scope.sr) {
-                    rootScope.deviceReturnPath = $location.url();
+                    if(customUrl){
+                        rootScope.deviceReturnPath = customUrl;
+                    }else{
+                        rootScope.deviceReturnPath = $location.url();
+                    }
                     if (pickerObject.id) {
                         rootScope.selectionId = pickerObject.id;
                     }

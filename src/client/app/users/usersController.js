@@ -38,11 +38,6 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
-                function() {
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-                }
-            );
 
             $scope.view = function(user){
                 UserAdminstration.setItem(user);

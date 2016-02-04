@@ -8,7 +8,7 @@ define(['angular', 'filterSearch'], function(angular) {
                 if (dateFrom) {
                     $scope.showClearMessage = true;
                     $scope.params['from'] = formatter.formatDateForPost(dateFrom);
-                    $scope.filterDef($scope.params, ['location', 'status', 'chlFilter']);
+                    $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter']);
                 }
             });
 
@@ -16,7 +16,7 @@ define(['angular', 'filterSearch'], function(angular) {
                 if (dateTo) {
                     $scope.showClearMessage = true;
                     $scope.params['to'] = formatter.formatDateForPost(dateTo);
-                    $scope.filterDef($scope.params, ['location', 'status', 'chlFilter']);
+                    $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter']);
                 }
             });
 
@@ -25,7 +25,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.dateFrom = '';
                     $scope.dateTo = '';
                     $scope.params = {};
-                    $scope.filterDef($scope.params, ['from', 'to', 'location', 'status', 'chlFilter']);
+                    $scope.filterDef($scope.params, ['from', 'to', 'location', 'status', 'chlFilter', 'requesterFilter']);
                 }
             };
         }
