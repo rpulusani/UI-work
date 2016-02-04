@@ -21,27 +21,21 @@
 
     </div>
 
-    <form class="form" data-form="" name="newDocument" enctype="multipart/form-data" novalidate>
-        <div library-query-fields></div>
-    </form>
+    <div grid-filter options="filterOptions" params="optionParams"></div>
 
-    <div ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined">  
-        <p>
-            <span translate="DOCUMENT_LIBRARY.COMMON.TXT_SEARCH_RESULTS_FOR" translate-values="{string: (query === '') ? '': query, count: pagination.totalItems() }"></span>
-            <a href="#" ng-click="goToResetQuery()" translate="DOCUMENT_LIBRARY.COMMON.TXT_RESET_SEARCH"></a>
-            <br />
-            <span translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGGED_AS"></span>
-
-            <span ng-repeat="tag in tags">
-                <button ng-if="tag.selected === true" ng-click="clearTag(tag);"><i class="icon-16 icon-psw-delete"></i> {{tag.name}}</button>
-            </span>
-            <a href="#" ng-click="goToClearSelectionCheckboxes(tags)" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_CLEAR_SELECTIONS"></a>
-        </p>
+    <div class="row l-pad-top l-pad-bottom">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
+        </div>
+        <div class="col-1-8 l-alley-before-thick">
+            <div columnpicker></div>
+        </div>
     </div>
 
     <div class="col-1">
         <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
-        <div pagination grid="{{gridOptions}}"></div>
+        <div pagination grid="gridOptions"></div>
     </div>
 
 </div>
+

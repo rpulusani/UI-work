@@ -1,49 +1,31 @@
 define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'SecurityHelper',
-        function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, SecurityHelper) {
-
-            $scope.query = '';
+    .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
+        function($scope, $location, $translate, $route, $http, Documents, Grid, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
+            $rootScope.currentRowList = [];
+            $scope.visibleColumns = [];
 
             new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
-            var Grid = new GridService();
-            $scope.gridOptions = {};
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
+            var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
 
-            $scope.buildGrid = function() {
-
-                Documents.getPage().then(function() {
-                    Grid.display(Documents, $scope, personal, 180);
-
-                }, function(reason) {
-                    NREUM.noticeError('Grid Load Failed for ' + Documents.serviceName +  ' reason: ' + reason);
-                });
-
-            };
-
-            $scope.buildGrid();
-
-            $scope.categories = [
-                {name: 'strategic', label: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), selected: false },
-                {name: 'nonstrategic', label: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_NON_STRATEGIC'), selected: false }
-            ];
-
-            $scope.owners = [
-                {name: 'jdoe@customer.com', selected: false },
-                {name: 'jpublic@lexmark.com', selected: false },
-                {name: 'jpublic@lexmark.com', selected: false }
-            ];
-
-            $scope.tags = [
-                {name: 'business', selected: false },
-                {name: 'document', selected: false },
-                {name: 'internal', selected: false },
-                {name: 'MPS', selected: false },
-                {name: 'training', selected: false }
-            ];
+           filterSearchService.addBasicFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS', false, removeParamsList,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                }
+            );
+            filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTERS', 'LibraryFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                }
+            );
 
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
@@ -80,55 +62,6 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             $scope.goToNew = function() {
                 Documents.item = {};
                 $location.path(Documents.route + '/new');
-            };
-
-            $scope.goToQuery = function() {
-                Documents.params['search'] = $scope.query;
-                Documents.params['category'] = $scope.getListOfSelectedItems($scope.categories);
-                Documents.params['owner'] =  $scope.getListOfSelectedItems($scope.owners);
-                Documents.params['tag'] =  $scope.getListOfSelectedItems($scope.tags);
-                
-                $scope.buildGrid();
-            };
-
-            $scope.getListOfSelectedItems = function(inArr) {
-                var retval = [];
-
-                angular.forEach(inArr, function(value, key) {
-                    if (value.selected === true) {
-                        retval.push(value.name);
-                    }
-                });
-
-                return retval.join(",");
-            };
-
-            $scope.goToResetQuery = function() {
-                $scope.query = '';
-                $scope.goToClearSelectionCheckboxes($scope.categories);
-                $scope.goToClearSelectionCheckboxes($scope.owners);
-                $scope.goToClearSelectionCheckboxes($scope.tags);
-
-                delete Documents.params['search'];
-                delete Documents.params['category'];
-                delete Documents.params['owner'];
-                delete Documents.params['tag'];
-
-                $scope.buildGrid();
-            };
-
-            $scope.goToClearSelectionCheckboxes = function(inArr) {
-                angular.forEach(inArr, function(value, key) {
-                    value.selected = false;
-                });
-            };
-
-            $scope.clearTag = function(tag) {
-                angular.forEach($scope.tags, function(value, key) {
-                    if (value.name === tag.name) {
-                        value.selected = false;
-                    }
-                });
             };
 
             $scope.goToView = function(documentItem) {
