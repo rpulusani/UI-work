@@ -109,6 +109,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     });
 
                     deferred.then(function(result){
+                        $location.search('tab',null);
                         $location.path(Orders.route + '/purchase/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -156,7 +157,11 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                     title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS',
                                     action:'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_CHANGE'
                                 },
-                                actionLink:{},
+                                actionLink: function(){
+                                    $location.search('tab', 'orderTab');
+                                    $location.search('orderState', 'manageCurrentOrder');
+                                    $location.path(Devices.route +'/' + Devices.item.id +'/review');
+                                },
                             },
                             po:{
                                 translate:{

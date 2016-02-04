@@ -1,6 +1,6 @@
 define(['angular'], function(angular) {
     'use strict';
-    angular.module('mps.serviceRequests', ['mps.utility', 'mps.queue']).config(['$routeProvider',
+    angular.module('mps.serviceRequests', ['mps.utility']).config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
         .when('/service_requests', {
