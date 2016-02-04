@@ -133,6 +133,9 @@ define(['angular',
 
                     $scope.resetDevicePicker();
                 }
+            } else if(ServiceRequest.item && Devices.item){
+                $scope.sr = ServiceRequest.item;
+                $scope.device = Devices.item;
 
             } else {
                 $scope.device = {};
@@ -238,7 +241,7 @@ define(['angular',
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
-                    'deviceManagementUrl': '/service_requests/devices/new',
+                    'deviceManagementUrl': 'device_management/',
                 };
                 $scope.configure.receipt = {
                     translate: {
