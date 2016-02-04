@@ -122,6 +122,8 @@ define(['angular', 'address'], function(angular) {
             function configureReceiptTemplate(){
                 $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_DELETE_SUBMITTED";
                 $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.readMore = 'ADDRESS_SERVICE_REQUEST.RETURN_LINK';
+                $scope.configure.header.translate.readMoreUrl = Addresses.route;
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -131,7 +133,8 @@ define(['angular', 'address'], function(angular) {
                     translate:{
                         title:"ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_DETAIL",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
+                    },
+                    print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
@@ -144,7 +147,8 @@ define(['angular', 'address'], function(angular) {
                             bodyValues: '',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     address: {
                         information:{
@@ -208,7 +212,24 @@ define(['angular', 'address'], function(angular) {
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: Addresses.route + '/delete/' + $scope.address.id + '/review'
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
             }
 

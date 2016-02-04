@@ -66,7 +66,7 @@ define(['angular',
                 $rootScope.contactPickerReset = false;
             }else if($rootScope.selectedDevice &&
                 $rootScope.returnPickerObjectDevice){
-                    $scope.device = $rootScope.returnPickerObjectDevice;
+                    $scope.device = $rootScope.currentSelectedRow;
                     $scope.sr = $rootScope.returnPickerSRObjectDevice;
                     if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
                         $scope.device.isDeviceSelected = true;
@@ -147,6 +147,7 @@ define(['angular',
                     'srHours': 24,
                     'deviceManagementUrl': 'device_management/',
                 };
+                $scope.configure.header.readMoreUrl = '';
                 $scope.configure.receipt = {
                     translate:{
                         title:"DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
@@ -162,11 +163,13 @@ define(['angular',
                         translate:{
                             h1: 'DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR',
                             h1Values:{'productModel': $scope.device.productModel},
-                            body: 'MESSAGE.LIPSUM',
+                            body: '',
                             bodyValues: '',
-                            readMore: ''
+                            readMore: 'DEVICE_SERVICE_REQUEST.LNK_SUPPORT'
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: 'http://support.lexmark.com/index?page=productSelection&channel=supportAndDownloads&locale=EN&userlocale=EN_US',
+                        readMoreUrlTarget: true,
+                        showCancelBtn: false
                     },
                     device: {
                         information:{
@@ -240,7 +243,38 @@ define(['angular',
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: DeviceServiceRequest.route + '/' + $scope.device.id + '/review'
-                    }
+                    },
+                    devicePicker: {
+                        singleDeviceSelection: true,
+                        readMoreUrl: '',
+                        translate: {
+                            replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
+                            h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
+                            body: 'MESSAGE.LIPSUM',
+                            readMore: '',
+                            confirmation:{
+                                abandon:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
+                                submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
+                            }
+                        }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
                 }else{
                    $scope.configure = {

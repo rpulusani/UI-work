@@ -22,7 +22,9 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
 
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'invitedSet');
-            filterSearchService.addBasicFilter('USER.ALL_INVITED_USER', {'type': 'INVITED', 'embed': 'roles'}, false,
+
+            var removeParamsList = ['roles', 'invitedStatus', 'fromDate', 'toDate'];
+            filterSearchService.addBasicFilter('USER.ALL_INVITED_USER', {'type': 'INVITED', 'embed': 'roles'}, removeParamsList,
                 function(Grid) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
@@ -33,11 +35,6 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
                 }
             );
             filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
-                function() {
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-                }
-            );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
                 function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }

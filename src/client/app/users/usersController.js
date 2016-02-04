@@ -21,7 +21,9 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
             }
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'defaultSet');
-            filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, false,
+
+            var removeParamsList = ['roles', 'activeStatus', 'fromDate', 'toDate'];
+            filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, removeParamsList,
                 function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
@@ -32,11 +34,6 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
                 }
             );
             filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
-                function() {
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-                }
-            );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
                 function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }

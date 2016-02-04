@@ -4,6 +4,13 @@
 	<label translate="USER.EMAILS"></label>
 	<textarea cols="50" rows="6" ng-model="user.emails"></textarea>
 </div>
+<div class="form__field form__field--select" >
+    <label translate="DELEGATED_ADMIN.PREFERRED_LANGUAGE"></label>
+    <div selectric options="languageOptions" value="code" label="name" model="address.state" required
+             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+</div>
+
+
 <h2 translate="ACCOUNT.TITLE"></h2>
 <div user-org-structure></div>
 <div user-role-permission></div>

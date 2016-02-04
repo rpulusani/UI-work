@@ -1,5 +1,4 @@
 define(['angular', 'hateoasFactory'], function(angular) {
-    'use strict';
     angular.module('mps.hateoasFactory')
     .factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope',
         function($http, $q, HATEAOSConfig, $rootScope) {
@@ -558,27 +557,33 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
                 var self = this,
-                options;
+                options = {};
 
-                if (page !== 0 && !page) {
-                    page = self.params.page;
+                if (!page) {
+                    page = 0;
+                    self.params.page = 0;
                 } else {
                     self.params.page = page;
                 }
 
                 if (!size) {
-                    size = self.params.size;
+                    size = 20;
+                    self.params.size = 20;
                 } else {
-                    self.params.page = page;
+                    self.params.size = size;
                 }
-
-                options = {
-                    page: page,
-                    size: size
-                };
 
                 if (additionalOptions) {
                     options = angular.extend(options, additionalOptions);
+                }
+
+                if (options) {
+                    if (!options.params) {
+                        options.params = {}
+                    }
+
+                    options.params.size = size;
+                    options.params.page = page;
                 }
 
                 return this.get(options);
@@ -680,7 +685,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                                     href: self.item._links[prop].href
                                                 }
                                             }
-
                                         }
                                     }
                                 }
@@ -690,7 +694,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 self.item[prop].data = self.item._embedded[prop];
                             } else {
                                 if (!self.item._embedded[prop]._links) {
-                                    if (!self[prop].item) {
+                                    if (self[prop] && !self[prop].item) {
                                         self[prop].item = self.item._embedded[prop];
                                     } else {
                                          self.item[prop].item = self.item._embedded[prop];
@@ -722,9 +726,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.processCall = function(options, deferred) {
                 var self = this,
                 currentParams = angular.copy(self.params),
+                optionsParams,
                 url;
 
                 if (options.params) {
+                    optionsParams = options.params;
                     options.params = angular.extend(self.params, options.params);
                 } else {
                     options.params = self.params;
@@ -736,12 +742,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         params: self.params
                     });
                 } else {
-                   self.setParamsToNull();
+                    self.setParamsToNull();
+
+                    if (optionsParams) {
+                        options.params = optionsParams
+                    }
                 }
 
-
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if (!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) {
+                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel)) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }
@@ -760,7 +769,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     self.checkForEvent(self.item, 'onGet');
 
                     $http(options).then(function(processedResponse) {
-                        self.setupItem(processedResponse);
+                        if (!options.noUpdate) {
+                            self.setupItem(processedResponse);
+                        }
 
                         self.processedResponse = processedResponse;
 
@@ -778,6 +789,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.get = function(optionsObj) {
                 var self  = this,
                 deferred = $q.defer();
+
                 self.checkForEvent(self.item, 'beforeGet').then(function(canContinue, newObj) {
                     if (canContinue) {
                         if (newObj) {

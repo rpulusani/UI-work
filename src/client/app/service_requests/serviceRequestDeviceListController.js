@@ -40,8 +40,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 type: 'MADC_ALL',
                 embed: 'primaryContact,requester'
             };
-
-            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.ALL_DEVICES_REQUESTS', params, false,
+            var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location', 'requesterFilter'],
+                myRequestRemoveParamList = ['from', 'to', 'status', 'chlFilter', 'location'];
+            filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.ALL_DEVICES_REQUESTS', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
@@ -89,11 +90,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_REQUESTS', 'MyOrderFilter', undefined,
+            filterSearchService.addBasicFilter('FILTERS.FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
                 function(Grid) {
-                    setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
-                    }, 500);
+                    $scope.$broadcast('setupColumnPicker', Grid);
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );

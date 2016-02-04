@@ -20,8 +20,8 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
             $scope.visibleColumns = [];
             $scope.columnSet = undefined;
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            configureParams = undefined,
-            removeParamsList = ['accountId','accountLevel'],
+            configureParams = [],
+            removeParamsList = ['preventDefaultParams', 'fromDate', 'toDate'],
             filterSearchService = new FilterSearchService(Invoices, $scope, $rootScope, personal, $scope.columnSet, 70);
 
             $scope.getFormattedInvoiceNo = function(invoiceNumber) {
@@ -31,10 +31,9 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
 
             $scope.getBillToAddress = function(address) {
                 return formatter.formatAddress(address);
-            }
-
+            }   
+            
             if ($scope.status) {
-                configureParams = [];
                 configureParams['status'] = $scope.status;
             } else {
                 removeParamsList.push('status');
@@ -50,8 +49,21 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-
-            filterSearchService.addPanelFilter('Filter by Account', 'AccountFilter', false);
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_SOLD_TO', 'SoldToFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
         }
     ]);
 });

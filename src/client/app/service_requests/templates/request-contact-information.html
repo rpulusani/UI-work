@@ -15,7 +15,7 @@
             <p ng-bind-html="formattedPrimaryContact"></p>
 
             <a ng-if="configure.contact.show.primaryAction"
-                ng-click="goToContactPicker(configure.contact.source, 'updateRequestContact', device)"
+                ng-click="goToContactPicker(configure.contact.source, 'updateRequestContact', configure.contact.pickerObject)"
                 class="primary-contact-action"
                 href=""
                 translate="{{configure.contact.translate.changePrimary}}"

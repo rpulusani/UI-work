@@ -7,12 +7,14 @@ define(['angular', 'serviceRequest'], function(angular) {
         'BlankCheck',
         'FormatterService',
         'UserService',
+        '$rootScope',
         function(
             $translate,
             $location,
             BlankCheck,
             FormatterService,
-            Users
+            Users,
+            $rootScope
             ) {
             var scope,
             rootScope,
@@ -75,9 +77,13 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
-            function goToDevicePicker(source, pickerObject) {
+            function goToDevicePicker(source, pickerObject, customUrl) {
                 if (pickerObject && scope.sr) {
-                    rootScope.deviceReturnPath = $location.url();
+                    if(customUrl){
+                        rootScope.deviceReturnPath = customUrl;
+                    }else{
+                        rootScope.deviceReturnPath = $location.url();
+                    }
                     if (pickerObject.id) {
                         rootScope.selectionId = pickerObject.id;
                     }
@@ -120,7 +126,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 Users.getLoggedInUserInfo().then(function() {
                     Users.item.links.contact().then(function() {
                         scope.device.requestedByContact = Users.item.contact.item;
-                        ServiceRequest.addRelationship('requester', scope.device.requestedByContact, 'self');
+                        ServiceRequest.addRelationship('requester', $rootScope.currentUser, 'contact');
                         scope.device.primaryContact = scope.device.requestedByContact;
                         ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
                         scope.requestedByContactFormatted =

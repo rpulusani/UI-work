@@ -90,6 +90,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'OrderStatusFilterController'
         };
     })
+    .directive('meterReadTypeFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/meterReadTypeFilter.html',
+            controller: 'MeterReadTypeFilterController'
+        };
+    })
     .directive('accountFilter', function() {
         return {
             restrict: 'A',
@@ -194,13 +207,27 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'InvoiceDateFilterController'
         };
     })
+    .directive('soldToFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/soldToFilter.html',
+            controller: 'SoldToFilterController'
+        };
+    })
     .directive('gridSearch', function() {
         return {
             restrict: 'A',
             scope: {
                 columns: '=',
                 params: '=',
-                search: '='
+                search: '=',
+                total: '='
             },
             templateUrl: '/app/filter_search/templates/search.html',
             controller: 'GridSearchController',

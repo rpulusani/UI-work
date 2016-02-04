@@ -10,6 +10,9 @@
             "TXT_DEVICE_TAG": "Customer device tag",
             "TXT_LAST_UPDATED": "Last updated",
             "TXT_LOCATIONS_SELECTED": "locations selected",
+            "TXT_CHLS_SELECTED": "CHLs selected",
+            "TXT_REQUEST_STATUS_SELECTED": "Request status selected",
+            "TXT_ORDER_STATUS_SELECTED": "Order status selected",
             "TXT_LOCATION_SELECTED": "location selected",
             "TXT_ORDER_IN_PROCESS": "In Process",
             "TXT_ORDER_SHIPPED": "Shipped",
@@ -48,7 +51,17 @@
             "TXT_PAGE_COUNT_SUBMIT": "Submit page count update",
             "TXT_PAGE_COUNT_TABLOID_COLOR": "Tabloid Color",
             "TXT_PAGE_COUNT_TABLOID_LIFETIME": "Tabloid Lifetime",
-            "TXT_PAGE_COUNT_VIEW_LESS": "View less"
+            "TXT_PAGE_COUNT_VIEW_LESS": "View less",
+            "TXT_PAGE_COUNT_LAST_READ_DATE": "Last read date",
+            "TXT_PAGE_COUNT_CURRENT_READ_DATE": "Current read date",
+            "TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT": "Prior lifetime page count",
+            "TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT": "new lifetime page count",
+            "TXT_PAGE_COUNT_PRIOR_COLOR_COUNT": "Prior color count",
+            "TXT_PAGE_COUNT_NEW_COLOR_COUNT": "New color count",
+            "TXT_PAGE_COUNT_ALL_PAGE_COUNTS": "All page counts",
+            "TXT_PAGE_COUNT_MISSING_METER_READS": "Missing page counts",
+            "TXT_PAGE_COUNT_ALL_W_TOTALS": "All meter reads device listing ({{total}} total devices)",
+            "TXT_PAGE_COUNT_MISSING_W_TOTALS": "Missing meter reads device listing ({{total}} total devices)"
         },
 
         "DEVICE_SERVICE_HISTORY": {
@@ -103,6 +116,10 @@
             "BTN_UPDATE_PAGE_COUNTS": "Update page counts",
             "BTN_UPDATE_PAGE_COUNTS_UC": "UPDATE PAGE COUNTS",
             "CTRL_CLEAR_LOCATIONS": "Clear locations",
+            "CTRL_CLEAR_CHLS": "Clear CHLs",
+            "CTRL_CLEAR_REQUEST_STATUS": "Clear request status filters",
+            "CTRL_CLEAR_ORDER_STATUS": "Clear order status filters",
+            "CTRL_CLEAR_DATE_RANGE": "Clear Date Filter",
             "CTRL_HIDE_SEARCH": "Hide search",
             "CTRL_RESET_COLS": "Reset columns",
             "CTRL_RESET_SEARCH": "Reset search",
@@ -133,6 +150,10 @@
             "CTRL_UPDATE_DEVICE_INFO": "Update device information",
             "LNK_VIEW_ON_MAP": "View on map",
             "TXT_BILL_AND_TRACK": "Device billing and tracking",
+            "TXT_NOTIFICATION_ORDERS": "There are open orders for this device.",
+            "TXT_NOTIFICATION_SRHISTORY": "There are open service requests for this device.",
+            "LNK_NOTIFICATION_ORDERS" : "View orders >",
+            "LNK_NOTIFICATION_SRHISTORY" : "View service requests >",
             "TXT_CHANGE_HISTORY": "Device change history",
             "TXT_COLOR_PAGE_COUNTS": "Color",
             "TXT_CONTACT_ADDRESS": "Address",
@@ -484,6 +505,7 @@
             "DATA_ADDRESS_REMOVE":"Address requested for deletion",
             "CHANGE": "Change Request Addresses",
             "ADD": "Add New Address",
+            "ADD_NEW_MAP": "Add New Map",
             "ADD_MULTI": "Add Multiple Addresses",
             "UPDATE": "Update Address",
             "UPDATE_MULTI": "Update Multiple Addresses",
@@ -512,15 +534,16 @@
             "UPDATE_MSG": " has been saved! You can update the details below.",
             "UPDATE_SUBMIT": "Update Address",
             "ABANDON_ADD": "Abandon Address Creation",
-            "ABANDON_DELETE": "Abandon Address DelDEVICE_SERVICE_REQUESTete",
+            "ABANDON_DELETE": "Abandon Address Delete",
             "SUBMIT": "Create Address",
             "ADDRESS_CONTACT": "Address contact",
             "ADDITIONAL_REQUEST_DETAILS": "Additional request details",
             "REQUESTED_UPDATE_TO_ADDRESS": "Requested update to address information",
             "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
-            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request."
+            "DELETE_ADDRESS_SUBMIT_HEADER_BODY": "Your delete address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">manage another address</a>?",
+            "UPDATE_ADDRESS_SUBMIT_HEADER_BODY": "Your update address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">manage another address</a>?",
+            "ADD_ADDRESS_SUBMIT_HEADER_BODY": "Your add address request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{addressUrl}}\">add another address</a>?",
+            "RETURN_LINK": "Would You Like to Manage Another Address?"
         },
 
         "SERVICE_REQUEST": {
@@ -566,7 +589,9 @@
             "SUBMIT_REQUEST_CANCELLATION": "Submit request cancellation",
             "CANCEL_REQUEST_SUBMITTED": "Cancel Request Submitted",
             "CANCEL_REQUEST_SUBMIT_HEADER_BODY": "Your request to cancel request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
-            "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}"
+            "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}",
+            "SERVICE_REQUEST_CONTACT": "Service Request contact",
+            "CHANGE_REQUEST": "Change Request"
         },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -592,15 +617,20 @@
         "SR_UPDATE": "SUBMIT UPDATE CONTACT REQUEST",
         "SR_DELETE": "SUBMIT DELETE CONTACT REQUEST",
         "SR_DELETE_TITLE": "Update Contact Request Submitted",
-        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}"
+        "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
+        "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+        "RETURN_LINK": "Would You Like to Manage another Contact?",
+        "TXT_NONE": "None"
     },
 
         "DEVICE_SERVICE_REQUEST": {
+            "TXT_CHANGE_DEVICE": "Change device >",
             "REQUEST_MOVE_TITLE": "Requested updates to device information",
             "REQUEST_SERVICE_FOR_SUBMITTED": "Request service for {{productModel}}",
             "REQUEST_SERVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
             "REQUEST_SERVICE_DETAIL": "Details for Service Request Number: {{srNumber}}",
             "DEVICE_DETAILS": "Device details",
+            "LNK_SUPPORT": "Visit Lexmark.com support page for this device >",
             "ALL_DEVICES_REQUESTS": "All devices requests",
             "ADD": "Add a Device",
             "RESOLUTION": "Resolution",
@@ -675,11 +705,24 @@
             "DECOMMISION_DEVICE_SUBMIT_HEADER_BODY": "Your decommission device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
             "DECOMMISION_DEVICE_DETAIL": "Details for Decommission Device Request Number: {{srNumber}}",
             "UPDATE_DEVICE_REQUEST_SUBMITTED": "Update Device Request Submitted",
-            "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{deviceManagementUrl}}\">manage another device</a>?",
+            "UPDATE_DEVICE_SUBMIT_HEADER_BODY": "Your device request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would You Like to <a href=\"{{deviceManagementUrl}}\">Add Another Device</a>?",
             "UPDATE_DEVICE_DETAIL": "Details for Update Device Request Number: {{srNumber}}",
+            "UPDATE_DEVICE_REQUEST_NUMBER" : "Update Device Request Number: {{srNumber}}",
+            "ADD_DEVICE_REQUEST_NUMBER" : "Add Device Request Number: {{srNumber}}",
+            "ADD_ADDRESS_DETAIL": "Details for Add Address Request Number: {{srNumber}}",
+            "ADD_ADDRESS_REQUEST_NUMBER" : "Add Address Request Number: {{srNumber}}",
+            "DELETE_ADDRESS_DETAIL": "Details for Delete Address Request Number: {{srNumber}}",
+            "DELETE_ADDRESS_REQUEST_NUMBER" : "Delete Address Request Number: {{srNumber}}",
+            "UPDATE_ADDRESS_DETAIL": "Details for Update Address Request Number: {{srNumber}}",
+            "UPDATE_ADDRESS_REQUEST_NUMBER" : "Update Address Request Number: {{srNumber}}",
+            "UPDATE_CONTACT_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
+            "UPDATE_CONTACT_REQUEST_NUMBER" : "Update Contact Request Number: {{srNumber}}",
+            "DELETE_CONTACT_DETAIL": "Details for Delete Contact Request Number: {{srNumber}}",
+            "DELETE_CONTACT_REQUEST_NUMBER" : "Delete Contact Request Number: {{srNumber}}",
+            "DECOMMISSION_DEVICE_REQUEST_NUMBER" : "Decommission Device Request Number: {{srNumber}}",
             "ADD_DEVICE_DETAIL": "Details for Add Device Request Number: {{srNumber}}",
             "CHANGE_HISTORY": "Device change history",
-            "LEARN_MORE": "Learn more about requests",
+            "LEARN_MORE": "Learn more about requests.",
             "CHANGE_INSTALL_ADDRESS": "Change install address",
             "CHANGE_CONTACT": "Change Contact",
             "CURRENTLY_INSTALLED_AT": "Device currently installed at",
@@ -800,6 +843,7 @@
             "DEVICE_INFO": "Device information",
             "PRODUCT_MODEL": "Product Model",
             "SERIAL_NO": "Serial Number",
+            "PART_NUMBER": "Part number",
             "INSTALL_ADDRESS": "Install Address",
             "INSTALL_DATE": "Install Date",
             "IP_ADDRESS": "IP Address",
@@ -874,7 +918,12 @@
             "FILTER_MY_REQUESTS": "Filter by my requests",
             "BROWSE_SUPPLY_ORDER_TYPE": "Browse by supply order types",
             "BROWSE_DEVICE_REQUEST_TYPE": "Browse by device request types",
-            "FIND_BY_ACCOUNT": "Find by account"
+            "FIND_BY_ACCOUNT": "Find by account",
+            "CTRL_CLEAR_METER_READ_TYPE": "Clear Meter Read Type",
+            "FILTER_BY_METER_READ_TYPE": "Filter By Meter Read Type",
+            "BROWSE_METER_READ_TYPE": "Browse By Meter Read Type",
+            "FILTER_BY_ACCOUNT": "Filter by Account",
+            "FILTER_BY_SOLD_TO": "Filter By Sold To"
         },
 
         "ORDER_MGT": {
@@ -929,7 +978,7 @@
             "DEVICE_REQUESTS_W_TOTALS": "Device requests ({{total}} total device requests)",
             "SERVICE_REQUESTS_W_TOTALS": "Service requests ({{total}} total service requests)",
             "ADRESS_W_TOTALS": "All address requests ({{total}} total address requests)",
-            "CONTACT_W_TOTALS": "All address requests ({{total}} total contact requests)",
+            "CONTACT_W_TOTALS": "All contact requests ({{total}} total contact requests)",
             "ALL_SERVICE_REQUESTS": "All service requests",
             "DEVICE_REQUESTS": "Device requests",
             "ADDRESS_REQUESTS": "Address requests",
@@ -1349,7 +1398,8 @@
 
         "DELEGATED_ADMIN": {
             "TITLE": "Users",
-            "MANAGE_PROFILE": "Managing User Profile"
+            "MANAGE_PROFILE": "Managing User Profile",
+            "PREFERRED_LANGUAGE": "Preferred language"
         },
 
         "USER": {
@@ -1392,7 +1442,15 @@
             "UPDATE_USER": "UPDATE USER",
             "FILTER_BY_STATUS": "Filter By Status",
             "FILTER_BY_ROLE": "Filter By Role",
-            "CANCEL_INVITATION": "CANCEL INVITATION"
+            "CANCEL_INVITATION": "CANCEL INVITATION",
+            "ROLE_SELECTED": "Roles selected",
+            "CTRL_CLEAR_ROLES": "Clear roles",
+            "CTRL_CLEAR_STATUS": "Clear status",
+            "TITLE_USER_ABANDON_MODAL": "Are you sure you want to abandon this user?",
+            "BODY_USER_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_USER_MODAL_CANCEL": "No, do not abandon this user",
+            "ABANDON_USER_MODAL_CONFIRM": "Yes, abandon this user",
+            "ABANDON_USER": "Abandon User"
         },
 
         "ROLE": {
@@ -1496,7 +1554,12 @@
         "SHIPPED": "SHIPPED",
         "DELIVERED": "DELIVERED",
         "EDIT": "EDIT",
-        "MOVE": "MOVE"
+        "MOVE": "MOVE",
+        "SAVE": "Save",
+        "ALL": "All",
+        "MANUAL": "Manual",
+        "AUTOMATIC": "Automatic",
+        "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)"
     },
 
         "PAGINATION": {
@@ -1572,5 +1635,39 @@
         "COLUMNPICKER": {
             "TITLE": "Column Selector",
             "CUSTOMIZE_COLUMNS": "Customize columns"
+        },
+
+        "LANGUAGES":{
+            "ARABIC": "Arabic",
+            "BULGARIAN": "Bulgarian",
+            "CHINESE_SIMPLIFIED": "Chinese (Simplified)",
+            "CHINESE_TRADITIONAL": "Chinese (Traditional)",
+            "CROATIAN": "Croatian",
+            "CZECH": "Czech",
+            "DANISH": "Danish",
+            "DUTCH": "Dutch",
+            "ENGLISH": "English",
+            "ENGLISH_UK": "English UK",
+            "ENGLISH_US": "English US",
+            "FINNISH": "Finnish",
+            "FRENCH": "French",
+            "FRENCH_CA": "French CA",
+            "GERMAN": "German",
+            "GREEK": "Greek",
+            "HUNGARIAN": "Hungarian",
+            "ITALIAN": "Italian",
+            "JAPANESE": "Japanese",
+            "KOREAN": "Korean",
+            "NORWEGIAN": "Norwegian",
+            "POLISH": "Polish",
+            "PORTUGUESE_BRAZIL": "Portuguese (Brazil)",
+            "PORTUGUESE_PORTUGAL": "Portuguese (Portugal)",
+            "ROMANIAN": "Romanian",
+            "RUSSIAN": "Russian",
+            "SPANISH_SPAIN": "Spanish Spain",
+            "SPANISH_MEXICO": "Spanish Mexico",
+            "SWEDISH": "Swedish",
+            "TURKISH": "Turkish",
+            "SLOVAK": "Slovak"
         }
 }

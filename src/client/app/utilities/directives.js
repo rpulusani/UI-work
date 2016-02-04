@@ -31,6 +31,17 @@ define(['angular', 'utility'], function(angular) {
             link:link
         };
     }])
+    .directive('hrefTarget', function () {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+              var href = element.href;
+              if(scope && scope.configure && scope.configure.header && scope.configure.header.readMoreUrlTarget) {
+                element.attr("target", "_blank");
+              }
+            }
+        };
+    })
     .directive('statusBar', function() {
         return {
             restrict: 'A',
@@ -66,7 +77,9 @@ define(['angular', 'utility'], function(angular) {
             scope: {
                 title: '@',
                 titleValues: '@',
-                print: '@'
+                print: '@',
+                export: '@',
+                nativePrint: '@'
             },
             template: '<div class="col-2-3" ng-cloak>' +
                 '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && title" translate="{{ title }}" translate-values="{{titleValues}}"></h2>' +
@@ -75,12 +88,14 @@ define(['angular', 'utility'], function(angular) {
             '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
                 '<span ng-if="displayPrint" class="">' +
                     '<i class="icon icon--mps icon--print"></i>' +
-                    '<a translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
+                    '<a ng-show="!nativePrint" translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
+                    '<a ng-show="nativePrint" translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
                 '</span>' +
 
                 '<span ng-if="displayExport" class="">' +
                     '<i class="icon icon--mps icon--download"></i>' +
-                   '<a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
+                    '<a ng-show="!nativePrint" translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
+                    '<a ng-show="nativePrint" translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
                 '</span>' +
             '</div>',
             controller: 'PrintExportTitleController'

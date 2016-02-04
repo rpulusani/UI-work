@@ -43,7 +43,7 @@ define(['angular',
             };
 
             $scope.$broadcast('setupPrintAndExport', $scope);
-            
+
 
             if (Devices.item === null) {
                 $scope.redirectToList();
@@ -162,7 +162,8 @@ define(['angular',
                                 bodyValues: '',
                                 readMore: ''
                             },
-                            readMoreUrl: ''
+                            readMoreUrl: '',
+                            showCancelBtn: false
                         },
                         device: {
                             removal:{
@@ -240,7 +241,24 @@ define(['angular',
                                 contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                             },
                             returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
-                        }
+                        },
+                        statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                     };
                 }
             }
