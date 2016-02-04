@@ -133,9 +133,6 @@ define(['angular',
 
                     $scope.resetDevicePicker();
                 }
-            } else if(ServiceRequest.item && Devices.item){
-                $scope.sr = ServiceRequest.item;
-                $scope.device = Devices.item;
 
             } else {
                 $scope.device = {};
