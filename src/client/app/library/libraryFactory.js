@@ -9,7 +9,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30',
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
                             cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>'
                         },
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), field: 'name', width: '420',
@@ -21,12 +21,12 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                                             '<span ng-repeat="tag in row.entity.tags">{{tag}}{{$last ? "" : ", "}}</span></p>' +
                                         '</div>'
                         },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()' }, 
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner',
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true }, 
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true,
                             'cellTemplate':'<div ng-bind-html="grid.appScope.getFileOwner(row.entity.owner)"></div>'
                         },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()'},
-                        {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220',
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()' , notSearchable: true },
+                        {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
                             'cellTemplate':'<div ng-show="grid.appScope.getEditDeleteAction(row.entity.owner)">' +
                                 '<i class="icon icon-psw-edit" ng-click="grid.appScope.goToUpdate(row.entity);"></i>' +
                                 '<div library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +

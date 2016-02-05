@@ -44,7 +44,7 @@ define(['angular', 'filterSearch'], function(angular) {
                         $scope.showCategoryClearMessage = true;
                         $scope.noOfCategoriesSelected = $scope.selectedCategoriesList.length;
                     } else {
-                        $scope.showClearMessage = false;
+                        $scope.showCategoryClearMessage = false;
                     }
 
                     var categoryList = $scope.selectedCategoriesList.join();
@@ -72,7 +72,7 @@ define(['angular', 'filterSearch'], function(angular) {
                         $scope.showOwnerClearMessage = true;
                         $scope.noOfOwnersSelected = $scope.selectedOwnersList.length;
                     } else {
-                        $scope.showClearMessage = false;
+                        $scope.showOwnerClearMessage = false;
                     }
 
                     var ownerList = $scope.selectedOwnersList.join();
@@ -119,8 +119,9 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.params = {};
                     $scope.noOfCategoriesSelected = 0;
                     $scope.selectedCategoriesList = [];
-                    for (var i = 0; i < $scope.selectedCategoriesList.length; i++) {
-                        $scope.selectedCategoriesList[i].selected = false;
+                    $scope.showCategoryClearMessage = false;
+                    for (var i = 0; i < $scope.categories.length; i++) {
+                        $scope.categories[i].selected = false;
                     }
                     $scope.filterDef($scope.params, ['category', 'bookmark', 'requesterFilter']);
                 }
@@ -131,8 +132,9 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.params = {};
                     $scope.noOfOwnersSelected = 0;
                     $scope.selectedOwnersList = [];
-                    for (var i = 0; i < $scope.selectedOwnersList.length; i++) {
-                        $scope.selectedOwnersList[i].selected = false;
+                    $scope.showOwnerClearMessage = false;
+                    for (var i = 0; i < $scope.owners.length; i++) {
+                        $scope.owners[i].selected = false;
                     }
                     $scope.filterDef($scope.params, ['owner', 'bookmark', 'requesterFilter']);
                 }
@@ -143,8 +145,9 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.params = {};
                     $scope.noOfTagsSelected = 0;
                     $scope.selectedTagsList = [];
-                    for (var i = 0; i < $scope.selectedTagsList.length; i++) {
-                        $scope.selectedTagsList[i].selected = false;
+                    $scope.showTagClearMessage = false;
+                    for (var i = 0; i < $scope.tags.length; i++) {
+                        $scope.tags[i].selected = false;
                     }
                     $scope.filterDef($scope.params, ['tag', 'bookmark', 'requesterFilter']);
                 }

@@ -1,1 +1,32 @@
-view fields
+
+<ul class="info-list text--small">
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_NAME"></div>
+        <div class="info-list__item-value" ng-bind="documentItem.name"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION"></div>
+        <div class="info-list__item-value" ng-bind="documentItem.description"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_TAGS"></div>
+        <div class="info-list__item-value" ng-bind="getTagNames(documentItem.tags)"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_SIZE"></div>
+        <div class="info-list__item-value" ng-bind="getFileSize(documentItem.size)"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_PUBLISHED"></div>
+        <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.publishDate)"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_EXPIRES"></div>
+        <div class="info-list__item-value" ng-bind="getFormatDate(documentItem.endDate)"></div>
+    </li>
+    <li class="info-list__item">
+        <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_OWNER"></div>
+        <div class="info-list__item-value" ng-bind-html="getFileOwner(documentItem.owner)"></div>
+    </li>
+</ul>
+
