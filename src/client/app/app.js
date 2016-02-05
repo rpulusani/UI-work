@@ -207,7 +207,6 @@ define([
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('lbsURL', config.portal.lbsUrl)
-    .constant('libraryServiceUrl', config.portal.libraryServiceUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'
