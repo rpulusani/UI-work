@@ -41,6 +41,8 @@ define(['angular',
             $scope.goToReview = function() {
                 $rootScope.newDevice = $scope.device;
                 $location.path(DeviceServiceRequest.route + '/add/review');
+                            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
+
             };
 
             $scope.setModels = function() {
@@ -205,9 +207,11 @@ define(['angular',
                 }
               
               //  ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
-                Devices.item = $scope.device;
-                ServiceRequest.item._links.account = {href: $rootScope.currentAccount.href};
-                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
+                HATEAOSConfig.getCurrentAccount().then(function() {
+                    Devices.item = $scope.device;
+                    ServiceRequest.item._links.account = {href: $rootScope.currentAccount.href};
+                    ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
+                });
             };
 
             $scope.setupSR(ServiceRequest, configureSR);
