@@ -159,6 +159,7 @@ define(['angular',
             }
                $scope.updateSRObjectForSubmit = function() {
                 ServiceRequest.item =  $scope.sr;
+
                 if ($scope.device.deviceDeInstallQuestion === 'true') {
                     ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
                 } else if ($scope.device.deviceInstallQuestion === 'true') {
@@ -202,8 +203,11 @@ define(['angular',
                 if (BlankCheck.checkNotBlank($scope.device.deviceInstallDate)) {
                     ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate));
                 }
-                ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+              
+              //  ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
                 Devices.item = $scope.device;
+                ServiceRequest.item._links.account = {href: $rootScope.currentAccount.href};
+                ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
             };
 
             $scope.setupSR(ServiceRequest, configureSR);
