@@ -160,6 +160,7 @@ requirejs.config({
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
 
         'googlecharting': 'app/libs/ng-google-chart',
+        'vButton': 'app/libs/v-button.min',
 
         'rome': 'app/libs/rome.min',
 

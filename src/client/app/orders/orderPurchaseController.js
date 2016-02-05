@@ -16,6 +16,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'Contacts',
         'BlankCheck',
         'FormatterService',
+        "$routeParams",
+        'TombstoneService',
         function(
             $scope,
             $location,
@@ -30,10 +32,14 @@ define(['angular','order', 'utility.grid'], function(angular) {
             $timeout,
             Contacts,
             BlankCheck,
-            FormatterService) {
+            FormatterService,
+            $routeParams,
+            Tombstone) {
 
             SRHelper.addMethods(Orders, $scope, $rootScope);
             $scope.editable = false; //make order summary not actionable
+
+            $scope.isLoading = false;
 
             var configureSR = function(Orders){
                     Orders.addField('description', '');
@@ -50,32 +56,31 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 $rootScope.returnPickerObject &&
                 $rootScope.selectionId === Devices.item.id){
 
-                    $scope.device = $rootScope.returnPickerObject;
+                    Devices.item = $rootScope.returnPickerObject;
                     $scope.sr = $rootScope.returnPickerSRObject;
                     Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                    $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                    Devices.item.contact.item = angular.copy($rootScope.selectedContact);
                     $scope.resetContactPicker();
 
             } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
 
                 $scope.sr = $rootScope.returnPickerSRObjectAddressBillTo;
                 Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
-                $scope.billToAddress = angular.copy($rootScope.selectedBillToAddress);
+                Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
                 $scope.resetAddressBillToPicker();
 
             } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){
 
                 $scope.sr = $rootScope.returnPickerSRObjectAddressShipTo;
                 Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
-                $scope.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
+                Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
                 $scope.resetAddressShipToPicker();
 
             } else{
-
-                $rootScope.device = Devices.item;
-                if (!BlankCheck.isNull(Devices.item['contact'])) {
-                    $scope.device.primaryContact = $scope.device['contact']['item'];
+                if(!Orders.tempSpace){
+                    Orders.tempSpace = {};
                 }
+                $rootScope.device = Devices.item;
             }
             function intitilize(){
                 $scope.setupSR(Orders, configureSR);
@@ -89,28 +94,39 @@ define(['angular','order', 'utility.grid'], function(angular) {
             function configureReviewTemplate(){
                 configureTemplates();
                 $timeout(function(){
-                OrderItems.columns = 'pruchaseSet';
-                    $scope.$broadcast('OrderContentRefresh', {
-                        'OrderItems': OrderItems // send whatever you want
-                    });
+                    OrderItems.columns = 'pruchaseSet';
+                        $scope.$broadcast('OrderContentRefresh', {
+                            'OrderItems': OrderItems // send whatever you want
+                        });
                 }, 50);
+
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
-                   if(Orders.item.shipToAddress){
-                     delete Orders.item.shipToAddress;
+                   $scope.isLoading = true;
+                   if(Orders.item.requestedDeliveryDate){
+                        Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                    }
-                   if(Orders.item.billToAddress){
-                     delete Orders.item.billToAddress;
-                   }
-                   Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                    Orders.addField('orderItems', OrderItems.buildSrArray());
                    var deferred = Orders.post({
                          item:  $scope.sr
                     });
 
                     deferred.then(function(result){
-                        $location.search('tab',null);
-                        $location.path(Orders.route + '/purchase/receipt');
+                        if(Orders.item._links['tombstone']){
+                            $timeout(function(){
+                                    Orders.getAdditional(Orders.item, Tombstone, true).then(function(){
+                                        if(Tombstone.item && Tombstone.item.siebelId){
+                                            $location.search('tab',null);
+                                            Orders.item.requestNumber = Tombstone.item.siebelId;
+                                            $location.path(Orders.route + '/purchase/receipt');
+                                        }else{
+                                            $location.search('tab',null);
+                                            $location.search("queued","true");
+                                            $location.path(Orders.route + '/purchase/receipt/queued');
+                                        }
+                                    });
+                                },5000);
+                        }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
@@ -119,20 +135,61 @@ define(['angular','order', 'utility.grid'], function(angular) {
             }
 
             function configureReceiptTemplate(){
-                $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
-                $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
-                $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
-                $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
-                $scope.configure.header.readMoreUrl = Devices.route;
-                $scope.configure.header.translate.bodyValues= {
-                    'order': FormatterService.getFormattedSRNumber($scope.sr),
-                    'srHours': 24,
-                    'deviceManagementUrl': 'device_management/',
-                };
-                $scope.configure.receipt = {
+                if($routeParams.queued){
+                    $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                        $scope.configure.header.translate.h1Values = {
+                            'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + Orders.item.type)
+                        };
+                        $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                        $scope.configure.header.translate.bodyValues= {
+                            'srHours': 24
+                        };
+                        $scope.configure.header.translate.readMore = undefined;
+                        $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                        $scope.configure.header.translate.actionValues = {
+                            actionLink: Orders.route,
+                            actionName: 'Manage Orders'
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                            }
+                        };
+                        $scope.configure.queued = true;
+                }else{
+                        $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
+                        $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
+                        $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                        $scope.configure.header.readMoreUrl = Devices.route;
+                        $scope.configure.header.translate.bodyValues= {
+                            'order': FormatterService.getFormattedSRNumber($scope.sr),
+                            'srHours': 24,
+                            'deviceManagementUrl': 'device_management/',
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                            }
+                        };
+                    $scope.configure.queued = false;
+                }
+                $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
+                $scope.configure.order.shipToBillTo = {
+                                translate:{
+                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE',
+                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
+                                }
+                            };
+                $scope.configure.order.po = {
                     translate:{
-                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
-                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                        label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
+                        title:'ORDER_MAN.COMMON.TXT_ORDER_PO_DETAILS',
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
@@ -201,6 +258,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             show:{
                                 primaryAction : true
                             },
+                            pickerObject: $scope.device,
                             source: 'OrderPurchase'
                         },
                         detail:{
@@ -263,14 +321,28 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 }
             }
 
-             if ($scope.device && !BlankCheck.isNull($scope.device.primaryContact)){
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+            if (Devices.item && !BlankCheck.isNull(Devices.item['contact']['item'])){
+                    $scope.formattedPrimaryContact = FormatterService.formatContact(Devices.item['contact']['item']);
             }
-            if (!BlankCheck.isNull($scope.billToAddress)){
-                    $scope.formatedBillToAddress = FormatterService.formatAddress($scope.billToAddress);
+
+            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                    $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
+            }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.billToAddress);
             }
-            if (!BlankCheck.isNull($scope.shipToAddress)){
-                    $scope.formatedShipToAddress = FormatterService.formatAddress($scope.shipToAddress);
+
+            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                    $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+            }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
+            }
+
+            if (Orders.item){
+                    $scope.formattedExpedite = FormatterService.formatYesNo(Orders.item.expediteOrder);
+                    $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
+                        FormatterService.formatDate(Orders.item.requestedDeliveryDate));
+                    $scope.formattedPONumber = FormatterService.formatNoneIfEmpty(Orders.item.purchaseOrderNumber);
+                    $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
             }
         }
     ]);

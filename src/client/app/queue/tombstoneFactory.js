@@ -5,7 +5,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
         function(serviceUrl, $translate, HATEOASFactory, formatter) {
             var Tombstones = {
                     serviceName: 'tombstones',
-                    embeddedName: 'tombstones', //get away from embedded name and move to a function to convert url name to javascript name
+                    embeddedName: 'tombstone', //get away from embedded name and move to a function to convert url name to javascript name
                     columns: 'defaultSet',
                     columnDefs: {
                         defaultSet: [

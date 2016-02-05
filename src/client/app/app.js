@@ -136,7 +136,8 @@ define([
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
-    'security.securityHelper'
+    'security.securityHelper',
+    'vButton'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -146,6 +147,7 @@ define([
         'ngSanitize',
         'googlechart',
         'pascalprecht.translate',
+        'vButton',
         'mps.hateoasFactory',
         'mps.dashboard',
         'mps.account',

@@ -178,7 +178,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             // Update a secondary service with a matching link in a given envelope
-            HATEOASFactory.prototype.getAdditional = function(halObj, newService) {
+            HATEOASFactory.prototype.getAdditional = function(halObj, newService, useEmbeddedLink) {
                 var self = this,
                 deferred = $q.defer(),
                 url;
@@ -186,9 +186,12 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 newService.item = null;
                 newService.data = [];
 
-                if (!newService.url && halObj._links &&
+                if ((!newService.url && halObj._links &&
                     halObj._links[newService.embeddedName] &&
-                    halObj._links[newService.embeddedName].href) {
+                    halObj._links[newService.embeddedName].href) ||
+                    (useEmbeddedLink &&
+                    halObj._links[newService.embeddedName] &&
+                    halObj._links[newService.embeddedName].href)) {
                         newService.params = self.setupParams({
                             url: halObj._links[newService.embeddedName].href,
                             params: newService.params
