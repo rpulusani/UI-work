@@ -12,15 +12,6 @@
 
 <div class="page-content">
 
-    <div>
-        <div class="col-2-3">
-            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-                translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT" translate-values="{ total: pagination.totalItems() }"></h2>
-            <hr />
-        </div>
-
-    </div>
-
     <div grid-filter options="filterOptions" params="optionParams"></div>
 
     <div class="row l-pad-top l-pad-bottom">
@@ -29,6 +20,15 @@
         </div>
         <div class="col-1-8 l-alley-before-thick">
             <div columnpicker></div>
+            <br />  <br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2-3">
+            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
+                translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT" translate-values="{ total: pagination.totalItems() }"></h2>
+            <hr />
         </div>
     </div>
 
