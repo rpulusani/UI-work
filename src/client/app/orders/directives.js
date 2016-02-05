@@ -21,6 +21,12 @@ define(['angular', 'order'], function(angular) {
             templateUrl : '/app/orders/templates/open-order-summary.html'
         };
     })
+    .directive('orderReceipt', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/ship-to-bill-to-receipt.html'
+        };
+    })
     .directive('supplyOrderTab', function(){
         return {
             restrict: 'A',

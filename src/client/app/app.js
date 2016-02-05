@@ -11,6 +11,11 @@ define([
     'angular-sanitize',
     'ui.grid',
     'angular-spring-data-rest',
+    'queue',
+    'queue.directives',
+    'queue.queueNotificationController',
+    'queue.queueListController',
+    'queue.tombstoneFactory',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.serviceRequestStatusFactory',
@@ -132,7 +137,8 @@ define([
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
-    'security.securityHelper'
+    'security.securityHelper',
+    'vButton'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -142,6 +148,7 @@ define([
         'ngSanitize',
         'googlechart',
         'pascalprecht.translate',
+        'vButton',
         'mps.hateoasFactory',
         'mps.dashboard',
         'mps.account',
@@ -149,6 +156,7 @@ define([
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
+        'mps.queue',
         'mps.orders',
         'mps.user',
         'mps.security',

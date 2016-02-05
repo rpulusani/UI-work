@@ -5,12 +5,10 @@
         data-target="#cancel"
         translate="{{configure.actions.translate.abandonRequest}}"
     ></button>
-    
-    <button class="btn btn--primary"
-        ng-click="formSubmit(configure.actions.submit)"
-        translate="{{configure.actions.translate.submit}}"
-    ></button>
-    
+    <button class="Button Button--default btn btn--primary"
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="formSubmit(configure.actions.submit)"><span translate="{{configure.actions.translate.submit}}"></span></button>
+
     <div confirm-cancel
         title="{{configure.modal.translate.abandonTitle}}"
         body="{{configure.modal.translate.abandonBody}}"

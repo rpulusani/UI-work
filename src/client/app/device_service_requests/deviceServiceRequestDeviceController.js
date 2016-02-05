@@ -132,7 +132,7 @@ define(['angular',
 
                     deferred.then(function(result){
                         ServiceRequest.item = DeviceServiceRequest.item;
-                        $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                        $location.path(DeviceServiceRequest.route + '/purchase/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
