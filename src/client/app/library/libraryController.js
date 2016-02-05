@@ -22,7 +22,6 @@ define(['angular', 'library'], function(angular) {
                 $scope.documentItem.dateTo = Documents.item.endDate;
             }
 
-
             $scope.isDeleting = false;
 
             $scope.goToStartDelete = function () {
