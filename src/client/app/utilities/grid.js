@@ -206,13 +206,21 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 if (typeof scope.bookmark !== 'function' && service.item && service.item.links) {
                     scope.bookmark = function(rowEntity) {
                         var node = angular.element(document.getElementsByClassName('bookmark-' + rowEntity.id)[0].childNodes);
-                        
+                    
+
                         service.setItem(rowEntity);
 
-                        service.item.links.bookmark({method: 'post'}).then(function() {
-                            node.toggleClass('icon--not-favorite');
-                            node.toggleClass('icon--favorite');
-                        });
+                        if (rowEntity.bookmarked === false) {
+                            service.item.links.bookmark({method: 'post'}).then(function() {
+                                node.toggleClass('icon--not-favorite');
+                                node.toggleClass('icon--favorite');
+                            });
+                        } else {
+                            service.item.links.bookmark({method: 'delete'}).then(function() {
+                                node.toggleClass('icon--not-favorite');
+                                node.toggleClass('icon--favorite');
+                            });
+                        }
                     };
                 }
 
