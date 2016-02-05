@@ -18,6 +18,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'FormatterService',
         "$routeParams",
         'TombstoneService',
+        'ServiceRequestService',
         function(
             $scope,
             $location,
@@ -34,7 +35,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
             BlankCheck,
             FormatterService,
             $routeParams,
-            Tombstone) {
+            Tombstone,
+            ServiceReqeust) {
 
             SRHelper.addMethods(Orders, $scope, $rootScope);
             $scope.editable = false; //make order summary not actionable
@@ -118,14 +120,16 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                         if(Tombstone.item && Tombstone.item.siebelId){
                                             $location.search('tab',null);
                                             Orders.item.requestNumber = Tombstone.item.siebelId;
+                                            ServiceReqeust.item = Orders.item;
                                             $location.path(Orders.route + '/purchase/receipt');
                                         }else{
+
                                             $location.search('tab',null);
                                             $location.search("queued","true");
                                             $location.path(Orders.route + '/purchase/receipt/queued');
                                         }
                                     });
-                                },5000);
+                                },6000);
                         }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
