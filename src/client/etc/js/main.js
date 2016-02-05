@@ -30,6 +30,12 @@ requirejs.config({
             'hateoasFactory',
             'hateoasFactory.serviceFactory',
 
+            'queue',
+            'queue.directives',
+            'queue.queueNotificationController',
+            'queue.queueListController',
+            'queue.tombstoneFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -96,6 +102,12 @@ requirejs.config({
         'googlecharting': ['angular'],
 
         'rome': ['angular'],
+
+        'queue': ['angular'],
+        'queue.directives': ['angular', 'queue'],
+        'queue.queueNotificationController': ['angular', 'queue'],
+        'queue.queueListController': ['angular', 'queue'],
+        'queue.tombstoneFactory': ['angular', 'queue'],
 
         'form':['angular', 'lxk.fef'],
         'form.datePicker' : ['form'],
@@ -175,12 +187,8 @@ requirejs.config({
 
         'app': 'app/app',
 
-
-
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
-
-
 
         'filterSearch': 'app/filter_search/filterSearch',
         'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
@@ -207,8 +215,6 @@ requirejs.config({
         'security': 'app/security/security',
         'security.securityService': 'app/security/securityService',
         'security.securityHelper': 'app/security/securityHelper',
-
-
 
         'queue': 'app/queue/queue',
         'queue.directives': 'app/queue/directives',
@@ -248,8 +254,6 @@ requirejs.config({
         'utility.imageService': 'app/utilities/imageService',
         'utility.columnPickerController': 'app/utilities/columnPickerController',
         'utility.printExportTitleController': 'app/utilities/printExportTitleController',
-
-
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
