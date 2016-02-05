@@ -151,6 +151,7 @@ define([
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
+        'mps.queue',
         'mps.orders',
         'mps.user',
         'mps.security',
