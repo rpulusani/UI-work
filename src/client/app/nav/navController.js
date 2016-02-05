@@ -38,8 +38,6 @@ define([
                     Users.taAcctCache = Users.item.transactionalAccount.data;
                     item.data = Users.taAcctCache;
 
-                    console.log(item.data);
-
                     item.isExpanded = true;
                     item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
                 };
