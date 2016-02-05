@@ -173,8 +173,12 @@ requirejs.config({
 
         'app': 'app/app',
 
+
+
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
+
+
 
         'filterSearch': 'app/filter_search/filterSearch',
         'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
@@ -201,6 +205,14 @@ requirejs.config({
         'security': 'app/security/security',
         'security.securityService': 'app/security/securityService',
         'security.securityHelper': 'app/security/securityHelper',
+
+
+
+        'queue': 'app/queue/queue',
+        'queue.directives': 'app/queue/directives',
+        'queue.queueNotificationController': 'app/queue/queueNotificationController',
+        'queue.queueListController': 'app/queue/queueListController',
+        'queue.tombstoneFactory': 'app/queue/tombstoneFactory',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
@@ -235,11 +247,7 @@ requirejs.config({
         'utility.columnPickerController': 'app/utilities/columnPickerController',
         'utility.printExportTitleController': 'app/utilities/printExportTitleController',
 
-        'queue': 'app/queue/queue',
-        'queue.directives': 'app/queue/directives',
-        'queue.queueNotificationController': 'app/queue/queueNotificationController',
-        'queue.queueListController': 'app/queue/queueListController',
-        'queue.tombstoneFactory': 'app/queue/tombstoneFactory',
+
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',

@@ -104,42 +104,51 @@ define(['angular','order', 'utility.grid'], function(angular) {
 
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
-                   $scope.isLoading = true;
-                   if(Orders.item.requestedDeliveryDate){
-                        Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
-                   }
-                   Orders.addField('orderItems', OrderItems.buildSrArray());
-                   var deferred = Orders.post({
-                         item:  $scope.sr
-                    });
+                    if(!$scope.isLoading){
+                       $scope.isLoading = true;
+                       if(Orders.item.requestedDeliveryDate){
+                            Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
+                       }
+                       Orders.addField('orderItems', OrderItems.buildSrArray());
+                       var deferred = Orders.post({
+                             item:  $scope.sr
+                        });
 
-                    deferred.then(function(result){
-                        if(Orders.item._links['tombstone']){
-                            $timeout(function(){
-                                    Orders.getAdditional(Orders.item, Tombstone, true).then(function(){
-                                        if(Tombstone.item && Tombstone.item.siebelId){
-                                            $location.search('tab',null);
-                                            Orders.item.requestNumber = Tombstone.item.siebelId;
-                                            ServiceReqeust.item = Orders.item;
-                                            $location.path(Orders.route + '/purchase/receipt');
-                                        }else{
+                        deferred.then(function(result){
+                            if(Orders.item._links['tombstone']){
+                                $timeout(function(){
+                                        Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+                                            if(Tombstone.item && Tombstone.item.siebelId){
+                                                $location.search('tab',null);
+                                                Orders.item.requestNumber = Tombstone.item.siebelId;
+                                                ServiceReqeust.item = Orders.item;
+                                                $location.path(Orders.route + '/purchase/receipt/notqueued');
+                                            }else{
 
-                                            $location.search('tab',null);
-                                            $location.search("queued","true");
-                                            $location.path(Orders.route + '/purchase/receipt/queued');
-                                        }
-                                    });
-                                },6000);
-                        }
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create SR because: ' + reason);
-                    });
+                                                $location.search('tab',null);
+                                                $location.search("queued","true");
+                                                $location.path(Orders.route + '/purchase/receipt/queued');
+                                            }
+                                        });
+                                    },6000);
+                            }
+                        }, function(reason){
+                            NREUM.noticeError('Failed to create SR because: ' + reason);
+                        });
+                    }
 
                 };
             }
 
             function configureReceiptTemplate(){
-                if($routeParams.queued){
+                $scope.configure.order.details.translate.action = undefined;
+                $timeout(function(){
+                    OrderItems.columns = 'pruchaseSet';
+                        $scope.$broadcast('OrderContentRefresh', {
+                            'OrderItems': OrderItems // send whatever you want
+                        });
+                }, 50);
+                if($routeParams.queued ==='queued'){
                     $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                         $scope.configure.header.translate.h1Values = {
                             'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + Orders.item.type)

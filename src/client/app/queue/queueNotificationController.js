@@ -16,7 +16,12 @@ define(['angular'], function(angular) {
 
             $scope.alertDataMap = {};
             $scope.link = TombstoneService.route;
-                TombstoneService.getPage(0, 1, {}).then(function() {
+            var tombstoneOptions  = {
+                    'params':{
+                        'status':'QUEUED'
+                    }
+                };
+                TombstoneService.getPage(0, 1, tombstoneOptions).then(function() {
                      if(TombstoneService.page && TombstoneService.page.totalElements){
                         $scope.alertDataMap = {
                             total: TombstoneService.page.totalElements
