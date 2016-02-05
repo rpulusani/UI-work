@@ -32,5 +32,11 @@ define(['angular', 'contact'], function(angular) {
                });
             }]
         };
+    })
+    .directive('addressBod', function() {
+        return {
+            restrict: 'E',
+            templateUrl: '/app/address_service_requests/templates/address-bod.html'
+        };
     });
 });

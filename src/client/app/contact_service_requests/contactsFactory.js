@@ -19,7 +19,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         },
                         {
                             name: $translate.instant('CONTACT.WORK_PHONE'),
-                            field: 'getWorkPhone()', 
+                            field: 'getWorkPhone()',
                             searchOn: 'workPhone'
                         },
                         {
@@ -28,19 +28,19 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             searchOn: 'emailAddress'
                         },
                         {
-                            name: $translate.instant('CONTACT.ID'), 
-                            field: 'id', 
-                            visible: false, 
+                            name: $translate.instant('CONTACT.ID'),
+                            field: 'id',
+                            visible: false,
                             dynamic: false
                         },
                         {
-                            name: $translate.instant('LABEL.COST_CENTER'), 
-                            field:'costCenter', 
+                            name: $translate.instant('LABEL.COST_CENTER'),
+                            field:'costCenter',
                             visible: false
                         },
                         {
-                            name: $translate.instant('CONTACT.FIRST_NAME'), 
-                            field:'_embedded.contact.firstName', 
+                            name: $translate.instant('CONTACT.FIRST_NAME'),
+                            field:'_embedded.contact.firstName',
                             visible: false
                         },
                         {
@@ -56,7 +56,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     ]
                 },
                 route: '/service_requests/contacts',
-                needsToVerify: false, // if verify directive needs to be displayed
+                needsToVerify: false, // if verify directive needs to be displayed DELETE?
                 alertState: false,
                 createSRFromContact: function(contact, srType) {
                     var self = this,
@@ -103,7 +103,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         this.setItem(contact);
                     }
 
-                    window.scrollTo(0,0)
+                    window.scrollTo(0,0);
 
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },

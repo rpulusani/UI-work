@@ -27,8 +27,8 @@
     <input name="workPhone" type="text" ng-model="contacts.item.workPhone" value="" class="" required />
 </div>
 
-<h4 translate="USER.WHERE"></h4>
-<div ng-if="comparisonAddress === false">
+<div ng-show="!needToVerify">
+    <h4 translate="USER.WHERE"></h4>
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS.COUNTRY"></label>
         <div selectric model="contacts.item.address.country" options="countryHAL.countries" value="code" label="name"
@@ -84,52 +84,6 @@
     <div address-location-fields></div>
 </div>
 
-<div ng-if="comparisonAddress !== false" class="row">
-    <div ng-init="acceptedEnteredAddress=1" class="col-1-2 entered-address l-pad">
-        <h3 translate="ADDRESS.USER_ENTERED"></h3>
-        <input type="radio" ng-model="acceptedEnteredAddress" value="1" />
-        <label for="store-front-question-no">
-            <span></span>
-            {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
-        </label>
-
-        <div class="l-pad-top">
-            <div ng-bind="contacts.item.address.addressLine1"></div>
-            <div>
-                <span ng-bind="contacts.item.address.city"></span>,
-                <span ng-bind="contacts.item.address.state"></span>
-                <span ng-bind="contacts.item.address.postalCode"></span>
-            </div>
-            <div ng-bind="contacts.item.address.country"></div>
-        </div>
-        <div class="l-pad-top">
-            <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO" href="" title=""></a>
-        </div>
-    </div>
-
-    <div class="col-1-2 found-address l-pad">
-        <h3 translate="ADDRESS.ADDRESS_FOUND"></h3>
-        <input type="radio" ng-model="acceptedEnteredAddress" value="2" />
-        <label for="store-front-question-no">
-            <span></span>
-            {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
-        </label>
-
-        <div class="l-pad-top">
-            <div ng-bind="comparisonAddress.addressLine1"></div>
-            <div>
-                <span ng-bind="comparisonAddress.city"></span>,
-                <span ng-bind="comparisonAddress.state"></span>
-                <span ng-bind="comparisonAddress.postalCode"></span>
-            </div>
-            <div ng-bind="comparisonAddress.country"></div>
-        </div>
-
-        <div class="l-pad-top">
-            <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO"  href="" title=""></a>
-        </div>
-    </div>
-    <div class="col-1 l-pad">
-        <a translate="ADDRESS.ADDRESS_RESET"  href="" title=""></a>
-    </div>
+<div ng-show="needToVerify">
+    <address-bod></address-bod>
 </div>

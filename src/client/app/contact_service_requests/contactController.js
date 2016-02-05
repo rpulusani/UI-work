@@ -56,8 +56,9 @@ define(['angular', 'contact'], function(angular) {
                     if ($scope.canSave === true) {
                         runUpdate(Contacts.item);
                     } else {
-                        if (!contactForm.addressLine1.$pristine || !contactForm.addressLine2.$pristine
-                            || !contactForm.postalCode.$pristine) {
+                        if (!contactForm.addressLine1.$pristine ||
+                            !contactForm.addressLine2.$pristine ||
+                            !contactForm.postalCode.$pristine) {
                             Contacts.verifyAddress($scope.contacts.item.address, function(statusCode, bodsData) {
                                 if (statusCode === 200) {
                                     $scope.comparisonAddress = bodsData;
