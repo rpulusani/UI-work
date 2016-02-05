@@ -18,7 +18,19 @@ define(['angular', 'library'], function(angular) {
                 $scope.documentItem = { accountId: $rootScope.contactId, id:'new' };
             } else {
                 $scope.documentItem = Documents.item;
+                $scope.documentItem.dateFrom = Documents.item.publishDate;
+                $scope.documentItem.dateTo = Documents.item.endDate;
             }
+
+            $scope.isDeleting = false;
+
+            $scope.goToStartDelete = function () {
+                $scope.isDeleting = true;
+            };
+
+            $scope.goToCancelDelete = function () {
+                $scope.isDeleting = false;
+            };
 
             $scope.setDocumentName = function() {
                 var tmp = event.target.files[0].name;
@@ -45,12 +57,12 @@ define(['angular', 'library'], function(angular) {
                         fd.append('tags', $scope.documentItem.tags);
                     }
 
-                    if (!BlankCheck.isNull($scope.documentItem.publishDate)) {
-                        fd.append('publishDate', $scope.documentItem.publishDate);
+                    if (!BlankCheck.isNull($scope.documentItem.dateFrom)) {
+                        fd.append('publishDate', $scope.documentItem.dateFrom);
                     }
 
-                    if (!BlankCheck.isNull($scope.documentItem.endDate)) {
-                        fd.append('endDate', $scope.documentItem.endDate);
+                    if (!BlankCheck.isNull($scope.documentItem.dateTo)) {
+                        fd.append('endDate', $scope.documentItem.dateTo);
                     }
 
                     $http({

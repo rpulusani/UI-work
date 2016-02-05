@@ -1405,7 +1405,7 @@
                 "BTN_ADD_TAG" : "ADD TAG",
                 "BTN_DELETE_DOCUMENT" : "DELETE DOCUMENT",
                 "CTRL_CANCEL_DELETE" : "Cancel",
-                "CTRL_DELETE_DOCOCUMENT" : "Delete document",
+                "CTRL_DELETE_DOCUMENT" : "Delete document",
                 "CTRL_HIDE_TAGS" : "Hide tags",
                 "CTRL_SHOW_TAGS" : "Show tags",
                 "TXT_ADD_TAGS" : "Add tags",
@@ -1445,7 +1445,14 @@
                 "TXT_GRID_PUBLISHED" : "Published",
                 "TXT_LIBRARY" : "Library",
                 "TXT_LIBRARY_PAR" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
-                "TXT_SEARCH" : "Search"
+                "TXT_SEARCH" : "Search",
+                "TXT_SEARCH_DOCUMENTS" : "Search documents",
+                "TXT_FILTER_CATEGORY_SELECTED": "Category selected",
+                "TXT_FILTER_OWNER_SELECTED": "Owner selected",
+                "TXT_FILTER_TAG_SELECTED": "Tags selected",
+                "CTRL_CLEAR_CATEGORY": "Clear category filters",
+                "CTRL_CLEAR_OWNER": "Clear owner filters",
+                "CTRL_CLEAR_TAG": "Clear tags filter"
             },
             "DOCUMENT_VIEW" : {
                 "TITLE_DISCARD_MODAL": "Are you sure you want to discard document changes?",
@@ -1498,6 +1505,11 @@
                 "TXT_MANAGING_DOCUMENT" : "Managing Document",
                 "TXT_MANAGING_DOCUMENT_PAR" : "TBD"
             }
+        },
+
+        "GRID": {
+            "LOADING": "Loading...",
+            "EMPTY": "No records found"
         },
 
         "INVOICE": {

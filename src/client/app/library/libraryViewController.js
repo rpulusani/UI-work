@@ -10,6 +10,8 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 $scope.documentItem = Documents.item;
             }
 
+            $scope.isDeleting = false;
+
             $scope.getTagNames = function(tags) {
                 return tags.join(', ');
             };
@@ -37,6 +39,22 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + $scope.documentItem.id + '/view');
+            };
+
+            $scope.goToStartDelete = function () {
+                $scope.isDeleting = true;
+            };
+
+            $scope.goToCancelDelete = function () {
+                $scope.isDeleting = false;
+            };
+
+            $scope.setDocumentName = function() {
+                var tmp = event.target.files[0].name;
+                var l = tmp.split('.').pop();
+                
+                $scope.documentItem.extension = l;
+                $scope.documentItem.name = tmp.slice(0, -(l.length+1));
             };
 
             $scope.goToDelete = function() {

@@ -1,0 +1,12 @@
+<div class="deleteConfirmation">
+    <div ng-hide="isDeleting">
+        <i class="icon icon-psw-error" name="cancel" ng-click="startDelete()"></i>
+    </div>
+    <div ng-show="isDeleting">
+        <p class="text--small" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_DELETE_DOC"></p>
+        <p class="text--small" >
+            <a href="#" ng-click="cancelDelete()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_GRID_CANCEL"></a>
+            <a href="#" ng-click="confirmDelete()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_GRID_DELETE"></a>
+        </p>
+    </div>
+</div>
