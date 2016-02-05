@@ -1393,6 +1393,11 @@
             }
         },
 
+        "GRID": {
+            "LOADING": "Loading...",
+            "EMPTY": "No records found"
+        },
+
         "INVOICE": {
             "TITLE": "Invoices"
         },

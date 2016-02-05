@@ -528,7 +528,6 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
             });
 
-
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             var Grid = new GridService();
             $scope.gridOptions = {};

@@ -21,12 +21,10 @@ define(['angular', 'user'], function(angular) {
             };
 
             $scope.save = function() {
-                console.log('save new user not implemented');
                 $location.path('/delegated_admin/return/submitted');
             };
 
             $scope.invite = function() {
-                console.log('invite new user');
                 $location.path('/delegated_admin/return/invited');
             };
         }

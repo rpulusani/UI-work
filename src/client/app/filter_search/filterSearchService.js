@@ -110,6 +110,10 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                         var promise = self.service.getPage(0, self.service.params.size, options);
                         promise.then(function() {
+                            if (!self.service.item) {
+                                self.service.setItem(self.service.data[0]);
+                            }
+
                             self.display(fn);
                         }, self.failure);
                     },
@@ -150,6 +154,10 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                         var promise = self.service.getPage(0, self.service.params.size, options);
 
                         promise.then(function() {
+                            if (!self.service.item) {
+                                self.service.setItem(self.service.data[0]);
+                            }
+
                             self.display(fn);
                         }, self.failure);
                     },

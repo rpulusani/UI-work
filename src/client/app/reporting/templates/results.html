@@ -8,10 +8,6 @@
 </div>
 
 <div class="page-content">
-    <div class="clearfix">
-        <div print-export-title title="configure.header.translate.h1"></div>
-    </div>
-
     <div class="row" ng-show="report.id === 'hw0008'">
         <div report-hardware-orders></div>
     </div>
@@ -33,11 +29,31 @@
     <div class="row" ng-show="report.id === 'sd0101'">
         <div report-service-detail></div>
     </div>
+
+    <div class="clearfix">
+        <div ng-show="gridTitle" print-export-title title="{{ gridTitle }}"></div>
+        <div class="col-1"></div>
+    </div>
+    
     <div class="row">
         <div class="col-1">
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter>
+                <div class="alert alert--info" ng-show="gridOptions.showLoader == true">
+                    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                      <div class="alert__body">
+                      <!-- TRANSLATE AND STYLE THIS!!!! -->
+                        Loading...
+                      </div>
+                </div>
+                <div class="alert alert--info" ng-show="gridOptions.showNoResults">
+                    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                      <div class="alert__body">
+                      <!-- TRANSLATE AND STYLE THIS!!!! -->
+                        No records found
+                      </div>
+                </div>
+            </div>
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>
-
 </div>
