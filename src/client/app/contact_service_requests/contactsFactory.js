@@ -6,6 +6,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
+                url: serviceUrl + 'contacts',
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [

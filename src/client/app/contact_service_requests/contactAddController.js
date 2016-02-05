@@ -101,100 +101,62 @@ define(['angular', 'contact'], function(angular) {
                 $scope.checkedAddress = 0;
             };
 
-            $scope.saveNewContact = function(contactForm) {
-                $scope.checkAddress();
-                if($scope.canReview === true && $scope.checkedAddress === 1){
-                    Contact.item = $scope.contact;
-                    $rootScope.newContact = $scope.contact;
-                    $location.path(Contacts.route + contact.id +'/review');
-                }
+            $scope.getRequestor = function(ServiceRequest, Contacts) {
+                Users.getLoggedInUserInfo().then(function() {
+                    Users.item.links.contact().then(function() {
+                        $scope.contacts.requestedByContact = Users.item.contact.item;
+                        ServiceRequest.addRelationship('requester', $rootScope.currentUser, 'contact');
+                        $scope.contacts.primaryContact = $scope.contacts.requestedByContact;
+                        ServiceRequest.addRelationship('primaryContact', $scope.contacts.requestedByContact, 'self');
+                        $scope.requestedByContactFormatted =
+                        FormatterService.formatContact($scope.contacts.requestedByContact);
+                    });
+                });
             };
 
-            $scope.contacts = Contacts;
-            $scope.contacts.item.address = {};
-            $scope.enteredAddress = {};
-            $scope.comparisonAddress = {};
-            $scope.checkedAddress = 0;
-            $scope.needToVerify = false;
-            $scope.canReview = false;
-
-
-            $scope.setupSR(Contacts, configureSRFromContact);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
-
-
-            function configureTemplates() {
-                $scope.configure = {
-                    header: {
-                        translate: {
-                            h1: 'ADDRESS_SERVICE_REQUEST.ADD',
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: 'Learn more about requests'
-                        },
-                        readMoreUrl: '/service_requests/learn_more',
-                        showCancelBtn: false,
-                        showDeleteBtn: false
-                    },
-                    address: {
-                        information:{
-                            translate: {
-                                title: 'ADDRESS.INFO',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT',
-                                makeChanges: 'LABEL.MAKE_CHANGES'
-                            }
-                        }
-                    },
-                    detail: {
-                        translate: {
-                            title: 'ADDRESS_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
-                            fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
-                        },
-                        show: {
-                            referenceId: true,
-                            costCenter: true,
-                            comments: true,
-                            attachements: true
-                        }
-                    },
-                    actions: {
-                        translate: {
-                            abandonRequest:'ADDRESS_SERVICE_REQUEST.ABANDON_ADD',
-                            submit: 'LABEL.REVIEW_SUBMIT'
-                        },
-                        submit: $scope.goToReview
-                    },
-                    contact:{
-                        translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
-                        },
-                        show:{
-                            primaryAction : true
-                        }
-                    },
-                    modal: {
-                        translate: {
-                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
-                            abandonBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
-                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
-                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
-                        },
-                        returnPath: '/service_requests/addresses'
-                    },
-                    contactPicker: {
-                        translate: {
-                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
-                        }
-                    }
-                };
+            if(Contacts.item === null){
+                Contacts.goToList();
+            }else{
+                $scope.contacts = Contacts;
+                $scope.contacts.item.address = {};
+                $scope.enteredAddress = {};
+                $scope.comparisonAddress = {};
+                $scope.checkedAddress = 0;
+                $scope.needToVerify = false;
+                $scope.canReview = false;
+                $scope.getRequestor(ServiceRequest, Contacts);
             }
+
+            var updateContactObjectForSubmit = function() {
+                Contacts.item = $scope.contacts.item;
+                Contacts.addRelationship('account', $scope.requestedByContact, 'account');
+            };
+           
+
+            $scope.saveContact = function(contactForm) {
+                $scope.checkAddress();
+                if($scope.canReview === true && $scope.checkedAddress === 1){
+                    Contacts.setItem($scope.contacts.item);
+                    Contacts.alertState = 'saved';
+                    Contacts.goToUpdate();
+
+                    //post
+                    /*updateContactObjectForSubmit();
+                    Contacts.item.postURL = Contacts.url;
+
+                    var deferred = Contacts.post({
+                        item: $scope.contacts
+                    });
+
+                    deferred.then(function(result){
+                        Contacts.alertState = 'saved';
+                        $location.path(Contacts.route + '/' + $scope.contacts.id + '/update');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create Contact because: ' + reason);
+                    });*/
+                }
+
+            };
 
         }
     ]);
