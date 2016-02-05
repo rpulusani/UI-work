@@ -120,8 +120,12 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + contact.id + '/review');
                 },
                 goToDelete: function(contact) {
-                    $location.path(this.route + '/' + this.item.id + '/receipt');
-                },
+                        ServiceRequest.reset();
+                        if (contact) {
+                            this.setItem(contact);
+                        }
+                        $location.path(this.route + '/delete/' + this.item.id + '/review');
+                    },
                 verifyAddress: function(addressObj, fn) {
                     this.get({
                         method: 'post',
