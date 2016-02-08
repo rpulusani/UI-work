@@ -206,11 +206,21 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 if (typeof scope.bookmark !== 'function' && service.item && service.item.links) {
                     scope.bookmark = function(rowEntity) {
                         var node = angular.element(document.getElementsByClassName('bookmark-' + rowEntity.id)[0].childNodes);
+                    
 
-                        service.item.links.bookmark({method: 'post'}).then(function() {
-                            node.toggleClass('icon--not-favorite');
-                            node.toggleClass('icon--favorite');
-                        });
+                        service.setItem(rowEntity);
+
+                        if (rowEntity.bookmarked === false) {
+                            service.item.links.bookmark({method: 'post'}).then(function() {
+                                node.toggleClass('icon--not-favorite');
+                                node.toggleClass('icon--favorite');
+                            });
+                        } else {
+                            service.item.links.bookmark({method: 'delete'}).then(function() {
+                                node.toggleClass('icon--not-favorite');
+                                node.toggleClass('icon--favorite');
+                            });
+                        }
                     };
                 }
 
@@ -219,7 +229,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                     field: 'bookmark',
                     width:'30',
                     enableSorting: false,
-                    cellTemplate: '<i class="icon icon--ui icon--not-favorite favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
+                    cellTemplate: '<i ng-class="row.entity.bookmarked == true ? \'icon icon--ui icon--favorite favorite\' : \'icon icon--ui icon--not-favorite favorite\' " ng-click="grid.appScope.bookmark(row.entity)"></i>',
                     enableColumnMenu: false,
                     headerCellClass:'bookmark-header',
                     cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {

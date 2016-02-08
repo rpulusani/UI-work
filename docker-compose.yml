@@ -20,4 +20,3 @@ web:
    - IMAGE_NOW_SECRET=UeV5DfuEzXsLsTzRP1a3ragNAQRt73GrOK2XZkjm6zIXyNZD66LZt4LvUuVh3O8RUnoZhDPADxu6lXW030i9NSv_dfciMO3JDA-Dm5ePlvVUKW7RMXuVrJG8wjfOiiQQA7VoTXYiYPdTfawRvzaiqrwLD06dKXA4Mww2KLJppGA
    - IMAGE_NOW_URL=https://in-qa.lexmark.com/SecureFileDelivery/SAP/
    - LBS_URL=https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management
-   - LIBRARY_API_URL=https://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com/documents

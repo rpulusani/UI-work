@@ -133,7 +133,8 @@ define([
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
-    'security.securityHelper'
+    'security.securityHelper',
+    'vButton'
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -143,6 +144,7 @@ define([
         'ngSanitize',
         'googlechart',
         'pascalprecht.translate',
+        'vButton',
         'mps.hateoasFactory',
         'mps.dashboard',
         'mps.account',
@@ -150,6 +152,7 @@ define([
         'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
+        'mps.queue',
         'mps.orders',
         'mps.user',
         'mps.security',
@@ -200,7 +203,6 @@ define([
     .constant('imageNowSecret', config.portal.imageNowSecret)
     .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('lbsURL', config.portal.lbsUrl)
-    .constant('libraryServiceUrl', config.portal.libraryServiceUrl)
     .constant('permissionSet', {
         dashboard:{
             view: 'VIEW_HOME_PAGE'

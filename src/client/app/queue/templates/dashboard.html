@@ -1,0 +1,15 @@
+<div class="page-header">
+    <div class="col-lg-2-3 col-md-1-1">
+        <h1 translate="QUEUE.DASHBOARD.TXT_QUEUE_TITLE"></h1>
+        <p><span translate="QUEUE.DASHBOARD.TXT_QUEUE_PAR"></span> <a href="/service_requests/learn_more"><span translate="QUEUE.DASHBOARD.LINK_LEARN_MORE"></span></a></p>
+    </div>
+</div>
+<div class="page-content">
+     <div class="clearfix">
+        <div print-export-title title="QUEUE.DASHBOARD.TXT_HEADER_ITEMS_COUNT"></div>
+    </div>
+        <hr>
+        <div grid-filter options="filterOptions" params="optionParams"></div>
+        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-exporter></div>
+        <div pagination grid="{{gridOptions}}"></div>
+</div>
