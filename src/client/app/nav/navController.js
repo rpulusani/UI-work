@@ -76,6 +76,8 @@ define([
 
                 HATEAOSConfig.updateCurrentAccount(child.account);
 
+                $rootScope.currentAccount.refresh = true;
+
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     Users.item._links.accounts = child._links.account;
                     
@@ -91,6 +93,8 @@ define([
                             accts[i].isActive = false;
                         }
                     }
+
+                    $route.reload();
                 });
             };
 

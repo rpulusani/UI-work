@@ -97,7 +97,7 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSConfig.prototype.getCurrentAccount = function(account) {
                 var deferred = $q.defer();
 
-                if (!$rootScope.currentAccount || !$rootScope.currentAccount.accountLevel) {
+                if ((!$rootScope.currentAccount || !$rootScope.currentAccount.accountLevel)) {
                     this.getLoggedInUserInfo().then(function() {
                         deferred.resolve($rootScope.currentAccount);
                     });
@@ -118,13 +118,15 @@ define(['angular', 'utility'], function(angular) {
                     $rootScope.currentAccount.accountLevel = account.level,
                     $rootScope.currentAccount.name = account.name;
                     $rootScope.currentAccount.href = accountLink;
+                    $rootScope.currentAccount.refresh = false;
 
                     if (!$rootScope.defaultAccount) {
                         $rootScope.defaultAccount = {
                             accountId: account.accountId,
                             accountLevel: account.level,
                             name: account.name,
-                            href: accountLink
+                            href: accountLink,
+                            refresh: false
                         };
                     }
                 }
