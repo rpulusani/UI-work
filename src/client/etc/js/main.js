@@ -30,6 +30,12 @@ requirejs.config({
             'hateoasFactory',
             'hateoasFactory.serviceFactory',
 
+            'queue',
+            'queue.directives',
+            'queue.queueNotificationController',
+            'queue.queueListController',
+            'queue.tombstoneFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -97,6 +103,12 @@ requirejs.config({
 
         'rome': ['angular'],
 
+        'queue': ['angular'],
+        'queue.directives': ['angular', 'queue'],
+        'queue.queueNotificationController': ['angular', 'queue'],
+        'queue.queueListController': ['angular', 'queue'],
+        'queue.tombstoneFactory': ['angular', 'queue'],
+
         'form':['angular', 'lxk.fef'],
         'form.datePicker' : ['form'],
         'form.directives': ['form'],
@@ -162,6 +174,7 @@ requirejs.config({
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
 
         'googlecharting': 'app/libs/ng-google-chart',
+        'vButton': 'app/libs/v-button.min',
 
         'rome': 'app/libs/rome.min',
 
@@ -202,6 +215,12 @@ requirejs.config({
         'security': 'app/security/security',
         'security.securityService': 'app/security/securityService',
         'security.securityHelper': 'app/security/securityHelper',
+
+        'queue': 'app/queue/queue',
+        'queue.directives': 'app/queue/directives',
+        'queue.queueNotificationController': 'app/queue/queueNotificationController',
+        'queue.queueListController': 'app/queue/queueListController',
+        'queue.tombstoneFactory': 'app/queue/tombstoneFactory',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
@@ -298,6 +317,7 @@ requirejs.config({
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
         'contact.contactController': 'app/contact_service_requests/contactController',
+        'contact.contactDeleteController': 'app/contact_service_requests/contactDeleteController',
         'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.contactAddController': 'app/contact_service_requests/contactAddController',
         'contact.directives': 'app/contact_service_requests/directives',

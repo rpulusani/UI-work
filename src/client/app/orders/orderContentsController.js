@@ -146,7 +146,11 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
                 Grid.setGridOptionsName('orderSummaryGridOptions');
                 $scope.orderSummaryGridOptions.onRegisterAPI = Grid.getGridActions($scope,
                 OrderItems, personal);
-                OrderItems = service.OrderItems;
+                if(service.OrderItems.length){
+                    OrderItems.data = service.OrderItems;
+                }else{
+                    OrderItems = service.OrderItems;
+                }
                 Grid.display(OrderItems,$scope,personal, 48);
                 $scope.calculate();
             }

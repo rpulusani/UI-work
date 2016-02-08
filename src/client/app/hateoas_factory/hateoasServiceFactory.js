@@ -130,7 +130,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.addField = function(fieldName, fieldValue) {
                 if (!this.item) {
-                   this.item = this.newMessage(); //if halObject is empty then fill it with a new message
+                   this.newMessage(); //if halObject is empty then fill it with a new message
                 }
 
                 this.item[fieldName] = fieldValue;
@@ -178,7 +178,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             // Update a secondary service with a matching link in a given envelope
-            HATEOASFactory.prototype.getAdditional = function(halObj, newService) {
+            HATEOASFactory.prototype.getAdditional = function(halObj, newService, embeddedLinkName, useEmbeddedLink) {
                 var self = this,
                 deferred = $q.defer(),
                 url;
@@ -186,14 +186,24 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 newService.item = null;
                 newService.data = [];
 
-                if (!newService.url && halObj._links &&
+                if ((!newService.url && halObj._links &&
                     halObj._links[newService.embeddedName] &&
-                    halObj._links[newService.embeddedName].href) {
+                    halObj._links[newService.embeddedName].href && !embeddedLinkName) ||
+                    (useEmbeddedLink &&
+                    halObj._links[newService.embeddedName] &&
+                    halObj._links[newService.embeddedName].href && !embeddedLinkName)) {
                         newService.params = self.setupParams({
                             url: halObj._links[newService.embeddedName].href,
                             params: newService.params
                         });
                         newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
+                }else if(embeddedLinkName && halObj._links[embeddedLinkName]){
+                     newService.params = self.setupParams({
+                            url: halObj._links[embeddedLinkName].href,
+                            params: newService.params
+                        });
+                        newService.rootUrl = newService.url;
+                        newService.url = self.setupUrl(halObj._links[embeddedLinkName].href);
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function(account) {
@@ -205,6 +215,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         size: newService.params.size
                     }).then(function(processedResponse) {
                         deferred.resolve();
+
+                        if(newService.rootUrl){
+                            newService.url = newService.rootUrl;
+                            newService.rootUrl = undefined;
+                        }
                     });
                 });
 
@@ -750,7 +765,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel)) {
+                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) || $rootScope.currentAccount.refresh) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }

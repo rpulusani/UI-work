@@ -31,6 +31,16 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/address_service_requests/templates/contact-picker.html',
                 controller: 'ContactPickerController',
                 activeItem: '/service_requests/contacts'
+            })
+            .when('/service_requests/contacts/delete/:id/review', {
+                templateUrl: '/app/service_requests/templates/review.html',
+                controller: 'ContactDeleteController',
+                activeItem: '/service_requests/contacts'
+            })
+            .when('/service_requests/contacts/delete/:id/receipt', {
+                templateUrl: '/app/service_requests/templates/receipt.html',
+                controller: 'ContactDeleteController',
+                activeItem: '/service_requests/contacts'
             });
         }
     ]);

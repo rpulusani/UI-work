@@ -127,7 +127,10 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                         for(var i = 0; i < self.data.length; ++i){
                             var item = {
                                 'itemNumber': self.data[i].itemNumber,
-                                 'quantity': self.data[i].quantity
+                                'displayItemNumber': self.data[i].displayItemNumber,
+                                 'quantity': self.data[i].quantity,
+                                 'price': self.data[i].price,
+                                 'type': self.data[i].type
                             };
                             arrayResult.push(item);
                         }

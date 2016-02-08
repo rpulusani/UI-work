@@ -1,5 +1,112 @@
 {
+    "COMMON":{
+      "ACTIONS":{
+            "BTN_LOADING": "Loading Please Wait"
+      }
+    },
+    "SERVICE_REQUEST_COMMON":{
+        "TYPES":{
+            "MADC_INSTALL":"Madc Install",
+            "MADC_MOVE":"Madc Move",
+            "MADC_DECOMMISSION":"Madc Decommission",
+            "MADC_ALL":"Madc All",
+            "BREAK_FIX_ONSITE_REPAIR":"Break Fix Onsite Repair",
+            "BREAK_FIX_EXCHANGE":"Break Fix Exchange",
+            "BREAK_FIX_OPTION_EXCHANGE":"Break Fix Option Exchange",
+            "BREAK_FIX_REPLACEMENT":"Break Fix Replacement",
+            "BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL":"Break Fix Consumable Supply Install",
+            "BREAK_FIX_CONSUMABLE_PART_INSTALL":"Break Fix Consumable Part Install",
+            "BREAK_FIX_ONSITE_EXCHANGE":"Break Fix Onsite Exchange",
+            "BREAK_FIX_OTHER":"Break Fix Other",
+            "DATA_ASSET_REGISTER":"Data Asset Register",
+            "DATA_ASSET_CHANGE":"Data Asset Change",
+            "DATA_ASSET_DEREGISTER":"Data Asset Deregister",
+            "DATA_ASSET_ALL":"Data Asset All",
+            "DATA_ADDRESS_ADD":"Data Address Add",
+            "DATA_ADDRESS_CHANGE":"Data Address Change",
+            "DATA_ADDRESS_REMOVE":"Data Address Remove",
+            "DATA_ADDRESS_ALL":"Data Address All",
+            "DATA_CONTACT_ADD":"Data Contact Add",
+            "DATA_CONTACT_CHANGE":"Data Contact Change",
+            "DATA_CONTACT_REMOVE":"Data Contact Remove",
+            "DATA_CONTACT_ALL":"Data Contact All",
+            "DATA_CHL_ADD":"Data Chl Add",
+            "DATA_CHL_CHANGE":"Data Chl Change",
+            "DATA_CHL_REMOVE":"Data Chl Remove",
+            "DATA_CUSTOMER_ACCEPTANCE":"Data Customer Acceptance",
+            "SUPPLIES_ASSET_ORDER":"Supplies Asset Order",
+            "SUPPLIES_ASSET_REQUEST":"Supplies Asset Request",
+            "SUPPLIES_CATALOG_REQUEST":"Supplies Catalog Request",
+            "HARDWARE_ORDER":"Hardware Order",
+            "HARDWARE_ORDER_INSTALL":"Hardware Order Install",
+            "CANCEL_CANCEL":"Cancel Cancel",
+            "CANCEL_CONSUMABLES":"Cancel Consumables",
+            "CANCEL_DECOMMISSION":"Cancel Decommission",
+            "CANCEL_HARDWARE_SERVICE":"Cancel Hardware Service",
+            "CANCEL_HARDWARE_REQUEST":"Cancel Hardware Request",
+            "CANCEL_HARDWARE_INSTALL":"Cancel Hardware Install",
+            "CANCEL_INSTALL":"Cancel Install",
+            "CANCEL_LBS_UPDATE":"Cancel Lbs Update",
+            "CANCEL_MOVE":"Cancel Move",
+            "CANCEL_ALL":"Cancel All",
+            "UPDATE_CONSUMABLES":"Update Consumables",
+            "UPDATE_DECOMMISSION":"Update Decommission",
+            "UPDATE_HARDWARE_SERVICE":"Update Hardware Service",
+            "UPDATE_HARDWARE_REQUEST":"Update Hardware Request",
+            "UPDATE_HARDWARE_INSTALL":"Update Hardware Install",
+            "UPDATE_INSTALL":"Update Install",
+            "UPDATE_LBS_UPDATE":"Update Lbs Update",
+            "UPDATE_MOVE":"Update Move",
+            "UPDATE_ALL":"Update All",
+            "UPLOAD_SUPPLIES":"Upload Supplies",
+            "INQUIRY_ACCOUNT":"Inquiry Account",
+            "INQUIRY_ASSETS":"Inquiry Assets",
+            "INQUIRY_BILLING":"Inquiry Billing",
+            "INQUIRY_CANCEL_REQUEST":"Inquiry Cancel Request",
+            "INQUIRY_CONSUMABLES":"Inquiry Consumables",
+            "INQUIRY_HARDWARE":"Inquiry Hardware",
+            "INQUIRY_PO":"Inquiry Po",
+            "INQUIRY_METER_READS":"Inquiry Meter Reads",
+            "INQUIRY_MISC":"Inquiry Misc",
+            "INQUIRY_ONSITE_TOOLS":"Inquiry Onsite Tools",
+            "INQUIRY_PROFESSIONAL_SERVICES":"Inquiry Professional Services",
+            "INQUIRY_REPORTS":"Inquiry Reports",
+            "INQUIRY_SERVICE":"Inquiry Service",
+            "INQUIRY_SOFTWARE_SOLUTIONS":"Inquiry Software Solutions",
+            "INQUIRY_SUPPLIES":"Inquiry Supplies",
+            "INQUIRY_TRAINING":"Inquiry Training",
+            "INQUIRY_UPDATE_REQUEST":"Inquiry Update Request",
+            "INQUIRY_UPLOAD_HARDWARE":"Inquiry Upload Hardware",
+            "INQUIRY_UPLOAD_SUPPLIES":"Inquiry Upload Supplies",
+            "INQUIRY_ALL":"Inquiry All",
+            "ALL":"All"
+        }
+    },
+    "QUEUE":{
+        "COMMON":{
+            "COLUMN_DATE": "Date",
+            "COLUMN_TYPE": "Type",
+            "COLUMN_REQUESTOR_NAME":"Requester name",
+            "COLUMN_PRIMARY_CONTACT":"Primary contact",
+            "COLUMN_ACCOUNT":"Account",
+            "LINK_TXT_QUEUE":"view in Queued Items >",
+            "LINK_TXT_VIEW_QUEUE_ITEMS" : "View Queued Items >",
+            "TXT_INFORM_QUEUE": "You have ({{ total }}) requests currently queued for submission. "
+        },
+        "DASHBOARD":{
+            "TXT_QUEUE_TITLE": "Queued Items",
+            "LINK_LEARN_MORE": "Learn more about your queue >",
+            "TXT_QUEUE_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_HEADER_ITEMS_COUNT": "Queued Items ({{ total }} items queued)"
+        },
+         "RECEIPT":{
+            "TXT_TITLE": "Your {{type}} request is being submitted",
+            "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"{{action}}\">{{actionTxt}}</a>\".",
+            "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>",
+            "TXT_GENERATING_REQUEST":" generating request number... "
+        }
 
+    },
     "DEVICE_MAN": {
         "COMMON": {
             "BTN_ORDER_SUPPLIES": "ORDER SUPPLIES",
@@ -312,7 +419,8 @@
             "TXT_ORDER_STATUS": "Status",
             "TXT_ORDER_SUBMITTED": "Submitted:",
             "TXT_ORDER_SUBMITTED_PAR": "Your supplies order {{order}} has been submitted.",
-            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}"
+            "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}",
+            "TXT_PURCHASE_ORDER":"Purchase order number"
         }
     },
 
@@ -554,9 +662,9 @@
             "COST_CENTER": "Cost center",
             "ORDERS": "Orders",
             "REQUEST_NUMBER": "Request number",
-            "CONTACT_INFORMATION": "Request Contact Information",
+            "CONTACT_INFORMATION": "Request contact information",
             "REQUEST_CREATED_BY": "Request created by",
-            "PRIMARY_CONTACT": "Primary Contact",
+            "PRIMARY_CONTACT": "Primary contact",
             "REQUESTOR_CONTACT": "Requestor",
             "SECONDARY_CONTACT": "Secondary contact",
             "CHANGE_PRIMARY_CONTACT": "Change primary contact",
@@ -618,9 +726,11 @@
         "SR_DELETE": "Submit Delete Contact Request",
         "SR_DELETE_TITLE": "Update Contact Request Submitted",
         "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
-        "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
+        "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{contactManagementUrl}}\">manage another contact</a>?",
         "RETURN_LINK": "Would You Like to Manage another Contact?",
-        "TXT_NONE": "None"
+        "TXT_NONE": "None",
+        "DELETE_CONTACT_DETAIL": "Details for Delete Contact Request Number: {{srNumber}}",
+        "SR_DELETE_SUBMITTED": "Delete Contact Request Submitted"
     },
 
         "DEVICE_SERVICE_REQUEST": {
@@ -790,7 +900,7 @@
         "ALL": "All Contacts",
         "ADDRESS": "Address",
         "TITLE_CNT": "All contacts ({{total}} total contacts)",
-        "INFO": "Contact Information",
+        "INFO": "Contact information",
         "FULLNAME": "Name (Last, First Middle)",
         "FIRST_NAME": "First Name",
         "MIDDLE_NAME": "Middle Name",
@@ -1297,7 +1407,7 @@
                 "BTN_ADD_TAG" : "ADD TAG",
                 "BTN_DELETE_DOCUMENT" : "DELETE DOCUMENT",
                 "CTRL_CANCEL_DELETE" : "Cancel",
-                "CTRL_DELETE_DOCOCUMENT" : "Delete document",
+                "CTRL_DELETE_DOCUMENT" : "Delete document",
                 "CTRL_HIDE_TAGS" : "Hide tags",
                 "CTRL_SHOW_TAGS" : "Show tags",
                 "TXT_ADD_TAGS" : "Add tags",
@@ -1338,7 +1448,13 @@
                 "TXT_LIBRARY" : "Library",
                 "TXT_LIBRARY_PAR" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
                 "TXT_SEARCH" : "Search",
-                "TXT_SEARCH_DOCUMENTS" : "Search documents" 
+                "TXT_SEARCH_DOCUMENTS" : "Search documents",
+                "TXT_FILTER_CATEGORY_SELECTED": "Category selected",
+                "TXT_FILTER_OWNER_SELECTED": "Owner selected",
+                "TXT_FILTER_TAG_SELECTED": "Tags selected",
+                "CTRL_CLEAR_CATEGORY": "Clear category filters",
+                "CTRL_CLEAR_OWNER": "Clear owner filters",
+                "CTRL_CLEAR_TAG": "Clear tags filter"
             },
             "DOCUMENT_VIEW" : {
                 "TITLE_DISCARD_MODAL": "Are you sure you want to discard document changes?",
@@ -1391,6 +1507,11 @@
                 "TXT_MANAGING_DOCUMENT" : "Managing Document",
                 "TXT_MANAGING_DOCUMENT_PAR" : "TBD"
             }
+        },
+
+        "GRID": {
+            "LOADING": "Loading...",
+            "EMPTY": "No records found"
         },
 
         "INVOICE": {

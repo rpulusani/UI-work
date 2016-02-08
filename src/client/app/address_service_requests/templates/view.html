@@ -10,6 +10,7 @@
             <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
             <button type="button" class="btn btn--default" ng-click="goToLbs()" translate="ADDRESS_SERVICE_REQUEST.ADD_NEW_MAP" ng-if="addressAccess" target="_blank"></button>
         </div>
+        <div queue-alert></div>
     </div>
 </div>
 
@@ -44,7 +45,14 @@
             </div>
 
             <div class="col-1">
-        <div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+        <div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            <div class="alert alert--info" ng-show="gridOptions.showNoResults">
+                <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                    <span translate="GRID.EMPTY"></span>
+                </div>
+            </div>
+        </div>
 
         <div pagination grid="{{gridOptions}}"></div>
             </div>

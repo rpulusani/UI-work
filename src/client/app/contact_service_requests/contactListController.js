@@ -34,8 +34,10 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $scope.contacts = Contacts;
 
         $scope.selectRow = function(btnType) {
-            if (btnType !== 'delete') {
+            if(btnType !== 'delete') {
                 Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+            }else if(btnType === 'delete'){
+                Contacts.goToDelete($scope.gridApi.selection.getSelectedRows()[0]);
             } else {
                 Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
             }

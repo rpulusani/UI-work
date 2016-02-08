@@ -1,21 +1,16 @@
 define(['angular', 'invoice', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.invoice')
-    .controller('InvoiceListController', ['$scope', '$window', '$location', 'grid', 'Invoices', 'imageNowSecret', 
-        'imageNowUrl', '$rootScope','PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService',
-        function($scope, $window, $location, Grid, Invoices, imageNowSecret, imageNowUrl, $rootScope, 
-            Personalize, formatter, FilterSearchService) {
+    .controller('InvoiceListController', ['$scope', '$window', '$location', 'grid', 'Invoices', '$rootScope',
+        'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', '$http',
+        function($scope, $window, $location, Grid, Invoices, $rootScope, 
+            Personalize, formatter, FilterSearchService, $http) {
             $scope.url = '';
             $scope.redirectToInvoiceUrl = function(sapDocId) {
-                var key = CryptoJS.SHA256(imageNowSecret),
-                    ts = new Date().toISOString(), 
-                    url, hash, hashInBase64;
-                url = imageNowUrl + sapDocId + '?ts='+encodeURIComponent(ts);
-                hash = CryptoJS.HmacSHA256(url, key);
-                hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
-                url = url + '&token=' + hashInBase64;
-                $window.open(url);
-            };
+                $http.get(Invoices.url + "/invoice-url/" + sapDocId).success(function(data){
+                    $window.open(data);
+                });
+            };  
 
             $scope.visibleColumns = [];
             $scope.columnSet = undefined;

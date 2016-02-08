@@ -1,8 +1,8 @@
 define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl', 'UserService',
-        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users) {
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl', 'UserService', 'ServiceRequestService',
+        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users, ServiceRequest) {
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
@@ -121,8 +121,12 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + contact.id + '/review');
                 },
                 goToDelete: function(contact) {
-                    $location.path(this.route + '/' + this.item.id + '/receipt');
-                },
+                        ServiceRequest.reset();
+                        if (contact) {
+                            this.setItem(contact);
+                        }
+                        $location.path(this.route + '/delete/' + this.item.id + '/review');
+                    },
                 verifyAddress: function(addressObj, fn) {
                     this.get({
                         method: 'post',

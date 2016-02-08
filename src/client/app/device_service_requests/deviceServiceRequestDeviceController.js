@@ -35,7 +35,9 @@ define(['angular',
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             var configureSR = function(ServiceRequest){
-                    ServiceRequest.addField('description', '');
+                    if(!ServiceRequest.item || !ServiceRequest.item.description){
+                        ServiceRequest.addField('description', '');
+                    }
                     ServiceRequest.addRelationship('account', $scope.device);
                     ServiceRequest.addRelationship('asset', $scope.device, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
@@ -68,6 +70,7 @@ define(['angular',
                 $rootScope.returnPickerObjectDevice){
                     $scope.device = $rootScope.currentSelectedRow;
                     $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                    configureSR(ServiceRequest);
                     if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
                         $scope.device.isDeviceSelected = true;
 
@@ -95,6 +98,7 @@ define(['angular',
                     }
             } else {
                 $rootScope.device = Devices.item;
+                configureSR(ServiceRequest);
                 if (Devices.item && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                     $scope.device.installAddress = Devices.item['address']['item'];
                 }else if(Devices.item && !BlankCheck.isNull(Devices.item['address'])){
@@ -132,7 +136,7 @@ define(['angular',
 
                     deferred.then(function(result){
                         ServiceRequest.item = DeviceServiceRequest.item;
-                        $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt');
+                        $location.path(DeviceServiceRequest.route + '/purchase/receipt');
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });

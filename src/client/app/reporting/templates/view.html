@@ -168,12 +168,11 @@
 
     <div class="row">
         <div class="col-1">
-            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" 
-            translate="{{ configure.report.grids.standard.translate.h2 }}" translate-values="{total: pagination.totalItems()}"></h2>
+            <div print-export-title title="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT"></div>
             
             <hr/>
 
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ></div>
+            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>
