@@ -199,8 +199,6 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
-    .constant('imageNowSecret', config.portal.imageNowSecret)
-    .constant('imageNowUrl', config.portal.imageNowUrl)
     .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
