@@ -51,9 +51,8 @@ define(['angular', 'contact'], function(angular) {
             };
 
             $scope.formatAdditionalData = function() {
-                console.log("Contacts address is " + $scope.contact.address);
                 if (!BlankCheck.isNull($scope.contact.address)) {
-                    $scope.formattedAddress = FormatterService.formatAddress($scope.contact.address);
+                    $scope.formattedPrimaryContactAddress = FormatterService.formatAddress($scope.contact.address);
                 }
 
                 if (!BlankCheck.isNull($scope.contact.primaryContact)) {
@@ -86,7 +85,6 @@ define(['angular', 'contact'], function(angular) {
                 $rootScope.contact = Contacts.item;
                 $rootScope.contactPickerReset = false;
             }else {
-                $scope.contact.address = contacts.item.address;
                 $scope.contact = Contacts.item;
                 if (Contacts.item && !BlankCheck.isNull(Contacts.item['contact']) && Contacts.item['contact']['item']) {
                     $scope.Contacts.primaryContact = Contacts.item['contact']['item'];
@@ -119,8 +117,8 @@ define(['angular', 'contact'], function(angular) {
                 };
             }
             function configureReceiptTemplate(){
-                $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_DELETE_SUBMITTED";
-                $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.DELETE_DELETE_CONTACT_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "CONTACT_SERVICE_REQUEST.SR_DELETE_SUBMITTED";
+                $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.DELETE_CONTACT_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.readMore = 'CONTACT_SERVICE_REQUEST.RETURN_LINK';
                 $scope.configure.header.translate.readMoreUrl = Contacts.route;
                 $scope.configure.header.translate.bodyValues= {
@@ -135,6 +133,7 @@ define(['angular', 'contact'], function(angular) {
                     },
                     print: true
                 };
+                $scope.configure.contactsr.translate.title = 'CONTACT_SERVICE_REQUEST.DATA_CONTACT_REMOVE_TITLE';
                 $scope.configure.contact.show.primaryAction = false;
             }
             function configureTemplates(){
@@ -149,12 +148,9 @@ define(['angular', 'contact'], function(angular) {
                         readMoreUrl: '',
                         showCancelBtn: false
                     },
-                    address: {
-                        information:{
-                            translate: {
-                                title: 'ADDRESS.INFO',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT'
-                            }
+                    contactsr:{
+                        translate: {
+                            title: 'CONTACT.INFO'
                         }
                     },
                     contact:{
