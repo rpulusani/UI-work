@@ -44,6 +44,7 @@ define([
     'order.orderPurchaseController',
     'contact',
     'contact.contactController',
+    'contact.contactDeleteController',
     'contact.contactListController',
     'contact.factory',
     'contact.directives',
