@@ -68,6 +68,7 @@ define(['angular',
                 $rootScope.returnPickerObjectDevice){
                     $scope.device = $rootScope.currentSelectedRow;
                     $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                    configureSR(ServiceRequest);
                     if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
                         $scope.device.isDeviceSelected = true;
 
@@ -95,6 +96,7 @@ define(['angular',
                     }
             } else {
                 $rootScope.device = Devices.item;
+                configureSR(ServiceRequest);
                 if (Devices.item && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                     $scope.device.installAddress = Devices.item['address']['item'];
                 }else if(Devices.item && !BlankCheck.isNull(Devices.item['address'])){

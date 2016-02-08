@@ -130,7 +130,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.addField = function(fieldName, fieldValue) {
                 if (!this.item) {
-                   this.item = this.newMessage(); //if halObject is empty then fill it with a new message
+                   this.newMessage(); //if halObject is empty then fill it with a new message
                 }
 
                 this.item[fieldName] = fieldValue;
