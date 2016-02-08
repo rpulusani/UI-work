@@ -29,7 +29,7 @@ define(['angular', 'contact'], function(angular) {
 
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addRelationship('account', $scope.contact);
-                    ServiceRequest.addRelationship('sourceAddress', $scope.contact, 'self');
+                    ServiceRequest.addRelationship('contact', $scope.contact, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.contact, 'requestor');
                     ServiceRequest.addField('type', 'DATA_CONTACT_REMOVE');
 
@@ -51,12 +51,16 @@ define(['angular', 'contact'], function(angular) {
             };
 
             $scope.formatAdditionalData = function() {
-                if (!BlankCheck.isNull($scope.contact.address)) {
-                    $scope.formattedPrimaryContactAddress = FormatterService.formatAddress($scope.contact.address);
-                }
-
                 if (!BlankCheck.isNull($scope.contact.primaryContact)) {
                     $scope.formattedPrimaryContact = FormatterService.formatContact($scope.contact.primaryContact);
+                }
+
+                if (!BlankCheck.isNull($scope.contact.address)) {
+                    $scope.formattedContactAddress = FormatterService.formatAddress($scope.contact.address);
+                }
+
+                if (!BlankCheck.isNull($scope.contact)) {
+                    $scope.formattedContact = FormatterService.formatContact($scope.contact);
                 }
 
                 if (!BlankCheck.isNull($scope.contact.requestedByContact)) {
