@@ -57,48 +57,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     ]
                 },
                 route: '/service_requests/contacts',
-                needsToVerify: false, // if verify directive needs to be displayed DELETE?
-                alertState: false,
-                createSRFromContact: function(contact, srType) {
-                    var self = this,
-                    sr = {
-                        id: '',
-                        type: '',
-                        _links: {
-                            account: {
-                              href: ''
-                            },
-                            primaryContact: {
-                              href: ''
-                            },
-                            requester: {
-                              href: ''
-                            }
-                        }
-                    };
-
-                    if (!contact && this.item) {
-                        contact = this.item;
-                    }
-
-                    if (!srType) {
-                        srType = 'DATA_CONTACT_REMOVE';
-                        sr.type = srType;
-                    }
-
-                    Users.getLoggedInUserInfo().then(function() {
-                        sr._links.account = $rootScope.currentAccount.href;
-                        sr._links.primaryContact = self.url + '/' + self.item.id;
-                        sr._links.requester = self.url + '/' + self.item.id;
-                    });
-
-                    return sr;
-                },
-                goToCreate: function() {
-                    this.item = this.getModel();
-
-                    $location.path(this.route + '/new');
-                },
+                alertState: 'initial',
                 goToUpdate: function(contact) {
                     if (contact) {
                         this.setItem(contact);
@@ -137,25 +96,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     }).then(function(bodsRes) {
                         return fn(bodsRes.status, bodsRes.data);
                     });
-                },
-                getModel: function() {
-                    return {
-                        firstName: '',
-                        lastName: '',
-                        address: {
-                           country: ''
-                        },
-                        _links: {
-                            account: {
-                                href: ''
-                            }
-                        }
-                    };
-                },
-                beforeSave: function(contact, deferred) {
-                    contact._links.account.href = this.data[0]._links.account.href;
-
-                    deferred.resolve(true, contact);
                 },
                 functionArray: [
                     {

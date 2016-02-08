@@ -43,6 +43,11 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             }
         };
 
+        $scope.goToCreate = function() {
+            Contacts.item = undefined;
+            $location.path('/service_requests/contacts/new');
+        };
+
         Contacts.alertState = false;
         var removeParamsList = ['location'];
         filterSearchService.addBasicFilter('CONTACT.ALL', undefined, removeParamsList,

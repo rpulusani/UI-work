@@ -24,7 +24,7 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/contacts/:id/update', {
                 templateUrl: '/app/contact_service_requests/templates/update.html',
-                controller: 'ContactController',
+                controller: 'ContactAddController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/pick_contact/:source', {
