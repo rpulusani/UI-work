@@ -35,7 +35,9 @@ define(['angular',
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             var configureSR = function(ServiceRequest){
-                    ServiceRequest.addField('description', '');
+                    if(!ServiceRequest.item || !ServiceRequest.item.description){
+                        ServiceRequest.addField('description', '');
+                    }
                     ServiceRequest.addRelationship('account', $scope.device);
                     ServiceRequest.addRelationship('asset', $scope.device, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
