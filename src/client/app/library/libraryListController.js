@@ -65,20 +65,12 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.goToView = function(documentItem) {
-                var selfHrefArr = documentItem._links.self.href.split('/');
-                var documentId = selfHrefArr.pop();
-
-                documentItem.id = documentId;
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/view');
             };
 
             $scope.goToUpdate = function(documentItem) {
-                var selfHrefArr = documentItem._links.self.href.split('/');
-                var documentId = selfHrefArr.pop();
-
-                documentItem.id = documentId;
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/update');
