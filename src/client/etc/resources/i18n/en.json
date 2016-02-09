@@ -101,7 +101,7 @@
         },
          "RECEIPT":{
             "TXT_TITLE": "Your {{type}} request is being submitted",
-            "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"{{action}}\">{{actionTxt}}</a>\".",
+            "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"/queue\">Queued Items</a>\".",
             "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>",
             "TXT_GENERATING_REQUEST":" generating request number... "
         }

@@ -102,6 +102,7 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
 
         $scope.submit = function(){
             Orders.newMessage();
+            Orders.tempSpace = {};
             $location.path(OrderItems.route + '/purchase/review');
         };
 
