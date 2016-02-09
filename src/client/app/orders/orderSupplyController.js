@@ -13,6 +13,7 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
         'AssetPartsFactory',
         '$q',
         'uiGridConstants',
+        'OrderRequest',
         function(
             GridService,
             $scope,
@@ -24,7 +25,8 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
             Devices,
             AssetParts,
             $q,
-            uiGridConstants
+            uiGridConstants,
+            Orders
         ){
 
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
@@ -99,6 +101,7 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
 
 
         $scope.submit = function(){
+            Orders.newMessage();
             $location.path(OrderItems.route + '/purchase/review');
         };
 
