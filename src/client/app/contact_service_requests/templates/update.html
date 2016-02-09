@@ -11,7 +11,7 @@
         <h1 translate="CONTACT_SERVICE_REQUEST.UPDATE"></h1>
         <p translate="MESSAGE.LIPSUM"></p>
 
-        <div ng-show="alertState === 'saved'" class="alert alert--info">
+        <div ng-show="contactAlertMessage === 'saved'" class="alert alert--info">
             <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
             <div class="alert__body">
                 "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div ng-show="alertState === 'updated'" class="alert alert--info">
+        <div ng-show="contactAlertMessage === 'updated'" class="alert alert--info">
             <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
             <div class="alert__body">
                 "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"

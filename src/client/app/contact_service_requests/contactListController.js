@@ -45,6 +45,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
 
         $scope.goToCreate = function() {
             Contacts.item = undefined;
+            Contacts.tempSpace = {};
             $location.path('/service_requests/contacts/new');
         };
 

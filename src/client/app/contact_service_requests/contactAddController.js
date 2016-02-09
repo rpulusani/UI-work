@@ -15,6 +15,7 @@ define(['angular', 'contact'], function(angular) {
         'SRControllerHelperService',
         'UserService',
         'HATEAOSConfig',
+        '$timeout',
         function($scope,
             $location,
             $filter,
@@ -27,9 +28,14 @@ define(['angular', 'contact'], function(angular) {
             Contacts,
             SRHelper,
             Users,
-            HATEAOSConfig) {
+            HATEAOSConfig,
+            $timeout) {
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
+
+            $timeout (function() {
+                $rootScope.contactAlertMessage = undefined;
+            }, 3600);
 
             $scope.checkAddress = function() {
                 if($scope.checkedAddress === 0){
@@ -104,22 +110,17 @@ define(['angular', 'contact'], function(angular) {
             $scope.getRequestor = function(ServiceRequest, Contacts) {
                 Users.getLoggedInUserInfo().then(function() {
                     Users.item.links.contact().then(function() {
-                        $scope.contact.requestedByContact = Users.item.contact.item;
-                        ServiceRequest.addRelationship('requester', $rootScope.currentUser, 'contact');
-                        $scope.contact.primaryContact = $scope.contact.requestedByContact;
-                        ServiceRequest.addRelationship('primaryContact', $scope.contact.requestedByContact, 'self');
-                        $scope.requestedByContactFormatted =
-                        FormatterService.formatContact($scope.contact.requestedByContact);
+                        Contacts.tempSpace.requestedByContact = Users.item.contact.item;
                     });
                 });
             };
 
             if(Contacts.item){
                 $scope.contact = Contacts.item;
-                if($rootScope.alertState === 'saved'){
-                    $rootScope.alertState = 'saved';
-                }else if($rootScope.alertState === 'updated'){
-                    $rootScope.alertState = 'updated';
+                if($rootScope.contactAlertMessage === 'saved'){
+                    $rootScope.contactAlertMessage = 'saved';
+                }else if($rootScope.contactAlertMessage === 'updated'){
+                    $rootScope.contactAlertMessage = 'updated';
                 }
             }else{
                 $scope.contact = {};
@@ -133,7 +134,7 @@ define(['angular', 'contact'], function(angular) {
 
             var updateContactObjectForSubmit = function() {
                 Contacts.item = $scope.contact;
-                Contacts.addRelationship('account', $scope.contact.requestedByContact, 'account');
+                Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
             };
            
 
@@ -147,7 +148,7 @@ define(['angular', 'contact'], function(angular) {
                     });
 
                     deferred.then(function(result){
-                        $rootScope.alertState = 'saved';
+                        $rootScope.contactAlertMessage = 'saved';
                         $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
                     }, function(reason){
                         NREUM.noticeError('Failed to create Contact because: ' + reason);
