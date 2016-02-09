@@ -1,0 +1,12 @@
+<div ng-if="configure.order.returnSupplies" class="col-2-3">
+<h2 translate="{{configure.order.returnSupplies.translate.returnDetails}}"></h2>
+<div class="form__field form__field--select form__field--required">
+    <label translate="{{configure.order.returnSupplies.translate.returnReason}}"></label>
+    <div selectric model="order.type" options="configure.order.returnSupplies.typeList" value="value" label="label"
+  placeholder="{{'LABEL.SELECT' | translate}}" required on-select=""></div>
+</div>
+<div class="form__field form__field--select form__field--required">
+    <label translate="{{configure.order.returnSupplies.translate.returnNotes}}"></label>
+    <textarea name="notes" type="text" rows="8" cols="129" ng-model="order.notes" class="ng-pristine ng-untouched ng-valid"></textarea>
+</div>
+</div>

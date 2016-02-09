@@ -21,7 +21,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $location.path(Orders.route + '/create_hardware');
             };
             $scope.goToReturnSuppliesCreate = function(){
-                $location.path(Orders.route + '/create_return');
+                $location.path(Orders.route + '/supply/return/review');
             };
             $scope.goToSuppliesCatalogCreate = function(){
                 $location.path(Orders.route + '/create_catalog_supplies');

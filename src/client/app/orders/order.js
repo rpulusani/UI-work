@@ -35,6 +35,16 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/create-hardware.html',
             activeItem: '/orders'
         })
+        .when('/orders/supply/return/review', {
+            templateUrl: '/app/service_requests/templates/review.html',
+            controller: 'ReturnOrdersController',
+            activeItem: '/orders'
+        })
+        .when('/orders/supply/return/receipt', {
+            templateUrl: '/app/service_requests/templates/receipt.html',
+            controller: 'ReturnOrdersController',
+            activeItem: '/orders'
+        })
         .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'OrderPurchaseController',

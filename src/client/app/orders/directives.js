@@ -40,6 +40,12 @@ define(['angular', 'order'], function(angular) {
             templateUrl : '/app/orders/templates/catalog.html'
         };
     })
+    .directive('returnSupply', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/return-supply.html'
+        };
+    })
     .directive('orderShipToBillToDetails', function(){
         return{
             restrict: 'A',

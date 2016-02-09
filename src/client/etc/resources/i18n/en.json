@@ -330,6 +330,18 @@
     },
 
     "ORDER_MAN": {
+        "TYPES":{
+            "RETURN_SUPPLIES_DEFECTIVE_DURING_USE": "Defective during use",
+            "RETURN_SUPPLIES_DEFECTIVE_ON_ARRIVAL": "Defective on arrival",
+            "RETURN_SUPPLIES_EMPTY_RETURN": "Empty return",
+            "RETURN_SUPPLIES_END_OF_CONTRACT": "End of contract",
+            "RETURN_SUPPLIES_WRONG_ADDRESS": "Wrong address",
+            "RETURN_SUPPLIES_WRONG_PART": "Wrong part",
+            "RETURN_SUPPLIES_WRONG_QUANTITY": "Wrong Qunatity",
+            "RETURN_SUPPLIES_OVER_SHIP": "Over ship",
+            "RETURN_SUPPLIES_OVER_STOCK": "Over Stock",
+            "RETURN_SUPPLIES_ALL": "All of the above"
+        },
         "COMMON": {
             "TXT_GRID_ORDER_PART_NUM": "Part number",
             "TXT_GRID_ORDER_PRICE": "Price",
@@ -349,7 +361,18 @@
             "TEXT_INCLUDED_IN_LEASE": "Included in Lease",
             "TEXT_ACCOUNT_DETAILS": "Account details"
         },
-
+        "ORDER_SUPPLY_RETURN_REVIEW":{
+            "TXT_RETURN_TYPE": "Reason for return",
+            "TXT_NOTES": "Return Notes",
+            "TXT_TITLE": "Return Supplies",
+            "TXT_ORDER_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_SUB_TITLE": "Return Supplies information",
+            "TXT_ADDRESS_RETURN": "Address of item to be returned",
+            "LINK_TXT_ADDRESS_RETURN": "Please select return address >",
+            "TXT_RETURN_DETAILS": "Return details",
+            "BTN_REVIEW_SUBMIT": "REVIEW AND SUBMIT",
+            "BTN_ABANDON": "ABANDON SUPPLY RETURN"
+        },
         "ORDER_SELECT_BILL_TO_ADDR": {
             "BTN_ORDER_CHANGE_BILL_TO": "APPLY SELECTION",
             "BTN_ORDER_DISCARD_BILL_TO_CHANGE": "DISCARD BILL TO ADDRESS SELECTION",

@@ -3,6 +3,10 @@
 <!-- Begin Custom Modules for Requests -->
 
 <div class="page-content">
+    <div ng-if="configure.header.subHeader">
+        <h2 translate="{{configure.header.subHeader.translate.title}}" class="vertical-margin-bottom-0"></h2>
+        <hr class="vertical-margin-bottom-48"/>
+    </div>
     <div sr-device-update></div>
     <div sr-device-removal></div>
     <div sr-device-network-config></div>
@@ -13,6 +17,7 @@
     <div sr-device-service-details></div>
     <div sr-contact></div>
     <div sr-address></div>
+    <div return-supply></div>
     <div order-account-details></div>
     <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems" configure="configure"></div>
     <div order-ship-to-bill-to-details></div>

@@ -1,0 +1,281 @@
+define(['angular', 'utility.grid'], function(angular) {
+    'use strict';
+    angular.module('mps.orders')
+    .controller('ReturnOrdersController', [
+        'SRControllerHelperService',
+        '$scope',
+        '$rootScope',
+        'OrderRequest',
+        'Contacts',
+        'UserService',
+        'FormatterService',
+        'BlankCheck',
+        'OrderTypes',
+        function(
+            SRHelper,
+            $scope,
+            $rootScope,
+            Orders,
+            Contacts,
+            Users,
+            Formatter,
+            BlankCheck,
+            OrderTypes
+        ){
+        SRHelper.addMethods(Orders, $scope, $rootScope);
+
+        var configureSR = function(Orders){
+                    if(!Orders.item || !Orders.item.description){
+                        Orders.addField('description', '');
+                    }
+                    Orders.addRelationship('account', $scope.order);
+                    Orders.addRelationship('primaryContact', $scope.order, 'contact');
+            };
+        function getRequestor(Order, Contacts) {
+                Users.getLoggedInUserInfo().then(function() {
+                    Users.item.links.contact().then(function() {
+                        if(!Order.tempSpace){
+                            Order.tempSpace = {};
+                        }
+                        Order.tempSpace.requestedByContact = Users.item.contact.item;
+                        Order.addRelationship('requester', $rootScope.currentUser, 'contact');
+                        Order.tempSpace.primaryContact = Order.tempSpace.requestedByContact;
+                        Order.addRelationship('primaryContact', Order.tempSpace.requestedByContact, 'self');
+                        $scope.requestedByContactFormatted = Formatter.formatContact(Order.tempSpace.requestedByContact);
+                        $scope.formattedPrimaryContact = Formatter.formatContact(Order.tempSpace.primaryContact);
+                    });
+                });
+            }
+            if(Orders && !Orders.item){
+                Orders.newMessage();
+                configureSR(Orders);
+                getRequestor(Orders, Contacts);
+                $rootScope.order = Orders.item;
+            }else if($rootScope.selectedContact &&
+                $rootScope.returnPickerObject){
+                    Orders.item = $rootScope.returnPickerObject;
+                    $scope.order = $rootScope.returnPickerSRObject;
+                    Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                    Orders.tempSpace.primaryContact = angular.copy($rootScope.selectedContact);
+                    $scope.resetContactPicker();
+
+            }else{
+                $rootScope.order = Orders.item;
+                getRequestor(Orders, Contacts);
+            }
+            $scope.setupSR(Orders, configureSR);
+
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            function configureReviewTemplate(){
+                configureTemplates();
+                $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
+                $scope.configure.actions.submit = function(){
+                    if(!$scope.isLoading){
+                       $scope.isLoading = true;
+
+                       var deferred = Orders.post({
+                             item:  $scope.orders
+                        });
+
+                        deferred.then(function(result){
+                            if(Orders.item._links['tombstone']){
+                                $timeout(function(){
+                                        Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+                                            if(Tombstone.item && Tombstone.item.siebelId){
+                                                $location.search('tab',null);
+                                                Orders.item.requestNumber = Tombstone.item.siebelId;
+                                                ServiceReqeust.item = Orders.item;
+                                                $location.path(Orders.route + '/purchase/receipt/notqueued');
+                                            }else{
+
+                                                $location.search('tab',null);
+                                                $location.search("queued","true");
+                                                $location.path(Orders.route + '/purchase/receipt/queued');
+                                            }
+                                        });
+                                    },6000);
+                            }
+                        }, function(reason){
+                            NREUM.noticeError('Failed to create Order SR because: ' + reason);
+                        });
+                    }
+
+                };
+            }
+            function configureReceiptTemplate(){
+                $scope.configure.order.details.translate.action = undefined;
+                if($routeParams.queued ==='queued'){
+                    $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                        $scope.configure.header.translate.h1Values = {
+                            'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + Orders.item.type)
+                        };
+                        $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                        $scope.configure.header.translate.bodyValues= {
+                            'srHours': 24
+                        };
+                        $scope.configure.header.translate.readMore = undefined;
+                        $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                        $scope.configure.header.translate.actionValues = {
+                            actionLink: Orders.route,
+                            actionName: 'Manage Orders'
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                            }
+                        };
+                        $scope.configure.queued = true;
+                }else{
+                        $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
+                        $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
+                        $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                        $scope.configure.header.readMoreUrl = Devices.route;
+                        $scope.configure.header.translate.bodyValues= {
+                            'order': FormatterService.getFormattedSRNumber($scope.sr),
+                            'srHours': 24,
+                            'deviceManagementUrl': 'device_management/',
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                            }
+                        };
+                    $scope.configure.queued = false;
+                }
+                $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
+                $scope.configure.order.shipToBillTo = {
+                                translate:{
+                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE',
+                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
+                                }
+                            };
+                $scope.configure.order.po = {
+                    translate:{
+                        label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
+                        title:'ORDER_MAN.COMMON.TXT_ORDER_PO_DETAILS',
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+            }
+            function configureTemplates(){
+                 $scope.configure = {
+                    header: {
+                        translate:{
+                            h1: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_TITLE',
+                            h1Values: {},
+                            body: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_ORDER_PAR',
+                            bodyValues: '',
+                            readMore: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_LEARN_MORE'
+                        },
+                        readMoreUrl: '#',
+                        showCancelBtn: false,
+                        subHeader:{
+                            translate:{
+                                title: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_SUB_TITLE'
+                            }
+                        }
+                    },
+                    order:{
+                        returnSupplies:{
+                            translate:{
+                                returnDetails: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_RETURN_DETAILS',
+                                returnReason: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_RETURN_TYPE',
+                                returnNotes: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_NOTES'
+                            }
+                        }
+                    },
+                    address:{
+                        information:{
+                            translate:{
+                                title:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_ADDRESS_RETURN',
+                                makeChanges:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.LINK_TXT_ADDRESS_RETURN'
+                            }
+                        }
+                    },
+                    contact:{
+                        translate: {
+                            title: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACTS',
+                            requestedByTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
+                        },
+                        show:{
+                            primaryAction : true
+                        },
+                        pickerObject: $scope.order,
+                        source: 'ReturnOrders'
+                    },
+                    detail:{
+                        translate:{
+                            title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ADDL_DETAILS',
+                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                            comments: 'LABEL.COMMENTS',
+                            attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
+                            attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
+                            fileList: ''
+                        },
+                        show:{
+                            referenceId: true,
+                            costCenter: true,
+                            comments: true,
+                            attachements: true
+                        }
+                    },
+                    actions:{
+                        translate: {
+                            abandonRequest:'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_ABANDON_SUPPLIES',
+                            submit: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES'
+                        },
+                        submit: function() {
+                            //do nothing
+                        }
+                    },
+                    modal:{
+                        translate:{
+                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                            abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
+                        },
+                        returnPath: Orders.route + '/'
+                    },
+                    contactPicker:{
+                        translate:{
+                            title: 'CONTACT.SELECT_CONTACT',
+                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
+                        },
+                        returnPath: Orders.route + '/' +  '/review'
+                    }
+                };
+
+                var options = {
+                    params:{
+                        category:'RETURN_SUPPLY'
+                    }
+                };
+                OrderTypes.get(options).then(function(){
+                    $scope.configure.order.returnSupplies.typeList = OrderTypes.getTranslated();
+                });
+            }
+            if(Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)){
+                $scope.requestedByContactFormatted = Formatter.formatContact(Orders.tempSpace.requestedByContact);
+            }
+            if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
+                    $scope.formattedPrimaryContact = Formatter.formatContact(Orders.tempSpace.primaryContact);
+            }
+            if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.address)){
+                    $scope.formattedAddress = Formatter.formatAddress(Orders.tempSpace.address);
+            }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.address)){
+                $scope.formattedAddress = Formatter.formatNoneIfEmpty(Orders.tempSpace.address);
+            }else{
+                $scope.formattedAddress  = Formatter.formatNoneIfEmpty('');
+            }
+    }]);
+});
