@@ -11,6 +11,11 @@ define(['angular', 'utility.grid'], function(angular) {
         'FormatterService',
         'BlankCheck',
         'OrderTypes',
+        '$timeout',
+        'TombstoneService',
+        '$routeParams',
+        '$location',
+        '$translate',
         function(
             SRHelper,
             $scope,
@@ -20,7 +25,12 @@ define(['angular', 'utility.grid'], function(angular) {
             Users,
             Formatter,
             BlankCheck,
-            OrderTypes
+            OrderTypes,
+            $timeout,
+            Tombstone,
+            $routeParams,
+            $location,
+            $translate
         ){
         SRHelper.addMethods(Orders, $scope, $rootScope);
 
@@ -28,7 +38,7 @@ define(['angular', 'utility.grid'], function(angular) {
                     if(!Orders.item || !Orders.item.description){
                         Orders.addField('description', '');
                     }
-                    Orders.addRelationship('account', $scope.order);
+                    Orders.addAccountRelationship();
                     Orders.addRelationship('primaryContact', $scope.order, 'contact');
             };
         function getRequestor(Order, Contacts) {
@@ -51,8 +61,16 @@ define(['angular', 'utility.grid'], function(angular) {
                 configureSR(Orders);
                 getRequestor(Orders, Contacts);
                 $rootScope.order = Orders.item;
-            }else if($rootScope.selectedContact &&
+            }else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+                configureSR(Orders);
+                $scope.order = $rootScope.returnPickerSRObjectAddress;
+                Orders.addRelationship('shipToAddress', $rootScope.selectedAddress, 'self');
+                Orders.tempSpace.address = angular.copy($rootScope.selectedAddress);
+                $scope.resetAddressPicker();
+
+            } else if($rootScope.selectedContact &&
                 $rootScope.returnPickerObject){
+                    configureSR(Orders);
                     Orders.item = $rootScope.returnPickerObject;
                     $scope.order = $rootScope.returnPickerSRObject;
                     Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
@@ -74,7 +92,7 @@ define(['angular', 'utility.grid'], function(angular) {
                        $scope.isLoading = true;
 
                        var deferred = Orders.post({
-                             item:  $scope.orders
+                             item:  $scope.order
                         });
 
                         deferred.then(function(result){
@@ -85,12 +103,10 @@ define(['angular', 'utility.grid'], function(angular) {
                                                 $location.search('tab',null);
                                                 Orders.item.requestNumber = Tombstone.item.siebelId;
                                                 ServiceReqeust.item = Orders.item;
-                                                $location.path(Orders.route + '/purchase/receipt/notqueued');
+                                                $location.path(Orders.route + '/return/receipt/notqueued');
                                             }else{
-
                                                 $location.search('tab',null);
-                                                $location.search("queued","true");
-                                                $location.path(Orders.route + '/purchase/receipt/queued');
+                                                $location.path(Orders.route + '/return/receipt/queued');
                                             }
                                         });
                                     },6000);
@@ -103,11 +119,10 @@ define(['angular', 'utility.grid'], function(angular) {
                 };
             }
             function configureReceiptTemplate(){
-                $scope.configure.order.details.translate.action = undefined;
                 if($routeParams.queued ==='queued'){
                     $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                         $scope.configure.header.translate.h1Values = {
-                            'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + Orders.item.type)
+                            'type': $translate.instant('ORDER_MAN.TYPES.' + Orders.item.type),
                         };
                         $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
                         $scope.configure.header.translate.bodyValues= {
@@ -121,46 +136,31 @@ define(['angular', 'utility.grid'], function(angular) {
                         };
                         $scope.configure.receipt = {
                             translate:{
-                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                title:"ORDER_MAN.ORDER_SUPPLY_RETURN_RECEIPT.TXT_ORDER_DETAIL_RETURNS",
                                 titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                             }
                         };
                         $scope.configure.queued = true;
                 }else{
-                        $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
-                        $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
-                        $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
-                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
-                        $scope.configure.header.readMoreUrl = Devices.route;
+                        $scope.configure.header.translate.h1 = "ORDER_MAN.ORDER_SUPPLY_RETURN_RECEIPT.TXT_TITLE";
+                        $scope.configure.header.translate.h1Values = {};
+                        $scope.configure.header.translate.body = "ORDER_MAN.ORDER_SUPPLY_RETURN_RECEIPT.TXT_PARA";
+                        $scope.configure.header.translate.readMore = undefined;
+                        $scope.configure.header.readMoreUrl = undefined;
                         $scope.configure.header.translate.bodyValues= {
-                            'order': FormatterService.getFormattedSRNumber($scope.sr),
+                            'srNumber': FormatterService.getFormattedSRNumber($scope.order),
                             'srHours': 24,
-                            'deviceManagementUrl': 'device_management/',
+                            'orderUrl': Orders.route,
                         };
                         $scope.configure.receipt = {
                             translate:{
-                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                title:"ORDER_MAN.ORDER_SUPPLY_RETURN_RECEIPT.TXT_ORDER_DETAIL_RETURNS",
                                 titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                             }
                         };
                     $scope.configure.queued = false;
                 }
                 $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
-                $scope.configure.order.shipToBillTo = {
-                                translate:{
-                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
-                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
-                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
-                                    expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE',
-                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
-                                }
-                            };
-                $scope.configure.order.po = {
-                    translate:{
-                        label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
-                        title:'ORDER_MAN.COMMON.TXT_ORDER_PO_DETAILS',
-                    }
-                };
                 $scope.configure.contact.show.primaryAction = false;
             }
             function configureTemplates(){
@@ -188,13 +188,30 @@ define(['angular', 'utility.grid'], function(angular) {
                                 returnReason: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_RETURN_TYPE',
                                 returnNotes: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_NOTES'
                             }
-                        }
-                    },
-                    address:{
-                        information:{
-                            translate:{
-                                title:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_ADDRESS_RETURN',
-                                makeChanges:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.LINK_TXT_ADDRESS_RETURN'
+                        },
+                        address:{
+                            header:{
+                                translate:{
+                                    h1: 'ORDER_MAN.ORDER_SELECT_ADDRESS.TXT_ORDER_SELECT_RETURN_ADDRESS_TITLE',
+                                    h1Values: {},
+                                    body: 'ORDER_MAN.ORDER_SELECT_ADDRESS.TXT_ORDER_ADDRESS_PAR',
+                                    bodyValues: '',
+                                    readMore: ''
+                                }
+                            },
+                            information:{
+                                translate:{
+                                    title:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_ADDRESS_RETURN',
+                                    makeChanges:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.LINK_TXT_ADDRESS_RETURN'
+                                }
+                            },
+                            source:'ReturnOrders',
+                            pickerObject: $scope.order,
+                            actions:{
+                                translate: {
+                                    abandonRequest:'ORDER_MAN.ORDER_SELECT_ADDRESS.BTN_ORDER_DISCARD_ADDRESS',
+                                    submit: 'ORDER_MAN.ORDER_SELECT_ADDRESS.BTN_ORDER_CHANGE_ADDRESS'
+                                }
                             }
                         }
                     },
@@ -277,5 +294,12 @@ define(['angular', 'utility.grid'], function(angular) {
             }else{
                 $scope.formattedAddress  = Formatter.formatNoneIfEmpty('');
             }
+
+            $scope.formatReceiptData(function(){
+                if(Orders.item){
+                    $scope.formattedReason = Formatter.formatNoneIfEmpty(OrderTypes.getDisplay(Orders.item.type));
+                    $scope.formattedNotes = Formatter.formatNoneIfEmpty(Orders.item.description);
+                }
+            });
     }]);
 });

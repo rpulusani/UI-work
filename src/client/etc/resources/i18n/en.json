@@ -101,7 +101,7 @@
         },
          "RECEIPT":{
             "TXT_TITLE": "Your {{type}} request is being submitted",
-            "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"{{action}}\">{{actionTxt}}</a>\".",
+            "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"/queue\">Queued Items</a>\".",
             "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>",
             "TXT_GENERATING_REQUEST":" generating request number... "
         }
@@ -373,6 +373,24 @@
             "BTN_REVIEW_SUBMIT": "REVIEW AND SUBMIT",
             "BTN_ABANDON": "ABANDON SUPPLY RETURN"
         },
+        "ORDER_SUPPLY_RETURN_RECEIPT":{
+            "TXT_TITLE":"Return supplies order submitted",
+            "TXT_PARA" :"Your return supplies order ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{orderUrl}}\">view your orders</a>?",
+            "TXT_ORDER_DETAIL_RETURNS":"Details for Return Supplies Order Number: {{srNumber}}"
+       },
+       "ORDER_SELECT_ADDRESS": {
+            "BTN_ORDER_CHANGE_ADDRESS": "CHANGE RETURN ADDRESS",
+            "BTN_ORDER_DISCARD_ADDRESS": "DISCARD RETURN ADDRESS CHANGES",
+            "CTRL_GRID_SELECT_ADDR": "Address name",
+            "TXT_GRID_ADDR_NAME": "Selected Bill To Address",
+            "TXT_ORDER_ADDRESS_SELECTION": "Address selection",
+            "TXT_ORDER_ADDRESS_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+            "TXT_ORDER_ADDRESS_SELECTED": "No return address selected",
+            "TXT_ORDER_SELECT_RETURN_ADDRESS_TITLE": "Select return address",
+            "TXT_SEARCH": "Search",
+            "TXT_SELECT_ADDRESS": "Select address"
+        },
+
         "ORDER_SELECT_BILL_TO_ADDR": {
             "BTN_ORDER_CHANGE_BILL_TO": "APPLY SELECTION",
             "BTN_ORDER_DISCARD_BILL_TO_CHANGE": "DISCARD BILL TO ADDRESS SELECTION",

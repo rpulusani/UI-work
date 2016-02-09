@@ -20,6 +20,9 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory'], function(angular) 
                         list.push(item);
                     }
                     return list;
+                },
+                getDisplay: function(currentType){
+                    return $translate.instant('ORDER_MAN.TYPES.' + currentType);
                 }
             };
 

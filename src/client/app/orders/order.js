@@ -8,6 +8,11 @@ define(['angular'], function(angular) {
             controller: 'OrderTabController',
             activeItem: '/orders'
         })
+        .when('/orders/pick_address/:source', {
+            templateUrl: '/app/orders/templates/address-picker.html',
+            controller: 'AddressPickerController',
+            activeItem: '/orders'
+        })
         .when('/orders/pick_contact/:source', {
             templateUrl: '/app/orders/templates/contact-picker.html',
             controller: 'ContactPickerController',
@@ -58,6 +63,11 @@ define(['angular'], function(angular) {
         .when('/orders/purchase/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'OrderPurchaseController',
+            activeItem: '/orders',
+        })
+        .when('/orders/return/receipt/:queued', {
+            templateUrl: '/app/service_requests/templates/receipt.html',
+            controller: 'ReturnOrdersController',
             activeItem: '/orders',
         })
         .when('/orders/create_catalog_supplies', {

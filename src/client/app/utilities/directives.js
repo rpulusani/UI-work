@@ -117,7 +117,8 @@ define(['angular', 'utility'], function(angular) {
             scope: {
                 currentInstalledAddressTitle: '@',
                 replaceAddressTitle: '@',
-                sourceAddress: '@'
+                sourceAddress: '@',
+                customConfigure: '='
             },
             templateUrl: '/app/utilities/templates/pick-address.html',
             controller: 'AddressPickerController'

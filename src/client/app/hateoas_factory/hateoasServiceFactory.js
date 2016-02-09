@@ -143,6 +143,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     this.item._links = {};   //if halObject is not empty but missing the links sub object add it
                 }
             };
+            /* Adds the current Account selected in the system to this current request */
+            HATEOASFactory.prototype.addAccountRelationship = function(name){
+                var tempObject = {},
+                calculatedName = (name) ? altName: 'account';
+                if($rootScope.currentAccount && $rootScope.currentAccount.href){
+                    tempObject[calculatedName] = { href: $rootScope.currentAccount.href};
+                    angular.extend(this.item._links, tempObject);
+                }
+            };
 
             HATEOASFactory.prototype.addRelationship = function(name, halObj, altName){
                 var tempObject = {},
