@@ -39,6 +39,8 @@ requirejs.config({
             'dashboard',
             'dashboard.dashboardController',
 
+            'ngTagsInput',
+
             'library',
             'library.libraryFactory',
             'library.libraryListController',
@@ -102,6 +104,8 @@ requirejs.config({
         'googlecharting': ['angular'],
 
         'rome': ['angular'],
+
+        'ngTagsInput': ['angular'],
 
         'queue': ['angular'],
         'queue.directives': ['angular', 'queue'],
@@ -177,6 +181,8 @@ requirejs.config({
         'vButton': 'app/libs/v-button.min',
 
         'rome': 'app/libs/rome.min',
+
+        'ngTagsInput': 'app/libs/ng-tags-input.min',
 
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',

@@ -142,6 +142,7 @@ define([
         'ngCookies',
         'ngSanitize',
         'googlechart',
+        'ngTagsInput',
         'pascalprecht.translate',
         'vButton',
         'mps.hateoasFactory',
