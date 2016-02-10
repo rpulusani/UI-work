@@ -13,6 +13,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         'Contacts',
         'UserService',
         '$translate',
+        'HATEAOSConfig',
         function(
             $scope,
             $location,
@@ -24,12 +25,55 @@ define(['angular', 'serviceRequest'], function(angular) {
             BlankCheck,
             Contacts,
             Users,
-            $translate) {
+            $translate,
+            HATEAOSConfig) {
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
             $scope.goToReview = function() {
-                $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
+                $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/review');
+            };
+
+            $scope.updateSRObjectForSubmit = function() {
+                ServiceRequest.newMessage();
+                $scope.srToSubmit = ServiceRequest.item;
+                if($location.path().indexOf('CANCEL_INSTALL') > -1) {
+                    ServiceRequest.addField('type', 'CANCEL_INSTALL');
+                } else if ($location.path().indexOf('CANCEL_DECOMMISSION') > -1) {
+                    ServiceRequest.addField('type', 'CANCEL_DECOMMISSION');
+                } else if ($location.path().indexOf('CANCEL_MOVE') > -1) {
+                    ServiceRequest.addField('type', 'CANCEL_MOVE');
+                } else {
+                    ServiceRequest.addField('type', 'CANCEL_ALL');
+                }
+                ServiceRequest.addField('description', $scope.sr.cancellationDescription);
+                ServiceRequest.addField('notes', $scope.sr.notes);
+                ServiceRequest.addField('customerReferenceId', $scope.sr.customerReferenceId);
+                ServiceRequest.addRelationship('primaryContact', $scope.sr.primaryContact, 'self');
+                ServiceRequest.addRelationship('requester', $scope.sr.requestedByContact, 'self');
+                ServiceRequest.addRelationship('account', $scope.sr.requestedByContact, 'account');
+                ServiceRequest.addRelationship('relatedRequest', $scope.sr, 'self');
+            };
+
+            $scope.goToSubmit = function(){
+                $scope.updateSRObjectForSubmit();
+                if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
+                    HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
+                        ServiceRequest.item.postURL = api.url;
+                    });
+                }
+                var deferred = ServiceRequest.post({
+                    item:  $scope.srToSubmit
+                });
+
+                deferred.then(function(result){
+                    ServiceRequest.item = ServiceRequest.item;
+                    $rootScope.newSr = $scope.sr;
+                    $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
+                }, function(reason){
+                    NREUM.noticeError('Failed to create SR because: ' + reason);
+                });
+
             };
 
              var configureSR = function(ServiceRequest){
@@ -79,6 +123,7 @@ define(['angular', 'serviceRequest'], function(angular) {
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
             $scope.getRequestor(ServiceRequest, Contacts);
+
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION';
@@ -168,7 +213,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                             abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_CANCELLATION',
                             submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION'
                         },
-                        submit: $scope.goToReview
+                        submit: $scope.goToSubmit
                     },
                     contact:{
                         translate: {

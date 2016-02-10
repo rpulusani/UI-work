@@ -30,13 +30,23 @@ requirejs.config({
             'hateoasFactory',
             'hateoasFactory.serviceFactory',
 
+            'queue',
+            'queue.directives',
+            'queue.queueNotificationController',
+            'queue.queueListController',
+            'queue.tombstoneFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
+            'ngTagsInput',
+
             'library',
             'library.libraryFactory',
+            'library.libraryTagFactory',
             'library.libraryListController',
             'library.libraryController',
+            'library.libraryDeleteInlineController',
             'library.libraryViewController',
 
             'nav',
@@ -96,6 +106,14 @@ requirejs.config({
 
         'rome': ['angular'],
 
+        'ngTagsInput': ['angular'],
+
+        'queue': ['angular'],
+        'queue.directives': ['angular', 'queue'],
+        'queue.queueNotificationController': ['angular', 'queue'],
+        'queue.queueListController': ['angular', 'queue'],
+        'queue.tombstoneFactory': ['angular', 'queue'],
+
         'form':['angular', 'lxk.fef'],
         'form.datePicker' : ['form'],
         'form.directives': ['form'],
@@ -107,8 +125,10 @@ requirejs.config({
         'library': ['angular'],
         'library.libraryListController': ['library'],
         'library.libraryController': ['library'],
+        'library.libraryDeleteInlineController': ['library'],
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
+        'library.libraryTagFactory': ['library'],
         'library.directives': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
@@ -160,8 +180,11 @@ requirejs.config({
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
 
         'googlecharting': 'app/libs/ng-google-chart',
+        'vButton': 'app/libs/v-button.min',
 
         'rome': 'app/libs/rome.min',
+
+        'ngTagsInput': 'app/libs/ng-tags-input.min',
 
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
@@ -200,6 +223,12 @@ requirejs.config({
         'security': 'app/security/security',
         'security.securityService': 'app/security/securityService',
         'security.securityHelper': 'app/security/securityHelper',
+
+        'queue': 'app/queue/queue',
+        'queue.directives': 'app/queue/directives',
+        'queue.queueNotificationController': 'app/queue/queueNotificationController',
+        'queue.queueListController': 'app/queue/queueListController',
+        'queue.tombstoneFactory': 'app/queue/tombstoneFactory',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
@@ -296,7 +325,9 @@ requirejs.config({
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
         'contact.contactController': 'app/contact_service_requests/contactController',
+        'contact.contactDeleteController': 'app/contact_service_requests/contactDeleteController',
         'contact.contactListController': 'app/contact_service_requests/contactListController',
+        'contact.contactAddController': 'app/contact_service_requests/contactAddController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
@@ -340,8 +371,10 @@ requirejs.config({
         'library': 'app/library/library',
         'library.libraryListController': 'app/library/libraryListController',
         'library.libraryController': 'app/library/libraryController',
+        'library.libraryDeleteInlineController': 'app/library/libraryDeleteInlineController',
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
+        'library.libraryTagFactory': 'app/library/libraryTagFactory',
         'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',

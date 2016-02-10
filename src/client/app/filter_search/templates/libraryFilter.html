@@ -1,54 +1,57 @@
-<h2 translate="{{title}}"></h2>
+
 <div class="row">
     <div class="col-1-3">
         <h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_CATEGORY"></h3>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="nonstrategic" value="" data-js="strategic">
-            <label class="text--small" for="nonstrategic"><span></span> {{ 'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_NON_STRATEGIC' | translate }}</label>
-        </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="strategic" value="" data-js="strategic">
-            <label class="text--small" for="strategic"><span></span> {{ 'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC' | translate }}</label>
-        </div>
-    </div>
 
+            <div ng-repeat="cat in categories">
+                <label for="cat.name">
+                    <input type="checkbox" id="category{{$index + 1}}" name="category{{$index + 1}}"
+                        ng-model="cat.selected" ng-change="categoriesFilter(cat)" />
+                    {{cat.label}}
+                </label>
+            </div>
+    </div>
     <div class="col-1-3">
         <h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_OWNER"></h3>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="jdoe" value="" data-js="owner">
-            <label class="text--small" for="jdoe"><span></span> jdoe@customer.com</label>
-        </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="jpublic" value="" data-js="owner">
-            <label class="text--small" for="jpublic"><span></span> jpublic@lexmark.com</label>
-        </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="japublic" value="" data-js="owner">
-            <label class="text--small" for="japublic"><span></span> japublic@lexmark.com</label>
+
+        <div ng-repeat="owner in owners">
+                <label for="cat.name">
+                    <input type="checkbox" id="owner{{$index + 1}}" name="owner{{$index + 1}}"
+                        ng-model="owner.selected" ng-change="ownersFilter(owner)" />
+                    {{owner.name}}
+                </label>
         </div>
     </div>
 
     <div class="col-1-3">
         <h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS"></h3>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="business" value="" data-js="tags">
-            <label class="text--small" for="business"><span></span> business</label>
+
+        <div ng-repeat="tag in tags">
+                <label for="tag.name">
+                    <input type="checkbox" id="tag{{$index + 1}}" name="tag{{$index + 1}}"
+                        ng-model="tag.selected" ng-change="tagsFilter(tag)" />
+                    {{tag.name}}
+                </label>
         </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="document" value="" data-js="tags">
-            <label class="text--small" for="document"><span></span> document</label>
-        </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="internal" value="" data-js="tags">
-            <label class="text--small" for="internal"><span></span> internal</label>
-        </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="MPS" value="" data-js="tags">
-            <label class="text--small" for="MPS"><span></span> MPS</label>
-        </div>
-        <div class="form__field form__field--checkbox">
-            <input type="checkbox" id="training" value="" data-js="tags">
-            <label class="text--small" for="training"><span></span> training</label>
-        </div>
+    </div>
+</div>
+
+<br/>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showCategoryClearMessage">
+    <div class="footnotes">
+        <i>{{noOfCategoriesSelected}} {{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_CATEGORY_SELECTED' | translate }}</i>
+        <a href="" ng-click="clearCategoriesFilter()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_CLEAR_CATEGORY"></a>
+    </div>
+</div>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showOwnerClearMessage">
+    <div class="footnotes">
+        <i>{{noOfOwnersSelected}} {{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_OWNER_SELECTED' | translate }}</i>
+        <a href="" ng-click="clearOwnersFilter()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_CLEAR_OWNER"></a>
+    </div>
+</div>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showTagClearMessage">
+    <div class="footnotes">
+        <i>{{noOfTagsSelected}} {{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAG_SELECTED' | translate }}</i>
+        <a href="" ng-click="clearTagsFilter()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_CLEAR_TAG"></a>
     </div>
 </div>

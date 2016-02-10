@@ -1,11 +1,12 @@
 define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactory'], function(angular, contact) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl', 'UserService',
-        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users) {
+    .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl', 'UserService', 'ServiceRequestService',
+        function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users, ServiceRequest) {
             var Contacts = {
                 serviceName: 'contacts',
                 embeddedName: 'contacts',
+                url: serviceUrl + 'contacts',
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
@@ -19,7 +20,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                         },
                         {
                             name: $translate.instant('CONTACT.WORK_PHONE'),
-                            field: 'getWorkPhone()', 
+                            field: 'getWorkPhone()',
                             searchOn: 'workPhone'
                         },
                         {
@@ -28,19 +29,19 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             searchOn: 'emailAddress'
                         },
                         {
-                            name: $translate.instant('CONTACT.ID'), 
-                            field: 'id', 
-                            visible: false, 
+                            name: $translate.instant('CONTACT.ID'),
+                            field: 'id',
+                            visible: false,
                             dynamic: false
                         },
                         {
-                            name: $translate.instant('LABEL.COST_CENTER'), 
-                            field:'costCenter', 
+                            name: $translate.instant('LABEL.COST_CENTER'),
+                            field:'costCenter',
                             visible: false
                         },
                         {
-                            name: $translate.instant('CONTACT.FIRST_NAME'), 
-                            field:'_embedded.contact.firstName', 
+                            name: $translate.instant('CONTACT.FIRST_NAME'),
+                            field:'_embedded.contact.firstName',
                             visible: false
                         },
                         {
@@ -56,54 +57,12 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     ]
                 },
                 route: '/service_requests/contacts',
-                needsToVerify: false, // if verify directive needs to be displayed
-                alertState: false,
-                createSRFromContact: function(contact, srType) {
-                    var self = this,
-                    sr = {
-                        id: '',
-                        type: '',
-                        _links: {
-                            account: {
-                              href: ''
-                            },
-                            primaryContact: {
-                              href: ''
-                            },
-                            requester: {
-                              href: ''
-                            }
-                        }
-                    };
-
-                    if (!contact && this.item) {
-                        contact = this.item;
-                    }
-
-                    if (!srType) {
-                        srType = 'DATA_CONTACT_REMOVE';
-                        sr.type = srType;
-                    }
-
-                    Users.getLoggedInUserInfo().then(function() {
-                        sr._links.account = $rootScope.currentAccount.href;
-                        sr._links.primaryContact = self.url + '/' + self.item.id;
-                        sr._links.requester = self.url + '/' + self.item.id;
-                    });
-
-                    return sr;
-                },
-                goToCreate: function() {
-                    this.item = this.getModel();
-
-                    $location.path(this.route + '/new');
-                },
                 goToUpdate: function(contact) {
                     if (contact) {
                         this.setItem(contact);
                     }
 
-                    window.scrollTo(0,0)
+                    window.scrollTo(0,0);
 
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
@@ -120,8 +79,12 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + contact.id + '/review');
                 },
                 goToDelete: function(contact) {
-                    $location.path(this.route + '/' + this.item.id + '/receipt');
-                },
+                        ServiceRequest.reset();
+                        if (contact) {
+                            this.setItem(contact);
+                        }
+                        $location.path(this.route + '/delete/' + this.item.id + '/review');
+                    },
                 verifyAddress: function(addressObj, fn) {
                     this.get({
                         method: 'post',
@@ -132,25 +95,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     }).then(function(bodsRes) {
                         return fn(bodsRes.status, bodsRes.data);
                     });
-                },
-                getModel: function() {
-                    return {
-                        firstName: '',
-                        lastName: '',
-                        address: {
-                           country: ''
-                        },
-                        _links: {
-                            account: {
-                                href: ''
-                            }
-                        }
-                    };
-                },
-                beforeSave: function(contact, deferred) {
-                    contact._links.account.href = this.data[0]._links.account.href;
-
-                    deferred.resolve(true, contact);
                 },
                 functionArray: [
                     {

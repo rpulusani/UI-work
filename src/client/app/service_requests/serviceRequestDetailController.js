@@ -10,6 +10,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         'FormatterService',
         'BlankCheck',
         '$translate',
+        'OrderRequest',
+        '$timeout',
+        'OrderItems',
         function(
             $scope,
             $location,
@@ -18,7 +21,10 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             SRHelper,
             FormatterService,
             BlankCheck,
-            $translate
+            $translate,
+            Orders,
+            $timeout,
+            OrderItems
         ) {
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
@@ -116,6 +122,56 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_NUMBER';
             }
+            function addOrderInfo(){
+
+                $timeout(function(){
+                    OrderItems.columns = 'pruchaseSet';
+                        $scope.$broadcast('OrderContentRefresh', {
+                            'OrderItems': $scope.sr.item.orderItems // send whatever you want
+                        });
+                }, 50);
+                 $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES";
+                        $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
+                        $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                        $scope.configure.header.readMoreUrl = Orders.route;
+                        $scope.configure.header.translate.bodyValues= {
+                            'order': FormatterService.getFormattedSRNumber($scope.sr),
+                            'srHours': 24,
+                            'deviceManagementUrl': 'device_management/',
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                                titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                            }
+                        };
+                $scope.configure.queued = false;
+                $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
+                $scope.configure.order = {
+                    details:{
+                        translate:{
+                            title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS'
+                        }
+                    }
+                };
+                $scope.configure.order.shipToBillTo = {
+                                translate:{
+                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE',
+                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
+                                }
+                            };
+                $scope.configure.order.po = {
+                    translate:{
+                        label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
+                        title:'ORDER_MAN.COMMON.TXT_ORDER_PO_DETAILS',
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+            }
             function addAddressInfo(Title){
                 $scope.configure.address = {
                     information:{
@@ -183,7 +239,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     default:
                     $scope.redirectToList();
                 }
-                
+
             };
 
             $scope.goToServiceChange = function(requestNumber, type) {
@@ -192,6 +248,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
             $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
             switch($scope.sr.type){
+                case 'SUPPLIES_ASSET_ORDER':
+                    addOrderInfo();
+                break;
                 case 'DATA_ADDRESS_ADD':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED');
                     $scope.formattedAddress = "No Address information found";
@@ -267,30 +326,48 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 default:
                 break;
             }
-            if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
-                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
-            }
 
-            if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
-                    $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
-            }
+        if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
+                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
+        }
 
-            if (!BlankCheck.isNull($scope.device.deviceContact)) {
-                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
-            }
+        if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
+                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+        }
 
-            if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
-                !BlankCheck.isNull($scope.sr.primaryContact.item)){
-                        $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact.item);
-            }
-            if(!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.requester) &&
-                !BlankCheck.isNull($scope.sr.requester.item)){
-                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
-            }
-             if (!BlankCheck.isNull($scope.sr)) {
-                $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
-                $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
-                $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
-            }
+        if (!BlankCheck.isNull($scope.device.deviceContact)) {
+                $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+        }
+
+        if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
+            !BlankCheck.isNull($scope.sr.primaryContact.item)){
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact.item);
+        }
+        if(!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.requester) &&
+            !BlankCheck.isNull($scope.sr.requester.item)){
+            $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
+        }
+        if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
+                $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
+        }else {
+                $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
+        }
+
+        if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
+                $scope.formatedShipToAddress = FormatterService.formatAddress($scope.sr.shipToAddress.item);
+        }else {
+                $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty($scope.sr.shipToAddress);
+        }
+
+        if (!BlankCheck.isNull($scope.sr)) {
+            $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
+            $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+            $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+            $scope.formattedExpedite = FormatterService.formatYesNo($scope.sr.expediteOrder);
+            $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
+                FormatterService.formatDate($scope.sr.requestedDeliveryDate));
+            $scope.formattedPONumber = FormatterService.formatNoneIfEmpty($scope.sr.purchaseOrderNumber);
+            $scope.formattedInstructions = FormatterService.formatNoneIfEmpty($scope.sr.specialHandlingInstructions);
+        }
     }]);
 });

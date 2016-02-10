@@ -43,12 +43,12 @@ define(['angular'], function(angular) {
         .when('/orders/:id/receipt', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller:'ServiceRequestDetailController',
-            activeItem: '/orders'
+            activeItem: '/orders',
         })
-        .when('/orders/purchase/receipt', {
-                templateUrl: '/app/service_requests/templates/receipt.html',
-                controller: 'OrderPurchaseController',
-                activeItem: '/orders'
+        .when('/orders/purchase/receipt/:queued', {
+            templateUrl: '/app/service_requests/templates/receipt.html',
+            controller: 'OrderPurchaseController',
+            activeItem: '/orders',
         })
         .when('/orders/create_catalog_supplies', {
             templateUrl: '/app/orders/templates/create-catalog-supplies.html',
