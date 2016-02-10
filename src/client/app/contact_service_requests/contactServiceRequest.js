@@ -19,12 +19,12 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/contacts/new', {
                 templateUrl: '/app/contact_service_requests/templates/new.html',
-                controller: 'ContactAddController',
+                controller: 'ContactAddUpdateController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/:id/update', {
                 templateUrl: '/app/contact_service_requests/templates/update.html',
-                controller: 'ContactAddController',
+                controller: 'ContactAddUpdateController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/pick_contact/:source', {
