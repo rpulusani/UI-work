@@ -46,6 +46,11 @@ define(['angular', 'user'], function(angular) {
                 $scope.user.permissions = [];
                 $scope.user.selectedRoleList = [];
                 $scope.accounts = [];
+                $scope.userActive = false;
+
+                if ($scope.user.active === true) {
+                    $scope.userActive = true;
+                } 
 
                 if ($scope.user.item && $scope.user.item.address) {
                     $scope.user.address = $scope.user.item.address;

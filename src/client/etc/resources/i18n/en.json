@@ -1558,6 +1558,7 @@
             "USER_CREATED_MSG": "User has been created successfully!",
             "USER_INVITED_MSG": "users have been sent invites!",
             "DEACTIVATE_USER": "DEACTIVATE USER",
+            "ACTIVATE_USER": "ACTIVATE USER",
             "USER_PROFILE": "User profile",
             "ACCOUNT_ACCESS": "Account access",
             "DISCARD_USER_CHANGES": "DISCARD USER CHANGES",
