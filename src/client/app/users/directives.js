@@ -36,6 +36,13 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
             controller: 'UserAddController'
         };
     })
+    .directive('lexmarkUserFields', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/lexmark-user-fields.html',
+            controller: 'LexmarkUserAddController'
+        };
+    })
     .directive('userInviteFields', function() {
         return {
             restrict: 'A',
@@ -110,6 +117,12 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
         return {
             restrict: 'A',
             templateUrl: '/app/users/templates/user-update-buttons.html'
+        };
+    })
+    .directive('lexmarkUserButtons', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/users/templates/lexmark-user-buttons.html'
         };
     })
     .directive('manageUserTabs', function() {

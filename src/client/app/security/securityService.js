@@ -122,7 +122,23 @@ define(['angular', 'security'], function(angular) {
                         permissions.resolve(defaultPermissionsSet);
                     });
                 }else{
-                    permissions.reject(defaultPermissionsSet);
+                    if (currentUser.type === 'INTERNAL') {
+                        //options.preventDefaultParams = true;
+                        currentUser.links['permissions']().then(function(data){
+                            if(data.permissions && data.permissions.data){
+                                permissions.resolve(data.permissions.data);
+                            }else if(data.permissions && !data.permissions.data){
+                                permissions.resolve(data.permissions);
+                            }else{
+                                permissions.reject(defaultPermissionsSet);
+                            }
+                        }, function (){
+                            permissions.resolve(defaultPermissionsSet);
+                        });
+                    } else {
+                        permissions.reject(defaultPermissionsSet);
+                    }
+                    
                 }
                 return permissions.promise;
             };

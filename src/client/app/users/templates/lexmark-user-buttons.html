@@ -1,0 +1,21 @@
+ <div class="btns">
+    <button name="cancel"
+        class="btn btn--secondary"
+        data-js="modalOpen"
+        data-target="#cancel"
+        translate="USER.DISCARD_LEXMARK_USER_CHANGES"
+    ></button>
+    
+    <button class="btn btn--primary"
+        ng-click="save()"
+        translate="USER.UPDATE_LEXMARK_USER"
+    ></button>
+
+    <div confirm-cancel
+        title="USER.TITLE_USER_ABANDON_MODAL"
+        body="USER.BODY_USER_ABANDON_MODAL"
+        cancel="USER.ABANDON_USER_MODAL_CANCEL"
+        confirm="USER.ABANDON_USER_MODAL_CONFIRM"
+        return-path="/delegated_admin"
+    ></div>
+</div>

@@ -1570,7 +1570,9 @@
             "BODY_USER_ABANDON_MODAL": "The information you have entered will not be saved.",
             "ABANDON_USER_MODAL_CANCEL": "No, do not abandon this user",
             "ABANDON_USER_MODAL_CONFIRM": "Yes, abandon this user",
-            "ABANDON_USER": "Abandon User"
+            "ABANDON_USER": "Abandon User",
+            "UPDATE_LEXMARK_USER": "UPDATE LEXMARK USER",
+            "DISCARD_LEXMARK_USER_CHANGES": "DISCARD LEXMARK USER CHANGES"
         },
 
         "ROLE": {
@@ -1608,7 +1610,13 @@
             "COMPANY_ADMIN": "Company Administration",
             "CONTACT": "Contacts",
             "UPDATE_PAGE_COUNT": "Update Page Count",
-            "DASHBOARD": "Home"
+            "DASHBOARD": "Home",
+            "PORTAL_ADMIN": "Portal Administration",
+            "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
+            "NOTIFICATION_MANAGEMENT": "Notification Management",
+            "SIEBEL_MANAGEMENT": "Siebel Management",
+            "TRANSLATION_MANAGEMENT": "Translation Management",
+            "IMPERSONATION": "Impersonation"
          },
 
       "LABEL": {

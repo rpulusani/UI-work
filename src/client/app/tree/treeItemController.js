@@ -32,6 +32,7 @@ define([
                 if ($scope.item.expanded === true) {
                     if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                         $scope.item.items = [];
+                        console.log('$scope.item', $scope.item);
                         Account.setItem($scope.item);
                         var options = {
                             updateParams: false,
@@ -42,6 +43,7 @@ define([
                             }
                         };
                         Account.item.get(options).then(function(){
+                            console.log('Account.item', Account.item);
                             if (Account.item && Account.item.item) {
                                 Account.item = Account.item.item;
                             }

@@ -28,6 +28,18 @@ define([
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
             $scope.$route = $route;
+            $scope.isInternal = false;
+
+            $rootScope.currentUser.deferred.promise.then(function() {
+                //console.log('$rootScope.currentUser', $rootScope.currentUser);
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    //console.log('in condition', $rootScope.currentUser.type);
+                    $scope.isInternal = true;
+                    //console.log('$scope.isInternal', $scope.isInternal);
+                }
+            });
+
+            
 
             $scope.getItemsByTag = function(tag){
                 return Nav.getItemsByTag(tag);
@@ -64,6 +76,20 @@ define([
                     } else {
                        setupLinks();
                     }
+                } else {
+                    item.isExpanded = false;
+                    item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
+                }
+            };
+
+            $scope.dropdownNonAccount = function(item) {
+                var setupLinks = function() {
+                    item.isExpanded = true;
+                    item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
+                };
+
+                if (!item.isExpanded) {
+                    setupLinks();
                 } else {
                     item.isExpanded = false;
                     item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
