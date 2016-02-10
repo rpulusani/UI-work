@@ -37,7 +37,7 @@ define(['angular', 'contact'], function(angular) {
                 $rootScope.contactAlertMessage = undefined;
             }, 3600);
 
-            $scope.checkAddress = function() {
+            $scope.checkAddress = function(contactForm) {
                 if($scope.checkedAddress === 0){
                     $scope.enteredAddress = {
                         addressLine1: $scope.contact.address.addressLine1,
@@ -57,13 +57,13 @@ define(['angular', 'contact'], function(angular) {
                             }else{
                                 $scope.canReview = true;
                                 $scope.checkedAddress = 1;
-                                $scope.saveNewContact();
+                                $scope.saveContact(contactForm);
                             }
                         }else{
                             //an error validating address has occurred with bods (log a different way?)
                             $scope.canReview = true;
                             $scope.checkedAddress = 1;
-                            $scope.saveNewContact();
+                            $scope.saveContact(contactForm);
                         }
                     });
                 }
@@ -77,6 +77,7 @@ define(['angular', 'contact'], function(angular) {
                     $scope.contact.address.city = $scope.comparisonAddress.city;
                     $scope.contact.address.state = $scope.comparisonAddress.state;
                     $scope.contact.address.postalCode = $scope.comparisonAddress.postalCode;
+                    $scope.updatedAddress = true;
                 } else {
                     $scope.contact.address.country = $scope.enteredAddress.country;
                     $scope.contact.address.addressLine1 = $scope.enteredAddress.addressLine1;
@@ -116,7 +117,13 @@ define(['angular', 'contact'], function(angular) {
             };
 
             if(Contacts.item){
+                Contacts.tempSpace = {};
                 $scope.contact = Contacts.item;
+                $scope.comparisonAddress = {};
+                $scope.checkedAddress = 0;
+                $scope.needToVerify = false;
+                $scope.canReview = false;
+                $scope.updatedAddress = false;
                 if($rootScope.contactAlertMessage === 'saved'){
                     $rootScope.contactAlertMessage = 'saved';
                 }else if($rootScope.contactAlertMessage === 'updated'){
@@ -129,6 +136,8 @@ define(['angular', 'contact'], function(angular) {
                 $scope.comparisonAddress = {};
                 $scope.checkedAddress = 0;
                 $scope.needToVerify = false;
+                $scope.canReview = false;
+                $scope.updatedAddress = undefined;
                 $scope.getRequestor(ServiceRequest, Contacts);
             }
 
@@ -139,20 +148,42 @@ define(['angular', 'contact'], function(angular) {
            
 
             $scope.saveContact = function(contactForm) {
-                $scope.checkAddress();
+                $scope.checkAddress(contactForm);
                 if($scope.canReview === true && $scope.checkedAddress === 1){
                     updateContactObjectForSubmit();
                     Contacts.item.postURL = Contacts.url;
-                    var deferred = Contacts.post({
-                        item: $scope.contact
-                    });
+                    var deferred;
 
-                    deferred.then(function(result){
-                        $rootScope.contactAlertMessage = 'saved';
-                        $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create Contact because: ' + reason);
-                    });
+                    if(contactForm === 'newContact'){
+                        deferred = Contacts.post({
+                            item: $scope.contact
+                        });
+
+                        deferred.then(function(result){
+                            $rootScope.contactAlertMessage = 'saved';
+                            $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
+                        }, function(reason){
+                            NREUM.noticeError('Failed to create Contact because: ' + reason);
+                        });
+                    }else if(contactForm === 'editContact'){
+                        delete $scope.contact.account;
+                        delete $scope.contact.params;
+                        delete $scope.contact.url;
+                        Contacts.item.postURL = Contacts.item._links.self.href;
+                        deferred = Contacts.put({
+                            item: $scope.contact
+                        });
+
+                        deferred.then(function(result){
+                            $rootScope.contactAlertMessage = 'updated';
+                            window.scrollTo(0,0);
+                            Contacts.item.postUrl = Contacts.url;
+                            $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
+                        }, function(reason){
+                            NREUM.noticeError('Failed to update Contact because: ' + reason);
+                        });
+                    }
+
 
                 }
 

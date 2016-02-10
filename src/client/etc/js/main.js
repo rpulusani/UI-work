@@ -39,8 +39,11 @@ requirejs.config({
             'dashboard',
             'dashboard.dashboardController',
 
+            'ngTagsInput',
+
             'library',
             'library.libraryFactory',
+            'library.libraryTagFactory',
             'library.libraryListController',
             'library.libraryController',
             'library.libraryDeleteInlineController',
@@ -103,6 +106,8 @@ requirejs.config({
 
         'rome': ['angular'],
 
+        'ngTagsInput': ['angular'],
+
         'queue': ['angular'],
         'queue.directives': ['angular', 'queue'],
         'queue.queueNotificationController': ['angular', 'queue'],
@@ -123,6 +128,7 @@ requirejs.config({
         'library.libraryDeleteInlineController': ['library'],
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
+        'library.libraryTagFactory': ['library'],
         'library.directives': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
@@ -177,6 +183,8 @@ requirejs.config({
         'vButton': 'app/libs/v-button.min',
 
         'rome': 'app/libs/rome.min',
+
+        'ngTagsInput': 'app/libs/ng-tags-input.min',
 
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
@@ -366,6 +374,7 @@ requirejs.config({
         'library.libraryDeleteInlineController': 'app/library/libraryDeleteInlineController',
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
+        'library.libraryTagFactory': 'app/library/libraryTagFactory',
         'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',
