@@ -41,21 +41,17 @@
 
 <div class="form__field vertical-space--thick">
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION"></label>
-    <input name="description" type="text" ng-model="documentItem.description" value="" />
-</div>
-<!--
-<h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGING"></h4>
-<div class="form__field vertical-space--thick">
-    <label translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS"></label>
-    <!--<input name="tags2" type="text" ng-list ng-model="documentItem.tags2" value=""  /
+    <textarea name="description" type="text" rows="8" cols="77" ng-model="documentItem.description" value=""></textarea>
 </div>
 
-<div class="form__field vertical-space--thick">
-    <label translate="DOCUMENT_LIBRARY.COMMON.TXT_ADD_TAGS"></label>
-        <input name="tags" type="text" ng-list ng-model="documentItem.tags" value="" />
-        <button name="addTags" class="btn btn--primary" translate="DOCUMENT_LIBRARY.COMMON.BTN_ADD_TAG"
-            ng-click="addTags();"></button>
-</div>-->
+<h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGING"></h4>
+<div class="row row--alley-thick">
+    <div class="col-2-3">
+        <tags-input ng-model="documentItem.tags" display-property="name" placeholder="Select tags">
+            <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>
+    </div>
+</div>
 
 <h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISHING"></h4>
 <div class="row row--alley-thick">

@@ -10,6 +10,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
+            $scope.gridOptions.showBookmarkColumn = false;
             var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
 
            filterSearchService.addBasicFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS', false, removeParamsList,
@@ -65,20 +66,12 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.goToView = function(documentItem) {
-                var selfHrefArr = documentItem._links.self.href.split('/');
-                var documentId = selfHrefArr.pop();
-
-                documentItem.id = documentId;
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/view');
             };
 
             $scope.goToUpdate = function(documentItem) {
-                var selfHrefArr = documentItem._links.self.href.split('/');
-                var documentId = selfHrefArr.pop();
-
-                documentItem.id = documentId;
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/update');
