@@ -77,7 +77,6 @@ define(['angular', 'contact'], function(angular) {
                     $scope.contact.address.city = $scope.comparisonAddress.city;
                     $scope.contact.address.state = $scope.comparisonAddress.state;
                     $scope.contact.address.postalCode = $scope.comparisonAddress.postalCode;
-                    $scope.updatedAddress = true;
                 } else {
                     $scope.contact.address.country = $scope.enteredAddress.country;
                     $scope.contact.address.addressLine1 = $scope.enteredAddress.addressLine1;
@@ -116,6 +115,15 @@ define(['angular', 'contact'], function(angular) {
                 });
             };
 
+            $scope.addressValuesChanged = function(){
+                if($scope.contact.address.addressLine1 !== $scope.originalAddress.addressLine1 ||
+                    $scope.contact.address.addressLine2 !== $scope.originalAddress.addressLine2 ||
+                    $scope.contact.address.city !== $scope.originalAddress.city ||
+                    $scope.contact.address.state !== $scope.originalAddress.state ||
+                    $scope.contact.address.postalCode !== $scope.originalAddress.postalCode)
+                    $scope.updatedAddress = true;
+            };
+
             if(Contacts.item){
                 Contacts.tempSpace = {};
                 $scope.contact = Contacts.item;
@@ -124,6 +132,7 @@ define(['angular', 'contact'], function(angular) {
                 $scope.needToVerify = false;
                 $scope.canReview = false;
                 $scope.updatedAddress = false;
+                $scope.originalAddress = angular.copy($scope.contact.address);
                 if($rootScope.contactAlertMessage === 'saved'){
                     $rootScope.contactAlertMessage = 'saved';
                 }else if($rootScope.contactAlertMessage === 'updated'){
@@ -137,7 +146,6 @@ define(['angular', 'contact'], function(angular) {
                 $scope.checkedAddress = 0;
                 $scope.needToVerify = false;
                 $scope.canReview = false;
-                $scope.updatedAddress = undefined;
                 $scope.getRequestor(ServiceRequest, Contacts);
             }
 
@@ -176,12 +184,19 @@ define(['angular', 'contact'], function(angular) {
 
                         deferred.then(function(result){
                             $rootScope.contactAlertMessage = 'updated';
-                            window.scrollTo(0,0);
+                            $scope.addressValuesChanged();
+                            if($scope.updatedAddress === true && $scope.checkedAddress === 1){
+                                 $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');
+                            }else{
+                                window.scrollTo(0,0);
+                            }
                             Contacts.item.postUrl = Contacts.url;
-                            $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
+                            //$location.path(Contacts.route + '/' + $scope.contact.id + '/update');
                         }, function(reason){
                             NREUM.noticeError('Failed to update Contact because: ' + reason);
                         });
+                        //enter into Service Request creation for Address update
+                        
                     }
 
 

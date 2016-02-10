@@ -3,92 +3,172 @@ define(['angular', 'contact'], function(angular) {
     angular.module('mps.serviceRequestContacts')
     .controller('ContactController', [
         '$scope',
+        '$location',
         'Contacts',
         '$translate',
         '$rootScope',
         'FormatterService',
+        'BlankCheck',
+        'UserService',
         'ServiceRequestService',
         'SRControllerHelperService',
-        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest, SRHelper) {
+        function($scope,
+            $location,
+            Contacts,
+            $translate,
+            $rootScope,
+            FormatterService,
+            BlankCheck,
+            Users,
+            ServiceRequest,
+            SRHelper
+            ) {
+
             SRHelper.addMethods(Contacts, $scope, $rootScope);
 
-            $scope.contacts = Contacts;
+            var configureSR = function(ServiceRequest){
+                ServiceRequest.addRelationship('account', $scope.contact);
+                ServiceRequest.addRelationship('sourceAddress', $scope.contact, 'self');
+                ServiceRequest.addField('type', 'DATA_CONTACT_CHANGE');
+            };
+
+            $scope.getRequestor = function(ServiceRequest, Contacts) {
+                Users.getLoggedInUserInfo().then(function() {
+                    Users.item.links.contact().then(function() {
+                        $scope.contact.requestedByContact = Users.item.contact.item;
+                        ServiceRequest.addRelationship('requester', $scope.contact.requestedByContact, 'self');
+                        if(!$scope.contact.primaryContact){
+                            $scope.contact.primaryContact = $scope.contact.requestedByContact;
+
+                            ServiceRequest.addRelationship('primaryContact', $scope.contact.requestedByContact, 'self');
+                        }
+                        $scope.formatAdditionalData();
+                    });
+                });
+            };
+
+            $scope.formatAdditionalData = function() {
+                if (!BlankCheck.isNull($scope.contact.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.contact.primaryContact);
+                }
+
+                if (!BlankCheck.isNull($scope.contact.address)) {
+                    $scope.formattedContactAddress = FormatterService.formatAddress($scope.contact.address);
+                }
+
+                if (!BlankCheck.isNull($scope.contact)) {
+                    $scope.formattedContact = FormatterService.formatContact($scope.contact);
+                }
+
+                if (!BlankCheck.isNull($scope.contact.requestedByContact)) {
+                    $scope.requestedByContactFormatted = FormatterService.formatContact($scope.contact.requestedByContact);
+                }
+                if (!BlankCheck.isNull($scope.sr.customerReferenceId)) {
+                    $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
+                }
+
+                if (!BlankCheck.isNull($scope.sr.costCenter)) {
+                    $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
+                }
+
+            };
 
             if (Contacts.item === null) {
-                Contacts.goToList();
-            } else {
-                // Address information from /address-validation
-                $scope.comparisonAddress = false;
-                // the verify radio btn value
-                $scope.acceptedEnteredAddress = 1;
-                // User has been prompted with the need to verify and can now save/update
-                $scope.canSave = false;
+                $scope.redirectToList();
+            } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Contacts.item.id){
+                $scope.contact = $rootScope.returnPickerObject;
+                $scope.sr = $rootScope.returnPickerSRObject;
+                ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                $scope.contact.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.formatAdditionalData();
+                $scope.resetContactPicker();
+            }else if($rootScope.contactPickerReset){
+                $rootScope.contact = Contacts.item;
+                $rootScope.contactPickerReset = false;
+            }else {
+                $scope.contact = Contacts.item;
+                if (Contacts.item && !BlankCheck.isNull(Contacts.item['contact']) && Contacts.item['contact']['item']) {
+                    $scope.Contacts.primaryContact = Contacts.item['contact']['item'];
+                }else if(Contacts.item && !BlankCheck.isNull(Contacts.item['contact'])){
+                    $scope.Contacts.primaryContact = Contacts.item['contact'];
+                }
 
-                $scope.updateContact = function(contactForm) {
-                    var runUpdate = function(item) {
-                         Contacts.update(item, {
-                            preventDefaultParams: true
-                        }).then(function() {
-                            $scope.canSave = false;
+                if ($rootScope.returnPickerObject && $rootScope.selectionId !== Contacts.item.id) {
+                    $scope.resetContactPicker();
+                }
+            }
 
-                            Contacts.alertState = 'updated';
-                            Contacts.goToUpdate();
-                        });
-                    };
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+            $scope.getRequestor(ServiceRequest, Contacts);
 
-                    Contacts.item.postURL = Contacts.url + '/' + Contacts.item.id;
 
-                    if ($scope.canSave === true) {
-                        runUpdate(Contacts.item);
-                    } else {
-                        if (!contactForm.addressLine1.$pristine ||
-                            !contactForm.addressLine2.$pristine ||
-                            !contactForm.postalCode.$pristine) {
-                            Contacts.verifyAddress($scope.contacts.item.address, function(statusCode, bodsData) {
-                                if (statusCode === 200) {
-                                    $scope.comparisonAddress = bodsData;
-                                } else {
-                                    runUpdate(Contacts.item);
-                                }
-
-                                if ($scope.acceptedEnteredAddress === 2) {
-                                    Contacts.item.address = $scope.comparisonAddress;
-                                }
-
-                                $scope.canSave = true;
-                            });
-                        } else {
-                             runUpdate(Contacts.item);
-                        }
-                    }
+            function configureReviewTemplate(){
+                $scope.configure.actions.translate.submit = 'CONTACT_SERVICE_REQUEST.SUBMIT_UPDATE_CONTACT_REQUEST';
+                $scope.configure.actions.submit = function(){
+                    var deferred = ServiceRequest.post({
+                         item:  $scope.sr
+                    });
+                    deferred.then(function(result){
+                        $rootScope.newContact = $scope.contact;
+                        $rootScope.newSr = $scope.sr;
+                        $location.path(Contacts.route + '/update/' + $scope.contact.id + '/receipt');
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
                 };
-
-                $scope.translationPlaceHolder = {
-                    contactInfo: $translate.instant('CONTACT.INFO'),
-                    requestContactInfo: $translate.instant('DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION'),
-                    submit: $translate.instant('CONTACT_SERVICE_REQUEST.SUBMIT_DELETE'),
-                    cancel: $translate.instant('CONTACT_SERVICE_REQUEST.ABANDON_DELETE')
+            }
+            function configureReceiptTemplate(){
+                $scope.configure.header.translate.h1 = "CONTACT_SERVICE_REQUEST.SR_UPDATE_TITLE";
+                $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.UPDATE_CONTACT_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.bodyValues= {
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                    'srHours': 24,
+                    'contactManagementUrl': 'service_requests/contacts',
                 };
-
-                $scope.formattedPrimaryContact = FormatterService.formatContact(Contacts.item);
-                $scope.requestedByContactFormatted = FormatterService.formatContact({
-                    firstName: $rootScope.currentUser.firstName,
-                    lastName: $rootScope.currentUser.lastName,
-                    workPhone: $rootScope.currentUser.workPhone
-                });
-
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"CONTACT_SERVICE_REQUEST.UPDATE_CONTACT_DETAIL",
+                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    },
+                    print: true
+                };
+                $scope.configure.contactsr.translate.title = 'CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE';
+                $scope.configure.contact.show.primaryAction = false;
+            }
+            function configureTemplates(){
                 $scope.configure = {
                     header: {
                         translate:{
-                            h1: 'CONTACT_SERVICE_REQUEST.DELETE',
-                            body: 'MESSAGE.LIPSUM'
+                            h1: 'CONTACT_SERVICE_REQUEST.UPDATE',
+                            body: 'MESSAGE.LIPSUM',
+                            bodyValues: '',
+                            readMore: ''
                         },
                         readMoreUrl: '',
                         showCancelBtn: false
                     },
+                    contactsr:{
+                        translate: {
+                            title: 'CONTACT.INFO'
+                        }
+                    },
+                    contact:{
+                        translate: {
+                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
+                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
+                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        },
+                        show:{
+                            primaryAction : true
+                        },
+                        pickerObject: $scope.contact,
+                        source: 'ContactAddressUpdate'
+                    },
                     detail:{
                         translate:{
-                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
+                            title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
                             referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
                             costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
                             comments: 'LABEL.COMMENTS',
@@ -103,80 +183,53 @@ define(['angular', 'contact'], function(angular) {
                             attachements: true
                         }
                     },
-                    contact: {
-                        translate: {
-                            title: 'DEVICE_SERVICE_REQUEST.REQUEST_CONTACT_INFORMATION',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT',
-                            requestedByTitle: 'Request created by',
-
-                        },
-                        show: {
-                            primaryAction: true
-                        },
-                        pickerObject: Contacts.item,
-                        source: 'Contact'
-                    },
-                    contactsr: {
-                        translate: {
-                            title: 'CONTACT.INFO',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
-                        }
-                    },
-                    actions: {
+                    actions:{
                         translate: {
                             abandonRequest:'CONTACT_SERVICE_REQUEST.CANCEL',
-                            submit: 'CONTACT_SERVICE_REQUEST.SR_DELETE'
+                            submit: 'LABEL.REVIEW_SUBMIT'
                         },
-                        submit: function() {
-                            $scope.processDelete();
+                        submit: function(){
+                            $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');
                         }
                     },
-                    statusList:[{
-                        'label':'Submitted',
-                        'date': '1/29/2016',
-                        'current': true
-                    }, {
-                        'label':'In progress',
-                        'date': '',
-                        'current': false
-                    }, {
-                        'label':'Completed',
-                        'date': '',
-                        'current': false
-                    }]
+                    modal:{
+                        translate:{
+                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                            abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
+                        },
+                        returnPath: '/service_requests/contacts'
+                    },
+                    contactPicker:{
+                        translate:{
+                            title: 'CONTACT.SELECT_CONTACT',
+                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
+                        },
+                        returnPath: Contacts.route + '/update/' + $scope.contact.id + '/review'
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
-
-                //ServiceRequest.setItem(Contacts.createSRFromContact());
-                //$scope.setupSR(ServiceRequest);
-
-                if (Contacts.submitedSR) {
-                    $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_TITLE';
-
-                    $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.DELETE_CONTACT_SUBMIT_HEADER_BODY";
-                    $scope.configure.header.translate.readMore = 'CONTACT_SERVICE_REQUEST.RETURN_LINK';
-                    $scope.configure.header.translate.readMoreUrl = Contacts.route;
-                    $scope.configure.header.translate.bodyValues = {
-                        srNumber: ServiceRequest.item.id,
-                        srHours: 24
-                    };
-
-                    $scope.formattedReferenceId = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
-                    $scope.formattedCostCenter = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
-                    $scope.formattedNotes = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
-                    $scope.formattedAttachments = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
-
-                    $scope.configure.receipt = {
-                        translate: {
-                            title: 'CONTACT_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL',
-                            titleValues: {'srNumber': ServiceRequest.item.id },
-                            abandonRequest:'CONTACT_SERVICE_REQUEST.CANCEL',
-                            submit: 'CONTACT_SERVICE_REQUEST.SR_UPDATE'
-                        }
-                    };
-                }
             }
+
+            $scope.formatReceiptData($scope.formatAdditionalData);
+
         }
     ]);
 });

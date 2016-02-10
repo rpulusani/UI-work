@@ -7,12 +7,12 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/contact_service_requests/templates/view.html',
                 controller: 'ContactListController'
             })
-            .when('/service_requests/contacts/:id/review', {
+            .when('/service_requests/contacts/update/:id/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'
             })
-            .when('/service_requests/contacts/:id/receipt', {
+            .when('/service_requests/contacts/update/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'

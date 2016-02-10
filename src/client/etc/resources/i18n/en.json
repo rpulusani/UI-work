@@ -725,13 +725,16 @@
         "EDIT_INFO": "Edit address information",
         "SR_UPDATE": "Submit Update Contact Request",
         "SR_DELETE": "Submit Delete Contact Request",
-        "SR_DELETE_TITLE": "Update Contact Request Submitted",
+        "SR_UPDATE_TITLE": "Update Contact Request Submitted",
         "REQUEST_SERVICE_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
         "DELETE_CONTACT_SUBMIT_HEADER_BODY": "Your delete contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{contactManagementUrl}}\">manage another contact</a>?",
+        "UPDATE_CONTACT_SUBMIT_HEADER_BODY": "Your update contact request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{contactManagementUrl}}\">manage another contact</a>?",
         "RETURN_LINK": "Would You Like to Manage another Contact?",
         "TXT_NONE": "None",
         "DELETE_CONTACT_DETAIL": "Details for Delete Contact Request Number: {{srNumber}}",
-        "SR_DELETE_SUBMITTED": "Delete Contact Request Submitted"
+        "UPDATE_CONTACT_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
+        "SR_DELETE_SUBMITTED": "Delete Contact Request Submitted",
+        "SUBMIT_UPDATE_CONTACT_REQUEST": "Submit Update Contact Request"
     },
 
         "DEVICE_SERVICE_REQUEST": {

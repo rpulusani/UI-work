@@ -71,13 +71,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
 
                     $location.path(this.route + '/');
                 },
-                goToReview: function(contact) {
-                    if (contact) {
-                        this.setItem(contact);
-                    }
-             
-                    $location.path(this.route + '/' + contact.id + '/review');
-                },
                 goToDelete: function(contact) {
                         ServiceRequest.reset();
                         if (contact) {
