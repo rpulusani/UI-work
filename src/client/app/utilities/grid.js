@@ -203,7 +203,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 scope[self.optionsName].showBookmarkColumn = true;
                 self.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
-                if (typeof scope.bookmark !== 'function' && service.item && service.item.links) {
+                if (typeof scope.bookmark !== 'function' && service.item && service.item.links && service.serviceName === 'assets') {
                     scope.bookmark = function(rowEntity) {
                         var node = angular.element(document.getElementsByClassName('bookmark-' + rowEntity.id)[0].childNodes);
                     
