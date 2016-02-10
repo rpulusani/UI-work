@@ -41,7 +41,7 @@ define(['angular', 'utility.grid'], function(angular) {
                     Orders.addAccountRelationship();
                     Orders.addRelationship('primaryContact', $scope.order, 'contact');
             };
-        function getRequestor(Order, Contacts) {
+            function getRequestor(Order, Contacts) {
                 Users.getLoggedInUserInfo().then(function() {
                     Users.item.links.contact().then(function() {
                         if(!Order.tempSpace){
@@ -57,11 +57,14 @@ define(['angular', 'utility.grid'], function(angular) {
                 });
             }
             if(Orders && !Orders.item){
+
                 Orders.newMessage();
                 configureSR(Orders);
                 getRequestor(Orders, Contacts);
                 $rootScope.order = Orders.item;
+
             }else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+
                 configureSR(Orders);
                 $scope.order = $rootScope.returnPickerSRObjectAddress;
                 Orders.addRelationship('shipToAddress', $rootScope.selectedAddress, 'self');
@@ -70,6 +73,7 @@ define(['angular', 'utility.grid'], function(angular) {
 
             } else if($rootScope.selectedContact &&
                 $rootScope.returnPickerObject){
+
                     configureSR(Orders);
                     Orders.item = $rootScope.returnPickerObject;
                     $scope.order = $rootScope.returnPickerSRObject;
@@ -86,6 +90,14 @@ define(['angular', 'utility.grid'], function(angular) {
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
             function configureReviewTemplate(){
                 configureTemplates();
+                var options = {
+                    params:{
+                        category:'RETURN_SUPPLY'
+                    }
+                };
+                OrderTypes.get(options).then(function(){
+                        $scope.configure.order.returnSupplies.typeList = OrderTypes.getTranslated();
+                });
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){
                     if(!$scope.isLoading){
@@ -103,10 +115,12 @@ define(['angular', 'utility.grid'], function(angular) {
                                                 $location.search('tab',null);
                                                 Orders.item.requestNumber = Tombstone.item.siebelId;
                                                 ServiceReqeust.item = Orders.item;
-                                                $location.path(Orders.route + '/return/receipt/notqueued');
+                                                //$location.path(Orders.route + '/return/receipt/notqueued');
+                                                console.log('not queued');
                                             }else{
                                                 $location.search('tab',null);
-                                                $location.path(Orders.route + '/return/receipt/queued');
+                                               // $location.path(Orders.route + '/return/receipt/queued');
+                                               console.log('queued');
                                             }
                                         });
                                     },6000);
@@ -162,7 +176,9 @@ define(['angular', 'utility.grid'], function(angular) {
                 }
                 $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
                 $scope.configure.contact.show.primaryAction = false;
+
             }
+
             function configureTemplates(){
                  $scope.configure = {
                     header: {
@@ -271,16 +287,8 @@ define(['angular', 'utility.grid'], function(angular) {
                         returnPath: Orders.route + '/' +  '/review'
                     }
                 };
-
-                var options = {
-                    params:{
-                        category:'RETURN_SUPPLY'
-                    }
-                };
-                OrderTypes.get(options).then(function(){
-                    $scope.configure.order.returnSupplies.typeList = OrderTypes.getTranslated();
-                });
             }
+
             if(Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)){
                 $scope.requestedByContactFormatted = Formatter.formatContact(Orders.tempSpace.requestedByContact);
             }

@@ -45,11 +45,6 @@ define(['angular'], function(angular) {
             controller: 'ReturnOrdersController',
             activeItem: '/orders'
         })
-        .when('/orders/supply/return/receipt', {
-            templateUrl: '/app/service_requests/templates/receipt.html',
-            controller: 'ReturnOrdersController',
-            activeItem: '/orders'
-        })
         .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'OrderPurchaseController',
@@ -58,17 +53,17 @@ define(['angular'], function(angular) {
         .when('/orders/:id/receipt', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller:'ServiceRequestDetailController',
-            activeItem: '/orders',
+            activeItem: '/orders'
         })
         .when('/orders/purchase/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'OrderPurchaseController',
-            activeItem: '/orders',
+            activeItem: '/orders'
         })
         .when('/orders/return/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'ReturnOrdersController',
-            activeItem: '/orders',
+            activeItem: '/orders'
         })
         .when('/orders/create_catalog_supplies', {
             templateUrl: '/app/orders/templates/create-catalog-supplies.html',
