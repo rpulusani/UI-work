@@ -14,7 +14,7 @@
 </div>
 
 <div class="page-content">
-    <form class="form" ng-submit="saveContact(newContact)" data-form="" name="newContact" novalidate>
+    <form class="form" ng-submit="saveContact('newContact')" data-form="" name="newContact" novalidate>
         <div class="col-2-3 l-alley-after">
             <div new-contact-fields></div>
         </div>
@@ -22,7 +22,7 @@
         <div class="btns">
             <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
                 translate="CONTACT_SERVICE_REQUEST.ABANDON_ADD"></button>
-            <button name="submit" class="btn btn--primary" ng-click="saveContact(newContact)" type="submit"
+            <button name="submit" class="btn btn--primary" ng-click="saveContact('newContact')" type="submit"
                 translate="CONTACT_SERVICE_REQUEST.SUBMIT"></button>
         </div>
     </form>
