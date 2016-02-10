@@ -2,8 +2,8 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
-        'translationPlaceHolder', 'Documents', 'BlankCheck', '$rootScope', 'FormatterService',
-        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, BlankCheck,
+        'translationPlaceHolder', 'Documents', 'Tags', 'BlankCheck', '$rootScope', 'FormatterService',
+        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, BlankCheck,
             $rootScope, Formatter) {
 
             $scope.translationPlaceHolder = translationPlaceHolder;
@@ -34,6 +34,17 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             $scope.goToCancelDelete = function () {
                 $scope.isDeleting = false;
             };
+
+            $scope.tags = [];
+            Tags.get().then(function() {
+                var tagList = Tags.data;
+                for (var i = 0; i < tagList.length; i++) {
+                    var tag = {};
+                    tag.name = tagList[i]['name'];
+                    $scope.tags.push(tag);
+                }
+            });
+            console.log($scope.tags);
 
             $scope.setDocumentName = function() {
                 var tmp = event.target.files[0].name;
@@ -113,25 +124,8 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.loadTags = function(query) {
-                var tags = [
-                 { name: 'business' },
-                 { name: 'document' },
-                 { name: 'internal' },
-                 { name: 'MPS' },
-                 { name: 'training' }
-             ];
-                return tags;
-            };
-
-            $scope.goToShowTags = function()  {
-                $scope.isShowingTags = true;
-                console.log('show tags');
-            };
-            
-            $scope.goToHideTags = function()  {
-                $scope.isShowingTags = false;
-                console.log('hide tags');
-            };
+                return $scope.tags;
+            }
 
             $scope.goToDelete = function() {
                 $http({

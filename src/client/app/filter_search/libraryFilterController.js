@@ -1,8 +1,8 @@
 define(['angular', 'filterSearch'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .controller('LibraryFilterController', ['$scope', '$translate',
-        function($scope, $translate) {
+    .controller('LibraryFilterController', ['$scope', '$translate', 'Tags',
+        function($scope, $translate, Tags) {
             $scope.showCategoryClearMessage = false;
             $scope.showOwnerClearMessage = false;
             $scope.showTagClearMessage = false;
@@ -25,13 +25,16 @@ define(['angular', 'filterSearch'], function(angular) {
                 {name: 'debenhamschl@test.com', selected: false }
             ];
  
-            $scope.tags = [
-                {name: 'business', selected: false },
-                {name: 'document', selected: false },
-                {name: 'internal', selected: false },
-                {name: 'MPS', selected: false },
-                {name: 'training', selected: false }
-            ];
+            $scope.tags = [];
+            Tags.get().then(function() {
+                var tagList = Tags.data;
+                for (var i = 0; i < tagList.length; i++) {
+                    var tag = {};
+                    tag.name = tagList[i]['name'];
+                    tag.selected = false;
+                    $scope.tags.push(tag);
+                }
+            });
 
             $scope.categoriesFilter = function(cat) {
                 if (cat.selected) {

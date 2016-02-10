@@ -83,6 +83,7 @@ define([
     'library.libraryListController',
     'library.libraryViewController',
     'library.libraryFactory',
+    'library.libraryTagFactory',
     'library.directives',
     'invoice',
     'invoice.invoiceController',
