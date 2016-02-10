@@ -34,12 +34,10 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $scope.contacts = Contacts;
 
         $scope.selectRow = function(btnType) {
-            if(btnType !== 'delete') {
-                Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
-            }else if(btnType === 'delete'){
+            if(btnType === 'delete'){
                 Contacts.goToDelete($scope.gridApi.selection.getSelectedRows()[0]);
-            } else {
-                Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
+            }else{
+                Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
             }
         };
 
@@ -48,6 +46,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
             Contacts.tempSpace = {};
             $location.path('/service_requests/contacts/new');
         };
+
 
         Contacts.alertState = false;
         var removeParamsList = ['location'];

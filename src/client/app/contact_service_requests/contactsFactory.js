@@ -57,7 +57,6 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     ]
                 },
                 route: '/service_requests/contacts',
-                alertState: 'initial',
                 goToUpdate: function(contact) {
                     if (contact) {
                         this.setItem(contact);
