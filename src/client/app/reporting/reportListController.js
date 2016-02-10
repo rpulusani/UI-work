@@ -33,6 +33,7 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     columnDefs: Reports.columnDefs,
                     params: params
                 }).then(function(res) {
+                    Reports.item.results.hideBookmark = true;
                     Grid.display(Reports.item.results, $scope, personal, false, function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);
                     });
