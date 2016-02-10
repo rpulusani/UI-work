@@ -17,11 +17,14 @@ define(['angular', 'filterSearch'], function(angular) {
             ];
 
             $scope.owners = [
-                {name: 'jdoe@customer.com', selected: false },
-                {name: 'jpublic@lexmark.com', selected: false },
-                {name: 'jpublic@lexmark.com', selected: false }
+                {name: 'debenhamsl1@test.com', selected: false },
+                {name: 'debenhamsl3@test.com', selected: false },
+                {name: 'debenhamsl4ir@test.com', selected: false },
+                {name: 'debenhams4uk@test.com', selected: false },
+                {name: 'debenhamsl5@test.com', selected: false },
+                {name: 'debenhamschl@test.com', selected: false }
             ];
-
+ 
             $scope.tags = [
                 {name: 'business', selected: false },
                 {name: 'document', selected: false },
