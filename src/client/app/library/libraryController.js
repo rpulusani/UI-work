@@ -1,4 +1,4 @@
-define(['angular', 'library'], function(angular) {
+define(['angular', 'library', 'ngTagsInput'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
@@ -7,6 +7,7 @@ define(['angular', 'library'], function(angular) {
             $rootScope, Formatter) {
 
             $scope.translationPlaceHolder = translationPlaceHolder;
+            $scope.inputTag = '';
 
             var redirect_to_list = function() {
                $location.path(Documents.route + '/');
@@ -45,27 +46,24 @@ define(['angular', 'library'], function(angular) {
             $scope.save = function() {
                 if ($scope.documentItem.id !== 'new') {
                     /* update */
+
+                    var tags = [];
+                    for (var i = 0; i < $scope.documentItem.tags.length; i++) {
+                        tags.push($scope.documentItem.tags[i]['name']);
+                    }
+
                     var fd = new FormData();
-
-                    if (!BlankCheck.isNull($scope.documentItem.name)) {
-                        fd.append('name', $scope.documentItem.name);
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.description)) {
-                        fd.append('description', $scope.documentItem.description);
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.tags)) {
-                        fd.append('tags', $scope.documentItem.tags);
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.dateFrom)) {
-                        fd.append('publishDate', Formatter.formatDateForPost($scope.documentItem.dateFrom));
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.dateTo)) {
-                        fd.append('endDate', Formatter.formatDateForPost($scope.documentItem.dateTo));
-                    }
+                    var sourceData = {
+                        name: $scope.documentItem.name,
+                        description: $scope.documentItem.description,
+                        //tags: $scope.documentItem.tags,
+                        publishDate: Formatter.formatDateForPost($scope.documentItem.dateFrom),
+                        endDate: Formatter.formatDateForPost($scope.documentItem.dateTo)
+                    };
+ 
+                    var documentJson = angular.toJson(sourceData);
+                    fd.append('document', new Blob([documentJson], {type: 'application/json'}));
+                    fd.append('file', $scope.documentFile);
 
                     $http({
                         method: 'PUT',
@@ -73,33 +71,33 @@ define(['angular', 'library'], function(angular) {
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
-                        $location.path(Documents.route);
+                        //$scope.uploadSuccess = true;
+                        redirect_to_list();
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                     });
                 } else {
                     /* upload */
+                    
                     var fd = new FormData();
+
+                    var tags = [];
+                    for (var i = 0; i < $scope.documentItem.tags.length; i++) {
+                        tags.push($scope.documentItem.tags[i]['name']);
+                    }
+
+                    var sourceData = {
+                        name: $scope.documentItem.name,
+                        description: $scope.documentItem.description,
+                        //tags: tags,
+                        publishDate: Formatter.formatDateForPost($scope.documentItem.dateFrom),
+                        endDate: Formatter.formatDateForPost($scope.documentItem.dateTo)
+                    };
+
+                    var documentJson = angular.toJson(sourceData);
+
+                    fd.append('document', new Blob([documentJson], {type: 'application/json'}));
                     fd.append('file', $scope.documentFile);
-                    fd.append('name', $scope.documentItem.name);
-
-                    if (!BlankCheck.isNull($scope.documentItem.description)) {
-                        fd.append('description', $scope.documentItem.description);
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.tags)) {
-                        fd.append('tags', $scope.documentItem.tags);
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.dateFrom)) {
-                        fd.append('publishDate', Formatter.formatDateForPost($scope.documentItem.dateFrom));
-                    }
-
-                    if (!BlankCheck.isNull($scope.documentItem.dateTo)) {
-                        fd.append('endDate', Formatter.formatDateForPost($scope.documentItem.dateTo));
-                    }
-
-                    fd.append('owner', $rootScope.idpUser.email);
 
                     $http({
                         method: 'POST',
@@ -107,14 +105,32 @@ define(['angular', 'library'], function(angular) {
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
-                        $location.path(Documents.route);
+                        $scope.uploadSuccess = true;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
                     });
                 }
             };
 
-            $scope.addTags = function() {
+            $scope.loadTags = function(query) {
+                var tags = [
+                 { name: 'business' },
+                 { name: 'document' },
+                 { name: 'internal' },
+                 { name: 'MPS' },
+                 { name: 'training' }
+             ];
+                return tags;
+            };
+
+            $scope.goToShowTags = function()  {
+                $scope.isShowingTags = true;
+                console.log('show tags');
+            };
+            
+            $scope.goToHideTags = function()  {
+                $scope.isShowingTags = false;
+                console.log('hide tags');
             };
 
             $scope.goToDelete = function() {

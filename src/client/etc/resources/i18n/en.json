@@ -1502,7 +1502,7 @@
                 "BTN_DISCARD_DOC_CHANGES" : "DISCARD DOCUMENT CHANGES",
                 "BTN_SAVE_DOC_CHANGES" : "SAVE DOCUMENT CHANGES",
                 "TXT_DOC_CHANGES_SAVED" : "Changes to {docName} have been saved.",
-                "TXT_DOCUMENT_ADDED" : "Document Added | {fileName} has been added to the library. You may update document details below.",
+                "TXT_DOCUMENT_ADDED" : "Document Added | {{fileName}} has been added to the library. You may update document details below.",
                 "TXT_FILE_NAME" : "File name",
                 "TXT_MANAGING_DOCUMENT" : "Managing Document",
                 "TXT_MANAGING_DOCUMENT_PAR" : "TBD"
