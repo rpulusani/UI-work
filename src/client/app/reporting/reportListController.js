@@ -20,9 +20,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.gridOptions = {};
                 $scope.gridOptions.showLoader = true;
                 $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
-                $scope.gridOptions.enableGridMenu = true;
-                $scope.gridOptions.exporterMenuPdf = false;
-                $scope.gridOptions.exporterCsvFilename = $scope.report.name + '.csv';
 
                 $scope.gridTitle = $scope.report.name;
 
