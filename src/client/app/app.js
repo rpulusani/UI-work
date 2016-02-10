@@ -297,7 +297,7 @@ define([
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
     function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet) {
 
-        Gatekeeper.login({organization_id: '3'});
+        Gatekeeper.login({organization_id: '30', federation_redirect: 'true'});
 
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {
