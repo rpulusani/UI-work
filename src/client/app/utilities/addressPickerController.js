@@ -6,10 +6,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
      'FilterSearchService',
         function($scope, $location, GridService, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams,
             Personalize, $controller, FilterSearchService) {
-            $scope.selectedAddress = [];
-            $rootScope.currentRowList = [];
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+            $scope.selectedAddress = undefined;
+            $rootScope.currentSelectedRow = undefined;
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
             if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1) {
                 $scope.selectedAddress = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
@@ -30,11 +29,12 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.isRowSelected = function(){
-                if ($rootScope.currentRowList.length >= 1) {
-                   $rootScope.selectedAddress = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
+                if ($rootScope.currentSelectedRow) {
+                   $rootScope.selectedAddress = $rootScope.currentSelectedRow;
                    $scope.formattedSelectedAddress = FormatterService.formatAddress($rootScope.selectedAddress);
                    return true;
                 } else {
+                    $scope.formattedSelectedAddress = undefined;
                    return false;
                 }
             };
@@ -49,27 +49,41 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 $location.path($rootScope.addressReturnPath);
             };
 
+            function setupGrid(){
+                var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+                $scope.gridOptions.showBookmarkColumn = false;
+                $scope.gridOptions.multiSelect = false;
+                filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, undefined);
+            }
 
-            filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, undefined,
-                 function(Grid) {
-                    setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
-                    }, 500);
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-            });
+            setupGrid();
 
             function configureTemplates() {
-                $scope.configure = {
-                    header: {
-                        translate: {
-                            h1: 'DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS',
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: ''
-                        },
-                        readMoreUrl: '',
-                        showCancelBtn: false
+                if($scope.customConfigure){
+                    $scope.configure = $scope.customConfigure;
+                    if(!$scope.configure.showCurrentAddress){
+                        $scope.configure.showCurrentAddress = false;
                     }
-                };
+                }else{
+                    $scope.configure = {
+                        showCurrentAddress: true,
+                        header: {
+                            translate: {
+                                h1: 'DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS',
+                                body: 'MESSAGE.LIPSUM',
+                                readMore: ''
+                            },
+                            readMoreUrl: '',
+                            showCancelBtn: false
+                        },
+                        actions:{
+                            translate: {
+                                abandonRequest:'ADDRESS.DISCARD_INSTALL_ADDRESS_CHANGES',
+                                submit: 'ADDRESS.CHANGE_DEVICE_INSTALL_ADDRESS'
+                            }
+                        }
+                    };
+                }
             }
 
         }

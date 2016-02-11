@@ -7,7 +7,23 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory'], function(angular) 
                 serviceName: 'orders/types',
                 embeddedName: 'requestTypes',
                 url: serviceUrl + 'orders/types',
-                route: ''
+                route: '',
+                getTranslated: function (){
+                    var list = [],
+                    self = this,
+                    array = self.item['_embedded'].requestTypes;
+                    for(var i = 0; i < array.length; ++i){
+                        var item = {
+                            label: $translate.instant('ORDER_MAN.TYPES.' + array[i]),
+                            value: array[i]
+                        };
+                        list.push(item);
+                    }
+                    return list;
+                },
+                getDisplay: function(currentType){
+                    return $translate.instant('ORDER_MAN.TYPES.' + currentType);
+                }
             };
 
         return new HATEOASFactory(OrderTypes);
