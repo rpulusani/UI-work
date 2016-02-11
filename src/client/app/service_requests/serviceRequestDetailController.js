@@ -13,6 +13,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         'OrderRequest',
         '$timeout',
         'OrderItems',
+        'OrderTypes',
         function(
             $scope,
             $location,
@@ -24,7 +25,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             $translate,
             Orders,
             $timeout,
-            OrderItems
+            OrderItems,
+            OrderTypes
         ) {
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
@@ -122,7 +124,43 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_NUMBER';
             }
-            function addOrderInfo(){
+            function addReturnOrderInfo(){
+                $scope.configure.order = {
+                        returnSupplies:{
+                            translate:{
+                                returnDetails: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_RETURN_DETAILS',
+                                returnReason: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_RETURN_TYPE',
+                                returnNotes: 'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_NOTES'
+                            }
+                        },
+                        address:{
+                            header:{
+                                translate:{
+                                    h1: 'ORDER_MAN.ORDER_SELECT_ADDRESS.TXT_ORDER_SELECT_RETURN_ADDRESS_TITLE',
+                                    h1Values: {},
+                                    body: 'ORDER_MAN.ORDER_SELECT_ADDRESS.TXT_ORDER_ADDRESS_PAR',
+                                    bodyValues: '',
+                                    readMore: ''
+                                }
+                            },
+                            information:{
+                                translate:{
+                                    title:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_ADDRESS_RETURN',
+                                    makeChanges:'ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.LINK_TXT_ADDRESS_RETURN'
+                                }
+                            },
+                            source:'ReturnOrders',
+                            pickerObject: $scope.order,
+                            actions:{
+                                translate: {
+                                    abandonRequest:'ORDER_MAN.ORDER_SELECT_ADDRESS.BTN_ORDER_DISCARD_ADDRESS',
+                                    submit: 'ORDER_MAN.ORDER_SELECT_ADDRESS.BTN_ORDER_CHANGE_ADDRESS'
+                                }
+                            }
+                        }
+                    };
+            }
+            function addSupplyOrderInfo(){
 
                 $timeout(function(){
                     OrderItems.columns = 'pruchaseSet';
@@ -241,15 +279,10 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 }
 
             };
-
-            $scope.goToServiceChange = function(requestNumber, type) {
-                $location.path('/service_requests');
-            };
-
-            $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
+        function processStandardTypes(){
             switch($scope.sr.type){
                 case 'SUPPLIES_ASSET_ORDER':
-                    addOrderInfo();
+                    addSupplyOrderInfo();
                 break;
                 case 'DATA_ADDRESS_ADD':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED');
@@ -326,6 +359,19 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 default:
                 break;
             }
+        }
+
+            $scope.goToServiceChange = function(requestNumber, type) {
+                $location.path('/service_requests');
+            };
+
+            $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
+            if($scope.sr.type.indexOf('RETURN_SUPPLIES') > -1){
+                addReturnOrderInfo();
+            }else{
+               processStandardTypes();
+            }
+
 
         if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
@@ -368,6 +414,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 FormatterService.formatDate($scope.sr.requestedDeliveryDate));
             $scope.formattedPONumber = FormatterService.formatNoneIfEmpty($scope.sr.purchaseOrderNumber);
             $scope.formattedInstructions = FormatterService.formatNoneIfEmpty($scope.sr.specialHandlingInstructions);
+            $scope.formattedReason = FormatterService.formatNoneIfEmpty(OrderTypes.getDisplay($scope.sr.type));
+            $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
         }
     }]);
 });

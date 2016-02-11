@@ -115,12 +115,10 @@ define(['angular', 'utility.grid'], function(angular) {
                                                 $location.search('tab',null);
                                                 Orders.item.requestNumber = Tombstone.item.siebelId;
                                                 ServiceReqeust.item = Orders.item;
-                                                //$location.path(Orders.route + '/return/receipt/notqueued');
-                                                console.log('not queued');
+                                                $location.path(Orders.route + '/return/receipt/notqueued');
                                             }else{
                                                 $location.search('tab',null);
-                                               // $location.path(Orders.route + '/return/receipt/queued');
-                                               console.log('queued');
+                                                $location.path(Orders.route + '/return/receipt/queued');
                                             }
                                         });
                                     },6000);
@@ -285,7 +283,24 @@ define(['angular', 'utility.grid'], function(angular) {
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: Orders.route + '/' +  '/review'
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
             }
 
@@ -306,7 +321,7 @@ define(['angular', 'utility.grid'], function(angular) {
             $scope.formatReceiptData(function(){
                 if(Orders.item){
                     $scope.formattedReason = Formatter.formatNoneIfEmpty(OrderTypes.getDisplay(Orders.item.type));
-                    $scope.formattedNotes = Formatter.formatNoneIfEmpty(Orders.item.description);
+                    $scope.formattedDescription = Formatter.formatNoneIfEmpty(Orders.item.description);
                 }
             });
     }]);
