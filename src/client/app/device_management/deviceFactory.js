@@ -8,6 +8,7 @@ define(['angular', 'deviceManagement'], function(angular) {
                 singular: 'asset',
                 embeddedName: "assets",
                 columns: 'default',
+                addBookmarkFn: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field': 'serialNumber', dynamic: false,

@@ -47,6 +47,7 @@ define([
     'contact.contactController',
     'contact.contactDeleteController',
     'contact.contactListController',
+    'contact.contactAddController',
     'contact.factory',
     'contact.directives',
     'deviceManagement',
@@ -83,6 +84,7 @@ define([
     'library.libraryListController',
     'library.libraryViewController',
     'library.libraryFactory',
+    'library.libraryTagFactory',
     'library.directives',
     'invoice',
     'invoice.invoiceController',
@@ -144,6 +146,7 @@ define([
         'ngCookies',
         'ngSanitize',
         'googlechart',
+        'ngTagsInput',
         'pascalprecht.translate',
         'vButton',
         'mps.hateoasFactory',
@@ -295,7 +298,7 @@ define([
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
     function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet) {
 
-        Gatekeeper.login({organization_id: '3'});
+        Gatekeeper.login({organization_id: '30', federation_redirect: 'true'});
 
         $rootScope.idpUser = Gatekeeper.user;
         $rootScope.currentUser = {

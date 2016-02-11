@@ -1,6 +1,6 @@
 define(['angular'], function(angular) {
     'use strict';
-    angular.module('mps.serviceRequestContacts', []).config(['$routeProvider', 
+    angular.module('mps.serviceRequestContacts', []).config(['$routeProvider',
         function ($routeProvider) {
             $routeProvider
            .when('/service_requests/contacts', {
@@ -19,12 +19,12 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/contacts/new', {
                 templateUrl: '/app/contact_service_requests/templates/new.html',
-                controller: 'ContactController',
+                controller: 'ContactAddController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/:id/update', {
                 templateUrl: '/app/contact_service_requests/templates/update.html',
-                controller: 'ContactController',
+                controller: 'ContactAddController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/pick_contact/:source', {

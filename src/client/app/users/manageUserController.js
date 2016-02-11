@@ -46,6 +46,11 @@ define(['angular', 'user'], function(angular) {
                 $scope.user.permissions = [];
                 $scope.user.selectedRoleList = [];
                 $scope.accounts = [];
+                $scope.userActive = false;
+
+                if ($scope.user.active === true) {
+                    $scope.userActive = true;
+                } 
 
                 if ($scope.user.item && $scope.user.item.address) {
                     $scope.user.address = $scope.user.item.address;
@@ -152,37 +157,17 @@ define(['angular', 'user'], function(angular) {
                 };
 
                 var removeParams,
-                basicRoleOptions =  {
-                    'params': {
-                        customerType: 'customer',
-                        roleType: 'basic'
-                    }
-                },
                 addonRoleOptions = {
                     'params': {
                         customerType: 'customer',
                         roleType: 'addon'
                     }
-                }, 
-                promise1 = Roles.get(basicRoleOptions),
-                promise2 = Roles.get(addonRoleOptions),
-                rolePromiseList = [promise1,promise2],
+                },
                 permissionPromiseList = [];
 
-                
-                $q.all(rolePromiseList).then(function(response) {
-                    if(response[0] && response[0].data && response[0].data._embedded && response[0].data._embedded.roles) {
-                        var roleList = response[0].data._embedded.roles;
-                        for (var j=0; j<roleList.length; j++) {
-                            var role = roleList[j];
-                            if ($scope.user.basicRoles.length < roleList.length) {
-                                $scope.user.basicRoles.push(role); 
-                            }
-                        }
-                    }
-                
-                    if(response[1] && response[1].data && response[1].data._embedded && response[1].data._embedded.roles) {
-                        var roleList = response[1].data._embedded.roles;
+                Roles.get(addonRoleOptions).then(function() {
+                    if(Roles.data) {
+                        var roleList = Roles.data;
                         for (var j=0; j<roleList.length; j++) {
                             var role = roleList[j];
                             if($scope.user.addonRoles.length < roleList.length) {
@@ -218,28 +203,6 @@ define(['angular', 'user'], function(angular) {
                         });
                     }
                 });
-
-                /*hardcoding roles until selectric solution*/
-                $scope.user.basicRoles =[{"id"
-                :1,"roleId":1,"description":"View Only - Operations","customerType":"customer","roleType":"basic"
-                ,"_links":{"self":{"href"
-                :"https://api.venus-dev.lexmark.com/mps/roles/1"}}},
-                {"id":2,"roleId":2,"description":"View Only - Strategic"
-                ,"customerType":"customer","roleType":"basic","_links":{"self":{"href"
-                :"https://api.venus-dev.lexmark.com/mps/roles/2"}}}];
-
-
-                for (var j=0;j<$scope.user.basicRoles.length; j++) {
-                    var tempRole = $scope.user.basicRoles[j];
-                    if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
-                        for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
-                            if ($scope.user.selectedRoleList[i].roleId.toString() === tempRole.roleId.toString()) {
-                                $scope.setPermissionsForBasic($scope.user.selectedRoleList[i]);
-                                $scope.basicRole = tempRole.roleId;
-                            }
-                        }
-                    }
-                }
                 
                 User.getLoggedInUserInfo().then(function() {
                     if (angular.isArray(User.item._links.accounts)) {
@@ -280,10 +243,7 @@ define(['angular', 'user'], function(angular) {
                         });
                     }
                 });
-
             }
-
-            
 
             var updateAdminObjectForUpdate = function(updateStatus) {
                 UserAdminstration.reset();
@@ -320,7 +280,7 @@ define(['angular', 'user'], function(angular) {
                 for (var i=0;i<$scope.user.basicRoles.length; i++) {
                     for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
                         var selectedRole = $scope.user.selectedRoleList[j];
-                        if ($scope.user.basicRoles[i].roleId.toString() === selectedRole.roleId.toString()) {
+                        if ($scope.user.basicRoles[i].description === selectedRole.description) {
                             $scope.user.selectedRoleList.splice(j,1);
                         }
                     }
@@ -328,7 +288,7 @@ define(['angular', 'user'], function(angular) {
 
                 for (var i=0;i<$scope.user.basicRoles.length; i++) {
                     if ($scope.basicRole 
-                        && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                        && $scope.user.basicRoles[i].description === $scope.basicRole) {
                         $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                     }
                 }

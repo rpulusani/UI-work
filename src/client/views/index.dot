@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="/etc/styles/css/angular-ui-grid-lxk-framework.css" />
     <link rel="stylesheet" href="//www.lexmark.com/common/common-mce/styles/css/utilities.css" />
     <link rel="stylesheet" href="/etc/styles/css/rome.css" />
+    <link rel="stylesheet" href="/etc/styles/css/ng-tags-input.css" />
     <link rel="stylesheet" href="/etc/styles/css/app.css" />
 
     <script src="//crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
