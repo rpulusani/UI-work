@@ -44,10 +44,9 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     $scope.tags.push(tag);
                 }
             });
-            console.log($scope.tags);
 
-            $scope.setDocumentName = function() {
-                var tmp = event.target.files[0].name;
+            $scope.setDocumentName = function(files) {
+                var tmp = files[0].name;
                 var l = tmp.split('.').pop();
 
                 $scope.documentItem.extension = l;
