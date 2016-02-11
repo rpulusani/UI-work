@@ -11,35 +11,41 @@
         <h1 translate="CONTACT_SERVICE_REQUEST.UPDATE"></h1>
         <p translate="MESSAGE.LIPSUM"></p>
 
+        <div ng-show="contactAlertMessage === 'saved'" class="alert alert--info">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+            <div class="alert__body">
+                "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"
+                <span translate="CONTACT_SERVICE_REQUEST.SAVE_MSG"></span>
+            </div>
+        </div>
+
+        <div ng-show="contactAlertMessage === 'updated'" class="alert alert--info">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+            <div class="alert__body">
+                <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG_START"></span> 
+                "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"
+                <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG_END"></span>
+            </div>
+        </div>
+
         <div class="col-1 btns">
-            <button type="button" class="btn btn--default" href="" ng-click="contacts.goToReview(contacts.item)"
+            <button type="button" class="btn btn--default" href="" ng-click="goToDelete(contacts.item)"
             translate="CONTACT_SERVICE_REQUEST.DELETE"></button>
         </div>
     </div>
 </div>
 
 <div class="page-content" ng-cloak>
-    <div ng-show="contacts.alertState === 'saved'" class="alert">
-        "<span ng-bind="contacts.item.firstName"></span> <span ng-bind="contacts.item.lastName"></span>"
-        <span translate="CONTACT_SERVICE_REQUEST.SAVE_MSG"></span>
-    </div>
-
-    <div ng-show="contacts.alertState === 'updated'" class="alert">
-        "<span ng-bind="contacts.item.firstName"></span> <span ng-bind="contacts.item.lastName"></span>"
-        <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG"></span>
-    </div>
-    
-    <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && continue()"
-        enctype="mulitpart/form-data" novalidate ng-hide="reviewing">
+    <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
 
         <div class="col-2-3 l-alley-after">
             <div new-contact-fields></div>
         </div>
 
-        <div class="col-1">
-            <button name="cancel" class="col-1-3 btn btn--secondary" ng-click="contacts.goToList()"
+        <div class="btns">
+            <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
                 translate="CONTACT_SERVICE_REQUEST.CANCEL"></button>
-            <button name="submit" class="col-1-3 btn btn--primary" ng-click="updateContact(editContact)" type="submit"
+            <button name="submit" class="btn btn--primary" ng-click="saveContact('editContact')" type="submit"
                 translate="CONTACT_SERVICE_REQUEST.UPDATE_SUBMIT"></button>
         </div>
     </form>

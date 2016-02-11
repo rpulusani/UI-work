@@ -12,5 +12,11 @@
             <label translate="REPORTING.DATE_TO"></label>
             <input type="text" ng-model="dateTo" date-val="dateTo" datepicker/>
         </div>
-   </div>
+    </div>
+    <br/>
+    <div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+        <div class="footnotes">
+            <a href="" ng-click="clearDateFilter()" translate="DEVICE_MAN.MANAGE_DEVICES.CTRL_CLEAR_DATE_RANGE"></a>
+        </div>
+    </div>
 </div>

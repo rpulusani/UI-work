@@ -19,41 +19,50 @@ define(['angular', 'user'], function(angular) {
             $scope.user.permissions = [];
             $scope.user.selectedRoleList = [];
             $scope.accounts = [];
-
+            $scope.languageOptions = [
+                {name: $translate.instant('LANGUAGES.ARABIC'), code:  'ar_XM'},
+                {name: $translate.instant('LANGUAGES.BULGARIAN'), code:  'bg_BG'},
+                {name: $translate.instant('LANGUAGES.CHINESE_SIMPLIFIED'), code:  'zh_CN'},
+                {name: $translate.instant('LANGUAGES.CHINESE_TRADITIONAL'), code:  'zh_TW'},
+                {name: $translate.instant('LANGUAGES.CROATIAN'), code:  'hr_HR'},
+                {name: $translate.instant('LANGUAGES.CZECH'), code:  'cs_CZ'},
+                {name: $translate.instant('LANGUAGES.DANISH'), code:  'da_DK'},
+                {name: $translate.instant('LANGUAGES.DUTCH'), code:  'nl_NL'},
+                {name: $translate.instant('LANGUAGES.ENGLISH'), code:  'en_GB'},
+                {name: $translate.instant('LANGUAGES.ENGLISH_UK'), code:  'en_GB'},
+                {name: $translate.instant('LANGUAGES.ENGLISH_US'), code:  'en_US'},
+                {name: $translate.instant('LANGUAGES.FINNISH'), code:  'fi_FI'},
+                {name: $translate.instant('LANGUAGES.FRENCH'), code:  'fr_FR'},
+                {name: $translate.instant('LANGUAGES.FRENCH_CA'), code:  'fr_CA'},
+                {name: $translate.instant('LANGUAGES.GERMAN'), code:  'de_DE'},
+                {name: $translate.instant('LANGUAGES.GREEK'), code:  'el_GR'},
+                {name: $translate.instant('LANGUAGES.HUNGARIAN'), code:  'hu_HU'},
+                {name: $translate.instant('LANGUAGES.ITALIAN'), code:  'it_IT'},
+                {name: $translate.instant('LANGUAGES.JAPANESE'), code:  'ja_JP'},
+                {name: $translate.instant('LANGUAGES.KOREAN'), code:  'ko_KR'},
+                {name: $translate.instant('LANGUAGES.NORWEGIAN'), code:  'no_NO'},
+                {name: $translate.instant('LANGUAGES.POLISH'), code:  'pl_PL'},
+                {name: $translate.instant('LANGUAGES.PORTUGUESE_BRAZIL'), code:  'pt_BR'},
+                {name: $translate.instant('LANGUAGES.PORTUGUESE_PORTUGAL'), code:  'pt_PT'},
+                {name: $translate.instant('LANGUAGES.ROMANIAN'), code:  'ro_RO'},
+                {name: $translate.instant('LANGUAGES.RUSSIAN'), code:  'ru_RU'},
+                {name: $translate.instant('LANGUAGES.SPANISH_SPAIN'), code:  'es_ES'},
+                {name: $translate.instant('LANGUAGES.SPANISH_MEXICO'), code:  'es_MX'},
+                {name: $translate.instant('LANGUAGES.SWEDISH'), code:  'sv_SE'},
+                {name: $translate.instant('LANGUAGES.TURKISH'), code:  'tr_TR'},
+                {name: $translate.instant('LANGUAGES.SLOVAK'), code:  'sk_SK'}
+            ];
             var removeParams,
-            basicRoleOptions =  {
-                'params': {
-                    customerType: 'customer',
-                    roleType: 'basic'
-                }
-            },
             addonRoleOptions = {
                 'params': {
                     customerType: 'customer',
                     roleType: 'addon'
                 }
-            }, 
-            promise1 = Roles.get(basicRoleOptions),
-            promise2 = Roles.get(addonRoleOptions),
-            rolePromiseList = [promise1,promise2];
+            };
 
-            
-            $q.all(rolePromiseList).then(function(response) {
-                if(response[0] && response[0].data && response[0].data._embedded && response[0].data._embedded.roles) {
-                    var roleList = response[0].data._embedded.roles;
-                    for (var j=0; j<roleList.length; j++) {
-                        var role = roleList[j];
-                        if($scope.user.basicRoles.length < roleList.length) {
-                            var tempRole = {};
-                            tempRole.id = role.id;
-                            tempRole.description = role.description;
-                            $scope.user.basicRoles.push(tempRole); 
-                        }
-                    }
-                }
-            
-                if(response[1] && response[1].data && response[1].data._embedded && response[1].data._embedded.roles) {
-                    var roleList = response[1].data._embedded.roles;
+            Roles.get(addonRoleOptions).then(function() {
+                if(Roles.data) {
+                    var roleList = Roles.data;
                     for (var j=0; j<roleList.length; j++) {
                         var role = roleList[j];
                         if($scope.user.addonRoles.length < roleList.length) {
@@ -63,15 +72,6 @@ define(['angular', 'user'], function(angular) {
                     }
                 }
             });
-
-            /*hardcoding roles until selectric solution*/
-            $scope.user.basicRoles =[{"id"
-            :1,"roleId":1,"description":"View Only - Operations","customerType":"customer","roleType":"basic"
-            ,"_links":{"self":{"href"
-            :"https://api.venus-dev.lexmark.com/mps/roles/1"}}},
-            {"id":2,"roleId":2,"description":"View Only - Strategic"
-            ,"customerType":"customer","roleType":"basic","_links":{"self":{"href"
-            :"https://api.venus-dev.lexmark.com/mps/roles/2"}}}];
             
             User.getLoggedInUserInfo().then(function() {
                 if (angular.isArray(User.item._links.accounts)) {
@@ -200,7 +200,7 @@ define(['angular', 'user'], function(angular) {
 
                             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                                 if ($scope.basicRole 
-                                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                                    && $scope.user.basicRoles[i].description === $scope.basicRole) {
                                     $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                                 }
                             }
@@ -237,7 +237,7 @@ define(['angular', 'user'], function(angular) {
                     UserAdminstration.addField('resetPassword', true);
                     for (var i=0;i<$scope.user.basicRoles.length; i++) {
                         if ($scope.basicRole 
-                            && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                            && $scope.user.basicRoles[i].description === $scope.basicRole) {
                             $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                         }
                     }

@@ -45,8 +45,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 type: 'DATA_ADDRESS_ALL',
                 embed: 'primaryContact,requester,sourceAddress'
             };
-
-            filterSearchService.addBasicFilter('All address service requests', params, false,
+            var removeParamsList = ['from', 'to', 'location', 'requesterFilter'],
+                myRequestRemoveParamList = ['from', 'to', 'location'];
+            filterSearchService.addBasicFilter('All address service requests', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
@@ -70,11 +71,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_REQUESTS', 'MyOrderFilter', undefined,
+            filterSearchService.addBasicFilter('FILTERS.FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
                 function(Grid) {
-                    setTimeout(function() {
-                        $scope.$broadcast('setupColumnPicker', Grid);
-                    }, 500);
+                    $scope.$broadcast('setupColumnPicker', Grid);
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );

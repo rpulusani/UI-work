@@ -38,8 +38,6 @@ define([
                     Users.taAcctCache = Users.item.transactionalAccount.data;
                     item.data = Users.taAcctCache;
 
-                    console.log(item.data);
-
                     item.isExpanded = true;
                     item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
                 };
@@ -65,7 +63,7 @@ define([
                         });
                     } else {
                        setupLinks();
-                    } 
+                    }
                 } else {
                     item.isExpanded = false;
                     item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
@@ -73,10 +71,12 @@ define([
             };
 
             $scope.switchAccount = function(child) {
-                var i = 0, 
+                var i = 0,
                 accts = Users.item.transactionalAccount.data;
 
                 HATEAOSConfig.updateCurrentAccount(child.account);
+
+                $rootScope.currentAccount.refresh = true;
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     Users.item._links.accounts = child._links.account;
@@ -93,6 +93,8 @@ define([
                             accts[i].isActive = false;
                         }
                     }
+
+                    $route.reload();
                 });
             };
 

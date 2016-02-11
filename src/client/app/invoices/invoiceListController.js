@@ -1,27 +1,22 @@
 define(['angular', 'invoice', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.invoice')
-    .controller('InvoiceListController', ['$scope', '$window', '$location', 'grid', 'Invoices', 'imageNowSecret', 
-        'imageNowUrl', '$rootScope','PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService',
-        function($scope, $window, $location, Grid, Invoices, imageNowSecret, imageNowUrl, $rootScope, 
-            Personalize, formatter, FilterSearchService) {
+    .controller('InvoiceListController', ['$scope', '$window', '$location', 'grid', 'Invoices', '$rootScope',
+        'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', '$http',
+        function($scope, $window, $location, Grid, Invoices, $rootScope, 
+            Personalize, formatter, FilterSearchService, $http) {
             $scope.url = '';
             $scope.redirectToInvoiceUrl = function(sapDocId) {
-                var key = CryptoJS.SHA256(imageNowSecret),
-                    ts = new Date().toISOString(), 
-                    url, hash, hashInBase64;
-                url = imageNowUrl + sapDocId + '?ts='+encodeURIComponent(ts);
-                hash = CryptoJS.HmacSHA256(url, key);
-                hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
-                url = url + '&token=' + hashInBase64;
-                $window.open(url);
-            };
+                $http.get(Invoices.url + "/invoice-url/" + sapDocId).success(function(data){
+                    $window.open(data);
+                });
+            };  
 
             $scope.visibleColumns = [];
             $scope.columnSet = undefined;
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
-            configureParams = undefined,
-            removeParamsList = ['accountId','accountLevel'],
+            configureParams = [],
+            removeParamsList = ['preventDefaultParams', 'fromDate', 'toDate'],
             filterSearchService = new FilterSearchService(Invoices, $scope, $rootScope, personal, $scope.columnSet, 70);
 
             $scope.getFormattedInvoiceNo = function(invoiceNumber) {
@@ -31,10 +26,9 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
 
             $scope.getBillToAddress = function(address) {
                 return formatter.formatAddress(address);
-            }
-
+            }   
+            
             if ($scope.status) {
-                configureParams = [];
                 configureParams['status'] = $scope.status;
             } else {
                 removeParamsList.push('status');
@@ -50,8 +44,21 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-
-            filterSearchService.addPanelFilter('Filter by Account', 'AccountFilter', false);
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_SOLD_TO', 'SoldToFilter', undefined,
+                function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }
+            );
         }
     ]);
 });

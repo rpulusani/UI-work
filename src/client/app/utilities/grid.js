@@ -143,28 +143,28 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
             var self = this,
             serviceId = '',
-            newHeight = '',
-            size = self.getSize(service);
+            newHeight = '46',
+            baseHeight = 46,
+            size = self.getSize(service),
+            setHeight = function(tempOptionName, newHeight) {
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
+                    $('[ui-grid="' + tempOptionName + '"].table,[ui-grid="' + tempOptionName + '"].table-image').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table-image').css('margin-bottom', '60px');
+                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table.summary').css('margin-bottom', '24px');
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-render-container').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('overflow-x', 'auto');
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('height', newHeight + 'px');
+                    $('[ui-grid="' + tempOptionName + '"]').show();
+                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-disable-selection').parent().addClass('selection');
+                    $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
+            };
 
-            if (rowHeight) {
-                newHeight = 46 + (parseInt(rowHeight, 10) + 1) * size;
-            } else {
-                rowHeight = 45;
-                newHeight = 46 + ((rowHeight + 2) * size);
+            if (!scope[self.optionsName].showLoader) {
+                scope[self.optionsName].showLoader = true;
             }
 
-            if (service.gridName) {
-                serviceId = service.gridName;
-            } else if (service.serviceName) {
-                serviceId = service.serviceName;
-            } else {
-                serviceId = service.embeddedName;
-            }
+            setHeight(self.optionsName, baseHeight);
 
-            if(rowHeight){
-                scope[self.optionsName].rowHeight = rowHeight;
-            }
-            scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
             scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
             scope[self.optionsName].showGridFooter = false;
             scope[self.optionsName].enableRowSelection = true;
@@ -203,34 +203,87 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 scope[self.optionsName].showBookmarkColumn = true;
                 self.serviceInfo[serviceId] = {hasBookmarkCol: true};
 
-                scope[self.optionsName].columnDefs.unshift({
-                    name: '',
-                    field: 'bookmark',
-                    width:'30',
-                    enableSorting: false,
-                    cellTemplate: '<i class="icon icon--ui icon--not-favorite favorite" ng-click="grid.appScope.bookmark(row.entity)"></i>',
-                    enableColumnMenu: false,
-                    headerCellClass:'bookmark-header',
-                    cellClass: 'bookmark',
-                    notSearchable: true,
-                    exporterSuppressExport: true
-                });
-            }
-            var tempOptionName = self.optionsName;
-            $timeout(function(){
-                if(typeof $ === 'function'){
-                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
-                    $('[ui-grid="' + tempOptionName + '"].table,[ui-grid="' + tempOptionName + '"].table-image').css('height', newHeight + 'px');
-                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table-image').css('margin-bottom', '60px');
-                    $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table.summary').css('margin-bottom', '24px');
-                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-render-container').css('height', newHeight + 'px');
-                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('overflow-x', 'auto');
-                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('height', newHeight + 'px');
-                    $('[ui-grid="' + tempOptionName + '"]').show();
-                    $('[ui-grid="' + tempOptionName + '"] .ui-grid-disable-selection').parent().addClass('selection');
-                    $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
+                if (typeof scope.bookmark !== 'function' && service.item && service.item.links && service.addBookmarkFn === true) {
+                    scope.bookmark = function(rowEntity) {
+                        var node = angular.element(document.getElementsByClassName('bookmark-' + rowEntity.id)[0].childNodes);
+                    
+
+                        service.setItem(rowEntity);
+
+                        if (rowEntity.bookmarked === false) {
+                            service.item.links.bookmark({method: 'post'}).then(function() {
+                                node.toggleClass('icon--not-favorite');
+                                node.toggleClass('icon--favorite');
+                            });
+                        } else {
+                            service.item.links.bookmark({method: 'delete'}).then(function() {
+                                node.toggleClass('icon--not-favorite');
+                                node.toggleClass('icon--favorite');
+                            });
+                        }
+                    };
                 }
 
+                if (!service.hideBookmark) {
+                    scope[self.optionsName].columnDefs.unshift({
+                        name: '',
+                        field: 'bookmark',
+                        width:'30',
+                        enableSorting: false,
+                        cellTemplate: '<i ng-class="row.entity.bookmarked == true ? \'icon icon--ui icon--favorite favorite\' : \'icon icon--ui icon--not-favorite favorite\' " ng-click="grid.appScope.bookmark(row.entity)"></i>',
+                        enableColumnMenu: false,
+                        headerCellClass:'bookmark-header',
+                        cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                              return 'bookmark bookmark-' + row.entity.id;
+                        },
+                        notSearchable: true,
+                        exporterSuppressExport: true
+                    });
+                }
+            }
+
+
+            var tempOptionName = self.optionsName;
+            $timeout(function() {
+                var totalItems = scope.pagination.totalItems();
+                
+                scope[self.optionsName].showLoader = false;
+
+                if (service.data && service.data.length > 0) {
+                    if (rowHeight) {
+                        newHeight = baseHeight + (parseInt(rowHeight, 10) + 1) * size;
+                    } else {
+                        rowHeight = 45;
+                        newHeight = baseHeight + ((rowHeight + 2) * size);
+                    }
+                } else {
+                    newHeight = baseHeight;
+                }
+
+                if (service.gridName) {
+                    serviceId = service.gridName;
+                } else if (service.serviceName) {
+                    serviceId = service.serviceName;
+                } else {
+                    serviceId = service.embeddedName;
+                }
+
+                if(rowHeight){
+                    scope[self.optionsName].rowHeight = rowHeight;
+                }
+                
+                scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
+
+                if (totalItems === 0) {
+                    newHeight = baseHeight;
+                    scope[self.optionsName].showNoResults = true;
+                } else {
+                    scope[self.optionsName].showNoResults = false;
+                }
+
+                if(typeof $ === 'function'){
+                    setHeight(tempOptionName, newHeight);
+                }
             }, 100);
             // Setting up pagination
             if (scope.pagination !== false) {

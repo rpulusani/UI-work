@@ -2,6 +2,9 @@
     <h2 translate="{{configure.device.information.translate.title}}"></h2>
 
     <div class="well well--no-shadow col-1-3">
+        <a href="{{configure.device.information.linkMakeChanges}}"
+            translate="{{configure.device.information.translate.linkMakeChangesTxt}}"
+            ng-if="configure.device.information.translate.linkMakeChangesTxt"></a>
         <ul class="info-list">
             <li class="info-list__item" ng-if="formattedMoveDevice && configure.device.information.translate.move">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.move}}"></div>

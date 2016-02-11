@@ -1,0 +1,16 @@
+<div ng-if="configure.order.address">
+    <h2 translate="{{configure.order.address.information.translate.title}}"></h2>
+
+    <div class="well well--no-shadow col-1-3">
+        <ul class="info-list">
+            <li class="info-list__item">
+                <div class="info-list__item-value" ng-bind-html="formattedAddress"></div>
+            </li>
+        </ul>
+        <a ng-if="configure.order.address.information.translate.makeChanges"
+        class="read-more"
+        ng-click="goToAddressPicker(configure.order.address.source, configure.order.address.pickerObject)"
+        href
+        translate="{{configure.order.address.information.translate.makeChanges}}"></a>
+    </div>
+</div>

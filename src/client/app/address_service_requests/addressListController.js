@@ -4,6 +4,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
     .controller('AddressListController', [
         '$scope',
         '$location',
+        '$window',
         'grid',
         'Addresses',
         '$rootScope',
@@ -18,6 +19,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
         function(
             $scope,
             $location,
+            $window,
             GridService,
             Addresses,
             $rootScope,
@@ -40,8 +42,12 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
             $scope.addresses = Addresses;
 
+            $scope.goToLbs = function(){
+                $window.open('https://venus-beta-lbs.lexmark.com/group/lbsportal/mapsrequest');
+            };
+
             $scope.goToCreate = function() {
-                Addresses.item = {};
+                Addresses.item = undefined;
                 $location.path('/service_requests/addresses/new');
             };
 
@@ -53,24 +59,23 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                 }
             };
 
-            User.getLoggedInUserInfo().then(function(user) {
-                if (angular.isArray(User.item._links.accounts)) {
-                    User.item._links.accounts = User.item._links.accounts[0];
-                }
-
-                User.getAdditional(User.item, Account).then(function() {
-                    Account.getAdditional(Account.item, Addresses).then(function() {
-                        var grid = new GridService();
-                        grid.display(Addresses, $scope, personal, false, function() {
-                            $scope.$broadcast('setupPrintAndExport', $scope);
-                            $scope.$broadcast('setupColumnPicker', grid);
-
-                            filterSearchService.addBasicFilter('ADDRESS.ALL', undefined, undefined);
-                            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', undefined);
-                        });
-                    });
-                });
+            var removeParamsList = ['location'];
+            filterSearchService.addBasicFilter('All addresses', {'addressType': 'ACCOUNT'}, removeParamsList,
+                 function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
             });
+            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', {'addressType': 'ACCOUNT'},
+                 function(Grid) {
+                     setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                });
+
+
         }
     ]);
 });

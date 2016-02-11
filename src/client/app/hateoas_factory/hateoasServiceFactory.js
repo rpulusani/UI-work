@@ -1,5 +1,4 @@
 define(['angular', 'hateoasFactory'], function(angular) {
-    'use strict';
     angular.module('mps.hateoasFactory')
     .factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope',
         function($http, $q, HATEAOSConfig, $rootScope) {
@@ -131,7 +130,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.addField = function(fieldName, fieldValue) {
                 if (!this.item) {
-                   this.item = this.newMessage(); //if halObject is empty then fill it with a new message
+                   this.newMessage(); //if halObject is empty then fill it with a new message
                 }
 
                 this.item[fieldName] = fieldValue;
@@ -142,6 +141,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     this.newMessage(); //if halObject is empty then fill it with a new message
                 } else if (!this.item._links) {
                     this.item._links = {};   //if halObject is not empty but missing the links sub object add it
+                }
+            };
+            /* Adds the current Account selected in the system to this current request */
+            HATEOASFactory.prototype.addAccountRelationship = function(name){
+                var tempObject = {},
+                calculatedName = (name) ? altName: 'account';
+                if($rootScope.currentAccount && $rootScope.currentAccount.href){
+                    tempObject[calculatedName] = { href: $rootScope.currentAccount.href};
+                    angular.extend(this.item._links, tempObject);
                 }
             };
 
@@ -179,7 +187,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             // Update a secondary service with a matching link in a given envelope
-            HATEOASFactory.prototype.getAdditional = function(halObj, newService) {
+            HATEOASFactory.prototype.getAdditional = function(halObj, newService, embeddedLinkName, useEmbeddedLink) {
                 var self = this,
                 deferred = $q.defer(),
                 url;
@@ -187,14 +195,24 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 newService.item = null;
                 newService.data = [];
 
-                if (!newService.url && halObj._links &&
+                if ((!newService.url && halObj._links &&
                     halObj._links[newService.embeddedName] &&
-                    halObj._links[newService.embeddedName].href) {
+                    halObj._links[newService.embeddedName].href && !embeddedLinkName) ||
+                    (useEmbeddedLink &&
+                    halObj._links[newService.embeddedName] &&
+                    halObj._links[newService.embeddedName].href && !embeddedLinkName)) {
                         newService.params = self.setupParams({
                             url: halObj._links[newService.embeddedName].href,
                             params: newService.params
                         });
                         newService.url = self.setupUrl(halObj._links[newService.embeddedName].href);
+                }else if(embeddedLinkName && halObj._links[embeddedLinkName]){
+                     newService.params = self.setupParams({
+                            url: halObj._links[embeddedLinkName].href,
+                            params: newService.params
+                        });
+                        newService.rootUrl = newService.url;
+                        newService.url = self.setupUrl(halObj._links[embeddedLinkName].href);
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function(account) {
@@ -206,6 +224,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         size: newService.params.size
                     }).then(function(processedResponse) {
                         deferred.resolve();
+
+                        if(newService.rootUrl){
+                            newService.url = newService.rootUrl;
+                            newService.rootUrl = undefined;
+                        }
                     });
                 });
 
@@ -558,27 +581,33 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.getPage = function(page, size, additionalOptions) {
                 var self = this,
-                options;
+                options = {};
 
-                if (page !== 0 && !page) {
-                    page = self.params.page;
+                if (!page) {
+                    page = 0;
+                    self.params.page = 0;
                 } else {
                     self.params.page = page;
                 }
 
                 if (!size) {
-                    size = self.params.size;
+                    size = 20;
+                    self.params.size = 20;
                 } else {
-                    self.params.page = page;
+                    self.params.size = size;
                 }
-
-                options = {
-                    page: page,
-                    size: size
-                };
 
                 if (additionalOptions) {
                     options = angular.extend(options, additionalOptions);
+                }
+
+                if (options) {
+                    if (!options.params) {
+                        options.params = {}
+                    }
+
+                    options.params.size = size;
+                    options.params.page = page;
                 }
 
                 return this.get(options);
@@ -689,7 +718,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 self.item[prop].data = self.item._embedded[prop];
                             } else {
                                 if (!self.item._embedded[prop]._links) {
-                                    if (!self[prop].item) {
+                                    if (self[prop] && !self[prop].item) {
                                         self[prop].item = self.item._embedded[prop];
                                     } else {
                                          self.item[prop].item = self.item._embedded[prop];
@@ -721,9 +750,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
             HATEOASFactory.prototype.processCall = function(options, deferred) {
                 var self = this,
                 currentParams = angular.copy(self.params),
+                optionsParams,
                 url;
 
                 if (options.params) {
+                    optionsParams = options.params;
                     options.params = angular.extend(self.params, options.params);
                 } else {
                     options.params = self.params;
@@ -735,13 +766,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         params: self.params
                     });
                 } else {
-                   self.setParamsToNull();
+                    self.setParamsToNull();
+
+                    if (optionsParams) {
+                        options.params = optionsParams
+                    }
                 }
 
-
-                console.log(optionsObj.params)
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel)) {
+                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) || $rootScope.currentAccount.refresh) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }

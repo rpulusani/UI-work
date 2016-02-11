@@ -32,13 +32,11 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
             }));
 
             describe('Contact List Controller', function() {
-                it('scope.contacts.goToCreate() - route to /new', function() {
-                    spyOn(scope.contacts, 'goToCreate').and.callThrough();
+                it('goToCreate() - route to /new', function() {
+                    spyOn(scope, 'goToCreate').and.callThrough();
                     spyOn(location, 'path').and.returnValue('/');
-
-                    scope.contacts.goToCreate();
-                    
-                    expect(scope.contacts.item.firstName).toEqual(mockContactFactory.getModel().firstName);
+                    scope.goToCreate();
+                    expect(mockContactFactory.item).toEqual(undefined);
                     expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/new');
                  });
 

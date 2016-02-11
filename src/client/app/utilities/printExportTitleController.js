@@ -20,6 +20,12 @@ define(['angular', 'utility.grid'], function(angular) {
                 attrs.titleCount = true;
             }
 
+            if (!attrs.nativePrint) {
+                $scope.nativePrint = false;
+            } else {
+                $scope.nativePrint = true;
+            }
+
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
                 if($scope.title && attrs.titleCount !== false) {
                     $scope.titleValues = {

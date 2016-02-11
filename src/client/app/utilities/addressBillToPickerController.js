@@ -83,7 +83,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                             body: 'ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.TXT_ORDER_BILL_TO_PAR',
                             readMore: ''
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     }
                 };
             }

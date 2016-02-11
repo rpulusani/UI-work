@@ -958,6 +958,9 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-disclosure_up_triangle:before {
   content: "\e049";
 }
+.icon-psw-home:before {
+  content: "\e62b";
+}
 .rollup {
   background-color: #e6e6f0;
   border-top: 3px solid #00ad21;
@@ -1182,6 +1185,16 @@ ul.status-details {
 .vertical-margin-24 {
   margin-bottom: 24px !important;
   margin-top: 24px !important;
+}
+.vertical-margin-top-36 {
+  margin-top: 36px !important;
+}
+.vertical-margin-bottom-36 {
+  margin-bottom: 36px !important;
+}
+.vertical-margin-36 {
+  margin-bottom: 36px !important;
+  margin-top: 36px !important;
 }
 .vertical-margin-top-48 {
   margin-top: 48px !important;

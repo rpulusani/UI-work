@@ -13,6 +13,24 @@ define([
                 $scope.$broadcast(evt);
             };
 
+            var deselectAll = function(itemList) {
+                if (itemList && itemList.length > 0) {
+                    for(var i=0;i<itemList.length;i++) {
+                        itemList[i].selected = false;
+                        if(itemList[i].items && itemList[i].items.length > 0) {
+                            deselectAll(itemList[i].items);
+                        }
+                    }
+                }
+            };
+
+            $scope.$on('deselectAll', function(evt){
+                if ($scope.selectedItems && $scope.selectedItems.length > 0) {
+                    $scope.selectedItems = [];
+                }
+                deselectAll($scope.items);
+            });
+
             function setChlChildren(tempItem, deferred) {
                 Account.setItem(tempItem);
                 var promise,

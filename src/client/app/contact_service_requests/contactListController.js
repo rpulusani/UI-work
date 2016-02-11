@@ -34,16 +34,23 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $scope.contacts = Contacts;
 
         $scope.selectRow = function(btnType) {
-            if (btnType !== 'delete') {
+            if(btnType === 'delete'){
+                Contacts.goToDelete($scope.gridApi.selection.getSelectedRows()[0]);
+            }else{
                 Contacts.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
-            } else {
-                Contacts.goToReview($scope.gridApi.selection.getSelectedRows()[0]);
             }
         };
 
-        Contacts.alertState = false;
+        $scope.goToCreate = function() {
+            Contacts.item = undefined;
+            Contacts.tempSpace = {};
+            $location.path('/service_requests/contacts/new');
+        };
 
-        filterSearchService.addBasicFilter('CONTACT.ALL', undefined, undefined,
+
+        Contacts.alertState = false;
+        var removeParamsList = ['location'];
+        filterSearchService.addBasicFilter('CONTACT.ALL', undefined, removeParamsList,
             function(Grid) {
                 $scope.$broadcast('setupPrintAndExport', $scope);
 

@@ -179,6 +179,7 @@ define(['angular',
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+                $scope.configure.device.information.translate.linkMakeChangesTxt = undefined;
             }
 
             function configureTemplates() {
@@ -187,9 +188,10 @@ define(['angular',
                         translate: {
                             h1: 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE',
                             body: 'MESSAGE.LIPSUM',
-                            readMore: ''
+                            readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '/service_requests/learn_more',
+                        showCancelBtn: false
                     },
                     device: {
                         information:{
@@ -272,7 +274,24 @@ define(['angular',
                                 return {};
                             }
                         }
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
 
             }

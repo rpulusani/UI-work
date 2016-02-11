@@ -70,13 +70,21 @@ define(['angular', 'utility'], function(angular) {
                 }
 
                 this.getApi(serviceName).then(function(api) {
-                    var url = api.url + '/' + loginId;
+                    var url = api.url + '/' + loginId,
+                    acctLink; // String for account link needed for initial setup
+
                     $http.get(url).then(function(processedResponse) {
                         angular.extend($rootScope.currentUser, processedResponse.data);
                         $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
 
                         if (!$rootScope.currentAccount) {
-                            self.updateCurrentAccount($rootScope.currentUser.accounts[0]);
+                            if (angular.isArray($rootScope.currentUser._links.accounts)) {
+                                acctLink = $rootScope.currentUser._links.accounts[0].href;
+                            } else {
+                                acctLink = $rootScope.currentUser._links.accounts.href;
+                            }
+
+                            self.updateCurrentAccount($rootScope.currentUser.accounts[0], acctLink);
                         }
 
                         deferred.resolve(api);
@@ -89,7 +97,7 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSConfig.prototype.getCurrentAccount = function(account) {
                 var deferred = $q.defer();
 
-                if (!$rootScope.currentAccount || !$rootScope.currentAccount.accountLevel) {
+                if ((!$rootScope.currentAccount || !$rootScope.currentAccount.accountLevel)) {
                     this.getLoggedInUserInfo().then(function() {
                         deferred.resolve($rootScope.currentAccount);
                     });
@@ -100,7 +108,7 @@ define(['angular', 'utility'], function(angular) {
                 return deferred.promise;
             };
 
-            HATEAOSConfig.prototype.updateCurrentAccount = function(account) {
+            HATEAOSConfig.prototype.updateCurrentAccount = function(account, accountLink) {
                 if (account.level) {
                     if (!$rootScope.currentAccount) {
                         $rootScope.currentAccount = {}
@@ -109,12 +117,16 @@ define(['angular', 'utility'], function(angular) {
                     $rootScope.currentAccount.accountId = account.accountId,
                     $rootScope.currentAccount.accountLevel = account.level,
                     $rootScope.currentAccount.name = account.name;
+                    $rootScope.currentAccount.href = accountLink;
+                    $rootScope.currentAccount.refresh = false;
 
                     if (!$rootScope.defaultAccount) {
                         $rootScope.defaultAccount = {
                             accountId: account.accountId,
                             accountLevel: account.level,
-                            name: account.name
+                            name: account.name,
+                            href: accountLink,
+                            refresh: false
                         };
                     }
                 }

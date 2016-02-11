@@ -27,14 +27,32 @@ define(['angular', 'filterSearch'], function(angular) {
                     }
                 }
                 if($scope.selectedStatusList && $scope.filterDef && typeof $scope.filterDef === 'function'){
+                    if ($scope.selectedStatusList.length > 0) {
+                        $scope.showClearMessage = true;
+                        $scope.noOfSelected = $scope.selectedStatusList.length;
+                    } else {
+                        $scope.showClearMessage = false;
+                    }
                     var requestStatusList = $scope.selectedStatusList.join();
                     if ($scope.selectedStatusList.length > 0) {
                         $scope.params['status'] = requestStatusList;
-                        $scope.filterDef($scope.params,['from', 'to', 'bookmark']);
+                        $scope.filterDef($scope.params,['from', 'to', 'bookmark', 'requesterFilter']);
                     } else {
                         $scope.params = {};
-                        $scope.filterDef($scope.params,['status', 'from', 'to', 'bookmark']);
+                        $scope.filterDef($scope.params,['status', 'from', 'to', 'bookmark', 'requesterFilter']);
                     }
+                }
+            };
+
+            $scope.clearStatusFilter = function(){
+                if($scope.filterDef && typeof $scope.filterDef === 'function'){
+                    $scope.params = {};
+                    $scope.noOfSelected = 0;
+                    $scope.selectedStatusList = [];
+                    for (var i=0; i<$scope.requestStatuses.length; i++) {
+                        $scope.requestStatuses[i].selected = false;
+                    }
+                    $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark', 'requesterFilter']);
                 }
             };
         }

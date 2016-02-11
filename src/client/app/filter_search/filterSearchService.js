@@ -96,11 +96,24 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                         angular.extend(options.params, params);
 
                         if (removeParams) {
+                            for(var i = 0; i < removeParams.length; ++i){
+                                if (removeParams[i] === 'preventDefaultParams') {
+                                    var preventDefaultParams = {
+                                        'preventDefaultParams': true
+                                    }
+                                    angular.extend(options, preventDefaultParams);
+                                }
+                                delete options.params[removeParams[i]];
+                            }
                             self.clearParameters(removeParams);
                         }
-                        var promise = self.service.getPage(0, self.service.params.size, options);
 
+                        var promise = self.service.getPage(0, self.service.params.size, options);
                         promise.then(function() {
+                            if (!self.service.item) {
+                                self.service.setItem(self.service.data[0]);
+                            }
+
                             self.display(fn);
                         }, self.failure);
                     },
@@ -132,17 +145,19 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                         angular.extend(options.params, params);
 
                         if (removeParams) {
-                            if (removeParams) {
-                                for(var i = 0; i < removeParams.length; ++i){
-                                    delete options.params[removeParams[i]];
-                                }
-                                self.clearParameters(removeParams);
+                            for(var i = 0; i < removeParams.length; ++i){
+                                delete options.params[removeParams[i]];
                             }
+                            self.clearParameters(removeParams);
                         }
 
                         var promise = self.service.getPage(0, self.service.params.size, options);
 
                         promise.then(function() {
+                            if (!self.service.item) {
+                                self.service.setItem(self.service.data[0]);
+                            }
+
                             self.display(fn);
                         }, self.failure);
                     },

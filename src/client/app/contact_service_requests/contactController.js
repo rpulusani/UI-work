@@ -8,7 +8,10 @@ define(['angular', 'contact'], function(angular) {
         '$rootScope',
         'FormatterService',
         'ServiceRequestService',
-        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest) {
+        'SRControllerHelperService',
+        function($scope, Contacts, $translate, $rootScope, FormatterService, ServiceRequest, SRHelper) {
+            SRHelper.addMethods(Contacts, $scope, $rootScope);
+
             $scope.contacts = Contacts;
 
             if (Contacts.item === null) {
@@ -16,26 +19,10 @@ define(['angular', 'contact'], function(angular) {
             } else {
                 // Address information from /address-validation
                 $scope.comparisonAddress = false;
-                // the verify radio btn value 
+                // the verify radio btn value
                 $scope.acceptedEnteredAddress = 1;
                 // User has been prompted with the need to verify and can now save/update
                 $scope.canSave = false;
-
-                $scope.processDelete = function(fn) {
-                    ServiceRequest.setItem(Contacts.createSRFromContact());
-
-                    ServiceRequest.get({
-                        method: 'post',
-                        preventDefaultParams: true,
-                        data: ServiceRequest.item
-                    }).then(function(res) {
-                        if (res.status === 201) {
-                            ServiceRequest.setItem(res.data);
-                            Contacts.submitedSR = true;
-                            Contacts.goToDelete()
-                        }
-                    });
-                };
 
                 $scope.updateContact = function(contactForm) {
                     var runUpdate = function(item) {
@@ -54,8 +41,9 @@ define(['angular', 'contact'], function(angular) {
                     if ($scope.canSave === true) {
                         runUpdate(Contacts.item);
                     } else {
-                        if (!contactForm.addressLine1.$pristine || !contactForm.addressLine2.$pristine
-                            || !contactForm.postalCode.$pristine) {
+                        if (!contactForm.addressLine1.$pristine ||
+                            !contactForm.addressLine2.$pristine ||
+                            !contactForm.postalCode.$pristine) {
                             Contacts.verifyAddress($scope.contacts.item.address, function(statusCode, bodsData) {
                                 if (statusCode === 200) {
                                     $scope.comparisonAddress = bodsData;
@@ -72,33 +60,6 @@ define(['angular', 'contact'], function(angular) {
                         } else {
                              runUpdate(Contacts.item);
                         }
-                    }
-                };
-
-                $scope.saveContact = function(contactForm) {
-                    Contacts.setItem($scope.contacts.item);
-
-                    if ($scope.canSave === true) {
-                        Contacts.save(Contacts.item, {
-                            preventDefaultParams: true
-                        }).then(function(r) {
-                            $scope.canSave = false;
-                      
-                            Contacts.alertState = 'saved';
-                            Contacts.goToUpdate();
-                        });
-                    } else {
-                        Contacts.verifyAddress($scope.contacts.item.address, function(statusCode, bodsData) {
-                            if (statusCode === 200) {
-                                $scope.comparisonAddress = bodsData;
-                            }
-
-                            if ($scope.acceptedEnteredAddress === 2) {
-                                Contacts.item.address = $scope.comparisonAddress;
-                            }
-
-                            $scope.canSave = true;
-                        });
                     }
                 };
 
@@ -122,7 +83,8 @@ define(['angular', 'contact'], function(angular) {
                             h1: 'CONTACT_SERVICE_REQUEST.DELETE',
                             body: 'MESSAGE.LIPSUM'
                         },
-                        readMoreUrl: ''
+                        readMoreUrl: '',
+                        showCancelBtn: false
                     },
                     detail:{
                         translate:{
@@ -149,9 +111,11 @@ define(['angular', 'contact'], function(angular) {
                             requestedByTitle: 'Request created by',
 
                         },
-                        show:{
-                            primaryAction : true
-                        }
+                        show: {
+                            primaryAction: true
+                        },
+                        pickerObject: Contacts.item,
+                        source: 'Contact'
                     },
                     contactsr: {
                         translate: {
@@ -166,13 +130,42 @@ define(['angular', 'contact'], function(angular) {
                             submit: 'CONTACT_SERVICE_REQUEST.SR_DELETE'
                         },
                         submit: function() {
-                            $scope.processDelete()
+                            $scope.processDelete();
                         }
-                    }
+                    },
+                    statusList:[{
+                        'label':'Submitted',
+                        'date': '1/29/2016',
+                        'current': true
+                    }, {
+                        'label':'In progress',
+                        'date': '',
+                        'current': false
+                    }, {
+                        'label':'Completed',
+                        'date': '',
+                        'current': false
+                    }]
                 };
+
+                //ServiceRequest.setItem(Contacts.createSRFromContact());
+                //$scope.setupSR(ServiceRequest);
 
                 if (Contacts.submitedSR) {
                     $scope.configure.header.translate.h1 = 'CONTACT_SERVICE_REQUEST.SR_DELETE_TITLE';
+
+                    $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.DELETE_CONTACT_SUBMIT_HEADER_BODY";
+                    $scope.configure.header.translate.readMore = 'CONTACT_SERVICE_REQUEST.RETURN_LINK';
+                    $scope.configure.header.translate.readMoreUrl = Contacts.route;
+                    $scope.configure.header.translate.bodyValues = {
+                        srNumber: ServiceRequest.item.id,
+                        srHours: 24
+                    };
+
+                    $scope.formattedReferenceId = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+                    $scope.formattedCostCenter = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+                    $scope.formattedNotes = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
+                    $scope.formattedAttachments = $translate.instant('CONTACT_SERVICE_REQUEST.TXT_NONE');
 
                     $scope.configure.receipt = {
                         translate: {

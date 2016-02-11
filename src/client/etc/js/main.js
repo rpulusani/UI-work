@@ -30,13 +30,23 @@ requirejs.config({
             'hateoasFactory',
             'hateoasFactory.serviceFactory',
 
+            'queue',
+            'queue.directives',
+            'queue.queueNotificationController',
+            'queue.queueListController',
+            'queue.tombstoneFactory',
+
             'dashboard',
             'dashboard.dashboardController',
 
+            'ngTagsInput',
+
             'library',
             'library.libraryFactory',
+            'library.libraryTagFactory',
             'library.libraryListController',
             'library.libraryController',
+            'library.libraryDeleteInlineController',
             'library.libraryViewController',
 
             'nav',
@@ -78,8 +88,6 @@ requirejs.config({
             'user.manageUserController',
             'user.invitedUserController',
 
-            'pageCount',
-
             'report',
             'report.reportController',
             'report.reportListController',
@@ -98,6 +106,14 @@ requirejs.config({
 
         'rome': ['angular'],
 
+        'ngTagsInput': ['angular'],
+
+        'queue': ['angular'],
+        'queue.directives': ['angular', 'queue'],
+        'queue.queueNotificationController': ['angular', 'queue'],
+        'queue.queueListController': ['angular', 'queue'],
+        'queue.tombstoneFactory': ['angular', 'queue'],
+
         'form':['angular', 'lxk.fef'],
         'form.datePicker' : ['form'],
         'form.directives': ['form'],
@@ -109,8 +125,10 @@ requirejs.config({
         'library': ['angular'],
         'library.libraryListController': ['library'],
         'library.libraryController': ['library'],
+        'library.libraryDeleteInlineController': ['library'],
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
+        'library.libraryTagFactory': ['library'],
         'library.directives': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
@@ -135,8 +153,6 @@ requirejs.config({
         'address.addressListController': ['address'],
         'address.directives': ['address'],
         'address.factory': ['address'],
-
-        'pageCount': ['angular', 'angular-route'],
 
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
@@ -164,8 +180,11 @@ requirejs.config({
         'angular-spring-data-rest': 'app/libs/angular-spring-data-rest.min',
 
         'googlecharting': 'app/libs/ng-google-chart',
+        'vButton': 'app/libs/v-button.min',
 
         'rome': 'app/libs/rome.min',
+
+        'ngTagsInput': 'app/libs/ng-tags-input.min',
 
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',
@@ -195,13 +214,21 @@ requirejs.config({
         'filterSearch.roleFilterController': 'app/filter_search/roleFilterController',
         'filterSearch.dateRangeFilterController': 'app/filter_search/dateRangeFilterController',
         'filterSearch.invoiceDateFilterController': 'app/filter_search/invoiceDateFilterController',
+        'filterSearch.soldToFilterController': 'app/filter_search/soldToFilterController',
         'filterSearch.libraryFilterController': 'app/filter_search/libraryFilterController',
+        'filterSearch.meterReadTypeFilterController': 'app/filter_search/meterReadTypeFilterController',
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
 
         'security': 'app/security/security',
         'security.securityService': 'app/security/securityService',
         'security.securityHelper': 'app/security/securityHelper',
+
+        'queue': 'app/queue/queue',
+        'queue.directives': 'app/queue/directives',
+        'queue.queueNotificationController': 'app/queue/queueNotificationController',
+        'queue.queueListController': 'app/queue/queueListController',
+        'queue.tombstoneFactory': 'app/queue/tombstoneFactory',
 
         'nav': 'app/nav/nav',
         'nav.navController': 'app/nav/navController',
@@ -286,6 +313,7 @@ requirejs.config({
         'order.orderContentsController': 'app/orders/orderContentsController',
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
+        'order.returnOrdersController': 'app/orders/returnOrdersController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',
@@ -298,7 +326,9 @@ requirejs.config({
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
         'contact.contactController': 'app/contact_service_requests/contactController',
+        'contact.contactDeleteController': 'app/contact_service_requests/contactDeleteController',
         'contact.contactListController': 'app/contact_service_requests/contactListController',
+        'contact.contactAddController': 'app/contact_service_requests/contactAddController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
@@ -309,6 +339,11 @@ requirejs.config({
         'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
 
         'pageCount': 'app/page_count/pageCount',
+        'pageCount.directives': 'app/page_count/directives',
+        'pageCount.missingPageCountListController': 'app/page_count/missingPageCountListController',
+        'pageCount.pageCountTabController': 'app/page_count/pageCountTabController',
+        'pageCount.pageCountListController': 'app/page_count/pageCountListController',
+        'pageCount.pageCountFactory': 'app/page_count/pageCountFactory',
 
         'deviceManagement': 'app/device_management/deviceManagement',
         'deviceManagement.deviceController': 'app/device_management/deviceController',
@@ -322,6 +357,7 @@ requirejs.config({
         'deviceManagement.productModelFactory': 'app/device_management/productModelFactory',
         'deviceManagement.meterReadFactory': 'app/device_management/meterReadFactory',
         'deviceManagement.deviceRequestFactory': 'app/device_management/deviceRequestFactory',
+        'deviceManagement.deviceNotificationController': 'app/device_management/deviceNotificationController',
 
         'deviceServiceRequest': 'app/device_service_requests/deviceServiceRequest',
         'deviceServiceRequest.deviceAddController': 'app/device_service_requests/deviceAddController',
@@ -336,8 +372,10 @@ requirejs.config({
         'library': 'app/library/library',
         'library.libraryListController': 'app/library/libraryListController',
         'library.libraryController': 'app/library/libraryController',
+        'library.libraryDeleteInlineController': 'app/library/libraryDeleteInlineController',
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
+        'library.libraryTagFactory': 'app/library/libraryTagFactory',
         'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',

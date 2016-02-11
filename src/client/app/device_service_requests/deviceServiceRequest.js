@@ -36,9 +36,15 @@ define(['angular'], function(angular) {
             .when('/service_requests/devices/picker', {
                 templateUrl: '/app/device_service_requests/templates/device-picker.html',
                 controller: 'DeviceServiceRequestDeviceController',
-                activeItem: '/device_management'
+                activeItem: '/device_management',
+                reloadOnSearch: false
             })
             .when('/service_requests/devices/:id/view', {
+                templateUrl: '/app/device_service_requests/templates/view-breakfix.html',
+                controller: 'DeviceServiceRequestDeviceController',
+                activeItem: '/device_management'
+            })
+            .when('/service_requests/devices/breakfix', {
                 templateUrl: '/app/device_service_requests/templates/view-breakfix.html',
                 controller: 'DeviceServiceRequestDeviceController',
                 activeItem: '/device_management'

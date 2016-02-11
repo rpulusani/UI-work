@@ -41,9 +41,9 @@ function(angular, mocks, fef, $, fixtures) {
       });
 
       it('changes selection with binding', function () {
-        $rootScope.model = '3';
+        $rootScope.model = 'a';
         $rootScope.$digest();
-        expect($(el[0]).find('li[class=selected]').text()).toBe('c');
+        expect($(el[0]).find('select').val()).toBe('1');
       });
 
       it('calls back on change', function(done) {

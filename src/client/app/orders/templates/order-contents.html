@@ -1,8 +1,12 @@
-<div class="col-2-3" ng-if="configure && (!editable || editable === 'false')">
-<h2>
+<div class="col-1" ng-if="configure && (!editable || editable === 'false') && orderSummaryGridOptions">
+<h2 class="vertical-space--none">
     <span translate="{{configure.order.details.translate.title}}"></span>
-    <a class="order-action" translate="{{configure.order.details.translate.action}}" ng-click="configure.order.details.actionLink()"></a>
 </h2>
+<hr class="vertical-margin-bottom-12"/>
+<div class="vertical-margin-bottom-36">
+    <a ng-if="configure.order.details.translate.action" class="order-action" href="#"
+        translate="{{configure.order.details.translate.action}}" ng-click="configure.order.details.actionLink()"></a>
+</div>
 </div>
  <div ng-class="{'well': (!editable || editable === 'false')}" ng-if="orderSummaryGridOptions || (editable && editable === 'true')">
      <div class="col-1" ng-if="(orderSummaryGridOptions && orderSummaryGridOptions.data) || showEmpty">

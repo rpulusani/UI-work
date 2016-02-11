@@ -41,6 +41,8 @@ define(['angular',
             $scope.goToReview = function() {
                 $rootScope.newDevice = $scope.device;
                 $location.path(DeviceServiceRequest.route + '/add/review');
+                            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
+
             };
 
             $scope.setModels = function() {
@@ -60,8 +62,8 @@ define(['angular',
                         }
                     };
                     ProductModel.get(options).then(function(){
-                        if (ProductModel && ProductModel.item
-                            && ProductModel.item._embedded && ProductModel.item._embedded.models) {
+                        if (ProductModel && ProductModel.item &&
+                                ProductModel.item._embedded && ProductModel.item._embedded.models) {
                             $scope.device.productNumbers = [];
                             var modelList = ProductModel.item._embedded.models;
                             for(var i=0; i<modelList.length; i++) {
@@ -74,8 +76,8 @@ define(['angular',
                 }
             });
 
-            if ($rootScope.selectedContact
-                    && $rootScope.returnPickerObject){
+            if ($rootScope.selectedContact &&
+                    $rootScope.returnPickerObject){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 if ($rootScope.currentSelected) {
@@ -88,8 +90,8 @@ define(['angular',
                     }
                 }
                 $scope.resetContactPicker();
-            } else if($rootScope.selectedAddress
-                    && $rootScope.returnPickerObjectAddress){
+            } else if($rootScope.selectedAddress &&
+                    $rootScope.returnPickerObjectAddress){
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
@@ -104,8 +106,8 @@ define(['angular',
                     $scope.device.address = $rootScope.selectedAddress;
                 }
                 $scope.resetAddressPicker();
-            } else if($rootScope.selectedDevice
-                    && $rootScope.returnPickerObjectDevice){
+            } else if($rootScope.selectedDevice &&
+                    $rootScope.returnPickerObjectDevice){
                 $scope.device = $rootScope.returnPickerObjectDevice;
                 $scope.sr = $rootScope.returnPickerSRObjectDevice;
                 if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
@@ -133,6 +135,10 @@ define(['angular',
 
                     $scope.resetDevicePicker();
                 }
+            } else if(ServiceRequest.item && Devices.item){
+                $scope.sr = ServiceRequest.item;
+                $scope.device = Devices.item;
+
             } else {
                 $scope.device = {};
                 $scope.device.address = {};
@@ -153,12 +159,9 @@ define(['angular',
                     $scope.getRequestor(ServiceRequest, Contacts);
                 }
             }
+               $scope.updateSRObjectForSubmit = function() {
+                ServiceRequest.item =  $scope.sr;
 
-
-            $scope.setupSR(ServiceRequest, configureSR);
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
-
-            var updateSRObjectForSubmit = function() {
                 if ($scope.device.deviceDeInstallQuestion === 'true') {
                     ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
                 } else if ($scope.device.deviceInstallQuestion === 'true') {
@@ -177,6 +180,8 @@ define(['angular',
                     physicalLocation2: $scope.device.physicalLocation2,
                     physicalLocation3: $scope.device.physicalLocation3
                 };
+
+
 
                 if ($scope.device.chl && $scope.device.chl.id) {
                     assetInfo.customerHierarchyLevel = $scope.device.chl.id;
@@ -200,13 +205,23 @@ define(['angular',
                 if (BlankCheck.checkNotBlank($scope.device.deviceInstallDate)) {
                     ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate));
                 }
-                ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+              
+              //  ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
+                HATEAOSConfig.getCurrentAccount().then(function() {
+                    Devices.item = $scope.device;
+                    ServiceRequest.item._links.account = {href: $rootScope.currentAccount.href};
+                    ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
+                });
             };
+
+            $scope.setupSR(ServiceRequest, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                $scope.updateSRObjectForSubmit();
                 $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
+                    $scope.updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                         HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
                             ServiceRequest.item.postURL = api.url;
@@ -234,7 +249,7 @@ define(['angular',
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
-                    'deviceManagementUrl': 'device_management/',
+                    'deviceManagementUrl': '/service_requests/devices/new',
                 };
                 $scope.configure.receipt = {
                     translate: {
@@ -253,7 +268,8 @@ define(['angular',
                             body: 'MESSAGE.LIPSUM',
                             readMore: 'Learn more about requests'
                         },
-                        readMoreUrl: '/service_requests/learn_more'
+                        readMoreUrl: '/service_requests/learn_more',
+                        showCancelBtn: false
                     },
                     device: {
                         information:{
@@ -268,14 +284,21 @@ define(['angular',
                                 chl: 'DEVICE_MGT.CHL',
                                 customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
                                 installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
-                            }
+                                linkMakeChangesTxt: 'LABEL.MAKE_CHANGES'
+                            },
+                            linkMakeChanges: '/service_requests/devices/new'
+
                         },
                         pageCount:{
                             translate: {
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
                             },
                             source: 'add'
+                        },
+                        contact: {
+                            translate:{
+                                title:'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                            }
                         }
                     },
                     detail: {
@@ -349,7 +372,24 @@ define(['angular',
                             }
                         },
                         readMoreUrl: ''
-                    }
+                    },
+                    statusList:[
+                  {
+                    'label':'Submitted',
+                    'date': '1/29/2016',
+                    'current': true
+                  },
+                  {
+                    'label':'In progress',
+                    'date': '',
+                    'current': false
+                  },
+                  {
+                    'label':'Completed',
+                    'date': '',
+                    'current': false
+                  }
+                ]
                 };
             }
 

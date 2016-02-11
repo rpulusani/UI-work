@@ -4,15 +4,28 @@
 
 <div ng-show="documentItem.id !== 'new'">
     <div class="form__field form__field--required vertical-space--thick">
-        <button name="deleteDocument" class="btn btn--default" type="submit" value="submit" 
-                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-click="goToDelete();"></button>
+
+        <div class="deleteConfirmation">
+            <div ng-hide="isDeleting">
+                <button name="deleteDocument" class="btn btn--default" type="submit" value="submit" 
+                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-click="goToStartDelete()"></button>
+            </div>
+            <div class="well" ng-show="isDeleting">
+                <p class="text--small" translate="DOCUMENT_LIBRARY.COMMON.TXT_DELETE_DOC_ARE_YOU_SURE"></p>
+                <p class="text--small" >
+                    <a href="#" ng-click="goToCancelDelete()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_GRID_CANCEL"></a>
+                    <a href="#" ng-click="goToDelete()" translate="DOCUMENT_LIBRARY.COMMON.CTRL_DELETE_DOCUMENT"></a>
+                </p>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <div ng-show="documentItem.id === 'new'">
     <div class="form__field form__field--required vertical-space--thick">
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>
-        <input type="file" file-model="documentFile" file-on-change="setDocumentName" />
+        <input type="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)"/>
     </div>
 </div>
 
@@ -28,20 +41,16 @@
 
 <div class="form__field vertical-space--thick">
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION"></label>
-    <input name="description" type="text" ng-model="documentItem.description" value="" />
+    <textarea name="description" type="text" rows="8" cols="77" ng-model="documentItem.description" value=""></textarea>
 </div>
 
 <h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGING"></h4>
-<div class="form__field vertical-space--thick">
-    <label translate="DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS"></label>
-    <!--<input name="tags2" type="text" ng-list ng-model="documentItem.tags2" value=""  />-->
-</div>
-
-<div class="form__field vertical-space--thick">
-    <label translate="DOCUMENT_LIBRARY.COMMON.TXT_ADD_TAGS"></label>
-        <input name="tags" type="text" ng-list ng-model="documentItem.tags" value="" />
-        <button name="addTags" class="btn btn--primary" translate="DOCUMENT_LIBRARY.COMMON.BTN_ADD_TAG"
-            ng-click="addTags();"></button>
+<div class="row row--alley-thick">
+    <div class="col-2-3">
+        <tags-input ng-model="documentItem.tags" display-property="name" placeholder="Select tags">
+            <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>
+    </div>
 </div>
 
 <h4 translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISHING"></h4>

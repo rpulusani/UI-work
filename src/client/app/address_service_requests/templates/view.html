@@ -6,7 +6,11 @@
         </ul>
         <h1 translate="ADDRESS.LIST_TITLE"></h1>
         <p><span translate="MESSAGE.LIPSUM"></span> <a href="/service_requests/learn_more"><span translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></span></a></p>
-        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
+        <div class="col-1 btns">
+            <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD" ng-if="addressAccess"></button>
+            <button type="button" class="btn btn--default" ng-click="goToLbs()" translate="ADDRESS_SERVICE_REQUEST.ADD_NEW_MAP" ng-if="addressAccess" target="_blank"></button>
+        </div>
+        <div queue-alert></div>
     </div>
 </div>
 
@@ -27,7 +31,7 @@
 
             <div class="row l-pad-bottom">
                 <div class="col-lg-2-3 col-md-1-1">
-                    <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
+                    <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
                 </div>
 
                 <div class="col-1-8 l-alley-before-thick">
@@ -41,7 +45,14 @@
             </div>
 
             <div class="col-1">
-        <div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+        <div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            <div class="alert alert--info" ng-show="gridOptions.showNoResults">
+                <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                    <span translate="GRID.EMPTY"></span>
+                </div>
+            </div>
+        </div>
 
         <div pagination grid="{{gridOptions}}"></div>
             </div>
