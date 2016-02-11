@@ -33,10 +33,6 @@ define(['angular', 'contact'], function(angular) {
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
 
-            $timeout (function() {
-                $rootScope.contactAlertMessage = undefined;
-            }, 3600);
-
             $scope.checkAddress = function(contactForm) {
                 if($scope.checkedAddress === 0){
                     $scope.enteredAddress = {
@@ -54,6 +50,7 @@ define(['angular', 'contact'], function(angular) {
                                 $scope.contact.address.postalCode != $scope.comparisonAddress.postalCode) {
                                 $scope.needToVerify = true;
                                 $scope.checkedAddress = 1;
+                                $scope.contactUpdate = true;
                             }else{
                                 $scope.canReview = true;
                                 $scope.checkedAddress = 1;
@@ -124,7 +121,9 @@ define(['angular', 'contact'], function(angular) {
                     $scope.updatedAddress = true;
             };
 
-            if(Contacts.item){
+            if(Contacts.item === null){
+                $scope.redirectToList();
+            }else{
                 Contacts.tempSpace = {};
                 $scope.contact = Contacts.item;
                 $scope.comparisonAddress = {};
@@ -133,75 +132,15 @@ define(['angular', 'contact'], function(angular) {
                 $scope.canReview = false;
                 $scope.updatedAddress = false;
                 $scope.originalAddress = angular.copy($scope.contact.address);
-                if($rootScope.contactAlertMessage === 'saved'){
-                    $rootScope.contactAlertMessage = 'saved';
-                }else if($rootScope.contactAlertMessage === 'updated'){
-                    $rootScope.contactAlertMessage = 'updated';
-                }
-            }else{
-                $scope.contact = {};
-                $scope.contact.address = {};
-                $scope.enteredAddress = {};
-                $scope.comparisonAddress = {};
-                $scope.checkedAddress = 0;
-                $scope.needToVerify = false;
-                $scope.canReview = false;
-                $scope.getRequestor(ServiceRequest, Contacts);
             }
 
-            var updateContactObjectForSubmit = function() {
-                Contacts.item = $scope.contact;
-                Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
-            };
-           
 
             $scope.saveContact = function(contactForm) {
                 $scope.checkAddress(contactForm);
+                //$scope.addressValuesChanged();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
-                    updateContactObjectForSubmit();
-                    Contacts.item.postURL = Contacts.url;
-                    var deferred;
-
-                    if(contactForm === 'newContact'){
-                        deferred = Contacts.post({
-                            item: $scope.contact
-                        });
-
-                        deferred.then(function(result){
-                            $rootScope.contactAlertMessage = 'saved';
-                            $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
-                        }, function(reason){
-                            NREUM.noticeError('Failed to create Contact because: ' + reason);
-                        });
-                    }else if(contactForm === 'editContact'){
-                        delete $scope.contact.account;
-                        delete $scope.contact.params;
-                        delete $scope.contact.url;
-                        Contacts.item.postURL = Contacts.item._links.self.href;
-                        deferred = Contacts.put({
-                            item: $scope.contact
-                        });
-
-                        deferred.then(function(result){
-                            $rootScope.contactAlertMessage = 'updated';
-                            $scope.addressValuesChanged();
-                            if($scope.updatedAddress === true && $scope.checkedAddress === 1){
-                                 $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');
-                            }else{
-                                window.scrollTo(0,0);
-                            }
-                            Contacts.item.postUrl = Contacts.url;
-                            //$location.path(Contacts.route + '/' + $scope.contact.id + '/update');
-                        }, function(reason){
-                            NREUM.noticeError('Failed to update Contact because: ' + reason);
-                        });
-                        //enter into Service Request creation for Address update
-                        
-                    }
-
-
+                    $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');
                 }
-
             };
 
         }
