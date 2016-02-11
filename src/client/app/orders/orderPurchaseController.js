@@ -44,7 +44,9 @@ define(['angular','order', 'utility.grid'], function(angular) {
             $scope.isLoading = false;
 
             var configureSR = function(Orders){
-                    Orders.addField('description', '');
+                    if(Orders.item && !Orders.item.description){
+                        Orders.addField('description', '');
+                    }
                     Orders.addRelationship('account', $scope.device, 'account');
                     Orders.addRelationship('asset', $scope.device, 'self');
                     Orders.addRelationship('primaryContact', $scope.device, 'contact');
@@ -57,7 +59,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
             } else if($rootScope.selectedContact &&
                 $rootScope.returnPickerObject &&
                 $rootScope.selectionId === Devices.item.id){
-
+                    configureSR(Orders);
                     Devices.item = $rootScope.returnPickerObject;
                     $scope.sr = $rootScope.returnPickerSRObject;
                     Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
@@ -65,14 +67,14 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     $scope.resetContactPicker();
 
             } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
-
+                configureSR(Orders);
                 $scope.sr = $rootScope.returnPickerSRObjectAddressBillTo;
                 Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
                 Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
                 $scope.resetAddressBillToPicker();
 
             } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){
-
+                configureSR(Orders);
                 $scope.sr = $rootScope.returnPickerSRObjectAddressShipTo;
                 Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
                 Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);

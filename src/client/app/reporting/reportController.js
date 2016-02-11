@@ -540,10 +540,6 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
             });
 
             $scope.goToDocumentView = function(documentItem) {
-                var selfHrefArr = documentItem._links.self.href.split('/');
-                var documentId = selfHrefArr.pop();
-
-                documentItem.id = documentId;
                 Documents.setItem(documentItem);
 
                 $location.path(Documents.route + '/' + documentItem.id + '/view');

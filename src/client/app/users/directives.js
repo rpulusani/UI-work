@@ -65,7 +65,29 @@ define(['angular', 'user', 'account.accountFactory', 'account.roleFactory'], fun
     .directive('userRolePermission', function() {
         return {
             restrict: 'A',
-            templateUrl: '/app/users/templates/user-role-permission.html'
+            templateUrl: '/app/users/templates/user-role-permission.html',
+            controller: ['$scope', 'Roles', function($scope, Roles){
+                var basicRoleOptions =  {
+                    'params': {
+                        customerType: 'customer',
+                        roleType: 'basic'
+                    }
+                };
+                Roles.get(basicRoleOptions).then(function() {
+                    $scope.user.basicRoles = Roles.data;
+                    for (var j=0;j<Roles.data.length; j++) {
+                        var tempRole = Roles.data[j];
+                        if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
+                            for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
+                                if ($scope.user.selectedRoleList[i].description === tempRole.description) {
+                                    $scope.setPermissionsForBasic($scope.user.selectedRoleList[i]);
+                                    $scope.basicRole = tempRole.description;
+                                }
+                            }
+                        }
+                    }
+                });
+            }]
         };
     })
     .directive('userLocationFields', function() {
