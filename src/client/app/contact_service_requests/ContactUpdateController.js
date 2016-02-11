@@ -53,7 +53,7 @@ define(['angular', 'contact'], function(angular) {
 
             var updateContactObjectForSubmit = function() {
                 Contacts.item = $scope.contact;
-                Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
+                //Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
             };
            
 
@@ -64,6 +64,8 @@ define(['angular', 'contact'], function(angular) {
                     delete $scope.contact.account;
                     delete $scope.contact.params;
                     delete $scope.contact.url;
+                    delete $scope.contact.primaryContact;
+                    delete $scope.contact.requestedByContact;
                     
                     var deferred = Contacts.put({
                         item: $scope.contact
