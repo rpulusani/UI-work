@@ -734,7 +734,9 @@
         "DELETE_CONTACT_DETAIL": "Details for Delete Contact Request Number: {{srNumber}}",
         "UPDATE_CONTACT_DETAIL": "Details for Update Contact Request Number: {{srNumber}}",
         "SR_DELETE_SUBMITTED": "Delete Contact Request Submitted",
-        "SUBMIT_UPDATE_CONTACT_REQUEST": "Submit Update Contact Request"
+        "SUBMIT_UPDATE_CONTACT_REQUEST": "Submit Update Contact Request",
+        "TAB_CONTACT_INFORMATION": "Contact information",
+        "TAB_CONTACT_ADDRESS": "Contact address"
     },
 
         "DEVICE_SERVICE_REQUEST": {

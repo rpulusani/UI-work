@@ -12,6 +12,7 @@ define(['angular', 'contact'], function(angular) {
         'UserService',
         'ServiceRequestService',
         'SRControllerHelperService',
+        'SecurityHelper',
         function($scope,
             $location,
             Contacts,
@@ -21,8 +22,23 @@ define(['angular', 'contact'], function(angular) {
             BlankCheck,
             Users,
             ServiceRequest,
-            SRHelper
+            SRHelper,
+            SecurityHelper
             ) {
+
+             $scope.active = function(value){
+                $rootScope.contactTabSelected = value;
+            };
+
+            $scope.isActive = function(value){
+                var passed = false;
+                if($rootScope.contactTabSelected === value){
+                    passed = true;
+                }
+                return passed;
+            };
+
+            $scope.active('contactInfoTab');
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
 

@@ -1,0 +1,15 @@
+<div class="set" data-js="set">
+    <div class="set__trigger" ng-class="{'set--is-active':isActive('contactInfoTab')}" data-toggle="contactInfoTab" ng-click="active('contactInfoTab')">
+        <a href="#contactInfoTab" translate="CONTACT_SERVICE_REQUEST.TAB_CONTACT_INFORMATION"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="contactInfoTab" ng-class="{'set--is-active':isActive('contactInfoTab')}">
+        <div contact-update-info-fields ng-if="isActive('contactInfoTab');"></div>
+    </div>
+
+    <div class="set__trigger" data-toggle="contactAddressTab" ng-click="active('contactAddressTab')" ng-class="{'set--is-active':isActive('contactAddressTab')}">
+    <a href="#contactAddressTab" translate="CONTACT_SERVICE_REQUEST.TAB_CONTACT_ADDRESS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="contactAddressTab" ng-class="{'set--is-active':isActive('contactAddressTab')}">
+        <div contact-update-address-form ng-if="isActive('contactAddressTab');"></div>
+    </div>
+</div>

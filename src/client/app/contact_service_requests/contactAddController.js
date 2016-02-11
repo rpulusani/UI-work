@@ -1,7 +1,7 @@
 define(['angular', 'contact'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequestContacts')
-    .controller('ContactAddUpdateController', [
+    .controller('ContactAddController', [
         '$scope',
         '$location',
         '$filter',

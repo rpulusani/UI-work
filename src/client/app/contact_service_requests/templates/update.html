@@ -35,18 +35,6 @@
     </div>
 </div>
 
-<div class="page-content" ng-cloak>
-    <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
 
-        <div class="col-2-3 l-alley-after">
-            <div new-contact-fields></div>
-        </div>
+<div class="page-tabs" contact-update-tabs></div>
 
-        <div class="btns">
-            <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
-                translate="CONTACT_SERVICE_REQUEST.CANCEL"></button>
-            <button name="submit" class="btn btn--primary" ng-click="saveContact('editContact')" type="submit"
-                translate="CONTACT_SERVICE_REQUEST.UPDATE_SUBMIT"></button>
-        </div>
-    </form>
-</div>
