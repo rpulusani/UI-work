@@ -1,15 +1,6 @@
 define(['angular', 'library'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .directive('fileOnChange', function() {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var onChangeFunc = scope.$eval(attrs.fileOnChange);
-                element.bind('change', onChangeFunc);
-            }
-        };
-    })
     .directive('libraryInlineDelete', function() {
         return {
             restrict: 'A',
