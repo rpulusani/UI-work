@@ -53,39 +53,16 @@ define(['angular', 'user'], function(angular) {
                 {name: $translate.instant('LANGUAGES.SLOVAK'), code:  'sk_SK'}
             ];
             var removeParams,
-            basicRoleOptions =  {
-                'params': {
-                    customerType: 'customer',
-                    roleType: 'basic'
-                }
-            },
             addonRoleOptions = {
                 'params': {
                     customerType: 'customer',
                     roleType: 'addon'
                 }
-            }, 
-            promise1 = Roles.get(basicRoleOptions),
-            promise2 = Roles.get(addonRoleOptions),
-            rolePromiseList = [promise1,promise2];
+            };
 
-            
-            $q.all(rolePromiseList).then(function(response) {
-                if(response[0] && response[0].data && response[0].data._embedded && response[0].data._embedded.roles) {
-                    var roleList = response[0].data._embedded.roles;
-                    for (var j=0; j<roleList.length; j++) {
-                        var role = roleList[j];
-                        if($scope.user.basicRoles.length < roleList.length) {
-                            var tempRole = {};
-                            tempRole.id = role.id;
-                            tempRole.description = role.description;
-                            $scope.user.basicRoles.push(tempRole); 
-                        }
-                    }
-                }
-            
-                if(response[1] && response[1].data && response[1].data._embedded && response[1].data._embedded.roles) {
-                    var roleList = response[1].data._embedded.roles;
+            Roles.get(addonRoleOptions).then(function() {
+                if(Roles.data) {
+                    var roleList = Roles.data;
                     for (var j=0; j<roleList.length; j++) {
                         var role = roleList[j];
                         if($scope.user.addonRoles.length < roleList.length) {
@@ -95,15 +72,6 @@ define(['angular', 'user'], function(angular) {
                     }
                 }
             });
-
-            /*hardcoding roles until selectric solution*/
-            $scope.user.basicRoles =[{"id"
-            :1,"roleId":1,"description":"View Only - Operations","customerType":"customer","roleType":"basic"
-            ,"_links":{"self":{"href"
-            :"https://api.venus-dev.lexmark.com/mps/roles/1"}}},
-            {"id":2,"roleId":2,"description":"View Only - Strategic"
-            ,"customerType":"customer","roleType":"basic","_links":{"self":{"href"
-            :"https://api.venus-dev.lexmark.com/mps/roles/2"}}}];
             
             User.getLoggedInUserInfo().then(function() {
                 if (angular.isArray(User.item._links.accounts)) {
@@ -232,7 +200,7 @@ define(['angular', 'user'], function(angular) {
 
                             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                                 if ($scope.basicRole 
-                                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                                    && $scope.user.basicRoles[i].description === $scope.basicRole) {
                                     $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                                 }
                             }
@@ -269,7 +237,7 @@ define(['angular', 'user'], function(angular) {
                     UserAdminstration.addField('resetPassword', true);
                     for (var i=0;i<$scope.user.basicRoles.length; i++) {
                         if ($scope.basicRole 
-                            && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                            && $scope.user.basicRoles[i].description === $scope.basicRole) {
                             $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                         }
                     }

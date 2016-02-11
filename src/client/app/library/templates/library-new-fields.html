@@ -25,7 +25,7 @@
 <div ng-show="documentItem.id === 'new'">
     <div class="form__field form__field--required vertical-space--thick">
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>
-        <input type="file" file-model="documentFile" file-on-change="setDocumentName" />
+        <input type="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)"/>
     </div>
 </div>
 
