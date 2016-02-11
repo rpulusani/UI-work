@@ -27,10 +27,10 @@ define(['angular', 'order'], function(angular) {
             templateUrl : '/app/orders/templates/return-order-address.html'
         };
     })
-        .directive('returnOrderDetails', function(){
+    .directive('orderReturnDetails', function(){
         return {
             restrict: 'A',
-            templateUrl : '/app/orders/templates/return-order-details.html'
+            templateUrl : '/app/orders/templates/order-return-details.html'
         };
     })
     .directive('orderReceipt', function(){
