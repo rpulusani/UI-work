@@ -26,20 +26,6 @@ define(['angular', 'contact'], function(angular) {
             SecurityHelper
             ) {
 
-             $scope.active = function(value){
-                $rootScope.contactTabSelected = value;
-            };
-
-            $scope.isActive = function(value){
-                var passed = false;
-                if($rootScope.contactTabSelected === value){
-                    passed = true;
-                }
-                return passed;
-            };
-
-            $scope.active('contactInfoTab');
-
             SRHelper.addMethods(Contacts, $scope, $rootScope);
 
             var configureSR = function(ServiceRequest){

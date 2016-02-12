@@ -739,7 +739,9 @@
         "SR_DELETE_SUBMITTED": "Delete Contact Request Submitted",
         "SUBMIT_UPDATE_CONTACT_REQUEST": "Submit Update Contact Request",
         "TAB_CONTACT_INFORMATION": "Contact information",
-        "TAB_CONTACT_ADDRESS": "Contact address"
+        "TAB_CONTACT_ADDRESS": "Contact address",
+        "CONTACT_UPDATE_NOT_SAVED": " were not saved. Please return to the Contact information tab and save your changes.",
+        "ADDRESS_UPDATE_NOT_SAVED": " address were not saved. Please return to the Contact address tab and save your changes."
     },
 
         "DEVICE_SERVICE_REQUEST": {

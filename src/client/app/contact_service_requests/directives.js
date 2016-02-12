@@ -79,18 +79,25 @@ define(['angular', 'contact'], function(angular) {
             controller: 'ContactUpdateAddressController'
         };
     })
+    .directive('cancelUpdate', function() {
+        return {
+            restrict: 'A',
+            templateUrl: '/app/contact_service_requests/templates/cancel-update.html',
+            controller: 'ContactController'
+        };
+    })
     .directive('contactUpdateTabs', function() {
         return {
             restrict: 'A',
             templateUrl: '/app/contact_service_requests/templates/contact-update-tabs.html',
-            controller: 'ContactController',
+            controller: 'ContactUpdateTabController',
             link: function(scope, el, attr){
                 require(['lxk.fef'], function() {
                     var $ = require('jquery'),
                         sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
-                    sets.each(function(i,set){
-                        $(set).set({});
-                    });
+                        sets.each(function(i,set){
+                            $(set).set({});
+                        });
                 });
             }
         };

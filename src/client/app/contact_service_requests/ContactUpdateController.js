@@ -44,16 +44,10 @@ define(['angular', 'contact'], function(angular) {
             }else{
                 Contacts.tempSpace = {};
                 $scope.contact = Contacts.item;
-                if($rootScope.contactAlertMessage === 'saved'){
-                    $rootScope.contactAlertMessage = 'saved';
-                }else if($rootScope.contactAlertMessage === 'updated'){
-                    $rootScope.contactAlertMessage = 'updated';
-                }
             }
 
             var updateContactObjectForSubmit = function() {
                 Contacts.item = $scope.contact;
-                //Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
             };
            
 

@@ -47,6 +47,7 @@ define([
     'contact.contactDeleteController',
     'contact.contactListController',
     'contact.contactAddController',
+    'contact.contactUpdateTabController',
     'contact.contactUpdateController',
     'contact.contactUpdateAddressController',
     'contact.factory',
