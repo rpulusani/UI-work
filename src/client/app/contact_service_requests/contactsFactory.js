@@ -67,16 +67,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                     $location.path(this.route + '/' + this.item.id + '/update');
                 },
                 goToList: function() {
-                    this.submitedSR = false;
-
-                    $location.path(this.route + '/');
-                },
-                goToReview: function(contact) {
-                    if (contact) {
-                        this.setItem(contact);
-                    }
-             
-                    $location.path(this.route + '/' + contact.id + '/review');
+                    $location.path(this.route);
                 },
                 goToDelete: function(contact) {
                         ServiceRequest.reset();

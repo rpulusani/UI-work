@@ -1,0 +1,19 @@
+<div ng-if="configure.order.returnSupplies">
+    <h2 translate="{{configure.order.returnSupplies.translate.returnDetails}}"></h2>
+    <div class="well well--no-shadow col-2-3">
+        <ul class="info-list">
+            <li class="info-list__item">
+                <div class="info-list__item-name col-1" translate="{{configure.order.address.information.translate.title}}"></div>
+                <div class="info-list__item-value" ng-bind-html="formattedAddress"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="{{configure.order.returnSupplies.translate.returnReason}}"></div>
+                <div class="info-list__item-value" ng-bind="formattedReason"></div>
+            </li>
+            <li class="info-list__item">
+                <div class="info-list__item-name" translate="{{configure.order.returnSupplies.translate.returnNotes}}"></div>
+                <div class="info-list__item-value" ng-bind="formattedDescription"></div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -42,13 +42,17 @@ define([
     'order.assetsPartsFactory',
     'order.orderContentsController',
     'order.orderPurchaseController',
+    'order.returnOrdersController',
     'contact',
     'contact.contactController',
     'contact.contactDeleteController',
     'contact.contactListController',
     'contact.contactAddController',
-    'contact.factory',
+    'contact.contactUpdateController',
+    'contact.contactUpdateTabController',
+    'contact.contactUpdateAddressController',
     'contact.directives',
+    'contact.factory',
     'deviceManagement',
     'deviceManagement.deviceController',
     'deviceManagement.deviceListController',
@@ -97,6 +101,7 @@ define([
     'utility.directives',
     'utility.controller',
     'utility.contactPickerController',
+    'utility.accountPickerController',
     'utility.addressPickerController',
     'utility.addressBillToPickerController',
     'utility.addressShipToPickerController',
@@ -507,7 +512,14 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            UserService.getLoggedInUserInfo();
+            UserService.getLoggedInUserInfo().then(function() {
+                UserService.item.transactionalAccount.serviceName = 'transactionalAccounts';
+                UserService.item.links.transactionalAccount().then(function(res) {
+                    if (UserService.item.transactionalAccount.data.length > 0) {
+                        $rootScope.$emit('userSetup', UserService.item.transactionalAccount.data);
+                    }
+                });
+            });
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);

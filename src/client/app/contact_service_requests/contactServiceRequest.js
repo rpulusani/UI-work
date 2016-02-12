@@ -7,12 +7,12 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/contact_service_requests/templates/view.html',
                 controller: 'ContactListController'
             })
-            .when('/service_requests/contacts/:id/review', {
+            .when('/service_requests/contacts/update/:id/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'
             })
-            .when('/service_requests/contacts/:id/receipt', {
+            .when('/service_requests/contacts/update/:id/receipt', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'ContactController',
                 activeItem: '/service_requests/contacts'
@@ -24,7 +24,7 @@ define(['angular'], function(angular) {
             })
             .when('/service_requests/contacts/:id/update', {
                 templateUrl: '/app/contact_service_requests/templates/update.html',
-                controller: 'ContactAddController',
+                controller: 'ContactUpdateController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/pick_contact/:source', {
