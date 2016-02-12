@@ -113,7 +113,7 @@ define([
             };
 
             $scope.goToAccountPicker = function() {
-                $rootScope.accountReturnPath = window.location.href;
+                $rootScope.accountReturnPath = $location.path();
                 $location.path('/accounts/pick_account/Account');
             }
 
