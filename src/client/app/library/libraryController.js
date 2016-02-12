@@ -18,9 +18,11 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             }
 
             if (!$routeParams.id) {
-                $scope.documentItem = { accountId: $rootScope.contactId, id:'new' };
+                $scope.documentItem = { id:'new' };
             } else {
                 $scope.documentItem = Documents.item;
+                $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
+                $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
             }
 
             $scope.isDeleting = false;
@@ -52,24 +54,57 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.save = function() {
+                $scope.uploadSuccess = false;
+                $scope.modifySuccess = false;
+
+                Documents.newMessage();
+                Documents.addField("name", $scope.documentItem.name);
+                Documents.addField("description", $scope.documentItem.description);
+                Documents.addField("publishDate", $scope.documentItem.publishDate);
+                Documents.addField("endDate", $scope.documentItem.endDate);
+                Documents.item.postURL = Documents.url;
+
+                if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.name)) {
+                    Documents.addField('name', $scope.documentItem.name);
+                }
+
+                if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.description)) {
+                    Documents.addField('description', $scope.documentItem.description);
+                }
+
+                if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.publishDate)) {
+                    Documents.addField('publishDate', formatter.formatDateForPost($scope.documentItem.publishDate));
+                }
+
+                if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
+                    Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
+                }
+
+                var tagArray = [];
+                if ($scope.documentItem.tags) {
+                    if ($scope.documentItem.tags.length > 0) {
+
+                        for (var i = 0; i < $scope.documentItem.tags.length; i++) {
+                            for (var j = 0; j < Tags.data.length; j++) {
+
+                                if (Tags.data[j]['name'] === $scope.documentItem.tags[i]['name'])  {
+                                    var r = Tags.url + "/" + Tags.data[j]['id'];
+                                    tagArray.push({ 'href': r });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Documents.item._links.tags = tagArray;
+
                 if ($scope.documentItem.id !== 'new') {
                     /* update */
 
-                    var tags = [];
-                    for (var i = 0; i < $scope.documentItem.tags.length; i++) {
-                        tags.push($scope.documentItem.tags[i]['name']);
-                    }
-
                     var fd = new FormData();
-                    var sourceData = {
-                        name: $scope.documentItem.name,
-                        description: $scope.documentItem.description,
-                        //tags: $scope.documentItem.tags,
-                        publishDate: formatter.formatDateForPost($scope.documentItem.dateFrom),
-                        endDate: formatter.formatDateForPost($scope.documentItem.dateTo)
-                    };
- 
-                    var documentJson = angular.toJson(sourceData);
+  
+                    var documentJson = angular.toJson(Documents.item);
+
                     fd.append('document', new Blob([documentJson], {type: 'application/json'}));
                     fd.append('file', $scope.documentFile);
 
@@ -79,55 +114,17 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
-                        //$scope.uploadSuccess = true;
-                        redirect_to_list();
+                        Documents.setItem(response.data);
+                        $scope.documentItem = Documents.item;
+                        $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
+                        $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
+                        
+                        $scope.modifySuccess = true;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                     });
                 } else {
                     /* upload */
-
-                    Documents.newMessage();
-                    Documents.addField("name", $scope.documentItem.name);
-                    Documents.addField("description", $scope.documentItem.description);
-                    Documents.addField("publishDate", $scope.documentItem.publishDate);
-                    Documents.addField("endDate", $scope.documentItem.endDate);
-                    Documents.item.postURL = Documents.url;
-
-                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.name)) {
-                        Documents.addField('name', $scope.documentItem.name);
-                    }
-
-                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.description)) {
-                        Documents.addField('description', $scope.documentItem.description);
-                    }
-
-                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.publishDate)) {
-                        Documents.addField('publishDate', formatter.formatDateForPost($scope.documentItem.publishDate));
-                    }
-
-                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
-                        Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
-                    }
-
-                    var tagArray = [];
-                    if ($scope.documentItem.tags) {
-                        if ($scope.documentItem.tags.length > 0) {
-
-                            for (var i = 0; i < $scope.documentItem.tags.length; i++) {
-                                for (var j = 0; j < Tags.data.length; j++) {
-
-                                    if (Tags.data[j]['name'] === $scope.documentItem.tags[i]['name'])  {
-                                        var r = Tags.url + "/" + Tags.data[j]['id'];
-                                        tagArray.push({ 'href': r });
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-
-                    Documents.item._links.tags = tagArray;
 
                     var fd = new FormData();
 
@@ -142,6 +139,11 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
+                        Documents.setItem(response.data);
+                        $scope.documentItem = Documents.item;
+                        $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
+                        $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
+
                         $scope.uploadSuccess = true;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
