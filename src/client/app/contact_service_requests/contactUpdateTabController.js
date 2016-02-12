@@ -28,13 +28,15 @@ define(['angular','contact'], function(angular) {
             };
 
             $scope.addressValuesChanged = function(){
-                if($scope.contact.address.addressLine1 !== $scope.originalAddress.addressLine1 ||
-                    $scope.contact.address.addressLine2 !== $scope.originalAddress.addressLine2 ||
-                    $scope.contact.address.city !== $scope.originalAddress.city ||
-                    $scope.contact.address.state !== $scope.originalAddress.state ||
-                    $scope.contact.address.postalCode !== $scope.originalAddress.postalCode){
-                        $rootScope.updatedContactAddress = true;
-                    }
+                if($scope.contact && $scope.contact.address){
+                    if($scope.contact.address.addressLine1 !== $scope.originalAddress.addressLine1 ||
+                        $scope.contact.address.addressLine2 !== $scope.originalAddress.addressLine2 ||
+                        $scope.contact.address.city !== $scope.originalAddress.city ||
+                        $scope.contact.address.state !== $scope.originalAddress.state ||
+                        $scope.contact.address.postalCode !== $scope.originalAddress.postalCode){
+                            $rootScope.updatedContactAddress = true;
+                        }
+                }
             };
 
             $scope.checkTab = function(value){
@@ -59,7 +61,7 @@ define(['angular','contact'], function(angular) {
 
             $scope.active('contactInfoTab');
 
-            
+
         }
     ]);
 });
