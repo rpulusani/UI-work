@@ -44,6 +44,7 @@ define(['angular', 'contact'], function(angular) {
             }else{
                 Contacts.tempSpace = {};
                 $scope.contact = Contacts.item;
+                $rootScope.contactAlertMessage = undefined;
             }
 
             var updateContactObjectForSubmit = function() {
@@ -68,7 +69,8 @@ define(['angular', 'contact'], function(angular) {
                     deferred.then(function(result){
                         $rootScope.contactAlertMessage = 'updated';
                         window.scrollTo(0,0);
-                        //$location.path(Contacts.route + '/' + $scope.contact.id + '/update');
+                        $rootScope.originalContact = angular.copy($scope.contact);
+                        $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
                     }, function(reason){
                         NREUM.noticeError('Failed to update Contact because: ' + reason);
                     });

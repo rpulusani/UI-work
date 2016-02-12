@@ -12,17 +12,17 @@ define(['angular','contact'], function(angular) {
         ) {
             //new SecurityHelper($rootScope).redirectCheck($rootScope.orderAccess);
 
-            $scope.originalContact = angular.copy($scope.contact);
+            $rootScope.originalContact = angular.copy($scope.contact);
             $scope.originalAddress = angular.copy($scope.contact.address);
             $rootScope.updatedContactInfo = false;
             $rootScope.updatedContactAddress = false;
 
             $scope.contactValuesChanged = function(){
-                if($scope.contact.firstName !== $scope.originalContact.firstName ||
-                    $scope.contact.middleName !== $scope.originalContact.middleName ||
-                    $scope.contact.lastName !== $scope.originalContact.lastName ||
-                    $scope.contact.email !== $scope.originalContact.email ||
-                    $scope.contact.workPhone !== $scope.originalContact.workPhone){
+                if($scope.contact.firstName !== $rootScope.originalContact.firstName ||
+                    $scope.contact.middleName !== $rootScope.originalContact.middleName ||
+                    $scope.contact.lastName !== $rootScope.originalContact.lastName ||
+                    $scope.contact.email !== $rootScope.originalContact.email ||
+                    $scope.contact.workPhone !== $rootScope.originalContact.workPhone){
                         $rootScope.updatedContactInfo = true;
                 }
             };

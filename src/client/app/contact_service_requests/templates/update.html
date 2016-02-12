@@ -8,7 +8,7 @@
     </div>
 
     <div class="col-lg-2-3 col-md-1">
-        <h1 translate="CONTACT_SERVICE_REQUEST.UPDATE"></h1>
+        <h1><span translate="CONTACT_SERVICE_REQUEST.UPDATE"></span> | <span ng-bind="originalContact.firstName"></span> <span ng-bind="originalContact.lastName"></h1>
         <p translate="MESSAGE.LIPSUM"></p>
 
         <div ng-show="contactAlertMessage === 'saved'" class="alert alert--info">
@@ -34,7 +34,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="page-tabs" contact-update-tabs></div>
 

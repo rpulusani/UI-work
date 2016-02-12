@@ -1,5 +1,5 @@
 <div class="col-lg-2-3 col-md-1-1">
-    <div ng-if="updatedContact && contactAlertMessage != 'updated'" class="alert alert--error">
+    <div ng-if="updatedContactInfo && contactAlertMessage === undefined" class="alert alert--error">
             <icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
             <div class="alert__body">
                 <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG_START"></span>
@@ -7,6 +7,7 @@
                 <span translate="CONTACT_SERVICE_REQUEST.CONTACT_UPDATE_NOT_SAVED"></span>
             </div>
     </div>
+
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
         <h2 class="vertical-space--none" translate="CONTACT_SERVICE_REQUEST.TAB_CONTACT_ADDRESS"></h2>
         <hr/>
