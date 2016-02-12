@@ -114,6 +114,10 @@ define(['angular', 'utility'], function(angular) {
                         $rootScope.currentAccount = {}
                     }
 
+                    if (!accountLink && account.url) {
+                        accountLink = account.url;
+                    }
+
                     $rootScope.currentAccount.accountId = account.accountId,
                     $rootScope.currentAccount.accountLevel = account.level,
                     $rootScope.currentAccount.name = account.name;

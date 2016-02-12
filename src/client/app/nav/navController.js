@@ -55,7 +55,7 @@ define([
                     item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
                 }
 
-                  $scope.dropdownItem = item;
+                $scope.dropdownItem = item;
             };
 
             $scope.switchAccount = function(child) {
