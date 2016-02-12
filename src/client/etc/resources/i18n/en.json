@@ -1635,7 +1635,15 @@
             "TITLE": "Account access",
             "LOGIN": "Portal login",
             "COMPANY_ASSO": "Company Association",
-            "ORG_STRUCT": "Organization structure"
+            "ORG_STRUCT": "Organization structure",
+            "BROWSE": "Browse for account",
+            "SELECTION": "Account Selection",
+            "SEARCH": "Account Search",
+            "UPDATE_ACCOUNT": "UPDATE ACCOUNT SELECTION",
+            "RETURN":  "RETURN TO PREVIOUS",
+            "ID": "Account Id",
+            "NAME": "Account Name",
+            "ADDRESS": "Account Address"
         },
 
         "AUTH": {
@@ -1645,7 +1653,11 @@
 
         "NAVIGATION": {
             "LBS": "Locations",
-            "ACCOUNT": "Account",
+            "ACCOUNT": "Account Selection",
+            "ACCOUNT_CNT": "All accounts ({{total}})",
+            "ACCOUNT_SELECTED": "Account Selected",
+            "ACCOUNT_VIEW_ALL": "View all accounts ({{total}})",
+            "ACCOUNT_FIND_SPECIFIC": "Find a specific account",
             "QUICK_ACTION": "Quick Action",
             "ORDER_REQUEST": "Orders",
             "INVOICES": "Invoices",

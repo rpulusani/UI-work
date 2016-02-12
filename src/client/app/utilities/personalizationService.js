@@ -5,6 +5,7 @@ define(['angular'], function(angular) {
         var PersonalizationServiceFactory = function(uri, userId){
              var self = this;
              self.modulePesonalization = this.getPersonalizedFragment(uri, userId);
+             // tentative place for preference keys
         };
 
         PersonalizationServiceFactory.prototype.save = function(fragment){

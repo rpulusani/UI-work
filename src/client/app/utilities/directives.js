@@ -163,6 +163,18 @@ define(['angular', 'utility'], function(angular) {
             controller: 'DevicePickerController'
         };
     })
+    .directive('pickAccount', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                currentAccountTitle: '@',
+                replaceAccountTitle: '@',
+                customConfigure: '='
+            },
+            templateUrl: '/app/utilities/templates/pick-account.html',
+            controller: 'AccountPickerController'
+        };
+    })
     .directive('selectPageCount', function(){
          return {
             restrict: 'A',

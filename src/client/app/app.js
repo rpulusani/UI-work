@@ -98,6 +98,7 @@ define([
     'utility.directives',
     'utility.controller',
     'utility.contactPickerController',
+    'utility.accountPickerController',
     'utility.addressPickerController',
     'utility.addressBillToPickerController',
     'utility.addressShipToPickerController',
@@ -508,7 +509,14 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            UserService.getLoggedInUserInfo();
+            UserService.getLoggedInUserInfo().then(function() {
+                UserService.item.transactionalAccount.serviceName = 'transactionalAccounts';
+                UserService.item.links.transactionalAccount().then(function(res) {
+                    setTimeout(function() {
+                        $rootScope.$emit('userSetup', UserService.item.transactionalAccount.data);
+                    }, 0);
+                });
+            });
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);
