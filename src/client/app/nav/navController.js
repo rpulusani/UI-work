@@ -14,6 +14,7 @@ define([
         'UserService',
         'AccountService',
         'HATEAOSConfig',
+        '$http',
         function(
             $scope,
             $rootScope,
@@ -22,7 +23,8 @@ define([
             Nav,
             Users,
             Accounts,
-            HATEAOSConfig
+            HATEAOSConfig,
+            $http
             ) {
 
             $scope.items = Nav.items;
