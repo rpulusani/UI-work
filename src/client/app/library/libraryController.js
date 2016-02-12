@@ -4,7 +4,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
     .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
         'translationPlaceHolder', 'Documents', 'Tags', 'BlankCheck', '$rootScope', 'FormatterService',
         function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, BlankCheck,
-            $rootScope, Formatter) {
+            $rootScope, formatter) {
 
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.inputTag = '';
@@ -21,8 +21,6 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.documentItem = { accountId: $rootScope.contactId, id:'new' };
             } else {
                 $scope.documentItem = Documents.item;
-                $scope.documentItem.dateFrom = Formatter.formatDate(Documents.item.publishDate);
-                $scope.documentItem.dateTo = Formatter.formatDate(Documents.item.endDate);
             }
 
             $scope.isDeleting = false;
@@ -67,8 +65,8 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         name: $scope.documentItem.name,
                         description: $scope.documentItem.description,
                         //tags: $scope.documentItem.tags,
-                        publishDate: Formatter.formatDateForPost($scope.documentItem.dateFrom),
-                        endDate: Formatter.formatDateForPost($scope.documentItem.dateTo)
+                        publishDate: formatter.formatDateForPost($scope.documentItem.dateFrom),
+                        endDate: formatter.formatDateForPost($scope.documentItem.dateTo)
                     };
  
                     var documentJson = angular.toJson(sourceData);
@@ -88,23 +86,52 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     });
                 } else {
                     /* upload */
-                    
-                    var fd = new FormData();
 
-                    var tags = [];
-                    for (var i = 0; i < $scope.documentItem.tags.length; i++) {
-                        tags.push($scope.documentItem.tags[i]['name']);
+                    Documents.newMessage();
+                    Documents.addField("name", $scope.documentItem.name);
+                    Documents.addField("description", $scope.documentItem.description);
+                    Documents.addField("publishDate", $scope.documentItem.publishDate);
+                    Documents.addField("endDate", $scope.documentItem.endDate);
+                    Documents.item.postURL = Documents.url;
+
+                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.name)) {
+                        Documents.addField('name', $scope.documentItem.name);
                     }
 
-                    var sourceData = {
-                        name: $scope.documentItem.name,
-                        description: $scope.documentItem.description,
-                        //tags: tags,
-                        publishDate: Formatter.formatDateForPost($scope.documentItem.dateFrom),
-                        endDate: Formatter.formatDateForPost($scope.documentItem.dateTo)
-                    };
+                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.description)) {
+                        Documents.addField('description', $scope.documentItem.description);
+                    }
 
-                    var documentJson = angular.toJson(sourceData);
+                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.publishDate)) {
+                        Documents.addField('publishDate', formatter.formatDateForPost($scope.documentItem.publishDate));
+                    }
+
+                    if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
+                        Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
+                    }
+
+                    var tagArray = [];
+                    if ($scope.documentItem.tags) {
+                        if ($scope.documentItem.tags.length > 0) {
+
+                            for (var i = 0; i < $scope.documentItem.tags.length; i++) {
+                                for (var j = 0; j < Tags.data.length; j++) {
+
+                                    if (Tags.data[j]['name'] === $scope.documentItem.tags[i]['name'])  {
+                                        var r = Tags.url + "/" + Tags.data[j]['id'];
+                                        tagArray.push({ 'href': r });
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    Documents.item._links.tags = tagArray;
+
+                    var fd = new FormData();
+
+                    var documentJson = angular.toJson(Documents.item);
 
                     fd.append('document', new Blob([documentJson], {type: 'application/json'}));
                     fd.append('file', $scope.documentFile);
