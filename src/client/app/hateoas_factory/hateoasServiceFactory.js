@@ -269,11 +269,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.attachLinksAsFunctions = function(item, links, itemOptions) {
                 var self = this,
-                deferred = $q.defer(),
                 link;
 
                 for (link in links) {
-
                     if (link !== 'self') {
                         (function(item, link) {
                             if (!item[link]) {
@@ -293,6 +291,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             item.linkNames.push(link);
 
                             item.links[link] = function(options, linkIndex) {
+                                var deferred = $q.defer();
+
                                 if (!angular.isArray(links[link])) {
                                     item[link] = self.setupDefaultFunctions(item[link]);
                                 } else {
@@ -305,9 +305,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 }
 
                                 item[link].get(options).then(function(res) {
-                                    if(res.data){
+                                    if (res.data) {
                                         deferred.resolve(res.data);
-                                    }else{
+                                    } else {
                                         deferred.resolve(res);
                                     }
                                 });

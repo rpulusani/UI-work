@@ -125,7 +125,6 @@ define([
 
             $rootScope.$on('userSetup', function(e, res) {
                 $scope.accountTotal = {total: res.length};
-                $scope.$apply();
             });
 
             $rootScope.$on('refreshNav', function(e, res) {
