@@ -1640,7 +1640,10 @@
             "SELECTION": "Account Selection",
             "SEARCH": "Account Search",
             "UPDATE_ACCOUNT": "UPDATE ACCOUNT SELECTION",
-            "RETURN":  "RETURN TO PREVIOUS"
+            "RETURN":  "RETURN TO PREVIOUS",
+            "ID": "Account Id",
+            "NAME": "Account Name",
+            "ADDRESS": "Account Address"
         },
 
         "AUTH": {
