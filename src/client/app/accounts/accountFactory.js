@@ -1,16 +1,25 @@
 define(['angular', 'account'], function(angular) {
 	'use strict';
 	angular.module('mps.account')
-	.factory('AccountService', ['$resource', 'serviceUrl', 'HATEOASFactory',
-        function($resource, serviceUrl, HATEOASFactory) {
+	.factory('AccountService', ['HATEOASFactory', '$translate',
+        function(HATEOASFactory, $translate) {
             var Account = {
                 serviceName: 'accounts',
                 embeddedName: 'accounts',
-                columns: [],
-                route: ''
-
+                route: '',
+                columns: 'defaultSet',
+                columnDefs: {
+                    defaultSet: [{
+                        name: 'Account Id',
+                        field: 'accountId',
+                        searchOn: 'accountId'
+                    }, {
+                        name: 'Account Name',
+                        field: 'name',
+                        searchOn: 'name'
+                    }]
+                }
             };
-
 
             return new HATEOASFactory(Account);
        }

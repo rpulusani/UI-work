@@ -73,6 +73,7 @@ requirejs.config({
             'account',
             'account.accountFactory',
             'account.roleFactory',
+            'account.accountController',
 
             'user',
             'user.factory',
@@ -121,6 +122,7 @@ requirejs.config({
         'account': ['angular'],
         'account.accountFactory': ['account'],
         'account.roleFactory': ['account'],
+        'account.accountController': ['account'],
 
         'library': ['angular'],
         'library.libraryListController': ['library'],
@@ -261,11 +263,13 @@ requirejs.config({
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
         'utility.columnPickerController': 'app/utilities/columnPickerController',
+        'utility.accountPickerController': 'app/utilities/accountPickerController',
         'utility.printExportTitleController': 'app/utilities/printExportTitleController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
         'account.roleFactory': 'app/accounts/roleFactory',
+        'account.accountController': 'app/accounts/accountController',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

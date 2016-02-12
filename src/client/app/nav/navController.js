@@ -28,6 +28,8 @@ define([
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
             $scope.$route = $route;
+            $scope.selectedAccount = $rootScope.currentAccount;
+            $scope.dropdownItem = null;
 
             $scope.getItemsByTag = function(tag){
                 return Nav.getItemsByTag(tag);
@@ -35,48 +37,38 @@ define([
 
             $scope.dropdown = function(item) {
                 var setupLinks = function() {
-                    Users.taAcctCache = Users.item.transactionalAccount.data;
-                    item.data = Users.taAcctCache;
+                    item.data = [];
+                    item.data[0] = Users.item.transactionalAccount.data[0];
+                    item.data[1] = Users.item.transactionalAccount.data[1];
+                    item.data[2] = Users.item.transactionalAccount.data[2];
+                    item.data[3] = Users.item.transactionalAccount.data[3];
+                    item.data[4] = Users.item.transactionalAccount.data[4];
 
                     item.isExpanded = true;
                     item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
                 };
 
-
-                if (!Users.taAcctCache) {
-                    Users.taAcctCache = [];
-                }
-
                 if (!item.isExpanded) {
-                    if (!Users.taAcctCache.length) {
-                        Users.getLoggedInUserInfo().then(function(user) {
-                            if (angular.isArray(Users.item._links.accounts)) {
-                                Users.item._links.accounts = Users.item._links.accounts[0];
-                            }
-                            
-                            // Plural within _embedded
-                            Users.item.transactionalAccount.serviceName = 'transactionalAccounts';
-
-                            Users.item.links.transactionalAccount().then(function(res) {
-                                setupLinks();
-                            });
-                        });
-                    } else {
-                       setupLinks();
-                    }
+                    setupLinks();
                 } else {
                     item.isExpanded = false;
                     item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
                 }
+
+                  $scope.dropdownItem = item;
             };
 
             $scope.switchAccount = function(child) {
                 var i = 0,
                 accts = Users.item.transactionalAccount.data;
 
+                Users.createItem(child);
+
                 HATEAOSConfig.updateCurrentAccount(child.account);
 
                 $rootScope.currentAccount.refresh = true;
+
+                $scope.acctSelected = true;
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     Users.item._links.accounts = child._links.account;
@@ -94,6 +86,8 @@ define([
                         }
                     }
 
+                    $scope.selectedAccount = $rootScope.currentAccount;
+
                     $route.reload();
                 });
             };
@@ -110,11 +104,29 @@ define([
                 return passed;
             };
 
-            if($scope.items.length === 0){
+            $scope.goToAccountPicker = function() {
+                $rootScope.accountReturnPath = window.location.href;
+                $location.path('/accounts/pick_account/Account');
+            }
+
+            if ($scope.items.length === 0) {
                 Nav.query(function(){
                     $scope.items = Nav.items;
                 });
             }
+
+            $rootScope.$on('userSetup', function(e, res) {
+                $scope.accountTotal = {total: res.length};
+                $scope.$apply();
+            });
+
+            $rootScope.$on('refreshNav', function(e, res) {
+                $scope.selectedAccount = $rootScope.currentAccount;
+            });
+
+            $rootScope.$on('toggleAccountNav', function(e, res) {
+                $scope.dropdownItem.isExpanded = false;
+            });
 
             $scope.setActive = function(text){
 

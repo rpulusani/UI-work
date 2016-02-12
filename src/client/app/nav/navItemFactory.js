@@ -22,6 +22,7 @@ define([
                     self.tags = item.tags;
                     self.dropdown = item.dropdown;
                     self.dropdownIcon = item.dropdownIcon;
+                    self.subtext = item.subtext;
                     
                     if(item.newWindow){
                         self.window = "_blank";
