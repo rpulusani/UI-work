@@ -19,46 +19,21 @@ define(['angular', 'user'], function(angular) {
             $scope.user.addonRoles = [];
             $scope.user.permissions = [];
             $scope.user.selectedRoleList = [];
+            $scope.AssignedAccountList = [];
             $scope.accounts = [];
             $scope.totalDisplayed = 20;
-
-            $scope.loadMore = function () {
-                $scope.totalDisplayed += 20;  
-            };
+            $scope.accountCount = 'None';
             var removeParams,
-            basicRoleOptions =  {
-                'params': {
-                    customerType: 'lexmark',
-                    roleType: 'basic'
-                }
-            },
             addonRoleOptions = {
                 'params': {
                     customerType: 'lexmark',
                     roleType: 'addon'
                 }
-            }, 
-            promise1 = Roles.get(basicRoleOptions),
-            promise2 = Roles.get(addonRoleOptions),
-            rolePromiseList = [promise1,promise2];
+            };
 
-            
-            $q.all(rolePromiseList).then(function(response) {
-                if(response[0] && response[0].data && response[0].data._embedded && response[0].data._embedded.roles) {
-                    var roleList = response[0].data._embedded.roles;
-                    for (var j=0; j<roleList.length; j++) {
-                        var role = roleList[j];
-                        if($scope.user.basicRoles.length < roleList.length) {
-                            var tempRole = {};
-                            tempRole.id = role.id;
-                            tempRole.description = role.description;
-                            $scope.user.basicRoles.push(tempRole); 
-                        }
-                    }
-                }
-            
-                if(response[1] && response[1].data && response[1].data._embedded && response[1].data._embedded.roles) {
-                    var roleList = response[1].data._embedded.roles;
+            Roles.get(addonRoleOptions).then(function() {
+                if(Roles.data) {
+                    var roleList = Roles.data;
                     for (var j=0; j<roleList.length; j++) {
                         var role = roleList[j];
                         if($scope.user.addonRoles.length < roleList.length) {
@@ -69,34 +44,41 @@ define(['angular', 'user'], function(angular) {
                 }
             });
 
-            /*hardcoding roles until selectric solution*/
-            $scope.user.basicRoles =[{"id"
-            :1,"roleId":1,"description":"View Only - Operations","customerType":"customer","roleType":"basic"
-            ,"_links":{"self":{"href"
-            :"https://api.venus-dev.lexmark.com/mps/roles/1"}}},
-            {"id":2,"roleId":2,"description":"View Only - Strategic"
-            ,"customerType":"customer","roleType":"basic","_links":{"self":{"href"
-            :"https://api.venus-dev.lexmark.com/mps/roles/2"}}}];
-            
-            AllAccounts.get().then(function() {
-                if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
-                    var promises = [],
-                    options = {},
-                    promise, deferred,
-                    allAccountList = AllAccounts.item._embedded.accounts;
-                    console.log('allAccountList length',allAccountList.length);
-                    for (var i=0; i<allAccountList.length; i++) {
-                        var item = allAccountList[i];
-                        $scope.accountList.push(item);
-                    }
-                } 
+            $scope.setAccounts = function() {
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.$on('searchAccount', function(evt){
+                if($scope.accountName && $scope.accountName.length >=3) {
+                    var options = {
+                        preventDefaultParams: true,
+                        params:{
+                            searchTerm: $scope.accountName
+                        }
+                    };
+                    AllAccounts.get(options).then(function(){
+                        if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                            $scope.accountList = [];
+                            var allAccountList = AllAccounts.item._embedded.accounts;
+                            for (var i=0; i<allAccountList.length; i++) {
+                                $scope.accountList.push(allAccountList[i]);
+                            }
+                        }
+                    });
+                }
+            });
+
+            $scope.$watch('accounts', function(accounts){
+                if (accounts && accounts.length > 0) {
+                    $scope.accountCount = accounts.length;
+                }
             });
 
             $scope.setPermissions = function(role){
                 Roles.setItem(role);
                 var options = {
                     params:{
-                        'applicationName': 'customerPortal'
+                        'applicationName': 'lexmark'
                     }
                 };
 
@@ -122,7 +104,7 @@ define(['angular', 'user'], function(angular) {
                 Roles.setItem(role);
                 var options = {
                     params:{
-                        'applicationName': 'customerPortal'
+                        'applicationName': 'lexmark'
                     }
                 }, promises = [];
 
@@ -134,7 +116,7 @@ define(['angular', 'user'], function(angular) {
                         Roles.setItem($scope.user.basicRoles[i]);
                         var options = {
                             params:{
-                                'applicationName': 'customerPortal'
+                                'applicationName': 'lexmark'
                             }
                         };
                         promises.push(Roles.item.get(options));
@@ -163,70 +145,39 @@ define(['angular', 'user'], function(angular) {
             };
 
             var updateAdminObjectForSubmit = function() {
-                if ($location.path() === "/delegated_admin/invite_user") {
-                    if ($scope.user.emails) {
-                        $scope.userInfoList = [];
-                        var emailList = $scope.user.emails.split(',');
-                        for (var i=0;i<emailList.length;i++) {
-                            UserAdminstration.newMessage();
-                            $scope.userInfoList[i] = UserAdminstration.item;
-                            UserAdminstration.addField('type', 'INVITED');
-                            UserAdminstration.addField('invitedStatus', 'INVITED');
-                            UserAdminstration.addField('active', false);
-                            UserAdminstration.addField('resetPassword', false);
-                            UserAdminstration.addField('email', emailList[i]);
-                            UserAdminstration.addField('userId', emailList[i]);
+                UserAdminstration.newMessage();
+                $scope.userInfo = UserAdminstration.item;
+                UserAdminstration.addField('type', 'BUSINESS_PARTNER');
+                UserAdminstration.addField('active', true);
+                UserAdminstration.addField('firstName', $scope.user.firstName);
+                UserAdminstration.addField('lastName', $scope.user.lastName);
+                UserAdminstration.addField('password', $scope.user.password);
+                UserAdminstration.addField('email', $scope.user.email);
+                UserAdminstration.addField('userId', $scope.user.email);
+                UserAdminstration.addField('workPhone', $scope.user.workPhone);
+                var addressInfo = {
+                    addressLine1: $scope.user.address.addressLine1,
+                    addressLine2: $scope.user.address.addressLine2,
+                    city: $scope.user.address.city,
+                    stateCode: $scope.user.address.stateCode,
+                    country: $scope.user.address.country,
+                    postalCode: $scope.user.address.postalCode
+                };
+                UserAdminstration.addField('address', addressInfo);
+                UserAdminstration.addField('preferredLanguage', 'en_US');
+                UserAdminstration.addField('resetPassword', true);
+                for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                    if ($scope.basicRole 
+                        && $scope.user.basicRoles[i].description === $scope.basicRole) {
+                        $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
+                    }
+                }
+                if ($scope.user.selectedRoleList) {
+                    UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
+                }
 
-                            for (var i=0;i<$scope.user.basicRoles.length; i++) {
-                                if ($scope.basicRole 
-                                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
-                                    $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
-                                }
-                            }
-                            if ($scope.user.selectedRoleList) {
-                                UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
-                            }
-
-                            if ($scope.accounts && $scope.accounts.length > 0) {
-                                UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
-                            }
-                        }
-                    }
-                } else {
-                    UserAdminstration.newMessage();
-                    $scope.userInfo = UserAdminstration.item;
-                    UserAdminstration.addField('type', 'BUSINESS_PARTNER');
-                    UserAdminstration.addField('active', true);
-                    UserAdminstration.addField('firstName', $scope.user.firstName);
-                    UserAdminstration.addField('lastName', $scope.user.lastName);
-                    UserAdminstration.addField('password', $scope.user.password);
-                    UserAdminstration.addField('email', $scope.user.email);
-                    UserAdminstration.addField('userId', $scope.user.email);
-                    UserAdminstration.addField('workPhone', $scope.user.workPhone);
-                    var addressInfo = {
-                        addressLine1: $scope.user.address.addressLine1,
-                        addressLine2: $scope.user.address.addressLine2,
-                        city: $scope.user.address.city,
-                        stateCode: $scope.user.address.stateCode,
-                        country: $scope.user.address.country,
-                        postalCode: $scope.user.address.postalCode
-                    };
-                    UserAdminstration.addField('address', addressInfo);
-                    UserAdminstration.addField('preferredLanguage', 'en_US');
-                    UserAdminstration.addField('resetPassword', true);
-                    for (var i=0;i<$scope.user.basicRoles.length; i++) {
-                        if ($scope.basicRole 
-                            && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
-                            $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
-                        }
-                    }
-                    if ($scope.user.selectedRoleList) {
-                        UserAdminstration.addMultipleRelationship('roles', $scope.user.selectedRoleList, 'self');
-                    }
-
-                    if ($scope.accounts && $scope.accounts.length > 0) {
-                        UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
-                    }
+                if ($scope.accounts && $scope.accounts.length > 0) {
+                    UserAdminstration.addMultipleRelationship('accounts', $scope.accounts, 'self');
                 }
             };
 

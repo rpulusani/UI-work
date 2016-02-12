@@ -1576,7 +1576,9 @@
             "ABANDON_USER_MODAL_CONFIRM": "Yes, abandon this user",
             "ABANDON_USER": "Abandon User",
             "UPDATE_LEXMARK_USER": "UPDATE LEXMARK USER",
-            "DISCARD_LEXMARK_USER_CHANGES": "DISCARD LEXMARK USER CHANGES"
+            "DISCARD_LEXMARK_USER_CHANGES": "DISCARD LEXMARK USER CHANGES",
+            "FIND_ACCOUNT": "Find account",
+            "ASSIGNED_ACCOUNTS": "Assigned accounts ({{count}} assigned)"
         },
 
         "ROLE": {

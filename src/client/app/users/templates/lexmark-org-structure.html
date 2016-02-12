@@ -1,0 +1,18 @@
+<h3 translate="ACCOUNT.COMPANY_ASSO"></h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+<strong translate="USER.FIND_ACCOUNT"></strong>
+<div class="form__field" >
+	<input name="accountName" type="text" ng-model="accountName" value="" class="" ng-change="setAccounts()"/>
+</div>
+<div class="well">
+    <div ng-repeat="account in accountList | orderBy: 'name'">
+        <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
+            value="$parent.user.org" previous-items="$parent.accounts">
+        </div>
+    </div>
+</div>
+<strong translate="USER.ASSIGNED_ACCOUNTS" translate-values="{'count': accountCount}"></strong>
+<div class="well">
+    <div ng-repeat="assignedAccount in accounts">{{assignedAccount.name}} {{assignedAccount.accountId}}</div>
+</div>
+
