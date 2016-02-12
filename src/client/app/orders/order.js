@@ -36,8 +36,9 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/create-asset-supplies.html',
             activeItem: '/orders'
         })
-        .when('/orders/create_hardware', {
+        .when('/orders/catalog/hardware', {
             templateUrl: '/app/orders/templates/create-hardware.html',
+            controller:'AgreementCatalogController',
             activeItem: '/orders'
         })
         .when('/orders/supply/return/review', {
@@ -65,8 +66,9 @@ define(['angular'], function(angular) {
             controller: 'ReturnOrdersController',
             activeItem: '/orders'
         })
-        .when('/orders/create_catalog_supplies', {
+        .when('/orders/catalog/supplies', {
             templateUrl: '/app/orders/templates/create-catalog-supplies.html',
+            controller:'AgreementCatalogController',
             activeItem: '/orders'
         });
     }]);

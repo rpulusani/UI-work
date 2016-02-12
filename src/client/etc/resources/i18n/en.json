@@ -462,7 +462,23 @@
             "TXT_ORDER_SUBMITTED_PAR": "Your supplies order {{order}} has been submitted.",
             "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}",
             "TXT_PURCHASE_ORDER":"Purchase order number"
-        }
+        },
+      "ORDER_HARDWARE":{
+            "COMMON":{
+                  "TXT_AGREEMENT":"Agreement",
+                  "TXT_CONTRACT": "Contract",
+                  "TXT_PAYMENT_DETAILS":"Payment details",
+                  "TXT_CATALOG_TYPE":"Catalog type",
+                  "TXT_AGREEMENT_SELECTION": "Which Agreement would you like to place this order for?",
+                  "TXT_CONTRACT_SELECTION": "Please select a contract",
+                  "TXT_PAY_SELECTION":"Do you want to Pay Now or Pay Later?",
+                  "TXT_PAY_NOW":"Pay Now",
+                  "TXT_PAY_LATER": "Pay Later",
+                  "TXT_CATALOG_SELECTION": "Which catalog do you want to order from?",
+                  "TXT_DEVICE_CATALOG": "Device catalog",
+                  "TXT_ACCESSORIES_CATALOG":"Accessories catalog"
+            }
+      }
     },
 
     "REQUEST_MAN": {
@@ -1801,6 +1817,8 @@
         "ORDER_SEARCH": "What order are you looking for?",
         "MANAGE_ORDERS": "Manage Orders",
         "ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR DEVICE",
+        "BTTN_ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR THIS DEVICE",
+        "BTTN_ABANDON_SUPPLIES":"ABANDON DEVICE SUPPLY ORDER",
         "ORDER_NEW_DEVICE": "ORDER NEW DEVICE",
         "RETURN_SUPPLIES": "RETURN SUPPLIES",
         "ORDER_SUPPLIES_CATALOG": "ORDER FROM SUPPLIES CATALOG",

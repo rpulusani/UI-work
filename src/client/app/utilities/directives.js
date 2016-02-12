@@ -77,8 +77,8 @@ define(['angular', 'utility'], function(angular) {
             scope: {
                 title: '@',
                 titleValues: '@',
-                print: '@',
-                export: '@',
+                print: '=',
+                export: '=',
                 nativePrint: '@'
             },
             template: '<div class="col-3-4" ng-cloak>' +

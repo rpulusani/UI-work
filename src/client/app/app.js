@@ -43,6 +43,7 @@ define([
     'order.orderContentsController',
     'order.orderPurchaseController',
     'order.returnOrdersController',
+    'order.agreementCatalogController',
     'contact',
     'contact.contactController',
     'contact.contactDeleteController',

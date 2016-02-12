@@ -1,0 +1,71 @@
+<div sr-header></div>
+<div class="page-content">
+<div print-export-title  title="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_AGREEMENT" print="print" export="export"></div> <!--agreement -->
+<hr/>
+<div class="form__field form__field--select form__field--required">
+    <label translate="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_AGREEMENT_SELECTION"></label>
+    <div selectric model="addresses.item.country" options="countryHAL.countries" value="code" label="name"
+  placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)" class="col-1-3"></div>
+</div>
+<div print-export-title  title="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_CONTRACT" print="print" export="export"></div> <!-- contract -->
+<hr/>
+<p translate="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_CONTRACT_SELECTION"></p>
+<div print-export-title  title="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_PAYMENT_DETAILS" print="print" export="export"></div> <!-- payment details -->
+<hr/>
+<p translate="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_PAY_SELECTION"></p>
+    <div class="form__field form__field--radio">
+        <input type="radio"
+            id="pay-now"
+            name="paySelection"
+            ng-model="paySelection"
+            value="payNow"
+            data-js="customInput"
+            ng-click="setAcceptedPayChoice()"/>
+            <label for="pay-now">
+                <span></span>
+                {{'ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_PAY_NOW' | translate }}
+            </label>
+    </div>
+    <div class="form__field form__field--radio">
+        <input type="radio"
+            id="pay-later"
+            name="paySelection"
+            ng-model="paySelection"
+            value="payLater"
+            data-js="customInput"
+            ng-click="setAcceptedPayChoice()"/>
+            <label for="pay-later">
+                <span></span>
+                {{'ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_PAY_LATER' | translate }}
+            </label>
+    </div>
+<div print-export-title title="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_CATALOG_TYPE"  print="print" export="export"></div> <!-- hardware catalog -->
+<hr/>
+<p translate="ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_CATALOG_SELECTION"></p>
+    <div class="form__field form__field--radio">
+        <input type="radio"
+            id="accessorie-catalog"
+            name="catalogSelection"
+            ng-model="catalogSelection"
+            value="device"
+            data-js="customInput"
+            ng-click="setAcceptedPayChoice()"/>
+            <label for="pay-now">
+                <span></span>
+                {{'ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_DEVICE_CATALOG' | translate }}
+            </label>
+    </div>
+    <div class="form__field form__field--radio">
+        <input type="radio"
+            id="device-catalog"
+            name="catalogSelection"
+            ng-model="catalogSelection"
+            value="accessory"
+            data-js="customInput"
+            ng-click="setAcceptedPayChoice()"/>
+            <label for="pay-later">
+                <span></span>
+                {{'ORDER_MAN.ORDER_HARDWARE.COMMON.TXT_ACCESSORIES_CATALOG' | translate }}
+            </label>
+    </div>
+</div>

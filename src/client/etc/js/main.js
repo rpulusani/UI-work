@@ -318,6 +318,7 @@ requirejs.config({
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
         'order.returnOrdersController': 'app/orders/returnOrdersController',
+        'order.agreementCatalogController': 'app/orders/agreementCatalogController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',

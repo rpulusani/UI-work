@@ -3,16 +3,16 @@ define(['angular', 'utility.grid'], function(angular) {
     angular.module('mps.utility')
     .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate', 'uiGridExporterConstants',
         function($scope, element, attrs, $translate, uiGridExporterConstants) {
-            $scope.title = attrs.title;
+            $scope.title = $scope.title;
 
             $scope.displayPrint = true;
             $scope.displayExport = true;
 
-            if (attrs.print && attrs.print === false) {
+            if (attrs.print && $scope.print === false) {
                 $scope.displayPrint = false;
             }
 
-            if (attrs.export && attrs.export === false) {
+            if (attrs.export && $scope.export === false) {
                 $scope.displayExport = false;
             }
 
@@ -20,7 +20,7 @@ define(['angular', 'utility.grid'], function(angular) {
                 attrs.titleCount = true;
             }
 
-            if (!attrs.nativePrint) {
+            if (!$scope.nativePrint) {
                 $scope.nativePrint = false;
             } else {
                 $scope.nativePrint = true;
