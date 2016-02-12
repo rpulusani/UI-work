@@ -512,9 +512,9 @@ define([
             UserService.getLoggedInUserInfo().then(function() {
                 UserService.item.transactionalAccount.serviceName = 'transactionalAccounts';
                 UserService.item.links.transactionalAccount().then(function(res) {
-                    setTimeout(function() {
+                    if (UserService.item.transactionalAccount.data.length > 0) {
                         $rootScope.$emit('userSetup', UserService.item.transactionalAccount.data);
-                    }, 0);
+                    }
                 });
             });
         }, function(reason) {
