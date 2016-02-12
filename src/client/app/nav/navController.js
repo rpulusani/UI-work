@@ -39,12 +39,18 @@ define([
 
             $scope.dropdown = function(item) {
                 var setupLinks = function() {
+                    var defaultCnt = 5,
+                    i = 0;
+
                     item.data = [];
-                    item.data[0] = Users.item.transactionalAccount.data[0];
-                    item.data[1] = Users.item.transactionalAccount.data[1];
-                    item.data[2] = Users.item.transactionalAccount.data[2];
-                    item.data[3] = Users.item.transactionalAccount.data[3];
-                    item.data[4] = Users.item.transactionalAccount.data[4];
+                    
+                    if (Users.item.transactionalAccount.data.length < defaultCnt) {
+                        defaultCnt = Users.item.transactionalAccount.data.length;
+                    }
+
+                    for (i; i < defaultCnt; i += 1) {
+                        item.data[i] = Users.item.transactionalAccount.data[i];
+                    }
 
                     item.isExpanded = true;
                     item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
