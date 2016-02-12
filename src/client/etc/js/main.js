@@ -333,6 +333,9 @@ requirejs.config({
         'contact.contactDeleteController': 'app/contact_service_requests/contactDeleteController',
         'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.contactAddController': 'app/contact_service_requests/contactAddController',
+        'contact.contactUpdateController': 'app/contact_service_requests/contactUpdateController',
+        'contact.contactUpdateTabController': 'app/contact_service_requests/contactUpdateTabController',
+        'contact.contactUpdateAddressController': 'app/contact_service_requests/contactUpdateAddressController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 

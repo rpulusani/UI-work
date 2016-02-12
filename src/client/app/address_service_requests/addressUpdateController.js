@@ -48,6 +48,7 @@ define(['angular', 'address'], function(angular) {
                             if($scope.address.addressLine1 != $scope.comparisonAddress.addressLine1  || $scope.address.city != $scope.comparisonAddress.city || $scope.address.postalCode != $scope.comparisonAddress.postalCode){
                                 $scope.needToVerify = true;
                                 $scope.checkedAddress = 1;
+                                $scope.contactUpdate = false;
                             }else{
                                 $scope.canReview = true;
                                 $scope.checkedAddress = 1;

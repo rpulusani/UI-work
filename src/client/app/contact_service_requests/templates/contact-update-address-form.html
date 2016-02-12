@@ -1,0 +1,24 @@
+<div class="col-lg-2-3 col-md-1-1">
+    <div ng-if="updatedContactInfo && contactAlertMessage === undefined" class="alert alert--error">
+            <icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+            <div class="alert__body">
+                <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG_START"></span>
+                "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"
+                <span translate="CONTACT_SERVICE_REQUEST.CONTACT_UPDATE_NOT_SAVED"></span>
+            </div>
+    </div>
+
+    <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
+        <h2 class="vertical-space--none" translate="CONTACT_SERVICE_REQUEST.TAB_CONTACT_ADDRESS"></h2>
+        <hr/>
+
+        <div contact-update-address-fields></div>
+
+        <div class="btns">
+            <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
+                translate="CONTACT_SERVICE_REQUEST.ABANDON_UPDATE_CONTACT_REQUEST"></button>
+            <button name="submit" class="btn btn--primary" ng-click="saveContact('editContact')" type="submit"
+                translate="LABEL.REVIEW_SUBMIT"></button>
+        </div>
+    </form>
+</div>
