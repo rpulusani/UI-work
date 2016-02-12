@@ -2,12 +2,34 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('AccountPickerController', [
-        '$scope', '$location', '$controller', 
-        '$routeParams', 'grid', 'UserService', 
-        'AccountService', 'BlankCheck', 'FormatterService', 
-        '$rootScope','PersonalizationServiceFactory', 'HATEAOSConfig','FilterSearchService',
-        function($scope, $location, $controller, $routeParams, GridService, Users, Accounts, BlankCheck, 
-            FormatterService, $rootScope, Personalize, HATEOASConfig, FilterSearchService) {
+        '$scope', 
+        '$location', 
+        '$controller', 
+        '$routeParams',
+        'grid',
+        'UserService', 
+        'AccountService',
+        'BlankCheck',
+        'FormatterService', 
+        '$rootScope',
+        'PersonalizationServiceFactory',
+        'HATEAOSConfig',
+        'FilterSearchService',
+        function(
+            $scope, 
+            $location,
+            $controller,
+            $routeParams,
+            GridService,
+            Users,
+            Accounts,
+            BlankCheck, 
+            FormatterService,
+            $rootScope,
+            Personalize,
+            HATEOASConfig,
+            FilterSearchService
+        ) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Accounts, $scope, $rootScope, personal),
             Grid = new GridService(),
@@ -16,7 +38,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             Accounts.data = [];
 
-             $scope.configure = {
+            $scope.configure = {
                 header: {
                     translate: {
                         h1: 'ACCOUNT.BROWSE',
@@ -46,8 +68,6 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.discardSelect = function(){
-                $rootScope.selectedAccount = undefined;
-                $rootScope.formattedSelectedAccount= undefined;
                 $location.path($rootScope.accountReturnPath);
             };
 
