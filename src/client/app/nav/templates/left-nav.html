@@ -6,7 +6,7 @@
                 <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
                 <span translate="{{item.text}}"></span>
             </a>
-            <a ng-click="dropdown(item)" class="nav-item" href="{{item.action}}" title="{{item.description}}"
+            <a href="" ng-click="dropdown(item)" class="nav-item" title="{{item.description}}"
                 target="{{item.window}}" ng-class="{'is-active' : isActive(item) }" ng-if="item.dropdown">
                 <div>
                     <small ng-show="!selectedAccount || selectedAccount.isDefault" translate="{{item.text}}"></small>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li ng-repeat="child in item.data" ng-if="item.permissionFlag">
-                    <a class="nav-item nav-item-account" href="" ng-click="switchAccount(child)" title="{{child.account.name}}"
+                    <a href="" class="nav-item nav-item-account" ng-click="switchAccount(child)" title="{{child.account.name}}"
                     ng-class="{'is-active': child.isActive}">
                         <span ng-bind="child.account.name"></span>
                         (<small ng-bind="child.account.accountId"></small>)
