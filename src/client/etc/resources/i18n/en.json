@@ -10,6 +10,7 @@
             "MADC_MOVE":"Madc Move",
             "MADC_DECOMMISSION":"Madc Decommission",
             "MADC_ALL":"Madc All",
+            "BREAK_FIX":"",
             "BREAK_FIX_ONSITE_REPAIR":"Break Fix Onsite Repair",
             "BREAK_FIX_EXCHANGE":"Break Fix Exchange",
             "BREAK_FIX_OPTION_EXCHANGE":"Break Fix Option Exchange",
@@ -91,7 +92,8 @@
             "COLUMN_ACCOUNT":"Account",
             "LINK_TXT_QUEUE":"view in Queued Items >",
             "LINK_TXT_VIEW_QUEUE_ITEMS" : "View Queued Items >",
-            "TXT_INFORM_QUEUE": "You have ({{ total }}) requests currently queued for submission. "
+            "TXT_INFORM_QUEUE": "You have ({{ total }}) requests currently queued for submission. ",
+            "TXT_GENERIC_SERVICE_REQUEST_TITLE" : "Details for Request Number: {{srNumber}}"
         },
         "DASHBOARD":{
             "TXT_QUEUE_TITLE": "Queued Items",
@@ -102,7 +104,7 @@
          "RECEIPT":{
             "TXT_TITLE": "Your {{type}} request is being submitted",
             "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"/queue\">Queued Items</a>\".",
-            "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>",
+            "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>?",
             "TXT_GENERATING_REQUEST":" generating request number... "
         }
 
