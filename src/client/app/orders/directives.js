@@ -21,6 +21,18 @@ define(['angular', 'order'], function(angular) {
             templateUrl : '/app/orders/templates/open-order-summary.html'
         };
     })
+    .directive('returnOrderAddress', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/return-order-address.html'
+        };
+    })
+    .directive('orderReturnDetails', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/order-return-details.html'
+        };
+    })
     .directive('orderReceipt', function(){
         return {
             restrict: 'A',
@@ -38,6 +50,12 @@ define(['angular', 'order'], function(angular) {
         return {
             restrict: 'A',
             templateUrl : '/app/orders/templates/catalog.html'
+        };
+    })
+    .directive('returnSupply', function(){
+        return {
+            restrict: 'A',
+            templateUrl : '/app/orders/templates/return-supply.html'
         };
     })
     .directive('orderShipToBillToDetails', function(){

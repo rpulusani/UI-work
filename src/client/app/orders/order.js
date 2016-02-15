@@ -8,6 +8,11 @@ define(['angular'], function(angular) {
             controller: 'OrderTabController',
             activeItem: '/orders'
         })
+        .when('/orders/pick_address/:source', {
+            templateUrl: '/app/orders/templates/address-picker.html',
+            controller: 'AddressPickerController',
+            activeItem: '/orders'
+        })
         .when('/orders/pick_contact/:source', {
             templateUrl: '/app/orders/templates/contact-picker.html',
             controller: 'ContactPickerController',
@@ -35,6 +40,11 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/create-hardware.html',
             activeItem: '/orders'
         })
+        .when('/orders/supply/return/review', {
+            templateUrl: '/app/service_requests/templates/review.html',
+            controller: 'ReturnOrdersController',
+            activeItem: '/orders'
+        })
         .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'OrderPurchaseController',
@@ -43,12 +53,17 @@ define(['angular'], function(angular) {
         .when('/orders/:id/receipt', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller:'ServiceRequestDetailController',
-            activeItem: '/orders',
+            activeItem: '/orders'
         })
         .when('/orders/purchase/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'OrderPurchaseController',
-            activeItem: '/orders',
+            activeItem: '/orders'
+        })
+        .when('/orders/return/receipt/:queued', {
+            templateUrl: '/app/service_requests/templates/receipt.html',
+            controller: 'ReturnOrdersController',
+            activeItem: '/orders'
         })
         .when('/orders/create_catalog_supplies', {
             templateUrl: '/app/orders/templates/create-catalog-supplies.html',

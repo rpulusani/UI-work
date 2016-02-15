@@ -44,6 +44,7 @@ requirejs.config({
             'library',
             'library.libraryFactory',
             'library.libraryTagFactory',
+            'library.libraryOwnerFactory',
             'library.libraryListController',
             'library.libraryController',
             'library.libraryDeleteInlineController',
@@ -73,6 +74,7 @@ requirejs.config({
             'account',
             'account.accountFactory',
             'account.roleFactory',
+            'account.accountController',
 
             'user',
             'user.factory',
@@ -125,6 +127,7 @@ requirejs.config({
         'account': ['angular'],
         'account.accountFactory': ['account'],
         'account.roleFactory': ['account'],
+        'account.accountController': ['account'],
 
         'library': ['angular'],
         'library.libraryListController': ['library'],
@@ -133,6 +136,7 @@ requirejs.config({
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
         'library.libraryTagFactory': ['library'],
+        'library.libraryOwnerFactory': ['library'],
         'library.directives': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
@@ -269,11 +273,13 @@ requirejs.config({
         'utility.grid': 'app/utilities/grid',
         'utility.imageService': 'app/utilities/imageService',
         'utility.columnPickerController': 'app/utilities/columnPickerController',
+        'utility.accountPickerController': 'app/utilities/accountPickerController',
         'utility.printExportTitleController': 'app/utilities/printExportTitleController',
 
         'account': 'app/accounts/account',
         'account.accountFactory': 'app/accounts/accountFactory',
         'account.roleFactory': 'app/accounts/roleFactory',
+        'account.accountController': 'app/accounts/accountController',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
@@ -325,6 +331,7 @@ requirejs.config({
         'order.orderContentsController': 'app/orders/orderContentsController',
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
+        'order.returnOrdersController': 'app/orders/returnOrdersController',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',
@@ -340,6 +347,9 @@ requirejs.config({
         'contact.contactDeleteController': 'app/contact_service_requests/contactDeleteController',
         'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.contactAddController': 'app/contact_service_requests/contactAddController',
+        'contact.contactUpdateController': 'app/contact_service_requests/contactUpdateController',
+        'contact.contactUpdateTabController': 'app/contact_service_requests/contactUpdateTabController',
+        'contact.contactUpdateAddressController': 'app/contact_service_requests/contactUpdateAddressController',
         'contact.directives': 'app/contact_service_requests/directives',
         'contact.factory': 'app/contact_service_requests/contactsFactory',
 
@@ -387,6 +397,7 @@ requirejs.config({
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
         'library.libraryTagFactory': 'app/library/libraryTagFactory',
+        'library.libraryOwnerFactory': 'app/library/libraryOwnerFactory',
         'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',

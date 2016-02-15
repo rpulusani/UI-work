@@ -3,6 +3,7 @@
     "id": "1",
     "action": "",
     "text": "NAVIGATION.ACCOUNT",
+    "subtext": "NAVIGATION.ACCOUNT_CNT",
     "description": "Some description of this link",
     "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",

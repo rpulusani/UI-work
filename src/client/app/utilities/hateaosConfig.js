@@ -117,20 +117,21 @@ define(['angular', 'utility'], function(angular) {
                         $rootScope.currentAccount = {}
                     }
 
+                    if (!accountLink && account.url) {
+                        accountLink = account.url;
+                    }
+
                     $rootScope.currentAccount.accountId = account.accountId,
                     $rootScope.currentAccount.accountLevel = account.level,
                     $rootScope.currentAccount.name = account.name;
                     $rootScope.currentAccount.href = accountLink;
                     $rootScope.currentAccount.refresh = false;
+                    $rootScope.currentAccount.isDefault = false;
 
                     if (!$rootScope.defaultAccount) {
-                        $rootScope.defaultAccount = {
-                            accountId: account.accountId,
-                            accountLevel: account.level,
-                            name: account.name,
-                            href: accountLink,
-                            refresh: false
-                        };
+                        $rootScope.defaultAccount = angular.copy($rootScope.currentAccount);
+                        $rootScope.defaultAccount.isDefault = true;
+                        $rootScope.currentAccount.isDefault = true;
                     }
                 }
             };

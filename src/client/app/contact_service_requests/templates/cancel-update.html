@@ -1,0 +1,10 @@
+<div id="cancel-update" class="modal modal--large" ng-controller="confirmCancelController">
+    <div class="modal__body">
+        <h2 translate="SERVICE_REQUEST.TITLE_ABANDON_MODAL"></h2>
+        <hr>
+        <p translate="SERVICE_REQUEST.BODY_ABANDON_MODAL"></p>
+        <button name="cancel" class="btn btn--secondary"
+                data-js="modalClose" translate="SERVICE_REQUEST.ABANDON_MODAL_CANCEL"></button>
+        <button data-js="modalClose" name="confirm" class="btn btn--primary" ng-click="contacts.goToList()" translate="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"></button>
+    </div>
+</div>

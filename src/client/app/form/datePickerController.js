@@ -12,6 +12,10 @@ define(['angular', 'rome'], function(angular, Rome) {
                 attrs.inputFormat = 'YYYY-MM-DD';
             }
 
+            if (!attrs.time) {
+                attrs.time = false;
+            }
+
             calendar = Rome(node, attrs);
 
             // Watch was avoided due to performance concerns

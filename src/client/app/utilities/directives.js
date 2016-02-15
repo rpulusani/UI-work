@@ -81,7 +81,7 @@ define(['angular', 'utility'], function(angular) {
                 export: '@',
                 nativePrint: '@'
             },
-            template: '<div class="col-2-3" ng-cloak>' +
+            template: '<div class="col-3-4" ng-cloak>' +
                 '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && title" translate="{{ title }}" translate-values="{{titleValues}}"></h2>' +
                 '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="!titleValues && title" translate="{{ title }}"></h2>' +
             '</div>' +
@@ -117,7 +117,8 @@ define(['angular', 'utility'], function(angular) {
             scope: {
                 currentInstalledAddressTitle: '@',
                 replaceAddressTitle: '@',
-                sourceAddress: '@'
+                sourceAddress: '@',
+                customConfigure: '='
             },
             templateUrl: '/app/utilities/templates/pick-address.html',
             controller: 'AddressPickerController'
@@ -160,6 +161,18 @@ define(['angular', 'utility'], function(angular) {
             },
             templateUrl: '/app/utilities/templates/pick-device.html',
             controller: 'DevicePickerController'
+        };
+    })
+    .directive('pickAccount', function(){
+         return {
+            restrict: 'A',
+            scope: {
+                currentAccountTitle: '@',
+                replaceAccountTitle: '@',
+                customConfigure: '='
+            },
+            templateUrl: '/app/utilities/templates/pick-account.html',
+            controller: 'AccountPickerController'
         };
     })
     .directive('selectPageCount', function(){
