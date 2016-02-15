@@ -504,14 +504,11 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                     }
             };
 
-            console.log(2);
-
             Reports.get({
                 preventDefaultParams: true,
                 params: {
                     page: 1,
-                    size: 20,
-                    test: 1
+                    size: 20
                 }
             }).then(function() {
                 $scope.finder = Reports.finder;
@@ -521,7 +518,6 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 var tmp = Reports.data;
 
                 for (var i = 0; i < tmp.length; i++) {
-
                     if (tmp[i]._links.stats !== undefined) {
                         $scope.visualizations.push(tmp[i]);
                     }
