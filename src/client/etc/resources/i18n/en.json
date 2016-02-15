@@ -1483,6 +1483,7 @@
                 "CTRL_GRID_DELETE" : "Delete document",
                 "TXT_ALL_DOCS" : "All Documents",
                 "TXT_ALL_DOCS_CNT" : "All documents ({{total}})",
+                "TXT_OTHER_DOCS_CNT" : "Other documents ({{total}})",
                 "TXT_FILTER_ACCOUNT" : "Accounts",
                 "TXT_FILTER_CATEGORY" : "Category",
                 "TXT_FILTER_CLEAR_SELECTIONS" : "Clear selections",
