@@ -25,18 +25,9 @@ define(['angular', 'dashboard'], function(angular) {
         HATEAOSConfig
     ) {
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-        filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
-
-        $scope.searchFunctionDef = function(searchVals) {
-            $location.path('/device_management?searchOn=' + searchVals.searchOn + '&search=' + searchVals.search);
-        };
-
-        $scope.srCompletedCnt = {
-            total: 30
-        };
-
+        filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal),
         /* The 'bar' at the top of the homepage with SR counts */
-         var getSROpenCnt = function() {
+        getSROpenCnt = function() {
             ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
@@ -87,21 +78,34 @@ define(['angular', 'dashboard'], function(angular) {
                 $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
             });
         },
-        getSRDeviceChangeCnt = function() {
-            Orders.get({
+        getSRMADCCnt = function() {
+            ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
+                    type: [
+                    /*
+                        'DATA_ASSET_CHANGE',
+                        'DATA_ASSET_DEREGISTER',
+                        'DATA_ASSET_ALL',
+                        'MADC_INSTALL',
+                        'MADC_MOVE',
+                        'MADC_DECOMMISSION',
+                        'MADC_INSTALL_AND_DECOMMISSION',
+                    */
+                        'MADC_ALL'
+                    ],
                     status:  ['SUBMITTED']
                 }
             }).then(function(res) {
-                $scope.srOrderCnt = Orders.page.totalElements;
-                getDeviceChangeCompletedCnt();
+                //$scope.srOrderCnt = Orders.page.totalElements;
+                console.log(ServiceRequests.page.totalElements)
+                //getMADCCompletedCnt();
             });
         },
-        getDeviceChangeCompletedCnt = function() {
-            Orders.get({
+        getMADCCompletedCnt = function() {
+            ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
                     accountId: $rootScope.currentAccount.accountId,
@@ -112,15 +116,16 @@ define(['angular', 'dashboard'], function(angular) {
                 $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
             });
         };
-        
+
+        $scope.searchFunctionDef = function(searchVals) {
+            $location.path('/device_management');
+        };
+
         HATEAOSConfig.getCurrentAccount().then(function() {
             getSROpenCnt();
             getSROrderCnt();
+            getSRMADCCnt();
         });
-
-          $scope.getSRMADCCnt = function() {
-
-          };
 
           $scope.hideDashboardNotification = function(){
             $rootScope.showDashboardNotification = false;
