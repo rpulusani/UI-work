@@ -20,11 +20,13 @@ define(['angular', 'dashboard'], function(angular) {
           var personal = new Personalize($location.url(),$rootScope.idpUser.id),
           filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
+          $scope.searchFunctionDef = function(searchVals) {
+            $location.path('/device_management?searchOn=' + searchVals.searchOn + '&search=' + searchVals.search);
+          };
 
           $scope.hideDashboardNotification = function(){
             $rootScope.showDashboardNotification = false;
           };
-
 
             // Dummy Chart Data
             $scope.columnChartObject = {};
