@@ -30,30 +30,37 @@ define(['angular', 'dashboard'], function(angular) {
         };
 
         /* The 'bar' at the top of the homepage with SR counts */
-        $scope.getSROpenCnt = function() {
+         var getSROpenCnt = function() {
             ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
-                    status:  ['submitted', 'in_progress']
+                    status:  ['SUBMITTED', 'IN_PROCESS', 'SHIPPED']
                 }
             }).then(function(res) {
-                console.log(ServiceRequests.data); 
-                
-                $scope.srOpenCnt = 30;
-                
-                return res;
+                $scope.srOpenCnt = ServiceRequests.page.totalElements;
+            });
+        }, 
+        getSRCompletedCnt = function() {
+            ServiceRequests.get({
+                preventDefaultParams: true,
+                params: {
+                    accountId: $rootScope.currentAccount.accountId,
+                    accountLevel: $rootScope.currentAccount.accountLevel,
+                    status:  ['COMPLETED']
+                }
+            }).then(function(res) {
+                $scope.srCompleteCnt = ServiceRequests.page.totalElements;
+                console.log($scope.srCompleteCnt);
             });
         };
-
+        
         HATEAOSConfig.getCurrentAccount().then(function() {
-            $scope.getSROpenCnt();
+            getSROpenCnt();
+            getSRCompletedCnt();
         });
 
-          $scope.getSRClosedCnt = function() {
-            $scope.srClosedCnt = 10;
-          };
 
           $scope.getSROrderCnt = function() {
 
