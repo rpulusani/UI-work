@@ -1,7 +1,7 @@
 <h3 translate="ACCOUNT.COMPANY_ASSO"></h3>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
 <strong translate="ACCOUNT.ORG_STRUCT"></strong>
-<div class="well">
+<div class="well scrollable">
     <div ng-repeat="account in accountList">
         <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
             value="$parent.user.org" previous-items="$parent.accounts">

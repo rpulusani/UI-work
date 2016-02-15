@@ -2,12 +2,23 @@ define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
     .controller('LexmarkUserAddController', ['$scope', '$location', '$translate', '$routeParams', 
-        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration', 'AllAccounts',
-        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration,
+        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration', 'LexmarkUser', 'AllAccounts',
+        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration, LexmarkUser,
             AllAccounts) {
 
             $scope.templateUrl = UrlHelper.user_template;
-            
+            $scope.userCreate = true;
+            var options = {
+                params:{
+                    embed:'roles,accounts'
+                }
+            };
+
+            UserAdminstration.item.get(options).then(function(){
+                console.log(UserAdminstration);
+            });
+
+
             $scope.user_info_active = true;
             $scope.account_access_active = false;
             $scope.user = {};
@@ -22,7 +33,12 @@ define(['angular', 'user'], function(angular) {
             $scope.AssignedAccountList = [];
             $scope.accounts = [];
             $scope.totalDisplayed = 20;
-            $scope.accountCount = 'None';
+            $scope.userActive = false;
+
+            if ($scope.user.active === true) {
+                $scope.userActive = true;
+            }
+
             var removeParams,
             addonRoleOptions = {
                 'params': {
@@ -48,17 +64,32 @@ define(['angular', 'user'], function(angular) {
                 $scope.$broadcast('searchAccount');
             };
 
+            $scope.removeAccount = function(item) {
+                if ($scope.accounts && $scope.accounts.length > 0) {
+                    for (var j=0;j<$scope.accounts.length; j++) {
+                        if ($scope.accounts[j].accountId 
+                            && $scope.accounts[j].accountId === item.accountId
+                            && $scope.accounts[j].level === item.level
+                            && $scope.accounts[j].name === item.name) {
+                            $scope.accounts.splice(j, 1);
+                        }
+                    }
+                }
+                $scope.$broadcast('searchAccount');
+            };
+
             $scope.$on('searchAccount', function(evt){
+                $scope.accountList = [];
                 if($scope.accountName && $scope.accountName.length >=3) {
                     var options = {
                         preventDefaultParams: true,
-                        params:{
+                        params:{    
                             searchTerm: $scope.accountName
                         }
                     };
                     AllAccounts.get(options).then(function(){
+                        $scope.accountList = [];
                         if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
-                            $scope.accountList = [];
                             var allAccountList = AllAccounts.item._embedded.accounts;
                             for (var i=0; i<allAccountList.length; i++) {
                                 $scope.accountList.push(allAccountList[i]);
@@ -70,6 +101,7 @@ define(['angular', 'user'], function(angular) {
 
             $scope.$watch('accounts', function(accounts){
                 if (accounts && accounts.length > 0) {
+                    console.log('accounts', accounts);
                     $scope.accountCount = accounts.length;
                 }
             });

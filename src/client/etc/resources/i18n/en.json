@@ -1522,6 +1522,7 @@
         "DELEGATED_ADMIN": {
             "TITLE": "Users",
             "MANAGE_PROFILE": "Managing User Profile",
+            "MANAGE_LEXMARK_PROFILE": "Managing Lexmark User Profile",
             "PREFERRED_LANGUAGE": "Preferred language"
         },
 
@@ -1532,6 +1533,7 @@
             "ALL_USER": "All users",
             "ALL_INVITED_USER": "All invited users",
             "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
+            "MANAGE_LEXMARK_USER_TITLE": "Manage Lexmark User",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",
             "IMPORT_USER": "IMPORT USERS",
@@ -1693,7 +1695,8 @@
         "ALL": "All",
         "MANUAL": "Manual",
         "AUTOMATIC": "Automatic",
-        "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)"
+        "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)",
+        "REMOVE": "Remove"
     },
 
         "PAGINATION": {
