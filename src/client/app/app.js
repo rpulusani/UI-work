@@ -88,6 +88,7 @@ define([
     'library.libraryViewController',
     'library.libraryFactory',
     'library.libraryTagFactory',
+    'library.libraryOwnerFactory',
     'library.directives',
     'invoice',
     'invoice.invoiceController',
