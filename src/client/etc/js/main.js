@@ -319,6 +319,8 @@ requirejs.config({
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
         'order.returnOrdersController': 'app/orders/returnOrdersController',
         'order.agreementCatalogController': 'app/orders/agreementCatalogController',
+        'order.agreementFactory':'app/orders/agreementFactory',
+        'order.contractFactory':'app/orders/contractFactory',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',
