@@ -994,7 +994,7 @@
             "REPORT_BILLED_PAGES": "Billed Pages (last billing cycle)",
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
-            "NUMBER_CLOSED_REQUESTS": "15 Completed Requests",
+            "NUMBER_CLOSED_REQUESTS": "{{ total }} Completed Requests",
             "NUMBER_OPEN_REQUESTS": "Open",
             "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },

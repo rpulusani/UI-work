@@ -10,6 +10,7 @@ define(['angular', 'dashboard'], function(angular) {
         'UserService',
         'FilterSearchService',
         'PersonalizationServiceFactory',
+        'OrderRequest',
         'HATEAOSConfig',
     function(
         $scope,
@@ -20,6 +21,7 @@ define(['angular', 'dashboard'], function(angular) {
         Users,
         FilterSearchService,
         Personalize,
+        Orders,
         HATEAOSConfig
     ) {
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -27,6 +29,10 @@ define(['angular', 'dashboard'], function(angular) {
 
         $scope.searchFunctionDef = function(searchVals) {
             $location.path('/device_management?searchOn=' + searchVals.searchOn + '&search=' + searchVals.search);
+        };
+
+        $scope.srCompletedCnt = {
+            total: 30
         };
 
         /* The 'bar' at the top of the homepage with SR counts */
@@ -40,6 +46,8 @@ define(['angular', 'dashboard'], function(angular) {
                 }
             }).then(function(res) {
                 $scope.srOpenCnt = ServiceRequests.page.totalElements;
+                
+                getSRCompletedCnt();
             });
         }, 
         getSRCompletedCnt = function() {
@@ -51,22 +59,66 @@ define(['angular', 'dashboard'], function(angular) {
                     status:  ['COMPLETED']
                 }
             }).then(function(res) {
-                $scope.srCompleteCnt = ServiceRequests.page.totalElements;
-                console.log($scope.srCompleteCnt);
+                $scope.srCompletedCnt = {total: ServiceRequests.page.totalElements};
+            });
+        },
+        getSROrderCnt = function() {
+            Orders.get({
+                preventDefaultParams: true,
+                params: {
+                    accountId: $rootScope.currentAccount.accountId,
+                    accountLevel: $rootScope.currentAccount.accountLevel,
+                    status:  ['SUBMITTED']
+                }
+            }).then(function(res) {
+                $scope.srOrderCnt = Orders.page.totalElements;
+                getOrderCompletedCnt();
+            });
+        },
+        getOrderCompletedCnt = function() {
+            Orders.get({
+                preventDefaultParams: true,
+                params: {
+                    accountId: $rootScope.currentAccount.accountId,
+                    accountLevel: $rootScope.currentAccount.accountLevel,
+                    status:  ['COMPLETED']
+                }
+            }).then(function(res) {
+                $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
+            });
+        },
+        getSRDeviceChangeCnt = function() {
+            Orders.get({
+                preventDefaultParams: true,
+                params: {
+                    accountId: $rootScope.currentAccount.accountId,
+                    accountLevel: $rootScope.currentAccount.accountLevel,
+                    status:  ['SUBMITTED']
+                }
+            }).then(function(res) {
+                $scope.srOrderCnt = Orders.page.totalElements;
+                getDeviceChangeCompletedCnt();
+            });
+        },
+        getDeviceChangeCompletedCnt = function() {
+            Orders.get({
+                preventDefaultParams: true,
+                params: {
+                    accountId: $rootScope.currentAccount.accountId,
+                    accountLevel: $rootScope.currentAccount.accountLevel,
+                    status:  ['COMPLETED']
+                }
+            }).then(function(res) {
+                $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
             });
         };
         
         HATEAOSConfig.getCurrentAccount().then(function() {
             getSROpenCnt();
-            getSRCompletedCnt();
+            getSROrderCnt();
         });
 
-
-          $scope.getSROrderCnt = function() {
-
-          };
-
-          $scope.getSRMadcCnt = function() {
+          $scope.getSRMADCCnt = function() {
 
           };
 

@@ -23,20 +23,31 @@
                     </div>
                     <div class="rollup-content">
                         <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess">
-                            <h1 class="blue text--bold"><span ng-bind="srOpenCnt"></span> 
+                            <h1 class="blue text--bold">
+                                <span ng-bind="srOpenCnt"></span> 
                                 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span>
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </h1>
                         </a>
                         
-                        <h1 class="blue text--bold" ng-if="!serviceRequestBreakFixAccess">30 
+                        <h1 class="blue text--bold" ng-if="!serviceRequestBreakFixAccess">
+                            <span ng-bind="srOpenCnt"></span> 
                             <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span>
                             <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                         </h1>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
-                        <p ng-if="!serviceRequestBreakFixAccess"><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p>
+                        <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess">
+                            <p>
+                                <span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS" translate-values="{{ srCompletedCnt }}"></span>
+                                <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                            </p>
+                        </a>
+                        
+                        <p ng-if="!serviceRequestBreakFixAccess">
+                            <span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS" translate-values="{{ srCompletedCnt }}"></span>
+                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -46,12 +57,31 @@
                         <h4 class="text--thick" translate="DASHBOARD.ROLLUP_ORDERS_TITLE"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/orders" ng-if="orderSuppliesHardwareAccess"><h1 class="blue text--bold">100 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
-                        <h1 class="blue text--bold" ng-if="!orderSuppliesHardwareAccess">100 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1>
+                        <a href="/orders" ng-if="orderSuppliesHardwareAccess">
+                            <h1 class="blue text--bold">
+                                <span ng-bind="srOrderCnt"></span> 
+                                <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span>
+                                <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                            </h1>
+                        </a>
+                        
+                        <h1 class="blue text--bold" ng-if="!orderSuppliesHardwareAccess">
+                            <span ng-bind="srOrderCnt"></span> 
+                            <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span>
+                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                        </h1>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/orders" ng-if="orderSuppliesHardwareAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
-                        <p ng-if="!orderSuppliesHardwareAccess"><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p>
+                        <a href="/orders" ng-if="orderSuppliesHardwareAccess">
+                            <p>
+                                <span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS" translate-values="{{ srOrderCompletedCnt }}"></span>
+                                <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                            </p>
+                        </a>
+                        <p ng-if="!orderSuppliesHardwareAccess">
+                            <span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS" translate-values="{{ srOrderCompletedCnt }}"></span>
+                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -61,12 +91,28 @@
                         <h4 class="text--thick" translate="DASHBOARD.ROLLUP_MADC_TITLE"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess"><h1 class="blue text--bold">3 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1></a>
-                        <h1 class="blue text--bold" ng-if="!serviceRequestMADCAccess">3 <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></h1>
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess">
+                            <h1 class="blue text--bold">3 
+                                <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span>
+                                <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                            </h1>
+                        </a>
+                        <h1 class="blue text--bold" ng-if="!serviceRequestMADCAccess">3 
+                            <span translate="DASHBOARD.NUMBER_OPEN_REQUESTS"></span>
+                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                        </h1>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess"><p><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p></a>
-                        <p ng-if="!serviceRequestMADCAccess"><span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span><i class="icon-24 icon-psw-disclosure_right_triangle push"></i></p>
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess">
+                            <p>
+                                <span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span>
+                                <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                            </p>
+                        </a>
+                        <p ng-if="!serviceRequestMADCAccess">
+                            <span translate="DASHBOARD.NUMBER_CLOSED_REQUESTS"></span>
+                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -148,20 +194,26 @@
             </div>
             <hr class="vertical-space--thick">
             <div class="row">
-                <div class="col-1-2">
-                    <div class="card card--overlay bg--white" data-card="">
-                        <div class="card__visual" title="" desc="" alt="" id="">
-                            <a href="http://www.lexmark.com/en_us/services/managed-print-services.html">
-                                <img title="" alt="" class="cq-dd-image" src="/etc/resources/img/MPS_marketing_image_v01.png"></a>
-                        </div>
-                        <div class="card__content">
-                            <div class="card__title text--h3">
-                                <p translate="DASHBOARD.CARD_CONTENT"></p>
-                            </div>
-                            <a class="call-to-action text--b3 text--h5 card__action" href="http://www.lexmark.com/en_us/services/managed-print-services.html" data-tracker="link" translate="DASHBOARD.CARD_ACTION"></a>
-                        </div>
-                        <a id="" class="card__action-overlay" href="http://www.lexmark.com/en_us/services/managed-print-services.html" data-tracker="link"></a>
-                    </div>
+                <div class="col-1-3">
+                    <h3>RELATED LINK</h3>
+                        <a href="#" title="">Welcome to the New Managed Services Portal</a>
+                    <p class="l-pad-top">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio est, posuere ac odio quis, vulputate volutpat tortor. Morbi nec viverra ipsum.
+                    </p>
+                </div>
+                <div class="col-1-3">
+                    <h3>ARTICLE</h3>
+                        <a href="http://www.lexmark.com/en_us/services/managed-print-services/article-managed-print-services-analytics-pave-the-way-for-better-business-processes.html" title="">Managed print services analytics pave the way for better business processes</a>
+                    <p class="l-pad-top">
+                        Moving beyond data collection to actionable insights 
+                    </p>
+                </div>
+                <div class="col-1-3">
+                    <h3>RELATED LINK</h3>
+                        <a href="http://www.lexmark.com/en_us/products/smart-mfp/device-based-software.html" title="">Automate information capture at the MFP</a>
+                    <p class="l-pad-top">
+                        Our smart MFP capture technology collects and routes your documents and data intelligently—extracting, organizing and sharing information with the people, systems and processes that need it most. 
+                    </p>
                 </div>
            </div>
         </div>

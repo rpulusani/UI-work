@@ -4,9 +4,11 @@ define(['angular', 'security'], function(angular) {
     .factory('SecurityService', [
         '$rootScope',
         '$q',
+        'UserService',
         function(
             $rootScope,
-            $q
+            $q,
+            Users
             ) {
             var SecurityService = function() {
 
@@ -86,6 +88,7 @@ define(['angular', 'security'], function(angular) {
                 workingPermissionSetPromise = $q.defer();
                 $rootScope.currentUser.deferred.promise.then(function() {
                     if(self.workingPermissionSet && (!self.workingPermissionSet.data || self.workingPermissionSet.data.length === 0)){
+                        console.log($rootScope.currentUser.linkNames);
                         self.getPermissions($rootScope.currentUser).then(function(permissionSet){
                             self.workingPermissionSet.data = permissionSet;
                             workingPermissionSetPromise.resolve(self.workingPermissionSet.data);
