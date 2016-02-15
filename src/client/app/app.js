@@ -562,7 +562,7 @@ define([
                     suffix: '.json'
                 })
                 .useLocalStorage();
-
+                
             $routeProvider
             .otherwise({
                 templateUrl: '/app/dashboard/templates/home.html',
