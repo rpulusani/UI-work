@@ -44,6 +44,7 @@ requirejs.config({
             'library',
             'library.libraryFactory',
             'library.libraryTagFactory',
+            'library.libraryOwnerFactory',
             'library.libraryListController',
             'library.libraryController',
             'library.libraryDeleteInlineController',
@@ -131,6 +132,7 @@ requirejs.config({
         'library.libraryViewController': ['library'],
         'library.libraryFactory': ['library'],
         'library.libraryTagFactory': ['library'],
+        'library.libraryOwnerFactory': ['library'],
         'library.directives': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
@@ -383,6 +385,7 @@ requirejs.config({
         'library.libraryViewController': 'app/library/libraryViewController',
         'library.libraryFactory': 'app/library/libraryFactory',
         'library.libraryTagFactory': 'app/library/libraryTagFactory',
+        'library.libraryOwnerFactory': 'app/library/libraryOwnerFactory',
         'library.directives': 'app/library/directives',
 
         'report': 'app/reporting/report',
