@@ -90,6 +90,8 @@ define([
     'library.libraryTagFactory',
     'library.libraryOwnerFactory',
     'library.directives',
+    'library.portalAdminLibraryListController',
+    'library.portalAdminLibraryTagController',
     'invoice',
     'invoice.invoiceController',
     'invoice.invoiceListController',

@@ -50,6 +50,9 @@ requirejs.config({
             'library.libraryDeleteInlineController',
             'library.libraryViewController',
 
+            'library.portalAdminLibraryListController',
+            'library.portalAdminLibraryTagController',
+
             'nav',
             'nav.navController',
             'nav.navFactory',
@@ -134,6 +137,9 @@ requirejs.config({
         'library.libraryTagFactory': ['library'],
         'library.libraryOwnerFactory': ['library'],
         'library.directives': ['library'],
+
+        'library.portalAdminLibraryListController': ['library'],
+        'library.portalAdminLibraryTagController': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
@@ -387,6 +393,9 @@ requirejs.config({
         'library.libraryTagFactory': 'app/library/libraryTagFactory',
         'library.libraryOwnerFactory': 'app/library/libraryOwnerFactory',
         'library.directives': 'app/library/directives',
+
+        'library.portalAdminLibraryListController': 'app/library/portalAdminLibraryListController',
+        'library.portalAdminLibraryTagController': 'app/library/portalAdminLibraryTagController',
 
         'report': 'app/reporting/report',
         'report.reportController': 'app/reporting/reportController',
