@@ -106,7 +106,6 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     var documentJson = angular.toJson(Documents.item);
 
                     fd.append('document', new Blob([documentJson], {type: 'application/json'}));
-                    fd.append('file', $scope.documentFile);
 
                     $http({
                         method: 'PUT',
@@ -125,6 +124,10 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     });
                 } else {
                     /* upload */
+
+                    if ($scope.documentFile === undefined) {
+                        return;
+                    }
 
                     var fd = new FormData();
 

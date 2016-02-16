@@ -22,7 +22,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     var ownerList = Owners.data;
                     for (var i = 0; i < ownerList.length; i++) {
                         var owner = {};
-                        owner.name = ownerList[i]['name'];
+                        owner.name = ownerList[i];
                         owner.selected = false;
                         $scope.owners.push(owner);
                     }
