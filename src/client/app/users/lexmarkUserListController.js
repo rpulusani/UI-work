@@ -28,22 +28,8 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
             );
 
             $scope.view = function(user){
-                // UserAdminstration.setItem(user);
-                // var options = {
-                //     params:{
-                //         embed:'roles,accounts'
-                //     }
-                // };
-
-                // UserAdminstration.item.get(options).then(function(){
-                //     console.log(UserAdminstration);
-                //     //$location.path(UserAdminstration.route + '/' + user.userId + '/lexmark-review');
-                // });
-
-                LexmarkUser.setItem(user);
                 UserAdminstration.setItem(user);
                 $location.path(UserAdminstration.route + '/' + user.userId + '/lexmark-review');
-
             };
         }
     ]);

@@ -1,21 +1,30 @@
 <h3 translate="ACCOUNT.COMPANY_ASSO"></h3>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-<strong translate="USER.FIND_ACCOUNT"></strong>
-<div class="form__field" >
-	<input name="accountName" type="text" ng-model="accountName" value="" class="" ng-change="setAccounts()"/>
+<strong translate="USER.FIND_ACCOUNT" ng-if="showAllAccounts"></strong>
+<div class="form__field" ng-if="showAllAccounts">
+	<input name="accountName" type="text" ng-model="user.accountName" value="" class="" ng-change="setAccounts()"/>
 </div>
-<div class="well scrollable">
+<div class="well scrollable" ng-if="showAllAccounts">
     <div ng-repeat="account in accountList">
         <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
             value="$parent.user.org" previous-items="$parent.accounts">
         </div>
     </div>
 </div>
-<strong translate="USER.ASSIGNED_ACCOUNTS" translate-values="{'count': accounts.length}"></strong>
-<div class="well">
+<strong translate="USER.ASSIGNED_ACCOUNTS" translate-values="{'count': accounts.length}" ng-if="showAllAccounts"></strong>
+<div class="well" ng-if="showAllAccounts">
     <div ng-repeat="assignedAccount in accounts">
     	{{assignedAccount.name}}
     	<a class="float-right" translate="LABEL.REMOVE" href="" ng-click="removeAccount(assignedAccount)"></a>
+    </div>
+</div>
+
+<strong translate="ACCOUNT.ORG_STRUCT" ng-if="!showAllAccounts"></strong>
+<div class="well scrollable" ng-if="!showAllAccounts">
+    <div ng-repeat="account in accountList">
+        <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
+            value="$parent.user.org" previous-items="$parent.accounts">
+        </div>
     </div>
 </div>
 

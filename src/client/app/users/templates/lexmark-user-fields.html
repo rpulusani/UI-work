@@ -2,10 +2,24 @@
 <div class="contact-info">
     <div ng-bind-html="formattedUserContact"></div>
 </div>
+<br/>
 <div class="contact-info">
-        <div ng-bind-html="formattedUserAddress"></div>
-    </div>
+    <div ng-bind-html="formattedUserAddress"></div>
+</div>
+<br/>
 <h2 translate="ACCOUNT.TITLE"></h2>
+<h3 translate="ACCOUNT.LOGIN"></h3>
+<div>
+    <label>
+        <input type="checkbox"
+            id="portalAccess"
+            name="portalAccess"
+            ng-model="user.active"
+        />
+        {{'USER.PORTAL_ACCESS_ENABLED' | translate}}
+    </label>
+</div>
+<br/>
 <div lexmark-org-structure></div>
 <div lexmark-role-permission></div>
 
