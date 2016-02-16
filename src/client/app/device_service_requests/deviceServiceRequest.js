@@ -13,7 +13,7 @@ define(['angular'], function(angular) {
                 controller: 'DeviceAddController',
                 activeItem: '/device_management'
             })
-            .when('/service_requests/devices/add/receipt', {
+            .when('/service_requests/devices/add/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'DeviceAddController',
                 activeItem: '/device_management'
@@ -54,7 +54,7 @@ define(['angular'], function(angular) {
                 controller: 'DeviceServiceRequestDeviceController',
                 activeItem: '/device_management'
             })
-          .when('/service_requests/devices/:id/receipt', {
+          .when('/service_requests/devices/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'DeviceServiceRequestDeviceController',
                 activeItem: '/device_management'
@@ -69,7 +69,7 @@ define(['angular'], function(angular) {
                 controller: 'DeviceUpdateController',
                 activeItem: '/device_management'
             })
-            .when('/service_requests/devices/update/:id/receipt', {
+            .when('/service_requests/devices/update/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'DeviceUpdateController',
                 activeItem: '/device_management'
@@ -84,7 +84,7 @@ define(['angular'], function(angular) {
                 controller: 'DeviceDecommissionController',
                 activeItem: '/device_management'
             })
-            .when('/service_requests/devices/decommission/:id/receipt', {
+            .when('/service_requests/devices/decommission/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'DeviceDecommissionController',
                 activeItem: '/device_management'
