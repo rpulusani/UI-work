@@ -46,7 +46,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                                 '</div>'
                         },
                     ]
-                },    
+                },
                 route: '/library',
                 functionArray: [
                     {
