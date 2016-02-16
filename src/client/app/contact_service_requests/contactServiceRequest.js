@@ -37,7 +37,7 @@ define(['angular'], function(angular) {
                 controller: 'ContactDeleteController',
                 activeItem: '/service_requests/contacts'
             })
-            .when('/service_requests/contacts/delete/:id/receipt', {
+            .when('/service_requests/contacts/delete/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'ContactDeleteController',
                 activeItem: '/service_requests/contacts'
