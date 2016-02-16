@@ -39,6 +39,21 @@ define(['angular'], function(angular) {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'ServiceRequestCancelController',
             activeItem: '/service_requests?tab=serviceRequestsAllTab'
+        })
+        .when('/service_requests/:id/update/:type', {
+            templateUrl: '/app/service_requests/templates/review.html',
+            controller:'ServiceRequestUpdateController',
+            activeItem: '/service_requests?tab=serviceRequestsAllTab'
+        })
+        .when('/service_requests/:id/update/:type/receipt', {
+            templateUrl: '/app/service_requests/templates/receipt.html',
+            controller: 'ServiceRequestUpdateController',
+            activeItem: '/service_requests?tab=serviceRequestsAllTab'
+        })
+        .when('/service_requests/pick_contact/:source', {
+            templateUrl: '/app/address_service_requests/templates/contact-picker.html',
+            controller: 'ContactPickerController',
+            activeItem: '/service_requests?tab=serviceRequestsAllTab'
         });
     }]);
 });

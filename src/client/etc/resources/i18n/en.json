@@ -740,7 +740,15 @@
             "CANCEL_REQUEST_SUBMIT_HEADER_BODY": "Your request to cancel request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
             "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}",
             "SERVICE_REQUEST_CONTACT": "Service Request contact",
-            "CHANGE_REQUEST": "Change Request"
+            "CHANGE_REQUEST": "Change Request",
+            "ABANDON_REQUEST_UPDATE": "Abandon update request",
+            "SUBMIT_REQUEST_UPDATE": "Submit update request",
+            "UPDATE_REQUEST_SUBMITTED": "Update Request Submitted",
+            "UPDATE_REQUEST_SUBMIT_HEADER_BODY": "Your request to update request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{srUrl}}\">view your requests</a>?",
+            "DETAILS_UPDATE_REQUEST_FOR_SUBMITTED": "Details for Update Request Number: {{srNumber}}",
+            "REQUEST_UPDATE_INFORMATION": "Update details",
+            "UPDATE_DESCRIPTION": "Update description",
+            "UPDATE_REQUEST_FOR_SUBMITTED": "Update Request Number: {{srNumber}}"
         },
 
     "CONTACT_SERVICE_REQUEST": {
