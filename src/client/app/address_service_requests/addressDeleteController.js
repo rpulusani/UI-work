@@ -7,6 +7,7 @@ define(['angular', 'address'], function(angular) {
         '$routeParams',
         '$location',
         '$translate',
+        '$timeout',
         'Addresses',
         'ServiceRequestService',
         'FormatterService',
@@ -14,18 +15,25 @@ define(['angular', 'address'], function(angular) {
         'Contacts',
         'SRControllerHelperService',
         'UserService',
+        'TombstoneService',
+        'tombstoneWaitTimeout',
         function($scope,
             $rootScope,
             $routeParams,
             $location,
             $translate,
+            $timeout,
             Addresses,
             ServiceRequest,
             FormatterService,
             BlankCheck,
             Contacts,
             SRHelper,
-            Users) {
+            Users,
+            Tombstone,
+            tombstoneWaitTimeout) {
+
+            $scope.isLoading = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
 
@@ -107,19 +115,60 @@ define(['angular', 'address'], function(angular) {
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.DELETE_SUBMIT';
                 $scope.configure.actions.submit = function(){
+                  if(!$scope.isLoading) {
+                    $scope.isLoading = true;
+
                     var deferred = ServiceRequest.post({
                          item:  $scope.sr
                     });
                     deferred.then(function(result){
-                        $rootScope.newAddress = $scope.address;
-                        $rootScope.newSr = $scope.sr;
-                       $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt');
+                      if(ServiceRequest.item._links['tombstone']) {
+                        $timeout(function(){
+                          ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                            if(Tombstone.item && Tombstone.item.siebelId) {
+                              $location.search('tab', null);
+                              ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                              location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued')
+                            } else {
+                              $location.search('tab', null);
+                              //Reviewed with Kris - uncertain why this is here
+                              // $rootScope.newAddress = $scope.address;
+                              // $rootScope.newSr = $scope.sr;
+                              $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/queued');
+                            }
+                          });
+                      }, tombstoneWaitTimeout);
+                     }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
+                  }
                 };
             }
             function configureReceiptTemplate(){
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + ServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: Orders.route,
+                    actionName: 'Manage Addresses'
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
+              } else {
                 $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_DELETE_SUBMITTED";
                 $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.readMore = 'ADDRESS_SERVICE_REQUEST.RETURN_LINK';
@@ -137,6 +186,7 @@ define(['angular', 'address'], function(angular) {
                     print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
+              }
             }
             function configureTemplates(){
                 $scope.configure = {
@@ -237,4 +287,3 @@ define(['angular', 'address'], function(angular) {
         }
     ]);
 });
-
