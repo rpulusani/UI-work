@@ -48,7 +48,7 @@
 <div class="row row--alley-thick vertical-space--thick">
     <div class="col-2-3">
         <tags-input ng-model="documentItem.tags" display-property="name" placeholder="{{ 'DOCUMENT_LIBRARY.COMMON.TXT_TAGGING' | translate }}" addFromAutocompleteOnly="true">
-            <auto-complete source="loadTags($query)"></auto-complete>
+            <auto-complete source="loadTags($query)" load-on-focus="true" load-on-empty="true"></auto-complete>
         </tags-input>
     </div>
 </div>
