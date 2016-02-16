@@ -1,4 +1,4 @@
-define(['angular', 'dashboard'], function(angular) {
+define(['angular', 'dashboard', 'googlecharting'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
     .controller('DashboardController', [
@@ -12,6 +12,7 @@ define(['angular', 'dashboard'], function(angular) {
     'PersonalizationServiceFactory',
     'OrderRequest',
     'HATEAOSConfig',
+    'Reports',
     function(
         $scope,
         $location,
@@ -22,7 +23,8 @@ define(['angular', 'dashboard'], function(angular) {
         FilterSearchService,
         Personalize,
         Orders,
-        HATEAOSConfig
+        HATEAOSConfig,
+        Reports
     ) {
         HATEAOSConfig.getCurrentAccount().then(function() {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -110,6 +112,77 @@ define(['angular', 'dashboard'], function(angular) {
                 }).then(function(res) {
                     $scope.srMADCCompletedCnt = {total: ServiceRequests.page.totalElements};
                 });
+            },
+            buildFleetAvailabilityChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.fleetAvailability = {};
+                $scope.chartObject.fleetAvailability.type = "ColumnChart";
+                $scope.chartObject.fleetAvailability.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.fleetAvailability.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
+                $scope.chartObject.fleetAvailability.dataPoint = d.fleetAvailability;
+
+                $scope.chartObject.fleetAvailability.data = {
+                    "cols": [
+                        {id: "t", label: "Fleet Availability", type: "string"},
+                        {id: "s", label: "Percent", type: "number" },
+                        {role: "style", type: "string"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: 'TEST' },
+                            //{v: $translate.instant($scope.configure.report.kpi.translate.fleetAvailability) },
+                            {v: d.fleetAvailability },
+                            {v: "#00ad21" }
+                        ]}
+                    ]};
+            },
+            buildCharts = function() {
+                var report;
+
+                for (var i = 0; i < $scope.visualizations.length; i++) {
+                    report = Reports.createItem($scope.visualizations[i]);
+
+                    report.stats.params.page = null;
+                    report.stats.params.size = null;
+
+                    (function(report) {
+                        report.links.stats({
+                            embeddedName: 'stats',
+                        }).then(function(serverResponse) {
+
+                            if (report.stats.data[0]) {
+                                switch (report.id) {
+                                    /* Fleet Availability */
+                                    case 'fleet-availability':
+                                        buildFleetAvailabilityChart(report.stats.data[0]);
+                                        break;
+                                    default:
+                                }
+                            }
+                        });
+                    }(report));
+                }
+            };
+
+            $scope.chartObject = {};
+            $scope.chartOptions = {};
+            $scope.chartOptions.columnChartOptions = {
+                backgroundColor: '#fff',
+                fontName: 'tpHero',
+                height: 300,
+                legend: {
+                    position: 'none'
+                },
+                title: '',
+                titlePosition: 'none',
+                bar: {
+                    groupWidth: '30%'
+                }
             };
 
             // Device search
@@ -124,51 +197,34 @@ define(['angular', 'dashboard'], function(angular) {
                 $rootScope.showDashboardNotification = false;
             };
 
-            // Dummy Chart Data
-            $scope.columnChartObject = {};
-            $scope.columnChartObject.type = 'ColumnChart';
-            $scope.columnChartObject.options = {
-                title: 'MADC Events'
-            };
-
-            $scope.columnChartObject.data = {'cols': [
-                  {id: 't', label: 'MADC', type: 'string'},
-                  {id: 's', label: 'Month', type: 'number'}
-              ], 'rows': [
-                  {c: [
-                      {v: 'January'},
-                      {v: 65}
-                  ]},
-                  {c: [
-                      {v: 'February'},
-                      {v: 59}
-                  ]},
-                  {c: [
-                      {v: 'March'},
-                      {v: 80}
-                  ]},
-                  {c: [
-                      {v: 'April'},
-                      {v: 81}
-                  ]},
-                  {c: [
-                      {v: 'May'},
-                      {v: 56}
-                  ]},
-                  {c: [
-                      {v: 'June'},
-                      {v: 55}
-                  ]},
-                  {c: [
-                      {v: 'July'},
-                      {v: 40}
-                  ]},
-            ]};
-
             // Calls to setup action bar
             getSROpenCnt();
             getSROrderCnt();
             getSRMADCCnt();
+        
+
+            Reports.getPage().then(function() {
+                $scope.finder = Reports.finder;
+                $scope.visualizations = [];
+                $scope.reports = [];
+
+                var tmp = Reports.data;
+                console.log(123);
+                for (var i = 0; i < tmp.length; i++) {
+
+                    if (tmp[i]._links.stats !== undefined) {
+                        $scope.visualizations.push(tmp[i]);
+                    }
+
+                    if (tmp[i]._links.results !== undefined) {
+                        $scope.reports.push(tmp[i]);
+                    }
+                }
+
+                buildCharts();
+            }, function(reason) {
+                NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
+            });
         });
     }]);
 });
