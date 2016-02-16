@@ -2,16 +2,16 @@ define(['angular', 'dashboard'], function(angular) {
     'use strict';
     angular.module('mps.dashboard')
     .controller('DashboardController', [
-        '$scope',
-        '$location',
-        '$rootScope',
-        'Devices',
-        'ServiceRequestService',
-        'UserService',
-        'FilterSearchService',
-        'PersonalizationServiceFactory',
-        'OrderRequest',
-        'HATEAOSConfig',
+    '$scope',
+    '$location',
+    '$rootScope',
+    'Devices',
+    'ServiceRequestService',
+    'UserService',
+    'FilterSearchService',
+    'PersonalizationServiceFactory',
+    'OrderRequest',
+    'HATEAOSConfig',
     function(
         $scope,
         $location,
@@ -112,8 +112,12 @@ define(['angular', 'dashboard'], function(angular) {
                 });
             };
 
+            // Device search
             $scope.searchFunctionDef = function(searchVals) {
-                $location.path('/device_management');
+                $location.path('/device_management').search({
+                    search: searchVals.search,
+                    searchOn: searchVals.searchOn
+                });
             };
 
             $scope.hideDashboardNotification = function(){
@@ -124,7 +128,7 @@ define(['angular', 'dashboard'], function(angular) {
             $scope.columnChartObject = {};
             $scope.columnChartObject.type = 'ColumnChart';
             $scope.columnChartObject.options = {
-              'title': 'MADC Events'
+                title: 'MADC Events'
             };
 
             $scope.columnChartObject.data = {'cols': [

@@ -1,8 +1,8 @@
 define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .factory('FilterSearchService', ['grid', 'HATEOASFactory',
-        function(GridService, HATEOASFactory) {
+    .factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams',
+        function(GridService, HATEOASFactory, $routeParams) {
             var localScope = {},
             service,
             display,
@@ -30,7 +30,6 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 this.columnSet = columnSet;
                 this.personalization = personalization;
                 this.display = function(fn) {
-
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
@@ -83,6 +82,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     throw new Error('DisplayText is required');
                 }
                 var self  = this,
+                size = 20,
                 filter = {
                     display: displayText,
                     functionDef: function(params) {
@@ -108,7 +108,24 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             self.clearParameters(removeParams);
                         }
 
-                        var promise = self.service.getPage(0, self.service.params.size, options);
+                        if (!options.params.size) {
+                            if (self.service.params.size) {
+                                size = self.service.params.size;
+                            }
+                            
+                            options.params = {
+                                page: 0,
+                                size: size
+                            };
+                        }
+
+                        if ($routeParams.search && $routeParams.searchOn) {
+                            options.params.search = $routeParams.search;
+                            options.params.searchOn = $routeParams.searchOn;
+                        }
+
+                        var promise = self.service.get(options);
+
                         promise.then(function() {
                             if (!self.service.item) {
                                 self.service.setItem(self.service.data[0]);
@@ -151,7 +168,14 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             self.clearParameters(removeParams);
                         }
 
-                        var promise = self.service.getPage(0, self.service.params.size, options);
+                        if (!options.params) {
+                            options.params = {
+                                page: 0,
+                                size: self.service.params.size
+                            };
+                        }
+
+                        var promise = self.service.get(options);
 
                         promise.then(function() {
                             if (!self.service.item) {
