@@ -10,6 +10,7 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                 columns: 'default',
                 columnDefs: {
                     defaultSet: [
+                        {'name': 'Short Name', 'field':'shortName', visible: false},
                         {'name': 'First Name', 'field':'firstName'},
                         {'name': 'Last Name', 'field':'lastName'},
                         {'name': 'Email', 'field': 'email',
@@ -20,7 +21,7 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                         }
                     ]
                 },
-                route: '/delegated_admin'  
+                route: '/delegated_admin/lexmark_user'  
             };
 
         return new HATEOASFactory(LexmarkUser);

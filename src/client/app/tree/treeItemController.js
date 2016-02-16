@@ -9,14 +9,16 @@ define([
                 $scope.item.selected = false;
                 if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                     $scope.item.name = $scope.item.name + ' [' + $scope.item.accountId +']';
+                    if ($scope.item.country) {
+                        $scope.item.name  = $scope.item.name + ' [' + $scope.item.country +']';
+                    }
                 }
 
                 if ($scope.previousItems && $scope.previousItems.length > 0) {
                     for (var i=0;i<$scope.previousItems.length; i++) {
                         if ($scope.previousItems[i].accountId 
                             && $scope.previousItems[i].accountId === $scope.item.accountId
-                            && $scope.previousItems[i].level === $scope.item.level
-                            && $scope.previousItems[i].name === $scope.item.name) {
+                            && $scope.previousItems[i].level === $scope.item.level) {
                             $scope.item.selected = true;
                         }
                     }
