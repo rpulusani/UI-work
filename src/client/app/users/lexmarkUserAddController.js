@@ -25,20 +25,20 @@ define(['angular', 'user'], function(angular) {
             UserAdminstration.item.get(options).then(function(response){
                 if (response.status === 200) {
                     $scope.newUser = false;
-                    console.log('UserAdminstration.item', UserAdminstration.item);
                 }
                 $scope.user = UserAdminstration.item;
                 $scope.user_info_active = true;
                 $scope.account_access_active = false;
                 $scope.userInfo = {};
                 $scope.user.org = [];
-                $scope.user.addonRoles = [];
                 $scope.user.permissions = [];
                 $scope.user.selectedRoleList = [];
                 $scope.userActive = false;
                 $scope.showAllAccounts = true;
 
                 if ($scope.user.active === true) {
+                    $scope.userActive = true;
+                } else if ($scope.user.item &&  $scope.user.item.active === true) {
                     $scope.userActive = true;
                 }
 
@@ -56,38 +56,73 @@ define(['angular', 'user'], function(angular) {
                         $scope.user.selectedRoleList = $scope.user.item._embedded.roles;
                     }
                     if (!BlankCheck.isNull($scope.user.item._embedded.accounts)) {
-                        $scope.showAllAccounts = false;
                         $scope.accounts = $scope.user.item._embedded.accounts;
                         if ($scope.accounts.length > 0) {
                             for (var i=0;i<$scope.accounts.length;i++) {
+                                $scope.accounts[i].name = $scope.accounts[i].name + ' [' + $scope.accounts[i].accountId +']';
+                                if ($scope.accounts[i].country) {
+                                    $scope.accounts[i].name  = $scope.accounts[i].name + ' [' + $scope.accounts[i].country +']';
+                                }
                                 $scope.accounts[i]._links = {
                                     self: {
                                         href: {}
                                     }
                                 };
-                                if (angular.isArray($scope.user._links.accounts)) {
-                                    $scope.accounts[i]._links.self.href = $scope.user._links.accounts[i].href
+                                if (angular.isArray($scope.user.item._links.accounts)) {
+                                    $scope.accounts[i]._links.self.href = $scope.user.item._links.accounts[i].href;
                                 } else {
-                                    $scope.accounts[i]._links.self.href = $scope.user._links.accounts.href;
+                                    $scope.accounts[i]._links.self.href = $scope.user.item._links.accounts.href;
                                 }
                             }
                         }
                     }
-
-                    User.getLoggedInUserInfo().then(function() {
-                        if (angular.isArray(User.item._links.accounts)) {
-                            for (var i=0; i<User.item._links.accounts.length; i++) {
-                                $scope.accountList.push(User.item.accounts[i]);
-                            }
-                        } else {
-                            if ($scope.accountList.length === 0) {
-                                $scope.accountList.push(User.item.accounts[0]);
-                            }
-                        }
-                    });
                 }
-                
 
+                User.getLoggedInUserInfo().then(function() {
+                    if (User.item._links.accounts) {
+                        $scope.showAllAccounts = false;
+                        if (angular.isArray(User.item._links.accounts)) {
+                            var promises = [],
+                            options = {},
+                            promise, deferred;
+                            for (var i=0; i<User.item._links.accounts.length; i++) {
+                                var item = User.item.accounts[i];
+                                item._links = {
+                                    self: {}
+                                };
+                                item._links.self = User.item._links.accounts[i];
+                                deferred = $q.defer();
+                                Account.setItem(item);
+                                options = {
+                                    updateParams: false,
+                                    params:{
+                                        accountId: Account.item.accountId,
+                                        accountLevel: Account.item.level
+                                    }
+                                };
+                                promise = Account.item.get(options);
+                                promises.push(promise);
+                            }
+                            var prLength = promises.length;
+                            $q.all(promises).then(function(response) {
+                                for (var j=0; j<response.length; j++) {
+                                    if($scope.accountList.length < prLength && response[j] && response[j].data) {
+                                        $scope.accountList.push(response[j].data);
+                                    }
+                                }
+                            });
+                        } else {
+                            User.getAdditional(User.item, Account).then(function() {
+                                if ($scope.accountList.length === 0) {
+                                    $scope.accountList.push(Account.item);
+                                }
+                            });
+                        }
+                    }
+                    
+                });
+                
+                $scope.user.addonRoles = [];
                 var removeParams,
                 addonRoleOptions = {
                     'params': {
@@ -253,7 +288,7 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.newMessage();
                 $scope.userInfo = UserAdminstration.item;
                 UserAdminstration.addField('type', 'INTERNAL');
-                UserAdminstration.addField('active', $scope.user.active);
+                UserAdminstration.addField('active', $scope.user.item.active);
                 UserAdminstration.addField('firstName', $scope.user.firstName);
                 UserAdminstration.addField('lastName', $scope.user.lastName);
                 UserAdminstration.addField('email', $scope.user.email);
@@ -297,6 +332,7 @@ define(['angular', 'user'], function(angular) {
                 UserAdminstration.addField('contactId', $scope.user.contactId);
                 UserAdminstration.addField('idpId', $scope.user.idpId);
                 UserAdminstration.addField('type', 'INTERNAL');
+                UserAdminstration.addField('active', $scope.user.item.active);
                 if (updateStatus && updateStatus === 'deactivate') {
                     UserAdminstration.addField('active', false);
                 } else {
@@ -352,9 +388,7 @@ define(['angular', 'user'], function(angular) {
                 }, options);
 
                 deferred.then(function(result){
-                    UserAdminstration.wasInvited = false;
-                    UserAdminstration.wasSaved = false;
-                    $location.path('/delegated_admin');
+                    $location.path('/delegated_admin/lexmark_user');
                 }, function(reason){
                     NREUM.noticeError('Failed to update user because: ' + reason);
                 });
@@ -368,9 +402,7 @@ define(['angular', 'user'], function(angular) {
                 });
 
                 deferred.then(function(result){
-                    UserAdminstration.wasInvited = false;
-                    UserAdminstration.wasSaved = true;
-                    $location.path('/delegated_admin');
+                    $location.path('/delegated_admin/lexmark_user');
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
                 });
@@ -387,9 +419,7 @@ define(['angular', 'user'], function(angular) {
                 }, options);
 
                 deferred.then(function(result){
-                    UserAdminstration.wasInvited = false;
-                    UserAdminstration.wasSaved = false;
-                    $location.path('/delegated_admin');
+                    $location.path('/delegated_admin/lexmark_user');
                 }, function(reason){
                     NREUM.noticeError('Failed to update user because: ' + reason);
                 });

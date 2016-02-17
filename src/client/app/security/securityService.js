@@ -106,25 +106,10 @@ define(['angular', 'security'], function(angular) {
                     params: {}
                 },
                 defaultPermissionsSet= [];
-                if(currentUser.accounts && currentUser.accounts[0] && currentUser.accounts[0].accountId){
-                    options.params.accountId = currentUser.accounts[0].accountId;
-                    options.params.accountLevel = currentUser.accounts[0].level;
-
-                    currentUser.links['permissions'](options).then(function(data){
-                        if(data.permissions && data.permissions.data){
-                            permissions.resolve(data.permissions.data);
-                        }else if(data.permissions && !data.permissions.data){
-                            permissions.resolve(data.permissions);
-                        }else{
-                            permissions.reject(defaultPermissionsSet);
-                        }
-                    }, function (){
-                        permissions.resolve(defaultPermissionsSet);
-                    });
-                }else{
-                    if (currentUser.type === 'INTERNAL') {
-                        //options.preventDefaultParams = true;
-                        currentUser.links['permissions']().then(function(data){
+                if (currentUser.type === 'INTERNAL') {
+                    currentUser.links['permissions']({
+                      preventDefaultParams: true
+                      }).then(function(data){
                             if(data.permissions && data.permissions.data){
                                 permissions.resolve(data.permissions.data);
                             }else if(data.permissions && !data.permissions.data){
@@ -136,9 +121,25 @@ define(['angular', 'security'], function(angular) {
                             permissions.resolve(defaultPermissionsSet);
                         });
                     } else {
+                    if (currentUser.accounts && currentUser.accounts[0] && currentUser.accounts[0].accountId){
+                        options.params.accountId = currentUser.accounts[0].accountId;
+                        options.params.accountLevel = currentUser.accounts[0].level;
+
+                        currentUser.links['permissions'](options).then(function(data){
+                            if(data.permissions && data.permissions.data){
+                                permissions.resolve(data.permissions.data);
+                            }else if(data.permissions && !data.permissions.data){
+                                permissions.resolve(data.permissions);
+                            }else{
+                                permissions.reject(defaultPermissionsSet);
+                            }
+                        }, function (){
+                            permissions.resolve(defaultPermissionsSet);
+                        });
+                    }
+                    else {
                         permissions.reject(defaultPermissionsSet);
                     }
-                    
                 }
                 return permissions.promise;
             };
