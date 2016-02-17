@@ -78,13 +78,16 @@ define(['angular', 'utility'], function(angular) {
                         $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
 
                         if (!$rootScope.currentAccount) {
-                            if (angular.isArray($rootScope.currentUser._links.accounts)) {
-                                acctLink = $rootScope.currentUser._links.accounts[0].href;
-                            } else {
-                                acctLink = $rootScope.currentUser._links.accounts.href;
-                            }
+                            if ($rootScope.currentUser._links.accounts) {
+                                if (angular.isArray($rootScope.currentUser._links.accounts)) {
+                                    acctLink = $rootScope.currentUser._links.accounts[0].href;
+                                } else {
+                                    acctLink = $rootScope.currentUser._links.accounts.href;
+                                }
 
-                            self.updateCurrentAccount($rootScope.currentUser.accounts[0], acctLink);
+                                self.updateCurrentAccount($rootScope.currentUser.accounts[0], acctLink);
+                            }
+                            
                         }
 
                         deferred.resolve(api);
