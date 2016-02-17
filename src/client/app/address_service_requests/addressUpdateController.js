@@ -244,12 +244,12 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure.header.translate.readMore = undefined;
                 $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
                 $scope.configure.header.translate.actionValues = {
-                    actionLink: Orders.route,
+                    actionLink: Addresses.route,
                     actionName: 'Manage Addresses'
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                        title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                     }
                 };
