@@ -6,6 +6,9 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
 
+            /* Replace with call to access check */
+            $scope.paAccess = false
+
             new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
@@ -27,6 +30,14 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     }, 500);
                 }
             );
+
+            if ($scope.paAccess) {
+                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
+                    function() {
+                        $scope.$broadcast('setupColumnPicker', $scope);
+                    }
+                );
+            }
 
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);

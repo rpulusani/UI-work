@@ -1,7 +1,7 @@
 define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('PortalAdminLibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
+    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
         function($scope, $location, $translate, $route, $http, Documents, Tags, Grid, $rootScope, Personalize, formatter) {
 
             $scope.isCreating = false;
