@@ -68,7 +68,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                     self.clearParameters(removeParams);
                     angular.extend(options.params, params);
-                    self.service.getPage(0, 20, options).then(self.display, self.failure);
+
+                    self.localScope.gridLoading = true;
+
+                    self.service.getPage(0, 20, options).then(function() {
+                        self.localScope.gridDataCnt = self.service.data.length;
+                        self.localScope.gridLoading = false;
+                        
+                        self.display();
+                    }, self.failure);
                 };
 
                 this.localScope.optionParams = {};
