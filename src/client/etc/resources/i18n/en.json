@@ -750,7 +750,8 @@
             "DETAILS_UPDATE_REQUEST_FOR_SUBMITTED": "Details for Update Request Number: {{srNumber}}",
             "REQUEST_UPDATE_INFORMATION": "Update details",
             "UPDATE_DESCRIPTION": "Update description",
-            "UPDATE_REQUEST_FOR_SUBMITTED": "Update Request Number: {{srNumber}}"
+            "UPDATE_REQUEST_FOR_SUBMITTED": "Update Request Number: {{srNumber}}",
+            "CANCELLATION_DETAILS": "Cancellation details"
         },
 
     "CONTACT_SERVICE_REQUEST": {

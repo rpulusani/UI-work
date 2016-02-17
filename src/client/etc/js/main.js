@@ -46,12 +46,10 @@ requirejs.config({
             'library.libraryTagFactory',
             'library.libraryOwnerFactory',
             'library.libraryListController',
+            'library.libraryTagController',
             'library.libraryController',
             'library.libraryDeleteInlineController',
             'library.libraryViewController',
-
-            'library.portalAdminLibraryListController',
-            'library.portalAdminLibraryTagController',
 
             'nav',
             'nav.navController',
@@ -139,13 +137,11 @@ requirejs.config({
         'library.libraryController': ['library'],
         'library.libraryDeleteInlineController': ['library'],
         'library.libraryViewController': ['library'],
+        'library.libraryTagController': ['library'],
         'library.libraryFactory': ['library'],
         'library.libraryTagFactory': ['library'],
         'library.libraryOwnerFactory': ['library'],
         'library.directives': ['library'],
-
-        'library.portalAdminLibraryListController': ['library'],
-        'library.portalAdminLibraryTagController': ['library'],
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
@@ -408,13 +404,11 @@ requirejs.config({
         'library.libraryController': 'app/library/libraryController',
         'library.libraryDeleteInlineController': 'app/library/libraryDeleteInlineController',
         'library.libraryViewController': 'app/library/libraryViewController',
+        'library.libraryTagController': 'app/library/libraryTagController',
         'library.libraryFactory': 'app/library/libraryFactory',
         'library.libraryTagFactory': 'app/library/libraryTagFactory',
         'library.libraryOwnerFactory': 'app/library/libraryOwnerFactory',
         'library.directives': 'app/library/directives',
-
-        'library.portalAdminLibraryListController': 'app/library/portalAdminLibraryListController',
-        'library.portalAdminLibraryTagController': 'app/library/portalAdminLibraryTagController',
 
         'report': 'app/reporting/report',
         'report.reportController': 'app/reporting/reportController',

@@ -25,7 +25,7 @@
 <div ng-show="documentItem.id === 'new'">
     <div class="form__field form__field--required vertical-space--thick">
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>
-        <input type="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)"/>
+        <input type="file" name="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)"/>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
     <input name="id" type="hidden" ng-model="documentItem.id"/>
     <input name="accountId" type="hidden" ng-model="documentItem.accountId"/>
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_DOCUMENT_NAME"></label>
-    <input name="addName" type="text" ng-model="documentItem.name" value="" class="" required />
+    <input name="name" type="text" ng-model="documentItem.name" value="" class="" required />
     <span  ng-hide="!newDocument.name.$error.required"
     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
      <span translate="LABEL.ERROR_REQUIRED"></span></span>
@@ -66,6 +66,25 @@
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_TO"></label>
             <input type="text" ng-model="documentItem.endDate" date-val="documentItem.endDate" datepicker />
+        </div>
+    </div>
+</div>
+
+<div ng-if="documentLibraryManageAccountAccess" class="row">
+    <div class="col-2-3">
+        <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_LIMIT_ACCESS_STRATEGIC"></p>
+        <input type="checkbox" name="strategic" ng-model="documentItem.strategic" />
+        <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CHK_VISIBILITY_STRATEGIC"></label>
+    </div>
+</div>
+
+<div ng-if="documentLibraryManageAccountAccess" class="row">
+    <div class="col-2-3">
+        <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ACCOUNT_VISIBILITY"></p>
+        <input type="checkbox" name="allAccounts" ng-model="documentItem.allAccounts" />
+        <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CHK_VISIBILITY__ALL_ACCOUNTS"></label>
+        <div ng-show="documentItem.allAccounts === false" class="well">
+            Account selector goes here.
         </div>
     </div>
 </div>

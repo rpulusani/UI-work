@@ -4,7 +4,8 @@
             <h1 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY"></h1>
             <p class="text--large" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY_PAR"></p>
             <div class="col-1 btns">
-                <button type="button" class="btn btn--default" href="" ng-click="goToNew()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_ADD_NEW_DOC"></button>
+                <button ng-if="documentLibraryUploadAccess" type="button" class="btn btn--default" href="" ng-click="goToNew()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_ADD_NEW_DOC"></button>
+                <button ng-if="documentLibraryManageGlobalTagAccess" type="button" class="btn btn--default" href="" ng-click="goToManageTags()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_MANAGE_TAGS"></button>
             </div>
         </div>
     </div>

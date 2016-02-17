@@ -86,13 +86,12 @@ define([
     'library.libraryController',
     'library.libraryDeleteInlineController',
     'library.libraryListController',
+    'library.libraryTagController',
     'library.libraryViewController',
     'library.libraryFactory',
     'library.libraryTagFactory',
     'library.libraryOwnerFactory',
     'library.directives',
-    'library.portalAdminLibraryListController',
-    'library.portalAdminLibraryTagController',
     'invoice',
     'invoice.invoiceController',
     'invoice.invoiceListController',
@@ -321,6 +320,26 @@ define([
                     permissionSet.contentManagement.viewNonstrategic,
                     permissionSet.contentManagement.viewStrategic
                 ]
+            },
+            {
+                name: 'documentLibraryUploadAccess',
+                permission: permissionSet.contentManagement.upload
+            },
+            {
+                name: 'documentLibraryDeleteMyAccess',
+                permission: permissionSet.contentManagement.deleteMy
+            },
+            {
+                name: 'documentLibraryDeleteAllAccess',
+                permission: permissionSet.contentManagement.deleteAll
+            },
+            {
+                name: 'documentLibraryManageAccountAccess',
+                permission: permissionSet.contentManagement.manageAccountTag
+            },
+            {
+                name: 'documentLibraryManageGlobalTagAccess',
+                permission: permissionSet.contentManagement.manageAccountTag
             },
             {
                 name: 'deviceInfoAccess',
