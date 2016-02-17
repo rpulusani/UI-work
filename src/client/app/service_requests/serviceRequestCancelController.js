@@ -36,6 +36,11 @@ define(['angular', 'serviceRequest'], function(angular) {
             Tombstone,
             tombstoneWaitTimeout) {
 
+            // NOTE - setupTemplates expects 'review' in the URL in order
+            // to fire configureReviewTemplate. This is not used by cancel
+            // since the type comes through a url parameter. Changes should
+            // go in the goToSubmit function
+
             $scope.isLoading = false;
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
@@ -66,6 +71,9 @@ define(['angular', 'serviceRequest'], function(angular) {
             };
 
             $scope.goToSubmit = function(){
+              if(!$scope.isLoading) {
+                $scope.isLoading = false;
+
                 $scope.updateSRObjectForSubmit();
                 if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                     HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
@@ -77,13 +85,32 @@ define(['angular', 'serviceRequest'], function(angular) {
                 });
 
                 deferred.then(function(result){
-                    ServiceRequest.item = ServiceRequest.item;
-                    $rootScope.newSr = $scope.sr;
-                    $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
+                  if(ServiceRequest.item._links['tombstone']) {
+                    $timeout(function() {
+                      ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
+                        var exp = $interpolate('{{root}}/{{id}}/cancel/{{type}}/receipt/{{queued}}')
+                        $location.search('tab', null);
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                          ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                          $location.path(exp({root: ServiceRequest.route,
+                                              id: $scope.sr.id,
+                                              type: $routeParams.type,
+                                              queued: 'notqueued'}));
+                        } else {
+                          ServiceRequest.item = ServiceRequest.item;
+                          $rootScope.newSr = $scope.sr;
+                          $location.path(exp({root: ServiceRequest.route,
+                                              id: $scope.sr.id,
+                                              type: $routeParams.type,
+                                              queued: 'queued'}));
+                        }
+                      });
+                    }, tombstoneWaitTimeout);
+                  }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
                 });
-
+              }
             };
 
              var configureSR = function(ServiceRequest){
@@ -145,43 +172,6 @@ define(['angular', 'serviceRequest'], function(angular) {
 
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION';
-                $scope.configure.actions.submit = function(){
-                  if(!$scope.isLoading) {
-                    $scope.isLoading = false;
-
-                    updateSRObjectForSubmit();
-                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
-                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
-                            ServiceRequest.item.postURL = api.url;
-                        });
-                    }
-                    var deferred = ServiceRequest.post({
-                        item:  $scope.sr
-                    });
-
-                    deferred.then(function(result){
-                      if(ServiceRequest.item._links['tombstone']) {
-                        $timeout(function() {
-                          ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
-                            var exp = $interpolate('{{root}}/{{id}}/cancel/{{type}}/receipt/{{queued}}')
-                            $location.search('tab', null);
-                            if(Tombstone.item && Tombstone.item.siebelId) {
-                              ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                              $location.path(exp({root: ServiceRequest.route, id: $scope.sr.id, type: $routeParams.type, queued: 'notqueued'}));
-                            } else {
-                              ServiceRequest.item = ServiceRequest.item;
-                              $rootScope.newSr = $scope.sr;
-                              $location.path(exp({root: ServiceRequest.route, id: $scope.sr.id, type: $routeParams.type, queued: 'queued'}));
-                            }
-                          });
-                        }, tombstoneWaitTimeout);
-                      }
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create SR because: ' + reason);
-                    });
-                  }
-                };
             }
 
             function configureReceiptTemplate() {
