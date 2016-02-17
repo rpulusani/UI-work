@@ -82,6 +82,7 @@ requirejs.config({
             'user',
             'user.factory',
             'user.userInfoFactory',
+            'user.impersonateFactory',
             'user.userAdministrationFactory',
             'user.lexmarkUserFactory',
             'user.roleFactory',
@@ -148,6 +149,7 @@ requirejs.config({
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
+        'user.impersonateFactory': ['user'],
         'user.userInfoFactory': ['user'],
         'user.allAccountFactory': ['user'],
         'user.userAdministrationFactory': ['user'],
@@ -296,6 +298,7 @@ requirejs.config({
         'user.userAdministrationFactory': 'app/users/userAdministrationFactory',
         'user.lexmarkUserFactory': 'app/users/lexmarkUserFactory',
         'user.roleFactory': 'app/users/roleFactory',
+        'user.impersonateFactory': 'app/users/impersonateFactory',
         'user.directives': 'app/users/directives',
         'user.userAddController': 'app/users/userAddController',
         'user.lexmarkUserListController': 'app/users/lexmarkUserListController',
