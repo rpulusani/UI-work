@@ -10,7 +10,7 @@ define(['angular', 'angular-mocks', 'security'], function(angular, mocks) {
             });
             describe('isAllowed', function(){
                 var rootScope;
-                beforeEach(inject(['$timeout','$rootScope','$q', function($timeout, $rootScope, $q){
+                beforeEach(inject(['$timeout','$rootScope','$q', 'UserService', '$httpBackend', function($timeout, $rootScope, $q, Users, $httpBackend){
                     $rootScope.currentUser = {
                             accounts: [
                                 {
@@ -38,6 +38,8 @@ define(['angular', 'angular-mocks', 'security'], function(angular, mocks) {
                         deferred: $q.defer()
                     };
                     rootScope = $rootScope;
+
+                    $httpBackend.when('GET', '/').respond({});
                 }]));
                 it('should find the requested permission because its in the local workingPermissionsSet',
                     inject(['SecurityService','$timeout', function(SecurityService, $timeout){
@@ -195,7 +197,7 @@ define(['angular', 'angular-mocks', 'security'], function(angular, mocks) {
             });
             describe('getWorkingPermissionSet', function(){
                 var rootScope;
-                beforeEach(inject(['$timeout','$rootScope','$q', function($timeout, $rootScope, $q){
+                beforeEach(inject(['$timeout','$rootScope','$q', '$httpBackend', function($timeout, $rootScope, $q, $httpBackend) {
                     $rootScope.currentUser = {
                             accounts: [
                                 {
@@ -223,6 +225,8 @@ define(['angular', 'angular-mocks', 'security'], function(angular, mocks) {
                         deferred: $q.defer()
                     };
                     rootScope = $rootScope;
+
+                    $httpBackend.when('GET', '/').respond({});
                 }]));
                 it('should get workSetPermissions that is already been stored locally',
                     inject(['SecurityService','$timeout', function(SecurityService, $timeout){

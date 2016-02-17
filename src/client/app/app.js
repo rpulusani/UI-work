@@ -517,14 +517,7 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            UserService.getLoggedInUserInfo().then(function() {
-                UserService.item.transactionalAccount.serviceName = 'transactionalAccounts';
-                UserService.item.links.transactionalAccount().then(function(res) {
-                    if (UserService.item.transactionalAccount.data.length > 0) {
-                        $rootScope.$emit('userSetup', UserService.item.transactionalAccount.data);
-                    }
-                });
-            });
+            UserService.getLoggedInUserInfo();
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);
@@ -567,7 +560,7 @@ define([
                     suffix: '.json'
                 })
                 .useLocalStorage();
-
+                
             $routeProvider
             .otherwise({
                 templateUrl: '/app/dashboard/templates/home.html',
