@@ -278,7 +278,7 @@ define(['angular', 'address'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                        title:"ADDRESS_SERVICE_REQUEST.DETAILS_TITLE",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                     }
                 };
