@@ -1763,7 +1763,8 @@
         "MANUAL": "Manual",
         "AUTOMATIC": "Automatic",
         "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)",
-        "REMOVE": "Remove"
+        "REMOVE": "Remove",
+        "NO_IFRAME": "Missing iframe support"
     },
 
         "PAGINATION": {
