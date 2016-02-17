@@ -132,13 +132,12 @@
             <div class="col-1">
                 <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
             </div>
-            <hr class="vertical-space--none">
         </div>
 
         <!-- dashboard charts -->
         <div class="row">
             <div class="col-1">
-                <a href="/reporting"><h3 class="blue vertical-space--none" translate="DASHBOARD.PERFORMANCE_REPORTS"></h3></a>
+                <a href="/reporting"><h3 class="blue" translate="DASHBOARD.PERFORMANCE_REPORTS"></h3></a>
             </div>
             <div class="col-1-2">
                 <div class="row">
@@ -149,10 +148,10 @@
                         <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
                     </div>
                     <div class="col-1-3">
-                        <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
+                        <div google-chart chart="{{ chartObject.responseTime }}"></div>
                     </div>
                     <div class="col-1-3">
-                        <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
+                        <div google-chart chart="{{ chartObject.consumables }}"></div>
                     </div>
                 </div>
             </div>
@@ -162,10 +161,10 @@
                         <h5 class="text--semi-bold" translate="DASHBOARD.REPORT_FLEET_OVERVIEW"></h5>
                     </div>
                     <div class="col-1-2">
-                        <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
+                        <div google-chart chart="{{ chartObject.assetRegister  }}"></div>
                     </div>
                     <div class="col-1-2">
-                        <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
+                        <div google-chart chart="{{ chartObject.pagesBilled }}"></div>
                     </div>
                 </div>
             </div>

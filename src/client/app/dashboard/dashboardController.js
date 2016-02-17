@@ -209,7 +209,10 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.chartObject.assetRegister.type = "PieChart";
                 $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
-                //$scope.chartObject.assetRegister.options.fontSize = 36;
+                $scope.chartObject.assetRegister.options.fontSize = 36;
+                $scope.chartObject.assetRegister.options.tooltip = {
+                    textStyle: {fontSize: 14}
+                };
                 $scope.chartObject.assetRegister.dataPoint = total;
 
                 $scope.chartObject.assetRegister.data = {
@@ -303,7 +306,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
             };
 
             $scope.chartObject = {};
-            $scope.chartOptions = {};   
+            $scope.chartOptions = {};
             $scope.chartOptions.pieChartOptions = {
                 backgroundColor: '#eff0f6',
                 enableInteractivity: true,
@@ -348,16 +351,16 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
             getSROpenCnt();
             getSROrderCnt();
             getSRMADCCnt();
-        
 
             Reports.getPage().then(function() {
+                var i = 0, 
+                tmp = Reports.data;
+
                 $scope.finder = Reports.finder;
                 $scope.visualizations = [];
                 $scope.reports = [];
 
-                var tmp = Reports.data;
-
-                for (var i = 0; i < tmp.length; i++) {
+                for (i = 0; i < tmp.length; i++) {
                     if (tmp[i]._links.stats !== undefined) {
                         $scope.visualizations.push(tmp[i]);
                     }

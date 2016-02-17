@@ -502,7 +502,9 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                             });
                         }(report));
                     }
-            };
+            },
+            personal = new Personalize($location.url(), $rootScope.idpUser.id),
+            Grid = new GridService();
 
             Reports.get({
                 preventDefaultParams: true,
@@ -511,13 +513,14 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                     size: 20
                 }
             }).then(function() {
+                var tmp = Reports.data,
+                i = 0;
+
                 $scope.finder = Reports.finder;
                 $scope.visualizations = [];
                 $scope.reports = [];
 
-                var tmp = Reports.data;
-
-                for (var i = 0; i < tmp.length; i++) {
+                for (i = 0; i < tmp.length; i++) {
                     if (tmp[i]._links.stats !== undefined) {
                         $scope.visualizations.push(tmp[i]);
                     }
@@ -533,14 +536,18 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
             });
 
-            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-            var Grid = new GridService();
             $scope.gridOptions = {};
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
             $scope.gridOptions.showBookmarkColumn = false;
 
             Documents.columns = Documents.columnDefs['otherReports'];
-            Documents.getPage().then(function() {
+            Documents.get({
+                params: {
+                    page: 0,
+                    size: 20,
+                    tags: 'reprots'
+                }
+            }).then(function() {
                 Grid.display(Documents, $scope, personal);
             });
 
