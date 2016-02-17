@@ -32,6 +32,17 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return self;
             };
 
+             HATEOASFactory.prototype.setupApi = function() {
+                var self = this,
+                deferred = $q.defer();
+
+                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                    deferred.resolve(api)
+                });
+
+                return deferred.promise;
+             }
+
             HATEOASFactory.prototype.setItemDefaults = function(obj) {
                 if (!obj) {
                     obj = {};
@@ -82,6 +93,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         if (!$rootScope.currentAccount) {
                             HATEAOSConfig.getLoggedInUserInfo();
+                        }
+
+                        if (self.serviceName === 'users') {
+                            self.item.transactionalAccount.serviceName = 'transactionalAccounts';
+                            self.item.links.transactionalAccount().then(function(res) {
+                                if (self.item.transactionalAccount.data.length > 0) {
+                                    $rootScope.$emit('userSetup', self.item.transactionalAccount.data);
+                                }
+                            });
                         }
 
                         deferred.resolve();

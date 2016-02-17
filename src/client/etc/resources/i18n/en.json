@@ -982,6 +982,14 @@
 
         "DASHBOARD": {
             "TITLE": "Home",
+            "RELATED_LINK": "RELATED LINK",
+            "ARTICLE": "ARTICLE",
+            "HOME_ARTICLE_LINK_1": "Welcome to the New Managed Services Portal",
+            "HOME_ARTICLE_LINK_2": "Managed print services analytics pave the way for better business processes",
+            "HOME_ARTICLE_LINK_3": "Automate information capture at the MFP",
+            "HOME_ARTICLE_COPY_1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio est, posuere ac odio quis, vulputate volutpat tortor. Morbi nec viverra ipsum.",
+            "HOME_ARTICLE_COPY_2": "Moving beyond data collection to actionable insights ",
+            "HOME_ARTICLE_COPY_3": "Our smart MFP capture technology collects and routes your documents and data intelligently—extracting, organizing and sharing information with the people, systems and processes that need it most.",
             "ROLLUP_REQUESTS_TITLE": "Requests for Service",
             "ROLLUP_ORDERS_TITLE": "Orders",
             "ROLLUP_MADC_TITLE": "Device Change Requests",
@@ -996,7 +1004,7 @@
             "REPORT_BILLED_PAGES": "Billed Pages (last billing cycle)",
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
-            "NUMBER_CLOSED_REQUESTS": "15 Completed Requests",
+            "NUMBER_CLOSED_REQUESTS": "{{ total }} Completed Requests",
             "NUMBER_OPEN_REQUESTS": "Open",
             "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },
@@ -1160,6 +1168,7 @@
 
         "REPORTING": {
             "TITLE": "Reports",
+            "FLEET_AVAILABILITY": "Fleet Availability",
             "ORDERS": "Orders",
             "ASSET_REGISTER": "Device Register",
             "FUTURE_RATE": "Future Rate",
@@ -1765,7 +1774,8 @@
         "AUTOMATIC": "Automatic",
         "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)",
         "REMOVE": "Remove",
-        "NO_IFRAME": "Missing iframe support"
+        "NO_IFRAME": "Missing iframe support",
+        "PERCENT": "Percent"
     },
 
         "PAGINATION": {
