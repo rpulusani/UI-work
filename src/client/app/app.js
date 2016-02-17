@@ -27,6 +27,7 @@ define([
     'serviceRequest.detailController',
     'serviceRequest.cancelController',
     'serviceRequest.openServiceRequestController',
+    'serviceRequest.updateController',
     'order',
     'order.factory',
     'order.orderTypeFactory',
