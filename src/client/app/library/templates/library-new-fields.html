@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<div ng-show="paAccess" class="row">
+<div ng-if="documentLibraryManageAccountAccess" class="row">
     <div class="col-2-3">
         <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_LIMIT_ACCESS_STRATEGIC"></p>
         <input type="checkbox" name="strategic" ng-model="documentItem.strategic" />
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<div ng-show="paAccess" class="row">
+<div ng-if="documentLibraryManageAccountAccess" class="row">
     <div class="col-2-3">
         <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ACCOUNT_VISIBILITY"></p>
         <input type="checkbox" name="allAccounts" ng-model="documentItem.allAccounts" />
