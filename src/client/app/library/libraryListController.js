@@ -5,10 +5,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
         function($scope, $location, $translate, $route, $http, Documents, Grid, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
-
-            /* Replace with call to access check */
-            $scope.paAccess = false
-
+console.log($rootScope);
             new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
@@ -31,7 +28,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }
             );
 
-            if ($scope.paAccess) {
+            if ($rootScope.documentLibraryManageGlobalTagAccess) {
                 filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
                     function() {
                         $scope.$broadcast('setupColumnPicker', $scope);
@@ -68,12 +65,24 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getEditDeleteAction = function (owner) {
-                return (owner === $rootScope.idpUser.email ? true : false);
+                var showEditDelete = false;
+
+                if (owner === $rootScope.idpUser.email) {
+                    showEditDelete = true;
+                } else if ($scope.paAdmin === true) {
+                    showEditDelete = true;
+                }
+
+                return showEditDelete;
             };
 
             $scope.goToNew = function() {
                 Documents.item = {};
                 $location.path(Documents.route + '/new');
+            };
+
+            $scope.goToManageTags = function() {
+                $location.path(Documents.route + '/tags');
             };
 
             $scope.goToView = function(documentItem) {

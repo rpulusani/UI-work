@@ -24,19 +24,11 @@
             <div library-view-fields></div>
         </div>
 
-        <div class="col-2-3">
-            <div class="pdf-frame">
-               <iframe src="{{pdfSource}}" style="width: 100%; min-height: 600px;" frameborder="0" scrolling="no">
-                    <p translate="LABEL.NO_IFRAME"></p>
-               </iframe>
-            </div>
-        </div>
-
         <div class="col-2-3" class="deleteConfirmation">
             <div ng-hide="isDeleting">
                 <button type="button" class="btn btn--default" href=""
                     ng-click="goToUpdate()" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.BTN_EDIT_DOCUMENT"></button>
-                <button type="button" class="btn btn--default" href=""
+                <button type="button" ng-if="documentLibraryDeleteMyAccess" class="btn btn--default" href=""
                     ng-click="goToStartDelete()" translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT"></button>
             </div>
             <div class="well" ng-show="isDeleting">
@@ -45,6 +37,14 @@
                     <a href="#" ng-click="goToCancelDelete()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_GRID_CANCEL"></a>
                     <a href="#" ng-click="goToDelete()" translate="DOCUMENT_LIBRARY.COMMON.CTRL_DELETE_DOCUMENT"></a>
                 </p>
+            </div>
+        </div>
+
+        <div class="col-2-3">
+            <div class="pdf-frame">
+               <iframe src="{{pdfSource}}" style="width: 100%; min-height: 600px;" frameborder="0" scrolling="no">
+                    <p translate="LABEL.NO_IFRAME"></p>
+               </iframe>
             </div>
         </div>
 

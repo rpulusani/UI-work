@@ -6,6 +6,9 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
         function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, BlankCheck,
             $rootScope, formatter) {
 
+            /* Replace with call to access check */
+            $scope.paAccess = $rootScope.paAccess;
+
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.inputTag = '';
 
@@ -18,7 +21,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             }
 
             if (!$routeParams.id) {
-                $scope.documentItem = { id:'new' };
+                $scope.documentItem = { id:'new', strategic: true, allAccounts: true };
             } else {
                 $scope.documentItem = Documents.item;
                 $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
@@ -58,11 +61,6 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.modifySuccess = false;
 
                 Documents.newMessage();
-                Documents.addField("name", $scope.documentItem.name);
-                Documents.addField("description", $scope.documentItem.description);
-                Documents.addField("publishDate", $scope.documentItem.publishDate);
-                Documents.addField("endDate", $scope.documentItem.endDate);
-                Documents.item.postURL = Documents.url;
 
                 if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.name)) {
                     Documents.addField('name', $scope.documentItem.name);
@@ -79,6 +77,12 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
                     Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
                 }
+
+                if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.strategic)) {
+                    Documents.addField('strategic', $scope.documentItem.strategic);
+                }
+
+                Documents.item.postURL = Documents.url;
 
                 var tagArray = [];
                 if ($scope.documentItem.tags) {

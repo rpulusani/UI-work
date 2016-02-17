@@ -321,6 +321,26 @@ define([
                 ]
             },
             {
+                name: 'documentLibraryUploadAccess',
+                permission: permissionSet.contentManagement.upload
+            },
+            {
+                name: 'documentLibraryDeleteMyAccess',
+                permission: permissionSet.contentManagement.deleteMy
+            },
+            {
+                name: 'documentLibraryDeleteAllAccess',
+                permission: permissionSet.contentManagement.deleteAll
+            },
+            {
+                name: 'documentLibraryManageAccountAccess',
+                permission: permissionSet.contentManagement.manageAccountTag
+            },
+            {
+                name: 'documentLibraryManageGlobalTagAccess',
+                permission: permissionSet.contentManagement.manageAccountTag
+            },
+            {
                 name: 'deviceInfoAccess',
                 permission: permissionSet.deviceManagement.view
             },
