@@ -26,14 +26,14 @@
 
         <div class="col-2-3" class="deleteConfirmation">
             <div ng-hide="isDeleting">
-                <button type="button" class="btn btn--default" href=""
+                <button type="button" ng-if="documentLibraryUploadAccess" class="btn btn--default" href=""
                     ng-click="goToUpdate()" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.BTN_EDIT_DOCUMENT"></button>
                 <button type="button" ng-if="documentLibraryDeleteMyAccess" class="btn btn--default" href=""
                     ng-click="goToStartDelete()" translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT"></button>
             </div>
             <div class="well" ng-show="isDeleting">
                 <p class="text--small" translate="DOCUMENT_LIBRARY.COMMON.TXT_DELETE_DOC_ARE_YOU_SURE"></p>
-                <p class="text--small" >
+                <p class="text--small">
                     <a href="#" ng-click="goToCancelDelete()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_GRID_CANCEL"></a>
                     <a href="#" ng-click="goToDelete()" translate="DOCUMENT_LIBRARY.COMMON.CTRL_DELETE_DOCUMENT"></a>
                 </p>

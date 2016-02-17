@@ -72,13 +72,13 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             };
 
             $scope.getEditAction = function (owner) {
-                var showEditDelete = false;
+                var showEdit = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showEditDelete = true;
+                    showEdit = true;
                 }
 
-                return showEditDelete;
+                return showEdit;
             };
 
             $scope.goToDelete = function() {

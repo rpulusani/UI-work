@@ -5,7 +5,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
         function($scope, $location, $translate, $route, $http, Documents, Grid, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
             $rootScope.currentRowList = [];
             $scope.visibleColumns = [];
-console.log($rootScope);
+
             new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
@@ -64,16 +64,14 @@ console.log($rootScope);
                 return icon;
             };
 
-            $scope.getEditDeleteAction = function (owner) {
-                var showEditDelete = false;
+            $scope.getEditAction = function (owner) {
+                var showInlineEdit = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showEditDelete = true;
-                } else if ($scope.paAdmin === true) {
-                    showEditDelete = true;
+                    showInlineEdit = true;
                 }
 
-                return showEditDelete;
+                return showInlineEdit;
             };
 
             $scope.goToNew = function() {

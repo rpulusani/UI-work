@@ -27,9 +27,9 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         },
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()' , notSearchable: true },
                         {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
-                            'cellTemplate':'<div ng-show="grid.appScope.getEditDeleteAction(row.entity.owner)">' +
+                            'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                                 '<i class="icon icon-psw-edit" ng-click="grid.appScope.goToUpdate(row.entity);"></i>' +
-                                '<div library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
+                                '<div ng-if="documentLibraryDeleteMyAccess" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
                                 '</div>'
                         }
                     ],

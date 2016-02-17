@@ -6,9 +6,6 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
         function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, BlankCheck,
             $rootScope, formatter) {
 
-            /* Replace with call to access check */
-            $scope.paAccess = $rootScope.paAccess;
-
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.inputTag = '';
 
@@ -21,7 +18,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             }
 
             if (!$routeParams.id) {
-                $scope.documentItem = { id:'new', strategic: true, allAccounts: true };
+                $scope.documentItem = { id:'new', strategic: false, allAccounts: true };
             } else {
                 $scope.documentItem = Documents.item;
                 $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);

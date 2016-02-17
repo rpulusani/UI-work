@@ -4,7 +4,7 @@
             <h1 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_MANAGE_TAGS"></h1>
             <p class="text--large" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_MANAGE_TAGS_PAR"></p>
             <div class="col-1 btns">
-                <button type="button" class="btn btn--default" href="" ng-click="goToStartCreate()" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_CREATE_NEW_TAG"></button>
+                <button type="button" ng-if="documentLibraryManageGlobalTagAccess" class="btn btn--default" href="" ng-click="goToStartCreate()" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_CREATE_NEW_TAG"></button>
             </div>
         </div>
     </div>
@@ -23,8 +23,8 @@
                     <tbody>
                         <tr ng-repeat="tag in tags">
                             <td>
-                                <p>{{tag.name}} | <i class="icon icon-psw-edit" ng-click="goToStartEdit(tag)"></i>
-                                <i class="icon icon-psw-delete" ng-click="goToStartDelete(tag)"></i>
+                                <p>{{tag.name}} <span ng-if="documentLibraryManageGlobalTagAccess">|</span> <i class="icon icon-psw-edit" ng-if="documentLibraryManageGlobalTagAccess" ng-click="goToStartEdit(tag)"></i>
+                                <i class="icon icon-psw-delete" ng-if="documentLibraryManageGlobalTagAccess" ng-click="goToStartDelete(tag)"></i>
                             </td>
                         </tr>
                     </tbody>
