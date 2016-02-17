@@ -13,6 +13,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
     'OrderRequest',
     'HATEAOSConfig',
     'Reports',
+    '$translate',
     function(
         $scope,
         $location,
@@ -24,7 +25,8 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
         Personalize,
         Orders,
         HATEAOSConfig,
-        Reports
+        Reports,
+        $translate
     ) {
         HATEAOSConfig.getCurrentAccount().then(function() {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -141,8 +143,125 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                         ]}
                     ]};
             },
+            buildResponseTimeChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.responseTime = {};
+                $scope.chartObject.responseTime.type = "ColumnChart";
+                $scope.chartObject.responseTime.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.responseTime.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
+                $scope.chartObject.responseTime.dataPoint = d.responseTime;
+
+                $scope.chartObject.responseTime.data = {
+                    "cols": [
+                        {id: "t", label: "Response Time", type: "string"},
+                        {id: "s", label: "Percent", type: "number" },
+                        {role: "style", type: "string"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: 'HELLO WORLD 2' },
+                            {v: d.responseTime },
+                            {v: "#1c64b4" }
+                        ]}
+                    ]};
+            },
+            buildConsumablesChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.consumables = {};
+                $scope.chartObject.consumables.type = "ColumnChart";
+                $scope.chartObject.consumables.options = angular.copy($scope.chartOptions.columnChartOptions);
+                $scope.chartObject.consumables.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
+                $scope.chartObject.consumables.dataPoint = d.consumables;
+
+                $scope.chartObject.consumables.data = {
+                    "cols": [
+                        {id: "t", label: "Fleet Availability", type: "string"},
+                        {id: "s", label: "Percent", type: "number" },
+                        {role: "style", type: "string"}
+                    ],
+                    "rows": [
+                        {c: [
+                           // {v: $translate.instant($scope.configure.report.kpi.translate.consumables) },
+                            {v: 'Hello World' },
+                            {v: d.consumables },
+                            {v: "#faa519" }
+                        ]}
+                    ]};
+            },
+            buildAssetRegisterChart = function(data) {
+                var total = 0;
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    total += data.stat[i].value;
+                }
+
+                $scope.chartObject.assetRegister = {};
+                $scope.chartObject.assetRegister.type = "PieChart";
+                $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
+                //$scope.chartObject.assetRegister.options.fontSize = 36;
+                $scope.chartObject.assetRegister.dataPoint = total;
+
+                $scope.chartObject.assetRegister.data = {
+                    "cols": [
+                        {id: "t", label: "Assets", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: 'HELLOTWO'},
+                           // {v: $translate.instant($scope.configure.report.charts.translate.assetCount) },
+                            {v: total }
+                        ]}
+                    ]};
+
+            },
+            buildPagesBilledChart = function(data) {
+                var d = {};
+
+                for (var i = 0; i < data.stat.length; i++) {
+                    d[data.stat[i].label] = data.stat[i].value;
+                }
+
+                $scope.chartObject.pagesBilled = {};
+                $scope.chartObject.pagesBilled.type = "PieChart";
+                $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
+                $scope.chartObject.pagesBilled.options.pieHole = 0.4;
+                $scope.chartObject.pagesBilled.dataPoint = d.pagesBilledTotal;
+
+                $scope.chartObject.pagesBilled.data = {
+                    "cols": [
+                        {id: "t", label: "Pages Billed", type: "string"},
+                        {id: "s", label: "Count", type: "number"}
+                    ],
+                    "rows": [
+                        {c: [
+                            {v: 'TEST1' },
+                           // {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledMono) },
+                            {v: d.pagesBilledMono }
+                        ]},
+                        {c: [
+                            {v: 'TESTHELLO' },
+                            //{v: $translate.instant($scope.configure.report.charts.translate.pagesBilledColor) },
+                            {v: d.pagesBilledColor }
+                        ]}
+                    ]};
+
+            },
             buildCharts = function() {
-                var report;
+                var report,
+                validReports = ['fleet-availability', 'response-time', 'consumables'];
 
                 for (var i = 0; i < $scope.visualizations.length; i++) {
                     report = Reports.createItem($scope.visualizations[i]);
@@ -154,12 +273,26 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                         report.links.stats({
                             embeddedName: 'stats',
                         }).then(function(serverResponse) {
-
                             if (report.stats.data[0]) {
                                 switch (report.id) {
                                     /* Fleet Availability */
                                     case 'fleet-availability':
                                         buildFleetAvailabilityChart(report.stats.data[0]);
+                                        break;
+                                    case 'response-time':
+                                        buildResponseTimeChart(report.stats.data[0]);
+                                        break;
+                                    /* Consumables */
+                                    case 'consumables':
+                                        buildConsumablesChart(report.stats.data[0]);
+                                        break;
+                                    /* Asset Register */
+                                    case 'mp9058sp':
+                                        buildAssetRegisterChart(report.stats.data[0]);
+                                        break;
+                                    /* Pages Billed */
+                                    case 'pb0001':
+                                        buildPagesBilledChart(report.stats.data[0]);
                                         break;
                                     default:
                                 }
@@ -170,7 +303,21 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
             };
 
             $scope.chartObject = {};
-            $scope.chartOptions = {};
+            $scope.chartOptions = {};   
+            $scope.chartOptions.pieChartOptions = {
+                backgroundColor: '#eff0f6',
+                enableInteractivity: true,
+                fontName: 'tpHero',
+                legend: {
+                    position: 'none'
+                },
+                pieSliceText: 'value',
+                title: '',
+                titlePosition: 'none',
+                tooltip: {
+                    text: 'percentage'
+                }
+            };
             $scope.chartOptions.columnChartOptions = {
                 backgroundColor: '#fff',
                 fontName: 'tpHero',
@@ -181,7 +328,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 title: '',
                 titlePosition: 'none',
                 bar: {
-                    groupWidth: '30%'
+                    groupWidth: '35%'
                 }
             };
 
@@ -209,9 +356,8 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.reports = [];
 
                 var tmp = Reports.data;
-                console.log(123);
-                for (var i = 0; i < tmp.length; i++) {
 
+                for (var i = 0; i < tmp.length; i++) {
                     if (tmp[i]._links.stats !== undefined) {
                         $scope.visualizations.push(tmp[i]);
                     }
