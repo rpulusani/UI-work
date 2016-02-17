@@ -27,6 +27,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 self.Grid = new GridService();
                 this.service = serviceDefinition;
                 this.localScope = scope;
+                // do we have grid data
+                this.localScope.gridDataCnt = 0;
+                this.localScope.gridLoading = true;
                 this.columnSet = columnSet;
                 this.personalization = personalization;
                 this.display = function(fn) {
@@ -36,12 +39,18 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                     if (rowHeight) {
                         self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
+                            this.localScope.gridDataCnt = self.service.data.length;
+                            this.localScope.gridLoading = false;
+
                             if (typeof fn === 'function') {
                                 return fn(self.Grid);
                             }
                         });
                     } else {
                         self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
+                            this.localScope.gridDataCnt = self.service.data.length;
+                            this.localScope.gridLoading = false;
+                            
                             if (typeof fn === 'function') {
                                 return fn(self.Grid);
                             }
