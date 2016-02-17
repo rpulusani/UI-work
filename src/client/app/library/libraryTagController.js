@@ -1,7 +1,7 @@
 define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('PortalAdminLibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
+    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
         function($scope, $location, $translate, $route, $http, Documents, Tags, Grid, $rootScope, Personalize, formatter) {
 
             $scope.isCreating = false;
@@ -45,11 +45,9 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
 
             $scope.tags = [];
             Tags.get().then(function() {
-
                 if (Tags.data) {
                     $scope.tags = Tags.data;
                 }
-                console.log($scope.tags);
             });
 
             $scope.goToCreateTag = function() {
@@ -69,7 +67,6 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.goToEditTag = function(tag) {
-
                 Tags.setItem(tag);
 
                 $http({
@@ -81,11 +78,9 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
                 });
-
             };
 
             $scope.goToDeleteTag = function(tag) {
-
                 $http({
                     method: 'DELETE',
                     url: Tags.item.url
@@ -95,7 +90,6 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     NREUM.noticeError('Failed to DELETE tag: ' + response.statusText);
                 });
             };
-
         }
     ]);
 });

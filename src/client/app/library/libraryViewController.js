@@ -71,6 +71,16 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 $scope.documentItem.name = tmp.slice(0, -(l.length+1));
             };
 
+            $scope.getEditAction = function (owner) {
+                var showEdit = false;
+
+                if (owner === $rootScope.idpUser.email) {
+                    showEdit = true;
+                }
+
+                return showEdit;
+            };
+
             $scope.goToDelete = function() {
                 $http({
                     method: 'DELETE',
