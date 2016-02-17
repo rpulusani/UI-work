@@ -287,7 +287,7 @@ define([
             translationManager: 'ADMIN_TRANSLATION_MANAGER'
         }
     })
-    .constant('tombstoneWaitTimeout', 6000)
+    .constant('tombstoneWaitTimeout', 10000)
     .config(function (SpringDataRestAdapterProvider) {
 
         // set the links key to _myLinks
@@ -579,7 +579,7 @@ define([
                     suffix: '.json'
                 })
                 .useLocalStorage();
-                
+
             $routeProvider
             .otherwise({
                 templateUrl: '/app/dashboard/templates/home.html',
