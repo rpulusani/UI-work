@@ -12,7 +12,8 @@ define(['angular'], function(angular) {
         })
         .when('/impersonate', {
             templateUrl: '/app/users/templates/impersonate-view.html',
-            controller: 'ImpersonateUserListController'
+            controller: 'ImpersonateUserListController',
+            activeItem: '/impersonate'
         })
         .when('/delegated_admin/return/:returnParam', {
             templateUrl: '/app/users/templates/view.html',
