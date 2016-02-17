@@ -153,6 +153,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     throw new Error('OptionsPanel is required');
                 }
                 var self  = this,
+                size = 20,
                 filter = {
                     display: displayText,
                     optionsPanel: optionsPanel,
