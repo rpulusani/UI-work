@@ -88,7 +88,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     functionDef: function(params) {
                         var options  = {
                             'params':{}
-                        };
+                        },
+                        addParams = {};
+
                         if(configuredParams){
                             angular.extend(options.params, configuredParams);
                         }
@@ -107,16 +109,18 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
                             self.clearParameters(removeParams);
                         }
-
+                        
                         if (!options.params.size) {
                             if (self.service.params.size) {
                                 size = self.service.params.size;
                             }
                             
-                            options.params = {
+                            addParams = {
                                 page: 0,
                                 size: size
                             };
+
+                            angular.extend(options.params, addParams);
                         }
 
                         if ($routeParams.search && $routeParams.searchOn) {
@@ -155,7 +159,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     functionDef: function(params, removeParams){
                         var options  = {
                             'params':{}
-                        };
+                        },
+                        addParams = {};
+                        
                         if(configuredParams){
                             angular.extend(options.params, configuredParams);
                         }
@@ -168,11 +174,17 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             self.clearParameters(removeParams);
                         }
 
-                        if (!options.params) {
-                            options.params = {
+                        if (!options.params.size) {
+                            if (self.service.params.size) {
+                                size = self.service.params.size;
+                            }
+                            
+                            addParams = {
                                 page: 0,
-                                size: self.service.params.size
+                                size: size
                             };
+                            
+                            angular.extend(options.params, addParams);
                         }
 
                         var promise = self.service.get(options);
