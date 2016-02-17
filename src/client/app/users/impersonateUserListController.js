@@ -2,9 +2,9 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
     'use strict';
     angular.module('mps.user')
     .controller('ImpersonateUserListController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserAdminstration',
-        'PersonalizationServiceFactory','FilterSearchService', 'FormatterService', 'Impersonate',
+        'PersonalizationServiceFactory','FilterSearchService', 'FormatterService', 'Impersonate', '$http',
         function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration,
-            Personalize, FilterSearchService, formatter, Impersonate) {
+            Personalize, FilterSearchService, formatter, Impersonate, $http) {
             $rootScope.currentRowList = [];
             UserAdminstration.setParamsToNull();
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
@@ -35,6 +35,9 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
 
             $scope.impersonateUser = function(user) {
                 Impersonate.query(user.email, function(data) {
+                    console.log('$http', $http);
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + data.accessToken;
+                    //$http.request.headers['Authorization'] = 'Bearer ' + data.accessToken;
                     console.log('impersonate info', data);
                 });
             };
