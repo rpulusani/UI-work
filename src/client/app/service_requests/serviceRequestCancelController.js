@@ -192,7 +192,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     };
                     $scope.configure.receipt = {
                         translate:{
-                            title:"DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
+                            title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
                             titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                         },
                         descriptionDetail: {
