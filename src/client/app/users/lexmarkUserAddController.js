@@ -25,7 +25,6 @@ define(['angular', 'user'], function(angular) {
             UserAdminstration.item.get(options).then(function(response){
                 if (response.status === 200) {
                     $scope.newUser = false;
-                    console.log('UserAdminstration.item', UserAdminstration.item);
                 }
                 $scope.user = UserAdminstration.item;
                 $scope.user_info_active = true;
@@ -58,11 +57,9 @@ define(['angular', 'user'], function(angular) {
                     }
                     if (!BlankCheck.isNull($scope.user.item._embedded.accounts)) {
                         $scope.accounts = $scope.user.item._embedded.accounts;
-                        console.log('$scope.accounts before', $scope.accounts);
                         if ($scope.accounts.length > 0) {
                             for (var i=0;i<$scope.accounts.length;i++) {
                                 $scope.accounts[i].name = $scope.accounts[i].name + ' [' + $scope.accounts[i].accountId +']';
-                                console.log('$scope.accounts[i]', $scope.accounts[i]);
                                 if ($scope.accounts[i].country) {
                                     $scope.accounts[i].name  = $scope.accounts[i].name + ' [' + $scope.accounts[i].country +']';
                                 }
@@ -78,7 +75,6 @@ define(['angular', 'user'], function(angular) {
                                 }
                             }
                         }
-                        console.log('$scope.accounts after', $scope.accounts);
                     }
                 }
 

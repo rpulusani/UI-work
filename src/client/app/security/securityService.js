@@ -110,7 +110,6 @@ define(['angular', 'security'], function(angular) {
                     currentUser.links['permissions']({
                       preventDefaultParams: true
                       }).then(function(data){
-                            console.log('data', data);
                             if(data.permissions && data.permissions.data){
                                 permissions.resolve(data.permissions.data);
                             }else if(data.permissions && !data.permissions.data){
