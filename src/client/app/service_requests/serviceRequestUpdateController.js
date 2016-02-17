@@ -156,7 +156,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requestedByContact);
                 }
 
-                if ($scope.ServiceRequest.tempSpace && !BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
+                if (ServiceRequest.tempSpace && !BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
                     $scope.formattedPrimaryContact = FormatterService.formatContact(ServiceRequest.tempSpace.primaryContact);
                 }
 
