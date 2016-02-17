@@ -95,6 +95,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             HATEAOSConfig.getLoggedInUserInfo();
                         }
 
+                        if (self.serviceName === 'users') {
+                            self.item.transactionalAccount.serviceName = 'transactionalAccounts';
+                            self.item.links.transactionalAccount().then(function(res) {
+                                if (self.item.transactionalAccount.data.length > 0) {
+                                    $rootScope.$emit('userSetup', self.item.transactionalAccount.data);
+                                }
+                            });
+                        }
+
                         deferred.resolve();
                     });
                 });

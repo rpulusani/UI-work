@@ -136,8 +136,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                            {v: 'TEST' },
-                            //{v: $translate.instant($scope.configure.report.kpi.translate.fleetAvailability) },
+                            {v: '' },
                             {v: d.fleetAvailability },
                             {v: "#00ad21" }
                         ]}
@@ -164,7 +163,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                            {v: 'HELLO WORLD 2' },
+                            {v: '' },
                             {v: d.responseTime },
                             {v: "#1c64b4" }
                         ]}
@@ -191,8 +190,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                           // {v: $translate.instant($scope.configure.report.kpi.translate.consumables) },
-                            {v: 'Hello World' },
+                            {v: '' },
                             {v: d.consumables },
                             {v: "#faa519" }
                         ]}
@@ -206,13 +204,10 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 }
 
                 $scope.chartObject.assetRegister = {};
-                $scope.chartObject.assetRegister.type = "PieChart";
+                $scope.chartObject.assetRegister.type = 'PieChart';
                 $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
                 $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
                 $scope.chartObject.assetRegister.options.fontSize = 36;
-                $scope.chartObject.assetRegister.options.tooltip = {
-                    textStyle: {fontSize: 14}
-                };
                 $scope.chartObject.assetRegister.dataPoint = total;
 
                 $scope.chartObject.assetRegister.data = {
@@ -222,8 +217,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                            {v: 'HELLOTWO'},
-                           // {v: $translate.instant($scope.configure.report.charts.translate.assetCount) },
+                            {v: ''},
                             {v: total }
                         ]}
                     ]};
@@ -308,7 +302,8 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
             $scope.chartObject = {};
             $scope.chartOptions = {};
             $scope.chartOptions.pieChartOptions = {
-                backgroundColor: '#eff0f6',
+                backgroundColor: '#fff',
+                height: 250,
                 enableInteractivity: true,
                 fontName: 'tpHero',
                 legend: {
@@ -318,20 +313,25 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 title: '',
                 titlePosition: 'none',
                 tooltip: {
-                    text: 'percentage'
+                    textStyle: {fontSize: 14}
                 }
             };
+
             $scope.chartOptions.columnChartOptions = {
                 backgroundColor: '#fff',
+                gridLines: {
+                    count: 4
+                },
                 fontName: 'tpHero',
                 height: 300,
                 legend: {
                     position: 'none'
                 },
-                title: '',
-                titlePosition: 'none',
                 bar: {
                     groupWidth: '35%'
+                },
+                tooltip: {
+                    textStyle: {fontSize: 14}
                 }
             };
 

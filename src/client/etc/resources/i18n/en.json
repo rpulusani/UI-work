@@ -982,6 +982,14 @@
 
         "DASHBOARD": {
             "TITLE": "Home",
+            "RELATED_LINK": "RELATED LINK",
+            "ARTICLE": "ARTICLE",
+            "HOME_ARTICLE_LINK_1": "Welcome to the New Managed Services Portal",
+            "HOME_ARTICLE_LINK_2": "Managed print services analytics pave the way for better business processes",
+            "HOME_ARTICLE_LINK_3": "Automate information capture at the MFP",
+            "HOME_ARTICLE_COPY_1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio est, posuere ac odio quis, vulputate volutpat tortor. Morbi nec viverra ipsum.",
+            "HOME_ARTICLE_COPY_2": "Moving beyond data collection to actionable insights ",
+            "HOME_ARTICLE_COPY_3": "Our smart MFP capture technology collects and routes your documents and data intelligently—extracting, organizing and sharing information with the people, systems and processes that need it most.",
             "ROLLUP_REQUESTS_TITLE": "Requests for Service",
             "ROLLUP_ORDERS_TITLE": "Orders",
             "ROLLUP_MADC_TITLE": "Device Change Requests",
