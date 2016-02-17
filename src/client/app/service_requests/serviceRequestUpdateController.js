@@ -6,6 +6,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         '$location',
         '$routeParams',
         '$rootScope',
+        '$interpolate',
         'ServiceRequestService',
         'SRControllerHelperService',
         'FormatterService',
@@ -14,11 +15,15 @@ define(['angular', 'serviceRequest'], function(angular) {
         'UserService',
         '$translate',
         'HATEAOSConfig',
+        '$timeout',
+        'TombstoneService',
+        'tombstoneWaitTimeout',
         function(
             $scope,
             $location,
             $routeParams,
             $rootScope,
+            $interpolate,
             ServiceRequest,
             SRHelper,
             FormatterService,
@@ -26,7 +31,17 @@ define(['angular', 'serviceRequest'], function(angular) {
             Contacts,
             Users,
             $translate,
-            HATEAOSConfig) {
+            HATEAOSConfig,
+            $timeout,
+            Tombstone,
+            tombstoneWaitTimeout) {
+
+            // NOTE - setupTemplates expects 'review' in the URL in order
+            // to fire configureReviewTemplate. This is not used by cancel
+            // since the type comes through a url parameter. Changes should
+            // go in the goToSubmit function
+
+            $scope.isLoading = false;
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
@@ -64,6 +79,9 @@ define(['angular', 'serviceRequest'], function(angular) {
             };
 
             $scope.goToSubmit = function(){
+              if(!$scope.isLoading) {
+                $scope.isLoading = true;
+
                 $scope.updateSRObjectForSubmit();
                 if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                     HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
@@ -75,13 +93,35 @@ define(['angular', 'serviceRequest'], function(angular) {
                 });
 
                 deferred.then(function(result){
-                    ServiceRequest.item = ServiceRequest.item;
-                    $rootScope.newSr = $scope.sr;
-                    $location.path('/service_requests/' + $scope.sr.id +'/update/' + $routeParams.type + '/receipt');
+                  if(ServiceRequest.item._links['tombstone']){
+                    $timeout(function() {
+                      $location.search('tab', null);
+                        ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
+                          var exp = $interpolate('{{root}}/{{id}}/update/{{type}}/receipt/{{queued}}');
+                          if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(exp({
+                              root: ServiceRequest.route,
+                              id: $scope.sr.id,
+                              type: $routeParams.type,
+                              queued: 'notqueued'}));
+                          } else {
+                              ServiceRequest.item = ServiceRequest.item;
+                              $rootScope.newSr = $scope.sr;
+                              $location.path(exp({
+                                root: ServiceRequest.route,
+                                id: $scope.sr.id,
+                                type: $routeParams.type,
+                                queued: 'queued'}));
+                            }
+                        });
+                      }, tombstoneWaitTimeout);
+                    }
+
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
                 });
-
+              }
             };
 
              var configureSR = function(ServiceRequest){
@@ -143,30 +183,32 @@ define(['angular', 'serviceRequest'], function(angular) {
 
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'SERVICE_REQUEST.SUBMIT_REQUEST_UPDATE';
-                $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
-                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
-                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
-                            ServiceRequest.item.postURL = api.url;
-                        });
-                    }
-                    var deferred = ServiceRequest.post({
-                        item:  $scope.sr
-                    });
-
-                    deferred.then(function(result){
-                        ServiceRequest.item = ServiceRequest.item;
-                        $rootScope.newSr = $scope.sr;
-                        $location.path('/service_requests/' + $scope.sr.id +'/update/' + $routeParams.type + '/receipt');
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create SR because: ' + reason);
-                    });
-
-                };
             }
 
             function configureReceiptTemplate() {
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + ServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: ServiceRequest.route,
+                    actionName: 'Manage Service Requests'
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
+              } else {
                 $scope.configure.header.translate.h1 = "SERVICE_REQUEST.UPDATE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.h1Values = {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
@@ -184,6 +226,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+              }
             }
 
             function configureTemplates() {

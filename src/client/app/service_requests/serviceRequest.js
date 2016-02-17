@@ -35,7 +35,7 @@ define(['angular'], function(angular) {
             controller:'ServiceRequestCancelController',
             activeItem: '/service_requests?tab=serviceRequestsAllTab'
         })
-        .when('/service_requests/:id/cancel/:type/receipt', {
+        .when('/service_requests/:id/cancel/:type/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'ServiceRequestCancelController',
             activeItem: '/service_requests?tab=serviceRequestsAllTab'
@@ -45,7 +45,7 @@ define(['angular'], function(angular) {
             controller:'ServiceRequestUpdateController',
             activeItem: '/service_requests?tab=serviceRequestsAllTab'
         })
-        .when('/service_requests/:id/update/:type/receipt', {
+        .when('/service_requests/:id/update/:type/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'ServiceRequestUpdateController',
             activeItem: '/service_requests?tab=serviceRequestsAllTab'
