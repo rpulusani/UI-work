@@ -1168,6 +1168,7 @@
 
         "REPORTING": {
             "TITLE": "Reports",
+            "FLEET_AVAILABILITY": "Fleet Availability",
             "ORDERS": "Orders",
             "ASSET_REGISTER": "Device Register",
             "FUTURE_RATE": "Future Rate",
@@ -1772,7 +1773,8 @@
         "AUTOMATIC": "Automatic",
         "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)",
         "REMOVE": "Remove",
-        "NO_IFRAME": "Missing iframe support"
+        "NO_IFRAME": "Missing iframe support",
+        "PERCENT": "Percent"
     },
 
         "PAGINATION": {

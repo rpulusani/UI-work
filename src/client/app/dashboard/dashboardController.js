@@ -128,10 +128,12 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.chartObject.fleetAvailability.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
                 $scope.chartObject.fleetAvailability.dataPoint = d.fleetAvailability;
 
+                $scope.fleetPeriod = data.stat[0].period;
+                
                 $scope.chartObject.fleetAvailability.data = {
                     "cols": [
-                        {id: "t", label: "Fleet Availability", type: "string"},
-                        {id: "s", label: "Percent", type: "number" },
+                        {id: "t", label: $translate.instant("REPORTING.FLEET_AVAILABILITY"), type: "string"},
+                        {id: "s", label: $translate.instant("LABEL.PERCENT"), type: "number" },
                         {role: "style", type: "string"}
                     ],
                     "rows": [
@@ -155,10 +157,12 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.chartObject.responseTime.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
                 $scope.chartObject.responseTime.dataPoint = d.responseTime;
 
+                $scope.responsePeriod = data.stat[0].period;
+
                 $scope.chartObject.responseTime.data = {
                     "cols": [
                         {id: "t", label: "Response Time", type: "string"},
-                        {id: "s", label: "Percent", type: "number" },
+                        {id: "s", label: $translate.instant("LABEL.PERCENT"), type: "number" },
                         {role: "style", type: "string"}
                     ],
                     "rows": [
@@ -182,10 +186,12 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.chartObject.consumables.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
                 $scope.chartObject.consumables.dataPoint = d.consumables;
 
+                $scope.consumablesPeriod= data.stat[0].period;
+
                 $scope.chartObject.consumables.data = {
                     "cols": [
-                        {id: "t", label: "Fleet Availability", type: "string"},
-                        {id: "s", label: "Percent", type: "number" },
+                        {id: "t", label: $translate.instant("REPORTING.FLEET_AVAILABILITY"), type: "string"},
+                        {id: "s", label: $translate.instant("LABEL.PERCENT"), type: "number" },
                         {role: "style", type: "string"}
                     ],
                     "rows": [
@@ -209,6 +215,8 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
                 $scope.chartObject.assetRegister.options.fontSize = 36;
                 $scope.chartObject.assetRegister.dataPoint = total;
+
+                $scope.assetPeriod = data.stat[0].period;
 
                 $scope.chartObject.assetRegister.data = {
                     "cols": [
@@ -244,21 +252,17 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     ],
                     "rows": [
                         {c: [
-                            {v: 'TEST1' },
-                           // {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledMono) },
+                            {v: '' },
                             {v: d.pagesBilledMono }
                         ]},
                         {c: [
-                            {v: 'TESTHELLO' },
-                            //{v: $translate.instant($scope.configure.report.charts.translate.pagesBilledColor) },
+                            {v: '' },
                             {v: d.pagesBilledColor }
                         ]}
                     ]};
-
             },
             buildCharts = function() {
-                var report,
-                validReports = ['fleet-availability', 'response-time', 'consumables'];
+                var report;
 
                 for (var i = 0; i < $scope.visualizations.length; i++) {
                     report = Reports.createItem($scope.visualizations[i]);
