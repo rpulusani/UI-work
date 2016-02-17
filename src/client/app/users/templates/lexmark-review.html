@@ -1,0 +1,28 @@
+<div class="page-header">
+	<div class="clearfix">
+		<h1 class="pull vertical-space--none"><span translate="DELEGATED_ADMIN.MANAGE_LEXMARK_PROFILE"></span> 
+		<span ng-bind="user.fullName"></span></h1>
+	</div>
+	<br/>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+
+	<div class="btns">
+	    <button type="button" class="btn btn--default" ng-click="deactivate()" translate="USER.DEACTIVATE_USER" ng-if="userActive">
+	    </button>
+	    <button type="button" class="btn btn--default" ng-click="update()" translate="USER.ACTIVATE_USER" ng-if="!userActive">
+	    </button>
+	</div>
+</div>
+<div class="page-content">
+    <div ng-hide="isSubmitted">
+        <div class="col-lg-2-3 col-md-1-1">
+            <form class="form" data-form="" name="newUser" novalidate>
+                <div lexmark-user-fields></div>
+            
+                <hr/>
+
+                <div lexmark-user-buttons></div>
+            </form>
+        </div>
+    </div>
+</div>

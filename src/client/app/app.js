@@ -288,6 +288,7 @@ define([
             translationManager: 'ADMIN_TRANSLATION_MANAGER'
         }
     })
+    .constant('tombstoneWaitTimeout', 6000)
     .config(function (SpringDataRestAdapterProvider) {
 
         // set the links key to _myLinks
