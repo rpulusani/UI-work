@@ -12,6 +12,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     'SecurityHelper',
     'FormatterService',
     'SRControllerHelperService',
+    'ServiceRequestService',
     function(
         $scope,
         $location,
@@ -22,14 +23,15 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         FilterSearchService,
         SecurityHelper,
         formatter,
-        SRHelper
+        SRHelper,
+        ServiceRequest
     ) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
 
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         ServiceRequest.reset();
-        
+
         $rootScope.currentRowList = [];
 
         $scope.contacts = Contacts;
