@@ -88,7 +88,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                   if(ServiceRequest.item._links['tombstone']) {
                     $timeout(function() {
                       ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
-                        var exp = $interpolate('{{root}}/{{id}}/cancel/{{type}}/receipt/{{queued}}')
+                        var exp = $interpolate('{{root}}/{{id}}/cancel/{{type}}/receipt/{{queued}}');
                         $location.search('tab', null);
                         if(Tombstone.item && Tombstone.item.siebelId) {
                           ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
@@ -145,7 +145,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requestedByContact);
                 }
 
-                if (!BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
+                if ($scope.ServiceRequest.tempSpace && !BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
                     $scope.formattedPrimaryContact = FormatterService.formatContact(ServiceRequest.tempSpace.primaryContact);
                 }
 
@@ -194,6 +194,17 @@ define(['angular', 'serviceRequest'], function(angular) {
                         translate:{
                             title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
                             titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                        },
+                        descriptionDetail: {
+                            information:{
+                                translate: {
+                                    title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
+                                    label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                }
+                            },
+                            show: {
+                                description: true
+                            }
                         }
                     };
                     $scope.configure.queued = true;
@@ -212,6 +223,17 @@ define(['angular', 'serviceRequest'], function(angular) {
                     translate: {
                         title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    },
+                    descriptionDetail: {
+                        information:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
+                                label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                            }
+                        },
+                        show: {
+                            description: true
+                        }
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
