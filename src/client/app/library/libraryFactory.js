@@ -17,11 +17,11 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                                 '<i ng-class="grid.appScope.getFileIcon(row.entity.ext);"></i> ' +
                                 '<a class="text--small" href="#" ng-click="grid.appScope.goToView(row.entity);">{{row.entity.name}}</a><br />' +
                                             '<p class="text--small">{{row.entity.description}}</p>' +
-                                            '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS') + ': ' + 
+                                            '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS') + ': ' +
                                             '<span ng-repeat="tag in row.entity.tags">{{tag}}{{$last ? "" : ", "}}</span></p>' +
                                         '</div>'
                         },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true }, 
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true },
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true,
                             'cellTemplate':'<div ng-bind-html="grid.appScope.getFileOwner(row.entity.owner)"></div>'
                         },
@@ -29,7 +29,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
                             'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                                 '<i class="icon icon-psw-edit" ng-click="grid.appScope.goToUpdate(row.entity);"></i>' +
-                                '<div ng-if="documentLibraryDeleteMyAccess" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
+                                '<div ng-if="grid.appScope.documentLibraryDeleteMyAccess" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
                                 '</div>'
                         }
                     ],
