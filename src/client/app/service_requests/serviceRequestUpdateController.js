@@ -208,6 +208,17 @@ define(['angular', 'serviceRequest'], function(angular) {
                             }
                         }
                     },
+                    descriptionDetail: {
+                        information:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
+                                label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                            }
+                        },
+                        show: {
+                            description: true
+                        }
+                    },
                     detail: {
                         translate: {
                             title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
