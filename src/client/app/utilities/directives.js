@@ -216,7 +216,7 @@ define(['angular', 'utility'], function(angular) {
                 }else{
                     scope.grid = scope['gridOptions'];
                 }
-            },0);
+            },1000);
         };
         return {
             restrict: 'A',

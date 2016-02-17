@@ -1,28 +1,27 @@
-define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters', 'utility.imageService'], function(angular) {
+define(['angular', 'order', 'hateoasFactory.serviceFactory'], function(angular) {
     'use strict';
     angular.module('mps.orders')
-    .factory('AssetPartsFactory', [
+    .factory('HardwareCatalogFactory', [
         'serviceUrl',
         '$translate',
         'HATEOASFactory',
-        'FormatterService',
         '$filter',
         'imageService',
         '$q',
+        'FormatterService',
         function(
             serviceUrl,
             $translate,
             HATEOASFactory,
-            formatter,
             $filter,
             ImageService,
-            $q
+            $q,
+            formatter
             ) {
-
-            var OrderItems = {
-                    serviceName: 'orderParts',
-                    embeddedName: 'parts', //get away from embedded name and move to a function to convert url name to javascript name
-                    columns: 'defaultSet',
+            var OrderTypes = {
+                serviceName: 'hardware-catalog',
+                embeddedName: 'orderParts',
+                columns: 'defaultSet',
                     columnDefs: {
                         defaultSet: [
                             {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
@@ -90,9 +89,9 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                             self.getSingleThumbnail(data[i]);
                         }
                     },
-
-                    route: '/orders',
+                route: ''
             };
-        return  new HATEOASFactory(OrderItems);
+
+        return new HATEOASFactory(OrderTypes);
     }]);
 });

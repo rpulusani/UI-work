@@ -66,6 +66,11 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/select-catalog.html',
             controller:'AgreementCatalogController',
             activeItem: '/orders'
+        })
+        .when('/orders/catalog/:type/cart', {
+            templateUrl: '/app/orders/templates/catalog-cart.html',
+            controller:'CatalogController',
+            activeItem: '/orders'
         });
     }]);
 });

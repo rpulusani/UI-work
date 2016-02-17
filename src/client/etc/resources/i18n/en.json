@@ -463,9 +463,10 @@
             "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}",
             "TXT_PURCHASE_ORDER":"Purchase order number"
         },
-      "ORDER_HARDWARE":{
+      "ORDER_CATALOGS":{
             "COMMON":{
-                  "TXT_AGREEMENT":"Agreement",
+                  "TXT_ACCOUNT":"Account",
+                  "TXT AGREEMENT":"Agreement",
                   "TXT_CONTRACT": "Contract",
                   "TXT_PAYMENT_DETAILS":"Payment details",
                   "TXT_CATALOG_TYPE":"Catalog type",
@@ -477,6 +478,18 @@
                   "TXT_CATALOG_SELECTION": "Which catalog do you want to order from?",
                   "TXT_DEVICE_CATALOG": "Device catalog",
                   "TXT_ACCESSORIES_CATALOG":"Accessories catalog"
+            },
+            "DEVICE_CATALOG":{
+                  "TXT_DEVICE_CATALOG_ORDER": "Device Catalog Order",
+                  "TXT_DEVICE_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+                  "BTN_DEVICE_ORDER_ABANDON":"ABANDON DEVICE ORDER",
+                  "BTN_DEVICE_ORDER_SUBMIT":"BROWSE DEVICES AVAILABLE FOR THIS CONTRACT"
+            },
+            "SUPPLIES_CATALOG":{
+                  "TXT_SUPPLIES_CATALOG_ORDER":"New Supplies Order",
+                  "TXT_SUPPLIES_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+                  "BTN_ORDER_ABANDON_SUPPLIES":"ABANDON SUPPLIES ORDER",
+                  "BTN_ORDER_SUBMINT_SUPPLIES":"BROWSE SUPPLIES AVAILABLE ON THIS CONTRACT"
             }
       }
     },
