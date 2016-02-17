@@ -88,7 +88,10 @@ define([
     'library.libraryViewController',
     'library.libraryFactory',
     'library.libraryTagFactory',
+    'library.libraryOwnerFactory',
     'library.directives',
+    'library.portalAdminLibraryListController',
+    'library.portalAdminLibraryTagController',
     'invoice',
     'invoice.invoiceController',
     'invoice.invoiceListController',
@@ -284,6 +287,7 @@ define([
             translationManager: 'ADMIN_TRANSLATION_MANAGER'
         }
     })
+    .constant('tombstoneWaitTimeout', 6000)
     .config(function (SpringDataRestAdapterProvider) {
 
         // set the links key to _myLinks

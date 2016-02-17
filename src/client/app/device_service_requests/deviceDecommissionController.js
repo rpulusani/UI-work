@@ -18,6 +18,9 @@ define(['angular',
         'DeviceServiceRequest',
         'Contacts',
         'SRControllerHelperService',
+        'TombstoneService',
+        '$timeout',
+        'tombstoneWaitTimeout',
         function($scope,
             $rootScope,
             $routeParams,
@@ -30,8 +33,12 @@ define(['angular',
             BlankCheck,
             DeviceServiceRequest,
             Contacts,
-            SRHelper) {
+            SRHelper,
+            Tombstone,
+            $timeout,
+            tombstoneWaitTimeout) {
 
+            $scope.isLoading = false;
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
             var configureSR = function(ServiceRequest){
@@ -123,19 +130,58 @@ define(['angular',
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
                 $scope.configure.actions.submit = function(){
+                  if(!$scope.isLoading) {
+                    $scope.isLoading = true;
                     updateSRObjectForSubmit();
                     var deferred = DeviceServiceRequest.post({
                          item:  $scope.sr
                     });
                     deferred.then(function(result){
-                        ServiceRequest.item = DeviceServiceRequest.item;
-                       $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt');
+                      if(DeviceServiceRequest.item._links['tombstone']) {
+                        $location.search('tab', null);
+                        $timeout(function(){
+                          DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                          if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/notqueued')
+                          } else {
+                            ServiceRequest.item = DeviceServiceRequest.item;
+                            $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/queued');
+                          }
+                        });
+                        }, tombstoneWaitTimeout);
+                     }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
+
+                  }
                 };
             }
             function configureReceiptTemplate(){
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + DeviceServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: Devices.route,
+                    actionName: $translate.instant('DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES')
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"QUEUE.COMMON.TXT_GENERIC_SERVICE_REQUEST_TITLE",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
+              } else {
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
@@ -150,6 +196,7 @@ define(['angular',
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+              }
             }
             function configureTemplates(){
                 if($scope.device){
@@ -297,4 +344,3 @@ define(['angular',
         }
     ]);
 });
-

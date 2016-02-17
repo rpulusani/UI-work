@@ -17,7 +17,7 @@ define(['angular'], function(angular) {
                 controller: 'AddressAddController',
                 activeItem: '/service_requests/addresses'
             })
-            .when('/service_requests/addresses/add/receipt', {
+            .when('/service_requests/addresses/add/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'AddressAddController',
                 activeItem: '/service_requests/addresses'
@@ -42,7 +42,7 @@ define(['angular'], function(angular) {
                 controller: 'AddressUpdateController',
                 activeItem: '/service_requests/addresses'
             })
-            .when('/service_requests/addresses/update/:id/receipt', {
+            .when('/service_requests/addresses/update/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'AddressUpdateController',
                 activeItem: '/service_requests/addresses'
@@ -52,7 +52,7 @@ define(['angular'], function(angular) {
                 controller: 'AddressDeleteController',
                 activeItem: '/service_requests/addresses'
             })
-            .when('/service_requests/addresses/delete/:id/receipt', {
+            .when('/service_requests/addresses/delete/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'AddressDeleteController',
                 activeItem: '/service_requests/addresses'

@@ -1,19 +1,33 @@
 define(['angular', 'library', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', 'Documents', '$rootScope', 'FormatterService',
-        function($scope, $location, $translate, $http, Documents, $rootScope, formatter) {
+    .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
+        function($scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {
 
             if (Documents.item === null) {
                 $location.path(Documents.route);
             } else {
                 $scope.documentItem = Documents.item;
+
+                $http({
+                    method: 'GET',
+                    url: $scope.documentItem.download.url,
+                    responseType:'arraybuffer'
+                }).then(function successCallback(response) {
+                    var file = new Blob([response.data], {type: 'application/pdf'});
+                    var fileURL = URL.createObjectURL(file);
+                    $scope.pdfSource = $sce.trustAsResourceUrl(fileURL);
+                }, function errorCallback(response) {
+                    NREUM.noticeError('Failed to LOAD existing document library file: ' + response.statusText);
+                });
             }
 
             $scope.isDeleting = false;
 
             $scope.getTagNames = function(tags) {
-                return tags.join(', ');
+                if (tags) {
+                    return tags.join(', ');
+                }
             };
 
             $scope.getFileSize = function(size) {
@@ -69,8 +83,25 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             };
 
             $scope.goToDownload = function(documentItem) {
+                var pdfName = documentItem.name + '.' + documentItem.ext;
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style="display:none";
 
-            }
+                $http({
+                    method: 'GET',
+                    url: documentItem.download.url,
+                    responseType:'arraybuffer'
+                }).then(function successCallback(response) {
+                    var pdf = new Blob([response.data], {type: 'application/pdf'});
+                    var pdfUrl = URL.createObjectURL(pdf);
+                    a.href = pdfUrl;
+                    a.download = pdfName;
+                    a.click();
+                }, function errorCallback(response) {
+                    NREUM.noticeError('Failed to DOWNLOAD existing document library file: ' + response.statusText);
+                });
+            };
         }
     ]);
 });

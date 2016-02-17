@@ -41,6 +41,16 @@ define(['angular'], function(angular) {
                     };
                 }
             }
+        })
+        .when('/portal_admin/library', {
+            templateUrl: '/app/library/templates/admin/view.html',
+            activeItem: '/portal_admin',
+            controller: 'PortalAdminLibraryListController'
+        })
+        .when('/portal_admin/library/tags', {
+            templateUrl: '/app/library/templates/admin/tags.html',
+            activeItem: '/portal_admin',
+            controller: 'PortalAdminLibraryTagController'
         });
     }]);
 });

@@ -142,6 +142,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
         };
         Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
             var self = this,
+            $ = require('jquery'),
             serviceId = '',
             newHeight = '46',
             baseHeight = 46,
