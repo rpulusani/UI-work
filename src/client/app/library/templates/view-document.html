@@ -13,7 +13,7 @@
             
             <span class="">
                 <i class="icon icon--mps icon--download"></i>
-                <a translate="LABEL.EXPORT" ng-href="{{documentItem.download.url}}" ng-click="goToDownload(documentItem);" class="text--small text--semi-bold"></a>
+                <a translate="LABEL.EXPORT" href="#" ng-click="goToDownload(documentItem);" class="text--small text--semi-bold"></a>
             </span>
         </div>
 
@@ -22,6 +22,14 @@
     <div class="row">
         <div class="col-2-3">
             <div library-view-fields></div>
+        </div>
+
+        <div class="col-2-3">
+            <div class="pdf-frame">
+               <iframe src="{{pdfSource}}" style="width: 100%; min-height: 600px;" frameborder="0" scrolling="no">
+                    <p translate="LABEL.NO_IFRAME"></p>
+               </iframe>
+            </div>
         </div>
 
         <div class="col-2-3" class="deleteConfirmation">
