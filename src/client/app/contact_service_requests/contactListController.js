@@ -28,7 +28,8 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
 
         SRHelper.addMethods(Contacts, $scope, $rootScope);
-
+        ServiceRequest.reset();
+        
         $rootScope.currentRowList = [];
 
         $scope.contacts = Contacts;

@@ -57,6 +57,7 @@ define(['angular',
             $scope.returnedForm = false;
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
+            ServiceRequest.reset();
 
             $scope.goToReview = function() {
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
