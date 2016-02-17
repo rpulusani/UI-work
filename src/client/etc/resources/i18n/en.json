@@ -1582,6 +1582,7 @@
 
         "USER": {
             "INVITATION": "Invitations",
+            "IMPERSONATE_TITLE": "Impersonate User",
             "USERS": "Users ({{total}} total users)",
             "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",

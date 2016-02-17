@@ -91,6 +91,7 @@ requirejs.config({
             'user.userAddController',
             'user.lexmarkUserAddController',
             'user.lexmarkUserListController',
+            'user.impersonateUserListController',
             'user.usersController',
             'user.userTabController',
             'user.manageUserTabController',
@@ -162,6 +163,7 @@ requirejs.config({
         'user.manageUserController': ['user'],
         'user.manageUserTabController': ['user'],
         'user.invitedUserController': ['user'],
+        'user.impersonateUserListController': ['user'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -304,6 +306,7 @@ requirejs.config({
         'user.manageUserTabController': 'app/users/manageUserTabController',
         'user.manageUserController': 'app/users/manageUserController',
         'user.invitedUserController': 'app/users/invitedUserController',
+        'user.impersonateUserListController': 'app/users/impersonateUserListController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',

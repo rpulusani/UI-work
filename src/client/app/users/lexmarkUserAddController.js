@@ -287,6 +287,7 @@ define(['angular', 'user'], function(angular) {
             var updateAdminObjectForSubmit = function() {
                 UserAdminstration.newMessage();
                 $scope.userInfo = UserAdminstration.item;
+                UserAdminstration.addField('ldapId', $scope.user.ldapId);
                 UserAdminstration.addField('type', 'INTERNAL');
                 UserAdminstration.addField('active', $scope.user.item.active);
                 UserAdminstration.addField('firstName', $scope.user.firstName);
