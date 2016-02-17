@@ -383,13 +383,13 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 case 'SUPPLIES_CATALOG_ORDER':
                 case 'SUPPLIES_ASSET_ORDER':
-                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_CONSUMABLES');
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_CONSUMABLES_ORDER');
                 break;
                 case 'BREAK_FIX':
-                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_SERVICE');
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_REQUEST');
                 break;
                 case 'HARDWARE_ORDER':
-                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_REQUEST');
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_ORDER');
                 break;
                 case 'HARDWARE_ORDER_INSTALL':
                     $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_INSTALL');
@@ -415,7 +415,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
         }
 
-        if (!BlankCheck.isNull($scope.device.deviceContact)) {
+        if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
         }
 

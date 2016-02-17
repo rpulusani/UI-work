@@ -43,10 +43,10 @@ define(['angular', 'serviceRequest'], function(angular) {
                     ServiceRequest.addField('type', 'UPDATE_DECOMMISSION');
                 } else if ($location.path().indexOf('UPDATE_MOVE') > -1) {
                     ServiceRequest.addField('type', 'UPDATE_MOVE');
-                } else if ($location.path().indexOf('UPDATE_CONSUMABLES') > -1) {
-                    ServiceRequest.addField('type', 'UPDATE_CONSUMABLES');
-                } else if ($location.path().indexOf('UPDATE_HARDWARE_SERVICE') > -1) {
-                    ServiceRequest.addField('type', 'UPDATE_HARDWARE_SERVICE');
+                } else if ($location.path().indexOf('UPDATE_CONSUMABLES_ORDER') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_CONSUMABLES_ORDER');
+                } else if ($location.path().indexOf('UPDATE_HARDWARE_ORDER') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_HARDWARE_ORDER');
                 } else if ($location.path().indexOf('UPDATE_HARDWARE_REQUEST') > -1) {
                     ServiceRequest.addField('type', 'UPDATE_HARDWARE_REQUEST');
                 } else if ($location.path().indexOf('UPDATE_HARDWARE_INSTALL') > -1) {
@@ -227,8 +227,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_CANCELLATION',
-                            submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION'
+                            abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_UPDATE',
+                            submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_UPDATE'
                         },
                         submit: $scope.goToSubmit
                     },
