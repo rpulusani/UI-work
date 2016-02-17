@@ -156,7 +156,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requestedByContact);
                 }
 
-                if (!BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
+                if ($scope.ServiceRequest.tempSpace && !BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
                     $scope.formattedPrimaryContact = FormatterService.formatContact(ServiceRequest.tempSpace.primaryContact);
                 }
 
@@ -205,6 +205,17 @@ define(['angular', 'serviceRequest'], function(angular) {
                     translate:{
                         title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    },
+                    descriptionDetail: {
+                        information:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
+                                label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                            }
+                        },
+                        show: {
+                            description: true
+                        }
                     }
                 };
                 $scope.configure.queued = true;
@@ -223,6 +234,17 @@ define(['angular', 'serviceRequest'], function(angular) {
                     translate: {
                         title:"SERVICE_REQUEST.DETAILS_UPDATE_REQUEST_FOR_SUBMITTED",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    },
+                    descriptionDetail: {
+                        information:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
+                                label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                            }
+                        },
+                        show: {
+                            description: true
+                        }
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
@@ -249,17 +271,6 @@ define(['angular', 'serviceRequest'], function(angular) {
                                 contact: 'SERVICE_REQUEST.CONTACT_INFORMATION',
                                 label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
                             }
-                        }
-                    },
-                    descriptionDetail: {
-                        information:{
-                            translate: {
-                                title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
-                                label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
-                            }
-                        },
-                        show: {
-                            description: true
                         }
                     },
                     detail: {

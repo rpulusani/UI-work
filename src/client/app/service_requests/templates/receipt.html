@@ -39,12 +39,12 @@
         </div>
     </div>
 
-     <div ng-if="configure.descriptionDetail">
-        <h2 translate="{{configure.descriptionDetail.information.translate.title}}"></h2>
+     <div ng-if="configure.receipt.descriptionDetail">
+        <h2 translate="{{configure.receipt.descriptionDetail.information.translate.title}}"></h2>
         <div class="well well--no-shadow col-1-3">
             <ul class="info-list">
-                <li class="info-list__item" ng-show="configure.descriptionDetail.show.description">
-                    <div class="info-list__item-name" translate="{{configure.descriptionDetail.information.translate.label}}"></div>
+                <li class="info-list__item" ng-show="configure.receipt.descriptionDetail.show.description">
+                    <div class="info-list__item-name" translate="{{configure.receipt.descriptionDetail.information.translate.label}}"></div>
                     <div class="info-list__item-value" ng-bind="sr.description"></div>
                 </li>
             </ul>
