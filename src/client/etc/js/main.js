@@ -315,6 +315,7 @@ requirejs.config({
         'serviceRequest.directives': 'app/service_requests/directives',
         'serviceRequest.detailController': 'app/service_requests/serviceRequestDetailController',
         'serviceRequest.cancelController': 'app/service_requests/serviceRequestCancelController',
+        'serviceRequest.updateController': 'app/service_requests/serviceRequestUpdateController',
         'serviceRequest.openServiceRequestController': 'app/service_requests/openServiceRequestController',
         'serviceRequest.listController': 'app/service_requests/serviceRequestListController',
         'serviceRequest.listDeviceController': 'app/service_requests/serviceRequestDeviceListController',

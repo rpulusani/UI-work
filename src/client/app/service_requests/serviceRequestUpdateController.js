@@ -1,7 +1,7 @@
 define(['angular', 'serviceRequest'], function(angular) {
     'use strict';
     angular.module('mps.serviceRequests')
-    .controller('ServiceRequestCancelController', [
+    .controller('ServiceRequestUpdateController', [
         '$scope',
         '$location',
         '$routeParams',
@@ -46,22 +46,30 @@ define(['angular', 'serviceRequest'], function(angular) {
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
             $scope.goToReview = function() {
-                $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/review');
+                $location.path('/service_requests/' + $scope.sr.id +'/update/' + $routeParams.type + '/review');
             };
 
             $scope.updateSRObjectForSubmit = function() {
                 ServiceRequest.newMessage();
                 $scope.srToSubmit = ServiceRequest.item;
-                if($location.path().indexOf('CANCEL_INSTALL') > -1) {
-                    ServiceRequest.addField('type', 'CANCEL_INSTALL');
-                } else if ($location.path().indexOf('CANCEL_DECOMMISSION') > -1) {
-                    ServiceRequest.addField('type', 'CANCEL_DECOMMISSION');
-                } else if ($location.path().indexOf('CANCEL_MOVE') > -1) {
-                    ServiceRequest.addField('type', 'CANCEL_MOVE');
+                if($location.path().indexOf('UPDATE_INSTALL') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_INSTALL');
+                } else if ($location.path().indexOf('UPDATE_DECOMMISSION') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_DECOMMISSION');
+                } else if ($location.path().indexOf('UPDATE_MOVE') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_MOVE');
+                } else if ($location.path().indexOf('UPDATE_CONSUMABLES_ORDER') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_CONSUMABLES_ORDER');
+                } else if ($location.path().indexOf('UPDATE_HARDWARE_ORDER') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_HARDWARE_ORDER');
+                } else if ($location.path().indexOf('UPDATE_HARDWARE_REQUEST') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_HARDWARE_REQUEST');
+                } else if ($location.path().indexOf('UPDATE_HARDWARE_INSTALL') > -1) {
+                    ServiceRequest.addField('type', 'UPDATE_HARDWARE_INSTALL');
                 } else {
-                    ServiceRequest.addField('type', 'CANCEL_ALL');
+                    ServiceRequest.addField('type', 'UPDATE_ALL');
                 }
-                ServiceRequest.addField('description', $scope.sr.cancellationDescription);
+                ServiceRequest.addField('description', $scope.sr.updateDescription);
                 ServiceRequest.addField('notes', $scope.sr.notes);
                 ServiceRequest.addField('customerReferenceId', $scope.sr.customerReferenceId);
                 ServiceRequest.addRelationship('primaryContact', $scope.sr.primaryContact, 'self');
@@ -72,7 +80,7 @@ define(['angular', 'serviceRequest'], function(angular) {
 
             $scope.goToSubmit = function(){
               if(!$scope.isLoading) {
-                $scope.isLoading = false;
+                $scope.isLoading = true;
 
                 $scope.updateSRObjectForSubmit();
                 if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
@@ -85,28 +93,31 @@ define(['angular', 'serviceRequest'], function(angular) {
                 });
 
                 deferred.then(function(result){
-                  if(ServiceRequest.item._links['tombstone']) {
+                  if(ServiceRequest.item._links['tombstone']){
                     $timeout(function() {
-                      ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
-                        var exp = $interpolate('{{root}}/{{id}}/cancel/{{type}}/receipt/{{queued}}')
-                        $location.search('tab', null);
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                          ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                          $location.path(exp({root: ServiceRequest.route,
-                                              id: $scope.sr.id,
-                                              type: $routeParams.type,
-                                              queued: 'notqueued'}));
-                        } else {
-                          ServiceRequest.item = ServiceRequest.item;
-                          $rootScope.newSr = $scope.sr;
-                          $location.path(exp({root: ServiceRequest.route,
-                                              id: $scope.sr.id,
-                                              type: $routeParams.type,
-                                              queued: 'queued'}));
-                        }
-                      });
-                    }, tombstoneWaitTimeout);
-                  }
+                      $location.search('tab', null);
+                        ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
+                          var exp = $interpolate('{{root}}/{{id}}/update/{{type}}/receipt/{{queued}}');
+                          if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(exp({
+                              root: ServiceRequest.route,
+                              id: $scope.sr.id,
+                              type: $routeParams.type,
+                              queued: 'notqueued'}));
+                          } else {
+                              ServiceRequest.item = ServiceRequest.item;
+                              $rootScope.newSr = $scope.sr;
+                              $location.path(exp({
+                                root: ServiceRequest.route,
+                                id: $scope.sr.id,
+                                type: $routeParams.type,
+                                queued: 'queued'}));
+                            }
+                        });
+                      }, tombstoneWaitTimeout);
+                    }
+
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
                 });
@@ -177,32 +188,32 @@ define(['angular', 'serviceRequest'], function(angular) {
             function configureReceiptTemplate() {
               if($routeParams.queued === 'queued') {
                 $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
-                    $scope.configure.header.translate.h1Values = {
-                        'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + ServiceRequest.item.type)
-                    };
-                    $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
-                    $scope.configure.header.translate.bodyValues= {
-                        'srHours': 24
-                    };
-                    $scope.configure.header.translate.readMore = undefined;
-                    $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
-                    $scope.configure.header.translate.actionValues = {
-                        actionLink: ServiceRequest.route,
-                        actionName: 'Manage Service Requests'
-                    };
-                    $scope.configure.receipt = {
-                        translate:{
-                            title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
-                            titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
-                        }
-                    };
-                    $scope.configure.queued = true;
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + ServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: ServiceRequest.route,
+                    actionName: 'Manage Service Requests'
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
               } else {
-                $scope.configure.header.translate.h1 = "SERVICE_REQUEST.CANCEL_REQUEST_SUBMITTED";
+                $scope.configure.header.translate.h1 = "SERVICE_REQUEST.UPDATE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.h1Values = {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
                 };
-                $scope.configure.header.translate.body = "SERVICE_REQUEST.CANCEL_REQUEST_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.body = "SERVICE_REQUEST.UPDATE_REQUEST_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -210,7 +221,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate: {
-                        title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
+                        title:"SERVICE_REQUEST.DETAILS_UPDATE_REQUEST_FOR_SUBMITTED",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };
@@ -222,7 +233,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate: {
-                            h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
+                            h1: 'SERVICE_REQUEST.UPDATE_REQUEST_FOR_SUBMITTED',
                             h1Values: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) },
                             body: 'MESSAGE.LIPSUM',
                             readMore: 'Learn more about requests'
@@ -230,14 +241,25 @@ define(['angular', 'serviceRequest'], function(angular) {
                         readMoreUrl: '/service_requests/learn_more',
                         showCancelBtn: false
                     },
-                    cancel: {
+                    update: {
                         information:{
                             translate: {
-                                h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
-                                title: 'SERVICE_REQUEST.REQUEST_CANCELLATION_INFORMATION',
-                                contact: 'SERVICE_REQUEST.SERVICE_REQUEST_CONTACT',
-                                label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                h1: 'SERVICE_REQUEST.UPDATE_REQUEST_FOR_SUBMITTED',
+                                title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
+                                contact: 'SERVICE_REQUEST.CONTACT_INFORMATION',
+                                label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
                             }
+                        }
+                    },
+                    descriptionDetail: {
+                        information:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
+                                label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                            }
+                        },
+                        show: {
+                            description: true
                         }
                     },
                     detail: {
@@ -259,8 +281,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_CANCELLATION',
-                            submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION'
+                            abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_UPDATE',
+                            submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_UPDATE'
                         },
                         submit: $scope.goToSubmit
                     },
@@ -275,7 +297,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                             primaryAction : true
                         },
                         pickerObject: $scope.sr,
-                        source: 'ServiceRequestCancel'
+                        source: 'ServiceRequestUpdate'
                     },
                     modal: {
                         translate: {
@@ -291,7 +313,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                             title: 'CONTACT.SELECT_CONTACT',
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
-                        returnPath: ServiceRequest.route + $scope.sr.id + '/cancel/' + $scope.sr.type
+                        returnPath: ServiceRequest.route + $scope.sr.id + '/update/' + $scope.sr.type
                     }
                 };
             }
