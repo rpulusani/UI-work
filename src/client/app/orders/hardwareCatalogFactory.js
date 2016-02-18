@@ -33,10 +33,18 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory'], function(angular) 
                                 'field':'type', enableCellEdit:false, width:'20%'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
                                 'field':'displayItemNumber', enableCellEdit:false, width:'12%',
-                                 'cellTemplate': '<span>{{drow.entity.isplayItemNumber}}</span>'+
-                                 '<ul ng-if="row.entity.childItems && row.entity.childItems.length > 0"> Hi </ul>'},
+                                 'cellTemplate': '<span>{{row.entity.displayItemNumber}}</span>'+
+                                 '<ul ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
+                                 '<li class="vertical-margin-0" ng-repeat="part in row.entity.childItems">'+
+                                 '{{part.displayItemNumber}}'+
+                                 '</li> </ul>'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'),
-                                'field':'description', enableCellEdit:false, width:'27%', cellClass:'long-text-wrap'},
+                                'field':'description', enableCellEdit:false, width:'27%', cellClass:'long-text-wrap',
+                            'cellTemplate': '<span>{{row.entity.description}}</span>'+
+                                 '<ul ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
+                                 '<li class ="vertical-margin-0" ng-repeat="part in row.entity.childItems">'+
+                                 '{{part.description}}'+
+                                 '</li> </ul>'},
                             {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
                                 'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%', cellClass:'long-text-wrap'},
 

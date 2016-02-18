@@ -313,6 +313,7 @@ requirejs.config({
         'order.directives': 'app/orders/directives',
         'order.catalogController':'app/orders/catalogController',
         'order.orderPurchaseController': 'app/orders/orderPurchaseController',
+        'order.orderCatalogPurchaseController': 'app/orders/orderCatalogPurchaseController',
         'order.orderListController': 'app/orders/orderListController',
         'order.deviceOrderListController': 'app/orders/deviceOrderListController',
         'order.supplyOrderListController': 'app/orders/supplyOrderListController',

@@ -45,6 +45,7 @@ define([
     'order.assetsPartsFactory',
     'order.orderContentsController',
     'order.orderPurchaseController',
+    'order.orderCatalogPurchaseController',
     'order.returnOrdersController',
     'order.agreementCatalogController',
     'order.agreementFactory',

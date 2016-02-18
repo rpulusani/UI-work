@@ -10,6 +10,8 @@ define(['angular'], function(angular) {
         'AgreementFactory',
         'ContractFactory',
         '$routeParams',
+        'OrderItems',
+        'AssetPartsFactory',
         function(
             $rootScope,
             $scope,
@@ -18,7 +20,9 @@ define(['angular'], function(angular) {
             BlankCheck,
             Aggrements,
             Contracts,
-            $routeParams
+            $routeParams,
+            OrderItems,
+            AssetParts
         ){
             //multi, none, single
             $scope.print = false;
@@ -42,6 +46,8 @@ define(['angular'], function(angular) {
                                 'agreement': $scope.agreementObject
                             }
                         };
+                        OrderItems.reset();
+                        AssetParts.reset();
                         $location.path($location.path() + '/cart');
                     },
                     disabled: true

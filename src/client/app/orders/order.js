@@ -42,6 +42,11 @@ define(['angular'], function(angular) {
             controller: 'ReturnOrdersController',
             activeItem: '/orders'
         })
+        .when('/orders/catalog/:type/review', {
+                templateUrl: '/app/orders/templates/review.html',
+                controller: 'OrderCatalogPurchaseController',
+                activeItem: '/orders'
+        })
         .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'OrderPurchaseController',

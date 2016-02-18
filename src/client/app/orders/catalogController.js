@@ -58,7 +58,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                  $scope.configure = {
                      actions:{
                         submit: function() {
-                            $location.path(Orders.route + '/' + $scope.device.id + '/review');
+                            $location.path(OrderItems.route + '/catalog/' + $routeParams.type + '/review');
                         },
                         disabled: true
                     },
@@ -133,7 +133,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                 return deferred.promise;
                             };
                             filterSearchService = new FilterSearchService(HardwareCatalog, $scope, $rootScope, personal,
-                                    'defaultSet', 92, 'catalogOptions', beforeDisplay);
+                                    'defaultSet', 120, 'catalogOptions', beforeDisplay);
                             $scope.catalogOptions.showBookmarkColumn = false;
                             $scope.catalogOptions.enableRowHeaderSelection = false;
                             $scope.catalogOptions.enableFullRowSelection = false;
@@ -201,13 +201,6 @@ define(['angular','order', 'utility.grid'], function(angular) {
             $scope.$broadcast('OrderContentRefresh', {
                 'OrderItems': OrderItems // send whatever you want
             });
-        };
-
-
-        $scope.submit = function(){
-            Orders.newMessage();
-            Orders.tempSpace = {};
-            $location.path(OrderItems.route + '/purchase/review');
         };
 
                 getParts();

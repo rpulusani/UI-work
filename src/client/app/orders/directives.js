@@ -76,6 +76,12 @@ define(['angular', 'order'], function(angular) {
             templateUrl: '/app/orders/templates/po-number.html'
         };
     })
+    .directive('orderAccountDetials', function(){
+        return{
+            restrict: 'A',
+            templateUrl: '/app/orders/templates/order-account-details.html'
+        };
+    })
     .directive('orderContent', function(){
         return {
             restrict: 'A',
