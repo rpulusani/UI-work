@@ -85,7 +85,8 @@ define(['angular', 'order'], function(angular) {
                 editable:"@",
                 submitAction:"=",
                 datasource:"=",
-                configure: "="
+                configure: "=",
+                hideSubmit: "="
             },
             controller: 'OrderContentsController'
         };

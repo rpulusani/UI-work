@@ -1,22 +1,25 @@
 <div sr-header></div>
 <div class="page-content">
     <div print-export-title
-        title="ORDER_MAN.ORDER_CATALOGS.COMMON.TXT_ACCOUNT" print="print" export="export"></div>
+        title="ORDER_CATALOGS.COMMON.TXT_ACCOUNT" print="print" export="export"></div>
         <hr/>
         <div class="col-1-3">
             {{configure.cart.agreement.name}}<br/>
             {{configure.cart.contract.name}}<br/>
-            <span ng-if="paymentMethod ==='SHIP_AND_BILL'" translate="ORDER_MAN.ORDER_CATALOGS.COMMON.TXT_PAY_NOW"></span>
-            <span ng-if="paymentMethod === 'payLater'" translate="ORDER_MAN.ORDER_CATALOGS.COMMON.TXT_PAY_LATER"></span>
+            <span ng-if="paymentMethod ==='SHIP_AND_BILL'" translate="ORDER_CATALOGS.COMMON.TXT_PAY_NOW"></span>
+            <span ng-if="paymentMethod === 'payLater'" translate="ORDER_CATALOGS.COMMON.TXT_PAY_LATER"></span>
         </div>
-    <div class="row vertical-margin-top-72">
+    <div class="row vertical-margin-72">
         <div class="col-1">
             <div catalog></div>
         </div>
     </div>
-    <div class="row">
+    <div class="row vertical-margin-bottom-72">
         <div class="col-1">
-            <div order-content editable="{{editable}}" submit-action="submit" datasource="orderItems"></div>
+            <div order-content editable="{{editable}}" submit-action="submit" datasource="orderItems"
+                configure="configure" hide-submit="hideSubmitButton"></div>
         </div>
     </div>
+
+    <div sr-form-buttons></div>
 </div>

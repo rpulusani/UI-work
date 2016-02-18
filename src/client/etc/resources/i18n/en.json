@@ -462,8 +462,9 @@
             "TXT_ORDER_SUBMITTED_PAR": "Your supplies order {{order}} has been submitted.",
             "TXT_ORDER_SUBMIT_SUPPLIES": "Submitted | Supplies order for {{ productModel }}",
             "TXT_PURCHASE_ORDER":"Purchase order number"
-        },
-      "ORDER_CATALOGS":{
+        }
+    },
+     "ORDER_CATALOGS":{
             "COMMON":{
                   "TXT_ACCOUNT":"Account",
                   "TXT AGREEMENT":"Agreement",
@@ -477,7 +478,8 @@
                   "TXT_PAY_LATER": "Pay Later",
                   "TXT_CATALOG_SELECTION": "Which catalog do you want to order from?",
                   "TXT_DEVICE_CATALOG": "Device catalog",
-                  "TXT_ACCESSORIES_CATALOG":"Accessories catalog"
+                  "TXT_ACCESSORIES_CATALOG":"Accessories catalog",
+                  "BTN_REVIEW_AND_SUBMIT":"REVIEW AND SUBMIT ORDER"
             },
             "DEVICE_CATALOG":{
                   "TXT_DEVICE_CATALOG_ORDER": "Device Catalog Order",
@@ -491,8 +493,7 @@
                   "BTN_ORDER_ABANDON_SUPPLIES":"ABANDON SUPPLIES ORDER",
                   "BTN_ORDER_SUBMINT_SUPPLIES":"BROWSE SUPPLIES AVAILABLE ON THIS CONTRACT"
             }
-      }
-    },
+      },
 
     "REQUEST_MAN": {
         "COMMON": {

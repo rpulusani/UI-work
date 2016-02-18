@@ -50,25 +50,25 @@ define(['angular'], function(angular) {
             if($scope.type === 'HARDWARE'){
                 $scope.configure.header = {
                     translate:{
-                        h1:'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_ORDER',
-                        body:'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_PAR'
+                        h1:'ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_ORDER',
+                        body:'ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_PAR'
                     }
                 };
                 $scope.configure.actions.translate = {
-                        abandonRequest:'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
-                        submit: 'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_SUBMIT'
+                        abandonRequest:'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
+                        submit: 'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_SUBMIT'
                 };
                 $scope.catalog = 'device';
             }else if($scope.type  === 'SUPPLIES'){
                 $scope.configure.header = {
                     translate:{
-                        h1:'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER',
-                        body:'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_PAR'
+                        h1:'ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER',
+                        body:'ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_PAR'
                     }
                 };
                 $scope.configure.actions.translate = {
-                        abandonRequest:'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
-                        submit: 'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_SUBMINT_SUPPLIES'
+                        abandonRequest:'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
+                        submit: 'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_SUBMINT_SUPPLIES'
                 };
                 $scope.catalog = 'supplies';
             }

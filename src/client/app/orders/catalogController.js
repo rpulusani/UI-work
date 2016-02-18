@@ -52,6 +52,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 //multi, none, single
                 $scope.print = false;
                 $scope.export = false;
+                $scope.editable  = true;
+                $scope.hideSubmitButton = true;
 
                  $scope.configure = {
                      actions:{
@@ -75,24 +77,24 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 if($scope.type === 'HARDWARE'){
                     $scope.configure.header = {
                         translate:{
-                            h1:'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_ORDER',
-                            body:'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_PAR'
+                            h1:'ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_ORDER',
+                            body:'ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_PAR'
                         }
                     };
                     $scope.configure.actions.translate = {
-                            abandonRequest:'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
-                            submit: 'ORDER_MAN.ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_SUBMIT'
+                            abandonRequest:'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
+                            submit: 'ORDER_CATALOGS.COMMON.BTN_REVIEW_AND_SUBMIT'
                     };
                 }else if($scope.type  === 'SUPPLIES'){
                     $scope.configure.header = {
                         translate:{
-                            h1:'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER',
-                            body:'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_PAR'
+                            h1:'ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER',
+                            body:'ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_PAR'
                         }
                     };
                     $scope.configure.actions.translate = {
-                            abandonRequest:'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
-                            submit: 'ORDER_MAN.ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_SUBMINT_SUPPLIES'
+                            abandonRequest:'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
+                            submit: 'ORDER_CATALOGS.COMMON.BTN_REVIEW_AND_SUBMIT'
                     };
                 }
                 function getParts(){
@@ -180,6 +182,9 @@ define(['angular','order', 'utility.grid'], function(angular) {
             }
             OrderItems.data.splice(index,1);
             OrderItems.columns = 'defaultSet';
+            if(OrderItems.data.length === 0){
+                $scope.configure.actions.disabled = true;
+            }
             $scope.$broadcast('OrderContentRefresh', {
                'OrderItems': OrderItems // send whatever you want
             });
@@ -190,6 +195,9 @@ define(['angular','order', 'utility.grid'], function(angular) {
             OrderItems.data.push(newItem);
             $scope.orderItems = OrderItems.data;
             OrderItems.columns = 'defaultSet';
+            if(OrderItems.data.length > 0){
+                $scope.configure.actions.disabled = false;
+            }
             $scope.$broadcast('OrderContentRefresh', {
                 'OrderItems': OrderItems // send whatever you want
             });
