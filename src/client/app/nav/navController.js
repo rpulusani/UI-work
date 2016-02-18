@@ -15,6 +15,7 @@ define([
         'AccountService',
         'HATEAOSConfig',
         '$http',
+        'SecurityService',
         function(
             $scope,
             $rootScope,
@@ -24,8 +25,11 @@ define([
             Users,
             Accounts,
             HATEAOSConfig,
-            $http
+            $http,
+            SecurityService
             ) {
+
+            var Security = new SecurityService();
 
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
@@ -35,11 +39,8 @@ define([
             $scope.isInternal = false;
 
             $rootScope.currentUser.deferred.promise.then(function() {
-                //console.log('$rootScope.currentUser', $rootScope.currentUser);
                 if ($rootScope.currentUser.type === 'INTERNAL') {
-                    //console.log('in condition', $rootScope.currentUser.type);
                     $scope.isInternal = true;
-                    //console.log('$scope.isInternal', $scope.isInternal);
                 }
             });
 
@@ -120,7 +121,10 @@ define([
 
                     $scope.selectedAccount = $rootScope.currentAccount;
 
-                    $route.reload();
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+                        $route.reload();
+                    });
                 });
             };
 
