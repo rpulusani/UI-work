@@ -47,6 +47,11 @@ define(['angular'], function(angular) {
                 controller: 'OrderCatalogPurchaseController',
                 activeItem: '/orders'
         })
+        .when('/orders/catalog/:type/receipt/:queued', {
+                templateUrl: '/app/orders/templates/receipt.html',
+                controller: 'OrderCatalogPurchaseController',
+                activeItem: '/orders'
+        })
         .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'OrderPurchaseController',

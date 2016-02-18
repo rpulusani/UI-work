@@ -201,12 +201,11 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                                     $location.search('tab',null);
                                                     Orders.item.requestNumber = Tombstone.item.siebelId;
                                                     ServiceReqeust.item = Orders.item;
-                                                    $location.path(Orders.route + '/purchase/receipt/notqueued');
+                                                    $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
                                                 }else{
 
                                                     $location.search('tab',null);
-                                                    $location.search("queued","true");
-                                                    $location.path(Orders.route + '/purchase/receipt/queued');
+                                                    $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/queued');
                                                 }
                                             });
                                         },6000);
@@ -287,6 +286,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
+            $scope.formatReceiptData($scope.formatAdditionalData);
             function configureTemplates(){
                      $scope.configure = {
                         cart:Orders.tempSpace.catalogCart,

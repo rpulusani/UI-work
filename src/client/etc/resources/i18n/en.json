@@ -492,6 +492,10 @@
                   "TXT_SUPPLIES_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
                   "BTN_ORDER_ABANDON_SUPPLIES":"ABANDON SUPPLIES ORDER",
                   "BTN_ORDER_SUBMINT_SUPPLIES":"BROWSE SUPPLIES AVAILABLE ON THIS CONTRACT"
+            },
+            "RECEIPT":{
+                  "TXT_DETAIL_TITLE":"Details for Device Order Number: {{srNumber}}",
+                  "TXT_PARA": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
             }
       },
 

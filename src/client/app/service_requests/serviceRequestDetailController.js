@@ -28,7 +28,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             OrderItems,
             OrderTypes
         ) {
-
+            $scope.hideSubmitButton = true;
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
             if(!ServiceRequest || !ServiceRequest.item){
@@ -160,6 +160,56 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         }
                     };
             }
+            function addDeviceOrderInfo(){
+                $timeout(function(){
+                    OrderItems.columns = 'pruchaseSet';
+                        $scope.$broadcast('OrderContentRefresh', {
+                            'OrderItems': $scope.sr.item.orderItems // send whatever you want
+                        });
+                }, 50);
+                $scope.configure.header.translate.h1 = "ORDER_CATALOGS.RECEIPT.TXT_DETAIL_TITLE";
+                        $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
+                        $scope.configure.header.translate.body = "ORDER_CATALOGS.RECEIPT.TXT_PARA";
+                        $scope.configure.header.translate.readMore = "";
+                        $scope.configure.header.readMoreUrl = Orders.route;
+                        $scope.configure.header.translate.bodyValues= {
+                            'order': FormatterService.getFormattedSRNumber($scope.sr),
+                            'srHours': 24,
+                            'deviceManagementUrl': 'orders/',
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_CATALOGS.RECEIPT.TXT_DETAIL_TITLE",
+                                titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                            }
+                        };
+                $scope.configure.queued = false;
+                $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
+                $scope.configure.order = {
+                    details:{
+                        translate:{
+                            title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS'
+                        }
+                    }
+                };
+                $scope.configure.order.shipToBillTo = {
+                                translate:{
+                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE',
+                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
+                                }
+                            };
+                $scope.configure.order.po = {
+                    translate:{
+                        label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
+                        title:'ORDER_MAN.COMMON.TXT_ORDER_PO_DETAILS',
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+            }
+
             function addSupplyOrderInfo(){
 
                 $timeout(function(){
@@ -284,6 +334,12 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 case 'SUPPLIES_ASSET_ORDER':
                     addSupplyOrderInfo();
                 break;
+                case 'SUPPLIES_CATALOG_ORDER':
+                    //addSupplyOrderInfo();
+                break;
+                case 'HARDWARE_ORDER':
+                    addDeviceOrderInfo();
+                break;
                 case 'DATA_ADDRESS_ADD':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED');
                     $scope.formattedAddress = "No Address information found";
@@ -381,7 +437,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
         }
 
-        if (!BlankCheck.isNull($scope.device.deviceContact)) {
+        if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
         }
 

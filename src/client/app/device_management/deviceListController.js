@@ -76,7 +76,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                         embed:'contact,address'
                     }
                 };
-                window.scrollTo(0,0)
+                window.scrollTo(0,0);
                 Devices.item.get(options).then(function(){
                     $location.path('/service_requests/devices/' + device.id + '/view');
                 });
@@ -117,7 +117,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                         embed:'contact,address'
                     }
                 };
-                window.scrollTo(0,0)
+                window.scrollTo(0,0);
                 Devices.item.get(options).then(function(){
                     $location.path('/service_requests/devices/decommission/' + device.id + '/view');
                 });
