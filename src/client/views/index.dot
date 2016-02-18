@@ -103,7 +103,7 @@
           <div class="logo"><img src="/etc/resources/img/square-logo-only.png" alt="Lexmark Logo" /></div>
           <div class="copyright text--tiny">
             <strong>Lexmark International, Inc.</strong> </br>
-            &copy;<span ng-bind="currentYear">2015</span> All rights reserved.
+            &copy;<span ng-bind="currentYear"></span> All rights reserved.
           </div>
         </div>
       </footer>
