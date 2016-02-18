@@ -155,11 +155,11 @@ define(['angular',
                               $location.search('tab',null);
                               ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                               // Success logic
-                              $location.path(DeviceServiceRequest.route + '/' + Devices.item.id + '/receipt/queued');
+                              $location.path(DeviceServiceRequest.route + '/' + Devices.item.id + '/receipt/notqueued');
                             } else {
                               $location.search('tab', null);
                               ServiceRequest.item = DeviceServiceRequest.item;
-                              $location.path(DeviceServiceRequest.route + '/' + Devices.item.id + '/receipt/notqueued');
+                              $location.path(DeviceServiceRequest.route + '/' + Devices.item.id + '/receipt/queued');
                             }
                           });
                         }, tombstoneWaitTimeout);
