@@ -1060,6 +1060,30 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .active span {
   color: #ffffff;
 }
+@media only screen and (max-width: 54em) {
+  .status-bar-bar-section {
+    padding-bottom: 15px;
+  }
+  .status-bar-bar-section hr {
+    background: #ffffff;
+  }
+  .status-bar-circle {
+    float: left;
+    margin-right: 15px;
+  }
+  .status-state {
+    text-align: left;
+    margin-top: -15px;
+  }
+  .status-state .status-state-label {
+    float: left;
+    margin-top: -15px;
+    margin-right: 5px;
+  }
+  .active hr {
+    background: #ffffff;
+  }
+}
 .status-details .active span {
   color: #006446;
 }
@@ -1156,13 +1180,13 @@ ul.status-details {
   background: #1d1d25;
   border-color: #1d1d25;
 }
-.theme--dark .rail-nav a.nav-item-account:hover,
-.theme--dark .rail-nav a.nav-item-account:focus {
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account:hover,
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account:focus {
   background-color: #44434e;
   border-color: #44434e;
   color: #3af23a;
 }
-.theme--dark .rail-nav a.nav-item-account.is-active {
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account.is-active {
   background-color: #44434e;
   border-color: #44434e;
   color: #fff;

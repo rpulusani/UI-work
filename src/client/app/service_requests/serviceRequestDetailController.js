@@ -262,6 +262,31 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 };
             }
 
+            var statusBarLevels = [$translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED')];
+
+            $scope.setStatusBar = function(currentStatus, statusDate){
+                var statusItem = {};
+                //$scope.configure.statusList
+
+                var formattedStatusDate = FormatterService.formatNoneIfEmpty(FormatterService.formatDate(statusDate));
+
+                statusList["label"] = currentStatus;
+                statusList["date"] = formattedStatusDate;
+                statusList["current"] = false;
+
+                for(var i=0; i<statusBarLevels.length; i++){
+                    if(statusList.label === statusBarLevels){
+                        console.log("Number is " + i);
+                        statusList.push(statusList);
+                        statusList.current = true;
+                    }
+                }
+
+                console.log(statusList);
+            };
+
+            $scope.setStatusBar("SUBMITTED", "2016-02-18T08:41:26");
+
 
             $scope.goToServiceCancel = function(requestNumber, type){
                 ServiceRequest.tempSpace = {};

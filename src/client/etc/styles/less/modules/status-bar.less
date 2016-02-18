@@ -55,7 +55,36 @@
   .status-bar-circle, hr{
     background:@green3;
   }
+
   span{
     color:@white;
+  }
+}
+
+@media @mq-lt-laptop{
+     .status-bar-bar-section {
+      padding-bottom: 15px;
+      hr{
+        background:@white;
+      }
+    }
+    .status-bar-circle{
+      float: left;
+      margin-right: 15px;
+    }
+    .status-state{
+      text-align: left;
+      margin-top: -15px;
+
+      .status-state-label{
+        float: left;
+        margin-top: -15px;
+        margin-right: 5px;
+      }
+    }
+    .active{
+      hr{
+      background:@white;
+    }
   }
 }
