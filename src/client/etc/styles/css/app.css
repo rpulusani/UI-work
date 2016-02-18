@@ -383,8 +383,6 @@ p.info-list .item-name:after {
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
-  max-height: 160px;
 }
 .tree__item {
   margin: 0;
@@ -802,6 +800,9 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .scrollable {
   overflow-y: auto;
   max-height: 160px;
+}
+.float-right {
+  float: right;
 }
 .print-export {
   float: right;

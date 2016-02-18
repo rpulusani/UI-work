@@ -104,7 +104,6 @@
     "permissionFlag":"documentLibraryAccess",
     "tags":["primary"]
   },
-
   {
     "id": "12",
     "action": "/delegated_admin",
@@ -112,7 +111,7 @@
     "description": "Some description of this link",
     "icon": "icon icon-mps-admin",
     "permissionFlag":"userManagementAccess",
-    "tags":["primary"]
+    "tags":["primary", "admin"]
   },
   {
     "id": "13",
@@ -138,5 +137,61 @@
     "description": "Some description of this link",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
+  },
+  {
+    "id": "16",
+    "action": "",
+    "text": "NAVIGATION.PORTAL_ADMIN",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "icon icon-mps-admin",
+    "tags":["admin"],
+    "dropdown": true,
+    "dropdownIcon": "icon-psw-disclosure_down_triangle"
+  },
+  {
+    "id": "17",
+    "action": "/library",
+    "text": "NAVIGATION.DOCUMENT_LIBRARY_MANAGEMENT",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "",
+    "tags":["16"]
+  },
+  {
+    "id": "18",
+    "action": "",
+    "text": "NAVIGATION.NOTIFICATION_MANAGEMENT",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "",
+    "tags":["16"]
+  },
+  {
+    "id": "19",
+    "action": "",
+    "text": "NAVIGATION.SIEBEL_MANAGEMENT",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "",
+    "tags":["16"]
+  },
+  {
+    "id": "20",
+    "action": "",
+    "text": "NAVIGATION.TRANSLATION_MANAGEMENT",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "",
+    "tags":["16"]
+  },
+  {
+    "id": "21",
+    "action": "",
+    "text": "NAVIGATION.IMPERSONATION",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "",
+    "tags":["16"]
   }
 ]

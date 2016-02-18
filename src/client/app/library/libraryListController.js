@@ -28,6 +28,14 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }
             );
 
+            if ($rootScope.documentLibraryManageGlobalTagAccess) {
+                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
+                    function() {
+                        $scope.$broadcast('setupColumnPicker', $scope);
+                    }
+                );
+            }
+
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
             };
@@ -56,13 +64,23 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 return icon;
             };
 
-            $scope.getEditDeleteAction = function (owner) {
-                return (owner === $rootScope.idpUser.email ? true : false);
+            $scope.getEditAction = function (owner) {
+                var showInlineEdit = false;
+
+                if (owner === $rootScope.idpUser.email) {
+                    showInlineEdit = true;
+                }
+
+                return showInlineEdit;
             };
 
             $scope.goToNew = function() {
                 Documents.item = {};
                 $location.path(Documents.route + '/new');
+            };
+
+            $scope.goToManageTags = function() {
+                $location.path(Documents.route + '/tags');
             };
 
             $scope.goToView = function(documentItem) {

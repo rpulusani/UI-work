@@ -6,6 +6,7 @@ define(['angular', 'serviceRequest'], function(angular) {
         '$location',
         '$routeParams',
         '$rootScope',
+        '$interpolate',
         'ServiceRequestService',
         'SRControllerHelperService',
         'FormatterService',
@@ -14,11 +15,15 @@ define(['angular', 'serviceRequest'], function(angular) {
         'UserService',
         '$translate',
         'HATEAOSConfig',
+        '$timeout',
+        'TombstoneService',
+        'tombstoneWaitTimeout',
         function(
             $scope,
             $location,
             $routeParams,
             $rootScope,
+            $interpolate,
             ServiceRequest,
             SRHelper,
             FormatterService,
@@ -26,7 +31,17 @@ define(['angular', 'serviceRequest'], function(angular) {
             Contacts,
             Users,
             $translate,
-            HATEAOSConfig) {
+            HATEAOSConfig,
+            $timeout,
+            Tombstone,
+            tombstoneWaitTimeout) {
+
+            // NOTE - setupTemplates expects 'review' in the URL in order
+            // to fire configureReviewTemplate. This is not used by cancel
+            // since the type comes through a url parameter. Changes should
+            // go in the goToSubmit function
+
+            $scope.isLoading = false;
 
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
@@ -56,6 +71,9 @@ define(['angular', 'serviceRequest'], function(angular) {
             };
 
             $scope.goToSubmit = function(){
+              if(!$scope.isLoading) {
+                $scope.isLoading = false;
+
                 $scope.updateSRObjectForSubmit();
                 if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                     HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
@@ -67,13 +85,32 @@ define(['angular', 'serviceRequest'], function(angular) {
                 });
 
                 deferred.then(function(result){
-                    ServiceRequest.item = ServiceRequest.item;
-                    $rootScope.newSr = $scope.sr;
-                    $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
+                  if(ServiceRequest.item._links['tombstone']) {
+                    $timeout(function() {
+                      ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
+                        var exp = $interpolate('{{root}}/{{id}}/cancel/{{type}}/receipt/{{queued}}');
+                        $location.search('tab', null);
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                          ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                          $location.path(exp({root: ServiceRequest.route,
+                                              id: $scope.sr.id,
+                                              type: $routeParams.type,
+                                              queued: 'notqueued'}));
+                        } else {
+                          ServiceRequest.item = ServiceRequest.item;
+                          $rootScope.newSr = $scope.sr;
+                          $location.path(exp({root: ServiceRequest.route,
+                                              id: $scope.sr.id,
+                                              type: $routeParams.type,
+                                              queued: 'queued'}));
+                        }
+                      });
+                    }, tombstoneWaitTimeout);
+                  }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
                 });
-
+              }
             };
 
              var configureSR = function(ServiceRequest){
@@ -92,7 +129,9 @@ define(['angular', 'serviceRequest'], function(angular) {
                         ServiceRequest.addRelationship('primaryContact', $scope.sr.primaryContact, 'self');
                         $scope.requestedByContactFormatted =
                         FormatterService.formatContact($scope.sr.requestedByContact);
-                        $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact);
+                        if(!$scope.formattedPrimaryContact){
+                            $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact);
+                        }
                     });
                 });
             };
@@ -106,6 +145,10 @@ define(['angular', 'serviceRequest'], function(angular) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requestedByContact);
                 }
 
+                if (ServiceRequest.tempSpace && !BlankCheck.isNull(ServiceRequest.tempSpace.primaryContact)) {
+                    $scope.formattedPrimaryContact = FormatterService.formatContact(ServiceRequest.tempSpace.primaryContact);
+                }
+
             };
 
             if(ServiceRequest.item === null){
@@ -113,9 +156,12 @@ define(['angular', 'serviceRequest'], function(angular) {
             }else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === ServiceRequest.item.id){
                 $scope.sr = $rootScope.returnPickerSRObject;
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                $scope.sr.primaryContact = angular.copy($rootScope.selectedContact);
+                ServiceRequest.tempSpace.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.formatAdditionalData();
                 $scope.resetContactPicker();
+            }else if($rootScope.contactPickerReset){
+                $rootScope.sr = ServiceRequest.item;
+                $rootScope.contactPickerReset = false;
             }else{
                 $scope.sr = ServiceRequest.item;
             }
@@ -126,30 +172,43 @@ define(['angular', 'serviceRequest'], function(angular) {
 
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION';
-                $scope.configure.actions.submit = function(){
-                    updateSRObjectForSubmit();
-                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
-                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
-                            ServiceRequest.item.postURL = api.url;
-                        });
-                    }
-                    var deferred = ServiceRequest.post({
-                        item:  $scope.sr
-                    });
-
-                    deferred.then(function(result){
-                        ServiceRequest.item = ServiceRequest.item;
-                        $rootScope.newSr = $scope.sr;
-                        $location.path('/service_requests/' + $scope.sr.id +'/cancel/' + $routeParams.type + '/receipt');
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create SR because: ' + reason);
-                    });
-
-                };
             }
 
             function configureReceiptTemplate() {
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                    $scope.configure.header.translate.h1Values = {
+                        'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + ServiceRequest.item.type)
+                    };
+                    $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                    $scope.configure.header.translate.bodyValues= {
+                        'srHours': 24
+                    };
+                    $scope.configure.header.translate.readMore = undefined;
+                    $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                    $scope.configure.header.translate.actionValues = {
+                        actionLink: ServiceRequest.route,
+                        actionName: 'Manage Service Requests'
+                    };
+                    $scope.configure.receipt = {
+                        translate:{
+                            title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
+                            titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                        },
+                        descriptionDetail: {
+                            information:{
+                                translate: {
+                                    title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
+                                    label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                }
+                            },
+                            show: {
+                                description: true
+                            }
+                        }
+                    };
+                    $scope.configure.queued = true;
+              } else {
                 $scope.configure.header.translate.h1 = "SERVICE_REQUEST.CANCEL_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.h1Values = {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
@@ -164,9 +223,21 @@ define(['angular', 'serviceRequest'], function(angular) {
                     translate: {
                         title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    },
+                    descriptionDetail: {
+                        information:{
+                            translate: {
+                                title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
+                                label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                            }
+                        },
+                        show: {
+                            description: true
+                        }
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+              }
             }
 
             function configureTemplates() {
@@ -226,7 +297,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                             primaryAction : true
                         },
                         pickerObject: $scope.sr,
-                        source: 'CancelSR'
+                        source: 'ServiceRequestCancel'
                     },
                     modal: {
                         translate: {
@@ -237,10 +308,12 @@ define(['angular', 'serviceRequest'], function(angular) {
                         },
                         returnPath: '/service_requests'
                     },
-                    contactPicker: {
-                        translate: {
-                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
-                        }
+                    contactPicker:{
+                        translate:{
+                            title: 'CONTACT.SELECT_CONTACT',
+                            contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
+                        },
+                        returnPath: ServiceRequest.route + $scope.sr.id + '/cancel/' + $scope.sr.type
                     }
                 };
             }

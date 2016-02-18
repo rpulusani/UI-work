@@ -27,11 +27,17 @@ define(['angular'], function(angular) {
         })
         .when('/delegated_admin/lexmark_user', {
             templateUrl: '/app/users/templates/lexmark-user.html',
+            controller: 'LexmarkUserListController',
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/:id/review', {
             templateUrl: '/app/users/templates/review.html',
             controller: 'ManageUserController',
+            activeItem: '/delegated_admin'
+        })
+        .when('/delegated_admin/:id/lexmark-review', {
+            templateUrl: '/app/users/templates/lexmark-review.html',
+            controller: 'LexmarkUserAddController',
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/:id/cancel', {

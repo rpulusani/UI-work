@@ -7,6 +7,13 @@ define([
             if($scope.item){
                 $scope.item.disabled = false;
                 $scope.item.selected = false;
+                if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
+                    $scope.item.name = $scope.item.name + ' [' + $scope.item.accountId +']';
+                    if ($scope.item.country) {
+                        $scope.item.name  = $scope.item.name + ' [' + $scope.item.country +']';
+                    }
+                }
+
                 if ($scope.previousItems && $scope.previousItems.length > 0) {
                     for (var i=0;i<$scope.previousItems.length; i++) {
                         if ($scope.previousItems[i].accountId 
@@ -117,6 +124,55 @@ define([
                 }
             };
 
+            var deselectOtherLevels = function(item, itemList) {
+                if (itemList && itemList.length > 0) {
+                    for(var i=0;i<itemList.length;i++) {
+                        if(itemList[i].accountId !== item.accountId && itemList[i].level !== item.level) {
+                            if ($scope.previousItems && $scope.previousItems.length > 0) {
+                                for (var j=0;j<$scope.previousItems.length; j++) {
+                                    if ($scope.previousItems[j].accountId 
+                                        && $scope.previousItems[j].accountId === itemList[i].accountId
+                                        && $scope.previousItems[j].level === itemList[i].level) {
+                                        $scope.previousItems.splice(j, 1);
+                                    }
+                                }
+                            }
+                            itemList[i].selected = false;
+                        }
+                    }
+                }
+            };
+
+            var disableChildren = function(children, item) {
+                for (var j=0;j<children.length;j++) {
+                    children[j].selected = true;
+                    children[j].disabled = true;
+                    if ($scope.previousItems && $scope.previousItems.length > 0) {
+                        for (var k=0;k<$scope.previousItems.length; k++) {
+                            if ($scope.previousItems[k].accountId 
+                                && $scope.previousItems[k].accountId === children[j].accountId
+                                && $scope.previousItems[k].level === children[j].level) {
+                                $scope.previousItems.splice(k, 1);
+                            }
+                        }
+                    }
+                    if (children[j].items && children[j].items.length > 0){
+                        disableChildren(children[j].items, item);
+                    }
+                }
+            };
+
+            var enableChildren = function(children, item) {
+                for (var j=0;j<children.length;j++) {
+                    children[j].selected = false;
+                    children[j].disabled = false;
+               
+                    if (children[j].items && children[j].items.length > 0){
+                        enableChildren(children[j].items, item);
+                    }
+                }
+            };
+
             $scope.toggleChildren = function(item){
                 var children = item.items || [],
                     i = 0,
@@ -128,13 +184,16 @@ define([
                             if ($scope.treeType === 'chl') {
                                 $scope.value.id = item.accountId;
                                 $scope.value.name = item.name;
+                                deselectOthers(item, $scope.treeNodes);
                             } 
                             else if ($scope.treeType === 'daAccounts') {
                                 $scope.previousItems.push(item);
+                                deselectOtherLevels(item, $scope.treeNodes);
+                                if(item.items && item.items.length > 0) {
+                                    disableChildren(item.items, item);
+                                }
                             }
                         }
-                        
-                        deselectOthers(item, $scope.treeNodes);
                     } else {
                         if ($scope.treeType === 'daAccounts') {
                             if ($scope.previousItems && $scope.previousItems.length > 0) {
@@ -145,6 +204,9 @@ define([
                                         $scope.previousItems.splice(i, 1);
                                     }
                                 }
+                            }
+                            if(item.items && item.items.length > 0) {
+                                enableChildren(item.items, item);
                             }
                         }
                     }

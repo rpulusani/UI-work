@@ -10,6 +10,7 @@
             "MADC_MOVE":"Madc Move",
             "MADC_DECOMMISSION":"Madc Decommission",
             "MADC_ALL":"Madc All",
+            "BREAK_FIX":"",
             "BREAK_FIX_ONSITE_REPAIR":"Break Fix Onsite Repair",
             "BREAK_FIX_EXCHANGE":"Break Fix Exchange",
             "BREAK_FIX_OPTION_EXCHANGE":"Break Fix Option Exchange",
@@ -91,7 +92,8 @@
             "COLUMN_ACCOUNT":"Account",
             "LINK_TXT_QUEUE":"view in Queued Items >",
             "LINK_TXT_VIEW_QUEUE_ITEMS" : "View Queued Items >",
-            "TXT_INFORM_QUEUE": "You have ({{ total }}) requests currently queued for submission. "
+            "TXT_INFORM_QUEUE": "You have ({{ total }}) requests currently queued for submission. ",
+            "TXT_GENERIC_SERVICE_REQUEST_TITLE" : "Details for Request Number: {{srNumber}}"
         },
         "DASHBOARD":{
             "TXT_QUEUE_TITLE": "Queued Items",
@@ -102,7 +104,7 @@
          "RECEIPT":{
             "TXT_TITLE": "Your {{type}} request is being submitted",
             "TXT_PARA": "Your request ( generating request number... ) is being submitted. Please allow [{{srHours}}] hours for our team to review and process the request. If you wish to review this request in the meantime, you can find it in \"<a href=\"/queue\">Queued Items</a>\".",
-            "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>",
+            "TXT_ACTION": "Would you like to <a href=\"{{actionLink}}\">{{actionName}}</a>?",
             "TXT_GENERATING_REQUEST":" generating request number... "
         }
 
@@ -740,7 +742,16 @@
             "CANCEL_REQUEST_SUBMIT_HEADER_BODY": "Your request to cancel request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request.",
             "DETAILS_CANCEL_REQUEST_FOR_SUBMITTED": "Details for Cancel Request Number: {{srNumber}}",
             "SERVICE_REQUEST_CONTACT": "Service Request contact",
-            "CHANGE_REQUEST": "Change Request"
+            "CHANGE_REQUEST": "Change Request",
+            "ABANDON_REQUEST_UPDATE": "Abandon update request",
+            "SUBMIT_REQUEST_UPDATE": "Submit update request",
+            "UPDATE_REQUEST_SUBMITTED": "Update Request Submitted",
+            "UPDATE_REQUEST_SUBMIT_HEADER_BODY": "Your request to update request ({{srNumber}}) has been submitted. Please allow [{{srHours}}] hours for our team to review and process the request. Would you like to <a href=\"{{srUrl}}\">view your requests</a>?",
+            "DETAILS_UPDATE_REQUEST_FOR_SUBMITTED": "Details for Update Request Number: {{srNumber}}",
+            "REQUEST_UPDATE_INFORMATION": "Update details",
+            "UPDATE_DESCRIPTION": "Update description",
+            "UPDATE_REQUEST_FOR_SUBMITTED": "Update Request Number: {{srNumber}}",
+            "CANCELLATION_DETAILS": "Cancellation details"
         },
 
     "CONTACT_SERVICE_REQUEST": {
@@ -980,6 +991,14 @@
 
         "DASHBOARD": {
             "TITLE": "Home",
+            "RELATED_LINK": "RELATED LINK",
+            "ARTICLE": "ARTICLE",
+            "HOME_ARTICLE_LINK_1": "Welcome to the New Managed Services Portal",
+            "HOME_ARTICLE_LINK_2": "Managed print services analytics pave the way for better business processes",
+            "HOME_ARTICLE_LINK_3": "Automate information capture at the MFP",
+            "HOME_ARTICLE_COPY_1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio est, posuere ac odio quis, vulputate volutpat tortor. Morbi nec viverra ipsum.",
+            "HOME_ARTICLE_COPY_2": "Moving beyond data collection to actionable insights ",
+            "HOME_ARTICLE_COPY_3": "Our smart MFP capture technology collects and routes your documents and data intelligently—extracting, organizing and sharing information with the people, systems and processes that need it most.",
             "ROLLUP_REQUESTS_TITLE": "Requests for Service",
             "ROLLUP_ORDERS_TITLE": "Orders",
             "ROLLUP_MADC_TITLE": "Device Change Requests",
@@ -994,7 +1013,7 @@
             "REPORT_BILLED_PAGES": "Billed Pages (last billing cycle)",
             "CARD_CONTENT": "Consolidating devices only scratches the surface of what Lexmark managed print services can do for you.",
             "CARD_ACTION": "Unlock the potential",
-            "NUMBER_CLOSED_REQUESTS": "15 Completed Requests",
+            "NUMBER_CLOSED_REQUESTS": "{{ total }} Completed Requests",
             "NUMBER_OPEN_REQUESTS": "Open",
             "NOTIFICATION": "Welcome to Lexmark!  Please be aware that there will be a system upgrade this Saturday from 11:00pm until 12:00pm"
         },
@@ -1158,6 +1177,7 @@
 
         "REPORTING": {
             "TITLE": "Reports",
+            "FLEET_AVAILABILITY": "Fleet Availability",
             "ORDERS": "Orders",
             "ASSET_REGISTER": "Device Register",
             "FUTURE_RATE": "Future Rate",
@@ -1483,6 +1503,7 @@
                 "CTRL_GRID_DELETE" : "Delete document",
                 "TXT_ALL_DOCS" : "All Documents",
                 "TXT_ALL_DOCS_CNT" : "All documents ({{total}})",
+                "TXT_OTHER_DOCS_CNT" : "Other documents ({{total}})",
                 "TXT_FILTER_ACCOUNT" : "Accounts",
                 "TXT_FILTER_CATEGORY" : "Category",
                 "TXT_FILTER_CLEAR_SELECTIONS" : "Clear selections",
@@ -1573,6 +1594,7 @@
         "DELEGATED_ADMIN": {
             "TITLE": "Users",
             "MANAGE_PROFILE": "Managing User Profile",
+            "MANAGE_LEXMARK_PROFILE": "Managing Lexmark User Profile",
             "PREFERRED_LANGUAGE": "Preferred language"
         },
 
@@ -1583,6 +1605,7 @@
             "ALL_USER": "All users",
             "ALL_INVITED_USER": "All invited users",
             "MANAGE_LEXMARK_USER": "MANAGE LEXMARK USER",
+            "MANAGE_LEXMARK_USER_TITLE": "Manage Lexmark User",
             "CREATE_USER": "CREATE NEW USER",
             "INVITE_USER": "INVITE NEW USER",
             "IMPORT_USER": "IMPORT USERS",
@@ -1625,7 +1648,12 @@
             "BODY_USER_ABANDON_MODAL": "The information you have entered will not be saved.",
             "ABANDON_USER_MODAL_CANCEL": "No, do not abandon this user",
             "ABANDON_USER_MODAL_CONFIRM": "Yes, abandon this user",
-            "ABANDON_USER": "Abandon User"
+            "ABANDON_USER": "Abandon User",
+            "UPDATE_LEXMARK_USER": "UPDATE LEXMARK USER",
+            "DISCARD_LEXMARK_USER_CHANGES": "DISCARD LEXMARK USER CHANGES",
+            "FIND_ACCOUNT": "Find account",
+            "ASSIGNED_ACCOUNTS": "Assigned accounts ({{count}} assigned)",
+            "PORTAL_ACCESS_ENABLED": "Portal access is enabled"
         },
 
         "ROLE": {
@@ -1675,7 +1703,13 @@
             "COMPANY_ADMIN": "Company Administration",
             "CONTACT": "Contacts",
             "UPDATE_PAGE_COUNT": "Update Page Count",
-            "DASHBOARD": "Home"
+            "DASHBOARD": "Home",
+            "PORTAL_ADMIN": "Portal Administration",
+            "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
+            "NOTIFICATION_MANAGEMENT": "Notification Management",
+            "SIEBEL_MANAGEMENT": "Siebel Management",
+            "TRANSLATION_MANAGEMENT": "Translation Management",
+            "IMPERSONATION": "Impersonation"
          },
 
       "LABEL": {
@@ -1746,7 +1780,10 @@
         "ALL": "All",
         "MANUAL": "Manual",
         "AUTOMATIC": "Automatic",
-        "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)"
+        "SEARCH_FOR_MESSAGE": "Searching for \"{{value}}\" in \"{{searchOn}}\" ({{total}} matching results)",
+        "REMOVE": "Remove",
+        "NO_IFRAME": "Missing iframe support",
+        "PERCENT": "Percent"
     },
 
         "PAGINATION": {
