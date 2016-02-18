@@ -540,11 +540,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                    self.setParamsToNull();
                 }
 
-                if ($rootScope.authToken) {
-                    console.log('hateoas token', $rootScope.authToken);
-                    options.headers = {'Authorization': $rootScope.authToken};
-                }
-
                 self.checkForEvent(halObj, 'before' + verbName).then(function(canContinue, newObj) {
                     var url,
                     itemUrl;
@@ -555,10 +550,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                         }
 
                         if (method === 'get') {
-                            if ($rootScope.authToken) {
-                                console.log('hateoas token', $rootScope.authToken);
-                                options.headers = {'Authorization': $rootScope.authToken};
-                            }
                             //get 0 index until account switching and preferences are 100% implemented
                             HATEAOSConfig.getCurrentAccount().then(function(account) {
                                 self.params.accountId = $rootScope.currentAccount.accountId;
@@ -574,11 +565,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             options.data = halObj;
 
                             self.checkForEvent(self.item, 'on' + verbName);
-
-                            if ($rootScope.authToken) {
-                                console.log('hateoas token', $rootScope.authToken);
-                                options.headers = {'Authorization': $rootScope.authToken};
-                            }
 
                             $http(options).then(function(processedResponse) {
                                 self.item = processedResponse.data;
@@ -829,11 +815,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                     self.checkForEvent(self.item, 'onGet');
 
-                    if ($rootScope.authToken) {
-                        console.log('hateoas token', $rootScope.authToken);
-                        options.headers = {'Authorization': $rootScope.authToken};
-                    }
-                    console.log('options', options);
                     $http(options).then(function(processedResponse) {
                         if (!options.noUpdate) {
                             self.setupItem(processedResponse);
@@ -843,11 +824,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                         if (options.updateParams === false) {
                             self.params = currentParams;
-                        }
-
-                        if ($rootScope.authToken) {
-                            console.log('hateoas token', $rootScope.authToken);
-                            options.headers = {'Authorization': $rootScope.authToken};
                         }
 
                         self.checkForEvent(self.item, 'afterGet');
