@@ -17,6 +17,7 @@ define([
         'gatekeeper-cookie-compat',
         '$http',
         '$window',
+        'SecurityService',
         function(
             $scope,
             $rootScope,
@@ -29,7 +30,11 @@ define([
             $cookies,
             $http,
             $window
+            $http,
+            SecurityService
             ) {
+
+            var Security = new SecurityService();
 
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
@@ -126,7 +131,10 @@ define([
 
                     $scope.selectedAccount = $rootScope.currentAccount;
 
-                    $route.reload();
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+                        $route.reload();
+                    });
                 });
             };
 
@@ -164,6 +172,8 @@ define([
             $rootScope.$on('toggleAccountNav', function(e, res) {
                 $scope.dropdownItem.isExpanded = false;
             });
+
+            $scope.currentYear = new Date().getFullYear();
 
             $scope.setActive = function(text){
 

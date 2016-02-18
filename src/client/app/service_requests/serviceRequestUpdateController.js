@@ -203,7 +203,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                        title:"SERVICE_REQUEST.DETAILS_UPDATE_REQUEST_FOR_SUBMITTED",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                     },
                     descriptionDetail: {

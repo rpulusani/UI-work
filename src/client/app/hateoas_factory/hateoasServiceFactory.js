@@ -138,6 +138,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
+                this.tempSpace = null;
                 this.data = [];
             };
 
