@@ -14,7 +14,7 @@ define([
         'UserService',
         'AccountService',
         'HATEAOSConfig',
-        'gatekeeper-cookie-compat',
+        '$cookies',
         '$http',
         '$window',
         'SecurityService',
@@ -29,8 +29,7 @@ define([
             HATEAOSConfig,
             $cookies,
             $http,
-            $window
-            $http,
+            $window,
             SecurityService
             ) {
 
@@ -50,7 +49,7 @@ define([
             });
 
             $scope.removeImpersonate = function() {
-                $cookies.remove('impersonateToken');
+                delete $cookies['impersonateToken'];
                 $window.location.reload();
             };
 
