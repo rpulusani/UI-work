@@ -30,7 +30,6 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 if(gridApi && gridApi.selection){
                     gridApi.selection.on.rowSelectionChanged($rootScope,
                         function(row){
-                            console.log('row', row);
                             if(row.isSelected){
                                 //add if not already there
                                 $rootScope.currentRowList.push(row);

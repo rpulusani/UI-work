@@ -14,7 +14,9 @@ define([
         'UserService',
         'AccountService',
         'HATEAOSConfig',
+        'gatekeeper-cookie-compat',
         '$http',
+        '$window',
         function(
             $scope,
             $rootScope,
@@ -24,7 +26,9 @@ define([
             Users,
             Accounts,
             HATEAOSConfig,
-            $http
+            $cookies,
+            $http,
+            $window
             ) {
 
             $scope.items = Nav.items;
@@ -35,13 +39,15 @@ define([
             $scope.isInternal = false;
 
             $rootScope.currentUser.deferred.promise.then(function() {
-                //console.log('$rootScope.currentUser', $rootScope.currentUser);
                 if ($rootScope.currentUser.type === 'INTERNAL') {
-                    //console.log('in condition', $rootScope.currentUser.type);
                     $scope.isInternal = true;
-                    //console.log('$scope.isInternal', $scope.isInternal);
                 }
             });
+
+            $scope.removeImpersonate = function() {
+                $cookies.remove('impersonateToken');
+                $window.location.reload();
+            };
 
             $scope.getItemsByTag = function(tag){
                 return Nav.getItemsByTag(tag);
