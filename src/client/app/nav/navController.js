@@ -14,7 +14,9 @@ define([
         'UserService',
         'AccountService',
         'HATEAOSConfig',
+        '$cookies',
         '$http',
+        '$window',
         'SecurityService',
         function(
             $scope,
@@ -25,7 +27,9 @@ define([
             Users,
             Accounts,
             HATEAOSConfig,
+            $cookies,
             $http,
+            $window,
             SecurityService
             ) {
 
@@ -43,6 +47,11 @@ define([
                     $scope.isInternal = true;
                 }
             });
+
+            $scope.removeImpersonate = function() {
+                delete $cookies['impersonateToken'];
+                $window.location.reload();
+            };
 
             $scope.getItemsByTag = function(tag){
                 return Nav.getItemsByTag(tag);

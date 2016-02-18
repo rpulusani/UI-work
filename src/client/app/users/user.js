@@ -10,6 +10,11 @@ define(['angular'], function(angular) {
             templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController'
         })
+        .when('/impersonate', {
+            templateUrl: '/app/users/templates/impersonate-view.html',
+            controller: 'ImpersonateUserListController',
+            activeItem: '/impersonate'
+        })
         .when('/delegated_admin/return/:returnParam', {
             templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController',

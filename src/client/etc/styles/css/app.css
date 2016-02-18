@@ -303,7 +303,6 @@ p.info-list .item-name:after {
 .title h1 {
   padding: 0 20px;
   position: absolute;
-  top: 18px;
 }
 @media only screen and (min-width: 74em) {
   .title h1 {
@@ -1159,12 +1158,12 @@ ul.status-details {
 }
 .theme--dark .rail-nav a.nav-item-account:hover,
 .theme--dark .rail-nav a.nav-item-account:focus {
-  background-color:  #44434e;
+  background-color: #44434e;
   border-color: #44434e;
   color: #3af23a;
 }
 .theme--dark .rail-nav a.nav-item-account.is-active {
-  background-color:  #44434e;
+  background-color: #44434e;
   border-color: #44434e;
   color: #fff;
 }

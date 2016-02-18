@@ -24,6 +24,13 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                         {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true},
                         {'name': 'Roles', 'field': 'getRoles()', 'notSearchable':true}
                     ],
+                    impersonateSet: [
+                        {'name': 'User ID', 'field': 'userId', 'notSearchable': true, dynamic: false},
+                        {'name': 'First Name', 'field':'firstName'},
+                        {'name': 'Last Name', 'field':'lastName'},
+                        {'name': 'Email', 'field': 'email'},
+                        {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true}
+                    ],
                     invitedSet: [
                         {'name': 'Status', 'field': 'invitedStatus','notSearchable':true},
                         {'name': 'Invitation date', 'field':'getFormattedCreateDate()'},

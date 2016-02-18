@@ -80,6 +80,7 @@ requirejs.config({
             'user',
             'user.factory',
             'user.userInfoFactory',
+            'user.impersonateFactory',
             'user.userAdministrationFactory',
             'user.lexmarkUserFactory',
             'user.roleFactory',
@@ -89,6 +90,7 @@ requirejs.config({
             'user.userAddController',
             'user.lexmarkUserAddController',
             'user.lexmarkUserListController',
+            'user.impersonateUserListController',
             'user.usersController',
             'user.userTabController',
             'user.manageUserTabController',
@@ -143,6 +145,7 @@ requirejs.config({
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
+        'user.impersonateFactory': ['user'],
         'user.userInfoFactory': ['user'],
         'user.allAccountFactory': ['user'],
         'user.userAdministrationFactory': ['user'],
@@ -158,6 +161,7 @@ requirejs.config({
         'user.manageUserController': ['user'],
         'user.manageUserTabController': ['user'],
         'user.invitedUserController': ['user'],
+        'user.impersonateUserListController': ['user'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -290,6 +294,7 @@ requirejs.config({
         'user.userAdministrationFactory': 'app/users/userAdministrationFactory',
         'user.lexmarkUserFactory': 'app/users/lexmarkUserFactory',
         'user.roleFactory': 'app/users/roleFactory',
+        'user.impersonateFactory': 'app/users/impersonateFactory',
         'user.directives': 'app/users/directives',
         'user.userAddController': 'app/users/userAddController',
         'user.lexmarkUserListController': 'app/users/lexmarkUserListController',
@@ -300,6 +305,7 @@ requirejs.config({
         'user.manageUserTabController': 'app/users/manageUserTabController',
         'user.manageUserController': 'app/users/manageUserController',
         'user.invitedUserController': 'app/users/invitedUserController',
+        'user.impersonateUserListController': 'app/users/impersonateUserListController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',

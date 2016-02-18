@@ -1,4 +1,4 @@
-define(['angular', 'angular-mocks', 'nav', 'fixtures'],
+define(['angular', 'angular-mocks', 'nav', 'fixtures', 'angular-gatekeeper'],
     function(angular, mocks, nav, fixtures) {
         describe('Nav Module', function() {
             var scope,
@@ -9,9 +9,10 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures'],
 
             beforeEach(module('mps'));
 
-            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Nav) {
+            beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Nav, $cookies) {
                 scope = $rootScope.$new();
                 httpBackend = $httpBackend;
+                cookies = $cookies;
                 location = $location;
                 mockNavFactory = Nav;
                 mockCtrl = $controller('NavController', {$scope: scope});

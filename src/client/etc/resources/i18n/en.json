@@ -1600,6 +1600,8 @@
 
         "USER": {
             "INVITATION": "Invitations",
+            "IMPERSONATE_TITLE": "Impersonate User",
+            "IMPERSONATE_BUTTON": "IMPERSONATE USER",
             "USERS": "Users ({{total}} total users)",
             "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",
@@ -1806,7 +1808,9 @@
             "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "FAQ": "FAQ Page is coming soon",
             "LEARN_MORE": "Learn More Page is coming soon",
-            "HELP": "Help Page is coming soon"
+            "HELP": "Help Page is coming soon",
+            "IMPERSONATE": "Currently viewing the portal as [{{user}}]. Impersonating a user allows read-only functionality. Submitting actions is not permitted.",
+            "EXIT_IMPERSONATION": "Exit impersonation"
         },
 
     "INVOICE": {
