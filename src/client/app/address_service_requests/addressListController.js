@@ -39,7 +39,8 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
-
+            ServiceRequest.reset();
+            
             $scope.addresses = Addresses;
 
             $scope.goToLbs = function(){
