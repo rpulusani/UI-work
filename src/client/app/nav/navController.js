@@ -159,6 +159,8 @@ define([
                 $scope.dropdownItem.isExpanded = false;
             });
 
+            $scope.currentYear = new Date().getFullYear();
+
             $scope.setActive = function(text){
 
             };
