@@ -322,6 +322,10 @@ define([
                 ]
             },
             {
+                name: 'documentLibraryViewStrategicAccess',
+                permission: permissionSet.contentManagement.viewStrategic
+            },
+            {
                 name: 'documentLibraryUploadAccess',
                 permission: permissionSet.contentManagement.upload
             },
