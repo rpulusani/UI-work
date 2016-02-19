@@ -128,12 +128,11 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                                 }
                             }
                         } else {
+                            // else, send all from $scope.accounts
                             for (var i = 0; i < $scope.accounts.length; i++) {
                                 accessToSend.push($scope.accounts[i].accountValue);
                             }
                         }
-                        // else, send all from $scope.accounts except those in the $scope.selectedAccounts
-
                     }
 
                     if (accessToSend.length > 1) {
