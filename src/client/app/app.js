@@ -187,6 +187,7 @@ define([
         'angular-gatekeeper',
         'mps.form',
         'mps.filterSearch',
+        'mps.notifications',
         'ui.grid',
         'ui.grid.edit',
         'ui.grid.rowEdit',
@@ -221,6 +222,7 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .constant('adminUrl', config.portal.adminUrl)
     .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
@@ -305,12 +307,13 @@ define([
             embeddedNamedResources: true
         });
     })
-    .config(function(GatekeeperProvider, serviceUrl){
+    .config(function(GatekeeperProvider, serviceUrl, adminUrl){
         GatekeeperProvider.configure({
             serviceUri: config.idp.serviceUrl,
             clientId: config.idp.clientId
         });
         GatekeeperProvider.protect(serviceUrl);
+        GatekeeperProvider.protect(adminUrl);
     })
 
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',

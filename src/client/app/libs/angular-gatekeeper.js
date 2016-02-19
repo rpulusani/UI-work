@@ -56,7 +56,10 @@ function($routeParams, Gatekeeper, $location, $cookies, $http, $window, $timeout
     return {
       request: function(config) {
         if(Gatekeeper.isProtected(config.url)) {
-          if(!config.headers) config.headers = {};
+          if(!config.headers) {
+            config.headers = {};
+          }
+          //config.headers.Authorization = 'Bearer ' + Gatekeeper.accessToken;
           if ($cookies.get('impersonateToken')) {
             $rootScope.impersonate = true;
             config.headers.Authorization = $cookies.get('impersonateToken');

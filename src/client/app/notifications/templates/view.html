@@ -1,0 +1,13 @@
+<div class="page-header">
+    <h1 translate="PORTAL_ADMIN.NOTIFICATION_TITLE"></h1>
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
+    <div class="col-1 btns">
+        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.CREATE_NEW_NOTIFICATION_BTN" 
+        	ng-click="goToCreate()"></button>
+    </div>
+</div>
+<div class="page-content">
+    <div grid-filter options="filterOptions" params="optionParams"></div>
+    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+    <div pagination grid="{{gridOptions}}"></div>
+</div>

@@ -79,6 +79,13 @@ requirejs.config({
             'account.roleFactory',
             'account.accountController',
 
+            'notification',
+            'notification.notificationFactory',
+            'notification.notificationController',
+            'notification.directives',
+            'notification.createNotificationController',
+            'notification.manageNotificationController',
+
             'user',
             'user.factory',
             'user.userInfoFactory',
@@ -164,6 +171,13 @@ requirejs.config({
         'user.manageUserTabController': ['user'],
         'user.invitedUserController': ['user'],
         'user.impersonateUserListController': ['user'],
+
+        'notification': ['angular'],
+        'notification.notificationFactory': ['notification'],
+        'notification.notificationController': ['notification'],
+        'notification.directives': ['notification'],
+        'notification.createNotificationController': ['notification'],
+        'notification.manageNotificationController': ['notification'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -291,6 +305,13 @@ requirejs.config({
         'account.accountFactory': 'app/accounts/accountFactory',
         'account.roleFactory': 'app/accounts/roleFactory',
         'account.accountController': 'app/accounts/accountController',
+
+        'notification': 'app/notifications/notification',
+        'notification.notificationFactory': 'app/notifications/notificationFactory',
+        'notification.notificationController': 'app/notifications/notificationListController',
+        'notification.directives': 'app/notifications/directives',
+        'notification.createNotificationController': 'app/notifications/createNotificationController',
+        'notification.manageNotificationController': 'app/notifications/manageNotificationController',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

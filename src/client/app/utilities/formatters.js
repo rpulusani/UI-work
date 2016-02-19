@@ -212,6 +212,10 @@ define(['angular', 'utility'], function(angular) {
                     var d = new Date(dateToBeFormatted);
                     return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
                 },
+                formatDateForAdmin: function(dateToBeFormatted){
+                    var d = new Date(dateToBeFormatted);
+                    return $filter('date')(d, 'yyyy-MM-dd');
+                },
                 formatAddresswoPhysicalLocation: function(address){
                     var formattedAddress = '';
                     if (BlankCheck.checkNotNullOrUndefined(address) ) {

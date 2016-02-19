@@ -24,6 +24,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     throw new Error('Grid Options onRegisterAPI was not setup, possibly missing rootScope, Service Definition or Personalization');
                 }
                 var self = this;
+                var $ = require('jquery');
                 self.Grid = new GridService();
                 self.service = serviceDefinition;
                 self.localScope = scope;
