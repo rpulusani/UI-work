@@ -29,6 +29,13 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             OrderTypes
         ) {
 
+            var statusBarLevels = [
+            { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+            { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+            { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+            { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+            { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
             if(!ServiceRequest || !ServiceRequest.item){
@@ -78,23 +85,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         attachements: true
                     },
                 },
-                statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels)
             };
             function addDeviceInformation(){
                 $scope.configure.device = {
@@ -261,32 +252,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     print: true
                 };
             }
-
-            var statusBarLevels = [$translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED')];
-
-            $scope.setStatusBar = function(currentStatus, statusDate){
-                var statusItem = {};
-                //$scope.configure.statusList
-
-                var formattedStatusDate = FormatterService.formatNoneIfEmpty(FormatterService.formatDate(statusDate));
-
-                statusList["label"] = currentStatus;
-                statusList["date"] = formattedStatusDate;
-                statusList["current"] = false;
-
-                for(var i=0; i<statusBarLevels.length; i++){
-                    if(statusList.label === statusBarLevels){
-                        console.log("Number is " + i);
-                        statusList.push(statusList);
-                        statusList.current = true;
-                    }
-                }
-
-                console.log(statusList);
-            };
-
-            $scope.setStatusBar("SUBMITTED", "2016-02-18T08:41:26");
-
 
             $scope.goToServiceCancel = function(requestNumber, type){
                 ServiceRequest.tempSpace = {};
