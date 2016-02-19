@@ -78,9 +78,9 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $location.path(Addresses.route + '/new');
             };
             $scope.goToServiceCreate = function(){
-                $location.search('tab', null);
+                $location.search('tab', 'orderTab');
                 Devices.item = {};
-                $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
+                $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, 'device_management/' + Devices.item.id + '/review');
             };
         }
     ]);

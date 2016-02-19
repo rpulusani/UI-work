@@ -466,6 +466,40 @@
             "TXT_PURCHASE_ORDER":"Purchase order number"
         }
     },
+     "ORDER_CATALOGS":{
+            "COMMON":{
+                  "TXT_ACCOUNT":"Account",
+                  "TXT AGREEMENT":"Agreement",
+                  "TXT_CONTRACT": "Contract",
+                  "TXT_PAYMENT_DETAILS":"Payment details",
+                  "TXT_CATALOG_TYPE":"Catalog type",
+                  "TXT_AGREEMENT_SELECTION": "Which Agreement would you like to place this order for?",
+                  "TXT_CONTRACT_SELECTION": "Please select a contract",
+                  "TXT_PAY_SELECTION":"Do you want to Pay Now or Pay Later?",
+                  "TXT_PAY_NOW":"Pay Now",
+                  "TXT_PAY_LATER": "Pay Later",
+                  "TXT_CATALOG_SELECTION": "Which catalog do you want to order from?",
+                  "TXT_DEVICE_CATALOG": "Device catalog",
+                  "TXT_ACCESSORIES_CATALOG":"Accessories catalog",
+                  "BTN_REVIEW_AND_SUBMIT":"REVIEW AND SUBMIT ORDER"
+            },
+            "DEVICE_CATALOG":{
+                  "TXT_DEVICE_CATALOG_ORDER": "Device Catalog Order",
+                  "TXT_DEVICE_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+                  "BTN_DEVICE_ORDER_ABANDON":"ABANDON DEVICE ORDER",
+                  "BTN_DEVICE_ORDER_SUBMIT":"BROWSE DEVICES AVAILABLE FOR THIS CONTRACT"
+            },
+            "SUPPLIES_CATALOG":{
+                  "TXT_SUPPLIES_CATALOG_ORDER":"New Supplies Order",
+                  "TXT_SUPPLIES_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+                  "BTN_ORDER_ABANDON_SUPPLIES":"ABANDON SUPPLIES ORDER",
+                  "BTN_ORDER_SUBMINT_SUPPLIES":"BROWSE SUPPLIES AVAILABLE ON THIS CONTRACT"
+            },
+            "RECEIPT":{
+                  "TXT_DETAIL_TITLE":"Details for Device Order Number: {{srNumber}}",
+                  "TXT_PARA": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+            }
+      },
 
     "REQUEST_MAN": {
         "COMMON": {
@@ -1467,6 +1501,7 @@
                 "TXT_ADD_NEW_DOCUMENT_PAR" : "TBD",
                 "TXT_BROWSE_FILE" : "Browse file",
                 "TXT_CAN_SEE" : "Can see",
+                "TXT_CAN_NOT_SEE" : "Can not see",
                 "TXT_GRID_ACCOUNT_NAME" : "Account name",
                 "TXT_GRID_VISIBILITY" : "Visibility",
                 "TXT_LIMIT_ACCESS_STRATEGIC" : "Limit to strategic access",
@@ -1842,6 +1877,8 @@
         "ORDER_SEARCH": "What order are you looking for?",
         "MANAGE_ORDERS": "Manage Orders",
         "ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR DEVICE",
+        "BTTN_ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR THIS DEVICE",
+        "BTTN_ABANDON_SUPPLIES":"ABANDON DEVICE SUPPLY ORDER",
         "ORDER_NEW_DEVICE": "ORDER NEW DEVICE",
         "RETURN_SUPPLIES": "RETURN SUPPLIES",
         "ORDER_SUPPLIES_CATALOG": "ORDER FROM SUPPLIES CATALOG",

@@ -31,23 +31,24 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
 
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         OrderItems.data = [];
+        if(Devices.item){
+            Devices.getAdditional(Devices.item, AssetParts).then(function(){
+                var Grid = new GridService();
+                $scope.assetParts = AssetParts.data;
+                $scope.catalogOptions = {};
+                $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
+                                AssetParts, personal,'catalogAPI');
+                Grid.setGridOptionsName('catalogOptions');
+                $scope.catalogOptions.showBookmarkColumn = false;
+                $scope.catalogOptions.enableRowHeaderSelection = false;
+                $scope.catalogOptions.enableFullRowSelection = false;
 
-        Devices.getAdditional(Devices.item,AssetParts).then(function(){
-            var Grid = new GridService();
-            $scope.assetParts = AssetParts.data;
-            $scope.catalogOptions = {};
-            $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
-                            AssetParts, personal,'catalogAPI');
-            Grid.setGridOptionsName('catalogOptions');
-            $scope.catalogOptions.showBookmarkColumn = false;
-            $scope.catalogOptions.enableRowHeaderSelection = false;
-            $scope.catalogOptions.enableFullRowSelection = false;
-
-            AssetParts.getThumbnails();
-            $q.all(AssetParts.thumbnails).then(function(){
-                Grid.display(AssetParts,$scope,personal, 92);
+                AssetParts.getThumbnails();
+                $q.all(AssetParts.thumbnails).then(function(){
+                    Grid.display(AssetParts,$scope,personal, 92);
+                });
             });
-        });
+        }
 
         $scope.selectRow = function(row){
             row.enableSelection = true;

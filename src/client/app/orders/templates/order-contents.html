@@ -68,7 +68,7 @@
                 </tfoot>
             </table>
             <div class="row" ng-if="editable === 'true'">
-                <div class="col-1">
+                <div class="col-1" ng-hide="hideSubmit">
                     <button type="button" class="push btn btn--default horizontal-margin-right-0" ng-click="submit();"
                         translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.BTN_NEW_ORDER_SUBMIT" ng-disabled="submitDisable()"></button>
                 </div>

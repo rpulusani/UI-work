@@ -50,6 +50,23 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                  $window.open(lbsURL + "?sno=" + $scope.device.serialNumber);
             };
 
+            $scope.configure = {
+                devicePicker: {
+                    singleDeviceSelection: true,
+                    readMoreUrl: '',
+                    translate: {
+                        replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
+                        h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
+                        body: 'MESSAGE.LIPSUM',
+                        readMore: '',
+                        confirmation:{
+                            abandon:'ORDER_MGT.BTTN_ABANDON_SUPPLIES',
+                            submit: 'ORDER_MGT.BTTN_ORDER_SUPPLIES_DEVICE'
+                        }
+                    }
+                }
+            };
+
             $scope.view = function(SR){
               ServiceRequest.setItem(SR);
                 var options = {

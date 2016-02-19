@@ -32,8 +32,11 @@ define([
     'order.factory',
     'order.orderTypeFactory',
     'order.orderStatusFactory',
+    'order.hardwareCatalogFactory',
+    'order.suppliesCatalogFactory',
     'order.directives',
     'order.orderListController',
+    'order.catalogController',
     'order.deviceOrderListController',
     'order.supplyOrderListController',
     'order.tabController',
@@ -43,7 +46,11 @@ define([
     'order.assetsPartsFactory',
     'order.orderContentsController',
     'order.orderPurchaseController',
+    'order.orderCatalogPurchaseController',
     'order.returnOrdersController',
+    'order.agreementCatalogController',
+    'order.agreementFactory',
+    'order.contractFactory',
     'contact',
     'contact.contactController',
     'contact.contactDeleteController',
@@ -320,6 +327,10 @@ define([
                     permissionSet.contentManagement.viewNonstrategic,
                     permissionSet.contentManagement.viewStrategic
                 ]
+            },
+            {
+                name: 'documentLibraryViewStrategicAccess',
+                permission: permissionSet.contentManagement.viewStrategic
             },
             {
                 name: 'documentLibraryUploadAccess',

@@ -1,0 +1,44 @@
+<div sr-header></div>
+<div class="page-content">
+    <div ng-if="configure.header.subHeader">
+        <h2 translate="{{configure.header.subHeader.translate.title}}" class="vertical-margin-bottom-0"></h2>
+        <hr class="vertical-margin-bottom-48"/>
+    </div>
+    <div order-account-detials class="vertical-margin-bottom-72"></div>
+    <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems"
+    hide-submit="hideSubmitButton" configure="configure"></div>
+    <div order-ship-to-bill-to-details></div>
+    <div order-po-number></div>
+    <div request-contacts></div>
+    <div class="col-lg-2-3 col-md-1-1">
+    <form class="form" data-form="" name="reviewDetail" novalidate>
+        <div sr-cancel></div>
+        <h2 translate="{{configure.detail.translate.title}}"></h2>
+
+        <div class="form__field" ng-if="configure.detail.show.referenceId">
+            <label translate="{{configure.detail.translate.referenceId}}"></label>
+            <input name="internalReferenceId" type="text" class="" value="" ng-model="sr.customerReferenceId" />
+        </div>
+
+        <div class="form__field" ng-if="configure.detail.show.costCenter">
+            <label translate="{{configure.detail.translate.costCenter}}"></label>
+            <input name="requestCostCenter" type="text" class="" value="" ng-model="sr.costCenter" />
+        </div>
+
+        <div class="form__field" ng-if="configure.detail.show.comments">
+            <label translate="{{configure.detail.translate.comments}}"></label>
+            <textarea name="comments" type="text" rows="8" cols="129" ng-model="sr.notes"></textarea>
+        </div>
+
+        <div class="form__field" ng-if="configure.detail.show.attachements">
+            <label translate="{{configure.detail.translate.attachments}}"></label>
+            <input name="attachments" type="file" multiple="multiple" />
+            <div class="form__field__helper-text"
+                translate="{{configure.detail.translate.attachmentMessage}}"
+                translate-values="{file_list: configure.detail.translate.fileList}"
+            ></div>
+        </div>
+
+        <div sr-form-buttons></div>
+    </form>
+</div>

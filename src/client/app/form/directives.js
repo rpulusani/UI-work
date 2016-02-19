@@ -155,6 +155,9 @@ angular.module('mps.form')
                      option = item;
                    }
                  });
+                 if(val == '-Select-'){
+                  option = {};
+                 }
                  scope.onSelect({option: option});
                }
              });

@@ -9,17 +9,19 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             } else {
                 $scope.documentItem = Documents.item;
 
-                $http({
-                    method: 'GET',
-                    url: $scope.documentItem.download.url,
-                    responseType:'arraybuffer'
-                }).then(function successCallback(response) {
-                    var file = new Blob([response.data], {type: 'application/pdf'});
-                    var fileURL = URL.createObjectURL(file);
-                    $scope.pdfSource = $sce.trustAsResourceUrl(fileURL);
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to LOAD existing document library file: ' + response.statusText);
-                });
+                if ($scope.documentItem.ext === 'pdf') {
+                    $http({
+                        method: 'GET',
+                        url: $scope.documentItem.download.url,
+                        responseType:'arraybuffer'
+                    }).then(function successCallback(response) {
+                        var file = new Blob([response.data], {type: 'application/pdf'});
+                        var fileURL = URL.createObjectURL(file);
+                        $scope.pdfSource = $sce.trustAsResourceUrl(fileURL);
+                    }, function errorCallback(response) {
+                        NREUM.noticeError('Failed to LOAD existing document library file: ' + response.statusText);
+                    });
+                }
             }
 
             $scope.isDeleting = false;

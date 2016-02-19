@@ -93,7 +93,7 @@ define(['angular', 'utility'], function(angular) {
                      params: {}
                 }).success(function(data, status, headers, config) {
                     if(!data){
-                        deferred.resolve(medUrl);
+                        deferred.resolve(standardUrl);
                         return;
                     } else {
                         data = $.parseXML(data);
