@@ -1,8 +1,8 @@
 define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams',
-        function(GridService, HATEOASFactory, $routeParams) {
+    .factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams', '$q',
+        function(GridService, HATEOASFactory, $routeParams, $q) {
             var localScope = {},
             service,
             display,
