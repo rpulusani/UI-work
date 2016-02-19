@@ -81,7 +81,7 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 $scope.chartOptions.pieChartOptions = {
                     backgroundColor: '#eff0f6',
                     enableInteractivity: true,
-                    fontSize: 30,
+                    fontSize: 36,
                     fontName: 'tpHero',
                     legend: {
                         position: 'none'
