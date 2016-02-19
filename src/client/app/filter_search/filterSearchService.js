@@ -10,7 +10,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
             columnSet,
             personalization,
 
-            FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight, OptionName){
+            FilterSearchService = function(serviceDefinition, scope, rootScope, personalization, columnSet, rowHeight, OptionName, beforeFunction){
                 if(!serviceDefinition){
                     throw new Error('Service Definition is Required!');
                 }
@@ -29,6 +29,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 self.localScope = scope;
                 // do we have grid data
                 self.localScope.gridDataCnt = 0;
+                this.beforeFunction  = beforeFunction;
                 self.localScope.gridLoading = true;
                 self.columnSet = columnSet;
                 self.personalization = personalization;
@@ -37,25 +38,36 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                         self.service.columns = self.columnSet;
                     }
 
-                    if (rowHeight) {
-                        self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
+                    if(!$.isFunction(this.beforeFunction)){
+                        this.beforeFunction = function(){
+                            var deferred = $q.defer();
+                            deferred.resolve();
+                            return deferred.promise;
+                        };
+                    }
+
+                    var deferred = this.beforeFunction();
+                    deferred.then(function(){
+                        if (rowHeight) {
+                            self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
                             self.localScope.gridDataCnt = self.service.data.length;
                             self.localScope.gridLoading = false;
 
-                            if (typeof fn === 'function') {
-                                return fn(self.Grid);
-                            }
-                        });
-                    } else {
-                        self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
+                                if (typeof fn === 'function') {
+                                    return fn(self.Grid);
+                                }
+                            });
+                        } else {
+                            self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
                             self.localScope.gridDataCnt = self.service.data.length;
                             self.localScope.gridLoading = false;
                             
-                            if (typeof fn === 'function') {
-                                return fn(self.Grid);
-                            }
-                        });
-                    }
+                                if (typeof fn === 'function') {
+                                    return fn(self.Grid);
+                                }
+                            });
+                        }
+                    });
                 };
                 this.failure = function(reason){
                     NREUM.noticeError('Grid Load Failed for ' + self.service.serviceName +  ' reason: ' + reason);
@@ -89,7 +101,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 if (rowHeight) {
                     this.localScope[self.Grid.optionsName].rowHeight = rowHeight;
                 }
-                this.localScope.gridOptions.onRegisterApi = self.Grid.getGridActions(rootScope,
+                this.localScope[self.Grid.optionsName].onRegisterApi = self.Grid.getGridActions(rootScope,
                         this.service, this.personalization);
 
             };
@@ -119,7 +131,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                                 if (removeParams[i] === 'preventDefaultParams') {
                                     var preventDefaultParams = {
                                         'preventDefaultParams': true
-                                    }
+                                    };
                                     angular.extend(options, preventDefaultParams);
                                 }
                                 delete options.params[removeParams[i]];

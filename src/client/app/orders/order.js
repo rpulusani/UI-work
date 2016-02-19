@@ -36,14 +36,21 @@ define(['angular'], function(angular) {
             templateUrl: '/app/orders/templates/create-asset-supplies.html',
             activeItem: '/orders'
         })
-        .when('/orders/create_hardware', {
-            templateUrl: '/app/orders/templates/create-hardware.html',
-            activeItem: '/orders'
-        })
+
         .when('/orders/supply/return/review', {
             templateUrl: '/app/service_requests/templates/review.html',
             controller: 'ReturnOrdersController',
             activeItem: '/orders'
+        })
+        .when('/orders/catalog/:type/review', {
+                templateUrl: '/app/orders/templates/review.html',
+                controller: 'OrderCatalogPurchaseController',
+                activeItem: '/orders'
+        })
+        .when('/orders/catalog/:type/receipt/:queued', {
+                templateUrl: '/app/orders/templates/receipt.html',
+                controller: 'OrderCatalogPurchaseController',
+                activeItem: '/orders'
         })
         .when('/orders/purchase/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
@@ -65,8 +72,14 @@ define(['angular'], function(angular) {
             controller: 'ReturnOrdersController',
             activeItem: '/orders'
         })
-        .when('/orders/create_catalog_supplies', {
-            templateUrl: '/app/orders/templates/create-catalog-supplies.html',
+        .when('/orders/catalog/:type', {
+            templateUrl: '/app/orders/templates/select-catalog.html',
+            controller:'AgreementCatalogController',
+            activeItem: '/orders'
+        })
+        .when('/orders/catalog/:type/cart', {
+            templateUrl: '/app/orders/templates/catalog-cart.html',
+            controller:'CatalogController',
             activeItem: '/orders'
         });
     }]);

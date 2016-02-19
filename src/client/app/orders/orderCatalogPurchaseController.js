@@ -1,7 +1,7 @@
 define(['angular','order', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.orders')
-    .controller('OrderPurchaseController', [
+    .controller('OrderCatalogPurchaseController', [
         '$scope',
         '$location',
         '$rootScope',
@@ -18,8 +18,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'FormatterService',
         "$routeParams",
         'TombstoneService',
-        'tombstoneWaitTimeout',
         'ServiceRequestService',
+        'UserService',
         function(
             $scope,
             $location,
@@ -37,36 +37,111 @@ define(['angular','order', 'utility.grid'], function(angular) {
             FormatterService,
             $routeParams,
             Tombstone,
-            tombstoneWaitTimeout,
-            ServiceReqeust) {
-
+            ServiceReqeust,
+            Users) {
+            $rootScope.currentRowList = [];
             SRHelper.addMethods(Orders, $scope, $rootScope);
+            $scope.print = false;
+            $scope.export = false;
             $scope.editable = false; //make order summary not actionable
-
+            $scope.hideSubmitButton = true;
             $scope.isLoading = false;
+            if($routeParams.type){
+                $scope.type = $routeParams.type.toUpperCase();
+            }
 
             var configureSR = function(Orders){
                     if(Orders.item && !Orders.item.description){
                         Orders.addField('description', '');
                     }
-                    Orders.addRelationship('account', $scope.device, 'account');
-                    Orders.addRelationship('asset', $scope.device, 'self');
-                    Orders.addRelationship('primaryContact', $scope.device, 'contact');
-                    Orders.addField('type', 'SUPPLIES_ASSET_ORDER');
+                    Orders.item['_links']['account'] = {
+                        href: $rootScope.currentAccount.href
+                    };
+                    Orders.addField('paymentMethod','Purchase Order');
+                    Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
+                    Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
+                    switch($scope.type){
+                        case 'SUPPLIES':
+                            Orders.addField('type', 'SUPPLIES_CATALOG_ORDER');
+                         break;
+                         case 'HARDWARE':
+                            Orders.addField('type', 'HARDWARE_ORDER');
+                         break;
+                         case 'ACCESSORIES':
+                            Orders.addField('type', 'HARDWARE_ORDER');
+                         break;
+                         default:
+                         break;
+                    }
+
             };
 
-            if (Devices.item === null) {
-                Orders.item = null;
-                $scope.redirectToList();
-            } else if($rootScope.selectedContact &&
-                $rootScope.returnPickerObject &&
-                $rootScope.selectionId === Devices.item.id){
+            configureTemplates();
+
+            if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
+                Orders.tempSpace.catalogCart.billingModels){
+                var isShipBill =  $.inArray('SHIP_AND_BILL', Orders.tempSpace.catalogCart.billingModels);
+                if(isShipBill > 0){
+                    $scope.paymentMethod = 'SHIP_AND_BILL';
+                }else if(Orders.tempSpace.catalogCart.billingModels.length > 0){
+                    $scope.paymentMethod = 'payLater';
+                }
+            }else{
+                $scope.paymentMethod = 'Error';
+            }
+            $scope.formatAdditionalData = function() {
+                if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)) {
+                        $scope.requestedByContactFormatted = FormatterService.formatContact(Orders.tempSpace.requestedByContact);
+                }
+
+                if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
+                        $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
+                }
+
+                if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                        $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
+                }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                    $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.billToAddress);
+                }
+
+                if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                        $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+                }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                    $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
+                }
+
+                if (Orders.item){
+                        $scope.formattedExpedite = FormatterService.formatYesNo(Orders.item.expediteOrder);
+                        $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
+                            FormatterService.formatDate(Orders.item.requestedDeliveryDate));
+                        $scope.formattedPONumber = FormatterService.formatNoneIfEmpty(Orders.item.purchaseOrderNumber);
+                        $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
+                }
+        };
+
+                $scope.getRequestor = function(Orders, Contacts) {
+                Users.getLoggedInUserInfo().then(function() {
+                    Users.item.links.contact().then(function() {
+                        Orders.tempSpace.requestedByContact = Users.item.contact.item;
+                        Orders.addRelationship('requester', Orders.tempSpace.requestedByContact, 'self');
+                        if(!Orders.tempSpace.primaryContact){
+                            Orders.tempSpace.primaryContact = Orders.tempSpace.requestedByContact;
+                            Orders.addRelationship('primaryContact', Orders.tempSpace.requestedByContact, 'self');
+                        }
+                        $scope.formatAdditionalData();
+                    });
+                });
+            };
+
+            if($rootScope.selectedContact &&
+                $rootScope.returnPickerObject){
                     configureSR(Orders);
-                    Devices.item = $rootScope.returnPickerObject;
+                    Orders.item = $rootScope.returnPickerObject;
                     $scope.sr = $rootScope.returnPickerSRObject;
                     Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                    Devices.item.contact.item = angular.copy($rootScope.selectedContact);
+                    Orders.tempSpace.primaryContact= angular.copy($rootScope.selectedContact);
                     $scope.resetContactPicker();
+                    $scope.formatAdditionalData();
 
             } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
                 configureSR(Orders);
@@ -74,6 +149,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
                 Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
                 $scope.resetAddressBillToPicker();
+                $scope.formatAdditionalData();
 
             } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){
                 configureSR(Orders);
@@ -81,21 +157,18 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
                 Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
                 $scope.resetAddressShipToPicker();
-
+                $scope.formatAdditionalData();
             } else{
-                if(!Orders.tempSpace){
-                    Orders.tempSpace = {};
-                }
-                $rootScope.device = Devices.item;
+                configureSR(Orders);
             }
+
             function intitilize(){
                 $scope.setupSR(Orders, configureSR);
                 $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
             }
-            if($rootScope.device){
+
                 intitilize();
                 $scope.getRequestor(Orders, Contacts);
-            }
 
             function configureReviewTemplate(){
                 configureTemplates();
@@ -110,35 +183,37 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 $scope.configure.actions.submit = function(){
                     if(!$scope.isLoading){
                        $scope.isLoading = true;
-                       if(Orders.item.requestedDeliveryDate){
-                            Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
-                       }
-                       Orders.addField('orderItems', OrderItems.buildSrArray());
-                       var deferred = Orders.post({
-                             item:  $scope.sr
-                        });
+                       for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
+                           Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[i]);
+                           if(Orders.item.requestedDeliveryDate){
+                                Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
+                           }
+                           Orders.addField('orderItems', OrderItems.buildSrArray());
+                           var deferred = Orders.post({
+                                 item:  $scope.sr
+                            });
 
-                        deferred.then(function(result){
-                            if(Orders.item._links['tombstone']){
-                                $timeout(function(){
-                                        Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
-                                            if(Tombstone.item && Tombstone.item.siebelId){
-                                                $location.search('tab',null);
-                                                Orders.item.requestNumber = Tombstone.item.siebelId;
-                                                ServiceReqeust.item = Orders.item;
-                                                $location.path(Orders.route + '/purchase/receipt/notqueued');
-                                            }else{
+                            deferred.then(function(result){
+                                if(Orders.item._links['tombstone']){
+                                    $timeout(function(){
+                                            Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+                                                if(Tombstone.item && Tombstone.item.siebelId){
+                                                    $location.search('tab',null);
+                                                    Orders.item.requestNumber = Tombstone.item.siebelId;
+                                                    ServiceReqeust.item = Orders.item;
+                                                    $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
+                                                }else{
 
-                                                $location.search('tab',null);
-                                                $location.search("queued","true");
-                                                $location.path(Orders.route + '/purchase/receipt/queued');
-                                            }
-                                        });
-                                    }, tombstoneWaitTimeout);
-                            }
-                        }, function(reason){
-                            NREUM.noticeError('Failed to create SR because: ' + reason);
-                        });
+                                                    $location.search('tab',null);
+                                                    $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/queued');
+                                                }
+                                            });
+                                        },6000);
+                                }
+                            }, function(reason){
+                                NREUM.noticeError('Failed to create SR because: ' + reason);
+                            });
+                        }
                     }
 
                 };
@@ -211,13 +286,14 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 };
                 $scope.configure.contact.show.primaryAction = false;
             }
+            $scope.formatReceiptData($scope.formatAdditionalData);
             function configureTemplates(){
-                if($scope.device){
                      $scope.configure = {
+                        cart:Orders.tempSpace.catalogCart,
                         header: {
                             translate:{
                                 h1: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES',
-                                h1Values:{ productModel: Devices.item.productModel},
+                                h1Values:{ },
                                 body: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES_PAR',
                                 bodyValues: '',
                                 readMore: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_LEARN_MORE'
@@ -275,8 +351,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             show:{
                                 primaryAction : true
                             },
-                            pickerObject: $scope.device,
-                            source: 'OrderPurchase'
+                            pickerObject: Orders.item,
+                            source: 'OrderCatalogPurchase'
                         },
                         detail:{
                             translate:{
@@ -313,55 +389,21 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             },
                             returnPath: Orders.route + '/'
                         },
-                        contactPicker:{
-                            translate:{
-                                title: 'CONTACT.SELECT_CONTACT',
-                                contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
-                            },
-                            returnPath: Orders.route + '/' +  '/review'
-                        },
                         billToPicker:{
                             translate:{
                                 selectedAddressTitle:'ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.TXT_ORDER_SELECT_BILL_TO'
                             },
-                            returnPath: Orders.route + '/' + '/review',
-                            source: 'OrderPurchase',
-                            pickerObject: $scope.device
+                            pickerObject: Orders.item,
+                            source: 'OrderCatalogPurchase'
                         },
                         shipToPicker:{
                             translate:{
                                 selectedAddressTitle:''
                             },
-                            returnPath: Orders.route + '/' + '/review',
-                            source: 'OrderPurchase',
-                            pickerObject: $scope.device
+                            pickerObject: Orders.item,
+                            source: 'OrderCatalogPurchase'
                         }
                     };
-                }
-            }
-
-            if (Devices.item && !BlankCheck.isNull(Devices.item['contact']['item'])){
-                    $scope.formattedPrimaryContact = FormatterService.formatContact(Devices.item['contact']['item']);
-            }
-
-            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
-                    $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
-            }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
-                $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.billToAddress);
-            }
-
-            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
-                    $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
-            }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
-                $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
-            }
-
-            if (Orders.item){
-                    $scope.formattedExpedite = FormatterService.formatYesNo(Orders.item.expediteOrder);
-                    $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
-                        FormatterService.formatDate(Orders.item.requestedDeliveryDate));
-                    $scope.formattedPONumber = FormatterService.formatNoneIfEmpty(Orders.item.purchaseOrderNumber);
-                    $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
             }
         }
     ]);
