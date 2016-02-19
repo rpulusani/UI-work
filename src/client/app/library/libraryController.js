@@ -2,9 +2,28 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
-        'translationPlaceHolder', 'Documents', 'Tags', 'BlankCheck', '$rootScope', 'FormatterService',
-        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, BlankCheck,
+        'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 'FormatterService',
+        function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
             $rootScope, formatter) {
+
+            Users.getTransactionalAccounts().then(function(res) {
+                var accts;
+                $scope.accounts = [];
+
+                if (res._embedded) {
+                    accts = res._embedded.transactionalAccounts;
+
+                    for (var i = 0; i < accts.length; i++) {
+                        $scope.accounts.push({
+                            accountValue: accts[i].account.accountId,
+                            accountLabel: accts[i].account.name
+                        });
+                    }
+                }
+            });
+
+            $scope.selectedAccounts = [];
+            $scope.optionsLimit = "include";
 
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.inputTag = '';
@@ -173,6 +192,31 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             $scope.cancel = function() {
                 redirect_to_list();
             };
+
+            $scope.goToSelectAccount = function() {
+
+                if ($scope.accountSelected === $translate.instant('LABEL.SELECT')) {
+                    return;
+                }
+
+                for (var i = 0; i < $scope.selectedAccounts.length; i++) {
+                    if ($scope.selectedAccounts[i].accountValue === $scope.accountSelected) {
+                        return;
+                    }
+                }
+
+                for (var i = 0; i < $scope.accounts.length; i++) {
+                    if ($scope.accounts[i].accountValue === $scope.accountSelected) {
+                        $scope.accounts[i].visibility = ($scope.optionsLimit === "include") ? $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_SEE") : 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_NOT_SEE';
+                        $scope.selectedAccounts.push($scope.accounts[i]);
+                    }
+                }
+            };
+
+            $scope.goToDeleteSelectedAccount = function(index) {
+                $scope.selectedAccounts.splice(index, 1);
+            };
+
         }
     ]);
 });

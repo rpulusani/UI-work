@@ -1467,6 +1467,7 @@
                 "TXT_ADD_NEW_DOCUMENT_PAR" : "TBD",
                 "TXT_BROWSE_FILE" : "Browse file",
                 "TXT_CAN_SEE" : "Can see",
+                "TXT_CAN_NOT_SEE" : "Can not see",
                 "TXT_GRID_ACCOUNT_NAME" : "Account name",
                 "TXT_GRID_VISIBILITY" : "Visibility",
                 "TXT_LIMIT_ACCESS_STRATEGIC" : "Limit to strategic access",
