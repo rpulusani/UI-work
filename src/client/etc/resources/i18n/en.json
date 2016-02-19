@@ -1672,7 +1672,11 @@
             "ABANDON_SIEBEL_MODAL_CONFIRM": "Yes, abandon this siebel value",
             "DELETE_VALUE": "Delete value",
             "UPDATE_SIEBEL_VALUE": "Update Siebel value - {{siebelValue}}",
-            "DELETE_THIS_SIEBEL_VALUE": "DELETE THIS SIEBEL VALUE"
+            "DELETE_THIS_SIEBEL_VALUE": "DELETE THIS SIEBEL VALUE",
+            "TRANSLATION_MANAGEMENT_TITLE": "Translation Management",
+            "IMPORT_TRANSLATION_BTN": "IMPORT TRANSLATIONS",
+            "EXPORT_TRANSLATION_BTN": "EXPORT TRANSLATIONS",
+            "CATEGORY": "Category"
         },
 
         "DELEGATED_ADMIN": {
@@ -1978,6 +1982,7 @@
             "PORTUGUESE_PORTUGAL": "Portuguese (Portugal)",
             "ROMANIAN": "Romanian",
             "RUSSIAN": "Russian",
+            "SPANISH": "Spanish",
             "SPANISH_SPAIN": "Spanish Spain",
             "SPANISH_MEXICO": "Spanish Mexico",
             "SWEDISH": "Swedish",

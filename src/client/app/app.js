@@ -182,6 +182,7 @@ define([
         'mps.deviceManagement',
         'mps.library',
         'mps.siebel',
+        'mps.translation',
         'mps.pageCount',
         'mps.nav',
         'mps.utility',

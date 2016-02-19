@@ -93,6 +93,12 @@ requirejs.config({
             'siebel.createSiebelValueController',
             'siebel.manageSiebelValueController',
 
+            'translation',
+            'translation.translationFactory',
+            'translation.translationListController',
+            'translation.directives',
+            'translation.manageTranslationController',
+
             'user',
             'user.factory',
             'user.userInfoFactory',
@@ -192,6 +198,12 @@ requirejs.config({
         'siebel.directives': ['siebel'],
         'siebel.createSiebelValueController': ['siebel'],
         'siebel.manageSiebelValueController': ['siebel'],
+
+        'translation': ['angular'],
+        'translation.translationFactory': ['translation'],
+        'translation.translationListController': ['translation'],
+        'translation.directives': ['translation'],
+        'translation.manageTranslationController': ['translation'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -333,6 +345,12 @@ requirejs.config({
         'siebel.directives': 'app/siebel/directives',
         'siebel.createSiebelValueController': 'app/siebel/createSiebelValueController',
         'siebel.manageSiebelValueController': 'app/siebel/manageSiebelValueController',
+
+        'translation': 'app/translations/translations',
+        'translation.translationFactory': 'app/translations/translationFactory',
+        'translation.translationListController': 'app/translations/translationListController',
+        'translation.directives': 'app/translations/directives',
+        'translation.manageTranslationController': 'app/translations/manageTranslationController',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
