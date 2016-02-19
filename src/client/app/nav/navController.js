@@ -134,6 +134,7 @@ define([
 
                     Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                         Security.setWorkingPermission(permissions);
+                        
                         new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
                         
                         $route.reload();
