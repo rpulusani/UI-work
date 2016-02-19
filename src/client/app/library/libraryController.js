@@ -18,7 +18,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             }
 
             if (!$routeParams.id) {
-                $scope.documentItem = { id:'new', strategic: false, allAccounts: true, tags: $scope.tags };
+                $scope.documentItem = { id:'new', strategic: false, allAccounts: true };
             } else {
                 $scope.documentItem = Documents.item;
                 $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
@@ -40,8 +40,10 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 var tagList = Tags.data;
                 for (var i = 0; i < tagList.length; i++) {
                     var tag = {};
-                    tag.name = tagList[i]['name'];
-                    $scope.tags.push(tag);
+                    if (tagList[i]['name']) {
+                        tag.name = tagList[i]['name'];
+                        $scope.tags.push(tag);
+                    }
                 }
             });
 

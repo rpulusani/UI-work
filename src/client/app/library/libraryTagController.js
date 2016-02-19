@@ -47,7 +47,6 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             Tags.get().then(function() {
                 if (Tags.data) {
                     $scope.tags = Tags.data;
-                    console.log(Tags.data)
                 }
             });
 
