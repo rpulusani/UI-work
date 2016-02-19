@@ -961,6 +961,12 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-home:before {
   content: "\e62b";
 }
+.icon-psw-up-arrow:before {
+  content: "\e06d";
+}
+.icon-psw-down-arrow:before {
+  content: "\e06e";
+}
 .rollup {
   background-color: #e6e6f0;
   border-top: 3px solid #00ad21;
@@ -1162,7 +1168,7 @@ ul.status-details {
   border-color: #44434e;
   color: #3af23a;
 }
-.theme--dark .rail-nav a.nav-item-account.is-active {
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account.is-active {
   background-color: #44434e;
   border-color: #44434e;
   color: #fff;
