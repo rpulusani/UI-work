@@ -207,7 +207,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
 
                 for (var i = 0; i < $scope.accounts.length; i++) {
                     if ($scope.accounts[i].accountValue === $scope.accountSelected) {
-                        $scope.accounts[i].visibility = ($scope.optionsLimit === "include") ? $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_SEE") : 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_NOT_SEE';
+                        $scope.accounts[i].visibility = ($scope.optionsLimit === "include") ? $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_SEE") : $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_NOT_SEE");
                         $scope.selectedAccounts.push($scope.accounts[i]);
                     }
                 }
