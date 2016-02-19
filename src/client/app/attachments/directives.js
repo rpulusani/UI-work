@@ -20,6 +20,7 @@ define(['angular'], function(angular) {
                 }
 
                 $scope.change = function(files) {
+                  console.log(files);
                   $scope.files = files;
                   $log.debug('change', $scope.files);
                   $scope.$apply();
@@ -48,6 +49,7 @@ define(['angular'], function(angular) {
                 $scope.uploadComplete = function(response) {
                   $log.debug('uploadComplete', response);
                   $scope.files_complete.push(ifData(response));
+                  console.log($scope.files_complete.length)
                   for(var i =0; i < $scope.files.length; i++) {
                     if($scope.files[i].name === response.data.filename) {
                       $scope.files[i].complete = true;

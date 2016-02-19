@@ -34,6 +34,13 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
+
+            $scope.goToCreate = function() {
+                Devices.item = {};
+                ServiceRequest.reset();
+                $location.path('/service_requests/devices/new');
+            };
+            
             $scope.goToOrderDevice = function() {
                 Devices.reset();
                 ServiceRequest.reset();
