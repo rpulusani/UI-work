@@ -59,8 +59,10 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 var tagList = Tags.data;
                 for (var i = 0; i < tagList.length; i++) {
                     var tag = {};
-                    tag.name = tagList[i]['name'];
-                    $scope.tags.push(tag);
+                    if (tagList[i]['name']) {
+                        tag.name = tagList[i]['name'];
+                        $scope.tags.push(tag);
+                    }
                 }
             });
 

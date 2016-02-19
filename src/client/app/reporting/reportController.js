@@ -81,6 +81,7 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 $scope.chartOptions.pieChartOptions = {
                     backgroundColor: '#eff0f6',
                     enableInteractivity: true,
+                    fontSize: 36,
                     fontName: 'tpHero',
                     legend: {
                         position: 'none'
@@ -89,7 +90,8 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                     title: '',
                     titlePosition: 'none',
                     tooltip: {
-                        text: 'percentage'
+                        text: 'percentage',
+                        textStyle: {fontSize: 14}
                     }
                 };
                 $scope.chartOptions.columnChartOptions = {
@@ -99,7 +101,10 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                         position: 'none'
                     },
                     title: '',
-                    titlePosition: 'none'
+                    titlePosition: 'none',
+                     tooltip: {
+                        textStyle: {fontSize: 14}
+                    }
                 };
             }
 
@@ -200,6 +205,7 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 $scope.chartObject.assetRegister = {};
                 $scope.chartObject.assetRegister.type = "PieChart";
                 $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.assetRegister.options.height = 300;
                 $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
                 //$scope.chartObject.assetRegister.options.fontSize = 36;
                 $scope.chartObject.assetRegister.dataPoint = total;
@@ -421,6 +427,7 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 $scope.chartObject.pagesBilled = {};
                 $scope.chartObject.pagesBilled.type = "PieChart";
                 $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
+                $scope.chartObject.pagesBilled.options.height = 300;
                 $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
                 $scope.chartObject.pagesBilled.options.pieHole = 0.4;
                 $scope.chartObject.pagesBilled.dataPoint = d.pagesBilledTotal;

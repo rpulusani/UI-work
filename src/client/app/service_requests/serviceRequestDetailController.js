@@ -28,7 +28,15 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             OrderItems,
             OrderTypes
         ) {
+            var statusBarLevels = [
+            { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+            { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+            { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+            { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+            { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
             $scope.hideSubmitButton = true;
+            
             SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
             if(!ServiceRequest || !ServiceRequest.item){
@@ -78,23 +86,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         attachements: true
                     },
                 },
-                statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels)
             };
             function addDeviceInformation(){
                 $scope.configure.device = {
@@ -311,7 +303,6 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     print: true
                 };
             }
-
 
             $scope.goToServiceCancel = function(requestNumber, type){
                 ServiceRequest.tempSpace = {};
