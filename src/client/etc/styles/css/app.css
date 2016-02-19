@@ -1037,12 +1037,12 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
   background: #e6e6f0;
   height: 24px;
   width: 24px;
+  border-radius: 24px;
   -moz-border-radius: 24px;
   -webkit-border-radius: 24px;
   padding: 2px;
   text-align: center;
   color: #ffffff;
-  font-weight: bold;
   margin-left: auto;
   margin-right: auto;
   z-index: 2;
@@ -1050,9 +1050,9 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 }
 .status-bar-circle span {
   display: block;
-  margin-top: -1px;
-  color: #7e7e85;
-  margin-left: 1px;
+  margin-top: -2px;
+  color: #44434e;
+  margin-left: -1px;
   margin-right: auto;
 }
 .status-bar-bar-section {
@@ -1076,6 +1076,30 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 }
 .active span {
   color: #ffffff;
+}
+@media only screen and (max-width: 54em) {
+  .status-bar-bar-section {
+    padding-bottom: 15px;
+  }
+  .status-bar-bar-section hr {
+    background: #ffffff;
+  }
+  .status-bar-circle {
+    float: left;
+    margin-right: 15px;
+  }
+  .status-state {
+    text-align: left;
+    margin-top: -15px;
+  }
+  .status-state .status-state-label {
+    float: left;
+    margin-top: -15px;
+    margin-right: 5px;
+  }
+  .active hr {
+    background: #ffffff;
+  }
 }
 .status-details .active span {
   color: #006446;
