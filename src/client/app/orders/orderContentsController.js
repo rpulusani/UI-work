@@ -20,6 +20,9 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
         ){
         $scope.validationMessages = [];
 
+        if($scope.hideSubmit === undefined || $scope.hideSubmit === null){
+            $scope.hideSubmit = false;
+        }
         if($scope.editable === "true"){
             $scope.showEmpty = true;
         }else{
@@ -31,6 +34,9 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             $scope.orderSummaryGridOptions.data.splice(index,1);
             OrderItems.data = $scope.orderSummaryGridOptions.data;
             if(OrderItems.data.length === 0){
+                if($scope.configure && $scope.configure.actions){
+                    $scope.configure.actions.disabled = true;
+                }
                 $scope.datasource = [];
                 $scope.validationMessages =[];
                 $scope.$broadcast('OrderContentRefresh', {
@@ -45,6 +51,9 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
             $scope.calculate();
             $scope.datasource = [];
             $scope.validationMessages =[];
+            if($scope.configure && $scope.configure.actions){
+                $scope.configure.actions.disabled = true;
+            }
             $scope.$broadcast('OrderContentRefresh', {
                 'OrderItems': [] // send whatever you want
             });

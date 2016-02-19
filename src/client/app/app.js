@@ -11,6 +11,8 @@ define([
     'angular-sanitize',
     'ui.grid',
     'angular-spring-data-rest',
+    'attachments',
+    'attachments.directives',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.serviceRequestStatusFactory',
@@ -32,8 +34,11 @@ define([
     'order.factory',
     'order.orderTypeFactory',
     'order.orderStatusFactory',
+    'order.hardwareCatalogFactory',
+    'order.suppliesCatalogFactory',
     'order.directives',
     'order.orderListController',
+    'order.catalogController',
     'order.deviceOrderListController',
     'order.supplyOrderListController',
     'order.tabController',
@@ -43,7 +48,11 @@ define([
     'order.assetsPartsFactory',
     'order.orderContentsController',
     'order.orderPurchaseController',
+    'order.orderCatalogPurchaseController',
     'order.returnOrdersController',
+    'order.agreementCatalogController',
+    'order.agreementFactory',
+    'order.contractFactory',
     'contact',
     'contact.contactController',
     'contact.contactDeleteController',
@@ -157,6 +166,7 @@ define([
         'pascalprecht.translate',
         'vButton',
         'mps.hateoasFactory',
+        'mps.attachments',
         'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
@@ -323,6 +333,10 @@ define([
                     permissionSet.contentManagement.viewNonstrategic,
                     permissionSet.contentManagement.viewStrategic
                 ]
+            },
+            {
+                name: 'documentLibraryViewStrategicAccess',
+                permission: permissionSet.contentManagement.viewStrategic
             },
             {
                 name: 'documentLibraryUploadAccess',

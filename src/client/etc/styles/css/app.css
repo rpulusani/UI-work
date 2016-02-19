@@ -1,7 +1,14 @@
+.tag-table-wrapper {
+  height: 350px;
+  overflow-y: scroll;
+}
 .screen-reader {
   display: block !important;
   left: -9999px !important;
   position: absolute !important;
+}
+.report-charts .well {
+  height: 300px;
 }
 .site-wrapper:after,
 .site-header:after,
@@ -100,6 +107,9 @@
   .page-header hr {
     margin-bottom: 24px;
   }
+}
+.page-content {
+  min-height: 600px;
 }
 .page-content hr,
 .page-tabs hr {
@@ -303,6 +313,7 @@ p.info-list .item-name:after {
 .title h1 {
   padding: 0 20px;
   position: absolute;
+  top: 18px;
 }
 @media only screen and (min-width: 74em) {
   .title h1 {
@@ -961,6 +972,12 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .icon-psw-home:before {
   content: "\e62b";
 }
+.icon-psw-up-arrow:before {
+  content: "\e06d";
+}
+.icon-psw-down-arrow:before {
+  content: "\e06e";
+}
 .rollup {
   background-color: #e6e6f0;
   border-top: 3px solid #00ad21;
@@ -1067,6 +1084,9 @@ ul.status-details {
   list-style-type: none;
   margin-left: 0px;
 }
+.progress-green {
+  background-color: #00c425;
+}
 .theme--dark {
   background: #44434e;
 }
@@ -1156,13 +1176,13 @@ ul.status-details {
   background: #1d1d25;
   border-color: #1d1d25;
 }
-.theme--dark .rail-nav a.nav-item-account:hover,
-.theme--dark .rail-nav a.nav-item-account:focus {
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account:hover,
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account:focus {
   background-color: #44434e;
   border-color: #44434e;
   color: #3af23a;
 }
-.theme--dark .rail-nav a.nav-item-account.is-active {
+.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account.is-active {
   background-color: #44434e;
   border-color: #44434e;
   color: #fff;

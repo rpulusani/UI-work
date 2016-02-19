@@ -7,22 +7,52 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
         '$location',
         'OrderRequest',
         'BlankCheck',
+        'Devices',
+        'SRControllerHelperService',
         function(
             $rootScope,
             $scope,
             $location,
             Orders,
-            BlankCheck
+            BlankCheck,
+            Devices,
+            SRHelper
         ){
+             SRHelper.addMethods(Devices, $scope, $rootScope);
+
+           if($rootScope.selectedDevice &&
+                $rootScope.returnPickerObjectDevice){
+                    $scope.device = $rootScope.returnPickerObjectDevice;
+                    $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                    if(BlankCheck.isNull($scope.device.isDeviceSelected) || $scope.device.isDeviceSelected) {
+                        $scope.device.isDeviceSelected = true;
+                        $scope.resetDevicePicker();
+                        Orders.reset();
+                        Orders.item = null;
+                        $location.search('tab', 'orderTab');
+                        $location.path(Devices.route + "/" + $scope.device.item.id + '/review');
+                    }
+            }else{
+                $scope.device = {};
+                Orders.reset();
+                $scope.setupSR(Orders, function(){});
+            }
+
             $scope.goToSuppliesDeviceCreate = function(){
                 Orders.newMessage();
                 Orders.tempSpace = {};
-                $location.path(Orders.route + '/create_asset_supplies');
+                Devices.item = {};
+                $location.search('tab', 'orderTab');
+                $scope.goToDevicePicker('DeviceInformation', Devices.item, '/device_management/{{id}}/review');
             };
             $scope.goToHardwareCreate = function(){
                 Orders.newMessage();
                 Orders.tempSpace = {};
-                $location.path(Orders.route + '/create_hardware');
+                if($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel'){
+                    $location.path(Orders.route + '/catalog/hardware');
+                }else{
+                    //go to account picker
+                }
             };
             $scope.goToReturnSuppliesCreate = function(){
                 Orders.newMessage();
@@ -32,7 +62,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             $scope.goToSuppliesCatalogCreate = function(){
                 Orders.newMessage();
                 Orders.tempSpace = {};
-                $location.path(Orders.route + '/create_catalog_supplies');
+                $location.path(Orders.route + '/catalog/supplies');
             };
         }
     ]);

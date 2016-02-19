@@ -36,6 +36,8 @@ requirejs.config({
             'queue.queueListController',
             'queue.tombstoneFactory',
 
+            
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -227,6 +229,9 @@ requirejs.config({
 
         'app': 'app/app',
 
+        'attachments' : 'app/attachments/attachments',
+        'attachments.directives' : 'app/attachments/directives',
+
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
 
@@ -352,8 +357,12 @@ requirejs.config({
         'order.orderStatusFactory': 'app/orders/orderStatusFactory',
         'order.orderItemsfactory': 'app/orders/orderItemsFactory',
         'order.assetsPartsFactory': 'app/orders/assetPartsFactory',
+        'order.hardwareCatalogFactory': 'app/orders/hardwareCatalogFactory',
+        'order.suppliesCatalogFactory': 'app/orders/suppliesCatalogFactory',
         'order.directives': 'app/orders/directives',
+        'order.catalogController':'app/orders/catalogController',
         'order.orderPurchaseController': 'app/orders/orderPurchaseController',
+        'order.orderCatalogPurchaseController': 'app/orders/orderCatalogPurchaseController',
         'order.orderListController': 'app/orders/orderListController',
         'order.deviceOrderListController': 'app/orders/deviceOrderListController',
         'order.supplyOrderListController': 'app/orders/supplyOrderListController',
@@ -362,6 +371,9 @@ requirejs.config({
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
         'order.returnOrdersController': 'app/orders/returnOrdersController',
+        'order.agreementCatalogController': 'app/orders/agreementCatalogController',
+        'order.agreementFactory':'app/orders/agreementFactory',
+        'order.contractFactory':'app/orders/contractFactory',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',
