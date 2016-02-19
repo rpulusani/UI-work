@@ -217,6 +217,9 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.selectedAccounts.splice(index, 1);
             };
 
+            $scope.changeAccess = function(index) {
+                $scope.selectedAccounts = [];
+            };
         }
     ]);
 });

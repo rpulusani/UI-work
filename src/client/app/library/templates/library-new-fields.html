@@ -87,11 +87,11 @@
             <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_LIMIT_OR_EXCLUDE"></p>
 
             <div>
-                <input type="radio" value="include" id="optionLimit" name="optionsLimit" ng-model="optionsLimit">
+                <input type="radio" value="include" id="optionLimit" name="optionsLimit" ng-model="optionsLimit" ng-change="changeAccess()">
                 <label for="optionLimit"><span></span> <span translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.RAD_LIMIT_TO_ACCOUNTS"></span></label>
             </div>
             <div>
-                <input type="radio" value="exclude" id="optionExclude" name="optionsLimit" ng-model="optionsLimit" checked>
+                <input type="radio" value="exclude" id="optionExclude" name="optionsLimit" ng-model="optionsLimit" ng-change="changeAccess()">
                 <label for="optionExclude"><span></span> <span translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.RAD_EXCLUDE_FROM_ACCOUNTS"></span></label>
             </div>
 
