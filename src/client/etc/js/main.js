@@ -36,6 +36,8 @@ requirejs.config({
             'queue.queueListController',
             'queue.tombstoneFactory',
 
+            
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -212,6 +214,9 @@ requirejs.config({
         'ui.grid' : 'app/libs/ui-grid/3.0.6/ui-grid',
 
         'app': 'app/app',
+
+        'attachments' : 'app/attachments/attachments',
+        'attachments.directives' : 'app/attachments/directives',
 
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
