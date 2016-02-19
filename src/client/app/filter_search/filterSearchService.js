@@ -1,8 +1,8 @@
 define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .factory('FilterSearchService', ['grid', 'HATEOASFactory', '$q',
-        function(GridService, HATEOASFactory, $q) {
+    .factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams',
+        function(GridService, HATEOASFactory, $routeParams) {
             var localScope = {},
             service,
             display,
@@ -25,13 +25,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                 }
                 var self = this;
                 self.Grid = new GridService();
-                this.service = serviceDefinition;
-                this.localScope = scope;
-                this.columnSet = columnSet;
-                this.personalization = personalization;
+                self.service = serviceDefinition;
+                self.localScope = scope;
+                // do we have grid data
+                self.localScope.gridDataCnt = 0;
                 this.beforeFunction  = beforeFunction;
-                this.display = function(fn) {
-
+                self.localScope.gridLoading = true;
+                self.columnSet = columnSet;
+                self.personalization = personalization;
+                self.display = function(fn) {
                     if(self.columnSet){
                         self.service.columns = self.columnSet;
                     }
@@ -48,12 +50,18 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     deferred.then(function(){
                         if (rowHeight) {
                             self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
+                            self.localScope.gridDataCnt = self.service.data.length;
+                            self.localScope.gridLoading = false;
+
                                 if (typeof fn === 'function') {
                                     return fn(self.Grid);
                                 }
                             });
                         } else {
                             self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
+                            self.localScope.gridDataCnt = self.service.data.length;
+                            self.localScope.gridLoading = false;
+                            
                                 if (typeof fn === 'function') {
                                     return fn(self.Grid);
                                 }
@@ -72,7 +80,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                     self.clearParameters(removeParams);
                     angular.extend(options.params, params);
-                    self.service.getPage(0, 20, options).then(self.display, self.failure);
+
+                    self.localScope.gridLoading = true;
+
+                    self.service.getPage(0, 20, options).then(function() {
+                        self.localScope.gridDataCnt = self.service.data.length;
+                        self.localScope.gridLoading = false;
+                        
+                        self.display();
+                    }, self.failure);
                 };
 
                 this.localScope.optionParams = {};
@@ -95,12 +111,15 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     throw new Error('DisplayText is required');
                 }
                 var self  = this,
+                size = 20,
                 filter = {
                     display: displayText,
                     functionDef: function(params) {
                         var options  = {
                             'params':{}
-                        };
+                        },
+                        addParams = {};
+
                         if(configuredParams){
                             angular.extend(options.params, configuredParams);
                         }
@@ -119,8 +138,27 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             }
                             self.clearParameters(removeParams);
                         }
+                        
+                        if (!options.params.size) {
+                            if (self.service.params.size) {
+                                size = self.service.params.size;
+                            }
+                            
+                            addParams = {
+                                page: 0,
+                                size: size
+                            };
 
-                        var promise = self.service.getPage(0, self.service.params.size, options);
+                            angular.extend(options.params, addParams);
+                        }
+
+                        if ($routeParams.search && $routeParams.searchOn) {
+                            options.params.search = $routeParams.search;
+                            options.params.searchOn = $routeParams.searchOn;
+                        }
+
+                        var promise = self.service.get(options);
+
                         promise.then(function() {
                             if (!self.service.item) {
                                 self.service.setItem(self.service.data[0]);
@@ -144,13 +182,16 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     throw new Error('OptionsPanel is required');
                 }
                 var self  = this,
+                size = 20,
                 filter = {
                     display: displayText,
                     optionsPanel: optionsPanel,
                     functionDef: function(params, removeParams){
                         var options  = {
                             'params':{}
-                        };
+                        },
+                        addParams = {};
+                        
                         if(configuredParams){
                             angular.extend(options.params, configuredParams);
                         }
@@ -163,7 +204,20 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             self.clearParameters(removeParams);
                         }
 
-                        var promise = self.service.getPage(0, self.service.params.size, options);
+                        if (!options.params.size) {
+                            if (self.service.params.size) {
+                                size = self.service.params.size;
+                            }
+                            
+                            addParams = {
+                                page: 0,
+                                size: size
+                            };
+                            
+                            angular.extend(options.params, addParams);
+                        }
+
+                        var promise = self.service.get(options);
 
                         promise.then(function() {
                             if (!self.service.item) {

@@ -32,6 +32,17 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return self;
             };
 
+             HATEOASFactory.prototype.setupApi = function() {
+                var self = this,
+                deferred = $q.defer();
+
+                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
+                    deferred.resolve(api)
+                });
+
+                return deferred.promise;
+             }
+
             HATEOASFactory.prototype.setItemDefaults = function(obj) {
                 if (!obj) {
                     obj = {};
@@ -84,6 +95,15 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             HATEAOSConfig.getLoggedInUserInfo();
                         }
 
+                        if (self.serviceName === 'users') {
+                            self.item.transactionalAccount.serviceName = 'transactionalAccounts';
+                            self.item.links.transactionalAccount().then(function(res) {
+                                if (self.item.transactionalAccount.data.length > 0) {
+                                    $rootScope.$emit('userSetup', self.item.transactionalAccount.data);
+                                }
+                            });
+                        }
+
                         deferred.resolve();
                     });
                 });
@@ -118,6 +138,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.reset = function(){
                 this.item = null;
+                this.tempSpace = null;
                 this.data = [];
             };
 
@@ -269,11 +290,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
             HATEOASFactory.prototype.attachLinksAsFunctions = function(item, links, itemOptions) {
                 var self = this,
-                deferred = $q.defer(),
                 link;
 
                 for (link in links) {
-
                     if (link !== 'self') {
                         (function(item, link) {
                             if (!item[link]) {
@@ -293,6 +312,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                             item.linkNames.push(link);
 
                             item.links[link] = function(options, linkIndex) {
+                                var deferred = $q.defer();
+
                                 if (!angular.isArray(links[link])) {
                                     item[link] = self.setupDefaultFunctions(item[link]);
                                 } else {
@@ -305,9 +326,9 @@ define(['angular', 'hateoasFactory'], function(angular) {
                                 }
 
                                 item[link].get(options).then(function(res) {
-                                    if(res.data){
+                                    if (res.data) {
                                         deferred.resolve(res.data);
-                                    }else{
+                                    } else {
                                         deferred.resolve(res);
                                     }
                                 });
@@ -774,9 +795,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) || $rootScope.currentAccount.refresh) {
-                        options.params.accountId = $rootScope.currentAccount.accountId;
-                        options.params.accountLevel = $rootScope.currentAccount.accountLevel;
+                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) || ($rootScope.currentAccount && $rootScope.currentAccount.refresh)) {
+                        if ($rootScope.currentAccount) {
+                            options.params.accountId = $rootScope.currentAccount.accountId;
+                            options.params.accountLevel = $rootScope.currentAccount.accountLevel;
+                        }
                     }
 
                     if (!options.url) {

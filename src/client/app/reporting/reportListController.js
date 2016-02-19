@@ -21,6 +21,9 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.gridOptions.showLoader = true;
                 $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 
+                $scope.gridDataCnt = 0;
+                $scope.gridLoading = true;
+
                 $scope.gridTitle = $scope.report.name;
 
                 Reports.item.links.results({
@@ -30,6 +33,9 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     columnDefs: Reports.columnDefs,
                     params: params
                 }).then(function(res) {
+                    $scope.gridDataCnt = Reports.item.results.data.length;
+                    $scope.gridLoading = false;
+                    
                     Reports.item.results.hideBookmark = true;
                     Grid.display(Reports.item.results, $scope, personal, false, function() {
                         $scope.$broadcast('setupPrintAndExport', $scope);

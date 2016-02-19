@@ -10,6 +10,11 @@ define(['angular'], function(angular) {
             templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController'
         })
+        .when('/impersonate', {
+            templateUrl: '/app/users/templates/impersonate-view.html',
+            controller: 'ImpersonateUserListController',
+            activeItem: '/impersonate'
+        })
         .when('/delegated_admin/return/:returnParam', {
             templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController',
@@ -27,11 +32,17 @@ define(['angular'], function(angular) {
         })
         .when('/delegated_admin/lexmark_user', {
             templateUrl: '/app/users/templates/lexmark-user.html',
+            controller: 'LexmarkUserListController',
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/:id/review', {
             templateUrl: '/app/users/templates/review.html',
             controller: 'ManageUserController',
+            activeItem: '/delegated_admin'
+        })
+        .when('/delegated_admin/:id/lexmark-review', {
+            templateUrl: '/app/users/templates/lexmark-review.html',
+            controller: 'LexmarkUserAddController',
             activeItem: '/delegated_admin'
         })
         .when('/delegated_admin/:id/cancel', {

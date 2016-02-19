@@ -314,6 +314,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
 
 
             $scope.goToServiceCancel = function(requestNumber, type){
+                ServiceRequest.tempSpace = {};
                 switch(type){
                     case 'MADC_DECOMMISSION':
                         $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_DECOMMISSION');
@@ -333,6 +334,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             switch($scope.sr.type){
                 case 'SUPPLIES_ASSET_ORDER':
                     addSupplyOrderInfo();
+                    $scope.configure.header.showUpdateBtn = true;
                 break;
                 case 'SUPPLIES_CATALOG_ORDER':
                     //addSupplyOrderInfo();
@@ -411,15 +413,47 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                             description:'DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION'
                         }
                     };
+                $scope.configure.header.showUpdateBtn = true;
+                break;
+                case 'SUPPLIES_CATALOG_ORDER':
+                case 'HARDWARE_ORDER':
+                case 'HARDWARE_ORDER_INSTALL':
+                    $scope.configure.header.showUpdateBtn = true;
                 break;
                 default:
                 break;
             }
         }
 
-            $scope.goToServiceChange = function(requestNumber, type) {
-                $location.path('/service_requests');
-            };
+        $scope.goToServiceUpdate = function(requestNumber, type){
+            ServiceRequest.tempSpace = {};
+            switch(type){
+                case 'MADC_DECOMMISSION':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_DECOMMISSION');
+                break;
+                case 'MADC_INSTALL':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_INSTALL');
+                break;
+                case 'MADC_MOVE':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_MOVE');
+                break;
+                case 'SUPPLIES_CATALOG_ORDER':
+                case 'SUPPLIES_ASSET_ORDER':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_CONSUMABLES_ORDER');
+                break;
+                case 'BREAK_FIX':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_REQUEST');
+                break;
+                case 'HARDWARE_ORDER':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_ORDER');
+                break;
+                case 'HARDWARE_ORDER_INSTALL':
+                    $location.path('/service_requests/' + requestNumber + '/update/UPDATE_HARDWARE_INSTALL');
+                break;
+                default:
+                $scope.redirectToList();
+            }
+        };
 
             $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
             if($scope.sr.type.indexOf('RETURN_SUPPLIES') > -1){

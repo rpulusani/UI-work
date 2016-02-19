@@ -1,8 +1,8 @@
 define(['angular', 'filterSearch'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .controller('LibraryFilterController', ['$scope', '$translate', 'Tags',
-        function($scope, $translate, Tags) {
+    .controller('LibraryFilterController', ['$scope', '$translate', 'Tags', 'Owners',
+        function($scope, $translate, Tags, Owners) {
             $scope.showCategoryClearMessage = false;
             $scope.showOwnerClearMessage = false;
             $scope.showTagClearMessage = false;
@@ -16,23 +16,29 @@ define(['angular', 'filterSearch'], function(angular) {
                 {name: 'nonstrategic', label: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_NON_STRATEGIC'), selected: false }
             ];
 
-            $scope.owners = [
-                {name: 'debenhamsl1@test.com', selected: false },
-                {name: 'debenhamsl3@test.com', selected: false },
-                {name: 'debenhamsl4ir@test.com', selected: false },
-                {name: 'debenhams4uk@test.com', selected: false },
-                {name: 'debenhamsl5@test.com', selected: false },
-                {name: 'debenhamschl@test.com', selected: false }
-            ];
- 
+            $scope.owners = [];
+            Owners.get().then(function() {
+                if (Owners.data) {
+                    var ownerList = Owners.data;
+                    for (var i = 0; i < ownerList.length; i++) {
+                        var owner = {};
+                        owner.name = ownerList[i];
+                        owner.selected = false;
+                        $scope.owners.push(owner);
+                    }
+                }
+            });
+
             $scope.tags = [];
             Tags.get().then(function() {
-                var tagList = Tags.data;
-                for (var i = 0; i < tagList.length; i++) {
-                    var tag = {};
-                    tag.name = tagList[i]['name'];
-                    tag.selected = false;
-                    $scope.tags.push(tag);
+                if (Tags.data) {
+                    var tagList = Tags.data;
+                    for (var i = 0; i < tagList.length; i++) {
+                        var tag = {};
+                        tag.name = tagList[i]['name'];
+                        tag.selected = false;
+                        $scope.tags.push(tag);
+                    }
                 }
             });
 

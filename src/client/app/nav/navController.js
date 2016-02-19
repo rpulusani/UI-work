@@ -14,7 +14,10 @@ define([
         'UserService',
         'AccountService',
         'HATEAOSConfig',
+        '$cookies',
         '$http',
+        '$window',
+        'SecurityService',
         function(
             $scope,
             $rootScope,
@@ -24,14 +27,31 @@ define([
             Users,
             Accounts,
             HATEAOSConfig,
-            $http
+            $cookies,
+            $http,
+            $window,
+            SecurityService
             ) {
+
+            var Security = new SecurityService();
 
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
             $scope.$route = $route;
             $scope.selectedAccount = $rootScope.currentAccount;
             $scope.dropdownItem = null;
+            $scope.isInternal = false;
+
+            $rootScope.currentUser.deferred.promise.then(function() {
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    $scope.isInternal = true;
+                }
+            });
+
+            $scope.removeImpersonate = function() {
+                delete $cookies['impersonateToken'];
+                $window.location.reload();
+            };
 
             $scope.getItemsByTag = function(tag){
                 return Nav.getItemsByTag(tag);
@@ -66,6 +86,20 @@ define([
                 $scope.dropdownItem = item;
             };
 
+            $scope.dropdownNonAccount = function(item) {
+                var setupLinks = function() {
+                    item.isExpanded = true;
+                    item.dropdownIcon = 'icon-psw-disclosure_up_triangle';
+                };
+
+                if (!item.isExpanded) {
+                    setupLinks();
+                } else {
+                    item.isExpanded = false;
+                    item.dropdownIcon = 'icon-psw-disclosure_down_triangle';
+                }
+            };
+
             $scope.switchAccount = function(child) {
                 var i = 0,
                 accts = Users.item.transactionalAccount.data;
@@ -96,7 +130,10 @@ define([
 
                     $scope.selectedAccount = $rootScope.currentAccount;
 
-                    $route.reload();
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+                        $route.reload();
+                    });
                 });
             };
 
@@ -125,7 +162,6 @@ define([
 
             $rootScope.$on('userSetup', function(e, res) {
                 $scope.accountTotal = {total: res.length};
-                $scope.$apply();
             });
 
             $rootScope.$on('refreshNav', function(e, res) {
@@ -135,6 +171,8 @@ define([
             $rootScope.$on('toggleAccountNav', function(e, res) {
                 $scope.dropdownItem.isExpanded = false;
             });
+
+            $scope.currentYear = new Date().getFullYear();
 
             $scope.setActive = function(text){
 

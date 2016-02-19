@@ -18,6 +18,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
         'FormatterService',
         "$routeParams",
         'TombstoneService',
+        'tombstoneWaitTimeout',
         'ServiceRequestService',
         function(
             $scope,
@@ -36,6 +37,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
             FormatterService,
             $routeParams,
             Tombstone,
+            tombstoneWaitTimeout,
             ServiceReqeust) {
 
             SRHelper.addMethods(Orders, $scope, $rootScope);
@@ -132,7 +134,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                                 $location.path(Orders.route + '/purchase/receipt/queued');
                                             }
                                         });
-                                    },6000);
+                                    }, tombstoneWaitTimeout);
                             }
                         }, function(reason){
                             NREUM.noticeError('Failed to create SR because: ' + reason);

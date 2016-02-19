@@ -1,0 +1,23 @@
+<div class="page-header">
+    <h1 translate="USER.IMPERSONATE_TITLE"></h1>
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
+</div>
+<div class="page-content">
+    <div class="col-1">
+        <div print-export-title title="USER.USERS"></div>
+        <hr/>
+    </div>
+
+    <div grid-filter options="filterOptions" params="optionParams"></div>
+    <div class="row l-pad-top l-pad-bottom">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
+        </div>
+    </div>
+    <div class="col-md-1-1 btns">
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('impersonate')"
+            translate="USER.IMPERSONATE_BUTTON" ng-disabled="!isSingleSelected()"></button>
+    </div>
+    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+    <div pagination grid="{{gridOptions}}"></div>
+</div>

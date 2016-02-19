@@ -50,6 +50,11 @@ define(['angular', 'contact'], function(angular) {
             var updateContactObjectForSubmit = function() {
                 Contacts.item = $scope.contact;
             };
+
+            $scope.goToDelete = function(){
+                ServiceRequest.reset();
+                $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/review');
+            };
            
 
             $scope.saveContact = function(contactForm) {

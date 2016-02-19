@@ -5,6 +5,11 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory', 'utility
         'PersonalizationServiceFactory','FilterSearchService', 'FormatterService',
         function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration,
             Personalize, FilterSearchService, formatter) {
+            $rootScope.currentRowList = [];
+            $scope.lexmarkUserAccess = false;
+            if ($rootScope.currentUser.type === 'INTERNAL') {
+                $scope.lexmarkUserAccess = true;
+            }
             UserAdminstration.setParamsToNull();
              if (UserAdminstration.item) {
                 $scope.saved = false;

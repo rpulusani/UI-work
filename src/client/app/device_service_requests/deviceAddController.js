@@ -20,6 +20,10 @@ define(['angular',
         'ProductModel',
         'SRControllerHelperService',
         'HATEAOSConfig',
+        '$translate',
+        'TombstoneService',
+        '$timeout',
+        'tombstoneWaitTimeout',
         function($scope,
             $location,
             $filter,
@@ -34,7 +38,13 @@ define(['angular',
             Contacts,
             ProductModel,
             SRHelper,
-            HATEAOSConfig) {
+            HATEAOSConfig,
+            $translate,
+            Tombstone,
+            $timeout,
+            tombstoneWaitTimeout) {
+
+            $scope.isLoading = false;
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
@@ -205,7 +215,7 @@ define(['angular',
                 if (BlankCheck.checkNotBlank($scope.device.deviceInstallDate)) {
                     ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate));
                 }
-              
+
               //  ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     Devices.item = $scope.device;
@@ -221,6 +231,9 @@ define(['angular',
                 $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                 $scope.updateSRObjectForSubmit();
                 $scope.configure.actions.submit = function(){
+                  if(!$scope.isLoading) {
+                    $scope.isLoading = true;
+
                     $scope.updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                         HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
@@ -232,18 +245,54 @@ define(['angular',
                     });
 
                     deferred.then(function(result){
-                        ServiceRequest.item = DeviceServiceRequest.item;
-                        $rootScope.newDevice = $scope.device;
-                        $rootScope.newSr = $scope.sr;
-                        $location.path(DeviceServiceRequest.route + '/add/receipt');
+                      if(DeviceServiceRequest.item._links['tombstone']) {
+                        $location.search('tab', null);
+                        $timeout(function(){
+                          DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                          if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued')
+                          } else {
+                            ServiceRequest.item = DeviceServiceRequest.item;
+                            //Reviewed with Kris - uncertain why this is here
+                            //$rootScope.newDevice = $scope.device;
+                            //$rootScope.newSr = $scope.sr;
+                            $location.path(DeviceServiceRequest.route + '/add/receipt/queued');
+                          }
+                        });
+                      }, tombstoneWaitTimeout);
+                      }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
-
+                  }
                 };
             }
 
             function configureReceiptTemplate() {
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + DeviceServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: Devices.route,
+                    actionName: $translate.instant('DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES')
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"QUEUE.COMMON.TXT_GENERIC_SERVICE_REQUEST_TITLE",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
+              } else {
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
@@ -258,6 +307,7 @@ define(['angular',
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+              }
             }
 
             function configureTemplates() {

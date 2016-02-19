@@ -306,7 +306,6 @@ p.info-list .item-name:after {
 .title h1 {
   padding: 0 20px;
   position: absolute;
-  top: 18px;
 }
 @media only screen and (min-width: 74em) {
   .title h1 {
@@ -386,8 +385,6 @@ p.info-list .item-name:after {
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
-  max-height: 160px;
 }
 .tree__item {
   margin: 0;
@@ -805,6 +802,9 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
 .scrollable {
   overflow-y: auto;
   max-height: 160px;
+}
+.float-right {
+  float: right;
 }
 .print-export {
   float: right;

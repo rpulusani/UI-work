@@ -7,6 +7,8 @@ define(['angular', 'address'], function(angular) {
         '$filter',
         '$routeParams',
         '$rootScope',
+        '$translate',
+        '$timeout',
         'ServiceRequestService',
         'FormatterService',
         'BlankCheck',
@@ -15,11 +17,15 @@ define(['angular', 'address'], function(angular) {
         'SRControllerHelperService',
         'UserService',
         'HATEAOSConfig',
+        'TombstoneService',
+        'tombstoneWaitTimeout',
         function($scope,
             $location,
             $filter,
             $routeParams,
             $rootScope,
+            $translate,
+            $timeout,
             ServiceRequest,
             FormatterService,
             BlankCheck,
@@ -27,7 +33,11 @@ define(['angular', 'address'], function(angular) {
             Contacts,
             SRHelper,
             Users,
-            HATEAOSConfig) {
+            HATEAOSConfig,
+            Tombstone,
+            tombstoneWaitTimeout) {
+
+            $scope.isLoading = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
 
@@ -213,6 +223,9 @@ define(['angular', 'address'], function(angular) {
             function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SUBMIT';
                 $scope.configure.actions.submit = function(){
+                  if(!$scope.isLoading) {
+                    $scope.isLoading = true;
+
                     updateSRObjectForSubmit();
                     if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
                         HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
@@ -224,18 +237,53 @@ define(['angular', 'address'], function(angular) {
                     });
 
                     deferred.then(function(result){
-                        ServiceRequest.item = ServiceRequest.item;
-                        $rootScope.newAddress = $scope.address;
-                        $rootScope.newSr = $scope.sr;
-                        $location.path(Addresses.route + '/add/receipt');
+                      if(ServiceRequest.item._links['tombstone']) {
+                        $location.search('tab', null);
+                        $timeout(function(){
+                          ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                              if(Tombstone.item && Tombstone.item.siebelId) {
+                                ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                                $location.path(Addresses.route + '/add/receipt/notqueued')
+                              } else {
+                                ServiceRequest.item = ServiceRequest.item;
+                                $rootScope.newAddress = $scope.address;
+                                $rootScope.newSr = $scope.sr;
+                                $location.path(Addresses.route + '/add/receipt/queued');
+                              }
+                        });
+                      }, tombstoneWaitTimeout);
+                      }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
                     });
-
+                  }
                 };
             }
 
             function configureReceiptTemplate() {
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + ServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: Addresses.route,
+                    actionName: 'Manage Addresses'
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"ADDRESS_SERVICE_REQUEST.DETAILS_TITLE",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
+              } else {
                 $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_ADD_SUBMITTED";
                 $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.ADD_ADDRESS_SUBMIT_HEADER_BODY";
                 $scope.configure.header.translate.bodyValues= {
@@ -251,6 +299,7 @@ define(['angular', 'address'], function(angular) {
                     print: true
                 };
                 $scope.configure.contact.show.primaryAction = false;
+              }
             }
 
             function configureTemplates() {

@@ -27,6 +27,7 @@ define([
     'serviceRequest.detailController',
     'serviceRequest.cancelController',
     'serviceRequest.openServiceRequestController',
+    'serviceRequest.updateController',
     'order',
     'order.factory',
     'order.orderTypeFactory',
@@ -92,9 +93,11 @@ define([
     'library.libraryController',
     'library.libraryDeleteInlineController',
     'library.libraryListController',
+    'library.libraryTagController',
     'library.libraryViewController',
     'library.libraryFactory',
     'library.libraryTagFactory',
+    'library.libraryOwnerFactory',
     'library.directives',
     'invoice',
     'invoice.invoiceController',
@@ -291,6 +294,7 @@ define([
             translationManager: 'ADMIN_TRANSLATION_MANAGER'
         }
     })
+    .constant('tombstoneWaitTimeout', 10000)
     .config(function (SpringDataRestAdapterProvider) {
 
         // set the links key to _myLinks
@@ -323,6 +327,26 @@ define([
                     permissionSet.contentManagement.viewNonstrategic,
                     permissionSet.contentManagement.viewStrategic
                 ]
+            },
+            {
+                name: 'documentLibraryUploadAccess',
+                permission: permissionSet.contentManagement.upload
+            },
+            {
+                name: 'documentLibraryDeleteMyAccess',
+                permission: permissionSet.contentManagement.deleteMy
+            },
+            {
+                name: 'documentLibraryDeleteAllAccess',
+                permission: permissionSet.contentManagement.deleteAll
+            },
+            {
+                name: 'documentLibraryManageAccountAccess',
+                permission: permissionSet.contentManagement.manageAccountTag
+            },
+            {
+                name: 'documentLibraryManageGlobalTagAccess',
+                permission: permissionSet.contentManagement.manageAccountTag
             },
             {
                 name: 'deviceInfoAccess',
@@ -519,14 +543,7 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            UserService.getLoggedInUserInfo().then(function() {
-                UserService.item.transactionalAccount.serviceName = 'transactionalAccounts';
-                UserService.item.links.transactionalAccount().then(function(res) {
-                    setTimeout(function() {
-                        $rootScope.$emit('userSetup', UserService.item.transactionalAccount.data);
-                    }, 0);
-                });
-            });
+            UserService.getLoggedInUserInfo();
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);

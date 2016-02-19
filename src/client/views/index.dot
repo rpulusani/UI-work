@@ -51,10 +51,19 @@
     });
     </script>
   </head>
-  <body class="theme--dark" style="display:none">
+  <body style="display:none">
+    <div class="alert alert--info" data-js="alert" data-static="true" data-basic="true" ng-if="impersonate">
+      <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+      <div class="alert__body"><span translate="MESSAGE.IMPERSONATE" translate-values="{'user': idpUser.custom_attributes.display_name}"></span>
+        <a href="" ng-click="removeImpersonate()" translate="MESSAGE.EXIT_IMPERSONATION"></a>
+      </div>
+    </div>
+    <div class="theme--dark">
     <a id="top" name="top"></a>
     <header class="site-header">
+
     <h1 class="top-logo" itemtype="http://schema.org/Organization">
+      
       <a itemprop="url" tabindex="-1" title="Lexmark MPS home page" href="/">
         <img itemprop="logo" alt"Lexmark" src="/etc/resources/img/LexmarkLogo_RGB_Reversed_200.png" />
       </a>
@@ -103,7 +112,7 @@
           <div class="logo"><img src="/etc/resources/img/square-logo-only.png" alt="Lexmark Logo" /></div>
           <div class="copyright text--tiny">
             <strong>Lexmark International, Inc.</strong> </br>
-            &copy;2015 All rights reserved.
+            &copy;<span ng-bind="currentYear"></span> All rights reserved.
           </div>
         </div>
       </footer>
@@ -114,5 +123,6 @@
       window.config = [[= model.config ]];
     </script>
     <script type="text/javascript">_satellite.pageBottom();</script>
+    </div>
   </body>
 </html>

@@ -41,6 +41,11 @@ define(['angular'], function(angular) {
                     };
                 }
             }
+        })
+        .when('/library/tags', {
+            templateUrl: '/app/library/templates/library-tags.html',
+            activeItem: '/library',
+            controller: 'LibraryTagController'
         });
     }]);
 });
