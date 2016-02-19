@@ -1,0 +1,21 @@
+ <div class="btns">
+    <button name="cancel"
+        class="btn btn--secondary"
+        data-js="modalOpen"
+        data-target="#cancel"
+        translate="PORTAL_ADMIN.ABANDON_SIEBEL"
+    ></button>
+    
+    <button class="btn btn--primary"
+        ng-click="save()"
+        translate="PORTAL_ADMIN.SAVE_SIEBEL_NEW"
+    ></button>
+
+    <div confirm-cancel
+        title="PORTAL_ADMIN.TITLE_SIEBEL_ABANDON_MODAL"
+        body="PORTAL_ADMIN.BODY_SIEBEL_ABANDON_MODAL"
+        cancel="PORTAL_ADMIN.ABANDON_SIEBEL_MODAL_CANCEL"
+        confirm="PORTAL_ADMIN.ABANDON_SIEBEL_MODAL_CONFIRM"
+        return-path="/siebel"
+    ></div>
+</div>
