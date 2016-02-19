@@ -13,7 +13,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             $scope.gridOptions.showBookmarkColumn = false;
             var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
 
-           filterSearchService.addBasicFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS', false, removeParamsList,
+            filterSearchService.addBasicFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS', false, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
