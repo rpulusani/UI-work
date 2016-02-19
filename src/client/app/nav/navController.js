@@ -18,6 +18,7 @@ define([
         '$http',
         '$window',
         'SecurityService',
+        'SecurityHelper',
         function(
             $scope,
             $rootScope,
@@ -30,7 +31,8 @@ define([
             $cookies,
             $http,
             $window,
-            SecurityService
+            SecurityService,
+            SecurityHelper
             ) {
 
             var Security = new SecurityService();
@@ -132,6 +134,9 @@ define([
 
                     Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                         Security.setWorkingPermission(permissions);
+                        
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+                        
                         $route.reload();
                     });
                 });

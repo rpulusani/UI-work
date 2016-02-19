@@ -327,7 +327,8 @@ define([
             deferred: $q.defer()
         };
         var security = new SecurityService();
-        var configurePermissions = [
+        
+        $rootScope.configurePermissions = [
             {
                 name: 'documentLibraryAccess',
                 permission: [
@@ -547,7 +548,7 @@ define([
                 ]
             }
         ];
-        new SecurityHelper($rootScope).setupPermissionList(configurePermissions);
+        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
 
         $q.all(security.requests).then(function(){
             angular.element(document.getElementsByTagName('body')).attr('style',''); // show the application
