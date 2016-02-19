@@ -155,7 +155,9 @@ define(['angular',
                 if ($scope.device.chl && $scope.device.chl.id) {
                     assetInfo.customerHierarchyLevel = $scope.device.chl.id;
                 }
+                
                 ServiceRequest.addField('assetInfo', assetInfo);
+                ServiceRequest.addField('attachments', $scope.files_complete)
             };
 
             function configureReviewTemplate(){
