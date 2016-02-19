@@ -18,7 +18,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             }
 
             if (!$routeParams.id) {
-                $scope.documentItem = { id:'new', strategic: false, allAccounts: true };
+                $scope.documentItem = { id:'new', strategic: false, allAccounts: true, tags: $scope.tags };
             } else {
                 $scope.documentItem = Documents.item;
                 $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
