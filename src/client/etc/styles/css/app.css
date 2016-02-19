@@ -3,6 +3,9 @@
   left: -9999px !important;
   position: absolute !important;
 }
+.report-charts .well {
+  height: 300px;
+}
 .site-wrapper:after,
 .site-header:after,
 .site-nav:after,
