@@ -545,7 +545,7 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                 params: {
                     page: 0,
                     size: 20,
-                    tags: 'reports'
+                    tag: 'reports'
                 }
             }).then(function() {
                 Grid.display(Documents, $scope, personal);
