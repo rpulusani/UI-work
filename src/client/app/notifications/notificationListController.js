@@ -9,6 +9,8 @@ define(['angular','notification', 'utility.grid'], function(angular) {
         'grid',
         'PersonalizationServiceFactory',
         'FilterSearchService',
+        '$http',
+        '$route',
         function(
             $scope,
             $location,
@@ -16,8 +18,9 @@ define(['angular','notification', 'utility.grid'], function(angular) {
             Notifications,
             Grid,
             Personalize,
-            FilterSearchService) {
-            $scope.notificationListLength = 0;
+            FilterSearchService,
+            $http,
+            $route) {
             $rootScope.currentRowList = [];
             Notifications.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -30,17 +33,24 @@ define(['angular','notification', 'utility.grid'], function(angular) {
                 });
             };
 
+            $scope.delete = function(notification) {
+                Notifications.setItem(notification);
+                $http({
+                    method: 'DELETE',
+                    url: Notifications.item.url
+                }).then(function(response) {
+                    $route.reload();
+                }, function(response) {
+                    NREUM.noticeError('Failed to DELETE notification: ' + response.statusText);
+                });
+            };
+
             $scope.goToCreate = function() {
                 $location.path('/notifications/new');
             };
 
             filterSearchService.addBasicFilter('All Notifications', {'sort': 'order,ASC'}, undefined,
-                function(Grid) {
-                    if (Grid.gridOptions && Grid.gridOptions.data) {
-                        $scope.notificationListLength = Grid.gridOptions.data.length;
-                    }
-                    console.log('Grid', Grid);
-                }
+                function(Grid) {}
             );
         }
     ]);
