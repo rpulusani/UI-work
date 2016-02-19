@@ -259,7 +259,7 @@
             "CTRL_UPDATE_DEVICE_INFO": "Update device information",
             "LNK_VIEW_ON_MAP": "View on map",
             "TXT_BILL_AND_TRACK": "Device billing and tracking",
-            "TXT_NOTIFICATION_ORDERS": "There are open orders for this device.",
+            "TXT_`CATION_ORDERS": "There are open orders for this device.",
             "TXT_NOTIFICATION_SRHISTORY": "There are open service requests for this device.",
             "LNK_NOTIFICATION_ORDERS" : "View orders >",
             "LNK_NOTIFICATION_SRHISTORY" : "View service requests >",
@@ -1589,6 +1589,33 @@
 
         "INVOICE": {
             "TITLE": "Invoices"
+        },
+
+        "PORTAL_ADMIN": {
+            "NOTIFICATION_TITLE": "Notification Management",
+            "DISPLAY_ORDER": "Display order",
+            "START_DATE": "Start date",
+            "END_DATE": "End Date",
+            "NAME": "Name",
+            "DELETE_NOTIFICATION": "Delete notification",
+            "CREATE_NEW_NOTIFICATION_BTN": "CREATE NEW NOTIFICATION",
+            "CREATE_NOTIFICATION": "Create notification",
+            "NOTIFICATION_DETAILS": "Notification Details",
+            "NOTIFICATION_WHEN": "When will the notification be displayed?",
+            "NOTIFICATION_COMMUNICATION": "Notification communication",
+            "URL": "URL",
+            "TITLE": "Title",
+            "MESSAGE": "Message",
+            "ABANDON_NOTIFICATION": "ABANDON NOTIFICATION CREATION",
+            "ABANDON_NOTIFICATION_CHANGES": "ABANDON NOTIFICATION CHANGES",
+            "SAVE_NOTIFICATION": "SAVE NOTIFICATION",
+            "UPDATE_NOTIFICATION": "UPDATE NOTIFICATION",
+            "TITLE_NOTIFICATION_ABANDON_MODAL": "Are you sure you want to abandon this notification?",
+            "BODY_NOTIFICATION_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_NOTIFICATION_MODAL_CANCEL": "No, do not abandon this notification",
+            "ABANDON_NOTIFICATION_MODAL_CONFIRM": "Yes, abandon this notification",
+            "MANAGE_NOTIFICATION": "Manage Notification - Portal maintenance",
+            "DELETE_NOTIFICATION_BTN": "DELETE NOTIFICATION"
         },
 
         "DELEGATED_ADMIN": {

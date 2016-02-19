@@ -1,0 +1,21 @@
+ <div class="btns">
+    <button name="cancel"
+        class="btn btn--secondary"
+        data-js="modalOpen"
+        data-target="#cancel"
+        translate="PORTAL_ADMIN.ABANDON_NOTIFICATION_CHANGES"
+    ></button>
+    
+    <button class="btn btn--primary"
+        ng-click="update()"
+        translate="PORTAL_ADMIN.UPDATE_NOTIFICATION"
+    ></button>
+
+    <div confirm-cancel
+        title="PORTAL_ADMIN.TITLE_NOTIFICATION_ABANDON_MODAL"
+        body="PORTAL_ADMIN.BODY_NOTIFICATION_ABANDON_MODAL"
+        cancel="PORTAL_ADMIN.ABANDON_NOTIFICATION_MODAL_CANCEL"
+        confirm="PORTAL_ADMIN.ABANDON_NOTIFICATION_MODAL_CONFIRM"
+        return-path="/notifications"
+    ></div>
+</div>

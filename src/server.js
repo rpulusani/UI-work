@@ -767,6 +767,7 @@ router.all('/*', function(req, res, next) {
             idp: { serviceUrl: process.env.IDP_SERVICE_URL,
                    clientId: process.env.IDP_CLIENT_ID },
             portal: { serviceUrl: process.env.PORTAL_API_URL,
+                      adminUrl: process.env.ADMIN_PORTAL_URL,
                       lbsUrl: process.env.LBS_URL,
                       libraryServiceUrl: process.env.LIBRARY_API_URL  }
         })
