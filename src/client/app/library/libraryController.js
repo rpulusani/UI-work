@@ -100,29 +100,46 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     Documents.addField('strategic', $scope.documentItem.strategic);
                 }
 
-                var accessToSend = [];
+                if ($rootScope.documentLibraryManageAccountAccess) {
+                    var accessToSend = [];
 
-                if ($scope.optionsLimit === "include") {
-                    // if we have items in selectedAccounts, push them.
-                    if ($scope.selectedAccounts.length > 1) {
-                        for (var i = 0; i < $scope.selectedAccounts.length; i++) {
-                            accessToSend.push($scope.selectedAccounts[i].accountValue);
+                    if ($scope.optionsLimit === "include") {
+                        // if we have items in selectedAccounts, push them.
+                        if ($scope.selectedAccounts.length > 1) {
+                            for (var i = 0; i < $scope.selectedAccounts.length; i++) {
+                                accessToSend.push($scope.selectedAccounts[i].accountValue);
+                            }
                         }
-                    }
-                    // else, send all the accounts that we have
-                    else {
-                        for (var i = 0; i < $scope.accounts.length; i++) {
-                            accessToSend.push($scope.accounts[i].accountValue);
+                        // else, send all the accounts that we have
+                        else {
+                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                accessToSend.push($scope.accounts[i].accountValue);
+                            }
                         }
-                    }
-                } else {
-                    // else, send all from $scope.accounts except those in the $scope.selectedAccounts
+                    } else {
+                        // remove the accounts with no access
+                        if ($scope.selectedAccounts.length > 1) {
+    ;
+                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                for (var j = 0; j < $scope.selectedAccounts.length; j++) {
+                                    if (!($scope.accounts[i].accountValue === $scope.selectedAccounts[j].accountValue)) {
+                                        accessToSend.push($scope.accounts[i].accountValue);
+                                    }
+                                }
+                            }
+                        } else {
+                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                accessToSend.push($scope.accounts[i].accountValue);
+                            }
+                        }
+                        // else, send all from $scope.accounts except those in the $scope.selectedAccounts
 
+                    }
+
+                    if (accessToSend.length > 1) {
+                        Documents.addField('accountIds', accessToSend);
+                    }
                 }
-                
-
-
-                Documents.addField('accounts', accessToSend);
 
                 Documents.item.postURL = Documents.url;
 
