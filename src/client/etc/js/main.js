@@ -86,6 +86,13 @@ requirejs.config({
             'notification.createNotificationController',
             'notification.manageNotificationController',
 
+            'siebel',
+            'siebel.siebelFactory',
+            'siebel.siebelListController',
+            'siebel.directives',
+            'siebel.createSiebelValueController',
+            'siebel.manageSiebelValueController',
+
             'user',
             'user.factory',
             'user.userInfoFactory',
@@ -178,6 +185,13 @@ requirejs.config({
         'notification.directives': ['notification'],
         'notification.createNotificationController': ['notification'],
         'notification.manageNotificationController': ['notification'],
+
+        'siebel': ['angular'],
+        'siebel.siebelFactory': ['siebel'],
+        'siebel.siebelListController': ['siebel'],
+        'siebel.directives': ['siebel'],
+        'siebel.createSiebelValueController': ['siebel'],
+        'siebel.manageSiebelValueController': ['siebel'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -312,6 +326,13 @@ requirejs.config({
         'notification.directives': 'app/notifications/directives',
         'notification.createNotificationController': 'app/notifications/createNotificationController',
         'notification.manageNotificationController': 'app/notifications/manageNotificationController',
+
+        'siebel': 'app/siebel/siebel',
+        'siebel.siebelFactory': 'app/siebel/siebelFactory',
+        'siebel.siebelListController': 'app/siebel/siebelListController',
+        'siebel.directives': 'app/siebel/directives',
+        'siebel.createSiebelValueController': 'app/siebel/createSiebelValueController',
+        'siebel.manageSiebelValueController': 'app/siebel/manageSiebelValueController',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',

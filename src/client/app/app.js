@@ -181,6 +181,7 @@ define([
         'mps.invoice',
         'mps.deviceManagement',
         'mps.library',
+        'mps.siebel',
         'mps.pageCount',
         'mps.nav',
         'mps.utility',

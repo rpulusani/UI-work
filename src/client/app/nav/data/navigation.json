@@ -169,7 +169,7 @@
   },
   {
     "id": "19",
-    "action": "",
+    "action": "/siebel",
     "text": "NAVIGATION.SIEBEL_MANAGEMENT",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
