@@ -125,6 +125,7 @@ define(['angular',
                     }
                 }
                 ServiceRequest.addField('meterReads', meterReads);
+                ServiceRequest.addField('attachments', $scope.files_complete)
             };
 
             function configureReviewTemplate(){
