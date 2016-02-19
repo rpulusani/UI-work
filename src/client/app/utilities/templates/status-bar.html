@@ -1,13 +1,13 @@
 <div class="status-bar">
    <div class="status-bar-bar-section col-1-{{configure.statusList.length}}"
-      ng-repeat="status in configure.statusList" ng-class="{'active': status.date !== ''}">
+      ng-repeat="status in configure.statusList" ng-class="{'active': status.current}">
       <hr/>
-      <div class="status-bar-circle ">
+      <div class="status-bar-circle text--semi-bold">
         <span>{{$index + 1}}</span>
       </div>
       <div class="status-state">
-        <div class="status-state-label">
-          <strong>{{status.label}}</strong>
+        <div class="status-state-label text--semi-bold">
+          {{status.label}}
         </div>
         <div class="status-state-date" ng-show="status.date !== ''">
           {{status.date}}
