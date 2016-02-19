@@ -9,7 +9,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             } else {
                 $scope.documentItem = Documents.item;
 
-                if ($scope.documentItem.extension === 'pdf') {
+                if ($scope.documentItem.ext === 'pdf') {
                     $http({
                         method: 'GET',
                         url: $scope.documentItem.download.url,
