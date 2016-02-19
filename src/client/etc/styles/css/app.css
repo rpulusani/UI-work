@@ -1,3 +1,7 @@
+.tag-table-wrapper {
+  height: 350px;
+  overflow-y: scroll;
+}
 .screen-reader {
   display: block !important;
   left: -9999px !important;
