@@ -12,18 +12,18 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
 
                 if (res._embedded) {
                     accts = res._embedded.transactionalAccounts;
-
                     for (var i = 0; i < accts.length; i++) {
                         $scope.accounts.push({
                             accountValue: accts[i].account.accountId,
                             accountLabel: accts[i].account.name
                         });
                     }
-                }
+               }
             });
 
             $scope.selectedAccounts = [];
             $scope.optionsLimit = "include";
+            $scope.allAccounts = true;
 
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.inputTag = '';
@@ -37,7 +37,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             }
 
             if (!$routeParams.id) {
-                $scope.documentItem = { id:'new', strategic: false, allAccounts: true };
+                $scope.documentItem = { id:'new', strategic: false };
             } else {
                 $scope.documentItem = Documents.item;
                 $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
@@ -98,6 +98,46 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
 
                 if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.strategic)) {
                     Documents.addField('strategic', $scope.documentItem.strategic);
+                }
+
+                if ($rootScope.documentLibraryManageAccountAccess) {
+                    var accessToSend = [];
+
+                    if ($scope.optionsLimit === "include") {
+                        // if we have items in selectedAccounts, push them.
+                        if ($scope.selectedAccounts.length > 1) {
+                            for (var i = 0; i < $scope.selectedAccounts.length; i++) {
+                                accessToSend.push($scope.selectedAccounts[i].accountValue);
+                            }
+                        }
+                        // else, send all the accounts that we have
+                        else {
+                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                accessToSend.push($scope.accounts[i].accountValue);
+                            }
+                        }
+                    } else {
+                        // remove the accounts with no access
+                        if ($scope.selectedAccounts.length > 1) {
+    ;
+                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                for (var j = 0; j < $scope.selectedAccounts.length; j++) {
+                                    if (!($scope.accounts[i].accountValue === $scope.selectedAccounts[j].accountValue)) {
+                                        accessToSend.push($scope.accounts[i].accountValue);
+                                    }
+                                }
+                            }
+                        } else {
+                            // else, send all from $scope.accounts
+                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                accessToSend.push($scope.accounts[i].accountValue);
+                            }
+                        }
+                    }
+
+                    if (accessToSend.length > 1) {
+                        Documents.addField('accountIds', accessToSend);
+                    }
                 }
 
                 Documents.item.postURL = Documents.url;
