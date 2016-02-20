@@ -27,13 +27,15 @@ define(['angular','translation', 'utility.grid'], function(angular) {
 
             $rootScope.currentRowList = [];
 
+            $scope.importedFileLanguage = '';
+
             Translations.getLocales().then(function(res) {
                 $scope.languages = res.data.locales;
                 console.log($scope.languages)
             });
 
             $scope.importLanguage = function(formData) {
-                console.log(formData)
+                console.log($scope.importedFileLanguage);
             };
         }
     ]);

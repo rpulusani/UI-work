@@ -12,7 +12,7 @@ Select import file
     <div class="row">
         <form name="languageImportForm" class="col-1 form" ng-submit="importLanguage(languageImportForm)">
             <div ng-repeat="language in languages">
-                <input type="radio" id="{{ language.localeCode }}" name="{{language.localeCode}}" ng-model="importedFileLanguage" value="{{language.localeCode}}" />
+                <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}" />
                 <label for="{{ language.localeCode }}">
                     <span></span>{{ language.language }}
                 </label>
