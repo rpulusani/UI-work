@@ -34,7 +34,12 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                             {'name': $translate.instant('LANGUAGES.TURKISH'), 'field': 'getTextForLang("TR")', 'notSearchable': true}
                         ]
                     },
-
+                    getLocales: function() {
+                        var self = this;
+                        return self.get({
+                            url: adminUrl + '/localizations/locales'
+                        });
+                    },
                     functionArray: [
                         {
                             name: 'getTextForLang',

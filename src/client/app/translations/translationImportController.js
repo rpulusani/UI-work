@@ -1,7 +1,7 @@
 define(['angular','translation', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.translation')
-    .controller('TranslationListController', [
+    .controller('TranslationImportController', [
         '$scope',
         '$location',
         '$rootScope',
@@ -20,26 +20,21 @@ define(['angular','translation', 'utility.grid'], function(angular) {
             Personalize,
             FilterSearchService,
             $http,
-            $route) {
-            $rootScope.currentRowList = [];
-            Translations.setParamsToNull();
+            $route
+        ) {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Translations, $scope, $rootScope, personal, 'defaultSet');
 
-            $scope.view = function(translation){
-              Translations.setItem(translation);
-                Translations.item.get().then(function(){
-                    $location.path(Translations.route + '/review');
-                });
-            };
+            $rootScope.currentRowList = [];
 
-            $scope.goToImport = function() {
-                $location.path(Translations.route + '/import');
-            };
+            Translations.getLocales().then(function(res) {
+                $scope.languages = res.data.locales;
+                console.log($scope.languages)
+            });
 
-            filterSearchService.addBasicFilter('All Translations', undefined, undefined,
-                function(Grid) {}
-            );
+            $scope.importLanguage = function(formData) {
+                console.log(formData)
+            };
         }
     ]);
 });

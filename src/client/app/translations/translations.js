@@ -8,5 +8,10 @@ define(['angular'], function(angular) {
             controller: 'TranslationListController',
             activeItem: '/translations'
         })
+        .when('/translations/import', {
+            templateUrl: '/app/translations/templates/import.html',
+            controller: 'TranslationImportController',
+            activeItem: '/translations'
+        })
     }]);
 });

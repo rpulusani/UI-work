@@ -31,7 +31,7 @@ define([
             $http,
             $window,
             SecurityService
-            ) {
+        ) {
 
             var Security = new SecurityService();
 

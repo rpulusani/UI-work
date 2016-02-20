@@ -1,0 +1,24 @@
+<!--
+Import Translations
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan 
+et viverra justo commodo. Download translation import template >
+
+Select import file
+-->
+
+<div class="row">
+    <div attachments></div>
+    <div class="row">
+        <form name="languageImportForm" class="col-1 form" ng-submit="importLanguage(languageImportForm)">
+            <div ng-repeat="language in languages">
+                <input type="radio" id="{{ language.localeCode }}" name="{{language.localeCode}}" ng-model="importedFileLanguage" value="{{language.localeCode}}" />
+                <label for="{{ language.localeCode }}">
+                    <span></span>{{ language.language }}
+                </label>
+            </div>
+
+            <input type="submit" class="btn" />
+        </form>
+    </div>
+</div>
