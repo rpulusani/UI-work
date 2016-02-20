@@ -1628,6 +1628,7 @@
 
         "PORTAL_ADMIN": {
             "NOTIFICATION_TITLE": "Notification Management",
+            "MANAGE_TRANSLATION":"Manage Translation",
             "DISPLAY_ORDER": "Display order",
             "START_DATE": "Start date",
             "END_DATE": "End Date",
@@ -1663,7 +1664,7 @@
             "SIEBEL_OPTION": "Siebel option",
             "DISPLAY_ORDER": "Display order",
             "ABANDON_SIEBEL": "DISCARD NEW SIEBEL VALUE",
-            "ABANDON_SIEBEL_CHANGES": "SAVE NEW SIEBEL VALUE",
+            "ABANDON_SIEBEL_CHANGES": "DISCARD SIEBEL VALUE",
             "SAVE_SIEBEL_NEW": "SAVE NEW SIEBEL VALUE",
             "SAVE_SIEBEL_CHANGE": "SAVE SIEBEL VALUE CHANGES",
             "TITLE_SIEBEL_ABANDON_MODAL": "Are you sure you want to abandon this siebel value?",
@@ -1672,7 +1673,27 @@
             "ABANDON_SIEBEL_MODAL_CONFIRM": "Yes, abandon this siebel value",
             "DELETE_VALUE": "Delete value",
             "UPDATE_SIEBEL_VALUE": "Update Siebel value - {{siebelValue}}",
-            "DELETE_THIS_SIEBEL_VALUE": "DELETE THIS SIEBEL VALUE"
+            "DELETE_THIS_SIEBEL_VALUE": "DELETE THIS SIEBEL VALUE",
+            "TRANSLATION_MANAGEMENT_TITLE": "Translation Management",
+            "IMPORT_TRANSLATION_BTN": "IMPORT TRANSLATIONS",
+            "EXPORT_TRANSLATION_BTN": "EXPORT TRANSLATIONS",
+            "CATEGORY": "Category",
+            "ALL_TRANSLATIONS": "All Translations",
+            "LOCALIZATION": "Localization",
+            "TRANSLATION_DETAILS": "Translation Details",
+            "SIEBEL_TRANSLATION_DETAILS": "Siebel translation Details",
+            "PORTAL_UI_DETAILS": "Portal UI Details",
+            "PORTAL_UI_CATEGORY": "Portal UI Category",
+            "PORTAL_UI_VALUE": "Portal UI Value",
+            "NOTIFICATION_DETAILS": "Notification details",
+            "DOCUMENT_TAG_DETAILS": "Document tag details",
+            "DOCUMENT_TAG_NAME": "Document tag name",
+            "ABANDON_TRANSLATION_CHANGES": "DISCARD TRANSLATION CHANGES",
+            "SAVE_TRANSLATION": "SAVE TRANSLATION CHANGES",
+            "TITLE_TRANSLATION_ABANDON_MODAL": "Are you sure you want to abandon this translation?",
+            "BODY_TRANSLATION_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_TRANSLATION_MODAL_CANCEL": "No, do not abandon this translation value",
+            "ABANDON_TRANSLATION_MODAL_CONFIRM": "Yes, abandon this translation value"
         },
 
         "DELEGATED_ADMIN": {
@@ -1978,6 +1999,7 @@
             "PORTUGUESE_PORTUGAL": "Portuguese (Portugal)",
             "ROMANIAN": "Romanian",
             "RUSSIAN": "Russian",
+            "SPANISH": "Spanish",
             "SPANISH_SPAIN": "Spanish Spain",
             "SPANISH_MEXICO": "Spanish Mexico",
             "SWEDISH": "Swedish",
