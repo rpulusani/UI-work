@@ -141,7 +141,7 @@
   {
     "id": "16",
     "action": "",
-    "text": "NAVIGATION.PORTAL_ADMIN",
+    "text": "NAVIGATION_ADMIN.TITLE.PORTAL_ADMIN",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
     "icon": "icon icon-mps-admin",
@@ -152,7 +152,7 @@
   {
     "id": "17",
     "action": "/library",
-    "text": "NAVIGATION.DOCUMENT_LIBRARY_MANAGEMENT",
+    "text": "NAVIGATION_ADMIN.TITLE.DOCUMENT_LIBRARY_MANAGEMENT",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
     "icon": "",
@@ -161,7 +161,7 @@
   {
     "id": "18",
     "action": "/notifications",
-    "text": "NAVIGATION.NOTIFICATION_MANAGEMENT",
+    "text": "NAVIGATION_ADMIN.TITLE.NOTIFICATION_MANAGEMENT",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
     "icon": "",
@@ -170,7 +170,7 @@
   {
     "id": "19",
     "action": "/siebel",
-    "text": "NAVIGATION.SIEBEL_MANAGEMENT",
+    "text": "NAVIGATION_ADMIN.TITLE.SIEBEL_MANAGEMENT",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
     "icon": "",
@@ -179,7 +179,7 @@
   {
     "id": "20",
     "action": "/translations",
-    "text": "NAVIGATION.TRANSLATION_MANAGEMENT",
+    "text": "NAVIGATION_ADMIN.TITLE.TRANSLATION_MANAGEMENT",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
     "icon": "",
@@ -188,7 +188,7 @@
   {
     "id": "21",
     "action": "/impersonate",
-    "text": "NAVIGATION.IMPERSONATION",
+    "text": "NAVIGATION_ADMIN.TITLE.IMPERSONATION",
     "description": "Some description of this link",
     "permissionFlag":"viewHomePage",
     "icon": "",

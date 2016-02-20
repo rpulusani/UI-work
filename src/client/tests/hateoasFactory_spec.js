@@ -54,7 +54,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 // General queries we expect to answer, test specific mocks are in the related it()
                 httpBackend.when('GET', '/').respond(fixtures.users.regular);
                 httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
-                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 httpBackend.when('GET', mockFactory.url + '?page=0&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageOne);
                 httpBackend.when('GET', mockFactory.url + '?page=1&size=20&accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.pageTwo);
             }));

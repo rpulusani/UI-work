@@ -20,7 +20,7 @@ define(['angular', 'angular-mocks', 'utility.hateaosConfig', 'fixtures'],
                     }
                 }
 
-                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({
                     _links : {
                         test : {

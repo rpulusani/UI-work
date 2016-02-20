@@ -2,7 +2,7 @@ define(['angular', 'angular-mocks', 'security'], function(angular, mocks) {
     describe('Security Module', function() {
         beforeEach(module('mps'));
         beforeEach(inject(['$httpBackend',function(httpBackend){
-            httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+            httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
         }]));
         describe('SecurityService', function(){
             describe('Constructor', function(){
