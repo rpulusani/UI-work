@@ -31,8 +31,12 @@ define(['angular'], function(angular) {
                 // TODO - this belongs in a service
                 $scope.upload = function(file) {
                   $log.debug('  uploading ' + file);
+
                   var fd = new FormData();
                   fd.append('file', file);
+
+                   console.log(fd, file)
+                  
                   var req = {
                     method: 'POST',
                     transformRequest: angular.identity,

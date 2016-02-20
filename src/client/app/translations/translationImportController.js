@@ -24,18 +24,38 @@ define(['angular','translation', 'utility.grid'], function(angular) {
         ) {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Translations, $scope, $rootScope, personal, 'defaultSet');
-
+            
+            $scope.configure = {
+                detail: {
+                    translate: {
+                        comments: 'LABEL.COMMENTS',
+                        attachments: 'Please select the file you wish to import translations from...',
+                        attachmentMessage: '* Acceptable file format: .xliff'
+                    },
+                    show: {
+                        referenceId: true,
+                        costCenter: true,
+                        comments: true,
+                        attachements: true
+                    }
+                }
+            };
+            $scope.importedFileLanguage = '';
+            
             $rootScope.currentRowList = [];
 
-            $scope.importedFileLanguage = '';
 
             Translations.getLocales().then(function(res) {
                 $scope.languages = res.data.locales;
-                console.log($scope.languages)
             });
 
             $scope.importLanguage = function(formData) {
-                console.log($scope.importedFileLanguage);
+                console.log($scope);
+                console.log(formData);
+
+                Translations.importFile($scope.importedFileLanguage, $scope.files[0]).then(function() {
+                    $location.path(Translations.route + '/');
+                });
             };
         }
     ]);

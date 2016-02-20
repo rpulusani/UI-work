@@ -1,8 +1,8 @@
 define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.translation')
-    .factory('Translations', ['adminUrl', '$translate', 'HATEOASFactory', 'FormatterService',
-        function(adminUrl, $translate, HATEOASFactory, formatter) {
+    .factory('Translations', ['adminUrl', '$translate', 'HATEOASFactory', 'FormatterService', '$http',
+        function(adminUrl, $translate, HATEOASFactory, formatter, $http) {
             var Translations = {
                     serviceName: 'translations',
                     embeddedName: 'contents', //get away from embedded name and move to a function to convert url name to javascript name
@@ -33,6 +33,23 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                             {'name': $translate.instant('LANGUAGES.RUSSIAN'), 'field': 'getTextForLang("RU")', 'notSearchable': true},
                             {'name': $translate.instant('LANGUAGES.TURKISH'), 'field': 'getTextForLang("TR")', 'notSearchable': true}
                         ]
+                    },
+                    importFile: function(language, file) {
+                        var self = this,
+                        fd = new FormData();
+
+                        fd.append('file', file);
+                        // dont think we need $http but using it to mock attachments which works
+
+                        console.log(fd, file)
+
+                        return $http({ 
+                            headers: {'Content-Type': undefined},
+                            method: 'POST',
+                            url: adminUrl + '/localizations/import/' + language,
+                            data: fd,
+                            transformRequest: angular.identity,
+                        });
                     },
                     getLocales: function() {
                         var self = this;

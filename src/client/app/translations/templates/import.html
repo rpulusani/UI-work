@@ -1,24 +1,29 @@
-<!--
-Import Translations
+<div class="page-header">
+    <h1 translate="PORTAL_ADMIN.IMPORT_TRANSLATION_TILE"></h1>
+    <p translate="MESSAGE.LIPSUM"></p>
+</div>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan 
-et viverra justo commodo. Download translation import template >
-
-Select import file
--->
-
-<div class="row">
-    <div attachments></div>
+<div class="page-content">
     <div class="row">
-        <form name="languageImportForm" class="col-1 form" ng-submit="importLanguage(languageImportForm)">
-            <div ng-repeat="language in languages">
-                <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}" />
-                <label for="{{ language.localeCode }}">
-                    <span></span>{{ language.language }}
-                </label>
-            </div>
+        <div class="col-2-3">
+            <h2 translate="PORTAL_ADMIN.SELECT_TRANSLATION_FILE"></h2>
+            <hr />
+            <div attachments></div>
+        </div>
+        <div class="row">
+            <form enctype="multipart/form-data" name="languageImportForm" class="col-1 form" ng-submit="importLanguage(languageImportForm)">
+                <div ng-repeat="language in languages">
+                    <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}" />
+                    <label for="{{ language.localeCode }}">
+                        <span></span>{{ language.language }}
+                    </label>
+                </div>
 
-            <input type="submit" class="btn" />
-        </form>
+                <div class="col-2-3 l-pad-top">
+                    <hr />
+                    <input type="submit" class="btn" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>

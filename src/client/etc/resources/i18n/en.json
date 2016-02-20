@@ -1693,7 +1693,9 @@
             "TITLE_TRANSLATION_ABANDON_MODAL": "Are you sure you want to abandon this translation?",
             "BODY_TRANSLATION_ABANDON_MODAL": "The information you have entered will not be saved.",
             "ABANDON_TRANSLATION_MODAL_CANCEL": "No, do not abandon this translation value",
-            "ABANDON_TRANSLATION_MODAL_CONFIRM": "Yes, abandon this translation value"
+            "ABANDON_TRANSLATION_MODAL_CONFIRM": "Yes, abandon this translation value",
+            "IMPORT_TRANSLATION_TILE": "Import Translations",
+            "SELECT_TRANSLATION_FILE": "Select import file"
         },
 
         "DELEGATED_ADMIN": {
@@ -1871,7 +1873,7 @@
         "CREATED": "Created",
         "TAGGED_AS": "Tagged as",
         "FILE": "File",
-        "ATTACHMENTS": "Attachements",
+        "ATTACHMENTS": "Attachments",
         "OPEN": "Open",
         "ZERO_RECORDS": "No Records Found",
         "INVITED": "Invited",

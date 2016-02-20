@@ -3,10 +3,13 @@
     <div >
     <input name="attachments" type="file" multiple="multiple"
       onchange="angular.element(this).scope().change(this.files)"/>
-    <div class="form__field__helper-text"
+   <div ng-if="configure.detail.translate.fileList" class="form__field__helper-text"
         translate="{{configure.detail.translate.attachmentMessage}}"
         translate-values="{file_list: configure.detail.translate.fileList}"
     ></div>
+    <div ng-if="!configure.detail.translate.fileList" class="form__field__helper-text"
+        translate="{{configure.detail.translate.attachmentMessage}}">
+    </div>
   </div>
   <div ng-repeat="file in files">
     <div><span>Attachment 1 of 1</span><a ng-if="!file.complete">Cancel</a></div>
