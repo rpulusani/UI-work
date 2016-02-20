@@ -9,8 +9,8 @@ describe('Form Module', function() {
          beforeEach(inject(function($rootScope, $compile, _$httpBackend_) {
                 scope = $rootScope.$new();
                 $httpBackend = _$httpBackend_;
-
-                $httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                config.portal.adminUrl = 'abcd';
+                $httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 $httpBackend.when('GET', '/app/dashboard/templates/home.html').respond("<h1>home</h1>");
                 $httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
             }));

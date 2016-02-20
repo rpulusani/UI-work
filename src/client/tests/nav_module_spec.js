@@ -40,7 +40,7 @@ define(['angular', 'angular-mocks', 'nav', 'fixtures', 'angular-gatekeeper'],
                     "tags":["primary"]
                 }];
 
-                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/app/dashboard/templates/home.html').respond({it: 'works'});
                 httpBackend.when('GET', '/users?idpId=1').respond(fixtures.users.regular);
                 httpBackend.when('GET', 'app/nav/data/navigation.json').respond(200, scope.items);

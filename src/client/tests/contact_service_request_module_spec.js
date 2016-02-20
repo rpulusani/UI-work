@@ -16,7 +16,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                 deferred= $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
-
+                config.portal.adminUrl = 'abcd';
                 mockContactFactory = Contacts;
 
                 mockContactFactory.item = {id:'123', _links: {self: {href: '/contacts/123'}}};
@@ -26,8 +26,7 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
 
                 mockContactListCtrl = $controller('ContactListController', {$scope: scope, Contacts: mockContactFactory});
                 mockContactCtrl = $controller('ContactController', {$scope: scope, Contacts: mockContactFactory, translationPlaceHolder: {}});
-
-                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({it: 'works'});
             }));
 

@@ -268,7 +268,7 @@ define(['angular','angular-mocks', 'deviceManagement', 'deviceServiceRequest', '
                 };
 
                 httpBackend = $httpBackend;
-                httpBackend.when('GET', 'etc/resources/i18n/en.json').respond({it: 'works'});
+                httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({it: 'works'});
                 MockDeviceServiceRequest.route = 'http://127.0.0.1/request';
 
