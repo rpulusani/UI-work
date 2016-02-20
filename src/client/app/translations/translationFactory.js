@@ -34,6 +34,58 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                             {'name': $translate.instant('LANGUAGES.TURKISH'), 'field': 'getTextForLang("TR")', 'notSearchable': true}
                         ]
                     },
+                    exportFile: function(ctrlScope) {
+                        var self = this,
+                        url = adminUrl + '/localizations/export',
+                        fileExt = '.xliff.xml',
+                        fileName;
+
+                         if (!ctrlScope.exportFor) {
+                            ctrlScope.exportFor === 'review';
+                         }
+                   
+                        if (ctrlScope.exportFor === 'review') {
+                            url += '/xls';
+
+                            fileExt = '.xls';
+
+                            if (ctrlScope.stringVal !== 'all') {
+                                if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing') {
+                                    url += '?missing=' + ctrlScope.exportedFileLanguage;
+                                }
+
+                                if (ctrlScope.currentCategories) {
+                                    if (url.indexOf('?') !== -1) {
+                                        url += '&category=' + ctrlScope.currentCategories.toString();
+                                    } else {
+                                         url += '?category=' + ctrlScope.currentCategories.toString();
+                                    }
+                                }
+                            }
+                        } else {
+                            url += '/xliff';
+                        }
+
+                        return $http({ 
+                            method: 'GET',
+                            url: url
+                        }).success(function(res) {
+                            var anchor = angular.element('<a/>');
+                            anchor.css({display: 'none'});
+                            angular.element(document.body).append(anchor);
+                            
+                            if (!ctrlScope.exportedFileLanguage) {
+                                ctrlScope.exportedFileLanguage = 'translations'
+                            
+                            }
+
+                            anchor.attr({
+                                 href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
+                                 target: '_blank',
+                                 download: ctrlScope.exportedFileLanguage + fileExt
+                             })[0].click();
+                        });
+                    },
                     importFile: function(language, file) {
                         var self = this,
                         fd = new FormData();
@@ -41,14 +93,11 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                         fd.append('file', file);
                         // dont think we need $http but using it to mock attachments which works
 
-                        console.log(fd, file)
-
                         return $http({ 
                             headers: {'Content-Type': undefined},
                             method: 'POST',
                             url: adminUrl + '/localizations/import/' + language,
-                            data: fd,
-                            transformRequest: angular.identity,
+                            data: fd
                         });
                     },
                     getLocales: function() {

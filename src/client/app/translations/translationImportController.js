@@ -6,25 +6,12 @@ define(['angular','translation', 'utility.grid'], function(angular) {
         '$location',
         '$rootScope',
         'Translations',
-        'grid',
-        'PersonalizationServiceFactory',
-        'FilterSearchService',
-        '$http',
-        '$route',
         function(
             $scope,
             $location,
             $rootScope,
-            Translations,
-            Grid,
-            Personalize,
-            FilterSearchService,
-            $http,
-            $route
-        ) {
-            var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-            filterSearchService = new FilterSearchService(Translations, $scope, $rootScope, personal, 'defaultSet');
-            
+            Translations
+        ) {            
             $scope.configure = {
                 detail: {
                     translate: {
@@ -40,19 +27,16 @@ define(['angular','translation', 'utility.grid'], function(angular) {
                     }
                 }
             };
+            
             $scope.importedFileLanguage = '';
             
             $rootScope.currentRowList = [];
-
 
             Translations.getLocales().then(function(res) {
                 $scope.languages = res.data.locales;
             });
 
             $scope.importLanguage = function(formData) {
-                console.log($scope);
-                console.log(formData);
-
                 Translations.importFile($scope.importedFileLanguage, $scope.files[0]).then(function() {
                     $location.path(Translations.route + '/');
                 });

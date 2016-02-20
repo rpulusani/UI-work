@@ -37,6 +37,10 @@ define(['angular','translation', 'utility.grid'], function(angular) {
                 $location.path(Translations.route + '/import');
             };
 
+            $scope.goToExport = function() {
+                $location.path(Translations.route + '/export');
+            };
+
             filterSearchService.addBasicFilter('All Translations', {'sort':'id,DESC'}, undefined,
                 function(Grid) {
                     setTimeout(function() {

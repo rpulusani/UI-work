@@ -35,8 +35,6 @@ define(['angular'], function(angular) {
                   var fd = new FormData();
                   fd.append('file', file);
 
-                   console.log(fd, file)
-                  
                   var req = {
                     method: 'POST',
                     transformRequest: angular.identity,

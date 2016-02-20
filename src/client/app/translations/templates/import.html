@@ -8,10 +8,10 @@
         <div class="col-2-3">
             <h2 translate="PORTAL_ADMIN.SELECT_TRANSLATION_FILE"></h2>
             <hr />
-            <div attachments></div>
-        </div>
-        <div class="row">
-            <form enctype="multipart/form-data" name="languageImportForm" class="col-1 form" ng-submit="importLanguage(languageImportForm)">
+
+            <form  name="languageImportForm" class="col-1 form" ng-submit="importLanguage(languageImportForm)" enctype="multipart/form-data" novalidate>
+                <div attachments></div>
+
                 <div ng-repeat="language in languages">
                     <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}" />
                     <label for="{{ language.localeCode }}">
@@ -19,7 +19,7 @@
                     </label>
                 </div>
 
-                <div class="col-2-3 l-pad-top">
+                <div class="l-pad-top">
                     <hr />
                     <input type="submit" class="btn" />
                 </div>
