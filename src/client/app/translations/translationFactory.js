@@ -80,7 +80,7 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                             }
 
                             anchor.attr({
-                                 href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res.data),
+                                 href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res),
                                  target: '_blank',
                                  download: ctrlScope.exportedFileLanguage + fileExt
                              })[0].click();
