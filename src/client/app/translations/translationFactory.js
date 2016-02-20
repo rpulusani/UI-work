@@ -37,7 +37,7 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                     exportFile: function(ctrlScope) {
                         var self = this,
                         url = adminUrl + '/localizations/export',
-                        fileExt = '.xliff.xml',
+                        fileExt = '.xlf',
                         fileName;
 
                          if (!ctrlScope.exportFor) {
