@@ -33,8 +33,12 @@ define(['angular','translation', 'utility.grid'], function(angular) {
                 });
             };
 
-            filterSearchService.addBasicFilter('All Translations', undefined, undefined,
-                function(Grid) {}
+            filterSearchService.addBasicFilter('All Translations', {'sort':'id,DESC'}, undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    }, 500);
+                }
             );
         }
     ]);
