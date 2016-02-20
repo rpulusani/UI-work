@@ -44,6 +44,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.tags = [];
+            Tags.params.size = 100000;
             Tags.get().then(function() {
                 if (Tags.data) {
                     $scope.tags = Tags.data;
