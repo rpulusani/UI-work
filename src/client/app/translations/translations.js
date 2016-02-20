@@ -8,13 +8,11 @@ define(['angular'], function(angular) {
             controller: 'TranslationListController',
             activeItem: '/translations'
         })
-<<<<<<< HEAD
         .when('/translations/import', {
             templateUrl: '/app/translations/templates/import.html',
             controller: 'TranslationImportController',
             activeItem: '/translations'
         })
-=======
         .when('/translations/review', {
             templateUrl: '/app/translations/templates/review.html',
             controller: 'ManageTranslationController',
@@ -25,6 +23,5 @@ define(['angular'], function(angular) {
             controller: 'ExportController',
             activeItem: '/translations'
         });
->>>>>>> upstream/integrated
     }]);
 });
