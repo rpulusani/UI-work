@@ -1703,10 +1703,17 @@
             "PREFERRED_LANGUAGE": "Preferred language"
         },
 
+        "USER_ADMIN": {
+            "IMPERSONATE": {
+                  "IMPERSONATE_TITLE": "Impersonate User",
+                  "IMPERSONATE_BUTTON": "IMPERSONATE USER",
+                  "IMPERSONATE_MSG": "Currently viewing the portal as [{{user}}]. Impersonating a user allows read-only functionality. Submitting actions is not permitted.",
+                  "EXIT_IMPERSONATION": "Exit impersonation"
+            }
+        },
+
         "USER": {
             "INVITATION": "Invitations",
-            "IMPERSONATE_TITLE": "Impersonate User",
-            "IMPERSONATE_BUTTON": "IMPERSONATE USER",
             "USERS": "Users ({{total}} total users)",
             "INVITED_USERS_COUNT": "Invited users ({{total}} total invited users)",
             "ALL_USER": "All users",
@@ -1811,13 +1818,26 @@
             "CONTACT": "Contacts",
             "UPDATE_PAGE_COUNT": "Update Page Count",
             "DASHBOARD": "Home",
-            "PORTAL_ADMIN": "Portal Administration",
-            "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
-            "NOTIFICATION_MANAGEMENT": "Notification Management",
-            "SIEBEL_MANAGEMENT": "Siebel Management",
-            "TRANSLATION_MANAGEMENT": "Translation Management",
-            "IMPERSONATION": "Impersonation"
+            "TITLE": {
+                  "PORTAL_ADMIN": "Portal Administration",
+                  "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
+                  "NOTIFICATION_MANAGEMENT": "Notification Management",
+                  "SIEBEL_MANAGEMENT": "Siebel Management",
+                  "TRANSLATION_MANAGEMENT": "Translation Management",
+                  "IMPERSONATION": "Impersonation"
+            }
          },
+
+      "NAVIGATION_ADMIN": {
+            "TITLE": {
+                  "PORTAL_ADMIN": "Portal Administration",
+                  "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
+                  "NOTIFICATION_MANAGEMENT": "Notification Management",
+                  "SIEBEL_MANAGEMENT": "Siebel Management",
+                  "TRANSLATION_MANAGEMENT": "Translation Management",
+                  "IMPERSONATION": "Impersonation"
+            }
+      },
 
       "LABEL": {
         "EXPORT": "Export",
@@ -1913,9 +1933,7 @@
             "LIPSUM": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
             "FAQ": "FAQ Page is coming soon",
             "LEARN_MORE": "Learn More Page is coming soon",
-            "HELP": "Help Page is coming soon",
-            "IMPERSONATE": "Currently viewing the portal as [{{user}}]. Impersonating a user allows read-only functionality. Submitting actions is not permitted.",
-            "EXIT_IMPERSONATION": "Exit impersonation"
+            "HELP": "Help Page is coming soon"
         },
 
     "INVOICE": {

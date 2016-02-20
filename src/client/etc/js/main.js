@@ -282,6 +282,7 @@ requirejs.config({
         'filterSearch.soldToFilterController': 'app/filter_search/soldToFilterController',
         'filterSearch.libraryFilterController': 'app/filter_search/libraryFilterController',
         'filterSearch.meterReadTypeFilterController': 'app/filter_search/meterReadTypeFilterController',
+        'filterSearch.categoryFilterController': 'app/filter_search/categoryFilterController',
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
 

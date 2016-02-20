@@ -51,6 +51,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'CHLFilterController'
         };
     })
+    .directive('categoryFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/categoryFilter.html',
+            controller: 'CategoryFilterController'
+        };
+    })
     .directive('statusFilter', function() {
         return {
             restrict: 'A',

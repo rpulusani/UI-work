@@ -54,8 +54,8 @@
   <body style="display:none">
     <div class="alert alert--info" data-js="alert" data-static="true" data-basic="true" ng-if="impersonate">
       <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
-      <div class="alert__body"><span translate="MESSAGE.IMPERSONATE" translate-values="{'user': idpUser.custom_attributes.display_name}"></span>
-        <a href="" ng-click="removeImpersonate()" translate="MESSAGE.EXIT_IMPERSONATION"></a>
+      <div class="alert__body"><span translate="USER_ADMIN.IMPERSONATE.IMPERSONATE" translate-values="{'user': idpUser.custom_attributes.display_name}"></span>
+        <a href="" ng-click="removeImpersonate()" translate="USER_ADMIN.IMPERSONATE.EXIT_IMPERSONATION"></a>
       </div>
     </div>
     <div class="theme--dark">

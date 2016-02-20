@@ -149,6 +149,7 @@ define([
     'filterSearch.accountFilterController',
     'filterSearch.soldToFilterController',
     'filterSearch.meterReadTypeFilterController',
+    'filterSearch.categoryFilterController',
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
@@ -595,7 +596,7 @@ define([
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: 'etc/resources/i18n/',
+                    prefix: config.portal.adminUrl + '/localizations/',
                     suffix: '.json'
                 })
                 .useLocalStorage();
