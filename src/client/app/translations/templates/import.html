@@ -1,0 +1,29 @@
+<div class="page-header">
+    <h1 translate="PORTAL_ADMIN.IMPORT_TRANSLATION_TILE"></h1>
+    <p translate="MESSAGE.LIPSUM"></p>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-2-3">
+            <h2 translate="PORTAL_ADMIN.SELECT_TRANSLATION_FILE"></h2>
+            <hr />
+
+            <form  name="languageImportForm" class="col-1 form" enctype="multipart/form-data" novalidate>
+                <div attachments></div>
+
+                <div ng-repeat="language in languages">
+                    <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}" />
+                    <label for="{{ language.localeCode }}">
+                        <span></span>{{ language.language }}
+                    </label>
+                </div>
+
+                <div class="l-pad-top">
+                    <hr />
+                    <button class="btn" ng-click="importLanguage(languageImportForm)" type="submit" translate="PORTAL_ADMIN.IMPORT_TRANSLATION_BTN"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

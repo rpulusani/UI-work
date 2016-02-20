@@ -14,7 +14,11 @@ define([
         'UserService',
         'AccountService',
         'HATEAOSConfig',
+        '$cookies',
         '$http',
+        '$window',
+        'SecurityService',
+        'SecurityHelper',
         function(
             $scope,
             $rootScope,
@@ -24,8 +28,14 @@ define([
             Users,
             Accounts,
             HATEAOSConfig,
-            $http
+            $cookies,
+            $http,
+            $window,
+            SecurityService,
+            SecurityHelper
             ) {
+
+            var Security = new SecurityService();
 
             $scope.items = Nav.items;
             $scope.tags = Nav.getTags();
@@ -35,13 +45,15 @@ define([
             $scope.isInternal = false;
 
             $rootScope.currentUser.deferred.promise.then(function() {
-                //console.log('$rootScope.currentUser', $rootScope.currentUser);
                 if ($rootScope.currentUser.type === 'INTERNAL') {
-                    //console.log('in condition', $rootScope.currentUser.type);
                     $scope.isInternal = true;
-                    //console.log('$scope.isInternal', $scope.isInternal);
                 }
             });
+
+            $scope.removeImpersonate = function() {
+                delete $cookies['impersonateToken'];
+                $window.location.reload();
+            };
 
             $scope.getItemsByTag = function(tag){
                 return Nav.getItemsByTag(tag);
@@ -120,7 +132,13 @@ define([
 
                     $scope.selectedAccount = $rootScope.currentAccount;
 
-                    $route.reload();
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+                        
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+                        
+                        $route.reload();
+                    });
                 });
             };
 
@@ -158,6 +176,8 @@ define([
             $rootScope.$on('toggleAccountNav', function(e, res) {
                 $scope.dropdownItem.isExpanded = false;
             });
+
+            $scope.currentYear = new Date().getFullYear();
 
             $scope.setActive = function(text){
 

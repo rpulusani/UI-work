@@ -51,13 +51,21 @@ function($routeParams, Gatekeeper, $location, $cookies, $http, $window, $timeout
   });
 }])
 
-.factory('gatekeeper.Interceptor', ['Gatekeeper', '$q',
-  function(Gatekeeper, $q) {
+.factory('gatekeeper.Interceptor', ['Gatekeeper', '$q', 'gatekeeper-cookie-compat', '$rootScope',
+  function(Gatekeeper, $q, $cookies, $rootScope) {
     return {
       request: function(config) {
         if(Gatekeeper.isProtected(config.url)) {
-          if(!config.headers) config.headers = {};
-          config.headers.Authorization = 'Bearer ' + Gatekeeper.accessToken;
+          if(!config.headers) {
+            config.headers = {};
+          }
+          //config.headers.Authorization = 'Bearer ' + Gatekeeper.accessToken;
+          if ($cookies.get('impersonateToken')) {
+            $rootScope.impersonate = true;
+            config.headers.Authorization = $cookies.get('impersonateToken');
+          } else {
+            config.headers.Authorization = 'Bearer ' + Gatekeeper.accessToken;
+          }
         }
         return config;
       }

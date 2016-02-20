@@ -73,7 +73,11 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.goToCallingPage = function(){
-                $location.path($rootScope.deviceReturnPath);
+                var url = $rootScope.deviceReturnPath;
+                if($rootScope.deviceReturnPath.indexOf("{{id}}") > -1){
+                    url = $rootScope.deviceReturnPath.replace("{{id}}", $rootScope.currentSelectedRow.id);
+                }
+                $location.path(url);
             };
 
             $scope.discardSelect = function(){

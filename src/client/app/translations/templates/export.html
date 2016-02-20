@@ -1,0 +1,102 @@
+<div class="page-header">
+    <h1 translate="PORTAL_ADMIN.EXPORT_TRANSLATION_TILE"></h1>
+    <p translate="MESSAGE.LIPSUM"></p>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-2-3">
+            <h2 translate="PORTAL_ADMIN.EXPORT_CONFIGURATION"></h2>
+            <hr />
+        </div>
+
+        <div class="col-2-3">
+            <form enctype="multipart/form-data" name="languageExportForm" class="col-1 form">
+                <div class="col-2-3">
+                    <p><strong translate="PORTAL_ADMIN.EXPORT_STRINGS"></strong></p>
+                    <input type="radio" id="export-review-radio" name="exportFor" ng-model="exportFor" value="review" />
+                    <label for="export-review-radio">
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_REVIEW"></span>
+                    </label>
+                </div>
+                <div class="col-2-3">
+                    <input type="radio" id="export-trainslation-radio" name="exportFor" ng-model="exportFor" value="translation" />
+                    <label for="export-trainslation-radio">
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_TRANSLATION"></span>
+                    </label>
+                </div>
+                
+                <div class="col-1"></div>
+                
+                <div class="col-2-3">
+                    <p><strong translate="PORTAL_ADMIN.EXPORT_VALUES"></strong></p>
+                    <input type="radio" id="export-strings-radio" name="stringVal" ng-model="stringVal" value="all" />
+                    <label for="export-strings-radio">
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_ALL_STRINGS"></span>
+                    </label>
+                </div>
+                <div class="col-2-3">
+                    <input type="radio" id="export-missing-radio" name="stringVal" ng-model="stringVal" value="missing" />
+                    <label for="export-missing-radio">
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_ONLY_MISSING"></span>
+                    </label>
+                </div>
+
+                <div class="col-1"></div>
+
+                <div class="col-2-3">
+                    <p><strong><span translate="PORTAL_ADMIN.EXPORT_CATEGORY"></span></strong></p>
+                        <label for="a">
+                            <input type="checkbox"
+                                id="a"
+                                name="a"
+                                ng-model="category_notification"
+                                ng-change="selectExportCategory('a')"
+                            /><span translate="PORTAL_ADMIN.EXPORT_NOTIFICATION"></span>
+                        </label>
+                        <div class="col-1"></div>
+                        <label for="b">
+                            <input type="checkbox"
+                                id="b"
+                                name="category_siebel"
+                                ng-model="category_siebel"
+                                ng-change="selectExportCategory('b')"
+                            /><span translate="PORTAL_ADMIN.EXPORT_SIEBEL"></span>
+                        </label>
+                        <div class="col-1"></div>
+                        <label for="c">
+                            <input type="checkbox"
+                                id="c"
+                                name="category_portal"
+                                ng-model="category_portal"
+                                ng-change="selectExportCategory('c')"
+                            /><span translate="PORTAL_ADMIN.EXPORT_PORTAL"></span>
+                        </label>
+                        <div class="col-1"></div>
+                        <label for="d">
+                            <input type="checkbox"
+                                id="d"
+                                name="category_document"
+                                ng-model="category_document"
+                                ng-change="selectExportCategory('d')"
+                            /><span translate="PORTAL_ADMIN.EXPORT_TAGS"></span>
+                        </label>
+                </div>
+
+                <div class="col-1"></div>
+                <p><strong translate="PORTAL_ADMIN.EXPORT_LANGUAGE"></strong></p>
+                <div ng-repeat="language in languages">
+                    <input type="radio" id="{{ language.localeCode }}" name="exportedFileLanguage" ng-model="$parent.exportedFileLanguage" value="{{language.localeCode}}" />
+                    <label for="{{ language.localeCode }}">
+                        <span></span>{{ language.language }}
+                    </label>
+                </div>
+
+                <div class="l-pad-top">
+                    <hr />
+                    <button ng-click="exportLanguage(languageExportForm)" type="submit" class="btn" translate="PORTAL_ADMIN.EXPORT_TRANSLATION_BTN"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

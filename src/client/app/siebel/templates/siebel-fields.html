@@ -1,0 +1,33 @@
+<h2 translate="PORTAL_ADMIN.SIEBEL_VALUE"></h2>
+
+<div class="col-lg-2-3 col-md-1-1">
+    <h3 translate="PORTAL_ADMIN.SIEBEL_VALUE_DETAILS"></h3>
+
+    
+    <div class="form__field form__field--select" >
+        <label translate="PORTAL_ADMIN.SIEBEL_OPTION"></label>
+        <div selectric
+            model="siebel.subModule"
+            options="siebelOptions"
+            value="key"
+            label="name"
+            placeholder="{{'LABEL.SELECT' | translate}}"
+        ></div>
+    </div>
+
+    <div class="form__field">
+        <label translate="PORTAL_ADMIN.SIEBEL_VALUE"></label>
+        <input name="actualValue" type="text" class="" value="" ng-model="siebel.actualValue" />
+    </div>
+
+    <div class="form__field">
+        <label translate="PORTAL_ADMIN.DISPLAY_VALUE"></label>
+        <input name="defaultText" type="text" class="" value="" ng-model="siebel.values.EN" />
+    </div>
+
+    <div class="form__field">
+        <label translate="PORTAL_ADMIN.DISPLAY_ORDER"></label>
+        <input name="order" type="text" class="" value="" ng-model="siebel.order" />
+    </div>
+</div>
+

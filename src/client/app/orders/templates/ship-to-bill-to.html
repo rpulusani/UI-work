@@ -5,7 +5,7 @@
             <div class="well">
                 <h3 translate="{{configure.order.shipToBillTo.translate.shipToAddress}}"></h3>
                 <p ng-bind-html="formatedShipToAddress"></p>
-                <a ng-click="goToAddressShipToPicker(configure.shipToPicker.source, device)" href="#"
+                <a ng-click="goToAddressShipToPicker(configure.shipToPicker.source, configure.shipToPicker.pickerObject)" href="#"
                     ng-if="configure.order.shipToBillTo.translate.shipToAction"
                     translate="{{configure.order.shipToBillTo.translate.shipToAction}}"></a>
                 <div class="form__field" ng-if="false">
@@ -38,7 +38,7 @@
                 </div>
                 <h3 translate="{{configure.order.shipToBillTo.translate.billToAddress}}"></h3>
                     <p ng-bind-html="formatedBillToAddress"></p>
-                    <a ng-click="goToAddressBillToPicker(configure.billToPicker.source, device)" href=""
+                    <a ng-click="goToAddressBillToPicker(configure.billToPicker.source, configure.billToPicker.pickerObject)" href=""
                         ng-if="configure.order.shipToBillTo.translate.billToAction"
                         translate="{{configure.order.shipToBillTo.translate.billToAction}}"></a>
             </div>

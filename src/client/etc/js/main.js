@@ -36,6 +36,8 @@ requirejs.config({
             'queue.queueListController',
             'queue.tombstoneFactory',
 
+            
+
             'dashboard',
             'dashboard.dashboardController',
 
@@ -77,9 +79,32 @@ requirejs.config({
             'account.roleFactory',
             'account.accountController',
 
+            'notification',
+            'notification.notificationFactory',
+            'notification.notificationController',
+            'notification.directives',
+            'notification.createNotificationController',
+            'notification.manageNotificationController',
+
+            'siebel',
+            'siebel.siebelFactory',
+            'siebel.siebelListController',
+            'siebel.directives',
+            'siebel.createSiebelValueController',
+            'siebel.manageSiebelValueController',
+
+            'translation',
+            'translation.translationFactory',
+            'translation.translationListController',
+            'translation.directives',
+            'translation.manageTranslationController',
+            'translation.translationImportController',
+            'translation.exportController',
+
             'user',
             'user.factory',
             'user.userInfoFactory',
+            'user.impersonateFactory',
             'user.userAdministrationFactory',
             'user.lexmarkUserFactory',
             'user.roleFactory',
@@ -89,6 +114,7 @@ requirejs.config({
             'user.userAddController',
             'user.lexmarkUserAddController',
             'user.lexmarkUserListController',
+            'user.impersonateUserListController',
             'user.usersController',
             'user.userTabController',
             'user.manageUserTabController',
@@ -143,6 +169,7 @@ requirejs.config({
 
         'user': ['angular', 'utility.urlHelper'],
         'user.factory': ['user'],
+        'user.impersonateFactory': ['user'],
         'user.userInfoFactory': ['user'],
         'user.allAccountFactory': ['user'],
         'user.userAdministrationFactory': ['user'],
@@ -158,6 +185,29 @@ requirejs.config({
         'user.manageUserController': ['user'],
         'user.manageUserTabController': ['user'],
         'user.invitedUserController': ['user'],
+        'user.impersonateUserListController': ['user'],
+
+        'notification': ['angular'],
+        'notification.notificationFactory': ['notification'],
+        'notification.notificationController': ['notification'],
+        'notification.directives': ['notification'],
+        'notification.createNotificationController': ['notification'],
+        'notification.manageNotificationController': ['notification'],
+
+        'siebel': ['angular'],
+        'siebel.siebelFactory': ['siebel'],
+        'siebel.siebelListController': ['siebel'],
+        'siebel.directives': ['siebel'],
+        'siebel.createSiebelValueController': ['siebel'],
+        'siebel.manageSiebelValueController': ['siebel'],
+
+        'translation': ['angular'],
+        'translation.translationFactory': ['translation'],
+        'translation.translationListController': ['translation'],
+        'translation.directives': ['translation'],
+        'translation.manageTranslationController': ['translation'],
+        'translation.translationImportController': ['translation'],
+        'translation.exportController': ['translation'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -209,6 +259,9 @@ requirejs.config({
 
         'app': 'app/app',
 
+        'attachments' : 'app/attachments/attachments',
+        'attachments.directives' : 'app/attachments/directives',
+
         'hateoasFactory': 'app/hateoas_factory/hateoasFactory',
         'hateoasFactory.serviceFactory': 'app/hateoas_factory/hateoasServiceFactory',
 
@@ -231,6 +284,7 @@ requirejs.config({
         'filterSearch.soldToFilterController': 'app/filter_search/soldToFilterController',
         'filterSearch.libraryFilterController': 'app/filter_search/libraryFilterController',
         'filterSearch.meterReadTypeFilterController': 'app/filter_search/meterReadTypeFilterController',
+        'filterSearch.categoryFilterController': 'app/filter_search/categoryFilterController',
         'filterSearch.filterSearchService': 'app/filter_search/filterSearchService',
         'filterSearch.directives': 'app/filter_search/directives',
 
@@ -283,6 +337,28 @@ requirejs.config({
         'account.roleFactory': 'app/accounts/roleFactory',
         'account.accountController': 'app/accounts/accountController',
 
+        'notification': 'app/notifications/notification',
+        'notification.notificationFactory': 'app/notifications/notificationFactory',
+        'notification.notificationController': 'app/notifications/notificationListController',
+        'notification.directives': 'app/notifications/directives',
+        'notification.createNotificationController': 'app/notifications/createNotificationController',
+        'notification.manageNotificationController': 'app/notifications/manageNotificationController',
+
+        'siebel': 'app/siebel/siebel',
+        'siebel.siebelFactory': 'app/siebel/siebelFactory',
+        'siebel.siebelListController': 'app/siebel/siebelListController',
+        'siebel.directives': 'app/siebel/directives',
+        'siebel.createSiebelValueController': 'app/siebel/createSiebelValueController',
+        'siebel.manageSiebelValueController': 'app/siebel/manageSiebelValueController',
+
+        'translation': 'app/translations/translations',
+        'translation.translationFactory': 'app/translations/translationFactory',
+        'translation.translationListController': 'app/translations/translationListController',
+        'translation.directives': 'app/translations/directives',
+        'translation.manageTranslationController': 'app/translations/manageTranslationController',
+        'translation.translationImportController': 'app/translations/translationImportController',
+        'translation.exportController': 'app/translations/exportController',
+
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
         'user.userInfoFactory': 'app/users/userInfoFactory',
@@ -290,6 +366,7 @@ requirejs.config({
         'user.userAdministrationFactory': 'app/users/userAdministrationFactory',
         'user.lexmarkUserFactory': 'app/users/lexmarkUserFactory',
         'user.roleFactory': 'app/users/roleFactory',
+        'user.impersonateFactory': 'app/users/impersonateFactory',
         'user.directives': 'app/users/directives',
         'user.userAddController': 'app/users/userAddController',
         'user.lexmarkUserListController': 'app/users/lexmarkUserListController',
@@ -300,6 +377,7 @@ requirejs.config({
         'user.manageUserTabController': 'app/users/manageUserTabController',
         'user.manageUserController': 'app/users/manageUserController',
         'user.invitedUserController': 'app/users/invitedUserController',
+        'user.impersonateUserListController': 'app/users/impersonateUserListController',
 
         'serviceRequest': 'app/service_requests/serviceRequest',
         'serviceRequest.factory': 'app/service_requests/serviceRequestsFactory',
@@ -325,8 +403,12 @@ requirejs.config({
         'order.orderStatusFactory': 'app/orders/orderStatusFactory',
         'order.orderItemsfactory': 'app/orders/orderItemsFactory',
         'order.assetsPartsFactory': 'app/orders/assetPartsFactory',
+        'order.hardwareCatalogFactory': 'app/orders/hardwareCatalogFactory',
+        'order.suppliesCatalogFactory': 'app/orders/suppliesCatalogFactory',
         'order.directives': 'app/orders/directives',
+        'order.catalogController':'app/orders/catalogController',
         'order.orderPurchaseController': 'app/orders/orderPurchaseController',
+        'order.orderCatalogPurchaseController': 'app/orders/orderCatalogPurchaseController',
         'order.orderListController': 'app/orders/orderListController',
         'order.deviceOrderListController': 'app/orders/deviceOrderListController',
         'order.supplyOrderListController': 'app/orders/supplyOrderListController',
@@ -335,6 +417,9 @@ requirejs.config({
         'order.tabController': 'app/orders/orderTabController',
         'order.actionButtonController': 'app/orders/orderActionButtonsController',
         'order.returnOrdersController': 'app/orders/returnOrdersController',
+        'order.agreementCatalogController': 'app/orders/agreementCatalogController',
+        'order.agreementFactory':'app/orders/agreementFactory',
+        'order.contractFactory':'app/orders/contractFactory',
 
         'address': 'app/address_service_requests/addressServiceRequest',
         'address.addressAddController': 'app/address_service_requests/addressAddController',

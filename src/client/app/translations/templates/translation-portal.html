@@ -1,0 +1,18 @@
+<h2 translate="PORTAL_ADMIN.PORTAL_UI_DETAILS"></h2>
+
+<div class="well well--no-shadow col-2-3">
+    <ul class="info-list">
+        <li class="info-list__item">
+            <div class="info-list__item-name" translate="PORTAL_ADMIN.PORTAL_UI_CATEGORY"></div>
+            <div class="info-list__item-value">{{translation.module}}.{{translation.subModule}}</div>
+        </li>
+        <li class="info-list__item">
+            <div class="info-list__item-name" translate="PORTAL_ADMIN.PORTAL_UI_VALUE"></div>
+            <div class="info-list__item-value" ng-bind="translation.actualValue"></div>
+        </li>
+        <li class="info-list__item">
+            <div class="info-list__item-name" translate="LABEL.DESC"></div>
+            <div class="info-list__item-value" ng-bind="translation.description"></div>
+        </li>
+    </ul>
+</div>

@@ -11,6 +11,8 @@ define([
     'angular-sanitize',
     'ui.grid',
     'angular-spring-data-rest',
+    'attachments',
+    'attachments.directives',
     'serviceRequest',
     'serviceRequest.factory',
     'serviceRequest.serviceRequestStatusFactory',
@@ -32,8 +34,11 @@ define([
     'order.factory',
     'order.orderTypeFactory',
     'order.orderStatusFactory',
+    'order.hardwareCatalogFactory',
+    'order.suppliesCatalogFactory',
     'order.directives',
     'order.orderListController',
+    'order.catalogController',
     'order.deviceOrderListController',
     'order.supplyOrderListController',
     'order.tabController',
@@ -43,7 +48,11 @@ define([
     'order.assetsPartsFactory',
     'order.orderContentsController',
     'order.orderPurchaseController',
+    'order.orderCatalogPurchaseController',
     'order.returnOrdersController',
+    'order.agreementCatalogController',
+    'order.agreementFactory',
+    'order.contractFactory',
     'contact',
     'contact.contactController',
     'contact.contactDeleteController',
@@ -140,6 +149,7 @@ define([
     'filterSearch.accountFilterController',
     'filterSearch.soldToFilterController',
     'filterSearch.meterReadTypeFilterController',
+    'filterSearch.categoryFilterController',
     'filterSearch.filterSearchService',
     'security',
     'security.securityService',
@@ -157,6 +167,7 @@ define([
         'pascalprecht.translate',
         'vButton',
         'mps.hateoasFactory',
+        'mps.attachments',
         'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
@@ -171,12 +182,15 @@ define([
         'mps.invoice',
         'mps.deviceManagement',
         'mps.library',
+        'mps.siebel',
+        'mps.translation',
         'mps.pageCount',
         'mps.nav',
         'mps.utility',
         'angular-gatekeeper',
         'mps.form',
         'mps.filterSearch',
+        'mps.notifications',
         'ui.grid',
         'ui.grid.edit',
         'ui.grid.rowEdit',
@@ -211,6 +225,7 @@ define([
         };
     })
     .constant('serviceUrl', config.portal.serviceUrl)
+    .constant('adminUrl', config.portal.adminUrl)
     .constant('lbsURL', config.portal.lbsUrl)
     .constant('permissionSet', {
         dashboard:{
@@ -295,12 +310,13 @@ define([
             embeddedNamedResources: true
         });
     })
-    .config(function(GatekeeperProvider, serviceUrl){
+    .config(function(GatekeeperProvider, serviceUrl, adminUrl){
         GatekeeperProvider.configure({
             serviceUri: config.idp.serviceUrl,
             clientId: config.idp.clientId
         });
         GatekeeperProvider.protect(serviceUrl);
+        GatekeeperProvider.protect(adminUrl);
     })
 
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
@@ -313,13 +329,18 @@ define([
             deferred: $q.defer()
         };
         var security = new SecurityService();
-        var configurePermissions = [
+        
+        $rootScope.configurePermissions = [
             {
                 name: 'documentLibraryAccess',
                 permission: [
                     permissionSet.contentManagement.viewNonstrategic,
                     permissionSet.contentManagement.viewStrategic
                 ]
+            },
+            {
+                name: 'documentLibraryViewStrategicAccess',
+                permission: permissionSet.contentManagement.viewStrategic
             },
             {
                 name: 'documentLibraryUploadAccess',
@@ -529,7 +550,7 @@ define([
                 ]
             }
         ];
-        new SecurityHelper($rootScope).setupPermissionList(configurePermissions);
+        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
 
         $q.all(security.requests).then(function(){
             angular.element(document.getElementsByTagName('body')).attr('style',''); // show the application
@@ -575,7 +596,7 @@ define([
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: 'etc/resources/i18n/',
+                    prefix: config.portal.adminUrl + '/localizations/',
                     suffix: '.json'
                 })
                 .useLocalStorage();

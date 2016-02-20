@@ -34,6 +34,9 @@
                 <li class="info-list__item" ng-show="configure.detail.show.attachements">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.attachments}}"></div>
                     <div class="info-list__item-value" ng-bind="formattedAttachments"></div>
+                    <div ng-repeat="file in sr.attachments">
+                      <div>{{file.filename}}</div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -52,7 +55,8 @@
      </div>
 
     <!-- additional request Details go here -->
-    <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems" configure="configure"></div>
+    <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems"
+    hide-submit="hideSubmitButton" configure="configure"></div>
     <div order-receipt></div>
     <div order-return-details></div>
     <div sr-device-information></div>

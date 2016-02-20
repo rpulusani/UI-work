@@ -259,7 +259,7 @@
             "CTRL_UPDATE_DEVICE_INFO": "Update device information",
             "LNK_VIEW_ON_MAP": "View on map",
             "TXT_BILL_AND_TRACK": "Device billing and tracking",
-            "TXT_NOTIFICATION_ORDERS": "There are open orders for this device.",
+            "TXT_`CATION_ORDERS": "There are open orders for this device.",
             "TXT_NOTIFICATION_SRHISTORY": "There are open service requests for this device.",
             "LNK_NOTIFICATION_ORDERS" : "View orders >",
             "LNK_NOTIFICATION_SRHISTORY" : "View service requests >",
@@ -466,6 +466,40 @@
             "TXT_PURCHASE_ORDER":"Purchase order number"
         }
     },
+     "ORDER_CATALOGS":{
+            "COMMON":{
+                  "TXT_ACCOUNT":"Account",
+                  "TXT AGREEMENT":"Agreement",
+                  "TXT_CONTRACT": "Contract",
+                  "TXT_PAYMENT_DETAILS":"Payment details",
+                  "TXT_CATALOG_TYPE":"Catalog type",
+                  "TXT_AGREEMENT_SELECTION": "Which Agreement would you like to place this order for?",
+                  "TXT_CONTRACT_SELECTION": "Please select a contract",
+                  "TXT_PAY_SELECTION":"Do you want to Pay Now or Pay Later?",
+                  "TXT_PAY_NOW":"Pay Now",
+                  "TXT_PAY_LATER": "Pay Later",
+                  "TXT_CATALOG_SELECTION": "Which catalog do you want to order from?",
+                  "TXT_DEVICE_CATALOG": "Device catalog",
+                  "TXT_ACCESSORIES_CATALOG":"Accessories catalog",
+                  "BTN_REVIEW_AND_SUBMIT":"REVIEW AND SUBMIT ORDER"
+            },
+            "DEVICE_CATALOG":{
+                  "TXT_DEVICE_CATALOG_ORDER": "Device Catalog Order",
+                  "TXT_DEVICE_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+                  "BTN_DEVICE_ORDER_ABANDON":"ABANDON DEVICE ORDER",
+                  "BTN_DEVICE_ORDER_SUBMIT":"BROWSE DEVICES AVAILABLE FOR THIS CONTRACT"
+            },
+            "SUPPLIES_CATALOG":{
+                  "TXT_SUPPLIES_CATALOG_ORDER":"New Supplies Order",
+                  "TXT_SUPPLIES_CATALOG_PAR": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+                  "BTN_ORDER_ABANDON_SUPPLIES":"ABANDON SUPPLIES ORDER",
+                  "BTN_ORDER_SUBMINT_SUPPLIES":"BROWSE SUPPLIES AVAILABLE ON THIS CONTRACT"
+            },
+            "RECEIPT":{
+                  "TXT_DETAIL_TITLE":"Details for Device Order Number: {{srNumber}}",
+                  "TXT_PARA": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+            }
+      },
 
     "REQUEST_MAN": {
         "COMMON": {
@@ -1467,6 +1501,7 @@
                 "TXT_ADD_NEW_DOCUMENT_PAR" : "TBD",
                 "TXT_BROWSE_FILE" : "Browse file",
                 "TXT_CAN_SEE" : "Can see",
+                "TXT_CAN_NOT_SEE" : "Can not see",
                 "TXT_GRID_ACCOUNT_NAME" : "Account name",
                 "TXT_GRID_VISIBILITY" : "Visibility",
                 "TXT_LIMIT_ACCESS_STRATEGIC" : "Limit to strategic access",
@@ -1591,11 +1626,106 @@
             "TITLE": "Invoices"
         },
 
+        "PORTAL_ADMIN": {
+            "EXPORT_STRINGS": "Export strings for",
+            "EXPORT_REVIEW": "Review (.xls)",
+            "EXPORT_TRANSLATION": "Translation (.xliff)",
+            "EXPORT_VALUES": "Values",
+            "EXPORT_ALL_STRINGS": "All strings",
+            "EXPORT_ONLY_MISSING": "Only missing strings",
+            "EXPORT_CATEGORY": "Category",
+            "EXPORT_NOTIFICATION": "Notification",
+            "EXPORT_SIEBEL": "Siebel values",
+            "EXPORT_PORTAL": "Portal UI",
+            "EXPORT_TAGS": "Document tags",
+            "EXPORT_LANGUAGE": "Language",
+            "EXPORT_CONFIGURATION": "Export configuration",
+            "NOTIFICATION_TITLE": "Notification Management",
+            "MANAGE_TRANSLATION":"Manage Translation",
+            "DISPLAY_ORDER": "Display order",
+            "START_DATE": "Start date",
+            "END_DATE": "End Date",
+            "NAME": "Name",
+            "DELETE_NOTIFICATION": "Delete notification",
+            "CREATE_NEW_NOTIFICATION_BTN": "CREATE NEW NOTIFICATION",
+            "CREATE_NOTIFICATION": "Create notification",
+            "NOTIFICATION_DETAILS": "Notification Details",
+            "NOTIFICATION_WHEN": "When will the notification be displayed?",
+            "NOTIFICATION_COMMUNICATION": "Notification communication",
+            "URL": "URL",
+            "TITLE": "Title",
+            "MESSAGE": "Message",
+            "ABANDON_NOTIFICATION": "ABANDON NOTIFICATION CREATION",
+            "ABANDON_NOTIFICATION_CHANGES": "ABANDON NOTIFICATION CHANGES",
+            "SAVE_NOTIFICATION": "SAVE NOTIFICATION",
+            "UPDATE_NOTIFICATION": "UPDATE NOTIFICATION",
+            "TITLE_NOTIFICATION_ABANDON_MODAL": "Are you sure you want to abandon this notification?",
+            "BODY_NOTIFICATION_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_NOTIFICATION_MODAL_CANCEL": "No, do not abandon this notification",
+            "ABANDON_NOTIFICATION_MODAL_CONFIRM": "Yes, abandon this notification",
+            "MANAGE_NOTIFICATION": "Manage Notification - Portal maintenance",
+            "DELETE_NOTIFICATION_BTN": "DELETE NOTIFICATION",
+            "OPTION": "Option",
+            "VALUE": "Value",
+            "DISPLAY_VALUE": "Display value",
+            "SIEBEL_VALUES": "Siebel Values",
+            "ADD_NEW_SIEBEL_VALUE_BTN": "ADD NEW SIEBEL VALUE",
+            "ALL_SIEBEL_VALUES": "All Siebel Values",
+            "NEW_SIEBEL_VALUE": "New Siebel Value",
+            "SIEBEL_VALUE": "Siebel Value",
+            "SIEBEL_VALUE_DETAILS": "Siebel value details",
+            "SIEBEL_OPTION": "Siebel option",
+            "DISPLAY_ORDER": "Display order",
+            "ABANDON_SIEBEL": "DISCARD NEW SIEBEL VALUE",
+            "ABANDON_SIEBEL_CHANGES": "DISCARD SIEBEL VALUE",
+            "SAVE_SIEBEL_NEW": "SAVE NEW SIEBEL VALUE",
+            "SAVE_SIEBEL_CHANGE": "SAVE SIEBEL VALUE CHANGES",
+            "TITLE_SIEBEL_ABANDON_MODAL": "Are you sure you want to abandon this siebel value?",
+            "BODY_SIEBEL_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_SIEBEL_MODAL_CANCEL": "No, do not abandon this siebel value",
+            "ABANDON_SIEBEL_MODAL_CONFIRM": "Yes, abandon this siebel value",
+            "DELETE_VALUE": "Delete value",
+            "UPDATE_SIEBEL_VALUE": "Update Siebel value - {{siebelValue}}",
+            "DELETE_THIS_SIEBEL_VALUE": "DELETE THIS SIEBEL VALUE",
+            "TRANSLATION_MANAGEMENT_TITLE": "Translation Management",
+            "IMPORT_TRANSLATION_BTN": "IMPORT TRANSLATIONS",
+            "EXPORT_TRANSLATION_BTN": "EXPORT TRANSLATIONS",
+            "CATEGORY": "Category",
+            "ALL_TRANSLATIONS": "All Translations",
+            "LOCALIZATION": "Localization",
+            "TRANSLATION_DETAILS": "Translation Details",
+            "SIEBEL_TRANSLATION_DETAILS": "Siebel translation Details",
+            "PORTAL_UI_DETAILS": "Portal UI Details",
+            "PORTAL_UI_CATEGORY": "Portal UI Category",
+            "PORTAL_UI_VALUE": "Portal UI Value",
+            "NOTIFICATION_DETAILS": "Notification details",
+            "DOCUMENT_TAG_DETAILS": "Document tag details",
+            "DOCUMENT_TAG_NAME": "Document tag name",
+            "ABANDON_TRANSLATION_CHANGES": "DISCARD TRANSLATION CHANGES",
+            "SAVE_TRANSLATION": "SAVE TRANSLATION CHANGES",
+            "TITLE_TRANSLATION_ABANDON_MODAL": "Are you sure you want to abandon this translation?",
+            "BODY_TRANSLATION_ABANDON_MODAL": "The information you have entered will not be saved.",
+            "ABANDON_TRANSLATION_MODAL_CANCEL": "No, do not abandon this translation value",
+            "ABANDON_TRANSLATION_MODAL_CONFIRM": "Yes, abandon this translation value",
+            "IMPORT_TRANSLATION_TILE": "Import Translations",
+            "EXPORT_TRANSLATION_TILE": "Export Translations",
+            "SELECT_TRANSLATION_FILE": "Select import file"
+        },
+
         "DELEGATED_ADMIN": {
             "TITLE": "Users",
             "MANAGE_PROFILE": "Managing User Profile",
             "MANAGE_LEXMARK_PROFILE": "Managing Lexmark User Profile",
             "PREFERRED_LANGUAGE": "Preferred language"
+        },
+
+        "USER_ADMIN": {
+            "IMPERSONATE": {
+                  "IMPERSONATE_TITLE": "Impersonate User",
+                  "IMPERSONATE_BUTTON": "IMPERSONATE USER",
+                  "IMPERSONATE_MSG": "Currently viewing the portal as [{{user}}]. Impersonating a user allows read-only functionality. Submitting actions is not permitted.",
+                  "EXIT_IMPERSONATION": "Exit impersonation"
+            }
         },
 
         "USER": {
@@ -1704,13 +1834,26 @@
             "CONTACT": "Contacts",
             "UPDATE_PAGE_COUNT": "Update Page Count",
             "DASHBOARD": "Home",
-            "PORTAL_ADMIN": "Portal Administration",
-            "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
-            "NOTIFICATION_MANAGEMENT": "Notification Management",
-            "SIEBEL_MANAGEMENT": "Siebel Management",
-            "TRANSLATION_MANAGEMENT": "Translation Management",
-            "IMPERSONATION": "Impersonation"
+            "TITLE": {
+                  "PORTAL_ADMIN": "Portal Administration",
+                  "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
+                  "NOTIFICATION_MANAGEMENT": "Notification Management",
+                  "SIEBEL_MANAGEMENT": "Siebel Management",
+                  "TRANSLATION_MANAGEMENT": "Translation Management",
+                  "IMPERSONATION": "Impersonation"
+            }
          },
+
+      "NAVIGATION_ADMIN": {
+            "TITLE": {
+                  "PORTAL_ADMIN": "Portal Administration",
+                  "DOCUMENT_LIBRARY_MANAGEMENT": "Document Library Management",
+                  "NOTIFICATION_MANAGEMENT": "Notification Management",
+                  "SIEBEL_MANAGEMENT": "Siebel Management",
+                  "TRANSLATION_MANAGEMENT": "Translation Management",
+                  "IMPERSONATION": "Impersonation"
+            }
+      },
 
       "LABEL": {
         "EXPORT": "Export",
@@ -1764,7 +1907,7 @@
         "CREATED": "Created",
         "TAGGED_AS": "Tagged as",
         "FILE": "File",
-        "ATTACHMENTS": "Attachements",
+        "ATTACHMENTS": "Attachments",
         "OPEN": "Open",
         "ZERO_RECORDS": "No Records Found",
         "INVITED": "Invited",
@@ -1838,6 +1981,8 @@
         "ORDER_SEARCH": "What order are you looking for?",
         "MANAGE_ORDERS": "Manage Orders",
         "ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR DEVICE",
+        "BTTN_ORDER_SUPPLIES_DEVICE": "ORDER SUPPLIES FOR THIS DEVICE",
+        "BTTN_ABANDON_SUPPLIES":"ABANDON DEVICE SUPPLY ORDER",
         "ORDER_NEW_DEVICE": "ORDER NEW DEVICE",
         "RETURN_SUPPLIES": "RETURN SUPPLIES",
         "ORDER_SUPPLIES_CATALOG": "ORDER FROM SUPPLIES CATALOG",
@@ -1888,6 +2033,7 @@
             "PORTUGUESE_PORTUGAL": "Portuguese (Portugal)",
             "ROMANIAN": "Romanian",
             "RUSSIAN": "Russian",
+            "SPANISH": "Spanish",
             "SPANISH_SPAIN": "Spanish Spain",
             "SPANISH_MEXICO": "Spanish Mexico",
             "SWEDISH": "Swedish",

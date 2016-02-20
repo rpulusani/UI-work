@@ -37,8 +37,19 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
 
             $scope.goToCreate = function() {
                 Devices.item = {};
-                ServiceRequest.item = null;
+                ServiceRequest.reset();
                 $location.path('/service_requests/devices/new');
+            };
+            
+            $scope.goToOrderDevice = function() {
+                Devices.reset();
+                ServiceRequest.reset();
+                $location.path('/orders/catalog/hardware');
+            };
+            $scope.goToOrderSupplyCatalog = function() {
+                Devices.reset();
+                ServiceRequest.reset();
+                $location.path('/orders/catalog/supplies');
             };
 
             $scope.goToPageCount = function() {
@@ -72,7 +83,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                         embed:'contact,address'
                     }
                 };
-                window.scrollTo(0,0)
+                window.scrollTo(0,0);
                 Devices.item.get(options).then(function(){
                     $location.path('/service_requests/devices/' + device.id + '/view');
                 });
@@ -97,14 +108,14 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                         embed:'contact,address'
                     }
                 };
-                 window.scrollTo(0,0)
+                window.scrollTo(0,0);
                 Devices.item.get(options).then(function(){
                     $location.path('/service_requests/devices/' + device.id + '/update');
                 });
             };
             $scope.goToOrderAnother = function(device) {
                 Devices.item = {};
-                $location.path('/service_requests/devices/new');
+                $location.path('/orders/catalog/hardware');
             };
             $scope.goToDelete = function(device) {
                 Devices.setItem(device);
@@ -113,7 +124,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                         embed:'contact,address'
                     }
                 };
-                window.scrollTo(0,0)
+                window.scrollTo(0,0);
                 Devices.item.get(options).then(function(){
                     $location.path('/service_requests/devices/decommission/' + device.id + '/view');
                 });

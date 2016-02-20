@@ -48,7 +48,7 @@
 <div class="row row--alley-thick vertical-space--thick">
     <div class="col-2-3">
         <tags-input ng-model="documentItem.tags" display-property="name" placeholder="{{ 'DOCUMENT_LIBRARY.COMMON.TXT_TAGGING' | translate }}" addFromAutocompleteOnly="true">
-            <auto-complete source="loadTags($query)" load-on-focus="true" load-on-empty="true"></auto-complete>
+            <auto-complete source="tags" load-on-focus="true" load-on-empty="true" max-results-to-show="100000"></auto-complete>
         </tags-input>
     </div>
 </div>
@@ -81,10 +81,57 @@
 <div ng-if="documentLibraryManageAccountAccess" class="row">
     <div class="col-2-3">
         <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ACCOUNT_VISIBILITY"></p>
-        <input type="checkbox" name="allAccounts" ng-model="documentItem.allAccounts" />
+        <input type="checkbox" name="allAccounts" ng-model="allAccounts" />
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CHK_VISIBILITY__ALL_ACCOUNTS"></label>
-        <div ng-show="documentItem.allAccounts === false" class="well">
-            Account selector goes here.
+        <div ng-show="allAccounts === false" class="well">
+            <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_LIMIT_OR_EXCLUDE"></p>
+
+            <div>
+                <input type="radio" value="include" id="optionLimit" name="optionsLimit" ng-model="optionsLimit" ng-change="changeAccess()">
+                <label for="optionLimit"><span></span> <span translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.RAD_LIMIT_TO_ACCOUNTS"></span></label>
+            </div>
+            <div>
+                <input type="radio" value="exclude" id="optionExclude" name="optionsLimit" ng-model="optionsLimit" ng-change="changeAccess()">
+                <label for="optionExclude"><span></span> <span translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.RAD_EXCLUDE_FROM_ACCOUNTS"></span></label>
+            </div>
+
+            <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_SELECTED_ACCOUNTS"></p>
+
+            <div class="row">
+                <div class="col-1">
+                    <table class="table table--responsive table--condensed table--bordered" style="min-height:0;">
+                        <thead>
+                            <tr>
+                                <th translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_GRID_ACCOUNT_NAME"></th>
+                                <th translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_GRID_VISIBILITY"></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="account in selectedAccounts">
+                                <td>
+                                    <span ng-bind="account.accountLabel"></span>
+                                </td>
+                                <td>
+                                    <span href="#" ng-bind="account.visibility"></span>
+                                </td>
+                                <td>
+                                    <a href="#" ng-click="goToDeleteSelectedAccount($index)" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CTRL_GRID_REMOVE"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_ACCOUNT"></p>
+
+            <div>
+                <div selectric model="accountSelected" options="accounts" value="accountValue" label="accountLabel" placeholder="{{'LABEL.SELECT' | translate}}">
+                </div>
+                <button name="selectAccount" class="btn btn--default" type="submit" value="submit" 
+                        translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_ADD_ACCOUNT" ng-click="goToSelectAccount()"></button>
+            </div>
         </div>
     </div>
 </div>

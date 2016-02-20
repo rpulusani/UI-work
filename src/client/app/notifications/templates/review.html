@@ -1,0 +1,21 @@
+<div class="page-header">
+    <h1 translate="PORTAL_ADMIN.MANAGE_NOTIFICATION"></h1>
+    <div class="btns">
+        <button type="button" class="btn btn--default" ng-click="delete()" translate="PORTAL_ADMIN.DELETE_NOTIFICATION_BTN">
+        </button>
+    </div>
+</div>
+
+<div class="page-content">
+    <div ng-hide="isSubmitted">
+        <div class="col-lg-2-3 col-md-1-1">
+            <form class="form" data-form="" name="manageNotification" novalidate>
+                <div notification-fields></div>
+            
+                <hr/>
+
+                <div notification-update-buttons></div>
+            </form>
+        </div>
+    </div>
+</div>

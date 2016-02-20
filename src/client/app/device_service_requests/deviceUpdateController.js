@@ -57,6 +57,7 @@ define(['angular',
             $scope.returnedForm = false;
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
+            ServiceRequest.reset();
 
             $scope.goToReview = function() {
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -154,7 +155,9 @@ define(['angular',
                 if ($scope.device.chl && $scope.device.chl.id) {
                     assetInfo.customerHierarchyLevel = $scope.device.chl.id;
                 }
+                
                 ServiceRequest.addField('assetInfo', assetInfo);
+                ServiceRequest.addField('attachments', $scope.files_complete)
             };
 
             function configureReviewTemplate(){

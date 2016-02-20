@@ -199,6 +199,29 @@ define(['angular', 'serviceRequest'], function(angular) {
                 rootScope.selectedDevice = undefined;
             }
 
+            function setStatusBar(currentStatus, statusDate, statusBarLevels){
+                var statusBarList = [];
+                var statusItem = {};
+
+                var formattedStatusDate = FormatterService.formatDate(statusDate);
+
+                statusItem["'label'"] = '';
+                statusItem["'date'"] = '';
+                statusItem["'current'"] = false;
+
+                for(var i=0; i<statusBarLevels.length; i++){
+                    var statusItemClone = angular.copy(statusItem);
+                    if(currentStatus === statusBarLevels[i].value){
+                        statusItemClone.date = formattedStatusDate;
+                        statusItemClone.current = true;
+                    }
+                    statusItemClone.label = statusBarLevels[i].name;
+                    statusBarList.push(statusItemClone);
+                }
+                console.log(statusBarList);
+                return statusBarList;
+            }
+
             function setupPhysicalLocations(address, building, floor, office) {
                 address.building = building;
                 address.floor = floor;
@@ -227,6 +250,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     scope.resetAddressShipToPicker = resetAddressShipToPicker;
                     scope.goToAddressBillToPicker = goToAddressBillToPicker;
                     scope.goToAddressShipToPicker = goToAddressShipToPicker;
+                    scope.setStatusBar = setStatusBar;
                 }else{
                     throw 'scope was not passed in to addMethods';
                 }

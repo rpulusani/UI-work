@@ -325,14 +325,16 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                 selectedAddressTitle:'ORDER_MAN.ORDER_SELECT_BILL_TO_ADDR.TXT_ORDER_SELECT_BILL_TO'
                             },
                             returnPath: Orders.route + '/' + '/review',
-                            source: 'OrderPurchase'
+                            source: 'OrderPurchase',
+                            pickerObject: $scope.device
                         },
                         shipToPicker:{
                             translate:{
                                 selectedAddressTitle:''
                             },
                             returnPath: Orders.route + '/' + '/review',
-                            source: 'OrderPurchase'
+                            source: 'OrderPurchase',
+                            pickerObject: $scope.device
                         }
                     };
                 }
