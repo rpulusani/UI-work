@@ -11,48 +11,48 @@
         </div>
 
         <div class="col-2-3">
-            <form enctype="multipart/form-data" name="languageExportForm" class="col-1 form" ng-submit="exportLanguage(languageExportForm)">
+            <form enctype="multipart/form-data" name="languageExportForm" class="col-1 form">
                 <div class="col-2-3">
-                    <p><strong>Export strings for</strong></p>
+                    <p><strong translate="PORTAL_ADMIN.EXPORT_STRINGS"></strong></p>
                     <input type="radio" id="export-review-radio" name="exportFor" ng-model="exportFor" value="review" />
                     <label for="export-review-radio">
-                        <span></span>Review (.xls)
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_REVIEW"></span>
                     </label>
                 </div>
                 <div class="col-2-3">
                     <input type="radio" id="export-trainslation-radio" name="exportFor" ng-model="exportFor" value="translation" />
                     <label for="export-trainslation-radio">
-                        <span></span>Translation (.xliff)
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_TRANSLATION"></span>
                     </label>
                 </div>
                 
                 <div class="col-1"></div>
                 
                 <div class="col-2-3">
-                    <p><strong>Values</strong></p>
+                    <p><strong translate="PORTAL_ADMIN.EXPORT_VALUES"></strong></p>
                     <input type="radio" id="export-strings-radio" name="stringVal" ng-model="stringVal" value="all" />
                     <label for="export-strings-radio">
-                        <span></span>All strings
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_ALL_STRINGS"></span>
                     </label>
                 </div>
                 <div class="col-2-3">
                     <input type="radio" id="export-missing-radio" name="stringVal" ng-model="stringVal" value="missing" />
                     <label for="export-missing-radio">
-                        <span></span>Only missing strings
+                        <span></span><span translate="PORTAL_ADMIN.EXPORT_ONLY_MISSING"></span>
                     </label>
                 </div>
 
                 <div class="col-1"></div>
 
                 <div class="col-2-3">
-                    <p><strong>Category</strong></p>
+                    <p><strong><span translate="PORTAL_ADMIN.EXPORT_CATEGORY"></span></strong></p>
                         <label for="a">
                             <input type="checkbox"
                                 id="a"
                                 name="a"
                                 ng-model="category_notification"
                                 ng-change="selectExportCategory('a')"
-                            />Notification
+                            /><span translate="PORTAL_ADMIN.EXPORT_NOTIFICATION"></span>
                         </label>
                         <div class="col-1"></div>
                         <label for="b">
@@ -61,7 +61,7 @@
                                 name="category_siebel"
                                 ng-model="category_siebel"
                                 ng-change="selectExportCategory('b')"
-                            />Siebel values
+                            /><span translate="PORTAL_ADMIN.EXPORT_SIEBEL"></span>
                         </label>
                         <div class="col-1"></div>
                         <label for="c">
@@ -70,7 +70,7 @@
                                 name="category_portal"
                                 ng-model="category_portal"
                                 ng-change="selectExportCategory('c')"
-                            />Portal UI
+                            /><span translate="PORTAL_ADMIN.EXPORT_PORTAL"></span>
                         </label>
                         <div class="col-1"></div>
                         <label for="d">
@@ -79,12 +79,12 @@
                                 name="category_document"
                                 ng-model="category_document"
                                 ng-change="selectExportCategory('d')"
-                            />Document tags
+                            /><span translate="PORTAL_ADMIN.EXPORT_TAGS"></span>
                         </label>
                 </div>
 
                 <div class="col-1"></div>
-                <p><strong>Language</strong></p>
+                <p><strong translate="PORTAL_ADMIN.EXPORT_LANGUAGE"></strong></p>
                 <div ng-repeat="language in languages">
                     <input type="radio" id="{{ language.localeCode }}" name="exportedFileLanguage" ng-model="$parent.exportedFileLanguage" value="{{language.localeCode}}" />
                     <label for="{{ language.localeCode }}">
@@ -94,7 +94,7 @@
 
                 <div class="l-pad-top">
                     <hr />
-                    <input type="submit" class="btn" />
+                    <button ng-click="exportLanguage(languageExportForm)" type="submit" class="btn" translate="PORTAL_ADMIN.EXPORT_TRANSLATION_BTN"></button>
                 </div>
             </form>
         </div>
