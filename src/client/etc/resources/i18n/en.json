@@ -1627,6 +1627,19 @@
         },
 
         "PORTAL_ADMIN": {
+            "EXPORT_STRINGS": "Export strings for",
+            "EXPORT_REVIEW": "Review (.xls)",
+            "EXPORT_TRANSLATION": "Translation (.xliff)",
+            "EXPORT_VALUES": "Values",
+            "EXPORT_ALL_STRINGS": "All strings",
+            "EXPORT_ONLY_MISSING": "Only missing strings",
+            "EXPORT_CATEGORY": "Category",
+            "EXPORT_NOTIFICATION": "Notification",
+            "EXPORT_SIEBEL": "Siebel values",
+            "EXPORT_PORTAL": "Portal UI",
+            "EXPORT_TAGS": "Document tags",
+            "EXPORT_LANGUAGE": "Language",
+            "EXPORT_CONFIGURATION": "Export configuration",
             "NOTIFICATION_TITLE": "Notification Management",
             "MANAGE_TRANSLATION":"Manage Translation",
             "DISPLAY_ORDER": "Display order",
@@ -1693,7 +1706,10 @@
             "TITLE_TRANSLATION_ABANDON_MODAL": "Are you sure you want to abandon this translation?",
             "BODY_TRANSLATION_ABANDON_MODAL": "The information you have entered will not be saved.",
             "ABANDON_TRANSLATION_MODAL_CANCEL": "No, do not abandon this translation value",
-            "ABANDON_TRANSLATION_MODAL_CONFIRM": "Yes, abandon this translation value"
+            "ABANDON_TRANSLATION_MODAL_CONFIRM": "Yes, abandon this translation value",
+            "IMPORT_TRANSLATION_TILE": "Import Translations",
+            "EXPORT_TRANSLATION_TILE": "Export Translations",
+            "SELECT_TRANSLATION_FILE": "Select import file"
         },
 
         "DELEGATED_ADMIN": {
@@ -1871,7 +1887,7 @@
         "CREATED": "Created",
         "TAGGED_AS": "Tagged as",
         "FILE": "File",
-        "ATTACHMENTS": "Attachements",
+        "ATTACHMENTS": "Attachments",
         "OPEN": "Open",
         "ZERO_RECORDS": "No Records Found",
         "INVITED": "Invited",
