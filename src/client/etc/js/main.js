@@ -99,6 +99,7 @@ requirejs.config({
             'translation.directives',
             'translation.manageTranslationController',
             'translation.translationImportController',
+            'translation.exportController',
 
             'user',
             'user.factory',
@@ -206,6 +207,7 @@ requirejs.config({
         'translation.directives': ['translation'],
         'translation.manageTranslationController': ['translation'],
         'translation.translationImportController': ['translation'],
+        'translation.exportController': ['translation'],
 
         'address': ['angular'],
         'address.addressAddController': ['address'],
@@ -354,6 +356,7 @@ requirejs.config({
         'translation.directives': 'app/translations/directives',
         'translation.manageTranslationController': 'app/translations/manageTranslationController',
         'translation.translationImportController': 'app/translations/translationImportController',
+        'translation.exportController': 'app/translations/exportController',
 
         'user': 'app/users/user',
         'user.factory': 'app/users/usersFactory',
