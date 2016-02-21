@@ -192,9 +192,9 @@ define(['angular', 'address'], function(angular) {
                     state: $scope.address.state,
                     postalCode: $scope.address.postalCode
                 };
-                
+
                 ServiceRequest.addField('destinationAddress', destinationAddress);
-                ServiceRequest.addField('attachments', $scope.files_complete)
+                ServiceRequest.addField('attachments', $scope.files_complete);
             };
 
             function configureReviewTemplate(){

@@ -118,7 +118,7 @@ define(['angular', 'contact'], function(angular) {
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
-
+                    ServiceRequest.addField('attachments', $scope.files_complete);
                     var deferred = ServiceRequest.post({
                          item:  $scope.sr
                     });
