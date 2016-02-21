@@ -113,6 +113,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                        if(Orders.item.requestedDeliveryDate){
                             Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                        }
+                       Orders.addField('attachments', $scope.files_complete);
                        Orders.addField('orderItems', OrderItems.buildSrArray());
                        var deferred = Orders.post({
                              item:  $scope.sr
