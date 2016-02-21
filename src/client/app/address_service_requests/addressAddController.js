@@ -218,7 +218,7 @@ define(['angular', 'address'], function(angular) {
 
                 ServiceRequest.addField('sourceAddress', sourceAddress);
                 ServiceRequest.addRelationship('account', $scope.address.requestedByContact, 'account');
-                ServiceRequest.addField('attachments', $scope.files_complete)
+                ServiceRequest.addField('attachments', $scope.files_complete);
             };
 
             function configureReviewTemplate(){

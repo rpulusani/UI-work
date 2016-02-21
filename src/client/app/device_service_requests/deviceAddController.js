@@ -214,10 +214,10 @@ define(['angular',
                     ServiceRequest.addField('requestChangeDate', FormatterService.formatDateForPost($scope.device.deviceInstallDate));
                 }
 
-                ServiceRequest.addField('attachments', $scope.files_complete)
-              
+                ServiceRequest.addField('attachments', $scope.files_complete);
+
               //  ServiceRequest.addRelationship('account', $scope.device.requestedByContact, 'account');
-              
+
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     Devices.item = $scope.device;
                     ServiceRequest.item._links.account = {href: $rootScope.currentAccount.href};
