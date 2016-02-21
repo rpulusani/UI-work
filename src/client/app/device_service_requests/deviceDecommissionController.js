@@ -125,7 +125,7 @@ define(['angular',
                     }
                 }
                 ServiceRequest.addField('meterReads', meterReads);
-                ServiceRequest.addField('attachments', $scope.files_complete)
+                ServiceRequest.addField('attachments', $scope.files_complete);
             };
 
             function configureReviewTemplate(){
@@ -144,7 +144,7 @@ define(['angular',
                           DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
                           if(Tombstone.item && Tombstone.item.siebelId) {
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/notqueued')
+                            $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/notqueued');
                           } else {
                             ServiceRequest.item = DeviceServiceRequest.item;
                             $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/queued');

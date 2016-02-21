@@ -76,7 +76,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 ServiceRequest.addRelationship('requester', $scope.sr.requestedByContact, 'self');
                 ServiceRequest.addRelationship('account', $scope.sr.requestedByContact, 'account');
                 ServiceRequest.addRelationship('relatedRequest', $scope.sr, 'self');
-                ServiceRequest.addField('attachments', $scope.files_complete)
+                ServiceRequest.addField('attachments', $scope.files_complete);
             };
 
             $scope.goToSubmit = function(){

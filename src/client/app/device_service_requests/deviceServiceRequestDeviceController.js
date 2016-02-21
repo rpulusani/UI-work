@@ -143,6 +143,7 @@ define(['angular',
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
 
+                   ServiceRequest.addField('attachments', $scope.files_complete);
                    var deferred = DeviceServiceRequest.post({
                          item:  $scope.sr
                     });
