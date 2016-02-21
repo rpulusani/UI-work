@@ -1,7 +1,7 @@
 define(['angular'], function(angular) {
     'use strict';
     angular.module('mps.attachments', [])
-      .directive('attachments', function() {
+      .directive('attachments', ['serviceUrl', function(serviceUrl) {
     return {
         restrict: 'A',
         templateUrl: '/app/attachments/templates/attachments.html',
@@ -41,9 +41,9 @@ define(['angular'], function(angular) {
                     headers: {
                       'Content-Type' : undefined
                     },
-                    url: 'https://api.venus-dev.lexmark.com/mps/attachments',
+                    url: serviceUrl + 'attachments',
                     data: fd
-                  }
+                  };
                   $http(req).then($scope.uploadComplete, $scope.uploadError);
                 };
 
@@ -69,5 +69,5 @@ define(['angular'], function(angular) {
               }
             ]
       };
-  });
+  }]);
 });
