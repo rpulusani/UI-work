@@ -40,8 +40,12 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.documentItem = { id:'new', strategic: false };
             } else {
                 $scope.documentItem = Documents.item;
-                $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
-                $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
+                if ($scope.documentItem.publishDate !== undefined) {
+                    $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
+                }
+                if ($scope.documentItem.endDate !== undefined) {
+                    $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
+                }
             }
 
             $scope.isDeleting = false;
