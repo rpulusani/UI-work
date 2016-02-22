@@ -119,7 +119,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     } else {
                         // remove the accounts with no access
                         if ($scope.selectedAccounts.length > 1) {
-    ;
+
                             for (var i = 0; i < $scope.accounts.length; i++) {
                                 for (var j = 0; j < $scope.selectedAccounts.length; j++) {
                                     if (!($scope.accounts[i].accountValue === $scope.selectedAccounts[j].accountValue)) {
