@@ -10,7 +10,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
-                        {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name', width: "17%",
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field': 'name', width: "17%",
                                 'cellTemplate':'<div>' +
                                     '<a href="#" ng-click="grid.appScope.addresses.goToUpdate(row.entity);" ' +
                                     'ng-if="grid.appScope.addressAccess">{{row.entity.name}}</a>' +

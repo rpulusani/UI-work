@@ -2,12 +2,12 @@
 <div class="alert alert--info">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
     <div class="alert__body">
-        <span translate="ADDRESS.BOD_ALERT_SIMILAR"></span><br><span translate="ADDRESS.BOD_ALERT_SELECT"></span>
+        <span translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_NOT_RECOGNIZED"></span>
     </div>
 </div>
 <div class="row">
     <div class="col-1-2 l-alley-after">
-        <p class="text--bold vertical-space--thin" translate="ADDRESS.USER_ENTERED"></p>
+        <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_YOU_ENTERED"></p>
         <div class="well well--no-shadow">
             <div class="form__field form__field--radio">
                 <input type="radio" 
@@ -19,7 +19,7 @@
                     ng-click="setAcceptedAddress()"/>
                     <label for="accepted-entered-address-entered-address">
                         <span></span>
-                        {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
+                        {{'ADDRESS_MAN.COMMON.RAD_USE_THIS_ADDRESS' | translate }}
                     </label>
             </div>
 
@@ -31,13 +31,13 @@
             </div>
             <div ng-bind="enteredAddress.country"></div>
             <div class="l-pad-top">
-                <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO" ng-click="editAddress('enteredAddress')" href=""></a>
+                <a translate="ADDRESS_MAN.COMMON.CTRL_UPDATE_ADDRESS" ng-click="editAddress('enteredAddress')" href=""></a>
             </div>
         </div>
     </div>
 
     <div class="col-1-2">
-        <p class="text--bold vertical-space--thin" translate="ADDRESS.ADDRESS_FOUND"></p>
+        <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_RECOMMENDED_ADDRESS"></p>
         <div class="well well--no-shadow">
             <div class="form__field form__field--radio">
                 <input type="radio" 
@@ -49,7 +49,7 @@
                     ng-click="setAcceptedAddress()"/>
                     <label for="accepted-entered-address-comparison-address">
                         <span></span>
-                        {{'ADDRESS.USE_THIS_ADDRESS' | translate }}
+                        {{'ADDRESS_MAN.COMMON.RAD_USE_THIS_ADDRESS' | translate }}
                     </label>
             </div>
 
@@ -62,11 +62,11 @@
             <div ng-bind="comparisonAddress.country"></div>
 
             <div class="l-pad-top">
-                <a translate="CONTACT_SERVICE_REQUEST.EDIT_INFO"  ng-click="editAddress('comparisonAddress')" href=""></a>
+                <a translate="ADDRESS_MAN.COMMON.CTRL_UPDATE_ADDRESS"  ng-click="editAddress('comparisonAddress')" href=""></a>
             </div>
         </div>
     </div>
 </div>
 <div class="col-1 vertical-space--thick">
-    <a translate="ADDRESS.ADDRESS_RESET"  href="" ng-click="resetAddress()"></a>
+    <a translate="ADDRESS_MAN.COMMON.CTRL_RESET_ADDRESS"  href="" ng-click="resetAddress()"></a>
 </div>
