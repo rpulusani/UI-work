@@ -40,12 +40,28 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.documentItem = { id:'new', strategic: false };
             } else {
                 $scope.documentItem = Documents.item;
-                if ($scope.documentItem.publishDate !== undefined) {
+
+                if (BlankCheck.checkNotNullOrUndefined(Documents.item.publishDate)) {
                     $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
                 }
-                if ($scope.documentItem.endDate !== undefined) {
-                    $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
+
+                if (BlankCheck.checkNotNullOrUndefined(Documents.item.endDate)) {
+                    $scope.documentItem.endDate = formatter.formatDate(Documents.item.endDate);
                 }
+
+                if ($scope.accounts > 0) {
+                    $scope.allAccounts = false;
+                    for (var i = 0; i < $scope.accounts.length; i++) {
+                        for (var j = 0; j < $scope.accounts.length; j++) {
+
+                            if ($scope.accounts[i].accountValue === $scope.accounts[j]) {
+                                $scope.accounts[i].visibility = ($scope.optionsLimit === "include") ? $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_SEE") : $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_NOT_SEE");
+                                $scope.selectedAccounts.push($scope.accounts[i]);
+                            }
+                        }
+                    }
+                }
+
             }
 
             $scope.isDeleting = false;
