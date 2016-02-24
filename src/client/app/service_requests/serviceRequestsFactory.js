@@ -17,8 +17,8 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                                         '</div>'
                             },
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                            {'name': $translate.instant('LABEL.TYPE'), 'field':'type'},
-                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                            {'name': $translate.instant('LABEL.TYPE'), 'field':'type', 'notSearchable': true},
+                            {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullRequestorName()',visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
