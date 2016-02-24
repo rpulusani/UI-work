@@ -1,4 +1,4 @@
-define(['angular', 'library', 'utility.formatters'], function(angular) {
+define(['angular', 'library', 'blob', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
@@ -98,14 +98,13 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 var pdfName = documentItem.name + '.' + documentItem.ext;
                 var a = document.createElement("a");
                 document.body.appendChild(a);
-                a.style="display:none";
 
                 $http({
                     method: 'GET',
                     url: documentItem.download.url,
                     responseType:'arraybuffer'
                 }).then(function successCallback(response) {
-                    var pdf = new Blob([response.data], {type: 'application/pdf'});
+                    var pdf = new Blob([response.data], {type: documentItem.mimetype });
                     var pdfUrl = URL.createObjectURL(pdf);
                     a.href = pdfUrl;
                     a.download = pdfName;
