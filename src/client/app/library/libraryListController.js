@@ -61,7 +61,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                         icon += 'icon-mps-pdf_document';
                         break;
                     default:
-                        icon += '';
+                        icon += 'icon-mps-blank_document';
                 }
 
                 return icon;
