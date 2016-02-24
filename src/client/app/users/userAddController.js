@@ -2,8 +2,8 @@ define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
     .controller('UserAddController', ['$scope', '$location', '$translate', '$routeParams', 
-        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration',
-        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration) {
+        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration', 'AllAccounts',
+        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration, AllAccounts) {
 
             $scope.templateUrl = UrlHelper.user_template;
             
@@ -19,6 +19,7 @@ define(['angular', 'user'], function(angular) {
             $scope.user.permissions = [];
             $scope.user.selectedRoleList = [];
             $scope.accounts = [];
+            $scope.showAllAccounts = true;
             $scope.languageOptions = [
                 {name: $translate.instant('LANGUAGES.ARABIC'), code:  'ar_XM'},
                 {name: $translate.instant('LANGUAGES.BULGARIAN'), code:  'bg_BG'},
@@ -74,40 +75,82 @@ define(['angular', 'user'], function(angular) {
             });
             
             User.getLoggedInUserInfo().then(function() {
-                if (angular.isArray(User.item._links.accounts)) {
-                    var promises = [],
-                    options = {},
-                    promise, deferred;
-                    for (var i=0; i<User.item._links.accounts.length; i++) {
-                        var item = User.item.accounts[i];
-                        item._links = {
-                            self: {}
-                        };
-                        item._links.self = User.item._links.accounts[i];
-                        deferred = $q.defer();
-                        Account.setItem(item);
-                        options = {
-                            updateParams: false,
-                            params:{
-                                accountId: Account.item.accountId,
-                                accountLevel: Account.item.level
-                            }
-                        };
-                        promise = Account.item.get(options);
-                        promises.push(promise);
-                    }
-                    var prLength = promises.length;
-                    $q.all(promises).then(function(response) {
-                        for (var j=0; j<response.length; j++) {
-                            if($scope.accountList.length < prLength && response[j] && response[j].data) {
-                                $scope.accountList.push(response[j].data);
-                            }
+                if (User.item._links.accounts) {
+                    $scope.showAllAccounts = false;
+                    if (angular.isArray(User.item._links.accounts)) {
+                        var promises = [],
+                        options = {},
+                        promise, deferred;
+                        for (var i=0; i<User.item._links.accounts.length; i++) {
+                            var item = User.item.accounts[i];
+                            item._links = {
+                                self: {}
+                            };
+                            item._links.self = User.item._links.accounts[i];
+                            deferred = $q.defer();
+                            Account.setItem(item);
+                            options = {
+                                updateParams: false,
+                                params:{
+                                    accountId: Account.item.accountId,
+                                    accountLevel: Account.item.level
+                                }
+                            };
+                            promise = Account.item.get(options);
+                            promises.push(promise);
                         }
-                    });
-                } else {
-                    User.getAdditional(User.item, Account).then(function() {
-                        if ($scope.accountList.length === 0) {
-                            $scope.accountList.push(Account.item);
+                        var prLength = promises.length;
+                        $q.all(promises).then(function(response) {
+                            for (var j=0; j<response.length; j++) {
+                                if($scope.accountList.length < prLength && response[j] && response[j].data) {
+                                    $scope.accountList.push(response[j].data);
+                                }
+                            }
+                        });
+                    } else {
+                        User.getAdditional(User.item, Account).then(function() {
+                            if ($scope.accountList.length === 0) {
+                                $scope.accountList.push(Account.item);
+                            }
+                        });
+                    }
+                }
+            });
+
+            $scope.setAccounts = function() {
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.removeAccount = function(item) {
+                if ($scope.accounts && $scope.accounts.length > 0) {
+                    for (var j=0;j<$scope.accounts.length; j++) {
+                        if ($scope.accounts[j].accountId 
+                            && $scope.accounts[j].accountId === item.accountId
+                            && $scope.accounts[j].level === item.level
+                            && $scope.accounts[j].name === item.name) {
+                            $scope.accounts.splice(j, 1);
+                        }
+                    }
+                }
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.$on('searchAccount', function(evt){
+                $scope.accountList = [];
+                if($scope.user.accountName && $scope.user.accountName.length >=3) {
+                    var options = {
+                        preventDefaultParams: true,
+                        params:{    
+                            searchTerm: $scope.user.accountName
+                        }
+                    };
+                    AllAccounts.get(options).then(function(){
+                        $scope.accountList = [];
+                        if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                            var allAccountList = AllAccounts.item._embedded.accounts;
+                            for (var i=0; i<allAccountList.length; i++) {
+                                $scope.accountList.push(allAccountList[i]);
+                            }
                         }
                     });
                 }

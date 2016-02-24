@@ -15,6 +15,7 @@ define(['angular', 'user'], function(angular) {
         'PersonalizationServiceFactory',
         'SecurityHelper',
         '$q',
+        'AllAccounts',
         function(
             $rootScope,
             $scope,
@@ -28,7 +29,8 @@ define(['angular', 'user'], function(angular) {
             FormatterService,
             Personalize,
             SecurityHelper,
-            $q
+            $q,
+            AllAccounts
             ) {
             var redirect_to_list = function() {
                $location.path(UserAdminstration.route + '/');
@@ -47,6 +49,7 @@ define(['angular', 'user'], function(angular) {
                 $scope.user.selectedRoleList = [];
                 $scope.accounts = [];
                 $scope.userActive = false;
+                $scope.showAllAccounts = true;
 
                 if ($scope.user.active === true) {
                     $scope.userActive = true;
@@ -205,6 +208,8 @@ define(['angular', 'user'], function(angular) {
                 });
                 
                 User.getLoggedInUserInfo().then(function() {
+                if (User.item._links.accounts) {
+                    $scope.showAllAccounts = false;
                     if (angular.isArray(User.item._links.accounts)) {
                         var promises = [],
                         options = {},
@@ -242,7 +247,48 @@ define(['angular', 'user'], function(angular) {
                             }
                         });
                     }
-                });
+                }
+            });
+
+            $scope.setAccounts = function() {
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.removeAccount = function(item) {
+                if ($scope.accounts && $scope.accounts.length > 0) {
+                    for (var j=0;j<$scope.accounts.length; j++) {
+                        if ($scope.accounts[j].accountId 
+                            && $scope.accounts[j].accountId === item.accountId
+                            && $scope.accounts[j].level === item.level
+                            && $scope.accounts[j].name === item.name) {
+                            $scope.accounts.splice(j, 1);
+                        }
+                    }
+                }
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.$on('searchAccount', function(evt){
+                $scope.accountList = [];
+                if($scope.user.accountName && $scope.user.accountName.length >=3) {
+                    var options = {
+                        preventDefaultParams: true,
+                        params:{    
+                            searchTerm: $scope.user.accountName
+                        }
+                    };
+                    AllAccounts.get(options).then(function(){
+                        $scope.accountList = [];
+                        if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                            var allAccountList = AllAccounts.item._embedded.accounts;
+                            for (var i=0; i<allAccountList.length; i++) {
+                                $scope.accountList.push(allAccountList[i]);
+                            }
+                        }
+                    });
+                }
+            });
+
             }
 
             var updateAdminObjectForUpdate = function(updateStatus) {
