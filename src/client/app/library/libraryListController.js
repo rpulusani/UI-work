@@ -36,6 +36,19 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 );
             }
 
+            $scope.isUnpublished = function(documentItem) {
+                if (documentItem.endDate === null) {
+                    return;
+                }
+
+                var dateNow = formatter.formatDate(new Date());
+                var docEndDate = formatter.formatDate(documentItem.endDate);
+
+                if (dateNow >= docEndDate) {
+                    return '(' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_UNPUBLISHED') + ')';
+                }
+            };
+
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
             };
