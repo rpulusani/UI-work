@@ -35,6 +35,8 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
+            ServiceRequest.reset();
+
             $scope.goToCreate = function() {
                 Devices.item = {};
                 ServiceRequest.reset();
