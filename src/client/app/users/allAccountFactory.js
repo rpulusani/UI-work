@@ -4,7 +4,7 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory'], function(angular) {
     .factory('AllAccounts', [ 'serviceUrl', 'HATEOASFactory', '$rootScope',
         function(serviceUrl, HATEOASFactory, $rootScope) {
             var AllAccounts = {
-                serviceName: 'lexmark-administration/accounts ',
+                serviceName: 'lexmark-administration/accounts',
                 embeddedName: 'accounts',
                 url: serviceUrl + 'lexmark-administration/accounts'
             };

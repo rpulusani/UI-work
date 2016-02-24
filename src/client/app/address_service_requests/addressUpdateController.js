@@ -198,7 +198,8 @@ define(['angular', 'address'], function(angular) {
             };
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SR_UPDATE';
+                $scope.configure.header.translate.h1 = "ADDRESS_MAN.UPDATE_ADDRESS.TXT_REVIEW_UPDATE_ADDRESS";
+                $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT';
                 $scope.configure.header.showDeleteBtn = false;
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
@@ -219,9 +220,6 @@ define(['angular', 'address'], function(angular) {
                               $location.path(Addresses.route + '/update/' + $scope.address.id + '/receipt/notqueued');
                             } else {
                               $location.search('tab', null);
-                              //Reviewed with Kris - uncertain why this is here
-                              // $rootScope.newAddress = $scope.address;
-                              // $rootScope.newSr = $scope.sr;
                               $location.path(Addresses.route + '/update/' + $scope.address.id + '/receipt/queued');
                             }
                           });
@@ -251,14 +249,14 @@ define(['angular', 'address'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
+                        title:"ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                     }
                 };
                 $scope.configure.queued = true;
               } else {
-                $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_UPDATE_SUBMITTED";
-                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.UPDATE_ADDRESS_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_SUBMITTED";
+                $scope.configure.header.translate.body = "ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_SUBMITTED_PAR";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -268,7 +266,7 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure.header.showDeleteBtn = false;
                 $scope.configure.receipt = {
                     translate: {
-                        title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
+                        title:"ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     },
                     print: true
@@ -281,8 +279,8 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate: {
-                            h1: 'ADDRESS_SERVICE_REQUEST.UPDATE',
-                            body: 'MESSAGE.LIPSUM',
+                            h1: 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS',
+                            body: 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_PAR',
                             readMore: ''
                         },
                         readMoreUrl: '',
@@ -292,17 +290,17 @@ define(['angular', 'address'], function(angular) {
                     address: {
                         information:{
                             translate: {
-                                title: 'ADDRESS.INFO',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT',
-                                makeChanges: 'LABEL.MAKE_CHANGES'
+                                title: 'ADDRESS_MAN.COMMON.TXT_ADDRESS_INFORMATION',
+                                contact: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                                makeChanges: 'ADDRESS_MAN.COMMON.CTRL_MAKE_CHANGES'
                             }
                         }
                     },
                     contact: {
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            title: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                            requestedByTitle: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show: {
@@ -313,8 +311,8 @@ define(['angular', 'address'], function(angular) {
                     },
                     detail: {
                         translate: {
-                            title: 'ADDRESS_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                            title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
+                            referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
                             costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
                             comments: 'LABEL.COMMENTS',
                             attachments: 'LABEL.ATTACHMENTS',
@@ -330,8 +328,8 @@ define(['angular', 'address'], function(angular) {
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'ADDRESS_SERVICE_REQUEST.CANCEL',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'ADDRESS_MAN.UPDATE_ADDRESS.BTN_DISCARD_ADDRESS_UPDATE',
+                            submit: 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT'
                         },
                         submit: $scope.goToReview
                     },

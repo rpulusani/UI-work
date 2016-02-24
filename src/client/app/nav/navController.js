@@ -124,6 +124,7 @@ define([
                             } else {
                                 accts[i].isActive = false;
                                 $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
+                                $rootScope.currentAccount.refresh = true;
                             }
                         } else {
                             accts[i].isActive = false;
@@ -155,6 +156,7 @@ define([
             };
 
             $scope.goToAccountPicker = function() {
+
                 $rootScope.accountReturnPath = $location.path();
                 $location.path('/accounts/pick_account/Account');
             }
