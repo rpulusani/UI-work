@@ -74,13 +74,16 @@ define(['angular', 'library', 'blob', 'utility.formatters'], function(angular) {
             };
 
             $scope.getEditAction = function (owner) {
-                var showEdit = false;
+                var showBtn = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showEdit = true;
+                    showBtn = true;
+                }
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    showBtn = true;
                 }
 
-                return showEdit;
+                return showBtn;
             };
 
             $scope.goToDelete = function() {
