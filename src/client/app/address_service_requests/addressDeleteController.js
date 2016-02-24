@@ -128,7 +128,7 @@ define(['angular', 'address'], function(angular) {
                             if(Tombstone.item && Tombstone.item.siebelId) {
                               $location.search('tab', null);
                               ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                              location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
+                              $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
                             } else {
                               $location.search('tab', null);
                               //Reviewed with Kris - uncertain why this is here
