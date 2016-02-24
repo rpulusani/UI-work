@@ -1,4 +1,4 @@
-define(['angular', 'library', 'utility.formatters'], function(angular) {
+define(['angular', 'library', 'blob', 'utility.formatters'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
@@ -74,13 +74,16 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
             };
 
             $scope.getEditAction = function (owner) {
-                var showEdit = false;
+                var showBtn = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showEdit = true;
+                    showBtn = true;
+                }
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    showBtn = true;
                 }
 
-                return showEdit;
+                return showBtn;
             };
 
             $scope.goToDelete = function() {
@@ -98,14 +101,13 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 var pdfName = documentItem.name + '.' + documentItem.ext;
                 var a = document.createElement("a");
                 document.body.appendChild(a);
-                a.style="display:none";
 
                 $http({
                     method: 'GET',
                     url: documentItem.download.url,
                     responseType:'arraybuffer'
                 }).then(function successCallback(response) {
-                    var pdf = new Blob([response.data], {type: 'application/pdf'});
+                    var pdf = new Blob([response.data], {type: documentItem.mimetype });
                     var pdfUrl = URL.createObjectURL(pdf);
                     a.href = pdfUrl;
                     a.download = pdfName;

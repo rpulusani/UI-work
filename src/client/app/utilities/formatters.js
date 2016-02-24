@@ -202,9 +202,10 @@ define(['angular', 'utility'], function(angular) {
                     return formattedAddress;
                 },
                 formatDate: function(dateToBeFormatted){
-                    if (dateToBeFormatted === undefined) {
+                    if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                         return '';
                     }
+
                     var d = new Date(dateToBeFormatted);
                     return $filter('date')(d, 'MM/dd/yyyy');
                 },
