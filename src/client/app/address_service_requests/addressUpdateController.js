@@ -245,7 +245,7 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
                 $scope.configure.header.translate.actionValues = {
                     actionLink: Addresses.route,
-                    actionName: 'Manage Addresses'
+                    actionName: $translate.instant('ADDRESS_MAN.MANAGE_ADDRESS.TXT_MANAGE_INSTALL_ADDRESSES')
                 };
                 $scope.configure.receipt = {
                     translate:{
