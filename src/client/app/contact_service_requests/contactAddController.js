@@ -16,6 +16,7 @@ define(['angular', 'contact'], function(angular) {
         'UserService',
         'HATEAOSConfig',
         '$timeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $filter,
@@ -29,9 +30,12 @@ define(['angular', 'contact'], function(angular) {
             SRHelper,
             Users,
             HATEAOSConfig,
-            $timeout) {
+            $timeout,
+            SecurityHelper) {
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
+            $scope.setTransactionAccount('ContactAdd', Contacts);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
@@ -153,7 +157,7 @@ define(['angular', 'contact'], function(angular) {
                 Contacts.item = $scope.contact;
                 Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
             };
-           
+
 
             $scope.saveContact = function(contactForm) {
                 $scope.checkAddress(contactForm);
@@ -196,7 +200,7 @@ define(['angular', 'contact'], function(angular) {
                             NREUM.noticeError('Failed to update Contact because: ' + reason);
                         });
                         //enter into Service Request creation for Address update
-                        
+
                     }
 
 
