@@ -35,7 +35,7 @@ define(['angular', 'contact'], function(angular) {
 
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
-            }, 3600);
+            }, 8000);
 
 
             
@@ -44,7 +44,11 @@ define(['angular', 'contact'], function(angular) {
             }else{
                 Contacts.tempSpace = {};
                 $scope.contact = Contacts.item;
-                $rootScope.contactAlertMessage = undefined;
+                if($rootScope.contactAlertMessage === 'saved'){
+                    $rootScope.contactAlertMessage = 'saved';
+                }else if($rootScope.contactAlertMessage === 'updated'){
+                    $rootScope.contactAlertMessage = 'updated';
+                }
             }
 
             var updateContactObjectForSubmit = function() {
