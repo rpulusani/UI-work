@@ -11,7 +11,16 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
             beforeEach(module('mps'));
 
             beforeEach(inject(function($rootScope, $httpBackend, $controller, $location, Contacts, $q) {
-                scope = $rootScope.$new();
+                var rootScope = $rootScope.$new();
+                rootScope.currentAccount = {
+                    accountId: "1-1L9SRP",
+                    accountLevel: "siebel",
+                    href: "https://api.venus-dev.lexmark.com/mps/accounts/1-1L9SRP?accountLevel=siebel",
+                    isDefault: true,
+                    name: "DEBENHAMS RETAIL PLC",
+                    refresh: false
+                };
+                scope = rootScope;
                 deferred= $q.defer();
                 httpBackend = $httpBackend;
                 location = $location;
@@ -33,17 +42,10 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                     spyOn(scope, 'goToCreate').and.callThrough();
                     spyOn(location, 'path').and.returnValue('/');
                     scope.goToCreate();
-                    expect(mockContactFactory.item).toEqual(undefined);
+                    expect(mockContactFactory.item).toBeDefined();
+                    expect(mockContactFactory.item._links).toBeDefined();
+                    expect(mockContactFactory.item.postURL).toBeDefined();
                     expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/new');
-                 });
-
-                it('scope.contacts.goToUpdate() - route to /update', function() {
-                    spyOn(scope.contacts, 'goToUpdate').and.callThrough();
-                    spyOn(location, 'path').and.returnValue('/');
-
-                    scope.contacts.goToUpdate(scope.contacts.item);
-
-                    expect(location.path).toHaveBeenCalledWith(mockContactFactory.route + '/123/update');
                  });
             });
 
