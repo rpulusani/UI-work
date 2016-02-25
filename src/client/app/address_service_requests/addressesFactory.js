@@ -10,7 +10,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
-                        {'name': $translate.instant('ADDRESS.NAME'), 'field': 'name', width: "17%",
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field': 'name', width: "17%",
                                 'cellTemplate':'<div>' +
                                     '<a href="#" ng-click="grid.appScope.addresses.goToUpdate(row.entity);" ' +
                                     'ng-if="grid.appScope.addressAccess">{{row.entity.name}}</a>' +
@@ -18,14 +18,14 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                                 '</div>'
                         },
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName', visible:false, 'notSearchable': true},
-                        {'name': $translate.instant('ADDRESS.LINE_1'), 'field':'addressLine1'},
-                        {'name': $translate.instant('ADDRESS.LINE_2'), 'field':'addressLine2'},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field':'addressLine1'},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'), 'field':'addressLine2'},
                         {'name': $translate.instant('ADDRESS.REGION'), 'field':'region'},
-                        {'name': $translate.instant('ADDRESS.CITY'), 'field': 'city'},
-                        {'name': $translate.instant('ADDRESS.STATE'), 'field': 'stateCode'},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field': 'city'},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 'field': 'stateCode'},
                         {'name': $translate.instant('ADDRESS.PROVINCE'), 'field': 'province'},
-                        {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'postalCode'},
-                        {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': 'country'},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 'field': 'postalCode'},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'), 'field': 'country'},
                         {'name': $translate.instant('ADDRESS.COUNTY'), 'field': 'county'},
                         {'name': $translate.instant('ADDRESS.DISTRICT'), 'field': 'district'},
                         {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': 'houseNumber'}

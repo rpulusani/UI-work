@@ -46,7 +46,7 @@ define(['angular', 'address'], function(angular) {
             new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.SUBMIT';
+                $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT';
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
@@ -68,7 +68,7 @@ define(['angular', 'address'], function(angular) {
                           ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
                               if(Tombstone.item && Tombstone.item.siebelId) {
                                 ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                                $location.path(Addresses.route + '/add/receipt/notqueued')
+                                $location.path(Addresses.route + '/add/receipt/notqueued');
                               } else {
                                 ServiceRequest.item = ServiceRequest.item;
                                 $rootScope.newAddress = $scope.address;
@@ -103,14 +103,14 @@ define(['angular', 'address'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"ADDRESS_SERVICE_REQUEST.DETAILS_TITLE",
+                        title:"ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                     }
                 };
                 $scope.configure.queued = true;
               } else {
-                $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_ADD_SUBMITTED";
-                $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.ADD_ADDRESS_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_SUBMITTED";
+                $scope.configure.header.translate.body = "ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_SUBMITTED_PAR";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -118,7 +118,7 @@ define(['angular', 'address'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate: {
-                        title:"ADDRESS_SERVICE_REQUEST.REQUEST_SERVICE_DETAIL",
+                        title:"ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     },
                     print: true
@@ -131,9 +131,9 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate: {
-                            h1: 'ADDRESS_SERVICE_REQUEST.ADD',
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: 'Learn more about requests'
+                            h1: 'ADDRESS_MAN.ADD_ADDRESS.TXT_REVIEW_ADD_ADDRESS',
+                            body: 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_INSTALL_ADDRESS_PAR',
+                            readMore: 'ADDRESS_MAN.COMMON.LNK_LEARN_MORE'
                         },
                         readMoreUrl: '/service_requests/learn_more',
                         showCancelBtn: false,
@@ -142,16 +142,16 @@ define(['angular', 'address'], function(angular) {
                     address: {
                         information:{
                             translate: {
-                                title: 'ADDRESS.INFO',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT',
-                                makeChanges: 'LABEL.MAKE_CHANGES'
+                                title: 'ADDRESS_MAN.COMMON.TXT_ADDRESS_INFORMATION',
+                                contact: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                                makeChanges: 'ADDRESS_MAN.COMMON.CTRL_MAKE_CHANGES'
                             }
                         }
                     },
                     detail: {
                         translate: {
-                            title: 'ADDRESS_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                            title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
+                            referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
                             costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
                             comments: 'LABEL.COMMENTS',
                             attachments: 'LABEL.ATTACHMENTS',
@@ -167,16 +167,16 @@ define(['angular', 'address'], function(angular) {
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'ADDRESS_SERVICE_REQUEST.ABANDON_ADD',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'ADDRESS_MAN.ADD_ADDRESS.BTN_ABANDON_ADDRESS_CREATE',
+                            submit: 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT'
                         },
                         submit: $scope.goToReview
                     },
                     contact:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            title: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                            requestedByTitle: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show:{

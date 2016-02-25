@@ -117,7 +117,7 @@ define(['angular', 'address'], function(angular) {
             $scope.getRequestor(ServiceRequest, Contacts);
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'ADDRESS_SERVICE_REQUEST.DELETE_SUBMIT';
+                $scope.configure.actions.translate.submit = 'ADDRESS_MAN.DELETE_ADDRESS.BTN_DELETE_ADDRESS_REQUEST';
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
@@ -132,7 +132,7 @@ define(['angular', 'address'], function(angular) {
                             if(Tombstone.item && Tombstone.item.siebelId) {
                               $location.search('tab', null);
                               ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                              location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
+                              $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
                             } else {
                               $location.search('tab', null);
                               //Reviewed with Kris - uncertain why this is here
@@ -196,8 +196,8 @@ define(['angular', 'address'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate:{
-                            h1: 'ADDRESS_SERVICE_REQUEST.DELETE',
-                            body: 'MESSAGE.LIPSUM',
+                            h1: 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_INSTALL_ADDRESS',
+                            body: 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_INSTALL_ADDRESS_PAR',
                             bodyValues: '',
                             readMore: ''
                         },
@@ -207,16 +207,16 @@ define(['angular', 'address'], function(angular) {
                     address: {
                         information:{
                             translate: {
-                                title: 'ADDRESS.INFO',
-                                contact: 'ADDRESS_SERVICE_REQUEST.ADDRESS_CONTACT'
+                                title: 'ADDRESS_MAN.COMMON.TXT_ADDRESS_INFORMATION',
+                                contact: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS'
                             }
                         }
                     },
                     contact:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            title: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                            requestedByTitle: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show:{
@@ -227,8 +227,8 @@ define(['angular', 'address'], function(angular) {
                     },
                     detail:{
                         translate:{
-                            title: 'ADDRESS_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
+                            title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
+                            referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
                             costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
                             comments: 'LABEL.COMMENTS',
                             attachments: 'LABEL.ATTACHMENTS',
@@ -244,8 +244,8 @@ define(['angular', 'address'], function(angular) {
                     },
                     actions:{
                         translate: {
-                            abandonRequest:'ADDRESS_SERVICE_REQUEST.ABANDON_DELETE',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'ADDRESS_MAN.DELETE_ADDRESS.BTN_ABANDON_DELETE',
+                            submit: 'ADDRESS_MAN.DELETE_ADDRESS.BTN_DELETE_ADDRESS_REQUEST'
                         },
                         submit: function(){
                             $location.path(Addresses.route + '/delete/' + $scope.address.id + '/review');

@@ -2,31 +2,22 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
-        'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 'FormatterService',
+        'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 
+        'FormatterService', 'AllAccounts', '$q', 'AccountService',
         function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
-            $rootScope, formatter) {
-
-            Users.getTransactionalAccounts().then(function(res) {
-                var accts;
-                $scope.accounts = [];
-
-                if (res._embedded) {
-                    accts = res._embedded.transactionalAccounts;
-                    for (var i = 0; i < accts.length; i++) {
-                        $scope.accounts.push({
-                            accountValue: accts[i].account.accountId,
-                            accountLabel: accts[i].account.name
-                        });
-                    }
-               }
-            });
+            $rootScope, formatter, AllAccounts, $q, Account) {
 
             $scope.selectedAccounts = [];
-            $scope.optionsLimit = "include";
+            $scope.documentItem = {};
+            $scope.documentItem.optionsLimit = 'include';
             $scope.allAccounts = true;
-
+            $scope.accounts = [];
+            $scope.AssignedAccountList = [];
             $scope.translationPlaceHolder = translationPlaceHolder;
             $scope.inputTag = '';
+            $scope.showAllAccounts = true;
+            $scope.documentItem.accountList = [];
+            $scope.isCommitting = false;
 
             var redirect_to_list = function() {
                $location.path(Documents.route + '/');
@@ -40,11 +31,96 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.documentItem = { id:'new', strategic: false };
             } else {
                 $scope.documentItem = Documents.item;
-                $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
-                $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
+                $scope.documentItem.accountList = [];
+                if (BlankCheck.checkNotNullOrUndefined(Documents.item.publishDate)) {
+                    $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
+                }
+
+                if (BlankCheck.checkNotNullOrUndefined(Documents.item.endDate)) {
+                    $scope.documentItem.endDate = formatter.formatDate(Documents.item.endDate);
+                }
+
+                if ($scope.documentItem.accountIds && $scope.documentItem.accountIds.length > 0) {
+                    $scope.documentItem.optionsLimit = 'include';
+                    $scope.allAccounts = false;
+                    Users.getLoggedInUserInfo().then(function() {
+                        if (Users.item._links.accounts) {
+                            if (angular.isArray(Users.item._links.accounts)) {
+                                for (var i=0;i<Users.item._links.accounts.length;i++) {
+                                    for (var j = 0; j < $scope.documentItem.accountIds.length; j++) {
+                                        if (Users.item.accounts[i].accountId === $scope.documentItem.accountIds[j]) {
+                                            $scope.selectedAccounts.push(Users.item.accounts[i]);
+                                        }
+                                    }
+                                }
+                            } else {
+                                Users.getAdditional(Users.item, Account).then(function() {
+                                    for (var j = 0; j < $scope.documentItem.accountIds.length; j++) {
+                                        if (Account.item.accountId === $scope.documentItem.accountIds[j]) {
+                                            $scope.selectedAccounts.push(Account.item);
+                                        }
+                                    }
+                                });
+                            }
+                        } else {
+                            AllAccounts.get().then(function(){
+                                if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                                    $scope.accounts = AllAccounts.item._embedded.accounts;
+                                    for (var i = 0; i < $scope.accounts.length; i++) {
+                                        for (var j = 0; j < $scope.documentItem.accountIds.length; j++) {
+                                            if ($scope.accounts[i].accountId === $scope.documentItem.accountIds[j]) {
+                                                $scope.selectedAccounts.push($scope.accounts[i]);
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
             }
 
             $scope.isDeleting = false;
+
+            $scope.setAccounts = function() {
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.removeAccount = function(item) {
+                if ($scope.selectedAccounts && $scope.selectedAccounts.length > 0) {
+                    for (var j=0;j<$scope.selectedAccounts.length; j++) {
+                        if ($scope.selectedAccounts[j].accountId 
+                            && $scope.selectedAccounts[j].accountId === item.accountId
+                            && $scope.selectedAccounts[j].level === item.level
+                            && $scope.selectedAccounts[j].name === item.name) {
+                            $scope.selectedAccounts.splice(j, 1);
+                        }
+                    }
+                }
+                $scope.$broadcast('searchAccount');
+            };
+
+            $scope.$on('searchAccount', function(evt){
+                $scope.accountList = [];
+                if($scope.documentItem.accountName && $scope.documentItem.accountName.length >=3) {
+                    var options = {
+                        preventDefaultParams: true,
+                        params:{    
+                            searchTerm: $scope.documentItem.accountName
+                        }
+                    };
+                    AllAccounts.get(options).then(function(){
+                        $scope.accountList = [];
+                        if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                            var allAccountList = AllAccounts.item._embedded.accounts;
+                            for (var i=0; i<allAccountList.length; i++) {
+                                $scope.accountList.push(allAccountList[i]);
+                            }
+                        }
+                    });
+                }
+            });
 
             $scope.goToStartDelete = function () {
                 $scope.isDeleting = true;
@@ -75,6 +151,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.save = function() {
+                $scope.isCommitting = true;
                 $scope.uploadSuccess = false;
                 $scope.modifySuccess = false;
 
@@ -102,40 +179,69 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
 
                 if ($rootScope.documentLibraryManageAccountAccess) {
                     var accessToSend = [];
-
-                    if ($scope.optionsLimit === "include") {
+                    if ($scope.documentItem.optionsLimit === 'include') {
                         // if we have items in selectedAccounts, push them.
-                        if ($scope.selectedAccounts.length > 1) {
+                        if ($scope.selectedAccounts.length > 0) {
                             for (var i = 0; i < $scope.selectedAccounts.length; i++) {
-                                accessToSend.push($scope.selectedAccounts[i].accountValue);
+                                accessToSend.push($scope.selectedAccounts[i].accountId);
                             }
                         }
+                        /*commenting as per discussion with BE. They will right the code to add all accounts*/
                         // else, send all the accounts that we have
-                        else {
+                        /*else {
                             for (var i = 0; i < $scope.accounts.length; i++) {
-                                accessToSend.push($scope.accounts[i].accountValue);
+                                accessToSend.push($scope.accounts[i].accountId);
                             }
-                        }
+                        }*/
                     } else {
                         // remove the accounts with no access
-                        if ($scope.selectedAccounts.length > 1) {
-    ;
-                            for (var i = 0; i < $scope.accounts.length; i++) {
-                                for (var j = 0; j < $scope.selectedAccounts.length; j++) {
-                                    if (!($scope.accounts[i].accountValue === $scope.selectedAccounts[j].accountValue)) {
-                                        accessToSend.push($scope.accounts[i].accountValue);
+                        if ($scope.selectedAccounts.length > 0) {
+                            Users.getLoggedInUserInfo().then(function() {
+                                if (Users.item._links.accounts) {
+                                    if (angular.isArray(Users.item._links.accounts)) {
+                                        for (var i=0;i<Users.item._links.accounts.length;i++) {
+                                            for (var j = 0; j < $scope.selectedAccounts.length; j++) {
+                                                if (Users.item.accounts[i].accountId !== $scope.selectedAccounts[j].accountId) {
+                                                    accessToSend.push(Users.item.accounts[i].accountId);
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Users.getAdditional(Users.item, Account).then(function() {
+                                            for (var j = 0; j < $scope.selectedAccounts.length; j++) {
+                                                if (Account.item.accountId !== $scope.selectedAccounts[j].accountId) {
+                                                    accessToSend.push(Account.item.accountId);
+                                                }
+                                            }
+                                        });
                                     }
+                                } else {
+                                    AllAccounts.get().then(function(){
+                                        if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                                            $scope.accounts = AllAccounts.item._embedded.accounts;
+                                            for (var i = 0; i < $scope.accounts.length; i++) {
+                                                for (var j = 0; j < $scope.selectedAccounts.length; j++) {
+                                                    if (!($scope.accounts[i].accountId === $scope.selectedAccounts[j].accountId)) {
+                                                        accessToSend.push($scope.accounts[i].accountId);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
                                 }
-                            }
-                        } else {
+
+                            });
+                        }
+                        /*commenting as per discussion with BE. They will right the code to add all accounts*/
+                        /*else {
                             // else, send all from $scope.accounts
                             for (var i = 0; i < $scope.accounts.length; i++) {
-                                accessToSend.push($scope.accounts[i].accountValue);
+                                accessToSend.push($scope.accounts[i].accountId);
                             }
-                        }
+                        }*/
                     }
 
-                    if (accessToSend.length > 1) {
+                    if (accessToSend.length > 0) {
                         Documents.addField('accountIds', accessToSend);
                     }
                 }
@@ -181,6 +287,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
                         
                         $scope.modifySuccess = true;
+                        $scope.isCommitting = false;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                     });
@@ -210,6 +317,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
 
                         $scope.uploadSuccess = true;
+                        $scope.isCommitting = false;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
                     });
@@ -236,21 +344,19 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.goToSelectAccount = function() {
-
-                if ($scope.accountSelected === $translate.instant('LABEL.SELECT')) {
+                if ($scope.documentItem.accountSelected === $translate.instant('LABEL.SELECT')) {
                     return;
                 }
 
                 for (var i = 0; i < $scope.selectedAccounts.length; i++) {
-                    if ($scope.selectedAccounts[i].accountValue === $scope.accountSelected) {
+                    if ($scope.selectedAccounts[i].accountId === $scope.documentItem.accountSelected) {
                         return;
                     }
                 }
 
-                for (var i = 0; i < $scope.accounts.length; i++) {
-                    if ($scope.accounts[i].accountValue === $scope.accountSelected) {
-                        $scope.accounts[i].visibility = ($scope.optionsLimit === "include") ? $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_SEE") : $translate.instant("DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_NOT_SEE");
-                        $scope.selectedAccounts.push($scope.accounts[i]);
+                for (var i = 0; i < $scope.documentItem.accountList.length; i++) {
+                    if ($scope.documentItem.accountList[i].accountId === $scope.documentItem.accountSelected) {
+                        $scope.selectedAccounts.push($scope.documentItem.accountList[i]);
                     }
                 }
             };
@@ -260,6 +366,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.changeAccess = function(index) {
+                $scope.documentItem.accountName = '';
                 $scope.selectedAccounts = [];
             };
         }

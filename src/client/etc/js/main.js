@@ -36,12 +36,12 @@ requirejs.config({
             'queue.queueListController',
             'queue.tombstoneFactory',
 
-
-
             'dashboard',
             'dashboard.dashboardController',
 
             'ngTagsInput',
+
+            'blob',
 
             'library',
             'library.libraryFactory',
@@ -249,6 +249,8 @@ requirejs.config({
         'rome': 'app/libs/rome.min',
 
         'ngTagsInput': 'app/libs/ng-tags-input.min',
+
+        'blob': 'app/libs/blob',
 
         'pdfmake': 'app/libs/vfs_fonts',
         'pdfMakeLib': 'app/libs/pdfmake.min',

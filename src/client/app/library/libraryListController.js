@@ -36,6 +36,19 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 );
             }
 
+            $scope.isUnpublished = function(documentItem) {
+                if (documentItem.endDate === null) {
+                    return;
+                }
+
+                var dateNow = formatter.formatDate(new Date());
+                var docEndDate = formatter.formatDate(documentItem.endDate);
+
+                if (dateNow >= docEndDate) {
+                    return '(' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_UNPUBLISHED') + ')';
+                }
+            };
+
             $scope.getFileOwner = function(owner) {
                 return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
             };
@@ -47,8 +60,13 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     case 'pdf':
                         icon += 'icon-mps-pdf_document';
                         break;
+                    case 'xls':
+                        /* fallthrough */
+                    case 'xlsx':
+                        icon += 'icon-mps-spreadsheet';
+                        break;
                     default:
-                        icon += '';
+                        icon += 'icon-mps-blank_document';
                 }
 
                 return icon;
@@ -65,13 +83,16 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getEditAction = function (owner) {
-                var showInlineEdit = false;
+                var showBtn = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showInlineEdit = true;
+                    showBtn = true;
+                }
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    showBtn = true;
                 }
 
-                return showInlineEdit;
+                return showBtn;
             };
 
             $scope.goToNew = function() {

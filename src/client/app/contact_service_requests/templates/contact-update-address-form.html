@@ -9,16 +9,16 @@
     </div>
 
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
-        <h2 class="vertical-space--none" translate="CONTACT_SERVICE_REQUEST.TAB_CONTACT_ADDRESS"></h2>
+        <h2 class="vertical-space--none" translate="CONTACT_MAN.COMMON.TXT_CONTACT_ADDRESS"></h2>
         <hr/>
 
         <div contact-update-address-fields></div>
 
         <div class="btns">
             <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
-                translate="CONTACT_SERVICE_REQUEST.ABANDON_UPDATE_CONTACT_REQUEST"></button>
+                translate="CONTACT_MAN.UPDATE_CONTACT.BTN_DISCARD_CHANGES"></button>
             <button name="submit" class="btn btn--primary" ng-click="saveContact('editContact')" type="submit"
-                translate="LABEL.REVIEW_SUBMIT"></button>
+                translate="CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT"></button>
         </div>
     </form>
 </div>
