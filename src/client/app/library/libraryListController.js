@@ -60,6 +60,11 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     case 'pdf':
                         icon += 'icon-mps-pdf_document';
                         break;
+                    case 'xls':
+                        /* fallthrough */
+                    case 'xlsx':
+                        icon += 'icon-mps-spreadsheet';
+                        break;
                     default:
                         icon += 'icon-mps-blank_document';
                 }
@@ -78,13 +83,16 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getEditAction = function (owner) {
-                var showInlineEdit = false;
+                var showBtn = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showInlineEdit = true;
+                    showBtn = true;
+                }
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    showBtn = true;
                 }
 
-                return showInlineEdit;
+                return showBtn;
             };
 
             $scope.goToNew = function() {
