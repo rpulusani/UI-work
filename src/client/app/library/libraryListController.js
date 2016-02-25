@@ -78,13 +78,16 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getEditAction = function (owner) {
-                var showInlineEdit = false;
+                var showBtn = false;
 
                 if (owner === $rootScope.idpUser.email) {
-                    showInlineEdit = true;
+                    showBtn = true;
+                }
+                if ($rootScope.currentUser.type === 'INTERNAL') {
+                    showBtn = true;
                 }
 
-                return showInlineEdit;
+                return showBtn;
             };
 
             $scope.goToNew = function() {
