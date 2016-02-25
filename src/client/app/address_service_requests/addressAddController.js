@@ -19,6 +19,7 @@ define(['angular', 'address'], function(angular) {
         'HATEAOSConfig',
         'TombstoneService',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $filter,
@@ -35,11 +36,14 @@ define(['angular', 'address'], function(angular) {
             Users,
             HATEAOSConfig,
             Tombstone,
-            tombstoneWaitTimeout) {
+            tombstoneWaitTimeout,
+            SecurityHelper) {
 
             $scope.isLoading = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
+            $scope.setTransactionAccount('AddressAdd', ServiceRequest);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             $scope.setStoreFrontName = function(){
                 $scope.address.storeFrontName =  $scope.address.name;
