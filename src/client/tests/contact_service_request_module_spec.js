@@ -4,7 +4,6 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
             var scope,
             httpBackend,
             mockContactListCtrl,
-            mockContactCtrl,
             location,
             deferred,
             mockContactFactory;
@@ -25,7 +24,6 @@ define(['angular', 'angular-mocks', 'contact', 'fixtures'],
                 scope.contacts = mockContactFactory;
 
                 mockContactListCtrl = $controller('ContactListController', {$scope: scope, Contacts: mockContactFactory});
-                mockContactCtrl = $controller('ContactController', {$scope: scope, Contacts: mockContactFactory, translationPlaceHolder: {}});
                 httpBackend.when('GET', 'abcd/localizations/en.json').respond({it: 'works'});
                 httpBackend.when('GET', '/').respond({it: 'works'});
             }));

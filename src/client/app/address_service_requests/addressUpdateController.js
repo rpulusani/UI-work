@@ -41,7 +41,7 @@ define(['angular', 'address'], function(angular) {
             $scope.returnedForm = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
-            $scope.setTransactionAccount('AddressUpdate', ServiceRequest);
+            $scope.setTransactionAccount('AddressUpdate', Addresses);
             new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             $scope.checkAddress = function() {

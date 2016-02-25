@@ -34,7 +34,7 @@ define(['angular', 'contact'], function(angular) {
             SecurityHelper) {
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
-            $scope.setTransactionAccount('ContactUpdateAddress', ServiceRequest);
+            $scope.setTransactionAccount('ContactUpdateAddress', Contacts);
             new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
             $scope.checkAddress = function(contactForm) {

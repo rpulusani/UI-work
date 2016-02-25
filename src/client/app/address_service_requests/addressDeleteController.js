@@ -38,7 +38,7 @@ define(['angular', 'address'], function(angular) {
             $scope.isLoading = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
-            $scope.setTransactionAccount('AddressDelete', ServiceRequest);
+            $scope.setTransactionAccount('AddressDelete', Addresses);
             new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             var configureSR = function(ServiceRequest){

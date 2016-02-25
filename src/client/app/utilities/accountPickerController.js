@@ -58,7 +58,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow);
+                var url = Accounts.getRelationship('account', $rootScope.currentSelectedRow);
+                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow.account, url);
                 $rootScope.$emit('refreshNav');
                 $location.path($rootScope.accountReturnPath);
             };
@@ -76,7 +77,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Users, personal);
 
             for (i; i < tAccts.length; i += 1) {
-                Accounts.data[i] = tAccts[i].account;
+                Accounts.data[i] = tAccts[i];
             }
 
             Grid.display(Accounts, $scope, personal);

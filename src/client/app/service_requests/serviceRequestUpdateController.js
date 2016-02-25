@@ -74,7 +74,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                 ServiceRequest.addField('customerReferenceId', $scope.sr.customerReferenceId);
                 ServiceRequest.addRelationship('primaryContact', $scope.sr.primaryContact, 'self');
                 ServiceRequest.addRelationship('requester', $scope.sr.requestedByContact, 'self');
-                ServiceRequest.addRelationship('account', $scope.sr.requestedByContact, 'account');
+                ServiceRequest.addRelationship('account', $scope.sr);
                 ServiceRequest.addRelationship('relatedRequest', $scope.sr, 'self');
                 ServiceRequest.addField('attachments', $scope.files_complete);
             };
