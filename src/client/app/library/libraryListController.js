@@ -60,6 +60,11 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     case 'pdf':
                         icon += 'icon-mps-pdf_document';
                         break;
+                    case 'xls':
+                        /* fallthrough */
+                    case 'xlsx:'
+                        icon += 'icon-mps-spreadsheet';
+                        break;
                     default:
                         icon += 'icon-mps-blank_document';
                 }
