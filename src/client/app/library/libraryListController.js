@@ -62,7 +62,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                         break;
                     case 'xls':
                         /* fallthrough */
-                    case 'xlsx:'
+                    case 'xlsx':
                         icon += 'icon-mps-spreadsheet';
                         break;
                     default:
