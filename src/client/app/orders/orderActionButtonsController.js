@@ -48,11 +48,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
             $scope.goToHardwareCreate = function(){
                 Orders.newMessage();
                 Orders.tempSpace = {};
-                if($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel'){
-                    $location.path(Orders.route + '/catalog/hardware');
-                }else{
-                    //go to account picker
-                }
+                $location.path(Orders.route + '/catalog/hardware');
             };
             $scope.goToReturnSuppliesCreate = function(){
                 Orders.newMessage();

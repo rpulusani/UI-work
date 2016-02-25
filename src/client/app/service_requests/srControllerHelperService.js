@@ -20,6 +20,27 @@ define(['angular', 'serviceRequest'], function(angular) {
             rootScope,
             halObj;
 
+            function setTransactionAccount(source, halObject){
+                if($rootScope.currentAccount && $rootScope.currentAccount.accountLevel &&
+                $rootScope.currentAccount.accountLevel.toUpperCase() !== 'SIEBEL'){
+                    if(!halObject.getRelationship('account', halObject.item)){
+                        goToAccountPicker(source, halObject.item);
+                    }
+                }
+
+            }
+
+            function goToAccountPicker(source, pickerObject){
+                if(pickerObject && source){
+                    rootScope.accountReturnPath = $location.path();
+                    rootScope.returnPickerObject = pickerObject;
+                    $location.search('tab',null);
+                    $location.path(halObj.route + '/pick_account/' + source);
+                }else{
+                    throw 'Failed to route to pick an account either pickerObject or sr object are empty';
+                }
+            }
+
             function goToContactPicker(source, currentSelected, pickerObject) {
                 if(pickerObject && scope.sr){
                     rootScope.currentSelected = currentSelected;
@@ -251,6 +272,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     scope.goToAddressBillToPicker = goToAddressBillToPicker;
                     scope.goToAddressShipToPicker = goToAddressShipToPicker;
                     scope.setStatusBar = setStatusBar;
+                    scope.setTransactionAccount = setTransactionAccount;
                 }else{
                     throw 'scope was not passed in to addMethods';
                 }

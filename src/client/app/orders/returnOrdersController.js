@@ -16,6 +16,7 @@ define(['angular', 'utility.grid'], function(angular) {
         '$routeParams',
         '$location',
         '$translate',
+        'SecurityHelper',
         function(
             SRHelper,
             $scope,
@@ -30,9 +31,12 @@ define(['angular', 'utility.grid'], function(angular) {
             Tombstone,
             $routeParams,
             $location,
-            $translate
+            $translate,
+            SecurityHelper
         ){
         SRHelper.addMethods(Orders, $scope, $rootScope);
+        $scope.setTransactionAccount('ReturnOrders', Orders);
+        new SecurityHelper($rootScope).redirectCheck($rootScope.createSuppliesReturn);
 
         var configureSR = function(Orders){
                     if(!Orders.item || !Orders.item.description){

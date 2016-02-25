@@ -12,6 +12,8 @@ define(['angular'], function(angular) {
         '$routeParams',
         'OrderItems',
         'AssetPartsFactory',
+        'SecurityHelper',
+        'SRControllerHelperService',
         function(
             $rootScope,
             $scope,
@@ -22,8 +24,11 @@ define(['angular'], function(angular) {
             Contracts,
             $routeParams,
             OrderItems,
-            AssetParts
+            AssetParts,
+            SecurityHelper,
+            SRHelper
         ){
+            SRHelper.addMethods(Orders, $scope, $rootScope);
             //multi, none, single
             $scope.print = false;
             $scope.export = false;
@@ -33,6 +38,14 @@ define(['angular'], function(angular) {
             $scope.showContracts = 'none';
             //hardware, multi, supplies, none
             $scope.showCatalogTypes = 'none';
+
+            $scope.setTransactionAccount('AgreementCatalogDevice', Orders);
+            if($scope.type === 'HARDWARE'){
+                new SecurityHelper($rootScope).redirectCheck($rootScope.orderHardware);
+            }else{
+                new SecurityHelper($rootScope).redirectCheck($rootScope.orderSuppliesCatalog);
+            }
+
             $scope.configure = {
                  actions:{
                     submit: function() {

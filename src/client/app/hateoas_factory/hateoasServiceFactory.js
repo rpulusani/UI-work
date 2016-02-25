@@ -173,16 +173,24 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     angular.extend(this.item._links, tempObject);
                 }
             };
+            HATEOASFactory.prototype.getRelationship = function(name, halObj, altName){
+                var calculatedName = (altName) ? altName: name;
 
+                 if (halObj && halObj._links && halObj._links[calculatedName] &&
+                    halObj._links[calculatedName].href) {
+                     return halObj._links[calculatedName].href;
+                 }else{
+                    return undefined;
+                 }
+            };
             HATEOASFactory.prototype.addRelationship = function(name, halObj, altName){
                 var tempObject = {},
-                calculatedName = (altName) ? altName: name;
+                url = this.getRelationship(name,halObj,altName);
 
                 this.getMessage();
 
-                if (halObj && halObj._links && halObj._links[calculatedName] &&
-                    halObj._links[calculatedName].href) {
-                    tempObject[name] = { href: halObj._links[calculatedName].href};
+                if (url) {
+                    tempObject[name] = { href: url};
                     angular.extend(this.item._links, tempObject);
                 }
             };
@@ -624,7 +632,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (options) {
                     if (!options.params) {
-                        options.params = {}
+                        options.params = {};
                     }
 
                     options.params.size = size;

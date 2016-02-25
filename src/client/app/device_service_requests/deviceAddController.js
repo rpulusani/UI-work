@@ -24,6 +24,7 @@ define(['angular',
         'TombstoneService',
         '$timeout',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $filter,
@@ -42,11 +43,14 @@ define(['angular',
             $translate,
             Tombstone,
             $timeout,
-            tombstoneWaitTimeout) {
+            tombstoneWaitTimeout,
+            SecurityHelper) {
 
             $scope.isLoading = false;
 
             SRHelper.addMethods(Devices, $scope, $rootScope);
+            $scope.setTransactionAccount('DeviceAdd', Devices);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.addDevice);
 
             $scope.goToReview = function() {
                 $rootScope.newDevice = $scope.device;

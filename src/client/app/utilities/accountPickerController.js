@@ -2,28 +2,28 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('AccountPickerController', [
-        '$scope', 
-        '$location', 
-        '$controller', 
+        '$scope',
+        '$location',
+        '$controller',
         '$routeParams',
         'grid',
-        'UserService', 
+        'UserService',
         'AccountService',
         'BlankCheck',
-        'FormatterService', 
+        'FormatterService',
         '$rootScope',
         'PersonalizationServiceFactory',
         'HATEAOSConfig',
         'FilterSearchService',
         function(
-            $scope, 
+            $scope,
             $location,
             $controller,
             $routeParams,
             GridService,
             Users,
             Accounts,
-            BlankCheck, 
+            BlankCheck,
             FormatterService,
             $rootScope,
             Personalize,
@@ -58,10 +58,10 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity);
+                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow);
                 $rootScope.$emit('refreshNav');
                 $location.path($rootScope.accountReturnPath);
-            }
+            };
 
             $scope.goToCallingPage = function(){
                 $location.path($rootScope.accountReturnPath);
