@@ -107,7 +107,7 @@ define(['angular', 'contact'], function(angular) {
 
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'CONTACT_SERVICE_REQUEST.SUBMIT_UPDATE_CONTACT_REQUEST';
+                $scope.configure.actions.translate.submit = 'CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT';
                 $scope.configure.actions.submit = function(){
                     var deferred = ServiceRequest.post({
                          item:  $scope.sr
@@ -143,8 +143,8 @@ define(['angular', 'contact'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate:{
-                            h1: 'CONTACT_SERVICE_REQUEST.UPDATE',
-                            body: 'MESSAGE.LIPSUM',
+                            h1: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT',
+                            body: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT_PAR',
                             bodyValues: '',
                             readMore: ''
                         },
@@ -153,14 +153,14 @@ define(['angular', 'contact'], function(angular) {
                     },
                     contactsr:{
                         translate: {
-                            title: 'CONTACT.INFO'
+                            title: 'CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION'
                         }
                     },
                     contact:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            title: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_CONTACT',
+                            requestedByTitle: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show:{
@@ -171,12 +171,12 @@ define(['angular', 'contact'], function(angular) {
                     },
                     detail:{
                         translate:{
-                            title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'CONTACT_MAN.DELETE_CONTACT.TXT_ADDTIONAL_REQUEST_DETAILS',
+                            referenceId: 'CONTACT_MAN.DELETE_CONTACT.TXT_CUSTOMER_REF_ID',
+                            costCenter: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_COST_CENTER',
+                            comments: 'CONTACT_MAN.DELETE_CONTACT.TXT_COMMENTS',
+                            attachments: 'CONTACT_MAN.DELETE_CONTACT.TXT_ATTACHMENTS_SIZE',
+                            attachmentMessage: 'CONTACT_MAN.DELETE_CONTACT.TXT_ATTACHMENTS_FORMAT',
                             fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                         },
                         show:{
@@ -188,8 +188,8 @@ define(['angular', 'contact'], function(angular) {
                     },
                     actions:{
                         translate: {
-                            abandonRequest:'CONTACT_SERVICE_REQUEST.CANCEL',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'CONTACT_MAN.UPDATE_CONTACT.BTN_DISCARD_CHANGES',
+                            submit: 'CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT'
                         },
                         submit: function(){
                             $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');

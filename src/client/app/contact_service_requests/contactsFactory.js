@@ -11,7 +11,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 columnDefs: {
                     defaultSet: [
                         {
-                            name: $translate.instant('CONTACT.FULLNAME'),
+                            name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'),
                             field: 'getFullname()',
                             dynamic: false,
                             searchOn: 'firstName',
@@ -19,12 +19,12 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                                 'ng-bind="row.entity.getFullname()"></a></div>'
                         },
                         {
-                            name: $translate.instant('CONTACT.WORK_PHONE'),
+                            name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'),
                             field: 'getWorkPhone()',
                             searchOn: 'workPhone'
                         },
                         {
-                            name: $translate.instant('CONTACT.EMAIL'),
+                            name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_EMAIL'),
                             field: 'email',
                             searchOn: 'emailAddress'
                         },
@@ -40,17 +40,17 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                             visible: false
                         },
                         {
-                            name: $translate.instant('CONTACT.FIRST_NAME'),
+                            name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_FIRST_NAME'),
                             field:'_embedded.contact.firstName',
                             visible: false
                         },
                         {
-                            name: $translate.instant('CONTACT.LAST_NAME'),
+                            name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_LAST_NAME'),
                             field:'_embedded.contact.lastName',
                             visible: false
                         },
                         {
-                            name: $translate.instant('ADDRESS.ADDRESS'),
+                            name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_ADDRESS_1'),
                             field:'_embedded.contact.address.addressLine1',
                             visible: false
                         }

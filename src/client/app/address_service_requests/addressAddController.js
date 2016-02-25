@@ -294,7 +294,7 @@ define(['angular', 'address'], function(angular) {
                 };
                 $scope.configure.receipt = {
                     translate: {
-                        title:"ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILSL",
+                        title:"ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     },
                     print: true

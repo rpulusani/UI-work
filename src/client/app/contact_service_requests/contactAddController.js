@@ -35,7 +35,7 @@ define(['angular', 'contact'], function(angular) {
 
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
-            }, 3600);
+            }, 8000);
 
             $scope.checkAddress = function(contactForm) {
                 if($scope.checkedAddress === 0){
