@@ -32,8 +32,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 if (self.enableServerSort) {
                     $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
                         var direction,
-                        currentDir,
-                        params = {};
+                        currentDir;
 
                         if (sortColumns.length == 0) {
                             currentDir = null;
@@ -41,28 +40,29 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                             currentDir = sortColumns[0].sort.direction;
 
                             if (!sortColumns[0].colDef.searchOn) {
-                                params.sort = sortColumns[0].field;
+                                service.params.sort = sortColumns[0].field;
                             } else {
-                                params.sort = sortColumns[0].colDef.searchOn;
+                                service.params.sort = sortColumns[0].colDef.searchOn;
                             }
                         }
 
                         switch(currentDir) {
                           case 'asc':
-                            params.direction = 'ASC';
+                            service.params.direction = 'ASC';
                             break;
                           case 'desc':
-                            params.direction = 'DESC';
+                            service.params.direction = 'DESC';
                             break;
                           default:
+                            service.params.direction = null;
+                            service.params.sort = null;
                             break;
                         }
 
                         self.gridOptions.data = [];
+                        service.data = [];
 
-                        service.get({
-                            params: params
-                        }).then(function (data) {
+                        service.get().then(function (data) {
                             self.gridOptions.data = service.data;
                         });
                     });
