@@ -26,8 +26,7 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
 
             $scope.getBillToAddress = function(address) {
                 return formatter.formatAddress(address);
-            }   
-            
+            }
             if ($scope.status) {
                 configureParams['status'] = $scope.status;
             } else {
@@ -39,11 +38,6 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
             filterSearchService.addBasicFilter('INVOICE.ALL_INVOICES', configureParams, removeParamsList, function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             });
-            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
-                function() {
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-                }
-            );
             filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,
                 function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);

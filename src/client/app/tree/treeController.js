@@ -3,8 +3,8 @@ define([
     'tree.treeItemsService'
 ], function(tree){
     tree
-    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', 'Locations', '$q',
-        function($scope, TreeItems, Account, UserInfo, Users, Locations, $q){
+    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', 'Locations', 'AddressLocations', '$q',
+        function($scope, TreeItems, Account, UserInfo, Users, Locations, AddressLocations, $q){
             $scope.items = [];
             $scope.tempItems = [];
             $scope.selectedItems = [];
@@ -90,6 +90,42 @@ define([
                 Locations.get().then(function(response) {
                     if (Locations.item && Locations.item._embedded && Locations.item._embedded.countries) {
                         var countryList = Locations.item._embedded.countries;
+                        for (var i=0; i<countryList.length; i++) {
+                            var tempItem = {},
+                            stateList = [];
+                            tempItem.accountId = countryList[i].value;
+                            tempItem.name = countryList[i].name;
+                            for (var j=0; j<countryList[i].states.length; j++) {
+                                var tempState = {},
+                                cityList = [], 
+                                currentState = countryList[i].states[j];
+                                tempState.accountId = currentState.value;
+                                tempState.name = currentState.name;
+
+                                for (var k=0; k<currentState.cities.length; k++) {
+                                    var tempCity = {}, 
+                                    currentCity = currentState.cities[k];
+                                    tempCity.accountId = currentCity.value;
+                                    tempCity.name = currentCity.name;
+                                    tempCity.numberOfChildren = 0;
+                                    cityList.push(tempCity);
+                                }
+                                if (cityList && cityList.length >0) {
+                                    tempState.items = cityList;
+                                } else {
+                                    tempState.numberOfChildren = 0;
+                                }
+                                stateList.push(tempState);
+                            }
+                            tempItem.items = stateList;
+                            $scope.items.push(tempItem);
+                        }
+                    }
+                });
+            } else if ($scope.treeType && $scope.treeType === 'addressLocation') {
+                AddressLocations.get().then(function(response) {
+                    if (AddressLocations.item && AddressLocations.item._embedded && AddressLocations.item._embedded.countries) {
+                        var countryList = AddressLocations.item._embedded.countries;
                         for (var i=0; i<countryList.length; i++) {
                             var tempItem = {},
                             stateList = [];

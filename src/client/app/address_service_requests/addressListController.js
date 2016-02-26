@@ -70,7 +70,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
                     }, 500);
                     $scope.$broadcast('setupPrintAndExport', $scope);
             });
-            filterSearchService.addPanelFilter('Filter By Location', 'LocationFilter', {'addressType': 'ACCOUNT'},
+            filterSearchService.addPanelFilter('Filter By Location', 'AddressLocationFilter', {'addressType': 'ACCOUNT'},
                  function(Grid) {
                      setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
