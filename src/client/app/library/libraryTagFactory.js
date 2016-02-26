@@ -12,9 +12,9 @@ define(['angular', 'library'], function(angular) {
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS'), field: 'name',
                             'cellTemplate':'<div>' +
                                 '{{row.entity.name}} <span ng-if="grid.appScope.documentLibraryManageGlobalTagAccess">|</span> ' +
-                                '<i class="icon icon-psw-edit" ng-if="grid.appScope.documentLibraryManageGlobalTagAccess" ' +
+                                '<i class="icon-16 icon-psw-edit" ng-if="grid.appScope.documentLibraryManageGlobalTagAccess" ' +
                                 'ng-click="grid.appScope.goToStartEdit(row.entity)"></i>' +
-                                '<i class="icon icon-psw-delete" ng-if="grid.appScope.documentLibraryManageGlobalTagAccess" ' +
+                                '<i class="icon-16 icon-psw-delete" ng-if="grid.appScope.documentLibraryManageGlobalTagAccess" ' +
                                 'ng-click="grid.appScope.goToStartDelete(row.entity)"></i>' +
                                 '</div>'
                         }
