@@ -222,7 +222,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             $scope.btnRequestService = function(device) {
                 ServiceRequest.reset();
-                $location.path(DeviceServiceRequest.route + "/" + device.id + '/view');
+                $location.path(DeviceServiceRequest.route + "/" + device.id + '/view').search('tab', null);
             };
 
             $scope.btnDecommissionDevice = function(device) {
