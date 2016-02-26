@@ -28,6 +28,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
     ) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
+        new SecurityHelper($rootScope).redirectCheck($rootScope.addressContactAccess);
 
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         ServiceRequest.reset();
@@ -37,6 +38,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         $scope.contacts = Contacts;
 
         $scope.selectRow = function(btnType) {
+            ServiceRequest.newMessage();
             if(btnType === 'delete'){
                 Contacts.goToDelete($scope.gridApi.selection.getSelectedRows()[0]);
             }else{
@@ -45,7 +47,7 @@ define(['angular', 'contact', 'utility.grid'], function(angular) {
         };
 
         $scope.goToCreate = function() {
-            Contacts.item = undefined;
+            Contacts.newMessage();
             Contacts.tempSpace = {};
             $location.path('/service_requests/contacts/new');
         };

@@ -433,7 +433,6 @@ requirejs.config({
         'address.factory': 'app/address_service_requests/addressesFactory',
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
-        'contact.contactController': 'app/contact_service_requests/contactController',
         'contact.contactDeleteController': 'app/contact_service_requests/contactDeleteController',
         'contact.contactListController': 'app/contact_service_requests/contactListController',
         'contact.contactAddController': 'app/contact_service_requests/contactAddController',

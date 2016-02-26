@@ -40,7 +40,7 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
             ServiceRequest.reset();
-            
+
             $scope.addresses = Addresses;
 
             $scope.goToLbs = function(){
@@ -48,11 +48,13 @@ define(['angular', 'address', 'address.factory', 'account', 'utility.grid'], fun
             };
 
             $scope.goToCreate = function() {
+                ServiceRequest.newMessage();
                 Addresses.item = undefined;
                 $location.path('/service_requests/addresses/new');
             };
 
             $scope.selectRow = function(btnType) {
+                ServiceRequest.newMessage();
                 if (btnType !== 'delete') {
                     Addresses.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
                 } else {

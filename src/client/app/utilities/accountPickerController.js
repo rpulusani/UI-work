@@ -2,15 +2,15 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('AccountPickerController', [
-        '$scope', 
-        '$location', 
-        '$controller', 
+        '$scope',
+        '$location',
+        '$controller',
         '$routeParams',
         'grid',
-        'UserService', 
+        'UserService',
         'AccountService',
         'BlankCheck',
-        'FormatterService', 
+        'FormatterService',
         '$rootScope',
         'PersonalizationServiceFactory',
         'HATEAOSConfig',
@@ -18,14 +18,14 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
         'SecurityService',
         'SecurityHelper',
         function(
-            $scope, 
+            $scope,
             $location,
             $controller,
             $routeParams,
             GridService,
             Users,
             Accounts,
-            BlankCheck, 
+            BlankCheck,
             FormatterService,
             $rootScope,
             Personalize,
@@ -79,7 +79,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         $location.path($rootScope.accountReturnPath);
                     });
                 });
-            }
+            };
 
             $scope.goToCallingPage = function(){
                 $location.path($rootScope.accountReturnPath);

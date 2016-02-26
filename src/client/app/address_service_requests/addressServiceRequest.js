@@ -52,6 +52,11 @@ define(['angular'], function(angular) {
                 controller: 'AddressDeleteController',
                 activeItem: '/service_requests/addresses'
             })
+            .when('/service_requests/addresses/pick_account/:source', {
+                templateUrl: '/app/utilities/templates/pick-account.html',
+                controller: 'AccountPickerController',
+                activeItem: '/service_requests/addresses'
+            })
             .when('/service_requests/addresses/delete/:id/receipt/:queued', {
                 templateUrl: '/app/service_requests/templates/receipt.html',
                 controller: 'AddressDeleteController',
