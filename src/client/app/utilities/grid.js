@@ -14,6 +14,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             this.serviceInfo = {};
             this.optionsName = 'gridOptions';
             this.gridOptions = {};
+            this.enableServerSort = false;
         };
         Grid.prototype.setGridOptionsName = function(newName) {
             this.optionsName = newName;
@@ -27,7 +28,46 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             var self = this;
             return function( gridApi ) {
                 $rootScope.gridApi = gridApi;
-                
+
+                if (self.enableServerSort) {
+                    $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
+                        var direction,
+                        currentDir,
+                        params = {};
+
+                        if (sortColumns.length == 0) {
+                            currentDir = null;
+                        } else {
+                            currentDir = sortColumns[0].sort.direction;
+
+                            if (!sortColumns[0].colDef.searchOn) {
+                                params.sort = sortColumns[0].field;
+                            } else {
+                                params.sort = sortColumns[0].colDef.searchOn;
+                            }
+                        }
+
+                        switch(currentDir) {
+                          case 'asc':
+                            params.direction = 'ASC';
+                            break;
+                          case 'desc':
+                            params.direction = 'DESC';
+                            break;
+                          default:
+                            break;
+                        }
+
+                        self.gridOptions.data = [];
+
+                        service.get({
+                            params: params
+                        }).then(function (data) {
+                            self.gridOptions.data = service.data;
+                        });
+                    });
+                }
+
                 if(gridApi && gridApi.selection){
                     gridApi.selection.on.rowSelectionChanged($rootScope,
                         function(row){
