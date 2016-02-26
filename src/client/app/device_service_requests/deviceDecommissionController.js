@@ -21,6 +21,7 @@ define(['angular',
         'TombstoneService',
         '$timeout',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $rootScope,
             $routeParams,
@@ -36,10 +37,15 @@ define(['angular',
             SRHelper,
             Tombstone,
             $timeout,
-            tombstoneWaitTimeout) {
+            tombstoneWaitTimeout,
+            SecurityHelper) {
 
             $scope.isLoading = false;
             SRHelper.addMethods(Devices, $scope, $rootScope);
+
+            $scope.setTransactionAccount('decommission', Devices);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.decommissionAccess);
+
 
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addRelationship('account', $scope.device);

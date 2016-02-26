@@ -98,7 +98,7 @@ define(['angular', 'utility'], function(angular) {
 
                                 self.updateCurrentAccount($rootScope.currentUser.accounts[0], acctLink);
                             }
-                            
+
                         }
 
                         deferred.resolve(api);
@@ -125,15 +125,15 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSConfig.prototype.updateCurrentAccount = function(account, accountLink) {
                 if (account.level) {
                     if (!$rootScope.currentAccount) {
-                        $rootScope.currentAccount = {}
+                        $rootScope.currentAccount = {};
                     }
 
                     if (!accountLink && account.url) {
                         accountLink = account.url;
                     }
 
-                    $rootScope.currentAccount.accountId = account.accountId,
-                    $rootScope.currentAccount.accountLevel = account.level,
+                    $rootScope.currentAccount.accountId = account.accountId;
+                    $rootScope.currentAccount.accountLevel = account.level;
                     $rootScope.currentAccount.name = account.name;
                     $rootScope.currentAccount.href = accountLink;
                     $rootScope.currentAccount.refresh = false;

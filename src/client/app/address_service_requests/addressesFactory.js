@@ -34,6 +34,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                 route: '/service_requests/addresses',
                 goToUpdate: function(address) {
                         ServiceRequest.reset();
+                        ServiceRequest.newMessage();
                         if (address) {
                             this.setItem(address);
                         }
@@ -41,6 +42,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                     },
                 goToDelete: function(address) {
                         ServiceRequest.reset();
+                        ServiceRequest.newMessage();
                         if (address) {
                             this.setItem(address);
                         }
@@ -57,7 +59,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                         });
                     }
                 };
-                
+
             return new HATEOASFactory(Addresses);
         }
     ]);

@@ -54,7 +54,6 @@ define([
     'order.agreementFactory',
     'order.contractFactory',
     'contact',
-    'contact.contactController',
     'contact.contactDeleteController',
     'contact.contactListController',
     'contact.contactAddController',
@@ -329,7 +328,7 @@ define([
             deferred: $q.defer()
         };
         var security = new SecurityService();
-        
+
         $rootScope.configurePermissions = [
             {
                 name: 'documentLibraryAccess',

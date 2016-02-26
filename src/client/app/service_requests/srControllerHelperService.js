@@ -20,6 +20,34 @@ define(['angular', 'serviceRequest'], function(angular) {
             rootScope,
             halObj;
 
+            function setTransactionAccount(source, halObject, incontextAccount){
+                if(!inTransactionalAccountContext()){
+                    if(!halObject.getRelationship('account', halObject.item)){
+                        goToAccountPicker(source, halObject.item);
+                    }
+                }
+
+            }
+            function inTransactionalAccountContext(){
+                var result = false;
+                if($rootScope.currentAccount && $rootScope.currentAccount.accountLevel &&
+                    $rootScope.currentAccount.accountLevel.toUpperCase() === 'SIEBEL'){
+                    result = true;
+                }
+
+                return result;
+            }
+            function goToAccountPicker(source, pickerObject){
+                if(pickerObject && source){
+                    rootScope.accountReturnPath = $location.path();
+                    rootScope.returnPickerObject = pickerObject;
+                    $location.search('tab',null);
+                    $location.path(halObj.route + '/pick_account/' + source);
+                }else{
+                    throw 'Failed to route to pick an account either pickerObject or sr object are empty';
+                }
+            }
+
             function goToContactPicker(source, currentSelected, pickerObject) {
                 if(pickerObject && scope.sr){
                     rootScope.currentSelected = currentSelected;
@@ -103,23 +131,27 @@ define(['angular', 'serviceRequest'], function(angular) {
                 }
             }
 
-            function setupSR(ServiceRequest, fillFunc){
-                if(ServiceRequest){
-                    if(ServiceRequest.item === null){
-                        ServiceRequest.newMessage();
-                        scope.sr = ServiceRequest.item;
+            function setupSR(HalObject, fillFunc){
+                if(HalObject){
+
+                    if(HalObject.item === null){
+                        HalObject.newMessage();
+                    }
+
+                    if(HalObject.isNewMessage){
+                        scope.sr = HalObject.item;
                         if(fillFunc){
-                            fillFunc(ServiceRequest);
+                            fillFunc(HalObject);
                         }
-                        ServiceRequest.addField('customerReferenceId', '');
-                        ServiceRequest.addField('costCenter', '');
-                        ServiceRequest.addField('notes', '');
-                        scope.sr = ServiceRequest.item;
+                        HalObject.addField('customerReferenceId', '');
+                        HalObject.addField('costCenter', '');
+                        HalObject.addField('notes', '');
+                        scope.sr = HalObject.item;
                     }else{
-                       scope.sr = ServiceRequest.item;
+                       scope.sr = HalObject.item;
                     }
                 }else{
-                    throw 'setupSR needs a ServiceRequest Factory to perform this function';
+                    throw 'setupSR needs a HalObject Factory to perform this function';
                 }
             }
 
@@ -251,6 +283,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                     scope.goToAddressBillToPicker = goToAddressBillToPicker;
                     scope.goToAddressShipToPicker = goToAddressShipToPicker;
                     scope.setStatusBar = setStatusBar;
+                    scope.setTransactionAccount = setTransactionAccount;
+                    scope.inTransactionalAccountContext = inTransactionalAccountContext;
                 }else{
                     throw 'scope was not passed in to addMethods';
                 }

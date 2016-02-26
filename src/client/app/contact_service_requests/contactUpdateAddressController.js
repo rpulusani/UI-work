@@ -16,6 +16,7 @@ define(['angular', 'contact'], function(angular) {
         'UserService',
         'HATEAOSConfig',
         '$timeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $filter,
@@ -29,9 +30,12 @@ define(['angular', 'contact'], function(angular) {
             SRHelper,
             Users,
             HATEAOSConfig,
-            $timeout) {
+            $timeout,
+            SecurityHelper) {
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
+            $scope.setTransactionAccount('ContactUpdateAddress', Contacts);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
             $scope.checkAddress = function(contactForm) {
                 if($scope.checkedAddress === 0){

@@ -26,6 +26,11 @@ define(['angular'], function(angular) {
             controller: 'ContactPickerController',
             activeItem: '/device_management'
         })
+        .when('/device_management/pick_account/:source', {
+            templateUrl: '/app/utilities/templates/pick-account.html',
+            controller: 'AccountPickerController',
+            activeItem: '/device_management'
+        })
         .when('/device_management/pick_device/:source', {
             templateUrl: '/app/device_service_requests/templates/device-picker.html',
             controller: 'DevicePickerController',

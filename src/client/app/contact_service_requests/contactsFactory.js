@@ -107,6 +107,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 route: '/service_requests/contacts',
                 goToUpdate: function(contact) {
+                    ServiceRequest.newMessage();
                     if (contact) {
                         this.setItem(contact);
                     }
@@ -120,6 +121,7 @@ define(['angular', 'contact', 'utility.formatters','hateoasFactory.serviceFactor
                 },
                 goToDelete: function(contact) {
                         ServiceRequest.reset();
+                        ServiceRequest.newMessage();
                         if (contact) {
                             this.setItem(contact);
                         }

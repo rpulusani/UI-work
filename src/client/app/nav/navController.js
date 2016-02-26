@@ -65,7 +65,7 @@ define([
                     i = 0;
 
                     item.data = [];
-                    
+
                     if (Users.item.transactionalAccount.data.length < defaultCnt) {
                         defaultCnt = Users.item.transactionalAccount.data.length;
                     }
@@ -116,7 +116,7 @@ define([
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
                     Users.item._links.accounts = child._links.account;
-                    
+
                     for (i; i < accts.length; i += 1) {
                         if (accts[i]._links.account.href === Users.item._links.accounts.href) {
                             if (!accts[i].isActive) {
@@ -135,9 +135,9 @@ define([
 
                     Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                         Security.setWorkingPermission(permissions);
-                        
+
                         new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
-                        
+
                         $route.reload();
                     });
                 });
@@ -156,10 +156,32 @@ define([
             };
 
             $scope.goToAccountPicker = function() {
+                var i = 0,
+                accts = Users.item.transactionalAccount.data;
 
-                $rootScope.accountReturnPath = $location.path();
-                $location.path('/accounts/pick_account/Account');
-            }
+                for (i; i < accts.length; i += 1) {
+                    accts[i].isActive = false;
+                }
+
+                $rootScope.currentAccount.refresh = true;
+
+                HATEAOSConfig.getCurrentAccount().then(function() {
+                    $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
+                    $rootScope.currentAccount.refresh = true;
+
+                    $scope.selectedAccount = $rootScope.currentAccount;
+
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+
+                        $rootScope.accountReturnPath = $location.path();
+
+                        $location.path('/accounts/pick_account/Account');
+                    });
+                });
+            };
 
             if ($scope.items.length === 0) {
                 Nav.query(function(){
@@ -176,7 +198,9 @@ define([
             });
 
             $rootScope.$on('toggleAccountNav', function(e, res) {
-                $scope.dropdownItem.isExpanded = false;
+                if($scope.dropdownItem){
+                    $scope.dropdownItem.isExpanded = false;
+                }
             });
 
             $scope.currentYear = new Date().getFullYear();

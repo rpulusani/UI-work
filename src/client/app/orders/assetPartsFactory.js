@@ -21,7 +21,7 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
 
             var OrderItems = {
                     serviceName: 'orderParts',
-                    embeddedName: 'parts', //get away from embedded name and move to a function to convert url name to javascript name
+                    embeddedName: 'orderParts', //get away from embedded name and move to a function to convert url name to javascript name
                     columns: 'defaultSet',
                     columnDefs: {
                         defaultSet: [
@@ -86,8 +86,10 @@ define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters
                     getThumbnails: function(){
                         var self = this;
                         var data = self.data;
-                        for(var i = 0; i < data.length; ++i){
-                            self.getSingleThumbnail(data[i]);
+                        if(data){
+                            for(var i = 0;  i < data.length; ++i){
+                                self.getSingleThumbnail(data[i]);
+                            }
                         }
                     },
 

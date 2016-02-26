@@ -16,6 +16,7 @@ define(['angular', 'contact'], function(angular) {
         'UserService',
         'HATEAOSConfig',
         '$timeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $filter,
@@ -29,16 +30,20 @@ define(['angular', 'contact'], function(angular) {
             SRHelper,
             Users,
             HATEAOSConfig,
-            $timeout) {
+            $timeout,
+            SecurityHelper) {
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
+            $scope.setTransactionAccount('ContactUpdate', Contacts);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
+
 
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
             }, 8000);
 
 
-            
+
             if(Contacts.item === null){
                 $scope.redirectToList();
             }else{
@@ -57,9 +62,10 @@ define(['angular', 'contact'], function(angular) {
 
             $scope.goToDelete = function(){
                 ServiceRequest.reset();
+                ServiceRequest.newMessage();
                 $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/review');
             };
-           
+
 
             $scope.saveContact = function(contactForm) {
                     updateContactObjectForSubmit();
@@ -70,7 +76,7 @@ define(['angular', 'contact'], function(angular) {
                     delete $scope.contact.url;
                     delete $scope.contact.primaryContact;
                     delete $scope.contact.requestedByContact;
-                    
+
                     var deferred = Contacts.put({
                         item: $scope.contact
                     });

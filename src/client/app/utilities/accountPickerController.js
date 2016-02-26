@@ -2,39 +2,44 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.utility')
     .controller('AccountPickerController', [
-        '$scope', 
-        '$location', 
-        '$controller', 
+        '$scope',
+        '$location',
+        '$controller',
         '$routeParams',
         'grid',
-        'UserService', 
+        'UserService',
         'AccountService',
         'BlankCheck',
-        'FormatterService', 
+        'FormatterService',
         '$rootScope',
         'PersonalizationServiceFactory',
         'HATEAOSConfig',
         'FilterSearchService',
+        'SecurityService',
+        'SecurityHelper',
         function(
-            $scope, 
+            $scope,
             $location,
             $controller,
             $routeParams,
             GridService,
             Users,
             Accounts,
-            BlankCheck, 
+            BlankCheck,
             FormatterService,
             $rootScope,
             Personalize,
             HATEOASConfig,
-            FilterSearchService
+            FilterSearchService,
+            SecurityService,
+            SecurityHelper
         ) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Accounts, $scope, $rootScope, personal),
             Grid = new GridService(),
             tAccts = $rootScope.currentUser.transactionalAccount.data,
-            i = 0;
+            i = 0,
+            Security = new SecurityService();
 
             Accounts.data = [];
 
@@ -58,10 +63,24 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity);
-                $rootScope.$emit('refreshNav');
-                $location.path($rootScope.accountReturnPath);
-            }
+                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.account);
+                
+                Users.createItem($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity);
+
+                $rootScope.currentAccount.refresh = true;
+
+                HATEOASConfig.getCurrentAccount().then(function() {
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+                        
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+
+                        $rootScope.$emit('refreshNav');
+                        
+                        $location.path($rootScope.accountReturnPath);
+                    });
+                });
+            };
 
             $scope.goToCallingPage = function(){
                 $location.path($rootScope.accountReturnPath);
@@ -76,10 +95,12 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Users, personal);
 
             for (i; i < tAccts.length; i += 1) {
-                Accounts.data[i] = tAccts[i].account;
+                Accounts.data[i] = tAccts[i];
             }
 
-            Grid.display(Accounts, $scope, personal);
+            setTimeout(function() {
+                Grid.display(Accounts, $scope, personal);
+            }, 0);
         }
     ]);
 });

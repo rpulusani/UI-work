@@ -11,11 +11,11 @@ define(['angular', 'account'], function(angular) {
                 columnDefs: {
                     defaultSet: [{
                         name: $translate.instant('ACCOUNT.ID'),
-                        field: 'accountId',
+                        field: 'account.accountId',
                         searchOn: 'accountId'
                     }, {
                         name: $translate.instant('ACCOUNT.NAME'),
-                        field: 'name',
+                        field: 'account.name',
                         searchOn: 'name'
                     }]
                 }

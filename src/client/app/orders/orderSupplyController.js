@@ -32,7 +32,7 @@ define(['angular', 'utility.grid', 'order.orderContentsController'], function(an
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         OrderItems.data = [];
         if(Devices.item){
-            Devices.getAdditional(Devices.item, AssetParts).then(function(){
+            Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
                 var Grid = new GridService();
                 $scope.assetParts = AssetParts.data;
                 $scope.catalogOptions = {};

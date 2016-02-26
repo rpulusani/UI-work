@@ -94,6 +94,14 @@ define(['angular', 'order'], function(angular) {
                 configure: "=",
                 hideSubmit: "="
             },
+            compile: function(element, attrs){
+                if(!attrs.editable) {
+                    attrs.editable = false;
+                }
+                if(!attrs.hideSubmit) {
+                    attrs.hideSubmit = false;
+                }
+            },
             controller: 'OrderContentsController'
         };
     })
