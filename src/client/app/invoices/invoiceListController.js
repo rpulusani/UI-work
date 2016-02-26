@@ -26,8 +26,7 @@ define(['angular', 'invoice', 'utility.grid'], function(angular) {
 
             $scope.getBillToAddress = function(address) {
                 return formatter.formatAddress(address);
-            }   
-            console.log('$scope.status', $scope.status);
+            }
             if ($scope.status) {
                 configureParams['status'] = $scope.status;
             } else {
