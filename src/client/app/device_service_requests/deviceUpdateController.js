@@ -43,12 +43,12 @@ define(['angular',
             tombstoneWaitTimeout
             ){
 
-              $scope.isLoading = false;
+            $scope.isLoading = false;
 
             var configurePermissions = [
                 {
                     name: 'moveMADCAccess',
-                    permission: permissionSet.serviceRequestManagement.addressMADC
+                    permission: permissionSet.serviceRequestManagement.moveMADC
                 }
             ],
             SecureHelper = new SecurityHelper($scope);
@@ -101,7 +101,11 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                     $scope.device.addressSelected = true;
-
+                    
+                    if (!ServiceRequest.item) {
+                        $scope.setupSR(ServiceRequest, configureSR);
+                    }
+                    
                     ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
 
                     $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
