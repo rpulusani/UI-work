@@ -6,6 +6,20 @@ define(['angular', 'library'], function(angular) {
             var Tags = {
                 serviceName: 'tags',
                 embeddedName: 'tags',
+                columns: 'default',
+                columnDefs: {
+                    defaultSet: [
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS'), field: 'name',
+                            'cellTemplate':'<div>' +
+                                '{{row.entity.name}} <span ng-if="grid.appScope.documentLibraryManageGlobalTagAccess">|</span> ' +
+                                '<i class="icon icon-psw-edit" ng-if="grid.appScope.documentLibraryManageGlobalTagAccess" ' +
+                                'ng-click="grid.appScope.goToStartEdit(row.entity)"></i>' +
+                                '<i class="icon icon-psw-delete" ng-if="grid.appScope.documentLibraryManageGlobalTagAccess" ' +
+                                'ng-click="grid.appScope.goToStartDelete(row.entity)"></i>' +
+                                '</div>'
+                        }
+                    ]
+                },
                 url: serviceUrl + 'documents/tags',
                 route: '/library'
             };
@@ -14,3 +28,4 @@ define(['angular', 'library'], function(angular) {
         }
     ]);
 });
+
