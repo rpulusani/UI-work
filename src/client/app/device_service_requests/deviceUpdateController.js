@@ -48,7 +48,7 @@ define(['angular',
             var configurePermissions = [
                 {
                     name: 'moveMADCAccess',
-                    permission: permissionSet.serviceRequestManagement.moveMADC
+                    permission: permissionSet.serviceRequestManagement.addressMADC
                 }
             ],
             SecureHelper = new SecurityHelper($scope);
