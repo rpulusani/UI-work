@@ -38,7 +38,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             filterSearchService = new FilterSearchService(Accounts, $scope, $rootScope, personal),
             Grid = new GridService(),
             tAccts = $rootScope.currentUser.transactionalAccount.data,
-            i = 0;
+            i = 0,
             Security = new SecurityService();
 
             Accounts.data = [];
@@ -63,16 +63,18 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                var url = Accounts.getRelationship('account', $rootScope.currentSelectedRow);
-                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow.account, url);
+                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.account);
+                
                 Users.createItem($rootScope.currentSelectedRow);
                 $rootScope.currentAccount.refresh = true;
 
                 HATEOASConfig.getCurrentAccount().then(function() {
                     Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                         Security.setWorkingPermission(permissions);
-                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);   
+                                             
                         $rootScope.$emit('refreshNav');
+                        
                         $location.path($rootScope.accountReturnPath);
                     });
                 });

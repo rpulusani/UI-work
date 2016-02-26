@@ -213,7 +213,7 @@ define([
                 } else {
                     if (item.selected) {
                         $scope.selectedItems.push(item.accountId);
-                        if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location')
+                        if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location' || $scope.treeType === 'addressLocation')
                             && $scope.filterChl && typeof $scope.filterChl === 'function') {
                             $scope.filterChl($scope.selectedItems);
                         }
@@ -221,7 +221,7 @@ define([
                     } else {
                         if($scope.selectedItems.indexOf(item.accountId) !== -1) {
                             $scope.selectedItems.splice($scope.selectedItems.indexOf(item.accountId), 1);
-                            if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location')
+                            if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'location' || $scope.treeType === 'addressLocation')
                             && $scope.filterChl && typeof $scope.filterChl === 'function') {
                                 $scope.filterChl($scope.selectedItems);
                             }

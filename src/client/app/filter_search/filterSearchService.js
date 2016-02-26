@@ -49,6 +49,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
 
                     var deferred = this.beforeFunction();
                     deferred.then(function(){
+                        self.localScope.visibleColumns =  self.Grid.getVisibleColumns(self.service); //sets initial columns visibility
+                        self.localScope.$broadcast('setUpSearchCss');
                         if (rowHeight) {
                             self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
                             self.localScope.gridDataCnt = self.service.data.length;
@@ -74,7 +76,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                     NREUM.noticeError('Grid Load Failed for ' + self.service.serviceName +  ' reason: ' + reason);
                 };
 
-                this.localScope.searchFunctionDef = function(params, removeParams){
+                self.localScope.searchFunctionDef = function(params, removeParams){
                     var options  = {
                         'params':{}
                     };

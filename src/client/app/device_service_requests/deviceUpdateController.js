@@ -43,7 +43,7 @@ define(['angular',
             tombstoneWaitTimeout
             ){
 
-              $scope.isLoading = false;
+            $scope.isLoading = false;
 
             var configurePermissions = [
                 {
@@ -58,9 +58,6 @@ define(['angular',
             SecureHelper.redirectCheck($rootScope.addDevice);
 
             $scope.returnedForm = false;
-
-
-            ServiceRequest.reset();
 
             $scope.goToReview = function() {
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -104,7 +101,9 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                     $scope.device.addressSelected = true;
+                    
                     ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
+
                     $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
                     $scope.setupPhysicalLocations($scope.device.updatedInstallAddress,
                                                     $scope.device.physicalLocation1,
