@@ -76,6 +76,7 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                         new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
 
                         $rootScope.$emit('refreshNav');
+                        
                         $location.path($rootScope.accountReturnPath);
                     });
                 });

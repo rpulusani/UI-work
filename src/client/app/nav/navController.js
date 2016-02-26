@@ -125,7 +125,6 @@ define([
                                 accts[i].isActive = false;
                                 $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
                                 $rootScope.currentAccount.refresh = true;
-                                console.log('resetting', $rootScope.currentAccount);
                             }
                         } else {
                             accts[i].isActive = false;
@@ -163,14 +162,25 @@ define([
                 for (i; i < accts.length; i += 1) {
                     accts[i].isActive = false;
                 }
-                
-                $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
-                $scope.selectedAccount = $rootScope.currentAccount;
 
-                console.log('resetting', $rootScope.currentAccount);
+                $rootScope.currentAccount.refresh = true;
 
-                $rootScope.accountReturnPath = $location.path();
-                $location.path('/accounts/pick_account/Account');
+                HATEAOSConfig.getCurrentAccount().then(function() {
+                    $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
+                    $rootScope.currentAccount.refresh = true;
+
+                    $scope.selectedAccount = $rootScope.currentAccount;
+
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+
+                        $rootScope.accountReturnPath = $location.path();
+
+                        $location.path('/accounts/pick_account/Account');
+                    });
+                });
             };
 
             if ($scope.items.length === 0) {

@@ -59,9 +59,6 @@ define(['angular',
 
             $scope.returnedForm = false;
 
-
-            ServiceRequest.reset();
-
             $scope.goToReview = function() {
                 $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
             };
@@ -104,12 +101,8 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                     $scope.device.addressSelected = true;
-                    
-                    console.log('I AM HERE', $rootScope.selectedAddress, $rootScope.selectedAddress._links.self)
-                    console.log(ServiceRequest.item)
+
                     ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
-
-
 
                     $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
                     $scope.setupPhysicalLocations($scope.device.updatedInstallAddress,
@@ -149,8 +142,6 @@ define(['angular',
             var updateSRObjectForSubmit = function() {
                 if ($scope.device.lexmarkMoveDevice === 'true') {
                     ServiceRequest.addField('type', 'MADC_MOVE');
-                    console.log("HERE")
-                    ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
                 } else {
                     ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
                 }

@@ -27,6 +27,31 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             var self = this;
             return function( gridApi ) {
                 $rootScope.gridApi = gridApi;
+
+                $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
+                    if (sortColumns.length == 0) {
+                        service.params.sort = null;
+                    } else {
+                        service.params.sort = sortColumns[0].sort.direction;
+                    }
+                    
+                    console.log(service.params.sort);
+
+                    switch(service.params.sort) {
+                      case 'asc':
+                        break;
+                      case 'desc':
+                        break;
+                      default:
+                        break;
+                    }
+
+                    service.get().then(function (data) {
+                        console.log(123);
+                        self.gridOptions.data = data;
+                    });
+                });
+
                 if(gridApi && gridApi.selection){
                     gridApi.selection.on.rowSelectionChanged($rootScope,
                         function(row){
