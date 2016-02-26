@@ -50,27 +50,36 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.TYPE'), 'field':'type', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'assetInfo.serialNumber', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetInfo.assetTag', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'assetInfo.ipAddress', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'assetInfo.hostName', 'notSearchable': true},
-                            {'name': $translate.instant('ADDRESS.NAME'), 'field':'', visible: false},
-                            {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'', visible: false},
+                            {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'serialNumber',
+                                     'cellTemplate':'<div ng-bind="row.entity.assetInfo.serialNumber"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetTag',
+                                     'cellTemplate':'<div ng-bind="row.entity.assetInfo.assetTag"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'productModel',
+                                     'cellTemplate':'<div ng-bind="row.entity.assetInfo.productModel"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress',
+                                     'cellTemplate':'<div ng-bind="row.entity.assetInfo.ipAddress"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'hostName',
+                                     'cellTemplate':'<div ng-bind="row.entity.assetInfo.hostName"></div>'
+                            },
+                            {'name': $translate.instant('ADDRESS.NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
+                            {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.PO'), 'field': '', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false},
-                            {'name': $translate.instant('ADDRESS.LINE_1'), 'field': '', visible: false},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true},
+                            {'name': $translate.instant('ADDRESS.LINE_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
                             {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.CITY'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.STATE'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.COUNTY'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.DISTRICT'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': '', visible: false},
-                            {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '', visible: false}
+                            {'name': $translate.instant('ADDRESS.CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
+                            {'name': $translate.instant('ADDRESS.STATE'), 'field': '_embedded.sourceAddress.state', visible: false},
+                            {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field': '_embedded.sourceAddress.province', visible: false},
+                            {'name': $translate.instant('ADDRESS.COUNTY'), 'field': '_embedded.sourceAddress.county', visible: false},
+                            {'name': $translate.instant('ADDRESS.DISTRICT'), 'field': '_embedded.sourceAddress.district', visible: false},
+                            {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': '_embedded.sourceAddress.country', visible: false},
+                            {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '_embedded.sourceAddress.postalCode', visible: false}
                         ],
                         breakfixSRSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
@@ -81,18 +90,27 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                                         '</div>'},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
-                             {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'_embedded.asset.serialNumber', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'_embedded.asset.assetTag', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'_embedded.asset.productModel', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'_embedded.asset.ipAddress', 'notSearchable': true},
-                            {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'_embedded.asset.hostName', 'notSearchable': true},
+                            {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'serialNumber',
+                                     'cellTemplate':'<div ng-bind="row.entity._embedded.asset.serialNumber"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetTag',
+                                     'cellTemplate':'<div ng-bind="row.entity._embedded.asset.assetTag"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'productModel',
+                                     'cellTemplate':'<div ng-bind="row.entity._embedded.asset.productModel"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'ipAddress',
+                                     'cellTemplate':'<div ng-bind="row.entity._embedded.asset.ipAddress"></div>'
+                            },
+                            {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'hostName',
+                                     'cellTemplate':'<div ng-bind="row.entity._embedded.asset.hostName"></div>'
+                            },
                             {'name': $translate.instant('ADDRESS.NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
                             {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.PO'), 'field': '', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true},
                             {'name': $translate.instant('ADDRESS.LINE_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
                             {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.', visible: false},
                             {'name': $translate.instant('ADDRESS.CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
@@ -117,7 +135,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                             {'name': $translate.instant('DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION'), 'field':'description'},
                             {'name': $translate.instant('DEVICE_SERVICE_REQUEST.RESOLUTION'), 'field':''},
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false},
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true},
                             {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                         ],
                         addressSet: [
@@ -129,11 +147,11 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                                         '</div>'},
                             {'name': $translate.instant('LABEL.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
-                            {'name': $translate.instant('ADDRESS.NAME'), 'field':'', visible: true},
-                            {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'', visible: true},
-                            {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'', visible: false},
+                            {'name': $translate.instant('ADDRESS.NAME'), 'field':'_embedded.sourceAddress.name', visible: true},
+                            {'name': $translate.instant('CONTACT.ADDRESS'), 'field':'_embedded.primaryContact.address', visible: true},
+                            {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false}
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
                         ],
                          contactSet: [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
@@ -157,7 +175,7 @@ define(['angular', 'serviceRequest', 'hateoasFactory.serviceFactory', 'utility.f
                             {'name': $translate.instant('ADDRESS.COUNTRY'), 'field': '', visible: false},
                             {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '', visible: false},
                             {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false}
+                            {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
                         ]
                     },
 
