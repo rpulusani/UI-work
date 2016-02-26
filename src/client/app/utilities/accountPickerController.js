@@ -15,6 +15,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
         'PersonalizationServiceFactory',
         'HATEAOSConfig',
         'FilterSearchService',
+        'SecurityService',
+        'SecurityHelper',
         function(
             $scope,
             $location,
@@ -28,13 +30,16 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             $rootScope,
             Personalize,
             HATEOASConfig,
-            FilterSearchService
+            FilterSearchService,
+            SecurityService,
+            SecurityHelper
         ) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Accounts, $scope, $rootScope, personal),
             Grid = new GridService(),
             tAccts = $rootScope.currentUser.transactionalAccount.data,
-            i = 0;
+            i = 0,
+            Security = new SecurityService();
 
             Accounts.data = [];
 
@@ -58,10 +63,23 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                var url = Accounts.getRelationship('account', $rootScope.currentSelectedRow);
-                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow.account, url);
-                $rootScope.$emit('refreshNav');
-                $location.path($rootScope.accountReturnPath);
+                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.account);
+                
+                Users.createItem($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity);
+
+                $rootScope.currentAccount.refresh = true;
+
+                HATEOASConfig.getCurrentAccount().then(function() {
+                    Security.getPermissions($rootScope.currentUser).then(function(permissions) {
+                        Security.setWorkingPermission(permissions);
+                        
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
+
+                        $rootScope.$emit('refreshNav');
+                        
+                        $location.path($rootScope.accountReturnPath);
+                    });
+                });
             };
 
             $scope.goToCallingPage = function(){
@@ -80,7 +98,9 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 Accounts.data[i] = tAccts[i];
             }
 
-            Grid.display(Accounts, $scope, personal);
+            setTimeout(function() {
+                Grid.display(Accounts, $scope, personal);
+            }, 0);
         }
     ]);
 });

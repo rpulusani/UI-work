@@ -33,17 +33,6 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 return self;
             };
 
-             HATEOASFactory.prototype.setupApi = function() {
-                var self = this,
-                deferred = $q.defer();
-
-                HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                    deferred.resolve(api);
-                });
-
-                return deferred.promise;
-             };
-
             HATEOASFactory.prototype.setItemDefaults = function(obj) {
                 if (!obj) {
                     obj = {};

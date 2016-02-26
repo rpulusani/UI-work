@@ -27,6 +27,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             var self = this;
             return function( gridApi ) {
                 $rootScope.gridApi = gridApi;
+                
                 if(gridApi && gridApi.selection){
                     gridApi.selection.on.rowSelectionChanged($rootScope,
                         function(row){
