@@ -54,6 +54,7 @@ define([
     'order.agreementFactory',
     'order.contractFactory',
     'contact',
+    'contact.contactController',
     'contact.contactDeleteController',
     'contact.contactListController',
     'contact.contactAddController',
