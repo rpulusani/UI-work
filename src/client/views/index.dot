@@ -54,8 +54,8 @@
   <body style="display:none">
     <div class="alert alert--info" data-js="alert" data-static="true" data-basic="true" ng-if="impersonate">
       <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
-      <div class="alert__body"><span translate="USER_ADMIN.IMPERSONATE.IMPERSONATE" translate-values="{'user': idpUser.custom_attributes.display_name}"></span>
-        <a href="" ng-click="removeImpersonate()" translate="USER_ADMIN.IMPERSONATE.EXIT_IMPERSONATION"></a>
+      <div class="alert__body"><span translate="MESSAGE.IMPERSONATE" translate-values="{'user': currentUser.displayName }"></span>
+        <a href="" ng-click="removeImpersonate()" translate="MESSAGE.EXIT_IMPERSONATION"></a>
       </div>
     </div>
     <div class="theme--dark">
@@ -63,7 +63,7 @@
     <header class="site-header">
 
     <h1 class="top-logo" itemtype="http://schema.org/Organization">
-      
+
       <a itemprop="url" tabindex="-1" title="Lexmark MPS home page" href="/">
         <img itemprop="logo" alt"Lexmark" src="/etc/resources/img/LexmarkLogo_RGB_Reversed_200.png" />
       </a>
@@ -86,7 +86,7 @@
           <a href="#UserImg"><img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" /></a>
         </div>
         <div class="user__info pull text--small l-visible--gt-tablet">
-          <a class="user__name" href="#UserName">{{idpUser.custom_attributes.display_name}}</a><br />
+          <a class="user__name" href="#UserName">{{currentUser.displayName}}</a><br />
           <a class="user__name" href="#" ng-click="logout()">Log out</a>
         </div>
       </div>
