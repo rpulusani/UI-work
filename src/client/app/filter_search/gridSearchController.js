@@ -47,10 +47,6 @@ define(['angular', 'filterSearch'], function(angular) {
                 $scope.searchBy = selectedOption.searchOn;
             };
 
-            // if($scope.columns && $scope.columns.length > 0){
-            //     $scope.searchByColumn($scope.columns[0]);
-            // }
-
             $scope.clearSearch = function(){
                 $scope.showSearchMessage = false;
                 $scope.searchByValue = '';
