@@ -63,8 +63,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.account);
-                
+                var url = Accounts.getRelationship('account', $rootScope.currentSelectedRow);
+                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow.account, url);
                 Users.createItem($rootScope.currentSelectedRow);
                 $rootScope.currentAccount.refresh = true;
 
