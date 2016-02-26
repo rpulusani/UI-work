@@ -556,7 +556,7 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-
+            UserService.getLoggedInUserInfo();
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);
