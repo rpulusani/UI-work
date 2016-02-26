@@ -54,7 +54,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getFileIcon = function(extension) {
-                var icon = 'icon ';
+                var icon = 'icon-16 ';
 
                 switch (extension) {
                     case 'pdf':
@@ -73,7 +73,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.getStrategicIcon = function(strategic) {
-                var icon = 'icon ';
+                var icon = 'icon-16 ';
 
                 if (strategic === true) {
                     icon += 'icon-mps-strategic';

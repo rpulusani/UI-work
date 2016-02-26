@@ -43,7 +43,7 @@ define(['angular',
             tombstoneWaitTimeout
             ){
 
-              $scope.isLoading = false;
+            $scope.isLoading = false;
 
             var configurePermissions = [
                 {
@@ -101,7 +101,11 @@ define(['angular',
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                     $scope.device.addressSelected = true;
-
+                    
+                    if (!ServiceRequest.item) {
+                        $scope.setupSR(ServiceRequest, configureSR);
+                    }
+                    
                     ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
 
                     $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
