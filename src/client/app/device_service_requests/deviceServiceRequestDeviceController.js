@@ -22,6 +22,7 @@ define(['angular',
         'TombstoneService',
         '$timeout',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $translate,
@@ -37,12 +38,16 @@ define(['angular',
             $routeParams,
             Tombstone,
             $timeout,
-            tombstoneWaitTimeout){
+            tombstoneWaitTimeout,
+            SecurityHelper){
 
             $scope.isLoading = false;
 
             $scope.formattedAddress = '';
             SRHelper.addMethods(Devices, $scope, $rootScope);
+
+            $scope.setTransactionAccount('DeviceServiceRequestDevice', Devices);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.createBreakFixAccess);
 
             var configureSR = function(ServiceRequest){
                     if(!ServiceRequest.item || !ServiceRequest.item.description){

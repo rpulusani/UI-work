@@ -10,6 +10,14 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 Devices, DeviceServiceRequest, Contacts, SRControllerHelperService) {
                 scope = $rootScope.$new();
                 rootScope = $rootScope;
+                rootScope.currentAccount = {
+                    accountId: "1-1L9SRP",
+                    accountLevel: "siebel",
+                    href: "https://api.venus-dev.lexmark.com/mps/accounts/1-1L9SRP?accountLevel=siebel",
+                    isDefault: true,
+                    name: "DEBENHAMS RETAIL PLC",
+                    refresh: false
+                };
                 location = $location;
                 compile = $compile;
                 deferred = $q.defer();
@@ -32,7 +40,7 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 $rootScope.currentUser.deferred = $q.defer();
 
                 ctrl = $controller('DeviceAddController', {$scope: scope, Devices:mockDevices,
-                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
+                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts,
                     SRControllerHelperService:mockSRControllerHelperService});
                 spyOn(scope, '$broadcast');
             }));
@@ -143,17 +151,17 @@ define(['angular','angular-mocks', 'fixtures', 'deviceServiceRequest', 'hateoasF
                 scope.device = mockDevices.item;
 
                 ctrl = $controller('DeviceUpdateController', {$scope: scope, $rootScope: rootScope, Devices:mockDevices,
-                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts, 
+                    DeviceServiceRequest:MockDeviceServiceRequest, Contacts:mockContacts,
                     SRControllerHelperService:mockSRControllerHelperService});
             }));
 
             describe('goToReview', function() {
                 it('should take the user to the review page based on device id', function() {
                     spyOn(location, 'path').and.returnValue('/');
-                    
+
                     scope.device.id='1234';
                     scope.goToReview();
-                    
+
                     expect(location.path).toHaveBeenCalledWith('http://127.0.0.1/request/update/1234/review');
                 });
             });

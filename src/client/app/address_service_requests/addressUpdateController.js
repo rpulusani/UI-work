@@ -14,10 +14,10 @@ define(['angular', 'address'], function(angular) {
         'Contacts',
         'UserService',
         'SRControllerHelperService',
-        'SecurityHelper',
         'permissionSet',
         'TombstoneService',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $location,
             $routeParams,
@@ -31,15 +31,18 @@ define(['angular', 'address'], function(angular) {
             Contacts,
             Users,
             SRHelper,
-            SecurityHelper,
             permissionSet,
             Tombstone,
-            tombstoneWaitTimeout) {
+            tombstoneWaitTimeout,
+            SecurityHelper
+            ) {
 
             $scope.isLoading = false;
             $scope.returnedForm = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
+            $scope.setTransactionAccount('AddressUpdate', Addresses);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             $scope.checkAddress = function() {
                 if($scope.checkedAddress === 0){

@@ -41,7 +41,7 @@ define(['angular',
             Tombstone,
             $timeout,
             tombstoneWaitTimeout
-            ) {
+            ){
 
               $scope.isLoading = false;
 
@@ -50,13 +50,16 @@ define(['angular',
                     name: 'moveMADCAccess',
                     permission: permissionSet.serviceRequestManagement.moveMADC
                 }
-            ];
-
-            new SecurityHelper($scope).setupPermissionList(configurePermissions);
+            ],
+            SecureHelper = new SecurityHelper($scope);
+            SRHelper.addMethods(Devices, $scope, $rootScope);
+            SecureHelper.setupPermissionList(configurePermissions);
+            $scope.setTransactionAccount('DeviceUpdate', Devices);
+            SecureHelper.redirectCheck($rootScope.addDevice);
 
             $scope.returnedForm = false;
 
-            SRHelper.addMethods(Devices, $scope, $rootScope);
+
             ServiceRequest.reset();
 
             $scope.goToReview = function() {

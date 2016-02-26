@@ -7,16 +7,6 @@ define(['angular'], function(angular) {
                 templateUrl: '/app/contact_service_requests/templates/view.html',
                 controller: 'ContactListController'
             })
-            .when('/service_requests/contacts/update/:id/review', {
-                templateUrl: '/app/service_requests/templates/review.html',
-                controller: 'ContactController',
-                activeItem: '/service_requests/contacts'
-            })
-            .when('/service_requests/contacts/update/:id/receipt', {
-                templateUrl: '/app/service_requests/templates/receipt.html',
-                controller: 'ContactController',
-                activeItem: '/service_requests/contacts'
-            })
             .when('/service_requests/contacts/new', {
                 templateUrl: '/app/contact_service_requests/templates/new.html',
                 controller: 'ContactAddController',
@@ -35,6 +25,11 @@ define(['angular'], function(angular) {
             .when('/service_requests/contacts/delete/:id/review', {
                 templateUrl: '/app/service_requests/templates/review.html',
                 controller: 'ContactDeleteController',
+                activeItem: '/service_requests/contacts'
+            })
+            .when('/service_requests/contacts/pick_account/:source', {
+                templateUrl: '/app/utilities/templates/pick-account.html',
+                controller: 'AccountPickerController',
                 activeItem: '/service_requests/contacts'
             })
             .when('/service_requests/contacts/delete/:id/receipt/:queued', {

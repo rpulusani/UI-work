@@ -17,6 +17,7 @@ define(['angular', 'address'], function(angular) {
         'UserService',
         'TombstoneService',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $rootScope,
             $routeParams,
@@ -31,11 +32,14 @@ define(['angular', 'address'], function(angular) {
             SRHelper,
             Users,
             Tombstone,
-            tombstoneWaitTimeout) {
+            tombstoneWaitTimeout,
+            SecurityHelper) {
 
             $scope.isLoading = false;
 
             SRHelper.addMethods(Addresses, $scope, $rootScope);
+            $scope.setTransactionAccount('AddressDelete', Addresses);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             var configureSR = function(ServiceRequest){
                     ServiceRequest.addRelationship('account', $scope.address);

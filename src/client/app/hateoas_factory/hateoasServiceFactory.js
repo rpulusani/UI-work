@@ -9,6 +9,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 self.defaultParams = {};
                 self.route = '';
+                self.isNewMessage = false;
 
                 if (serviceDefinition.columns instanceof Array) {
                     if (!serviceDefinition.columnDefs) {
@@ -37,11 +38,11 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 deferred = $q.defer();
 
                 HATEAOSConfig.getApi(self.serviceName).then(function(api) {
-                    deferred.resolve(api)
+                    deferred.resolve(api);
                 });
 
                 return deferred.promise;
-             }
+             };
 
             HATEOASFactory.prototype.setItemDefaults = function(obj) {
                 if (!obj) {
@@ -137,7 +138,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
             };
 
             HATEOASFactory.prototype.reset = function(){
-                this.item = null;
+                this.item = this.newMessage();
                 this.tempSpace = null;
                 this.data = [];
             };
@@ -147,6 +148,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     _links:{},
                     postURL: this.url
                 };
+                this.isNewMessage = true;
             };
 
             HATEOASFactory.prototype.addField = function(fieldName, fieldValue) {
@@ -155,6 +157,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 this.item[fieldName] = fieldValue;
+                this.isNewMessage = false;
             };
 
             HATEOASFactory.prototype.getMessage = function() {
@@ -167,23 +170,33 @@ define(['angular', 'hateoasFactory'], function(angular) {
             /* Adds the current Account selected in the system to this current request */
             HATEOASFactory.prototype.addAccountRelationship = function(name){
                 var tempObject = {},
-                calculatedName = (name) ? altName: 'account';
+                calculatedName = (name) ? name: 'account';
                 if($rootScope.currentAccount && $rootScope.currentAccount.href){
                     tempObject[calculatedName] = { href: $rootScope.currentAccount.href};
                     angular.extend(this.item._links, tempObject);
+                    this.isNewMessage = false;
                 }
             };
+            HATEOASFactory.prototype.getRelationship = function(name, halObj, altName){
+                var calculatedName = (altName) ? altName: name;
 
+                 if (halObj && halObj._links && halObj._links[calculatedName] &&
+                    halObj._links[calculatedName].href) {
+                     return halObj._links[calculatedName].href;
+                 }else{
+                    return undefined;
+                 }
+            };
             HATEOASFactory.prototype.addRelationship = function(name, halObj, altName){
                 var tempObject = {},
-                calculatedName = (altName) ? altName: name;
+                url = this.getRelationship(name,halObj,altName);
 
                 this.getMessage();
 
-                if (halObj && halObj._links && halObj._links[calculatedName] &&
-                    halObj._links[calculatedName].href) {
-                    tempObject[name] = { href: halObj._links[calculatedName].href};
+                if (url) {
+                    tempObject[name] = { href: url};
                     angular.extend(this.item._links, tempObject);
+                    this.isNewMessage = false;
                 }
             };
 
@@ -204,6 +217,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
                     var finalObj = {};
                     finalObj[name] = tempObjectArr;
                     angular.extend(this.item._links, finalObj);
+                    this.isNewMessage = false;
                 }
             };
 
@@ -624,7 +638,7 @@ define(['angular', 'hateoasFactory'], function(angular) {
 
                 if (options) {
                     if (!options.params) {
-                        options.params = {}
+                        options.params = {};
                     }
 
                     options.params.size = size;

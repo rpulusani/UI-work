@@ -77,6 +77,11 @@ define(['angular'], function(angular) {
             controller:'AgreementCatalogController',
             activeItem: '/orders'
         })
+        .when('/orders/pick_account/:source', {
+            templateUrl: '/app/utilities/templates/pick-account.html',
+            controller: 'AccountPickerController',
+            activeItem: '/orders'
+        })
         .when('/orders/catalog/:type/cart', {
             templateUrl: '/app/orders/templates/catalog-cart.html',
             controller:'CatalogController',
