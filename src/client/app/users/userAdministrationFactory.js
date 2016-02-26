@@ -33,7 +33,10 @@ define(['angular', 'user', 'hateoasFactory.serviceFactory', 'utility.formatters'
                     ],
                     invitedSet: [
                         {'name': 'Status', 'field': 'invitedStatus','notSearchable':true},
-                        {'name': 'Invitation date', 'field':'getFormattedCreateDate()'},
+                        {'name': 'Invitation date', 'field':'created',
+                                 'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>',
+                                 'notSearchable':true
+                        },
                         {'name': 'Email', 'field': 'email'},
                         {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true},
                         {'name': 'Roles', 'field': 'getRoles()', 'notSearchable':true}
