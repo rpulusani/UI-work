@@ -20,9 +20,6 @@ define(['angular', 'order', 'utility.grid'], function(angular) {
         ){
         $scope.validationMessages = [];
 
-        if($scope.hideSubmit === undefined || $scope.hideSubmit === null){
-            $scope.hideSubmit = false;
-        }
         if($scope.editable === "true"){
             $scope.showEmpty = true;
         }else{

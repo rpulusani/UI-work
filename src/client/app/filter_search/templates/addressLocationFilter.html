@@ -1,0 +1,11 @@
+<br/>
+<h4 translate="FILTERS.BROWSE_LOCATION"></h4>
+<div class="scrollable" tree tree-type='addressLocation' filter-chl="locationFilter"></div>
+<br/>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+	<div class="footnotes">
+		<i>{{noOfSelected}} {{'DEVICE_MAN.COMMON.TXT_LOCATIONS_SELECTED' | translate }}</i>
+	    <a href="" ng-click="clearLocationFilter()" translate="DEVICE_MAN.MANAGE_DEVICES.CTRL_CLEAR_LOCATIONS"></a>
+    </div>
+</div>
+

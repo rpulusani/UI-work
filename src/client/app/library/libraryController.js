@@ -17,6 +17,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             $scope.inputTag = '';
             $scope.showAllAccounts = true;
             $scope.documentItem.accountList = [];
+            $scope.isCommitting = false;
 
             var redirect_to_list = function() {
                $location.path(Documents.route + '/');
@@ -150,6 +151,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.save = function() {
+                $scope.isCommitting = true;
                 $scope.uploadSuccess = false;
                 $scope.modifySuccess = false;
 
@@ -242,8 +244,6 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                     if (accessToSend.length > 0) {
                         Documents.addField('accountIds', accessToSend);
                     }
-
-                    
                 }
 
                 Documents.item.postURL = Documents.url;
@@ -287,6 +287,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
                         
                         $scope.modifySuccess = true;
+                        $scope.isCommitting = false;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                     });
@@ -316,6 +317,7 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
 
                         $scope.uploadSuccess = true;
+                        $scope.isCommitting = false;
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
                     });

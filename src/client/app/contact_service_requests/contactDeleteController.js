@@ -16,6 +16,7 @@ define(['angular', 'contact'], function(angular) {
         'UserService',
         'TombstoneService',
         'tombstoneWaitTimeout',
+        'SecurityHelper',
         function($scope,
             $rootScope,
             $routeParams,
@@ -29,14 +30,17 @@ define(['angular', 'contact'], function(angular) {
             SRHelper,
             Users,
             Tombstone,
-            tombstoneWaitTimeout) {
+            tombstoneWaitTimeout,
+            SecurityHelper) {
 
             $scope.isLoading = false;
 
             SRHelper.addMethods(Contacts, $scope, $rootScope);
+            $scope.setTransactionAccount('ContactDelete', Contacts);
+            new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
             var configureSR = function(ServiceRequest){
-                    ServiceRequest.addRelationship('account', $scope.contact);
+                    ServiceRequest.addRelationship('account', Contacts.item);
                     ServiceRequest.addRelationship('contact', $scope.contact, 'self');
                     ServiceRequest.addRelationship('primaryContact', $scope.contact, 'requestor');
                     ServiceRequest.addField('type', 'DATA_CONTACT_REMOVE');
@@ -114,7 +118,7 @@ define(['angular', 'contact'], function(angular) {
             $scope.getRequestor(ServiceRequest, Contacts);
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'CONTACT_SERVICE_REQUEST.SUBMIT_DELETE';
+                $scope.configure.actions.translate.submit = 'CONTACT_MAN.DELETE_CONTACT.BTN_SUBMIT_DELETE_CONTACT';
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
@@ -191,8 +195,8 @@ define(['angular', 'contact'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate:{
-                            h1: 'CONTACT_SERVICE_REQUEST.DELETE',
-                            body: 'MESSAGE.LIPSUM',
+                            h1: 'CONTACT_MAN.DELETE_CONTACT.TXT_DELETE_SUPPLIES_CONTACT',
+                            body: 'CONTACT_MAN.DELETE_CONTACT.TXT_DELETE_SUPPLIES_CONTACT_PAR',
                             bodyValues: '',
                             readMore: ''
                         },
@@ -201,14 +205,14 @@ define(['angular', 'contact'], function(angular) {
                     },
                     contactsr:{
                         translate: {
-                            title: 'CONTACT.INFO'
+                            title: 'CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION'
                         }
                     },
                     contact:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            title: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_CONTACT',
+                            requestedByTitle: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show:{
@@ -219,12 +223,12 @@ define(['angular', 'contact'], function(angular) {
                     },
                     detail:{
                         translate:{
-                            title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'CONTACT_MAN.DELETE_CONTACT.TXT_ADDTIONAL_REQUEST_DETAILS',
+                            referenceId: 'CONTACT_MAN.DELETE_CONTACT.TXT_CUSTOMER_REF_ID',
+                            costCenter: 'CONTACT_MAN.DELETE_CONTACT.TXT_REQUEST_COST_CENTER',
+                            comments: 'CONTACT_MAN.DELETE_CONTACT.TXT_COMMENTS',
+                            attachments: 'CONTACT_MAN.DELETE_CONTACT.TXT_ATTACHMENTS_SIZE',
+                            attachmentMessage: 'CONTACT_MAN.DELETE_CONTACT.TXT_ATTACHMENTS_FORMAT',
                             fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                         },
                         show:{
@@ -236,8 +240,8 @@ define(['angular', 'contact'], function(angular) {
                     },
                     actions:{
                         translate: {
-                            abandonRequest:'CONTACT_SERVICE_REQUEST.ABANDON_DELETE',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'CONTACT_MAN.DELETE_CONTACT.BTN_ABANDON_CONTACT_DELETE',
+                            submit: 'CONTACT_MAN.DELETE_CONTACT.BTN_SUBMIT_DELETE_CONTACT'
                         },
                         submit: function(){
                             $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/review');

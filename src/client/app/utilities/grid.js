@@ -14,6 +14,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             this.serviceInfo = {};
             this.optionsName = 'gridOptions';
             this.gridOptions = {};
+            this.enableServerSort = false;
         };
         Grid.prototype.setGridOptionsName = function(newName) {
             this.optionsName = newName;
@@ -27,6 +28,46 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             var self = this;
             return function( gridApi ) {
                 $rootScope.gridApi = gridApi;
+
+                if (self.enableServerSort) {
+                    $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
+                        var direction,
+                        currentDir;
+
+                        if (sortColumns.length == 0) {
+                            currentDir = null;
+                        } else {
+                            currentDir = sortColumns[0].sort.direction;
+
+                            if (!sortColumns[0].colDef.searchOn) {
+                                service.params.sort = sortColumns[0].field;
+                            } else {
+                                service.params.sort = sortColumns[0].colDef.searchOn;
+                            }
+                        }
+
+                        switch(currentDir) {
+                          case 'asc':
+                            service.params.direction = 'ASC';
+                            break;
+                          case 'desc':
+                            service.params.direction = 'DESC';
+                            break;
+                          default:
+                            service.params.direction = null;
+                            service.params.sort = null;
+                            break;
+                        }
+
+                        self.gridOptions.data = [];
+                        service.data = [];
+
+                        service.get().then(function (data) {
+                            self.gridOptions.data = service.data;
+                        });
+                    });
+                }
+
                 if(gridApi && gridApi.selection){
                     gridApi.selection.on.rowSelectionChanged($rootScope,
                         function(row){

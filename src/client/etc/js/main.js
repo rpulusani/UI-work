@@ -69,6 +69,7 @@ requirejs.config({
             'address.addressListController',
             'address.directives',
             'address.factory',
+            'address.addressLocationFactory',
 
             'form',
             'form.datePicker',
@@ -217,6 +218,7 @@ requirejs.config({
         'address.addressListController': ['address'],
         'address.directives': ['address'],
         'address.factory': ['address'],
+        'address.addressLocationFactory': ['address'],
 
         'report': ['angular', 'angular-route'],
         'report.reportController': ['report', 'report.factory'],
@@ -431,6 +433,7 @@ requirejs.config({
         'address.addressListController': 'app/address_service_requests/addressListController',
         'address.directives': 'app/address_service_requests/directives',
         'address.factory': 'app/address_service_requests/addressesFactory',
+        'address.addressLocationFactory': 'app/address_service_requests/addressLocationFactory',
 
         'contact': 'app/contact_service_requests/contactServiceRequest',
         'contact.contactController': 'app/contact_service_requests/contactController',

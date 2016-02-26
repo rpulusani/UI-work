@@ -1,36 +1,31 @@
 <div class="col-1">
-    <h2 class="vertical-space--none" translate="CONTACT.INFO"></h2>
+    <h2 class="vertical-space--none" translate="CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION"></h2>
     <hr/>
 </div>
 
-<h4 translate="CONTACT_SERVICE_REQUEST.ADD_WHO"></h4>
+<h4 translate="CONTACT_MAN.ADD_CONTACT.TXT_WHO_TO_ADD_QUERY"></h4>
 <div class="form__field form__field--required">
-    <label translate="CONTACT.FIRST_NAME"></label>
+    <label translate="CONTACT_MAN.COMMON.TXT_FIRST_NAME"></label>
     <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" required />
 </div>
 <div class="form__field">
-    <label translate="CONTACT.MIDDLE_NAME"></label>
-    <input name="middleName" type="text" ng-model="contact.middleName" value="" class="" />
-</div>
-<div class="form__field">
-    <label translate="CONTACT.LAST_NAME"></label>
+    <label translate="CONTACT_MAN.COMMON.TXT_LAST_NAME"></label>
     <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" />
 </div>
 
-<h4 translate="CONTACT_SERVICE_REQUEST.CONTACT_INFO"></h4>
 <div class="form__field form__field--required">
-    <label translate="CONTACT.EMAIL"></label>
+    <label translate="CONTACT_MAN.COMMON.TXT_EMAIL"></label>
     <input name="email" type="text" ng-model="contact.email" value="" class="" required />
 </div>
 <div class="form__field form__field--required">
-    <label translate="CONTACT.WORK_PHONE"></label>
+    <label translate="CONTACT_MAN.COMMON.TXT_PHONE"></label>
     <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" required />
 </div>
 
 <div ng-show="!needToVerify">
-    <h4 translate="USER.WHERE"></h4>
+    <h4 translate="CONTACT_MAN.COMMON.TXT_CONTACT_LOCATION_QUERY"></h4>
     <div class="form__field form__field--select form__field--required">
-        <label translate="ADDRESS.COUNTRY"></label>
+        <label translate="CONTACT_MAN.COMMON.TXT_COUNTRY"></label>
         <div selectric model="contact.address.country" options="countryHAL.countries" value="code" label="name"
         placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
 
@@ -40,7 +35,7 @@
         </span>
     </div>
     <div class="form__field form__field--required">
-        <label translate="ADDRESS.LINE_1"></label>
+        <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_1"></label>
         <input name="addressLine1" type="text" ng-model="contact.address.addressLine1" required/>
         <span ng-hide="!newAddress.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
@@ -48,11 +43,11 @@
         </span>
     </div>
     <div class="form__field">
-        <label translate="ADDRESS.LINE_2"></label>
+        <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_2"></label>
         <input name="addressLine2" type="text" ng-model="contact.address.addressLine2" />
     </div>
     <div class="form__field form__field--required">
-        <label translate="ADDRESS.CITY"></label>
+        <label translate="CONTACT_MAN.COMMON.TXT_CITY"></label>
         <input name="city" type="text" ng-model="contact.address.city" required />
         <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
@@ -60,7 +55,7 @@
         </span>
     </div>
     <div class="form__field form__field--select form__field--required">
-        <label translate="ADDRESS.STATE"></label>
+        <label translate="CONTACT_MAN.COMMON.TXT_STATE"></label>
         <div selectric options="country.provinces" value="code" label="name" model="contact.address.state" required
              placeholder="{{'LABEL.SELECT' | translate}}"></div>
         <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
@@ -71,7 +66,7 @@
     <div class="row">
         <div class="col-md-1-3">
             <div class="form__field form__field--required">
-                <label translate="ADDRESS.ZIP"></label>
+                <label translate="CONTACT_MAN.COMMON.TXT_ZIP_CODE"></label>
                 <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class="" required />
                 <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
                     <i class="icon icon--ui icon--error-small"></i>

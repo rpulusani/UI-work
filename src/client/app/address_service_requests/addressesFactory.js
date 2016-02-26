@@ -10,7 +10,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field': 'name', width: "17%",
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field': 'addressName', width: "17%",
                                 'cellTemplate':'<div>' +
                                     '<a href="#" ng-click="grid.appScope.addresses.goToUpdate(row.entity);" ' +
                                     'ng-if="grid.appScope.addressAccess">{{row.entity.name}}</a>' +
@@ -34,6 +34,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                 route: '/service_requests/addresses',
                 goToUpdate: function(address) {
                         ServiceRequest.reset();
+                        ServiceRequest.newMessage();
                         if (address) {
                             this.setItem(address);
                         }
@@ -41,6 +42,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                     },
                 goToDelete: function(address) {
                         ServiceRequest.reset();
+                        ServiceRequest.newMessage();
                         if (address) {
                             this.setItem(address);
                         }
@@ -57,7 +59,7 @@ define(['angular', 'address', 'utility.formatters', 'hateoasFactory.serviceFacto
                         });
                     }
                 };
-                
+
             return new HATEOASFactory(Addresses);
         }
     ]);

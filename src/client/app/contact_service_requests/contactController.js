@@ -32,7 +32,7 @@ define(['angular', 'contact'], function(angular) {
                 ServiceRequest.addRelationship('account', $scope.contact);
                 ServiceRequest.addRelationship('sourceAddress', $scope.contact, 'self');
                 ServiceRequest.addField('type', 'DATA_CONTACT_CHANGE');
-                ServiceRequest.addField('attachments', $scope.files_complete)
+                ServiceRequest.addField('attachments', $scope.files_complete);
             };
 
             $scope.getRequestor = function(ServiceRequest, Contacts) {

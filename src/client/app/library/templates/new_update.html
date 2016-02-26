@@ -29,7 +29,7 @@
                 <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
                         translate="{{ translationPlaceHolder.cancel }}"></button>
                 <button name="submit" class="btn btn--primary" type="submit" value="submit"
-                        translate="{{ translationPlaceHolder.submit }}" ng-click="save();"></button>
+                        translate="{{ translationPlaceHolder.submit }}" ng-disabled="isCommitting" ng-click="newDocument.$valid && save();"></button>
             </div>
         </div>
     </form>

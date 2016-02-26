@@ -7,6 +7,8 @@ define(['angular', 'utility'], function(angular) {
                 var self = this;
                 self.resetServiceMap = false;
                 self.serviceMap = {};
+                self.mapCallComplete = false;
+                self.mapCallInProgress = false;
             };
 
             HATEAOSConfig.prototype.createParams = function(paramArr) {
@@ -30,26 +32,35 @@ define(['angular', 'utility'], function(angular) {
                 var self = this,
                 deferred = $q.defer();
 
-                if (!self.serviceMap[name] || self.resetServiceMap === true) {
-                    $http.get(serviceUrl + '/').success(function(hateaosMap) {
-                        var prop,
-                        paramArr = [];
+                if (!self.serviceMap[name] || self.resetServiceMap === true 
+                    && self.mapCallInProgress === false && self.mapCallComplete === false) {
 
-                        for (prop in hateaosMap._links) {
-                            if (!self.serviceMap[prop]) {
-                                self.serviceMap[prop] = {};
+                    self.mapCallInProgress = true;
+
+                    if (self.mapCallInProgress === true && self.mapCallComplete === false) {
+                        $http.get(serviceUrl + '/').success(function(hateaosMap) {
+                            var prop,
+                            paramArr = [];
+
+                            self.mapCallInProgress = false;
+                            self.mapCallComplete = true;
+
+                            for (prop in hateaosMap._links) {
+                                if (!self.serviceMap[prop]) {
+                                    self.serviceMap[prop] = {};
+                                }
+
+                                self.serviceMap[prop].url = hateaosMap._links[prop].href.replace(/{.*}/,'');
+                                paramArr = hateaosMap._links[prop].href.replace(/.*{[?]/,'')
+                                    .replace('}', '')
+                                    .split(',');
+
+                                self.serviceMap[prop].params = self.createParams(paramArr);
                             }
-
-                            self.serviceMap[prop].url = hateaosMap._links[prop].href.replace(/{.*}/,'');
-                            paramArr = hateaosMap._links[prop].href.replace(/.*{[?]/,'')
-                                .replace('}', '')
-                                .split(',');
-
-                            self.serviceMap[prop].params = self.createParams(paramArr);
-                        }
-                        
-                        deferred.resolve(self.serviceMap[name]);
-                    });
+                            
+                            deferred.resolve(self.serviceMap[name]);
+                        });
+                    }
                 } else {
                     deferred.resolve(self.serviceMap[name]);
                 }
@@ -87,7 +98,7 @@ define(['angular', 'utility'], function(angular) {
 
                                 self.updateCurrentAccount($rootScope.currentUser.accounts[0], acctLink);
                             }
-                            
+
                         }
 
                         deferred.resolve(api);
@@ -114,15 +125,15 @@ define(['angular', 'utility'], function(angular) {
             HATEAOSConfig.prototype.updateCurrentAccount = function(account, accountLink) {
                 if (account.level) {
                     if (!$rootScope.currentAccount) {
-                        $rootScope.currentAccount = {}
+                        $rootScope.currentAccount = {};
                     }
 
                     if (!accountLink && account.url) {
                         accountLink = account.url;
                     }
 
-                    $rootScope.currentAccount.accountId = account.accountId,
-                    $rootScope.currentAccount.accountLevel = account.level,
+                    $rootScope.currentAccount.accountId = account.accountId;
+                    $rootScope.currentAccount.accountLevel = account.level;
                     $rootScope.currentAccount.name = account.name;
                     $rootScope.currentAccount.href = accountLink;
                     $rootScope.currentAccount.refresh = false;

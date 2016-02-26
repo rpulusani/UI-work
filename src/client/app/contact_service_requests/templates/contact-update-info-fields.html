@@ -10,29 +10,24 @@
 
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
 
-        <h2 class="vertical-space--none" translate="CONTACT.INFO"></h2>
+        <h2 class="vertical-space--none" translate="CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION"></h2>
         <hr/>
 
         <div class="form__field form__field--required">
-            <label translate="CONTACT.FIRST_NAME"></label>
+            <label translate="CONTACT_MAN.COMMON.TXT_FIRST_NAME"></label>
             <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" required />
         </div>
         <div class="form__field">
-            <label translate="CONTACT.MIDDLE_NAME"></label>
-            <input name="middleName" type="text" ng-model="contact.middleName" value="" class="" />
-        </div>
-        <div class="form__field">
-            <label translate="CONTACT.LAST_NAME"></label>
+            <label translate="CONTACT_MAN.COMMON.TXT_LAST_NAME"></label>
             <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" />
         </div>
 
-        <h4 translate="CONTACT_SERVICE_REQUEST.CONTACT_INFO"></h4>
         <div class="form__field form__field--required">
-            <label translate="CONTACT.EMAIL"></label>
+            <label translate="CONTACT_MAN.COMMON.TXT_EMAIL"></label>
             <input name="email" type="text" ng-model="contact.email" value="" class="" required />
         </div>
         <div class="form__field form__field--required vertical-space--thick">
-            <label translate="CONTACT.WORK_PHONE"></label>
+            <label translate="CONTACT_MAN.COMMON.TXT_PHONE"></label>
             <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" required />
         </div>
 
@@ -40,9 +35,9 @@
 
         <div class="btns">
             <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
-                translate="CONTACT_SERVICE_REQUEST.DISCARD_CHANGE_CONTACT_INFO"></button>
+                translate="CONTACT_MAN.UPDATE_CONTACT.BTN_DISCARD_CHANGES"></button>
             <button name="submit" class="btn btn--primary" ng-click="saveContact('editContact')" type="submit"
-                translate="CONTACT_SERVICE_REQUEST.UPDATE_INFO_SUBMIT"></button>
+                translate="CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT"></button>
         </div>
     </form>
 </div>

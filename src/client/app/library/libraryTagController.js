@@ -2,11 +2,14 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
     .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
-        function($scope, $location, $translate, $route, $http, Documents, Tags, Grid, $rootScope, Personalize, formatter) {
+        function($scope, $location, $translate, $route, $http, Documents, Tags, GridService, $rootScope, Personalize, formatter) {
 
             $scope.isCreating = false;
             $scope.isEditing = false;
             $scope.isDeleting = false;
+
+            var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+            var Grid = new GridService();
 
             $scope.goToStartCreate = function () {
                 $scope.isCreating = true;
@@ -18,7 +21,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
 
             $scope.goToStartEdit = function (tag) {
                 Tags.setItem(tag);
-                $scope.tagItem = Tags.item;
+                $scope.selectedTag = Tags.item.name;
 
                 $scope.isEditing = true;
             };
@@ -29,7 +32,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
 
             $scope.goToStartDelete = function (tag) {
                 Tags.setItem(tag);
-                $scope.tagItem = Tags.item;
+                $scope.selectedTag = Tags.item.name;
 
                 $scope.isDeleting = true;
             };
@@ -38,18 +41,25 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 $scope.isDeleting = false;
             };
 
-            $scope.goToCancelEditStartDelete = function(tag) {
+            $scope.goToCancelEditStartDelete = function() {
                 $scope.goToCancelEdit();
-                $scope.goToStartDelete(tag);
+                $scope.goToStartDelete(Tags.item);
+
             };
 
-            $scope.tags = [];
-            Tags.params.size = 100000;
-            Tags.get().then(function() {
-                if (Tags.data) {
-                    $scope.tags = Tags.data;
+            $scope.gridOptions = {};
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Tags, personal);
+            $scope.gridOptions.showBookmarkColumn = false;
+
+            Tags.get({
+                params: {
+                    page: 0,
+                    size: 20
                 }
+            }).then(function() {
+                Grid.display(Tags, $scope, personal);
             });
+
 
             $scope.goToCreateTag = function() {
                 Tags.newMessage();
@@ -67,8 +77,8 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 });
             };
 
-            $scope.goToEditTag = function(tag) {
-                Tags.setItem(tag);
+            $scope.goToEditTag = function() {
+                Tags.item.name = $scope.selectedTag;
 
                 $http({
                     method: 'PUT',
@@ -81,7 +91,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 });
             };
 
-            $scope.goToDeleteTag = function(tag) {
+            $scope.goToDeleteTag = function() {
                 $http({
                     method: 'DELETE',
                     url: Tags.item.url
