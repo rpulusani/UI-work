@@ -8,7 +8,6 @@ angular.module('mps.utility')
 .controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate',
     function(scope, element, attrs, translate) {
         var node = element[0],
-        $ = require('jquery'),
         addColumn = function(column, gridOptions) {
             var i = 0,
             fnd = false;

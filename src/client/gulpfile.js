@@ -44,6 +44,11 @@ gulp.task('libs', function() {
   .pipe(gulp.dest('dist/build'));
 })
 
+gulp.task('html-templates', function(){
+  return gulp.src(['app/**/templates/*.html', 'app/**/templates/**/*.html'])
+    .pipe(gulp.dest('dist/build/app'))
+});
+
 gulp.task('styles', function() {
   return gulp.src(['etc/styles/css/less/**/*.less'])
     .pipe(less())
@@ -58,7 +63,7 @@ gulp.task('prep-html', function() {
 
 // DEFAULT TASK //
 gulp.task('default', function() {
-  gulp.run('scripts', 'styles', 'prep-html', 'libs');
+  gulp.run('scripts', 'styles', 'prep-html', 'libs','html-templates');
 
   gulp.watch('app/**', function(event) {
     gulp.run('scripts');

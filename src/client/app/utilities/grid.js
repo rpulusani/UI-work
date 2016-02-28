@@ -182,7 +182,6 @@ angular.module('mps.utility')
     };
     Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
         var self = this,
-        $ = require('jquery'),
         serviceId = '',
         newHeight = '46',
         baseHeight = 46,

@@ -187,13 +187,10 @@ angular.module('mps.user')
         templateUrl: '/app/users/templates/manage-user-tabs.html',
         controller: 'ManageUserTabController',
         link: function(scope, el, attr){
-            require(['lxk.fef'], function() {
-                var $ = require('jquery'),
-                     sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+                var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                 sets.each(function(i,set){
                     $(set).set({});
                 });
-            });
         }
     };
 })
@@ -203,13 +200,10 @@ angular.module('mps.user')
         templateUrl: '/app/users/templates/user-tabs.html',
         controller: 'UserTabController',
         link: function(scope, el, attr){
-            require(['lxk.fef'], function() {
-                var $ = require('jquery'),
-                     sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+                var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                 sets.each(function(i,set){
                     $(set).set({});
                 });
-            });
         }
     };
 });

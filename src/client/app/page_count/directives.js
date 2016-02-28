@@ -21,13 +21,10 @@ angular.module('mps.pageCount')
         templateUrl: '/app/page_count/templates/page-count-tabs.html',
         controller: 'PageCountTabController',
         link: function(scope, el, attr){
-            require(['lxk.fef'], function() {
-                var $ = require('jquery'),
-                     sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+                var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                 sets.each(function(i,set){
                     $(set).set({});
                 });
-            });
         }
     };
 });

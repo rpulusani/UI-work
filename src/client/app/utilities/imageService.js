@@ -7,7 +7,6 @@ angular.module('mps.utility')
             this.url = 'https://www.lexmark.com/common/xml/';
             this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
             this.defaultThumbnailUrl = '';
-            $ = require('jquery');
         };
 
         Image.prototype.parsePartNumber = function(partNumber){

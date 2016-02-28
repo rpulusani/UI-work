@@ -14,12 +14,9 @@ angular.module('mps.invoice')
         templateUrl: '/app/invoices/templates/invoice-tabs.html',
         controller: 'InvoiceController',
         link: function(scope, el, attr){
-            require(['lxk.fef'], function() {
-                var $ = require('jquery'),
-                    sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
-                sets.each(function(i,set){
-                    $(set).set({});
-                });
+            var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+            sets.each(function(i,set){
+                $(set).set({});
             });
         }
     };

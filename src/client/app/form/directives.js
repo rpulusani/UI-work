@@ -8,7 +8,6 @@ angular.module('mps.form')
                 if (!model || model.length < 1) {
                    return;
                 }
-                var $ = require('jquery');
                 switch(el[0]["type"]){
                     case 'checkbox':
                         $(el).customInput();
@@ -118,7 +117,6 @@ angular.module('mps.form')
         if(selectric) {
           selectric.selectric('destroy');
         }
-        $ = require('jquery');
         selectric = $('<select></select>');
         if(placeholder) {
           selectric.append(
