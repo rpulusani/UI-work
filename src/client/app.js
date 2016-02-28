@@ -14,7 +14,7 @@
         'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
-        'mps.serviceRequestAddresses',
+        //'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
         'mps.queue',
