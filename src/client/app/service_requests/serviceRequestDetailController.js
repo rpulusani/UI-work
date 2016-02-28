@@ -1,6 +1,4 @@
-
-
-angular.module('mps.serviceRequestAddresses')
+angular.module('mps.serviceRequests')
 .controller('ServiceRequestDetailController', [
     '$scope',
     '$location',
