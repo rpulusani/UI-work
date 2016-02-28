@@ -27,9 +27,8 @@ gulp.task('prep-html', function() {
 
 gulp.task('default', function() {
   gulp.run('scripts', 'styles', 'prep-html');
-/*
-  gulp.watch('app/src/**', function(event) {
+
+  gulp.watch('app/**', function(event) {
     gulp.run('scripts');
   })
-  */
 })
