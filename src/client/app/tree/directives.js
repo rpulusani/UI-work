@@ -1,7 +1,8 @@
 
 
 
-tree.directive('tree', ['RecursionHelper', function(RecursionHelper){
+angular.module('tree')
+.directive('tree', ['RecursionHelper', function(RecursionHelper){
     return {
         restrict: 'AE',
         templateUrl: '/app/tree/templates/tree.html',

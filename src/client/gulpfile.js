@@ -7,7 +7,7 @@ var jshint = require('gulp-jshint');
 var order = require('gulp-order');
 
 gulp.task('scripts', function(){
-  return gulp.src(['app/**/*.js', 'app.js'])
+  return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
     .pipe(jshint())
 //    .pipe(minify())
     .pipe(concat('mps.app.js'))
@@ -20,9 +20,10 @@ gulp.task('libs', function() {
   */
   return gulp.src([
         'libs/angular.min.js',
+        'libs/angular-cookies.min.js',
+        'libs/angular-gatekeeper.js',
         'libs/angular-resource.min.js',
         'libs/angular-route.min.js',
-        'libs/angular-cookies.min.js',
         'libs/angular-sanitize.min.js',
         'libs/angular-spring-data-rest.min.js',
         'libs/angular-translate.min.js',
@@ -33,7 +34,7 @@ gulp.task('libs', function() {
         'libs/blob.js',
         'libs/v-button.min.js',
         'libs/ng-google-chart.js',
-        'libs/ng-tag-input.min.js',
+        'libs/ng-tags-input.min.js',
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
         'libs/rome.min.js',

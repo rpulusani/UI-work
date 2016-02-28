@@ -1,4 +1,4 @@
-angular.module('tree', [])
+angular.module('tree')
 .factory('TreeItems', ['$http',
     function($http){
         var Items = function(){

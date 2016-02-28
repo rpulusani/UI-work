@@ -1,4 +1,4 @@
-angular.module('tree', [])
+angular.module('tree')
 .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', 'Locations', 'AddressLocations', '$q',
     function($scope, TreeItems, Account, UserInfo, Users, Locations, AddressLocations, $q){
         $scope.items = [];
