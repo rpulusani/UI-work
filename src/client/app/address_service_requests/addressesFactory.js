@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestAddresses')
 .factory('Addresses', ['$translate', 'serviceUrl', '$location', '$rootScope', 'FormatterService', 'ServiceRequestService', 'HATEOASFactory',
     function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory) {

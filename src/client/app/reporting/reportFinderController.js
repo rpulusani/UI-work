@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.report')
 .controller('ReportFinderController', ['$scope', '$route', '$location', '$translate', 'Reports',
     function($scope, $route, $location, $translate, Reports) {

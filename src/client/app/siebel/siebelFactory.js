@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.siebel')
 .factory('SiebelValues', ['adminUrl', '$translate', 'HATEOASFactory', 'FormatterService',
     function(adminUrl, $translate, HATEOASFactory, formatter) {

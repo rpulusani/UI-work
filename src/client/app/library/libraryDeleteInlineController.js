@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library')
 .controller('libraryDeleteInlineController', ['$scope', function($scope) {
     $scope.isDeleting = false;

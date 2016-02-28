@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('PageCountSelect', ['$http',
     function($http){

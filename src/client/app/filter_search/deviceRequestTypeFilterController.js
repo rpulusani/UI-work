@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('DeviceRequestTypeFilterController', ['$scope', '$translate', 'ServiceRequestTypes',
     function($scope, $translate, ServiceRequestTypes) {

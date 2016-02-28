@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .factory('UserInfoService', [ 'serviceUrl', 'HATEOASFactory', '$rootScope',
     function(serviceUrl, HATEOASFactory, $rootScope) {

@@ -1,3 +1,1 @@
-'use strict';
-
-return angular.module('mps.hateoasFactory', []);
+angular.module('mps.hateoasFactory', []);

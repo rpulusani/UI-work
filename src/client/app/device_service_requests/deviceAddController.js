@@ -1,5 +1,3 @@
-function(angular) {
-'use strict';
 angular.module('mps.serviceRequestDevices')
 .controller('DeviceAddController', ['$scope',
     '$location',

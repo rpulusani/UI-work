@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('grid', ['uiGridConstants', '$timeout',  function(uiGridConstants, $timeout) {
     var Grid = function() {

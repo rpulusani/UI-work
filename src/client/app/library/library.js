@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library', []).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/library', {

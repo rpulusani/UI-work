@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library')
 .factory('Owners', ['serviceUrl', '$translate', '$rootScope', 'HATEOASFactory',
     function(serviceUrl, $translate, $rootScope, HATEOASFactory) {

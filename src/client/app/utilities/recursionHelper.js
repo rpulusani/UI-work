@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('RecursionHelper', ['$compile', function($compile){
     return {

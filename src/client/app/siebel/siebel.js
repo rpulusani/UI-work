@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.siebel', []).config(['$routeProvider',
 function($routeProvider) {
     $routeProvider

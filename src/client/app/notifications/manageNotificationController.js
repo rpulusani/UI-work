@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.notifications')
 .controller('ManageNotificationController', ['$scope', '$location', '$rootScope', 'Notifications', '$q', 'FormatterService',
     'BlankCheck', '$http',

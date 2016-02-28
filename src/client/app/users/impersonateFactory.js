@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .factory('Impersonate', ['$resource', 'serviceUrl', '$http',
     function($resource, serviceUrl, $http) {

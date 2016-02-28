@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.queue')
 .directive('queueAlert', function() {
     return {

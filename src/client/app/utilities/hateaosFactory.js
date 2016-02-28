@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('HATEAOSFactory', ['$http', '$q', 'HATEAOSConfig', 'SpringDataRestAdapter', '$rootScope',
     function($http, $q, HATEAOSConfig, halAdapter, $rootScope) {

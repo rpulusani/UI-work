@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.report', []).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider

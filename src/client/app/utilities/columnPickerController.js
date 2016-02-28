@@ -3,7 +3,7 @@ Controller for the Column Picker Directive.
 Builds a list of links that modify the columns on
 a target Grid.
 */
-'use strict';
+
 angular.module('mps.utility')
 .controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate',
     function(scope, element, attrs, translate) {

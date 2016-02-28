@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
     .controller('LibraryFilterController', ['$scope', '$translate', '$rootScope', 'Tags', 'Owners',
         function($scope, $translate, $rootScope, Tags, Owners) {

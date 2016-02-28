@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('MeterReadTypeFilterController', ['$scope', '$translate',
     function($scope, $translate) {

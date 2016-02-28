@@ -1,5 +1,5 @@
 define(['angular', 'library'], function(angular) {
-    'use strict';
+    
     angular.module('mps.library')
     .directive('libraryInlineDelete', function() {
         return {

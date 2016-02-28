@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .controller('DevicePickerController', ['$scope', '$location', 'grid', 'Devices',
     'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller', 'imageService',

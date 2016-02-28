@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.translation')
 .factory('Translations', ['adminUrl', '$translate', 'HATEOASFactory', 'FormatterService', '$http',
     function(adminUrl, $translate, HATEOASFactory, formatter, $http) {

@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.orders')
 .factory('AssetPartsFactory', [
     'serviceUrl',

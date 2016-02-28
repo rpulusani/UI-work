@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .controller('LexmarkUserListController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'LexmarkUser',
     'PersonalizationServiceFactory','FilterSearchService', 'FormatterService', 'UserAdminstration',

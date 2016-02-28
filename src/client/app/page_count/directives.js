@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.pageCount')
 .directive('allPageCountTab', function(){
     return {

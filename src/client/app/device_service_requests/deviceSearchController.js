@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestDevices')
 .controller('DeviceSearchController', ['$scope', '$location', 'grid', 'DeviceSearch',
     function($scope, $location, Grid, DeviceSearch) {

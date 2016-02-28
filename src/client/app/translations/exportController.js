@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.siebel')
 .controller('ExportController', [
     '$scope',

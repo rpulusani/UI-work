@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .factory('LexmarkUser', ['serviceUrl', '$translate', 'HATEOASFactory', 'FormatterService',
     function(serviceUrl, $translate, HATEOASFactory, formatter) {

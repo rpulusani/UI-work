@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestDevices')
 .directive('readDevice', function() {
     return {

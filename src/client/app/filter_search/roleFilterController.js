@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('RoleFilterController', ['$scope', '$translate', 'Roles', '$q',
     function($scope, $translate, Roles, $q) {

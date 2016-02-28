@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .factory('Roles', ['$resource', 'serviceUrl', 'HATEOASFactory',
     function($resource, serviceUrl, HATEOASFactory) {

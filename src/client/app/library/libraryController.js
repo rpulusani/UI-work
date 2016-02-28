@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library')
 .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
     'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope',

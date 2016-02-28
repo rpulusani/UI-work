@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate', 'uiGridExporterConstants',
     function($scope, element, attrs, $translate, uiGridExporterConstants) {

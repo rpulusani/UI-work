@@ -1,5 +1,5 @@
 define(['angular', 'rome'], function(angular, Rome) {
-    'use strict';
+    
     angular.module('mps.form')
     .controller('DatePickerController', ['$scope', '$element', '$attrs',
         function(scope, element, attrs) {

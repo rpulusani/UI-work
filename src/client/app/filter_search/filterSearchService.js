@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams', '$q',
     function(GridService, HATEOASFactory, $routeParams, $q) {

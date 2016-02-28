@@ -1,5 +1,5 @@
 
-'use strict';
+
 
 tree.directive('tree', ['RecursionHelper', function(RecursionHelper){
     return {

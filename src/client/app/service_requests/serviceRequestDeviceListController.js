@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.serviceRequestAddresses')
 .controller('ServiceRequestDeviceListController', [
     '$scope',

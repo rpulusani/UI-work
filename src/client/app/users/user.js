@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user', []).config(['$routeProvider', 'UrlHelper',
 function ($routeProvider, UrlHelper) {
 

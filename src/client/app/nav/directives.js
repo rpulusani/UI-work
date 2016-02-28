@@ -1,6 +1,6 @@
 
 
-'use strict';
+
 
  angular.module('mps.nav')
 .directive('leftNav', [

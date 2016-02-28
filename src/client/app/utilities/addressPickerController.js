@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
  'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',

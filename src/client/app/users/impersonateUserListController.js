@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .controller('ImpersonateUserListController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserAdminstration',
     'PersonalizationServiceFactory','FilterSearchService', 'FormatterService', 'Impersonate', '$http', 'gatekeeper-cookie-compat', '$window', 'SecurityHelper',

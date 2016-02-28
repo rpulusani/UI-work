@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .controller('AddressShipToPickerController', [
     '$scope',

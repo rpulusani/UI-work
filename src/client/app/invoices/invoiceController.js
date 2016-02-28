@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.invoice')
 .controller('InvoiceController', ['$scope', '$location', '$rootScope', 'SecurityHelper',
     function($scope, $location, $rootScope, SecurityHelper) {

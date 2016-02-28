@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility', [])
 .factory('CountryService', ['$resource', 'serviceUrl', 'halInterceptor',
     function($resource, serviceUrl, halInterceptor) {

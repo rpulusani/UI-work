@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.siebel')
 .controller('ManageTranslationController', ['$scope', '$location', '$rootScope', 'Translations', '$q', 'FormatterService',
     'BlankCheck', '$http',

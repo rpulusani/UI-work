@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestContacts')
 .controller('ContactUpdateTabController', [
     '$rootScope',

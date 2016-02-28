@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.user')
 .factory('AllAccounts', [ 'serviceUrl', 'HATEOASFactory', '$rootScope',
     function(serviceUrl, HATEOASFactory, $rootScope) {

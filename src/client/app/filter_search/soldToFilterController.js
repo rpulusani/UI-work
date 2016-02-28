@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('SoldToFilterController', ['$scope', '$translate', 'AccountService', 'UserService',
     function($scope, $translate, Accounts, User) {

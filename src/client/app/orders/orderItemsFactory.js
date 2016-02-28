@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.orders')
 .factory('OrderItems', ['serviceUrl', '$translate', 'HATEOASFactory', 'FormatterService','$filter',
     function(serviceUrl, $translate, HATEOASFactory, formatter, $filter) {

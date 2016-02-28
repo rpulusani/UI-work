@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.user')
 .controller('UsersController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserAdminstration',
     'PersonalizationServiceFactory','FilterSearchService', 'FormatterService',

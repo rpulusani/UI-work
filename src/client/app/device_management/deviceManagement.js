@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.deviceManagement', []).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/device_management', {

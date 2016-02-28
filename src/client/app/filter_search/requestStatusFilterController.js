@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('RequestStatusFilterController', ['$scope', '$translate', 'ServiceRequestStatus',
     function($scope, $translate, ServiceRequestStatus) {

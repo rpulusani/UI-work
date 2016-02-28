@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('InvitedStatusFilterController', ['$scope', '$translate',
     function($scope, $translate) {

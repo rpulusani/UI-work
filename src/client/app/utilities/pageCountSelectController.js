@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .controller('PageCountSelectController', ['$scope', '$location', '$filter', '$routeParams', 'FormatterService',
     'BlankCheck', 'MeterReadService', 'Devices', 'PageCountSelect',

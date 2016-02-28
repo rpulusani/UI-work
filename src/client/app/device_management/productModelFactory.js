@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.deviceManagement')
 .factory('ProductModel', ['serviceUrl', '$rootScope', 'HATEOASFactory',
     function(serviceUrl, $rootScope, HATEOASFactory) {

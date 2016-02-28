@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.deviceManagement')
 .directive('deviceInformation', function() {
     return {

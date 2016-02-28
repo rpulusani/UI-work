@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library')
 .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
     function($scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {

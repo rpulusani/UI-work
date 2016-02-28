@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.account')
 .controller('AccountController', [
     '$scope',

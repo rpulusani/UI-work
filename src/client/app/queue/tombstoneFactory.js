@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.queue')
 .factory('TombstoneService', ['serviceUrl', '$translate', 'HATEOASFactory', 'FormatterService',
     function(serviceUrl, $translate, HATEOASFactory, formatter) {

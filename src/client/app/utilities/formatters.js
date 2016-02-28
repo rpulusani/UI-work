@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('FormatterService', [ '$translate', 'BlankCheck','$filter',
     function($translate, BlankCheck, $filter) {

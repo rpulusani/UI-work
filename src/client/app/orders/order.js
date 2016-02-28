@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.orders', ['mps.utility']).config(['$routeProvider',
 function($routeProvider) {
     $routeProvider

@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.siebel')
 .controller('CreateSiebelValueController', ['$scope', '$location', '$rootScope', 'SiebelValues', '$q', 'FormatterService', 'BlankCheck',
     function($scope, $location, $rootScope, SiebelValues, $q, FormatterService, BlankCheck) {

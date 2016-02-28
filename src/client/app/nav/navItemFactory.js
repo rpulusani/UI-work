@@ -1,5 +1,5 @@
 
-'use strict';
+
 
 angular.module('mps.nav')
 .factory('NavItem', ['$location', '$rootScope','SecurityService','$q',

@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('InvoiceDateFilterController', ['$scope', '$translate', 'FormatterService',
     function($scope, $translate, formatter) {

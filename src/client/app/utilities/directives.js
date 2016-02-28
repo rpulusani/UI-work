@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .directive('confirmCancel', ['$rootScope', function($rootScope){
     function link(scope, element, attrs) {

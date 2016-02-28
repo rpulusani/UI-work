@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library')
 .factory('Documents', ['serviceUrl', '$translate', '$rootScope', 'FormatterService', 'HATEOASFactory',
     function(serviceUrl, $translate, $rootScope, formatter, HATEOASFactory) {

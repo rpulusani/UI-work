@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('DateRangeFilterController', ['$scope', '$translate', 'FormatterService',
     function($scope, $translate, formatter) {

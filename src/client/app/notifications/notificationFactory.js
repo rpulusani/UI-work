@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.notifications')
 .factory('Notifications', ['adminUrl', '$translate', 'HATEOASFactory', 'FormatterService',
     function(adminUrl, $translate, HATEOASFactory, formatter) {

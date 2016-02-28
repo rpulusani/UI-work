@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.serviceRequests', ['mps.utility']).config(['$routeProvider',
 function($routeProvider) {
     $routeProvider

@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.account')
 .factory('RoleService', ['$resource', 'serviceUrl', 'halInterceptor',
     function($resource, serviceUrl, halInterceptor) {

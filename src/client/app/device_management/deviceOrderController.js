@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.deviceManagement')
 .controller('DeviceOrderController', [
     '$scope',
@@ -117,4 +117,3 @@ angular.module('mps.deviceManagement')
         setupOrderGrid();
     }
 ]);
-});

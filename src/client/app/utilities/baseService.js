@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('baseService', [ 'serviceUrl', '$translate','$http','SpringDataRestAdapter',
     function(serviceUrl, $translate, $http, SpringDataRestAdapter) {

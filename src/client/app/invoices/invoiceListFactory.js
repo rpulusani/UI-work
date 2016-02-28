@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.invoice')
 .factory('Invoices', ['serviceUrl', '$translate', '$rootScope', 'FormatterService', 'HATEOASFactory',
     function(serviceUrl, $translate,$rootScope, formatter, HATEOASFactory) {

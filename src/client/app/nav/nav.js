@@ -1,5 +1,5 @@
 
-'use strict';
+
 
  angular.module('mps.nav', []).config(['$routeProvider', function ($routeProvider) {
     $routeProvider

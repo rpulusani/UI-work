@@ -22,7 +22,7 @@ Defined as a core MPS module and included via require. Example of injection into
 ```js
     define(['angular', 'contact'], 
     function(angular, contact) {
-        'use strict';
+        
         angular.module('mps.serviceRequestContacts')
         .factory('NewFactory', ['HATEOASFactory', 
             function(HATEOASFactory) {
@@ -59,7 +59,7 @@ Service Definitions are angular factories that house an object that combines wit
 
 ```js
 define(['angular', 'contact'], function(angular) {
-    'use strict';
+    
     angular.module('mps.serviceRequestContacts')
     .factory('Contacts', ['$translate', 'HATEOASFactory',
         var Contacts = {

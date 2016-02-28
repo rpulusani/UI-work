@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.serviceRequests')
 .directive('primaryRequestContact', function() {
     return {

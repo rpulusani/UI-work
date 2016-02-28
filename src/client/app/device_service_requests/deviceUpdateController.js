@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestDevices')
 .controller('DeviceUpdateController', ['$scope',
     '$location',

@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.translation')
 .controller('TranslationImportController', [
     '$scope',

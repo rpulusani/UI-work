@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('imageService', ['$http', '$q',
     function($http, $q) {

@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestDevices')
 .factory('DeviceServiceRequest', ['serviceUrl', '$translate', 'HATEOASFactory',
     function(serviceUrl, $translate, HATEOASFactory) {

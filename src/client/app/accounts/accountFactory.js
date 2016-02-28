@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.account')
 .factory('AccountService', ['HATEOASFactory', '$translate',
     function(HATEOASFactory, $translate) {

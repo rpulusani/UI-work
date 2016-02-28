@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('BlankCheck', function() {
     var BlankCheck = function() {

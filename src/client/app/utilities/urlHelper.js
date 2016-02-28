@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .constant('UrlHelper', {
     template: function(module, template) {

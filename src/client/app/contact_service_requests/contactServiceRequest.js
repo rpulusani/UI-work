@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestContacts', []).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider

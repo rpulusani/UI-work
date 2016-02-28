@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.serviceRequestAddresses')
 .controller('AddressAddController', [
     '$scope',

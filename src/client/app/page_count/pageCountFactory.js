@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.pageCount')
 .factory('PageCountService', ['serviceUrl', '$translate', 'HATEOASFactory', 'FormatterService',
     function(serviceUrl, $translate, HATEOASFactory, formatter) {

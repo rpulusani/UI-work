@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location',
     function($scope, $routeParams, $route, $location) {

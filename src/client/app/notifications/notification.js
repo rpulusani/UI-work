@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.notifications', []).config(['$routeProvider',
 function($routeProvider) {
     $routeProvider

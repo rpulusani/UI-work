@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.report')
 .factory('Reports', ['$translate', 'HATEOASFactory',
     function($translate, HATEOASFactory) {

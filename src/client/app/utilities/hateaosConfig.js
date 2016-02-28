@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('HATEAOSConfig', ['serviceUrl', '$http', '$q', '$rootScope',
     function(serviceUrl, $http, $q, $rootScope) {

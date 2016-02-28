@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.filterSearch')
 .controller('SupplyOrderTypeFilterController', ['$scope', '$translate', 'OrderTypes',
     function($scope, $translate, OrderTypes) {

@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.report')
 .directive('reportHardwareOrders', function() {
     return {

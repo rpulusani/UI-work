@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.report')
 .controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory',
     function($scope, $location, $translate, Reports, Documents, GridService, $rootScope, Personalize) {

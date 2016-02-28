@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.notifications')
 .directive('notificationFields', function(){
     return {

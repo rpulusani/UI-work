@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.serviceRequests')
 .factory('ServiceRequestStatus', ['serviceUrl', '$translate', 'HATEOASFactory',
     function(serviceUrl, $translate, HATEOASFactory) {

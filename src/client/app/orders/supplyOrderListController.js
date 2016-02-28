@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.orders')
 .controller('SupplyOrderListController', [
     '$scope',

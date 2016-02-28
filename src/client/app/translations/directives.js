@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.translation')
 .directive('translationFields', function(){
     return {

@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.utility')
 .factory('PersonalizationServiceFactory', [function() {
     var PersonalizationServiceFactory = function(uri, userId){

@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.invoice')
 .controller('InvoiceListController', ['$scope', '$window', '$location', 'grid', 'Invoices', '$rootScope',
     'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', '$http',

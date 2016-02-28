@@ -23,7 +23,7 @@ Defined as a utility module and included via require. To be used with ```deviceM
 
 ```js
 define(['angular', 'deviceManagement.deviceFactory', 'utility.imageService'], function(angular) {
-        'use strict';
+        
         angular.module('mps.deviceManagement')
         .controller('DeviceInformationController', ['$scope', 'Devices', 'imageService',
         function($scope,Devices, ImageService) {

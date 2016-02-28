@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.invoice')
 .directive('invoiceList', function() {
     return {

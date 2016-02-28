@@ -1,5 +1,5 @@
 
-'use strict';
+
 angular.module('mps.library')
     .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
         function($scope, $location, $translate, $route, $http, Documents, Tags, Translations, GridService, $rootScope, Personalize, formatter) {
