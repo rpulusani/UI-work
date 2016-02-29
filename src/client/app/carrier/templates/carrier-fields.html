@@ -1,0 +1,17 @@
+<div class="col-lg-2-3 col-md-1-1">
+	<ul class="info-list" ng-if="isUpdate">
+        <li class="info-list__item">
+            <div class="info-list__item-name" translate="ADMIN.CARRIER.TXT_CARRIER_NAME"></div>
+            <div class="info-list__item-value" ng-bind="carrier.name"></div>
+        </li>
+    </ul>
+    <div class="form__field" ng-if="!isUpdate">
+        <label translate="ADMIN.CARRIER.TXT_CARRIER_NAME"></label>
+        <input name="carrierName" type="text" class="" value="" ng-model="carrier.name"/>
+    </div>
+    <div class="form__field">
+        <label translate="ADMIN.CARRIER.TXT_TRACKING_URL"></label>
+        <input name="trackingUrl" type="text" class="" value="" ng-model="carrier.trackingUrl" />
+    </div>
+</div>
+
