@@ -21,7 +21,7 @@
 <em><span translate="DEVICE_MAN.COMMON.TXT_LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
 <hr class="vertical-space--thin" >
 <a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);"
-translate="DEVICE_MGT.UPDATE_DEVICE_INFO_LINK" ng-if="updateDeviceAccess"></a>
+translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO" ng-if="updateDeviceAccess"></a>
 
 <h3 class="text--n9 vertical-space--thin" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_LOCATION"></h3>
 <ul class="info-list text--small">
@@ -74,7 +74,7 @@ translate="DEVICE_MGT.UPDATE_DEVICE_INFO_LINK" ng-if="updateDeviceAccess"></a>
         <div class="info-list__item-value" ng-bind="device.costCenter"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER.TXT_ORG_STRUCTURE"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE"></div>
         <div class="info-list__item-value">
             <div tree></div>
         </div>
@@ -88,7 +88,7 @@ translate="DEVICE_MGT.UPDATE_DEVICE_INFO_LINK" ng-if="updateDeviceAccess"></a>
 
 <span ng-if="serviceHistoryAccess">
 
-<div print-export-title title="DEVICE_MAN.MANAGE_DEVICE_OVERvIEW.TXT_CHANGE_HISTORY"></div>
+<div print-export-title title="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CHANGE_HISTORY"></div>
 
 <hr />
 <p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MAN.COMMON.TXT_SEARCH" class="vertical-space--none"></p>
