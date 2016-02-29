@@ -5,12 +5,14 @@ var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
 var order = require('gulp-order');
+var wrap = require('gulp-wrap');
 
 gulp.task('scripts', function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
     .pipe(jshint())
-//    .pipe(minify())
     .pipe(concat('mps.app.js'))
+    //.pipe(minify())
+    .pipe(wrap('define([\'mps.app\',\'lxk.fef\'], function() {<%= contents %>});'))
     .pipe(gulp.dest('dist/build'));
 });
 
@@ -41,6 +43,7 @@ gulp.task('libs', function() {
         'libs/ui-grid/3.0.6/ui-grid.min.js'
     ])
   .pipe(concat('mps.libs.js'))
+  .pipe(wrap('define([], function() {<%= contents %>});'))
   .pipe(gulp.dest('dist/build'));
 })
 
@@ -62,7 +65,7 @@ gulp.task('less', function() {
 });
 
 gulp.task('third-party-styles', function(){
-  return gulp.src(['etc/styles/css/*.css', 'etc/styles/css/*/*.css', 'etc/styles/css/*/*/*.css'])
+  return gulp.src(['etc/styles/css/*', 'etc/styles/css/*/*', 'etc/styles/css/*/*/*'])
     .pipe(gulp.dest('dist/build/css'));
 });
 
