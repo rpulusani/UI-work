@@ -1,4 +1,4 @@
-<h2 class="vertical-space--none" translate="DEVICE_MGT.PAGE_COUNTS"></h2>
+<h2 class="vertical-space--none" translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNTS"></h2>
 
 <hr />
 
@@ -7,25 +7,25 @@
 		<thead>
             <tr>
                 <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
-                <th translate="DEVICE_MGT.PRIOR_COUNT"></th>
-                <th translate="DEVICE_MGT.NEW_COUNT"></th>
-                <th translate="LABEL.DATE"></th>
+                <th translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT"></th>
+                <th translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW"></th>
+                <th translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE"></th>
             </tr>
         </thead>
 		<tbody>
 	        <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
 	            <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate}}" ng-bind="item.type"></td>
-	            <td data-label="{{'DEVICE_MGT.PRIOR_COUNT' | translate}}">
+	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT' | translate}}">
                     <div ng-bind="item.value"></div>
                     <div ng-bind="getMeterReadPriorDate(item)"></div>
                 </td>
-	            <td data-label="{{'DEVICE_MGT.NEW_COUNT' | translate}}">
+	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW' | translate}}">
 	            	<div class="form__field vertical-space--none">
                         <input type="number" ng-model="item.newVal" ng-if="item.type !== 'Mono'" />
                     </div>
                     <span ng-if="item.type === 'Mono'" ng-bind="item.value"></span>
 	            </td>
-	            <td data-label="{{'LABEL.DATE' | translate}}">
+	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE' | translate}}">
                     <div class="form__field vertical-space--none">
                         <input datepicker type="date" ng-model="item.newDate" ng-if="item.type !== 'Mono'" />
                     </div>
@@ -35,8 +35,8 @@
         </tbody>
     </table>
     <a href="#" ng-click="showAllMeterReads = !showAllMeterReads">
-        <span ng-hide="showAllMeterReads" translate="DEVICE_MGT.MANAGE_ALL_PAGE_COUNT"></span>
-        <span ng-show="showAllMeterReads" translate="DEVICE_MGT.VIEW_LESS"></span>
+        <span ng-hide="showAllMeterReads" translate="DEVICE_MAN.COMMON.CTRL_PAGE_COUNT_SHOW_MORE"></span>
+        <span ng-show="showAllMeterReads" translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_VIEW_LESS"></span>
     </a>
     <div class="l-pad-top-2">
 	    <button class="btn btn--primary" ng-click="saveMeterReads();" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
