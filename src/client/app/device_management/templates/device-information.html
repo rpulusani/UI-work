@@ -87,10 +87,10 @@
 
 <span ng-if="serviceHistoryAccess">
 
-<div print-export-title title="DEVICE_SERVICE_REQUEST.CHANGE_HISTORY"></div>
+<div print-export-title title="DEVICE_MAN.MANAGE_DEVICE_OVERvIEW.TXT_CHANGE_HISTORY"></div>
 
 <hr />
-<p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MGT.LOOKING_FOR_A_REQUEST" class="vertical-space--none"></p>
+<p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MAN.COMMON.TXT_SEARCH" class="vertical-space--none"></p>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
 <div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
