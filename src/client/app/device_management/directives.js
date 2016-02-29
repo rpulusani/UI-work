@@ -50,7 +50,7 @@ angular.module('mps.deviceManagement')
         restrict: 'A',
         templateUrl: '/app/device_management/templates/device-listing-tabs.html',
         link: function(scope, el, attr){
-            
+            var $ = require('jquery');
             var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
             sets.each(function(i,set){
                 $(set).set({});
@@ -65,7 +65,7 @@ angular.module('mps.deviceManagement')
         templateUrl: '/app/device_management/templates/device-tabs.html',
         controller: 'DeviceController',
         link: function(scope, el, attr){
-            
+            var $ = require('jquery');
             var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
             sets.each(function(i,set){
                 $(set).set({});

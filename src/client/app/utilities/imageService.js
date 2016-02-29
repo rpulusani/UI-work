@@ -8,7 +8,7 @@ angular.module('mps.utility')
             this.defaultImageUrl = '/etc/resources/img/part_na_color.png';
             this.defaultThumbnailUrl = '';
         };
-
+        var $ = require('jquery');
         Image.prototype.parsePartNumber = function(partNumber){
             var item = {
                 prefix: '',

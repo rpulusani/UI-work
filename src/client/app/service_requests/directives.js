@@ -167,6 +167,7 @@ angular.module('mps.serviceRequests')
         templateUrl: '/app/service_requests/templates/service-request-tabs.html',
         controller: 'ServiceRequestTabController',
         link: function(scope, el, attr){
+            var $ = require('jquery');
                 var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                 sets.each(function(i,set){
                     $(set).set({});

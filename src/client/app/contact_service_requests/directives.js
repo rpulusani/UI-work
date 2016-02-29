@@ -84,7 +84,7 @@ angular.module('mps.serviceRequestContacts')
         templateUrl: '/app/contact_service_requests/templates/contact-update-tabs.html',
         controller: 'ContactUpdateTabController',
         link: function(scope, el, attr){
-            
+            var $ = require('jquery');
             var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
             sets.each(function(i,set){
                 $(set).set({});

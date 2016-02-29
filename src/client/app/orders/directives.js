@@ -130,10 +130,12 @@ angular.module('mps.orders')
         templateUrl: '/app/orders/templates/order-tabs.html',
         controller: 'OrderTabController',
         link: function(scope, el, attr){
-                var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
-                sets.each(function(i,set){
-                    $(set).set({});
-                });
+            
+            var $ = require('jquery'),
+                 sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+            sets.each(function(i,set){
+                $(set).set({});
+            });
         }
     };
 });

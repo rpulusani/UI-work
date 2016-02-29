@@ -271,7 +271,7 @@ angular.module('mps.filterSearch')
         controller: 'GridSearchController',
         link: function(scope, el, attr){
             scope.setupStyle = function () {
-                
+                var $ = require('jquery');
                 var filterDiv = $(el).find(".filter--search");
                 $(filterDiv).hover(function(){
                     $(this).toggleClass("hover");
