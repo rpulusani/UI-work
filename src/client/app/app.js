@@ -436,6 +436,10 @@ define([
                 ]
             },
             {
+                name:'moveDevice',
+                permission: permissionSet.serviceRequestManagement.moveMADC
+            },
+            {
                 name:'deviceAccess',
                 permission: [
                     permissionSet.deviceManagement.search,
