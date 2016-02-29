@@ -1,0 +1,32 @@
+<div class="page-header">
+    <h1 translate="ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT"></h1>
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
+    <div class="col-1 btns">
+        <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" 
+                translate="ADMIN.CARRIER.BTN_ADD_CARRIER_LINK"></button>
+    </div>
+</div>
+<div class="page-content">
+    <form class="form" data-form="" name="carrierForm" novalidate>
+    	<table class="table table--condensed table--even table--responsive vertical-space--none">
+    		<thead>
+                <tr>
+                    <th translate="ADMIN.CARRIER.TXT_CARRIER_NAME"></th>
+                    <th translate="ADMIN.CARRIER.TXT_TRACKING_URL"></th>
+                    <th></th>
+                </tr>
+            </thead>
+    		<tbody>
+    	        <tr ng-repeat="carrier in carriers" >
+    	            <td>
+                        <a href="" ng-click="view(carrier)" ng-bind="carrier.name"></a>
+                    </td>
+    	            <td ng-bind="carrier.trackingUrl"></td>
+                    <td>
+                        <a href="" ng-click="delete(carrier)" translate="PORTAL_ADMIN.DELETE_VALUE"></a>
+                    </td>
+    	        </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

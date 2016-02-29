@@ -94,6 +94,12 @@ requirejs.config({
             'siebel.createSiebelValueController',
             'siebel.manageSiebelValueController',
 
+            'carrier',
+            'carrier.carrierFactory',
+            'carrier.carrierListController',
+            'carrier.directives',
+            'carrier.carrierAddController',
+
             'translation',
             'translation.translationFactory',
             'translation.translationListController',
@@ -201,6 +207,12 @@ requirejs.config({
         'siebel.directives': ['siebel'],
         'siebel.createSiebelValueController': ['siebel'],
         'siebel.manageSiebelValueController': ['siebel'],
+
+        'carrier': ['angular'],
+        'carrier.carrierFactory': ['carrier'],
+        'carrier.carrierListController': ['carrier'],
+        'carrier.directives': ['carrier'],
+        'carrier.carrierAddController': ['carrier'],
 
         'translation': ['angular'],
         'translation.translationFactory': ['translation'],
@@ -354,6 +366,12 @@ requirejs.config({
         'siebel.directives': 'app/siebel/directives',
         'siebel.createSiebelValueController': 'app/siebel/createSiebelValueController',
         'siebel.manageSiebelValueController': 'app/siebel/manageSiebelValueController',
+
+        'carrier': 'app/carrier/carrier',
+        'carrier.carrierFactory': 'app/carrier/carrierFactory',
+        'carrier.carrierListController': 'app/carrier/carrierListController',
+        'carrier.directives': 'app/carrier/directives',
+        'carrier.carrierAddController': 'app/carrier/carrierAddController',
 
         'translation': 'app/translations/translations',
         'translation.translationFactory': 'app/translations/translationFactory',

@@ -193,5 +193,14 @@
     "permissionFlag":"viewHomePage",
     "icon": "",
     "tags":["16"]
+  },
+  {
+    "id": "22",
+    "action": "/carrier",
+    "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "",
+    "tags":["16"]
   }
 ]
