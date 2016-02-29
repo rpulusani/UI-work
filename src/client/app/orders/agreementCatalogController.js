@@ -192,7 +192,8 @@ define(['angular'], function(angular) {
                         $scope.showAgreements = 'multi';
                     }else if($scope.agreements && $scope.agreements.length === 1){
                         $scope.showAgreements = 'single';
-                        $scope.agreement = agreements[0];
+                        $scope.agreement = $scope.agreements[0];
+                        $scope.onAgreementSelected($scope.agreement);
                     }else{
                         $scope.showAgreements = 'none';
                     }
