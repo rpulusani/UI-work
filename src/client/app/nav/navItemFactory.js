@@ -29,6 +29,7 @@ define([
                     }else{
                         self.window = "";
                     }
+                    self.permission = item.permissionFlag;
                     self.permissionFlag = $rootScope[item.permissionFlag] = false;
                     var security = new SecurityService();
                     $q.all(security.requests).then(function(){

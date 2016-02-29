@@ -38,6 +38,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'LocationFilterController'
         };
     })
+    .directive('addressLocationFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                options: '=',
+                title: '@',
+                params: '=',
+                filterDef: '='
+            },
+            templateUrl: '/app/filter_search/templates/addressLocationFilter.html',
+            controller: 'LocationFilterController'
+        };
+    })
     .directive('chlFilter', function() {
         return {
             restrict: 'A',

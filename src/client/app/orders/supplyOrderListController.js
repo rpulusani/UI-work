@@ -48,7 +48,8 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 embed: 'primaryContact,requester'
             };
 
-            var removeParamsList = ['from', 'to', 'status', 'bookmarkFilter'];
+            var removeParamsList = ['from', 'to', 'status', 'bookmarkFilter', 'requesterFilter'],
+                myRequestRemoveParamList = ['from', 'to', 'status'];
             filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
@@ -75,7 +76,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_MY_ORDERS', 'MyOrderFilter', undefined,
+            filterSearchService.addBasicFilter('FILTERS.FILTER_MY_ORDERS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
                 function(Grid) {
                     $scope.$broadcast('setupColumnPicker', Grid);
                     $scope.$broadcast('setupPrintAndExport', $scope);

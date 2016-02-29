@@ -63,18 +63,16 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
             };
 
             $scope.selectAccount = function() {
-                HATEOASConfig.updateCurrentAccount($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity.account);
-                
-                Users.createItem($rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity);
-
+                var url = Accounts.getRelationship('account', $rootScope.currentSelectedRow);
+                HATEOASConfig.updateCurrentAccount($rootScope.currentSelectedRow.account, url);
+                Users.createItem($rootScope.currentSelectedRow);
                 $rootScope.currentAccount.refresh = true;
 
                 HATEOASConfig.getCurrentAccount().then(function() {
                     Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                         Security.setWorkingPermission(permissions);
-                        
-                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
-
+                        new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);   
+                                             
                         $rootScope.$emit('refreshNav');
                         
                         $location.path($rootScope.accountReturnPath);
@@ -100,7 +98,8 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
 
             setTimeout(function() {
                 Grid.display(Accounts, $scope, personal);
-            }, 0);
+             }, 0);
+
         }
     ]);
 });
