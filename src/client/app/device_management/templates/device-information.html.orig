@@ -20,8 +20,12 @@
 <h2 class="vertical-space--none" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_INFO"></h2>
 <em><span translate="DEVICE_MAN.COMMON.TXT_LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
 <hr class="vertical-space--thin" >
+<<<<<<< HEAD
+<a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO"></a>
+=======
 <a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);"
 translate="DEVICE_MGT.UPDATE_DEVICE_INFO_LINK" ng-if="updateDeviceAccess"></a>
+>>>>>>> integrated
 
 <h3 class="text--n9 vertical-space--thin" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_LOCATION"></h3>
 <ul class="info-list text--small">
