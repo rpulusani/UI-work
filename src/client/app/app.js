@@ -321,7 +321,9 @@ define([
     })
 
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
-    function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet) {
+      'FormatterService',
+    function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet,
+      FormatterService) {
 
         Gatekeeper.login({organization_id: '30', federation_redirect: 'true'});
 
@@ -435,6 +437,10 @@ define([
                     permissionSet.serviceRequestManagement.changeMADC,
                     permissionSet.serviceRequestManagement.moveMADC
                 ]
+            },
+            {
+                name:'moveDevice',
+                permission: permissionSet.serviceRequestManagement.moveMADC
             },
             {
                 name:'deviceAccess',
@@ -558,7 +564,13 @@ define([
         });
 
         $rootScope.idpUser.$promise.then(function(){
-            UserService.getLoggedInUserInfo();
+            UserService.getLoggedInUserInfo().then(function(){
+              // Construct a display name for rest of login session
+              var user = $rootScope.currentUser;
+              $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
+              console.log($rootScope.currentUser);
+            });
+
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);
