@@ -14,7 +14,7 @@
         'mps.dashboard',
         'mps.account',
         'mps.serviceRequests',
-        //'mps.serviceRequestAddresses',
+        'mps.serviceRequestAddresses',
         'mps.serviceRequestContacts',
         'mps.serviceRequestDevices',
         'mps.queue',
@@ -46,7 +46,7 @@
         'ui.grid.exporter',
         'ui.grid.autoResize',
         'spring-data-rest',
-        'tree'
+        'mps.tree'
     ])
 
     .factory('errorLogInterceptor', function() {

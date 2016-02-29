@@ -1,4 +1,4 @@
-angular.module('tree')
+angular.module('mps.tree')
 .controller('TreeItemController', ['$scope', 'AccountService',
     function($scope, Account){
         if($scope.item){

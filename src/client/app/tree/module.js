@@ -1,7 +1,7 @@
 
 
 
-angular.module('tree', [])
+angular.module('mps.tree', [])
 .config(['$routeProvider',
     function ($routeProvider){
         $routeProvider

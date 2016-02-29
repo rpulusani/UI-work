@@ -1,7 +1,7 @@
 
 
 
-angular.module('tree')
+angular.module('mps.tree')
 .directive('tree', ['RecursionHelper', function(RecursionHelper){
     return {
         restrict: 'AE',
