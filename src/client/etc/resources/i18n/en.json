@@ -1561,9 +1561,11 @@
                 "TXT_FILTER_CATEGORY_SELECTED": "Category selected",
                 "TXT_FILTER_OWNER_SELECTED": "Owner selected",
                 "TXT_FILTER_TAG_SELECTED": "Tags selected",
+                "TXT_FILTER_ACCOUNT_SELECTED": "Account selected",
                 "CTRL_CLEAR_CATEGORY": "Clear category filters",
                 "CTRL_CLEAR_OWNER": "Clear owner filters",
-                "CTRL_CLEAR_TAG": "Clear tags filter"
+                "CTRL_CLEAR_TAG": "Clear tags filter",
+                "CTRL_CLEAR_ACCOUNT": "Clear accounts filter"
             },
             "DOCUMENT_VIEW" : {
                 "TITLE_DISCARD_MODAL": "Are you sure you want to discard document changes?",
