@@ -60,6 +60,8 @@ define(['angular', 'address'], function(angular) {
                                 $scope.needToVerify = true;
                                 $scope.checkedAddress = 1;
                                 $scope.contactUpdate = false;
+                                $scope.acceptedEnteredAddress = 'comparisonAddress';
+                                $scope.setAcceptedAddress();
                             }else{
                                 $scope.canReview = true;
                                 $scope.checkedAddress = 1;
