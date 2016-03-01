@@ -46,43 +46,66 @@ define(['angular','order', 'utility.grid'], function(angular) {
             $scope.editable = false; //make order summary not actionable
             $scope.hideSubmitButton = true;
             $scope.isLoading = false;
+            $scope.scratchSpace = Orders.tempSpace;
+            if($scope.scratchSpace.lexmarkInstallQuestion === undefined ||
+                    $scope.scratchSpace.lexmarkInstallQuestion === null){
+                $scope.scratchSpace.lexmarkInstallQuestion = false;
+            }
+
             if($routeParams.type){
                 $scope.type = $routeParams.type.toUpperCase();
             }
 
             var configureSR = function(Orders){
-                    if(Orders.item && !Orders.item.description){
-                        Orders.addField('description', '');
-                    }
-                    Orders.item['_links']['account'] = {
-                        href: $rootScope.currentAccount.href
-                    };
-                    Orders.addField('paymentMethod','Purchase Order');
-                    Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
-                    Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
-                    switch($scope.type){
-                        case 'SUPPLIES':
-                            Orders.addField('type', 'SUPPLIES_CATALOG_ORDER');
-                         break;
-                         case 'HARDWARE':
-                            Orders.addField('type', 'HARDWARE_ORDER');
-                         break;
-                         case 'ACCESSORIES':
-                            Orders.addField('type', 'HARDWARE_ORDER');
-                         break;
-                         default:
-                         break;
-                    }
-
+                if(Orders.item && !Orders.item.description){
+                    Orders.addField('description', '');
+                }
+                Orders.item['_links']['account'] = {
+                    href: $rootScope.currentAccount.href
+                };
+                if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
+                    $scope.sr.sourceAddressPhysicalLocation = {};
+                }
+                if(BlankCheck.isNull($scope.sr.shipToAddressPhysicalLocation)){
+                    $scope.sr.shipToAddressPhysicalLocation = {};
+                }
+                if(BlankCheck.isNull($scope.sr.destinationAddressPhysicalLocation)){
+                    $scope.sr.destinationAddressPhysicalLocation = {};
+                }
+                Orders.addField('paymentMethod','Purchase Order');
+                Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
+                Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
+                switch($scope.type){
+                    case 'SUPPLIES':
+                        Orders.addField('type', 'SUPPLIES_CATALOG_ORDER');
+                     break;
+                     case 'HARDWARE':
+                        Orders.addField('type', 'HARDWARE_ORDER');
+                     break;
+                     case 'ACCESSORIES':
+                        Orders.addField('type', 'HARDWARE_ORDER');
+                     break;
+                     default:
+                     break;
+                }
             };
 
-            configureTemplates();
+            function intitilize(){
+                $scope.setupSR(Orders, configureSR);
+                $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            }
+
+            intitilize();
 
             if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
                 Orders.tempSpace.catalogCart.billingModels){
                 var isShipBill =  $.inArray('SHIP_AND_BILL', Orders.tempSpace.catalogCart.billingModels);
                 if(isShipBill > 0){
                     $scope.paymentMethod = 'SHIP_AND_BILL';
+                    addShipAndBill();
+                }else if(Orders.tempSpace.catalogCart.billingModels.length > 0 && $scope.type !== 'SUPPLIES'){
+                    $scope.paymentMethod = 'payLater';
+                    addShipAndInstall();
                 }else if(Orders.tempSpace.catalogCart.billingModels.length > 0){
                     $scope.paymentMethod = 'payLater';
                 }
@@ -97,6 +120,15 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
                         $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
                 }
+                if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
+                    $scope.scratchSpace.installAddresssSelected = true;
+                    $scope.formatedInstallAddress = FormatterService.formatAddress(Orders.tempSpace.installAddress);
+                }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.installAddress)){
+                    $scope.scratchSpace.installAddresssSelected = false;
+                    $scope.formatedInstallAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.installAddress);
+                }else{
+                    $scope.scratchSpace.installAddresssSelected = false;
+                }
 
                 if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
                         $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
@@ -105,9 +137,13 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 }
 
                 if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                        $scope.scratchSpace.shipToAddresssSelected = true;
                         $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
                 }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                    $scope.scratchSpace.shipToAddresssSelected = false;
                     $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
+                }else{
+                    $scope.scratchSpace.shipToAddresssSelected = false;
                 }
 
                 if (Orders.item){
@@ -117,7 +153,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                         $scope.formattedPONumber = FormatterService.formatNoneIfEmpty(Orders.item.purchaseOrderNumber);
                         $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
                 }
-        };
+            };
 
                 $scope.getRequestor = function(Orders, Contacts) {
                 Users.getLoggedInUserInfo().then(function() {
@@ -158,17 +194,57 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
                 $scope.resetAddressShipToPicker();
                 $scope.formatAdditionalData();
+            } else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+                configureSR(Orders);
+                $scope.sr = $rootScope.returnPickerSRObjectAddress;
+                Orders.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
+                Orders.tempSpace.installAddress = angular.copy($rootScope.selectedAddress);
+                $scope.resetAddressPicker();
+                $scope.formatAdditionalData();
             } else{
                 configureSR(Orders);
             }
-
-            function intitilize(){
-                $scope.setupSR(Orders, configureSR);
-                $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+            function addShipAndInstall(){
+                $scope.configure.shipToBillTo = undefined;
+                $scope.configure.installShipping = {
+                    translate: {
+                        title: 'ORDER_MAN.HARDWARE_ORDER.TXT_INSTALL_SHIP_BILL_ADDRESSES',
+                        installQuestion:'ORDER_MAN.COMMON.TXT_LXK_INSTALL_QUERY',
+                        installAddress:'ORDER_MAN.HARDWARE_ORDER.TXT_INSTALLATION_ADDRESS',
+                        installAction:'ORDER_MAN.HARDWARE_ORDER.LNK_SELECT_INSTALL_ADDRESS',
+                        sameShipInstallQuestion:'ORDER_MAN.COMMON.TXT_SHIP_INSTALL_ADDRS_SAME'
+                    },
+                    sameAddress: function(){
+                        if($scope.scratchSpace.lexmarkShippingSameAsInstall){
+                            Orders.copyRelationship('sourceAddress', Orders.item, 'shipToAddress');
+                            Orders.tempSpace.shipToAddress =  angular.copy(Orders.tempSpace.installAddress);
+                            Orders.item.shipToAddressPhysicalLocation.physicalLocation1 =
+                                $scope.sr.sourceAddressPhysicalLocation.physicalLocation1;
+                            Orders.item.shipToAddressPhysicalLocation.physicalLocation2 =
+                                $scope.sr.sourceAddressPhysicalLocation.physicalLocation2;
+                            Orders.item.shipToAddressPhysicalLocation.physicalLocation3 =
+                                $scope.sr.sourceAddressPhysicalLocation.physicalLocation3;
+                            $scope.formatAdditionalData();
+                        }
+                    }
+                };
+                $scope.configure.installPicker = {
+                    pickerObject: Orders.item,
+                    source: 'OrderCatalogPurchase'
+                };
+            }
+            function addShipAndBill(){
+                $scope.configure.installShipping = undefined;
+                $scope.configure.shipToBillTo = {
+                    translate:{
+                        title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
+                        billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR',
+                        billToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_BILL_TO_FOR'
+                    }
+                };
             }
 
-                intitilize();
-                $scope.getRequestor(Orders, Contacts);
+            $scope.getRequestor(Orders, Contacts);
 
             function configureReviewTemplate(){
                 configureTemplates();
@@ -303,6 +379,19 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             showCancelBtn: false
                         },
                         order:{
+                            shipTo:{
+                                translate:{
+                                     shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    shipToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_SHIP_TO_FOR',
+                                    office:'ORDER_MAN.COMMON.TXT_OFFICE',
+                                    building:'ORDER_MAN.COMMON.TXT_BUILDING',
+                                    floor:'ORDER_MAN.COMMON.TXT_FLOOR',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    instructionsNote:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE'
+                                }
+                            },
                             details:{
                                 translate:{
                                     title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS',
@@ -323,22 +412,6 @@ define(['angular','order', 'utility.grid'], function(angular) {
                             accountDetails:{
                                 translate:{
                                     title:'ORDER_MAN.COMMON.TEXT_ACCOUNT_DETAILS'
-                                }
-                            },
-                            shipToBillTo:{
-                                translate:{
-                                    title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
-                                    shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
-                                    shipToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_SHIP_TO_FOR',
-                                    office:'',
-                                    building:'',
-                                    floor:'',
-                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
-                                    instructionsNote:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE',
-                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
-                                    expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE',
-                                    billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR',
-                                    billToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_BILL_TO_FOR'
                                 }
                             }
                         },
