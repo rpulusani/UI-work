@@ -101,7 +101,7 @@ define(['angular', 'deviceManagement', 'serviceRequest', 'deviceManagement.devic
                   assetId: Devices.item.id
               };
               $scope.gridOptions.showBookmarkColumn = false;
-              filterSearchService.addBasicFilter('REQUEST_MGMT.SERVICE_REQUESTS', params);
+              filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_DEVICE_SERVICE_HISTORY', params);
             }
           }
 
