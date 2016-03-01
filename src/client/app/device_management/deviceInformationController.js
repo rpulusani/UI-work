@@ -57,11 +57,11 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     translate: {
                         replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
                         h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
-                        body: 'MESSAGE.LIPSUM',
+                        body: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES_PAR',
                         readMore: '',
                         confirmation:{
-                            abandon:'ORDER_MGT.BTTN_ABANDON_SUPPLIES',
-                            submit: 'ORDER_MGT.BTTN_ORDER_SUPPLIES_DEVICE'
+                            abandon:'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_ABANDON_SUPPLIES',
+                            submit: 'DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES'
                         }
                     }
                 }
@@ -239,7 +239,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 };
 
 
-                filterSearchService.addBasicFilter('DEVICE_SERVICE_REQUEST.CHANGE_HISTORY', params, false, function() {
+                filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICE_OVERvIEW.TXT_CHANGE_HISTORY', params, false, function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 });
             }

@@ -166,7 +166,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
 
             var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location'];
 
-            filterSearchService.addBasicFilter('DEVICE_MGT.ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
+            filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
@@ -192,7 +192,7 @@ define(['angular', 'deviceManagement', 'deviceManagement.deviceFactory', 'utilit
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_BOOKMARK', 'BookmarkFilter', undefined,
+            filterSearchService.addPanelFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_BOOKMARKED_DEVICES', 'BookmarkFilter', undefined,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
