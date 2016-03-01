@@ -147,6 +147,7 @@ define([
     'filterSearch.dateRangeFilterController',
     'filterSearch.invoiceDateFilterController',
     'filterSearch.accountFilterController',
+    'filterSearch.accountAllFilterController',
     'filterSearch.soldToFilterController',
     'filterSearch.meterReadTypeFilterController',
     'filterSearch.categoryFilterController',

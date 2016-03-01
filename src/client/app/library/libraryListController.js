@@ -29,9 +29,11 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             );
 
             if ($rootScope.documentLibraryManageGlobalTagAccess) {
-                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
-                    function() {
-                        $scope.$broadcast('setupColumnPicker', $scope);
+                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountAllFilter', undefined,
+                    function(Grid) {
+                        setTimeout(function() {
+                            $scope.$broadcast('setupColumnPicker', Grid);
+                        }, 500);
                     }
                 );
             }

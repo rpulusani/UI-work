@@ -284,6 +284,7 @@ requirejs.config({
         'filterSearch': 'app/filter_search/filterSearch',
         'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
         'filterSearch.accountFilterController': 'app/filter_search/accountFilterController',
+        'filterSearch.accountAllFilterController': 'app/filter_search/accountAllFilterController',
         'filterSearch.gridSearchController': 'app/filter_search/gridSearchController',
         'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
         'filterSearch.locationFilterController': 'app/filter_search/locationFilterController',
