@@ -131,9 +131,13 @@ define(['angular','order', 'utility.grid'], function(angular) {
                 }
 
                 if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                        $scope.scratchSpace.billToAddresssSelected = true;
                         $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
                 }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                    $scope.scratchSpace.billToAddresssSelected = false;
                     $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.billToAddress);
+                }else{
+                    $scope.scratchSpace.billToAddresssSelected = false;
                 }
 
                 if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
@@ -295,6 +299,28 @@ define(['angular','order', 'utility.grid'], function(angular) {
 
                 };
             }
+            function setupConfigurationHardware(){
+                 $scope.configure.header.translate.h1 = "ORDER_MAN.HARDWARE_ORDER.TXT_REGISTER_DEVICE_SUBMITTED";
+                        $scope.configure.header.translate.h1Values = {};
+                        $scope.configure.header.translate.body = "ORDER_MAN.HARDWARE_ORDER.RECEIPT_BODY";
+                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                        $scope.configure.header.readMoreUrl = Devices.route;
+                        $scope.configure.header.translate.bodyValues= {
+                            'orderList': FormatterService.getFormattedSRNumber($scope.sr),
+                            'srHours': 24,
+                            'deviceManagementUrl': 'orders/',
+                        };
+                        $scope.configure.receipt = {
+                            translate:{
+                                title:"ORDER_MAN.HARDWARE_ORDER.TXT_DEVICE_ORDER_DETAILS",
+                                titleValues: {}
+                            }
+                        };
+                    $scope.configure.queued = false;
+            }
+            function setupConfigurationSupplies(){
+
+            }
 
             function configureReceiptTemplate(){
                 $scope.configure.order.details.translate.action = undefined;
@@ -327,23 +353,14 @@ define(['angular','order', 'utility.grid'], function(angular) {
                         };
                         $scope.configure.queued = true;
                 }else{
-                        $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
-                        $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
-                        $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
-                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
-                        $scope.configure.header.readMoreUrl = Devices.route;
-                        $scope.configure.header.translate.bodyValues= {
-                            'order': FormatterService.getFormattedSRNumber($scope.sr),
-                            'srHours': 24,
-                            'deviceManagementUrl': 'device_management/',
-                        };
-                        $scope.configure.receipt = {
-                            translate:{
-                                title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
-                                titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                            }
-                        };
-                    $scope.configure.queued = false;
+                    switch($scope.type){
+                        case 'HARDWARE':
+                            setupConfigurationHardware();
+                        break;
+                        case 'SUPPLIES':
+                            setupConfigurationSupplies();
+                        break;
+                    }
                 }
                 $scope.configure.detail.attachments = 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_ATTACHMENTS';
                 $scope.configure.order.shipToBillTo = {
