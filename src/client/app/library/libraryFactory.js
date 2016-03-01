@@ -7,6 +7,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 serviceName: 'documents',
                 embeddedName: 'documents',
                 columns: 'default',
+                springSorting:  true,
                 columnDefs: {
                     defaultSet: [
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
