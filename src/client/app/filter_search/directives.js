@@ -142,6 +142,19 @@ define(['angular', 'filterSearch'], function(angular) {
             controller: 'AccountFilterController'
         };
     })
+    .directive('accountAllFilter', function() {
+        return {
+            restrict: 'A',
+            scope:{
+                title: '@',
+                params:'=',
+                filterDef: '=',
+                action: '@'
+            },
+            templateUrl: '/app/filter_search/templates/accountAllFilter.html',
+            controller: 'AccountAllFilterController'
+        };
+    })
     .directive('requestStatusFilter', function() {
         return {
             restrict: 'A',
