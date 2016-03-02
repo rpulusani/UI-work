@@ -15,6 +15,7 @@ define(['angular', 'user'], function(angular) {
             $scope.basicRoles = [];
             $scope.accounts = [];
             $scope.AssignedAccountList = [];
+            $scope.user.basicRoles = [];
             $scope.user.accountName = '';
             var options = {
                 params:{
@@ -146,7 +147,7 @@ define(['angular', 'user'], function(angular) {
                                             role.selected = true;
                                             var options = {
                                                 params:{
-                                                    'applicationName': 'customerPortal'
+                                                    'applicationName': 'lexmark'
                                                 }
                                             };
                                             var permissionPromise = Roles.item.get(options);
@@ -234,8 +235,13 @@ define(['angular', 'user'], function(angular) {
                     }
                     if (Roles.item && role.selected) {
                         $scope.user.selectedRoleList.push(role);
-                    } else if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.indexOf(role) !== -1) {
-                        $scope.user.selectedRoleList.splice($scope.user.selectedRoleList.indexOf(role), 1);
+                    } else if ($scope.user.selectedRoleList) {
+                        for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
+                            var selectedRole = $scope.user.selectedRoleList[j];
+                            if (role.roleId === selectedRole.roleId) {
+                                $scope.user.selectedRoleList.splice(j,1);
+                            }
+                        }
                     }
                 });
             };

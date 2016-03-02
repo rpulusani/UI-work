@@ -94,6 +94,12 @@ requirejs.config({
             'siebel.createSiebelValueController',
             'siebel.manageSiebelValueController',
 
+            'carrier',
+            'carrier.carrierFactory',
+            'carrier.carrierListController',
+            'carrier.directives',
+            'carrier.carrierAddController',
+
             'translation',
             'translation.translationFactory',
             'translation.translationListController',
@@ -202,6 +208,12 @@ requirejs.config({
         'siebel.createSiebelValueController': ['siebel'],
         'siebel.manageSiebelValueController': ['siebel'],
 
+        'carrier': ['angular'],
+        'carrier.carrierFactory': ['carrier'],
+        'carrier.carrierListController': ['carrier'],
+        'carrier.directives': ['carrier'],
+        'carrier.carrierAddController': ['carrier'],
+
         'translation': ['angular'],
         'translation.translationFactory': ['translation'],
         'translation.translationListController': ['translation'],
@@ -272,6 +284,7 @@ requirejs.config({
         'filterSearch': 'app/filter_search/filterSearch',
         'filterSearch.gridFilterController': 'app/filter_search/gridFilterController',
         'filterSearch.accountFilterController': 'app/filter_search/accountFilterController',
+        'filterSearch.accountAllFilterController': 'app/filter_search/accountAllFilterController',
         'filterSearch.gridSearchController': 'app/filter_search/gridSearchController',
         'filterSearch.chlFilterController': 'app/filter_search/chlFilterController',
         'filterSearch.locationFilterController': 'app/filter_search/locationFilterController',
@@ -354,6 +367,12 @@ requirejs.config({
         'siebel.directives': 'app/siebel/directives',
         'siebel.createSiebelValueController': 'app/siebel/createSiebelValueController',
         'siebel.manageSiebelValueController': 'app/siebel/manageSiebelValueController',
+
+        'carrier': 'app/carrier/carrier',
+        'carrier.carrierFactory': 'app/carrier/carrierFactory',
+        'carrier.carrierListController': 'app/carrier/carrierListController',
+        'carrier.directives': 'app/carrier/directives',
+        'carrier.carrierAddController': 'app/carrier/carrierAddController',
 
         'translation': 'app/translations/translations',
         'translation.translationFactory': 'app/translations/translationFactory',

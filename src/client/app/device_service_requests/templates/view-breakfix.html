@@ -13,10 +13,14 @@
                 novalidate>
 
                 <h2 translate="DEVICE_SERVICE_REQUEST.SERVICE_REQUEST_DETAIL"></h2>
-
-                <div class="form__field">
+                
+                <div class="form__field form__field--required" ng-class="validForm === false? 'form__field--has-alert' : ''">
                     <label translate="DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION"></label>
-                    <textarea name="description" type="text" rows="8" cols="129" ng-model="sr.description"></textarea>
+                    <textarea name="description" rows="8" cols="129" ng-model="sr.description" required></textarea>
+                    <span ng-hide="!breakFixDevice.description.$error.required" 
+                        class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
+                        <span translate="LABEL.ERROR_REQUIRED"></span>
+                    </span>
                 </div>
 
                 <div sr-form-buttons></div>

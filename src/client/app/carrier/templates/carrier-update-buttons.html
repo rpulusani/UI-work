@@ -1,0 +1,21 @@
+ <div class="btns">
+    <button name="cancel"
+        class="btn btn--secondary"
+        data-js="modalOpen"
+        data-target="#cancel"
+        translate="ADMIN.CARRIER.BTN_ABANDON_CARRIER_UPDATE"
+    ></button>
+    
+    <button class="btn btn--primary"
+        ng-click="update()"
+        translate="ADMIN.CARRIER.BTN_UPDATE_CARRIER_LINK"
+    ></button>
+
+    <div confirm-cancel
+        title="ADMIN.CARRIER.TITLE_CARRIER_ABANDON_MODAL"
+        body="ADMIN.CARRIER.BODY_CARRIER_ABANDON_MODAL"
+        cancel="ADMIN.CARRIER.ABANDON_CARRIER_MODAL_CANCEL"
+        confirm="ADMIN.CARRIER.ABANDON_CARRIER_MODAL_CONFIRM"
+        return-path="/carrier"
+    ></div>
+</div>

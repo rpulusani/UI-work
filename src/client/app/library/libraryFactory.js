@@ -7,6 +7,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                 serviceName: 'documents',
                 embeddedName: 'documents',
                 columns: 'default',
+                springSorting:  true,
                 columnDefs: {
                     defaultSet: [
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
@@ -21,11 +22,8 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                                             '<span ng-repeat="tag in row.entity.tags">{{tag}}{{$last ? "" : ", "}}</span></p>' +
                                         '</div>'
                         },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'), field: 'description', width: '200'},
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', 
-                            'cellTemplate':'<div ng-bind-html="grid.appScope.getFileOwner(row.entity.owner)"></div>'
-                        },
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true, searchOn: 'publishDate' },
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true},
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()' , notSearchable: true },
                         {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
                             'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
@@ -35,7 +33,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         }
                     ],
                     otherReports: [
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', width: '120'},
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', width: '120', searchOn: 'publishDate'},
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS'), field: 'tagNames',
                             'cellTemplate':'<div>' +
                                 '<span ng-repeat="tag in row.entity.tagNames">{{tag}}{{$last ? "" : ", "}}</span>' +

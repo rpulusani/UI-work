@@ -12,12 +12,12 @@ define(['angular', 'deviceManagement'], function(angular) {
             Requests.prototype.getColumnDefinition = function(type) {
                 this.columns = {
                     'defaultSet':[
-                        {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'date'},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber'},
-                        {'name': $translate.instant('ORDER_MGT.STATUS'), 'field':'status'},
-                        {'name': $translate.instant('ORDER_MGT.PRIMARY_CONTACT'), 'field':'primaryContact'},
-                        {'name': $translate.instant('ORDER_MGT.PRIMARY_EMAIL'), 'field':'primaryContactEmail'},
-                        {'name': $translate.instant('ORDER_MGT.PRIMARY_PHONE'), 'field':'primaryContactPhone'}
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_HIST_DATE'), 'field': 'date'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_HIST_NUM'), 'field':'requestNumber'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_HIST_STATUS'), 'field':'status'},
+                        {'name': $translate.instant('ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_CONTACT'), 'field':'primaryContact'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_EMAIL'), 'field':'primaryContactEmail'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'), 'field':'primaryContactPhone'}
                     ],
                     bookmarkColumn: 'getBookMark()'
                 };

@@ -1,7 +1,7 @@
 <div class="set" data-js="set">
 	<div class="set__trigger" ng-class="{'set--is-active':isActive('deviceInfoTab')}" data-toggle="deviceInfoTab" ng-click="onClickTb('deviceInfoTab')"
 		ng-if="deviceInfoAccess">
-		<a href="#deviceInfoTab" translate="DEVICE_MGT.OVERVIEW"><i class="set__icon"></i></a>
+		<a href="#deviceInfoTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_OVERVIEW_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="deviceInfoTab" ng-class="{'set--is-active':isActive('deviceInfoTab')}"
 		ng-if="deviceInfoAccess">
@@ -11,7 +11,7 @@
 	<div class="set__trigger" data-toggle="orderTab" ng-click="onClickTb('orderTab')"
 		ng-class="{'set--is-active':isActive('orderTab')}"
 		ng-if="openOrderAccess">
-		<a href="#orderTab" translate="DEVICE_MGT.SUPPLY_ORDERS"><i class="set__icon"></i></a>
+		<a href="#orderTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SUPPLY_ORDERS_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="orderTab" ng-class="{'set--is-active':isActive('orderTab')}"
 		ng-if="openOrderAccess">
@@ -24,7 +24,7 @@
 	<div class="set__trigger" data-toggle="requestTab" ng-click="onClickTb('requestTab')"
 		ng-class="{'set--is-active':isActive('requestTab')}"
 	 	ng-if="serviceHistoryAccess">
-		<a href="#requestTab" translate="DEVICE_MGT.SERVICE_HISTORY"><i class="set__icon"></i></a>
+		<a href="#requestTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERVICE_HISTORY_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="requestTab" ng-class="{'set--is-active':isActive('requestTab')}"
 		ng-if="serviceHistoryAccess">
@@ -34,7 +34,7 @@
 	<div class="set__trigger" data-toggle="pageCountTab" ng-click="onClickTb('pageCountTab')"
 		ng-class="{'set--is-active':isActive('pageCountTab')}"
 		ng-if="pageCountAccess">
-		<a href="#pageCountTab" translate="DEVICE_MGT.PAGE_COUNTS"><i class="set__icon"></i></a>
+		<a href="#pageCountTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PAGE_COUNTS_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="pageCountTab" ng-class="{'set--is-active':isActive('pageCountTab')}"
 		ng-if="pageCountAccess">

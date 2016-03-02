@@ -1,85 +1,86 @@
 <div device-overview-notificaiton device="device"></div>
-<h2 class="vertical-space--none" translate="DEVICE_MGT.PAGE_COUNT_SUMMARY"></h2>
+<h2 class="vertical-space--none" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_PAGE_COUNT_SUMMARY"></h2>
 <em><span translate="DEVICE_MGT.LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
 <hr>
 <ul class="info-list text--small">
     <li class="info-list__item" ng-show="ltpc">
-        <div class="info-list__item-name" translate="PAGE_COUNT_TYPE.LIFETIME_TITLE"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME"></div>
         <div class="info-list__item-value" translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: ltpc.value}"></div>
     </li>
     <li class="info-list__item" ng-show="color">
-        <div class="info-list__item-name" translate="PAGE_COUNT_TYPE.COLOR_TITLE"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR"></div>
         <div class="info-list__item-value" translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: color.value}"></div>
     </li>
     <li class="info-list__item" ng-show="mono">
-        <div class="info-list__item-name" translate="PAGE_COUNT_TYPE.MONO_TITLE"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.COMMON.TXT_PAGE_COUNT_MONO"></div>
         <div class="info-list__item-value" translate="DEVICE_MGT.NO_OF_PAGES" translate-values="{pageCount: mono.value}"></div>
     </li>
 </ul>
 
-<h2 class="vertical-space--none" translate="DEVICE_MGT.DEVICE_INFO"></h2>
-<em><span translate="DEVICE_MGT.LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
+<h2 class="vertical-space--none" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_INFO"></h2>
+<em><span translate="DEVICE_MAN.COMMON.TXT_LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
 <hr class="vertical-space--thin" >
-<a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);" translate="DEVICE_MGT.UPDATE_DEVICE_INFO_LINK"></a>
+<a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);"
+translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO" ng-if="updateDeviceAccess"></a>
 
-<h3 class="text--n9 vertical-space--thin" translate="LABEL.LOCATION"></h3>
+<h3 class="text--n9 vertical-space--thin" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_LOCATION"></h3>
 <ul class="info-list text--small">
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_MGT.INSTALL_DATE"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_DATE"></div>
         <div class="info-list__item-value" ng-bind="device.installDate | date:'MM/dd/yyyy'"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_MGT.INSTALL_ADDRESS"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_ADDRESS"></div>
         <div class="info-list__item-value">
             <span style="white-space: pre;" ng-bind-html="formattedAddress"></span>
-            <a ng-if="lbsAccess" ng-click="gotToLBS()" href="#" class="call-to-action call-to-action--after" translate="LABEL.VIEW_ON_MAP"></a>
+            <a ng-if="lbsAccess" ng-click="gotToLBS()" href="#" class="call-to-action call-to-action--after" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.LNK_VIEW_ON_MAP"></a>
         </div>
     </li>
 </ul>
-<h3 class="text--n9 vertical-space--thin" translate="LABEL.NETWORK_CONFIG"></h3>
+<h3 class="text--n9 vertical-space--thin" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_NETWORK_CONFIG"></h3>
 <ul class="info-list text--small">
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR"></div>
         <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_MGT.HOST_NAME"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME"></div>
         <div class="info-list__item-value" ng-bind="device.hostName"></div>
     </li>
 </ul>
-<h3 class="text--n9 vertical-space--thin" translate="SERVICE_REQUEST.PRIMARY_CONTACT"></h3>
+<h3 class="text--n9 vertical-space--thin" translate="REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT"></h3>
 <ul class="info-list text--small">
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="LABEL.NAME"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_NAME"></div>
         <div class="info-list__item-value" ng-bind="primaryContact.formattedName"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="LABEL.ADDRESS"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_ADDRESS"></div>
         <div class="info-list__item-value" style="white-space: pre;" ng-bind-html="formattedAddress"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="LABEL.EMAIL"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_EMAIL"></div>
         <div class="info-list__item-value" ng-bind="primaryContact.email"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="CONTACT.WORK_PHONE"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE"></div>
         <div class="info-list__item-value" ng-bind="primaryContact.formattedworkPhone"></div>
     </li>
 </ul>
-<h3 class="text--n9 vertical-space--thin" translate="DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING"></h3>
+<h3 class="text--n9 vertical-space--thin" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_BILL_AND_TRACK"></h3>
 <ul class="info-list text--small">
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER"></div>
         <div class="info-list__item-value" ng-bind="device.costCenter"></div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="ACCOUNT.ORG_STRUCT"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE"></div>
         <div class="info-list__item-value">
             <div tree></div>
         </div>
     </li>
     <li class="info-list__item">
-        <div class="info-list__item-name" translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></div>
+        <div class="info-list__item-name" translate="DEVICE_MAN.COMMON.TXT_DEVICE_TAG"></div>
         <div class="info-list__item-value" ng-bind="device.serialNumber"></div>
     </li>
 </ul>
@@ -87,10 +88,10 @@
 
 <span ng-if="serviceHistoryAccess">
 
-<div print-export-title title="DEVICE_SERVICE_REQUEST.CHANGE_HISTORY"></div>
+<div print-export-title title="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CHANGE_HISTORY"></div>
 
 <hr />
-<p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MGT.LOOKING_FOR_A_REQUEST" class="vertical-space--none"></p>
+<p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MAN.COMMON.TXT_SEARCH" class="vertical-space--none"></p>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
 <div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>

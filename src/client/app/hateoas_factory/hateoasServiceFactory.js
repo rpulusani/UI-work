@@ -189,6 +189,19 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
             };
 
+            HATEOASFactory.prototype.copyRelationship = function(original, halObj, newName){
+                var tempObject = {},
+                url = this.getRelationship(original,halObj);
+
+                this.getMessage();
+
+                if (url) {
+                    tempObject[newName] = { href: url};
+                    angular.extend(this.item._links, tempObject);
+                    this.isNewMessage = false;
+                }
+            };
+
             HATEOASFactory.prototype.addMultipleRelationship = function(name, halObjArr, altName){
                 var tempObjectArr = [],
                 calculatedName = (altName) ? altName: name;

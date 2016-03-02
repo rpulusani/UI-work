@@ -42,7 +42,7 @@ define(['angular',
             SecurityHelper){
 
             $scope.isLoading = false;
-
+            $scope.validForm = true;
             $scope.formattedAddress = '';
             SRHelper.addMethods(Devices, $scope, $rootScope);
 
@@ -287,6 +287,10 @@ define(['angular',
                             submit: 'LABEL.REVIEW_SUBMIT'
                         },
                         submit: function() {
+                            if ($scope.breakFixDevice.$invalid) {
+                                $scope.validForm = false;
+                                return false;
+                            }
                             $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/review');
                         }
                     },
