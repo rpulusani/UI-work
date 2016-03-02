@@ -569,7 +569,6 @@ define([
               // Construct a display name for rest of login session
               var user = $rootScope.currentUser;
               $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
-              console.log($rootScope.currentUser);
             });
 
         }, function(reason) {
