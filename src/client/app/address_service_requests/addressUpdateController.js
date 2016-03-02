@@ -45,7 +45,8 @@ define(['angular', 'address'], function(angular) {
             new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
             $scope.checkAddress = function() {
-                if($scope.checkedAddress === 0){
+                if($scope.checkedAddress === 0 && $scope.updateAddress.$valid){
+                    $scope.validForm = true;
                     $scope.enteredAddress = {
                         addressLine1: $scope.address.addressLine1,
                         city: $scope.address.city,
@@ -74,6 +75,9 @@ define(['angular', 'address'], function(angular) {
                             $scope.goToReview();
                         }
                     });
+                } else {
+                    $scope.validForm = false;
+                    window.scrollTo(0,0);
                 }
             };
 
