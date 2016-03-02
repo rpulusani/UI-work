@@ -53,8 +53,8 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                         self.localScope.$broadcast('setUpSearchCss');
                         if (rowHeight) {
                             self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
-                            self.localScope.gridDataCnt = self.service.data.length;
-                            self.localScope.gridLoading = false;
+                                self.localScope.gridDataCnt = self.service.page.totalPages;
+                                self.localScope.gridLoading = false;
 
                                 if (typeof fn === 'function') {
                                     return fn(self.Grid);
@@ -62,9 +62,9 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             });
                         } else {
                             self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
-                            self.localScope.gridDataCnt = self.service.data.length;
-                            self.localScope.gridLoading = false;
-                            
+                                self.localScope.gridDataCnt = self.service.page.totalPages;
+                                self.localScope.gridLoading = false;
+
                                 if (typeof fn === 'function') {
                                     return fn(self.Grid);
                                 }

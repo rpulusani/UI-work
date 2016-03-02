@@ -1,9 +1,9 @@
-define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
+define(['angular', 'report', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.report')
     .controller('ReportListController', ['$scope', '$location', 'grid', 'Reports', '$rootScope',
-        'PersonalizationServiceFactory', '$filter',
-        function($scope, $location, GridService, Reports, $rootScope, Personalize, $filter) {
+        'PersonalizationServiceFactory', '$filter', '$translate',
+        function($scope, $location, GridService, Reports, $rootScope, Personalize, $filter, $translate) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id);
             var params = {};
 
@@ -24,8 +24,6 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                 $scope.gridDataCnt = 0;
                 $scope.gridLoading = true;
 
-                $scope.gridTitle = $scope.report.name;
-
                 Reports.item.links.results({
                     serviceName: 'results',
                     embeddedName: 'reportData',
@@ -38,6 +36,8 @@ define(['angular', 'report', 'utility.grid', 'pdfmake'], function(angular) {
                     
                     Reports.item.results.hideBookmark = true;
                     Grid.display(Reports.item.results, $scope, personal, false, function() {
+                        $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: $scope.pagination.totalItems()});
+
                         $scope.$broadcast('setupPrintAndExport', $scope);
                     });
                 }, function(reason) {
