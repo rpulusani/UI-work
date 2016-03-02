@@ -1,0 +1,49 @@
+<h3 translate="{{configure.order.shipTo.translate.shipToAddress}}"></h3>
+<div ng-show="scratchSpace.lexmarkInstallQuestion && scratchSpace.installAddresssSelected"
+    class="form__field form__field--no-margin">
+    <input type="checkbox"
+        id="lexmark-install-question-same"
+        name="lexmark-install-question-same"
+        ng-model="scratchSpace.lexmarkShippingSameAsInstall"
+        value="same"
+        data-js="customInput"
+        ng-click="configure.installShipping.sameAddress()"
+    />
+    <label for="lexmark-install-question-same"><span></span>
+        <div style="display:inline" translate="{{configure.installShipping.translate.sameShipInstallQuestion}}"></div>
+    </label>
+</div>
+<p class="vertical-margin-24" ng-bind-html="formatedShipToAddress"></p>
+<a ng-click="goToAddressShipToPicker(configure.shipToPicker.source, configure.shipToPicker.pickerObject)" href="#"
+    ng-if="configure.order.shipTo.translate.shipToAction"
+    translate="{{configure.order.shipTo.translate.shipToAction}}"></a>
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+        <label translate="{{configure.order.shipTo.translate.building}}"></label>
+        <input name="office" type="text" class="" value="" ng-model="sr.shipToAddressPhysicalLocation.physicalLocation1" />
+</div>
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+        <label translate="{{configure.order.shipTo.translate.floor}}"></label>
+        <input name="office" type="text" class="" value="" ng-model="sr.shipToAddressPhysicalLocation.physicalLocation2" />
+</div>
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+        <label translate="{{configure.order.shipTo.translate.office}}"></label>
+        <input name="office" type="text" class="" value="" ng-model="sr.shipToAddressPhysicalLocation.physicalLocation3" />
+</div>
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+        <label translate="{{configure.order.shipTo.translate.instructions}}"></label>
+        <textarea name="specialHandlingInstructions" rows="8" cols="129" value=""
+            ng-model="sr.specialHandlingInstructions"></textarea>
+        <em translate="{{configure.order.shipTo.translate.instructionsNote}}"></em>
+</div>
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+        <label translate="{{configure.order.shipTo.translate.deliveryDate}}"></label>
+        <input name="requestedDeliveryDate" type="text" ng-model="sr.requestedDeliveryDate"
+            date-val="sr.requestedDeliveryDate" datepicker />
+</div>
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+    <input id = "expediteOrder" name="expediteOrder" type="checkbox" ng-model="sr.expediteOrder"
+        data-js="customInput" value="false"/>
+    <label for="expediteOrder"><span></span>
+        <div style="display:inline" translate="{{configure.order.shipTo.translate.expedite}}"></div>
+    <label>
+</div>
