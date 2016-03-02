@@ -44,6 +44,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
             $scope.editable = false; //make order summary not actionable
 
             $scope.isLoading = false;
+            $scope.scratchSpace = Orders.tempSpace;
 
             var configureSR = function(Orders){
                     if(Orders.item && !Orders.item.description){
@@ -249,17 +250,22 @@ define(['angular','order', 'utility.grid'], function(angular) {
                                     title:'ORDER_MAN.COMMON.TEXT_ACCOUNT_DETAILS'
                                 }
                             },
-                            shipToBillTo:{
+                             shipTo:{
                                 translate:{
-                                    title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
                                     shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
                                     shipToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_SHIP_TO_FOR',
-                                    office:'',
-                                    building:'',
-                                    floor:'',
+                                    office:'ORDER_MAN.COMMON.TXT_OFFICE',
+                                    building:'ORDER_MAN.COMMON.TXT_BUILDING',
+                                    floor:'ORDER_MAN.COMMON.TXT_FLOOR',
                                     instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
                                     instructionsNote:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE',
                                     deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE'
+                                }
+                            },
+                            shipToBillTo:{
+                                translate:{
+                                    title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
                                     expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE',
                                     billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR',
                                     billToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_BILL_TO_FOR'
@@ -346,15 +352,23 @@ define(['angular','order', 'utility.grid'], function(angular) {
             }
 
             if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                    $scope.scratchSpace.billToAddresssSelected = true;
                     $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
             }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+                $scope.scratchSpace.billToAddresssSelected = false;
                 $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.billToAddress);
+            }else{
+                $scope.scratchSpace.billToAddresssSelected = false;
             }
 
             if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                    $scope.scratchSpace.shipToAddresssSelected = true;
                     $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
             }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                $scope.scratchSpace.shipToAddresssSelected = false;
                 $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
+            }else{
+                $scope.scratchSpace.shipToAddresssSelected = false;
             }
 
             if (Orders.item){
