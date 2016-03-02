@@ -29,13 +29,13 @@ define(['angular', 'utility.grid'], function(angular) {
             $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
                 if($scope.title && attrs.titleCount !== false) {
                     $scope.titleValues = {
-                        total: ctrlScope.pagination.totalItems()
+                        total: Math.max(0, ctrlScope.pagination.totalItems())
                     };
                 }
 
                 ctrlScope.$watch('pagination', function(page) {
                    $scope.titleValues = {
-                        total: page.totalItems()
+                        total: Math.max(0, page.totalItems())
                     };
                 });
 

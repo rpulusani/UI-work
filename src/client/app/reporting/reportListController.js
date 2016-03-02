@@ -36,7 +36,7 @@ define(['angular', 'report', 'utility.grid'], function(angular) {
                     
                     Reports.item.results.hideBookmark = true;
                     Grid.display(Reports.item.results, $scope, personal, false, function() {
-                        $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: $scope.pagination.totalItems()});
+                        $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});
 
                         $scope.$broadcast('setupPrintAndExport', $scope);
                     });
