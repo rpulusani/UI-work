@@ -143,7 +143,7 @@ define(['angular',
             }
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
@@ -202,7 +202,7 @@ define(['angular',
                 $scope.configure.queued = true;
               } else {
                 $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_FOR_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.REQUEST_SERVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -227,7 +227,7 @@ define(['angular',
                             h1Values:{'productModel': $scope.device.productModel},
                             body: '',
                             bodyValues: '',
-                            readMore: 'DEVICE_SERVICE_REQUEST.LNK_SUPPORT'
+                            readMore: 'DEVICE_MAN.MANAGE_DEVICE.LNK_VISIT_SUPPORT'
                         },
                         readMoreUrl: 'http://support.lexmark.com/index?page=productSelection&channel=supportAndDownloads&locale=EN&userlocale=EN_US',
                         readMoreUrlTarget: true,
@@ -236,27 +236,27 @@ define(['angular',
                     device: {
                         information:{
                             translate: {
-                                title: 'DEVICE_MGT.DEVICE_INFO',
-                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                product: 'DEVICE_MGT.PRODUCT_MODEL',
-                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
+                                title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                                serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                                partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                                product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                             }
                         },
                         service:{
                             translate:{
-                                title:'DEVICE_SERVICE_REQUEST.SERVICE_DETAILS',
-                                description:'DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION'
+                                title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_SUMMARY',
+                                description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
                             }
                         }
                     },
                     contact:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                             title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                             requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                             primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                             changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
                         },
                         show:{
                             primaryAction : true
@@ -266,12 +266,12 @@ define(['angular',
                     },
                     detail:{
                         translate:{
-                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                            referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                            comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                             fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                         },
                         show:{
@@ -283,8 +283,8 @@ define(['angular',
                     },
                     actions:{
                         translate: {
-                            abandonRequest:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'REQUEST_MAN.COMMON.BTN_ABANDON_REGISTRATION',
+                            submit: 'REQUEST_MAN.COMMON.BTN_REVIEW_SUBMIT'
                         },
                         submit: function() {
                             $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/review');
@@ -344,13 +344,13 @@ define(['angular',
                             singleDeviceSelection: true,
                             readMoreUrl: '',
                             translate: {
-                                replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
-                                h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
-                                body: 'MESSAGE.LIPSUM',
+                                replaceDeviceTitle: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_DEVICE_DEVICE_FOR_INSTALL',
+                                h1: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL',
+                                body: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL_PAR',
                                 readMore: '',
                                 confirmation:{
-                                    abandon:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
-                                    submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
+                                    abandon:'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.BTN_ABANDON_DEVICE_SELECTION',
+                                    submit: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.BTN_APPLY_DEVICE_SELECTION'
                                 }
                             }
 

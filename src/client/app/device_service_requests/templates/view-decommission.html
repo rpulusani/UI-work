@@ -11,10 +11,10 @@
         enctype="multipart/form-data"
         novalidate
     >
-        <h2 translate="DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL"></h2>
+        <h2 translate="REQUEST_MAN.COMMON.TXT_DECOM_OPTIONS"></h2>
         <hr>
 
-        <strong translate="DEVICE_SERVICE_REQUEST.DO_YOU_REQUIRE_PICKUP_DEVICE"></strong>
+        <strong translate="REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY"></strong>
         
         <div class="form__field form__field--radio form__field--no-margin">
             <input type="radio"
@@ -24,7 +24,7 @@
                 value="false"
                 checked
             />
-            <label for="lexmark-pickup-device-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+            <label for="lexmark-pickup-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
         </div>
         
         <div class="form__field form__field--radio form__field--no-margin">
@@ -34,10 +34,10 @@
                 ng-model="device.lexmarkPickupDevice"
                 value="true"
             />
-            <label for="lexmark-pickup-device-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+            <label for="lexmark-pickup-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
         </div>
 
-        <strong translate="DEVICE_SERVICE_REQUEST.WOULD_YOU_LIKE_TO_ENTER_PAGECOUNT_FOR_DEVICE"></strong>
+        <strong translate="REQUEST_MAN.REQUEST_DEVICE_DECOM.TXT_ENTER_PAGE_COUNTS_QUERY"></strong>
         
         <div class="form__field form__field--radio form__field--no-margin">
             <input type="radio"
@@ -47,7 +47,7 @@
                 value="false"
                 checked
             />
-            <label for="page-count-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+            <label for="page-count-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
         </div>
         
         <div class="form__field form__field--radio form__field--no-margin">
@@ -57,12 +57,12 @@
                 ng-model="device.pageCountQuestion"
                 value="true"
             />
-            <label for="page-count-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+            <label for="page-count-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
         </div>
 
         <div ng-show="device.pageCountQuestion === 'true'">
             <div class="form__field" >
-                <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
+                <label translate="REQUEST_MAN.COMMON.TXT_ENTER_PAGE_COUNTS"></label>
                 <div class="col-2-3">
                     <div select-page-count module="device" source='decommission'></div>
                 </div>

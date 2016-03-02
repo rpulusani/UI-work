@@ -54,7 +54,7 @@ define(['angular',
 
 
             function configureReviewTemplate(){
-                    $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                    $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_SUBMIT_REGISTRATION_REQUEST';
                     $scope.updateSRObjectForSubmit();
                     $scope.configure.actions.submit = function(){
                       if(!$scope.isLoading) {
@@ -119,8 +119,8 @@ define(['angular',
                     };
                     $scope.configure.queued = true;
                   } else {
-                    $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_SUBMITTED";
-                    $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
+                    $scope.configure.header.translate.h1 = "REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_SUBMITTED";
+                    $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
                     $scope.configure.header.translate.bodyValues= {
                         'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                         'srHours': 24,
@@ -128,7 +128,7 @@ define(['angular',
                     };
                     $scope.configure.receipt = {
                         translate: {
-                            title:"DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL",
+                            title:"REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS",
                             titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                         }
                     };
@@ -140,9 +140,9 @@ define(['angular',
                     $scope.configure = {
                         header: {
                             translate: {
-                                h1: 'DEVICE_SERVICE_REQUEST.ADD',
-                                body: 'MESSAGE.LIPSUM',
-                                readMore: 'Learn more about requests'
+                                h1: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE',
+                                body: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE_PAR',
+                                readMore: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_LEARN_MORE'
                             },
                             readMoreUrl: '/service_requests/learn_more',
                             showCancelBtn: false
@@ -150,41 +150,41 @@ define(['angular',
                         device: {
                             information:{
                                 translate: {
-                                    title: 'DEVICE_MGT.DEVICE_INFO',
-                                    serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                    partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                    product: 'DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER',
-                                    ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                    hostName: 'DEVICE_MGT.HOST_NAME',
-                                    costCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
-                                    chl: 'DEVICE_MGT.CHL',
-                                    customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
-                                    installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                    linkMakeChangesTxt: 'LABEL.MAKE_CHANGES'
+                                    title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                                    serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                                    partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                                    product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                    ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                                    hostName: 'REQUEST_MAN.COMMON.TXT_HOSTNAME',
+                                    costCenter: 'REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER',
+                                    chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
+                                    customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
+                                    installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                    linkMakeChangesTxt: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES'
                                 },
                                 linkMakeChanges: '/service_requests/devices/new'
 
                             },
                             pageCount:{
                                 translate: {
-                                    title: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
+                                    title: 'REQUEST_MAN.COMMON.TXT_PAGE_COUNTS'
                                 },
                                 source: 'add'
                             },
                             contact: {
                                 translate:{
-                                    title:'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                                    title:'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
                                 }
                             }
                         },
                         detail: {
                             translate: {
-                                title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                                referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                                costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                                comments: 'LABEL.COMMENTS',
-                                attachments: 'LABEL.ATTACHMENTS',
-                                attachmentMessage: 'MESSAGE.ATTACHMENT',
+                                title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                                referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                                costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                                comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                                attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
+                                attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                                 fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                             },
                             show: {
@@ -196,17 +196,17 @@ define(['angular',
                         },
                         actions: {
                             translate: {
-                                abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON',
-                                submit: 'LABEL.REVIEW_SUBMIT'
+                                abandonRequest:'REQUEST_MAN.COMMON.BTN_ABANDON_REGISTRATION',
+                                submit: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_SUBMIT_REGISTRATION_REQUEST'
                             },
                             submit: $scope.goToReview
                         },
                         contact:{
                             translate: {
-                                title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                                requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                                primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                                changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                                title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                                requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                                primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                                changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
                             },
                             show:{
                                 primaryAction : true
@@ -230,21 +230,21 @@ define(['angular',
                         },
                         addressPicker: {
                             translate: {
-                                currentInstalledAddressTitle: 'DEVICE_SERVICE_REQUEST.CURRENTLY_INSTALLED_AT',
-                                replaceAddressTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_ADDRESS_WITH'
+                                currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
+                                replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                             },
                             sourceAddress: $scope.device.address
                         },
                         devicePicker: {
                             translate: {
-                                currentDeviceTitle: 'DEVICE_SERVICE_REQUEST.DEVICE_SELECTED_FOR_REMOVAL',
-                                replaceDeviceTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_DEVICE_WITH',
-                                h1: 'DEVICE_MGT.REMOVE_A_DEVICE',
-                                body: 'MESSAGE.LIPSUM',
+                                currentDeviceTitle: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_DEVICE_SELECTED_FOR_REMOVAL',
+                                replaceDeviceTitle: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_DEVICE_DEVICE_FOR_INSTALL',
+                                h1: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL',
+                                body: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL_PAR',
                                 readMore: '',
                                 confirmation:{
-                                        abandon:'DEVICE_MGT.DISCARD_DEVICE_REMOVAL_CHANGES',
-                                        submit: 'DEVICE_MGT.CHANGE_DEVICE_TO_BE_REMOVED'
+                                        abandon:'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.BTN_ABANDON_DEVICE_SELECTION',
+                                        submit: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.BTN_APPLY_DEVICE_SELECTION'
                                 }
                             },
                             readMoreUrl: ''
