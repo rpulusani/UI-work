@@ -556,6 +556,24 @@ define([
                     permissionSet.serviceRequestManagement.addressMADC,
                     permissionSet.serviceRequestManagement.contactMADC
                 ]
+            },
+            {
+                name: 'translationAdminAccess',
+                permission: permissionSet.admin.translationManager
+            },
+            {
+                name: 'portalAdminAccess',
+                permission:[
+                    permissionSet.admin.homepage,
+                    permissionSet.admin.translationManager,
+                    permissionSet.userManagement.impersonate,
+                    permissionSet.contentManagement.viewNonstrategic,
+                    permissionSet.contentManagement.viewStrategic,
+                    permissionSet.contentManagement.upload,
+                    permissionSet.contentManagement.deleteMy,
+                    permissionSet.contentManagement.deleteAll,
+                    permissionSet.contentManagement.manageAccountTag
+                ]
             }
         ];
         new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
