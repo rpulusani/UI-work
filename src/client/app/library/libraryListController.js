@@ -10,6 +10,8 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
+            Documents.columns = Documents.columnDefs.defaultSet;
+
             $scope.gridOptions.showBookmarkColumn = false;
             var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
 
