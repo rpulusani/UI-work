@@ -52,7 +52,6 @@ define(['angular',
             $scope.setTransactionAccount('DeviceAdd', Devices);
             new SecurityHelper($rootScope).redirectCheck($rootScope.addDevice);
 
-
             function configureReviewTemplate(){
                     $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
                     $scope.updateSRObjectForSubmit();
@@ -308,7 +307,7 @@ define(['angular',
                         });
                     }
                 });
-
+                
                 if ($rootScope.selectedContact &&
                         $rootScope.returnPickerObject){
                     $scope.device = $rootScope.returnPickerObject;
@@ -391,6 +390,9 @@ define(['angular',
                     } else {
                         $scope.getRequestor(ServiceRequest, Contacts);
                     }
+
+                    Devices.item = $scope.device;
+
                 }
                    $scope.updateSRObjectForSubmit = function() {
                     ServiceRequest.item =  $scope.sr;

@@ -250,7 +250,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                     statusItemClone.label = statusBarLevels[i].name;
                     statusBarList.push(statusItemClone);
                 }
-                console.log(statusBarList);
+
                 return statusBarList;
             }
 
