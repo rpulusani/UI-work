@@ -13,5 +13,20 @@
     <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
             translate="USER.CANCEL_INVITATION"></button>
 </div>
-<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
-<div pagination grid="{{gridOptions}}"></div>
+<div class="alert alert--info" ng-if="gridLoading === true">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="GRID.LOADING"></span>
+        </div>
+</div>
+
+<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="GRID.EMPTY"></span>
+        </div>
+</div>
+<div ng-if="gridLoading === false && gridDataCnt > 0">
+	<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+	<div pagination grid="{{gridOptions}}"></div>
+</div>

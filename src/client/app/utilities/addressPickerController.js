@@ -28,18 +28,19 @@ define(['angular', 'utility', 'utility.grid'], function(angular) {
                 return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
             };
 
-            $scope.isRowSelected = function(){
+            $scope.isRowSelected = function() {
                 if ($rootScope.currentSelectedRow) {
-                   $rootScope.selectedAddress = $rootScope.currentSelectedRow;
-                   $scope.formattedSelectedAddress = FormatterService.formatAddress($rootScope.selectedAddress);
-                   return true;
+                    $scope.selectedAddress = $rootScope.currentSelectedRow;
+                    $scope.formattedSelectedAddress = FormatterService.formatAddress($rootScope.selectedAddress);
+                    return true;
                 } else {
                     $scope.formattedSelectedAddress = undefined;
-                   return false;
+                    return false;
                 }
             };
 
             $scope.goToCallingPage = function() {
+                $rootScope.selectedAddress = $scope.selectedAddress;
                 $location.path($rootScope.addressReturnPath);
             };
 

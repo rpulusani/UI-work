@@ -1,11 +1,11 @@
  <div class="btns">
-    <button name="cancel"
+    <button type="button" name="cancel"
         class="btn btn--secondary"
         data-js="modalOpen"
         data-target="#cancel"
         translate="{{configure.actions.translate.abandonRequest}}"
     ></button>
-    <button class="Button Button--default btn btn--primary" ng-disabled="configure.actions.disabled"
+    <button type="submit" class="Button Button--default btn btn--primary" ng-disabled="configure.actions.disabled"
             v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
             ng-click="formSubmit(configure.actions.submit)"><span translate="{{configure.actions.translate.submit}}"></span></button>
 

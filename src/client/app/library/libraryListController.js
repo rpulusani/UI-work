@@ -10,6 +10,8 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             var personal = new Personalize($location.url(), $rootScope.idpUser.id),
             filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
+            Documents.columns = Documents.columnDefs.defaultSet;
+
             $scope.gridOptions.showBookmarkColumn = false;
             var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
 
@@ -29,9 +31,11 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             );
 
             if ($rootScope.documentLibraryManageGlobalTagAccess) {
-                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountFilter', undefined,
-                    function() {
-                        $scope.$broadcast('setupColumnPicker', $scope);
+                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountAllFilter', undefined,
+                    function(Grid) {
+                        setTimeout(function() {
+                            $scope.$broadcast('setupColumnPicker', Grid);
+                        }, 500);
                     }
                 );
             }

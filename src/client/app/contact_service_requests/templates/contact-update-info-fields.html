@@ -1,11 +1,11 @@
 <div class="col-lg-2-3 col-md-1-1">
     <div ng-if="updatedContactAddress" class="alert alert--error">
-            <icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
-            <div class="alert__body">
-                <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG_START"></span>
-                "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"
-                <span translate="CONTACT_SERVICE_REQUEST.ADDRESS_UPDATE_NOT_SAVED"></span>
-            </div>
+        <icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+        <div class="alert__body">
+            <span translate="CONTACT_SERVICE_REQUEST.UPDATE_MSG_START"></span>
+            "<span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span>"
+            <span translate="CONTACT_SERVICE_REQUEST.ADDRESS_UPDATE_NOT_SAVED"></span>
+        </div>
     </div>
 
     <form class="form" data-form="" name="editContact" method="post" ng-submit="editContact.$valid && saveContact('editContact')" novalidate="">
@@ -16,6 +16,10 @@
         <div class="form__field form__field--required">
             <label translate="CONTACT_MAN.COMMON.TXT_FIRST_NAME"></label>
             <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" required />
+        </div>
+        <div class="form__field">
+            <label translate="CONTACT.MIDDLE_NAME"></label>
+            <input name="middleName" type="text" ng-model="contact.middleName" value="" class="" />
         </div>
         <div class="form__field">
             <label translate="CONTACT_MAN.COMMON.TXT_LAST_NAME"></label>

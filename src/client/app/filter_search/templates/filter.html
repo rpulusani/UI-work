@@ -34,8 +34,10 @@
             params="currentParams" filter-def="currentFunctionDef"></div>
         <div account-filter ng-if="currentFilterPanel == 'AccountFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
+        <div account-all-filter ng-if="currentFilterPanel == 'AccountAllFilter'"
+            params="currentParams" filter-def="currentFunctionDef"></div>
         <div invoice-date-filter ng-if="currentFilterPanel == 'InvoiceDateFilter'"
-		    params="currentParams" filter-def="currentFunctionDef"></div>
+            params="currentParams" filter-def="currentFunctionDef"></div>
         <div meter-read-type-filter ng-if="currentFilterPanel == 'MeterReadTypeFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
         <div sold-to-filter ng-if="currentFilterPanel == 'SoldToFilter'"

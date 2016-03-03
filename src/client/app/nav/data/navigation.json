@@ -143,7 +143,7 @@
     "action": "",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_PORTAL_ADMINISTRATION",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_PORTAL_ADMINISTRATION",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"portalAdminAccess",
     "icon": "icon icon-mps-admin",
     "tags":["admin"],
     "dropdown": true,
@@ -154,7 +154,7 @@
     "action": "/library",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_DOCUMENT_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_DOCUMENT_MANAGEMENT",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"documentLibraryAccess",
     "icon": "",
     "tags":["16"]
   },
@@ -163,7 +163,7 @@
     "action": "/notifications",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"translationAdminAccess",
     "icon": "",
     "tags":["16"]
   },
@@ -172,7 +172,7 @@
     "action": "/siebel",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"translationAdminAccess",
     "icon": "",
     "tags":["16"]
   },
@@ -181,7 +181,7 @@
     "action": "/translations",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_TRANSLATION_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_TRANSLATION_MANAGEMENT",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"translationAdminAccess",
     "icon": "",
     "tags":["16"]
   },
@@ -190,8 +190,17 @@
     "action": "/impersonate",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_IMPERSONATION",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_IMPERSONATION",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"userManagementAccess",
     "icon": "",
+    "tags":["16"]
+  },
+  {
+    "id": "22",
+    "action": "/carrier",
+    "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
+    "description": "Some description of this link",
+    "permissionFlag":"viewHomePage",
+    "icon": "portalAdminAccess",
     "tags":["16"]
   }
 ]

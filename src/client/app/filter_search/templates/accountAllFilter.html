@@ -1,0 +1,19 @@
+<br />
+<h4 translate="FILTERS.FILTER_BY_ACCOUNT"></h4>
+
+<div class="well scrollable">
+    <div ng-repeat="account in accounts">
+        <label for="account.name">
+            <input type="checkbox" id="account{{$index + 1}}" name="account{{$index + 1}}"
+                ng-model="account.selected" ng-change="accountsFilter(account)" />
+            {{account.name}}
+        </label>
+    </div>
+</div>
+<br />
+<div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+    <div class="footnotes">
+        <i>{{noOfAccountsSelected}} {{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_ACCOUNT_SELECTED' | translate }}</i>
+        <a href="#" ng-click="clearAccountsFilter()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_CLEAR_ACCOUNT"></a>
+    </div>
+</div>

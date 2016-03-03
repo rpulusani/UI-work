@@ -42,7 +42,8 @@ define(['angular', 'contact'], function(angular) {
             }, 8000);
 
                 $scope.checkAddress = function(contactForm) {
-                    if($scope.checkedAddress === 0){
+                    if($scope.checkedAddress === 0 && $scope.newContactForm.$valid){
+                        $scope.validForm = true;
                         $scope.enteredAddress = {
                             addressLine1: $scope.contact.address.addressLine1,
                             city: $scope.contact.address.city,
@@ -70,6 +71,9 @@ define(['angular', 'contact'], function(angular) {
                                 $scope.saveContact(contactForm);
                             }
                         });
+                    } else {
+                        $scope.validForm = false;
+                        window.scrollTo(0,0);
                     }
                 };
 

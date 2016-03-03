@@ -4,20 +4,24 @@
 </div>
 
 <h4 translate="CONTACT_MAN.ADD_CONTACT.TXT_WHO_TO_ADD_QUERY"></h4>
-<div class="form__field form__field--required">
+<div class="form__field form__field--required" ng-class="(!newContactForm.firstName.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_FIRST_NAME"></label>
     <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" required />
 </div>
 <div class="form__field">
+    <label translate="CONTACT.MIDDLE_NAME"></label>
+    <input name="middleName" type="text" ng-model="contact.middleName" value="" class="" />
+</div>
+<div class="form__field form__field--required" ng-class="(!newContactForm.lastName.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_LAST_NAME"></label>
-    <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" />
+    <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" required />
 </div>
 
-<div class="form__field form__field--required">
+<div class="form__field form__field--required" ng-class="(!newContactForm.email.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_EMAIL"></label>
     <input name="email" type="text" ng-model="contact.email" value="" class="" required />
 </div>
-<div class="form__field form__field--required">
+<div class="form__field form__field--required" ng-class="(!newContactForm.workPhone.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_PHONE"></label>
     <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" required />
 </div>
@@ -34,7 +38,7 @@
             <span translate="LABEL.ERROR_REQUIRED"></span>
         </span>
     </div>
-    <div class="form__field form__field--required">
+    <div class="form__field form__field--required" ng-class="(!newContactForm.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_1"></label>
         <input name="addressLine1" type="text" ng-model="contact.address.addressLine1" required/>
         <span ng-hide="!newAddress.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
@@ -46,7 +50,7 @@
         <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_2"></label>
         <input name="addressLine2" type="text" ng-model="contact.address.addressLine2" />
     </div>
-    <div class="form__field form__field--required">
+    <div class="form__field form__field--required" ng-class="(!newContactForm.city.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="CONTACT_MAN.COMMON.TXT_CITY"></label>
         <input name="city" type="text" ng-model="contact.address.city" required />
         <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
@@ -65,7 +69,7 @@
     </div>
     <div class="row">
         <div class="col-md-1-3">
-            <div class="form__field form__field--required">
+            <div class="form__field form__field--required" ng-class="(!newContactForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="CONTACT_MAN.COMMON.TXT_ZIP_CODE"></label>
                 <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class="" required />
                 <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">

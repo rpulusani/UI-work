@@ -147,6 +147,7 @@ define([
     'filterSearch.dateRangeFilterController',
     'filterSearch.invoiceDateFilterController',
     'filterSearch.accountFilterController',
+    'filterSearch.accountAllFilterController',
     'filterSearch.soldToFilterController',
     'filterSearch.meterReadTypeFilterController',
     'filterSearch.categoryFilterController',
@@ -183,6 +184,7 @@ define([
         'mps.deviceManagement',
         'mps.library',
         'mps.siebel',
+        'mps.carrier',
         'mps.translation',
         'mps.pageCount',
         'mps.nav',
@@ -554,6 +556,24 @@ define([
                     permissionSet.serviceRequestManagement.addressMADC,
                     permissionSet.serviceRequestManagement.contactMADC
                 ]
+            },
+            {
+                name: 'translationAdminAccess',
+                permission: permissionSet.admin.translationManager
+            },
+            {
+                name: 'portalAdminAccess',
+                permission:[
+                    permissionSet.admin.homepage,
+                    permissionSet.admin.translationManager,
+                    permissionSet.userManagement.impersonate,
+                    permissionSet.contentManagement.viewNonstrategic,
+                    permissionSet.contentManagement.viewStrategic,
+                    permissionSet.contentManagement.upload,
+                    permissionSet.contentManagement.deleteMy,
+                    permissionSet.contentManagement.deleteAll,
+                    permissionSet.contentManagement.manageAccountTag
+                ]
             }
         ];
         new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
@@ -567,7 +587,6 @@ define([
               // Construct a display name for rest of login session
               var user = $rootScope.currentUser;
               $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
-              console.log($rootScope.currentUser);
             });
 
         }, function(reason) {

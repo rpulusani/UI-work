@@ -14,16 +14,19 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
             this.serviceInfo = {};
             this.optionsName = 'gridOptions';
             this.gridOptions = {};
-            this.enableServerSort = false;
+            this.enableServerSort = true;
         };
+        
         Grid.prototype.setGridOptionsName = function(newName) {
             this.optionsName = newName;
             this[this.optionsName] = {};
         };
+
         Grid.prototype.clearGridParamsRootScope = function($rootScope){
             $rootScope.gridApi = undefined;
             $rootScope.currentRowList = undefined;
         };
+
         Grid.prototype.getGridActions =  function($rootScope, service, personal){
             var self = this;
             return function( gridApi ) {
@@ -36,8 +39,9 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
 
                         if (sortColumns.length == 0) {
                             currentDir = null;
+                            service.params.sort = null;
                         } else {
-                            currentDir = sortColumns[0].sort.direction;
+                            currentDir = sortColumns[0].sort.direction.toUpperCase();
 
                             if (!sortColumns[0].colDef.searchOn) {
                                 service.params.sort = sortColumns[0].field;
@@ -46,24 +50,18 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                             }
                         }
 
-                        switch(currentDir) {
-                          case 'asc':
-                            service.params.direction = 'ASC';
-                            break;
-                          case 'desc':
-                            service.params.direction = 'DESC';
-                            break;
-                          default:
+                        service.params.direction = currentDir;
+
+                        if (service.springSorting) {
+                            service.params[service.params.sort + '.dir'] = currentDir;
                             service.params.direction = null;
-                            service.params.sort = null;
-                            break;
-                        }
+                        } 
 
                         self.gridOptions.data = [];
-                        service.data = [];
 
                         service.get().then(function (data) {
-                            self.gridOptions.data = service.data;
+                            self.gridOptions.data = self.getDataWithDataFormatters(service.data, service.functionArray);
+                            $rootScope.gridApi.core.refresh();
                         });
                     });
                 }
@@ -100,6 +98,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 return null;
             }
         };
+
         Grid.prototype.getVisibleColumns = function(service){
             var columnList = this.setColumnDefaults(service.columns, service.columnDefs),
             visibleColumns = [];

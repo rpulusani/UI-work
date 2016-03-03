@@ -68,7 +68,7 @@
                 <span class="push item-icon icon {{item.dropdownIcon}}" ng-if="item.dropdown"></span>
             </a>
             <ul class="sub-nav" ng-if="getItemsByTag(item.id).length > 0 && item.isExpanded">
-                <li ng-repeat="child in getItemsByTag(item.id)" ng-if="item.permissionFlag">
+                <li ng-repeat="child in getItemsByTag(item.id)" ng-if="child.permissionFlag">
                     <a class="nav-item" href="{{child.action}}" title="{{child.description}}"
                     ng-class="{'is-active': isActive(child)}" ng-click="setActive(child.text)">
                         <span class="item-icon {{child.icon}}" ng-if="child.icon != ''"></span>

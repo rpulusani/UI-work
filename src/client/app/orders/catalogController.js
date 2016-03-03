@@ -83,7 +83,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     };
                     $scope.configure.actions.translate = {
                             abandonRequest:'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
-                            submit: 'ORDER_CATALOGS.COMMON.BTN_REVIEW_AND_SUBMIT'
+                            submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                     };
                 }else if($scope.type  === 'SUPPLIES'){
                     $scope.configure.header = {
@@ -94,7 +94,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
                     };
                     $scope.configure.actions.translate = {
                             abandonRequest:'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
-                            submit: 'ORDER_CATALOGS.COMMON.BTN_REVIEW_AND_SUBMIT'
+                            submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                     };
                 }
                 function getParts(){
