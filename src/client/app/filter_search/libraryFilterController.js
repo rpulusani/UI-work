@@ -1,8 +1,13 @@
 define(['angular', 'filterSearch'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .controller('LibraryFilterController', ['$scope', '$translate', 'Tags', 'Owners',
-        function($scope, $translate, Tags, Owners) {
+    .controller('LibraryFilterController', ['$scope', '$translate', '$rootScope', 'Tags', 'Owners',
+        function($scope, $translate, $rootScope, Tags, Owners) {
+
+            if ($rootScope.documentLibraryViewStrategicAccess) {
+                $scope.renderStrategicColumn = true;
+            }
+
             $scope.showCategoryClearMessage = false;
             $scope.showOwnerClearMessage = false;
             $scope.showTagClearMessage = false;
