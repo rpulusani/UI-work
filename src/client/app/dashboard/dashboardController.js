@@ -38,21 +38,23 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     params: {
                         accountId: $rootScope.currentAccount.accountId,
                         accountLevel: $rootScope.currentAccount.accountLevel,
-                        status:  ['SUBMITTED', 'IN_PROCESS', 'SHIPPED']
+                        status:  ['SUBMITTED', 'IN_PROCESS', 'SHIPPED'],
+                        'type': 'BREAK_FIX'
                     }
                 }).then(function(res) {
                     $scope.srOpenCnt = ServiceRequests.page.totalElements;
-                    
+
                     getSRCompletedCnt();
                 });
-            }, 
+            },
             getSRCompletedCnt = function() {
                 ServiceRequests.get({
                     preventDefaultParams: true,
                     params: {
                         accountId: $rootScope.currentAccount.accountId,
                         accountLevel: $rootScope.currentAccount.accountLevel,
-                        status:  ['COMPLETED']
+                        status:  ['COMPLETED'],
+                        'type': 'BREAK_FIX'
                     }
                 }).then(function(res) {
                     $scope.srCompletedCnt = {total: ServiceRequests.page.totalElements};
@@ -64,7 +66,8 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     params: {
                         accountId: $rootScope.currentAccount.accountId,
                         accountLevel: $rootScope.currentAccount.accountLevel,
-                        status:  ['SUBMITTED']
+                        status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
+                        type: 'SUPPLIES_ORDERS_ALL'
                     }
                 }).then(function(res) {
                     $scope.srOrderCnt = Orders.page.totalElements;
@@ -77,7 +80,8 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                     params: {
                         accountId: $rootScope.currentAccount.accountId,
                         accountLevel: $rootScope.currentAccount.accountLevel,
-                        status:  ['COMPLETED']
+                        status:  ['COMPLETED'],
+                        type: 'SUPPLIES_ORDERS_ALL'
                     }
                 }).then(function(res) {
                     $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
@@ -92,7 +96,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                         type: [
                             'MADC_ALL'
                         ],
-                        status:  ['SUBMITTED']
+                        status:  ['SHIPPED','IN_PROCESS','SUBMITTED']
                     }
                 }).then(function(res) {
                     $scope.srMADCCnt = ServiceRequests.page.totalElements;
@@ -129,7 +133,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
                 $scope.chartObject.fleetAvailability.dataPoint = d.fleetAvailability;
 
                 $scope.fleetPeriod = data.stat[0].period;
-                
+
                 $scope.chartObject.fleetAvailability.data = {
                     "cols": [
                         {id: "t", label: $translate.instant("REPORTING.FLEET_AVAILABILITY"), type: "string"},
@@ -357,7 +361,7 @@ define(['angular', 'dashboard', 'googlecharting'], function(angular) {
             getSRMADCCnt();
 
             Reports.getPage().then(function() {
-                var i = 0, 
+                var i = 0,
                 tmp = Reports.data;
 
                 $scope.finder = Reports.finder;
