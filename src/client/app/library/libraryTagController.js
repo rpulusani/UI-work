@@ -77,8 +77,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
 
                 var parsedTagName = $scope.transformTag($scope.tagName);
 
-                var tagLocalizations = [];
-                tagLocalizations.push({'EN': $scope.tagName});
+                var tagLocalizations = {'EN': $scope.tagName};
 
                 Translations.newMessage();
                 Translations.addField('key', 'DOCUMENT.' + parsedTagName);
