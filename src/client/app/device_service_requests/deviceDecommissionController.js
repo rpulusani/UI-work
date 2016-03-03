@@ -78,7 +78,7 @@ define(['angular',
                 if (!BlankCheck.isNull(Devices.item['address'])) {
                     $scope.device.installAddress = $scope.device['address']['item'];
                 }
-                if (!BlankCheck.isNull(Devices.item['contact'])) {
+                if (!BlankCheck.isNull(Devices.item['contact']) && !$scope.device.primaryContact) {
                     $scope.device.primaryContact = $scope.device['contact']['item'];
                 }
 
@@ -321,15 +321,9 @@ define(['angular',
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 
-            if (!BlankCheck.isNull($scope.device.primaryContact) ||
-                !BlankCheck.isNull($rootScope.decommissionContact)){
+            if (!BlankCheck.isNull($scope.device.primaryContact)){
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
-                if ($rootScope.decommissionContact) {
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($rootScope.decommissionContact);
-                } else {
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
-                }
-
+                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
             }
 
             if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {

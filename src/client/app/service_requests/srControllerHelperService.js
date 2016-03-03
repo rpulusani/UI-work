@@ -160,8 +160,10 @@ define(['angular', 'serviceRequest'], function(angular) {
                     Users.item.links.contact().then(function() {
                         scope.device.requestedByContact = Users.item.contact.item;
                         ServiceRequest.addRelationship('requester', $rootScope.currentUser, 'contact');
-                        scope.device.primaryContact = scope.device.requestedByContact;
-                        ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
+                        if (!scope.device.primaryContact) {
+                            scope.device.primaryContact = scope.device.requestedByContact;
+                            ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
+                        }
                         scope.requestedByContactFormatted =
                         FormatterService.formatContact(scope.device.requestedByContact);
                     });
