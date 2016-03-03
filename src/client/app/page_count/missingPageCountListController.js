@@ -78,7 +78,9 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                         data: ltpc 
                     }).then(function() {
                         if (!BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) || !BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)) {
-                            $window.location.reload();
+                            setTimeout(function() {
+                                $scope.searchFunctionDef({'embed': 'asset'}, undefined);
+                            }, 3000);
                         }
                     });
                 }
@@ -103,7 +105,9 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                         data: color
                     }).then(function() {
                         MeterReads.wasSaved = true;
-                        $window.location.reload();
+                        setTimeout(function() {
+                            $scope.searchFunctionDef({'embed': 'asset'}, undefined);
+                        }, 3000);
                     });
                 }
             };
