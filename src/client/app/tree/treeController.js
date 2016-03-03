@@ -50,37 +50,41 @@ define([
             }
 
             if ($scope.treeType && $scope.treeType === 'chl') {
-                Users.getTransactionalAccounts().then(function(accounts) {
-                    if(accounts._embedded && accounts._embedded.transactionalAccounts 
-                        && accounts._embedded.transactionalAccounts.length > 0) {
-                        var promises = [];
-                        for (i=0; i<accounts._embedded.transactionalAccounts.length; i++) {
-                            var item = accounts._embedded.transactionalAccounts[i].account;
-                            item._links = {
-                                self: {}
-                            };
-                            item._links.self = accounts._embedded.transactionalAccounts[i]._links.account;
-                            deferred = $q.defer();
-                            var promise = setChlChildren(item, deferred);
-                            promises.push(promise);
-                        }
-                        $q.all(promises).then(function(response) {
-                            for (i=0; i<response.length; i++) {
-                                if(response[i]
-                                && response[i].data 
-                                && response[i].data._embedded 
-                                && response[i].data._embedded.childAccounts 
-                                && response[i].data._embedded.childAccounts.length > 0) {
-                                    var childAccounts = response[i].data._embedded.childAccounts;
-                                    for (var j=0; j<childAccounts.length; j++) {
-                                        var childItem = childAccounts[j];
-                                        $scope.items.push(childItem);  
+                if ($rootScope.currentAccount.accountLevel !== 'siebel') {
+                    Users.getTransactionalAccounts().then(function(accounts) {
+                        if(accounts._embedded && accounts._embedded.transactionalAccounts 
+                            && accounts._embedded.transactionalAccounts.length > 0) {
+                            var promises = [];
+                            for (i=0; i<accounts._embedded.transactionalAccounts.length; i++) {
+                                var item = accounts._embedded.transactionalAccounts[i].account;
+                                item._links = {
+                                    self: {}
+                                };
+                                item._links.self = accounts._embedded.transactionalAccounts[i]._links.account;
+                                deferred = $q.defer();
+                                var promise = setChlChildren(item, deferred);
+                                promises.push(promise);
+                            }
+                            $q.all(promises).then(function(response) {
+                                for (i=0; i<response.length; i++) {
+                                    if(response[i]
+                                    && response[i].data 
+                                    && response[i].data._embedded 
+                                    && response[i].data._embedded.childAccounts 
+                                    && response[i].data._embedded.childAccounts.length > 0) {
+                                        var childAccounts = response[i].data._embedded.childAccounts;
+                                        for (var j=0; j<childAccounts.length; j++) {
+                                            var childItem = childAccounts[j];
+                                            $scope.items.push(childItem);  
+                                        }
                                     }
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
+                } else {
+                    
+                }
             } else if ($scope.treeType && $scope.treeType === 'daAccounts') {
                 if($scope.initialItem) {
                     $scope.items.push($scope.initialItem);  
