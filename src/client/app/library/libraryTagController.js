@@ -113,6 +113,38 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
                 });
+
+                var opts = {
+                    params: {
+                        category: 'DOCUMENT',
+                        language: 'EN',
+                        search: $scope.selectedTag
+                    }
+                };
+
+                Translations.get(opts).then(function() {
+                    if (Translations.data) {
+                        for (var i = 0; i < Translations.data.length; i++) {
+                            if (Translations.data[i].actualValue === $scope.selectedTag) {
+                                Translations.setItem(Translations.data[i]);
+                            }
+                        }
+                    }
+
+                    Translations.item.actualValue = $scope.selectedTag;
+
+                    $http({
+                        method: 'PUT',
+                        url: Translations.url + '/' + Translations.item.key,
+                        data: Translations.item
+                    }).then(function successCallback(response) {
+                    }, function errorCallback(response) {
+                        NREUM.noticeError('Failed to MODIFY translation: ' + response.statusText);
+                    });
+                });
+
+                $route.reload();
+
             };
 
             $scope.goToDeleteTag = function() {
