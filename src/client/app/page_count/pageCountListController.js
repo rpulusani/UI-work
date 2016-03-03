@@ -16,6 +16,7 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
         'Devices',
         '$q',
         '$window',
+        '$http',
         function(
             $scope,
             $location,
@@ -30,7 +31,8 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
             MeterReads,
             Devices,
             $q,
-            $window
+            $window,
+            $http
             ) {
             $rootScope.currentRowList = [];
             PageCountService.setParamsToNull();
@@ -61,7 +63,6 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                 
                 if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)) {
                     MeterReads.newMessage();
-
                     ltpc = MeterReads.item;
                     ltpc.postURL = devicePageCount._links.ltpcMeterRead.href;
 
@@ -73,8 +74,7 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                         MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                     }
 
-
-                    MeterReads.get({
+                    $http({
                         method: 'PUT',
                         url: devicePageCount._links.ltpcMeterRead.href,
                         data: ltpc 
@@ -99,7 +99,7 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                         MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                     }
 
-                    MeterReads.get({
+                    $http({
                         method: 'PUT',
                         url: devicePageCount._links.colorMeterRead.href,
                         data: color
