@@ -160,8 +160,10 @@ define(['angular', 'serviceRequest'], function(angular) {
                     Users.item.links.contact().then(function() {
                         scope.device.requestedByContact = Users.item.contact.item;
                         ServiceRequest.addRelationship('requester', $rootScope.currentUser, 'contact');
-                        scope.device.primaryContact = scope.device.requestedByContact;
-                        ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
+                        if (!scope.device.primaryContact) {
+                            scope.device.primaryContact = scope.device.requestedByContact;
+                            ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
+                        }
                         scope.requestedByContactFormatted =
                         FormatterService.formatContact(scope.device.requestedByContact);
                     });
@@ -243,14 +245,14 @@ define(['angular', 'serviceRequest'], function(angular) {
 
                 for(var i=0; i<statusBarLevels.length; i++){
                     var statusItemClone = angular.copy(statusItem);
-                    if(currentStatus === statusBarLevels[i].value){
+                    if(currentStatus.toLowerCase().replace(/_/g, '') === statusBarLevels[i].value.toLowerCase()){
                         statusItemClone.date = formattedStatusDate;
                         statusItemClone.current = true;
                     }
                     statusItemClone.label = statusBarLevels[i].name;
                     statusBarList.push(statusItemClone);
                 }
-                console.log(statusBarList);
+
                 return statusBarList;
             }
 

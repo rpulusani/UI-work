@@ -153,7 +153,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     $scope.meterReads = MeterReads.data;
                     $scope.showAllMeterReads = false;
 
-                    for (i=0 ; i<= $scope.meterReads.length; i++) {
+                    for (var i=0 ; i<= $scope.meterReads.length; i++) {
                         if($scope.meterReads[i] && $scope.meterReads[i].type){
                             switch($scope.meterReads[i].type){
                                 case 'LTPC':
@@ -202,17 +202,21 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
 
             }
 
-            if($scope.device !== null && $scope.device !== undefined){
+            if ($scope.device !== null && $scope.device !== undefined){
                  $scope.device.installDate = new Date($scope.device.installDate);
             }
-            if($scope.installAddress !== null && $scope.installAddress !== undefined){
+            if ($scope.installAddress !== null && $scope.installAddress !== undefined){
                 $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
             }
-            if($scope.primaryContact !== null && $scope.primaryContact !== undefined){
+            if ($scope.primaryContact !== null && $scope.primaryContact !== undefined){
+                    $scope.formattedContactAddress = "";
                     $scope.primaryContact.formattedName = FormatterService.getFullName($scope.primaryContact.firstName,
                         $scope.primaryContact.lastName, $scope.primaryContact.middleName);
                     $scope.primaryContact.formattedworkPhone =
                          FormatterService.getPhoneFormat($scope.primaryContact.workPhone);
+                    if ($scope.primaryContact.address !== null && $scope.primaryContact.address !== undefined) {
+                        $scope.formattedContactAddress = FormatterService.formatAddress($scope.primaryContact.address);
+                    }
             }
 
             $scope.goToUpdate = function(device) {

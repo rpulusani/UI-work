@@ -122,7 +122,7 @@ angular.module('mps.form')
         selectric = $('<select></select>');
         if(placeholder) {
           selectric.append(
-            $('<option></option>').text(placeholder)
+            $('<option value=""></option>').text(placeholder)
           );
         }
         if(!options) {
@@ -155,7 +155,7 @@ angular.module('mps.form')
                      option = item;
                    }
                  });
-                 if(val == '-Select-'){
+                 if(val == ''){
                   option = {};
                  }
                  scope.onSelect({option: option});
