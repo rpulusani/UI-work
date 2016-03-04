@@ -1,31 +1,28 @@
 <h3 translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_IDENTIFICATION"></h3>
 
 <div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_LXK_DEVICE_QUERY"></strong></div>
+<div ng-init="device.lexmarkDeviceQuestion ? device.lexmarkDeviceQuestion=true : device.lexmarkDeviceQuestion " />
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="lexmark-device-question-no"
+            name="lexmark-device-question"
+            ng-model="device.lexmarkDeviceQuestion"
+            ng-value="false"
+        />
+        <label for="lexmark-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+    </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="lexmark-device-question-no"
-        name="lexmark-device-question"
-        ng-model="device.lexmarkDeviceQuestion"
-        value="false"
-        data-js="customInput"
-    />
-    <label for="lexmark-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="lexmark-device-question-yes"
+            name="lexmark-device-question"
+            ng-model="device.lexmarkDeviceQuestion"
+            ng-value="true"
+        />
+        <label for="lexmark-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
+    </div>
 </div>
-
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="lexmark-device-question-yes"
-        name="lexmark-device-question"
-        ng-model="device.lexmarkDeviceQuestion"
-        value="true"
-        data-js="customInput"
-        checked
-    />
-    <label for="lexmark-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
-</div>
-
-<div ng-hide="device.lexmarkDeviceQuestion === 'true'">
+<div ng-hide="device.lexmarkDeviceQuestion === true">
     <div class="form__field" >
         <label translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></label>
         <input name="productModel" type="text" ng-model="device.productModel" value="" class="" />
@@ -37,7 +34,7 @@
     </div>
 </div>
 
-<div ng-show="device.lexmarkDeviceQuestion === 'true'">
+<div ng-show="device.lexmarkDeviceQuestion === true">
     <div class="form__field" >
         <label translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></label>
         <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels()" value="" class="" />
@@ -59,30 +56,29 @@
 
 <div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></strong></div>
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-install-question-no"
-        name="device-install-question"
-        ng-model="device.deviceInstallQuestion"
-        value="false"
-        data-js="customInput"
-        checked
-    />
-    <label for="device-install-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+<div ng-init="device.deviceInstallQuestion ? device.deviceInstallQuestion : device.deviceInstallQuestion=false " />
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="device-install-question-no"
+            name="device-install-question"
+            ng-model="device.deviceInstallQuestion"
+            ng-value="false"
+        />
+        <label for="device-install-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    </div>
+
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="device-install-question-yes"
+            name="device-install-question"
+            ng-model="device.deviceInstallQuestion"
+            ng-value="true"
+        />
+        <label for="device-install-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+    </div>
 </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-install-question-yes"
-        name="device-install-question"
-        ng-model="device.deviceInstallQuestion"
-        value="true"
-        data-js="customInput"
-    />
-    <label for="device-install-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
-</div>
-
-<div ng-hide="device.deviceInstallQuestion === 'true'">
+<div ng-hide="device.deviceInstallQuestion === true">
     <div class="form__field" >
         <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_INSTALLED"></strong>
         <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"/>
@@ -90,8 +86,8 @@
 </div>
 
 <div>
-    <strong ng-hide="device.deviceInstallQuestion === 'true'" translate="REQUEST_MAN.COMMON.TXT_WHERE_INSTALLED"></strong>
-    <strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
+    <strong ng-hide="device.deviceInstallQuestion === true" translate="REQUEST_MAN.COMMON.TXT_WHERE_INSTALLED"></strong>
+    <strong ng-show="device.deviceInstallQuestion === true" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
 </div>
 
 <div ng-hide="device.addressSelected">
@@ -121,35 +117,36 @@
 </div>
 
 <div ng-show="device.address && device.address.id">
-    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong> 
+    <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
+    
+    <div ng-init="device.deviceDeInstallQuestion ? device.deviceDeInstallQuestion : device.deviceDeInstallQuestion=false " />
+        <div class="form__field--no-margin">
+            <input type="radio"
+                id="device-deinstall-question-no"
+                name="device-deinstall-question"
+                ng-model="device.deviceDeInstallQuestion"
+                value="false"
+            />
+            <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+        </div>
+        
+        <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong> 
 
-    <div class="form__field form__field--radio form__field--no-margin">
-        <input type="radio"
-            id="device-deinstall-question-no"
-            name="device-deinstall-question"
-            ng-model="device.deviceDeInstallQuestion"
-            value="false"
-            data-js="customInput"
-            checked
-        />
-        <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
-    </div>
-
-    <div class="form__field form__field--radio form__field--no-margin">
-        <input type="radio"
-            id="device-deinstall-question-yes"
-            name="device-deinstall-question"
-            ng-model="device.deviceDeInstallQuestion"
-            value="true"
-            data-js="customInput"
-        />
-        <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        <div class="form__field--no-margin">
+            <input type="radio"
+                id="device-deinstall-question-yes"
+                name="device-deinstall-question"
+                ng-model="device.deviceDeInstallQuestion"
+                value="true"
+            />
+            <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        </div>
     </div>
 
     <p class="footnotes" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_OTHER_LOCATION_REMOVE"></p>
 </div>
 
-<div ng-show="device.deviceDeInstallQuestion === 'true'">
+<div ng-show="device.deviceDeInstallQuestion === true">
     <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_REMOVE_DEVICE"></strong>
     
     <div ng-hide="device.isDeviceSelected">
@@ -201,29 +198,28 @@
 
 <strong translate="REQUEST_MAN.REQUEST_DEVICE_DECOM.TXT_ENTER_PAGE_COUNTS_QUERY"></strong>
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="lexmark-page-count-question-no"
-        name="lexmark-page-count-question"
-        ng-model="device.devicePageCountQuestion"
-        value="false"
-        data-js="customInput"
-        checked
-    />
-    <label for="lexmark-page-count-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
-</div>
- <div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="lexmark-page-count-question-yes"
-        name="lexmark-page-count-question"
-        ng-model="device.devicePageCountQuestion"
-        value="true"
-        data-js="customInput"
-    />
-    <label for="lexmark-page-count-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
+<div ng-init="device.devicePageCountQuestion ? device.devicePageCountQuestion : device.devicePageCountQuestion=false" />
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="lexmark-page-count-question-no"
+            name="lexmark-page-count-question"
+            ng-model="device.devicePageCountQuestion"
+            ng-value="false"
+        />
+        <label for="lexmark-page-count-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+    </div>
+     <div class="form__field--no-margin">
+        <input type="radio"
+            id="lexmark-page-count-question-yes"
+            name="lexmark-page-count-question"
+            ng-model="device.devicePageCountQuestion"
+            ng-value="true"
+        />
+        <label for="lexmark-page-count-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
+    </div>
 </div>
 
-<div ng-show="device.devicePageCountQuestion === 'true'">
+<div ng-show="device.devicePageCountQuestion === true">
     <div class="form__field" >
         <label translate="REQUEST_MAN.COMMON.TXT_ENTER_PAGE_COUNTS"></label>
         <div select-page-count module="device" source='add'></div>
@@ -239,30 +235,29 @@
 
 <div><strong translate="REQUEST_MAN.COMMON.TXT_DEVICE_CHL_QUERY"></strong></div>
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-chl-question-no"
-        name="device-chl-question"
-        ng-model="device.deviceCHLQuestion"
-        value="false"
-        data-js="customInput"
-        checked
-    />
-    <label for="device-chl-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+<div ng-init="device.deviceCHLQuestion ? device.deviceCHLQuestion : device.deviceCHLQuestion=false " />
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="device-chl-question-no"
+            name="device-chl-question"
+            ng-model="device.deviceCHLQuestion"
+            ng-value="false"
+        />
+        <label for="device-chl-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+    </div>
+
+    <div class="form__field--no-margin">
+        <input type="radio"
+            id="device-chl-question-yes"
+            name="device-chl-question"
+            ng-model="device.deviceCHLQuestion"
+            ng-value="true"
+        />
+        <label for="device-chl-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
+    </div>
 </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
-    <input type="radio"
-        id="device-chl-question-yes"
-        name="device-chl-question"
-        ng-model="device.deviceCHLQuestion"
-        value="true"
-        data-js="customInput"
-    />
-    <label for="device-chl-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
-</div>
-
-<div ng-show="device.deviceCHLQuestion === 'true'">
+<div ng-show="device.deviceCHLQuestion === true">
     <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_MANAGEMENT_STRUCT"></strong>
     <div tree class="well scrollable" tree-type='chl' action='selectLevel' value="device.chl"></div>
     <input type="hidden" ng-model="device.chl.id" name="chl-id"/>
