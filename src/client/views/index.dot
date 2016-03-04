@@ -83,10 +83,10 @@
       <div class="user push">
         <div class="user__img pull">
           <div class="user__notify pull l-hidden--gt-tablet"><a class="badge badge--important" href="#notifications">1</a></div>
-          <a href="#UserImg"><img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" /></a>
+          <a href="/profile"><img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" /></a>
         </div>
         <div class="user__info pull text--small l-visible--gt-tablet">
-          <a class="user__name" href="#UserName">{{currentUser.displayName}}</a><br />
+          <a class="user__name" href="/profile">{{currentUser.displayName}}</a><br />
           <a class="user__name" href="#" ng-click="logout()">Log out</a>
         </div>
       </div>

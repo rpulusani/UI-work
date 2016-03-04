@@ -6,6 +6,9 @@ define(['angular'], function(angular) {
         var templateUrl = UrlHelper.user_template;
 
         $routeProvider
+         .when('/profile', {
+            templateUrl: '/app/users/templates/profile.html',
+        })
         .when('/delegated_admin', {
             templateUrl: '/app/users/templates/view.html',
             controller: 'UsersController'
