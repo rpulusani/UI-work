@@ -325,7 +325,23 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
             };
 
             $scope.loadTags = function(query) {
-                return $scope.tags;
+                var opts = { params: { size: 4096, search: query }};
+                var typeAheadTags = [];
+
+                return Tags.get(opts).then(function() {
+                    if (Tags.data) {
+                        var tmp = Tags.data;
+                            for (var i = 0; i < tmp.length; i++) {
+                                var tag = {};
+                                if (tmp[i]['name']) {
+                                    tag.name = tmp[i]['name'];
+                                    typeAheadTags.push(tag);
+                                }
+                            }
+                    }
+
+                    return typeAheadTags;
+                });
             }
 
             $scope.goToDelete = function() {
