@@ -16,6 +16,7 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
         'Devices',
         '$q',
         '$window',
+        '$http',
         function(
             $scope,
             $location,
@@ -30,7 +31,8 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
             MeterReads,
             Devices,
             $q,
-            $window) {
+            $window,
+            $http) {
             $rootScope.currentRowList = [];
             PageCountService.setParamsToNull();
             var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -53,51 +55,61 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                 });
             };
 
-            $scope.save = function(devicePageCount){
-                $scope.meterReadList = [];
-                if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId)) {
+            $scope.save = function(devicePageCount) {
+                var color,
+                ltpc;
+                
+                if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)) {
                     MeterReads.newMessage();
-                    var ltpc = MeterReads.item;
+                    ltpc = MeterReads.item;
                     ltpc.postURL = devicePageCount._links.ltpcMeterRead.href;
+
                     MeterReads.addField('id', devicePageCount.ltpcMeterReadId);
                     MeterReads.addField('value', devicePageCount.newLtpcCount);
                     MeterReads.addField('type', 'LTPC');
+
                     if (BlankCheck.checkNotNullOrUndefined(devicePageCount.currentReadDate)) {
                         MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                     }
-                    $scope.meterReadList.push(ltpc);
+
+                    $http({
+                        method: 'PUT',
+                        url: devicePageCount._links.ltpcMeterRead.href,
+                        data: ltpc 
+                    }).then(function() {
+                        if (!BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) || !BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)) {
+                            setTimeout(function() {
+                                $scope.searchFunctionDef({'embed': 'asset'}, undefined);
+                            }, 3000);
+                        }
+                    });
                 }
-                if (BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId)) {
+
+                if (BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)) {
                     MeterReads.newMessage();
-                    var color = MeterReads.item;
+                    
+                    color = MeterReads.item;
                     color.postURL = devicePageCount._links.colorMeterRead.href;
+
                     MeterReads.addField('id', devicePageCount.colorMeterReadId);
                     MeterReads.addField('value', devicePageCount.newColorCount);
                     MeterReads.addField('type', 'COLOR');
+                    
                     if (BlankCheck.checkNotNullOrUndefined(devicePageCount.currentReadDate)) {
                         MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                     }
-                    $scope.meterReadList.push(color);
-                }
 
-                var deferredList = [];
-                if ($scope.meterReadList && $scope.meterReadList.length > 0) {
-                    for (var i=0;i<$scope.meterReadList.length;i++) {
-                        MeterReads.item.postURL = $scope.meterReadList[i].postURL;
-                        var deferred = MeterReads.put({
-                            item:  $scope.meterReadList[i]
-                        });
-                        deferredList.push(deferred);
-                    }
+                    $http({
+                        method: 'PUT',
+                        url: devicePageCount._links.colorMeterRead.href,
+                        data: color
+                    }).then(function() {
+                        MeterReads.wasSaved = true;
+                        setTimeout(function() {
+                            $scope.searchFunctionDef({'embed': 'asset'}, undefined);
+                        }, 3000);
+                    });
                 }
-
-                $q.all(deferredList).then(function(result) {
-                    MeterReads.wasSaved = true;
-                    $window.location.reload();
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
-                
             };
 
             var removeParamsList = ['from', 'to', 'source', 'location', 'chlFilter'];
