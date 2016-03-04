@@ -16,6 +16,7 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
         'Devices',
         '$q',
         '$window',
+        '$http',
         function(
             $scope,
             $location,
@@ -30,7 +31,8 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
             MeterReads,
             Devices,
             $q,
-            $window
+            $window,
+            $http
             ) {
             $rootScope.currentRowList = [];
             PageCountService.setParamsToNull();
@@ -61,7 +63,6 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                 
                 if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)) {
                     MeterReads.newMessage();
-
                     ltpc = MeterReads.item;
                     ltpc.postURL = devicePageCount._links.ltpcMeterRead.href;
 
@@ -73,14 +74,15 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                         MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                     }
 
-
-                    MeterReads.get({
+                    $http({
                         method: 'PUT',
                         url: devicePageCount._links.ltpcMeterRead.href,
                         data: ltpc 
                     }).then(function() {
                         if (!BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) || !BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)) {
-                            $window.location.reload();
+                            setTimeout(function() {
+                                $scope.searchFunctionDef({'embed': 'asset'}, undefined);
+                            }, 3000);
                         }
                     });
                 }
@@ -99,13 +101,15 @@ define(['angular','pageCount', 'utility.grid'], function(angular) {
                         MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                     }
 
-                    MeterReads.get({
+                    $http({
                         method: 'PUT',
                         url: devicePageCount._links.colorMeterRead.href,
                         data: color
                     }).then(function() {
                         MeterReads.wasSaved = true;
-                        $window.location.reload();
+                        setTimeout(function() {
+                            $scope.searchFunctionDef({'embed': 'asset'}, undefined);
+                        }, 3000);
                     });
                 }
             };

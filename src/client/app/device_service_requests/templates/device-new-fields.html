@@ -1,7 +1,6 @@
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
+<h3 translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_IDENTIFICATION"></h3>
 
-<div><strong translate="DEVICE_SERVICE_REQUEST.LEXMARK_DEVICE_QUESTION"></strong></div>
-
+<div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_LXK_DEVICE_QUERY"></strong></div>
 <div ng-init="device.lexmarkDeviceQuestion ? device.lexmarkDeviceQuestion=true : device.lexmarkDeviceQuestion " />
     <div class="form__field--no-margin">
         <input type="radio"
@@ -10,7 +9,7 @@
             ng-model="device.lexmarkDeviceQuestion"
             ng-value="false"
         />
-        <label for="lexmark-device-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+        <label for="lexmark-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
     </div>
 
     <div class="form__field--no-margin">
@@ -20,29 +19,29 @@
             ng-model="device.lexmarkDeviceQuestion"
             ng-value="true"
         />
-        <label for="lexmark-device-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        <label for="lexmark-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
     </div>
 </div>
-<div ng-hide="device.lexmarkDeviceQuestion === 'true'">
+<div ng-hide="device.lexmarkDeviceQuestion === true">
     <div class="form__field" >
-        <label translate="DEVICE_MGT.PRODUCT_MODEL"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></label>
         <input name="productModel" type="text" ng-model="device.productModel" value="" class="" />
     </div>
     
     <div class="form__field" >
-        <label translate="DEVICE_MGT.SERIAL_NO"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></label>
         <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
     </div>
 </div>
 
-<div ng-show="device.lexmarkDeviceQuestion === 'true'">
+<div ng-show="device.lexmarkDeviceQuestion === true">
     <div class="form__field" >
-        <label translate="DEVICE_MGT.SERIAL_NO"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></label>
         <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels()" value="" class="" />
     </div>
     
     <div class="form__field form__field--select" >
-        <label translate="DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER"></label>
+        <label translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER"></label>
         <div selectric
             model="device.productModel"
             options="device.productNumbers"
@@ -55,7 +54,7 @@
 
 <h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLATION"></h3>
 
-<div><strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALLTION_QUESTION"></strong></div>
+<div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></strong></div>
 
 <div ng-init="device.deviceInstallQuestion ? device.deviceInstallQuestion : device.deviceInstallQuestion=false " />
     <div class="form__field--no-margin">
@@ -79,20 +78,20 @@
     </div>
 </div>
 
-<div ng-hide="device.deviceInstallQuestion === 'true'">
+<div ng-hide="device.deviceInstallQuestion === true">
     <div class="form__field" >
-        <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_DATE_QUESTION"></strong>
+        <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_INSTALLED"></strong>
         <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"/>
     </div>
 </div>
 
 <div>
-    <strong ng-hide="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.OLD_DEVICE_INSTALL_LOCATION"></strong>
-    <strong ng-show="device.deviceInstallQuestion === 'true'" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
+    <strong ng-hide="device.deviceInstallQuestion === true" translate="REQUEST_MAN.COMMON.TXT_WHERE_INSTALLED"></strong>
+    <strong ng-show="device.deviceInstallQuestion === true" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
 </div>
 
 <div ng-hide="device.addressSelected">
-    <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_INSTALL_ADDRESS" 
+    <a href="" translate="REQUEST_MAN.COMMON.LNK_SELECT_INSTALL_ADDR" 
         ng-click="goToAddressPicker('DeviceAdd',device)"></a>
 </div>
 
@@ -100,19 +99,19 @@
     <div class="contact-info">
         <div ng-bind-html="formattedDeviceAddress"></div>
     </div>
-    <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceAdd',device)"></a>
+    <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_CHG_INSTALL_ADDR" ng-click="goToAddressPicker('DeviceAdd',device)"></a>
     <div class="form__field">
-        <label translate="ADDRESS.BUILDING_NAME"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
         <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" />
     </div>
 
     <div class="form__field">
-        <label translate="ADDRESS.FLOOR_NAME"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
         <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" />
     </div>
 
     <div class="form__field">
-        <label translate="ADDRESS.SITE_NAME"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
         <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" />
     </div>
 </div>
@@ -130,6 +129,8 @@
             />
             <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
         </div>
+        
+        <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong> 
 
         <div class="form__field--no-margin">
             <input type="radio"
@@ -141,14 +142,15 @@
             <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
         </div>
     </div>
-    <p class="footnotes" translate="DEVICE_SERVICE_REQUEST.DEINSTALL_NOTE"></p>
+
+    <p class="footnotes" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_OTHER_LOCATION_REMOVE"></p>
 </div>
 
-<div ng-show="device.deviceDeInstallQuestion === 'true'">
-    <strong translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE_TO_REMOVE_FROM_LOCATION"></strong>
+<div ng-show="device.deviceDeInstallQuestion === true">
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_REMOVE_DEVICE"></strong>
     
     <div ng-hide="device.isDeviceSelected">
-        <a href="" translate="DEVICE_SERVICE_REQUEST.BROWSE_DEVICE" ng-click="goToDevicePicker('DeviceAdd',device)"></a>
+        <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_BROWSE_DEVICES" ng-click="goToDevicePicker('DeviceAdd',device)"></a>
     </div>
 
     <div ng-show="device.isDeviceSelected">
@@ -160,15 +162,15 @@
             <div class="media__body">
                 <ul class="info-list text--small vertical-space--none">
                     <li class="info-list__item vertical-space--none">
-                        <div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+                        <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></div>
                         <div class="info-list__item-value" ng-bind="device.selectedDevice.productModel"></div>
                     </li>
                     <li class="info-list__item vertical-space--none">
-                        <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                        <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></div>
                         <div class="info-list__item-value" ng-bind="device.selectedDevice.serialNumber"></div>
                     </li>
                     <li class="info-list__item vertical-space--none">
-                        <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></div>
+                        <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT"></div>
                         <div class="info-list__item-value">
                             <div ng-bind-html="formattedSelectedDeviceContact"></div>
                         </div>
@@ -176,25 +178,25 @@
                 </ul>
             </div>
         </div>
-        <a href="" translate="DEVICE_SERVICE_REQUEST.REMOVE_DIFFERENT_DEVICE"  ng-click="goToDevicePicker('DeviceAdd',device)"></a>
+        <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_DIFFERENT_DEVICE"  ng-click="goToDevicePicker('DeviceAdd',device)"></a>
     </div>
 </div>
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_NETWORK_CONFIG"></h3>
 
 <div class="form__field" >
-    <label translate="DEVICE_MGT.IP_ADDRESS"></label>
+    <label translate="REQUEST_MAN.COMMON.TXT_IP_ADDR"></label>
     <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" />
 </div>
 
 <div class="form__field" >
-    <label translate="DEVICE_MGT.HOST_NAME"></label>
+    <label translate="REQUEST_MAN.COMMON.TXT_HOSTNAME"></label>
     <input name="hostName" type="text" ng-model="device.hostName" value="" class="" />
 </div>
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_PAGE_COUNTS"></h3>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_QUESTION"></strong>
+<strong translate="REQUEST_MAN.REQUEST_DEVICE_DECOM.TXT_ENTER_PAGE_COUNTS_QUERY"></strong>
 
 <div ng-init="device.devicePageCountQuestion ? device.devicePageCountQuestion : device.devicePageCountQuestion=false" />
     <div class="form__field--no-margin">
@@ -204,7 +206,7 @@
             ng-model="device.devicePageCountQuestion"
             ng-value="false"
         />
-        <label for="lexmark-page-count-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+        <label for="lexmark-page-count-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
     </div>
      <div class="form__field--no-margin">
         <input type="radio"
@@ -213,25 +215,25 @@
             ng-model="device.devicePageCountQuestion"
             ng-value="true"
         />
-        <label for="lexmark-page-count-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        <label for="lexmark-page-count-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
     </div>
 </div>
 
-<div ng-show="device.devicePageCountQuestion === 'true'">
+<div ng-show="device.devicePageCountQuestion === true">
     <div class="form__field" >
-        <label translate="DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNT_INSTRUCTION"></label>
+        <label translate="REQUEST_MAN.COMMON.TXT_ENTER_PAGE_COUNTS"></label>
         <div select-page-count module="device" source='add'></div>
     </div>
 </div>
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_DEVICE_BILL_TRACK"></h3>
 
 <div class="form__field">
-    <label translate="DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER"></label>
+    <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></label>
     <input type="text" name="costCenter" ng-model="device.deviceCostCenter" value="" class="" required />
 </div>
 
-<div><strong translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></strong></div>
+<div><strong translate="REQUEST_MAN.COMMON.TXT_DEVICE_CHL_QUERY"></strong></div>
 
 <div ng-init="device.deviceCHLQuestion ? device.deviceCHLQuestion : device.deviceCHLQuestion=false " />
     <div class="form__field--no-margin">
@@ -241,38 +243,38 @@
             ng-model="device.deviceCHLQuestion"
             ng-value="false"
         />
-        <label for="device-chl-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+        <label for="device-chl-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
     </div>
 
-    <div class="orm__field--no-margin">
+    <div class="form__field--no-margin">
         <input type="radio"
             id="device-chl-question-yes"
             name="device-chl-question"
             ng-model="device.deviceCHLQuestion"
-            value="true"
+            ng-value="true"
         />
-        <label for="device-chl-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        <label for="device-chl-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
     </div>
 </div>
 
-<div ng-show="device.deviceCHLQuestion === 'true'">
-    <strong translate="ACCOUNT.ORG_STRUCT"></strong>
+<div ng-show="device.deviceCHLQuestion === true">
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_MANAGEMENT_STRUCT"></strong>
     <div tree class="well scrollable" tree-type='chl' action='selectLevel' value="device.chl"></div>
     <input type="hidden" ng-model="device.chl.id" name="chl-id"/>
 </div>
 
 <div class="form__field" >
-    <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
+    <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_TAG"></label>
     <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class="" />
 </div>
 
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT"></h3>
 
-<label translate="SERVICE_REQUEST.PRIMARY_CONTACT"></label>
+<label translate="REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT"></label>
 
 <div class="contact-info">
     <div ng-bind-html="formattedDeviceContact"></div>
 </div>
 
-<a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('DeviceAdd','updateDeviceContact',device)"></a>
+<a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_CHANGE_CONTACT" ng-click="goToContactPicker('DeviceAdd','updateDeviceContact',device)"></a>

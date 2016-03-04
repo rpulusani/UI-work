@@ -47,7 +47,7 @@ define(['angular', 'pageCount', 'hateoasFactory.serviceFactory', 'utility.format
                             },
                             {'name': 'Save', 'field': 'assetId', 
                              'cellTemplate':'<div>' +
-                                '<a href="#" ng-click="grid.appScope.save(row.entity);" ' +
+                                '<a href="" ng-click="grid.appScope.save(row.entity);" ' +
                                 '>Save</a>' +
                             '</div>', 'notSearchable': true}
                         ],
