@@ -1,8 +1,8 @@
 define(['angular', 'library', 'utility.grid'], function(angular) {
     'use strict';
     angular.module('mps.library')
-    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
-        function($scope, $location, $translate, $route, $http, Documents, Tags, GridService, $rootScope, Personalize, formatter) {
+    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
+        function($scope, $location, $translate, $route, $http, Documents, Tags, Translations, GridService, $rootScope, Personalize, formatter) {
 
             $scope.isCreating = false;
             $scope.isEditing = false;
@@ -71,10 +71,33 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     url: Tags.url,
                     data: Tags.item
                 }).then(function successCallback(response) {
-                    $route.reload();
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to CREATE tag: ' + response.statusText);
                 });
+
+                var parsedTagName = $scope.transformTag($scope.tagName);
+
+                var tagLocalizations = {'EN': $scope.tagName};
+
+                Translations.newMessage();
+                Translations.addField('key', 'DOCUMENT.' + parsedTagName);
+                Translations.addField('type', 'DOCUMENT');
+                Translations.addField('module', 'DOCUMENT');
+                Translations.addField('subModule', 'TAG');
+                Translations.addField('actualValue', $scope.tagName);
+                Translations.addField('values', tagLocalizations);
+                Translations.item.postURL = Translations.url;
+
+                $http({
+                    method: 'POST',
+                    url: Translations.url,
+                    data: Translations.item
+                }).then(function successCallback(response) {
+                }, function errorCallback(response) {
+                    NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
+                });
+
+                $route.reload();
             };
 
             $scope.goToEditTag = function() {
@@ -89,6 +112,38 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
                 });
+
+                var opts = {
+                    params: {
+                        category: 'DOCUMENT',
+                        language: 'EN',
+                        search: $scope.selectedTag
+                    }
+                };
+
+                Translations.get(opts).then(function() {
+                    if (Translations.data) {
+                        for (var i = 0; i < Translations.data.length; i++) {
+                            if (Translations.data[i].actualValue === $scope.selectedTag) {
+                                Translations.setItem(Translations.data[i]);
+                            }
+                        }
+                    }
+
+                    Translations.item.actualValue = $scope.selectedTag;
+
+                    $http({
+                        method: 'PUT',
+                        url: Translations.url + '/' + Translations.item.key,
+                        data: Translations.item
+                    }).then(function successCallback(response) {
+                    }, function errorCallback(response) {
+                        NREUM.noticeError('Failed to MODIFY translation: ' + response.statusText);
+                    });
+                });
+
+                $route.reload();
+
             };
 
             $scope.goToDeleteTag = function() {
@@ -100,6 +155,11 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to DELETE tag: ' + response.statusText);
                 });
+            };
+
+            $scope.transformTag = function(input) {
+                var parsedTagName = input.replace(/[^a-zA-Z0-9]+/g, '_').toUpperCase();
+                return parsedTagName;
             };
         }
     ]);
