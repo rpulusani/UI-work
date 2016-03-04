@@ -245,7 +245,7 @@ define(['angular', 'serviceRequest'], function(angular) {
 
                 for(var i=0; i<statusBarLevels.length; i++){
                     var statusItemClone = angular.copy(statusItem);
-                    if(currentStatus === statusBarLevels[i].value){
+                    if(currentStatus.toLowerCase().replace(/_/g, '') === statusBarLevels[i].value.toLowerCase()){
                         statusItemClone.date = formattedStatusDate;
                         statusItemClone.current = true;
                     }
