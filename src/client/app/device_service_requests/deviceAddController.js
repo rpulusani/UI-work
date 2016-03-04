@@ -121,6 +121,7 @@ define(['angular',
                     $scope.configure.header.translate.h1 = "REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_SUBMITTED";
                     $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
                     $scope.configure.header.translate.bodyValues= {
+                        'refId': FormatterService.getFormattedSRNumber($scope.sr),
                         'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                         'srHours': 24,
                         'deviceManagementUrl': '/service_requests/devices/new',
