@@ -3,8 +3,9 @@ define([
     'tree.treeItemsService'
 ], function(tree){
     tree
-    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', 'Locations', 'AddressLocations', '$q',
-        function($scope, TreeItems, Account, UserInfo, Users, Locations, AddressLocations, $q){
+    .controller('TreeController', ['$scope', 'TreeItems', 'AccountService', 'UserInfoService', 'UserService', 'Locations', 
+        'AddressLocations', '$q', '$rootScope',
+        function($scope, TreeItems, Account, UserInfo, Users, Locations, AddressLocations, $q, $rootScope){
             $scope.items = [];
             $scope.tempItems = [];
             $scope.selectedItems = [];
@@ -35,7 +36,7 @@ define([
                 Account.setItem(tempItem);
                 var promise,
                 options = {
-                    updateParams: false,
+                    preventDefaultParams: true,
                     params:{
                         accountId: Account.item.accountId,
                         accountLevel: Account.item.level,
@@ -50,7 +51,9 @@ define([
             }
 
             if ($scope.treeType && $scope.treeType === 'chl') {
+                console.log(3);
                 if ($rootScope.currentAccount.accountLevel !== 'siebel') {
+                    console.log(1);
                     Users.getTransactionalAccounts().then(function(accounts) {
                         if(accounts._embedded && accounts._embedded.transactionalAccounts 
                             && accounts._embedded.transactionalAccounts.length > 0) {
@@ -83,9 +86,19 @@ define([
                         }
                     });
                 } else {
-                    
+                    console.log(2);
+                    var deferred = $q.defer(),
+                    siebelAccount = {};
+                    siebelAccount = $rootScope.currentAccount;
+                    siebelAccount._links = {self: {}};
+                    siebelAccount._links.self.href = siebelAccount.href;
+                    var siebelPromise = setChlChildren(siebelAccount, deferred);
+                    siebelPromise.then(function(response) {
+                        console.log(response.data);
+                    });
                 }
             } else if ($scope.treeType && $scope.treeType === 'daAccounts') {
+                console.log(4);
                 if($scope.initialItem) {
                     $scope.items.push($scope.initialItem);  
                 }
