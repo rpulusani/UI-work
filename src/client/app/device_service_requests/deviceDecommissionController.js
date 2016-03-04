@@ -135,7 +135,7 @@ define(['angular',
             };
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_DECOMMISSION';
+                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_REVIEW.BTN_DEVICE_DECOM_SUBMIT';
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
@@ -189,8 +189,8 @@ define(['angular',
                 };
                 $scope.configure.queued = true;
               } else {
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DEVICE_DECOM_SUBMITTED";
+                $scope.configure.header.translate.body = "REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_SUBMITTED";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -198,7 +198,7 @@ define(['angular',
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL",
+                        title:"REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };
@@ -210,9 +210,9 @@ define(['angular',
                     $scope.configure = {
                         header: {
                             translate:{
-                                h1: 'DEVICE_SERVICE_REQUEST.REQUEST_DECOMMISSION_FOR',
+                                h1: 'REQUEST_MAN.REQUEST_DEVICE_DECOM_REVIEW.TXT_DEVICE_DECOM_REVIEW',
                                 h1Values:{'productModel': $scope.device.productModel},
-                                body: 'MESSAGE.LIPSUM',
+                                body: 'REQUEST_MAN.REQUEST_DEVICE_DECOM_REVIEW.TXT_DEVICE_DECOM_REVIEW_PAR',
                                 bodyValues: '',
                                 readMore: ''
                             },
@@ -222,31 +222,31 @@ define(['angular',
                         device: {
                             removal:{
                                 translate:{
-                                    title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
-                                    pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
-                                    pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
+                                    title: 'REQUEST_MAN.COMMON.TXT_DECOM_OPTIONS',
+                                    pickup: 'REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY',
+                                    pageCount: 'REQUEST_MAN.COMMON.TXT_PAGE_COUNTS'
                                 },
                                 source: 'decommission'
                             },
                             information:{
                                 translate: {
-                                    title: 'DEVICE_MGT.DEVICE_INFO',
-                                    serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                    partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                    product: 'DEVICE_MGT.PRODUCT_MODEL',
-                                    ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                    hostName: 'DEVICE_MGT.HOST_NAME',
-                                    installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                    contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                                    title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                                    serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                                    partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                                    product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                    ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                                    hostName: 'REQUEST_MAN.COMMON.TXT_HOSTNAME',
+                                    installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                    contact: 'DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_SUPPLIES_CONTACT'
                                 }
                             }
                         },
                         contact:{
                             translate: {
-                                title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                                requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                                primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                                changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                               title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                                requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                                primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                                changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
                             },
                             show:{
                                 primaryAction : true
@@ -256,12 +256,12 @@ define(['angular',
                         },
                         detail:{
                             translate:{
-                                title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                                referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                                costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                                comments: 'LABEL.COMMENTS',
-                                attachments: 'LABEL.ATTACHMENTS',
-                                attachmentMessage: 'MESSAGE.ATTACHMENT',
+                                title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                                referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                                costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                                comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                                attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                                attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
                                 fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                             },
                             show:{
@@ -273,8 +273,8 @@ define(['angular',
                         },
                         actions:{
                             translate: {
-                                abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON_DEVICE_DECOMMISSION',
-                                submit: 'LABEL.REVIEW_SUBMIT'
+                                abandonRequest:'REQUEST_MAN.COMMON.BTN_DECOM_ABANDON',
+                                submit: 'REQUEST_MAN.REQUEST_DEVICE_DECOM_REVIEW.BTN_DEVICE_DECOM_SUBMIT'
                             },
                             submit: function(){
                                 $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review');

@@ -163,7 +163,7 @@ define(['angular',
             };
 
             function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
+                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
                 $scope.configure.actions.submit = function(){
                   if(!$scope.isLoading) {
                     $scope.isLoading = true;
@@ -219,8 +219,8 @@ define(['angular',
                 };
                 $scope.configure.queued = true;
               } else {
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
+                $scope.configure.header.translate.h1 = "REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_UPDATE_DEVICE_SUBMITTED";
+                $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
                 $scope.configure.header.translate.bodyValues= {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                     'srHours': 24,
@@ -228,7 +228,7 @@ define(['angular',
                 };
                 $scope.configure.receipt = {
                     translate: {
-                        title:"DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL",
+                        title:"REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_UPDATE_DEVICE_DETAILS",
                         titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                     }
                 };
@@ -241,9 +241,10 @@ define(['angular',
                 $scope.configure = {
                     header: {
                         translate: {
-                            h1: 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE',
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: 'Learn more about requests'
+                            h1: 'REQUEST_MAN.COMMON.TXT_UPDATE_DEVICE_INFO',
+                            h1Values:{'productModel': $scope.device.productModel},
+                            body: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_UPDATE_DEVICE_PAR',
+                            readMore: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_LEARN_MORE'
                         },
                         readMoreUrl: '/service_requests/learn_more',
                         showCancelBtn: false
@@ -251,27 +252,26 @@ define(['angular',
                     device: {
                         information:{
                             translate: {
-                                title: 'DEVICE_SERVICE_REQUEST.REQUESTED_UPDATE_TO_DEVICE',
-                                move: 'DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE',
-                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                product: 'DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER',
-                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                hostName: 'DEVICE_MGT.HOST_NAME',
-                                costCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
-                                chl: 'DEVICE_MGT.CHL',
-                                customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
+                                title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                                move: 'REQUEST_MAN.COMMON.TXT_INSTALL_LXK_TO_MOVE',
+                                serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                                partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                                product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                                hostName: 'REQUEST_MAN.COMMON.TXT_HOSTNAME',
+                                costCenter: 'REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER',
+                                chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
+                                customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
+                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
                             }
                         }
                     },
                     contact: {
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                            title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                            requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                            changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
                         },
                         show: {
                             primaryAction : true
@@ -281,12 +281,12 @@ define(['angular',
                     },
                     detail: {
                         translate: {
-                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                            referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                            comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
                             fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                         },
                         show: {
@@ -298,8 +298,8 @@ define(['angular',
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'DEVICE_SERVICE_REQUEST.DISCARD_DEVICE_CHANGES',
-                            submit: 'LABEL.REVIEW_SUBMIT'
+                            abandonRequest:'REQUEST_MAN.COMMON.BTN_DISCARD_DEVICE_CHANGES',
+                            submit: 'REQUEST_MAN.COMMON.BTN_REVIEW_SUBMIT'
                         },
                         submit: $scope.goToReview
                     },
@@ -319,8 +319,8 @@ define(['angular',
                     },
                     addressPicker: {
                         translate: {
-                            currentInstalledAddressTitle: 'DEVICE_SERVICE_REQUEST.CURRENTLY_INSTALLED_AT',
-                            replaceAddressTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_ADDRESS_WITH'
+                            currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
+                            replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                         },
                         sourceAddress: function(){
                             if(updatedInstallAddress){
