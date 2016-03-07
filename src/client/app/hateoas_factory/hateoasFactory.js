@@ -1,5 +1,3 @@
-define(['angular'], function(angular) {
-    'use strict';
+'use strict';
 
-    return angular.module('mps.hateoasFactory', []);
-});
+return angular.module('mps.hateoasFactory', []);

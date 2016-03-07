@@ -1,22 +1,20 @@
-define(['angular'], function(angular) {
-    'use strict';
-    angular.module('mps.attachments')
-    .controller('AttachmentsController',
-    [ '$scope',
-      '$http',
-      function($scope, $http){
-        $scope.upload = function($http) {
+'use strict';
+angular.module('mps.attachments')
+.controller('AttachmentsController',
+[ '$scope',
+  '$http',
+  function($scope, $http){
+    $scope.upload = function($http) {
 
-        };
+    };
 
-        $scope.uploadComplete = function(response) {
+    $scope.uploadComplete = function(response) {
 
-        };
+    };
 
-        $scope.uploadError = function(response) {
+    $scope.uploadError = function(response) {
 
-        };
+    };
 
-      }
-    ]);
-});
+  }
+]);

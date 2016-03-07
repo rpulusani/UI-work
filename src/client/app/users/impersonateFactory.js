@@ -1,27 +1,27 @@
-define(['angular', 'user'], function(angular) {
-	'use strict';
-	angular.module('mps.user')
-	.factory('Impersonate', ['$resource', 'serviceUrl', '$http',
-        function($resource, serviceUrl, $http) {
-            var Impersonate = function(){
-                var self = this;
-                this.data = null;
-                this.dataUrl = serviceUrl + 'auth/impersonate';
-            };
 
-            Impersonate.prototype.query = function(email, fn){
-                var self = this;
+'use strict';
+angular.module('mps.user')
+.factory('Impersonate', ['$resource', 'serviceUrl', '$http',
+    function($resource, serviceUrl, $http) {
+        var Impersonate = function(){
+            var self = this;
+            this.data = null;
+            this.dataUrl = serviceUrl + 'auth/impersonate';
+        };
 
-                return $http.get(self.dataUrl + '?principal=' + email).success(function(data){
-                    self.data = data;
+        Impersonate.prototype.query = function(email, fn){
+            var self = this;
 
-                    if(typeof fn === 'function'){
-                        return fn(data);
-                    }
-                });
-            };
+            return $http.get(self.dataUrl + '?principal=' + email).success(function(data){
+                self.data = data;
 
-            return new Impersonate();
-       }
-    ]);
-});
+                if(typeof fn === 'function'){
+                    return fn(data);
+                }
+            });
+        };
+
+        return new Impersonate();
+   }
+]);
+

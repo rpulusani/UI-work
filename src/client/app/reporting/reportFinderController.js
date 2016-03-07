@@ -1,31 +1,31 @@
-define(['angular', 'report'], function(angular) {
-    'use strict';
-    angular.module('mps.report')
-    .controller('ReportFinderController', ['$scope', '$route', '$location', '$translate', 'Reports',
-        function($scope, $route, $location, $translate, Reports) {
 
-            $scope.report = Reports.item;
-            $scope.finder = Reports.finder;
-            
-            $scope.runReport = function(report) {
-                var newRoute = '';
+'use strict';
+angular.module('mps.report')
+.controller('ReportFinderController', ['$scope', '$route', '$location', '$translate', 'Reports',
+    function($scope, $route, $location, $translate, Reports) {
 
-                Reports.finder = $scope.finder;
+        $scope.report = Reports.item;
+        $scope.finder = Reports.finder;
 
-                if (Reports.finder.selectType === $translate.instant('LABEL.SELECT')) {
-                    Reports.finder.selectType = '';
-                }
+        $scope.runReport = function(report) {
+            var newRoute = '';
 
-                Reports.setItem(report);
+            Reports.finder = $scope.finder;
 
-                newRoute = Reports.route + '/' + Reports.item.id + '/results';
+            if (Reports.finder.selectType === $translate.instant('LABEL.SELECT')) {
+                Reports.finder.selectType = '';
+            }
 
-                if ($location.path() === newRoute) {
-                    $route.reload();
-                } else {
-                    $location.path(newRoute);
-                }
-            };
-        }
-    ]);
-});
+            Reports.setItem(report);
+
+            newRoute = Reports.route + '/' + Reports.item.id + '/results';
+
+            if ($location.path() === newRoute) {
+                $route.reload();
+            } else {
+                $location.path(newRoute);
+            }
+        };
+    }
+]);
+

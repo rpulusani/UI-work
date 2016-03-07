@@ -1,4 +1,2 @@
-define(['angular'], function(angular) {
-    'use strict';
-    angular.module('mps.dashboard', []);
-});
+'use strict';
+angular.module('mps.dashboard', []);

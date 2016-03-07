@@ -1,18 +1,12 @@
-define([
-    'angular'
-], function(angular){
-    'use strict';
 
-    var tree = angular.module('tree', []);
+'use strict';
 
-    tree.config(['$routeProvider',
-        function ($routeProvider){
-            $routeProvider
-            .when('/tree-example', {
-                templateUrl: '/app/tree/view/tree-example.html'
-            });
-        }
-    ]);
-
-    return tree;
-});
+angular.module('tree', [])
+.config(['$routeProvider',
+    function ($routeProvider){
+        $routeProvider
+        .when('/tree-example', {
+            templateUrl: '/app/tree/view/tree-example.html'
+        });
+    }
+]);

@@ -1,38 +1,38 @@
-define(['angular', 'order', 'hateoasFactory.serviceFactory', 'utility.formatters'], function(angular) {
-    'use strict';
-    angular.module('mps.orders')
-    .factory('ContractFactory', [
-        'serviceUrl',
-        '$translate',
-        'HATEOASFactory',
-        'FormatterService',
-        '$filter',
-        '$q',
-        function(
-            serviceUrl,
-            $translate,
-            HATEOASFactory,
-            formatter,
-            $filter,
-            $q
-            ) {
 
-            var Agreements = {
-                    serviceName: 'contracts',
-                    embeddedName: 'contracts', //get away from embedded name and move to a function to convert url name to javascript name
-                    columns: 'defaultSet',
-                    columnDefs: {
-                        defaultSet: [
+'use strict';
+angular.module('mps.orders')
+.factory('ContractFactory', [
+    'serviceUrl',
+    '$translate',
+    'HATEOASFactory',
+    'FormatterService',
+    '$filter',
+    '$q',
+    function(
+        serviceUrl,
+        $translate,
+        HATEOASFactory,
+        formatter,
+        $filter,
+        $q
+        ) {
 
-                        ]
-                    },
+        var Agreements = {
+                serviceName: 'contracts',
+                embeddedName: 'contracts', //get away from embedded name and move to a function to convert url name to javascript name
+                columns: 'defaultSet',
+                columnDefs: {
+                    defaultSet: [
 
-                    functionArray: [
+                    ]
+                },
 
-                    ],
+                functionArray: [
 
-                    route: '/orders',
-            };
-        return  new HATEOASFactory(Agreements);
-    }]);
-});
+                ],
+
+                route: '/orders',
+        };
+    return  new HATEOASFactory(Agreements);
+}]);
+
