@@ -1,4 +1,15 @@
 <div sr-header></div>
 <div class="page-content">
-
+    <div class="set" data-js="set">
+        <div class="set__trigger" ng-class="{'set--is-active':isActive('userProfile')}" data-toggle="userProfile" ng-click="onClickTb('userProfile')">
+            <a href="#userProfile" translate="USER_PROFILE_MAN.COMMON.TAB_INFORMATION"><i class="set__icon"></i></a>
+        </div>
+        <div class="set__content" id="userProfile" ng-class="{'set--is-active':isActive('userProfile')}">
+        </div>
+         <div class="set__trigger" ng-class="{'set--is-active':isActive('settings')}" data-toggle="settings" ng-click="onClickTb('settings')">
+            <a href="#settings" translate="USER_PROFILE_MAN.COMMON.TAB_SETTINGS"><i class="set__icon"></i></a>
+        </div>
+        <div class="set__content" id="settings" ng-class="{'set--is-active':isActive('settings')}">
+        </div>
+    </div>
 </div>
