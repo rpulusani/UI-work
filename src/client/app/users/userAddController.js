@@ -81,7 +81,6 @@ define(['angular', 'user'], function(angular) {
             } else {
                 User.getLoggedInUserInfo().then(function() {
                     if (angular.isArray(User.item._links.accounts)) {
-                        console.log('more than 1', User.item);
                         var promises = [],
                         options = {},
                         promise, deferred;
@@ -113,7 +112,6 @@ define(['angular', 'user'], function(angular) {
                         });
                     } else {
                         User.getAdditional(User.item, Account).then(function() {
-                            console.log(' 1', Account.item);
                             if ($scope.accountList.length === 0) {
                                 $scope.accountList.push(Account.item);
                             }

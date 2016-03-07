@@ -51,9 +51,7 @@ define([
             }
 
             if ($scope.treeType && $scope.treeType === 'chl') {
-                console.log(3);
                 if ($rootScope.currentAccount.accountLevel !== 'siebel') {
-                    console.log(1);
                     Users.getTransactionalAccounts().then(function(accounts) {
                         if(accounts._embedded && accounts._embedded.transactionalAccounts 
                             && accounts._embedded.transactionalAccounts.length > 0) {
@@ -86,7 +84,6 @@ define([
                         }
                     });
                 } else {
-                    console.log(2);
                     var deferred = $q.defer(),
                     siebelAccount = {};
                     siebelAccount = $rootScope.currentAccount;
@@ -94,11 +91,16 @@ define([
                     siebelAccount._links.self.href = siebelAccount.href;
                     var siebelPromise = setChlChildren(siebelAccount, deferred);
                     siebelPromise.then(function(response) {
-                        console.log(response.data);
+                        if (response.data && response.data._embedded.childAccounts && response.data._embedded.childAccounts.length > 0) {
+                            var childAccounts = response.data._embedded.childAccounts;
+                            for (var j=0; j<childAccounts.length; j++) {
+                                var childItem = childAccounts[j];
+                                $scope.items.push(childItem);  
+                            }
+                        }
                     });
                 }
             } else if ($scope.treeType && $scope.treeType === 'daAccounts') {
-                console.log(4);
                 if($scope.initialItem) {
                     $scope.items.push($scope.initialItem);  
                 }
