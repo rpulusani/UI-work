@@ -153,7 +153,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     $scope.meterReads = MeterReads.data;
                     $scope.showAllMeterReads = false;
 
-                    for (i=0 ; i<= $scope.meterReads.length; i++) {
+                    for (var i=0 ; i<= $scope.meterReads.length; i++) {
                         if($scope.meterReads[i] && $scope.meterReads[i].type){
                             switch($scope.meterReads[i].type){
                                 case 'LTPC':
