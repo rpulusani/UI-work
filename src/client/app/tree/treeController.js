@@ -85,7 +85,6 @@ define([
                     });
                 } else {
                     var deferred = $q.defer(),
-                    siebelAccount = {};
                     siebelAccount = $rootScope.currentAccount;
                     siebelAccount._links = {self: {}};
                     siebelAccount._links.self.href = siebelAccount.href;
