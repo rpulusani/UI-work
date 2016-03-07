@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="mps">
   <head>
     <base href="/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,19 +14,27 @@
     ;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"e907577b9b",applicationID:"10059346",sa:1,agent:"js-agent.newrelic.com/nr-632.min.js"}
     </script>
 
-    <link rel="stylesheet" href="/etc/styles/css/v-button.min.css" />
+    <link rel="stylesheet" href="/css/v-button.min.css" />
     <link rel="stylesheet" href="/etc/lxk-framework/css/lxk-framework.min.css" />
-    <link rel="stylesheet" href="/etc/styles/css/pagination.css" />
-    <link rel="stylesheet" href="/etc/styles/css/angular-ui-grid-lxk-framework.css" />
+    <link rel="stylesheet" href="/css/pagination.css" />
+    <link rel="stylesheet" href="/css/angular-ui-grid-lxk-framework.css" />
     <link rel="stylesheet" href="//www.lexmark.com/common/common-mce/styles/css/utilities.css" />
-    <link rel="stylesheet" href="/etc/styles/css/rome.css" />
-    <link rel="stylesheet" href="/etc/styles/css/ng-tags-input.css" />
-    <link rel="stylesheet" href="/etc/styles/css/app.css" />
+    <link rel="stylesheet" href="/css/rome.css" />
+    <link rel="stylesheet" href="/css/ng-tags-input.css" />
+    <link rel="stylesheet" href="/css/mps.app.css" />
 
     <script src="//crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
     <script src="//crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
 
-    <script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>
+    <!--<script src="//www.lexmark.com/common/lxk-framework/js/libs/require.js"></script>-->
+
+    <script type="text/javascript">
+      window.browser_languages = ["en-US","en"];
+      window.config = {"idp":{"serviceUrl":"https://idp-staging.psft.co","clientId":"mps-portal"},"portal":{"serviceUrl":"https://api.venus-dev.lexmark.com/mps/","adminUrl":"https://mps-porta-mpsporta-44by8x3otx5s-1327508801.us-east-1.elb.amazonaws.com/mps-portal/","lbsUrl":"https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management"}};
+    </script>
+    <script type="text/javascript" src="mps.libs.js"></script>
+    <script type="text/javascript" src="mps.app.js"></script>
+
   </head>
   <body style="display:none">
     <div class="alert alert--info" data-js="alert" data-static="true" data-basic="true" ng-if="impersonate">
@@ -94,13 +102,7 @@
         </div>
       </footer>
     </div>
-
-    <script type="text/javascript">
-window.browser_languages = ["en-US","en"];
-      window.config = {"idp":{"serviceUrl":"https://idp-staging.psft.co","clientId":"mps-portal"},"portal":{"serviceUrl":"https://api.venus-dev.lexmark.com/mps/","adminUrl":"https://mps-porta-mpsporta-44by8x3otx5s-1327508801.us-east-1.elb.amazonaws.com/mps-portal/","lbsUrl":"https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management"}};
-    </script>
     <script type="text/javascript">_satellite.pageBottom();</script>
-    <script type="text/javascript" src="combined.js"></script>
     </div>
   </body>
 </html>

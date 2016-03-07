@@ -49,12 +49,27 @@ gulp.task('html-templates', function(){
     .pipe(gulp.dest('dist/build/app'))
 });
 
-gulp.task('styles', function() {
-  return gulp.src(['etc/styles/css/less/**/*.less'])
+gulp.task('json-data', function(){
+  return gulp.src(['app/**/data/*.json'])
+    .pipe(gulp.dest('dist/build/app'))
+});
+gulp.task('less', function() {
+  return gulp.src(['etc/styles/less/_build.less'])
     .pipe(less())
     .pipe(minifyCSS())
-    .pipe(gulp.dest('dist/build'));
+    .pipe(concat('mps.app.css'))
+    .pipe(gulp.dest('dist/build/css'));
 });
+
+gulp.task('third-party-styles', function(){
+  return gulp.src(['etc/styles/css/*.css', 'etc/styles/css/*/*.css', 'etc/styles/css/*/*/*.css'])
+    .pipe(gulp.dest('dist/build/css'));
+});
+
+gulp.task('lxk-styles', function(){
+   return gulp.src(['etc/**/*','!etc/{styles,styles/**}'])
+    .pipe(gulp.dest('dist/build/etc'));
+})
 
 gulp.task('prep-html', function() {
     return gulp.src(['views/index.html'])
@@ -63,7 +78,7 @@ gulp.task('prep-html', function() {
 
 // DEFAULT TASK //
 gulp.task('default', function() {
-  gulp.run('scripts', 'styles', 'prep-html', 'libs','html-templates');
+  gulp.run('scripts', 'less', 'prep-html', 'libs','html-templates', 'json-data', 'third-party-styles', 'lxk-styles');
 
   gulp.watch('app/**', function(event) {
     gulp.run('scripts');
