@@ -364,7 +364,7 @@ define([
             },
             {
                 name: 'documentLibraryManageGlobalTagAccess',
-                permission: permissionSet.contentManagement.manageAccountTag
+                permission: permissionSet.contentManagement.manageGlobalTag
             },
             {
                 name: 'deviceInfoAccess',
