@@ -811,8 +811,8 @@ define(['angular', 'hateoasFactory'], function(angular) {
                 }
 
                 HATEAOSConfig.getCurrentAccount().then(function() {
-                    if ((!options.preventDefaultParams && !options.params.accoundId && !options.params.accountLevel) || ($rootScope.currentAccount && $rootScope.currentAccount.refresh)) {
-                        if ($rootScope.currentAccount) {
+                    if (!options.preventDefaultParams) {
+                        if ($rootScope.currentAccount && $rootScope.currentAccount.refresh) {
                             options.params.accountId = $rootScope.currentAccount.accountId;
                             options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                         }
