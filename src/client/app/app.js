@@ -105,6 +105,7 @@ define([
     'invoice.invoiceController',
     'invoice.invoiceListController',
     'invoice.invoiceListFactory',
+    'invoice.soldToFactory',
     'invoice.directives',
     'hateoasFactory.serviceFactory',
     'utility',
