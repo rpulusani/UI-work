@@ -554,8 +554,11 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                     size: 20,
                     tag: 'reports'
                 }
-            }).then(function() {
-                Grid.display(Documents, $scope, personal);
+            }).then(function(res) {
+                Grid.display(Documents, $scope, personal, false, function(){
+                    $scope.gridTitle = $translate.instant('REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS' + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                });
             });
 
             $scope.goToDocumentView = function(documentItem) {
