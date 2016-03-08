@@ -205,8 +205,7 @@ define(['angular', 'utility'], function(angular) {
                     if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                         return '';
                     }
-
-                    var d = new Date(dateToBeFormatted);
+                    var d = new Date(dateToBeFormatted+'Z');
                     return $filter('date')(d, 'MM/dd/yyyy');
                 },
                 formatDateForPost: function(dateToBeFormatted){

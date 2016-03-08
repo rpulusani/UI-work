@@ -4,8 +4,7 @@ define(['angular', 'deviceManagement'], function(angular) {
     .directive('deviceInformation', function() {
         return {
             restrict: 'A',
-            templateUrl: '/app/device_management/templates/device-information.html',
-            controller: 'DeviceInformationController'
+            templateUrl: '/app/device_management/templates/device-information.html'
         };
     })
     .directive('deviceOverviewNotificaiton', function(){
