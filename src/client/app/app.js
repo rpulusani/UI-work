@@ -364,7 +364,7 @@ define([
             },
             {
                 name: 'documentLibraryManageGlobalTagAccess',
-                permission: permissionSet.contentManagement.manageAccountTag
+                permission: permissionSet.contentManagement.manageGlobalTag
             },
             {
                 name: 'deviceInfoAccess',
@@ -396,6 +396,10 @@ define([
             {
                 name: 'orderDevice',
                 permission: permissionSet.serviceRequestManagement.orderHardware
+            },
+            {
+                name: 'orderInstall',
+                permission: permissionSet.serviceRequestManagement.orderInstallHardware
             },
             {
                 name: 'searchDevice',
