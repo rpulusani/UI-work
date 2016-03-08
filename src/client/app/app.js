@@ -398,6 +398,10 @@ define([
                 permission: permissionSet.serviceRequestManagement.orderHardware
             },
             {
+                name: 'orderInstall',
+                permission: permissionSet.serviceRequestManagement.orderInstallHardware
+            },
+            {
                 name: 'searchDevice',
                 permission: permissionSet.deviceManagement.search
             },
