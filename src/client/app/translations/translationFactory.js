@@ -16,22 +16,35 @@ define(['angular', 'translation', 'hateoasFactory.serviceFactory', 'utility.form
                             'cellTemplate':'<div>' +
                                             '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                             '>{{row.entity.actualValue}}</a>' +
-                                        '</div>'
-                            
+                                        '</div>',
+                            'notSearchable': true
                             },
-                            {'name': $translate.instant('LANGUAGES.ENGLISH'), 'field': 'defaultText', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.SPANISH'), 'field': 'getTextForLang("ES")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.GERMAN'), 'field': 'getTextForLang("DE")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.FRENCH'), 'field': 'getTextForLang("FR")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.CHINESE_SIMPLIFIED'), 'field': 'getTextForLang("ZH_CN")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.CHINESE_TRADITIONAL'), 'field': 'getTextForLang("ZH_TW")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.PORTUGUESE_BRAZIL'), 'field': 'getTextForLang("PT_BR")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.PORTUGUESE_PORTUGAL'), 'field': 'getTextForLang("PT_PT")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.ITALIAN'), 'field': 'getTextForLang("IT")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.KOREAN'), 'field': 'getTextForLang("KO")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.JAPANESE'), 'field': 'getTextForLang("JA")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.RUSSIAN'), 'field': 'getTextForLang("RU")', 'notSearchable': true},
-                            {'name': $translate.instant('LANGUAGES.TURKISH'), 'field': 'getTextForLang("TR")', 'notSearchable': true}
+                            {'name': $translate.instant('LANGUAGES.ENGLISH'), 'field': 'EN', 
+                             'cellTemplate':'<div ng-bind="row.entity.defaultText"></div>'},
+                            {'name': $translate.instant('LANGUAGES.SPANISH'), 'field': 'ES', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'ES\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.GERMAN'), 'field': 'DE', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'DE\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.FRENCH'), 'field': 'FR', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'FR\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.CHINESE_SIMPLIFIED'), 'field': 'ZH_CN', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'ZH_CN\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.CHINESE_TRADITIONAL'), 'field': 'ZH_TW', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'ZH_TW\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.PORTUGUESE_BRAZIL'), 'field': 'PT_BR', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'PT_BR\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.PORTUGUESE_PORTUGAL'), 'field': 'PT_PT', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'PT_PT\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.ITALIAN'), 'field': 'IT', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'IT\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.KOREAN'), 'field': 'KO', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'KO\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.JAPANESE'), 'field': 'JA', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'JA\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.RUSSIAN'), 'field': 'RU', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'RU\')"></div>'},
+                            {'name': $translate.instant('LANGUAGES.TURKISH'), 'field': 'TR', 
+                             'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'TR\')"></div>'}
                         ]
                     },
                     exportFile: function(ctrlScope) {
