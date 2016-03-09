@@ -20,6 +20,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
         'lbsURL',
         '$window',
         'uiGridExporterConstants',
+        '$translate',
         function(
             $rootScope,
             $scope,
@@ -38,7 +39,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             FilterSearchService,
             lbsURL,
             $window,
-            uiGridExporterConstants
+            uiGridExporterConstants,
+            $translate
             ) {
             ServiceRequest.setParamsToNull();
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
@@ -243,7 +245,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 rows = [
                     $scope.device.productModel,
                     $scope.device.serialNumber,
-                    $scope.device.customerTag,
+                    $scope.device.assetTag,
                     $scope.device.ipAddress,
                     $scope.device.hostname,
                     $scope.device.costCenter,
@@ -261,22 +263,22 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 i = 0,
                 // l10n coming
                 headers = [
-                    'Product Model',
-                    'Serial Number',
-                    'Customer Device Tag',
-                    'IP Address',
-                    'Hostname',
-                    'Device Cost Center',
-                    'Install Date',
-                    'Device Contact Name',
-                    'Device Contact Email Address',
-                    'Device Contact Work Phone',
-                    'Device Contact Address',
-                    'Install Address',
-                    'CHL',
-                    'Lifetime Page CountMono Page Count',
-                    'Color Page Count',
-                    'Page Count Last Updated'
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'),
+                    $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_DATE'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_NAME'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_EMAIL'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_ADDRESS'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_ADDRESS'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
+                    $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
+                    $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
+                    $translate.instant('DEVICE_MGT.LAST_UPDATED'),
                 ];
                 
                 csvFile = headers.toString();
