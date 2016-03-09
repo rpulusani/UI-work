@@ -580,6 +580,16 @@ define(['angular', 'report', 'library', 'googlecharting'], function(angular) {
                     }
                 }
             };
+
+            $scope.getTagNames = function(tags) {
+                var localized = [];
+                if (tags) {
+                    for (var i = 0; i < tags.length; i++) {
+                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
+                    }
+                }
+                return localized.join(', ');
+            };
         }
     ]);
 });
