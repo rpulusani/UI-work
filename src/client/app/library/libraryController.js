@@ -130,6 +130,20 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.isDeleting = false;
             };
 
+            $scope.getDeleteAction = function (owner) {
+                var showBtn = false;
+
+                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
+                    showBtn = true;
+                }
+
+                if ($rootScope.documentLibraryDeleteAllAccess) {
+                    showBtn = true;
+                }
+
+                return showBtn;
+            };
+
             $scope.tags = [];
             Tags.get().then(function() {
                 var tagList = Tags.data;

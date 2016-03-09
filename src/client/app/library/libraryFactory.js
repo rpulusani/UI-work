@@ -28,7 +28,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                         {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
                             'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                                 '<a href="" ng-click="grid.appScope.goToUpdate(row.entity);"><i class="icon-16 icon-psw-edit"></i></a>' +
-                                '<a href="" ng-if="grid.appScope.documentLibraryDeleteMyAccess" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
+                                '<a href="" ng-if="grid.appScope.getDeleteAction(row.entity.owner)" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
                                 '</a>'
                         }
                     ],

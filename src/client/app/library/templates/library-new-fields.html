@@ -8,7 +8,7 @@
         <div class="deleteConfirmation">
             <div ng-hide="isDeleting">
                 <button name="deleteDocument" class="btn btn--default" type="submit" value="submit" 
-                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-click="goToStartDelete()"></button>
+                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-if="getDeleteAction(documentItem.owner);" ng-click="goToStartDelete()"></button>
             </div>
             <div class="well" ng-show="isDeleting">
                 <p class="text--small" translate="DOCUMENT_LIBRARY.COMMON.TXT_DELETE_DOC_ARE_YOU_SURE"></p>
