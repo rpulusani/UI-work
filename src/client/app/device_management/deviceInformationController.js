@@ -19,6 +19,7 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
         'FilterSearchService',
         'lbsURL',
         '$window',
+        'uiGridExporterConstants',
         function(
             $rootScope,
             $scope,
@@ -36,7 +37,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             SecurityHelper,
             FilterSearchService,
             lbsURL,
-            $window
+            $window,
+            uiGridExporterConstants
             ) {
             ServiceRequest.setParamsToNull();
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
@@ -233,20 +235,49 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 ServiceRequest.reset();
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
-            function madcGrid(){
-            ServiceRequest.setParamsToNull();
-            ServiceRequest.data = [];
-            var filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
 
+            $scope.exportDevice = function (filename, rows) {
+                var csvFile = '';
+                for (var i = 0; i < rows.length; i++) {
+                    if (i !== rows.length - 1) {
+                        csvFile += '"' + rows[i] + '",';
+                    } else if (i = rows.length - 1) {
+                         csvFile += '"' + rows[i] + '"';
+                    }
+                }
+                
+                var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+                
+                if (navigator.msSaveBlob) { // IE 10+
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    var link = document.createElement("a");
+                    if (link.download !== undefined) { // feature detection
+                        // Browsers that support HTML5 download attribute
+                        var url = URL.createObjectURL(blob);
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", filename);
+                        link.style.visibility = 'hidden';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                }
+            };
+
+            function madcGrid(){
+                ServiceRequest.setParamsToNull();
+                ServiceRequest.data = [];
+                var filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
                 var params =  {
                     type: 'MADC_ALL'
                 };
-
 
                 filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICE_OVERvIEW.TXT_CHANGE_HISTORY', params, false, function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 });
             }
+
             madcGrid();
         }
     ]);
