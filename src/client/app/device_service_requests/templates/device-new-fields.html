@@ -117,7 +117,7 @@
 </div>
 
 <div ng-show="device.address && device.address.id">
-    <strong translate="DEVICE_SERVICE_REQUEST.DEVICE_DEINSTALLTION_QUESTION"></strong> 
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong> 
     
     <div ng-init="device.deviceDeInstallQuestion ? device.deviceDeInstallQuestion : device.deviceDeInstallQuestion=false " />
         <div class="form__field--no-margin">
@@ -125,19 +125,17 @@
                 id="device-deinstall-question-no"
                 name="device-deinstall-question"
                 ng-model="device.deviceDeInstallQuestion"
-                value="false"
+                ng-value="false"
             />
             <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
         </div>
-        
-        <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong> 
 
         <div class="form__field--no-margin">
             <input type="radio"
                 id="device-deinstall-question-yes"
                 name="device-deinstall-question"
                 ng-model="device.deviceDeInstallQuestion"
-                value="true"
+                ng-value="true"
             />
             <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
         </div>
