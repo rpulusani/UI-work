@@ -14,7 +14,7 @@ angular.module('mps.form')
                         $(el).customInput();
                     break;
                     case 'radio':
-                        $(el).customInput();
+                      $(el).customInput();
                     break;
                 }
             }
