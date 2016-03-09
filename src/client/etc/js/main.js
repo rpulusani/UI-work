@@ -470,6 +470,7 @@ requirejs.config({
         'invoice.directives': 'app/invoices/directives',
         'invoice.invoiceListController': 'app/invoices/invoiceListController',
         'invoice.invoiceListFactory': 'app/invoices/invoiceListFactory',
+        'invoice.soldToFactory': 'app/invoices/soldToFactory',
 
         'pageCount': 'app/page_count/pageCount',
         'pageCount.directives': 'app/page_count/directives',

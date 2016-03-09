@@ -4,8 +4,11 @@ define(['angular', 'invoice'], function(angular) {
     .directive('invoiceList', function() {
         return {
             restrict: 'A',
-            templateUrl: '/app/invoices/templates/invoice-list.html',
-            controller: 'InvoiceListController'
+            scope: {
+                status: '@'
+            },
+            controller: 'InvoiceListController',
+            templateUrl: '/app/invoices/templates/invoice-list.html'
         };
     })
     .directive('invoiceTabs', function() {
