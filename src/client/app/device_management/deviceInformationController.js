@@ -19,6 +19,8 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
         'FilterSearchService',
         'lbsURL',
         '$window',
+        'uiGridExporterConstants',
+        '$translate',
         function(
             $rootScope,
             $scope,
@@ -36,7 +38,9 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             SecurityHelper,
             FilterSearchService,
             lbsURL,
-            $window
+            $window,
+            uiGridExporterConstants,
+            $translate
             ) {
             ServiceRequest.setParamsToNull();
             new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
@@ -200,24 +204,26 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     $scope.primaryContact = $scope.device['contact']['item'];
                 }
 
+                if ($scope.device !== null && $scope.device !== undefined && $scope.device.installDate !== undefined){
+                    $scope.device.installDate = FormatterService.formatDate($scope.device.installDate);
+                }
+                if ($scope.installAddress !== null && $scope.installAddress !== undefined){
+                    $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
+                }
+                if ($scope.primaryContact !== null && $scope.primaryContact !== undefined){
+                        $scope.formattedContactAddress = "";
+                        $scope.primaryContact.formattedName = FormatterService.getFullName($scope.primaryContact.firstName,
+                            $scope.primaryContact.lastName, $scope.primaryContact.middleName);
+                        $scope.primaryContact.formattedworkPhone =
+                             FormatterService.getPhoneFormat($scope.primaryContact.workPhone);
+                        if ($scope.primaryContact.address !== null && $scope.primaryContact.address !== undefined) {
+                            $scope.formattedContactAddress = FormatterService.formatAddress($scope.primaryContact.address);
+                        }
+                }
+
             }
 
-            if ($scope.device !== null && $scope.device !== undefined){
-                 $scope.device.installDate = new Date($scope.device.installDate);
-            }
-            if ($scope.installAddress !== null && $scope.installAddress !== undefined){
-                $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
-            }
-            if ($scope.primaryContact !== null && $scope.primaryContact !== undefined){
-                    $scope.formattedContactAddress = "";
-                    $scope.primaryContact.formattedName = FormatterService.getFullName($scope.primaryContact.firstName,
-                        $scope.primaryContact.lastName, $scope.primaryContact.middleName);
-                    $scope.primaryContact.formattedworkPhone =
-                         FormatterService.getPhoneFormat($scope.primaryContact.workPhone);
-                    if ($scope.primaryContact.address !== null && $scope.primaryContact.address !== undefined) {
-                        $scope.formattedContactAddress = FormatterService.formatAddress($scope.primaryContact.address);
-                    }
-            }
+
 
             $scope.goToUpdate = function(device) {
                 ServiceRequest.reset();
@@ -233,20 +239,95 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                 ServiceRequest.reset();
                 $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
             };
-            function madcGrid(){
-            ServiceRequest.setParamsToNull();
-            ServiceRequest.data = [];
-            var filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
 
+            $scope.exportDevice = function (filename, rows) {
+                var filename = $scope.device.productModel,
+                rows = [
+                    $scope.device.productModel,
+                    $scope.device.serialNumber,
+                    $scope.device.assetTag,
+                    $scope.device.ipAddress,
+                    $scope.device.hostname,
+                    $scope.device.costCenter,
+                    $scope.device.installDate,
+                    $scope.device.contact.item.formattedName,
+                    $scope.device.contact.item.email,
+                    $scope.device.contact.item.workPhone,
+                    $scope.device.contact.item.formattedName,
+                    $scope.device.contact.item.address.addressLine1
+                ],
+                csvFile = '',
+                blob,
+                url,
+                link,
+                i = 0,
+                // l10n coming
+                headers = [
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'),
+                    $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_DATE'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_NAME'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_EMAIL'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_ADDRESS'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_ADDRESS'),
+                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
+                    $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
+                    $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
+                    $translate.instant('DEVICE_MGT.LAST_UPDATED'),
+                ];
+                
+                csvFile = headers.toString();
+                csvFile += '\r\n';
+
+                for (i = 0; i < rows.length; i += 1) {
+                    if (i !== rows.length - 1) {
+                        csvFile += '"' + rows[i] + '",';
+                    } else if (i = rows.length - 1) {
+                         csvFile += '"' + rows[i] + '"';
+                    }
+                }
+                
+                blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
+                
+                if (navigator.msSaveBlob) {
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    link = document.createElement('a');
+
+                    if (link.download !== undefined) {
+                        url = URL.createObjectURL(blob);
+                        
+                        link.setAttribute('href', url);
+                        link.setAttribute('download', filename);
+                        link.style.visibility = 'hidden';
+                        
+                        document.body.appendChild(link);
+                        
+                        link.click();
+                        
+                        document.body.removeChild(link);
+                    }
+                }
+            };
+
+            function madcGrid(){
+                ServiceRequest.setParamsToNull();
+                ServiceRequest.data = [];
+                var filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
                 var params =  {
                     type: 'MADC_ALL'
                 };
-
 
                 filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICE_OVERvIEW.TXT_CHANGE_HISTORY', params, false, function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 });
             }
+
             madcGrid();
         }
     ]);

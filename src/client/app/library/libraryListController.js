@@ -86,13 +86,38 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 return icon;
             };
 
+            $scope.getTagNames = function(tags) {
+                var localized = [];
+                if (tags) {
+                    for (var i = 0; i < tags.length; i++) {
+                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
+                    }
+                }
+                return localized.join(', ');
+            };
+
             $scope.getEditAction = function (owner) {
                 var showBtn = false;
 
-                if (owner === $rootScope.idpUser.email) {
+                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryEditMyAccess) {
                     showBtn = true;
                 }
-                if ($rootScope.currentUser.type === 'INTERNAL') {
+
+                if ($rootScope.documentLibraryEditAllAccess) {
+                    showBtn = true;
+                }
+
+                return showBtn;
+            };
+
+            $scope.getDeleteAction = function (owner) {
+                var showBtn = false;
+
+                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
+                    showBtn = true;
+                }
+
+                if ($rootScope.documentLibraryDeleteAllAccess) {
                     showBtn = true;
                 }
 

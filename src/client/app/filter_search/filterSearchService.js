@@ -194,6 +194,7 @@ define(['angular', 'filterSearch', 'hateoasFactory'], function(angular) {
                             'params':{}
                         },
                         addParams = {};
+                        self.localScope.gridLoading = true;
                         
                         if(configuredParams){
                             angular.extend(options.params, configuredParams);

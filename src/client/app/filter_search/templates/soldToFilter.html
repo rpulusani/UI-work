@@ -4,8 +4,15 @@
     <div selectric class="search-menu"
         model="soldToFilter"
         options="soldToList"
-        value="accountId"
+        value="soldTo"
         label="soldTo"
+        placeholder="{{'LABEL.SELECT' | translate}}"
         >
+    </div>
+</div>
+<br/>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+    <div class="footnotes">
+        <a href="" ng-click="clearSoldToFilter()" translate="USER.CTRL_CLEAR_STATUS"></a>
     </div>
 </div>
