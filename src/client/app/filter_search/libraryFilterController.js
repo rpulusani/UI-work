@@ -1,8 +1,8 @@
 define(['angular', 'filterSearch'], function(angular) {
     'use strict';
     angular.module('mps.filterSearch')
-    .controller('LibraryFilterController', ['$scope', '$translate', '$rootScope', 'Tags', 'Owners',
-        function($scope, $translate, $rootScope, Tags, Owners) {
+    .controller('LibraryFilterController', ['$scope', '$translate', '$rootScope', 'Documents', 'Tags', 'Owners',
+        function($scope, $translate, $rootScope, Documents, Tags, Owners) {
 
             if ($rootScope.documentLibraryViewStrategicAccess) {
                 $scope.renderStrategicColumn = true;
@@ -41,6 +41,7 @@ define(['angular', 'filterSearch'], function(angular) {
                     for (var i = 0; i < tagList.length; i++) {
                         var tag = {};
                         tag.name = tagList[i]['name'];
+                        tag.localized = Documents.getTranslationValueFromTag(tagList[i]['name']);
                         tag.selected = false;
                         $scope.tags.push(tag);
                     }
