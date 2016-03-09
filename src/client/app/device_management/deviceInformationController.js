@@ -239,8 +239,50 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
             };
 
             $scope.exportDevice = function (filename, rows) {
-                var csvFile = '';
-                for (var i = 0; i < rows.length; i++) {
+                var filename = $scope.device.productModel,
+                rows = [
+                    $scope.device.productModel,
+                    $scope.device.serialNumber,
+                    $scope.device.customerTag,
+                    $scope.device.ipAddress,
+                    $scope.device.hostname,
+                    $scope.device.costCenter,
+                    $scope.device.installDate,
+                    $scope.device.contact.item.formattedName,
+                    $scope.device.contact.item.email,
+                    $scope.device.contact.item.workPhone,
+                    $scope.device.contact.item.formattedName,
+                    $scope.device.contact.item.address.addressLine1
+                ],
+                csvFile = '',
+                blob,
+                url,
+                link,
+                i = 0,
+                // l10n coming
+                headers = [
+                    'Product Model',
+                    'Serial Number',
+                    'Customer Device Tag',
+                    'IP Address',
+                    'Hostname',
+                    'Device Cost Center',
+                    'Install Date',
+                    'Device Contact Name',
+                    'Device Contact Email Address',
+                    'Device Contact Work Phone',
+                    'Device Contact Address',
+                    'Install Address',
+                    'CHL',
+                    'Lifetime Page CountMono Page Count',
+                    'Color Page Count',
+                    'Page Count Last Updated'
+                ];
+                
+                csvFile = headers.toString();
+                csvFile += '\r\n';
+
+                for (i = 0; i < rows.length; i += 1) {
                     if (i !== rows.length - 1) {
                         csvFile += '"' + rows[i] + '",';
                     } else if (i = rows.length - 1) {
@@ -248,20 +290,24 @@ define(['angular', 'deviceManagement', 'utility.blankCheckUtility', 'deviceManag
                     }
                 }
                 
-                var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+                blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
                 
-                if (navigator.msSaveBlob) { // IE 10+
+                if (navigator.msSaveBlob) {
                     navigator.msSaveBlob(blob, filename);
                 } else {
-                    var link = document.createElement("a");
-                    if (link.download !== undefined) { // feature detection
-                        // Browsers that support HTML5 download attribute
-                        var url = URL.createObjectURL(blob);
-                        link.setAttribute("href", url);
-                        link.setAttribute("download", filename);
+                    link = document.createElement('a');
+
+                    if (link.download !== undefined) {
+                        url = URL.createObjectURL(blob);
+                        
+                        link.setAttribute('href', url);
+                        link.setAttribute('download', filename);
                         link.style.visibility = 'hidden';
+                        
                         document.body.appendChild(link);
+                        
                         link.click();
+                        
                         document.body.removeChild(link);
                     }
                 }

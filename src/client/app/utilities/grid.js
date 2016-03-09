@@ -487,7 +487,7 @@ define(['angular', 'utility', 'ui.grid', 'pdfmake'], function(angular) {
                 gotoPage: function(pageNumber, size) {
                     var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
                     service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
-                       self.display(service, scope, personal);
+                        self.display(service, scope, personal, scope[self.optionsName].rowHeight );
                         size = service.page.size;
                     }, function(reason) {
                         NREUM.noticeError('failed Paging: ' + reason);

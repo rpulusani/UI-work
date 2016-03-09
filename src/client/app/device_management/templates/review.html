@@ -1,47 +1,47 @@
 <div id="device" class="page-header">
 
-	<div class="clearfix">
-		<a class="pull" href="#bookmark"><i class="icon icon--mps icon--bookmark"></i></a>
-		<h1 class="pull vertical-space--none"><span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></span> <span ng-bind="device.productModel"></span></h1>
-		<div class="print-export">
-			<span>
-				<i class="icon icon--mps icon--print"></i><a onclick="window.print()" href="#" class="text--small text--semi-bold">Print</a>
-			</span>
-			<span>
-				<i class="icon icon--mps icon--download"></i><a ng-click="exportDevice(device.productModel, [device.productModel, 'test,test2'])" href="#" class="text--small text--semi-bold">Export</a>
-			</span>
-		</div>
-	</div>
-   	<hr>
-	<div class="media">
-		<div class="media__visual">
-			<div class="card">
-				<div class="card__content">
-	    			<img ng-src="{{medImage}}" ng-show="medImage" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
-	    		</div>
-	    	</div>
-	    </div>
-		<div class="media__body">
-		    <p class="info-list">
-		    	<span class="item-name" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL"></span> <span ng-bind="device.productModel"></span><br>
-		    	<span class="item-name" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER"></span> <span ng-bind="device.serialNumber"></span><br>
-		    	<span class="item-name" translate="DEVICE_MAN.COMMON.TXT_DEVICE_TAG"></span> <span ng-bind="device.assetTag"></span><br>
-		    	<a href="http://support.lexmark.com/index?page=productSelection&channel=supportAndDownloads&locale=EN&userlocale=EN_US"
-		    	class="call-to-action call-to-action--after" target="_blank" translate="DEVICE_MAN.MANAGE_DEVICE.LNK_VISIT_SUPPORT"></a>
-		    </p>
+    <div class="clearfix">
+        <a class="pull" href="#bookmark"><i class="icon icon--mps icon--bookmark"></i></a>
+        <h1 class="pull vertical-space--none"><span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></span> <span ng-bind="device.productModel"></span></h1>
+        <div class="print-export">
+            <span>
+                <i class="icon icon--mps icon--print"></i><a onclick="window.print()" href="#" class="text--small text--semi-bold">Print</a>
+            </span>
+            <span>
+                <i class="icon icon--mps icon--download"></i><a ng-click="exportDevice()" href="#" class="text--small text--semi-bold">Export</a>
+            </span>
+        </div>
+    </div>
+    <hr>
+    <div class="media">
+        <div class="media__visual">
+            <div class="card">
+                <div class="card__content">
+                    <img ng-src="{{medImage}}" ng-show="medImage" alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
+                </div>
+            </div>
+        </div>
+        <div class="media__body">
+            <p class="info-list">
+                <span class="item-name" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL"></span> <span ng-bind="device.productModel"></span><br>
+                <span class="item-name" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER"></span> <span ng-bind="device.serialNumber"></span><br>
+                <span class="item-name" translate="DEVICE_MAN.COMMON.TXT_DEVICE_TAG"></span> <span ng-bind="device.assetTag"></span><br>
+                <a href="http://support.lexmark.com/index?page=productSelection&channel=supportAndDownloads&locale=EN&userlocale=EN_US"
+                class="call-to-action call-to-action--after" target="_blank" translate="DEVICE_MAN.MANAGE_DEVICE.LNK_VISIT_SUPPORT"></a>
+            </p>
 
-		    <div class="btns">
-		        <button class="btn" ng-click="btnRequestService(device);" translate="DEVICE_MAN.MANAGE_DEVICE.BTN_REQUEST_SERVICE"
-		        	ng-if="createBreakFixAccess"></button>
+            <div class="btns">
+                <button class="btn" ng-click="btnRequestService(device);" translate="DEVICE_MAN.MANAGE_DEVICE.BTN_REQUEST_SERVICE"
+                    ng-if="createBreakFixAccess"></button>
 
-		        <button class="btn" translate="DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES"
-		        	ng-if="orderSupplies"></button>
+                <button class="btn" translate="DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES"
+                    ng-if="orderSupplies"></button>
 
-				<button class="btn btn--secondary" ng-click="btnDecommissionDevice(device);"
-				translate="DEVICE_MAN.MANAGE_DEVICE.BTN_DECOM_DEVICE" translate-values="{productModel: device.productModel}"
-					ng-if="decommissionAccess"></button>
-			</div>
-		</div>
-	</div>
+                <button class="btn btn--secondary" ng-click="btnDecommissionDevice(device);"
+                translate="DEVICE_MAN.MANAGE_DEVICE.BTN_DECOM_DEVICE" translate-values="{productModel: device.productModel}"
+                    ng-if="decommissionAccess"></button>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="page-tabs" device-tabs></div>
