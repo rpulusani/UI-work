@@ -19,7 +19,7 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                                 '<a class="text--small" href="#" ng-click="grid.appScope.goToView(row.entity);">{{row.entity.name}} {{grid.appScope.isUnpublished(row.entity)}}</a><br />' +
                                             '<p class="text--small">{{row.entity.description}}</p>' +
                                             '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS') + ': ' +
-                                            '<span ng-repeat="tag in row.entity.tags">{{tag}}{{$last ? "" : ", "}}</span></p>' +
+                                            '{{grid.appScope.getTagNames(row.entity.tags)}}</p>' +
                                         '</div>'
                         },
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true, searchOn: 'publishDate' },
@@ -34,9 +34,9 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                     ],
                     otherReports: [
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', width: '120', searchOn: 'publishDate'},
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS'), field: 'tagNames',
+                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS'), field: 'tags',
                             'cellTemplate':'<div>' +
-                                '<span ng-repeat="tag in row.entity.tagNames">{{tag}}{{$last ? "" : ", "}}</span>' +
+                                '{{grid.appScope.getTagNames(row.entity.tags)}}' +
                                 '</div>'
                         },
                         {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), field: name,
@@ -47,6 +47,15 @@ define(['angular', 'library', 'utility.formatters'], function(angular) {
                     ]
                 },
                 route: '/library',
+                getTranslationKeyFromTag: function(tag) {
+                    var parsedTagName = tag.replace(/[^a-zA-Z0-9]+/g, '_').toUpperCase();
+                    parsedTagName = 'TAG_' + parsedTagName;
+                    return parsedTagName;
+                },
+                getTranslationValueFromTag: function(tag) {
+                    var localized = $translate.instant('DOCUMENT.TAG.' + Documents.getTranslationKeyFromTag(tag));
+                    return localized;
+                },
                 functionArray: [
                     {
                         name: 'getFileSize',
