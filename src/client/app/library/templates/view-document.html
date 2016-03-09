@@ -26,9 +26,9 @@
 
         <div class="col-2-3" class="deleteConfirmation">
             <div ng-hide="isDeleting">
-                <button type="button" ng-if="documentLibraryUploadAccess && getEditAction(documentItem.owner)" class="btn btn--default" href=""
+                <button type="button" ng-if="getEditAction(documentItem.owner)" class="btn btn--default" href=""
                     ng-click="goToUpdate()" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.BTN_EDIT_DOCUMENT"></button>
-                <button type="button" ng-if="documentLibraryDeleteMyAccess && getEditAction(documentItem.owner)" class="btn btn--default" href=""
+                <button type="button" ng-if="getDeleteAction(documentItem.owner)" class="btn btn--default" href=""
                     ng-click="goToStartDelete()" translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT"></button>
             </div>
             <div class="well" ng-show="isDeleting">

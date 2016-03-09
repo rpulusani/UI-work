@@ -294,8 +294,10 @@ define([
             viewNonstrategic: 'VIEW_NONSTRATEGIC_DOCS',
             viewStrategic: 'VIEW_STRATEGIC_DOCS',
             upload: 'UPLOAD_DOCS',
+            editMy: 'EDIT_ONLY_MY_DOCS',
+            editAll: 'EDIT_ANY_DOCS',
             deleteMy: 'DELETE_ONLY_MY_DOCS',
-            deleteAll: 'DELETE_ALL_DOCS',
+            deleteAll: 'DELETE_ANY_DOCS',
             manageAccountTag: 'MANAGE_ACCOUNT_TAG',
             manageGlobalTag: 'MANAGE_GLOBAL_TAG'
         },
@@ -358,6 +360,14 @@ define([
             {
                 name: 'documentLibraryDeleteAllAccess',
                 permission: permissionSet.contentManagement.deleteAll
+            },
+            {
+                name: 'documentLibraryEditMyAccess',
+                permission: permissionSet.contentManagement.editMy
+            },
+            {
+                name: 'documentLibraryEditAllAccess',
+                permission: permissionSet.contentManagement.editAll
             },
             {
                 name: 'documentLibraryManageAccountAccess',
@@ -576,6 +586,8 @@ define([
                     permissionSet.contentManagement.viewStrategic,
                     permissionSet.contentManagement.upload,
                     permissionSet.contentManagement.deleteMy,
+                    permissionSet.contentManagement.deleteAll,
+                    permissionSet.contentManagement.editMy,
                     permissionSet.contentManagement.deleteAll,
                     permissionSet.contentManagement.manageAccountTag
                 ]
