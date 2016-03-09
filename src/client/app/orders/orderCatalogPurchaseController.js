@@ -100,7 +100,7 @@ define(['angular','order', 'utility.grid'], function(angular) {
             if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
                 Orders.tempSpace.catalogCart.billingModels){
                 var isShipBill =  $.inArray('SHIP_AND_BILL', Orders.tempSpace.catalogCart.billingModels);
-                if(isShipBill > 0){
+                if(isShipBill > -1){
                     $scope.paymentMethod = 'SHIP_AND_BILL';
                     addShipAndBill();
                 }else if(Orders.tempSpace.catalogCart.billingModels.length > 0 && $scope.type !== 'SUPPLIES'){
