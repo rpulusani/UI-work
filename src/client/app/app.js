@@ -130,6 +130,7 @@ define([
     'utility.imageService',
     'utility.columnPickerController',
     'utility.printExportTitleController',
+    'utility.meterReadTypeFactory',
     'filterSearch',
     'filterSearch.directives',
     'filterSearch.gridFilterController',

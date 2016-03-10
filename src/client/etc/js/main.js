@@ -337,6 +337,7 @@ requirejs.config({
         'utility.devicePickerController': 'app/utilities/devicePickerController',
         'utility.pageCountSelectController': 'app/utilities/pageCountSelectController',
         'utility.pageCountSelectService': 'app/utilities/pageCountSelectService',
+        'utility.meterReadTypeFactory': 'app/utilities/meterReadTypeFactory',
         'utility.personalizationService': 'app/utilities/personalizationService',
         'utility.urlHelper': 'app/utilities/urlHelper',
         'utility.recursionHelper': 'app/utilities/recursionHelper',

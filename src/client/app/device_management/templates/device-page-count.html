@@ -13,7 +13,7 @@
             </tr>
         </thead>
 		<tbody>
-	        <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'Mono' || item.type === 'LTPC' || item.type === 'Color'">
+	        <tr ng-repeat="item in meterReads" ng-show="showAllMeterReads || item.type === 'MONO' || item.type === 'LTPC' || item.type === 'COLOR'">
 	            <td data-label="{{'DEVICE_MGT.PAGE_COUNT_TYPE' | translate}}" ng-bind="item.type"></td>
 	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT' | translate}}">
                     <div ng-bind="item.value"></div>
@@ -21,15 +21,15 @@
                 </td>
 	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW' | translate}}">
 	            	<div class="form__field vertical-space--none">
-                        <input type="number" ng-model="item.newVal" ng-if="item.type !== 'Mono'" />
+                        <input type="number" ng-model="item.newVal" ng-if="item.type !== 'MONO'" />
                     </div>
-                    <span ng-if="item.type === 'Mono'" ng-bind="item.value"></span>
+                    <span ng-if="item.type === 'MONO'" ng-bind="item.value"></span>
 	            </td>
 	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE' | translate}}">
                     <div class="form__field vertical-space--none">
-                        <input datepicker type="date" ng-model="item.newDate" ng-if="item.type !== 'Mono'" />
+                        <input datepicker type="date" ng-model="item.newDate" ng-if="item.type !== 'MONO'" />
                     </div>
-                    <span ng-if="item.type === 'Mono'" ng-bind="getMeterReadPriorDate(item)"></span>
+                    <span ng-if="item.type === 'MONO'" ng-bind="getMeterReadPriorDate(item)"></span>
 	            </td>
 	        </tr>
         </tbody>
