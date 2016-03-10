@@ -55,7 +55,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_LOCATION', 'LocationFilter', undefined,
+            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_LOCATION', 'LocationFilter', undefined,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
@@ -63,7 +63,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
+            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DATE_RANGE', 'DateRangeFilter', undefined,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
@@ -71,7 +71,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }
             );
-            filterSearchService.addBasicFilter('FILTERS.FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
+            filterSearchService.addBasicFilter('REQUEST_MAN.COMMON.TXT_FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
                 function(Grid) {
                     $scope.$broadcast('setupColumnPicker', Grid);
                     $scope.$broadcast('setupPrintAndExport', $scope);

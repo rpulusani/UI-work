@@ -248,8 +248,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                         translate: {
                             h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
                             h1Values: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) },
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: 'Learn more about requests'
+                            body: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS_PAR',
+                            readMore: 'REQUEST_MAN.COMMON.LNK_LEARN_MORE'
                         },
                         readMoreUrl: '/service_requests/learn_more',
                         showCancelBtn: false
@@ -259,19 +259,19 @@ define(['angular', 'serviceRequest'], function(angular) {
                             translate: {
                                 h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
                                 title: 'SERVICE_REQUEST.REQUEST_CANCELLATION_INFORMATION',
-                                contact: 'SERVICE_REQUEST.SERVICE_REQUEST_CONTACT',
+                                contact: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
                                 label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
                             }
                         }
                     },
                     detail: {
                         translate: {
-                            title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_REQUEST_ADDL_DETAILS',
+                            referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                            comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS_SIZE',
                             fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                         },
                         show: {
@@ -290,9 +290,9 @@ define(['angular', 'serviceRequest'], function(angular) {
                     },
                     contact:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                            requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
                             changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                         },
                         show:{

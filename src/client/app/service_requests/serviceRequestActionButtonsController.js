@@ -54,13 +54,13 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                             singleDeviceSelection: true,
                             readMoreUrl: '',
                             translate: {
-                                replaceDeviceTitle: 'SERVICE_REQUEST.SERVICE_REQUEST_PICKER_SELECTED',
-                                h1: 'SERVICE_REQUEST.SERVICE_REQUEST_DEVICE',
-                                body: 'MESSAGE.LIPSUM',
+                                replaceDeviceTitle: 'REQUEST_MAN.SELECT_DEVICE.TXT_DEVICE_SELECTED_SERVICE',
+                                h1: 'REQUEST_MAN.SELECT_DEVICE.TXT_SELECT_DEVICE',
+                                body: 'REQUEST_MAN.SELECT_DEVICE.TXT_SELECT_DEVICE_PAR',
                                 readMore: '',
                                 confirmation:{
-                                    abandon:'SERVICE_REQUEST.ABANDON_SERVICE_REQUEST',
-                                    submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
+                                    abandon:'REQUEST_MAN.COMMON.BTN_ABANDON_SERVICE_REQUEST',
+                                    submit: 'REQUEST_MAN.COMMON.BTN_REQUEST_SERVICE'
                                 }
                             }
 

@@ -59,10 +59,10 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 },
                 contact:{
                     translate: {
-                        title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                        requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                        primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                        changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                        title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                        requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                        primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                        changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_CHANGE_REQUEST_CONTACT'
                     },
                     show:{
                         primaryAction : false
@@ -71,12 +71,12 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 },
                 detail:{
                     translate:{
-                        title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                        referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                        costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
-                        attachmentMessage: 'MESSAGE.ATTACHMENT',
+                        title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                        referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                        costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                        comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                        attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                        attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS_SIZE',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{
@@ -92,12 +92,12 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.configure.device = {
                     information:{
                             translate: {
-                                title: 'DEVICE_MGT.DEVICE_INFO',
-                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                product: 'DEVICE_MGT.PRODUCT_MODEL',
-                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
+                                title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                                serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                                partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                                product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
+                                ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                             }
                     }
 
@@ -107,14 +107,14 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.configure.device = {
                     information:{
                         translate:{
-                            title:'DEVICE_SERVICE_REQUEST.REQUEST_MOVE_TITLE',
-                            move: 'DEVICE_SERVICE_REQUEST.LEXMARK_MOVE_DEVICE',
-                            installAddress: 'DEVICE_MGT.INSTALL_ADDRESS'
+                            title:'REQUEST_MAN.COMMON.TXT_REQUESTED_UPDATES',
+                            move: 'REQUEST_MAN.COMMON.TXT_INSTALL_LXK_TO_MOVE',
+                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     }
                 };
-                $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_DETAIL';
-                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_REQUEST_NUMBER';
+                $scope.configure.receipt.translate.title = 'REQUEST_MAN.COMMON.TXT_UPDATE_DEVICE_DETAILS';
+                $scope.configure.header.translate.h1 = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_DEVICE_REQUEST_NUMBER';
             }
             function addReturnOrderInfo(){
                 $scope.configure.order = {
@@ -279,8 +279,8 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                  $scope.configure.device.removal = {
                             translate:{
                                 title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
-                                pickup: 'DEVICE_SERVICE_REQUEST.DEVICE_PICKUP_LEXMARK',
-                                pageCount: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
+                                pickup: 'REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY',
+                                pageCount: 'REQUEST_MAN.COMMON.TXT_PAGE_COUNTS'
                             },
                             source: 'decommission'
                     };
@@ -290,7 +290,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 $scope.configure.header.translate.h1Values = {
                     'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
                 };
-                $scope.configure.header.translate.body = 'SERVICE_REQUEST.REQUEST_SERVICE_SUBMIT_HEADER_BODY';
+                $scope.configure.header.translate.body = 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS_PAR';
                 $scope.configure.header.translate.bodyValues= {};
                 $scope.configure.receipt = {
                     translate:{
@@ -298,7 +298,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                         titleValues: {
                             'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
                         },
-                        subtitle: 'SERVICE_REQUEST.REQUEST_STATUS'
+                        subtitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_STATUS'
                     },
                     print: true
                 };
@@ -334,21 +334,21 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDeviceOrderInfo();
                 break;
                 case 'DATA_ADDRESS_ADD':
-                    addAddressInfo('ADDRESS_SERVICE_REQUEST.ADDRESS_REQUESTED');
+                    addAddressInfo('ADDRESS_MANADD_ADDRESS.TXT_ADDRESS_ADDED');
                     $scope.formattedAddress = "No Address information found";
-                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_ADDRESS_DETAIL';
-                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
+                    $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
+                    $scope.configure.header.translate.h1 = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS';
                 break;
                 case 'DATA_ADDRESS_CHANGE':
-                    addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_CHANGE');
+                    addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
                     $scope.formattedAddress = "No Address information found";
-                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_ADDRESS_DETAIL';
-                    $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_ADDRESS_REQUEST_NUMBER';
+                    $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
+                    $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 break;
                 case 'DATA_ADDRESS_REMOVE':
                     addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
                     $scope.formattedAddress = "No Address information found";
-                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DELETE_ADDRESS_DETAIL';
+                    $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DELETE_ADDRESS_REQUEST_NUMBER';
                 break;
                 case 'DATA_CONTACT_REMOVE':
@@ -373,7 +373,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                 break;
                 case 'MADC_INSTALL':
                     addDeviceInformation();
-                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL';
+                    $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
                     $scope.configure.header.showCancelBtn = true;
                     $scope.configure.header.showUpdateBtn = true;
@@ -383,7 +383,7 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDecommissionInfo();
                     $scope.device.lexmarkPickupDevice = 'true';
                     $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
-                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL';
+                    $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                     $scope.configure.header.showCancelBtn = true;
                     $scope.configure.header.showUpdateBtn = true;
@@ -393,15 +393,15 @@ define(['angular','serviceRequest', 'utility.grid'], function(angular) {
                     addDecommissionInfo();
                     $scope.device.lexmarkPickupDevice = 'false';
                     $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
-                    $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DECOMMISION_DEVICE_DETAIL';
+                    $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS';
                     $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                 break;
                 case 'BREAK_FIX':
                 addDeviceInformation();
                 $scope.configure.device.service ={
                         translate:{
-                            title:'DEVICE_SERVICE_REQUEST.SERVICE_DETAILS',
-                            description:'DEVICE_SERVICE_REQUEST.PROBLEM_DESCRIPTION'
+                            title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_SUMMARY',
+                            description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
                         }
                     };
                 $scope.configure.header.showUpdateBtn = true;
