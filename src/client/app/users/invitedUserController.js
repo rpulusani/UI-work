@@ -7,16 +7,40 @@ define(['angular', 'utility.blankCheckUtility', 'user', 'user.factory'], functio
             UserAdminstration.setParamsToNull();
 
             $scope.selectRow = function() {
-                selectedUser = $scope.gridApi.selection.getSelectedRows()[0];
+                var selectedUser = $scope.gridApi.selection.getSelectedRows()[0];
                 UserAdminstration.setItem(selectedUser);
+                UserAdminstration.reset();
+                UserAdminstration.newMessage();
+                $scope.userInfo = UserAdminstration.item;
+                UserAdminstration.addField('type', 'INVITED');
+                UserAdminstration.addField('invitedStatus', 'REJECTED');
+                UserAdminstration.addField('active', false);
+                UserAdminstration.addField('resetPassword', false);
+                UserAdminstration.addField('email', selectedUser.email);
+                UserAdminstration.addField('userId', selectedUser.userId);
+                if (selectedUser._links.roles) {
+                    $scope.userInfo._links.roles = selectedUser._links.roles;
+                }
+                if (selectedUser._links.accounts) {
+                    $scope.userInfo._links.accounts = selectedUser._links.accounts;
+                }
+                UserAdminstration.item.postURL = UserAdminstration.url + '/' + selectedUser.userId;
                 var options = {
-                    params:{
-                        embed:'roles,accounts'
-                    }
-                };
+                    preventDefaultParams: true
+                }
+                var deferred = UserAdminstration.put({
+                    item:  $scope.userInfo
+                }, options);
 
-                UserAdminstration.item.get(options).then(function(){
-                    $location.path(UserAdminstration.route + '/' + user.userId + '/cancel');
+                deferred.then(function(result){
+                    UserAdminstration.wasInvited = false;
+                    UserAdminstration.wasSaved = false;
+                    setTimeout(function() {
+                        $rootScope.currentRowList = [];
+                        $scope.searchFunctionDef({'type': 'INVITED', 'embed': 'roles'}, undefined);
+                    }, 500);
+                }, function(reason){
+                    NREUM.noticeError('Failed to update user because: ' + reason);
                 });
             };
 
