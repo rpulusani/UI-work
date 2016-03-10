@@ -73,7 +73,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                     NREUM.noticeError('Failed to CREATE tag: ' + response.statusText);
                 });
 
-                var parsedTagName = $scope.transformTag($scope.tagName);
+                var parsedTagName = Documents.getTranslationKeyFromTag($scope.tagName);
 
                 var tagLocalizations = {'EN': $scope.tagName};
 
@@ -99,12 +99,12 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.goToEditTag = function() {
-                var origParsedTagName = $scope.transformTag(Tags.item.name);
+                var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
                 Tags.item.name = $scope.selectedTag;
 
                 var tagName = Tags.item.name;
-                var parsedTagName = $scope.transformTag(Tags.item.name);
+                var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
                 $http({
                     method: 'PUT',
@@ -148,7 +148,7 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
             };
 
             $scope.goToDeleteTag = function() {
-                var parsedTagName = $scope.transformTag(Tags.item.name);
+                var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
                 $http({
                     method: 'DELETE',
@@ -168,12 +168,6 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 });
 
                 $route.reload();
-            };
-
-            $scope.transformTag = function(input) {
-                var parsedTagName = input.replace(/[^a-zA-Z0-9]+/g, '_').toUpperCase();
-                parsedTagName = 'TAG_' + parsedTagName;
-                return parsedTagName;
             };
         }
     ]);

@@ -61,6 +61,10 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 var icon = 'icon-16 ';
 
                 switch (extension) {
+                    case 'doc':
+                        /* fallthrough */
+                    case 'docx':
+                        /* fallthrough */
                     case 'pdf':
                         icon += 'icon-mps-pdf_document';
                         break;
@@ -84,6 +88,16 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 }
 
                 return icon;
+            };
+
+            $scope.getTagNames = function(tags) {
+                var localized = [];
+                if (tags) {
+                    for (var i = 0; i < tags.length; i++) {
+                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
+                    }
+                }
+                return localized.join(', ');
             };
 
             $scope.getEditAction = function (owner) {
