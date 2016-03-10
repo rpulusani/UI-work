@@ -61,6 +61,10 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
                 var icon = 'icon-16 ';
 
                 switch (extension) {
+                    case 'doc':
+                        /* fallthrough */
+                    case 'docx':
+                        /* fallthrough */
                     case 'pdf':
                         icon += 'icon-mps-pdf_document';
                         break;
