@@ -48,13 +48,7 @@ define(['angular','translation', 'utility.grid'], function(angular) {
                     }, 500);
                 }
             );
-            filterSearchService.addPanelFilter('Missing', 'MissingFilter', undefined,
-                function(Grid) {
-                    setTimeout(function() {
-                        $scope.$broadcast('setupPrintAndExport', $scope);
-                    }, 500);
-                }
-            );
+            
             filterSearchService.addPanelFilter('Category', 'CategoryFilter', undefined,
                 function(Grid) {
                     setTimeout(function() {
