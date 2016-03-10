@@ -10,6 +10,10 @@ define(['angular', 'utility'], function(angular) {
             return value !== undefined && value !== null;
         };
 
+        BlankCheck.prototype.checkNotBlankNumberOrDate = function(value){
+            return value !== undefined && value !== null && value !== '';
+        };
+
         BlankCheck.prototype.checkNotBlank = function(value){
             return value !== undefined && value !== null && value !== '' && value.trim() !== '';
         };
