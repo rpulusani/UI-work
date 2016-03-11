@@ -1,14 +1,12 @@
-define(['angular', 'deviceManagement', 'hateoasFactory.serviceFactory'], function(angular) {
-    'use strict';
-    angular.module('mps.deviceManagement')
-    .factory('MeterReadService', ['serviceUrl', '$translate', 'HATEOASFactory',
-        function(serviceUrl, $translate, HATEOASFactory) {
-            var MeterReads = {
-                serviceName: 'meterReads',
-                embeddedName: 'meterReads',
-                route: ''
-            };
 
-        return new HATEOASFactory(MeterReads);
-    }]);
-});
+angular.module('mps.deviceManagement')
+.factory('MeterReadService', ['serviceUrl', '$translate', 'HATEOASFactory',
+    function(serviceUrl, $translate, HATEOASFactory) {
+        var MeterReads = {
+            serviceName: 'meterReads',
+            embeddedName: 'meterReads',
+            route: ''
+        };
+
+    return new HATEOASFactory(MeterReads);
+}]);

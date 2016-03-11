@@ -1,11 +1,11 @@
-define(['angular', 'utility'], function(angular) {
-    'use strict';
-    angular.module('mps.utility')
-    .factory('Attachment', ['$window', function($window) {
-        var Attachment = function() {
 
-        };
 
-        return new Attachment();
-    }]);
-});
+angular.module('mps.utility')
+.factory('Attachment', ['$window', function($window) {
+    var Attachment = function() {
+
+    };
+
+    return new Attachment();
+}]);
+

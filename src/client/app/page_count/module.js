@@ -1,4 +1,4 @@
-'use strict';
+
 angular.module('mps.pageCount', []).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/page_count', {
