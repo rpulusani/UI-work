@@ -1,4 +1,3 @@
-    'filterSearch.accountAllFilterController',
     'use strict';
     angular.module('mps', [
         'ngRoute',
