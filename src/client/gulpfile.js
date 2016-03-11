@@ -6,8 +6,10 @@ var minifyCSS = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
 var order = require('gulp-order');
 var wrap = require('gulp-wrap');
+var webserver = require('gulp-webserver');
+var del = require('del');
 
-gulp.task('scripts', function(){
+gulp.task('scripts', ['libs'], function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
     .pipe(jshint())
     .pipe(concat('mps.app.js'))
@@ -45,7 +47,7 @@ gulp.task('libs', function() {
   .pipe(concat('mps.libs.js'))
   .pipe(wrap('define([], function() {<%= contents %>});'))
   .pipe(gulp.dest('dist/build'));
-})
+});
 
 gulp.task('html-templates', function(){
   return gulp.src(['app/**/templates/*.html', 'app/**/templates/**/*.html'])
@@ -72,26 +74,38 @@ gulp.task('third-party-styles', function(){
 gulp.task('lxk-styles', function(){
    return gulp.src(['etc/**/*','!etc/{styles,styles/**}'])
     .pipe(gulp.dest('dist/build/etc'));
-})
+});
 
 gulp.task('prep-html', function() {
     return gulp.src(['views/index.html'])
     .pipe(gulp.dest('dist/build'));
 });
 
+gulp.task('clean', function() {
+    return del([
+        'dist/build/**/*'
+    ]);
+});
+
 // DEFAULT TASK //
-gulp.task('default', function() {
-  gulp.run('scripts', 'less', 'prep-html', 'libs','html-templates', 'json-data', 'third-party-styles', 'lxk-styles');
+// Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their 
+// dependencies
+gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates', 'json-data', 'third-party-styles', 'lxk-styles']);
 
-  gulp.watch('app/**', function(event) {
-    gulp.run('scripts');
-  });
+gulp.task('dev', ['default'], function(){
+    
+  // watch filesystem paths and dispatch tasks when changes are detected  
+  gulp.watch('app/**', ['scripts']);
 
-  gulp.watch('libs/**', function(event) {
-    gulp.run('libs');
-  })
+  gulp.watch('libs/**', ['libs']);
 
-  gulp.watch('views/index.html', function(event) {
-    gulp.run('prep-html');
-  })
-})
+  gulp.watch('views/index.html', ['prep-html']);
+    
+    return gulp.src('dist/build/')
+        .pipe(webserver({
+            livereload: true,
+            fallback: '/index.html',
+            port: 8080,
+            open: true
+        }));
+});
