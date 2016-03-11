@@ -3,9 +3,9 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
     angular.module('mps.library')
     .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
         'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 
-        'FormatterService', 'AllAccounts', '$q', 'AccountService',
+        'FormatterService', 'AllAccounts', '$q', 'AccountService', '$route',
         function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
-            $rootScope, formatter, AllAccounts, $q, Account) {
+            $rootScope, formatter, AllAccounts, $q, Account, $route) {
 
             $scope.selectedAccounts = [];
             $scope.documentItem = {};
@@ -31,6 +31,9 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                 $scope.documentItem = { id:'new', strategic: false };
             } else {
                 $scope.documentItem = Documents.item;
+
+                $scope.phDocumentName = $scope.documentItem.name;
+
                 $scope.documentItem.accountList = [];
                 if (BlankCheck.checkNotNullOrUndefined(Documents.item.publishDate)) {
                     $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
@@ -295,13 +298,10 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
+                        response.data.modifySuccess = true;
                         Documents.setItem(response.data);
-                        $scope.documentItem = Documents.item;
-                        $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
-                        $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
-                        
-                        $scope.modifySuccess = true;
-                        $scope.isCommitting = false;
+
+                        $route.reload();
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                     });
@@ -325,13 +325,10 @@ define(['angular', 'library', 'ngTagsInput'], function(angular) {
                         headers: {'Content-Type': undefined },
                         data: fd
                     }).then(function successCallback(response) {
+                        response.data.uploadSuccess = true;
                         Documents.setItem(response.data);
-                        $scope.documentItem = Documents.item;
-                        $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
-                        $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
 
-                        $scope.uploadSuccess = true;
-                        $scope.isCommitting = false;
+                        $location.path(Documents.route + "/" + Documents.item.id + "/update");
                     }, function errorCallback(response) {
                         NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
                     });
