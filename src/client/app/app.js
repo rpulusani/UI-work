@@ -130,6 +130,7 @@ define([
     'utility.imageService',
     'utility.columnPickerController',
     'utility.printExportTitleController',
+    'utility.urlHelper',
     'filterSearch',
     'filterSearch.directives',
     'filterSearch.gridFilterController',
@@ -156,7 +157,27 @@ define([
     'security',
     'security.securityService',
     'security.securityHelper',
-    'vButton'
+    'vButton',
+    'user',
+    'user.factory',
+    'user.userInfoFactory',
+    'user.impersonateFactory',
+    'user.userAdministrationFactory',
+    'user.lexmarkUserFactory',
+    'user.roleFactory',
+    'user.allAccountFactory',
+    'user.directives',
+    'user.userController',
+    'user.userAddController',
+    'user.lexmarkUserAddController',
+    'user.lexmarkUserListController',
+    'user.impersonateUserListController',
+    'user.usersController',
+    'user.userTabController',
+    'user.manageUserTabController',
+    'user.manageUserController',
+    'user.invitedUserController',
+    'user.profileController',
 ], function(angular) {
     'use strict';
     angular.module('mps', [
@@ -644,7 +665,7 @@ define([
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: config.portal.adminUrl + '/localizations/',
+                    prefix: config.portal.adminUrl + 'resource-bundles/',
                     suffix: '.json'
                 })
                 .useLocalStorage();

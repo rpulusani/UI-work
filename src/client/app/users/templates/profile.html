@@ -1,15 +1,79 @@
-<div sr-header></div>
-<div class="page-content">
-    <div class="set" data-js="set">
-        <div class="set__trigger" ng-class="{'set--is-active':isActive('userProfile')}" data-toggle="userProfile" ng-click="onClickTb('userProfile')">
-            <a href="#userProfile" translate="USER_PROFILE_MAN.COMMON.TAB_INFORMATION"><i class="set__icon"></i></a>
-        </div>
-        <div class="set__content" id="userProfile" ng-class="{'set--is-active':isActive('userProfile')}">
-        </div>
-         <div class="set__trigger" ng-class="{'set--is-active':isActive('settings')}" data-toggle="settings" ng-click="onClickTb('settings')">
-            <a href="#settings" translate="USER_PROFILE_MAN.COMMON.TAB_SETTINGS"><i class="set__icon"></i></a>
-        </div>
-        <div class="set__content" id="settings" ng-class="{'set--is-active':isActive('settings')}">
+<div class="page-header">
+    <div class="col-lg-2-3 col-md-1-1">
+        <h1 translate="USER_PROFILE_MAN.COMMON.TXT_TITLE"></h1>
+        <p><span translate="USER_PROFILE_MAN.COMMON.TXT_DESC"></span></p>
+        <div class="col-1 btns">
+            <button type="button" class="btn btn--default" href="" ng-click="goToEmailUpdate()"
+                translate="USER_PROFILE_MAN.COMMON.BTN_UPDATE_EMAIL" ></button>
         </div>
     </div>
 </div>
+<div class="page-content">
+<div print-export-title
+    title="USER_PROFILE_MAN.PROFILE.TXT_USER_PROFILE" print="false" export="false"></div>
+    <hr/>
+    <div class="col-2-3">
+        <h3 translate="USER_PROFILE_MAN.PROFILE.PERSONAL_INFORMATION"></h3>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_FIRST_NAME"></label>
+            <input name="first_name" class="" type="text" ng-model="user.firstName" value="" />
+        </div>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_LAST_NAME"></label>
+            <input name="last_name" class="" type="text" ng-model="user.lastName" value="" />
+        </div>
+        <div class="form__field">
+            <a href="#" ng-click="goToEmailUpdate();" translate="USER_PROFILE_MAN.COMMON.CHANGE_EMAIL"></a>
+            <label translate="USER_PROFILE_MAN.COMMON.LABEL_EMAIL"></label>
+            <input name="email" class="" type="text" ng-model="user.email" value="" disabled/>
+        </div>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_Work_phone"></label>
+            <input name="work_phone" class="" type="text" ng-model="user.workPhone" value="" />
+        </div>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_FAX"></label>
+            <input name="fax" class="" type="text" ng-model="user.fax" value="" />
+        </div>
+    </div>
+    <div class="col-2-3">
+        <h3 translate="USER_PROFILE_MAN.PROFILE.TXT_LOCATION"></h3>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_ADDRESS_1"></label>
+            <input name="address_line_1" class="" type="text" ng-model="user.address.addressLine1" value="" />
+        </div>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_ADDRESS_2"></label>
+            <input name="address_line_2" class="" type="text" ng-model="user.address.addressLine2" value="" />
+        </div>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_CITY"></label>
+            <input name="city" class="" type="text" ng-model="user.address.city" value="" />
+        </div>
+        <div class="form__field form__field--select">
+        <label translate="USER_PROFILE_MAN.PROFILE.LABEL_STATE"></label>
+        <div selectric options="country.provinces" value="code" label="name" model="address.address.stateCode" required
+             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+        </div>
+        <div class="form__field">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_ZIP_CODE"></label>
+            <input name="zip_code" class="" type="text" ng-model="user.address.postalCode" value="" />
+        </div>
+        <div class="form__field form__field--select form__field--required">
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_COUNTRY"></label>
+            <div id="country" selectric model="country" options="countries" value="code" label="name"
+                 placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+        </div>
+    </div>
+    <div class="col-2-3">
+        <h3 translate="USER_PROFILE_MAN.SETTINGS.TXT_PREFERENCES"></h3>
+        <label translate="USER_PROFILE_MAN.SETTINGS.LABEL_LANGUAGE"></label>
+        <div class="form__field form__field--select form__field--required">
+            <div id="language" selectric options="userPreferences" value="localeCode" label="language" model="language" required
+                on-select="preferedLanguageSelected(option)"
+                 placeholder="{{'LABEL.SELECT' | translate}}"></div>
+        </div>
+    </div>
+    <div sr-form-buttons></div>
+</div>
+

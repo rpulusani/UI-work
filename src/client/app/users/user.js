@@ -8,6 +8,10 @@ define(['angular'], function(angular) {
         $routeProvider
          .when('/profile', {
             templateUrl: '/app/users/templates/profile.html',
+            controller: 'ProfileController'
+        })
+        .when('/profile/update_email', {
+            templateUrl: '/app/users/templates/profile_email.html',
         })
         .when('/delegated_admin', {
             templateUrl: '/app/users/templates/view.html',

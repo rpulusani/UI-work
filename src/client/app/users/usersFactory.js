@@ -1,8 +1,8 @@
 define(['angular', 'user'], function(angular) {
     'use strict';
     angular.module('mps.user')
-    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory',
-        function(serviceUrl, $translate, HATEOASFactory) {
+    .factory('UserService', [ 'serviceUrl', '$translate', 'HATEOASFactory','$http', '$q',
+        function(serviceUrl, $translate, HATEOASFactory, $http, $q) {
             var UserService = {
                 //TODO: Need to fix translations for Users
                 //customize Address
@@ -24,7 +24,19 @@ define(['angular', 'user'], function(angular) {
                         {'name': 'Roles', 'field': '' }
                     ]
                 },
-                route: '/delegated_admin'
+                route: '/delegated_admin',
+
+                getProfile: function(loginId){
+                    var url = serviceUrl  + 'users/'+ loginId,
+                    defer = $q.defer();
+                    $http.get(url).then(function(processedResponse) {
+                        defer.resolve(processedResponse.data);
+                    });
+                    return defer.promise;
+                },
+                updateProfile: function(){
+
+                }
             };
             return new HATEOASFactory(UserService);
         }

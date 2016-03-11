@@ -75,7 +75,8 @@ angular.module('mps.form')
       value: '@',
       placeholder: '@',
       model: '=',
-      onSelect: '&'
+      onSelect: '&',
+      onInit: '&'
     },
     link: function(scope, element, attrs) {
       var selectric = null;
@@ -155,7 +156,7 @@ angular.module('mps.form')
                      option = item;
                    }
                  });
-                 if(val == ''){
+                 if(val === ''){
                   option = {};
                  }
                  scope.onSelect({option: option});
