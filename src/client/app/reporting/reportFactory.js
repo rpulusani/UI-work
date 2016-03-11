@@ -354,7 +354,15 @@ angular.module('mps.report')
                 dateFrom: '',
                 dateTo: '',
                 selectType: '',
-                eventTypes: [{value: 'Installs'}, {value: 'MC'}, {value: 'Remove - Account'}, {value: 'Manual Swaps'}],
+                    eventTypes: [
+                        {value: 'Installs'},
+                        {value: 'Moves'},
+                        {value: 'IP Change'},
+                        {value: 'Remove - Account'},
+                        {value: 'Removes'},
+                        {value: 'Manual Swaps'},
+                        {value: 'Service Swaps'}
+                    ],
                 orderTypes: [{value: 'Consumable Supplies'}, {value: 'Consumable SVC Parts'}, {value: 'Consumable SVC Parts & Install'}],
                 mmrDays: '60',
                 mmrTypes: [{value: 'Manual'}, {value: 'Automated Electronic'}],

@@ -38,7 +38,7 @@ angular.module('mps.tree')
                     $scope.item.items = [];
                     Account.setItem($scope.item);
                     var options = {
-                        updateParams: false,
+                            preventDefaultParams: true,
                         params:{
                             accountId: Account.item.accountId,
                             accountLevel: Account.item.level,

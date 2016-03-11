@@ -193,6 +193,7 @@ angular.module('mps.filterSearch')
                         'params':{}
                     },
                     addParams = {};
+                        self.localScope.gridLoading = true;
                     
                     if(configuredParams){
                         angular.extend(options.params, configuredParams);

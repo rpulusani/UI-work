@@ -1,4 +1,6 @@
-    'use strict';
+
+
+
     angular.module('mps', [
         'ngRoute',
         'ngResource',
@@ -134,8 +136,10 @@
             viewNonstrategic: 'VIEW_NONSTRATEGIC_DOCS',
             viewStrategic: 'VIEW_STRATEGIC_DOCS',
             upload: 'UPLOAD_DOCS',
+            editMy: 'EDIT_ONLY_MY_DOCS',
+            editAll: 'EDIT_ANY_DOCS',
             deleteMy: 'DELETE_ONLY_MY_DOCS',
-            deleteAll: 'DELETE_ALL_DOCS',
+            deleteAll: 'DELETE_ANY_DOCS',
             manageAccountTag: 'MANAGE_ACCOUNT_TAG',
             manageGlobalTag: 'MANAGE_GLOBAL_TAG'
         },
@@ -200,12 +204,20 @@
                 permission: permissionSet.contentManagement.deleteAll
             },
             {
+                name: 'documentLibraryEditMyAccess',
+                permission: permissionSet.contentManagement.editMy
+            },
+            {
+                name: 'documentLibraryEditAllAccess',
+                permission: permissionSet.contentManagement.editAll
+            },
+            {
                 name: 'documentLibraryManageAccountAccess',
                 permission: permissionSet.contentManagement.manageAccountTag
             },
             {
                 name: 'documentLibraryManageGlobalTagAccess',
-                permission: permissionSet.contentManagement.manageAccountTag
+                permission: permissionSet.contentManagement.manageGlobalTag
             },
             {
                 name: 'deviceInfoAccess',
@@ -237,6 +249,10 @@
             {
                 name: 'orderDevice',
                 permission: permissionSet.serviceRequestManagement.orderHardware
+            },
+            {
+                name: 'orderInstall',
+                permission: permissionSet.serviceRequestManagement.orderInstallHardware
             },
             {
                 name: 'searchDevice',
@@ -412,6 +428,8 @@
                     permissionSet.contentManagement.viewStrategic,
                     permissionSet.contentManagement.upload,
                     permissionSet.contentManagement.deleteMy,
+                    permissionSet.contentManagement.deleteAll,
+                    permissionSet.contentManagement.editMy,
                     permissionSet.contentManagement.deleteAll,
                     permissionSet.contentManagement.manageAccountTag
                 ]

@@ -1,27 +1,38 @@
 
 angular.module('mps.filterSearch')
-.controller('SoldToFilterController', ['$scope', '$translate', 'AccountService', 'UserService',
-    function($scope, $translate, Accounts, User) {
-        User.getTransactionalAccounts().then(function(res) {
-            var accts = res._embedded.transactionalAccounts,
-            i = 0;
+    .controller('SoldToFilterController', ['$scope', '$translate', 'SoldToNumbers', 'UserService',
+        function($scope, $translate, SoldToNumbers, User) {
+            $scope.showClearMessage = false;
+            SoldToNumbers.get().then(function() {
+                if (SoldToNumbers.item && SoldToNumbers.item._embedded && SoldToNumbers.item._embedded.strings &&
+                    SoldToNumbers.item._embedded.strings.length > 0) {
+                    var soldTos = SoldToNumbers.item._embedded.strings,
+                    i = 0;
 
-            $scope.soldToList = [];
+                    $scope.soldToList = [];
 
-            for (i; i < accts.length; i += 1) {
-                $scope.soldToList.push({
-                    soldTo: accts[i].account.soldToNumber,
-                    accountId: accts[i].account.accountId
-                });
-            }
+                    for (i; i < soldTos.length; i += 1) {
+                        $scope.soldToList.push({
+                            soldTo: soldTos[i]
+                        });
+                    }
+                }
         });
 
         $scope.$watch('soldToFilter', function(soldToFilter) {
             if (soldToFilter) {
-                $scope.params['accountLevel'] = 'siebel';
-                $scope.params['accountId'] = soldToFilter;
+                    $scope.showClearMessage = true;
+                    $scope.params['soldToNumber'] = soldToFilter;
                 $scope.filterDef($scope.params, ['fromDate', 'toDate']);
             }
         });
+
+            $scope.clearSoldToFilter = function(){
+                if($scope.filterDef && typeof $scope.filterDef === 'function'){
+                    $scope.soldToFilter = '';
+                    $scope.params = {};
+                    $scope.filterDef($scope.params, ['soldToNumber', 'fromDate', 'toDate']);
+                }
+            };
     }
 ]);

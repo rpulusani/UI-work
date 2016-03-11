@@ -77,6 +77,18 @@ function(
                 $scope.configure.actions.disabled = false;
             }
         }
+                function getBillingModels(paySelection){
+                    var billingModels = [];
+                    if(paySelection === 'SHIP_AND_BILL'){
+                        billingModels.push(paySelection);
+                    }else{
+                        var tempArray = angular.copy(Contracts.item.billingModels);
+                        billingModels = tempArray.filter(function(i){
+                            return i !== 'SHIP_AND_BILL';
+                        });
+                    }
+                    return billingModels;
+                }
 
     if($scope.inTransactionalAccountContext()){
         $scope.configure = {
@@ -86,7 +98,7 @@ function(
                     Orders.newMessage();
                     Orders.tempSpace = {
                         'catalogCart': {
-                            'billingModels': $scope.paySelection,
+                                    'billingModels': getBillingModels($scope.paySelection),
                             'catalog': $scope.catalog,
                             'contract': $scope.contractObject,
                             'agreement': $scope.agreementObject
@@ -124,11 +136,18 @@ function(
             };
             $scope.catalog = 'supplies';
         }
-        $scope.setAcceptedPayChoice= function(){
-            if($scope.paySelection === 'SHIP_AND_BILL'){
+
+                $scope.setCatalogChoice = function(selection){
+                    $scope.catalogSelection = selection;
+                };
+
+                $scope.setAcceptedPayChoice= function(selection){
+                    $scope.paySelection = selection;
+                    if(selection === 'SHIP_AND_BILL'){
                 catalogOptions();
             }
         };
+
         $scope.onAgreementSelected = function(option){
             if(option && option.id){
                 Contracts.item = {};

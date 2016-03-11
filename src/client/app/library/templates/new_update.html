@@ -1,14 +1,14 @@
 <div class="page-header">
     <div class="row">
         <div class="col-2-3">
-            <h1 translate="{{ translationPlaceHolder.h1 }}"></h1>
+            <h1 translate="{{ translationPlaceHolder.h1 }}" translate-values="{ fileName: documentItem.name }"></h1>
             <p class="text--large" translate="{{ translationPlaceHolder.paragraph }}"></p>
 
             <div class="well" ng-show="uploadSuccess === true">
-                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOCUMENT_ADDED" translate-values="{fileName: documentItem.name }"</p>
+                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOCUMENT_ADDED" translate-values="{ fileName: documentItem.name }"</p>
             </div>
             <div class="well" ng-show="modifySuccess === true">
-                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOC_CHANGES_SAVED" translate-values="{fileName: documentItem.name }"</p>
+                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOC_CHANGES_SAVED" translate-values="{ fileName: documentItem.name }"</p>
             </div>
         </div>
     </div>

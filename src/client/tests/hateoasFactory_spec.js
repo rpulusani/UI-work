@@ -217,7 +217,7 @@ define(['angular', 'angular-mocks', 'fixtures', 'hateoasFactory'],
                 });
 
                 it('trigging from an attached item should avoid attaching a new item and work with attached', function() {
-                    httpBackend.when('GET', mockFactory.url + '/itemTwo?accountId=1-21AYVOT&accountLevel=GLOBAL').respond(fixtures.api.test.itemOne);
+                    httpBackend.when('GET', mockFactory.url + '/itemTwo').respond(fixtures.api.test.itemOne);
 
                     mockFactory.setItem(fixtures.api.test.itemOne);
 
