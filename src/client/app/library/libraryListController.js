@@ -62,19 +62,15 @@ define(['angular', 'library', 'utility.grid'], function(angular) {
 
                 switch (extension) {
                     case 'doc':
-                        /* fallthrough */
                     case 'docx':
-                        /* fallthrough */
                     case 'pdf':
-                        icon += 'icon-mps-pdf_document';
-                        break;
                     case 'xls':
-                        /* fallthrough */
                     case 'xlsx':
-                        icon += 'icon-mps-spreadsheet';
+                    case 'csv':
+                        icon += 'icon-mps-' + extension;
                         break;
                     default:
-                        icon += 'icon-mps-blank_document';
+                        icon += 'icon-mps-other';
                 }
 
                 return icon;

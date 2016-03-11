@@ -1,14 +1,7 @@
-.tag-table-wrapper {
-  height: 350px;
-  overflow-y: scroll;
-}
 .screen-reader {
   display: block !important;
   left: -9999px !important;
   position: absolute !important;
-}
-.report-charts .well {
-  height: 300px;
 }
 .site-wrapper:after,
 .site-header:after,
@@ -313,7 +306,6 @@ p.info-list .item-name:after {
 .title h1 {
   padding: 0 20px;
   position: absolute;
-  top: 18px;
 }
 @media only screen and (min-width: 74em) {
   .title h1 {
@@ -880,17 +872,29 @@ div.ui-grid-cell .form__field--has-alert.form__field select {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-mps-lbs_map:before {
-  content: "\e90c";
-}
-.icon-mps-spreadsheet:before {
-  content: "\e90d";
-}
-.icon-mps-pdf_document:before {
+.icon-mps-doc:before {
   content: "\e90e";
 }
-.icon-mps-blank_document:before {
+.icon-mps-docx:before {
+  content: "\e90e";
+}
+.icon-mps-pdf:before {
+  content: "\e90e";
+}
+.icon-mps-xls:before {
+  content: "\e90d";
+}
+.icon-mps-xlsx:before {
+  content: "\e90d";
+}
+.icon-mps-csv:before {
+  content: "\e90d";
+}
+.icon-mps-other:before {
   content: "\e90f";
+}
+.icon-mps-lbs_map:before {
+  content: "\e90c";
 }
 .icon-mps-location:before {
   content: "\e900";
@@ -1200,8 +1204,8 @@ ul.status-details {
   background: #1d1d25;
   border-color: #1d1d25;
 }
-.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account:hover,
-.theme--dark .rail-nav .theme--dark .rail-nav a.nav-item-account:focus {
+.theme--dark .rail-nav a.nav-item-account:hover,
+.theme--dark .rail-nav a.nav-item-account:focus {
   background-color: #44434e;
   border-color: #44434e;
   color: #3af23a;
