@@ -200,8 +200,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                         descriptionDetail: {
                             information:{
                                 translate: {
-                                    title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
-                                    label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                    title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCELLATION_DETAILS',
+                                    label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_DESCRIPTION'
                                 }
                             },
                             show: {
@@ -246,9 +246,9 @@ define(['angular', 'serviceRequest'], function(angular) {
                 $scope.configure = {
                     header: {
                         translate: {
-                            h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
+                            h1: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_NUMBER',
                             h1Values: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) },
-                            body: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS_PAR',
+                            body: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_PAR',
                             readMore: 'REQUEST_MAN.COMMON.LNK_LEARN_MORE'
                         },
                         readMoreUrl: '/service_requests/learn_more',
@@ -257,21 +257,21 @@ define(['angular', 'serviceRequest'], function(angular) {
                     cancel: {
                         information:{
                             translate: {
-                                h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
-                                title: 'SERVICE_REQUEST.REQUEST_CANCELLATION_INFORMATION',
+                                h1: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_NUMBER',
+                                title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_REQUEST_CANCEL_INFORMATION',
                                 contact: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
-                                label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_DESCRIPTION'
                             }
                         }
                     },
                     detail: {
                         translate: {
-                            title: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_REQUEST_ADDL_DETAILS',
+                            title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_REQUEST_ADDL_CANCEL_DETAILS',
                             referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
                             costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                             attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
-                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS_SIZE',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
                             fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                         },
                         show: {
@@ -283,8 +283,8 @@ define(['angular', 'serviceRequest'], function(angular) {
                     },
                     actions: {
                         translate: {
-                            abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_CANCELLATION',
-                            submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION'
+                            abandonRequest:'REQUEST_MAN.MANAGE_REQUESTS.BTN_ABANDON_REQUEST_CANCELLATION',
+                            submit: 'REQUEST_MAN.MANAGE_REQUESTS.BTN_SUBMIT_REQUEST_CANCELLATION'
                         },
                         submit: $scope.goToSubmit
                     },
@@ -293,7 +293,7 @@ define(['angular', 'serviceRequest'], function(angular) {
                             title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
                             requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
                             primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                            changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
                         },
                         show:{
                             primaryAction : true
