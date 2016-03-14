@@ -1,6 +1,5 @@
-define(['angular', 'filterSearch'], function(angular) {
-    'use strict';
-    angular.module('mps.filterSearch')
+
+angular.module('mps.filterSearch')
     .controller('SoldToFilterController', ['$scope', '$translate', 'SoldToNumbers', 'UserService',
         function($scope, $translate, SoldToNumbers, User) {
             $scope.showClearMessage = false;
@@ -18,15 +17,15 @@ define(['angular', 'filterSearch'], function(angular) {
                         });
                     }
                 }
-            });
+        });
 
-            $scope.$watch('soldToFilter', function(soldToFilter) {
-                if (soldToFilter) {
+        $scope.$watch('soldToFilter', function(soldToFilter) {
+            if (soldToFilter) {
                     $scope.showClearMessage = true;
                     $scope.params['soldToNumber'] = soldToFilter;
-                    $scope.filterDef($scope.params, ['fromDate', 'toDate']);
-                }
-            });
+                $scope.filterDef($scope.params, ['fromDate', 'toDate']);
+            }
+        });
 
             $scope.clearSoldToFilter = function(){
                 if($scope.filterDef && typeof $scope.filterDef === 'function'){
@@ -35,6 +34,5 @@ define(['angular', 'filterSearch'], function(angular) {
                     $scope.filterDef($scope.params, ['soldToNumber', 'fromDate', 'toDate']);
                 }
             };
-        }
-    ]);
-});
+    }
+]);

@@ -1,15 +1,15 @@
-define(['angular'], function(angular) {
-    'use strict';
-    angular.module('mps.utility', [])
-    .factory('CountryService', ['$resource', 'serviceUrl', 'halInterceptor',
-        function($resource, serviceUrl, halInterceptor) {
-            var url = serviceUrl + 'countries';
-            return $resource(url, {}, {
-                'getHAL': { method: 'GET', url: url, interceptor: halInterceptor },
-            });
-        }
-    ])
-    .factory('Country', ['serviceUrl', '$q', 'HATEOASFactory',
+
+
+angular.module('mps.utility', [])
+.factory('CountryService', ['$resource', 'serviceUrl', 'halInterceptor',
+    function($resource, serviceUrl, halInterceptor) {
+        var url = serviceUrl + 'countries';
+        return $resource(url, {}, {
+            'getHAL': { method: 'GET', url: url, interceptor: halInterceptor }
+        });
+    }
+])
+.factory('Country', ['serviceUrl', '$q', 'HATEOASFactory',
         function(serviceUrl, $q, HATEOASFactory) {
             var CountryService = {
                 serviceName:'countries',
@@ -33,4 +33,4 @@ define(['angular'], function(angular) {
             };
         }
     ]);
-});
+

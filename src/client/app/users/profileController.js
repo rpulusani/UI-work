@@ -1,5 +1,4 @@
-define(['angular'], function(angular) {
-    'use strict';
+
     angular.module('mps.user')
     .controller('ProfileController', [
         '$scope',
@@ -72,4 +71,3 @@ define(['angular'], function(angular) {
             });
         }
     ]);
-});
