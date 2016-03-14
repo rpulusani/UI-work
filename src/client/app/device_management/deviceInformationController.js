@@ -149,7 +149,7 @@ angular.module('mps.deviceManagement')
             redirect_to_list();
         } else {
             $scope.device = Devices.item;
-            Devices.getAdditional(Devices.item, MeterReads).then(function(){
+            Devices.getAdditional(Devices.item, MeterReads, false, true).then(function(){
                 var tempData = [],
                     reorderedData = [];
 
