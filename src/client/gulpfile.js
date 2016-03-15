@@ -41,8 +41,8 @@ gulp.task('libs', function() {
         'libs/ng-tags-input.min.js',
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
-        'libs/rome.min.js',
-        'libs/ui-grid/3.0.6/ui-grid.min.js'
+        'libs/rome.js',
+        'libs/ui-grid/3.0.6/ui-grid.min.js',
     ])
   .pipe(concat('mps.libs.js'))
   .pipe(wrap('define([], function() {<%= contents %>});'))
@@ -51,12 +51,12 @@ gulp.task('libs', function() {
 
 gulp.task('html-templates', function(){
   return gulp.src(['app/**/templates/*.html', 'app/**/templates/**/*.html'])
-    .pipe(gulp.dest('dist/build/app'))
+    .pipe(gulp.dest('dist/build/app'));
 });
 
 gulp.task('json-data', function(){
   return gulp.src(['app/**/data/*.json'])
-    .pipe(gulp.dest('dist/build/app'))
+    .pipe(gulp.dest('dist/build/app'));
 });
 gulp.task('less', function() {
   return gulp.src(['etc/styles/less/_build.less'])
