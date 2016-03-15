@@ -34,7 +34,7 @@ gulp.task('libs', function() {
         'libs/angular-translate-loader-url.min.js',
         'libs/angular-translate-loader-static-files.min.js',
         'libs/angular-translate-storage-cookie.min.js',
-        'libs/angular-translate-storage-local.min.js',        
+        'libs/angular-translate-storage-local.min.js',
         'libs/blob.js',
         'libs/v-button.min.js',
         'libs/ng-google-chart.js',
@@ -88,19 +88,24 @@ gulp.task('clean', function() {
 });
 
 // DEFAULT TASK //
-// Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their 
+// Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their
 // dependencies
 gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates', 'json-data', 'third-party-styles', 'lxk-styles']);
 
 gulp.task('dev', ['default'], function(){
-    
-  // watch filesystem paths and dispatch tasks when changes are detected  
+
+  // watch filesystem paths and dispatch tasks when changes are detected
   gulp.watch('app/**', ['scripts']);
 
   gulp.watch('libs/**', ['libs']);
 
+  gulp.watch('etc/styles/less/**/*.less', ['less']);
+
   gulp.watch('views/index.html', ['prep-html']);
-    
+
+  gulp.watch('app/**/templates/*.html', ['html-templates']);
+  gulp.watch('app/**/templates/**/*.html', ['html-templates']);
+
     return gulp.src('dist/build/')
         .pipe(webserver({
             livereload: true,
