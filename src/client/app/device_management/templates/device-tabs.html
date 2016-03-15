@@ -1,6 +1,6 @@
 <div class="set" data-js="set">
 	<div class="set__trigger" ng-class="{'set--is-active':isActive('deviceInfoTab')}" data-toggle="deviceInfoTab" ng-click="onClickTb('deviceInfoTab')"
-		ng-if="deviceInfoAccess">
+		ng-show="deviceInfoAccess">
 		<a href="#deviceInfoTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_OVERVIEW_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="deviceInfoTab" ng-class="{'set--is-active':isActive('deviceInfoTab')}"
@@ -10,7 +10,7 @@
 
 	<div class="set__trigger" data-toggle="orderTab" ng-click="onClickTb('orderTab')"
 		ng-class="{'set--is-active':isActive('orderTab')}"
-		ng-if="openOrderAccess">
+		ng-show="openOrderAccess">
 		<a href="#orderTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SUPPLY_ORDERS_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="orderTab" ng-class="{'set--is-active':isActive('orderTab')}"
@@ -23,21 +23,21 @@
 
 	<div class="set__trigger" data-toggle="requestTab" ng-click="onClickTb('requestTab')"
 		ng-class="{'set--is-active':isActive('requestTab')}"
-	 	ng-if="serviceHistoryAccess">
+	 	ng-show="serviceHistoryAccess">
 		<a href="#requestTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERVICE_HISTORY_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="requestTab" ng-class="{'set--is-active':isActive('requestTab')}"
-		ng-if="serviceHistoryAccess">
+		ng-show="serviceHistoryAccess">
 		<div request-break-fix-list ng-if="isActive('requestTab');"></div>
 	</div>
 
 	<div class="set__trigger" data-toggle="pageCountTab" ng-click="onClickTb('pageCountTab')"
 		ng-class="{'set--is-active':isActive('pageCountTab')}"
-		ng-if="pageCountAccess">
+		ng-show="pageCountAccess">
 		<a href="#pageCountTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PAGE_COUNTS_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="pageCountTab" ng-class="{'set--is-active':isActive('pageCountTab')}"
-		ng-if="pageCountAccess">
+		ng-show="pageCountAccess">
 		<div device-page-count ng-if="isActive('pageCountTab');"></div>
 	</div>
 </div>

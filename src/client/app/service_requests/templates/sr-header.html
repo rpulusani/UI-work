@@ -13,10 +13,10 @@
                 <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
                 <div class="col-1 btns">
                     <button class="btn" ng-click="goToServiceUpdate(sr.id, sr.type)"
-                    translate="SERVICE_REQUEST.CHANGE_REQUEST"
+                    translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.BTN_CHANGE_REQUEST"
                     ng-if="cancelServiceRequest && configure.header.showUpdateBtn"></button>
 
-                    <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="SERVICE_REQUEST.CANCEL_REQUEST" ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
+                    <button class="btn" ng-click="goToServiceCancel(sr.id, sr.type)" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.BTN_CANCEL_REQUEST" ng-if="cancelServiceRequest && configure.header.showCancelBtn"></button>
 
                     <button class="btn" ng-click="goToDelete()" translate="ADDRESS_MAN.UPDATE_ADDRESS.BTN_DELETE_ADDRESS" ng-if="cancelServiceRequest && configure.header.showDeleteBtn"></button>
                 </div>

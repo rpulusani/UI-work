@@ -54,20 +54,22 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+@lib-icon-document: "\e90e";
+@lib-icon-spreadsheet: "\e90d";
+@lib-icon-blank: "\e90f";
+
+.icon-mps-doc:before { content: @lib-icon-document; }
+.icon-mps-docx:before { content: @lib-icon-document; }
+.icon-mps-pdf:before { content: @lib-icon-document; }
+
+.icon-mps-xls:before { content: @lib-icon-spreadsheet; }
+.icon-mps-xlsx:before { content: @lib-icon-spreadsheet; }
+.icon-mps-csv:before { content: @lib-icon-spreadsheet; }
+
+.icon-mps-other:before { content: @lib-icon-blank; }
+
 .icon-mps-lbs_map:before {
     content: "\e90c";
-}
-
-.icon-mps-spreadsheet:before {
-    content: "\e90d";
-}
-
-.icon-mps-pdf_document:before {
-    content: "\e90e";
-}
-
-.icon-mps-blank_document:before {
-    content: "\e90f";
 }
 
 .icon-mps-location:before {

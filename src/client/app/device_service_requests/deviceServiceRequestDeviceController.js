@@ -266,8 +266,8 @@ angular.module('mps.serviceRequestDevices')
                             referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
                             costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
-                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
-                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{

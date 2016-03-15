@@ -200,8 +200,8 @@ angular.module('mps.serviceRequests')
                     descriptionDetail: {
                         information:{
                             translate: {
-                                title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
-                                label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                    title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCELLATION_DETAILS',
+                                    label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_DESCRIPTION'
                             }
                         },
                         show: {
@@ -246,10 +246,10 @@ angular.module('mps.serviceRequests')
             $scope.configure = {
                 header: {
                     translate: {
-                        h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
+                            h1: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_NUMBER',
                         h1Values: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) },
-                        body: 'MESSAGE.LIPSUM',
-                        readMore: 'Learn more about requests'
+                            body: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_PAR',
+                            readMore: 'REQUEST_MAN.COMMON.LNK_LEARN_MORE'
                     },
                     readMoreUrl: '/service_requests/learn_more',
                     showCancelBtn: false
@@ -257,21 +257,21 @@ angular.module('mps.serviceRequests')
                 cancel: {
                     information:{
                         translate: {
-                            h1: 'SERVICE_REQUEST.CANCEL_REQUEST_FOR_SUBMITTED',
-                            title: 'SERVICE_REQUEST.REQUEST_CANCELLATION_INFORMATION',
-                            contact: 'SERVICE_REQUEST.SERVICE_REQUEST_CONTACT',
-                            label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                                h1: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_NUMBER',
+                                title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_REQUEST_CANCEL_INFORMATION',
+                                contact: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                                label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_DESCRIPTION'
                         }
                     }
                 },
                 detail: {
                     translate: {
-                        title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                        referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                        costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
-                        attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_REQUEST_ADDL_CANCEL_DETAILS',
+                            referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                            comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show: {
@@ -283,8 +283,8 @@ angular.module('mps.serviceRequests')
                 },
                 actions: {
                     translate: {
-                        abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_CANCELLATION',
-                        submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_CANCELLATION'
+                            abandonRequest:'REQUEST_MAN.MANAGE_REQUESTS.BTN_ABANDON_REQUEST_CANCELLATION',
+                            submit: 'REQUEST_MAN.MANAGE_REQUESTS.BTN_SUBMIT_REQUEST_CANCELLATION'
                     },
                     submit: $scope.goToSubmit
                 },

@@ -12,3 +12,4 @@ cobertura-coverage.xml
 pagination2
 **/*.swp
 dist
+.sublime-gulp.cache

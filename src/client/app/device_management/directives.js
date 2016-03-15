@@ -44,32 +44,35 @@ angular.module('mps.deviceManagement')
         templateUrl: '/app/device_management/templates/device-page-count.html'
     };
 })
-.directive('deviceListingTabs', function() {
+.directive('deviceListingTabs', ['$timeout', function($timeout) {
     return {
         restrict: 'A',
         templateUrl: '/app/device_management/templates/device-listing-tabs.html',
         link: function(scope, el, attr){
-            var $ = require('jquery');
-            var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
-            sets.each(function(i,set){
-                $(set).set({});
-            });
-            
+           var $ = require('jquery'),
+                 sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+            $timeout(function(){
+                sets.each(function(i,set){
+                    $(set).set({});
+                });
+            },0);
+
         }
     };
-})
-.directive('deviceTabs', function() {
+}])
+.directive('deviceTabs', ['$timeout', function($timeout) {
     return {
         restrict: 'A',
         templateUrl: '/app/device_management/templates/device-tabs.html',
         controller: 'DeviceController',
         link: function(scope, el, attr){
-            var $ = require('jquery');
-            var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
-            sets.each(function(i,set){
-                $(set).set({});
-            });
-            
+            var $ = require('jquery'),
+                 sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+            $timeout(function(){
+                sets.each(function(i,set){
+                    $(set).set({});
+                });
+        },0);
         }
     };
-});
+}]);

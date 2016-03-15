@@ -34,15 +34,15 @@ gulp.task('libs', function() {
         'libs/angular-translate-loader-url.min.js',
         'libs/angular-translate-loader-static-files.min.js',
         'libs/angular-translate-storage-cookie.min.js',
-        'libs/angular-translate-storage-local.min.js',        
+        'libs/angular-translate-storage-local.min.js',
         'libs/blob.js',
         'libs/v-button.min.js',
         'libs/ng-google-chart.js',
         'libs/ng-tags-input.min.js',
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
-        'libs/rome.min.js',
-        'libs/ui-grid/3.0.6/ui-grid.min.js'
+        'libs/rome.js',
+        'libs/ui-grid/3.0.6/ui-grid.min.js',
     ])
   .pipe(concat('mps.libs.js'))
   .pipe(wrap('define([], function() {<%= contents %>});'))
@@ -51,12 +51,12 @@ gulp.task('libs', function() {
 
 gulp.task('html-templates', function(){
   return gulp.src(['app/**/templates/*.html', 'app/**/templates/**/*.html'])
-    .pipe(gulp.dest('dist/build/app'))
+    .pipe(gulp.dest('dist/build/app'));
 });
 
 gulp.task('json-data', function(){
   return gulp.src(['app/**/data/*.json'])
-    .pipe(gulp.dest('dist/build/app'))
+    .pipe(gulp.dest('dist/build/app'));
 });
 gulp.task('less', function() {
   return gulp.src(['etc/styles/less/_build.less'])
@@ -88,19 +88,24 @@ gulp.task('clean', function() {
 });
 
 // DEFAULT TASK //
-// Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their 
+// Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their
 // dependencies
 gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates', 'json-data', 'third-party-styles', 'lxk-styles']);
 
 gulp.task('dev', ['default'], function(){
-    
-  // watch filesystem paths and dispatch tasks when changes are detected  
+
+  // watch filesystem paths and dispatch tasks when changes are detected
   gulp.watch('app/**', ['scripts']);
 
   gulp.watch('libs/**', ['libs']);
 
+  gulp.watch('etc/styles/less/**/*.less', ['less']);
+
   gulp.watch('views/index.html', ['prep-html']);
-    
+
+  gulp.watch('app/**/templates/*.html', ['html-templates']);
+  gulp.watch('app/**/templates/**/*.html', ['html-templates']);
+
     return gulp.src('dist/build/')
         .pipe(webserver({
             livereload: true,
