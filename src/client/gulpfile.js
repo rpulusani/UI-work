@@ -41,11 +41,16 @@ gulp.task('libs', function() {
         'libs/ng-tags-input.min.js',
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
-        'libs/rome.js',
-        'libs/ui-grid/3.0.6/ui-grid.min.js',
+        'libs/ui-grid/3.0.6/ui-grid.min.js'
+
     ])
   .pipe(concat('mps.libs.js'))
-  .pipe(wrap('define([], function() {<%= contents %>});'))
+  .pipe(wrap('define(\'mps.libs\', function() {<%= contents %>});'))
+  .pipe(gulp.dest('dist/build'));
+});
+
+gulp.task('rome', function(){
+  return gulp.src(['libs/rome.js'])
   .pipe(gulp.dest('dist/build'));
 });
 
@@ -81,6 +86,7 @@ gulp.task('prep-html', function() {
     .pipe(gulp.dest('dist/build'));
 });
 
+
 gulp.task('clean', function() {
     return del([
         'dist/build/**/*'
@@ -90,7 +96,8 @@ gulp.task('clean', function() {
 // DEFAULT TASK //
 // Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their
 // dependencies
-gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates', 'json-data', 'third-party-styles', 'lxk-styles']);
+gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates',
+                      'json-data', 'third-party-styles', 'lxk-styles', 'rome']);
 
 gulp.task('dev', ['default'], function(){
 

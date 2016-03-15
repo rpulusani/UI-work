@@ -15,7 +15,7 @@ angular.module('mps.form')
         if (!attrs.time) {
             attrs.time = false;
         }
-
+        var rome = require('rome');
         calendar = rome(node, attrs);
 
         // Watch was avoided due to performance concerns
