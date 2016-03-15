@@ -1,11 +1,9 @@
-
-
 angular.module('mps.library')
 .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
-    'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope',
-    'FormatterService', 'AllAccounts', '$q', 'AccountService',
+    'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 
+    'FormatterService', 'AllAccounts', '$q', 'AccountService', '$route',
     function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
-        $rootScope, formatter, AllAccounts, $q, Account) {
+        $rootScope, formatter, AllAccounts, $q, Account, $route) {
 
         $scope.selectedAccounts = [];
         $scope.documentItem = {};
@@ -31,6 +29,9 @@ angular.module('mps.library')
             $scope.documentItem = { id:'new', strategic: false };
         } else {
             $scope.documentItem = Documents.item;
+
+            $scope.phDocumentName = $scope.documentItem.name;
+
             $scope.documentItem.accountList = [];
             if (BlankCheck.checkNotNullOrUndefined(Documents.item.publishDate)) {
                 $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
@@ -90,7 +91,7 @@ angular.module('mps.library')
         $scope.removeAccount = function(item) {
             if ($scope.selectedAccounts && $scope.selectedAccounts.length > 0) {
                 for (var j=0;j<$scope.selectedAccounts.length; j++) {
-                    if ($scope.selectedAccounts[j].accountId
+                    if ($scope.selectedAccounts[j].accountId 
                         && $scope.selectedAccounts[j].accountId === item.accountId
                         && $scope.selectedAccounts[j].level === item.level
                         && $scope.selectedAccounts[j].name === item.name) {
@@ -106,7 +107,7 @@ angular.module('mps.library')
             if($scope.documentItem.accountName && $scope.documentItem.accountName.length >=3) {
                 var options = {
                     preventDefaultParams: true,
-                    params:{
+                    params:{    
                         searchTerm: $scope.documentItem.accountName
                     }
                 };
@@ -130,19 +131,19 @@ angular.module('mps.library')
             $scope.isDeleting = false;
         };
 
-            $scope.getDeleteAction = function (owner) {
-                var showBtn = false;
+        $scope.getDeleteAction = function (owner) {
+            var showBtn = false;
 
-                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
-                    showBtn = true;
-                }
+            if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
+                showBtn = true;
+            }
 
-                if ($rootScope.documentLibraryDeleteAllAccess) {
-                    showBtn = true;
-                }
+            if ($rootScope.documentLibraryDeleteAllAccess) {
+                showBtn = true;
+            }
 
-                return showBtn;
-            };
+            return showBtn;
+        };
 
         $scope.tags = [];
         Tags.get().then(function() {
@@ -295,13 +296,10 @@ angular.module('mps.library')
                     headers: {'Content-Type': undefined },
                     data: fd
                 }).then(function successCallback(response) {
+                    response.data.modifySuccess = true;
                     Documents.setItem(response.data);
-                    $scope.documentItem = Documents.item;
-                    $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
-                    $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
 
-                    $scope.modifySuccess = true;
-                    $scope.isCommitting = false;
+                    $route.reload();
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
                 });
@@ -325,13 +323,10 @@ angular.module('mps.library')
                     headers: {'Content-Type': undefined },
                     data: fd
                 }).then(function successCallback(response) {
+                    response.data.uploadSuccess = true;
                     Documents.setItem(response.data);
-                    $scope.documentItem = Documents.item;
-                    $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
-                    $scope.documentItem.endDate =  formatter.formatDate(Documents.item.endDate);
 
-                    $scope.uploadSuccess = true;
-                    $scope.isCommitting = false;
+                    $location.path(Documents.route + "/" + Documents.item.id + "/update");
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
                 });
@@ -339,23 +334,23 @@ angular.module('mps.library')
         };
 
         $scope.loadTags = function(query) {
-                var opts = { params: { size: 4096, search: query }};
-                var typeAheadTags = [];
+            var opts = { params: { size: 4096, search: query }};
+            var typeAheadTags = [];
 
-                return Tags.get(opts).then(function() {
-                    if (Tags.data) {
-                        var tmp = Tags.data;
-                            for (var i = 0; i < tmp.length; i++) {
-                                var tag = {};
-                                if (tmp[i]['name']) {
-                                    tag.name = tmp[i]['name'];
-                                    typeAheadTags.push(tag);
-                                }
+            return Tags.get(opts).then(function() {
+                if (Tags.data) {
+                    var tmp = Tags.data;
+                        for (var i = 0; i < tmp.length; i++) {
+                            var tag = {};
+                            if (tmp[i]['name']) {
+                                tag.name = tmp[i]['name'];
+                                typeAheadTags.push(tag);
                             }
-                    }
+                        }
+                }
 
-                    return typeAheadTags;
-                });
+                return typeAheadTags;
+            });
         }
 
         $scope.goToDelete = function() {
@@ -401,4 +396,3 @@ angular.module('mps.library')
         };
     }
 ]);
-

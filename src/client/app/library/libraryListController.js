@@ -1,5 +1,3 @@
-
-
 angular.module('mps.library')
 .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
     function($scope, $location, $translate, $route, $http, Documents, Grid, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
@@ -10,7 +8,7 @@ angular.module('mps.library')
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
-            Documents.columns = Documents.columnDefs.defaultSet;
+        Documents.columns = Documents.columnDefs.defaultSet;
 
         $scope.gridOptions.showBookmarkColumn = false;
         var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
@@ -31,11 +29,11 @@ angular.module('mps.library')
         );
 
         if ($rootScope.documentLibraryManageGlobalTagAccess) {
-                filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountAllFilter', undefined,
-                    function(Grid) {
-                        setTimeout(function() {
-                            $scope.$broadcast('setupColumnPicker', Grid);
-                        }, 500);
+            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountAllFilter', undefined,
+                function(Grid) {
+                    setTimeout(function() {
+                        $scope.$broadcast('setupColumnPicker', Grid);
+                    }, 500);
                 }
             );
         }
@@ -61,20 +59,16 @@ angular.module('mps.library')
             var icon = 'icon-16 ';
 
             switch (extension) {
-                    case 'doc':
-                        /* fallthrough */
-                    case 'docx':
-                        /* fallthrough */
+                case 'doc':
+                case 'docx':
                 case 'pdf':
-                    icon += 'icon-mps-pdf_document';
-                    break;
                 case 'xls':
-                    /* fallthrough */
                 case 'xlsx':
-                    icon += 'icon-mps-spreadsheet';
+                case 'csv':
+                    icon += 'icon-mps-' + extension;
                     break;
                 default:
-                    icon += 'icon-mps-blank_document';
+                    icon += 'icon-mps-other';
             }
 
             return icon;
@@ -90,38 +84,38 @@ angular.module('mps.library')
             return icon;
         };
 
-            $scope.getTagNames = function(tags) {
-                var localized = [];
-                if (tags) {
-                    for (var i = 0; i < tags.length; i++) {
-                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
-                    }
+        $scope.getTagNames = function(tags) {
+            var localized = [];
+            if (tags) {
+                for (var i = 0; i < tags.length; i++) {
+                    localized.push(Documents.getTranslationValueFromTag(tags[i]));
                 }
-                return localized.join(', ');
-            };
+            }
+            return localized.join(', ');
+        };
 
         $scope.getEditAction = function (owner) {
             var showBtn = false;
 
-                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryEditMyAccess) {
+            if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryEditMyAccess) {
                 showBtn = true;
             }
 
-                if ($rootScope.documentLibraryEditAllAccess) {
-                    showBtn = true;
-                }
+            if ($rootScope.documentLibraryEditAllAccess) {
+                showBtn = true;
+            }
 
-                return showBtn;
-            };
+            return showBtn;
+        };
 
-            $scope.getDeleteAction = function (owner) {
-                var showBtn = false;
+        $scope.getDeleteAction = function (owner) {
+            var showBtn = false;
 
-                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
-                    showBtn = true;
-                }
+            if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
+                showBtn = true;
+            }
 
-                if ($rootScope.documentLibraryDeleteAllAccess) {
+            if ($rootScope.documentLibraryDeleteAllAccess) {
                 showBtn = true;
             }
 

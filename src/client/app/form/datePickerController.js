@@ -16,7 +16,7 @@ angular.module('mps.form')
             attrs.time = false;
         }
 
-        calendar = Rome(node, attrs);
+        calendar = rome(node, attrs);
 
         // Watch was avoided due to performance concerns
         calendar.on('data', function(val) {
