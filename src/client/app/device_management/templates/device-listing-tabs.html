@@ -67,9 +67,10 @@
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>
-  </div>
+    </div>
 
-    <div class="set__trigger" data-toggle="mapViewTab" ng-click="goToLBS()" ng-if="lbsAccess">
+    <div id="lbs" class="set__trigger" data-toggle="mapViewTab" ng-click="goToLBS()" ng-show="lbsAccess">
         <a  translate="DEVICE_MAN.MANAGE_DEVICES.TAB_MAP_VIEW"><i class="set__icon"></i></a>
     </div>
+    <div class="set__content" id="mapViewTab"></div>
 </div>
