@@ -51,9 +51,11 @@
             <input name="city" class="" type="text" ng-model="user.address.city" value="" />
         </div>
         <div class="form__field form__field--select">
-        <label translate="USER_PROFILE_MAN.PROFILE.LABEL_STATE"></label>
-        <div selectric options="country.provinces" value="code" label="name" model="address.address.stateCode" required
-             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+            <label translate="USER_PROFILE_MAN.PROFILE.LABEL_STATE"></label>
+             <select ng-model="address.address.stateCode" name="state">
+                <option  value="" translate="LABEL.SELECT"></option>
+                <option ng-repeat="option in provinces" value="{{option.code}}">{{option.name}}</option>
+            </select>
         </div>
         <div class="form__field">
             <label translate="USER_PROFILE_MAN.PROFILE.LABEL_ZIP_CODE"></label>
@@ -61,18 +63,21 @@
         </div>
         <div class="form__field form__field--select form__field--required">
             <label translate="USER_PROFILE_MAN.PROFILE.LABEL_COUNTRY"></label>
-            <div id="country" selectric model="country" options="countries" value="code" label="name"
-                 placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+             <select ng-model="user.address.country" name="country" ng-change="countrySelected()">
+                <option  value="" translate="LABEL.SELECT"></option>
+                <option ng-repeat="option in countries" value="{{option.code}}">{{option.name}}</option>
+            </select>
         </div>
     </div>
     <div class="col-2-3">
         <h3 translate="USER_PROFILE_MAN.SETTINGS.TXT_PREFERENCES"></h3>
-        <label translate="USER_PROFILE_MAN.SETTINGS.LABEL_LANGUAGE"></label>
         <div class="form__field form__field--select form__field--required">
-            <div id="language" selectric options="userPreferences" value="localeCode" label="language" model="language" required
-                on-select="preferedLanguageSelected(option)"
-                 placeholder="{{'LABEL.SELECT' | translate}}"></div>
-        </div>
+            <label translate="USER_PROFILE_MAN.SETTINGS.LABEL_LANGUAGE"></label>
+            <select ng-model="user.language" name="language">
+                <option  value="" translate="LABEL.SELECT"></option>
+                <option ng-repeat="option in userPreferences" value="{{option.localeCode}}">{{option.language}}</option>
+            </select>
+       </div>
     </div>
     <div sr-form-buttons></div>
 </div>

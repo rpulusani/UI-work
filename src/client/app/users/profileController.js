@@ -20,12 +20,10 @@
             $scope.goToEmailUpdate = function(){
                 $location.path('/profile/update_email');
             };
-
-            $scope.preferedLanguageSelected = function(language) {
-                $scope.user.language = language;
-            };
-            $scope.countrySelected = function(country) {
-              $scope.user.address.country = country;
+            $scope.countrySelected = function() {
+              console.log($scope.user.address.country);
+              var item = $scope.countries.filter(function(item) { return item.code === $scope.user.address.country; });
+              $scope.provinces = item[0].provinces;
             };
 
             $scope.configure = {
@@ -35,7 +33,7 @@
                         submit: 'USER_PROFILE_MAN.COMMON.BTN_SAVE'
                     },
                     submit: function(){
-                        console.log($scope.language);
+                        UserService.updateProfile($rootScope.currentUser.email, $scope.user);
                     }
                 }
             };
@@ -51,19 +49,15 @@
                         $scope.countries = Country.data;
                         $timeout(function(){
                             var item = $scope.countries.filter(function(item) { return item.code === 'US'; });
-                            $scope.country = item[0];
-                            $('#country select').val(item[0].code).selectric('refresh').change();
-                            $scope.countrySelected(item[0].code);
+                            $scope.user.address.country = item[0].code;
+                            $scope.countrySelected();
                         },0);
                     });
                     UserPreferences.get().then(function(data){
                         $scope.userPreferences = data;
                         if(!$scope.user.language && !$scope.language){
                             $timeout(function(){
-                                var item = $scope.userPreferences.filter(function(item) { return item.localeCode === 'EN'; });
-                                $('#language select').val('EN').selectric('refresh').change();
                                 $scope.user.language = 'EN';
-                                $scope.preferedLanguageSelected('EN');
                             },0);
                         }
                     });

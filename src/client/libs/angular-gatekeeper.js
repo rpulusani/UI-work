@@ -82,9 +82,11 @@ function($routeParams, Gatekeeper, $location, $cookies, $http, $window, $timeout
     protectedUris: [],
     user: null,
     isProtected: function(uri) {
-      if (uri.startsWith(Gatekeeper.serviceUri)) return true;
+      if ((uri.startsWith && uri.startsWith(Gatekeeper.serviceUri)) ||
+        (uri.url && uri.url.startsWith(Gatekeeper.serviceUri))){ return true; }
       for (var i in Gatekeeper.protectedUris) {
-        if (uri.startsWith(Gatekeeper.protectedUris[i])) return true;
+        if ((uri.startsWith && uri.startsWith(Gatekeeper.protectedUris[i])) ||
+        (uri.url && uri.url.startsWith(Gatekeeper.protectedUris[i]))) { return true; }
       }
       return false;
     }

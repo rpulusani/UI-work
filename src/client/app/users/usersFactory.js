@@ -34,8 +34,19 @@ angular.module('mps.user')
                     });
                     return defer.promise;
                 },
-                updateProfile: function(){
+                updateProfile: function(loginId, userProfile){
+                    var url = serviceUrl  + 'users/'+ loginId,
+                    defer = $q.defer(),
+                    options = {
+                            'method': 'PUT',
+                            'url': url,
+                            'data': userProfile
+                    };
 
+                    $http(options).then(function(processedResponse){
+                        defer.resolve(processedResponse.data);
+                    });
+                    return defer.promise;
                 }
         };
         return new HATEOASFactory(UserService);
