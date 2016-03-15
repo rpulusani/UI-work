@@ -200,18 +200,18 @@ angular.module('mps.serviceRequests')
             $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
             $scope.configure.header.translate.actionValues = {
                 actionLink: ServiceRequest.route,
-                actionName: 'Manage Service Requests'
+                    actionName: 'REQUEST_MAN.COMMON.TXT_VIEW_YOUR_REQUESTS'
             };
             $scope.configure.receipt = {
                 translate:{
-                    title:"SERVICE_REQUEST.DETAILS_UPDATE_REQUEST_FOR_SUBMITTED",
+                        title:"REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_UPDATE_DEVICE_DETAILS",
                     titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                 },
                 descriptionDetail: {
                     information:{
                         translate: {
-                            title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
-                            label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                                title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_DETAILS',
+                                label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_DESCRIPTION'
                         }
                     },
                     show: {
@@ -239,8 +239,8 @@ angular.module('mps.serviceRequests')
                 descriptionDetail: {
                     information:{
                         translate: {
-                            title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
-                            label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                                title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_DETAILS',
+                                label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_DESCRIPTION'
                         }
                     },
                     show: {
@@ -256,10 +256,10 @@ angular.module('mps.serviceRequests')
             $scope.configure = {
                 header: {
                     translate: {
-                        h1: 'SERVICE_REQUEST.UPDATE_REQUEST_FOR_SUBMITTED',
+                            h1: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_REQUEST_NUMBER',
                         h1Values: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) },
-                        body: 'MESSAGE.LIPSUM',
-                        readMore: 'Learn more about requests'
+                            body: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_UPDATE_DEVICE_PAR',
+                            readMore: 'REQUEST_MAN.COMMON.LNK_LEARN_MORE'
                     },
                     readMoreUrl: '/service_requests/learn_more',
                     showCancelBtn: false
@@ -267,21 +267,21 @@ angular.module('mps.serviceRequests')
                 update: {
                     information:{
                         translate: {
-                            h1: 'SERVICE_REQUEST.UPDATE_REQUEST_FOR_SUBMITTED',
-                            title: 'SERVICE_REQUEST.REQUEST_UPDATE_INFORMATION',
-                            contact: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            label: 'SERVICE_REQUEST.UPDATE_DESCRIPTION'
+                                h1: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_REQUEST_NUMBER',
+                                title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_DETAILS',
+                                contact: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                                label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_DESCRIPTION'
                         }
                     }
                 },
                 detail: {
                     translate: {
-                        title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                        referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                        costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
-                        attachmentMessage: 'MESSAGE.ATTACHMENT',
+                            title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                            referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                            comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                            attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                            attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show: {
@@ -293,17 +293,17 @@ angular.module('mps.serviceRequests')
                 },
                 actions: {
                     translate: {
-                        abandonRequest:'SERVICE_REQUEST.ABANDON_REQUEST_UPDATE',
-                        submit: 'SERVICE_REQUEST.SUBMIT_REQUEST_UPDATE'
+                            abandonRequest:'REQUEST_MAN.MANAGE_REQUESTS.BTN_ABANDON_UPDATE_REQUEST',
+                            submit: 'REQUEST_MAN.MANAGE_REQUESTS.BTN_SUBMIT_UPDATE_REQUEST'
                     },
                     submit: $scope.goToSubmit
                 },
                 contact:{
                     translate: {
-                        title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                        requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                        primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                        changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
+                            title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                            requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                            primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                            changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
                     },
                     show:{
                         primaryAction : true
