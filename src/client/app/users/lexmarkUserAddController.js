@@ -193,9 +193,6 @@ angular.module('mps.user')
             });
         });
 
-        //$scope.basicRole = 12;
-
-
         $scope.setAccounts = function() {
             $scope.$broadcast('searchAccount');
         };
