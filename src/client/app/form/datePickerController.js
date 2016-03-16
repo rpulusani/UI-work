@@ -5,8 +5,11 @@ angular.module('mps.form')
     function(scope, element, attrs) {
         var node = element[0],
         calendar;
-
+        var rome = require('rome');
         node.type = 'text';
+        if(attrs.beforeEq){
+            attrs.dateValidator = rome.val.before(attrs.beforeEq);
+        }
 
         if (!attrs.inputFormat) {
             attrs.inputFormat = 'YYYY-MM-DD';
@@ -15,7 +18,7 @@ angular.module('mps.form')
         if (!attrs.time) {
             attrs.time = false;
         }
-        var rome = require('rome');
+
         calendar = rome(node, attrs);
 
         // Watch was avoided due to performance concerns

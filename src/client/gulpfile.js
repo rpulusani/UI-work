@@ -42,17 +42,19 @@ gulp.task('libs', function() {
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
         'libs/ui-grid/3.0.6/ui-grid.min.js'
-
     ])
   .pipe(concat('mps.libs.js'))
   .pipe(wrap('define(\'mps.libs\', function() {<%= contents %>});'))
   .pipe(gulp.dest('dist/build'));
 });
 
+
 gulp.task('rome', function(){
   return gulp.src(['libs/rome.js'])
+  .pipe(concat('rome.js'))
   .pipe(gulp.dest('dist/build'));
 });
+
 
 gulp.task('html-templates', function(){
   return gulp.src(['app/**/templates/*.html', 'app/**/templates/**/*.html'])
@@ -104,7 +106,7 @@ gulp.task('dev', ['default'], function(){
   // watch filesystem paths and dispatch tasks when changes are detected
   gulp.watch('app/**', ['scripts']);
 
-  gulp.watch('libs/**', ['libs']);
+  gulp.watch('libs/**', ['libs','rome']);
 
   gulp.watch('etc/styles/less/**/*.less', ['less']);
 
@@ -115,9 +117,9 @@ gulp.task('dev', ['default'], function(){
 
     return gulp.src('dist/build/')
         .pipe(webserver({
-            livereload: true,
-            fallback: '/index.html',
             port: 8080,
-            open: true
+            open: true,
+            livereload: true,
+            fallback: '/index.html'
         }));
 });
