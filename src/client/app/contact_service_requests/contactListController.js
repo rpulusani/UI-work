@@ -63,7 +63,7 @@ function(
             }, 500);
         }
     );
-    filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_LOCATION', 'LocationFilter', undefined,
+    filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_LOCATION', 'LocationFilter', undefined,
         function(Grid) {
             setTimeout(function() {
                 $scope.$broadcast('setupColumnPicker', Grid);
