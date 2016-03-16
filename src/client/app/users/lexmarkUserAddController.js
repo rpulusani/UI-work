@@ -131,49 +131,69 @@ angular.module('mps.user')
                     roleType: 'addon'
                 }
             },
+            basicRoleOptions =  {
+                'params': {
+                    customerType: 'lexmark',
+                    roleType: 'basic'
+                }
+            },
             permissionPromiseList = [];
 
-            Roles.get(addonRoleOptions).then(function() {
-                if(Roles.data) {
-                    var roleList = Roles.data;
-                    for (var j=0; j<roleList.length; j++) {
-                        var role = roleList[j];
-                        if($scope.user.addonRoles.length < roleList.length) {
-                            role.selected = false;
-                            if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
-                                for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
-                                    if ($scope.user.selectedRoleList[i].roleId === role.roleId) {
-                                        Roles.setItem(role);
-                                        role.selected = true;
-                                        var options = {
-                                            params:{
-                                                    'applicationName': 'lexmark'
-                                            }
-                                        };
-                                        var permissionPromise = Roles.item.get(options);
-                                        permissionPromiseList.push(permissionPromise);
-                                    }
-                                }
+            Roles.get(basicRoleOptions).then(function() {
+                $scope.user.basicRoles = Roles.data;
+                for (var j=0;j<Roles.data.length; j++) {
+                    var tempRole = Roles.data[j];
+                    if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
+                        for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
+                            if ($scope.user.selectedRoleList[i].roleId === tempRole.roleId) {
+                                $scope.basicRole = tempRole.roleId;
+                                $scope.setPermissionsForBasic(tempRole.roleId);
                             }
-                            $scope.user.addonRoles.push(role);
                         }
                     }
-                    $q.all(permissionPromiseList).then(function(response) {
-                        for (var i=0;i<permissionPromiseList.length;i++) {
-                            if (response[i] && response[i].data && response[i].data.permissions) {
-                                for (var j=0; j<response[i].data.permissions.length; j++) {
-                                    if ($scope.user.permissions.indexOf(response[i].data.permissions[j]) === -1) {
-                                        $scope.user.permissions.push(response[i].data.permissions[j]);
+                }
+                Roles.get(addonRoleOptions).then(function() {
+                    if(Roles.data) {
+                        var roleList = Roles.data;
+                        for (var j=0; j<roleList.length; j++) {
+                            var role = roleList[j];
+                            if($scope.user.addonRoles.length < roleList.length) {
+                                role.selected = false;
+                                if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
+                                    for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
+                                        if ($scope.user.selectedRoleList[i].roleId === role.roleId) {
+                                            Roles.setItem(role);
+                                            role.selected = true;
+                                            var options = {
+                                                params:{
+                                                        'applicationName': 'lexmark'
+                                                }
+                                            };
+                                            var permissionPromise = Roles.item.get(options);
+                                            permissionPromiseList.push(permissionPromise);
+                                        }
+                                    }
+                                }
+                                $scope.user.addonRoles.push(role);
+                            }
+                        }
+                        $q.all(permissionPromiseList).then(function(response) {
+                            for (var i=0;i<permissionPromiseList.length;i++) {
+                                if (response[i] && response[i].data && response[i].data.permissions) {
+                                    for (var j=0; j<response[i].data.permissions.length; j++) {
+                                        if ($scope.user.permissions.indexOf(response[i].data.permissions[j]) === -1) {
+                                            $scope.user.permissions.push(response[i].data.permissions[j]);
+                                        }
                                     }
                                 }
                             }
-                        }
-                    });
-                }
+                        });
+                    }
+                });
             });
         });
 
-
+        //$scope.basicRole = 12;
 
 
         $scope.setAccounts = function() {
@@ -246,16 +266,7 @@ angular.module('mps.user')
             });
         };
 
-        $scope.setPermissionsForBasic = function(role){
-            Roles.setItem(role);
-            var options = {
-                params:{
-                    'applicationName': 'lexmark'
-                }
-            }, promises = [];
-
-            promises.push(Roles.item.get(options));
-
+        $scope.setPermissionsForBasic = function(roleId){
             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                 if ($scope.basicRole
                     && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
@@ -265,29 +276,20 @@ angular.module('mps.user')
                             'applicationName': 'lexmark'
                         }
                     };
-                    promises.push(Roles.item.get(options));
+                    Roles.item.get(options).then(function(response) {
+                        if (Roles.item && Roles.item.permissions) {
+                            for (var i=0; i<Roles.item.permissions.length; i++) {
+                                if ($scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
+                                    $scope.user.permissions.push(Roles.item.permissions[i]);
+                                } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1 
+                                    && roleId && $scope.basicRole !== roleId) {
+                                    $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
+                                }
+                            }
+                        }
+                    });
                 }
             }
-
-            $q.all(promises).then(function(response) {
-                if(response[1] && response[1].data && response[1].data.permissions) {
-                    var permissionList = response[1].data.permissions;
-                    for (var i=0; i<permissionList.length; i++) {
-                        if ($scope.user.permissions && $scope.user.permissions.indexOf(permissionList[i])!== -1) {
-                            $scope.user.permissions.splice($scope.user.permissions.indexOf(permissionList[i]), 1);
-                        }
-                    }
-                }
-
-                if(response[0] && response[0].data && response[0].data.permissions) {
-                    var permissionList = response[0].data.permissions;
-                    for (var i=0; i<permissionList.length; i++) {
-                        if ($scope.user.permissions.indexOf(permissionList[i]) === -1) {
-                            $scope.user.permissions.push(permissionList[i]);
-                        }
-                    }
-                }
-            });
         };
 
         var updateAdminObjectForSubmit = function() {
@@ -318,7 +320,7 @@ angular.module('mps.user')
             UserAdminstration.addField('address', addressInfo);
             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                 if ($scope.basicRole
-                    && $scope.user.basicRoles[i].description === $scope.basicRole) {
+                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
                     $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                 }
             }
@@ -362,7 +364,7 @@ angular.module('mps.user')
             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                 for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
                     var selectedRole = $scope.user.selectedRoleList[j];
-                    if ($scope.user.basicRoles[i].description === selectedRole.description) {
+                    if ($scope.user.basicRoles[i].roleId.toString() === selectedRole.roleId.toString()) {
                         $scope.user.selectedRoleList.splice(j,1);
                     }
                 }
@@ -370,7 +372,7 @@ angular.module('mps.user')
 
             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                 if ($scope.basicRole
-                    && $scope.user.basicRoles[i].description === $scope.basicRole) {
+                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
                     $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
                 }
             }
