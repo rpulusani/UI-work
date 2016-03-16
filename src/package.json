@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "chrome": "~0.0.3",
+    "gulp-template": "^3.1.0",
     "jasmine-core": "^2.3.4",
     "karma": "~0.12",
     "karma-chrome-launcher": "^0.2.0",
