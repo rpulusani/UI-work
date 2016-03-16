@@ -1,7 +1,10 @@
 
 angular.module('mps.filterSearch')
-.controller('RequestStatusFilterController', ['$scope', '$translate', 'ServiceRequestStatus',
-    function($scope, $translate, ServiceRequestStatus) {
+.controller('RequestStatusFilterController', ['$scope', '$translate', '$location', 'ServiceRequestStatus', 
+    function($scope, $translate, $location, ServiceRequestStatus) {
+        var params = $location.search(),
+        i = 0; // loop through requestStatuses
+
         $scope.selectedStatusList = [];
         $scope.requestStatuses = [];
         ServiceRequestStatus.get().then(function (response) {

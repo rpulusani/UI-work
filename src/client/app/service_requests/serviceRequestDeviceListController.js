@@ -37,7 +37,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         var params =  {
-            type: 'MADC_ALL',
+            type: 'MADC_ALL,DATA_ASSET_ALL',
             embed: 'primaryContact,requester'
         };
         var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location', 'requesterFilter'],
