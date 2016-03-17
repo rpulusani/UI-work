@@ -117,7 +117,7 @@
     "id": "13",
     "action": "http://www.lexmark.com",
     "target": "_blank",
-    "text": "NAVIGATION.LEFT_NAV.TXT_LXK",
+    "text": "NAVIGATION.FOOTER.TXT_LXK",
     "description": "NAVIGATION.LEFT_NAV.TXT_LXK",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
@@ -125,16 +125,16 @@
   {
     "id": "14",
     "action": "/faq",
-    "text": "NAVIGATION.LEFT_NAV.LNK_FAQ",
-    "description": "NAVIGATION.LEFT_NAV.LNK_FAQ",
+    "text": "NAVIGATION.FOOTER.LNK_FAQ",
+    "description": "NAVIGATION.FOOTER.LNK_FAQ",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
   },
   {
     "id": "15",
     "action": "/help",
-    "text": "NAVIGATION.LEFT_NAV.TXT_GET_HELP",
-    "description": "NAVIGATION.LEFT_NAV.TXT_GET_HELP",
+    "text": "NAVIGATION.FOOTER.TXT_GET_HELP",
+    "description": "NAVIGATION.FOOTER.TXT_GET_HELP",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
   },
