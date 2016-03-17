@@ -1,4 +1,3 @@
-
 angular.module('mps.utility')
 .factory('MeterReadTypes', ['$resource', 'serviceUrl', 'HATEOASFactory',
     function($resource, serviceUrl, HATEOASFactory) {
