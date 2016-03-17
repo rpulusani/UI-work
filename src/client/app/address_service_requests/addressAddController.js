@@ -151,7 +151,7 @@ angular.module('mps.serviceRequestAddresses')
                     translate: {
                         title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
                         referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
-                        costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                        costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                         comments: 'LABEL.COMMENTS',
                         attachments: 'LABEL.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',

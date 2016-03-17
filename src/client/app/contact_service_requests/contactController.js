@@ -122,7 +122,7 @@ angular.module('mps.serviceRequestContacts')
         }
         function configureReceiptTemplate(){
             $scope.configure.header.translate.h1 = "CONTACT_SERVICE_REQUEST.SR_UPDATE_TITLE";
-            $scope.configure.header.translate.body = "CONTACT_SERVICE_REQUEST.UPDATE_CONTACT_SUBMIT_HEADER_BODY";
+            $scope.configure.header.translate.body = "CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT_PAR";
             $scope.configure.header.translate.bodyValues= {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                 'srHours': 24,
@@ -142,8 +142,8 @@ angular.module('mps.serviceRequestContacts')
             $scope.configure = {
                 header: {
                     translate:{
-                        h1: 'CONTACT_SERVICE_REQUEST.UPDATE',
-                        body: 'MESSAGE.LIPSUM',
+                        h1: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT',
+                        body: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT_PAR',
                         bodyValues: '',
                         readMore: ''
                     },
@@ -152,7 +152,7 @@ angular.module('mps.serviceRequestContacts')
                 },
                 contactsr:{
                     translate: {
-                        title: 'CONTACT.INFO'
+                        title: 'CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION'
                     }
                 },
                 contact:{
@@ -171,8 +171,8 @@ angular.module('mps.serviceRequestContacts')
                 detail:{
                     translate:{
                         title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                        referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                        costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                        referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                        costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                         comments: 'LABEL.COMMENTS',
                         attachments: 'LABEL.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
@@ -187,8 +187,8 @@ angular.module('mps.serviceRequestContacts')
                 },
                 actions:{
                     translate: {
-                        abandonRequest:'CONTACT_SERVICE_REQUEST.CANCEL',
-                        submit: 'LABEL.REVIEW_SUBMIT'
+                        abandonRequest:'CONTACT_MAN.UPDATE_CONTACT.BTN_DISCARD_CHANGES',
+                        submit: 'CONTACT_MAN.MANAGE_CONTACTS.BTN_UPDATE_CONTACT'
                     },
                     submit: function(){
                         $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');
