@@ -132,7 +132,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.fleetAvailability) },
+                        {v: $translate.instant($scope.configure.report.kpi.translate.fleetAvailability) + ' (' + data.stat[0].period.replace(/ /g, '') + ')'},
                         {v: d.fleetAvailability },
                         {v: "#00ad21" }
                     ]}
@@ -160,7 +160,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.responseTime) },
+                        {v: $translate.instant($scope.configure.report.kpi.translate.responseTime)  + ' (' + data.stat[0].period.replace(/ /g, '') + ')'},
                         {v: d.responseTime },
                         {v: "#1c64b4" }
                     ]}
@@ -188,7 +188,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.consumables) },
+                        {v: $translate.instant($scope.configure.report.kpi.translate.consumables)},
                         {v: d.consumables },
                         {v: "#faa519" }
                     ]}
@@ -217,7 +217,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.assetCount) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.assetCount)},
                         {v: total }
                     ]}
                 ]};
@@ -244,22 +244,22 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.moves) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.moves)},
                         {v: d.moves },
                         {v: "#00ad21" }
                     ]},
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.additions) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.additions)},
                         {v: d.additions },
                         {v: "#faa519" }
                     ]},
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.ipChanges) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.ipChanges)},
                         {v: d.ipChanges },
                         {v: "#1c64b4" }
                     ]},
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.decommissions) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.decommissions)},
                         {v: d.decommissions },
                         {v: "#884fad" }
                     ]},
@@ -292,11 +292,11 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.successfulReads) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.successfulReads)},
                         {v: d.allSuccessful }
                     ]},
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.missedReads) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.missedReads)},
                         {v: d.allMissed }
                     ]}
                 ]};
@@ -315,11 +315,11 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.autoCount, {autoCount: d.allAssets}) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.autoCount, {autoCount: d.allAssets})},
                         {v: d.automatedMmr }
                     ]},
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.manualCount, {manualCount: d.allAssets}) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.manualCount, {manualCount: d.allAssets})},
                         {v: d.manualMmr }
                     ]}
                 ]};
@@ -346,7 +346,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.consumablesOrdersOpen) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.consumablesOrdersOpen)},
                         {v: d.Open }
                     ]}
                 ]};
@@ -392,7 +392,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersOpen)},
                         {v: d.Open }
                     ]}
                 ]};
@@ -411,7 +411,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.hardwareOrdersShipped)},
                         {v: d.Shipped }
                     ]}
                 ]};
@@ -439,15 +439,15 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledMono) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledMono)},
                         {v: d.pagesBilledMono }
                     ]},
                     {c: [
-                        {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledColor) },
+                        {v: $translate.instant($scope.configure.report.charts.translate.pagesBilledColor)},
                         {v: d.pagesBilledColor }
                     ]}
-                ]};
-
+                ]
+            };
         };
 
         var buildCharts = function() {

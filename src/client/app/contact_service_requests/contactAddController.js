@@ -158,9 +158,8 @@ angular.module('mps.serviceRequestContacts')
 
             var updateContactObjectForSubmit = function() {
                 Contacts.item = $scope.contact;
-                Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
+                Contacts.addAccountRelationship();
             };
-
 
             $scope.saveContact = function(contactForm) {
                 $scope.checkAddress(contactForm);
@@ -171,7 +170,7 @@ angular.module('mps.serviceRequestContacts')
 
                     if(contactForm === 'newContact'){
                         deferred = Contacts.post({
-                            item: $scope.contact
+                            item: Contacts.item
                         });
 
                         deferred.then(function(result){

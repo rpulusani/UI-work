@@ -1,7 +1,9 @@
-
 angular.module('mps.filterSearch')
-.controller('GridFilterController', ['$scope', '$translate',
-    function($scope, $translate) {
+.controller('GridFilterController', ['$scope', '$translate', '$location',
+    function($scope, $translate, $location) {
+        var initalFilter = $scope.options[0],
+        params = $location.search();
+
         $scope.selectedFilter = function(selectedOption){
             if(selectedOption.optionsPanel){
                 $scope.currentFilterPanel = selectedOption.optionsPanel;
@@ -15,13 +17,19 @@ angular.module('mps.filterSearch')
                 }
             }
         };
+
         for(var item in $scope.options){
             $scope.options[item].display = $translate.instant($scope.options[item].display);
+        
+            if (($scope.options[item].optionsPanel && params.filter)
+                && $scope.options[item].optionsPanel.toLowerCase() === params.filter.toLowerCase()) {
+                initalFilter = $scope.options[item];
+            }
         }
+        
         if($scope.options && $scope.options.length > 0){
-            $scope.filterBy =  $scope.options[0].display;
-            $scope.selectedFilter($scope.options[0]);
+            $scope.filterBy = initalFilter.display;
+            $scope.selectedFilter(initalFilter);
         }
-
     }
 ]);

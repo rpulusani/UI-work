@@ -8,6 +8,11 @@ var order = require('gulp-order');
 var wrap = require('gulp-wrap');
 var webserver = require('gulp-webserver');
 var del = require('del');
+var fs = require('fs');
+var template = require('gulp-template');
+
+var env = process.env.MPS_ENV;
+if(env === undefined) env = "dev";
 
 gulp.task('scripts', ['libs'], function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
@@ -41,13 +46,20 @@ gulp.task('libs', function() {
         'libs/ng-tags-input.min.js',
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
-        'libs/rome.js',
-        'libs/ui-grid/3.0.6/ui-grid.min.js',
+        'libs/ui-grid/3.0.6/ui-grid.min.js'
     ])
   .pipe(concat('mps.libs.js'))
-  .pipe(wrap('define([], function() {<%= contents %>});'))
+  .pipe(wrap('define(\'mps.libs\', function() {<%= contents %>});'))
   .pipe(gulp.dest('dist/build'));
 });
+
+
+gulp.task('rome', function(){
+  return gulp.src(['libs/rome.js'])
+  .pipe(concat('rome.js'))
+  .pipe(gulp.dest('dist/build'));
+});
+
 
 gulp.task('html-templates', function(){
   return gulp.src(['app/**/templates/*.html', 'app/**/templates/**/*.html'])
@@ -77,9 +89,14 @@ gulp.task('lxk-styles', function(){
 });
 
 gulp.task('prep-html', function() {
+    // Read environment variable ENV for config file
+    // dev, beta, etc.
+    var json = JSON.parse(fs.readFileSync('./config/' + env + '.json'));
     return gulp.src(['views/index.html'])
-    .pipe(gulp.dest('dist/build'));
+        .pipe(template(json))
+        .pipe(gulp.dest('dist/build'));
 });
+
 
 gulp.task('clean', function() {
     return del([
@@ -90,14 +107,15 @@ gulp.task('clean', function() {
 // DEFAULT TASK //
 // Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their
 // dependencies
-gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates', 'json-data', 'third-party-styles', 'lxk-styles']);
+gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates',
+                      'json-data', 'third-party-styles', 'lxk-styles', 'rome']);
 
 gulp.task('dev', ['default'], function(){
 
   // watch filesystem paths and dispatch tasks when changes are detected
   gulp.watch('app/**', ['scripts']);
 
-  gulp.watch('libs/**', ['libs']);
+  gulp.watch('libs/**', ['libs','rome']);
 
   gulp.watch('etc/styles/less/**/*.less', ['less']);
 
@@ -108,9 +126,9 @@ gulp.task('dev', ['default'], function(){
 
     return gulp.src('dist/build/')
         .pipe(webserver({
-            livereload: true,
-            fallback: '/index.html',
             port: 8080,
-            open: true
+            open: true,
+            livereload: true,
+            fallback: '/index.html'
         }));
 });

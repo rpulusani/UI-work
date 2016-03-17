@@ -109,6 +109,14 @@ angular.module('mps.serviceRequestDevices')
             $scope.resetAddressPicker();
         } else {
             $scope.device = Devices.item;
+
+            if (!$rootScope.selectedAddress) {
+                ServiceRequest.addRelationship('destinationAddress', Devices.item, 'address');
+                ServiceRequest.addRelationship('account', Devices.item);
+                ServiceRequest.addRelationship('asset', Devices.item, 'self');
+                ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
+            } 
+            
             if (BlankCheck.isNull($scope.device.chl)) {
                 $scope.device.chl = {};
             }
