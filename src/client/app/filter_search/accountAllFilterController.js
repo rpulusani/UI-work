@@ -6,7 +6,7 @@ angular.module('mps.filterSearch')
         $scope.accounts = [];
 
         AllAccounts.get().then(function() {
-            if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+            if (AllAccounts.item && AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
                 var accountsList = AllAccounts.item._embedded.accounts;
 
                 for (var i = 0; i < accountsList.length; i++) {
