@@ -205,12 +205,6 @@ function(
                 type:$scope.type
             }
         };
-        
-        if ($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel') {
-            agreementOptons.params.accountId = $rootScope.currentAccount.accountId;
-            agreementOptons.params.accountLevel = $rootScope.currentAccount.accountLevel;
-        }
-
         Aggrements.get(agreementOptons).then(function(){
             $scope.agreements = Aggrements.data;
             if($scope.agreements && $scope.agreements.length > 1){
