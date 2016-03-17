@@ -55,19 +55,19 @@ angular.module('mps.orders')
                 }, 0);
             }
         );
-        filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
+        filterSearchService.addPanelFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_DATE_RANGE', 'DateRangeFilter', undefined,
             function(Grid) {
                 $scope.$broadcast('setupColumnPicker', Grid);
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ORDER_STATUS', 'OrderStatusFilter', undefined,
+        filterSearchService.addPanelFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ORDER_STATUS', 'OrderStatusFilter', undefined,
             function(Grid) {
                 $scope.$broadcast('setupColumnPicker', Grid);
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addBasicFilter('FILTERS.FILTER_MY_ORDERS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
+        filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.FILTER_MY_ORDERS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
             function(Grid) {
                 $scope.$broadcast('setupColumnPicker', Grid);
                 $scope.$broadcast('setupPrintAndExport', $scope);
