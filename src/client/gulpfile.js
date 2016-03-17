@@ -8,6 +8,11 @@ var order = require('gulp-order');
 var wrap = require('gulp-wrap');
 var webserver = require('gulp-webserver');
 var del = require('del');
+var fs = require('fs');
+var template = require('gulp-template');
+
+var env = process.env.MPS_ENV;
+if(env === undefined) env = "dev";
 
 gulp.task('scripts', ['libs'], function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
@@ -84,8 +89,12 @@ gulp.task('lxk-styles', function(){
 });
 
 gulp.task('prep-html', function() {
+    // Read environment variable ENV for config file
+    // dev, beta, etc.
+    var json = JSON.parse(fs.readFileSync('./config/' + env + '.json'));
     return gulp.src(['views/index.html'])
-    .pipe(gulp.dest('dist/build'));
+        .pipe(template(json))
+        .pipe(gulp.dest('dist/build'));
 });
 
 

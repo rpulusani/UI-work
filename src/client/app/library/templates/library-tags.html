@@ -6,6 +6,15 @@
             <div class="col-1 btns">
                 <button type="button" ng-if="documentLibraryManageGlobalTagAccess" class="btn btn--default" href="" ng-click="goToStartCreate()" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_CREATE_NEW_TAG"></button>
             </div>
+            <div class="well" ng-show="activeTag.createSuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_CHANGES_ADDED" translate-values="{ tagName: phTagName }"</p>
+            </div>
+            <div class="well" ng-show="activeTag.modifySuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_CHANGES_MODIFIED" translate-values="{ tagName: phTagName }"</p>
+            </div>
+            <div class="well" ng-show="activeTag.deleteSuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_DOC_CHANGES_DELETED" translate-values="{ tagName: phTagName }"</p>
+            </div>
         </div>
     </div>
 </div>

@@ -234,7 +234,7 @@ angular.module('mps.hateoasFactory')
             if ((!newService.url && halObj._links &&
                 halObj._links[newService.embeddedName] &&
                 halObj._links[newService.embeddedName].href && !embeddedLinkName) ||
-                (useEmbeddedLink &&
+                (useEmbeddedLink && halObj._links &&
                 halObj._links[newService.embeddedName] &&
                 halObj._links[newService.embeddedName].href && !embeddedLinkName)) {
                     newService.params = self.setupParams({

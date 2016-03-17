@@ -1,8 +1,8 @@
-
-
 angular.module('mps.library')
-    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
-        function($scope, $location, $translate, $route, $http, Documents, Tags, Translations, GridService, $rootScope, Personalize, formatter) {
+    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents',
+        'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
+        function($scope, $location, $translate, $route, $http, Documents, Tags, Translations, GridService,
+            $rootScope, Personalize, formatter) {
 
         $scope.isCreating = false;
         $scope.isEditing = false;
@@ -10,6 +10,11 @@ angular.module('mps.library')
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
         var Grid = new GridService();
+
+        if (Tags.item) {
+            $scope.activeTag = Tags.item;
+            $scope.phTagName = Tags.item.name;
+        }
 
         $scope.goToStartCreate = function () {
             $scope.isCreating = true;
@@ -73,33 +78,35 @@ angular.module('mps.library')
                 NREUM.noticeError('Failed to CREATE tag: ' + response.statusText);
             });
 
-                var parsedTagName = Documents.getTranslationKeyFromTag($scope.tagName);
+            Tags.item.createSuccess = true;
 
-                var tagLocalizations = {'EN': $scope.tagName};
+            var parsedTagName = Documents.getTranslationKeyFromTag($scope.tagName);
 
-                Translations.newMessage();
-                Translations.addField('key', parsedTagName);
-                Translations.addField('type', 'DOCUMENT');
-                Translations.addField('module', 'DOCUMENT');
-                Translations.addField('subModule', 'TAG');
-                Translations.addField('actualValue', $scope.tagName);
-                Translations.addField('values', tagLocalizations);
-                Translations.item.postURL = Translations.url;
+            var tagLocalizations = {'EN': $scope.tagName};
 
-                $http({
-                    method: 'POST',
-                    url: Translations.url,
-                    data: Translations.item
-                }).then(function successCallback(response) {
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
-                });
+            Translations.newMessage();
+            Translations.addField('key', parsedTagName);
+            Translations.addField('type', 'DOCUMENT');
+            Translations.addField('module', 'DOCUMENT');
+            Translations.addField('subModule', 'TAG');
+            Translations.addField('actualValue', $scope.tagName);
+            Translations.addField('values', tagLocalizations);
+            Translations.item.postURL = Translations.url;
 
-                $route.reload();
+            $http({
+                method: 'POST',
+                url: Translations.url,
+                data: Translations.item
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
+            });
+
+            $route.reload();
         };
 
         $scope.goToEditTag = function() {
-                var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
+            var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
             Tags.item.name = $scope.selectedTag;
 
@@ -115,40 +122,42 @@ angular.module('mps.library')
                 NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
             });
 
-                // When editing a tag we don't edit the translation, we DELETE and INSERT
-                $http({
-                    method: 'DELETE',
-                    url: Translations.url + '/' + origParsedTagName
-                }).then(function successCallback(response) {
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
-                });
+            Tags.item.modifySuccess = true;
 
-                var tagLocalizations = {'EN': tagName};
+            // When editing a tag we don't edit the translation, we DELETE and INSERT
+            $http({
+                method: 'DELETE',
+                url: Translations.url + '/' + origParsedTagName
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
+            });
 
-                Translations.newMessage();
-                Translations.addField('key', parsedTagName);
-                Translations.addField('type', 'DOCUMENT');
-                Translations.addField('module', 'DOCUMENT');
-                Translations.addField('subModule', 'TAG');
-                Translations.addField('actualValue', tagName);
-                Translations.addField('values', tagLocalizations);
-                Translations.item.postURL = Translations.url;
+            var tagLocalizations = {'EN': tagName};
 
-                $http({
-                    method: 'POST',
-                    url: Translations.url,
-                    data: Translations.item
-                }).then(function successCallback(response) {
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
-                });
+            Translations.newMessage();
+            Translations.addField('key', parsedTagName);
+            Translations.addField('type', 'DOCUMENT');
+            Translations.addField('module', 'DOCUMENT');
+            Translations.addField('subModule', 'TAG');
+            Translations.addField('actualValue', tagName);
+            Translations.addField('values', tagLocalizations);
+            Translations.item.postURL = Translations.url;
 
-                $route.reload();
+            $http({
+                method: 'POST',
+                url: Translations.url,
+                data: Translations.item
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
+            });
+
+            $route.reload();
         };
 
         $scope.goToDeleteTag = function() {
-                var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
+            var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
             $http({
                 method: 'DELETE',
@@ -159,15 +168,17 @@ angular.module('mps.library')
                 NREUM.noticeError('Failed to DELETE tag: ' + response.statusText);
             });
 
-                $http({
-                    method: 'DELETE',
-                    url: Translations.url + '/' + parsedTagName
-                }).then(function successCallback(response) {
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
-                });
+            Tags.item.deleteSuccess = true;
 
-                $route.reload();
+            $http({
+                method: 'DELETE',
+                url: Translations.url + '/' + parsedTagName
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
+            });
+
+            $route.reload();
         };
     }
 ]);

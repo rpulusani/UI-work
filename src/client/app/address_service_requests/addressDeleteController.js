@@ -166,15 +166,15 @@ angular.module('mps.serviceRequestAddresses')
             };
             $scope.configure.receipt = {
                 translate:{
-                    title:"ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_DETAIL",
+                    title:"ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS",
                     titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                 }
             };
             $scope.configure.queued = true;
           } else {
-            $scope.configure.header.translate.h1 = "ADDRESS_SERVICE_REQUEST.SR_DELETE_SUBMITTED";
-            $scope.configure.header.translate.body = "ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_SUBMIT_HEADER_BODY";
-            $scope.configure.header.translate.readMore = 'ADDRESS_SERVICE_REQUEST.RETURN_LINK';
+            $scope.configure.header.translate.h1 = "ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_SUBMITTED";
+            $scope.configure.header.translate.body = "ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_SUBMITTED_PAR";
+            $scope.configure.header.translate.readMore = 'ADDRESS_MAN.COMMON.CTRL_MANAGE_ANOTHER_ADDRESS';
             $scope.configure.header.translate.readMoreUrl = Addresses.route;
             $scope.configure.header.translate.bodyValues= {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
@@ -183,7 +183,7 @@ angular.module('mps.serviceRequestAddresses')
             };
             $scope.configure.receipt = {
                 translate:{
-                    title:"ADDRESS_SERVICE_REQUEST.DELETE_ADDRESS_DETAIL",
+                    title:"ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS",
                     titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                 },
                 print: true
@@ -228,7 +228,7 @@ angular.module('mps.serviceRequestAddresses')
                     translate:{
                         title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
                         referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
-                        costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
+                        costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                         comments: 'LABEL.COMMENTS',
                         attachments: 'LABEL.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
