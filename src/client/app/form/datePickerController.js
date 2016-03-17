@@ -1,5 +1,3 @@
-
-
 angular.module('mps.form')
 .controller('DatePickerController', ['$scope', '$element', '$attrs',
     function(scope, element, attrs) {
