@@ -27,7 +27,7 @@
 	            </td>
 	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE' | translate}}">
                     <div class="form__field vertical-space--none">
-                        <input datepicker type="date" ng-model="item.newDate" ng-if="item.type !== 'MONO'" />
+                        <input datepicker type="text" ng-model="item.newDate" ng-if="item.type !== 'MONO'" />
                     </div>
                     <span ng-if="item.type === 'MONO'" ng-bind="getMeterReadPriorDate(item)"></span>
 	            </td>
