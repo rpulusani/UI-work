@@ -30,7 +30,7 @@ angular.module('mps.form')
           autoHideOnBlur: '=',
           autoHideOnClick: '=',
           date: '=',
-          dateValidator: '=',
+          dateValidator: '@',
           dayFormat: '=',
           initialValue: '=',
           inputFormat: '=',
@@ -44,7 +44,7 @@ angular.module('mps.form')
           time: '=',
           timeFormat: '=',
           timeInterval: '=',
-          timeValidator: '=',
+          timeValidator: '@',
           weekdayFormat: '=',
           dateVal: '='
       },

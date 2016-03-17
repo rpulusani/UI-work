@@ -1,5 +1,3 @@
-
-
 angular.module('mps.library', []).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/library', {
@@ -48,4 +46,3 @@ angular.module('mps.library', []).config(['$routeProvider', function ($routeProv
         controller: 'LibraryTagController'
     });
 }]);
-
