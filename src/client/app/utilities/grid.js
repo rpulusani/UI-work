@@ -1,7 +1,7 @@
 
 
 angular.module('mps.utility')
-.factory('grid', ['uiGridConstants', '$timeout',  function(uiGridConstants, $timeout) {
+.factory('grid', ['uiGridConstants', '$timeout', '$translate',  function(uiGridConstants, $timeout, $translate) {
     var Grid = function() {
         this.itemsPerPageArr = [
             {items: 20},
@@ -159,7 +159,7 @@ angular.module('mps.utility')
         //disabled column menu keep last so that it can not be overridden by personal settings.
         for (i; i < columns.length; i += 1) {
             columns[i].enableColumnMenu = enableColumnMenu;
-
+            columns[i].name = $translate.instant(columns[i].name);
             if (!columns[i].width && !columns[i].minWidth) {
                 columns[i].minWidth = columns[i].name.length * 15;
 
