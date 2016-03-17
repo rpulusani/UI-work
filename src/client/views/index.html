@@ -33,13 +33,13 @@
             deps: [
                 'lxk.fef',
                 'mps.libs',
+                'rome',
                 'mps.app'
             ],
-            shim: {
-                'mps.libs': {exports: ['angular','pdfmake']}
-            },
             paths: {
                 'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
+                'mps.libs': 'mps.libs',
+                'rome': 'rome',
                 'mps.app': 'mps.app'
             },
             map: {
