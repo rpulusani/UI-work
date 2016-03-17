@@ -276,7 +276,7 @@ angular.module('mps.orders')
                         translate: {
                             title: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACTS',
                             requestedByTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            primaryTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACT',
                             changePrimary: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
                         },
                         show:{
@@ -288,9 +288,9 @@ angular.module('mps.orders')
                     detail:{
                         translate:{
                             title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ADDL_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
+                            referenceId: 'ORDER_MAN.COMMON.TXT_ORDER_CUST_REF_ID',
+                            costCenter: 'ORDER_MAN.COMMON.TXT_COST_CENTER',
+                            comments: 'ORDER_MAN.COMMON.TXT_ORDER_COMMENTS',
                             attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
                             attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
                             fileList: ''
