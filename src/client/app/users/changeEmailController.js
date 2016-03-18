@@ -33,7 +33,16 @@ angular.module('mps.user')
                         $rootScope.logout();
                     }
                 }
-            }
+            },
+            modal: {
+                    translate: {
+                        abandonTitle: 'USER_PROFILE_MAN.COMMON.TITLE_ABANDON_MODAL',
+                        abandonBody: 'USER_PROFILE_MAN.COMMON.BODY_ABANDON_MODAL',
+                        abandonCancel:'USER_PROFILE_MAN.COMMON.ABANDON_MODAL_CANCEL',
+                        abandonConfirm: 'USER_PROFILE_MAN.COMMON.ABANDON_MODAL_CONFIRM'
+                    },
+                    returnPath: '/profile'
+                }
         };
         var promiseUser = $rootScope.currentUser.deferred;
           promiseUser.promise.then(function(){

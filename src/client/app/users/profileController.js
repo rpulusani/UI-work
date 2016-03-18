@@ -42,6 +42,15 @@
                     submit: function(){
                         UserService.updateProfile($rootScope.currentUser.email, $scope.user);
                     }
+                },
+                modal: {
+                    translate: {
+                        abandonTitle: 'USER_PROFILE_MAN.COMMON.TITLE_ABANDON_MODAL',
+                        abandonBody: 'USER_PROFILE_MAN.COMMON.BODY_ABANDON_MODAL',
+                        abandonCancel:'USER_PROFILE_MAN.COMMON.ABANDON_MODAL_CANCEL',
+                        abandonConfirm: 'USER_PROFILE_MAN.COMMON.ABANDON_MODAL_CONFIRM'
+                    },
+                    returnPath: '/'
                 }
             };
 
