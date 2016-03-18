@@ -66,7 +66,7 @@ function(
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
                         status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
-                        type: 'SUPPLIES_ORDERS_ALL'
+                        type: 'ORDERS_ALL'
                 }
             }).then(function(res) {
                 $scope.srOrderCnt = Orders.page.totalElements;
@@ -80,7 +80,7 @@ function(
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
                         status:  ['COMPLETED'],
-                        type: 'SUPPLIES_ORDERS_ALL'
+                        type: 'ORDERS_ALL'
                 }
             }).then(function(res) {
                 $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
