@@ -12,6 +12,7 @@ function ($routeProvider, UrlHelper) {
         })
         .when('/profile/update_email', {
             templateUrl: '/app/users/templates/profile_email.html',
+            controller:'ChangeEmailController'
         })
     .when('/delegated_admin', {
         templateUrl: '/app/users/templates/view.html',

@@ -34,7 +34,7 @@ angular.module('mps.user')
                     });
                     return defer.promise;
                 },
-                updateProfile: function(loginId, userProfile){
+                updateProfile: function(loginId, userProfile, alternateIdentity){
                     var url = serviceUrl  + 'users/'+ loginId,
                     defer = $q.defer(),
                     options = {

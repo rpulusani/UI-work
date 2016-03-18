@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="col-lg-2-3 col-md-1-1">
-        <h1 translate="USER_PROFILE_MAN.COMMON.TXT_TITLE"></h1>
+        <h1 translate="USER_PROFILE_MAN.COMMON.TXT_TITLE" translate-values="h1TranslatedValues"></h1>
         <p><span translate="USER_PROFILE_MAN.COMMON.TXT_DESC"></span></p>
         <div class="col-1 btns">
             <button type="button" class="btn btn--default" href="" ng-click="goToEmailUpdate()"
@@ -13,7 +13,7 @@
     title="USER_PROFILE_MAN.PROFILE.TXT_USER_PROFILE" print="false" export="false"></div>
     <hr/>
     <div class="col-2-3">
-        <h3 translate="USER_PROFILE_MAN.PROFILE.PERSONAL_INFORMATION"></h3>
+        <h3 translate="USER_PROFILE_MAN.PROFILE.TXT_PERSONAL_INFORMATION"></h3>
         <div class="form__field">
             <label translate="USER_PROFILE_MAN.PROFILE.LABEL_FIRST_NAME"></label>
             <input name="first_name" class="" type="text" ng-model="user.firstName" value="" />
@@ -23,8 +23,9 @@
             <input name="last_name" class="" type="text" ng-model="user.lastName" value="" />
         </div>
         <div class="form__field">
-            <a href="#" ng-click="goToEmailUpdate();" translate="USER_PROFILE_MAN.COMMON.CHANGE_EMAIL"></a>
             <label translate="USER_PROFILE_MAN.COMMON.LABEL_EMAIL"></label>
+            <a href="#" ng-click="goToEmailUpdate();" translate="USER_PROFILE_MAN.PROFILE.LNK_CHANGE_EMAIL"></a>
+
             <input name="email" class="" type="text" ng-model="user.email" value="" disabled/>
         </div>
         <div class="form__field">
@@ -52,7 +53,7 @@
         </div>
         <div class="form__field form__field--select">
             <label translate="USER_PROFILE_MAN.PROFILE.LABEL_STATE"></label>
-             <select ng-model="address.address.stateCode" name="state">
+             <select ng-model="user.address.stateCode" name="state">
                 <option  value="" translate="LABEL.SELECT"></option>
                 <option ng-repeat="option in provinces" value="{{option.code}}">{{option.name}}</option>
             </select>
@@ -63,7 +64,7 @@
         </div>
         <div class="form__field form__field--select form__field--required">
             <label translate="USER_PROFILE_MAN.PROFILE.LABEL_COUNTRY"></label>
-             <select ng-model="user.address.country" name="country" ng-change="countrySelected()">
+             <select ng-model="user.address.countryIsoCode" name="country" ng-change="countrySelected()">
                 <option  value="" translate="LABEL.SELECT"></option>
                 <option ng-repeat="option in countries" value="{{option.code}}">{{option.name}}</option>
             </select>
@@ -73,7 +74,7 @@
         <h3 translate="USER_PROFILE_MAN.SETTINGS.TXT_PREFERENCES"></h3>
         <div class="form__field form__field--select form__field--required">
             <label translate="USER_PROFILE_MAN.SETTINGS.LABEL_LANGUAGE"></label>
-            <select ng-model="user.language" name="language">
+            <select ng-model="user.preferredLanguage" name="language">
                 <option  value="" translate="LABEL.SELECT"></option>
                 <option ng-repeat="option in userPreferences" value="{{option.localeCode}}">{{option.language}}</option>
             </select>

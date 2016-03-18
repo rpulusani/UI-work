@@ -8,6 +8,8 @@
         'Country',
         'UserPreferences',
         '$timeout',
+        '$q',
+        'FormatterService',
         function(
         $scope,
         $location,
@@ -15,15 +17,20 @@
         $rootScope,
         Country,
         UserPreferences,
-        $timeout
+        $timeout,
+        $q,
+        Formatter
         ) {
+            $scope.provinces = null;
             $scope.goToEmailUpdate = function(){
                 $location.path('/profile/update_email');
             };
             $scope.countrySelected = function() {
-              console.log($scope.user.address.country);
-              var item = $scope.countries.filter(function(item) { return item.code === $scope.user.address.country; });
-              $scope.provinces = item[0].provinces;
+                if($scope.user && $scope.user.address && $scope.user.address.countryIsoCode !== ''){
+                    var item = $scope.countries.filter(function(item) { return item.code === $scope.user.address.countryIsoCode; });
+                    $scope.user.address.country = item[0].name;
+                    $scope.provinces = item[0].provinces;
+                }
             };
 
             $scope.configure = {
@@ -38,29 +45,37 @@
                 }
             };
 
-            var promise = $rootScope.currentUser.deferred.promise;
-            promise.then(function(){
+            var promiseUser = $rootScope.currentUser.deferred;
+            var countryPromise = $q.defer();
+            var userPreference = $q.defer();
+
+            $q.all([countryPromise.promise, promiseUser.promise, userPreference.promise]).then(function(){
+                $scope.user = angular.copy($scope.tempUser);
+                if($scope.user.address.countryIsoCode === null){
+                    $scope.user.address.countryIsoCode = '';
+                }
+                if(!$scope.provinces || $scope.provinces.length === 0){
+                    $scope.user.address.stateCode = '';
+                }
+                $scope.countrySelected();
+                $scope.h1TranslatedValues = {userFullName: Formatter.getFullName($scope.user.firstName,$scope.user.lastName) };
+            });
+
+            Country.get().then(function(){
+                $scope.countries = Country.data;
+                countryPromise.resolve();
+            });
+            UserPreferences.get().then(function(data){
+                $scope.userPreferences = data;
+                userPreference.resolve();
+            });
+            promiseUser.promise.then(function(){
                 UserService.getProfile($rootScope.currentUser.email).then(function(profile){
-                    $scope.user = profile;
-                    if($scope.user && !$scope.user.address){
-                        $scope.user.address = {};
+                    $scope.tempUser = profile;
+                    if($scope.tempUser && !$scope.tempUser.address){
+                        $scope.tempUser.address = {};
                     }
-                    Country.get().then(function(){
-                        $scope.countries = Country.data;
-                        $timeout(function(){
-                            var item = $scope.countries.filter(function(item) { return item.code === 'US'; });
-                            $scope.user.address.country = item[0].code;
-                            $scope.countrySelected();
-                        },0);
-                    });
-                    UserPreferences.get().then(function(data){
-                        $scope.userPreferences = data;
-                        if(!$scope.user.language && !$scope.language){
-                            $timeout(function(){
-                                $scope.user.language = 'EN';
-                            },0);
-                        }
-                    });
+                    promiseUser.resolve();
                 });
             });
         }
