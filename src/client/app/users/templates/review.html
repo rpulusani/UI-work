@@ -1,15 +1,15 @@
 <div class="page-header">
 	<div class="clearfix">
-		<h1 class="pull vertical-space--none"><span translate="DELEGATED_ADMIN.MANAGE_PROFILE"></span> 
+		<h1 class="pull vertical-space--none"><span translate="USER_MAN.MANAGE_USERS.TXT_CREATE_MANAGE_USER_PROFILE"></span> 
 		<span ng-bind="user.fullName"></span></h1>
 	</div>
 	<br/>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+	<p><span translate="USER_MAN.MANAGE_USERS.TXT_CREATE_MANAGE_USER_PROFILE_PAR"></span></p>
 
 	<div class="btns">
-	    <button type="button" class="btn btn--default" ng-click="deactivate()" translate="USER.DEACTIVATE_USER" ng-if="userActive">
+	    <button type="button" class="btn btn--default" ng-click="deactivate()" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
 	    </button>
-	    <button type="button" class="btn btn--default" ng-click="update()" translate="USER.ACTIVATE_USER" ng-if="!userActive">
+	    <button type="button" class="btn btn--default" ng-click="update()" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
 	    </button>
 	</div>
 </div>

@@ -1,16 +1,16 @@
-<h2 translate="LABEL.USERS"></h2>
-<h3 translate="USER.INVITE_WHO"></h3>
+<h2 translate="USER_MAN.COMMON.TXT_USERS"></h2>
+<h3 translate="USER_MAN.INVITE_USERS.TXT_WHO_TO_INVITE"></h3>
 <div class="form__field form__field--required">
-	<label translate="USER.EMAILS"></label>
+	<label translate="USER_MAN.INVITE_USERS.TXT_EMAIL_ADDRESSES"></label>
 	<textarea cols="50" rows="6" ng-model="user.emails"></textarea>
 </div>
 <div class="form__field form__field--select" >
-    <label translate="DELEGATED_ADMIN.PREFERRED_LANGUAGE"></label>
+    <label translate="USER_MAN.COMMON.TXT_PREFERRED_LANGUAGE"></label>
     <div selectric options="languageOptions" value="code" label="name" model="address.state" required
              placeholder="{{'LABEL.SELECT' | translate}}"></div>
 </div>
 
 
-<h2 translate="ACCOUNT.TITLE"></h2>
+<h2 translate="USER_MAN.COMMON.TXT_ACCOUNT_ACCESS"></h2>
 <div user-org-structure></div>
 <div user-role-permission></div>
