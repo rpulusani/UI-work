@@ -413,6 +413,14 @@
                 ]
             },
             {
+                name: 'viewSupplyOrderAccess',
+                permission: permissionSet.serviceRequestManagement.viewSuppliesOrder
+            },
+            {
+                name: 'viewHardwareOrderAccess',
+                permission: permissionSet.serviceRequestManagement.viewHardwareOrder
+            },
+            {
                 name: 'translationAdminAccess',
                 permission: permissionSet.admin.translationManager
             },

@@ -5,16 +5,16 @@
     <div class="set__content" id="orderAllTab">
         <span all-order-tab ng-if="isActive('orderAllTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="deviceOrderTab" ng-click="active('deviceOrderTab')">
+    <div class="set__trigger" data-toggle="deviceOrderTab" ng-click="active('deviceOrderTab')" ng-if="viewHardwareOrderAccess">
         <a href="#deviceOrderTab" translate="ORDER_MAN.MANAGE_ORDERS.TAB_HARDWARE_ORDERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="deviceOrderTab" >
+    <div class="set__content" id="deviceOrderTab" ng-if="viewHardwareOrderAccess">
         <span device-order-tab ng-if="isActive('deviceOrderTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="supplyOrderTab" ng-click="active('supplyOrderTab')">
+    <div class="set__trigger" data-toggle="supplyOrderTab" ng-click="active('supplyOrderTab')" ng-if="viewSupplyOrderAccess">
         <a href="#supplyOrderTab" translate="ORDER_MAN.MANAGE_ORDERS.TAB_SUPPLIES_ORDERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="supplyOrderTab">
+    <div class="set__content" id="supplyOrderTab" ng-if="viewSupplyOrderAccess">
         <span  supply-order-tab ng-if="isActive('supplyOrderTab')"></span>
     </div>
 </div>
