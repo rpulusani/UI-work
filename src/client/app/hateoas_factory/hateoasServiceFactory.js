@@ -236,7 +236,7 @@ angular.module('mps.hateoasFactory')
             if ((!newService.url && halObj._links &&
                 halObj._links[newService.embeddedName] &&
                 halObj._links[newService.embeddedName].href && !embeddedLinkName) ||
-                (useEmbeddedLink &&
+                (useEmbeddedLink && halObj._links &&
                 halObj._links[newService.embeddedName] &&
                 halObj._links[newService.embeddedName].href && !embeddedLinkName)) {
                     newService.params = self.setupParams({
@@ -813,7 +813,7 @@ angular.module('mps.hateoasFactory')
 
             HATEAOSConfig.getCurrentAccount().then(function() {
                     if (!options.preventDefaultParams) {
-                        if ($rootScope.currentAccount && $rootScope.currentAccount.refresh) {
+                        if ($rootScope.currentAccount && ($rootScope.currentAccount.refresh || $rootScope.currentAccount.accountLevel === 'siebel')) {
                         options.params.accountId = $rootScope.currentAccount.accountId;
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }

@@ -409,9 +409,7 @@
                     permissionSet.serviceRequestManagement.changeMADC,
                     permissionSet.serviceRequestManagement.moveMADC,
                     permissionSet.serviceRequestManagement.decommissionMADC,
-                    permissionSet.serviceRequestManagement.deinstallMADC,
-                    permissionSet.serviceRequestManagement.addressMADC,
-                    permissionSet.serviceRequestManagement.contactMADC
+                    permissionSet.serviceRequestManagement.deinstallMADC
                 ]
             },
             {

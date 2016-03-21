@@ -11,8 +11,10 @@ To run locally with docker
 To run locally withhout docker
  * `cd src`
  * `npm update`
- * `npm start`
+ * `gulp dev`
  * Website is: http://localhost:8080/
+ * To change which environment is used (see src/client/config/*.json), use:
+    `MPS_ENV=beta gulp dev`
 
 To test via console
  * `cd src`
@@ -23,6 +25,9 @@ To test via web
  * Start the server
  * Navigate to http://localhost:8080/test
 
+These are no longer stored as environment variables. They are injected to index.html during Gulp build.
+See src/client/config/*.json files, src/client/views/index.html, and gulpfile.js for more information. See
+Gulp task `prep-html` for more information.
 Environmental Variables
    * NEWRELICID=10059346   --NewRelic Browser
    * NEW_RELIC_LICENSE_KEY=0ce62264499457b6bb48fc18ed2ee650deeb6e2e  --NewRelic Docker Container for Node.js

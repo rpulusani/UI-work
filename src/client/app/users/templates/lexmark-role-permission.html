@@ -1,11 +1,13 @@
 <h3 translate="USER.ROLE_PERM"></h3>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
 <div class="form__field form__field--select form__field--required">
-    <label translate='USER.BASIC_ROLE'></label>
-    <div selectric model="basicRole" 
-        options="user.basicRoles" value="description" label="description" placeholder="{{'LABEL.SELECT' | translate}}" 
-        on-select="setPermissionsForBasic(option)">
-    </div>
+    <label translate="USER.BASIC_ROLE"></label>
+    <select ng-model="basicRole" name="basicRole" ng-change="setPermissionsForBasic(basicRole)">
+        <option value="" translate="LABEL.SELECT"></option>
+        <option ng-repeat="option in user.basicRoles" value="{{option.roleId}}" ng-selected="basicRole == option.roleId">
+            {{option.description}}
+        </option>
+    </select>
 </div>
 <strong><label translate='USER.ADD_ROLE'></label></strong>
 <div class="well">
@@ -26,3 +28,6 @@
 <div class="well">
     <div ng-repeat="permission in user.permissions">{{permission}}</div>
 </div>
+
+
+
