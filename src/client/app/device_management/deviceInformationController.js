@@ -131,9 +131,9 @@ angular.module('mps.deviceManagement')
 
                
                 //Mono Calc goes here
-                if (indLTPC!=-1 && indColor!=-1 
-                    && indMono!=-1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
-                    $scope.meterReads[indMono].value=($scope.meterReads[indLTPC].value-$scope.meterReads[indColor].value); 
+                if (indLTPC !== -1 && indColor !== -1 
+                    && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
+                    $scope.meterReads[indMono].value = $scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value; 
                     $scope.meterReads[indMono].updateDate=FormatterService.formatDateForPost(new Date());                   
                     updateMeterReads($scope.meterReads[indMono]);
                 }  
@@ -143,27 +143,20 @@ angular.module('mps.deviceManagement')
         };
 
         function updateMeterReads(meterRead){
-            
-                         // init MeterReads.item
-                        MeterReads.newMessage();
-
-                       
-
-                MeterReads.addField('id', meterRead.id);
-                MeterReads.addField('value', meterRead.value);
-                MeterReads.addField('type', meterRead.type);
-                MeterReads.addField('updateDate', meterRead.updateDate);
-                
-
-                        // reset the postURL
-                        MeterReads.addField("postURL", meterRead._links.self.href);
-
-                        // submit the request
-                        MeterReads.put(MeterReads).then(function(){
-                            MeterReads.reset();
-                        }, function(reason){
-                            NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
-                        });
+            // init MeterReads.item
+            MeterReads.newMessage();
+            MeterReads.addField('id', meterRead.id);
+            MeterReads.addField('value', meterRead.value);
+            MeterReads.addField('type', meterRead.type);
+            MeterReads.addField('updateDate', meterRead.updateDate);
+            // reset the postURL
+            MeterReads.addField("postURL", meterRead._links.self.href);
+            // submit the request
+            MeterReads.put(MeterReads).then(function(){
+                MeterReads.reset();
+            }, function(reason){
+                NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
+            });
         };
 
         if (Devices.item === null) {
