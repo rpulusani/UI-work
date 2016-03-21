@@ -48,17 +48,17 @@ angular.module('mps.user')
         filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'invitedSet');
 
         var removeParamsList = ['roles', 'invitedStatus', 'fromDate', 'toDate'];
-        filterSearchService.addBasicFilter('USER.ALL_INVITED_USER', {'type': 'INVITED', 'embed': 'roles'}, removeParamsList,
+        filterSearchService.addBasicFilter('USER_MAN.INVITE_USERS.TXT_FILTER_ALL_INVITED_USER', {'type': 'INVITED', 'embed': 'roles'}, removeParamsList,
             function(Grid) {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'InvitedStatusFilter', undefined,
+        filterSearchService.addPanelFilter('USER_MAN.COMMON.TXT_FILTER_STATUS', 'InvitedStatusFilter', undefined,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
+        filterSearchService.addPanelFilter('USER_MAN.COMMON.TXT_FILTER_ROLE', 'RoleFilter', undefined,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }

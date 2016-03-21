@@ -1,10 +1,10 @@
 <div class="page-header">
-    <h1 translate="USER_ADMIN.IMPERSONATE.IMPERSONATE_TITLE"></h1>
-    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
+    <h1 translate="USER_MAN.IMPERSONATE.TXT_IMPERSONATE_TITLE"></h1>
+    <p><span translate="USER_MAN.IMPERSONATE.TXT_IMPERSONATE_USER_PAR"></span></p>
 </div>
 <div class="page-content">
     <div class="col-1">
-        <div print-export-title title="USER_MAN.COMMON.TXT_USERS"></div>
+        <div print-export-title titlestring="USER_MAN.COMMON.TXT_USERS"></div>
         <hr/>
     </div>
 
@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-1-1 btns">
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('impersonate')"
-            translate="USER_ADMIN.IMPERSONATE.IMPERSONATE_BUTTON" ng-disabled="!isSingleSelected()"></button>
+            translate="USER_MAN.IMPERSONATE.BTN_IMPERSONATE_USER" ng-disabled="!isSingleSelected()"></button>
     </div>
     <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
     <div pagination grid="{{gridOptions}}"></div>
