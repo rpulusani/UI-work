@@ -4,7 +4,7 @@
     "action": "",
     "text": "NAVIGATION.ACCOUNT.TXT_ACCOUNT_SELECTION",
     "subtext": "NAVIGATION.ACCOUNT.TXT_ALL_ACCOUNTS",
-    "description": "Some description of this link",
+    "description": "NAVIGATION.ACCOUNT.TXT_ALL_ACCOUNTS",
     "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",
     "tags":["primary"],
@@ -44,7 +44,7 @@
     "id": "5",
     "action": "/service_requests/addresses",
     "text": "NAVIGATION.LEFT_NAV.TXT_ADDRESSES",
-    "description": "Some description of this link",
+    "description": "NAVIGATION.LEFT_NAV.TXT_ADDRESSES",
     "icon": "icon icon-mps-location",
     "permissionFlag":"addressContactAccess",
     "tags":["primary"]
@@ -198,7 +198,7 @@
     "id": "22",
     "action": "/carrier",
     "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
-    "description": "Some description of this link",
+    "description": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
     "permissionFlag":"viewHomePage",
     "icon": "portalAdminAccess",
     "tags":["16"]

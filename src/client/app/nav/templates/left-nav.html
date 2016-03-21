@@ -1,7 +1,7 @@
 <nav class="rail-nav">
     <ul>
         <li ng-repeat="item in getItemsByTag('primary')" ng-if="item.permissionFlag && !isInternal">
-            <a class="nav-item" href="{{item.action}}" title="{{item.description}}"
+            <a class="nav-item" href="{{item.action}}" title="{{item.description | translate}}"
             target="{{item.window}}" ng-class="{'is-active' : isActive(item) }" ng-if="!item.dropdown">
                 <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
                 <span translate="{{item.text}}"></span>

@@ -75,15 +75,15 @@ angular.module('mps.utility')
     return {
         restrict: 'A',
         scope: {
-            title: '@',
+            titlestring: '@',
             titleValues: '@',
             print: '=',
             export: '=',
             nativePrint: '@'
         },
         template: '<div class="col-3-4" ng-cloak>' +
-            '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && title" translate="{{ title }}" translate-values="{{titleValues}}"></h2>' +
-            '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="!titleValues && title" translate="{{ title }}"></h2>' +
+            '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && titlestring" translate="{{ titlestring }}" translate-values="{{titleValues}}"></h2>' +
+            '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="!titleValues && titlestring" translate="{{ titlestring }}"></h2>' +
         '</div>' +
         '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
             '<span ng-if="displayPrint" class="">' +
