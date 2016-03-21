@@ -492,7 +492,7 @@
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: config.portal.adminUrl + '/resource-bundles/',
+                    prefix: config.portal.adminUrl + 'resource-bundles/',
                     suffix: '.json'
                 })
                 .useLocalStorage();
