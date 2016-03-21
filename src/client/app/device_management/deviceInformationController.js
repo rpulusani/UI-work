@@ -133,8 +133,8 @@ angular.module('mps.deviceManagement')
                 //Mono Calc goes here
                 if (indLTPC !== -1 && indColor !== -1 
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
-                    $scope.meterReads[indMono].value = $scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value; 
-                    $scope.meterReads[indMono].updateDate=FormatterService.formatDateForPost(new Date());                   
+                    $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                   
                     updateMeterReads($scope.meterReads[indMono]);
                 }  
                 
