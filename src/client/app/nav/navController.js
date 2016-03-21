@@ -16,7 +16,7 @@
     '$window',
     'SecurityService',
     'SecurityHelper',
-    'DTMUpdator',
+    'DTMUpdater',
     function(
         $scope,
         $rootScope,
@@ -31,7 +31,7 @@
         $window,
         SecurityService,
         SecurityHelper,
-        DTMUpdator
+        DTMUpdater
         ) {
 
         var Security = new SecurityService();

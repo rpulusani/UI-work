@@ -81,7 +81,11 @@ angular.module('mps.hateoasFactory')
                     $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
 
                     if (!$rootScope.currentAccount) {
-                        HATEAOSConfig.getLoggedInUserInfo();
+                        HATEAOSConfig.getLoggedInUserInfo().then(function() {
+                            deferred.resolve();
+                        });
+                    } else {
+                        deferred.resolve();
                     }
 
                     if (self.serviceName === 'users') {
@@ -92,8 +96,6 @@ angular.module('mps.hateoasFactory')
                             }
                         });
                     }
-
-                    deferred.resolve();
                 });
             });
 

@@ -447,7 +447,6 @@
               var user = $rootScope.currentUser;
               $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
 
-              console.log('HERE WE ARE!')
             });
 
         }, function(reason) {
