@@ -53,22 +53,22 @@ function($routeProvider) {
             activeItem: '/orders'
     })
     .when('/orders/purchase/review', {
-            templateUrl: '/app/service_requests/templates/review.html',
+            templateUrl: '/app/orders/templates/review.html',
             controller: 'OrderPurchaseController',
             activeItem: '/orders'
     })
     .when('/orders/:id/receipt', {
-        templateUrl: '/app/service_requests/templates/receipt.html',
+        templateUrl: '/app/orders/templates/receipt.html',
         controller:'ServiceRequestDetailController',
         activeItem: '/orders'
     })
     .when('/orders/purchase/receipt/:queued', {
-        templateUrl: '/app/service_requests/templates/receipt.html',
+        templateUrl: '/app/orders/templates/receipt.html',
         controller: 'OrderPurchaseController',
         activeItem: '/orders'
     })
     .when('/orders/return/receipt/:queued', {
-        templateUrl: '/app/service_requests/templates/receipt.html',
+        templateUrl: '/app/orders/templates/receipt.html',
         controller: 'ReturnOrdersController',
         activeItem: '/orders'
     })
