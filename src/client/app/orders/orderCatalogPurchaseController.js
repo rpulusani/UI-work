@@ -20,6 +20,7 @@ angular.module('mps.orders')
     'TombstoneService',
     'ServiceRequestService',
     'UserService',
+    'OrderControllerHelperService',
     function(
         $scope,
         $location,
@@ -38,9 +39,12 @@ angular.module('mps.orders')
         $routeParams,
         Tombstone,
         ServiceReqeust,
-        Users) {
+        Users,
+        OrderControllerHelper) {
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
+        OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
+
         $scope.print = false;
         $scope.export = false;
         $scope.editable = false; //make order summary not actionable
@@ -90,28 +94,14 @@ angular.module('mps.orders')
                 }
         };
 
-            function intitilize(){
-                $scope.setupSR(Orders, configureSR);
-                $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
-            }
-
-            intitilize();
-
-        if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
-            Orders.tempSpace.catalogCart.billingModels){
-            var isShipBill =  $.inArray('SHIP_AND_BILL', Orders.tempSpace.catalogCart.billingModels);
-                if(isShipBill > -1){
-                $scope.paymentMethod = 'SHIP_AND_BILL';
-                    addShipAndBill();
-                }else if(Orders.tempSpace.catalogCart.billingModels.length > 0 && $scope.type !== 'SUPPLIES'){
-                    $scope.paymentMethod = 'payLater';
-                    addShipAndInstall();
-            }else if(Orders.tempSpace.catalogCart.billingModels.length > 0){
-                $scope.paymentMethod = 'payLater';
-            }
-        }else{
-            $scope.paymentMethod = 'Error';
+        function intitilize(){
+            $scope.setupSR(Orders, configureSR);
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
         }
+
+        intitilize();
+        $scope.setupShipBillToAndInstallAddresses(Orders);
+
         $scope.formatAdditionalData = function() {
             if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact(Orders.tempSpace.requestedByContact);
@@ -208,45 +198,7 @@ angular.module('mps.orders')
         } else{
             configureSR(Orders);
         }
-            function addShipAndInstall(){
-                $scope.configure.shipToBillTo = undefined;
-                $scope.configure.installShipping = {
-                    translate: {
-                        title: 'ORDER_MAN.HARDWARE_ORDER.TXT_INSTALL_SHIP_BILL_ADDRESSES',
-                        installQuestion:'ORDER_MAN.COMMON.TXT_LXK_INSTALL_QUERY',
-                        installAddress:'ORDER_MAN.HARDWARE_ORDER.TXT_INSTALLATION_ADDRESS',
-                        installAction:'ORDER_MAN.HARDWARE_ORDER.LNK_SELECT_INSTALL_ADDRESS',
-                        sameShipInstallQuestion:'ORDER_MAN.COMMON.TXT_SHIP_INSTALL_ADDRS_SAME'
-                    },
-                    sameAddress: function(){
-                        if($scope.scratchSpace.lexmarkShippingSameAsInstall){
-                            Orders.copyRelationship('sourceAddress', Orders.item, 'shipToAddress');
-                            Orders.tempSpace.shipToAddress =  angular.copy(Orders.tempSpace.installAddress);
-                            Orders.item.shipToAddressPhysicalLocation.physicalLocation1 =
-                                $scope.sr.sourceAddressPhysicalLocation.physicalLocation1;
-                            Orders.item.shipToAddressPhysicalLocation.physicalLocation2 =
-                                $scope.sr.sourceAddressPhysicalLocation.physicalLocation2;
-                            Orders.item.shipToAddressPhysicalLocation.physicalLocation3 =
-                                $scope.sr.sourceAddressPhysicalLocation.physicalLocation3;
-                            $scope.formatAdditionalData();
-                        }
-                    }
-                };
-                $scope.configure.installPicker = {
-                    pickerObject: Orders.item,
-                    source: 'OrderCatalogPurchase'
-                };
-            }
-            function addShipAndBill(){
-                $scope.configure.installShipping = undefined;
-                $scope.configure.shipToBillTo = {
-                    translate:{
-                        title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
-                        billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR',
-                        billToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_BILL_TO_FOR'
-                    }
-                };
-        }
+
 
             $scope.getRequestor(Orders, Contacts);
 
