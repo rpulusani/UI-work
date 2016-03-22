@@ -236,20 +236,28 @@ angular.module('mps.serviceRequests')
         function setStatusBar(currentStatus, statusDate, statusBarLevels){
             var statusBarList = [],
             statusItem = {},
-            formattedStatusDate = FormatterService.formatDate(statusDate);
+            formattedStatusDate = FormatterService.formatDate(statusDate),
+            selectedLevel = 0;
 
             statusItem["'label'"] = '';
             statusItem["'date'"] = '';
-            statusItem["'current'"] = false;
-            statusItem["'level'"] = 0;
+            statusItem["level"] = true;
+            statusItem["current"] = false;
 
             for(var i=0; i<statusBarLevels.length; i++){
-                var statusItemClone = angular.copy(statusItem);
-                    if(currentStatus.toLowerCase().replace(/_/g, '') === statusBarLevels[i].value.toLowerCase()){
+                var statusItemClone = angular.copy(statusItem),
+                j = i + 1;
+                if(currentStatus.toLowerCase().replace(/_/g, '') === statusBarLevels[i].value.toLowerCase()){
                     statusItemClone.date = formattedStatusDate;
+                    selectedLevel = j;
+                    statusItemClone.level = true;
                     statusItemClone.current = true;
-                    statusItemClone.level = i;
                 }
+
+                if (selectedLevel > 0 && j > selectedLevel) {
+                    statusItemClone.level = false;
+                }
+
                 statusItemClone.label = statusBarLevels[i].name;
                 statusBarList.push(statusItemClone);
             }
