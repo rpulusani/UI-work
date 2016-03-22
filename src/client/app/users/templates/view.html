@@ -1,23 +1,26 @@
 <div class="page-header">
 
-    <h1 translate="DELEGATED_ADMIN.TITLE"></h1>
-    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
-    <div alert-message title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
-         cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
-         return-path="/delegated_admin"></div><br/>
+    <h1 translate="USER_MAN.MANAGE_USERS.TXT_MANAGE_USERS"></h1>
+    <p><span translate="USER_MAN.MANAGE_USERS.TXT_MANAGE_USERS_PAR"></span></p>
+    <div alert-message title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" 
+            body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+            cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" 
+            confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+         return-path="/delegated_admin">
+     </div><br/>
     <div ng-show="saved" class="alert">
-        <span translate="USER.USER_CREATED_MSG"></span>
-        <a href="" translate="USER.MANAGE"  translate-values="{user_name: fullName}" ng-click="view(user)"></a>
+        <span translate="USER_MAN.MANAGE_USERS.TXT_MSG_USER_CREATED"></span>
+        <a href="" translate="USER_MAN.MANAGE_USERS.LNK_MANAGE_USER"  translate-values="{user_name: fullName}" ng-click="view(user)"></a>
     </div>
 
     <div ng-show="invited" class="alert">
-        <span translate="USER.USER_INVITED_MSG"></span>
+        <span translate="USER_MAN.INVITE_USERS.TXT_MSG_USER_INVITED"></span>
     </div>
 
     <div class="btns">
-        <button type="button" class="btn btn--default" ng-click="goToCreateUser()" translate="USER.CREATE_USER"></button>
-        <button type="button" class="btn btn--default" ng-click="goToInviteUser()" translate="USER.INVITE_USER"></button>
-        <button type="button" ng-if="lexmarkUserAccess" class="btn btn--default" ng-click="goToLexmrkUser()" translate="USER.MANAGE_LEXMARK_USER"></button>
+        <button type="button" class="btn btn--default" ng-click="goToCreateUser()" translate="USER_MAN.MANAGE_USERS.BTN_CREATE_NEW_USER"></button>
+        <button type="button" class="btn btn--default" ng-click="goToInviteUser()" translate="USER_MAN.MANAGE_USERS.BTN_INVITE_NEW_USER"></button>
+        <button type="button" ng-if="lexmarkUserAccess" class="btn btn--default" ng-click="goToLexmrkUser()" translate="USER_MAN.MANAGE_LXK_USERS.TXT_MANAGE_LXK_USERS"></button>
     </div>
 </div>
 <div class="page-tabs" user-tabs></div>

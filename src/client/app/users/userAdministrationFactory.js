@@ -10,36 +10,36 @@ angular.module('mps.user')
             columns: 'default',
             columnDefs: {
                 defaultSet: [
-                    {'name': 'Status', 'field': 'getFormattedStatus()', 'notSearchable':true},
-                    {'name': 'Creation date', 'field':'getFormattedCreateDate()', 'notSearchable':true},
-                    {'name': 'User ID', 'field': 'userId', 'notSearchable': true, dynamic: false,
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'getFormattedStatus()', 'notSearchable':true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 'field':'getFormattedCreateDate()', 'notSearchable':true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field': 'userId', 'notSearchable': true, dynamic: false,
                      'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
                                         '{{row.entity.userId}}</a>' +
                                     '</div>'
                     },
-                    {'name': 'First Name', 'field':'firstName'},
-                    {'name': 'Last Name', 'field':'lastName'},
-                    {'name': 'Email', 'field': 'email'},
-                    {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true},
-                    {'name': 'Roles', 'field': 'getRoles()', 'notSearchable':true}
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': 'getAccounts()', 'notSearchable':true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': 'getRoles()', 'notSearchable':true}
                 ],
                 impersonateSet: [
-                    {'name': 'User ID', 'field': 'userId', 'notSearchable': true, dynamic: false},
-                    {'name': 'First Name', 'field':'firstName'},
-                    {'name': 'Last Name', 'field':'lastName'},
-                    {'name': 'Email', 'field': 'email'},
-                    {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true}
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field': 'userId', 'notSearchable': true, dynamic: false},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': 'getAccounts()', 'notSearchable':true}
                 ],
                 invitedSet: [
-                    {'name': 'Status', 'field': 'invitedStatus','notSearchable':true},
-                    {'name': 'Invitation date', 'field':'created',
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'invitedStatus','notSearchable':true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_INVITATION_DATE'), 'field':'created',
                              'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>',
                              'notSearchable':true
                     },
-                    {'name': 'Email', 'field': 'email'},
-                    {'name': 'Company account', 'field': 'getAccounts()', 'notSearchable':true},
-                    {'name': 'Roles', 'field': 'getRoles()', 'notSearchable':true}
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': 'getAccounts()', 'notSearchable':true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': 'getRoles()', 'notSearchable':true}
                 ]
             },
             functionArray: [

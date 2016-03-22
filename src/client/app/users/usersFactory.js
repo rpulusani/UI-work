@@ -11,17 +11,17 @@ angular.module('mps.user')
             columns: 'default',
             columnDefs: {
                 defaultSet: [
-                    {'name': 'Status', 'field': 'activeStatus'},
-                    {'name': 'Creation date', 'field':'created'},
-                    {'name': 'User ID', 'field':'userId'},
-                    {'name': 'Name (Last, First)',
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'activeStatus'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 'field':'created'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field':'userId'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_LAST_NAME'),
                      'cellTemplate':'<div>' +
                                     '{{row.entity.lastName}}, {{row.entity.firstName}}' +
                                     '</div>'
                     },
-                    {'name': 'Email', 'field': 'email'},
-                    {'name': 'Company account', 'field': '' },
-                    {'name': 'Roles', 'field': '' }
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': '' },
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': '' }
                 ]
             },
             route: '/delegated_admin'
