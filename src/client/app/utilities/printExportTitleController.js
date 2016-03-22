@@ -1,7 +1,7 @@
 angular.module('mps.utility')
 .controller('PrintExportTitleController', ['$scope', '$element', '$attrs', '$translate', 'uiGridExporterConstants',
     function($scope, element, attrs, $translate, uiGridExporterConstants) {
-        $scope.title = $scope.title;
+        $scope.titlestring = $scope.titlestring;
 
         $scope.displayPrint = true;
         $scope.displayExport = true;
@@ -25,7 +25,7 @@ angular.module('mps.utility')
         }
 
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-            if($scope.title && attrs.titleCount !== false) {
+            if($scope.titlestring && attrs.titleCount !== false) {
                 $scope.titleValues = {
                         total: Math.max(0, ctrlScope.pagination.totalItems())
                 };

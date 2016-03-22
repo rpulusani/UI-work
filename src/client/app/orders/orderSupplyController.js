@@ -100,10 +100,43 @@ angular.module('mps.orders')
         });
     };
 
+    function getBillingModels(){
+        var bmList = [],
+            found = false;
+        for(var i = 0; i < OrderItems.data.length; ++i){
+            found = false;
+            if(OrderItems.data[i].billingModel && bmList.length > 0){
+                for(var j = 0; j < bmList.length; ++j){
+                    if(OrderItems.data[i].billingModel === bmList[j]){
+                        found = true;
+                        break;
+                    }
+                }
+
+            }
+            if(!found){
+                bmList.push(OrderItems.data[i].billingModel);
+            }
+        }
+
+        return bmList;
+    }
 
     $scope.submit = function(){
         Orders.newMessage();
-        Orders.tempSpace = {};
+        Orders.tempSpace = {
+                        'catalogCart': {
+                            'billingModels': getBillingModels(),
+                            'catalog': 'supplies',
+                            'contract': {
+                                'id': Devices.item.contractNumber
+                            },
+                            'agreement': {
+                                'id': Devices.item.agreementId
+                            }
+                        }
+                    };
+        console.log(Orders.tempSpace);
         $location.path(OrderItems.route + '/purchase/review');
     };
 

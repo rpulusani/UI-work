@@ -413,6 +413,14 @@
                 ]
             },
             {
+                name: 'viewSupplyOrderAccess',
+                permission: permissionSet.serviceRequestManagement.viewSuppliesOrder
+            },
+            {
+                name: 'viewHardwareOrderAccess',
+                permission: permissionSet.serviceRequestManagement.viewHardwareOrder
+            },
+            {
                 name: 'translationAdminAccess',
                 permission: permissionSet.admin.translationManager
             },
@@ -484,7 +492,7 @@
             $translateProvider
                 .preferredLanguage(myLanguage)
                 .useStaticFilesLoader({
-                    prefix: config.portal.adminUrl + '/localizations/',
+                    prefix: config.portal.adminUrl + 'resource-bundles/',
                     suffix: '.json'
                 })
                 .useLocalStorage();
