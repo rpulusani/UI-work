@@ -1,6 +1,6 @@
 angular.module('mps.hateoasFactory')
-.factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope',
-    function($http, $q, HATEAOSConfig, $rootScope) {
+.factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope', 'DTMUpdater',
+    function($http, $q, HATEAOSConfig, $rootScope, DTM) {
         var HATEOASFactory = function(serviceDefinition) {
             var self = this;
 
@@ -82,9 +82,11 @@ angular.module('mps.hateoasFactory')
 
                     if (!$rootScope.currentAccount) {
                         HATEAOSConfig.getLoggedInUserInfo().then(function() {
+                            DTM.update();
                             deferred.resolve();
                         });
                     } else {
+                        DTM.update();
                         deferred.resolve();
                     }
 

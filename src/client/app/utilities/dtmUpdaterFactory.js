@@ -12,29 +12,29 @@ angular.module('mps.utility')
 
             switch (tag.name) {
                 case 'company-name':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content = $rootScope.currentAccount.name;
                 case 'company-level':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content = $rootScope.currentAccount.accountLevel;
                 case 'account-name':
-                    tag.value = $rootScope.currentAccount.name;
+                    tag.content = $rootScope.currentAccount.name;
                 case 'account-id':
-                    tag.value = $rootScope.currentAccount.accountId;
+                    tag.content = $rootScope.currentAccount.accountId;
                 case 'account-geo':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content = null;
                 case 'account-country':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content = null;
                 case 'account-region':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content = null;
                 case 'account-city':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content =  null;
                 case 'user-name':
-                    tag.value = $rootScope.currentUser.userId;
+                    tag.content = $rootScope.currentUser.userId;
                 case 'user-shortname':
-                    tag.value = $rootScope.currentUser.shortName;
+                    tag.content = $rootScope.currentUser.shortName;
                 case 'user-role':
-                    tag.value = $rootScope.currentUser.firstName;
+                    tag.content = $rootScope.currentUser.firstName;
                 case 'user-level':
-                    tag.value = $rootScope.currentAccount.accountLevel;
+                    tag.content = $rootScope.currentAccount.accountLevel;
                 default:
                     break;
             }
@@ -42,11 +42,11 @@ angular.module('mps.utility')
     };
 
     DTM.prototype.getTag = function(tagName) {
-       return angular.element('[name=' + tagName + ']')[0].value;
+       return angular.element('[name=' + tagName + ']')[0].content;
     };
 
     DTM.prototype.setTag = function(tagName, newValue) {
-        angular.element('[name=' + tagName + ']')[0].value = newValue;
+        angular.element('[name=' + tagName + ']')[0].content = newValue;
     };
 
     return new DTM();
