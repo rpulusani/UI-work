@@ -70,6 +70,12 @@ gulp.task('json-data', function(){
   return gulp.src(['app/**/data/*.json'])
     .pipe(gulp.dest('dist/build/app'));
 });
+
+gulp.task('favicon', function(){
+  return gulp.src(['etc/*.ico'])
+    .pipe(gulp.dest('dist/build/'));
+});
+
 gulp.task('less', function() {
   return gulp.src(['etc/styles/less/_build.less'])
     .pipe(less())
@@ -108,7 +114,7 @@ gulp.task('clean', function() {
 // Be warned - task dependencies are run in *parallel*. If you need ordering, be sure sub-tasks properly define their
 // dependencies
 gulp.task('default', ['scripts', 'less', 'prep-html', 'libs', 'html-templates',
-                      'json-data', 'third-party-styles', 'lxk-styles', 'rome']);
+                      'json-data', 'third-party-styles', 'lxk-styles', 'rome','favicon']);
 
 gulp.task('dev', ['default'], function(){
 
@@ -128,7 +134,7 @@ gulp.task('dev', ['default'], function(){
         .pipe(webserver({
             port: 8080,
             open: true,
-            //livereload: true,
+            livereload: true,
             fallback: '/index.html'
         }));
 });
