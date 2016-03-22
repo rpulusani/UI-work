@@ -1,6 +1,7 @@
 <div class="status-bar">
    <div class="status-bar-bar-section col-1-{{configure.statusList.length}}"
-      ng-repeat="status in configure.statusList" ng-class="{'active': status.current}">
+      ng-repeat="status in configure.statusList" 
+      ng-class="{'active': status.current || $index < $parent.configure.statusList.length}">
       <hr/>
       <div class="status-bar-circle text--semi-bold">
         <span>{{$index + 1}}</span>
