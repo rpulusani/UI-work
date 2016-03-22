@@ -33,12 +33,12 @@ angular.module('mps.user')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('USER_MAN.MANAGE_USERS.TXT_FILTER_STATUS', 'StatusFilter', undefined,
+        filterSearchService.addPanelFilter('USER_MAN.COMMON.TXT_FILTER_STATUS', 'StatusFilter', undefined,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('USER_MAN.MANAGE_USERS.TXT_FILTER_ROLE', 'RoleFilter', undefined,
+        filterSearchService.addPanelFilter('USER_MAN.COMMON.TXT_FILTER_ROLE', 'RoleFilter', undefined,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
