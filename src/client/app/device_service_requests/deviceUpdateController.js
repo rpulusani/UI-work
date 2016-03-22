@@ -96,7 +96,6 @@ angular.module('mps.serviceRequestDevices')
             $scope.sr = $rootScope.returnPickerSRObjectAddress;
             if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                 $scope.device.addressSelected = true;
-                
                 ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
 
                 $scope.device.updatedInstallAddress = angular.copy($rootScope.selectedAddress);
@@ -111,7 +110,9 @@ angular.module('mps.serviceRequestDevices')
             $scope.device = Devices.item;
 
             if (!$rootScope.selectedAddress) {
-                ServiceRequest.addRelationship('destinationAddress', Devices.item, 'address');
+                if (!(ServiceRequest.item && ServiceRequest.item._links && ServiceRequest.item._links.destinationAddress)) {
+                    ServiceRequest.addRelationship('destinationAddress', Devices.item, 'address');
+                }
                 ServiceRequest.addRelationship('account', Devices.item);
                 ServiceRequest.addRelationship('asset', Devices.item, 'self');
                 ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');

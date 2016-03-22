@@ -76,6 +76,12 @@ angular.module('mps.deviceManagement')
       Orders.getPage(0, 1, options).then(function() {
           if(Orders.data && Orders.data.length === 1 ){
             $scope.openOrder = angular.copy(Orders.data[0]);
+            if (!($scope.openOrder && $scope.openOrder.status)) {
+                $scope.openOrder.status = 'SUBMITTED';
+            }
+            if (!($scope.openOrder && $scope.openOrder.statusDate)) {
+                $scope.openOrder.statusDate = new Date().toString();
+            }
             setupConfiguration();
           }
       });
