@@ -99,11 +99,20 @@ angular.module('mps.deviceManagement')
 
             if($scope.meterReads){
                 limit = $scope.meterReads.length;
-
+                var indColor=-1,indLTPC=-1,indMono=-1;
                 for(i=0; i<limit; i+=1){
                     // ignore Mono reads since they can't be updated
                     // ignore reads that weren't updated
-                    if($scope.meterReads[i].type !== 'MONO' && ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate)){
+
+                     if ($scope.meterReads[i].type === 'MONO'){
+                        indMono=i;
+                     }else if ($scope.meterReads[i].type === 'COLOR'){
+                        indColor=i;
+                     }else if ($scope.meterReads[i].type === 'LTPC'){
+                        indLTPC=i;
+                     }       
+
+                    if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){
                         // if a new value was added
                         if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value){
                             $scope.meterReads[i].value = $scope.meterReads[i].newVal;
@@ -112,37 +121,42 @@ angular.module('mps.deviceManagement')
 
                         // if a new date was added
                         if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== $scope.getMeterReadPriorDate($scope.meterReads[i])){
-                            $scope.meterReads[i].updateDate = $scope.meterReads[i].newDate;
+                            $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
                             $scope.meterReads[i].newDate = null;
                         }
-
-                        // init MeterReads.item
-                        MeterReads.newMessage();
-
-                        // set item props
-                        for(var key in $scope.meterReads[i]){
-                            // always check to make sure the prop belongs directly to the object
-                            if($scope.meterReads[i].hasOwnProperty(key)){
-                                // ignore unneeded props
-                                if(key != "newVal" || key != "newDate"){
-                                    MeterReads.addField(key, $scope.meterReads[i][key]);
-                                }
-                            }
-                        }
-
-                        // reset the postURL
-                        MeterReads.addField("postURL", $scope.meterReads[i]._links.self.href);
-
-                        // submit the request
-                        MeterReads.put(MeterReads).then(function(){
-                            MeterReads.reset();
-                        }, function(reason){
-                            NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
-                        });
+                        updateMeterReads($scope.meterReads[i]);
                     }
+                    
                 }
+
+               
+                //Mono Calc goes here
+                if (indLTPC !== -1 && indColor !== -1 
+                    && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
+                    $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                   
+                    updateMeterReads($scope.meterReads[indMono]);
+                }  
+                
             }
 
+        };
+
+        function updateMeterReads(meterRead){
+            // init MeterReads.item
+            MeterReads.newMessage();
+            MeterReads.addField('id', meterRead.id);
+            MeterReads.addField('value', meterRead.value);
+            MeterReads.addField('type', meterRead.type);
+            MeterReads.addField('updateDate', meterRead.updateDate);
+            // reset the postURL
+            MeterReads.addField("postURL", meterRead._links.self.href);
+            // submit the request
+            MeterReads.put(MeterReads).then(function(){
+                MeterReads.reset();
+            }, function(reason){
+                NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
+            });
         };
 
         if (Devices.item === null) {

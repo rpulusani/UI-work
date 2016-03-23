@@ -7,9 +7,12 @@ angular.module('mps.deviceManagement')
     'Devices',
     'OrderRequest',
     'grid',
+    'FormatterService',
     'PersonalizationServiceFactory',
     'FilterSearchService',
     'ServiceRequestService',
+    'SRControllerHelperService',
+    '$translate',
     function(
         $scope,
         $location,
@@ -17,12 +20,24 @@ angular.module('mps.deviceManagement')
         Devices,
         Orders,
         GridService,
+        FormatterService,
         Personalize,
         FilterSearchService,
-        ServiceRequest
+        ServiceRequest,
+        SRHelper,
+        $translate
         ) {
         Orders.setParamsToNull();
-        var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+        var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+        statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
+        SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
+
         function setupConfiguration(){
             $scope.configure = {
                 translate: {
@@ -48,23 +63,7 @@ angular.module('mps.deviceManagement')
                 itemUrl: function(){
                      $scope.view($scope.openOrder);
                 },
-                statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                statusList: $scope.setStatusBar($scope.openOrder.status, $scope.openOrder.statusDate, statusBarLevels)
             };
         }
 
@@ -77,6 +76,12 @@ angular.module('mps.deviceManagement')
       Orders.getPage(0, 1, options).then(function() {
           if(Orders.data && Orders.data.length === 1 ){
             $scope.openOrder = angular.copy(Orders.data[0]);
+            if (!($scope.openOrder && $scope.openOrder.status)) {
+                $scope.openOrder.status = 'SUBMITTED';
+            }
+            if (!($scope.openOrder && $scope.openOrder.statusDate)) {
+                $scope.openOrder.statusDate = new Date().toString();
+            }
             setupConfiguration();
           }
       });

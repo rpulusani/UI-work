@@ -1,6 +1,6 @@
 angular.module('mps.hateoasFactory')
-.factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope',
-    function($http, $q, HATEAOSConfig, $rootScope) {
+.factory('HATEOASFactory', ['$http', '$q', 'HATEAOSConfig', '$rootScope', 'DTMUpdater',
+    function($http, $q, HATEAOSConfig, $rootScope, DTM) {
         var HATEOASFactory = function(serviceDefinition) {
             var self = this;
 
@@ -81,7 +81,13 @@ angular.module('mps.hateoasFactory')
                     $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
 
                     if (!$rootScope.currentAccount) {
-                        HATEAOSConfig.getLoggedInUserInfo();
+                        HATEAOSConfig.getLoggedInUserInfo().then(function() {
+                            DTM.update();
+                            deferred.resolve();
+                        });
+                    } else {
+                        DTM.update();
+                        deferred.resolve();
                     }
 
                     if (self.serviceName === 'users') {
@@ -92,8 +98,6 @@ angular.module('mps.hateoasFactory')
                             }
                         });
                     }
-
-                    deferred.resolve();
                 });
             });
 

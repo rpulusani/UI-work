@@ -7,16 +7,17 @@ angular.module('mps.form')
         node.type = 'text';
        
         if(attrs.beforeEq){
-            console.log('HERE')
             attrs.dateValidator = rome.val.before(attrs.beforeEq);
-        }
-
-        if (!attrs.inputFormat) {
-            attrs.inputFormat = 'YYYY-MM-DD';
         }
 
         if (!attrs.time) {
             attrs.time = false;
+        } else if (!attrs.inputFormat){
+            attrs.inputFormat = 'YYYY-MM-DD HH:mm';
+        }
+
+        if (!attrs.inputFormat) {
+            attrs.inputFormat = 'YYYY-MM-DD';
         }
 
         if (scope.dateValidator) {

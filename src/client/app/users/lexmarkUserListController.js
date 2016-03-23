@@ -23,7 +23,7 @@ angular.module('mps.user')
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(LexmarkUser, $scope, $rootScope, personal,'defaultSet');
 
-        filterSearchService.addBasicFilter('USER.ALL_USER', undefined, undefined,
+        filterSearchService.addBasicFilter('USER_MAN.MANAGE_USERS.TXT_FILTER_ALL_USERS', undefined, undefined,
             function() {}
         );
 

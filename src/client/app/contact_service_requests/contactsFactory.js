@@ -141,7 +141,7 @@ angular.module('mps.serviceRequestContacts')
                 {
                     name: 'getFullname',
                     functionDef: function() {
-                        return formatter.getFullName(this.firstName, this.lastName, this.middleName);
+                        return formatter.getFullName(this.firstName, this.lastName);
                     }
                 },
                 {

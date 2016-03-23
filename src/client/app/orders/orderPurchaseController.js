@@ -20,6 +20,7 @@ angular.module('mps.orders')
     'TombstoneService',
     'tombstoneWaitTimeout',
     'ServiceRequestService',
+    'OrderControllerHelperService',
     function(
         $scope,
         $location,
@@ -38,14 +39,16 @@ angular.module('mps.orders')
         $routeParams,
         Tombstone,
         tombstoneWaitTimeout,
-        ServiceReqeust) {
+        ServiceReqeust,
+        OrderControllerHelper) {
 
         SRHelper.addMethods(Orders, $scope, $rootScope);
+        OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
         $scope.editable = false; //make order summary not actionable
 
         $scope.isLoading = false;
-            $scope.scratchSpace = Orders.tempSpace;
-
+        $scope.scratchSpace = Orders.tempSpace;
+        $scope.type = 'SUPPLIES';
         var configureSR = function(Orders){
                 if(Orders.item && !Orders.item.description){
                     Orders.addField('description', '');
@@ -95,6 +98,7 @@ angular.module('mps.orders')
         }
         if($rootScope.device){
             intitilize();
+            $scope.setupShipBillToAndInstallAddresses(Orders);
             $scope.getRequestor(Orders, Contacts);
         }
 
@@ -128,12 +132,12 @@ angular.module('mps.orders')
                                             $location.search('tab',null);
                                             Orders.item.requestNumber = Tombstone.item.siebelId;
                                             ServiceReqeust.item = Orders.item;
-                                            $location.path(Orders.route + '/purchase/receipt/notqueued');
+                                            $location.path(Orders.route + '/catalog/supplies/receipt/notqueued');
                                         }else{
 
                                             $location.search('tab',null);
                                             $location.search("queued","true");
-                                            $location.path(Orders.route + '/purchase/receipt/queued');
+                                            $location.path(Orders.route + '/catalog/supplies/receipt/queued');
                                         }
                                     });
                                 }, tombstoneWaitTimeout);
@@ -228,6 +232,19 @@ angular.module('mps.orders')
                         showCancelBtn: false
                     },
                     order:{
+                        shipTo:{
+                                translate:{
+                                     shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+                                    shipToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_SHIP_TO_FOR',
+                                    office:'ORDER_MAN.COMMON.TXT_OFFICE',
+                                    building:'ORDER_MAN.COMMON.TXT_BUILDING',
+                                    floor:'ORDER_MAN.COMMON.TXT_FLOOR',
+                                    instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+                                    instructionsNote:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE',
+                                    deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                                    expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE'
+                                }
+                            },
                         details:{
                             translate:{
                                 title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DETAILS',
@@ -249,34 +266,13 @@ angular.module('mps.orders')
                             translate:{
                                 title:'ORDER_MAN.COMMON.TEXT_ACCOUNT_DETAILS'
                             }
-                        },
-                             shipTo:{
-                            translate:{
-                                shipToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
-                                shipToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_SHIP_TO_FOR',
-                                    office:'ORDER_MAN.COMMON.TXT_OFFICE',
-                                    building:'ORDER_MAN.COMMON.TXT_BUILDING',
-                                    floor:'ORDER_MAN.COMMON.TXT_FLOOR',
-                                instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
-                                instructionsNote:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE',
-                                deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
-                                    expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE'
-                                }
-                            },
-                            shipToBillTo:{
-                                translate:{
-                                    title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
-                                expedite:'ORDER_MAN.SUPPLY_ORDER_REVIEW.CTRL_ORDER_EXPEDITE',
-                                billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR',
-                                billToAction:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SELECT_BILL_TO_FOR'
-                            }
                         }
                     },
                     contact:{
                         translate: {
                             title: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACTS',
                             requestedByTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            primaryTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACT',
                             changePrimary: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
                         },
                         show:{
@@ -288,9 +284,9 @@ angular.module('mps.orders')
                     detail:{
                         translate:{
                             title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ADDL_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
+                            referenceId: 'ORDER_MAN.COMMON.TXT_ORDER_CUST_REF_ID',
+                            costCenter: 'ORDER_MAN.COMMON.TXT_COST_CENTER',
+                            comments: 'ORDER_MAN.COMMON.TXT_ORDER_COMMENTS',
                             attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
                             attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
                             fileList: ''

@@ -70,8 +70,12 @@ angular.module('mps.serviceRequestDevices')
             $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
+                
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+                $scope.device.contact.item = $scope.device.primaryContact;
+                
                 $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
@@ -264,7 +268,6 @@ angular.module('mps.serviceRequestDevices')
                     translate:{
                             title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
                             referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
-                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                             attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                             attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
@@ -272,7 +275,6 @@ angular.module('mps.serviceRequestDevices')
                     },
                     show:{
                         referenceId: true,
-                        costCenter: true,
                         comments: true,
                         attachements: true
                     }

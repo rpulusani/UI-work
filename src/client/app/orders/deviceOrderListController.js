@@ -47,7 +47,7 @@ angular.module('mps.orders')
 
         var removeParamsList = ['from', 'to', 'status', 'requesterFilter'],
             myRequestRemoveParamList = ['from', 'to', 'status'];
-        filterSearchService.addBasicFilter('ORDER_MGT.ALL_DEVICE_ORDERS', params, removeParamsList,
+        filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ALL_HARDWARE_ORDERS', params, removeParamsList,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);

@@ -44,7 +44,7 @@ angular.module('mps.serviceRequestAddresses')
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
         $scope.checkAddress = function() {
-                if($scope.checkedAddress === 0 && $scope.updateAddress.$valid){
+                if($scope.checkedAddress === 0 && $scope.updateAddress.$valid && $scope.address.country){
                     $scope.validForm = true;
                 $scope.enteredAddress = {
                     addressLine1: $scope.address.addressLine1,

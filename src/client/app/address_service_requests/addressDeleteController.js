@@ -116,8 +116,22 @@ angular.module('mps.serviceRequestAddresses')
         $scope.getRequestor(ServiceRequest, Contacts);
 
         function configureReviewTemplate(){
+            var destinationAddress = {
+                name: $scope.address.name,
+                storeFrontName: $scope.address.storeFrontName,
+                country: $scope.address.country,
+                addressLine1: $scope.address.addressLine1,
+                addressLine2: $scope.address.addressLine2,
+                city: $scope.address.city,
+                state: $scope.address.state,
+                postalCode: $scope.address.postalCode
+            };
+
             $scope.configure.actions.translate.submit = 'ADDRESS_MAN.DELETE_ADDRESS.BTN_DELETE_ADDRESS_REQUEST';
             $scope.configure.actions.submit = function(){
+
+            ServiceRequest.addField('destinationAddress', destinationAddress);
+
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
                 ServiceRequest.addField('attachments', $scope.files_complete);

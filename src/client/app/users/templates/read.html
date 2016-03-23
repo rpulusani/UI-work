@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-1">
-        <h1 translate="USER.MANAGE" translate-values="{user_name: userFullName}"></h1>
+        <h1 translate="USER_MAN.MANAGE_USERS.TXT_MANAGE_USER" translate-values="{user_name: userFullName}"></h1>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+        <p><span translate="USER_MAN.MANAGE_USERS.TXT_MANAGE_USER_PAR"></span></p>
     </div>
 
     <div class="col-1 label-wrapper-bottom">
         <button name="cancel" class="col-1-3 btn btn--secondary" data-js="modalOpen" data-target="#deactivate"
-                translate="USER.DEACTIVATE" disabled></button>
+                translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" disabled></button>
     </div>
 
 
@@ -20,39 +20,39 @@
                 <div class="col-1-3 set__trigger" data-toggle="userInfo" ng-click="setUserInfo()"
                      ng-class="user_info_active ? 'set--is-active' : ''">
                     <a href="#userInfo" class="text--large text--align-center"
-                       translate="USER.INFO"></a>
+                       translate="USER_MAN.COMMON.TXT_USER_INFORMATION"></a>
                 </div>
                 <div class="col-1-3 set__trigger" data-toggle="accountAccess" ng-click="setAccountAccess()"
                      ng-class="account_access_active ? 'set--is-active' : ''">
                     <a href="#accountAccess" class="text--large text--align-center"
-                       translate="ACCOUNT.TITLE"></a>
+                       translate="USER_MAN.COMMON.TXT_ACCOUNT_ACCESS"></a>
                 </div>
             </div>
 
             <div ng-if="user_info_active" class="col-1 label-wrapper-top-left">
-                <h2 translate="USER.INFO"></h2>
+                <h2 translate="USER_MAN.COMMON.TXT_USER_INFORMATION"></h2>
                 <hr />
-                <h4 translate="USER.WHO"></h4>
+                <h4 translate="USER_MAN.MANAGE_USERS.TXT_WHO_IS_USER"></h4>
 
                 <div class="col-1-3 label-wrapper-left"
                      ng-include="templateUrl('user-core-fields')"></div>
 
-                <h4 translate="USER.WHERE"></h4>
+                <h4 translate="USER_MAN.COMMON.TXT_WHERE_LOCATED"></h4>
                 <div class="col-1-3 label-wrapper-left"
                      ng-include="templateUrl('user-location-fields')"></div>
             </div>
 
             <div ng-if="account_access_active" class="col-1 label-wrapper-top-left">
-                <h2 translate="ACCOUNT.TITLE"></h2>
+                <h2 translate="USER_MAN.COMMON.TXT_ACCOUNT_ACCESS"></h2>
                 <hr />
-                <h4 translate="ACCOUNT.LOGIN"></h4>
+                <h4 translate="USER_MAN.COMMON.TXT_PORTAL_LOGIN"></h4>
 
                 <div class="col-1-3 label-wrapper-left"
                      ng-include="templateUrl('user-login-fields')"></div>
 
-                <h4 translate="ACCOUNT.COMPANY_ASSO"></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-                <h5 translate='ACCOUNT.ORG_STRUCT' class="text--thick label-wrapper-left"></h5>
+                <h4 translate="USER_MAN.COMMON.TXT_COMPANY_ASSOCIATION"></h4>
+                <p><span translate="USER_MAN.COMMON.TXT_COMPANY_ASSOCIATION_PAR"></span></p>
+                <h5 translate='USER_MAN.COMMON.TXT_ORGANIZATION_STRUCTURE' class="text--thick label-wrapper-left"></h5>
                 <div class="label-wrapper-top-bottom">
                     <div class="col-1-3 section-wrapper">
                         Some kind of tree structure<br />
@@ -60,23 +60,23 @@
                     </div>
                 </div>
 
-                <h4 translate="USER.ROLE_PERM"></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+                <h4 translate="USER_MAN.COMMON.TXT_ROLE_PERMISSIONS"></h4>
+                <p><span translate="USER_MAN.COMMON.TXT_ROLE_PERMISSIONS_PAR"></span></p>
                 <div>
-                    <h5 translate='USER.BASIC_ROLE'  class="text--thick label-wrapper-left"></h5>
+                    <h5 translate='USER_MAN.COMMON.TXT_BASE_ROLE'  class="text--thick label-wrapper-left"></h5>
                     <div selectric options="columns" value="id" label="name"
-                                   placeholder="{{'ROLE.VIEW_OP' | translate}}" class="col-1-3 label-wrapper-left">
+                                   placeholder="{{'USER_MAN.INVITE_USERS.TXT_ROLES_VIEW_ONLY_OPS' | translate}}" class="col-1-3 label-wrapper-left">
                     </div>
                 </div>
                 <div class="label-wrapper-top-bottom">
-                    <h5 translate='USER.ADD_ROLE'  class="text--thick label-wrapper-left"></h5>
+                    <h5 translate='USER_MAN.INVITE_USERS.TXT_ROLES_ADDITIONAL_PERMISSIONS'  class="text--thick label-wrapper-left"></h5>
                     <div class="col-1-3 section-wrapper">
                         <div user-roles></div>
                     </div>
                 </div>
 
             <div>
-                <h5 translate="USER.PERM" class="text--thick label-wrapper-left"></h5>
+                <h5 translate="USER_MAN.INVITE_USERS.TXT_ROLES_PERMISSION_DETAILS" class="text--thick label-wrapper-left"></h5>
             </div>
             </div>
         </div>
@@ -84,9 +84,9 @@
         <div class="row">
             <div class="col-1">
                 <button name="delete" class="col-1-3 btn btn--secondary" ng-click="delete()"
-                        translate="USER.DELETE_CHANGES"></button>
+                        translate="USER_MAN.MANAGE_USERS.BTN_DISCARD_USER_CHANGES"></button>
                 <button name="submit" class="col-1-3 btn btn--primary" ng-click="save()" type="submit"
-                        translate="USER.UPDATE"></button>
+                        translate="USER_MAN.MANAGE_USERS.BTN_UPDATE_USER"></button>
         </div>
 
     </form>
