@@ -268,7 +268,6 @@ angular.module('mps.serviceRequestDevices')
                     translate:{
                             title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
                             referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
-                            costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                             attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                             attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
@@ -276,7 +275,6 @@ angular.module('mps.serviceRequestDevices')
                     },
                     show:{
                         referenceId: true,
-                        costCenter: true,
                         comments: true,
                         attachements: true
                     }
