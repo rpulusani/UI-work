@@ -1,21 +1,19 @@
 angular.module('mps.filterSearch')
-.controller('AccountAllFilterController', ['$scope', '$translate', 'AccountService', 'AllAccounts', 'UserService',
-    function($scope, $translate, Accounts, AllAccounts, Users) {
+.controller('AccountAllFilterController', ['$scope', '$translate', 'LibraryAccounts',
+    function($scope, $translate, LibraryAccounts) {
         $scope.showClearMessage = false;
         $scope.selectedAccountsList = [];
         $scope.accounts = [];
 
-        AllAccounts.get().then(function() {
-            if (AllAccounts.item && AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
-                var accountsList = AllAccounts.item._embedded.accounts;
+        LibraryAccounts.get().then(function() {
+            var accountsList = LibraryAccounts.data;
 
-                for (var i = 0; i < accountsList.length; i++) {
-                    var account = {};
-                    account.name = accountsList[i].name;
-                    account.accountId = accountsList[i].accountId;
-                    account.selected = false;
-                    $scope.accounts.push(account);
-                }
+            for (var i = 0; i < accountsList.length; i++) {
+                var account = {};
+                account.name = accountsList[i].name;
+                account.accountId = accountsList[i].accountId;
+                account.selected = false;
+                $scope.accounts.push(account);
             }
         });
 
