@@ -8,10 +8,6 @@
     <label translate="CONTACT_MAN.COMMON.TXT_FIRST_NAME"></label>
     <input name="firstName" type="text" ng-model="contact.firstName" value="" class="" required />
 </div>
-<div class="form__field">
-    <label translate="CONTACT.MIDDLE_NAME"></label>
-    <input name="middleName" type="text" ng-model="contact.middleName" value="" class="" />
-</div>
 <div class="form__field form__field--required" ng-class="(!newContactForm.lastName.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_LAST_NAME"></label>
     <input name="lastName" type="text" ng-model="contact.lastName" value="" class="" required />
