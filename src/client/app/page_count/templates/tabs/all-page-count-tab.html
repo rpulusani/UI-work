@@ -2,6 +2,14 @@
     <div print-export-title title="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_W_TOTALS" print="print" export="export"></div>
     <hr/>
 </div>
+<div ng-if="errorMessage !== ''" class="alert alert--error" data-js="alert">
+<span class="alert__close" data-js="alert-close" aria-hidden="true">×</span><icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+    <div class="alert__body">
+    <span >
+       {{errorMessage}}
+    </span>
+    </div>
+</div>
 
 <div grid-filter options="filterOptions" params="optionParams"></div>
 
