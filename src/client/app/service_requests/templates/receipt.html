@@ -33,9 +33,8 @@
                 </li>
                 <li class="info-list__item" ng-show="configure.detail.show.attachements">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.attachments}}"></div>
-                    <div class="info-list__item-value" ng-bind="formattedAttachments"></div>
                     <div ng-repeat="file in sr.attachments">
-                      <div>{{file.filename}}</div>
+                      <div><a href="#" download="{{file.filename}}" ng-click="onDownload($index)">{{file.filename}}</a></div>
                     </div>
                 </li>
             </ul>

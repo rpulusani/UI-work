@@ -8,13 +8,19 @@ angular.module('mps.serviceRequests')
     'FormatterService',
     'UserService',
     '$rootScope',
+    'Attachment',
+    '$http',
+    '$timeout',
     function(
         $translate,
         $location,
         BlankCheck,
         FormatterService,
         Users,
-        $rootScope
+        $rootScope,
+        Attachment,
+        $http,
+        $timeout
         ) {
         var scope,
         rootScope,
@@ -191,6 +197,45 @@ angular.module('mps.serviceRequests')
             }
         }
 
+        function getAttachments(){
+            Attachment.headers = {
+                'Accept': 'application/vnd.lexmark.list+json'
+            };
+            halObj.getAdditional(scope.sr,Attachment).then(function(){
+                scope.formattedAttachments = angular.copy(Attachment.data);
+
+            });
+        }
+        function onDownload(index){
+            var mimetype = 'application/octet-stream;charset=UTF-8';
+            //var mimetype = 'image/jpeg';
+            if((index !== undefined || index !== null) && Attachment.data && Attachment.data.length > 0){
+                var url = Attachment.data[index]['_links']['download'].href;
+                var filename = Attachment.data[index].filename;
+                $http.get(url).then(function(data){
+                    var blob = new Blob([data],{type:mimetype});
+                    if (navigator.msSaveBlob) {
+                        navigator.msSaveBlob(blob, filename);
+                   } else {
+                       link = document.createElement('a');
+
+                       if (link.download !== undefined) {
+                           url = URL.createObjectURL(blob);
+
+                           link.setAttribute('href', url);
+                           link.setAttribute('download', filename);
+                           link.style.visibility = 'hidden';
+
+                           document.body.appendChild(link);
+
+                           link.click();
+
+                           document.body.removeChild(link);
+                       }
+                   }
+                });
+            }
+        }
         function formatReceiptData(formatAdditionalData){
             if(formatAdditionalData){
                 formatAdditionalData();
@@ -199,7 +244,7 @@ angular.module('mps.serviceRequests')
                 scope.formattedNotes = FormatterService.formatNoneIfEmpty(scope.sr.notes);
                 scope.formattedReferenceId = FormatterService.formatNoneIfEmpty(scope.sr.customerReferenceId);
                 scope.formattedCostCenter = FormatterService.formatNoneIfEmpty(scope.sr.costCenter);
-                scope.formattedAttachments = FormatterService.formatNoneIfEmpty(scope.sr.attachments);
+                getAttachments();
             }
         }
 
@@ -296,6 +341,7 @@ angular.module('mps.serviceRequests')
                 scope.setStatusBar = setStatusBar;
                 scope.setTransactionAccount = setTransactionAccount;
                 scope.inTransactionalAccountContext = inTransactionalAccountContext;
+                scope.onDownload = onDownload;
             }else{
                 throw 'scope was not passed in to addMethods';
             }

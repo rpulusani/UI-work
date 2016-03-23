@@ -261,7 +261,8 @@ angular.module('mps.hateoasFactory')
 
                 newService.get({
                     page: newService.params.page,
-                    size: newService.params.size
+                    size: newService.params.size,
+                    headers: newService.headers
                 }).then(function(processedResponse) {
                     deferred.resolve();
 

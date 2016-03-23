@@ -1,11 +1,12 @@
 
 
 angular.module('mps.utility')
-.factory('Attachment', ['$window', function($window) {
-    var Attachment = function() {
-
+.factory('Attachment', ['serviceUrl', '$translate', 'HATEOASFactory', function(serviceUrl, $translate, HATEOASFactory) {
+    var Attachment =  {
+        'serviceName': 'attachments',
+        'embeddedName': 'attachments'
     };
 
-    return new Attachment();
+    return new HATEOASFactory(Attachment);
 }]);
 

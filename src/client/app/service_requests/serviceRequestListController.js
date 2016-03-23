@@ -24,10 +24,11 @@ angular.module('mps.serviceRequests')
           ServiceRequest.setItem(SR);
             var options = {
                 params:{
-                    embed:'primaryContact,requester,address,account,asset,sourceAddress'
+                    embed:'primaryContact,requester,address,account,asset,sourceAddress,attachments'
                 }
             };
-            ServiceRequest.item.get(options).then(function(){
+            ServiceRequest.item.get(options).then(function(data){
+                ServiceRequest.setupItem(data);
                 $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
             });
 

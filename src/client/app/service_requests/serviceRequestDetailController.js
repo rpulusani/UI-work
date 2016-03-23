@@ -450,51 +450,50 @@ angular.module('mps.serviceRequests')
         }else{
            processStandardTypes();
         }
+    function formatAdditional(){
 
+        if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
+                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
+        }
 
-    if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
-            $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
-    }
+        if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
+                $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+        }
 
-    if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
-            $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
-    }
+        if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
+                $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+        }
 
-    if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
-            $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
-    }
+        if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
+            !BlankCheck.isNull($scope.sr.primaryContact.item)){
+                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact.item);
+        }
+        if(!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.requester) &&
+            !BlankCheck.isNull($scope.sr.requester.item)){
+            $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
+        }
+        if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
+                $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
+        }else {
+                $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
+        }
 
-    if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
-        !BlankCheck.isNull($scope.sr.primaryContact.item)){
-                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact.item);
-    }
-    if(!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.requester) &&
-        !BlankCheck.isNull($scope.sr.requester.item)){
-        $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
-    }
-    if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
-            $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
-    }else {
-            $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
-    }
+        if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
+                $scope.formatedShipToAddress = FormatterService.formatAddress($scope.sr.shipToAddress.item);
+        }else {
+                $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty($scope.sr.shipToAddress);
+        }
 
-    if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
-            $scope.formatedShipToAddress = FormatterService.formatAddress($scope.sr.shipToAddress.item);
-    }else {
-            $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty($scope.sr.shipToAddress);
+        if (!BlankCheck.isNull($scope.sr)) {
+            $scope.formattedExpedite = FormatterService.formatYesNo($scope.sr.expediteOrder);
+            $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
+                FormatterService.formatDate($scope.sr.requestedDeliveryDate));
+            $scope.formattedPONumber = FormatterService.formatNoneIfEmpty($scope.sr.purchaseOrderNumber);
+            $scope.formattedInstructions = FormatterService.formatNoneIfEmpty($scope.sr.specialHandlingInstructions);
+            $scope.formattedReason = FormatterService.formatNoneIfEmpty(OrderTypes.getDisplay($scope.sr.type));
+            $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
+        }
     }
-
-    if (!BlankCheck.isNull($scope.sr)) {
-        $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);
-        $scope.formattedReferenceId = FormatterService.formatNoneIfEmpty($scope.sr.customerReferenceId);
-        $scope.formattedCostCenter = FormatterService.formatNoneIfEmpty($scope.sr.costCenter);
-        $scope.formattedExpedite = FormatterService.formatYesNo($scope.sr.expediteOrder);
-        $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
-            FormatterService.formatDate($scope.sr.requestedDeliveryDate));
-        $scope.formattedPONumber = FormatterService.formatNoneIfEmpty($scope.sr.purchaseOrderNumber);
-        $scope.formattedInstructions = FormatterService.formatNoneIfEmpty($scope.sr.specialHandlingInstructions);
-        $scope.formattedReason = FormatterService.formatNoneIfEmpty(OrderTypes.getDisplay($scope.sr.type));
-        $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
-    }
+    $scope.formatReceiptData(formatAdditional);
 }]);
 
