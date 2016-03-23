@@ -99,6 +99,16 @@ angular.module('mps.orders')
                             submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                 };
             }
+
+            function hideShowPriceColumn(Catalog){
+                var priceColumn = Catalog.columnDefs.defaultSet.find(function(column){
+                            return column.isPrice;
+                       });
+                if(priceColumn){
+                    priceColumn.visible = false;
+                }
+            }
+
             function getParts(){
                 var filterSearchService,
                     beforeDisplay;
@@ -118,6 +128,7 @@ angular.module('mps.orders')
                              });
                             return deferred.promise;
                         };
+                       hideShowPriceColumn(SuppliesCatalog);
                        filterSearchService = new FilterSearchService(SuppliesCatalog, $scope, $rootScope, personal,
                             'defaultSet', 92, 'catalogOptions', beforeDisplay);
                         $scope.catalogOptions.showBookmarkColumn = false;
@@ -134,6 +145,7 @@ angular.module('mps.orders')
                              });
                             return deferred.promise;
                         };
+                        hideShowPriceColumn(HardwareCatalog);
                         filterSearchService = new FilterSearchService(HardwareCatalog, $scope, $rootScope, personal,
                                 'defaultSet', 120, 'catalogOptions', beforeDisplay);
                         $scope.catalogOptions.showBookmarkColumn = false;
