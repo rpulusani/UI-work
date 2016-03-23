@@ -207,8 +207,8 @@ angular.module('mps.serviceRequests')
             });
         }
         function onDownload(index){
-            //var mimetype = 'application/octet-stream;charset=UTF-8';
-            var mimetype = 'image/jpeg';
+            var mimetype = 'application/octet-stream;charset=UTF-8';
+            //var mimetype = 'image/jpeg';
             if((index !== undefined || index !== null) && Attachment.data && Attachment.data.length > 0){
                 var url = Attachment.data[index]['_links']['download'].href;
                 var filename = Attachment.data[index].filename;
