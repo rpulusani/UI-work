@@ -207,32 +207,38 @@ angular.module('mps.serviceRequests')
             });
         }
         function onDownload(index){
-            var mimetype = 'application/octet-stream;charset=UTF-8';
-            //var mimetype = 'image/jpeg';
+            //var mimetype = 'application/octet-stream;charset=UTF-8';
+            var mimetype = 'image/jpeg';
             if((index !== undefined || index !== null) && Attachment.data && Attachment.data.length > 0){
                 var url = Attachment.data[index]['_links']['download'].href;
                 var filename = Attachment.data[index].filename;
-                $http.get(url).then(function(data){
-                    var blob = new Blob([data],{type:mimetype});
-                    if (navigator.msSaveBlob) {
-                        navigator.msSaveBlob(blob, filename);
-                   } else {
-                       link = document.createElement('a');
+                $http({
+                    method: 'GET',
+                    url: url,
+                    responseType:'arraybuffer'
+                }).then(function(response){
+                    if(response){
+                    var blob = new Blob([response.data],{type:mimetype});
+                        if (navigator.msSaveBlob) {
+                            navigator.msSaveBlob(blob, filename);
+                       } else {
+                           link = document.createElement('a');
 
-                       if (link.download !== undefined) {
-                           url = URL.createObjectURL(blob);
+                           if (link.download !== undefined) {
+                               url = URL.createObjectURL(blob);
 
-                           link.setAttribute('href', url);
-                           link.setAttribute('download', filename);
-                           link.style.visibility = 'hidden';
+                               link.setAttribute('href', url);
+                               link.setAttribute('download', filename);
+                               link.style.visibility = 'hidden';
 
-                           document.body.appendChild(link);
+                               document.body.appendChild(link);
 
-                           link.click();
+                               link.click();
 
-                           document.body.removeChild(link);
+                               document.body.removeChild(link);
+                           }
                        }
-                   }
+                    }
                 });
             }
         }
