@@ -41,7 +41,8 @@ translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO" ng-if="upd
 <ul class="info-list text--small">
     <li class="info-list__item">
         <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR"></div>
-        <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
+        <!-- <div class="info-list__item-value" ng-bind="device.ipAddress"></div> -->
+        <a ng-click="goToIpControl()" href="#" class="call-to-action call-to-action--after" ng-bind="device.ipAddress"></a>
     </li>
     <li class="info-list__item">
         <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME"></div>
