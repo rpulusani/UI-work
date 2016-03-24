@@ -36,8 +36,10 @@ angular.module('mps.serviceRequests')
             myRequestRemoveParamList = ['from', 'to'];
         filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester'}, removeParamsList,
             function(Grid) {
-                $scope.$broadcast('setupColumnPicker', Grid);
-                $scope.$broadcast('setupPrintAndExport', $scope);
+                 setTimeout(function() {
+                    $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                 }, 0);
             }
         );
             filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DATE_RANGE', 'DateRangeFilter', undefined,
