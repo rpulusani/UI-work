@@ -82,15 +82,15 @@ angular.module('mps.report')
                 case 'mp0021':
                     params = {
                         orderType: Reports.finder ? Reports.finder.selectType : '',
-                        orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
-                        orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
+                        srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                        srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
                     break;
                 /* Hardware Orders */
                 case 'hw0008':
                     params = {
-                        orderDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
-                        orderDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
+                        srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
+                        srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
                     break;
                 /* Pages Billed */

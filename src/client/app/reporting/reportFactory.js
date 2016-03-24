@@ -108,7 +108,7 @@ angular.module('mps.report')
                     {'name': $translate.instant('REPORTING.AGREEMENT_NUMBER'), 'field': 'agreementNumber', minWidth: 180},
                     {'name': $translate.instant('REPORTING.SR_NUMBER'), 'field': 'srNumber', minWidth: 210},
                     {'name': $translate.instant('REPORTING.ORDER_NUMBER'), 'field': 'orderNumber', minWidth: 150},
-                    {'name': $translate.instant('REPORTING.ORDER_DATE'), 'field': 'orderDate', 'cellFilter': 'date:\'yyyy-MM-dd\'', minWidth: 150},
+                    {'name': $translate.instant('REPORTING.SR_CREATE_DATE'), 'field': 'srCreateDate', 'cellFilter': 'date:\'yyyy-MM-dd\'', minWidth: 150},
                     {'name': $translate.instant('REPORTING.ORDER_STATUS'), 'field': 'orderStatus', minWidth: 150},
                     {'name': $translate.instant('REPORTING.ORDER_TYPE'), 'field': 'orderType', minWidth: 150},
                     {'name': $translate.instant('REPORTING.CREATED_BY'), 'field': 'createdBy', minWidth: 150},
@@ -154,6 +154,7 @@ angular.module('mps.report')
                 hw0008: [
                     {'name': $translate.instant('REPORTING.ACCOUNT'), 'field': 'account', minWidth: 240},
                     {'name': $translate.instant('REPORTING.AREA'), 'field': 'srArea', minWidth: 150},
+                    {'name': $translate.instant('REPORTING.SR_CREATE_DATE'), 'field': 'srCreateDate', 'cellFilter': 'date:\'yyyy-MM-dd\'', minWidth: 150},
                     {'name': $translate.instant('REPORTING.BILLING_MODEL'), 'field': 'billingModel', minWidth: 150},
                     {'name': $translate.instant('REPORTING.CARRIER'), 'field': 'carrier', minWidth: 150},
                     {'name': $translate.instant('REPORTING.COMMENTS'), 'field': 'comments', minWidth: 150},
@@ -178,7 +179,6 @@ angular.module('mps.report')
                     {'name': $translate.instant('REPORTING.LINE_NUMBER'), 'field': 'lineNumber', minWidth: 150},
                     {'name': $translate.instant('REPORTING.LINE_TYPE'), 'field': 'lineType', minWidth: 150},
                     {'name': $translate.instant('REPORTING.MODEL'), 'field': 'model', minWidth: 150},
-                    {'name': $translate.instant('REPORTING.ORDER_DATE'), 'field': 'orderDate', 'cellFilter': 'date:\'yyyy-MM-dd\'', minWidth: 150},
                     {'name': $translate.instant('REPORTING.ORDER_HEADER_STATUS'), 'field': 'orderHeaderStatus', minWidth: 210},
                     {'name': $translate.instant('REPORTING.ORDER_LINE_STATUS'), 'field': 'lineStatus', minWidth: 210},
                     {'name': $translate.instant('REPORTING.ORDER_NUMBER'), 'field': 'orderNumber', minWidth: 150},
@@ -191,6 +191,7 @@ angular.module('mps.report')
                     {'name': $translate.instant('REPORTING.PRODUCT_DESCRIPTION'), 'field': 'productDescription', minWidth: 210},
                     {'name': $translate.instant('REPORTING.PROJECT'), 'field': 'project', minWidth: 150},
                     {'name': $translate.instant('REPORTING.PROJECT_PHASE'), 'field': 'projectPhase', minWidth: 150},
+                    {'name': $translate.instant('REPORTING.BACK_ORDERED_QUANTITY'), 'field': 'backOrderedQty', minWidth: 210},
                     {'name': $translate.instant('REPORTING.QUANTITY_REQUESTED'), 'field': 'qtyRequested', minWidth: 210},
                     {'name': $translate.instant('REPORTING.REQUESTED_SHIP_DATE'), 'field': 'requestedShipDate', 'cellFilter': 'date:\'yyyy-MM-dd\'', minWidth: 210},
                     {'name': $translate.instant('REPORTING.SAP_CONTRACT_NUMBER'), 'field': 'sapContractNumber', minWidth: 210},
@@ -209,7 +210,8 @@ angular.module('mps.report')
                     {'name': $translate.instant('REPORTING.SR_TYPE'), 'field': 'srType', minWidth: 150},
                     {'name': $translate.instant('REPORTING.SUB_AREA'), 'field': 'srSubArea', minWidth: 150},
                     {'name': $translate.instant('REPORTING.TRACKING_NUMBER'), 'field': 'trackingNumber', minWidth: 180},
-                    {'name': $translate.instant('REPORTING.WHITE_GLOVE'), 'field': 'whiteGlove', minWidth: 150}
+                    {'name': $translate.instant('REPORTING.WHITE_GLOVE'), 'field': 'whiteGlove', minWidth: 150},
+                    {'name': $translate.instant('REPORTING.TRACKING_COMMENTS'), 'field': 'trackingComments', minWidth: 150}
                 ],
                 /* Pages Billed */
                 pb0001: [
