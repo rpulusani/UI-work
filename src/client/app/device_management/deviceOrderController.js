@@ -102,7 +102,7 @@ angular.module('mps.deviceManagement')
                     assetId: Devices.item.id
                 };
                 $scope.gridOrdersOptions.showBookmarkColumn = false;
-                filterSearchService.addBasicFilter('ORDER_MGT.ALL_SUPPLY_ORDERS', params, false, function() {
+                filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ALL_SUPPLY_ORDERS', params, false, function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 });
             }
