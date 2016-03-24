@@ -1,11 +1,12 @@
 angular.module('mps.library')
 .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
     'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 
-    'FormatterService', 'AllAccounts', '$q', 'AccountService', '$route',
+    'FormatterService', 'AllAccounts', '$q', 'AccountService', '$route', 'LibraryAccounts',
     function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
-        $rootScope, formatter, AllAccounts, $q, Account, $route) {
+        $rootScope, formatter, AllAccounts, $q, Account, $route, LibraryAccounts) {
 
         $scope.selectedAccounts = [];
+        $scope.selectedLibraryAccounts = [];
         $scope.documentItem = {};
         $scope.documentItem.optionsLimit = 'include';
         $scope.allAccounts = true;
@@ -40,6 +41,8 @@ angular.module('mps.library')
             if (BlankCheck.checkNotNullOrUndefined(Documents.item.endDate)) {
                 $scope.documentItem.endDate = formatter.formatDate(Documents.item.endDate);
             }
+
+
 
             if ($scope.documentItem.accountIds && $scope.documentItem.accountIds.length > 0) {
                 $scope.documentItem.optionsLimit = 'include';
@@ -84,45 +87,6 @@ angular.module('mps.library')
 
         $scope.isDeleting = false;
 
-        $scope.setAccounts = function() {
-            $scope.$broadcast('searchAccount');
-        };
-
-        $scope.removeAccount = function(item) {
-            if ($scope.selectedAccounts && $scope.selectedAccounts.length > 0) {
-                for (var j=0;j<$scope.selectedAccounts.length; j++) {
-                    if ($scope.selectedAccounts[j].accountId 
-                        && $scope.selectedAccounts[j].accountId === item.accountId
-                        && $scope.selectedAccounts[j].level === item.level
-                        && $scope.selectedAccounts[j].name === item.name) {
-                        $scope.selectedAccounts.splice(j, 1);
-                    }
-                }
-            }
-            $scope.$broadcast('searchAccount');
-        };
-
-        $scope.$on('searchAccount', function(evt){
-            $scope.accountList = [];
-            if($scope.documentItem.accountName && $scope.documentItem.accountName.length >=3) {
-                var options = {
-                    preventDefaultParams: true,
-                    params:{    
-                        searchTerm: $scope.documentItem.accountName
-                    }
-                };
-                AllAccounts.get(options).then(function(){
-                    $scope.accountList = [];
-                    if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
-                        var allAccountList = AllAccounts.item._embedded.accounts;
-                        for (var i=0; i<allAccountList.length; i++) {
-                            $scope.accountList.push(allAccountList[i]);
-                        }
-                    }
-                });
-            }
-        });
-
         $scope.goToStartDelete = function () {
             $scope.isDeleting = true;
         };
@@ -155,6 +119,12 @@ angular.module('mps.library')
                     $scope.tags.push(tag);
                 }
             }
+        });
+
+        $scope.libraryAccounts = [];
+        LibraryAccounts.get().then(function() {
+            $scope.libraryAccounts = LibraryAccounts.data;
+            console.log($scope.libraryAccounts);
         });
 
         $scope.setDocumentName = function(files) {
@@ -373,26 +343,30 @@ angular.module('mps.library')
                 return;
             }
 
-            for (var i = 0; i < $scope.selectedAccounts.length; i++) {
-                if ($scope.selectedAccounts[i].accountId === $scope.documentItem.accountSelected) {
+            for (var i = 0; i < $scope.selectedLibraryAccounts.length; i++) {
+                if ($scope.selectedLibraryAccounts[i].accountId === $scope.documentItem.accountSelected) {
                     return;
                 }
             }
 
             for (var i = 0; i < $scope.documentItem.accountList.length; i++) {
                 if ($scope.documentItem.accountList[i].accountId === $scope.documentItem.accountSelected) {
-                    $scope.selectedAccounts.push($scope.documentItem.accountList[i]);
+                    $scope.selectedLibraryAccounts.push($scope.documentItem.accountList[i]);
                 }
             }
         };
 
-        $scope.goToDeleteSelectedAccount = function(index) {
-            $scope.selectedAccounts.splice(index, 1);
+        $scope.goToRemoveAccount = function(account) {
+            for (var i = 0; i < $scope.selectedLibraryAccounts.length; i++) {
+                if ($scope.selectedLibraryAccounts[i].accountId === account.accountId) {
+                    $scope.selectedLibraryAccounts.splice(i, 1);
+                }
+            }
         };
 
         $scope.changeAccess = function(index) {
             $scope.documentItem.accountName = '';
-            $scope.selectedAccounts = [];
+            $scope.selectedLibraryAccounts = [];
         };
     }
 ]);
