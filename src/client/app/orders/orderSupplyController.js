@@ -14,6 +14,7 @@ angular.module('mps.orders')
     '$q',
     'uiGridConstants',
     'OrderRequest',
+    'AgreementFactory',
     function(
         GridService,
         $scope,
@@ -26,7 +27,8 @@ angular.module('mps.orders')
         AssetParts,
         $q,
         uiGridConstants,
-        Orders
+        Orders,
+        Agreement
     ){
 
     var personal = new Personalize($location.url(),$rootScope.idpUser.id);
