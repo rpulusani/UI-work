@@ -1,15 +1,6 @@
 <div class="col-1">
-        <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-        translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_ADDRESS_REQUESTS" translate-values="{total: pagination.totalItems()}"></h2>
-        <div class="print-export">
-            <span>
-                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
-            </span>
-            <span>
-                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
-            </span>
-        </div>
-        <hr/>
+    <div print-export-title titlestring="REQUEST_MAN.MANAGE_REQUESTS.TXT_ADDRESS_REQUESTS"></div>
+    <hr/>
 </div>
 
 <div grid-filter options="filterOptions" params="optionParams"></div>
