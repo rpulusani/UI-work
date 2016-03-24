@@ -18,17 +18,17 @@ angular.module('mps.user')
         };
 
         var removeParamsList = ['roles', 'activeStatus', 'fromDate', 'toDate'];
-        filterSearchService.addBasicFilter('USER.ALL_USER', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, removeParamsList,
+        filterSearchService.addBasicFilter('USER_MAN.MANAGE_USERS.TXT_FILTER_ALL_USERS', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, removeParamsList,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('USER.FILTER_BY_STATUS', 'StatusFilter', undefined,
+        filterSearchService.addPanelFilter('USER_MAN.COMMON.TXT_FILTER_STATUS', 'StatusFilter', undefined,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('USER.FILTER_BY_ROLE', 'RoleFilter', undefined,
+        filterSearchService.addPanelFilter('USER_MAN.COMMON.TXT_FILTER_ROLE', 'RoleFilter', undefined,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }

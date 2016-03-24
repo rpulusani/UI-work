@@ -226,7 +226,7 @@ angular.module('mps.utility')
             scope[self.optionsName].currentGridData = scope[self.optionsName].data;
             scope[self.optionsName].servicePage = service.page;
 
-            return service.getPage(0, 100000).then(function() {
+            return service.getPage(0, service.page.totalElements).then(function() {
                 scope[self.optionsName].data = service.data;
 
                 setTimeout(function() {

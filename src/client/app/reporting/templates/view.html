@@ -103,12 +103,19 @@
                         <div class="col-1-2">
                             <div><p class="text--align-center" translate="{{ configure.report.charts.translate.consumablesOrdersOpen }}"></p></div>
 
-                            <p class="text--align-center" ng-if="chartObject.consumablesOrdersOpen.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
-                            <span google-chart chart="{{ chartObject.x }}"></span>
+                            <div class="full-circle" ng-if="chartObject.consumablesOrdersOpen.dataPoint < 1">
+                                <div class="empty-chart-text">0</div>
+                            </div>
+
+                            <div google-chart chart="{{ chartObject.consumablesOrdersOpen }}"></div>
                         </div>
                         <div class="col-1-2">
                             <div><p class="text--align-center" translate="{{ configure.report.charts.translate.consumablesOrdersShipped }}"></p></div>
-                            <p class="text--align-center" ng-if="chartObject.consumablesOrdersShipped.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+
+                            <div class="full-circle" ng-if="chartObject.consumablesOrdersShipped.dataPoint < 1">
+                                <div class="empty-chart-text">0</div>
+                            </div>
+
                             <div google-chart chart="{{ chartObject.consumablesOrdersShipped }}"></div>
                         </div>
                     </div>
@@ -123,13 +130,19 @@
                         <div class="col-1-2">
                             <div><p class="text--align-center" translate="{{ configure.report.charts.translate.hardwareOrdersOpen }}"></p></div>
 
-                            <p class="text--align-center" ng-if="chartObject.hardwareOrdersOpen.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                            <div class="full-circle" ng-if="chartObject.hardwareOrdersOpen.dataPoint < 1">
+                                <div class="empty-chart-text">0</div>
+                            </div>
+
                             <div google-chart chart="{{ chartObject.hardwareOrdersOpen }}"></div>
                         </div>
                         <div class="col-1-2">
                             <div><p class="text--align-center" translate="{{ configure.report.charts.translate.hardwareOrdersShipped }}"></p></div>
 
-                            <p class="text--align-center" ng-if="chartObject.hardwareOrdersShipped.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
+                            <div class="full-circle" ng-if="chartObject.hardwareOrdersShipped.dataPoint < 1">
+                                <div class="empty-chart-text">0</div>
+                            </div>
+
                             <div google-chart chart="{{ chartObject.hardwareOrdersShipped }}"></div>
                         </div>
                     </div>
@@ -167,7 +180,7 @@
 
     <div class="row">
         <div class="col-1">
-            <div print-export-title title="REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS"></div>
+            <div print-export-title titlestring="REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS"></div>
             
             <hr/>
 

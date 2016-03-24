@@ -50,7 +50,7 @@
         <label translate="ADDRESS_MAN.COMMON.TXT_CITY"></label>
         <input name="city" type="text" ng-model="address.city" required />
     </div>
-    <div class="form__field form__field--select form__field--required">
+    <div ng-show="country.provinces.length > 0" class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
         <div selectric options="country.provinces" value="code" label="name" model="address.state" required
              placeholder="{{'LABEL.SELECT' | translate}}"></div>

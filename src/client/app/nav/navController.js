@@ -16,6 +16,7 @@
     '$window',
     'SecurityService',
     'SecurityHelper',
+    'DTMUpdater',
     function(
         $scope,
         $rootScope,
@@ -29,7 +30,8 @@
         $http,
         $window,
         SecurityService,
-        SecurityHelper
+        SecurityHelper,
+        DTMUpdater
         ) {
 
         var Security = new SecurityService();

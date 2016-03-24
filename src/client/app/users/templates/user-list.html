@@ -1,15 +1,15 @@
 <div class="set" data-js="set">
     <div  class="set__trigger" data-toggle="allUsers">
-        <a href="#allUsers" translate="USER.ALL_USER"><i class="set__icon"></i></a>
+        <a href="#allUsers" translate="USER_MAN.MANAGE_USERS.TXT_TAB_ALL_USERS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="allUsers">
         <div class="col-1">
-            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="USER.USERS"
+            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="USER_MAN.COMMON.TXT_USERS"
             translate-values="{userCount: pagination.totalItems()}">
             </h2>
             <hr />
         </div>
-        <span class="text--thick" translate="USER.SEARCH_USER"></span>
+        <span class="text--thick" translate="USER_MAN.COMMON.TXT_SEARCH"></span>
         <div grid-filter options="filterOptions" params="optionParams"></div>
         <div class="row l-pad-top l-pad-bottom" ng-if="searchDevice">
             <div class="col-lg-2-3 col-md-1-1">
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div  class="set__trigger" data-toggle="invitations">
-        <a href="#invitations" translate="USER.INVITATION"><i class="set__icon"></i></a>
+        <a href="#invitations" translate="USER_MAN..MANAGE_USERS.TXT_TAB_INVITED_USERS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="invitations">
         <h2>section not implemented</h2>
