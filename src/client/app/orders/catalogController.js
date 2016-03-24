@@ -104,7 +104,13 @@ angular.module('mps.orders')
                 var priceColumn = Catalog.columnDefs.defaultSet.find(function(column){
                             return column.isPrice;
                        });
-                if(priceColumn){
+                if(priceColumn &&
+                    $scope.configure &&
+                    $scope.configure.cart &&
+                    $scope.configure.cart.agreement &&
+                    $scope.configure.cart.agreement.displayPrice &&
+                    ($scope.configure.cart.agreement.displayPrice !== 'UNKNOWN' ||
+                        $scope.configure.cart.agreement.displayPrice !== 'NEITHER')){
                     priceColumn.visible = false;
                 }
             }
