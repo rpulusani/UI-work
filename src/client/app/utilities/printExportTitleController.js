@@ -43,8 +43,14 @@ angular.module('mps.utility')
 
             $scope.exportGrid = function() {
                 var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
+                var api;
 
-                ctrlScope.gridApi.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
+                if(!ctrlScope.gridApi){
+                    api = ctrlScope.$root.gridApi;
+                }else{
+                    api = ctrlScope.gridApi;
+                }
+                api.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
             };
         });
     }

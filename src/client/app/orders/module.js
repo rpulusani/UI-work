@@ -6,7 +6,8 @@ function($routeProvider) {
     .when('/orders', {
         templateUrl: '/app/orders/templates/order-dashboard.html',
         controller: 'OrderTabController',
-        activeItem: '/orders'
+        activeItem: '/orders?tab=orderAllTab',
+        reloadOnSearch: false
     })
     .when('/orders/pick_address/:source', {
         templateUrl: '/app/orders/templates/address-picker.html',

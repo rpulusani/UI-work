@@ -5,14 +5,17 @@ angular.module('mps.orders')
     '$rootScope',
     '$scope',
     'SecurityHelper',
+     '$location',
     function(
         $rootScope,
         $scope,
-        SecurityHelper
+        SecurityHelper,
+        $location
     ) {
         new SecurityHelper($rootScope).redirectCheck($rootScope.orderAccess);
         $scope.active = function(value){
             $rootScope.serviceTabSelected = value;
+            $location.search('tab', value);
         };
 
         $scope.isActive = function(value){
@@ -22,8 +25,13 @@ angular.module('mps.orders')
             }
             return passed;
         };
-
-        $scope.active('orderAllTab');
+        var tabId = $location.search().tab;
+        if(tabId){
+            $rootScope.currentServiceRequestTab = tabId;
+            $scope.isActive(tabId);
+        }else{
+         $scope.active('orderAllTab');
+        }
     }
 ]);
 
