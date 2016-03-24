@@ -28,7 +28,7 @@ angular.module('mps.serviceRequests')
                     sameShipInstallQuestion:'ORDER_MAN.COMMON.TXT_SHIP_INSTALL_ADDRS_SAME'
                 },
                 sameAddress: function(){
-                    if($scope.scratchSpace.lexmarkShippingSameAsInstall){
+                    if(scope.scratchSpace.lexmarkShippingSameAsInstall){
                         halObj.copyRelationship('sourceAddress', halObj.item, 'shipToAddress');
                         halObj.tempSpace.shipToAddress =  angular.copy(halObj.tempSpace.installAddress);
                         halObj.item.shipToAddressPhysicalLocation.physicalLocation1 =
@@ -37,7 +37,7 @@ angular.module('mps.serviceRequests')
                             scope.sr.sourceAddressPhysicalLocation.physicalLocation2;
                         halObj.item.shipToAddressPhysicalLocation.physicalLocation3 =
                             scope.sr.sourceAddressPhysicalLocation.physicalLocation3;
-                        $scope.formatAdditionalData();
+                        scope.formatAdditionalData();
                     }
                 }
             };

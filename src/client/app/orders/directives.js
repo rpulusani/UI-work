@@ -5,6 +5,7 @@ angular.module('mps.orders')
     return {
         restrict: 'A',
         templateUrl : '/app/orders/templates/tabs/all-order-tab.html',
+        scope:{},
         controller: 'OrderListController'
     };
 })
@@ -12,6 +13,7 @@ angular.module('mps.orders')
     return {
         restrict: 'A',
         templateUrl : '/app/orders/templates/tabs/device-order-tab.html',
+        scope:{},
         controller: 'DeviceOrderListController'
     };
 })
@@ -43,6 +45,7 @@ angular.module('mps.orders')
     return {
         restrict: 'A',
         templateUrl : '/app/orders/templates/tabs/supply-order-tab.html',
+        scope:{},
         controller: 'SupplyOrderListController'
     };
 })
@@ -130,7 +133,7 @@ angular.module('mps.orders')
         templateUrl: '/app/orders/templates/order-tabs.html',
         controller: 'OrderTabController',
         link: function(scope, el, attr){
-            
+
             var $ = require('jquery'),
                  sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
             sets.each(function(i,set){
