@@ -24,6 +24,7 @@ angular.module('mps.orders')
     'PersonalizationServiceFactory',
     '$q',
     'SuppliesCatalogFactory',
+    'OrderControllerHelperService',
     function(
         $scope,
         $location,
@@ -46,8 +47,10 @@ angular.module('mps.orders')
         HardwareCatalog,
         Personalize,
         $q,
-        SuppliesCatalog) {
+        SuppliesCatalog,
+        OrderControllerHelper) {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+            OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
             $scope.type = $routeParams.type.toUpperCase();
             //multi, none, single
             $scope.print = false;
@@ -100,20 +103,7 @@ angular.module('mps.orders')
                 };
             }
 
-            function hideShowPriceColumn(Catalog){
-                var priceColumn = Catalog.columnDefs.defaultSet.find(function(column){
-                            return column.isPrice;
-                       });
-                if(priceColumn &&
-                    $scope.configure &&
-                    $scope.configure.cart &&
-                    $scope.configure.cart.agreement &&
-                    $scope.configure.cart.agreement.displayPrice &&
-                    ($scope.configure.cart.agreement.displayPrice !== 'UNKNOWN' ||
-                        $scope.configure.cart.agreement.displayPrice !== 'NEITHER')){
-                    priceColumn.visible = false;
-                }
-            }
+
 
             function getParts(){
                 var filterSearchService,
@@ -134,7 +124,7 @@ angular.module('mps.orders')
                              });
                             return deferred.promise;
                         };
-                       hideShowPriceColumn(SuppliesCatalog);
+                       $scope.hideShowPriceColumn(SuppliesCatalog);
                        filterSearchService = new FilterSearchService(SuppliesCatalog, $scope, $rootScope, personal,
                             'defaultSet', 92, 'catalogOptions', beforeDisplay);
                         $scope.catalogOptions.showBookmarkColumn = false;
@@ -151,7 +141,7 @@ angular.module('mps.orders')
                              });
                             return deferred.promise;
                         };
-                        hideShowPriceColumn(HardwareCatalog);
+                        $scope.hideShowPriceColumn(HardwareCatalog);
                         filterSearchService = new FilterSearchService(HardwareCatalog, $scope, $rootScope, personal,
                                 'defaultSet', 120, 'catalogOptions', beforeDisplay);
                         $scope.catalogOptions.showBookmarkColumn = false;
