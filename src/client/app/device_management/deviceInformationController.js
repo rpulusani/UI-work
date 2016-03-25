@@ -254,7 +254,7 @@ angular.module('mps.deviceManagement')
         };
 
             $scope.exportDevice = function (filename, rows) {
-                var filename = $scope.device.productModel,
+                var filename = $scope.device.productModel + '.csv',
                 rows = [
                     $scope.device.productModel,
                     $scope.device.serialNumber,
@@ -291,7 +291,7 @@ angular.module('mps.deviceManagement')
                     $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
                     $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
                     $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
-                    $translate.instant('DEVICE_MGT.LAST_UPDATED'),
+                    $translate.instant('DEVICE_MGT.LAST_UPDATED')
                 ];
                 
                 csvFile = headers.toString();
