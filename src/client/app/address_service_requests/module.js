@@ -41,7 +41,7 @@ angular.module('mps.serviceRequestAddresses', []).config(['$routeProvider',
             controller: 'AddressUpdateController',
             activeItem: '/service_requests/addresses'
         })
-        .when('/service_requests/addresses/update/:id/receipt/:queued', {
+        .when('/service_requests/addresses/updates/:id/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'AddressUpdateController',
             activeItem: '/service_requests/addresses'

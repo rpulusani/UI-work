@@ -2,6 +2,7 @@
 angular.module('mps.serviceRequestAddresses')
 .controller('AddressUpdateController', ['$scope',
     '$location',
+    '$filter',
     '$routeParams',
     '$rootScope',
     '$translate',
@@ -19,6 +20,7 @@ angular.module('mps.serviceRequestAddresses')
     'SecurityHelper',
     function($scope,
         $location,
+        $filter,
         $routeParams,
         $rootScope,
         $translate,
@@ -42,6 +44,12 @@ angular.module('mps.serviceRequestAddresses')
         SRHelper.addMethods(Addresses, $scope, $rootScope);
         $scope.setTransactionAccount('AddressUpdate', Addresses);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
 
         $scope.checkAddress = function() {
                 if($scope.checkedAddress === 0 && $scope.updateAddress.$valid && $scope.address.country){
@@ -186,7 +194,7 @@ angular.module('mps.serviceRequestAddresses')
         }
 
         $scope.setupSR(ServiceRequest, configureSR);
-        $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+        $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
         $scope.getRequestor(ServiceRequest, Contacts);
 
         var updateSRObjectForSubmit = function() {
@@ -225,10 +233,10 @@ angular.module('mps.serviceRequestAddresses')
                         if(Tombstone.item && Tombstone.item.siebelId) {
                           $location.search('tab', null);
                           ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                          $location.path(Addresses.route + '/update/' + $scope.address.id + '/receipt/notqueued');
+                          $location.path(Addresses.route + '/updates/' + $scope.address.id + '/receipt/notqueued');
                         } else {
                           $location.search('tab', null);
-                          $location.path(Addresses.route + '/update/' + $scope.address.id + '/receipt/queued');
+                          $location.path(Addresses.route + '/updates/' + $scope.address.id + '/receipt/queued');
                         }
                       });
                     }, tombstoneWaitTimeout);
@@ -240,6 +248,9 @@ angular.module('mps.serviceRequestAddresses')
             }; // end $scope.configure.actions
         }
         function configureReceiptTemplate() {
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
+          console.log('$scope.configure.statusList', $scope.configure.statusList);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -266,7 +277,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.configure.header.translate.h1 = "ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_SUBMITTED";
             $scope.configure.header.translate.body = "ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_SUBMITTED_PAR";
             $scope.configure.header.translate.bodyValues= {
-                'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                'refId': FormatterService.getFormattedSRNumber($scope.sr),
                 'srHours': 24,
                 'addressUrl': '/service_requests/addresses',
             };
@@ -354,24 +365,7 @@ angular.module('mps.serviceRequestAddresses')
                     translate: {
                         replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
                     }
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
 
         }

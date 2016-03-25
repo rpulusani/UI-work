@@ -18,8 +18,8 @@ angular.module('mps.deviceManagement')
     'FilterSearchService',
     'lbsURL',
     '$window',
-        'uiGridExporterConstants',
-        '$translate',
+    'uiGridExporterConstants',
+    '$translate',
     function(
         $rootScope,
         $scope,
@@ -44,6 +44,7 @@ angular.module('mps.deviceManagement')
         ServiceRequest.setParamsToNull();
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
+        $scope.ipLink = '';
         var redirect_to_list = function() {
            $location.path(Devices.route + '/');
         };
@@ -51,6 +52,10 @@ angular.module('mps.deviceManagement')
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         $scope.gotToLBS = function(){
              $window.open(lbsURL + "?sno=" + $scope.device.serialNumber);
+        };
+
+        $scope.goToIpControl = function(){
+             $window.open($scope.ipLink);
         };
 
         $scope.configure = {
@@ -82,7 +87,7 @@ angular.module('mps.deviceManagement')
             });
 
         };
-
+        
         $scope.getMeterReadPriorDate = function(item){
             if(item.updateDate){
                 return FormatterService.formatDate(item.updateDate);
@@ -163,6 +168,11 @@ angular.module('mps.deviceManagement')
             redirect_to_list();
         } else {
             $scope.device = Devices.item;
+            if (!BlankCheck.isNull($scope.device.hostName)) {
+                $scope.ipLink = 'http://' + $scope.device.hostName;
+            } else if (!BlankCheck.isNull($scope.device.ipAddress)) {
+                $scope.ipLink = 'http://' + $scope.device.ipAddress;
+            }
             Devices.getAdditional(Devices.item, MeterReads, false, true).then(function(){
                 var tempData = [],
                     reorderedData = [];

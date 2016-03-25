@@ -2,6 +2,7 @@
 angular.module('mps.serviceRequestAddresses')
 .controller('AddressDeleteController', [
     '$scope',
+    '$filter',
     '$rootScope',
     '$routeParams',
     '$location',
@@ -18,6 +19,7 @@ angular.module('mps.serviceRequestAddresses')
     'tombstoneWaitTimeout',
     'SecurityHelper',
     function($scope,
+        $filter,
         $rootScope,
         $routeParams,
         $location,
@@ -39,6 +41,11 @@ angular.module('mps.serviceRequestAddresses')
         SRHelper.addMethods(Addresses, $scope, $rootScope);
         $scope.setTransactionAccount('AddressDelete', Addresses);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('account', $scope.address);
@@ -112,7 +119,7 @@ angular.module('mps.serviceRequestAddresses')
         }
 
         $scope.setupSR(ServiceRequest, configureSR);
-        $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+        $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
         $scope.getRequestor(ServiceRequest, Contacts);
 
         function configureReviewTemplate(){
@@ -163,6 +170,8 @@ angular.module('mps.serviceRequestAddresses')
             };
         }
         function configureReceiptTemplate(){
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -191,7 +200,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.configure.header.translate.readMore = 'ADDRESS_MAN.COMMON.CTRL_MANAGE_ANOTHER_ADDRESS';
             $scope.configure.header.translate.readMoreUrl = Addresses.route;
             $scope.configure.header.translate.bodyValues= {
-                'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                'refId': FormatterService.getFormattedSRNumber($scope.sr),
                 'srHours': 24,
                 'deviceManagementUrl': 'device_management/',
             };
@@ -279,24 +288,7 @@ angular.module('mps.serviceRequestAddresses')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: Addresses.route + '/delete/' + $scope.address.id + '/review'
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
         }
 

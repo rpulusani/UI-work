@@ -4,6 +4,7 @@ angular.module('mps.orders')
 .controller('OrderCatalogPurchaseController', [
     '$scope',
     '$location',
+    '$filter',
     '$rootScope',
     'OrderRequest',
     'grid',
@@ -24,6 +25,7 @@ angular.module('mps.orders')
     function(
         $scope,
         $location,
+        $filter,
         $rootScope,
         Orders,
         Grid,
@@ -44,6 +46,13 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         $scope.print = false;
         $scope.export = false;
@@ -282,6 +291,8 @@ angular.module('mps.orders')
                         'OrderItems': OrderItems // send whatever you want
                     });
             }, 50);
+            var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+            $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
             if($routeParams.queued ==='queued'){
                 $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                     $scope.configure.header.translate.h1Values = {

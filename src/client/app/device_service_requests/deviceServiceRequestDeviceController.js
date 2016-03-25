@@ -2,6 +2,7 @@
 angular.module('mps.serviceRequestDevices')
 .controller('DeviceServiceRequestDeviceController', [
     '$scope',
+    '$filter',
     '$location',
     '$translate',
     'Devices',
@@ -19,6 +20,7 @@ angular.module('mps.serviceRequestDevices')
     'tombstoneWaitTimeout',
     'SecurityHelper',
     function($scope,
+        $filter,
         $location,
         $translate,
         Devices,
@@ -40,6 +42,11 @@ angular.module('mps.serviceRequestDevices')
             $scope.validForm = true;
         $scope.formattedAddress = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         $scope.setTransactionAccount('DeviceServiceRequestDevice', Devices);
         new SecurityHelper($rootScope).redirectCheck($rootScope.createBreakFixAccess);
@@ -177,6 +184,8 @@ angular.module('mps.serviceRequestDevices')
             };
         }
         function configureReceiptTemplate(){
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -321,24 +330,7 @@ angular.module('mps.serviceRequestDevices')
                             submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
                         }
                     }
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
             }else{
                $scope.configure = {
