@@ -281,7 +281,7 @@ angular.module('mps.serviceRequests')
         function addDecommissionInfo(){
              $scope.configure.device.removal = {
                         translate:{
-                            title: 'DEVICE_SERVICE_REQUEST.DEVICE_REMOVAL',
+                            title: 'REQUEST_MAN.COMMON.TXT_DECOM_OPTIONS',
                                 pickup: 'REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY',
                                 pageCount: 'REQUEST_MAN.COMMON.TXT_PAGE_COUNTS'
                         },
@@ -289,7 +289,7 @@ angular.module('mps.serviceRequests')
                 };
         }
         function configureReceiptTemplate(){
-            $scope.configure.header.translate.h1 = 'SERVICE_REQUEST.REQUEST_SERVICE_FOR_SUBMITTED';
+            $scope.configure.header.translate.h1 = 'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_REQUEST_NUMBER';
             $scope.configure.header.translate.h1Values = {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
             };
@@ -297,7 +297,7 @@ angular.module('mps.serviceRequests')
             $scope.configure.header.translate.bodyValues= {};
             $scope.configure.receipt = {
                 translate:{
-                    title:'SERVICE_REQUEST.REQUEST_SERVICE_DETAIL',
+                    title:'REQUEST_MAN.MANAGE_REQUESTS.TXT_DEVICE_SERVICE_REQUEST_DETAILS',
                     titleValues: {
                         'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
                     },
@@ -338,23 +338,23 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
-                $scope.formattedAddress = "No Address information found";
+                $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
-                $scope.formattedAddress = "No Address information found";
+                $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'DATA_ADDRESS_REMOVE':
                 addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
-                $scope.formattedAddress = "No Address information found";
+                $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
-                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DELETE_ADDRESS_REQUEST_NUMBER';
+                $scope.configure.header.translate.h1 = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'DATA_CONTACT_REMOVE':
