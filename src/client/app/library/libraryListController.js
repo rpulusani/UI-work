@@ -29,7 +29,7 @@ angular.module('mps.library')
         );
 
         if ($rootScope.documentLibraryManageGlobalTagAccess) {
-            filterSearchService.addPanelFilter('FILTERS.FILTER_BY_ACCOUNT', 'AccountAllFilter', undefined,
+            filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_ACCOUNT', 'AccountAllFilter', undefined,
                 function(Grid) {
                     setTimeout(function() {
                         $scope.$broadcast('setupColumnPicker', Grid);
