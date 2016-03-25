@@ -11,6 +11,18 @@
     </div>
 </div>
 
+ <div id="pageCounts-error-popup" class="modal">
+     <div class="modal__body">
+     <h2>Page Counts - Warning</h2><hr/>
+     <p>{{popupMsg}}
+     Ignore this warning and submit the update?
+     </p>
+     <button class="btn" ng-click="ignoreAndSave()" data-js="modalClose">YES</button>
+     <button class="btn" data-js="modalClose">NO</button>
+     </div>
+ </div>
+
+
 <div grid-filter options="filterOptions" params="optionParams"></div>
 
 <div class="row l-pad-top l-pad-bottom">
