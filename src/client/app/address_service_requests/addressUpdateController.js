@@ -228,9 +228,6 @@ angular.module('mps.serviceRequestAddresses')
 
                 deferred.then(function(result){
                   if(ServiceRequest.item._links['tombstone']) {
-                    // var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-                    // $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
-                    // console.log('$scope.configure.statusList', $scope.configure.statusList);
                     $timeout(function(){
                       ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
                         if(Tombstone.item && Tombstone.item.siebelId) {
