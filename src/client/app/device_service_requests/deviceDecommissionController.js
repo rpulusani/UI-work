@@ -3,6 +3,7 @@ angular.module('mps.serviceRequestDevices')
 .controller('DeviceDecommissionController', [
     '$scope',
     '$rootScope',
+    '$filter',
     '$routeParams',
     '$location',
     '$translate',
@@ -20,6 +21,7 @@ angular.module('mps.serviceRequestDevices')
     'SecurityHelper',
     function($scope,
         $rootScope,
+        $filter,
         $routeParams,
         $location,
         $translate,
@@ -42,6 +44,12 @@ angular.module('mps.serviceRequestDevices')
         $scope.setTransactionAccount('decommission', Devices);
         new SecurityHelper($rootScope).redirectCheck($rootScope.decommissionAccess);
 
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('account', $scope.device);
@@ -162,6 +170,8 @@ angular.module('mps.serviceRequestDevices')
             };
         }
         function configureReceiptTemplate(){
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -291,24 +301,7 @@ angular.module('mps.serviceRequestDevices')
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
-                    },
-                    statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                    }
                 };
             }
         }
