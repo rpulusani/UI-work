@@ -85,8 +85,8 @@ angular.module('mps.serviceRequests')
                     halObj.tempSpace.catalogCart &&
                     halObj.tempSpace.catalogCart.agreement &&
                     halObj.tempSpace.catalogCart.agreement.displayPrice &&
-                    (halObj.tempSpace.catalogCart.agreement.displayPrice !== 'UNKNOWN' ||
-                     halObj.tempSpace.catalogCart.agreement.displayPrice !== 'NEITHER')){
+                    (halObj.tempSpace.catalogCart.agreement.displayPrice === 'UNKNOWN' ||
+                     halObj.tempSpace.catalogCart.agreement.displayPrice === 'NEITHER')){
                     priceColumn.visible = false;
                 }
             }
