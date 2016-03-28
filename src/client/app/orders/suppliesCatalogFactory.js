@@ -37,7 +37,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'),
                             'field':'description', enableCellEdit:false, width:'27%', cellClass:'long-text-wrap'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
-                            'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%', cellClass:'long-text-wrap'},
+                            'field':'priceCurrencyFormat()', enableCellEdit:false, width: '8%', cellClass:'long-text-wrap', isPrice: true},
 
                         {'name': 'actions', displayName: '',
                             'field':'',

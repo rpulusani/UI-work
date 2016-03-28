@@ -75,6 +75,22 @@ angular.module('mps.serviceRequests')
 
         }
 
+         function hideShowPriceColumn(Catalog){
+                var priceColumn = Catalog.columnDefs.defaultSet.find(function(column){
+                            return column.isPrice;
+                       });
+                if(priceColumn &&
+                    halObj &&
+                    halObj.tempSpace &&
+                    halObj.tempSpace.catalogCart &&
+                    halObj.tempSpace.catalogCart.agreement &&
+                    halObj.tempSpace.catalogCart.agreement.displayPrice &&
+                    (halObj.tempSpace.catalogCart.agreement.displayPrice === 'UNKNOWN' ||
+                     halObj.tempSpace.catalogCart.agreement.displayPrice === 'NEITHER')){
+                    priceColumn.visible = false;
+                }
+            }
+
         function addMethods(halObject, $scope, $rootScope){
             halObj = halObject;
             scope = $scope;
@@ -82,6 +98,7 @@ angular.module('mps.serviceRequests')
 
             if(scope){
                 scope.setupShipBillToAndInstallAddresses = setupShipBillToAndInstallAddresses;
+                scope.hideShowPriceColumn = hideShowPriceColumn;
             }else{
                 throw 'scope was not passed in to addMethods';
             }

@@ -89,7 +89,8 @@ angular.module('mps.utility')
                     $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
 
                     if (!$rootScope.currentAccount) {
-                        if ($rootScope.currentUser._links.accounts) {
+                        if ($rootScope.currentUser._links &&
+                            $rootScope.currentUser._links.accounts) {
                             if (angular.isArray($rootScope.currentUser._links.accounts)) {
                                 acctLink = $rootScope.currentUser._links.accounts[0].href;
                             } else {
