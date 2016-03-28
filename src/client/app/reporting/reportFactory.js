@@ -360,7 +360,7 @@ angular.module('mps.report')
                         {value: 'Installs'},
                         {value: 'Moves'},
                         {value: 'IP Change'},
-                        {value: 'Remove - Account'},
+                        {value: 'Removes-Account'},
                         {value: 'Removes'},
                         {value: 'Manual Swaps'},
                         {value: 'Service Swaps'}
