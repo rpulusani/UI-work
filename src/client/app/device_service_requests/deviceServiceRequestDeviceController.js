@@ -150,6 +150,7 @@ angular.module('mps.serviceRequestDevices')
 
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+                $scope.configure.device.information.translate.changeTxt = 'Change Device';
             $scope.configure.actions.submit = function(){
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
@@ -184,6 +185,7 @@ angular.module('mps.serviceRequestDevices')
             };
         }
         function configureReceiptTemplate(){
+            $scope.configure.device.information.translate.changeTxt = undefined;
           var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
           $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
@@ -363,5 +365,12 @@ angular.module('mps.serviceRequestDevices')
         };
 
         $scope.formatReceiptData(formatAdditionalData);
+
+
+         $scope.goToServiceCreate = function(){
+            Devices.item = {};
+            $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
+        };
+
     }
 ]);

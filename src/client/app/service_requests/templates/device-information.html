@@ -1,6 +1,8 @@
 <div ng-if="configure.device.information">
     <h2 translate="{{configure.device.information.translate.title}}"></h2>
-
+    <a href="#" ng-click="goToServiceCreate()"
+        ng-if="configure.device.information.translate.changeTxt"
+        translate="{{configure.device.information.translate.changeTxt}}"></a>
     <div class="well well--no-shadow col-1-3">
         <a href="{{configure.device.information.linkMakeChanges}}"
             translate="{{configure.device.information.translate.linkMakeChangesTxt}}"
