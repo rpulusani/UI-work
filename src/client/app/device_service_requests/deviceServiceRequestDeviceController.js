@@ -77,12 +77,12 @@ angular.module('mps.serviceRequestDevices')
             $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
-                
+
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
 
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.device.contact.item = $scope.device.primaryContact;
-                
+
                 $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
@@ -294,10 +294,6 @@ angular.module('mps.serviceRequestDevices')
                             submit: 'REQUEST_MAN.COMMON.BTN_REVIEW_SUBMIT'
                     },
                     submit: function() {
-                            if ($scope.breakFixDevice.$invalid) {
-                                $scope.validForm = false;
-                                return false;
-                            }
                         $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/review');
                     }
                 },
