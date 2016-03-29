@@ -60,21 +60,29 @@ function(
             });
         },
         getSROrderCnt = function() {
-            Orders.get({
+            var options = {
                 preventDefaultParams: true,
                 params: {
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
-                        status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
-                        type: 'ORDERS_ALL'
+                    status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
+                    type: 'ORDERS_ALL'
                 }
-            }).then(function(res) {
+            };
+
+            if ($rootScope.viewSupplyOrderAccess && !$rootScope.viewHardwareOrderAccess) {
+                options.params.type = 'SUPPLIES_ORDERS_ALL'
+            } else if (!$rootScope.viewSupplyOrderAccess && $rootScope.viewHardwareOrderAccess) {
+                options.params.type = 'HARDWARE_ORDER';
+            }
+
+            Orders.get(options).then(function(res) {
                 $scope.srOrderCnt = Orders.page.totalElements;
                 getOrderCompletedCnt();
             });
         },
         getOrderCompletedCnt = function() {
-            Orders.get({
+            var options = {
                 preventDefaultParams: true,
                 params: {
                     accountId: $rootScope.currentAccount.accountId,
@@ -82,7 +90,14 @@ function(
                         status:  ['COMPLETED'],
                         type: 'ORDERS_ALL'
                 }
-            }).then(function(res) {
+            };
+            if ($rootScope.viewSupplyOrderAccess && !$rootScope.viewHardwareOrderAccess) {
+                options.params.type = 'SUPPLIES_ORDERS_ALL'
+            } else if (!$rootScope.viewSupplyOrderAccess && $rootScope.viewHardwareOrderAccess) {
+                options.params.type = 'HARDWARE_ORDER';
+            }
+            
+            Orders.get(options).then(function(res) {
                 $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
             });
         },
@@ -355,9 +370,13 @@ function(
         };
 
         // Calls to setup action bar
-        getSROpenCnt();
-        getSROrderCnt();
-        getSRMADCCnt();
+
+        setTimeout(function() {
+            getSROpenCnt();
+            getSROrderCnt();
+            getSRMADCCnt();
+        }, 1500);
+        
 
         Reports.getPage().then(function() {
         var i = 0,
