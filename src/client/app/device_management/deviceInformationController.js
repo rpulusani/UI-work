@@ -178,7 +178,8 @@ angular.module('mps.deviceManagement')
             Devices.getAdditional(Devices.item, MeterReads, false, true).then(function(){
                 var tempData = [],
                     reorderedData = [],
-                    meterDate;
+                    meterDate,
+                    tempLastUpdate;
 
                 $scope.meterReads = MeterReads.data;
                 $scope.showAllMeterReads = false;
@@ -201,12 +202,13 @@ angular.module('mps.deviceManagement')
                         }
                     }
                     if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].updateDate)){
-                        meterDate=FormatterService.getDateFromString($scope.meterReads[i].updateDate);
+                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].updateDate);
                            if ($scope.lastUpdated === null){
                                 $scope.lastUpdated = $scope.meterReads[i].updateDate;
-                           } else if (meterDate.getTime() > $scope.lastUpdated.getTime()){
+                           } else if (meterDate.getTime() > tempLastUpdate.getTime()){
                                 $scope.lastUpdated = $scope.meterReads[i].updateDate;
                            }
+                        tempLastUpdate = FormatterService.getDateFromString($scope.lastUpdated);
                     }
                 }
                 if ($scope.lastUpdated !== null){
