@@ -14,7 +14,9 @@
     </div>
 </div>
 
-<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+<div ui-grid="gridOptions" class="table"
+    ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+    ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
 
 <div pagination grid="{{gridOptions}}"></div>
 <div class="col-2-3"></div>

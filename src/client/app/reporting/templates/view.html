@@ -181,10 +181,12 @@
     <div class="row">
         <div class="col-1">
             <div print-export-title titlestring="REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS"></div>
-            
+
             <hr/>
 
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+            <div ui-grid="gridOptions" class="table"
+                ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+                ui-grid-move-columns ui-grid-resize-columns></div>
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>
