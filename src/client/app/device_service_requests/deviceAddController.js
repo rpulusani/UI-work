@@ -41,11 +41,36 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper) {
 
         $scope.isLoading = false;
-
+        $rootScope.currentRowList = [];
         SRHelper.addMethods(Devices, $scope, $rootScope);
         $scope.setTransactionAccount('DeviceAdd', Devices);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addDevice);
+        $scope.scratchSpace = Devices.tempSpace;
+        if(!$scope.scratchSpace){
+            $scope.scratchSpace ={};
+        }
 
+        $scope.scratchSpace.oneOfFiveFieldsFilled = false;
+
+        $scope.checkOneOfFiveFields = function(){
+            if($scope.device.lexmarkDeviceQuestion === true && $scope.device.serialNumber){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.deviceInstallDate){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.ipAddress){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.hostName){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.customerDeviceTag){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else{
+                $scope.scratchSpace.oneOfFiveFieldsFilled = false;
+            }
+            return;
+        };
+        $scope.$watch('device.deviceInstallDate', function(){
+            $scope.checkOneOfFiveFields();
+        });
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
@@ -294,7 +319,7 @@ angular.module('mps.serviceRequestDevices')
                     });
                 }
             });
-                
+
             if ($rootScope.selectedContact &&
                     $rootScope.returnPickerObject){
                 $scope.device = $rootScope.returnPickerObject;
