@@ -37,11 +37,11 @@ angular.module('mps.deviceManagement')
         ServiceRequest.reset();
 
         $scope.goToCreate = function() {
-            Devices.item = {};
+            Devices.reset();
             ServiceRequest.reset();
             $location.path('/service_requests/devices/new');
         };
-        
+
         $scope.goToOrderDevice = function() {
             Devices.reset();
             ServiceRequest.reset();
