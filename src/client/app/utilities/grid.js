@@ -16,7 +16,7 @@ angular.module('mps.utility')
         this.gridOptions = {};
             this.enableServerSort = true;
     };
-        
+
     Grid.prototype.setGridOptionsName = function(newName) {
         this.optionsName = newName;
         this[this.optionsName] = {};
@@ -55,7 +55,7 @@ angular.module('mps.utility')
                         if (service.springSorting) {
                             service.params[service.params.sort + '.dir'] = currentDir;
                         service.params.direction = null;
-                        } 
+                        }
 
                     self.gridOptions.data = [];
 
@@ -180,31 +180,44 @@ angular.module('mps.utility')
         }
         return size;
     };
+
+
     Grid.prototype.display = function(service, scope, personal, rowHeight, fn) {
         var self = this,
         $ = require('jquery'),
         serviceId = '',
         newHeight = '46',
-        baseHeight = 46,
+        baseHeight = 100,
         size = self.getSize(service),
-        setHeight = function(tempOptionName, newHeight) {
-                $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').attr('style', '');
-                $('[ui-grid="' + tempOptionName + '"].table,[ui-grid="' + tempOptionName + '"].table-image').css('height', newHeight + 'px');
-                $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table-image').css('margin-bottom', '60px');
-                $('[ui-grid="' + tempOptionName + '"].table, [ui-grid="' + tempOptionName + '"].table.summary').css('margin-bottom', '24px');
-                $('[ui-grid="' + tempOptionName + '"] .ui-grid-render-container').css('height', newHeight + 'px');
-                $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('overflow-x', 'auto');
-                $('[ui-grid="' + tempOptionName + '"] .ui-grid-viewport').css('height', newHeight + 'px');
-                $('[ui-grid="' + tempOptionName + '"]').show();
+
+        setClasses = function(tempOptionName) {
                 $('[ui-grid="' + tempOptionName + '"] .ui-grid-disable-selection').parent().addClass('selection');
                 $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
+        };
+
+        scope[self.optionsName].getStyle = function(){
+
+            if (service.data && service.data.length > 0) {
+                if (rowHeight) {
+                    newHeight = baseHeight + (parseInt(rowHeight, 10) + 1) * size;
+                } else {
+                    rowHeight = 45;
+                    newHeight = baseHeight + (rowHeight * size);
+                }
+            } else {
+                newHeight = baseHeight;
+            }
+
+            return {
+                height: newHeight
+            };
         };
 
         if (!scope[self.optionsName].showLoader) {
             scope[self.optionsName].showLoader = true;
         }
 
-        setHeight(self.optionsName, baseHeight);
+        setClasses(self.optionsName);
 
         scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
         scope[self.optionsName].showGridFooter = false;
@@ -290,17 +303,6 @@ angular.module('mps.utility')
 
             scope[self.optionsName].showLoader = false;
 
-            if (service.data && service.data.length > 0) {
-                if (rowHeight) {
-                    newHeight = baseHeight + (parseInt(rowHeight, 10) + 1) * size;
-                } else {
-                    rowHeight = 45;
-                    newHeight = baseHeight + ((rowHeight + 2) * size);
-                }
-            } else {
-                newHeight = baseHeight;
-            }
-
             if (service.gridName) {
                 serviceId = service.gridName;
             } else if (service.serviceName) {
@@ -320,10 +322,6 @@ angular.module('mps.utility')
                 scope[self.optionsName].showNoResults = true;
             } else {
                 scope[self.optionsName].showNoResults = false;
-            }
-
-            if(typeof $ === 'function'){
-                setHeight(tempOptionName, newHeight);
             }
         }, 100);
         // Setting up pagination
