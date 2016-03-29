@@ -2,9 +2,9 @@
     <h1 translate="PORTAL_ADMIN.TRANSLATION_MANAGEMENT_TITLE"></h1>
     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
     <div class="col-1 btns">
-        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.IMPORT_TRANSLATION_BTN" 
+        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.IMPORT_TRANSLATION_BTN"
         	ng-click="goToImport()"></button>
-        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.EXPORT_TRANSLATION_BTN" 
+        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.EXPORT_TRANSLATION_BTN"
         	ng-click="goToExport()"></button>
     </div>
 </div>
@@ -43,7 +43,9 @@
                 </div>
         </div>
         <div ng-if="gridLoading === false && gridDataCnt > 0">
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+            <div ui-grid="gridOptions" class="table"
+                ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>
