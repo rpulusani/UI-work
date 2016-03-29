@@ -24,38 +24,41 @@
 </div>
 <div ng-hide="device.lexmarkDeviceQuestion === true">
     <div class="form__field" >
-        <label translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></label>
+        <label class="form__field--required" translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></label>
         <input name="productModel" type="text" ng-model="device.productModel" value="" class="" />
     </div>
-    
-    <div class="form__field" >
+
+    <div class="form__field " >
         <label translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></label>
-        <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class="" />
+        <input name="serialNumber" type="text" ng-model="device.serialNumber" value="" class=""
+        ng-disabled="!device.productModel === ''"/>
     </div>
 </div>
 
 <div ng-show="device.lexmarkDeviceQuestion === true">
-    <div class="form__field" >
+    <div class="form__field" ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}">
         <label translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></label>
-        <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels()" value="" class="" />
+        <input name="serialNumber" type="text" ng-model="device.serialNumber" ng-change="setModels(); checkOneOfFiveFields();" value=""
+            ng-required="!scratchSpace.oneOfFiveFieldsFilled"
+        class="" />
+        <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
+        class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
     </div>
-    
+
     <div class="form__field form__field--select" >
         <label translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER"></label>
-        <div selectric
-            model="device.productModel"
-            options="device.productNumbers"
-            value="productNo"
-            label="productNo"
-            placeholder="{{'LABEL.SELECT' | translate}}"
-        ></div>
+         <select ng-model="device.productModel" name="productModel"
+            ng-disabled = "!device.serialNumber">
+                <option  value="" translate="LABEL.SELECT"></option>
+                <option ng-repeat="option in device.productNumbers" value="{{option.productNo}}">{{option.productNo}}</option>
+            </select>
     </div>
 </div>
 
-<h3 translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></h3>
+<h3><span translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></span></h3>
 
 <div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></strong></div>
-
 <div ng-init="device.deviceInstallQuestion ? device.deviceInstallQuestion : device.deviceInstallQuestion=false " />
     <div class="form__field--no-margin">
         <input type="radio"
@@ -77,23 +80,33 @@
         <label for="device-install-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
     </div>
 </div>
-
-<div ng-hide="device.deviceInstallQuestion === true">
-    <div class="form__field" >
-        <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_INSTALLED"></strong>
-        <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"/>
+<div>
+    <div class="form__field">
+        <strong ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}"
+            ng-hide="device.deviceInstallQuestion === true" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_INSTALLED"></strong>
+        <strong ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}"
+            ng-hide="device.deviceInstallQuestion === false" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_WOULD_INSTALLED"></strong>
+        <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"
+            ng-required="!scratchSpace.oneOfFiveFieldsFilled"/>
+            <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
+        class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
     </div>
 </div>
 
 <div>
     <strong ng-hide="device.deviceInstallQuestion === true" translate="REQUEST_MAN.COMMON.TXT_WHERE_INSTALLED"></strong>
-    <strong ng-show="device.deviceInstallQuestion === true" translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
+    <strong class="form__field--required" ng-show="device.deviceInstallQuestion === true"
+        translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
 </div>
 
 <div ng-hide="device.addressSelected">
-    <a href="" translate="REQUEST_MAN.COMMON.LNK_SELECT_INSTALL_ADDR" 
+    <a href="" translate="REQUEST_MAN.COMMON.LNK_SELECT_INSTALL_ADDR"
         ng-click="goToAddressPicker('DeviceAdd',device)"></a>
 </div>
+
+<input type="text" name="installAddresssCheck" ng-model="device.addressSelected.formattedDeviceAddress" ng-show="false"
+        ng-required="device.deviceInstallQuestion === true" />
 
 <div ng-show="device.addressSelected">
     <div class="contact-info">
@@ -117,8 +130,8 @@
 </div>
 
 <div ng-show="device.address && device.address.id">
-    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong> 
-    
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong>
+
     <div ng-init="device.deviceDeInstallQuestion ? device.deviceDeInstallQuestion : device.deviceDeInstallQuestion=false " />
         <div class="form__field--no-margin">
             <input type="radio"
@@ -145,16 +158,17 @@
 </div>
 
 <div ng-show="device.deviceDeInstallQuestion === true">
-    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_REMOVE_DEVICE"></strong>
-    
+    <strong class="form__field--required"  translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_REMOVE_DEVICE"></strong>
+
     <div ng-hide="device.isDeviceSelected">
         <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_BROWSE_DEVICES" ng-click="goToDevicePicker('DeviceAdd',device)"></a>
     </div>
-
+    <input type="text" name="deviceDeInstallCheck" ng-model="device.selectedDevice.productModel" ng-show="false"
+        ng-required="device.deviceDeInstallQuestion === true" />
     <div ng-show="device.isDeviceSelected">
         <div class="media">
             <div class="media__visual">
-                <img ng-src="{{device.selectedDevice.medImage}}" ng-show="device.selectedDevice.medImage" 
+                <img ng-src="{{device.selectedDevice.medImage}}" ng-show="device.selectedDevice.medImage"
                     alt="{{ 'MESSAGE.NO_IMAGE_FOUND' | translate }}" />
             </div>
             <div class="media__body">
@@ -182,14 +196,24 @@
 
 <h3 translate="REQUEST_MAN.COMMON.TXT_NETWORK_CONFIG"></h3>
 
-<div class="form__field" >
+<div class="form__field" ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}">
     <label translate="REQUEST_MAN.COMMON.TXT_IP_ADDR"></label>
-    <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" />
+    <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class=""
+        ng-required="!scratchSpace.oneOfFiveFieldsFilled"
+        ng-change="checkOneOfFiveFields()"/>
+        <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
+        class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
 </div>
 
-<div class="form__field" >
+<div class="form__field" ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}">
     <label translate="REQUEST_MAN.COMMON.TXT_HOSTNAME"></label>
-    <input name="hostName" type="text" ng-model="device.hostName" value="" class="" />
+    <input name="hostName" type="text" ng-model="device.hostName" value="" class=""
+        ng-required="!scratchSpace.oneOfFiveFieldsFilled"
+        ng-change="checkOneOfFiveFields()"/>
+        <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
+        class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
 </div>
 
 <h3 translate="REQUEST_MAN.COMMON.TXT_PAGE_COUNTS"></h3>
@@ -228,7 +252,7 @@
 
 <div class="form__field">
     <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></label>
-    <input type="text" name="costCenter" ng-model="device.deviceCostCenter" value="" class="" required />
+    <input type="text" name="costCenter" ng-model="device.deviceCostCenter" value="" class="" />
 </div>
 
 <div><strong translate="REQUEST_MAN.COMMON.TXT_DEVICE_CHL_QUERY"></strong></div>
@@ -261,9 +285,13 @@
     <input type="hidden" ng-model="device.chl.id" name="chl-id"/>
 </div>
 
-<div class="form__field" >
+<div class="form__field" ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}" >
     <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_TAG"></label>
-    <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class="" />
+    <input name="customerDeviceTag" type="text" ng-model="device.customerDeviceTag" value="" class=""
+    ng-required="!scratchSpace.oneOfFiveFieldsFilled" ng-change="checkOneOfFiveFields()"/>
+    <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
+        class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
 </div>
 
 

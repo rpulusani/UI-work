@@ -34,7 +34,7 @@
         <div ng-show="gridTitle" print-export-title titlestring="{{ gridTitle }}"></div>
         <div class="col-1"></div>
     </div>
-    
+
     <div class="row">
         <div class="col-1">
             <div class="alert alert--info" ng-if="gridLoading === true">
@@ -51,7 +51,8 @@
                     </div>
             </div>
             <div ng-if="gridLoading === false && gridDataCnt > 0">
-                <div ui-grid="gridOptions" class="table" 
+                <div ui-grid="gridOptions" class="table"
+                    ng-style="gridOptions.getStyle()" ui-grid-auto-resize
                     ui-grid-move-columns ui-grid-resize-columns ui-grid-exporter>
                 </div>
                 <div pagination grid="{{gridOptions}}"></div>

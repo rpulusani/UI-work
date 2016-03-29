@@ -359,8 +359,8 @@ angular.module('mps.report')
                     eventTypes: [
                         {value: 'Installs'},
                         {value: 'Moves'},
-                        {value: 'IP Change'},
-                        {value: 'Remove - Account'},
+                        {value: 'IP Changes'},
+                        {value: 'Removes-Account'},
                         {value: 'Removes'},
                         {value: 'Manual Swaps'},
                         {value: 'Service Swaps'}
