@@ -20,6 +20,7 @@ angular.module('mps.deviceManagement')
     '$window',
     'uiGridExporterConstants',
     '$translate',
+    '$filter',
     function(
         $rootScope,
         $scope,
@@ -39,7 +40,8 @@ angular.module('mps.deviceManagement')
         lbsURL,
             $window,
             uiGridExporterConstants,
-            $translate
+            $translate,
+            $filter
         ) {
         ServiceRequest.setParamsToNull();
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
@@ -175,11 +177,12 @@ angular.module('mps.deviceManagement')
             }
             Devices.getAdditional(Devices.item, MeterReads, false, true).then(function(){
                 var tempData = [],
-                    reorderedData = [];
+                    reorderedData = [],
+                    meterDate;
 
                 $scope.meterReads = MeterReads.data;
                 $scope.showAllMeterReads = false;
-
+                $scope.lastUpdated=null;
                     for (var i=0 ; i<= $scope.meterReads.length; i++) {
                     if($scope.meterReads[i] && $scope.meterReads[i].type){
                         switch($scope.meterReads[i].type){
@@ -197,6 +200,17 @@ angular.module('mps.deviceManagement')
                             break;
                         }
                     }
+                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].updateDate)){
+                        meterDate=FormatterService.getDateFromString($scope.meterReads[i].updateDate);
+                           if ($scope.lastUpdated===null){
+                                $scope.lastUpdated=meterDate;
+                           } else if (meterDate.getTime()>$scope.lastUpdated.getTime()){
+                                $scope.lastUpdated=meterDate;
+                           }
+                    }
+                }
+                if ($scope.lastUpdated!==null){
+                    $scope.lastUpdated=$filter('date')($scope.lastUpdated, 'MM/dd/yyyy');
                 }
 
                 if($scope.mono){
