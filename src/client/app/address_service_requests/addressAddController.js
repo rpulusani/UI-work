@@ -393,11 +393,11 @@ angular.module('mps.serviceRequestAddresses')
                     addressLine2: $scope.address.addressLine2,
                     city: $scope.address.city,
                     state: $scope.address.state,
-                    postalCode: $scope.address.postalCode
+                    postalCode: $scope.address.postalCode,
+                    addressCleansedFlag: $scope.address.addressCleansedFlag
                 };
 
                 ServiceRequest.addField('sourceAddress', sourceAddress);
-                ServiceRequest.addField('addressCleansedFlag', $scope.address.addressCleansedFlag);
                 ServiceRequest.addRelationship('account', $scope.address.requestedByContact, 'account');
                 ServiceRequest.addField('attachments', $scope.files_complete);
             };
