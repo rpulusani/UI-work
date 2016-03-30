@@ -6,7 +6,7 @@
         <a href="#orderAllTab" translate="ORDER_MAN.MANAGE_ORDERS.TAB_ALL_ORDERS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="orderAllTab" ng-class="{'set--is-active':isActive('orderAllTab')}">
-        <span all-order-tab ng-show="isActive('orderAllTab')"></span>
+        <span all-order-tab ng-if="isActive('orderAllTab')"></span>
     </div>
     <div class="set__trigger" data-toggle="deviceOrderTab" 
         ng-class="{'set--is-active':isActive('deviceOrderTab')}" 
@@ -17,7 +17,7 @@
     <div class="set__content" id="deviceOrderTab" 
         ng-class="{'set--is-active':isActive('deviceOrderTab')}" 
         ng-show="viewHardwareOrderAccess">
-        <span device-order-tab ng-show="isActive('deviceOrderTab')"></span>
+        <span device-order-tab ng-if="isActive('deviceOrderTab')"></span>
     </div>
     <div class="set__trigger" data-toggle="supplyOrderTab" 
         ng-class="{'set--is-active':isActive('supplyOrderTab')}" 
@@ -28,6 +28,6 @@
     <div class="set__content" id="supplyOrderTab" 
         ng-class="{'set--is-active':isActive('supplyOrderTab')}" 
         ng-show="viewSupplyOrderAccess">
-        <span  supply-order-tab ng-show="isActive('supplyOrderTab')"></span>
+        <span  supply-order-tab ng-if="isActive('supplyOrderTab')"></span>
     </div>
 </div>
