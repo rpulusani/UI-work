@@ -69,6 +69,7 @@ angular.module('mps.serviceRequestDevices')
         $scope.revertAddress = function() {
             $scope.device.addressSelected = false;
             $scope.device.updatedInstallAddress = $scope.device.currentInstalledAddress;
+
             $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
             ServiceRequest.addRelationship('destinationAddress', $scope.device, 'address');
         };
@@ -76,6 +77,7 @@ angular.module('mps.serviceRequestDevices')
         var configureSR = function(ServiceRequest){
             ServiceRequest.addRelationship('account', $scope.device);
             ServiceRequest.addRelationship('asset', $scope.device, 'self');
+
             ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
         };
 
@@ -337,13 +339,7 @@ angular.module('mps.serviceRequestDevices')
                             currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
-                    sourceAddress: function(){
-                        if(updatedInstallAddress){
-                            return $scope.device.updatedInstallAddress;
-                        }else{
-                            return {};
-                        }
-                    }
+                    sourceAddress: $scope.device.currentInstalledAddress
                 }
             };
 

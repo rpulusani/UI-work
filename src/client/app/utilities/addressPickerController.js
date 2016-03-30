@@ -1,5 +1,3 @@
-
-
 angular.module('mps.utility')
 .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
  'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
@@ -28,14 +26,16 @@ angular.module('mps.utility')
             return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
         };
 
-            $scope.isRowSelected = function() {
-            if ($rootScope.currentSelectedRow) {
+        $scope.isRowSelected = function() {
+            if ($rootScope.currentSelectedRow ) {
                     $scope.selectedAddress = $rootScope.currentSelectedRow;
-                    $scope.formattedSelectedAddress = FormatterService.formatAddress($rootScope.selectedAddress);
+                    $scope.formattedSelectedAddress = FormatterService.formatAddress($rootScope.currentSelectedRow);
+
                     return true;
             } else {
                 $scope.formattedSelectedAddress = undefined;
-                    return false;
+                
+                return false;
             }
         };
 

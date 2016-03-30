@@ -83,6 +83,7 @@ angular.module('mps.deviceManagement')
                 }
             };
             ServiceRequest.item.get(options).then(function(){
+                alert('TEST')
                 $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
             });
 
