@@ -29,12 +29,6 @@
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </h1>
                         </a>
-                        
-                        <h1 class="blue text--bold" ng-if="!serviceRequestBreakFixAccess">
-                            <span ng-bind="srOpenCnt"></span> 
-                            <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
-                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
-                        </h1>
                     </div>
                     <div class="rollup-footer">
                         <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess">
@@ -43,11 +37,6 @@
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </p>
                         </a>
-                        
-                        <p ng-if="!serviceRequestBreakFixAccess">
-                            <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srCompletedCnt }}"></span>
-                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -64,12 +53,6 @@
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </h1>
                         </a>
-                        
-                        <h1 class="blue text--bold" ng-if="!orderSuppliesHardwareAccess">
-                            <span ng-bind="srOrderCnt"></span> 
-                            <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
-                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
-                        </h1>
                     </div>
                     <div class="rollup-footer">
                         <a href="/orders" ng-if="orderSuppliesHardwareAccess">
@@ -78,10 +61,6 @@
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </p>
                         </a>
-                        <p ng-if="!orderSuppliesHardwareAccess">
-                            <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srOrderCompletedCnt }}"></span>
-                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -98,11 +77,6 @@
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </h1>
                         </a>
-                        <h1 class="blue text--bold" ng-if="!serviceRequestMADCAccess">
-                            <span ng-bind="srMADCCnt"></span>
-                            <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
-                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
-                        </h1>
                     </div>
                     <div class="rollup-footer">
                         <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess">
@@ -111,10 +85,6 @@
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
                             </p>
                         </a>
-                        <p ng-if="!serviceRequestMADCAccess">
-                            <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srMADCCompletedCnt }}"></span>
-                            <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
-                        </p>
                     </div>
                 </div>
             </div>

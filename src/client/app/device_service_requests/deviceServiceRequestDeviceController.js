@@ -2,6 +2,7 @@
 angular.module('mps.serviceRequestDevices')
 .controller('DeviceServiceRequestDeviceController', [
     '$scope',
+    '$filter',
     '$location',
     '$translate',
     'Devices',
@@ -19,6 +20,7 @@ angular.module('mps.serviceRequestDevices')
     'tombstoneWaitTimeout',
     'SecurityHelper',
     function($scope,
+        $filter,
         $location,
         $translate,
         Devices,
@@ -40,6 +42,11 @@ angular.module('mps.serviceRequestDevices')
             $scope.validForm = true;
         $scope.formattedAddress = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         $scope.setTransactionAccount('DeviceServiceRequestDevice', Devices);
         new SecurityHelper($rootScope).redirectCheck($rootScope.createBreakFixAccess);
@@ -70,12 +77,12 @@ angular.module('mps.serviceRequestDevices')
             $rootScope.selectionId === Devices.item.id){
                 $scope.device = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
-                
+
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
 
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.device.contact.item = $scope.device.primaryContact;
-                
+
                 $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
@@ -143,6 +150,7 @@ angular.module('mps.serviceRequestDevices')
 
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+                $scope.configure.device.information.translate.changeTxt = 'Change Device';
             $scope.configure.actions.submit = function(){
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
@@ -177,6 +185,9 @@ angular.module('mps.serviceRequestDevices')
             };
         }
         function configureReceiptTemplate(){
+            $scope.configure.device.information.translate.changeTxt = undefined;
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -285,10 +296,6 @@ angular.module('mps.serviceRequestDevices')
                             submit: 'REQUEST_MAN.COMMON.BTN_REVIEW_SUBMIT'
                     },
                     submit: function() {
-                            if ($scope.breakFixDevice.$invalid) {
-                                $scope.validForm = false;
-                                return false;
-                            }
                         $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/review');
                     }
                 },
@@ -321,24 +328,7 @@ angular.module('mps.serviceRequestDevices')
                             submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
                         }
                     }
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
             }else{
                $scope.configure = {
@@ -375,5 +365,12 @@ angular.module('mps.serviceRequestDevices')
         };
 
         $scope.formatReceiptData(formatAdditionalData);
+
+
+         $scope.goToServiceCreate = function(){
+            Devices.item = {};
+            $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
+        };
+
     }
 ]);

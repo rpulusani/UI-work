@@ -230,6 +230,12 @@ angular.module('mps.utility')
                 var d = new Date(dateToBeFormatted);
                 return $filter('date')(d, 'yyyy-MM-dd');
             },
+            getDateFromString: function(dateToBeFormatted){
+                 if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                    return '';
+                }
+                return new Date(dateToBeFormatted.replace(/\s/, 'T')+'Z');
+            },
             formatAddresswoPhysicalLocation: function(address){
                 var formattedAddress = '';
                 if (BlankCheck.checkNotNullOrUndefined(address) ) {

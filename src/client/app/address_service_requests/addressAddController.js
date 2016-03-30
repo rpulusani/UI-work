@@ -44,6 +44,11 @@ angular.module('mps.serviceRequestAddresses')
         $scope.setTransactionAccount('AddressAdd', ServiceRequest);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
 
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
         function configureReviewTemplate(){
             $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT';
             $scope.configure.actions.submit = function(){
@@ -85,6 +90,8 @@ angular.module('mps.serviceRequestAddresses')
         }
 
         function configureReceiptTemplate() {
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -197,24 +204,7 @@ angular.module('mps.serviceRequestAddresses')
                     translate: {
                         replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
                     }
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
         }
 
@@ -246,6 +236,7 @@ angular.module('mps.serviceRequestAddresses')
                             }else{
                                 $scope.canReview = true;
                                 $scope.checkedAddress = 1;
+                                $scope.address.addressCleansedFlag = 'Y';
                                 $scope.goToReview();
                             }
                         }else{
@@ -269,6 +260,7 @@ angular.module('mps.serviceRequestAddresses')
                     $scope.address.city = $scope.comparisonAddress.city;
                     $scope.address.state = $scope.comparisonAddress.state;
                     $scope.address.postalCode = $scope.comparisonAddress.postalCode;
+                    $scope.address.addressCleansedFlag = 'Y';
                 } else {
                     $scope.address.country = $scope.enteredAddress.country;
                     $scope.address.addressLine1 = $scope.enteredAddress.addressLine1;
@@ -276,6 +268,7 @@ angular.module('mps.serviceRequestAddresses')
                     $scope.address.city = $scope.enteredAddress.city;
                     $scope.address.state = $scope.enteredAddress.state;
                     $scope.address.postalCode = $scope.enteredAddress.postalCode;
+                    $scope.address.addressCleansedFlag = 'N';
                 }
                 $scope.canReview = true;
             };
@@ -289,6 +282,7 @@ angular.module('mps.serviceRequestAddresses')
                     $scope.address.city = $scope.comparisonAddress.city;
                     $scope.address.state = $scope.comparisonAddress.state;
                     $scope.address.postalCode = $scope.comparisonAddress.postalCode;
+                    $scope.address.addressCleansedFlag = 'Y';
                 }
                 $scope.canReview = true;
             };
@@ -371,6 +365,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.checkedAddress = 0;
                 $scope.needToVerify = false;
                 $scope.canReview = false;
+                $scope.address.addressCleansedFlag = 'N';
                 if ($rootScope.newAddress || $rootScope.newSr) {
                     if ($rootScope.newAddress) {
                         $scope.address = $rootScope.newAddress;
@@ -388,6 +383,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
+
             var updateSRObjectForSubmit = function() {
                 var sourceAddress = {
                     name: $scope.address.name,
@@ -397,7 +393,8 @@ angular.module('mps.serviceRequestAddresses')
                     addressLine2: $scope.address.addressLine2,
                     city: $scope.address.city,
                     state: $scope.address.state,
-                    postalCode: $scope.address.postalCode
+                    postalCode: $scope.address.postalCode,
+                    addressCleansedFlag: $scope.address.addressCleansedFlag
                 };
 
                 ServiceRequest.addField('sourceAddress', sourceAddress);

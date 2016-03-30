@@ -68,7 +68,7 @@ angular.module('mps.serviceRequestDevices', []).config(['$routeProvider',
             controller: 'DeviceUpdateController',
             activeItem: '/device_management'
         })
-        .when('/service_requests/devices/update/:id/receipt/:queued', {
+        .when('/service_requests/devices/updates/:id/receipt/:queued', {
             templateUrl: '/app/service_requests/templates/receipt.html',
             controller: 'DeviceUpdateController',
             activeItem: '/device_management'

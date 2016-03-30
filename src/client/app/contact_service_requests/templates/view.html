@@ -13,7 +13,7 @@
         <a href="/service_requests/learn_more" translate="CONTACT_MAN.MANAGE_CONTACTS.LNK_LEARN_MORE"></a>
         <div class="l-pad-top">
             <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
-            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_ADD_NEW_CONTACT"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_ADD_NEW_CONTACT" ng-if="contactAccess"></button>
         </div>
         <div queue-alert></div>
     </div>
@@ -43,9 +43,11 @@
 
     <div class="col-lg-2-3 col-md-1-1">
         <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
-            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_UPDATE_CONTACT" ng-disabled="!isSingleSelected()"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_UPDATE_CONTACT" ng-disabled="!isSingleSelected()" ng-if="contactAccess">
+        </button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
-            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_REMOVE_CONTACT" ng-disabled="!isSingleSelected()"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_REMOVE_CONTACT" ng-disabled="!isSingleSelected()" ng-if="contactAccess">
+        </button>
     </div>
 
     <div class="col-1">
@@ -64,8 +66,8 @@
         </div>
 
         <div ng-if="gridLoading === false && gridDataCnt > 0">
-            <div ui-grid="gridOptions" class="table" ui-grid-exporter 
-                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+                ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
             </div>
 
             <div pagination grid="{{gridOptions}}"></div>

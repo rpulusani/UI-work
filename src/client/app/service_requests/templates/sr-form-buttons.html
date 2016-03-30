@@ -5,7 +5,7 @@
         data-target="#cancel"
         translate="{{configure.actions.translate.abandonRequest}}"
     ></button>
-    <button type="submit" class="Button Button--default btn btn--primary" ng-disabled="configure.actions.disabled"
+    <button type="submit" class="Button Button--default btn btn--primary" ng-disabled="srForm && !srForm.$valid"
             v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
             ng-click="formSubmit(configure.actions.submit)"><span translate="{{configure.actions.translate.submit}}"></span></button>
 

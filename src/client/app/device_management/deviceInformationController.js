@@ -18,8 +18,9 @@ angular.module('mps.deviceManagement')
     'FilterSearchService',
     'lbsURL',
     '$window',
-        'uiGridExporterConstants',
-        '$translate',
+    'uiGridExporterConstants',
+    '$translate',
+    '$filter',
     function(
         $rootScope,
         $scope,
@@ -39,11 +40,13 @@ angular.module('mps.deviceManagement')
         lbsURL,
             $window,
             uiGridExporterConstants,
-            $translate
+            $translate,
+            $filter
         ) {
         ServiceRequest.setParamsToNull();
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
+        $scope.ipLink = '';
         var redirect_to_list = function() {
            $location.path(Devices.route + '/');
         };
@@ -51,6 +54,10 @@ angular.module('mps.deviceManagement')
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         $scope.gotToLBS = function(){
              $window.open(lbsURL + "?sno=" + $scope.device.serialNumber);
+        };
+
+        $scope.goToIpControl = function(){
+             $window.open($scope.ipLink);
         };
 
         $scope.configure = {
@@ -82,7 +89,7 @@ angular.module('mps.deviceManagement')
             });
 
         };
-
+        
         $scope.getMeterReadPriorDate = function(item){
             if(item.updateDate){
                 return FormatterService.formatDate(item.updateDate);
@@ -163,13 +170,20 @@ angular.module('mps.deviceManagement')
             redirect_to_list();
         } else {
             $scope.device = Devices.item;
+            if (!BlankCheck.isNull($scope.device.hostName)) {
+                $scope.ipLink = 'http://' + $scope.device.hostName;
+            } else if (!BlankCheck.isNull($scope.device.ipAddress)) {
+                $scope.ipLink = 'http://' + $scope.device.ipAddress;
+            }
             Devices.getAdditional(Devices.item, MeterReads, false, true).then(function(){
                 var tempData = [],
-                    reorderedData = [];
+                    reorderedData = [],
+                    meterDate,
+                    tempLastUpdate;
 
                 $scope.meterReads = MeterReads.data;
                 $scope.showAllMeterReads = false;
-
+                $scope.lastUpdated=null;
                     for (var i=0 ; i<= $scope.meterReads.length; i++) {
                     if($scope.meterReads[i] && $scope.meterReads[i].type){
                         switch($scope.meterReads[i].type){
@@ -187,6 +201,18 @@ angular.module('mps.deviceManagement')
                             break;
                         }
                     }
+                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].updateDate)){
+                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].updateDate);
+                           if ($scope.lastUpdated === null){
+                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                           } else if (meterDate.getTime() > tempLastUpdate.getTime()){
+                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                           }
+                        tempLastUpdate = FormatterService.getDateFromString($scope.lastUpdated);
+                    }
+                }
+                if ($scope.lastUpdated !== null){
+                    $scope.lastUpdated = FormatterService.formatDate($scope.lastUpdated);
                 }
 
                 if($scope.mono){
@@ -254,21 +280,8 @@ angular.module('mps.deviceManagement')
         };
 
             $scope.exportDevice = function (filename, rows) {
-                var filename = $scope.device.productModel,
-                rows = [
-                    $scope.device.productModel,
-                    $scope.device.serialNumber,
-                    $scope.device.assetTag,
-                    $scope.device.ipAddress,
-                    $scope.device.hostname,
-                    $scope.device.costCenter,
-                    $scope.device.installDate,
-                    $scope.device.contact.item.formattedName,
-                    $scope.device.contact.item.email,
-                    $scope.device.contact.item.workPhone,
-                    $scope.device.contact.item.formattedName,
-                    $scope.device.contact.item.address.addressLine1
-                ],
+                var filename = $scope.device.productModel + '.csv',
+                rows = [],
                 csvFile = '',
                 blob,
                 url,
@@ -291,8 +304,57 @@ angular.module('mps.deviceManagement')
                     $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
                     $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
                     $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
-                    $translate.instant('DEVICE_MGT.LAST_UPDATED'),
+                    $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
                 ];
+
+                if ($scope.device.productModel) {
+                    rows.push($scope.device.productMode);
+                }
+               
+                if ($scope.device.serialNumber) {
+                    rows.push($scope.device.serialNumber);
+                }
+
+                if ($scope.device.assetTag) {
+                    rows.push($scope.device.assetTag);
+                }
+
+                if ($scope.device.ipAddress) {
+                    rows.push($scope.device.ipAddress);
+                }
+
+                if ($scope.device.hostname) {
+                    rows.push($scope.device.hostname);
+                }
+
+                if ($scope.device.costCenter) {
+                    rows.push($scope.device.costCenter);
+                }
+
+                if ($scope.device.installDate) {
+                    rows.push($scope.device.installDate);
+                }
+
+                if ($scope.device.contact.item.formattedName) {
+                    rows.push($scope.device.contact.item.formattedName);
+                }
+
+                if ($scope.device.contact.item.email) {
+                    rows.push($scope.device.contact.item.email);
+                }
+
+                if ($scope.device.contact.item.workPhone) {
+                    rows.push($scope.device.contact.item.workPhone);
+                }
+
+                if ($scope.device.contact.item.formattedName) {
+                    rows.push($scope.device.contact.item.formattedName);
+                }
+                  
+                if ($scope.device.contact.item.address 
+                    && $scope.device.contact.item.address.addressLine1) {
+                    rows.push($scope.device.contact.item.address.addressLine1);
+                }
                 
                 csvFile = headers.toString();
                 csvFile += '\r\n';

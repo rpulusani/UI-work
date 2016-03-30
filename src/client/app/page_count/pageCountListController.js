@@ -60,38 +60,13 @@ angular.module('mps.pageCount')
         };
 
 
-        
-        $scope.errorMessage='';
-        $scope.save = function(devicePageCount) {
-                $scope.errorMessage='';
-                var pageCountParams={
-                    newLTPC: BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)==true?devicePageCount.newLtpcCount:'',
-                    oldLTPC: devicePageCount.ltpcValue,
-                    newColor:BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)==true?devicePageCount.newColorCount:'',
-                    oldColor:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorValue)==true?devicePageCount.colorValue:'',
-                    isColorCapable:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId)==true?true:false
-                };
-               
-                var result=validatePageCount(pageCountParams);
-                var isValid=true;
-                
-                if (!result.ltpc.status){
-                    $scope.errorMessage+=result.ltpc.msg;                    
-                    isValid=false;
-                }
-
-                if (pageCountParams.isColorCapable && !result.color.status){
-                    $scope.errorMessage+=result.color.msg;                    
-                    isValid=false;
-                }
-                
-                if (!isValid){
-                    $window.scrollTo(0, 0);
-                    return;
-                }
-            
-             var color,
-            ltpc;
+        $scope.ignoreAndSave=function(){
+            $scope.doSave();
+        };
+        $scope.doSave=function(){
+            var color,
+            ltpc,
+            devicePageCount=$scope.currentPageCountEdit;
 
             if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)) {
                 MeterReads.newMessage();
@@ -144,7 +119,49 @@ angular.module('mps.pageCount')
                         }, 3000);
                 });
             }
-           
+            
+              
+        };
+        $scope.errorMessage='';
+        $scope.popupMsg='';
+        $scope.currentPageCountEdit;
+        $scope.save = function(devicePageCount) {
+                $scope.errorMessage='',
+                $scope.popupMsg='';
+                $scope.currentPageCountEdit=devicePageCount;
+                    var pageCountParams={
+                        newLTPC: BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)==true?devicePageCount.newLtpcCount:'',
+                        oldLTPC: devicePageCount.ltpcValue,
+                        newColor:BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)==true?devicePageCount.newColorCount:'',
+                        oldColor:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorValue)==true?devicePageCount.colorValue:'',
+                        isColorCapable:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId)==true?true:false
+                    };
+               
+                    var result=validatePageCount(pageCountParams);
+                    
+                    
+                    if (result.ltpc.status==='REJECTED'){
+                        $scope.errorMessage+=result.ltpc.msg;
+                        $scope.errorMessage+=result.ltpc.msgNotUpdate;
+                        return;
+                    }else if (pageCountParams.isColorCapable && result.color.status==='REJECTED'){
+                        $scope.errorMessage+=result.color.msg;
+                        $scope.errorMessage+=result.color.msgNotUpdate;  
+                        return;
+                    }else if (result.ltpc.status==='DEFERRED'){
+                        $scope.popupMsg+=result.ltpc.msg;
+                        $scope.popupMsg+=result.ltpc.msgNotUpdate;
+                        createModal();
+                        return;
+                    }else if ( pageCountParams.isColorCapable && result.color.status==='DEFERRED'){
+                        $scope.popupMsg+=result.color.msg;
+                        $scope.popupMsg+=result.color.msgNotUpdate;
+                        createModal();
+                        return;
+                    }else {
+                        $scope.doSave();
+                    }
+                    
         function checkForColorCountDifference(pageCountParams){
             var diff=(pageCountParams.newColor - pageCountParams.oldColor),
             daysDiff=30,
@@ -213,47 +230,40 @@ angular.module('mps.pageCount')
 
         function validatePageCount(params){
             var result={
-                ltpc:{
-                    status:true
-                },
-                color:{
-                    status:true
-                }
+                ltpc:{},
+                color:{}
             };
 
             if (!isDigit(params.newLTPC) || (params.isColorCapable && !isDigit(params.newColor))){
                     
                 result.ltpc.msg=$translate.instant('PAGE_COUNTS.ERROR.VALID_PAGECOUNT');
-                result.ltpc.status=false;
+                result.ltpc.msgNotUpdate='';
+                result.ltpc.status='REJECTED';
                 result.color.msg='';
-                result.color.status=false;
+                result.color.status='REJECTED';
                 return result;
             }
             var resultLTPC,
             resultColor;
-            resultLTPC=checkForLTPCCountDifference(params);
+            result.ltpc=checkForLTPCCountDifference(params);
             if (params.isColorCapable){
-                resultColor=checkForColorCountDifference(params);
+                result.color=checkForColorCountDifference(params);                
             }
-                
-            if (resultLTPC.status!=='ACCEPTED'){
-                result.ltpc.msg=resultLTPC.msg + resultLTPC.msgNotUpdate;
-                result.ltpc.status=false;
-                   
-            }
-            if (resultLTPC.status==='ACCEPTED' && params.isColorCapable && resultColor.status !=='ACCEPTED'){
-                result.color.msg=resultColor.msg + resultColor.msgNotUpdate;
-                result.color.status=false;
-            }
-            return result; 
-                
+            return result;
         }
         function isDigit(s){ 
             var patrn=/^[0-9]{1,20}$/; 
             if (!patrn.exec(s)) 
                 return false; 
             return true; 
-        } 
+        }
+        function createModal(){
+            var $ = require('jquery');
+            $('#pageCounts-error-popup').modal({
+                show: true,
+                static: true
+            });
+        }
     };
 
 

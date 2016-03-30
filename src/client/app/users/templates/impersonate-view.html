@@ -18,6 +18,8 @@
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('impersonate')"
             translate="USER_MAN.IMPERSONATE.BTN_IMPERSONATE_USER" ng-disabled="!isSingleSelected()"></button>
     </div>
-    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+    <div ui-grid="gridOptions" class="table"
+        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+        ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
     <div pagination grid="{{gridOptions}}"></div>
 </div>

@@ -3,6 +3,7 @@ angular.module('mps.serviceRequestContacts')
 .controller('ContactDeleteController', [
     '$scope',
     '$rootScope',
+    '$filter',
     '$routeParams',
     '$location',
     '$timeout',
@@ -18,6 +19,7 @@ angular.module('mps.serviceRequestContacts')
     'SecurityHelper',
     function($scope,
         $rootScope,
+        $filter,
         $routeParams,
         $location,
         $timeout,
@@ -37,6 +39,11 @@ angular.module('mps.serviceRequestContacts')
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactDelete', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('account', Contacts.item);
@@ -147,6 +154,8 @@ angular.module('mps.serviceRequestContacts')
             };
         }
         function configureReceiptTemplate(){
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -261,24 +270,7 @@ angular.module('mps.serviceRequestContacts')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: Contacts.route + '/delete/' + $scope.contact.id + '/review'
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
         }
 

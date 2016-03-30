@@ -190,11 +190,11 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
                 $scope.configure.header.translate.actionValues = {
                     actionLink: ServiceRequest.route,
-                    actionName: 'Manage Service Requests'
+                    actionName: 'REQUEST_MAN.COMMON.TXT_MANAGE_SERVICE_REQUESTS'
                 };
                 $scope.configure.receipt = {
                     translate:{
-                        title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
+                        title:"REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_DETAILS",
                         titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
                     },
                     descriptionDetail: {
@@ -211,11 +211,11 @@ angular.module('mps.serviceRequests')
                 };
                 $scope.configure.queued = true;
           } else {
-            $scope.configure.header.translate.h1 = "SERVICE_REQUEST.CANCEL_REQUEST_SUBMITTED";
+            $scope.configure.header.translate.h1 = "REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_SUBMITTED";
             $scope.configure.header.translate.h1Values = {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
             };
-            $scope.configure.header.translate.body = "SERVICE_REQUEST.CANCEL_REQUEST_SUBMIT_HEADER_BODY";
+            $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
             $scope.configure.header.translate.bodyValues= {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                 'srHours': 24,
@@ -223,14 +223,14 @@ angular.module('mps.serviceRequests')
             };
             $scope.configure.receipt = {
                 translate: {
-                    title:"SERVICE_REQUEST.DETAILS_CANCEL_REQUEST_FOR_SUBMITTED",
+                    title:"REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_REQUEST_DETAILS",
                     titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                 },
                 descriptionDetail: {
                     information:{
                         translate: {
-                            title: 'SERVICE_REQUEST.CANCELLATION_DETAILS',
-                            label: 'SERVICE_REQUEST.CANCELLATION_DESCRIPTION'
+                            title: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCELLATION_DETAILS',
+                            label: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCEL_DESCRIPTION'
                         }
                     },
                     show: {
@@ -290,9 +290,9 @@ angular.module('mps.serviceRequests')
                 },
                 contact:{
                     translate: {
-                        title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                        requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                        primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                        title: 'CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION',
+                        requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                        primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
                         changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
                     },
                     show:{

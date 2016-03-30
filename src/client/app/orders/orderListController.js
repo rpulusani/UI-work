@@ -40,12 +40,22 @@ angular.module('mps.orders')
         };
 
         var removeParamsList = ['from', 'to', 'status', 'requesterFilter'],
-            myRequestRemoveParamList = ['from', 'to', 'status'];
-        filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ALL_ORDERS', {embed: 'primaryContact,requester'}, removeParamsList,
+            myRequestRemoveParamList = ['from', 'to', 'status'],
+            allOrdersOptions = {
+                embed: 'primaryContact,requester',
+                type: 'ORDERS_ALL'
+            },
+            myOrdersOptions = {
+                embed: 'primaryContact,requester',
+                type: 'ORDERS_ALL',
+                requesterFilter: $rootScope.currentUser.contactId
+            };
+
+        filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ALL_ORDERS', allOrdersOptions, removeParamsList,
             function(Grid) {
                 setTimeout(function() {
-                    $scope.$broadcast('setupPrintAndExport', $scope);
                     $scope.$broadcast('setupColumnPicker', Grid);
+                    $scope.$broadcast('setupPrintAndExport', $scope);
                 }, 0);
             }
         );
@@ -61,7 +71,8 @@ angular.module('mps.orders')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_MY_ORDERS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
+
+        filterSearchService.addBasicFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_MY_ORDERS', myOrdersOptions, myRequestRemoveParamList,
             function(Grid) {
                 $scope.$broadcast('setupColumnPicker', Grid);
                 $scope.$broadcast('setupPrintAndExport', $scope);

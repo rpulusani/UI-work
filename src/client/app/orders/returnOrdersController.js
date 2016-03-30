@@ -5,6 +5,7 @@ angular.module('mps.orders')
     'SRControllerHelperService',
     '$scope',
     '$rootScope',
+    '$filter',
     'OrderRequest',
     'Contacts',
     'UserService',
@@ -22,6 +23,7 @@ angular.module('mps.orders')
         SRHelper,
         $scope,
         $rootScope,
+        $filter,
         Orders,
         Contacts,
         Users,
@@ -39,6 +41,13 @@ angular.module('mps.orders')
     SRHelper.addMethods(Orders, $scope, $rootScope);
     $scope.setTransactionAccount('ReturnOrders', Orders);
     new SecurityHelper($rootScope).redirectCheck($rootScope.createSuppliesReturn);
+
+    var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
     function configureReviewTemplate(){
                 configureTemplates();
@@ -83,6 +92,8 @@ angular.module('mps.orders')
                 };
             }
             function configureReceiptTemplate(){
+                var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+                $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
                 if($routeParams.queued ==='queued'){
                     $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                         $scope.configure.header.translate.h1Values = {
@@ -235,24 +246,7 @@ angular.module('mps.orders')
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: Orders.route + '/' +  '/review'
-                    },
-                    statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                    }
                 };
             }
 

@@ -24,6 +24,7 @@ angular.module('mps.orders')
     'PersonalizationServiceFactory',
     '$q',
     'SuppliesCatalogFactory',
+    'OrderControllerHelperService',
     function(
         $scope,
         $location,
@@ -46,8 +47,10 @@ angular.module('mps.orders')
         HardwareCatalog,
         Personalize,
         $q,
-        SuppliesCatalog) {
+        SuppliesCatalog,
+        OrderControllerHelper) {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+            OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
             $scope.type = $routeParams.type.toUpperCase();
             //multi, none, single
             $scope.print = false;
@@ -99,6 +102,9 @@ angular.module('mps.orders')
                             submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                 };
             }
+
+
+
             function getParts(){
                 var filterSearchService,
                     beforeDisplay;
@@ -118,6 +124,7 @@ angular.module('mps.orders')
                              });
                             return deferred.promise;
                         };
+                       $scope.hideShowPriceColumn(SuppliesCatalog);
                        filterSearchService = new FilterSearchService(SuppliesCatalog, $scope, $rootScope, personal,
                             'defaultSet', 92, 'catalogOptions', beforeDisplay);
                         $scope.catalogOptions.showBookmarkColumn = false;
@@ -134,6 +141,7 @@ angular.module('mps.orders')
                              });
                             return deferred.promise;
                         };
+                        $scope.hideShowPriceColumn(HardwareCatalog);
                         filterSearchService = new FilterSearchService(HardwareCatalog, $scope, $rootScope, personal,
                                 'defaultSet', 120, 'catalogOptions', beforeDisplay);
                         $scope.catalogOptions.showBookmarkColumn = false;

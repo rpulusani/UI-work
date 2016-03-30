@@ -16,7 +16,7 @@
 </div>
 <div class="col-md-1-1 btns">
     <button type="button" class="btn btn--default" href="" ng-click="contacts.goToCreate()"
-            translate="REQUEST_MAN.MANAGE_REQUESTS.BTN_ADD_CONTACT"></button>
+            translate="REQUEST_MAN.MANAGE_REQUESTS.BTN_ADD_CONTACT" ng-if="contactAccess"></button>
 </div>
 <div class="alert alert--info" ng-if="gridLoading === true">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
@@ -33,7 +33,8 @@
 </div>
 
 <div ng-if="gridLoading === false && gridDataCnt > 0">
-    <div ui-grid="gridOptions" class="table" ui-grid-exporter 
+    <div ui-grid="gridOptions" class="table" ui-grid-exporter
+        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
         ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
     </div>
 

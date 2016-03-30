@@ -1,5 +1,5 @@
 <div class="col-1">
-    <div print-export-title titlestring="REQUEST_MGMT.ADRESS_W_TOTALS"></div>
+    <div print-export-title titlestring="REQUEST_MAN.MANAGE_REQUESTS.TXT_ADDRESS_REQUESTS"></div>
     <hr/>
 </div>
 
@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="col-md-1-1 btns">
-    <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_MAN.MANAGE_ADDRESS.BTN_ADD_NEW_ADDRESS" 
+    <button type="button" class="btn btn--default" href="" ng-click="goToCreate()" translate="ADDRESS_MAN.MANAGE_ADDRESS.BTN_ADD_NEW_ADDRESS"
             ng-if="addressAccess">
     </button>
 </div>
@@ -34,7 +34,8 @@
 </div>
 
 <div ng-if="gridLoading === false && gridDataCnt > 0">
-    <div ui-grid="gridOptions" class="table" ui-grid-exporter 
+    <div ui-grid="gridOptions" class="table" ui-grid-exporter
+        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
         ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
     </div>
 

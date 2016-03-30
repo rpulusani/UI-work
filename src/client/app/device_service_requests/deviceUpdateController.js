@@ -2,6 +2,7 @@
 angular.module('mps.serviceRequestDevices')
 .controller('DeviceUpdateController', ['$scope',
     '$location',
+    '$filter',
     '$routeParams',
     '$rootScope',
     'ServiceRequestService',
@@ -20,6 +21,7 @@ angular.module('mps.serviceRequestDevices')
     'tombstoneWaitTimeout',
     function($scope,
         $location,
+        $filter,
         $routeParams,
         $rootScope,
         ServiceRequest,
@@ -46,6 +48,12 @@ angular.module('mps.serviceRequestDevices')
                 permission: permissionSet.serviceRequestManagement.moveMADC
             }
         ],
+        statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
+        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
         SecureHelper = new SecurityHelper($scope);
         SRHelper.addMethods(Devices, $scope, $rootScope);
         SecureHelper.setupPermissionList(configurePermissions);
@@ -61,6 +69,7 @@ angular.module('mps.serviceRequestDevices')
         $scope.revertAddress = function() {
             $scope.device.addressSelected = false;
             $scope.device.updatedInstallAddress = $scope.device.currentInstalledAddress;
+
             $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
             ServiceRequest.addRelationship('destinationAddress', $scope.device, 'address');
         };
@@ -68,6 +77,7 @@ angular.module('mps.serviceRequestDevices')
         var configureSR = function(ServiceRequest){
             ServiceRequest.addRelationship('account', $scope.device);
             ServiceRequest.addRelationship('asset', $scope.device, 'self');
+
             ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
         };
 
@@ -184,10 +194,10 @@ angular.module('mps.serviceRequestDevices')
                       DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
                         if(Tombstone.item && Tombstone.item.siebelId) {
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt/notqueued');
+                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
                         } else {
                           ServiceRequest.item = DeviceServiceRequest.item;
-                          $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/receipt/queued');
+                          $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/queued');
                         }
                       });
                     }, tombstoneWaitTimeout);
@@ -200,6 +210,8 @@ angular.module('mps.serviceRequestDevices')
             };
         }
         function configureReceiptTemplate() {
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -226,7 +238,7 @@ angular.module('mps.serviceRequestDevices')
                 $scope.configure.header.translate.h1 = "REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_UPDATE_DEVICE_SUBMITTED";
                 $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
             $scope.configure.header.translate.bodyValues= {
-                    'refId': FormatterService.getFormattedSRNumber($scope.sr),
+                'refId': FormatterService.getFormattedSRNumber($scope.sr),
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
                 'srHours': 24,
                 'deviceManagementUrl': 'device_management/',
@@ -327,31 +339,8 @@ angular.module('mps.serviceRequestDevices')
                             currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
-                    sourceAddress: function(){
-                        if(updatedInstallAddress){
-                            return $scope.device.updatedInstallAddress;
-                        }else{
-                            return {};
-                        }
-                    }
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                    sourceAddress: $scope.device.currentInstalledAddress
+                }
             };
 
         }

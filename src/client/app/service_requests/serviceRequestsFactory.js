@@ -148,7 +148,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: true},
-                        {'name': $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_ADDRESS_1'), 'field':'_embedded.primaryContact.address', visible: true},
+                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field':'_embedded.sourceAddress.addressLine1', visible: true},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}

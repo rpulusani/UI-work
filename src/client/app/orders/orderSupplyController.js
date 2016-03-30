@@ -14,6 +14,8 @@ angular.module('mps.orders')
     '$q',
     'uiGridConstants',
     'OrderRequest',
+    'AgreementFactory',
+    'OrderControllerHelperService',
     function(
         GridService,
         $scope,
@@ -26,27 +28,38 @@ angular.module('mps.orders')
         AssetParts,
         $q,
         uiGridConstants,
-        Orders
+        Orders,
+        Agreement,
+        OrderControllerHelper
     ){
 
     var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+    OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
     OrderItems.data = [];
+    Orders.tempSpace = {
+        'catalogCart': {}
+    };
     if(Devices.item){
-        Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
-            var Grid = new GridService();
-            $scope.assetParts = AssetParts.data;
-            $scope.catalogOptions = {};
-            $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
-                            AssetParts, personal,'catalogAPI');
-            Grid.setGridOptionsName('catalogOptions');
-            $scope.catalogOptions.showBookmarkColumn = false;
-            $scope.catalogOptions.enableRowHeaderSelection = false;
-            $scope.catalogOptions.enableFullRowSelection = false;
-
-            AssetParts.getThumbnails();
-            $q.all(AssetParts.thumbnails).then(function(){
-                Grid.display(AssetParts,$scope,personal, 92);
+        Agreement.params.type = 'SUPPLIES';
+        Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
+            Orders.tempSpace.catalogCart.agreement = Agreement.item;
+            Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
+                var Grid = new GridService();
+                $scope.assetParts = AssetParts.data;
+                $scope.catalogOptions = {};
+                $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
+                                AssetParts, personal,'catalogAPI');
+                Grid.setGridOptionsName('catalogOptions');
+                $scope.catalogOptions.showBookmarkColumn = false;
+                $scope.catalogOptions.enableRowHeaderSelection = false;
+                $scope.catalogOptions.enableFullRowSelection = false;
+                $scope.hideShowPriceColumn(AssetParts);
+                AssetParts.getThumbnails();
+                $q.all(AssetParts.thumbnails).then(function(){
+                    Grid.display(AssetParts,$scope,personal, 92);
+                });
             });
+
         });
     }
 
@@ -124,18 +137,11 @@ angular.module('mps.orders')
 
     $scope.submit = function(){
         Orders.newMessage();
-        Orders.tempSpace = {
-                        'catalogCart': {
-                            'billingModels': getBillingModels(),
-                            'catalog': 'supplies',
-                            'contract': {
-                                'id': Devices.item.contractNumber
-                            },
-                            'agreement': {
-                                'id': Devices.item.agreementId
-                            }
-                        }
-                    };
+        Orders.tempSpace.catalogCart.billingModels = getBillingModels();
+        Orders.tempSpace.catalogCart.catalog ='supplies';
+        Orders.tempSpace.catalogCart.contract = {
+            'id': Devices.item.contractNumber
+        };
         console.log(Orders.tempSpace);
         $location.path(OrderItems.route + '/purchase/review');
     };
