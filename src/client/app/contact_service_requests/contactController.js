@@ -121,20 +121,27 @@ angular.module('mps.serviceRequestContacts')
             };
         }
         function configureReceiptTemplate(){
+            var srMsg = FormatterService.getFormattedSRNumber($scope.sr);
+
+            if (!srMsg) {
+                    srMsg = $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST');
+            }
+
             $scope.configure.header.translate.h1 = "CONTACT_SERVICE_REQUEST.SR_UPDATE_TITLE";
             $scope.configure.header.translate.body = "CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT_PAR";
             $scope.configure.header.translate.bodyValues= {
-                'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                'srNumber': srMsg,
                 'srHours': 24,
                 'contactManagementUrl': 'service_requests/contacts',
             };
             $scope.configure.receipt = {
                 translate:{
                     title:"CONTACT_SERVICE_REQUEST.UPDATE_CONTACT_DETAIL",
-                    titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    titleValues: {'srNumber':  srMsg}
                 },
                 print: true
             };
+
             $scope.configure.contactsr.translate.title = 'CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE';
             $scope.configure.contact.show.primaryAction = false;
         }
