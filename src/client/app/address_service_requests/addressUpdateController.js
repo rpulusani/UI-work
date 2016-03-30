@@ -73,6 +73,7 @@ angular.module('mps.serviceRequestAddresses')
                         }else{
                             $scope.canReview = true;
                             $scope.checkedAddress = 1;
+                            $scope.address.addressCleansedFlag = 'Y';
                             $scope.goToReview();
                         }
                     }else{
@@ -96,6 +97,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.city = $scope.comparisonAddress.city;
                 $scope.address.state = $scope.comparisonAddress.state;
                 $scope.address.postalCode = $scope.comparisonAddress.postalCode;
+                $scope.address.addressCleansedFlag = 'Y';
             } else {
                 $scope.address.country = $scope.enteredAddress.country;
                 $scope.address.addressLine1 = $scope.enteredAddress.addressLine1;
@@ -103,6 +105,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.city = $scope.enteredAddress.city;
                 $scope.address.state = $scope.enteredAddress.state;
                 $scope.address.postalCode = $scope.enteredAddress.postalCode;
+                $scope.address.addressCleansedFlag = 'N';
             }
             $scope.canReview = true;
         };
@@ -116,6 +119,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.city = $scope.comparisonAddress.city;
                 $scope.address.state = $scope.comparisonAddress.state;
                 $scope.address.postalCode = $scope.comparisonAddress.postalCode;
+                $scope.address.addressCleansedFlag = 'Y';
             }
             $scope.canReview = true;
         };
@@ -191,6 +195,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.checkedAddress = 0;
             $scope.needToVerify = false;
             $scope.canReview = false;
+            $scope.address.addressCleansedFlag = 'N';
         }
 
         $scope.setupSR(ServiceRequest, configureSR);
@@ -208,7 +213,7 @@ angular.module('mps.serviceRequestAddresses')
                 state: $scope.address.state,
                 postalCode: $scope.address.postalCode
             };
-
+            ServiceRequest.addField('addressCleansedFlag', $scope.address.addressCleansedFlag);
             ServiceRequest.addField('destinationAddress', destinationAddress);
             ServiceRequest.addField('attachments', $scope.files_complete);
         };
