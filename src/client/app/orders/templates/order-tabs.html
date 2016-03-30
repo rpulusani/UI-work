@@ -1,20 +1,33 @@
 <div class="set" data-js="set">
-    <div class="set__trigger" data-toggle="orderAllTab" ng-click="active('orderAllTab')">
+    <div class="set__trigger" data-toggle="orderAllTab" 
+        ng-class="{'set--is-active':isActive('orderAllTab')}" 
+        ng-click="active('orderAllTab')" 
+        ng-show="viewHardwareOrderAccess && viewSupplyOrderAccess">
         <a href="#orderAllTab" translate="ORDER_MAN.MANAGE_ORDERS.TAB_ALL_ORDERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="orderAllTab">
-        <span all-order-tab ng-show="isActive('orderAllTab')"></span>
+    <div class="set__content" id="orderAllTab" ng-class="{'set--is-active':isActive('orderAllTab')}">
+        <span all-order-tab ng-if="isActive('orderAllTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="deviceOrderTab" ng-click="active('deviceOrderTab')" ng-show="viewHardwareOrderAccess">
+    <div class="set__trigger" data-toggle="deviceOrderTab" 
+        ng-class="{'set--is-active':isActive('deviceOrderTab')}" 
+        ng-click="active('deviceOrderTab')" 
+        ng-show="viewHardwareOrderAccess">
         <a href="#deviceOrderTab" translate="ORDER_MAN.MANAGE_ORDERS.TAB_HARDWARE_ORDERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="deviceOrderTab" ng-show="viewHardwareOrderAccess">
-        <span device-order-tab ng-show="isActive('deviceOrderTab')"></span>
+    <div class="set__content" id="deviceOrderTab" 
+        ng-class="{'set--is-active':isActive('deviceOrderTab')}" 
+        ng-show="viewHardwareOrderAccess">
+        <span device-order-tab ng-if="isActive('deviceOrderTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="supplyOrderTab" ng-click="active('supplyOrderTab')" ng-show="viewSupplyOrderAccess">
+    <div class="set__trigger" data-toggle="supplyOrderTab" 
+        ng-class="{'set--is-active':isActive('supplyOrderTab')}" 
+        ng-click="active('supplyOrderTab')" 
+        ng-show="viewSupplyOrderAccess">
         <a href="#supplyOrderTab" translate="ORDER_MAN.MANAGE_ORDERS.TAB_SUPPLIES_ORDERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="supplyOrderTab" ng-show="viewSupplyOrderAccess">
-        <span  supply-order-tab ng-show="isActive('supplyOrderTab')"></span>
+    <div class="set__content" id="supplyOrderTab" 
+        ng-class="{'set--is-active':isActive('supplyOrderTab')}" 
+        ng-show="viewSupplyOrderAccess">
+        <span  supply-order-tab ng-if="isActive('supplyOrderTab')"></span>
     </div>
 </div>
