@@ -6,19 +6,15 @@
         <div class="col-lg-2-3 col-md-1-1">
             <form class="form"
                 data-form=""
-                name="breakFixDevice"
-                method="post"
-                ng-submit="breakFixDevice.$valid && goToReview()"
-                enctype="multipart/form-data"
+                name="srForm"
                 novalidate>
 
                 <h2 translate="DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_DEVICE_SERVICE_HISTORY"></h2>
-                
+
                 <div class="form__field form__field--required" ng-class="validForm === false? 'form__field--has-alert' : ''">
                     <label translate="DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC"></label>
                     <textarea name="description" rows="8" cols="129" ng-model="sr.description" required></textarea>
-                    <span ng-hide="!breakFixDevice.description.$error.required" 
-                        class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
+                    <span class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                         <span translate="LABEL.ERROR_REQUIRED"></span>
                     </span>
                 </div>
