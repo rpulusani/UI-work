@@ -20,6 +20,7 @@ angular.module('mps.deviceManagement')
     '$window',
     'uiGridExporterConstants',
     '$translate',
+    '$filter',
     function(
         $rootScope,
         $scope,
@@ -39,7 +40,8 @@ angular.module('mps.deviceManagement')
         lbsURL,
             $window,
             uiGridExporterConstants,
-            $translate
+            $translate,
+            $filter
         ) {
         ServiceRequest.setParamsToNull();
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
@@ -176,11 +178,13 @@ angular.module('mps.deviceManagement')
             }
             Devices.getAdditional(Devices.item, MeterReads, false, true).then(function(){
                 var tempData = [],
-                    reorderedData = [];
+                    reorderedData = [],
+                    meterDate,
+                    tempLastUpdate;
 
                 $scope.meterReads = MeterReads.data;
                 $scope.showAllMeterReads = false;
-
+                $scope.lastUpdated=null;
                     for (var i=0 ; i<= $scope.meterReads.length; i++) {
                     if($scope.meterReads[i] && $scope.meterReads[i].type){
                         switch($scope.meterReads[i].type){
@@ -198,6 +202,18 @@ angular.module('mps.deviceManagement')
                             break;
                         }
                     }
+                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].updateDate)){
+                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].updateDate);
+                           if ($scope.lastUpdated === null){
+                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                           } else if (meterDate.getTime() > tempLastUpdate.getTime()){
+                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                           }
+                        tempLastUpdate = FormatterService.getDateFromString($scope.lastUpdated);
+                    }
+                }
+                if ($scope.lastUpdated !== null){
+                    $scope.lastUpdated = FormatterService.formatDate($scope.lastUpdated);
                 }
 
                 if($scope.mono){
