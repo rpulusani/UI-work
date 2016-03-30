@@ -10,24 +10,22 @@
 
 	<div class="set__trigger" data-toggle="orderTab" ng-click="onClickTb('orderTab')"
 		ng-class="{'set--is-active':isActive('orderTab')}"
-		ng-show="openOrderAccess">
+		ng-show="viewSupplyOrderAccess">
 		<a href="#orderTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SUPPLY_ORDERS_TAB"><i class="set__icon"></i></a>
 	</div>
-	<div class="set__content" id="orderTab" ng-class="{'set--is-active':isActive('orderTab')}"
-		ng-if="openOrderAccess">
+	<div class="set__content" id="orderTab" ng-class="{'set--is-active':isActive('orderTab')}">
 		<div ng-if="isActive('orderTab');">
 			<div order-list></div>
-
 		</div>
 	</div>
 
 	<div class="set__trigger" data-toggle="requestTab" ng-click="onClickTb('requestTab')"
 		ng-class="{'set--is-active':isActive('requestTab')}"
-	 	ng-show="serviceHistoryAccess">
+	 	ng-show="serviceRequestBreakFixAccess">
 		<a href="#requestTab" translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERVICE_HISTORY_TAB"><i class="set__icon"></i></a>
 	</div>
 	<div class="set__content" id="requestTab" ng-class="{'set--is-active':isActive('requestTab')}"
-		ng-show="serviceHistoryAccess">
+		ng-show="serviceRequestBreakFixAccess">
 		<div request-break-fix-list ng-if="isActive('requestTab');"></div>
 	</div>
 

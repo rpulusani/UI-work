@@ -404,6 +404,8 @@ angular.module('mps.deviceManagement')
             });
         }
 
-        madcGrid();
+        if ($rootScope.serviceRequestMADCAccess) {
+            madcGrid();
+        }
     }
 ]);

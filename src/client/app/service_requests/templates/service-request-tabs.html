@@ -11,7 +11,8 @@
 
     <div class="set__trigger" data-toggle="serviceRequestsDeviceTab"
         ng-class="{'set--is-active':isActive('serviceRequestsDeviceTab')}"
-        ng-click="active('serviceRequestsDeviceTab')">
+        ng-click="active('serviceRequestsDeviceTab')"
+        ng-show="serviceRequestMADCAccess">
         <a href="#serviceRequestsDeviceTab" translate="REQUEST_MAN.MANAGE_REQUESTS.TAB_DEVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsDeviceTab"
@@ -21,7 +22,8 @@
 
     <div class="set__trigger" data-toggle="serviceRequestsServiceTab"
         ng-class="{'set--is-active':isActive('serviceRequestsServiceTab')}"
-        ng-click="active('serviceRequestsServiceTab')">
+        ng-click="active('serviceRequestsServiceTab')"
+        ng-show="serviceRequestBreakFixAccess">
         <a href="#serviceRequestsServiceTab" translate="REQUEST_MAN.MANAGE_REQUESTS.TAB_SERVICE_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsServiceTab"
@@ -31,7 +33,8 @@
 
     <div class="set__trigger" data-toggle="serviceRequestsAddressTab"
         ng-class="{'set--is-active':isActive('serviceRequestsAddressTab')}"
-        ng-click="active('serviceRequestsAddressTab')">
+        ng-click="active('serviceRequestsAddressTab')"
+        ng-show="addressContactAccess">
         <a href="#serviceRequestsAddressTab" translate="REQUEST_MAN.MANAGE_REQUESTS.TAB_ADDRESS_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsAddressTab"
@@ -41,7 +44,8 @@
 
     <div class="set__trigger" data-toggle="serviceRequestsContactTab"
         ng-class="{'set--is-active':isActive('serviceRequestsContactTab')}"
-        ng-click="active('serviceRequestsContactTab')">
+        ng-click="active('serviceRequestsContactTab')"
+        ng-show="addressContactAccess">
         <a href="#serviceRequestsContactTab" translate="REQUEST_MAN.MANAGE_REQUESTS.TAB_CONTACT_REQUESTS"><i class="set__icon"></i></a>
     </div>
     <div class="set__content" id="serviceRequestsContactTab"
