@@ -1,5 +1,3 @@
-
-
 angular.module('mps.utility')
 .factory('grid', ['uiGridConstants', '$timeout', '$translate',  function(uiGridConstants, $timeout, $translate) {
     var Grid = function() {
@@ -240,11 +238,14 @@ angular.module('mps.utility')
             scope[self.optionsName].servicePage = service.page;
 
             return service.getPage(0, service.page.totalElements).then(function() {
-                scope[self.optionsName].data = service.data;
+                 $timeout(function() {
+                    scope[self.optionsName].data = service.data;
+                    $timeout(function() {
+                        service.page = scope[self.optionsName].servicePage;
+                        scope[self.optionsName].data = scope[self.optionsName].currentGridData;
 
-                setTimeout(function() {
-                    service.page = scope[self.optionsName].servicePage;
-                    scope[self.optionsName].data = scope[self.optionsName].currentGridData;
+                        self[self.optionsName] = scope[self.optionsName];
+                    }, 0);
                 }, 0);
             });
         };
