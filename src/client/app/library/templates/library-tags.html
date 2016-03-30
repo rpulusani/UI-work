@@ -24,10 +24,11 @@
     <div class="row">
         <div class="col-1">
             <h4 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_LIBRARY"></h4>
-            
+
             <hr/>
 
-            <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+            <div ui-grid="gridOptions" class="table"
+                ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-move-columns ui-grid-resize-columns></div>
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>

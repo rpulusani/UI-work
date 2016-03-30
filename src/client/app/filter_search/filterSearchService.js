@@ -45,7 +45,6 @@ angular.module('mps.filterSearch')
                         return deferred.promise;
                     };
                 }
-
                 var deferred = this.beforeFunction();
                 deferred.then(function(){
                     self.localScope.visibleColumns =  self.Grid.getVisibleColumns(self.service); //sets initial columns visibility
@@ -88,7 +87,7 @@ angular.module('mps.filterSearch')
                 self.service.getPage(0, 20, options).then(function() {
                     self.localScope.gridDataCnt = self.service.data.length;
                     self.localScope.gridLoading = false;
-                    
+
                     self.display();
                 }, self.failure);
             };
@@ -140,12 +139,12 @@ angular.module('mps.filterSearch')
                         }
                         self.clearParameters(removeParams);
                     }
-                    
+
                     if (!options.params.size) {
                         if (self.service.params.size) {
                             size = self.service.params.size;
                         }
-                        
+
                         addParams = {
                             page: 0,
                             size: size
@@ -194,7 +193,7 @@ angular.module('mps.filterSearch')
                     },
                     addParams = {};
                         self.localScope.gridLoading = true;
-                    
+
                     if(configuredParams){
                         angular.extend(options.params, configuredParams);
                     }
@@ -211,12 +210,12 @@ angular.module('mps.filterSearch')
                         if (self.service.params.size) {
                             size = self.service.params.size;
                         }
-                        
+
                         addParams = {
                             page: 0,
                             size: size
                         };
-                        
+
                         angular.extend(options.params, addParams);
                     }
 
