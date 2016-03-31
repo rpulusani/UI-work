@@ -2,18 +2,18 @@
 angular.module('mps.deviceManagement')
 .controller('DeviceNotificationController', [
     '$scope',
+    '$rootScope',
     'OrderRequest',
     'Devices',
     'ServiceRequestService',
     '$location',
-    '$rootScope',
     function(
         $scope,
+        $rootScope,
         Orders,
         Devices,
         ServiceRequest,
-        $location,
-        $rootScope
+        $location
         ) {
             $scope.show = false;
             $scope.serviceHistoryMessage = false;
@@ -32,7 +32,7 @@ angular.module('mps.deviceManagement')
                 }
             };
             Orders.getPage(0, 1, orderOptions).then(function() {
-                 if(Orders.data && Orders.data.length === 1 ){
+                 if(Orders.data && Orders.data.length === 1 && $rootScope.viewSupplyOrderAccess){
                     $scope.openOrder = angular.copy(Orders.data[0]);
                     $scope.ordersMessage = true;
                     $scope.show = true;
@@ -48,7 +48,7 @@ angular.module('mps.deviceManagement')
                 }
             };
           ServiceRequest.getPage(0, 1, srOptions).then(function() {
-              if(ServiceRequest.data && ServiceRequest.data.length === 1 ){
+              if(ServiceRequest.data && ServiceRequest.data.length === 1 && $rootScope.serviceRequestBreakFixAccess){
                 $scope.openSR = angular.copy(ServiceRequest.data[0]);
                 $scope.serviceHistoryMessage = true;
                 $scope.show = true;

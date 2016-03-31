@@ -391,9 +391,10 @@ angular.module('mps.deviceManagement')
             };
 
         function madcGrid(){
-                ServiceRequest.setParamsToNull();
-                ServiceRequest.data = [];
-                var filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'madcSet');
+                var madcServiceRequest = angular.copy(ServiceRequest);
+                madcServiceRequest.setParamsToNull();
+                madcServiceRequest.data = [];
+                var filterSearchService = new FilterSearchService(madcServiceRequest, $scope, $rootScope, personal, 'madcSet');
             var params =  {
                 type: 'MADC_ALL'
             };
@@ -403,6 +404,8 @@ angular.module('mps.deviceManagement')
             });
         }
 
-        madcGrid();
+        if ($rootScope.serviceRequestMADCAccess) {
+            madcGrid();
+        }
     }
 ]);

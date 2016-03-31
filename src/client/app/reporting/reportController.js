@@ -526,7 +526,6 @@ angular.module('mps.report')
             $scope.finder = Reports.finder;
             $scope.visualizations = [];
             $scope.reports = [];
-
             for (i = 0; i < tmp.length; i++) {
                 if (tmp[i]._links.stats !== undefined) {
                     $scope.visualizations.push(tmp[i]);
@@ -534,6 +533,13 @@ angular.module('mps.report')
 
                 if (tmp[i]._links.results !== undefined) {
                     $scope.reports.push(tmp[i]);
+                    if (tmp[i].name && tmp[i].name === 'Consumables Orders' && !$rootScope.viewSupplyOrderAccess) {
+                        $scope.reports.splice(i, 1);
+                    } else if (tmp[i].name && tmp[i].name === 'Hardware Orders' && !$rootScope.viewHardwareOrderAccess) {
+                        $scope.reports.splice(i, 1);
+                    } else if (tmp[i].name && tmp[i].name === 'MADC' && !$rootScope.serviceRequestMADCAccess) {
+                        $scope.reports.splice(i, 1);
+                    }
                 }
             }
 

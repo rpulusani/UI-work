@@ -10,6 +10,7 @@ angular.module('mps.deviceManagement')
   '$location',
   'Devices',
   'FilterSearchService',
+  'SRControllerHelperService',
   '$anchorScroll',
     function(
       $scope,
@@ -21,10 +22,18 @@ angular.module('mps.deviceManagement')
       $location,
       Devices,
       FilterSearchService,
+      SRHelper,
       $anchorScroll
       ) {
         ServiceRequest.setParamsToNull();
-        var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+        var personal = new Personalize($location.url(),$rootScope.idpUser.id),
+        statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
+        SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
+
         function setupConfiguration(){
           $scope.configure = {
             translate: {
@@ -52,23 +61,7 @@ angular.module('mps.deviceManagement')
             itemUrl: function(){
               $scope.view($scope.openSR);
             },
-            statusList:[
-                {
-                  'label':'Submitted',
-                  'date': '1/29/2016',
-                  'current': true
-                },
-                {
-                  'label':'In progress',
-                  'date': '',
-                  'current': false
-                },
-                {
-                  'label':'Completed',
-                  'date': '',
-                  'current': false
-                }
-              ]
+            statusList: $scope.setStatusBar($scope.openSR.status, $scope.openSR.statusDate, statusBarLevels)
           };
         }
 
@@ -83,6 +76,12 @@ angular.module('mps.deviceManagement')
       ServiceRequest.getPage(0, 1, options).then(function() {
           if(ServiceRequest.data && ServiceRequest.data.length === 1 ){
             $scope.openSR = angular.copy(ServiceRequest.data[0]);
+            if (!($scope.openSR && $scope.openSR.status)) {
+                $scope.openSR.status = 'SUBMITTED';
+            }
+            if (!($scope.openSR && $scope.openSR.statusDate)) {
+                $scope.openSR.statusDate = new Date().toString();
+            }
             setupConfiguration();
           }
 
