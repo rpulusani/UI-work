@@ -224,7 +224,7 @@ angular.module('mps.utility')
         scope[self.optionsName].enableMinHeightCheck = true;
         scope[self.optionsName].minRowsToShow = service.params.size;
         scope[self.optionsName].virtualizationThreshold = service.params.size;
-        scope[self.optionsName].enableHorizontalScrollbar = 0;
+        scope[self.optionsName].enableHorizontalScrollbar = 2;
         scope[self.optionsName].enableVerticalScrollbar = 0;
         //printing Options
         scope[self.optionsName].exporterPdfDefaultStyle = {fontSize: 9};
