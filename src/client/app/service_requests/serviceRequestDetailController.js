@@ -326,13 +326,16 @@ angular.module('mps.serviceRequests')
         };
     function processStandardTypes(){
         switch($scope.sr.type){
+            case 'SVC_ASSET_ORDER':
+            case 'SVC_CATALOG_ORDER':
+            case 'MIXED_PARTS_ASSET_ORDER':
+            case 'SUPPLIES_PROACTIVE_ORDER':
             case 'SUPPLIES_ASSET_ORDER':
+            case 'SUPPLIES_CATALOG_ORDER':
                 addSupplyOrderInfo();
                 $scope.configure.header.showUpdateBtn = true;
             break;
-            case 'SUPPLIES_CATALOG_ORDER':
-                //addSupplyOrderInfo();
-            break;
+            case 'UPDATE_HARDWARE_REQUEST':
             case 'HARDWARE_ORDER':
                 addDeviceOrderInfo();
             break;
