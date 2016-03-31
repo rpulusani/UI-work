@@ -552,6 +552,8 @@ angular.module('mps.report')
         $scope.gridOptions = {};
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
         $scope.gridOptions.showBookmarkColumn = false;
+        $scope.gridDataCnt = 0;
+        $scope.gridLoading = true;
 
         Documents.columns = Documents.columnDefs['otherReports'];
         Documents.get({
@@ -561,6 +563,8 @@ angular.module('mps.report')
                 tag: 'reports'
             }
             }).then(function(res) {
+                $scope.gridDataCnt = Documents.page.totalElements;
+                $scope.gridLoading = false;
                 Grid.display(Documents, $scope, personal, false, function(){
                     $scope.gridTitle = $translate.instant('REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS' + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});
                         $scope.$broadcast('setupPrintAndExport', $scope);
