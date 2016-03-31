@@ -292,7 +292,7 @@ angular.module('mps.serviceRequestDevices')
                 },
                 actions:{
                     translate: {
-                            abandonRequest:'REQUEST_MAN.COMMON.BTN_ABANDON_REGISTRATION',
+                            abandonRequest:'REQUEST_MAN.COMMON.BTN_ABANDON_SERVICE_REQUEST',
                             submit: 'REQUEST_MAN.COMMON.BTN_REVIEW_SUBMIT'
                     },
                     submit: function() {
