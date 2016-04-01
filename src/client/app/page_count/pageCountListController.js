@@ -54,6 +54,7 @@ angular.module('mps.pageCount')
             };
 
             Devices.item.get(options).then(function(){
+                Devices.item = Devices.item.item;
                 $location.search('tab', 'pageCountTab');
                 $location.path(Devices.route + '/' + devicePageCount.assetId + '/review');
             });
