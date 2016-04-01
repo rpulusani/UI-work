@@ -412,7 +412,6 @@ angular.module('mps.serviceRequests')
                         description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
                     }
                 };
-            $scope.configure.header.showUpdateBtn = true;
             $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'SUPPLIES_CATALOG_ORDER':
