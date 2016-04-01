@@ -83,11 +83,8 @@ angular.module('mps.serviceRequests')
                     fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                 },
                 show:{
-                    referenceId: true,
-                    costCenter: true,
-                    comments: true,
-                    attachements: true
-                },
+                    referenceId: true
+                }
             },
             statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels)
         };
