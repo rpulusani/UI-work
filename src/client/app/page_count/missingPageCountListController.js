@@ -50,6 +50,7 @@ angular.module('mps.pageCount')
             };
 
             Devices.item.get(options).then(function(){
+                Devices.item = Devices.item.item;
                 $location.search('tab', 'pageCountTab');
                 $location.path(Devices.route + '/' + devicePageCount.assetId + '/review');
             });
@@ -113,7 +114,7 @@ angular.module('mps.pageCount')
         };
 
         var removeParamsList = ['from', 'to', 'source', 'location', 'chlFilter'];
-        filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_PAGE_COUNTS', {'missingMeterReads': true}, removeParamsList,
+        filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_PAGE_COUNTS', {'missingMeterReads': true, 'embed': 'asset'}, removeParamsList,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
