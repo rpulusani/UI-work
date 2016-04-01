@@ -164,7 +164,13 @@ angular.module('mps.deviceManagement')
             }, function(reason){
                 NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
             });
-        };
+        }
+
+        function setupPhysicalLocations(address, building, floor, office) {
+            address.building = building;
+            address.floor = floor;
+            address.office = office;
+        }
 
         if (Devices.item === null) {
             redirect_to_list();
@@ -247,6 +253,11 @@ angular.module('mps.deviceManagement')
                     $scope.device.installDate = FormatterService.formatDate($scope.device.installDate);
                 }
                 if ($scope.installAddress !== null && $scope.installAddress !== undefined){
+                    setupPhysicalLocations($scope.installAddress,
+                        $scope.device.physicalLocation1,
+                        $scope.device.physicalLocation2,
+                        $scope.device.physicalLocation3
+                    );
                     $scope.formattedAddress = FormatterService.formatAddress($scope.installAddress);
                 }
                 if ($scope.primaryContact !== null && $scope.primaryContact !== undefined){
