@@ -247,6 +247,15 @@ angular.module('mps.utility')
                 var d = new Date(dateToBeFormatted);
                 return $filter('date')(d, 'yyyy-MM-dd');
             },
+            formatDateForTo:function(dateToBeFormatted){
+                 if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                        return '';
+                }
+                var localDate = new Date(dateToBeFormatted.replace(/\s/, 'T'));
+                var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
+                    d.setHours(23,59,00);
+                return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
+            },
             getDateFromString: function(dateToBeFormatted){
                  if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                     return '';
