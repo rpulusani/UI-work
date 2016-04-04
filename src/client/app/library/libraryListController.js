@@ -43,8 +43,8 @@ angular.module('mps.library')
                 return;
             }
 
-            var dateNow = formatter.formatDate(new Date());
-            var docEndDate = formatter.formatDate(documentItem.endDate);
+            var dateNow = formatter.getDisplayDate(new Date());
+            var docEndDate = formatter.getDisplayDate(new Date(documentItem.endDate));
 
             if (dateNow >= docEndDate) {
                 return '(' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_UNPUBLISHED') + ')';

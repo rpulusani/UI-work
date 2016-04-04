@@ -42,7 +42,8 @@ angular.module('mps.library')
         };
 
         $scope.getFormatDate = function(date) {
-            return formatter.formatDate(date);
+            var d = new Date(date);
+            return formatter.getDisplayDate(d);
         };
 
         $scope.getFileOwner = function(owner) {

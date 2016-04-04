@@ -200,6 +200,23 @@ angular.module('mps.utility')
                 }
                 return formattedAddress;
             },
+            convertUTCDateToLocalDate: function(d) {
+                if (d === undefined || d === null) { return; }
+                var newDate = new Date(d.getTime()+d.getTimezoneOffset()*60*1000);
+
+                return newDate;
+            },
+            getDisplayDate: function(d) {
+                var dy = this.convertUTCDateToLocalDate(d);
+                return $filter('date')(dy, 'MM/dd/yyyy');
+            },
+            getDatePickerDisplayDate: function(d) {
+                var dy = this.convertUTCDateToLocalDate(d);
+                return $filter('date')(dy, 'yyyy-MM-dd');
+            },
+            getPostDateUtcZero: function(d) {
+                return $filter('date')(d, 'yyyy-MM-ddT00:00:00');
+            },
             formatDate: function(dateToBeFormatted){
                 if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                     return '';
