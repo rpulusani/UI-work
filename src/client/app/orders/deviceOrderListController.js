@@ -41,7 +41,7 @@ angular.module('mps.orders')
             });
         };
         var params =  {
-            type: 'HARDWARE_ORDER',
+            type: 'HARDWARE_ORDERS_ALL',
             embed: 'primaryContact,requester'
         };
 

@@ -73,7 +73,7 @@ function(
             if ($rootScope.viewSupplyOrderAccess && !$rootScope.viewHardwareOrderAccess) {
                 options.params.type = 'SUPPLIES_ORDERS_ALL'
             } else if (!$rootScope.viewSupplyOrderAccess && $rootScope.viewHardwareOrderAccess) {
-                options.params.type = 'HARDWARE_ORDER';
+                options.params.type = 'HARDWARE_ORDERS_ALL';
             }
 
             Orders.get(options).then(function(res) {
