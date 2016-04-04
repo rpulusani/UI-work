@@ -1,4 +1,124 @@
 angular.module('mps.form')
+.directive('mpsUpdateForm',['$timeout','$parse',
+    function($timeout, $parse){
+      return {
+        restrict: 'A',
+        require: ['^form'],
+        link: function(scope, elm, attrs, form){
+          var self = {};
+          self.elm = elm;
+          self.form = form[0];
+          self.scope = scope;
+          self.scope.inputs = [];
+          self.scope.inputsUnchanged = [];
+          self.attrs = attrs;
+          var $ = require('jquery');
+          $timeout(function(){
+             var cb = $parse(attrs.formOnChange);
+             for(var i = 0; i < elm[0].length; ++i){
+                if(form[0][elm[0][i].name]){
+                  var item = {
+                    name: elm[0][i].name,
+                    id: elm[0][i].id,
+                    elm: elm[0][i],
+                    model: form[0][elm[0][i].name],
+                    originalValue: form[0][elm[0][i].name].$modelValue
+                  };
+                  self.scope.inputs.push(item);
+                  editValidation(item);
+                  $(item.elm).on('blur keyup change', function(event) {
+                    var name = $(event.target).attr('name');
+                    var item = self.scope.inputs.find(function(val){
+                      return name === val.name;
+                    });
+                    if(item){
+                      editValidation(item);
+                    }
+                  });
+                }
+              }
+          },200);
+
+          function editValidation(item){
+            var indexes = $.map(self.scope.inputsUnchanged, function(obj, index) {
+                    if(obj.name === item.name && obj.id === item.id) {
+                        return index;
+                    }
+              }),
+              firstIndex = indexes[0];
+              console.log("**************************************");
+              console.log("Unchanged Array: ", self.scope.inputsUnchanged );
+              console.log("Item Array: ", self.scope.inputs );
+              if(item.originalValue === item.model.$viewValue){
+                if(firstIndex === undefined || firstIndex === -1){
+                  console.log("Adding: " + item.name +" original value: " + item.originalValue + " New Value: "+ item.model.$viewValue);
+                  self.scope.inputsUnchanged.push(item);
+                  console.log("Unchanged Array: ", self.scope.inputsUnchanged );
+                }
+              }else{
+                if(firstIndex > -1){
+                  console.log("Removing: " + item.name +" original value: " + item.originalValue + " New Value: "+ item.model.$viewValue);
+                  console.log("index to be removed: " + firstIndex);
+                  self.scope.inputsUnchanged.splice(firstIndex,1);
+                  console.log("Unchanged Array: ", self.scope.inputsUnchanged );
+                }
+              }
+
+              if(self.scope.inputs.length > self.scope.inputsUnchanged.length){
+                console.log("Setting Valdition as valid Form: " + item.name +" original value: " + item.originalValue + " New Value: "+ item.model.$viewValue);
+                self.form.$setValidity('mpsUpdateForm', true);
+              }else{
+                console.log("Setting Valdition as Invalid Form: " + item.name +" original value: " + item.originalValue + " New Value: "+ item.model.$viewValue);
+                self.form.$setValidity('mpsUpdateForm', false);
+              }
+              console.log("Errors: ", self.form.$error);
+              console.log("Invalid Property: ", self.form.$invalid);
+              console.log("Valid Property: ", self.form.$valid);
+              console.log("Unchanged Array: ", self.scope.inputsUnchanged );
+              console.log("Item Array: ", self.scope.inputs );
+              console.log("Unchanged Length: " + self.scope.inputsUnchanged.length + ",  Item Array: " + self.scope.inputs.length);
+              console.log("**************************************");
+
+              return;
+          }
+        }
+      };
+    }
+])
+.directive('mpsUpdate',['$timeout',
+    function($timeout){
+      return {
+        restrict: 'E',
+        require: ['ngModel'],
+        link: function(scope, elm, attrs, model){
+          var self = {};
+           if(!model || model.length < 1){
+            return;
+           }
+
+            self.elm = elm;
+            self.model = model[0];
+            self.scope = scope;
+            self.attrs = attrs;
+            self.elm.on('blur keyup change', function() {
+                scope.$evalAsync(editValidation);
+            });
+            $timeout(function(){
+              self.orignalValue = angular.copy(self.model.$modelValue);
+               editValidation();
+            }, 0);
+            function editValidation(){
+              if(self.orignalValue === self.model.$viewValue){
+                self.model.$setValidity('mpsUpdate', false);
+              }else{
+                self.model.$setValidity('mpsUpdate', true);
+              }
+              return;
+            }
+        }
+      };
+    }
+  ])
 .directive('input',[
     function(){
         return {
@@ -11,10 +131,10 @@ angular.module('mps.form')
                 var $ = require('jquery');
                 switch(el[0]["type"]){
                     case 'checkbox':
-                        $(el).customInput();
+                       // $(el).customInput();
                     break;
                     case 'radio':
-                      $(el).customInput();
+                      //$(el).customInput();
                     break;
                 }
             }

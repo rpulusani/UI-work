@@ -1,5 +1,5 @@
 <h3 class="vertical-space--none" translate="REQUEST_MAN.COMMON.TXT_DEVICE_INFO"></h3>
-
+{{srForm.$error}}
 <hr />
 
 <h3 ng-hide="device.addressSelected" translate="REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS"></h3>
@@ -24,17 +24,17 @@
 </div>
 <div class="form__field">
     <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
-    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" />
+    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" mps-update />
 </div>
 
 <div class="form__field">
     <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
-    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" />
+    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" mps-update />
 </div>
 
 <div class="form__field">
     <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
-    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" />
+    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" mps-update />
 </div>
 
 <strong translate="REQUEST_MAN.COMMON.TXT_INSTALL_LXK_MOVE"></strong>
@@ -67,19 +67,19 @@
 
 <div class="form__field" >
     <label translate="REQUEST_MAN.COMMON.TXT_IP_ADDR"></label>
-    <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" />
+    <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" mps-update />
 </div>
 
 <div class="form__field" >
     <label translate="REQUEST_MAN.COMMON.TXT_HOSTNAME"></label>
-    <input name="hostName" type="text" ng-model="device.hostName" value="" class="" />
+    <input name="hostName" type="text" ng-model="device.hostName" value="" class="" mps-update />
 </div>
 
 <h3 translate="REQUEST_MAN.COMMON.TXT_DEVICE_BILL_TRACK"></h3>
 
 <div class="form__field">
     <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></label>
-    <input type="text" name="costCenter" ng-model="device.costCenter" value="" class="" required />
+    <input type="text" name="costCenter" ng-model="device.costCenter" value="" class=""  mps-update />
 </div>
 
 <strong translate="REQUEST_MAN.COMMON.TXT_DEVICE_CHL_QUERY"></strong>
@@ -114,7 +114,8 @@
 
 <div class="form__field" >
     <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_TAG"></label>
-    <input name="customerDeviceTag" type="text" ng-model="device.assetTag" value="" class="" />
+    <input name="customerDeviceTag" type="text" ng-model="device.assetTag" mps-update "
+        value="" class="" />
 </div>
 
 <h3 translate="REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT"></h3>

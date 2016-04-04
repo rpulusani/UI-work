@@ -62,6 +62,9 @@ angular.module('mps.serviceRequestDevices')
 
         $scope.returnedForm = false;
 
+
+
+
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
         };
@@ -126,8 +129,8 @@ angular.module('mps.serviceRequestDevices')
                 ServiceRequest.addRelationship('account', Devices.item);
                 ServiceRequest.addRelationship('asset', Devices.item, 'self');
                 ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
-            } 
-            
+            }
+
             if (BlankCheck.isNull($scope.device.chl)) {
                 $scope.device.chl = {};
             }
@@ -148,6 +151,14 @@ angular.module('mps.serviceRequestDevices')
                 $scope.device.lexmarkMoveDevice = false;
             }
         }
+        $scope.checkChange = function(field){
+            if($scope.device && $scope.orignalDevice &&
+                $scope.device[field] === $scope.orignalDevice[field]){
+                return false;
+            }else{
+                return true;
+            }
+        };
 
         $scope.setupSR(ServiceRequest, configureSR);
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);

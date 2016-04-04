@@ -117,7 +117,7 @@
             addMADC: 'ADD_MADC_REQUEST',
             deinstallMADC: 'DEINSTALL_MADC_REQUEST',
             decommissionMADC: 'DECOMMISSION_MADC_REQUEST',
-            changeMADC: 'CHANGE_MADC_REQUEST',
+            changeMADC: 'CREATE_MADC_CHANGE',
             uploadMADC: 'MASS_UPLOAD_MADC',
             viewContactAddress: 'VIEW_CONTACT_AND_ADDRESS',
             contactMADC: 'CONTACT_MADC_REQUEST',
