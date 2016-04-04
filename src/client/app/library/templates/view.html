@@ -1,4 +1,11 @@
 <div class="page-header">
+    <div class="col-1">
+        <ul class="breadcrumb">
+            <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
+            <li translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY"></li>
+        </ul>
+    </div>
+    
     <div class="row">
         <div class="col-2-3">
             <h1 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY"></h1>
@@ -34,7 +41,7 @@
     </div>
 
     <div class="col-1">
-      <div class="alert alert--info" ng-if="gridLoading === true">
+        <div class="alert alert--info" ng-if="gridLoading === true">
             <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
             <div class="alert__body">
                  <span translate="GRID.LOADING"></span>

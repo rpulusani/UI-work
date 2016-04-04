@@ -3,6 +3,7 @@ angular.module('mps.serviceRequestContacts')
 .controller('ContactController', [
     '$scope',
     '$location',
+    '$filter',
     'Contacts',
     '$translate',
     '$rootScope',
@@ -14,6 +15,7 @@ angular.module('mps.serviceRequestContacts')
     'SecurityHelper',
     function($scope,
         $location,
+        $filter,
         Contacts,
         $translate,
         $rootScope,
@@ -32,7 +34,11 @@ angular.module('mps.serviceRequestContacts')
             ServiceRequest.addRelationship('sourceAddress', $scope.contact, 'self');
             ServiceRequest.addField('type', 'DATA_CONTACT_CHANGE');
             ServiceRequest.addField('attachments', $scope.files_complete);
-        };
+        },
+        statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         $scope.getRequestor = function(ServiceRequest, Contacts) {
             Users.getLoggedInUserInfo().then(function() {
@@ -121,7 +127,9 @@ angular.module('mps.serviceRequestContacts')
             };
         }
         function configureReceiptTemplate(){
-            var srMsg = FormatterService.getFormattedSRNumber($scope.sr);
+            var srMsg = FormatterService.getFormattedSRNumber($scope.sr),
+            submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+            $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
 
             if (!srMsg) {
                     srMsg = $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST');
@@ -216,24 +224,7 @@ angular.module('mps.serviceRequestContacts')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: Contacts.route + '/update/' + $scope.contact.id + '/review'
-                },
-                statusList:[
-              {
-                'label':'Submitted',
-                'date': '1/29/2016',
-                'current': true
-              },
-              {
-                'label':'In progress',
-                'date': '',
-                'current': false
-              },
-              {
-                'label':'Completed',
-                'date': '',
-                'current': false
-              }
-            ]
+                }
             };
         }
 

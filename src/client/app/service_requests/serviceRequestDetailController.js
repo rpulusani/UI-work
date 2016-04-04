@@ -83,11 +83,8 @@ angular.module('mps.serviceRequests')
                     fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                 },
                 show:{
-                    referenceId: true,
-                    costCenter: true,
-                    comments: true,
-                    attachements: true
-                },
+                    referenceId: true
+                }
             },
             statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels)
         };
@@ -326,13 +323,16 @@ angular.module('mps.serviceRequests')
         };
     function processStandardTypes(){
         switch($scope.sr.type){
+            case 'SVC_ASSET_ORDER':
+            case 'SVC_CATALOG_ORDER':
+            case 'MIXED_PARTS_ASSET_ORDER':
+            case 'SUPPLIES_PROACTIVE_ORDER':
             case 'SUPPLIES_ASSET_ORDER':
+            case 'SUPPLIES_CATALOG_ORDER':
                 addSupplyOrderInfo();
                 $scope.configure.header.showUpdateBtn = true;
             break;
-            case 'SUPPLIES_CATALOG_ORDER':
-                //addSupplyOrderInfo();
-            break;
+            case 'UPDATE_HARDWARE_REQUEST':
             case 'HARDWARE_ORDER':
                 addDeviceOrderInfo();
             break;
@@ -412,7 +412,6 @@ angular.module('mps.serviceRequests')
                         description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
                     }
                 };
-            $scope.configure.header.showUpdateBtn = true;
             $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'SUPPLIES_CATALOG_ORDER':

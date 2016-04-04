@@ -526,7 +526,6 @@ angular.module('mps.report')
             $scope.finder = Reports.finder;
             $scope.visualizations = [];
             $scope.reports = [];
-
             for (i = 0; i < tmp.length; i++) {
                 if (tmp[i]._links.stats !== undefined) {
                     $scope.visualizations.push(tmp[i]);
@@ -534,6 +533,13 @@ angular.module('mps.report')
 
                 if (tmp[i]._links.results !== undefined) {
                     $scope.reports.push(tmp[i]);
+                    if (tmp[i].name && tmp[i].name === 'Consumables Orders' && !$rootScope.viewSupplyOrderAccess) {
+                        $scope.reports.splice(i, 1);
+                    } else if (tmp[i].name && tmp[i].name === 'Hardware Orders' && !$rootScope.viewHardwareOrderAccess) {
+                        $scope.reports.splice(i, 1);
+                    } else if (tmp[i].name && tmp[i].name === 'MADC' && !$rootScope.serviceRequestMADCAccess) {
+                        $scope.reports.splice(i, 1);
+                    }
                 }
             }
 
@@ -546,6 +552,8 @@ angular.module('mps.report')
         $scope.gridOptions = {};
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Documents, personal);
         $scope.gridOptions.showBookmarkColumn = false;
+        $scope.gridDataCnt = 0;
+        $scope.gridLoading = true;
 
         Documents.columns = Documents.columnDefs['otherReports'];
         Documents.get({
@@ -555,6 +563,8 @@ angular.module('mps.report')
                 tag: 'reports'
             }
             }).then(function(res) {
+                $scope.gridDataCnt = Documents.page.totalElements;
+                $scope.gridLoading = false;
                 Grid.display(Documents, $scope, personal, false, function(){
                     $scope.gridTitle = $translate.instant('REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS' + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});
                         $scope.$broadcast('setupPrintAndExport', $scope);
