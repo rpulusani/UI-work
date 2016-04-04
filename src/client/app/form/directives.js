@@ -70,10 +70,14 @@ angular.module('mps.form')
               }else{
                 console.log("Setting Valdition as Invalid Form: " + item.name +" original value: " + item.originalValue + " New Value: "+ item.model.$viewValue);
                 self.form.$setValidity('mpsUpdateForm', false);
+                self.form.$setPristine();
+                self.form.$setUntouched();
               }
               console.log("Errors: ", self.form.$error);
               console.log("Invalid Property: ", self.form.$invalid);
               console.log("Valid Property: ", self.form.$valid);
+              console.log("Pristine: ", self.form.$pristine);
+
               console.log("Unchanged Array: ", self.scope.inputsUnchanged );
               console.log("Item Array: ", self.scope.inputs );
               console.log("Unchanged Length: " + self.scope.inputsUnchanged.length + ",  Item Array: " + self.scope.inputs.length);
