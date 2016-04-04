@@ -372,9 +372,11 @@ function(
         // Calls to setup action bar
 
         setTimeout(function() {
-            getSROpenCnt();
-            getSROrderCnt();
-            getSRMADCCnt();
+            if ($rootScope.currentAccount) {
+                getSROpenCnt();
+                getSROrderCnt();
+                getSRMADCCnt();
+            }
         }, 1500);
         
 

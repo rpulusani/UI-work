@@ -256,20 +256,22 @@ angular.module('mps.hateoasFactory')
             }
 
             HATEAOSConfig.getCurrentAccount().then(function(account) {
-                newService.params.accountId = $rootScope.currentAccount.accountId;
-                newService.params.accountLevel = $rootScope.currentAccount.accountLevel;
+                if ($rootScope.currentAccount) {
+                    newService.params.accountId = $rootScope.currentAccount.accountId;
+                    newService.params.accountLevel = $rootScope.currentAccount.accountLevel;
 
-                newService.get({
-                    page: newService.params.page,
-                    size: newService.params.size
-                }).then(function(processedResponse) {
-                    deferred.resolve();
+                    newService.get({
+                        page: newService.params.page,
+                        size: newService.params.size
+                    }).then(function(processedResponse) {
+                        deferred.resolve();
 
-                    if(newService.rootUrl){
-                        newService.url = newService.rootUrl;
-                        newService.rootUrl = undefined;
-                    }
-                });
+                        if(newService.rootUrl){
+                            newService.url = newService.rootUrl;
+                            newService.rootUrl = undefined;
+                        }
+                    });
+                }
             });
 
             return deferred.promise;
@@ -571,8 +573,10 @@ angular.module('mps.hateoasFactory')
                     if (method === 'get') {
                         //get 0 index until account switching and preferences are 100% implemented
                         HATEAOSConfig.getCurrentAccount().then(function(account) {
-                            self.params.accountId = $rootScope.currentAccount.accountId;
-                            self.params.accountLevel = $rootScope.currentAccount.level;
+                            if ($rootScope.currentAccount) {
+                                self.params.accountId = $rootScope.currentAccount.accountId;
+                                self.params.accountLevel = $rootScope.currentAccount.level;
+                            }
                         });
                     }
 
