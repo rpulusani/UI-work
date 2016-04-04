@@ -1,7 +1,6 @@
 <h3 class="vertical-space--none" translate="REQUEST_MAN.COMMON.TXT_DEVICE_INFO"></h3>
-{{srForm.$error}}
 <hr />
-
+<input type="text" name="deviceAddress" style="display:none" ng-model="formattedDeviceAddress" default="{{formattedPrevAddress}}" />
 <h3 ng-hide="device.addressSelected" translate="REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS"></h3>
 <div ng-show="device.addressSelected">
     <h3 translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_PREV_INSTALL_ADDR"></h3>
@@ -39,25 +38,23 @@
 
 <strong translate="REQUEST_MAN.COMMON.TXT_INSTALL_LXK_MOVE"></strong>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field  form__field--no-margin">
     <input type="radio"
         id="device-move-question-no"
         name="device-move-question"
         ng-model="device.lexmarkMoveDevice"
         value="false"
-        data-js="customInput"
         checked
     />
     <label for="device-move-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
 </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field form__field--no-margin">
     <input type="radio"
         id="device-move-question-yes"
         name="device-move-question"
         ng-model="device.lexmarkMoveDevice"
         value="true"
-        data-js="customInput"
     />
     <label for="device-move-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
@@ -84,25 +81,23 @@
 
 <strong translate="REQUEST_MAN.COMMON.TXT_DEVICE_CHL_QUERY"></strong>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field form__field--no-margin">
     <input type="radio"
         id="device-chl-question-no"
         name="device-chl-question"
         ng-model="device.deviceCHLQuestion"
         value="false"
-        data-js="customInput"
         checked
     />
     <label for="device-chl-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
 </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field form__field--no-margin">
     <input type="radio"
         id="device-chl-question-yes"
         name="device-chl-question"
         ng-model="device.deviceCHLQuestion"
         value="true"
-        data-js="customInput"
     />
     <label for="device-chl-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
@@ -114,7 +109,7 @@
 
 <div class="form__field" >
     <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_TAG"></label>
-    <input name="customerDeviceTag" type="text" ng-model="device.assetTag" mps-update "
+    <input name="customerDeviceTag" type="text" ng-model="device.assetTag" mps-update"
         value="" class="" />
 </div>
 
@@ -123,6 +118,7 @@
 <label translate="REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT"></label>
 
 <div class="contact-info">
+    <input name="deviceContact" type="text" style="display:none;" ng-model="formattedDeviceContact" default="{{formattedPrevDeviceContact}}">
     <div ng-bind-html="formattedDeviceContact"></div>
 </div>
 

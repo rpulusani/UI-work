@@ -97,6 +97,7 @@ angular.module('mps.serviceRequestDevices')
                     $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 } else if ($rootScope.currentSelected === 'updateDeviceContact') {
                     ServiceRequest.addRelationship('assetContact', $rootScope.selectedContact, 'self');
+                    $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
                     $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                 }
             }
@@ -145,6 +146,7 @@ angular.module('mps.serviceRequestDevices')
 
             if (!BlankCheck.isNull($scope.device.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.device.deviceContact = $scope.device.contact.item;
+                $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
             }
 
             if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
@@ -359,6 +361,7 @@ angular.module('mps.serviceRequestDevices')
         var formatAdditionalData = function() {
             if (!BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                 $scope.formattedCurrentAddress = FormatterService.formatAddress($scope.device.currentInstalledAddress);
+                $scope.formattedPrevAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
@@ -371,6 +374,9 @@ angular.module('mps.serviceRequestDevices')
 
             if (!BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+            }
+            if (!BlankCheck.isNull($scope.device.prevDeviceContact)) {
+                $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.device.prevDeviceContact);
             }
 
             if (!BlankCheck.isNull($scope.device.requestedByContact)) {
