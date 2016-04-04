@@ -34,11 +34,13 @@ angular.module('mps.library')
 
             $scope.documentItem.accountList = [];
             if (BlankCheck.checkNotNullOrUndefined(Documents.item.publishDate)) {
-                $scope.documentItem.publishDate = formatter.formatDate(Documents.item.publishDate);
+                var dy = Documents.item.publishDate + 'Z';
+                $scope.documentItem.publishDate = formatter.getDatePickerDisplayDate(new Date(dy));
             }
 
             if (BlankCheck.checkNotNullOrUndefined(Documents.item.endDate)) {
-                $scope.documentItem.endDate = formatter.formatDate(Documents.item.endDate);
+                var dy = Documents.item.endDate + 'Z';
+                $scope.documentItem.endDate = formatter.getDatePickerDisplayDate(new Date(dy));
             }
 
             if ($scope.documentItem.accountIds && $scope.documentItem.accountIds.length > 0) {
@@ -181,11 +183,11 @@ angular.module('mps.library')
             }
 
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.publishDate)) {
-                Documents.addField('publishDate', formatter.formatDateForPost($scope.documentItem.publishDate));
+                Documents.addField('publishDate', formatter.getPostDateUtcZero(new Date($scope.documentItem.publishDate)));
             }
 
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
-                Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
+                Documents.addField('endDate', formatter.getPostDateUtcZero(new Date($scope.documentItem.endDate)));
             }
 
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.strategic)) {

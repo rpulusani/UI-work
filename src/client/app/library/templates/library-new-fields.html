@@ -58,14 +58,14 @@
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_FROM"></label>
-            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" date-validator="rome.val.beforeEq($scope.dateRight)" datepicker />
+            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" datepicker />
         </div>
     </div>
 
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_TO"></label>
-            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" date-validator="rome.val.afterEq(dateLeft)" datepicker />
+            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" datepicker />
         </div>
     </div>
 </div>

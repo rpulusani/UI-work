@@ -1,5 +1,3 @@
-
-
 angular.module('mps.library')
 .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
     function($scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {
@@ -27,13 +25,13 @@ angular.module('mps.library')
         $scope.isDeleting = false;
 
         $scope.getTagNames = function(tags) {
-                var localized = [];
+            var localized = [];
             if (tags) {
-                    for (var i = 0; i < tags.length; i++) {
-                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
-                    }
+                for (var i = 0; i < tags.length; i++) {
+                    localized.push(Documents.getTranslationValueFromTag(tags[i]));
                 }
-                return localized.join(', ');
+            }
+            return localized.join(', ');
         };
 
         $scope.getFileSize = function(size) {
@@ -42,7 +40,12 @@ angular.module('mps.library')
         };
 
         $scope.getFormatDate = function(date) {
-            return formatter.formatDate(date);
+            if (date === undefined || date === null) { return; }
+
+            var dy = date +'Z';
+            var d = new Date(dy);
+
+            return formatter.getDisplayDate(d);
         };
 
         $scope.getFileOwner = function(owner) {
