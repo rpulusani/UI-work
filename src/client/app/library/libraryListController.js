@@ -39,9 +39,7 @@ angular.module('mps.library')
         }
 
         $scope.isUnpublished = function(documentItem) {
-            if (documentItem.endDate === null) {
-                return;
-            }
+            if (documentItem.endDate === undefined || documentItem.endDate === null) { return; }
 
             var dateNow = formatter.getDisplayDate(new Date());
             var docEndDate = formatter.getDisplayDate(new Date(documentItem.endDate));

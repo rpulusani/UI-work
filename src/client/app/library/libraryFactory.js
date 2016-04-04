@@ -65,8 +65,11 @@ angular.module('mps.library')
                 },
                 {
                     name: 'getPublishedDate',
-                    functionDef: function(){
-                        var d = new Date(this.publishDate);
+                    functionDef: function() {
+                        if (this.publishDate === undefined || this.publishDate === null) { return; }
+
+                        var dy = this.publishDate + 'Z';
+                        var d = new Date(dy);
                         return formatter.getDisplayDate(d);
                     }
                 }
