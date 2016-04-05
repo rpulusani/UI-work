@@ -56,17 +56,26 @@ angular.module('mps.orders')
             $scope.print = false;
             $scope.export = false;
             $scope.editable  = true;
+            $scope.taxable = false;
             $scope.hideSubmitButton = true;
-
-             $scope.configure = {
-                 actions:{
-                    submit: function() {
-                        $location.path(OrderItems.route + '/catalog/' + $routeParams.type + '/review');
-                    },
-                    disabled: true
-                },
-                cart:Orders.tempSpace.catalogCart
+            $scope.submit = function(){
+                $location.path(OrderItems.route + '/catalog/' + $routeParams.type + '/review');
             };
+
+            if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart){
+                 $scope.configure = {
+                     actions:{
+                        submit: function(){
+                            $scope.$broadcast('OrderCatalogSubmit', {});
+                        },
+                        disabled: true
+                    },
+                    cart:Orders.tempSpace.catalogCart
+                };
+                $scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;
+            }else{
+                $location.path('/');
+            }
                 if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
                     Orders.tempSpace.catalogCart.billingModels){
                     var isShipBill =  $.inArray('SHIP_AND_BILL', Orders.tempSpace.catalogCart.billingModels);
