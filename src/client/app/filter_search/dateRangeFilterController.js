@@ -14,7 +14,8 @@ angular.module('mps.filterSearch')
         $scope.$watch('dateTo', function(dateTo) {
             if (dateTo) {
                $scope.showClearMessage = true;
-               $scope.params['to'] = formatter.formatDateForTo(dateTo);
+               $scope.params['to'] = formatter.addTimeToDate(dateTo,23,59);
+			   console.log($scope.params['to']);
                $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter']);
             }
         });
