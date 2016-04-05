@@ -18,7 +18,7 @@ angular.module('mps.library')
                             '<i ng-class="grid.appScope.getFileIcon(row.entity.ext);"></i> ' +
                             '<a class="text--small" href="#" ng-click="grid.appScope.goToView(row.entity);">{{row.entity.name}} {{grid.appScope.isUnpublished(row.entity)}}</a><br />' +
                                         '<p class="text--small">{{row.entity.description}}</p>' +
-                                        '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS') + ': ' +
+                                        '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_TAGGED_AS') + ': ' +
                                             '{{grid.appScope.getTagNames(row.entity.tags)}}</p>' +
                                     '</div>'
                     },
