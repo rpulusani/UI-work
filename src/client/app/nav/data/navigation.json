@@ -2,9 +2,9 @@
 {
     "id": "1",
     "action": "",
-    "text": "NAVIGATION.ACCOUNT",
-    "subtext": "NAVIGATION.ACCOUNT_CNT",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.ACCOUNT.TXT_ACCOUNT_SELECTION",
+    "subtext": "NAVIGATION.ACCOUNT.TXT_ALL_ACCOUNTS",
+    "description": "NAVIGATION.ACCOUNT.TXT_ALL_ACCOUNTS",
     "icon": "icon icon-psw-project",
     "permissionFlag":"viewHomePage",
     "tags":["primary"],
@@ -14,8 +14,8 @@
   {
     "id": "2",
     "action": "/",
-    "text": "NAVIGATION.DASHBOARD",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_HOME",
+    "description": "NAVIGATION.LEFT_NAV.TXT_HOME",
     "icon": "icon icon-psw-home",
     "permissionFlag":"viewHomePage",
     "tags":["primary"]
@@ -23,8 +23,8 @@
     {
     "id": "3",
     "action": "/device_management",
-    "text": "DEVICE_MGT.TITLE",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_DEVICES",
+    "description": "NAVIGATION.LEFT_NAV.TXT_DEVICES",
     "icon": "icon icon-mps-device",
     "permissionFlag":"deviceAccess",
     "tags":["primary"]
@@ -33,8 +33,8 @@
     "id": "4",
     "action": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
     "target": "_blank",
-    "text": "NAVIGATION.LBS",
-    "description": "Location Base Services",
+    "text": "NAVIGATION.LEFT_NAV.TXT_LOCATIONS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_LOCATIONS",
     "icon": "icon icon-mps-lbs_map",
     "permissionFlag":"lbsAccess",
     "newWindow":"true",
@@ -43,8 +43,8 @@
   {
     "id": "5",
     "action": "/service_requests/addresses",
-    "text": "ADDRESS.TITLE",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_ADDRESSES",
+    "description": "NAVIGATION.LEFT_NAV.TXT_ADDRESSES",
     "icon": "icon icon-mps-location",
     "permissionFlag":"addressContactAccess",
     "tags":["primary"]
@@ -52,8 +52,8 @@
     {
     "id": "6",
     "action": "/service_requests/contacts",
-    "text": "NAVIGATION.CONTACT",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_CONTACTS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_CONTACTS",
     "icon": "icon icon-mps-contact",
     "permissionFlag":"addressContactAccess",
     "tags":["primary"]
@@ -61,8 +61,8 @@
   {
     "id": "7",
     "action": "/orders",
-    "text": "NAVIGATION.ORDER_REQUEST",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_ORDERS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_ORDERS",
     "icon": "icon icon-mps-orders",
     "permissionFlag":"orderAccess",
     "tags":["primary"]
@@ -70,8 +70,8 @@
   {
     "id": "8",
     "action": "/service_requests?tab=serviceRequestsAllTab",
-    "text": "SERVICE_REQUEST.TITLE",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_REQUESTS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_REQUESTS",
     "icon": "icon icon-mps-requests",
     "permissionFlag":"serviceRequestAccess",
     "tags":["primary"]
@@ -80,8 +80,8 @@
   {
     "id": "9",
     "action": "/reporting",
-    "text": "REPORTING.TITLE",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_REPORTS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_REPORTS",
     "icon": "icon icon-mps-report",
     "permissionFlag":"reportAccess",
     "tags":["primary"]
@@ -89,8 +89,8 @@
   {
     "id": "10",
     "action": "/invoices",
-    "text": "NAVIGATION.INVOICES",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_INVOICES",
+    "description": "NAVIGATION.LEFT_NAV.TXT_INVOICES",
     "icon": "icon icon-mps-invoice",
     "permissionFlag":"viewInvoicesAccess",
     "tags":["primary"]
@@ -98,8 +98,8 @@
     {
     "id": "11",
     "action": "/library",
-    "text": "DOCUMENT_LIBRARY.COMMON.BTN_DOCUMENT_LIBRARY",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_DOCUMENTS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_DOCUMENTS",
     "icon": "icon icon-psw-library",
     "permissionFlag":"documentLibraryAccess",
     "tags":["primary"]
@@ -107,8 +107,8 @@
   {
     "id": "12",
     "action": "/delegated_admin",
-    "text": "DELEGATED_ADMIN.TITLE",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.LEFT_NAV.TXT_USERS",
+    "description": "NAVIGATION.LEFT_NAV.TXT_USERS",
     "icon": "icon icon-mps-admin",
     "permissionFlag":"userManagementAccess",
     "tags":["primary", "admin"]
@@ -117,33 +117,33 @@
     "id": "13",
     "action": "http://www.lexmark.com",
     "target": "_blank",
-    "text": "Lexmark.com",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.FOOTER.TXT_LXK",
+    "description": "NAVIGATION.LEFT_NAV.TXT_LXK",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
   },
   {
     "id": "14",
     "action": "/faq",
-    "text": "FAQ",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.FOOTER.LNK_FAQ",
+    "description": "NAVIGATION.FOOTER.LNK_FAQ",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
   },
   {
     "id": "15",
     "action": "/help",
-    "text": "Get Help",
-    "description": "Some description of this link",
+    "text": "NAVIGATION.FOOTER.TXT_GET_HELP",
+    "description": "NAVIGATION.FOOTER.TXT_GET_HELP",
     "icon": "icon icon--lxk-ui icon--error",
     "tags": ["footer"]
   },
   {
     "id": "16",
     "action": "",
-    "text": "NAVIGATION_ADMIN.TITLE.PORTAL_ADMIN",
-    "description": "Some description of this link",
-    "permissionFlag":"viewHomePage",
+    "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_PORTAL_ADMINISTRATION",
+    "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_PORTAL_ADMINISTRATION",
+    "permissionFlag":"portalAdminAccess",
     "icon": "icon icon-mps-admin",
     "tags":["admin"],
     "dropdown": true,
@@ -152,46 +152,55 @@
   {
     "id": "17",
     "action": "/library",
-    "text": "NAVIGATION_ADMIN.TITLE.DOCUMENT_LIBRARY_MANAGEMENT",
-    "description": "Some description of this link",
-    "permissionFlag":"viewHomePage",
+    "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_DOCUMENT_MANAGEMENT",
+    "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_DOCUMENT_MANAGEMENT",
+    "permissionFlag":"documentLibraryAccess",
     "icon": "",
     "tags":["16"]
   },
   {
     "id": "18",
     "action": "/notifications",
-    "text": "NAVIGATION_ADMIN.TITLE.NOTIFICATION_MANAGEMENT",
-    "description": "Some description of this link",
-    "permissionFlag":"viewHomePage",
+    "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
+    "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
+    "permissionFlag":"translationAdminAccess",
     "icon": "",
     "tags":["16"]
   },
   {
     "id": "19",
     "action": "/siebel",
-    "text": "NAVIGATION_ADMIN.TITLE.SIEBEL_MANAGEMENT",
-    "description": "Some description of this link",
-    "permissionFlag":"viewHomePage",
+    "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
+    "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
+    "permissionFlag":"translationAdminAccess",
     "icon": "",
     "tags":["16"]
   },
   {
     "id": "20",
     "action": "/translations",
-    "text": "NAVIGATION_ADMIN.TITLE.TRANSLATION_MANAGEMENT",
-    "description": "Some description of this link",
-    "permissionFlag":"viewHomePage",
+    "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_TRANSLATION_MANAGEMENT",
+    "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_TRANSLATION_MANAGEMENT",
+    "permissionFlag":"translationAdminAccess",
     "icon": "",
     "tags":["16"]
   },
   {
     "id": "21",
     "action": "/impersonate",
-    "text": "NAVIGATION_ADMIN.TITLE.IMPERSONATION",
-    "description": "Some description of this link",
-    "permissionFlag":"viewHomePage",
+    "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_IMPERSONATION",
+    "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_IMPERSONATION",
+    "permissionFlag":"userManagementAccess",
     "icon": "",
+    "tags":["16"]
+  },
+  {
+    "id": "22",
+    "action": "/carrier",
+    "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
+    "description": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
+    "permissionFlag":"viewHomePage",
+    "icon": "portalAdminAccess",
     "tags":["16"]
   }
 ]

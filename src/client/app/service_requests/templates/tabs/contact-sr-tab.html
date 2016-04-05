@@ -1,15 +1,6 @@
 <div class="col-1">
-        <h2 class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-        translate="REQUEST_MGMT.CONTACT_W_TOTALS" translate-values="{total: pagination.totalItems()}"></h2>
-        <div class="print-export">
-            <span>
-                <i class="icon icon--mps icon--print"></i><a href="#" class="text--small text--semi-bold">Print</a>
-            </span>
-            <span>
-                <i class="icon icon--mps icon--download"></i><a href="#" class="text--small text--semi-bold">Export</a>
-            </span>
-        </div>
-        <hr/>
+    <div print-export-title titlestring="REQUEST_MAN.MANAGE_REQUESTS.TXT_CONTACT_REQUESTS"></div>
+    <hr/>
 </div>
 
 <div grid-filter options="filterOptions" params="optionParams"></div>
@@ -25,7 +16,7 @@
 </div>
 <div class="col-md-1-1 btns">
     <button type="button" class="btn btn--default" href="" ng-click="contacts.goToCreate()"
-            translate="CONTACT_SERVICE_REQUEST.ADD"></button>
+            translate="REQUEST_MAN.MANAGE_REQUESTS.BTN_ADD_CONTACT" ng-if="contactAccess"></button>
 </div>
 <div class="alert alert--info" ng-if="gridLoading === true">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
@@ -42,7 +33,8 @@
 </div>
 
 <div ng-if="gridLoading === false && gridDataCnt > 0">
-    <div ui-grid="gridOptions" class="table" ui-grid-exporter 
+    <div ui-grid="gridOptions" class="table" ui-grid-exporter
+        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
         ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
     </div>
 

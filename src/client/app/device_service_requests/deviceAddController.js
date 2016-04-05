@@ -1,58 +1,289 @@
-define(['angular',
-    'deviceServiceRequest',
-    'deviceManagement.deviceFactory',
-    'utility.formatters'],
-    function(angular) {
-    'use strict';
-    angular.module('mps.serviceRequestDevices')
-    .controller('DeviceAddController', ['$scope',
-        '$location',
-        '$filter',
-        '$routeParams',
-        '$rootScope',
-        'ServiceRequestService',
-        'FormatterService',
-        'BlankCheck',
-        'DeviceServiceRequest',
-        'Devices',
-        'imageService',
-        'Contacts',
-        'ProductModel',
-        'SRControllerHelperService',
-        'HATEAOSConfig',
-        '$translate',
-        'TombstoneService',
-        '$timeout',
-        'tombstoneWaitTimeout',
-        function($scope,
-            $location,
-            $filter,
-            $routeParams,
-            $rootScope,
-            ServiceRequest,
-            FormatterService,
-            BlankCheck,
-            DeviceServiceRequest,
-            Devices,
-            ImageService,
-            Contacts,
-            ProductModel,
-            SRHelper,
-            HATEAOSConfig,
-            $translate,
-            Tombstone,
-            $timeout,
-            tombstoneWaitTimeout) {
+angular.module('mps.serviceRequestDevices')
+.controller('DeviceAddController', ['$scope',
+    '$location',
+    '$filter',
+    '$routeParams',
+    '$rootScope',
+    'ServiceRequestService',
+    'FormatterService',
+    'BlankCheck',
+    'DeviceServiceRequest',
+    'Devices',
+    'imageService',
+    'Contacts',
+    'ProductModel',
+    'SRControllerHelperService',
+    'HATEAOSConfig',
+    '$translate',
+    'TombstoneService',
+    '$timeout',
+    'tombstoneWaitTimeout',
+    'SecurityHelper',
+    function($scope,
+        $location,
+        $filter,
+        $routeParams,
+        $rootScope,
+        ServiceRequest,
+        FormatterService,
+        BlankCheck,
+        DeviceServiceRequest,
+        Devices,
+        ImageService,
+        Contacts,
+        ProductModel,
+        SRHelper,
+        HATEAOSConfig,
+        $translate,
+        Tombstone,
+        $timeout,
+        tombstoneWaitTimeout,
+        SecurityHelper) {
 
-            $scope.isLoading = false;
+        $scope.isLoading = false;
+        $rootScope.currentRowList = [];
+        SRHelper.addMethods(Devices, $scope, $rootScope);
+        $scope.setTransactionAccount('DeviceAdd', Devices);
+        new SecurityHelper($rootScope).redirectCheck($rootScope.addDevice);
+        $scope.scratchSpace = Devices.tempSpace;
+        if(!$scope.scratchSpace){
+            $scope.scratchSpace ={};
+        }
 
-            SRHelper.addMethods(Devices, $scope, $rootScope);
+        $scope.scratchSpace.oneOfFiveFieldsFilled = false;
 
+        $scope.checkOneOfFiveFields = function(){
+            if($scope.device.lexmarkDeviceQuestion === true && $scope.device.serialNumber){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.deviceInstallDate){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.ipAddress){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.hostName){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else if($scope.device.customerDeviceTag){
+                $scope.scratchSpace.oneOfFiveFieldsFilled = true;
+            }else{
+                $scope.scratchSpace.oneOfFiveFieldsFilled = false;
+            }
+            return;
+        };
+        $scope.$watch('device.deviceInstallDate', function(){
+            $scope.checkOneOfFiveFields();
+        });
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
+        function configureReviewTemplate(){
+                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_SUBMIT_REGISTRATION_REQUEST';
+                $scope.updateSRObjectForSubmit();
+                $scope.configure.actions.submit = function(){
+                  if(!$scope.isLoading) {
+                    $scope.isLoading = true;
+
+                    $scope.updateSRObjectForSubmit();
+                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
+                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
+                            ServiceRequest.item.postURL = api.url;
+                        });
+                    }
+                    var deferred = DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    });
+
+                    deferred.then(function(result){
+                      if(DeviceServiceRequest.item._links['tombstone']) {
+                        $location.search('tab', null);
+                        $timeout(function(){
+                          DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                          if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued');
+                          } else {
+                            ServiceRequest.item = DeviceServiceRequest.item;
+                            //Reviewed with Kris - uncertain why this is here
+                            //$rootScope.newDevice = $scope.device;
+                            //$rootScope.newSr = $scope.sr;
+                            $location.path(DeviceServiceRequest.route + '/add/receipt/queued');
+                          }
+                        });
+                      }, tombstoneWaitTimeout);
+                      }
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+                  }
+                };
+            }
+
+            function configureReceiptTemplate() {
+              var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+              $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
+              if($routeParams.queued === 'queued') {
+                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
+                $scope.configure.header.translate.h1Values = {
+                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + DeviceServiceRequest.item.type)
+                };
+                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
+                $scope.configure.header.translate.bodyValues= {
+                    'srHours': 24
+                };
+                $scope.configure.header.translate.readMore = undefined;
+                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
+                $scope.configure.header.translate.actionValues = {
+                    actionLink: Devices.route,
+                    actionName: $translate.instant('DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES')
+                };
+                $scope.configure.receipt = {
+                    translate:{
+                        title:"QUEUE.COMMON.TXT_GENERIC_SERVICE_REQUEST_TITLE",
+                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
+                    }
+                };
+                $scope.configure.queued = true;
+              } else {
+                    $scope.configure.header.translate.h1 = "REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_SUBMITTED";
+                    $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
+                $scope.configure.header.translate.bodyValues= {
+                        'refId': FormatterService.getFormattedSRNumber($scope.sr),
+                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                    'srHours': 24,
+                    'deviceManagementUrl': '/service_requests/devices/new',
+                };
+                $scope.configure.receipt = {
+                    translate: {
+                            title:"REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS",
+                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                    }
+                };
+                $scope.configure.contact.show.primaryAction = false;
+              }
+            }
+
+            function configureTemplates() {
+                $scope.configure = {
+                    header: {
+                        translate: {
+                                h1: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE',
+                                body: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE_PAR',
+                                readMore: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_LEARN_MORE'
+                        },
+                        readMoreUrl: '/service_requests/learn_more',
+                        showCancelBtn: false
+                    },
+                    device: {
+                        information:{
+                            translate: {
+                                    title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                                    serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                                    partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                                    product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                    ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                                    hostName: 'REQUEST_MAN.COMMON.TXT_HOSTNAME',
+                                    costCenter: 'REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER',
+                                    chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
+                                    customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
+                                    installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                    linkMakeChangesTxt: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES'
+                            },
+                            linkMakeChanges: '/service_requests/devices/new'
+
+                        },
+                        pageCount:{
+                            translate: {
+                                    title: 'REQUEST_MAN.COMMON.TXT_PAGE_COUNTS'
+                            },
+                            source: 'add'
+                        },
+                        contact: {
+                            translate:{
+                                    title:'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
+                            }
+                        }
+                    },
+                    detail: {
+                        translate: {
+                                title: 'REQUEST_MAN.COMMON.TXT_REQUEST_ADDL_DETAILS',
+                                referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
+                                costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
+                                comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
+                                attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
+                                attachmentMessage:  'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
+                            fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
+                        },
+                        show: {
+                            referenceId: true,
+                            costCenter: true,
+                            comments: true,
+                            attachements: true
+                        }
+                    },
+                    actions: {
+                        translate: {
+                                abandonRequest:'REQUEST_MAN.COMMON.BTN_ABANDON_REGISTRATION',
+                                submit: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_SUBMIT_REGISTRATION_REQUEST'
+                        },
+                        submit: $scope.goToReview
+                    },
+                    contact:{
+                        translate: {
+                                title: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACTS',
+                                requestedByTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CREATED_BY',
+                                primaryTitle: 'REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT',
+                                changePrimary: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.LNK_CHANGE_REQUEST_CONTACT'
+                        },
+                        show:{
+                            primaryAction : true
+                        },
+                        pickerObject: $scope.device,
+                        source: 'DeviceAdd'
+                    },
+                    modal: {
+                        translate: {
+                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                            abandonBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
+                        },
+                        returnPath: Devices.route + '/'
+                    },
+                    contactPicker: {
+                        translate: {
+                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
+                        }
+                    },
+                    addressPicker: {
+                        translate: {
+                                currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
+                                replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
+                        },
+                        sourceAddress: $scope.device.address
+                    },
+                    devicePicker: {
+                        translate: {
+                                currentDeviceTitle: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_DEVICE_SELECTED_FOR_REMOVAL',
+                                replaceDeviceTitle: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_DEVICE_DEVICE_FOR_INSTALL',
+                                h1: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL',
+                                body: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL_PAR',
+                            readMore: '',
+                            confirmation:{
+                                        abandon:'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.BTN_ABANDON_DEVICE_SELECTION',
+                                        submit: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.BTN_APPLY_DEVICE_SELECTION'
+                            }
+                        },
+                        readMoreUrl: ''
+                    }
+                };
+            }
+
+
+        if($scope.inTransactionalAccountContext()){
             $scope.goToReview = function() {
                 $rootScope.newDevice = $scope.device;
                 $location.path(DeviceServiceRequest.route + '/add/review');
                             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
-
             };
 
             $scope.setModels = function() {
@@ -61,6 +292,7 @@ define(['angular',
 
             var configureSR = function(ServiceRequest){
                 ServiceRequest.addRelationship('sourceAddress', $scope.device, 'address');
+                ServiceRequest.addAccountRelationship('account');
             };
 
             $scope.$on('searchProductModel', function(evt){
@@ -168,6 +400,9 @@ define(['angular',
                 } else {
                     $scope.getRequestor(ServiceRequest, Contacts);
                 }
+
+                    Devices.item = $scope.device;
+
             }
                $scope.updateSRObjectForSubmit = function() {
                 ServiceRequest.item =  $scope.sr;
@@ -228,222 +463,6 @@ define(['angular',
             $scope.setupSR(ServiceRequest, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
-            function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'DEVICE_SERVICE_REQUEST.SUBMIT_DEVICE_REQUEST';
-                $scope.updateSRObjectForSubmit();
-                $scope.configure.actions.submit = function(){
-                  if(!$scope.isLoading) {
-                    $scope.isLoading = true;
-
-                    $scope.updateSRObjectForSubmit();
-                    if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
-                        HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
-                            ServiceRequest.item.postURL = api.url;
-                        });
-                    }
-                    var deferred = DeviceServiceRequest.post({
-                        item:  $scope.sr
-                    });
-
-                    deferred.then(function(result){
-                      if(DeviceServiceRequest.item._links['tombstone']) {
-                        $location.search('tab', null);
-                        $timeout(function(){
-                          DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                          if(Tombstone.item && Tombstone.item.siebelId) {
-                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued')
-                          } else {
-                            ServiceRequest.item = DeviceServiceRequest.item;
-                            //Reviewed with Kris - uncertain why this is here
-                            //$rootScope.newDevice = $scope.device;
-                            //$rootScope.newSr = $scope.sr;
-                            $location.path(DeviceServiceRequest.route + '/add/receipt/queued');
-                          }
-                        });
-                      }, tombstoneWaitTimeout);
-                      }
-                    }, function(reason){
-                        NREUM.noticeError('Failed to create SR because: ' + reason);
-                    });
-                  }
-                };
-            }
-
-            function configureReceiptTemplate() {
-              if($routeParams.queued === 'queued') {
-                $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
-                $scope.configure.header.translate.h1Values = {
-                    'type': $translate.instant('SERVICE_REQUEST_COMMON.TYPES.' + DeviceServiceRequest.item.type)
-                };
-                $scope.configure.header.translate.body = "QUEUE.RECEIPT.TXT_PARA";
-                $scope.configure.header.translate.bodyValues= {
-                    'srHours': 24
-                };
-                $scope.configure.header.translate.readMore = undefined;
-                $scope.configure.header.translate.action="QUEUE.RECEIPT.TXT_ACTION";
-                $scope.configure.header.translate.actionValues = {
-                    actionLink: Devices.route,
-                    actionName: $translate.instant('DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES')
-                };
-                $scope.configure.receipt = {
-                    translate:{
-                        title:"QUEUE.COMMON.TXT_GENERIC_SERVICE_REQUEST_TITLE",
-                        titleValues: {'srNumber': $translate.instant('QUEUE.RECEIPT.TXT_GENERATING_REQUEST') }
-                    }
-                };
-                $scope.configure.queued = true;
-              } else {
-                $scope.configure.header.translate.h1 = "DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_SUBMITTED";
-                $scope.configure.header.translate.body = "DEVICE_SERVICE_REQUEST.UPDATE_DEVICE_SUBMIT_HEADER_BODY";
-                $scope.configure.header.translate.bodyValues= {
-                    'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
-                    'srHours': 24,
-                    'deviceManagementUrl': '/service_requests/devices/new',
-                };
-                $scope.configure.receipt = {
-                    translate: {
-                        title:"DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL",
-                        titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
-                    }
-                };
-                $scope.configure.contact.show.primaryAction = false;
-              }
-            }
-
-            function configureTemplates() {
-                $scope.configure = {
-                    header: {
-                        translate: {
-                            h1: 'DEVICE_SERVICE_REQUEST.ADD',
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: 'Learn more about requests'
-                        },
-                        readMoreUrl: '/service_requests/learn_more',
-                        showCancelBtn: false
-                    },
-                    device: {
-                        information:{
-                            translate: {
-                                title: 'DEVICE_MGT.DEVICE_INFO',
-                                serialNumber: 'DEVICE_MGT.SERIAL_NO',
-                                partNumber: 'DEVICE_MGT.PART_NUMBER',
-                                product: 'DEVICE_SERVICE_REQUEST.PRODUCT_NUMBER',
-                                ipAddress: 'DEVICE_MGT.IP_ADDRESS',
-                                hostName: 'DEVICE_MGT.HOST_NAME',
-                                costCenter: 'DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER',
-                                chl: 'DEVICE_MGT.CHL',
-                                customerDeviceTag: 'DEVICE_MGT.CUSTOMER_DEVICE_TAG',
-                                installAddress: 'DEVICE_MGT.INSTALL_ADDRESS',
-                                linkMakeChangesTxt: 'LABEL.MAKE_CHANGES'
-                            },
-                            linkMakeChanges: '/service_requests/devices/new'
-
-                        },
-                        pageCount:{
-                            translate: {
-                                title: 'DEVICE_SERVICE_REQUEST.DEVICE_PAGE_COUNTS'
-                            },
-                            source: 'add'
-                        },
-                        contact: {
-                            translate:{
-                                title:'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
-                            }
-                        }
-                    },
-                    detail: {
-                        translate: {
-                            title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
-                            attachments: 'LABEL.ATTACHMENTS',
-                            attachmentMessage: 'MESSAGE.ATTACHMENT',
-                            fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
-                        },
-                        show: {
-                            referenceId: true,
-                            costCenter: true,
-                            comments: true,
-                            attachements: true
-                        }
-                    },
-                    actions: {
-                        translate: {
-                            abandonRequest:'DEVICE_SERVICE_REQUEST.ABANDON',
-                            submit: 'LABEL.REVIEW_SUBMIT'
-                        },
-                        submit: $scope.goToReview
-                    },
-                    contact:{
-                        translate: {
-                            title: 'SERVICE_REQUEST.CONTACT_INFORMATION',
-                            requestedByTitle: 'SERVICE_REQUEST.REQUEST_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
-                            changePrimary: 'SERVICE_REQUEST.CHANGE_PRIMARY_CONTACT'
-                        },
-                        show:{
-                            primaryAction : true
-                        },
-                        pickerObject: $scope.device,
-                        source: 'DeviceAdd'
-                    },
-                    modal: {
-                        translate: {
-                            abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
-                            abandonBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
-                            abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
-                            abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
-                        },
-                        returnPath: Devices.route + '/'
-                    },
-                    contactPicker: {
-                        translate: {
-                            replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
-                        }
-                    },
-                    addressPicker: {
-                        translate: {
-                            currentInstalledAddressTitle: 'DEVICE_SERVICE_REQUEST.CURRENTLY_INSTALLED_AT',
-                            replaceAddressTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_ADDRESS_WITH'
-                        },
-                        sourceAddress: $scope.device.address
-                    },
-                    devicePicker: {
-                        translate: {
-                            currentDeviceTitle: 'DEVICE_SERVICE_REQUEST.DEVICE_SELECTED_FOR_REMOVAL',
-                            replaceDeviceTitle: 'DEVICE_SERVICE_REQUEST.REPLACE_DEVICE_WITH',
-                            h1: 'DEVICE_MGT.REMOVE_A_DEVICE',
-                            body: 'MESSAGE.LIPSUM',
-                            readMore: '',
-                            confirmation:{
-                                    abandon:'DEVICE_MGT.DISCARD_DEVICE_REMOVAL_CHANGES',
-                                    submit: 'DEVICE_MGT.CHANGE_DEVICE_TO_BE_REMOVED'
-                            }
-                        },
-                        readMoreUrl: ''
-                    },
-                    statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
-                };
-            }
-
             var formatAdditionalData = function() {
                 if (!BlankCheck.isNull($scope.device.address)) {
                     $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.address);
@@ -464,5 +483,5 @@ define(['angular',
 
             $scope.formatReceiptData(formatAdditionalData);
         }
-    ]);
-});
+    }
+]);

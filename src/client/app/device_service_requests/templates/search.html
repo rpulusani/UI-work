@@ -1,6 +1,6 @@
 <h1 translate="DEVICE_SERVICE_REQUEST.NEW_SERVICE_REQUEST"></h1>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. <a href="/service_requests/learn_more">Learn more about requests</a></p>
+<p><span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS_PAR"></span></p>
 
 <h4 translate="DEVICE_SERVICE_REQUEST.SELECT_DEVICE"></h4>
 
@@ -14,10 +14,11 @@
     <h2 translate="DEVICE_SERVICE_REQUEST.DEVICES_MATCHING_SEARCH"
         translate-values="{total: pagination.totalItems, serial: '{{serial}}'}"
     ></h2>
-        
+
     <hr/>
 
-    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+    <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+        ui-grid-move-columns ui-grid-resize-columns></div>
     <div grid-pagination pages=="pagination"></div>
 </div>
 
@@ -36,6 +37,6 @@
         class="btn btn--secondary"
         data-js="modalOpen"
         data-target="#cancel"
-        translate="DEVICE_SERVICE_REQUEST.ABANDON"
+        translate="REQUEST_MAN.COMMON.BTN_ABANDON_REGISTRATION"
     ></button>
 </div>

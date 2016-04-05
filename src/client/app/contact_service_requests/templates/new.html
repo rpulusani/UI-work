@@ -3,18 +3,18 @@
         <ul class="breadcrumb">
             <li><a href="/" translate="DASHBOARD.TITLE"></a> >&nbsp;</li>
             <li><a href="" ng-click="contacts.goToList()" translate="CONTACT.TITLE"></a> >&nbsp;</li>
-            <li translate="CONTACT_SERVICE_REQUEST.ADD"></li>
+            <li translate="CONTACT_MAN.ADD_CONTACT.TXT_ADD_SUPPLIES_CONTACT"></li>
         </ul>
     </div>
 
     <div class="col-lg-2-3 col-md-1">
-        <h1 translate="CONTACT_SERVICE_REQUEST.ADD"></h1>
-        <p translate="MESSAGE.LIPSUM"></p>
+        <h1 translate="CONTACT_MAN.ADD_CONTACT.TXT_ADD_SUPPLIES_CONTACT"></h1>
+        <p translate="CONTACT_MAN.ADD_CONTACT.TXT_ADD_SUPPLIES_CONTACT_PAR"></p>
     </div>
 </div>
 
 <div class="page-content">
-    <form class="form" ng-submit="saveContact('newContact')" data-form="" name="newContact" novalidate>
+    <form class="form" ng-submit="saveContact('newContact')" data-form="" name="newContactForm" novalidate>
         <div class="col-2-3 l-alley-after">
             <div new-contact-fields></div>
         </div>
@@ -23,9 +23,9 @@
 
         <div class="btns">
             <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
-                translate="CONTACT_SERVICE_REQUEST.ABANDON_ADD"></button>
+                translate="CONTACT_MAN.ADD_CONTACT.BTN_ABANDON_CONTACT_ADD"></button>
             <button name="submit" class="btn btn--primary" ng-click="saveContact('newContact')" type="submit"
-                translate="CONTACT_SERVICE_REQUEST.SUBMIT"></button>
+                translate="CONTACT_MAN.ADD_CONTACT.BTN_CREATE_SUPPLIES_CONTACT"></button>
         </div>
     </form>
 </div>

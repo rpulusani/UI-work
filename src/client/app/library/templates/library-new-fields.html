@@ -8,7 +8,7 @@
         <div class="deleteConfirmation">
             <div ng-hide="isDeleting">
                 <button name="deleteDocument" class="btn btn--default" type="submit" value="submit" 
-                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-click="goToStartDelete()"></button>
+                        translate="DOCUMENT_LIBRARY.COMMON.BTN_DELETE_DOCUMENT" ng-if="getDeleteAction(documentItem.owner);" ng-click="goToStartDelete()"></button>
             </div>
             <div class="well" ng-show="isDeleting">
                 <p class="text--small" translate="DOCUMENT_LIBRARY.COMMON.TXT_DELETE_DOC_ARE_YOU_SURE"></p>
@@ -25,7 +25,7 @@
 <div ng-show="documentItem.id === 'new'">
     <div class="form__field form__field--required vertical-space--thick">
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>
-        <input type="file" name="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)"/>
+        <input type="file" name="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)" accept=".csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip" />
     </div>
 </div>
 
@@ -48,7 +48,7 @@
 <div class="row row--alley-thick vertical-space--thick">
     <div class="col-2-3">
         <tags-input ng-model="documentItem.tags" display-property="name" placeholder="{{ 'DOCUMENT_LIBRARY.COMMON.TXT_TAGGING' | translate }}" addFromAutocompleteOnly="true">
-            <auto-complete source="tags" load-on-focus="true" load-on-empty="true" max-results-to-show="100000"></auto-complete>
+            <auto-complete source="loadTags($query)" load-on-focus="true" load-on-empty="true" max-results-to-show="100000"></auto-complete>
         </tags-input>
     </div>
 </div>
@@ -58,14 +58,14 @@
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_FROM"></label>
-            <input type="text" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" datepicker />
+            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" datepicker />
         </div>
     </div>
 
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_TO"></label>
-            <input type="text" ng-model="documentItem.endDate" date-val="documentItem.endDate" datepicker />
+            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" datepicker />
         </div>
     </div>
 </div>

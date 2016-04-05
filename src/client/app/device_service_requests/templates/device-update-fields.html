@@ -1,129 +1,126 @@
-<h3 class="vertical-space--none" translate="DEVICE_MGT.DEVICE_INFO"></h3>
-
+<h3 class="vertical-space--none" translate="REQUEST_MAN.COMMON.TXT_DEVICE_INFO"></h3>
 <hr />
-
-<h3 ng-hide="device.addressSelected" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></h3>
+<input type="text" name="deviceAddress" style="display:none" ng-model="formattedDeviceAddress" default="{{formattedPrevAddress}}" />
+<h3 ng-hide="device.addressSelected" translate="REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS"></h3>
 <div ng-show="device.addressSelected">
-    <h3 translate="DEVICE_SERVICE_REQUEST.PREVIOUS_INSTALL_ADDRESS"></h3>
+    <h3 translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_PREV_INSTALL_ADDR"></h3>
     <div class="contact-info">
         <div ng-bind-html="formattedCurrentAddress"></div>
     </div>
-    <a href="" translate="DEVICE_SERVICE_REQUEST.REVERT_TO_THIS" ng-click="revertAddress()"></a>
-    <h3 translate="DEVICE_SERVICE_REQUEST.NEW_INSTALL_ADDRESS"></h3>
+    <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_REVERT_TO_ADDR" ng-click="revertAddress()"></a>
+    <h3 translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_NEW_INSTALL_ADDR"></h3>
 </div>
 <div class="contact-info">
     <div ng-bind-html="formattedDeviceAddress"></div>
 </div>
 <span ng-if="moveMADCAccess">
 <div ng-hide="device.addressSelected">
-    <a href="" translate="DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS" ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
+    <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR" ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
 <div ng-show="device.addressSelected">
-    <a href="" translate="DEVICE_SERVICE_REQUEST.SELECT_DIFFERENT_INSTALL_ADDRESS"
+    <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR"
         ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
 <div class="form__field">
-    <label translate="ADDRESS.BUILDING_NAME"></label>
-    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" />
+    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
+    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" mps-update />
 </div>
 
 <div class="form__field">
-    <label translate="ADDRESS.FLOOR_NAME"></label>
-    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" />
+    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
+    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" mps-update />
 </div>
 
 <div class="form__field">
-    <label translate="ADDRESS.SITE_NAME"></label>
-    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" />
+    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
+    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" mps-update />
 </div>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_MOVE_QUESTION"></strong>
+<strong translate="REQUEST_MAN.COMMON.TXT_INSTALL_LXK_MOVE"></strong>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field  form__field--no-margin">
     <input type="radio"
         id="device-move-question-no"
         name="device-move-question"
         ng-model="device.lexmarkMoveDevice"
         value="false"
-        data-js="customInput"
         checked
     />
-    <label for="device-move-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    <label for="device-move-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
 </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field form__field--no-margin">
     <input type="radio"
         id="device-move-question-yes"
         name="device-move-question"
         ng-model="device.lexmarkMoveDevice"
         value="true"
-        data-js="customInput"
     />
-    <label for="device-move-question-yes"><span></span> {{ 'DEVICE_SERVICE_REQUEST.DEVICE_MOVE_YES' | translate }}</label>
+    <label for="device-move-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
 </span>
 <span ng-if="updateDevice">
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_NETWORK_CONFIGURATION"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_NETWORK_CONFIG"></h3>
 
 <div class="form__field" >
-    <label translate="DEVICE_MGT.IP_ADDRESS"></label>
-    <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" />
+    <label translate="REQUEST_MAN.COMMON.TXT_IP_ADDR"></label>
+    <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class="" mps-update />
 </div>
 
 <div class="form__field" >
-    <label translate="DEVICE_MGT.HOST_NAME"></label>
-    <input name="hostName" type="text" ng-model="device.hostName" value="" class="" />
+    <label translate="REQUEST_MAN.COMMON.TXT_HOSTNAME"></label>
+    <input name="hostName" type="text" ng-model="device.hostName" value="" class="" mps-update />
 </div>
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_BILLING_TRACKING"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_DEVICE_BILL_TRACK"></h3>
 
 <div class="form__field">
-    <label translate="DEVICE_SERVICE_REQUEST.DEVICE_COST_CENTER"></label>
-    <input type="text" name="costCenter" ng-model="device.costCenter" value="" class="" required />
+    <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></label>
+    <input type="text" name="costCenter" ng-model="device.costCenter" value="" class=""  mps-update />
 </div>
 
-<strong translate="DEVICE_SERVICE_REQUEST.DEVICE_CHL_QUESTION"></strong>
+<strong translate="REQUEST_MAN.COMMON.TXT_DEVICE_CHL_QUERY"></strong>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field form__field--no-margin">
     <input type="radio"
         id="device-chl-question-no"
         name="device-chl-question"
         ng-model="device.deviceCHLQuestion"
         value="false"
-        data-js="customInput"
         checked
     />
-    <label for="device-chl-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+    <label for="device-chl-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
 </div>
 
-<div class="form__field form__field--radio form__field--no-margin">
+<div class="form__field form__field--no-margin">
     <input type="radio"
         id="device-chl-question-yes"
         name="device-chl-question"
         ng-model="device.deviceCHLQuestion"
         value="true"
-        data-js="customInput"
     />
-    <label for="device-chl-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+    <label for="device-chl-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
 
 <div ng-show="device.deviceCHLQuestion === 'true'">
-    <strong translate="ACCOUNT.ORG_STRUCT"></strong>
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_MANAGEMENT_STRUCT"></strong>
     <div tree class="well scrollable" tree-type='chl' action='selectLevel' value="device.chl"></div>
 </div>
 
 <div class="form__field" >
-    <label translate="DEVICE_MGT.CUSTOMER_DEVICE_TAG"></label>
-    <input name="customerDeviceTag" type="text" ng-model="device.assetTag" value="" class="" />
+    <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_TAG"></label>
+    <input name="customerDeviceTag" type="text" ng-model="device.assetTag" mps-update"
+        value="" class="" />
 </div>
 
-<h3 translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></h3>
+<h3 translate="REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT"></h3>
 
-<label translate="SERVICE_REQUEST.PRIMARY_CONTACT"></label>
+<label translate="REQUEST_MAN.COMMON.TXT_REQUEST_CONTACT"></label>
 
 <div class="contact-info">
+    <input name="deviceContact" type="text" style="display:none;" ng-model="formattedDeviceContact" default="{{formattedPrevDeviceContact}}">
     <div ng-bind-html="formattedDeviceContact"></div>
 </div>
 
-<a href="" translate="ADDRESS.CONTACT_CHANGE" ng-click="goToContactPicker('DeviceUpdate','updateDeviceContact',device)"></a>
+<a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_CHANGE_CONTACT" ng-click="goToContactPicker('DeviceUpdate','updateDeviceContact',device)"></a>
 </span>

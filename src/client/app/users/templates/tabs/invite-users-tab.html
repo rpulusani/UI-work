@@ -1,5 +1,5 @@
 <div class="col-1">
-    <div print-export-title title="USER.INVITED_USERS_COUNT"></div>
+    <div print-export-title titlestring="USER_MAN.INVITE_USERS.TXT_INVITED_USERS"></div>
     <hr/>
 </div>
 
@@ -11,7 +11,24 @@
 </div>
 <div class="col-md-1-1 btns">
     <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
-            translate="USER.CANCEL_INVITATION"></button>
+            translate="USER_MAN.INVITE_USERS.BTN_CANCEL_INVITATION" ng-disabled="!isSingleSelected()"></button>
 </div>
-<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
-<div pagination grid="{{gridOptions}}"></div>
+<div class="alert alert--info" ng-if="gridLoading === true">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="GRID.LOADING"></span>
+        </div>
+</div>
+
+<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="GRID.EMPTY"></span>
+        </div>
+</div>
+<div ng-if="gridLoading === false && gridDataCnt > 0">
+	<div ui-grid="gridOptions" class="table"
+        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+        ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter ng-style="gridOptions.getStyle()"></div>
+	<div pagination grid="{{gridOptions}}"></div>
+</div>

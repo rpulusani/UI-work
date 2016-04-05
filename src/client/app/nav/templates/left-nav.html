@@ -1,7 +1,7 @@
 <nav class="rail-nav">
     <ul>
         <li ng-repeat="item in getItemsByTag('primary')" ng-if="item.permissionFlag && !isInternal">
-            <a class="nav-item" href="{{item.action}}" title="{{item.description}}"
+            <a class="nav-item" href="{{item.action}}" title="{{item.description | translate}}"
             target="{{item.window}}" ng-class="{'is-active' : isActive(item) }" ng-if="!item.dropdown">
                 <span class="item-icon {{item.icon}}" ng-if="item.icon != ''"></span>
                 <span translate="{{item.text}}"></span>
@@ -10,7 +10,7 @@
                 target="{{item.window}}" ng-class="{'is-active' : isActive(item) }" ng-if="item.dropdown">
                 <div>
                     <small ng-show="!selectedAccount || selectedAccount.isDefault" translate="{{item.text}}"></small>
-                    <small ng-show="selectedAccount && !selectedAccount.isDefault" translate="NAVIGATION.ACCOUNT_SELECTED"></small>
+                    <small ng-show="selectedAccount && !selectedAccount.isDefault" translate="NAVIGATION.ACCOUNT.TXT_ACCOUNT_SELECTED"></small>
                 </div>
 
                 <!-- This markup is wrong, fix it -->
@@ -36,7 +36,7 @@
             <ul class="sub-nav" ng-if="item.dropdown && item.isExpanded">
                 <li>
                     <a class="nav-item" href="" ng-click="goToAccountPicker()" >
-                        <span translate="NAVIGATION.ACCOUNT_VIEW_ALL" translate-values="{{ accountTotal }}"></span>
+                        <span translate="NAVIGATION.ACCOUNT.TXT_VIEW_ALL_ACCOUNTS" translate-values="{{ accountTotal }}"></span>
                     </a>
                 </li>
                 <li ng-repeat="child in item.data" ng-if="item.permissionFlag">
@@ -49,7 +49,7 @@
                 </li>
                 <li>
                     <a class="nav-item" href="" ng-click="goToAccountPicker()">
-                         <span translate="NAVIGATION.ACCOUNT_FIND_SPECIFIC"></span>
+                         <span translate="NAVIGATION.ACCOUNT.TXT_FIND_SPECIFIC_ACCOUNT"></span>
                     </a>
                 </li>
             </ul>
@@ -68,7 +68,7 @@
                 <span class="push item-icon icon {{item.dropdownIcon}}" ng-if="item.dropdown"></span>
             </a>
             <ul class="sub-nav" ng-if="getItemsByTag(item.id).length > 0 && item.isExpanded">
-                <li ng-repeat="child in getItemsByTag(item.id)" ng-if="item.permissionFlag">
+                <li ng-repeat="child in getItemsByTag(item.id)" ng-if="child.permissionFlag">
                     <a class="nav-item" href="{{child.action}}" title="{{child.description}}"
                     ng-class="{'is-active': isActive(child)}" ng-click="setActive(child.text)">
                         <span class="item-icon {{child.icon}}" ng-if="child.icon != ''"></span>

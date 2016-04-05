@@ -2,12 +2,29 @@
     <h1 translate="PORTAL_ADMIN.SIEBEL_VALUES"></h1>
     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
     <div class="col-1 btns">
-        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.ADD_NEW_SIEBEL_VALUE_BTN" 
+        <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.ADD_NEW_SIEBEL_VALUE_BTN"
         	ng-click="goToCreate()"></button>
     </div>
 </div>
 <div class="page-content">
     <div grid-filter options="filterOptions" params="optionParams"></div>
-    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
-    <div pagination grid="{{gridOptions}}"></div>
+    <div class="alert alert--info" ng-if="gridLoading === true">
+	    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+	        <div class="alert__body">
+	             <span translate="GRID.LOADING"></span>
+	        </div>
+	</div>
+
+	<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
+	    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+	        <div class="alert__body">
+	             <span translate="GRID.EMPTY"></span>
+	        </div>
+	</div>
+	<div ng-if="gridLoading === false && gridDataCnt > 0">
+		<div ui-grid="gridOptions" class="table"
+            ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+             ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter></div>
+		<div pagination grid="{{gridOptions}}"></div>
+	</div>
 </div>

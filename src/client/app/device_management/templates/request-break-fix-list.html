@@ -1,13 +1,14 @@
 
 <div open-sr configure="configure"></div>
 
-<h2 id="break-fix" class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="REQUEST_MGMT.REQUESTS_FOR_DEVICE" translate-values="{total: pagination.totalItems()}"></h2>
+<h2 id="break-fix" class="vertical-space--none" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined" translate="DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_DEVICE_SERVICE_HISTORY" translate-values="{total: pagination.totalItems()}"></h2>
 
 <hr ng-show="gridOptions.data && gridOptions.data.length > 0"/>
-<p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MGT.LOOKING_FOR_A_REQUEST" class="vertical-space--none"></p>
+<p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MAN.COMMON.TXT_SEARCH" class="vertical-space--none"></p>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
 
-<div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns></div>
+<div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table"
+     ng-style="gridOptions.getStyle()" ui-grid-auto-resize  ui-grid-move-columns ui-grid-resize-columns></div>
 <span ng-if="!gridOptions.data || gridOptions.data.length === 0" translate="LABEL.ZERO_RECORDS"></span>
 <div pagination grid="{{gridOptions}}"></div>

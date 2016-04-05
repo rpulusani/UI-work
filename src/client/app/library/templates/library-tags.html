@@ -6,31 +6,32 @@
             <div class="col-1 btns">
                 <button type="button" ng-if="documentLibraryManageGlobalTagAccess" class="btn btn--default" href="" ng-click="goToStartCreate()" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_CREATE_NEW_TAG"></button>
             </div>
+            <div class="well" ng-show="activeTag.createSuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_CHANGES_ADDED" translate-values="{ tagName: phTagName }"</p>
+            </div>
+            <div class="well" ng-show="activeTag.modifySuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_CHANGES_MODIFIED" translate-values="{ tagName: phTagName }"</p>
+            </div>
+            <div class="well" ng-show="activeTag.deleteSuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_DOC_CHANGES_DELETED" translate-values="{ tagName: phTagName }"</p>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="page-content">
 
-        <div class="row">
-            <div class="col-2-3 tag-table-wrapper">
-                <table class="table table--responsive table--condensed table--bordered">
-                    <thead>
-                        <tr>
-                            <th translate="Tags"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="tag in tags">
-                            <td>
-                                <p>{{tag.name}} <span ng-if="documentLibraryManageGlobalTagAccess">|</span> <i class="icon icon-psw-edit" ng-if="documentLibraryManageGlobalTagAccess" ng-click="goToStartEdit(tag)"></i>
-                                <i class="icon icon-psw-delete" ng-if="documentLibraryManageGlobalTagAccess" ng-click="goToStartDelete(tag)"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="row">
+        <div class="col-1">
+            <h4 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_LIBRARY"></h4>
+
+            <hr/>
+
+            <div ui-grid="gridOptions" class="table"
+                ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-move-columns ui-grid-resize-columns></div>
+            <div pagination grid="{{gridOptions}}"></div>
         </div>
+    </div>
 
     <div class="row" ng-show="isCreating === true">
         <div class="well col-2-3">
@@ -41,7 +42,7 @@
 
                     <label translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_NAME"></label>
                     <input name="name" type="text" ng-model="tagName" value="" class="" required />
-                    <span  ng-hide="!newTag.name.$error.required"
+                    <span ng-hide="!newTag.name.$error.required"
                     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
@@ -51,7 +52,7 @@
                         <button name="cancel" class="btn btn--secondary"
                                 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_ABANDON_TAG_CREATE" ng-click="goToCancelCreate()"></button>
                         <button name="submit" class="btn btn--primary" type="submit" value="submit"
-                                translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_CREATE_TAG" ng-click="goToCreateTag()"></button>
+                                translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_CREATE_TAG" ng-click="newTag.$valid && goToCreateTag()"></button>
                     </div>
                 </div>
 
@@ -67,11 +68,14 @@
                     <h3 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_EDITING_TAG"></h3>
 
                     <div class="col-1 btns">
-                        <button type="button" class="btn btn--default" href="" ng-click="goToCancelEditStartDelete(tag)" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_DELETE_TAG"></button>
+                        <button type="button" class="btn btn--default" href="" ng-click="goToCancelEditStartDelete()" translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_DELETE_TAG"></button>
                     </div>
 
                     <label translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_NAME"></label>
-                    <input name="name" type="text" ng-model="tagItem.name" value="" class="" />
+                    <input name="name" type="text" ng-model="selectedTag" value="" class="" required />
+                    <span ng-hide="!editTag.name.$error.required"
+                    class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
+                    <span translate="LABEL.ERROR_REQUIRED"></span></span>
                 </div>
 
                 <div class="row">
@@ -79,7 +83,7 @@
                         <button name="cancel" class="btn btn--secondary"
                                 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_DISCHARD_CHANGES" ng-click="goToCancelEdit()"></button>
                         <button name="submit" class="btn btn--primary" type="submit" value="submit"
-                                translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_SAVE_CHANGES" ng-click="goToEditTag()"></button>
+                                translate="DOCUMENT_LIBRARY.MANAGE_TAGS.BTN_SAVE_CHANGES" ng-click="editTag.$valid && goToEditTag()"></button>
                     </div>
                 </div>
 
@@ -95,7 +99,7 @@
                     <h3 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_DELETING_TAG"></h3>
 
                     <label translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_NAME"></label>
-                    <input name="name" type="text" ng-model="tagItem.name" value="" class="" disabled="true"/>
+                    <input name="name" type="text" ng-model="selectedTag" value="" class="" disabled="true"/>
                 </div>
 
                 <div class="row">

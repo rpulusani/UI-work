@@ -510,7 +510,7 @@ define(['angular', 'angular-mocks', 'filterSearch', 'hateoasFactory'], function(
             });
             it('should display first selected column',
                     inject(['$controller', function($controller){
-                         var called = false;
+                        var called = false;
                         var params = undefined;
                         scope.columns = [
                             { dispaly: 'COW', searchOn: 'cow'},
@@ -522,6 +522,7 @@ define(['angular', 'angular-mocks', 'filterSearch', 'hateoasFactory'], function(
                             params = options;
                         };
                         mockedGridSearchController = $controller('GridSearchController',{$scope: scope});
+                        scope.gridSearch();
                         expect(scope.searchBy).toBe('cow');
                 }])
                 );

@@ -1,20 +1,28 @@
-<div ng-if="configure && configure.order && configure.order.shipToBillTo" >
-    <h2 translate="{{configure.order.shipToBillTo.translate.shipToAddress}}"></h3>
+<div ng-if="configure && configure.order && configure.order.shipTo" >
+    <h2 translate="{{configure.installShipping.translate.installAddress}}"></h2>
+    <div class="col-1-3 well well--no-shadow">
+        <p ng-bind-html="formatedInstallAddress"></p>
+    </div>
+</div>
+<div ng-if="configure && configure.order && configure.order.shipTo" >
+    <h2 translate="{{configure.order.shipTo.translate.shipToAddress}}"></h3>
     <div class="col-1-3 well well--no-shadow">
         <p ng-bind-html="formatedShipToAddress"></p>
     </div>
-    <h4 translate="{{configure.order.shipToBillTo.translate.instructions}}"></h4>
+    <h4 translate="{{configure.order.shipTo.translate.instructions}}"></h4>
     <p ng-bind="formattedInstructions"></p>
     <ul class="info-list">
-        <li class="info-list__item" ng-show="configure.order.shipToBillTo.translate.deliveryDate">
-            <div class="info-list__item-name" translate="{{configure.order.shipToBillTo.translate.deliveryDate}}"></div>
+        <li class="info-list__item" ng-show="configure.order.shipTo.translate.deliveryDate">
+            <div class="info-list__item-name" translate="{{configure.order.shipTo.translate.deliveryDate}}"></div>
             <div class="info-list__item-value" ng-bind="formattedDeliveryDate"></div>
         </li>
-        <li class="info-list__item" ng-show="configure.order.shipToBillTo.translate.expedite">
-            <div class="info-list__item-name" translate="{{configure.order.shipToBillTo.translate.expedite}}"></div>
+        <li class="info-list__item" ng-show="configure.order.shipTo.translate.expedite">
+            <div class="info-list__item-name" translate="{{configure.order.shipTo.translate.expedite}}"></div>
             <div class="info-list__item-value" ng-bind="formattedExpedite"></div>
         </li>
     </ul>
+</div>
+<div ng-if="configure && configure.order && configure.order.shipToBillTo && scratchSpace.billToAddresssSelected">
     <h2 translate="{{configure.order.shipToBillTo.translate.billToAddress}}"></h3>
     <div class="col-1-3 well well--no-shadow">
         <p ng-bind-html="formatedBillToAddress"></p>

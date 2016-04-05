@@ -1,13 +1,36 @@
 <div class="alert alert--info" ng-show="show">
     <span class="alert__close" ng-click="dismiss()"  aria-hidden="true">×</span><icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <h3 class="text--n9 vertical-space--thin" 
+        translate="REQUEST_MAN.COMMON.TITLE_DEVICE_NOTIFICATION" 
+        translate-values="{'count': notificationLength}">
+    </h3>
+
     <div class="alert__body">
         <div ng-if="ordersMessage">
-            <span  translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_NOTIFICATION_ORDERS"></span>
-            <a ng-click="goto('orderTab')" href="#" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.LNK_NOTIFICATION_ORDERS"></a>
+            <ul>
+                <div ng-repeat="order in openOrderList">
+                    <li>
+                        <span translate="ORDER_MAN.MANAGE_ORDERS.TXT_SINGLE_SUPPLY_ORDER"></span>
+                        <a href="" ng-click="$parent.viewOrder(order)">({{order.requestNumber}})</a> 
+                        <span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_STATUS_CHANGE_DETAILS" 
+                            translate-values="{'status': order.updatedStatus, 'statusDate': order.updatedStatusDate}">
+                        </span>
+                    </li>
+                </div>
+            </ul>
         </div>
         <div ng-if="serviceHistoryMessage">
-            <span  translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_NOTIFICATION_SRHISTORY"></span>
-            <a ng-click="goto('requestTab')" href="#" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.LNK_NOTIFICATION_SRHISTORY"></a>
+            <ul>
+                <div ng-repeat="sr in openSRList">
+                    <li>
+                        <span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_SINGLE_SERVICE_REQUEST"></span>
+                        <a href="" ng-click="$parent.viewSR(sr)">({{sr.requestNumber}})</a> 
+                        <span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_STATUS_CHANGE_DETAILS" 
+                            translate-values="{'status': sr.updatedStatus, 'statusDate': sr.updatedStatusDate}">
+                        </span>
+                    </li>
+                </div>
+            </ul>
         </div>
     </div>
 </div>

@@ -1,10 +1,10 @@
-<div class="form__field form__field--required vertical-space--thick">
+<div class="form__field form__field--required vertical-space--thick" ng-class="(!newAddress.name.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <input name="id" type="hidden" ng-model="address.id"/>
     <input name="accountId" type="hidden" ng-model="address.accountId"/>
     <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME"></label>
-     <input name="name" type="text" ng-model="address.name" value="" class="" required />
+    <input name="name" type="text" ng-model="address.name" value="" class="" required />
 </div>
-<div class="form__field vertical-space--thick" >
+<div class="form__field vertical-space--thick">
     <label class="question text--large" translate="ADDRESS_MAN.COMMON.TXT_STOREFRONT_ADDRESS_QUERY"></label>
      <div class="form__field form__field--radio">
         <input type="radio" id="store-front-question-no" name="store-front-question"
@@ -30,7 +30,6 @@
     {{'ADDRESS_SERVICE_REQUEST.SAME_ADDRESS_QUESTION' | translate }}<label>
     </div>
 </div>
-
 <div ng-show="!needToVerify">
     <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
     <div class="form__field form__field--select form__field--required">
@@ -38,7 +37,7 @@
         <div selectric model="address.country" options="countryHAL.countries" value="code" label="name"
       placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
     </div>
-    <div class="form__field form__field--required">
+    <div class="form__field form__field--required" ng-class="(!newAddress.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_1"></label>
         <input name="addressLine1" type="text" ng-model="address.addressLine1" required/>
     </div>
@@ -46,18 +45,18 @@
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_2"></label>
         <input name="addressLine2" type="text" ng-model="address.addressLine2" />
     </div>
-    <div class="form__field form__field--required">
+    <div class="form__field form__field--required" ng-class="(!newAddress.city.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="ADDRESS_MAN.COMMON.TXT_CITY"></label>
         <input name="city" type="text" ng-model="address.city" required />
     </div>
-    <div class="form__field form__field--select form__field--required">
+    <div ng-show="country.provinces.length > 0" class="form__field form__field--select">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
-        <div selectric options="country.provinces" value="code" label="name" model="address.state" required
+        <div selectric options="country.provinces" value="code" label="name" model="address.state"
              placeholder="{{'LABEL.SELECT' | translate}}"></div>
     </div>
     <div class="row">
         <div class="col-md-1-3">
-            <div class="form__field form__field--required">
+            <div class="form__field form__field--required" ng-class="(!newAddress.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
                 <input type="text" name="postalCode" ng-model="address.postalCode" value="" class="" required />
             </div>

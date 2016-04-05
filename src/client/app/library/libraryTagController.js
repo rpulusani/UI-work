@@ -1,96 +1,185 @@
-define(['angular', 'library', 'utility.grid'], function(angular) {
-    'use strict';
-    angular.module('mps.library')
-    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'Tags', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
-        function($scope, $location, $translate, $route, $http, Documents, Tags, Grid, $rootScope, Personalize, formatter) {
+angular.module('mps.library')
+    .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents',
+        'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
+        function($scope, $location, $translate, $route, $http, Documents, Tags, Translations, GridService,
+            $rootScope, Personalize, formatter) {
 
+        $scope.isCreating = false;
+        $scope.isEditing = false;
+        $scope.isDeleting = false;
+
+        var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+        var Grid = new GridService();
+
+        if (Tags.item) {
+            $scope.activeTag = Tags.item;
+            $scope.phTagName = Tags.item.name;
+        }
+
+        $scope.goToStartCreate = function () {
+            $scope.isCreating = true;
+        };
+
+        $scope.goToCancelCreate = function () {
             $scope.isCreating = false;
+        };
+
+        $scope.goToStartEdit = function (tag) {
+            Tags.setItem(tag);
+            $scope.selectedTag = Tags.item.name;
+
+            $scope.isEditing = true;
+        };
+
+        $scope.goToCancelEdit = function () {
             $scope.isEditing = false;
+        };
+
+        $scope.goToStartDelete = function (tag) {
+            Tags.setItem(tag);
+            $scope.selectedTag = Tags.item.name;
+
+            $scope.isDeleting = true;
+        };
+
+        $scope.goToCancelDelete = function () {
             $scope.isDeleting = false;
+        };
 
-            $scope.goToStartCreate = function () {
-                $scope.isCreating = true;
-            };
+        $scope.goToCancelEditStartDelete = function() {
+            $scope.goToCancelEdit();
+            $scope.goToStartDelete(Tags.item);
+        };
 
-            $scope.goToCancelCreate = function () {
-                $scope.isCreating = false;
-            };
+        $scope.gridOptions = {};
+        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Tags, personal);
+        $scope.gridOptions.showBookmarkColumn = false;
 
-            $scope.goToStartEdit = function (tag) {
-                Tags.setItem(tag);
-                $scope.tagItem = Tags.item;
+        Tags.get({
+            params: {
+                page: 0,
+                size: 20
+            }
+        }).then(function() {
+            Grid.display(Tags, $scope, personal);
+        });
 
-                $scope.isEditing = true;
-            };
+        $scope.goToCreateTag = function() {
+            Tags.newMessage();
+            Tags.addField("name", $scope.tagName);
+            Tags.item.postURL = Tags.url;
 
-            $scope.goToCancelEdit = function () {
-                $scope.isEditing = false;
-            };
-
-            $scope.goToStartDelete = function (tag) {
-                Tags.setItem(tag);
-                $scope.tagItem = Tags.item;
-
-                $scope.isDeleting = true;
-            };
-
-            $scope.goToCancelDelete = function () {
-                $scope.isDeleting = false;
-            };
-
-            $scope.goToCancelEditStartDelete = function(tag) {
-                $scope.goToCancelEdit();
-                $scope.goToStartDelete(tag);
-            };
-
-            $scope.tags = [];
-            Tags.params.size = 100000;
-            Tags.get().then(function() {
-                if (Tags.data) {
-                    $scope.tags = Tags.data;
-                }
+            $http({
+                method: 'POST',
+                url: Tags.url,
+                data: Tags.item
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to CREATE tag: ' + response.statusText);
             });
 
-            $scope.goToCreateTag = function() {
-                Tags.newMessage();
-                Tags.addField("name", $scope.tagName);
-                Tags.item.postURL = Tags.url;
+            Tags.item.createSuccess = true;
 
-                $http({
-                    method: 'POST',
-                    url: Tags.url,
-                    data: Tags.item
-                }).then(function successCallback(response) {
-                    $route.reload();
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to CREATE tag: ' + response.statusText);
-                });
-            };
+            var parsedTagName = Documents.getTranslationKeyFromTag($scope.tagName);
 
-            $scope.goToEditTag = function(tag) {
-                Tags.setItem(tag);
+            var tagLocalizations = {'EN': $scope.tagName};
 
-                $http({
-                    method: 'PUT',
-                    url: Tags.item.url,
-                    data: Tags.item
-                }).then(function successCallback(response) {
-                    $route.reload();
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
-                });
-            };
+            Translations.newMessage();
+            Translations.addField('key', parsedTagName);
+            Translations.addField('type', 'DOCUMENT');
+            Translations.addField('module', 'DOCUMENT');
+            Translations.addField('subModule', 'TAG');
+            Translations.addField('actualValue', $scope.tagName);
+            Translations.addField('values', tagLocalizations);
+            Translations.item.postURL = Translations.url;
 
-            $scope.goToDeleteTag = function(tag) {
-                $http({
-                    method: 'DELETE',
-                    url: Tags.item.url
-                }).then(function successCallback(response) {
-                    $route.reload();
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to DELETE tag: ' + response.statusText);
-                });
-            };
-        }
-    ]);
-});
+            $http({
+                method: 'POST',
+                url: Translations.url,
+                data: Translations.item
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
+            });
+
+            $route.reload();
+        };
+
+        $scope.goToEditTag = function() {
+            var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
+
+            Tags.item.name = $scope.selectedTag;
+
+                var tagName = Tags.item.name;
+                var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
+
+            $http({
+                method: 'PUT',
+                url: Tags.item.url,
+                data: Tags.item
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
+            });
+
+            Tags.item.modifySuccess = true;
+
+            // When editing a tag we don't edit the translation, we DELETE and INSERT
+            $http({
+                method: 'DELETE',
+                url: Translations.url + '/' + origParsedTagName
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
+            });
+
+            var tagLocalizations = {'EN': tagName};
+
+            Translations.newMessage();
+            Translations.addField('key', parsedTagName);
+            Translations.addField('type', 'DOCUMENT');
+            Translations.addField('module', 'DOCUMENT');
+            Translations.addField('subModule', 'TAG');
+            Translations.addField('actualValue', tagName);
+            Translations.addField('values', tagLocalizations);
+            Translations.item.postURL = Translations.url;
+
+            $http({
+                method: 'POST',
+                url: Translations.url,
+                data: Translations.item
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
+            });
+
+            $route.reload();
+        };
+
+        $scope.goToDeleteTag = function() {
+            var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
+
+            $http({
+                method: 'DELETE',
+                url: Tags.item.url
+            }).then(function successCallback(response) {
+
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to DELETE tag: ' + response.statusText);
+            });
+
+            Tags.item.deleteSuccess = true;
+
+            $http({
+                method: 'DELETE',
+                url: Translations.url + '/' + parsedTagName
+            }).then(function successCallback(response) {
+            }, function errorCallback(response) {
+                NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
+            });
+
+            $route.reload();
+        };
+    }
+]);
+

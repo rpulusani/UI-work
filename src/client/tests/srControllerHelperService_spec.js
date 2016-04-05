@@ -277,7 +277,7 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                        scope.setupSR(null, itemFunc);
                     };
                     expect(actual)
-                        .toThrow('setupSR needs a ServiceRequest Factory to perform this function');
+                        .toThrow('setupSR needs a HalObject Factory to perform this function');
                 });
                 it('should perform correctly if itemFunc is null', function(){
                     var halObj = {

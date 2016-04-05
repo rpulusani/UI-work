@@ -6,10 +6,12 @@
 </div>
 <div class="page-content">
      <div class="clearfix">
-        <div print-export-title title="QUEUE.DASHBOARD.TXT_HEADER_ITEMS_COUNT"></div>
+        <div print-export-title titlestring="QUEUE.DASHBOARD.TXT_HEADER_ITEMS_COUNT"></div>
     </div>
         <hr>
         <div grid-filter options="filterOptions" params="optionParams"></div>
-        <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-exporter></div>
+        <div ui-grid="gridOptions" class="table"
+            ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+            ui-grid-move-columns ui-grid-resize-columns ui-grid-exporter></div>
         <div pagination grid="{{gridOptions}}"></div>
 </div>

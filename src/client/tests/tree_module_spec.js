@@ -7,7 +7,7 @@ define([
     'tree.treeItemController',
     'tree.directives'
 ], function(angular, mocks, tree){
-    'use strict';
+    
 
     describe('Tree Module', function() {
         beforeEach(module('mps'));

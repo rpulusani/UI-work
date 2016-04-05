@@ -1,44 +1,48 @@
-define(['angular', 'contact'], function(angular) {
-    'use strict';
-    angular.module('mps.serviceRequestContacts')
-    .controller('ContactAddController', [
-        '$scope',
-        '$location',
-        '$filter',
-        '$routeParams',
-        '$rootScope',
-        'ServiceRequestService',
-        'FormatterService',
-        'BlankCheck',
-        'Addresses',
-        'Contacts',
-        'SRControllerHelperService',
-        'UserService',
-        'HATEAOSConfig',
-        '$timeout',
-        function($scope,
-            $location,
-            $filter,
-            $routeParams,
-            $rootScope,
-            ServiceRequest,
-            FormatterService,
-            BlankCheck,
-            Addresses,
-            Contacts,
-            SRHelper,
-            Users,
-            HATEAOSConfig,
-            $timeout) {
 
-            SRHelper.addMethods(Contacts, $scope, $rootScope);
+angular.module('mps.serviceRequestContacts')
+.controller('ContactAddController', [
+    '$scope',
+    '$location',
+    '$filter',
+    '$routeParams',
+    '$rootScope',
+    'ServiceRequestService',
+    'FormatterService',
+    'BlankCheck',
+    'Addresses',
+    'Contacts',
+    'SRControllerHelperService',
+    'UserService',
+    'HATEAOSConfig',
+    '$timeout',
+    'SecurityHelper',
+    function($scope,
+        $location,
+        $filter,
+        $routeParams,
+        $rootScope,
+        ServiceRequest,
+        FormatterService,
+        BlankCheck,
+        Addresses,
+        Contacts,
+        SRHelper,
+        Users,
+        HATEAOSConfig,
+        $timeout,
+        SecurityHelper) {
 
+        SRHelper.addMethods(Contacts, $scope, $rootScope);
+        $scope.setTransactionAccount('ContactAdd', Contacts);
+        new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
+        if($scope.inTransactionalAccountContext()){
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
-            }, 3600);
+        }, 8000);
 
             $scope.checkAddress = function(contactForm) {
-                if($scope.checkedAddress === 0){
+                    if($scope.checkedAddress === 0 && $scope.newContactForm.$valid){
+                        $scope.validForm = true;
                     $scope.enteredAddress = {
                         addressLine1: $scope.contact.address.addressLine1,
                         city: $scope.contact.address.city,
@@ -66,6 +70,9 @@ define(['angular', 'contact'], function(angular) {
                             $scope.saveContact(contactForm);
                         }
                     });
+                    } else {
+                        $scope.validForm = false;
+                        window.scrollTo(0,0);
                 }
             };
 
@@ -151,9 +158,8 @@ define(['angular', 'contact'], function(angular) {
 
             var updateContactObjectForSubmit = function() {
                 Contacts.item = $scope.contact;
-                Contacts.addRelationship('account', Contacts.tempSpace.requestedByContact, 'account');
+                Contacts.addAccountRelationship();
             };
-           
 
             $scope.saveContact = function(contactForm) {
                 $scope.checkAddress(contactForm);
@@ -164,7 +170,7 @@ define(['angular', 'contact'], function(angular) {
 
                     if(contactForm === 'newContact'){
                         deferred = Contacts.post({
-                            item: $scope.contact
+                            item: Contacts.item
                         });
 
                         deferred.then(function(result){
@@ -196,14 +202,10 @@ define(['angular', 'contact'], function(angular) {
                             NREUM.noticeError('Failed to update Contact because: ' + reason);
                         });
                         //enter into Service Request creation for Address update
-                        
+
                     }
-
-
                 }
-
             };
-
         }
-    ]);
-});
+    }
+]);

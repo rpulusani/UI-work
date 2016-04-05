@@ -35,7 +35,7 @@
                     </div>
                     <div ng-show="readonly === false || readonly === undefined">
                         <input datepicker type="text" ng-model="module.newDate[item.type]" date-val="module.newDate[item.type]"
-                            ng-if="item.type !== 'MONO' || updateFlag === false"/>
+                            ng-if="item.type !== 'MONO' || updateFlag === false" time="true" time-interval="60"/>
                     </div>
                     <span ng-if="item.type === 'MONO' && updateFlag === true" ng-bind="getMeterReadPriorDate(item)"></span>
                 </div>

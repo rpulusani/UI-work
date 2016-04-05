@@ -1,7 +1,7 @@
-<h2 class="vertical-space--none" translate="DEVICE_SERVICE_REQUEST.DEVICE_DETAILS"></h2>
+<h2 class="vertical-space--none" translate="REQUEST_MAN.REQUEST_DEVICE_DECOM.TXT_DEVICE_DETAILS"></h2>
 <hr class="vertical-margin-bottom-12"/>
 <div class="vertical-margin-bottom-36">
-    <a href="#" class="" translate="DEVICE_SERVICE_REQUEST.TXT_CHANGE_DEVICE"
+    <a href="#" class="" translate="REQUEST_MAN.REQUEST_SERVICE.LNK_CHANGE_DEVICE"
         ng-click="goToDevicePicker('DeviceServiceRequestDevice',device)"></a>
 </div>
 <div class="media">
@@ -15,27 +15,27 @@
     <div class="media__body">
         <ul class="info-list">
             <li class="info-list__item">
-                <div class="info-list__item-name" translate="DEVICE_MGT.PRODUCT_MODEL"></div>
+                <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></div>
                 <div class="info-list__item-value" ng-bind="device.productModel"></div>
             </li>
             <li class="info-list__item">
-                <div class="info-list__item-name" translate="DEVICE_MGT.PART_NUMBER"></div>
+                <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL"></div>
                 <div class="info-list__item-value" ng-bind="device.partNumber"></div>
             </li>
             <li class="info-list__item">
-                <div class="info-list__item-name" translate="DEVICE_MGT.SERIAL_NO"></div>
+                <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER"></div>
                 <div class="info-list__item-value" ng-bind="device.serialNumber"></div>
             </li>
             <li class="info-list__item">
-                <div class="info-list__item-name" translate="DEVICE_MGT.IP_ADDRESS"></div>
+                <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_IP_ADDR"></div>
                 <div class="info-list__item-value" ng-bind="device.ipAddress"></div>
             </li>
             <li class="info-list__item">
-                <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_CONTACT"></div>
+                <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_SUPPLIES_CONTACT"></div>
                 <div class="info-list__item-value" style="white-space: pre;" ng-bind-html="formattedDeviceContact"></div>
             </li>
             <li class="info-list__item">
-                <div class="info-list__item-name" translate="DEVICE_SERVICE_REQUEST.DEVICE_INSTALL_ADDRESS"></div>
+                <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS"></div>
                 <div class="info-list__item-value" style="white-space: pre;" ng-bind-html="formattedDeviceAddress"></div>
             </li>
         </ul>

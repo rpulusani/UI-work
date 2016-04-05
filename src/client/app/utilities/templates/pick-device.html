@@ -1,4 +1,5 @@
 <div sr-header></div>
+<div class="page-content">
 <h3 class="vertical-space--none" translate="DEVICE_SERVICE_REQUEST.DEVICE_SELECTION"></h3>
 
 <hr />
@@ -72,7 +73,9 @@
 <hr/>
 
 <div ng-if="pagination.totalItems() > 0">
-    <div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+    <div ui-grid="gridOptions" class="table"
+        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+        ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
     <div pagination grid="{{gridOptions}}"></div>
 </div>
 
@@ -81,4 +84,5 @@
     <button class="btn btn--secondary" translate="{{abandonText}}" ng-click="discardSelect()"></button>
     <button class="btn btn--primary" translate="{{submitText}}"
             ng-click="goToCallingPage()"></button>
+</div>
 </div>

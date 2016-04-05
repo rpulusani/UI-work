@@ -17,7 +17,7 @@
     <div alert-message></div>
 
     <div class="clearfix">
-        <div print-export-title title="ADDRESS_MAN.MANAGE_ADDRESS.TXT_INSTALL_ADDRESSES"></div>
+        <div print-export-title titlestring="ADDRESS_MAN.MANAGE_ADDRESS.TXT_INSTALL_ADDRESSES"></div>
     </div>
         <hr>
         <div grid-filter options="filterOptions" params="optionParams"></div>
@@ -59,8 +59,8 @@
         </div>
 
         <div ng-if="gridLoading === false && gridDataCnt > 0">
-            <div ui-grid="gridOptions" class="table" ui-grid-exporter 
-                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+            ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
             </div>
 
             <div pagination grid="{{gridOptions}}"></div>

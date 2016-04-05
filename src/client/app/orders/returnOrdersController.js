@@ -1,94 +1,53 @@
-define(['angular', 'utility.grid'], function(angular) {
-    'use strict';
-    angular.module('mps.orders')
-    .controller('ReturnOrdersController', [
-        'SRControllerHelperService',
-        '$scope',
-        '$rootScope',
-        'OrderRequest',
-        'Contacts',
-        'UserService',
-        'FormatterService',
-        'BlankCheck',
-        'OrderTypes',
-        '$timeout',
-        'TombstoneService',
-        '$routeParams',
-        '$location',
-        '$translate',
-        function(
-            SRHelper,
-            $scope,
-            $rootScope,
-            Orders,
-            Contacts,
-            Users,
-            Formatter,
-            BlankCheck,
-            OrderTypes,
-            $timeout,
-            Tombstone,
-            $routeParams,
-            $location,
-            $translate
-        ){
-        SRHelper.addMethods(Orders, $scope, $rootScope);
 
-        var configureSR = function(Orders){
-                    if(!Orders.item || !Orders.item.description){
-                        Orders.addField('description', '');
-                    }
-                    Orders.addAccountRelationship();
-                    Orders.addRelationship('primaryContact', $scope.order, 'contact');
-            };
-            function getRequestor(Order, Contacts) {
-                Users.getLoggedInUserInfo().then(function() {
-                    Users.item.links.contact().then(function() {
-                        if(!Order.tempSpace){
-                            Order.tempSpace = {};
-                        }
-                        Order.tempSpace.requestedByContact = Users.item.contact.item;
-                        Order.addRelationship('requester', $rootScope.currentUser, 'contact');
-                        Order.tempSpace.primaryContact = Order.tempSpace.requestedByContact;
-                        Order.addRelationship('primaryContact', Order.tempSpace.requestedByContact, 'self');
-                        $scope.requestedByContactFormatted = Formatter.formatContact(Order.tempSpace.requestedByContact);
-                        $scope.formattedPrimaryContact = Formatter.formatContact(Order.tempSpace.primaryContact);
-                    });
-                });
-            }
-            if(Orders && !Orders.item){
 
-                Orders.newMessage();
-                configureSR(Orders);
-                getRequestor(Orders, Contacts);
-                $rootScope.order = Orders.item;
+angular.module('mps.orders')
+.controller('ReturnOrdersController', [
+    'SRControllerHelperService',
+    '$scope',
+    '$rootScope',
+    '$filter',
+    'OrderRequest',
+    'Contacts',
+    'UserService',
+    'FormatterService',
+    'BlankCheck',
+    'OrderTypes',
+    '$timeout',
+    'TombstoneService',
+    '$routeParams',
+    '$location',
+    '$translate',
+    'SecurityHelper',
+    'ServiceRequestService',
+    function(
+        SRHelper,
+        $scope,
+        $rootScope,
+        $filter,
+        Orders,
+        Contacts,
+        Users,
+        Formatter,
+        BlankCheck,
+        OrderTypes,
+        $timeout,
+        Tombstone,
+        $routeParams,
+        $location,
+        $translate,
+        SecurityHelper,
+        ServiceReqeust
+    ){
+    SRHelper.addMethods(Orders, $scope, $rootScope);
+    $scope.setTransactionAccount('ReturnOrders', Orders);
+    new SecurityHelper($rootScope).redirectCheck($rootScope.createSuppliesReturn);
 
-            }else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+    var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
-                configureSR(Orders);
-                $scope.order = $rootScope.returnPickerSRObjectAddress;
-                Orders.addRelationship('shipToAddress', $rootScope.selectedAddress, 'self');
-                Orders.tempSpace.address = angular.copy($rootScope.selectedAddress);
-                $scope.resetAddressPicker();
-
-            } else if($rootScope.selectedContact &&
-                $rootScope.returnPickerObject){
-
-                    configureSR(Orders);
-                    Orders.item = $rootScope.returnPickerObject;
-                    $scope.order = $rootScope.returnPickerSRObject;
-                    Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-                    Orders.tempSpace.primaryContact = angular.copy($rootScope.selectedContact);
-                    $scope.resetContactPicker();
-
-            }else{
-                $rootScope.order = Orders.item;
-                getRequestor(Orders, Contacts);
-            }
-            $scope.setupSR(Orders, configureSR);
-
-            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
-            function configureReviewTemplate(){
+    function configureReviewTemplate(){
                 configureTemplates();
                 var options = {
                     params:{
@@ -131,6 +90,8 @@ define(['angular', 'utility.grid'], function(angular) {
                 };
             }
             function configureReceiptTemplate(){
+                var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+                $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
                 if($routeParams.queued ==='queued'){
                     $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                         $scope.configure.header.translate.h1Values = {
@@ -160,14 +121,14 @@ define(['angular', 'utility.grid'], function(angular) {
                         $scope.configure.header.translate.readMore = undefined;
                         $scope.configure.header.readMoreUrl = undefined;
                         $scope.configure.header.translate.bodyValues= {
-                            'srNumber': FormatterService.getFormattedSRNumber($scope.order),
+                            'srNumber': Formatter.getFormattedSRNumber($scope.order),
                             'srHours': 24,
                             'orderUrl': Orders.route,
                         };
                         $scope.configure.receipt = {
                             translate:{
                                 title:"ORDER_MAN.ORDER_SUPPLY_RETURN_RECEIPT.TXT_ORDER_DETAIL_RETURNS",
-                                titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                                titleValues: {'srNumber': Formatter.getFormattedSRNumber($scope.sr) }
                             }
                         };
                     $scope.configure.queued = false;
@@ -233,7 +194,7 @@ define(['angular', 'utility.grid'], function(angular) {
                         translate: {
                             title: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACTS',
                             requestedByTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY',
-                            primaryTitle: 'SERVICE_REQUEST.PRIMARY_CONTACT',
+                            primaryTitle: 'ORDER_MAN.COMMON.TXT_ORDER_CONTACT',
                             changePrimary: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_CHANGE_CONTACT'
                         },
                         show:{
@@ -245,9 +206,9 @@ define(['angular', 'utility.grid'], function(angular) {
                     detail:{
                         translate:{
                             title: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ADDL_DETAILS',
-                            referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
-                            costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                            comments: 'LABEL.COMMENTS',
+                            referenceId: 'ORDER_MAN.COMMON.TXT_ORDER_CUST_REF_ID',
+                            costCenter: 'ORDER_MAN.COMMON.TXT_COST_CENTER',
+                            comments: 'ORDER_MAN.COMMON.TXT_ORDER_COMMENTS',
                             attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
                             attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
                             fileList: ''
@@ -283,26 +244,67 @@ define(['angular', 'utility.grid'], function(angular) {
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: Orders.route + '/' +  '/review'
-                    },
-                    statusList:[
-                  {
-                    'label':'Submitted',
-                    'date': '1/29/2016',
-                    'current': true
-                  },
-                  {
-                    'label':'In progress',
-                    'date': '',
-                    'current': false
-                  },
-                  {
-                    'label':'Completed',
-                    'date': '',
-                    'current': false
-                  }
-                ]
+                    }
                 };
             }
+
+    function getRequestor(Order, Contacts) {
+        Users.getLoggedInUserInfo().then(function() {
+            Users.item.links.contact().then(function() {
+                if(!Order.tempSpace){
+                    Order.tempSpace = {};
+                }
+                Order.tempSpace.requestedByContact = Users.item.contact.item;
+                Order.addRelationship('requester', $rootScope.currentUser, 'contact');
+                Order.tempSpace.primaryContact = Order.tempSpace.requestedByContact;
+                Order.addRelationship('primaryContact', Order.tempSpace.requestedByContact, 'self');
+                $scope.requestedByContactFormatted = Formatter.formatContact(Order.tempSpace.requestedByContact);
+                $scope.formattedPrimaryContact = Formatter.formatContact(Order.tempSpace.primaryContact);
+            });
+        });
+    }
+
+    if($scope.inTransactionalAccountContext()){
+        var configureSR = function(Orders){
+                    if(!Orders.item || !Orders.item.description){
+                        Orders.addField('description', '');
+                    }
+                    Orders.addAccountRelationship();
+                    Orders.addRelationship('primaryContact', $scope.order, 'contact');
+            };
+
+            if(Orders && !Orders.item){
+
+                Orders.newMessage();
+                configureSR(Orders);
+                getRequestor(Orders, Contacts);
+                $rootScope.order = Orders.item;
+
+            }else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+
+                configureSR(Orders);
+                $scope.order = $rootScope.returnPickerSRObjectAddress;
+                Orders.addRelationship('shipToAddress', $rootScope.selectedAddress, 'self');
+                Orders.tempSpace.address = angular.copy($rootScope.selectedAddress);
+                $scope.resetAddressPicker();
+
+            } else if($rootScope.selectedContact &&
+                $rootScope.returnPickerObject){
+
+                    configureSR(Orders);
+                    Orders.item = $rootScope.returnPickerObject;
+                    $scope.order = $rootScope.returnPickerSRObject;
+                    Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                    Orders.tempSpace.primaryContact = angular.copy($rootScope.selectedContact);
+                    $scope.resetContactPicker();
+
+            }else{
+                $rootScope.order = Orders.item;
+                getRequestor(Orders, Contacts);
+            }
+            $scope.setupSR(Orders, configureSR);
+
+            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
 
             if(Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)){
                 $scope.requestedByContactFormatted = Formatter.formatContact(Orders.tempSpace.requestedByContact);
@@ -324,5 +326,6 @@ define(['angular', 'utility.grid'], function(angular) {
                     $scope.formattedDescription = Formatter.formatNoneIfEmpty(Orders.item.description);
                 }
             });
-    }]);
-});
+        }
+}]);
+

@@ -4,7 +4,7 @@
     </div>
     <div class="set__content" id="deviceListTab">
     <div class="col-1">
-        <div print-export-title title="DEVICE_MGT.TITLE_CNT"></div>
+        <div print-export-title titlestring="DEVICE_MAN.MANAGE_DEVICES.TXT_DEVICE_LISTING"></div>
         <hr/>
     </div>
     <div grid-filter options="filterOptions" params="optionParams"></div>
@@ -30,19 +30,19 @@
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderSupplies')"
             translate="DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES" ng-disabled="!isSingleSelected()" ng-if="orderSupplies"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('requestService')"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_REQUEST_SERVICE" ng-disabled="!isSingleSelected()" 
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_REQUEST_SERVICE" ng-disabled="!isSingleSelected()"
             ng-if="createBreakFixAccess"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('updatePageCounts')"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess" 
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess"
             ng-disabled="!isSingleSelected()"></button>
-        <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')"
-            translate="LABEL.EDIT" ng-disabled="!isSingleSelected()"></button>
-        <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')"
-            translate="LABEL.MOVE" ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')" ng-if="updateDevice"
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isSingleSelected()"></button>
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')" ng-if="moveDevice"
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MOVE_DEVICE" ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderAnother')"
-            translate="DEVICE_MGT.ORDER_ANOTHER_BTN" ng-disabled="!isSingleSelected()"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SAME_DEVICE" ng-disabled="!isSingleSelected()" ng-if="orderDevice"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
-            translate="DEVICE_MGT.REMOVE_FROM_FLEET" ng-disabled="!isSingleSelected()" ng-if="decommissionAccess"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_DECOM_DEVICE" ng-disabled="!isSingleSelected()" ng-if="decommissionAccess"></button>
     </div>
     <div class="col-1">
         <div class="alert alert--info" ng-if="gridLoading === true">
@@ -60,16 +60,17 @@
         </div>
 
         <div ng-if="gridLoading === false && gridDataCnt > 0">
-            <div ui-grid="gridOptions" class="table" ui-grid-exporter 
-                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-exporter
+                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection >
             </div>
 
             <div pagination grid="{{gridOptions}}"></div>
         </div>
     </div>
-  </div>
+    </div>
 
-    <div class="set__trigger" data-toggle="mapViewTab" ng-click="goToLBS()" ng-if="lbsAccess">
+    <div id="lbs" class="set__trigger" data-toggle="mapViewTab" ng-click="goToLBS()" ng-show="lbsAccess">
         <a  translate="DEVICE_MAN.MANAGE_DEVICES.TAB_MAP_VIEW"><i class="set__icon"></i></a>
     </div>
+    <div class="set__content" id="mapViewTab"></div>
 </div>

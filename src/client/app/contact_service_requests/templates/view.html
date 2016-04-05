@@ -7,13 +7,13 @@
     </div>
 
     <div class="col-lg-2-3 col-md-1">
-        <h1 translate="CONTACT.LIST_TITLE"></h1>
+        <h1 translate="CONTACT_MAN.MANAGE_CONTACTS.TXT_MANAGE_CONTACTS"></h1>
 
-        <p class="vertical-space--none" translate="MESSAGE.LIPSUM"></p>
-        <a href="/service_requests/learn_more" translate="DEVICE_SERVICE_REQUEST.LEARN_MORE"></a>
+        <p class="vertical-space--none" translate="CONTACT_MAN.MANAGE_CONTACTS.TXT_MANAGE_CONTACTS_PAR"></p>
+        <a href="/service_requests/learn_more" translate="CONTACT_MAN.MANAGE_CONTACTS.LNK_LEARN_MORE"></a>
         <div class="l-pad-top">
             <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
-            translate="CONTACT_SERVICE_REQUEST.ADD"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_ADD_NEW_CONTACT" ng-if="contactAccess"></button>
         </div>
         <div queue-alert></div>
     </div>
@@ -21,13 +21,13 @@
 
 <div class="page-content">
     <div>
-        <div print-export-title title="CONTACT.TITLE_CNT"></div>
+        <div print-export-title titlestring="CONTACT_MAN.MANAGE_CONTACTS.TXT_ALL_SUPPLIES_CONTACTS"></div>
     </div>
     <hr />
     <div grid-filter options="filterOptions" params="optionParams"></div>
     <div class="row l-pad-top">
         <div class="col-lg-2-3 col-md-1-1">
-            <span class="text--semi-bold" translate="CONTACT.FILTER_LABEL"></span>
+            <span class="text--semi-bold" translate="CONTACT_MAN.MANAGE_CONTACTS.TXT_SEARCH"></span>
         </div>
     </div>
 
@@ -43,9 +43,11 @@
 
     <div class="col-lg-2-3 col-md-1-1">
         <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
-            translate="CONTACT_SERVICE_REQUEST.UPDATE" ng-disabled="!isSingleSelected()"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_UPDATE_CONTACT" ng-disabled="!isSingleSelected()" ng-if="contactAccess">
+        </button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
-            translate="CONTACT_SERVICE_REQUEST.DELETE" ng-disabled="!isSingleSelected()"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_REMOVE_CONTACT" ng-disabled="!isSingleSelected()" ng-if="contactAccess">
+        </button>
     </div>
 
     <div class="col-1">
@@ -64,8 +66,8 @@
         </div>
 
         <div ng-if="gridLoading === false && gridDataCnt > 0">
-            <div ui-grid="gridOptions" class="table" ui-grid-exporter 
-                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+                ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
             </div>
 
             <div pagination grid="{{gridOptions}}"></div>

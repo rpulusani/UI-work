@@ -10,3 +10,6 @@ src/.../PhantomJS 1.9.8 (Mac OS X 0.0.0)/cobertura-coverage.xml
 src/PhantomJS 1.9.8 (Mac OS X 0.0.0)/cobertura-coverage.xml
 cobertura-coverage.xml
 pagination2
+**/*.swp
+dist
+.sublime-gulp.cache

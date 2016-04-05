@@ -1,7 +1,27 @@
 <div class="col-1">
-    <div print-export-title title="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_W_TOTALS" print="print" export="export"></div>
+    <div print-export-title titlestring="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_W_TOTALS" print="print" export="export"></div>
     <hr/>
 </div>
+<div ng-if="errorMessage !== ''" class="alert alert--error" data-js="alert">
+<span class="alert__close" data-js="alert-close" aria-hidden="true">×</span><icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+    <div class="alert__body">
+    <span >
+       {{errorMessage}}
+    </span>
+    </div>
+</div>
+
+ <div id="pageCounts-error-popup" class="modal">
+     <div class="modal__body">
+     <h2 translate="PAGE_COUNTS.WARNING.HEADER"></h2><hr/>
+     <p>{{popupMsg}}
+     <span translate="PAGE_COUNTS.WARNING.IGNOREMSG"></span>
+     </p>
+     <button class="btn" ng-click="ignoreAndSave()" data-js="modalClose" translate="LABEL.YES"></button>
+     <button class="btn" data-js="modalClose" translate="LABEL.NO"></button>
+     </div>
+ </div>
+
 
 <div grid-filter options="filterOptions" params="optionParams"></div>
 
@@ -15,7 +35,23 @@
     </div>
 </div>
 
-<div ui-grid="gridOptions" class="table" ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
-<div pagination grid="{{gridOptions}}"></div>
+<div class="alert alert--info" ng-if="gridLoading === true">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="GRID.LOADING"></span>
+        </div>
+</div>
+
+<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="GRID.EMPTY"></span>
+        </div>
+</div>
+<div ng-if="gridLoading === false && gridDataCnt > 0">
+	<div ui-grid="gridOptions" class="table" ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter 
+        ng-style="gridOptions.getStyle()"></div>
+	<div pagination grid="{{gridOptions}}"></div>
+</div>
 
 

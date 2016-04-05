@@ -1,4 +1,4 @@
-<h4 translate="ADDRESS_SERVICE_REQUEST.LOCATION_OF_ADDRESS" ng-if="!contactUpdate"></h4>
+<h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS" ng-if="!contactUpdate"></h4>
 <div class="alert alert--info">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
     <div class="alert__body">
@@ -9,7 +9,7 @@
     <div class="col-1-2 l-alley-after">
         <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_YOU_ENTERED"></p>
         <div class="well well--no-shadow">
-            <div class="form__field form__field--radio">
+            <div>
                 <input type="radio" 
                     id="accepted-entered-address-entered-address"
                     name="verify-question"
@@ -39,7 +39,7 @@
     <div class="col-1-2">
         <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_RECOMMENDED_ADDRESS"></p>
         <div class="well well--no-shadow">
-            <div class="form__field form__field--radio">
+            <div>
                 <input type="radio" 
                     id="accepted-entered-address-comparison-address"
                     name="verify-question"
@@ -62,7 +62,7 @@
             <div ng-bind="comparisonAddress.country"></div>
 
             <div class="l-pad-top">
-                <a translate="ADDRESS_MAN.COMMON.CTRL_UPDATE_ADDRESS"  ng-click="editAddress('comparisonAddress')" href=""></a>
+                
             </div>
         </div>
     </div>

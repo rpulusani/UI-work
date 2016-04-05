@@ -1,7 +1,8 @@
- <h2 class="vertical-space--none"
+<div ng-if="orderSuppliesAsset">
+    <h2 class="vertical-space--none"></h2>
     <header class="col-1">
         <h2 translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_SUPPLIES_ACCESSORIES"></h2>
-        <div class="push">
+        <div class="push" ng-if="orderSuppliesCatalog">
             <a href="#" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.LNK_CATALOG_ORDER"></a>
         </div>
         <hr/>
@@ -16,5 +17,6 @@
             <div order-content editable="{{editable}}" submit-action="submit" datasource="orderItems"></div>
         </div>
     </div>
+</div>
 
 
