@@ -33,9 +33,12 @@
 
         <hr class="vertical-space--thick">
 
+        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL" cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM" return-path="/service_requests/contacts/"></div>
+
         <div class="btns">
-            <button name="cancel" class="btn btn--secondary" ng-click="contacts.goToList()"
+            <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel" 
                 translate="CONTACT_MAN.UPDATE_CONTACT.BTN_DISCARD_CHANGES"></button>
+
             <button name="submit" class="btn btn--primary" ng-click="saveContact('editContact')" type="submit"
                 translate="CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT"></button>
         </div>
