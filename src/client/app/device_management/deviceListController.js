@@ -36,6 +36,13 @@ angular.module('mps.deviceManagement')
 
         ServiceRequest.reset();
 
+        $scope.breadcrumbs = {
+            1: {
+                href: "/device_management",
+                value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+            }
+        };
+
         $scope.goToCreate = function() {
             Devices.reset();
             ServiceRequest.reset();
