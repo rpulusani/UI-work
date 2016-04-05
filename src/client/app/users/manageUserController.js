@@ -82,80 +82,7 @@ angular.module('mps.user')
                 $scope.user.fullName = $scope.user.firstName + $scope.user.lastName;
             }
 
-            $scope.setPermissions = function(role){
-                Roles.setItem(role);
-                var options = {
-                    params:{
-                        'applicationName': 'customerPortal'
-                    }
-                };
-
-                Roles.item.get(options).then(function(){
-                    if (Roles.item && Roles.item.permissions) {
-                        for (var i=0; i<Roles.item.permissions.length; i++) {
-                            if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
-                                $scope.user.permissions.push(Roles.item.permissions[i]);
-                            } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1) {
-                                $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
-                            }
-                        }
-                    }
-                    if (Roles.item && role.selected) {
-                        $scope.user.selectedRoleList.push(role);
-                    } else if ($scope.user.selectedRoleList) {
-                        for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
-                            var selectedRole = $scope.user.selectedRoleList[j];
-                            if (role.roleId === selectedRole.roleId) {
-                                $scope.user.selectedRoleList.splice(j,1);
-                            }
-                        }
-                    }
-                });
-            };
-
-            $scope.setPermissionsForBasic = function(role){
-                Roles.setItem(role);
-                var options = {
-                    params:{
-                        'applicationName': 'customerPortal'
-                    }
-                }, promises = [];
-
-                promises.push(Roles.item.get(options));
-
-                for (var i=0;i<$scope.user.basicRoles.length; i++) {
-                    if ($scope.basicRole
-                        && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
-                        Roles.setItem($scope.user.basicRoles[i]);
-                        var options = {
-                            params:{
-                                'applicationName': 'customerPortal'
-                            }
-                        };
-                        promises.push(Roles.item.get(options));
-                    }
-                }
-
-                $q.all(promises).then(function(response) {
-                    if(response[1] && response[1].data && response[1].data.permissions) {
-                        var permissionList = response[1].data.permissions;
-                        for (var i=0; i<permissionList.length; i++) {
-                            if ($scope.user.permissions && $scope.user.permissions.indexOf(permissionList[i])!== -1) {
-                                $scope.user.permissions.splice($scope.user.permissions.indexOf(permissionList[i]), 1);
-                            }
-                        }
-                    }
-
-                    if(response[0] && response[0].data && response[0].data.permissions) {
-                        var permissionList = response[0].data.permissions;
-                        for (var i=0; i<permissionList.length; i++) {
-                            if ($scope.user.permissions.indexOf(permissionList[i]) === -1) {
-                                $scope.user.permissions.push(permissionList[i]);
-                            }
-                        }
-                    }
-                });
-            };
+            
 
             var removeParams,
             addonRoleOptions = {
@@ -200,13 +127,19 @@ angular.module('mps.user')
                                     }
                                 }
                             }
-                        });
-                    }
-                });
+                        }
+                    });
+                }
+            });
                 
+            if ($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel') {
+                    var siebelAccount = $rootScope.currentAccount;
+                    siebelAccount._links = {self: {}};
+                    siebelAccount._links.self.href = siebelAccount.href;
+                    $scope.accountList.push(siebelAccount);
+            } else {
                 User.getLoggedInUserInfo().then(function() {
                 if (User.item._links.accounts) {
-                    $scope.showAllAccounts = false;
                     if (angular.isArray(User.item._links.accounts)) {
                         var promises = [],
                         options = {},
@@ -244,97 +177,129 @@ angular.module('mps.user')
                             }
                         });
                     }
+                } else {
+                    $scope.showAllAccounts = true;
                 }
+                
             });
+        }
 
-            $scope.setAccounts = function() {
-                $scope.$broadcast('searchAccount');
+        
+    }
+
+        $scope.setAccounts = function() {
+            $scope.$broadcast('searchAccount');
+        };
+
+        $scope.removeAccount = function(item) {
+            if ($scope.accounts && $scope.accounts.length > 0) {
+                for (var j=0;j<$scope.accounts.length; j++) {
+                    if ($scope.accounts[j].accountId 
+                        && $scope.accounts[j].accountId === item.accountId
+                        && $scope.accounts[j].level === item.level
+                        && $scope.accounts[j].name === item.name) {
+                        $scope.accounts.splice(j, 1);
+                    }
+                }
+            }
+            $scope.$broadcast('searchAccount');
+        };
+
+        $scope.$on('searchAccount', function(evt){
+            $scope.accountList = [];
+            if($scope.user.accountName && $scope.user.accountName.length >=3) {
+                var options = {
+                    preventDefaultParams: true,
+                    params:{    
+                        searchTerm: $scope.user.accountName
+                    }
+                };
+                AllAccounts.get(options).then(function(){
+                    $scope.accountList = [];
+                    if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                        var allAccountList = AllAccounts.item._embedded.accounts;
+                        for (var i=0; i<allAccountList.length; i++) {
+                            $scope.accountList.push(allAccountList[i]);
+                        }
+                    }
+                });
+            }
+        }); 
+
+        $scope.setPermissions = function(role){
+            Roles.setItem(role);
+            var options = {
+                params:{
+                    'applicationName': 'customerPortal'
+                }
             };
 
-            $scope.removeAccount = function(item) {
-                if ($scope.accounts && $scope.accounts.length > 0) {
-                    for (var j=0;j<$scope.accounts.length; j++) {
-                        if ($scope.accounts[j].accountId 
-                            && $scope.accounts[j].accountId === item.accountId
-                            && $scope.accounts[j].level === item.level
-                            && $scope.accounts[j].name === item.name) {
-                            $scope.accounts.splice(j, 1);
+            Roles.item.get(options).then(function(){
+                if (Roles.item && Roles.item.permissions) {
+                    for (var i=0; i<Roles.item.permissions.length; i++) {
+                        if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
+                            $scope.user.permissions.push(Roles.item.permissions[i]);
+                        } else if ($scope.user.permissions && $scope.user.permissions.indexOf(Roles.item.permissions[i])!== -1) {
+                            $scope.user.permissions.splice($scope.user.permissions.indexOf(Roles.item.permissions[i]), 1);
                         }
                     }
                 }
-                $scope.$broadcast('searchAccount');
-            };
-
-            $scope.$on('searchAccount', function(evt){
-                $scope.accountList = [];
-                if($scope.user.accountName && $scope.user.accountName.length >=3) {
-                    var options = {
-                        preventDefaultParams: true,
-                        params:{    
-                            searchTerm: $scope.user.accountName
+                if (Roles.item && role.selected) {
+                    $scope.user.selectedRoleList.push(role);
+                } else if ($scope.user.selectedRoleList) {
+                    for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
+                        var selectedRole = $scope.user.selectedRoleList[j];
+                        if (role.roleId === selectedRole.roleId) {
+                            $scope.user.selectedRoleList.splice(j,1);
                         }
-                    };
-                    AllAccounts.get(options).then(function(){
-                        $scope.accountList = [];
-                        if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
-                            var allAccountList = AllAccounts.item._embedded.accounts;
-                            for (var i=0; i<allAccountList.length; i++) {
-                                $scope.accountList.push(allAccountList[i]);
-                            }
-                        }
-                    });
+                    }
                 }
             });
+        };
 
+        $scope.setPermissionsForBasic = function(role){
+            Roles.setItem(role);
+            var options = {
+                params:{
+                    'applicationName': 'customerPortal'
+                }
+            }, promises = [];
+
+            promises.push(Roles.item.get(options));
+
+            for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                if ($scope.basicRole
+                    && $scope.user.basicRoles[i].roleId.toString() === $scope.basicRole.toString()) {
+                    Roles.setItem($scope.user.basicRoles[i]);
+                    var options = {
+                        params:{
+                            'applicationName': 'customerPortal'
+                        }
+                    };
+                    promises.push(Roles.item.get(options));
+                }
             }
 
-                if ($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel') {
-                    var siebelAccount = $rootScope.currentAccount;
-                    siebelAccount._links = {self: {}};
-                    siebelAccount._links.self.href = siebelAccount.href;
-                    $scope.accountList.push(siebelAccount);
-                } else {
-                    User.getLoggedInUserInfo().then(function() {
-                        if (angular.isArray(User.item._links.accounts)) {
-                            var promises = [],
-                            options = {},
-                            promise, deferred;
-                            for (var i=0; i<User.item._links.accounts.length; i++) {
-                                var item = User.item.accounts[i];
-                                item._links = {
-                                    self: {}
-                                };
-                                item._links.self = User.item._links.accounts[i];
-                                deferred = $q.defer();
-                                Account.setItem(item);
-                                options = {
-                                    updateParams: false,
-                                    params:{
-                                        accountId: Account.item.accountId,
-                                        accountLevel: Account.item.level
-                                    }
-                                };
-                                promise = Account.item.get(options);
-                                promises.push(promise);
-                            }
-                            var prLength = promises.length;
-                            $q.all(promises).then(function(response) {
-                                for (var j=0; j<response.length; j++) {
-                                    if($scope.accountList.length < prLength && response[j] && response[j].data) {
-                                        $scope.accountList.push(response[j].data);
-                                    }
-                                }
-                            });
-                        } else {
-                            User.getAdditional(User.item, Account).then(function() {
-                                if ($scope.accountList.length === 0) {
-                                    $scope.accountList.push(Account.item);
-                                }
-                            });
+            $q.all(promises).then(function(response) {
+                if(response[1] && response[1].data && response[1].data.permissions) {
+                    var permissionList = response[1].data.permissions;
+                    for (var i=0; i<permissionList.length; i++) {
+                        if ($scope.user.permissions && $scope.user.permissions.indexOf(permissionList[i])!== -1) {
+                            $scope.user.permissions.splice($scope.user.permissions.indexOf(permissionList[i]), 1);
                         }
-                    });
+                    }
                 }
-        }
+
+                if(response[0] && response[0].data && response[0].data.permissions) {
+                    var permissionList = response[0].data.permissions;
+                    for (var i=0; i<permissionList.length; i++) {
+                        if ($scope.user.permissions.indexOf(permissionList[i]) === -1) {
+                            $scope.user.permissions.push(permissionList[i]);
+                        }
+                    }
+                }
+            });
+        };
 
         var updateAdminObjectForUpdate = function(updateStatus) {
             UserAdminstration.reset();
