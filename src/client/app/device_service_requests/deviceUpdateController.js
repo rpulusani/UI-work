@@ -158,6 +158,10 @@ angular.module('mps.serviceRequestDevices')
             if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
                 $scope.device.lexmarkMoveDevice = false;
             }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.device.deviceCHLQuestion)) {
+                $scope.device.deviceCHLQuestion = false;
+            }
         }
         $scope.checkChange = function(field){
             if($scope.device && $scope.orignalDevice &&
@@ -173,7 +177,7 @@ angular.module('mps.serviceRequestDevices')
         $scope.getRequestor(ServiceRequest, Contacts);
 
         var updateSRObjectForSubmit = function() {
-            if ($scope.device.lexmarkMoveDevice === 'true') {
+            if ($scope.device.lexmarkMoveDevice === true) {
                 ServiceRequest.addField('type', 'MADC_MOVE');
             } else {
                 ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');

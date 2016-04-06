@@ -379,6 +379,10 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.needToVerify = false;
                 $scope.canReview = false;
                 $scope.address.addressCleansedFlag = 'N';
+                if (BlankCheck.isNullOrWhiteSpace($scope.address.storeFrontQuestion)) {
+                    $scope.address.storeFrontQuestion = false;
+                }
+                
                 if ($rootScope.newAddress || $rootScope.newSr) {
                     if ($rootScope.newAddress) {
                         $scope.address = $rootScope.newAddress;

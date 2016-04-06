@@ -43,8 +43,7 @@
         id="device-move-question-no"
         name="device-move-question"
         ng-model="device.lexmarkMoveDevice"
-        value="false"
-        checked
+        ng-value="false"
     />
     <label for="device-move-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
 </div>
@@ -54,7 +53,7 @@
         id="device-move-question-yes"
         name="device-move-question"
         ng-model="device.lexmarkMoveDevice"
-        value="true"
+        ng-value="true"
     />
     <label for="device-move-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
@@ -86,8 +85,7 @@
         id="device-chl-question-no"
         name="device-chl-question"
         ng-model="device.deviceCHLQuestion"
-        value="false"
-        checked
+        ng-value="false"
     />
     <label for="device-chl-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
 </div>
@@ -97,12 +95,12 @@
         id="device-chl-question-yes"
         name="device-chl-question"
         ng-model="device.deviceCHLQuestion"
-        value="true"
+        ng-value="true"
     />
     <label for="device-chl-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
 
-<div ng-show="device.deviceCHLQuestion === 'true'">
+<div ng-show="device.deviceCHLQuestion === true">
     <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_MANAGEMENT_STRUCT"></strong>
     <div tree class="well scrollable" tree-type='chl' action='selectLevel' value="device.chl"></div>
 </div>
