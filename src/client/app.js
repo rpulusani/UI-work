@@ -216,6 +216,10 @@
                 permission: permissionSet.contentManagement.manageAccountTag
             },
             {
+                name: 'documentLibraryManageStrategicAccess',
+                permission: permissionSet.contentManagement.viewStrategic
+            },
+            {
                 name: 'documentLibraryManageGlobalTagAccess',
                 permission: permissionSet.contentManagement.manageGlobalTag
             },

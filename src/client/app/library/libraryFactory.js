@@ -7,11 +7,12 @@ angular.module('mps.library')
             serviceName: 'documents',
             embeddedName: 'documents',
             columns: 'default',
-                springSorting:  true,
+            springSorting:  true,
             columnDefs: {
                 defaultSet: [
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
-                        cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>'
+                        cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>', visible: $rootScope.documentLibraryViewStrategicAccess,
+                        showInColumnPicker: $rootScope.documentLibraryViewStrategicAccess
                     },
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), field: 'name', width: '420',
                         'cellTemplate':'<div>' +

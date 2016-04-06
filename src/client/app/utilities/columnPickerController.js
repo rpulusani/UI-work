@@ -115,7 +115,9 @@ angular.module('mps.utility')
                             }
 
                             for (i; i < columns.length; i += 1) {
-                                if (columns[i].field !== 'bookmark' && !columns[i].inColumnSelector) {
+                                var hide = (columns[i].showInColumnPicker !== undefined && columns[i].showInColumnPicker === false);
+
+                                if (columns[i].field !== 'bookmark' && !columns[i].inColumnSelector && !hide) {
                                     columns[i].inColumnSelector = true;
                                     links.push(createColumnSelection(columns[i], e.targetScope.gridOptions));
                                 }
