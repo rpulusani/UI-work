@@ -219,7 +219,11 @@ angular.module('mps.serviceRequestAddresses')
 
         if($scope.inTransactionalAccountContext()){
             $scope.setStoreFrontName = function(){
-                $scope.address.storeFrontName =  $scope.address.name;
+                if($scope.storeFrontNameCheck){
+                    $scope.address.storeFrontName =  $scope.address.name;
+                }else{
+                    $scope.address.storeFrontName ='';
+                }
             };
 
 
