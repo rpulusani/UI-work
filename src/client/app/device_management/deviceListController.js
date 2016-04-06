@@ -127,6 +127,10 @@ angular.module('mps.deviceManagement')
                 }
             };
 
+            if (!angular.isArray(devices)) {
+                devices = [devices];
+            }
+
             if (devices.length === 1) {
                 device = devices[0];
 
