@@ -1,0 +1,60 @@
+<div sr-header></div>
+
+<div class="page-content">
+    <h2><span translate="NAVIGATION.LEFT_NAV.TXT_DEVICES"></span> (<span ng-bind="devices.length"></span>)</h2>
+
+    <table class="table table--condensed table--even table--responsive vertical-space--none">
+        <thead>
+            <tr>
+                <th translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER"></th>
+                <th translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL"></th>
+                <th translate="NAVIGATION.LEFT_NAV.TXT_CONTACTS"></th>
+                <th translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr ng-repeat="device in devices">
+                <td ng-bind="device.serialNumber"></td>
+                <td ng-bind="device.productModel"></td>
+                <td ng-bind="device.productModel"></td>
+                <td ng-bind="device.costCenter"></td>
+             </tr>
+        </tbody>
+    </table>
+
+    <div class="col-1"></div>
+
+    <h2><span translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO"></span> (<span ng-bind="devices.length"></span>)</h2>
+    <hr />
+
+    <form class="form" data-form="" name="srForm" novalidate>
+        <div class="col-1-4">
+            <h3 translate="NAVIGATION.LEFT_NAV.TXT_CONTACTS"></h3>
+        </div>
+        <div class="col-1-4">
+            <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_CHANGE_CONTACT" ng-click="goToContactPicker('DeviceUpdate', 'updateDeviceContact', devices[0])"></a>
+        </div>
+
+        <div new-contact-fields></div>
+
+        <div class="col-1">
+            <h3 translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></h3>
+            <div class="form__field">
+                <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></label>
+                <input type="text" name="costCenter" ng-model="device.costCenter" value="" class=""  mps-update />
+            </div>
+        </div>
+        
+        <div confirm-cancel
+            title="SERVICE_REQUEST.TITLE_ABANDON_MODAL"
+            body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
+            cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL"
+            confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
+            return-path="/device_management"
+        ></div>
+
+        <hr/>
+        
+        <div sr-form-buttons></div>
+    </form>
+</div>

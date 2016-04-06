@@ -19,9 +19,11 @@
         </div>
     </div>
     <div class="row l-pad-top">
-        <!-- <div class="col-lg-2-3 col-md-1-1">
+        <!--
+        <div class="col-lg-2-3 col-md-1-1">
             <a href="" ng-click="clearFilter">Clear Filter</a>
-        </div> -->
+        </div>
+        -->
         <div class="col-lg-2-3 col-md-1-1">
             <span class="text--semi-bold" translate="DEVICE_MAN.COMMON.TXT_DEVICE_ACTIONS"></span>
         </div>
@@ -37,7 +39,7 @@
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess"
             ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')" ng-if="updateDevice"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isSingleSelected()"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isMultipleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')" ng-if="moveDevice"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MOVE_DEVICE" ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderAnother')"

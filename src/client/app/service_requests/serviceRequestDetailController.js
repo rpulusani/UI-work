@@ -88,6 +88,29 @@ angular.module('mps.serviceRequests')
             },
             statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort)
         };
+
+        if ($scope.sr.type === 'SUPPLIES_PROACTIVE_ORDER') {
+             $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/orders',
+                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+        } else {
+             $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/service_requests',
+                    value: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+        }
+
         function addDeviceInformation(){
             $scope.configure.device = {
                 information:{
