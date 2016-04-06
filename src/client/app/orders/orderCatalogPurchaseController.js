@@ -233,8 +233,8 @@ angular.module('mps.orders')
             $scope.configure.actions.submit = function(){
                 if(!$scope.isLoading){
                    $scope.isLoading = true;
-                   for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
-                       Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[i]);
+                  // for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
+                       Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[0]);
                        if(Orders.item.requestedDeliveryDate){
                             Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                        }
@@ -264,7 +264,7 @@ angular.module('mps.orders')
                         }, function(reason){
                             NREUM.noticeError('Failed to create SR because: ' + reason);
                         });
-                    }
+                    //}
                 }
 
             };
