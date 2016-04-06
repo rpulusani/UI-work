@@ -16,7 +16,9 @@ angular.module('mps.pageCount')
     'Devices',
     '$q',
     '$window',
-        '$http',
+    '$http',
+	'$translate',
+	'PageCountHelper',
     function(
         $scope,
         $location,
@@ -31,8 +33,10 @@ angular.module('mps.pageCount')
         MeterReads,
         Devices,
         $q,
-            $window,
-            $http) {
+        $window,
+        $http,
+		$translate,
+		pageCountHelper) {
         $rootScope.currentRowList = [];
         PageCountService.setParamsToNull();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -55,11 +59,13 @@ angular.module('mps.pageCount')
                 $location.path(Devices.route + '/' + devicePageCount.assetId + '/review');
             });
         };
-
-            $scope.save = function(devicePageCount) {
-                var color,
+		$scope.ignoreAndSave=function(){
+            $scope.doSave();
+        };
+		$scope.doSave=function(){
+				var color,
                 ltpc;
-                
+                devicePageCount=$scope.currentPageCountEdit;
                 if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)) {
                 MeterReads.newMessage();
                     ltpc = MeterReads.item;
@@ -77,11 +83,10 @@ angular.module('mps.pageCount')
                         method: 'PUT',
                         url: devicePageCount._links.ltpcMeterRead.href,
                         data: ltpc 
-                    }).then(function() {
-                        if (!BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) || !BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)) {
-                            setTimeout(function() {
-                                $scope.searchFunctionDef({'embed': 'asset'}, undefined);
-                            }, 3000);
+                    }).then(function(pageCountResponse) {
+                        if ( pageCountResponse.data.type && pageCountResponse.data.type === 'LTPC'){
+                             devicePageCount.ltpcValue=pageCountResponse.data.value; 
+                             devicePageCount.lastReadDate=pageCountResponse.data.updateDate; 
                         }
                     });
                 }
@@ -106,11 +111,64 @@ angular.module('mps.pageCount')
                         data: color
                     }).then(function() {
                         MeterReads.wasSaved = true;
-                        setTimeout(function() {
-                            $scope.searchFunctionDef({'embed': 'asset'}, undefined);
-                        }, 3000);
+                        if ( pageCountResponse.data.type && pageCountResponse.data.type === 'COLOR'){
+                             devicePageCount.colorValue=pageCountResponse.data.value; 
+                             devicePageCount.lastReadDate=pageCountResponse.data.updateDate; 
+                       }
                     });
                 }
+		};
+		$scope.errorMessage='';
+        $scope.popupMsg='';
+		$scope.currentPageCountEdit;
+        $scope.save = function(devicePageCount) {
+              $scope.errorMessage='',
+                $scope.popupMsg='';
+                $scope.currentPageCountEdit=devicePageCount;
+                    var pageCountParams={
+                        newLTPC: BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)==true?devicePageCount.newLtpcCount:'',
+                        oldLTPC: devicePageCount.ltpcValue,
+                        newColor:BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)==true?devicePageCount.newColorCount:'',
+                        oldColor:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorValue)==true?devicePageCount.colorValue:'',
+                        isColorCapable:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId)==true?true:false
+                    };
+               
+                    var result=pageCountHelper.validatePageCount(pageCountParams,$translate);
+                    
+                    
+                    if (result.ltpc.status==='REJECTED'){
+                        $scope.errorMessage+=result.ltpc.msg;
+                        $scope.errorMessage+=result.ltpc.msgNotUpdate;
+                        return;
+                    }else if (pageCountParams.isColorCapable && result.color.status==='REJECTED'){
+                        $scope.errorMessage+=result.color.msg;
+                        $scope.errorMessage+=result.color.msgNotUpdate;  
+                        return;
+                    }else if (result.ltpc.status==='DEFERRED'){
+                        $scope.popupMsg+=result.ltpc.msg;
+                        $scope.popupMsg+=result.ltpc.msgNotUpdate;
+                        createModal();
+                        return;
+                    }else if ( pageCountParams.isColorCapable && result.color.status==='DEFERRED'){
+                        $scope.popupMsg+=result.color.msg;
+                        $scope.popupMsg+=result.color.msgNotUpdate;
+                        createModal();
+                        return;
+                    }else {
+                        $scope.doSave();
+                    }
+                    
+       
+
+       
+			function createModal(){
+				var $ = require('jquery');
+				$('#pageCounts-error-popup').modal({
+					show: true,
+					static: true
+				});
+			}
+         
         };
 
         var removeParamsList = ['from', 'to', 'source', 'location', 'chlFilter'];
