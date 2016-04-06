@@ -111,7 +111,7 @@ angular.module('mps.serviceRequestDevices')
 
         var updateSRObjectForSubmit = function() {
             var meterReads = [];
-            if ($scope.device.lexmarkPickupDevice === 'true') {
+            if ($scope.device.lexmarkPickupDevice === true) {
                 $scope.sr = ServiceRequest.item;
                 $scope.sr.type = 'MADC_DECOMMISSION';
             } else {
