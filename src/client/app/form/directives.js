@@ -1,4 +1,92 @@
 angular.module('mps.form')
+.directive('mpsUpdateForm',['$timeout','$parse',
+    function($timeout, $parse){
+      return {
+        restrict: 'A',
+        require: ['^form'],
+        link: function(scope, elm, attrs, form){
+          var self = {};
+          self.elm = elm;
+          self.form = form[0];
+          self.scope = scope;
+          self.scope.inputs = [];
+          self.scope.inputsUnchanged = [];
+          self.attrs = attrs;
+          var $ = require('jquery');
+          $timeout(function(){
+             var cb = $parse(attrs.formOnChange);
+             for(var i = 0; i < elm[0].length; ++i){
+                if(form[0][elm[0][i].name]){
+                  var item = {
+                    name: elm[0][i].name,
+                    id: elm[0][i].id,
+                    elm: elm[0][i],
+                    model: form[0][elm[0][i].name],
+                    originalValue: form[0][elm[0][i].name].$modelValue
+                  };
+                  if(elm[0][i].attributes && elm[0][i].attributes['default'] && elm[0][i].attributes['default'].value){
+                    item.originalValue = elm[0][i].attributes['default'].value;
+                    console.log(elm[0][i]);
+                    watchSpecialInputs(elm[0][i]);
+                  }
+                  self.scope.inputs.push(item);
+                  editValidation(item);
+                  $(item.elm).on('blur keyup change', function(event) {
+                    var name = $(event.target).attr('name');
+                    getItemValidation(name);
+                  });
+                }
+              }
+          },200);
+          function getItemValidation(name){
+            var item = self.scope.inputs.find(function(val){
+                      return name === val.name;
+                    });
+                    if(item){
+                      editValidation(item);
+                    }
+          }
+          function watchSpecialInputs(currentElement){
+            if(currentElement.attributes && currentElement.attributes['ng-model'] && currentElement.attributes['ng-model'].value){
+              scope.$watch(currentElement.attributes['ng-model'].value, function(newValue, oldValue){
+                console.log('watching model: ', currentElement.name);
+                console.log('watching newValue: ', newValue);
+                console.log('watching oldValue: ', oldValue);
+                getItemValidation(currentElement.name);
+              });
+            }
+          }
+          function editValidation(item){
+            var indexes = $.map(self.scope.inputsUnchanged, function(obj, index) {
+                    if(obj.name === item.name && obj.id === item.id) {
+                        return index;
+                    }
+              }),
+              firstIndex = indexes[0];
+              console.log('Input New Value: ' + item.model.$viewValue);
+              if(item.originalValue === item.model.$viewValue){
+                if(firstIndex === undefined || firstIndex === -1){
+                  self.scope.inputsUnchanged.push(item);
+                }
+              }else{
+                if(firstIndex > -1){
+                  self.scope.inputsUnchanged.splice(firstIndex,1);
+                }
+              }
+
+              if(self.scope.inputs.length > self.scope.inputsUnchanged.length){
+                self.form.$setValidity('mpsUpdateForm', true);
+              }else{
+                self.form.$setValidity('mpsUpdateForm', false);
+                self.form.$setPristine();
+                self.form.$setUntouched();
+              }
+              return;
+          }
+        }
+      };
+    }
+])
 .directive('input',[
     function(){
         return {
@@ -11,10 +99,10 @@ angular.module('mps.form')
                 var $ = require('jquery');
                 switch(el[0]["type"]){
                     case 'checkbox':
-                        $(el).customInput();
+                       // $(el).customInput();
                     break;
                     case 'radio':
-                      $(el).customInput();
+                      //$(el).customInput();
                     break;
                 }
             }

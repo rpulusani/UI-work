@@ -19,10 +19,10 @@ angular.module('mps.orders')
                             'field':'priceCurrencyFormat()', enableCellEdit:false},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
                                'cellTemplate':'<div class="form__field" ng-class="{\'form__field--has-alert\': row.entity.quantityError}">' +
-                                        '<input  type="number" min="0" ng-model="row.entity.quantity" ng-change="grid.appScope.editOnChange(row)"/>' +
+                                        '<input  type="number" min="0"  ng-model="row.entity.quantity" ng-change="grid.appScope.editOnChange(row)"/>' +
                                     '</div>',
                                 'editableCellTemplate':'<div class="form__field" ng-class="{\'form__field--has-alert\': row.entity.quantityError}">' +
-                                        '<input type="number" min="0" ng-model="row.entity.quantity" ng-change="grid.appScope.editOnChange(row)"/>' +
+                                        '<input type="number" min="0"  ng-model="row.entity.quantity" ng-change="grid.appScope.editOnChange(row)"/>' +
                                     '</div>',
                                 width: '125',
                                 enableCellEdit:true,

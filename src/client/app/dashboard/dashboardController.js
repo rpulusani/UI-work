@@ -73,7 +73,7 @@ function(
             if ($rootScope.viewSupplyOrderAccess && !$rootScope.viewHardwareOrderAccess) {
                 options.params.type = 'SUPPLIES_ORDERS_ALL'
             } else if (!$rootScope.viewSupplyOrderAccess && $rootScope.viewHardwareOrderAccess) {
-                options.params.type = 'HARDWARE_ORDER';
+                options.params.type = 'HARDWARE_ORDERS_ALL';
             }
 
             Orders.get(options).then(function(res) {
@@ -96,7 +96,7 @@ function(
             } else if (!$rootScope.viewSupplyOrderAccess && $rootScope.viewHardwareOrderAccess) {
                 options.params.type = 'HARDWARE_ORDER';
             }
-            
+
             Orders.get(options).then(function(res) {
                 $scope.srOrderCompletedCnt = {total: Orders.page.totalElements};
             });
@@ -108,7 +108,7 @@ function(
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
                     type: [
-                        'MADC_ALL'
+                        'MADC_ALL','DATA_ASSET_ALL'
                     ],
                         status:  ['SHIPPED','IN_PROCESS','SUBMITTED']
                 }
@@ -125,7 +125,7 @@ function(
                     accountId: $rootScope.currentAccount.accountId,
                     accountLevel: $rootScope.currentAccount.accountLevel,
                     type: [
-                        'MADC_ALL'
+                        'MADC_ALL','DATA_ASSET_ALL'
                     ],
                     status:  ['COMPLETED']
                 }
@@ -372,11 +372,13 @@ function(
         // Calls to setup action bar
 
         setTimeout(function() {
-            getSROpenCnt();
-            getSROrderCnt();
-            getSRMADCCnt();
+            if ($rootScope.currentAccount) {
+                getSROpenCnt();
+                getSROrderCnt();
+                getSRMADCCnt();
+            }
         }, 1500);
-        
+
 
         Reports.getPage().then(function() {
         var i = 0,

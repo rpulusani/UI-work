@@ -51,8 +51,6 @@ angular.module('mps.serviceRequestDevices')
         statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
-        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
         SecureHelper = new SecurityHelper($scope);
         SRHelper.addMethods(Devices, $scope, $rootScope);
@@ -61,6 +59,9 @@ angular.module('mps.serviceRequestDevices')
         SecureHelper.redirectCheck($rootScope.addDevice);
 
         $scope.returnedForm = false;
+
+
+
 
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -94,6 +95,7 @@ angular.module('mps.serviceRequestDevices')
                     $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 } else if ($rootScope.currentSelected === 'updateDeviceContact') {
                     ServiceRequest.addRelationship('assetContact', $rootScope.selectedContact, 'self');
+                    $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
                     $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                 }
             }
@@ -126,8 +128,8 @@ angular.module('mps.serviceRequestDevices')
                 ServiceRequest.addRelationship('account', Devices.item);
                 ServiceRequest.addRelationship('asset', Devices.item, 'self');
                 ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
-            } 
-            
+            }
+
             if (BlankCheck.isNull($scope.device.chl)) {
                 $scope.device.chl = {};
             }
@@ -142,12 +144,21 @@ angular.module('mps.serviceRequestDevices')
 
             if (!BlankCheck.isNull($scope.device.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.device.deviceContact = $scope.device.contact.item;
+                $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
             }
 
             if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
                 $scope.device.lexmarkMoveDevice = false;
             }
         }
+        $scope.checkChange = function(field){
+            if($scope.device && $scope.orignalDevice &&
+                $scope.device[field] === $scope.orignalDevice[field]){
+                return false;
+            }else{
+                return true;
+            }
+        };
 
         $scope.setupSR(ServiceRequest, configureSR);
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
@@ -348,6 +359,7 @@ angular.module('mps.serviceRequestDevices')
         var formatAdditionalData = function() {
             if (!BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                 $scope.formattedCurrentAddress = FormatterService.formatAddress($scope.device.currentInstalledAddress);
+                $scope.formattedPrevAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
@@ -360,6 +372,9 @@ angular.module('mps.serviceRequestDevices')
 
             if (!BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+            }
+            if (!BlankCheck.isNull($scope.device.prevDeviceContact)) {
+                $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.device.prevDeviceContact);
             }
 
             if (!BlankCheck.isNull($scope.device.requestedByContact)) {

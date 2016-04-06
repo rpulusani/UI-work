@@ -1,5 +1,5 @@
 angular.module('mps.utility')
-.factory('grid', ['uiGridConstants', '$timeout', '$translate',  function(uiGridConstants, $timeout, $translate) {
+.factory('grid', ['uiGridConstants', '$timeout', '$translate', '$rootScope', function(uiGridConstants, $timeout, $translate, $rootScope) {
     var Grid = function() {
         this.itemsPerPageArr = [
             {items: 20},
@@ -234,19 +234,23 @@ angular.module('mps.utility')
         scope[self.optionsName].exporterPdfMaxGridWidth = 500;
         scope[self.optionsName].rowEditWaitInterval = 0;
         scope[self.optionsName].exporterAllDataFn = function() {
-            scope[self.optionsName].currentGridData = scope[self.optionsName].data;
+            var size = 300;
+
+            if (scope.printing === false) {
+                size = service.page.totalElements;
+            }
+
+            scope[self.optionsName].currentGridData = service.data;
             scope[self.optionsName].servicePage = service.page;
-            //service.page.totalElements
-            return service.getPage(0, 1000).then(function() {
+
+            return service.getPage(0, size).then(function() {
                 scope[self.optionsName].data = service.data;
 
                 $timeout(function() {
-                    $timeout(function() {
-                        service.page = scope[self.optionsName].servicePage;
-                        scope[self.optionsName].data = scope[self.optionsName].currentGridData;
+                    service.page = scope[self.optionsName].servicePage;
+                    service.data = scope[self.optionsName].currentGridData;
 
-                        self[self.optionsName] = scope[self.optionsName];
-                    }, 0);
+                    scope[self.optionsName].data = service.data;
                 }, 0);
             });
         };
@@ -297,7 +301,6 @@ angular.module('mps.utility')
                 });
             }
         }
-
 
         var tempOptionName = self.optionsName;
         $timeout(function() {

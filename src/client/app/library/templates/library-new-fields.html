@@ -58,14 +58,14 @@
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_FROM"></label>
-            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" date-validator="rome.val.beforeEq($scope.dateRight)" datepicker />
+            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" datepicker />
         </div>
     </div>
 
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_TO"></label>
-            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" date-validator="rome.val.afterEq(dateLeft)" datepicker />
+            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" datepicker />
         </div>
     </div>
 </div>
@@ -81,7 +81,7 @@
 <div ng-if="documentLibraryManageAccountAccess" class="row">
     <div class="col-2-3">
         <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ACCOUNT_VISIBILITY"></p>
-        <input type="checkbox" name="allAccounts" ng-model="allAccounts"/>
+        <input type="checkbox" name="allAccounts" ng-model="allAccounts" ng-change="changeOptionsLimit()"/>
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CHK_VISIBILITY__ALL_ACCOUNTS"></label>
         <div ng-show="allAccounts === false" class="well">
             <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_LIMIT_OR_EXCLUDE"></p>
@@ -108,7 +108,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="account in selectedAccounts">
+                            <tr ng-repeat="account in selectedLibraryAccounts">
                                 <td>
                                     <span ng-bind="account.name"></span>
                                 </td>
@@ -117,7 +117,7 @@
                                     <span ng-if="documentItem.optionsLimit === 'exclude'" href="#" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_CAN_NOT_SEE"></span>
                                 </td>
                                 <td>
-                                    <a href="#" ng-click="removeAccount(account)" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CTRL_GRID_REMOVE"></a>
+                                    <a href="#" ng-click="goToRemoveAccount(account)" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CTRL_GRID_REMOVE"></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -125,40 +125,12 @@
                 </div>
             </div>
 
-            <strong translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_ACCOUNT" ng-if="showAllAccounts"></strong>
-            <div class="form__field" ng-if="showAllAccounts">
-                <input name="accountName" type="text" ng-model="documentItem.accountName" value="" class="" ng-change="setAccounts()"/>
+            <strong translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_ACCOUNT"></strong>
+            <div>
+                 <div selectric model="documentItem.accountSelected" options="libraryAccounts" value="accountId" label="name" placeholder="{{'LABEL.SELECT' | translate}}">
             </div>
-            <div class="well scrollable" ng-if="showAllAccounts">
-                <div ng-repeat="account in accountList">
-                    <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
-                        value="$parent.user.org" previous-items="$parent.selectedAccounts">
-                    </div>
-                </div>
-            </div>
-            <!-- <strong translate="USER.ASSIGNED_ACCOUNTS" translate-values="{'count': selectedAccounts.length}" ng-if="showAllAccounts"></strong>
-            <div class="well" ng-if="showAllAccounts">
-                <div ng-repeat="assignedAccount in selectedAccounts">
-                    {{assignedAccount.name}}
-                    <a class="float-right" translate="LABEL.REMOVE" href="" ng-click="removeAccount(assignedAccount)"></a>
-                </div>
-            </div> -->
-
-            <!-- <strong translate="ACCOUNT.ORG_STRUCT" ng-if="!showAllAccounts"></strong>
-            <div class="well scrollable" ng-if="!showAllAccounts">
-                <div ng-repeat="account in accountList">
-                    <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
-                        value="$parent.user.org" previous-items="$parent.accounts">
-                    </div>
-                </div>
-            </div> -->
-
-            <div ng-if="!showAllAccounts">
-                <div selectric model="documentItem.accountSelected" options="documentItem.accountList" value="accountId" label="name" placeholder="{{'LABEL.SELECT' | translate}}">
-                </div>
-                <button name="selectAccount" class="btn btn--default" type="submit" value="submit" 
+            <button name="selectAccount" class="btn btn--default" type="submit" value="submit" 
                         translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_ADD_ACCOUNT" ng-click="goToSelectAccount()"></button>
-            </div> 
         </div>
     </div>
 </div>

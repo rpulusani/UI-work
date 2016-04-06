@@ -1,9 +1,9 @@
 <div sr-header></div>
 
 <div class="page-content">
-    <form class="form" data-form="" name="updateDevice" ng-submit="updateDevice.$valid && goToReview()" novalidate>
+    <form class="form" data-form="" name="srForm"  mps-update-form novalidate>
         <div device-update-fields></div>
-        
+
         <div confirm-cancel
             title="SERVICE_REQUEST.TITLE_ABANDON_MODAL"
             body="SERVICE_REQUEST.BODY_ABANDON_MODAL"
@@ -11,9 +11,8 @@
             confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM"
             return-path="/device_management"
         ></div>
-        
-        <hr/>
 
+        <hr/>
         <div sr-form-buttons></div>
     </form>
 </div>

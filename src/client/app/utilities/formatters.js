@@ -200,6 +200,23 @@ angular.module('mps.utility')
                 }
                 return formattedAddress;
             },
+            convertUTCDateToLocalDate: function(d) {
+                if (d === undefined || d === null) { return; }
+                var newDate = new Date(d.getTime()+d.getTimezoneOffset()*60*1000);
+
+                return newDate;
+            },
+            getDisplayDate: function(d) {
+                var dy = this.convertUTCDateToLocalDate(d);
+                return $filter('date')(dy, 'MM/dd/yyyy');
+            },
+            getDatePickerDisplayDate: function(d) {
+                var dy = this.convertUTCDateToLocalDate(d);
+                return $filter('date')(dy, 'yyyy-MM-dd');
+            },
+            getPostDateUtcZero: function(d) {
+                return $filter('date')(d, 'yyyy-MM-ddT00:00:00');
+            },
             formatDate: function(dateToBeFormatted){
                 if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                     return '';
@@ -229,6 +246,17 @@ angular.module('mps.utility')
                     }
                 var d = new Date(dateToBeFormatted);
                 return $filter('date')(d, 'yyyy-MM-dd');
+            },
+            addTimeToDate:function(dateToBeFormatted,hour,min){
+                 if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                        return '';
+                }
+                var localDate = new Date(dateToBeFormatted.replace(/\s/, 'T'));
+                var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
+				if (hour !== undefined && hour !== null && min !== undefined && min !== null){
+					d.setHours(hour,min);
+				}                    
+                return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
             },
             getDateFromString: function(dateToBeFormatted){
                  if (dateToBeFormatted === undefined || dateToBeFormatted === null) {

@@ -104,10 +104,12 @@ angular.module('mps.orders')
         scope:{
             columnDef: '=',
             editable:"@",
+            taxable:"=",
             submitAction:"=",
             datasource:"=",
             configure: "=",
-            hideSubmit: "="
+            hideSubmit: "=",
+            maxQuantity: "="
         },
         compile: function(element, attrs){
             if(!attrs.editable) {

@@ -104,7 +104,6 @@ angular.module('mps.report')
                 case 'hw0015':
                     params = {
                         dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
-                        dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
                     break;
                 /* Service Detail Report */
