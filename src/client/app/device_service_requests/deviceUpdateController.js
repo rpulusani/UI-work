@@ -19,6 +19,7 @@ angular.module('mps.serviceRequestDevices')
     'TombstoneService',
     '$timeout',
     'tombstoneWaitTimeout',
+    '$q',
     function($scope,
         $location,
         $filter,
@@ -37,7 +38,8 @@ angular.module('mps.serviceRequestDevices')
         $translate,
         Tombstone,
         $timeout,
-        tombstoneWaitTimeout
+        tombstoneWaitTimeout,
+        $q
         ){
 
         $scope.isLoading = false;
@@ -60,8 +62,13 @@ angular.module('mps.serviceRequestDevices')
 
         $scope.returnedForm = false;
 
+        // For updating multiple
         if (Devices.updatingMultiple) {
             $scope.devices = Devices.data;
+
+            if ($rootScope.selectedContact) {
+                $scope.contact = $rootScope.selectedContact;
+            }
         } 
 
         $scope.goToReview = function() {
@@ -191,15 +198,38 @@ angular.module('mps.serviceRequestDevices')
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
             $scope.configure.actions.submit = function(){
+              var i = 0,
+              deferreds = [];
+
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
 
                 updateSRObjectForSubmit();
-                var deferred = DeviceServiceRequest.post({
-                    item:  $scope.sr
-                });
 
-                deferred.then(function(result) {
+
+                if (Devices.updatingMultiple) {
+                    for (i; i < Devices.data.length; i += 1) {
+                        $scope.sr.assetInfo = {
+                            assetTag: Devices.data[i].assetTag,
+                            costCenter: Devices.data[i].costCenter,
+                            hostName: Devices.data[i].hostName,
+                            ipAddress: Devices.data[i].ipAddress,
+                            physicalLocation1: Devices.data[i].physicalLocation1,
+                            physicalLocation2: Devices.data[i].physicalLocation2,
+                            physicalLocation3: Devices.data[i].physicalLocation3
+                        };
+
+                        deferreds.push(DeviceServiceRequest.post({
+                            item:  $scope.sr
+                        }));
+                    }
+                } else {
+                    deferreds.push(DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    }));
+                }
+
+                $q.all(deferreds).then(function(result) {
                   if(DeviceServiceRequest.item._links['tombstone']) {
                     $location.search('tab', null);
                     $timeout(function(){
@@ -270,7 +300,13 @@ angular.module('mps.serviceRequestDevices')
             $scope.configure = {
                 header: {
                     translate: {
-                            h1: 'REQUEST_MAN.COMMON.TXT_UPDATE_DEVICE_INFO',
+                            h1: (function() {
+                                if (!Devices.updatingMultiple) {
+                                    return 'REQUEST_MAN.COMMON.TXT_UPDATE_DEVICE_INFO';
+                                } else {
+                                    return 'DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO';
+                                }
+                            }()),
                             h1Values:{'productModel': $scope.device.productModel},
                             body: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_UPDATE_DEVICE_PAR',
                             readMore: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_LEARN_MORE'
@@ -352,14 +388,15 @@ angular.module('mps.serviceRequestDevices')
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
                     sourceAddress: $scope.device.currentInstalledAddress
-                }
+                },
+                updatingMultiple: $scope.devices
             };
 
             if (!Devices.updatingMultiple) {
                 $scope.configure.breadcrumbs = {
                     1: {
-                        href: "/device_management",
-                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+                        href: '/device_management',
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
                     },
                     2: {
                         value: Devices.item.productModel
@@ -368,11 +405,11 @@ angular.module('mps.serviceRequestDevices')
             } else {
                 $scope.configure.breadcrumbs = {
                     1: {
-                        href: "/device_management",
-                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+                        href: '/device_management',
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
                     },
                     2: {
-                        value: 'Edit Multiple Devices'
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
                     }
                 };
             }

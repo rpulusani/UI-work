@@ -114,6 +114,7 @@ angular.module('mps.deviceManagement')
         $scope.goToUpdate = function(devices) {
             var device,
             i = 0,
+            deviceCnt = 0,
             options = {
                 params:{
                     embed:'contact,address'
@@ -135,24 +136,21 @@ angular.module('mps.deviceManagement')
                 Devices.data = devices;
 
                 for (i; i < Devices.data.length; i += 1) {
-                    device = Devices.data[0];
-
                     (function(device, index) {
+                        device = Devices.data[index];
+                        
                         Devices.setItem(device);
 
                         Devices.item.get(options).then(function(){
-                            Devices.data[index] = Devices.item;
+                        
+                            deviceCnt += 1;
 
-                            if (index === Devices.data.length - 1) {
-                                Devices.item = null;
-
+                            if (deviceCnt === Devices.data.length) {
                                 $location.path('/service_requests/devices/update-multiple');
                             }
                         });
-                    }(device, i));
+                    }(devices[i], i));
                 }
-
-                $location.path('/service_requests/devices/update-multiple');
             }
         };
         $scope.goToOrderAnother = function(device) {

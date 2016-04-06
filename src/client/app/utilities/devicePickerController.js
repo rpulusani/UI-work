@@ -137,7 +137,8 @@ angular.module('mps.utility')
                     },
                     readMoreUrl: $scope.readMoreUrl,
                     showCancelBtn: false
-                }
+                },
+                breadcrumbs: false
             };
         }
 

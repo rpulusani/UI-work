@@ -82,7 +82,8 @@ angular.module('mps.utility')
                             abandonRequest:'ADDRESS.DISCARD_INSTALL_ADDRESS_CHANGES',
                             submit: 'ADDRESS.CHANGE_DEVICE_INSTALL_ADDRESS'
                         }
-                    }
+                    },
+                    breadcrumbs: false
                 };
             }
         }

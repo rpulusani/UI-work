@@ -31,24 +31,28 @@ angular.module('mps.utility')
             }
         }
 
-        link = angular.element('<a href="/">' + translate.instant('DASHBOARD.TITLE') + '</a> > ');
-
-        bcUl.append(angular.element('<li></li>')).append(link);
-
-        for (linkProfile in map) {
-            cnt += 1;
-
-            linkProfile = map[linkProfile];
-
-            if (cnt != mapCnt) {
-                link = angular.element('<a href="' + linkProfile.href + '"> ' + translate.instant(linkProfile.value) + '</a> > ');
-            } else {
-                link = angular.element('<span> ' + translate.instant(linkProfile.value) + '</span>');
-            }
+        // false map means do not display breadcrumbs
+        if (scope.map !== false) {
+            link = angular.element('<a href="/">' + translate.instant('DASHBOARD.TITLE') + '</a> > ');
 
             bcUl.append(angular.element('<li></li>')).append(link);
+
+            for (linkProfile in map) {
+                cnt += 1;
+
+                linkProfile = map[linkProfile];
+
+                if (cnt != mapCnt) {
+                    link = angular.element('<a href="' + linkProfile.href + '"> ' + translate.instant(linkProfile.value) + '</a> > ');
+                } else {
+                    link = angular.element('<span> ' + translate.instant(linkProfile.value) + '</span>');
+                }
+
+                bcUl.append(angular.element('<li></li>')).append(link);
+            }
+
+            element.append(bcUl);
         }
 
-        element.append(bcUl);
     }
 ]);
