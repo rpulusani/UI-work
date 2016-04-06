@@ -204,18 +204,31 @@ angular.module('mps.serviceRequestAddresses')
                     translate: {
                         replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
                     }
+                },
+                breadcrumbs: {
+                    1: {
+                        href: '/service_requests/addresses',
+                        value: 'ADDRESS.TITLE'
+                    },
+                    2: {
+                        value: 'ADDRESS_MAN.ADD_ADDRESS.TXT_REVIEW_ADD_ADDRESS'
+                    }
                 }
             };
         }
 
         if($scope.inTransactionalAccountContext()){
             $scope.setStoreFrontName = function(){
-                $scope.address.storeFrontName =  $scope.address.name;
+                if($scope.storeFrontNameCheck){
+                    $scope.address.storeFrontName =  $scope.address.name;
+                }else{
+                    $scope.address.storeFrontName ='';
+                }
             };
 
 
             $scope.checkAddress = function() {
-                    if($scope.checkedAddress === 0 && $scope.newAddress.$valid) {
+                    if($scope.checkedAddress === 0 && $scope.newAddress.$valid && $scope.address.country) {
                         $scope.validForm = true;
                     $scope.enteredAddress = {
                         addressLine1: $scope.address.addressLine1,
@@ -366,6 +379,10 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.needToVerify = false;
                 $scope.canReview = false;
                 $scope.address.addressCleansedFlag = 'N';
+                if (BlankCheck.isNullOrWhiteSpace($scope.address.storeFrontQuestion)) {
+                    $scope.address.storeFrontQuestion = false;
+                }
+                
                 if ($rootScope.newAddress || $rootScope.newSr) {
                     if ($rootScope.newAddress) {
                         $scope.address = $rootScope.newAddress;

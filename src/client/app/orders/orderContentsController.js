@@ -19,12 +19,21 @@ angular.module('mps.orders')
         formatter
     ){
     $scope.validationMessages = [];
-
-    if($scope.editable === "true"){
+    if($scope.editable === "true" || $scope.editable === true){
         $scope.showEmpty = true;
     }else{
         $scope.showEmpty = false;
     }
+
+    if($scope.taxable === "true" || $scope.taxable === true){
+        $scope.showTax = true;
+    }else{
+        $scope.showTax = false;
+    }
+
+    $scope.$watch($scope.taxable, function(){
+        $scope.$broadcast('OrderContentRefresh', {'OrderItems':OrderItems});
+    });
 
     $scope.removeItem  = function(row){
         var index = $scope.orderSummaryGridOptions.data.indexOf(row.entity);
@@ -73,6 +82,9 @@ angular.module('mps.orders')
                 $scope.submitAction();
         }
     };
+    $scope.$on('OrderCatalogSubmit', function (event, service) {
+        $scope.submit();
+    });
     function getDataRow(entity){
         var row;
         if(OrderItems && OrderItems.data){
@@ -94,23 +106,23 @@ angular.module('mps.orders')
         if(dataRow){
             dataRow.quantity = row.entity.quantity;
         }
-        if(row.entity.maxQuantity && row.entity.quantity > row.entity.maxQuantity && index === -1){
+        if($scope.maxQuantity && row.entity.quantity > $scope.maxQuantity && index === -1){
             message = {
               partNumber: row.entity.displayItemNumber,
-              maxQuantity: row.entity.maxQuantity,
+              maxQuantity: $scope.maxQuantity,
               quantity: row.entity.quantity
             };
 
             $scope.validationMessages.push(message);
             row.entity.quantityError = true;
             justAdded = true;
-        }else if(row.entity.maxQuantity && row.entity.quantity <=  row.entity.maxQuantity && index > -1){
+        }else if($scope.maxQuantity && row.entity.quantity <=  $scope.maxQuantity && index > -1){
             $scope.validationMessages.splice(index,1);
             row.entity.quantityError = false;
         }else if(index > -1){
             message = {
               partNumber: row.entity.displayItemNumber,
-              maxQuantity: row.entity.maxQuantity,
+              maxQuantity: $scope.maxQuantity,
               quantity: row.entity.quantity
             };
             $scope.validationMessages[index] = message;
@@ -120,10 +132,10 @@ angular.module('mps.orders')
 
     $scope.calculate = function(){
         var subTotal = 0.0;
-        if($scope.orderSummaryGridOptions && $scope.orderSummaryGridOptions.data){
-            for(var i = 0; i < $scope.orderSummaryGridOptions.data.length; ++i){
-                var lineTotal = formatter.itemSubTotal($scope.orderSummaryGridOptions.data[i].price,
-                    $scope.orderSummaryGridOptions.data[i].quantity);
+        if(OrderItems && OrderItems.data){
+            for(var i = 0; i < OrderItems.data.length; ++i){
+                var lineTotal = formatter.itemSubTotal(OrderItems.data[i].price,
+                    OrderItems.data[i].quantity);
                 subTotal += lineTotal;
             }
         }

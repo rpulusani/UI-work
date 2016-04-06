@@ -15,52 +15,50 @@
         <hr>
 
         <strong translate="REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY"></strong>
-        
-        <div class="form__field form__field--radio form__field--no-margin">
+
+        <div class="form__field form__field--no-margin">
             <input type="radio"
                 id="lexmark-pickup-device-question-no"
                 name="lexmark-pickup-device-question"
                 ng-model="device.lexmarkPickupDevice"
-                value="false"
-                checked
+                ng-value="false"
             />
             <label for="lexmark-pickup-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
         </div>
-        
-        <div class="form__field form__field--radio form__field--no-margin">
+
+        <div class="form__field form__field--no-margin">
             <input type="radio"
                 id="lexmark-pickup-device-question-yes"
                 name="lexmark-pickup-device-question"
                 ng-model="device.lexmarkPickupDevice"
-                value="true"
+                ng-value="true"
             />
             <label for="lexmark-pickup-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
         </div>
 
         <strong translate="REQUEST_MAN.REQUEST_DEVICE_DECOM.TXT_ENTER_PAGE_COUNTS_QUERY"></strong>
-        
-        <div class="form__field form__field--radio form__field--no-margin">
+
+        <div class="form__field form__field--no-margin">
             <input type="radio"
                 id="page-count-question-no"
                 name="page-count-question"
                 ng-model="device.pageCountQuestion"
-                value="false"
-                checked
+                ng-value="false"
             />
             <label for="page-count-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
         </div>
-        
-        <div class="form__field form__field--radio form__field--no-margin">
+
+        <div class="form__field form__field--no-margin">
             <input type="radio"
                 id="page-count-question-yes"
                 name="page-count-question"
                 ng-model="device.pageCountQuestion"
-                value="true"
+                ng-value="true"
             />
             <label for="page-count-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
         </div>
 
-        <div ng-show="device.pageCountQuestion === 'true'">
+        <div ng-show="device.pageCountQuestion === true">
             <div class="form__field" >
                 <label translate="REQUEST_MAN.COMMON.TXT_ENTER_PAGE_COUNTS"></label>
                 <div class="col-2-3">

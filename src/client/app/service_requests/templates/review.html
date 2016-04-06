@@ -21,7 +21,10 @@
     <div sr-address></div>
     <div return-supply></div>
     <div order-account-details></div>
-    <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems" configure="configure"></div>
+
+    <div ng-if="configure && configure.order">
+        <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems" configure="configure"></div>
+    </div>
     <div order-ship-to-bill-to-details></div>
     <div order-po-number></div>
     <div ng-if="master">

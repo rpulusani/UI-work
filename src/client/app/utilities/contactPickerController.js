@@ -32,7 +32,6 @@ angular.module('mps.utility')
             }
         };
 
-
         $scope.goToCallingPage = function(){
             $location.path($rootScope.contactReturnPath);
         };
@@ -63,7 +62,8 @@ angular.module('mps.utility')
                     },
                     readMoreUrl: '',
                     showCancelBtn: false
-                }
+                },
+                breadcrumbs: false
             };
         }
 

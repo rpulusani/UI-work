@@ -24,6 +24,16 @@ angular.module('mps.report')
             $scope.gridDataCnt = 0;
             $scope.gridLoading = true;
 
+            $scope.breadcrumbs = {
+                1: {
+                    href: '/reporting',
+                    value: 'REPORTING.TITLE'
+                },
+                2: {
+                    value: $scope.report.name
+                }
+            };
+
             Reports.item.links.results({
                 serviceName: 'results',
                 embeddedName: 'reportData',
@@ -104,7 +114,6 @@ angular.module('mps.report')
                 case 'hw0015':
                     params = {
                         dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
-                        dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
                     break;
                 /* Service Detail Report */

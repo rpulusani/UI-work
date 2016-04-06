@@ -1,4 +1,4 @@
-<div ng-if="configure.device.information">
+<div ng-if="configure.device.information && !configure.updatingMultiple">
     <h2 translate="{{configure.device.information.translate.title}}"></h2>
     <a href="#" ng-click="goToServiceCreate()"
         ng-if="configure.device.information.translate.changeTxt"
@@ -58,4 +58,24 @@
             </li>
         </ul>
     </div>
+</div>
+<div ng-if="configure.device.information && configure.updatingMultiple">
+    <table class="table table--condensed table--even table--responsive vertical-space--none">
+        <thead>
+            <tr>
+                <th translate="DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER"></th>
+                <th translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL"></th>
+                <th translate="NAVIGATION.LEFT_NAV.TXT_CONTACTS"></th>
+                <th translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr ng-repeat="device in configure.updatingMultiple">
+                <td ng-bind="device.serialNumber"></td>
+                <td ng-bind="device.productModel"></td>
+                <td ng-bind="device.productModel"></td>
+                <td ng-bind="device.costCenter"></td>
+             </tr>
+        </tbody>
+    </table>
 </div>

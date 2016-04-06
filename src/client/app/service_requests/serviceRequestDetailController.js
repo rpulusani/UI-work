@@ -86,8 +86,31 @@ angular.module('mps.serviceRequests')
                     referenceId: true
                 }
             },
-            statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels)
+            statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort)
         };
+
+        if ($scope.sr.type === 'SUPPLIES_PROACTIVE_ORDER') {
+             $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/orders',
+                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+        } else {
+             $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/service_requests',
+                    value: 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+        }
+
         function addDeviceInformation(){
             $scope.configure.device = {
                 information:{
@@ -331,43 +354,41 @@ angular.module('mps.serviceRequests')
             case 'SUPPLIES_CATALOG_ORDER':
                 addSupplyOrderInfo();
                 $scope.configure.header.showUpdateBtn = true;
+                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
             break;
             case 'UPDATE_HARDWARE_REQUEST':
             case 'HARDWARE_ORDER':
                 addDeviceOrderInfo();
+                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
                 $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
+                
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
                 $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'DATA_ADDRESS_REMOVE':
                 addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
                 $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'DATA_CONTACT_REMOVE':
                 addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_REMOVE_TITLE');
                 $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.DELETE_CONTACT_DETAIL';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DELETE_CONTACT_REQUEST_NUMBER';
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'DATA_CONTACT_CHANGE':
                 addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE');
                 $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_DETAIL';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_REQUEST_NUMBER';
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'MADC_MOVE':
                 addDeviceMove();
@@ -412,12 +433,12 @@ angular.module('mps.serviceRequests')
                         description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
                     }
                 };
-            $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort);
             break;
             case 'SUPPLIES_CATALOG_ORDER':
             case 'HARDWARE_ORDER':
             case 'HARDWARE_ORDER_INSTALL':
                 $scope.configure.header.showUpdateBtn = true;
+                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
             break;
             default:
             break;

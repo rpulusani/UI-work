@@ -19,16 +19,19 @@
         </div>
     </div>
     <div class="row l-pad-top">
-        <!-- <div class="col-lg-2-3 col-md-1-1">
+        <!--
+        <div class="col-lg-2-3 col-md-1-1">
             <a href="" ng-click="clearFilter">Clear Filter</a>
-        </div> -->
+        </div>
+        -->
         <div class="col-lg-2-3 col-md-1-1">
             <span class="text--semi-bold" translate="DEVICE_MAN.COMMON.TXT_DEVICE_ACTIONS"></span>
         </div>
     </div>
     <div class="col-md-1-1 btns">
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderSupplies')"
-            translate="DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES" ng-disabled="!isSingleSelected()" ng-if="orderSupplies"></button>
+            translate="ORDER_MAN.MANAGE_ORDERS.BTN_ORDER_SUPPLIES" ng-disabled="!isSingleSelected()" ng-if="orderSuppliesAsset">
+        </button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('requestService')"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_REQUEST_SERVICE" ng-disabled="!isSingleSelected()"
             ng-if="createBreakFixAccess"></button>
@@ -36,7 +39,7 @@
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess"
             ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')" ng-if="updateDevice"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isSingleSelected()"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isMultipleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')" ng-if="moveDevice"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MOVE_DEVICE" ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderAnother')"

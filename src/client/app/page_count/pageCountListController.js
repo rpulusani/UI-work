@@ -18,6 +18,7 @@ angular.module('mps.pageCount')
     '$window',
     '$http',
     '$translate',
+	'PageCountHelper',
     function(
         $scope,
         $location,
@@ -34,7 +35,8 @@ angular.module('mps.pageCount')
         $q,
         $window,
         $http,
-        $translate
+        $translate,
+		pageCountHelper
         ) {
         $rootScope.currentRowList = [];
         PageCountService.setParamsToNull();
@@ -81,17 +83,19 @@ angular.module('mps.pageCount')
                 if (BlankCheck.checkNotNullOrUndefined(devicePageCount.currentReadDate)) {
                     MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
                 }
-
+                
+                
                     $http({
                     method: 'PUT',
                     url: devicePageCount._links.ltpcMeterRead.href,
                     data: ltpc
-                }).then(function() {
-                    if (!BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) || !BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount)) {
-                            setTimeout(function() {
-                                $scope.searchFunctionDef({'embed': 'asset'}, undefined);
-                            }, 3000);
+                }).then(function(pageCountResponse) {
+                    MeterReads.wasSaved = true;
+                    if ( pageCountResponse.data.type && pageCountResponse.data.type === 'LTPC'){
+                         devicePageCount.ltpcValue=pageCountResponse.data.value; 
+                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate; 
                     }
+                                      
                 });
             }
 
@@ -113,11 +117,12 @@ angular.module('mps.pageCount')
                     method: 'PUT',
                     url: devicePageCount._links.colorMeterRead.href,
                     data: color
-                }).then(function() {
+                }).then(function(pageCountResponse) {
                     MeterReads.wasSaved = true;
-                        setTimeout(function() {
-                            $scope.searchFunctionDef({'embed': 'asset'}, undefined);
-                        }, 3000);
+                       if ( pageCountResponse.data.type && pageCountResponse.data.type === 'COLOR'){
+                         devicePageCount.colorValue=pageCountResponse.data.value; 
+                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate; 
+                       }
                 });
             }
             
@@ -138,7 +143,7 @@ angular.module('mps.pageCount')
                         isColorCapable:BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId)==true?true:false
                     };
                
-                    var result=validatePageCount(pageCountParams);
+                    var result=pageCountHelper.validatePageCount(pageCountParams,$translate);
                     
                     
                     if (result.ltpc.status==='REJECTED'){
@@ -163,108 +168,18 @@ angular.module('mps.pageCount')
                         $scope.doSave();
                     }
                     
-        function checkForColorCountDifference(pageCountParams){
-            var diff=(pageCountParams.newColor - pageCountParams.oldColor),
-            daysDiff=30,
-            msgNotUpdate='',
-            status='ACCEPTED',msgColor='';
-            
-            if (diff < 0){
-                msgColor = $translate.instant('PAGE_COUNTS.ERROR.COLOR_READ_LESS');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED');
-                status = 'REJECTED';
-            } else if ( diff > (pageCountParams.newLTPC - pageCountParams.oldLTPC)){
-                msgColor = $translate.instant('PAGE_COUNTS.ERROR.COLOR_READ_DIFFERENCE');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED');
-                status = 'REJECTED';
-            } else if (diff > 50000){
-                msgColor = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_COLOR_READHIGH');
-                msgNotUpdate = 'PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED';
-                status = 'DEFERRED';
-            } else if (diff < 10){
-                msgColor = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_COLOR_READLOW');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
-                status = 'DEFERRED';
-            } else if (diff > (daysDiff * 2000)){
-                msgColor = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_COLOR_READHIGH');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
-                status = 'DEFERRED';
-            }
-            
-            return {
-                msg:msgColor,
-                msgNotUpdate:msgNotUpdate,
-                status:status
-                
-            }
-        }
+       
 
-        function checkForLTPCCountDifference(pageCountParams){
-            var diff=(pageCountParams.newLTPC - pageCountParams.oldLTPC),
-            daysDiff=30,
-            msg='',msgNotUpdate='',status='ACCEPTED';
-            if (diff < 0){
-                msg = $translate.instant('PAGE_COUNTS.ERROR.LTPC_VALUE_LESS');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED');
-                status = 'REJECTED';
-            } else if (diff > 50000){
-                msg = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_LTPC_HIGH');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
-                status = 'DEFERRED';
-            } else if (diff < 10){
-                msg = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_LTPC_LOW');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
-                status = 'DEFERRED';
-            } else if (diff > (daysDiff * 2000)){
-                msg = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_LTPC_HIGH');
-                msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
-                status = 'DEFERRED';
-            }
-                
-            return {
-                msg:msg,
-                msgNotUpdate:msgNotUpdate,
-                status:status
-                    
-            }
-        }
-
-        function validatePageCount(params){
-            var result={
-                ltpc:{},
-                color:{}
-            };
-
-            if (!isDigit(params.newLTPC) || (params.isColorCapable && !isDigit(params.newColor))){
-                    
-                result.ltpc.msg=$translate.instant('PAGE_COUNTS.ERROR.VALID_PAGECOUNT');
-                result.ltpc.msgNotUpdate='';
-                result.ltpc.status='REJECTED';
-                result.color.msg='';
-                result.color.status='REJECTED';
-                return result;
-            }
-            var resultLTPC,
-            resultColor;
-            result.ltpc=checkForLTPCCountDifference(params);
-            if (params.isColorCapable){
-                result.color=checkForColorCountDifference(params);                
-            }
-            return result;
-        }
-        function isDigit(s){ 
-            var patrn=/^[0-9]{1,20}$/; 
-            if (!patrn.exec(s)) 
-                return false; 
-            return true; 
-        }
-        function createModal(){
+       
+		function createModal(){
             var $ = require('jquery');
             $('#pageCounts-error-popup').modal({
                 show: true,
                 static: true
             });
         }
+        
+       
     };
 
 

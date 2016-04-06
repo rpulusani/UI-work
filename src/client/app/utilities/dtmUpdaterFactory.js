@@ -12,13 +12,21 @@ angular.module('mps.utility')
 
             switch (tag.name) {
                 case 'company-name':
-                    tag.content = $rootScope.currentAccount.name;
+                    if ($rootScope.currentAccount) {
+                        tag.content = $rootScope.currentAccount.name;
+                    }
                 case 'company-level':
-                    tag.content = $rootScope.currentAccount.accountLevel;
+                    if ($rootScope.currentAccount) {
+                        tag.content = $rootScope.currentAccount.accountLevel;
+                    }
                 case 'account-name':
-                    tag.content = $rootScope.currentAccount.name;
+                    if ($rootScope.currentAccount) {
+                        tag.content = $rootScope.currentAccount.name;
+                    }
                 case 'account-id':
-                    tag.content = $rootScope.currentAccount.accountId;
+                    if ($rootScope.currentAccount) {
+                        tag.content = $rootScope.currentAccount.accountId;
+                    }
                 case 'account-geo':
                     tag.content = null;
                 case 'account-country':
@@ -34,7 +42,9 @@ angular.module('mps.utility')
                 case 'user-role':
                     tag.content = $rootScope.currentUser.firstName;
                 case 'user-level':
-                    tag.content = $rootScope.currentAccount.accountLevel;
+                    if ($rootScope.currentAccount) {
+                        tag.content = $rootScope.currentAccount.accountLevel;
+                    }
                 default:
                     break;
             }

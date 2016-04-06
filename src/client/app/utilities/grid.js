@@ -1,5 +1,5 @@
 angular.module('mps.utility')
-.factory('grid', ['uiGridConstants', '$timeout', '$translate',  function(uiGridConstants, $timeout, $translate) {
+.factory('grid', ['uiGridConstants', '$timeout', '$translate', '$rootScope', function(uiGridConstants, $timeout, $translate, $rootScope) {
     var Grid = function() {
         this.itemsPerPageArr = [
             {items: 20},
@@ -37,9 +37,9 @@ angular.module('mps.utility')
 
                     if (sortColumns.length == 0) {
                         currentDir = null;
-                            service.params.sort = null;
+                        service.params.sort = null;
                     } else {
-                            currentDir = sortColumns[0].sort.direction.toUpperCase();
+                        currentDir = sortColumns[0].sort.direction.toUpperCase();
 
                         if (!sortColumns[0].colDef.searchOn) {
                             service.params.sort = sortColumns[0].field;
@@ -48,18 +48,18 @@ angular.module('mps.utility')
                         }
                     }
 
-                        service.params.direction = currentDir;
+                    service.params.direction = currentDir;
 
-                        if (service.springSorting) {
-                            service.params[service.params.sort + '.dir'] = currentDir;
+                    if (service.springSorting) {
+                        service.params[service.params.sort + '.dir'] = currentDir;
                         service.params.direction = null;
-                        }
+                    }
 
                     self.gridOptions.data = [];
 
                     service.get().then(function (data) {
-                            self.gridOptions.data = self.getDataWithDataFormatters(service.data, service.functionArray);
-                            $rootScope.gridApi.core.refresh();
+                        self.gridOptions.data = self.getDataWithDataFormatters(service.data, service.functionArray);
+                        $rootScope.gridApi.core.refresh();
                     });
                 });
             }
@@ -234,18 +234,23 @@ angular.module('mps.utility')
         scope[self.optionsName].exporterPdfMaxGridWidth = 500;
         scope[self.optionsName].rowEditWaitInterval = 0;
         scope[self.optionsName].exporterAllDataFn = function() {
-            scope[self.optionsName].currentGridData = scope[self.optionsName].data;
+            var size = 300;
+
+            if (scope.printing === false) {
+                size = service.page.totalElements;
+            }
+
+            scope[self.optionsName].currentGridData = service.data;
             scope[self.optionsName].servicePage = service.page;
 
-            return service.getPage(0, service.page.totalElements).then(function() {
-                 $timeout(function() {
-                    scope[self.optionsName].data = service.data;
-                    $timeout(function() {
-                        service.page = scope[self.optionsName].servicePage;
-                        scope[self.optionsName].data = scope[self.optionsName].currentGridData;
+            return service.getPage(0, size).then(function() {
+                scope[self.optionsName].data = service.data;
 
-                        self[self.optionsName] = scope[self.optionsName];
-                    }, 0);
+                $timeout(function() {
+                    service.page = scope[self.optionsName].servicePage;
+                    service.data = scope[self.optionsName].currentGridData;
+
+                    scope[self.optionsName].data = service.data;
                 }, 0);
             });
         };
@@ -297,7 +302,6 @@ angular.module('mps.utility')
             }
         }
 
-
         var tempOptionName = self.optionsName;
         $timeout(function() {
             var totalItems = scope.pagination.totalItems();
@@ -344,7 +348,7 @@ angular.module('mps.utility')
         };
 
         scope.isMultipleSelected = function() {
-            if (scope.currentRowList.length > 1) {
+            if (scope.currentRowList.length >= 1) {
                 return true;
             } else {
                 return false;

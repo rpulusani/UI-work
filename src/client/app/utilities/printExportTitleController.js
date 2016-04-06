@@ -27,23 +27,26 @@ angular.module('mps.utility')
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
             if($scope.titlestring && attrs.titleCount !== false) {
                 $scope.titleValues = {
-                        total: Math.max(0, ctrlScope.pagination.totalItems())
+                    total: Math.max(0, ctrlScope.pagination.totalItems())
                 };
             }
 
             ctrlScope.$watch('pagination', function(page) {
                $scope.titleValues = {
-                        total: Math.max(0, page.totalItems())
+                    total: Math.max(0, page.totalItems())
                 };
             });
 
             $scope.printGrid = function() {
+                ctrlScope.printing = true;
                 ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
             };
 
             $scope.exportGrid = function() {
                 var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
                 var api;
+
+               ctrlScope.printing = false;
 
                 if(!ctrlScope.gridApi){
                     api = ctrlScope.$root.gridApi;

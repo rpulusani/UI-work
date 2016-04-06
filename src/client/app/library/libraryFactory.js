@@ -7,24 +7,25 @@ angular.module('mps.library')
             serviceName: 'documents',
             embeddedName: 'documents',
             columns: 'default',
-                springSorting:  true,
+            springSorting:  true,
             columnDefs: {
                 defaultSet: [
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
-                        cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>'
+                        cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>', visible: $rootScope.documentLibraryViewStrategicAccess,
+                        showInColumnPicker: $rootScope.documentLibraryViewStrategicAccess
                     },
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), field: 'name', width: '420',
                         'cellTemplate':'<div>' +
                             '<i ng-class="grid.appScope.getFileIcon(row.entity.ext);"></i> ' +
                             '<a class="text--small" href="#" ng-click="grid.appScope.goToView(row.entity);">{{row.entity.name}} {{grid.appScope.isUnpublished(row.entity)}}</a><br />' +
                                         '<p class="text--small">{{row.entity.description}}</p>' +
-                                        '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS') + ': ' +
+                                        '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_TAGGED_AS') + ': ' +
                                             '{{grid.appScope.getTagNames(row.entity.tags)}}</p>' +
                                     '</div>'
                     },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true, searchOn: 'publishDate' },
-                        {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true},
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()' , notSearchable: true },
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true, searchOn: 'publishDate' },
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true},
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', notSearchable: true, searchOn: 'size' },
                     {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
                         'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                             '<a href="" ng-click="grid.appScope.goToUpdate(row.entity);"><i class="icon-16 icon-psw-edit"></i></a>' +
@@ -65,8 +66,12 @@ angular.module('mps.library')
                 },
                 {
                     name: 'getPublishedDate',
-                    functionDef: function(){
-                        return formatter.formatDate(this.publishDate);
+                    functionDef: function() {
+                        if (this.publishDate === undefined || this.publishDate === null) { return; }
+
+                        var dy = this.publishDate + 'Z';
+                        var d = new Date(dy);
+                        return formatter.getDisplayDate(d);
                     }
                 }
             ]

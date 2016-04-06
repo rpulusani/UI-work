@@ -2,6 +2,24 @@
     <div print-export-title titlestring="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_MISSING_W_TOTALS"></div>
     <hr/>
 </div>
+<div ng-if="errorMessage !== ''" class="alert alert--error" data-js="alert">
+<span class="alert__close" data-js="alert-close" aria-hidden="true">×</span><icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+    <div class="alert__body">
+    <span >
+       {{errorMessage}}
+    </span>
+    </div>
+</div>
+ <div id="pageCounts-error-popup" class="modal">
+     <div class="modal__body">
+     <h2 translate="PAGE_COUNTS.WARNING.HEADER"></h2><hr/>
+     <p>{{popupMsg}}
+     <span translate="PAGE_COUNTS.WARNING.IGNOREMSG"></span>
+     </p>
+     <button class="btn" ng-click="ignoreAndSave()" data-js="modalClose" translate="LABEL.YES"></button>
+     <button class="btn" data-js="modalClose" translate="LABEL.NO"></button>
+     </div>
+ </div>
 
 <div grid-filter options="filterOptions" params="optionParams"></div>
 

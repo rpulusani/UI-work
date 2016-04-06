@@ -16,10 +16,16 @@
 <div class="page-content">
     <form class="form" ng-submit="saveContact('newContact')" data-form="" name="newContactForm" novalidate>
         <div class="col-2-3 l-alley-after">
+            <div class="col-1">
+                <h2 class="vertical-space--none" translate="CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION"></h2>
+                <hr/>
+            </div>
+
+            <h4 translate="CONTACT_MAN.ADD_CONTACT.TXT_WHO_TO_ADD_QUERY"></h4>
             <div new-contact-fields></div>
         </div>
 
-        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL" cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM" return-path="/service-requests/contacts"></div>
+        <div confirm-cancel title="SERVICE_REQUEST.TITLE_ABANDON_MODAL" body="SERVICE_REQUEST.BODY_ABANDON_MODAL" cancel="SERVICE_REQUEST.ABANDON_MODAL_CANCEL" confirm="SERVICE_REQUEST.ABANDON_MODAL_CONFIRM" return-path="/service_requests/contacts/"></div>
 
         <div class="btns">
             <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"

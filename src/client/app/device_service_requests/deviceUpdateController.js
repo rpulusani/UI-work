@@ -19,6 +19,7 @@ angular.module('mps.serviceRequestDevices')
     'TombstoneService',
     '$timeout',
     'tombstoneWaitTimeout',
+    '$q',
     function($scope,
         $location,
         $filter,
@@ -37,7 +38,8 @@ angular.module('mps.serviceRequestDevices')
         $translate,
         Tombstone,
         $timeout,
-        tombstoneWaitTimeout
+        tombstoneWaitTimeout,
+        $q
         ){
 
         $scope.isLoading = false;
@@ -51,8 +53,6 @@ angular.module('mps.serviceRequestDevices')
         statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
-        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
         SecureHelper = new SecurityHelper($scope);
         SRHelper.addMethods(Devices, $scope, $rootScope);
@@ -61,6 +61,15 @@ angular.module('mps.serviceRequestDevices')
         SecureHelper.redirectCheck($rootScope.addDevice);
 
         $scope.returnedForm = false;
+
+        // For updating multiple
+        if (Devices.updatingMultiple) {
+            $scope.devices = Devices.data;
+
+            if ($rootScope.selectedContact) {
+                $scope.contact = $rootScope.selectedContact;
+            }
+        } 
 
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -94,6 +103,7 @@ angular.module('mps.serviceRequestDevices')
                     $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 } else if ($rootScope.currentSelected === 'updateDeviceContact') {
                     ServiceRequest.addRelationship('assetContact', $rootScope.selectedContact, 'self');
+                    $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
                     $scope.device.deviceContact = angular.copy($rootScope.selectedContact);
                 }
             }
@@ -126,8 +136,8 @@ angular.module('mps.serviceRequestDevices')
                 ServiceRequest.addRelationship('account', Devices.item);
                 ServiceRequest.addRelationship('asset', Devices.item, 'self');
                 ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
-            } 
-            
+            }
+
             if (BlankCheck.isNull($scope.device.chl)) {
                 $scope.device.chl = {};
             }
@@ -142,19 +152,32 @@ angular.module('mps.serviceRequestDevices')
 
             if (!BlankCheck.isNull($scope.device.contact.item) && BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.device.deviceContact = $scope.device.contact.item;
+                $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
             }
 
             if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
                 $scope.device.lexmarkMoveDevice = false;
             }
+
+            if (BlankCheck.isNullOrWhiteSpace($scope.device.deviceCHLQuestion)) {
+                $scope.device.deviceCHLQuestion = false;
+            }
         }
+        $scope.checkChange = function(field){
+            if($scope.device && $scope.orignalDevice &&
+                $scope.device[field] === $scope.orignalDevice[field]){
+                return false;
+            }else{
+                return true;
+            }
+        };
 
         $scope.setupSR(ServiceRequest, configureSR);
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
         $scope.getRequestor(ServiceRequest, Contacts);
 
         var updateSRObjectForSubmit = function() {
-            if ($scope.device.lexmarkMoveDevice === 'true') {
+            if ($scope.device.lexmarkMoveDevice === true) {
                 ServiceRequest.addField('type', 'MADC_MOVE');
             } else {
                 ServiceRequest.addField('type', 'DATA_ASSET_CHANGE');
@@ -179,15 +202,38 @@ angular.module('mps.serviceRequestDevices')
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
             $scope.configure.actions.submit = function(){
+              var i = 0,
+              deferreds = [];
+
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
 
                 updateSRObjectForSubmit();
-                var deferred = DeviceServiceRequest.post({
-                    item:  $scope.sr
-                });
 
-                deferred.then(function(result) {
+
+                if (Devices.updatingMultiple) {
+                    for (i; i < Devices.data.length; i += 1) {
+                        $scope.sr.assetInfo = {
+                            assetTag: Devices.data[i].assetTag,
+                            costCenter: Devices.data[i].costCenter,
+                            hostName: Devices.data[i].hostName,
+                            ipAddress: Devices.data[i].ipAddress,
+                            physicalLocation1: Devices.data[i].physicalLocation1,
+                            physicalLocation2: Devices.data[i].physicalLocation2,
+                            physicalLocation3: Devices.data[i].physicalLocation3
+                        };
+
+                        deferreds.push(DeviceServiceRequest.post({
+                            item:  $scope.sr
+                        }));
+                    }
+                } else {
+                    deferreds.push(DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    }));
+                }
+
+                $q.all(deferreds).then(function(result) {
                   if(DeviceServiceRequest.item._links['tombstone']) {
                     $location.search('tab', null);
                     $timeout(function(){
@@ -258,7 +304,13 @@ angular.module('mps.serviceRequestDevices')
             $scope.configure = {
                 header: {
                     translate: {
-                            h1: 'REQUEST_MAN.COMMON.TXT_UPDATE_DEVICE_INFO',
+                            h1: (function() {
+                                if (!Devices.updatingMultiple) {
+                                    return 'REQUEST_MAN.COMMON.TXT_UPDATE_DEVICE_INFO';
+                                } else {
+                                    return 'DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO';
+                                }
+                            }()),
                             h1Values:{'productModel': $scope.device.productModel},
                             body: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_UPDATE_DEVICE_PAR',
                             readMore: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_LEARN_MORE'
@@ -340,14 +392,38 @@ angular.module('mps.serviceRequestDevices')
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
                     sourceAddress: $scope.device.currentInstalledAddress
-                }
+                },
+                updatingMultiple: $scope.devices
             };
+
+            if (!Devices.updatingMultiple) {
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: '/device_management',
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                    },
+                    2: {
+                        value: Devices.item.productModel
+                    }
+                };
+            } else {
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: '/device_management',
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                    },
+                    2: {
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                    }
+                };
+            }
 
         }
 
         var formatAdditionalData = function() {
             if (!BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                 $scope.formattedCurrentAddress = FormatterService.formatAddress($scope.device.currentInstalledAddress);
+                $scope.formattedPrevAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
@@ -360,6 +436,9 @@ angular.module('mps.serviceRequestDevices')
 
             if (!BlankCheck.isNull($scope.device.deviceContact)) {
                 $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+            }
+            if (!BlankCheck.isNull($scope.device.prevDeviceContact)) {
+                $scope.formattedPrevDeviceContact = FormatterService.formatContact($scope.device.prevDeviceContact);
             }
 
             if (!BlankCheck.isNull($scope.device.requestedByContact)) {

@@ -64,8 +64,10 @@ angular.module('mps.utility')
         };
 
         $scope.discardSelect = function(){
+            $rootScope.currentSelectedRow = undefined;
+            $scope.selectedAddress = undefined;
             $rootScope.selectedShipToAddress = undefined;
-            $rootScope.formattedSelectedAddress = undefined;
+            $scope.formattedSelectedAddress = undefined;
             $location.path($rootScope.addressReturnPath);
         };
 
@@ -83,7 +85,8 @@ angular.module('mps.utility')
                     },
                     readMoreUrl: '',
                     showCancelBtn: false
-                }
+                },
+                breadcrumbs: false
             };
         }
 

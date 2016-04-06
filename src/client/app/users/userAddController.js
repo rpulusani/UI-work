@@ -1,9 +1,7 @@
-
-
 angular.module('mps.user')
 .controller('UserAddController', ['$scope', '$location', '$translate', '$routeParams',
-        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration', 'HATEAOSConfig',
-        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration, HATEAOSConfig) {
+        '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration', 'HATEAOSConfig', 'AllAccounts',
+        function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration, HATEAOSConfig, AllAccounts) {
 
         $scope.templateUrl = UrlHelper.user_template;
 
@@ -18,6 +16,7 @@ angular.module('mps.user')
         $scope.user.addonRoles = [];
         $scope.user.permissions = [];
         $scope.user.selectedRoleList = [];
+        $scope.showAllAccounts = false;
         $scope.accounts = [];
         $scope.languageOptions = [
             {name: $translate.instant('LANGUAGES.ARABIC'), code:  'ar_XM'},
@@ -73,13 +72,14 @@ angular.module('mps.user')
             }
         });
 
-            if ($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel') {
-                var siebelAccount = $rootScope.currentAccount;
-                siebelAccount._links = {self: {}};
-                siebelAccount._links.self.href = siebelAccount.href;
-                $scope.accountList.push(siebelAccount);
-            } else {
-                User.getLoggedInUserInfo().then(function() {
+        if ($rootScope.currentAccount && $rootScope.currentAccount.accountLevel === 'siebel') {
+            var siebelAccount = $rootScope.currentAccount;
+            siebelAccount._links = {self: {}};
+            siebelAccount._links.self.href = siebelAccount.href;
+            $scope.accountList.push(siebelAccount);
+        } else {
+            User.getLoggedInUserInfo().then(function() {
+                if (User.item._links.accounts) {
                     if (angular.isArray(User.item._links.accounts)) {
                         var promises = [],
                         options = {},
@@ -117,8 +117,50 @@ angular.module('mps.user')
                             }
                         });
                     }
+                } else {
+                    $scope.showAllAccounts = true;
+                }
+            });
+        }
+
+        $scope.setAccounts = function() {
+            $scope.$broadcast('searchAccount');
+        };
+
+        $scope.removeAccount = function(item) {
+            if ($scope.accounts && $scope.accounts.length > 0) {
+                for (var j=0;j<$scope.accounts.length; j++) {
+                    if ($scope.accounts[j].accountId 
+                        && $scope.accounts[j].accountId === item.accountId
+                        && $scope.accounts[j].level === item.level
+                        && $scope.accounts[j].name === item.name) {
+                        $scope.accounts.splice(j, 1);
+                    }
+                }
+            }
+            $scope.$broadcast('searchAccount');
+        };
+
+        $scope.$on('searchAccount', function(evt){
+            $scope.accountList = [];
+            if($scope.user.accountName && $scope.user.accountName.length >=3) {
+                var options = {
+                    preventDefaultParams: true,
+                    params:{    
+                        searchTerm: $scope.user.accountName
+                    }
+                };
+                AllAccounts.get(options).then(function(){
+                    $scope.accountList = [];
+                    if (AllAccounts.item._embedded && AllAccounts.item._embedded.accounts) {
+                        var allAccountList = AllAccounts.item._embedded.accounts;
+                        for (var i=0; i<allAccountList.length; i++) {
+                            $scope.accountList.push(allAccountList[i]);
+                        }
+                    }
                 });
             }
+        });
 
         $scope.setPermissions = function(role){
             Roles.setItem(role);
@@ -235,7 +277,7 @@ angular.module('mps.user')
                     addressLine1: $scope.user.address.addressLine1,
                     addressLine2: $scope.user.address.addressLine2,
                     city: $scope.user.address.city,
-                    stateCode: $scope.user.address.stateCode,
+                    state: $scope.user.address.state,
                     country: $scope.user.address.country,
                     postalCode: $scope.user.address.postalCode
                 };

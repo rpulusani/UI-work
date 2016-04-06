@@ -47,8 +47,6 @@ angular.module('mps.serviceRequestDevices')
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
-        { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         var configureSR = function(ServiceRequest){
@@ -113,7 +111,7 @@ angular.module('mps.serviceRequestDevices')
 
         var updateSRObjectForSubmit = function() {
             var meterReads = [];
-            if ($scope.device.lexmarkPickupDevice === 'true') {
+            if ($scope.device.lexmarkPickupDevice === true) {
                 $scope.sr = ServiceRequest.item;
                 $scope.sr.type = 'MADC_DECOMMISSION';
             } else {

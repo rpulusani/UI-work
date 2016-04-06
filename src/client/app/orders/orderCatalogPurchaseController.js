@@ -56,12 +56,13 @@ angular.module('mps.orders')
 
         $scope.print = false;
         $scope.export = false;
+        $scope.taxable = false;
         $scope.editable = false; //make order summary not actionable
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
             $scope.scratchSpace = Orders.tempSpace;
-            if($scope.scratchSpace.lexmarkInstallQuestion === undefined ||
-                    $scope.scratchSpace.lexmarkInstallQuestion === null){
+            if($scope.scratchSpace && ($scope.scratchSpace.lexmarkInstallQuestion === undefined ||
+                    $scope.scratchSpace.lexmarkInstallQuestion === null)){
                 $scope.scratchSpace.lexmarkInstallQuestion = false;
             }
 
@@ -73,9 +74,11 @@ angular.module('mps.orders')
                 if(Orders.item && !Orders.item.description){
                     Orders.addField('description', '');
                 }
-                Orders.item['_links']['account'] = {
-                    href: $rootScope.currentAccount.href
-                };
+                if($rootScope.currentAccount){
+                    Orders.item['_links']['account'] = {
+                        href: $rootScope.currentAccount.href
+                    };
+                }
                 if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
                     $scope.sr.sourceAddressPhysicalLocation = {};
                 }
@@ -86,8 +89,10 @@ angular.module('mps.orders')
                     $scope.sr.destinationAddressPhysicalLocation = {};
                 }
                 Orders.addField('paymentMethod','Purchase Order');
-                Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
-                Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
+                if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart){
+                    Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
+                    Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
+                }
                 switch($scope.type){
                     case 'SUPPLIES':
                         Orders.addField('type', 'SUPPLIES_CATALOG_ORDER');
@@ -112,41 +117,45 @@ angular.module('mps.orders')
         $scope.setupShipBillToAndInstallAddresses(Orders);
 
         $scope.formatAdditionalData = function() {
-            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)) {
+            if(!$scope.scratchSpace){
+                $scope.scratchSpace = {};
+            }
+            if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.requestedByContact)) {
                     $scope.requestedByContactFormatted = FormatterService.formatContact(Orders.tempSpace.requestedByContact);
             }
 
-            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
+            if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
             }
-                if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
+                if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
                     $scope.scratchSpace.installAddresssSelected = true;
                     $scope.formatedInstallAddress = FormatterService.formatAddress(Orders.tempSpace.installAddress);
-                }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.installAddress)){
+                }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.installAddress)){
                     $scope.scratchSpace.installAddresssSelected = false;
                     $scope.formatedInstallAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.installAddress);
                 }else{
                     $scope.scratchSpace.installAddresssSelected = false;
                 }
 
-            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+            if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
                         $scope.scratchSpace.billToAddresssSelected = true;
                     $scope.formatedBillToAddress = FormatterService.formatAddress(Orders.tempSpace.billToAddress);
-            }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
+            }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.billToAddress)){
                     $scope.scratchSpace.billToAddresssSelected = false;
                 $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.billToAddress);
                 }else{
                     $scope.scratchSpace.billToAddresssSelected = false;
             }
 
-            if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
-                        $scope.scratchSpace.shipToAddresssSelected = true;
-                    $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
-            }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
-                    $scope.scratchSpace.shipToAddresssSelected = false;
+            if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                $scope.scratchSpace.shipToAddresssSelected = true;
+                $scope.taxable = true;
+                $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+            }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+                $scope.scratchSpace.shipToAddresssSelected = false;
                 $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
-                }else{
-                    $scope.scratchSpace.shipToAddresssSelected = false;
+            }else{
+                $scope.scratchSpace.shipToAddresssSelected = false;
             }
 
             if (Orders.item){
@@ -224,8 +233,8 @@ angular.module('mps.orders')
             $scope.configure.actions.submit = function(){
                 if(!$scope.isLoading){
                    $scope.isLoading = true;
-                   for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
-                       Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[i]);
+                  // for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
+                       Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[0]);
                        if(Orders.item.requestedDeliveryDate){
                             Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                        }
@@ -255,7 +264,7 @@ angular.module('mps.orders')
                         }, function(reason){
                             NREUM.noticeError('Failed to create SR because: ' + reason);
                         });
-                    }
+                    //}
                 }
 
             };
@@ -345,8 +354,12 @@ angular.module('mps.orders')
         }
         $scope.formatReceiptData($scope.formatAdditionalData);
         function configureTemplates(){
+            var cart;
+            if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart){
+                cart = Orders.tempSpace.catalogCart;
+            }
                  $scope.configure = {
-                    cart:Orders.tempSpace.catalogCart,
+                    cart: cart,
                     header: {
                         translate:{
                             h1: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES',

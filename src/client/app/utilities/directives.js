@@ -71,6 +71,15 @@ angular.module('mps.utility')
         controller: 'ColumnPickerController'
     };
 }])
+.directive('breadcrumbs', [function () {
+    return {
+        restrict: 'A',
+        scope: {
+            map: '=map'
+        },
+        controller: 'BreadcrumbsController'
+    };
+}])
 .directive('printExportTitle', [function () {
     return {
         restrict: 'A',

@@ -13,6 +13,7 @@ angular.module('mps.deviceManagement')
     '$timeout',
     'lbsURL',
     'ServiceRequestService',
+    'OrderRequest',
     function(
         $scope,
         $location,
@@ -25,7 +26,8 @@ angular.module('mps.deviceManagement')
         $window,
         $timeout,
         lbsURL,
-        ServiceRequest
+        ServiceRequest,
+        Orders
         ) {
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
@@ -36,20 +38,33 @@ angular.module('mps.deviceManagement')
 
         ServiceRequest.reset();
 
+        $scope.breadcrumbs = {
+            1: {
+                href: "/device_management",
+                value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+            }
+        };
+
+        Devices.updatingMultiple = false;
+
         $scope.goToCreate = function() {
             Devices.reset();
             ServiceRequest.reset();
+            Devices.item = {};
             $location.path('/service_requests/devices/new');
         };
 
         $scope.goToOrderDevice = function() {
             Devices.reset();
             ServiceRequest.reset();
+            Devices.item = {};
             $location.path('/orders/catalog/hardware');
         };
         $scope.goToOrderSupplyCatalog = function() {
             Devices.reset();
-            ServiceRequest.reset();
+            Orders.reset();
+            Devices.item = {};
+            Orders.item = {};
             $location.path('/orders/catalog/supplies');
         };
 
@@ -102,17 +117,51 @@ angular.module('mps.deviceManagement')
                 $location.path(Devices.route + '/' + device.id + '/review');
             });
         };
-        $scope.goToUpdate = function(device) {
-            Devices.setItem(device);
-            var options = {
+        $scope.goToUpdate = function(devices) {
+            var device,
+            i = 0,
+            deviceCnt = 0,
+            options = {
                 params:{
                     embed:'contact,address'
                 }
             };
-            window.scrollTo(0,0);
-            Devices.item.get(options).then(function(){
-                $location.path('/service_requests/devices/' + device.id + '/update');
-            });
+
+            if (!angular.isArray(devices)) {
+                devices = [devices];
+            }
+
+            if (devices.length === 1) {
+                device = devices[0];
+
+                Devices.setItem(device);
+
+                window.scrollTo(0,0);
+
+                Devices.item.get(options).then(function(){
+                    $location.path('/service_requests/devices/' + device.id + '/update');
+                });
+            } else {
+                Devices.updatingMultiple = true;
+                Devices.data = devices;
+
+                for (i; i < Devices.data.length; i += 1) {
+                    (function(device, index) {
+                        device = Devices.data[index];
+
+                        Devices.setItem(device);
+
+                        Devices.item.get(options).then(function(){
+
+                            deviceCnt += 1;
+
+                            if (deviceCnt === Devices.data.length) {
+                                $location.path('/service_requests/devices/update-multiple');
+                            }
+                        });
+                    }(devices[i], i));
+                }
+            }
         };
         $scope.goToOrderAnother = function(device) {
             Devices.item = {};
@@ -139,7 +188,7 @@ angular.module('mps.deviceManagement')
             } else if (btnType === 'updatePageCounts') {
                 $scope.goToUpdatePageCount($scope.gridApi.selection.getSelectedRows()[0]);
             } else if (btnType === 'edit') {
-                $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+                $scope.goToUpdate($scope.gridApi.selection.getSelectedRows());
             } else if (btnType === 'move') {
                 $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
             } else if (btnType === 'orderAnother') {
@@ -165,7 +214,7 @@ angular.module('mps.deviceManagement')
 
         var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location'];
 
-            filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
+        filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
