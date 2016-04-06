@@ -55,7 +55,9 @@
      </div>
 
     <!-- additional request Details go here -->
-    <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems"
+    <div ng-if="configure && configure.order">
+        <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems"
+    </div>
     hide-submit="hideSubmitButton" configure="configure"></div>
     <div order-receipt></div>
     <div order-return-details></div>
