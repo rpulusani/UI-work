@@ -13,6 +13,7 @@ angular.module('mps.deviceManagement')
     '$timeout',
     'lbsURL',
     'ServiceRequestService',
+    'OrderRequest',
     function(
         $scope,
         $location,
@@ -25,7 +26,8 @@ angular.module('mps.deviceManagement')
         $window,
         $timeout,
         lbsURL,
-        ServiceRequest
+        ServiceRequest,
+        Orders
         ) {
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
@@ -48,17 +50,21 @@ angular.module('mps.deviceManagement')
         $scope.goToCreate = function() {
             Devices.reset();
             ServiceRequest.reset();
+            Devices.item = {};
             $location.path('/service_requests/devices/new');
         };
 
         $scope.goToOrderDevice = function() {
             Devices.reset();
             ServiceRequest.reset();
+            Devices.item = {};
             $location.path('/orders/catalog/hardware');
         };
         $scope.goToOrderSupplyCatalog = function() {
             Devices.reset();
-            ServiceRequest.reset();
+            Orders.reset();
+            Devices.item = {};
+            Orders.item = {};
             $location.path('/orders/catalog/supplies');
         };
 
@@ -138,11 +144,11 @@ angular.module('mps.deviceManagement')
                 for (i; i < Devices.data.length; i += 1) {
                     (function(device, index) {
                         device = Devices.data[index];
-                        
+
                         Devices.setItem(device);
 
                         Devices.item.get(options).then(function(){
-                        
+
                             deviceCnt += 1;
 
                             if (deviceCnt === Devices.data.length) {
