@@ -72,4 +72,99 @@ angular.module('mps.pageCount')
 
     return  new HATEOASFactory(PageCountService);
 }]);
+angular.module('mps.pageCount')
+.factory('PageCountHelper', function() {
+		return{
+			validatePageCount: function(params,$translate) {
+				 var result={
+					ltpc:{},
+					color:{}
+				};
 
+				if (!this.isDigitPageCount(params.newLTPC) || (params.isColorCapable && !this.isDigitPageCount(params.newColor))){                    
+					result.ltpc.msg=$translate.instant('PAGE_COUNTS.ERROR.VALID_PAGECOUNT');
+					result.ltpc.msgNotUpdate='';
+					result.ltpc.status='REJECTED';
+					result.color.msg='';
+					result.color.status='REJECTED';
+					return result;
+				}
+				result.ltpc=this.checkForLTPCCountDifference(params,$translate);
+				if (params.isColorCapable){
+					result.color=this.checkForColorCountDifference(params,$translate);                
+				}
+				return result;
+			},
+			checkForColorCountDifference:function(pageCountParams,$translate){				
+					var diff=(pageCountParams.newColor - pageCountParams.oldColor),
+					daysDiff=30,
+					msgNotUpdate='',
+					status='ACCEPTED',msgColor='';
+					
+					if (diff < 0){
+						msgColor = $translate.instant('PAGE_COUNTS.ERROR.COLOR_READ_LESS');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED');
+						status = 'REJECTED';
+					} else if ( diff > (pageCountParams.newLTPC - pageCountParams.oldLTPC)){
+						msgColor = $translate.instant('PAGE_COUNTS.ERROR.COLOR_READ_DIFFERENCE');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED');
+						status = 'REJECTED';
+					} else if (diff > 50000){
+						msgColor = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_COLOR_READHIGH');
+						msgNotUpdate = 'PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED';
+						status = 'DEFERRED';
+					} else if (diff < 10){
+						msgColor = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_COLOR_READLOW');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
+						status = 'DEFERRED';
+					} else if (diff > (daysDiff * 2000)){
+						msgColor = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_COLOR_READHIGH');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
+						status = 'DEFERRED';
+					}
+					
+					return {
+						msg:msgColor,
+						msgNotUpdate:msgNotUpdate,
+						status:status                
+					}
+			},
+			checkForLTPCCountDifference: function(pageCountParams,$translate){
+					var diff=(pageCountParams.newLTPC - pageCountParams.oldLTPC),
+					daysDiff=30,
+					msg='',msgNotUpdate='',status='ACCEPTED';
+					if (diff < 0){
+						msg = $translate.instant('PAGE_COUNTS.ERROR.LTPC_VALUE_LESS');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED');
+						status = 'REJECTED';
+					} else if (diff > 50000){
+						msg = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_LTPC_HIGH');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
+						status = 'DEFERRED';
+					} else if (diff < 10){
+						msg = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_LTPC_LOW');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
+						status = 'DEFERRED';
+					} else if (diff > (daysDiff * 2000)){
+						msg = $translate.instant('PAGE_COUNTS.ERROR.UNREASONABLE_LTPC_HIGH');
+						msgNotUpdate = $translate.instant('PAGE_COUNTS.ERROR.NOT_UPDATED_DEFERRED');
+						status = 'DEFERRED';
+					}                
+					return {
+						msg:msg,
+						msgNotUpdate:msgNotUpdate,
+						status:status                    
+					}
+			},
+			isDigitPageCount: function (s){ 
+				var patrn=/^[0-9]{1,20}$/; 
+				if (!patrn.exec(s)) 
+					return false; 
+				return true; 
+			}
+			
+				
+		};
+});
+
+ 
