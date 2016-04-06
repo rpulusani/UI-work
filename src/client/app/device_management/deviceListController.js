@@ -43,6 +43,8 @@ angular.module('mps.deviceManagement')
             }
         };
 
+        Devices.updatingMultiple = false;
+
         $scope.goToCreate = function() {
             Devices.reset();
             ServiceRequest.reset();
@@ -109,17 +111,49 @@ angular.module('mps.deviceManagement')
                 $location.path(Devices.route + '/' + device.id + '/review');
             });
         };
-        $scope.goToUpdate = function(device) {
-            Devices.setItem(device);
-            var options = {
+        $scope.goToUpdate = function(devices) {
+            var device,
+            i = 0,
+            options = {
                 params:{
                     embed:'contact,address'
                 }
             };
-            window.scrollTo(0,0);
-            Devices.item.get(options).then(function(){
-                $location.path('/service_requests/devices/' + device.id + '/update');
-            });
+
+            if (devices.length === 1) {
+                device = devices[0];
+
+                Devices.setItem(device);
+
+                window.scrollTo(0,0);
+
+                Devices.item.get(options).then(function(){
+                    $location.path('/service_requests/devices/' + device.id + '/update');
+                });
+            } else {
+                Devices.updatingMultiple = true;
+                Devices.data = devices;
+
+                for (i; i < Devices.data.length; i += 1) {
+                    device = Devices.data[0];
+
+                    (function(device, index) {
+                        Devices.setItem(device);
+
+                        Devices.item.get(options).then(function(){
+                            Devices.data[index] = Devices.item;
+
+                            if (index === Devices.data.length - 1) {
+                                Devices.item = null;
+
+                                $location.path('/service_requests/devices/update-multiple');
+                            }
+                        });
+                    }(device, i));
+                }
+
+                $location.path('/service_requests/devices/update-multiple');
+            }
         };
         $scope.goToOrderAnother = function(device) {
             Devices.item = {};
@@ -146,7 +180,7 @@ angular.module('mps.deviceManagement')
             } else if (btnType === 'updatePageCounts') {
                 $scope.goToUpdatePageCount($scope.gridApi.selection.getSelectedRows()[0]);
             } else if (btnType === 'edit') {
-                $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
+                $scope.goToUpdate($scope.gridApi.selection.getSelectedRows());
             } else if (btnType === 'move') {
                 $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
             } else if (btnType === 'orderAnother') {
@@ -172,7 +206,7 @@ angular.module('mps.deviceManagement')
 
         var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location'];
 
-            filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
+        filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);

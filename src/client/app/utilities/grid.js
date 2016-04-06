@@ -348,7 +348,7 @@ angular.module('mps.utility')
         };
 
         scope.isMultipleSelected = function() {
-            if (scope.currentRowList.length > 1) {
+            if (scope.currentRowList.length >= 1) {
                 return true;
             } else {
                 return false;

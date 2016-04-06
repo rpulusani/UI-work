@@ -37,7 +37,7 @@
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess"
             ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')" ng-if="updateDevice"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isSingleSelected()"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isMultipleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')" ng-if="moveDevice"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MOVE_DEVICE" ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderAnother')"

@@ -60,8 +60,9 @@ angular.module('mps.serviceRequestDevices')
 
         $scope.returnedForm = false;
 
-
-
+        if (Devices.updatingMultiple) {
+            $scope.devices = Devices.data;
+        } 
 
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
@@ -353,6 +354,28 @@ angular.module('mps.serviceRequestDevices')
                     sourceAddress: $scope.device.currentInstalledAddress
                 }
             };
+
+            if (!Devices.updatingMultiple) {
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: "/device_management",
+                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+                    },
+                    2: {
+                        value: Devices.item.productModel
+                    }
+                };
+            } else {
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: "/device_management",
+                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+                    },
+                    2: {
+                        value: 'Edit Multiple Devices'
+                    }
+                };
+            }
 
         }
 

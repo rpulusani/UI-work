@@ -204,6 +204,15 @@ angular.module('mps.serviceRequestAddresses')
                     translate: {
                         replaceContactTitle: 'CONTACT.REPLACE_CONTACT'
                     }
+                },
+                breadcrumbs: {
+                    1: {
+                        href: '/service_requests/addresses',
+                        value: 'ADDRESS.TITLE'
+                    },
+                    2: {
+                        value: 'ADDRESS_MAN.ADD_ADDRESS.TXT_REVIEW_ADD_ADDRESS'
+                    }
                 }
             };
         }
