@@ -1,6 +1,6 @@
 angular.module('mps.library')
 .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
-    'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope', 
+    'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope',
     'FormatterService', '$route', 'LibraryAccounts',
     function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
         $rootScope, formatter, $route, LibraryAccounts) {
@@ -14,7 +14,7 @@ angular.module('mps.library')
 
         $scope.inputTag = '';
         $scope.allAccounts = true;
-    
+
         $scope.isCommitting = false;
 
         var redirect_to_list = function() {
@@ -116,11 +116,11 @@ angular.module('mps.library')
             }
 
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.publishDate)) {
-                Documents.addField('publishDate', formatter.getPostDateUtcZero(new Date($scope.documentItem.publishDate)));
+                Documents.addField('publishDate', formatter.formatDateForPost($scope.documentItem.publishDate));
             }
 
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
-                Documents.addField('endDate', formatter.getPostDateUtcZero(new Date($scope.documentItem.endDate)));
+                Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
             }
 
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.strategic)) {
@@ -193,7 +193,6 @@ angular.module('mps.library')
                 var fd = new FormData();
 
                 var documentJson = angular.toJson(Documents.item);
-
                 fd.append('document', new Blob([documentJson], {type: 'application/json'}));
                 fd.append('file', $scope.documentFile);
 

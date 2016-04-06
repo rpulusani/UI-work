@@ -85,7 +85,8 @@ angular.module('mps.utility')
                     },
                     readMoreUrl: '',
                     showCancelBtn: false
-                }
+                },
+                breadcrumbs: false
             };
         }
 

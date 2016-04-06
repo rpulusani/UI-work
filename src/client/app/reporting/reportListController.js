@@ -24,6 +24,16 @@ angular.module('mps.report')
             $scope.gridDataCnt = 0;
             $scope.gridLoading = true;
 
+            $scope.breadcrumbs = {
+                1: {
+                    href: '/reporting',
+                    value: 'REPORTING.TITLE'
+                },
+                2: {
+                    value: $scope.report.name
+                }
+            };
+
             Reports.item.links.results({
                 serviceName: 'results',
                 embeddedName: 'reportData',

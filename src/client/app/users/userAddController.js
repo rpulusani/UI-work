@@ -277,7 +277,7 @@ angular.module('mps.user')
                     addressLine1: $scope.user.address.addressLine1,
                     addressLine2: $scope.user.address.addressLine2,
                     city: $scope.user.address.city,
-                    stateCode: $scope.user.address.stateCode,
+                    state: $scope.user.address.state,
                     country: $scope.user.address.country,
                     postalCode: $scope.user.address.postalCode
                 };
