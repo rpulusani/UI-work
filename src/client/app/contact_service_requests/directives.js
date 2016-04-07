@@ -10,7 +10,12 @@ angular.module('mps.serviceRequestContacts')
             $scope.countryHAL = CountryService.getHAL();
            
             $scope.countrySelected = function(country) {
-              $scope.country = country;
+               $.each($scope.countryHAL.countries,function(index,c_element){
+                        if(c_element.code==country){
+                            $scope.country =c_element;
+                            return;
+                        }
+                });
             };
 
             $scope.$watchGroup(['countryHAL', 'device'], function(vals) {

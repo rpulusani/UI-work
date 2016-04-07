@@ -41,7 +41,7 @@ angular.module('mps.serviceRequestContacts')
         }, 8000);
 
             $scope.checkAddress = function(contactForm) {
-                    if($scope.checkedAddress === 0 && $scope.newContactForm.$valid){
+                    if($scope.checkedAddress === 0 && $scope.newContactForm.$valid  && $scope.contact.address.country){
                         $scope.validForm = true;
                     $scope.enteredAddress = {
                         addressLine1: $scope.contact.address.addressLine1,
