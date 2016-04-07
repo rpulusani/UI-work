@@ -418,7 +418,8 @@ angular.module('mps.deviceManagement')
                 madcServiceRequest.data = [];
                 var filterSearchService = new FilterSearchService(madcServiceRequest, $scope, $rootScope, personal, 'madcSet');
             var params =  {
-                type: 'MADC_ALL'
+                type: ['MADC_ALL', 'DATA_ASSET_ALL'],
+                assetId: Devices.item.id
             };
 
                 filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICE_OVERvIEW.TXT_CHANGE_HISTORY', params, false, function() {
