@@ -7,7 +7,7 @@ angular.module('mps.serviceRequestContacts')
             embeddedName: 'contacts',
             url: serviceUrl + 'contacts',
             columns: 'defaultSet',
-            addBookmarkFn: true,
+            hideBookmark: true,
             columnDefs: {
                 defaultSet: [
                     {
