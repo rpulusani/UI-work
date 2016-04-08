@@ -49,16 +49,20 @@
         <label translate="ADDRESS_MAN.COMMON.TXT_CITY"></label>
         <input name="city" type="text" ng-model="address.city" required />
     </div>
+    <div ng-show="address.country === 'BR'" class="form__field form__field--required">
+        <label translate="ADDRESS.HOUSE_NUMBER"></label>
+        <input name="houseNumber" type="text" ng-model="address.houseNumber" ng-required="address.country === 'BR'" />
+    </div>
     <div ng-show="country.provinces.length > 0" class="form__field form__field--select">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
         <div selectric options="country.provinces" value="code" label="name" model="address.state"
              placeholder="{{'LABEL.SELECT' | translate}}"></div>
     </div>
-    <div class="row">
+    <div ng-show="address.country !== 'BR'" class="row">
         <div class="col-md-1-3">
             <div class="form__field form__field--required" ng-class="(!newAddress.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
-                <input type="text" name="postalCode" ng-model="address.postalCode" value="" class="" required />
+                <input type="text" name="postalCode" ng-model="address.postalCode" value="" class="" ng-required="address.country !== 'BR'" />
             </div>
         </div>
     </div>
