@@ -279,6 +279,7 @@ angular.module('mps.user')
                     city: $scope.user.address.city,
                     state: $scope.user.address.state,
                     country: $scope.user.address.country,
+                    countryIsoCode: $scope.user.address.country,
                     postalCode: $scope.user.address.postalCode
                 };
                 UserAdminstration.addField('address', addressInfo);

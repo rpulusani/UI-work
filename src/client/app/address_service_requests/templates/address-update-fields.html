@@ -35,6 +35,7 @@
     <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_COUNTRY"></label>
+         <label ng-bind="code"></label>
         <div selectric model="address.country" options="countryHAL.countries" value="code" label="name"
       placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
     </div>
@@ -50,8 +51,9 @@
         <label translate="ADDRESS_MAN.COMMON.TXT_CITY"></label>
         <input name="city" type="text" ng-model="address.city" required />
     </div>
-    <div ng-show="country.provinces.length > 0" class="form__field form__field--select form__field--required">
+    <div ng-show="country.provinces.length > 0 || address.state" class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
+        <label ng-bind="code"></label>
         <div selectric options="country.provinces" value="code" label="name" model="address.state" required
              placeholder="{{'LABEL.SELECT' | translate}}"></div>
     </div>

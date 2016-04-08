@@ -7,6 +7,7 @@ angular.module('mps.serviceRequestAddresses')
         controller: ['$scope', 'CountryService', function($scope, CountryService){
         $scope.countryHAL = CountryService.getHAL();
         $scope.countrySelected = function(country) {
+          console.log('test', country);
           $scope.country = country;
         };
 
@@ -34,10 +35,31 @@ angular.module('mps.serviceRequestAddresses')
         controller: ['$scope', 'CountryService', function($scope, CountryService){
         $scope.countryHAL = CountryService.getHAL();
         $scope.countrySelected = function(country) {
-          $scope.country = country;
+          if (country) {
+            $scope.country = country;
+          } else {
+            $scope.countryHAL.$promise.then(function(res) {
+              var countries = res.data._embedded.countries,
+              i = 0;
+
+              $.each(countries, function(_i, c) {
+                 if(c.code === $scope.address.countryIsoCode) {
+                   $scope.country = c;
+                   $scope.code = $scope.address.state;
+
+                   console.log($scope.country);
+                   console.log($scope.code);
+                 }
+              });
+            });
+          }
         };
 
-        var loaded = false;
+        if ($scope.address) {
+          $scope.countrySelected()
+        }
+
+      var loaded = false;
        $scope.$watchGroup(['countryHAL', 'installAddress'], function(vals) {
              var countries = vals[0], installAddress = vals[1];
              if(countries && installAddress && !loaded) {

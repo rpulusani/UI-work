@@ -49,6 +49,8 @@ angular.module('mps.user')
             $scope.accounts = [];
             $scope.userActive = false;
 
+            console.log($scope.user);
+
             if ($scope.user.active === true) {
                 $scope.userActive = true;
             }
