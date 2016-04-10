@@ -22,6 +22,7 @@ angular.module('mps.orders')
     'ServiceRequestService',
     'UserService',
     'OrderControllerHelperService',
+    'tombstoneWaitTimeout',
     function(
         $scope,
         $location,
@@ -42,7 +43,8 @@ angular.module('mps.orders')
         Tombstone,
         ServiceReqeust,
         Users,
-        OrderControllerHelper) {
+        OrderControllerHelper,
+        tombstoneWaitTimeout) {
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
@@ -111,6 +113,22 @@ angular.module('mps.orders')
         function intitilize(){
             $scope.setupSR(Orders, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+        }
+
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            Orders.item.requestNumber = Tombstone.item.siebelId;
+                            ServiceReqeust.item = Orders.item;
+                            $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
         }
 
         intitilize();
@@ -218,7 +236,7 @@ angular.module('mps.orders')
         }
 
 
-            $scope.getRequestor(Orders, Contacts);
+        $scope.getRequestor(Orders, Contacts);
 
         function configureReviewTemplate(){
             configureTemplates();
@@ -246,20 +264,8 @@ angular.module('mps.orders')
 
                         deferred.then(function(result){
                             if(Orders.item._links['tombstone']){
-                                $timeout(function(){
-                                        Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
-                                            if(Tombstone.item && Tombstone.item.siebelId){
-                                                $location.search('tab',null);
-                                                Orders.item.requestNumber = Tombstone.item.siebelId;
-                                                ServiceReqeust.item = Orders.item;
-                                                $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
-                                            }else{
-
-                                                $location.search('tab',null);
-                                                $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/queued');
-                                            }
-                                        });
-                                    },6000);
+                                $location.search('tab',null);
+                                getSRNumber($location.url());
                             }
                         }, function(reason){
                             NREUM.noticeError('Failed to create SR because: ' + reason);

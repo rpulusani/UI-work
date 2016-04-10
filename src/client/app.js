@@ -149,7 +149,7 @@
             translationManager: 'ADMIN_TRANSLATION_MANAGER'
         }
     })
-    .constant('tombstoneWaitTimeout', 10000)
+    .constant('tombstoneWaitTimeout', 3000)
     .config(function (SpringDataRestAdapterProvider) {
 
         // set the links key to _myLinks

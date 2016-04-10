@@ -45,6 +45,26 @@ angular.module('mps.serviceRequests')
 
         SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    var exp = $interpolate('{{root}}/{{id}}/update/{{type}}/receipt/{{queued}}');
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(exp({
+                              root: ServiceRequest.route,
+                              id: $scope.sr.id,
+                              type: $routeParams.type,
+                              queued: 'notqueued'}));
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         $scope.goToReview = function() {
             $location.path('/service_requests/' + $scope.sr.id +'/update/' + $routeParams.type + '/review');
         };
@@ -94,31 +114,9 @@ angular.module('mps.serviceRequests')
             });
 
             deferred.then(function(result){
-              if(ServiceRequest.item._links['tombstone']){
-                $timeout(function() {
-                  $location.search('tab', null);
-                    ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function() {
-                      var exp = $interpolate('{{root}}/{{id}}/update/{{type}}/receipt/{{queued}}');
-                      if(Tombstone.item && Tombstone.item.siebelId) {
-                        ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                        $location.path(exp({
-                          root: ServiceRequest.route,
-                          id: $scope.sr.id,
-                          type: $routeParams.type,
-                          queued: 'notqueued'}));
-                      } else {
-                          ServiceRequest.item = ServiceRequest.item;
-                          $rootScope.newSr = $scope.sr;
-                          $location.path(exp({
-                            root: ServiceRequest.route,
-                            id: $scope.sr.id,
-                            type: $routeParams.type,
-                            queued: 'queued'}));
-                        }
-                    });
-                  }, tombstoneWaitTimeout);
+                if(ServiceRequest.item._links['tombstone']){
+                    getSRNumber($location.url());
                 }
-
             }, function(reason){
                 NREUM.noticeError('Failed to create SR because: ' + reason);
             });
@@ -221,19 +219,21 @@ angular.module('mps.serviceRequests')
             };
             $scope.configure.queued = true;
           } else {
-            $scope.configure.header.translate.h1 = "SERVICE_REQUEST.UPDATE_REQUEST_SUBMITTED";
+            $scope.configure.header.translate.h1 = "REQUEST_MAN.MANAGE_REQUESTS.TXT_UPDATE_REQUEST_SUBMITTED";
             $scope.configure.header.translate.h1Values = {
-                'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                'refId': FormatterService.getFormattedSRNumber($scope.sr)
             };
-            $scope.configure.header.translate.body = "SERVICE_REQUEST.UPDATE_REQUEST_SUBMIT_HEADER_BODY";
+            $scope.configure.header.translate.body = "REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED";
             $scope.configure.header.translate.bodyValues= {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr),
+                'refId': FormatterService.getFormattedSRNumber($scope.sr),
                 'srHours': 24,
                 'srUrl': '/service_requests',
             };
             $scope.configure.receipt = {
                 translate: {
-                    title:"SERVICE_REQUEST.DETAILS_UPDATE_REQUEST_FOR_SUBMITTED",
+                    title:"REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_UPDATE_DEVICE_DETAILS",
                     titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                 },
                 descriptionDetail: {
