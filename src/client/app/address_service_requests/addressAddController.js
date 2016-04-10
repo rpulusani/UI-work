@@ -49,6 +49,21 @@ angular.module('mps.serviceRequestAddresses')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(Addresses.route + '/add/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         function configureReviewTemplate(){
             $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT';
             $scope.configure.actions.submit = function(){
@@ -68,19 +83,7 @@ angular.module('mps.serviceRequestAddresses')
                 deferred.then(function(result){
                   if(ServiceRequest.item._links['tombstone']) {
                     $location.search('tab', null);
-                    $timeout(function(){
-                      ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                          if(Tombstone.item && Tombstone.item.siebelId) {
-                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(Addresses.route + '/add/receipt/notqueued');
-                          } else {
-                            ServiceRequest.item = ServiceRequest.item;
-                            $rootScope.newAddress = $scope.address;
-                            $rootScope.newSr = $scope.sr;
-                            $location.path(Addresses.route + '/add/receipt/queued');
-                          }
-                    });
-                  }, tombstoneWaitTimeout);
+                    getSRNumber($location.url());
                   }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);

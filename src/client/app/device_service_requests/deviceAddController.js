@@ -76,6 +76,23 @@ angular.module('mps.serviceRequestDevices')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
+
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
+
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_SUBMIT_REGISTRATION_REQUEST';
                 $scope.updateSRObjectForSubmit();
@@ -96,20 +113,8 @@ angular.module('mps.serviceRequestDevices')
                     deferred.then(function(result){
                       if(DeviceServiceRequest.item._links['tombstone']) {
                         $location.search('tab', null);
-                        $timeout(function(){
-                          DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                          if(Tombstone.item && Tombstone.item.siebelId) {
-                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued');
-                          } else {
-                            ServiceRequest.item = DeviceServiceRequest.item;
-                            //Reviewed with Kris - uncertain why this is here
-                            //$rootScope.newDevice = $scope.device;
-                            //$rootScope.newSr = $scope.sr;
-                            $location.path(DeviceServiceRequest.route + '/add/receipt/queued');
-                          }
-                        });
-                      }, tombstoneWaitTimeout);
+                        getSRNumber($location.url());
+
                       }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
