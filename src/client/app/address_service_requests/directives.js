@@ -47,8 +47,7 @@ angular.module('mps.serviceRequestAddresses')
                    $scope.country = c;
                    $scope.code = $scope.address.state;
 
-                   console.log($scope.country);
-                   console.log($scope.code);
+                   console.log('HERE in Directive', $scope);
                  }
               });
             });

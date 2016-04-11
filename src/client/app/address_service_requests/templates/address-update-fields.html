@@ -11,8 +11,8 @@
         ng-model="address.storeFrontQuestion" value="false" data-js="customInput" />
         <label for="store-front-question-no"><span></span>
             {{'ADDRESS_MAN.COMMON.RAD_NO' | translate }}</label>
-    </div>
-     <div class="form__field form__field--radio form__field--no-margin">
+        </div>
+         <div class="form__field form__field--radio form__field--no-margin">
         <input type="radio" id="store-front-question-yes" name="store-front-question"
         ng-model="address.storeFrontQuestion" value="true" data-js="customInput"/><label
         for="store-front-question-yes"><span></span>
@@ -35,9 +35,17 @@
     <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_COUNTRY"></label>
-         <label ng-bind="code"></label>
         <div selectric model="address.country" options="countryHAL.countries" value="code" label="name"
       placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+
+    <label ng-bind="address.country"></label>
+    <select ng-model="countryHAL.countries[0]" name="country" ng-change="countrySelected(address.country)" required>
+        <option value="" translate="LABEL.SELECT"></option>
+        <option ng-repeat="country in countryHAL.countries" value="{{ country.code }}">
+            {{country.name}}
+        </option>
+    </select>
+
     </div>
     <div class="form__field form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_1"></label>
@@ -57,7 +65,6 @@
     </div>
     <div ng-show="country.provinces.length > 0 || address.state" class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
-        <label ng-bind="code"></label>
         <div selectric options="country.provinces" value="code" label="name" model="address.state" required
              placeholder="{{'LABEL.SELECT' | translate}}"></div>
     </div>
