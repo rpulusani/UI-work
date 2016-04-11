@@ -199,6 +199,21 @@ angular.module('mps.serviceRequestDevices')
             ServiceRequest.addField('attachments', $scope.files_complete);
         };
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
             $scope.configure.actions.submit = function(){
@@ -235,18 +250,7 @@ angular.module('mps.serviceRequestDevices')
 
                 $q.all(deferreds).then(function(result) {
                   if(DeviceServiceRequest.item._links['tombstone']) {
-                    $location.search('tab', null);
-                    $timeout(function(){
-                      DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
-                        } else {
-                          ServiceRequest.item = DeviceServiceRequest.item;
-                          $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/queued');
-                        }
-                      });
-                    }, tombstoneWaitTimeout);
+                    getSRNumber($location.url());
                   }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);

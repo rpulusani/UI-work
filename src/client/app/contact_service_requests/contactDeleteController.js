@@ -94,6 +94,21 @@ angular.module('mps.serviceRequestContacts')
 
         };
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         if (Contacts.item === null) {
             $scope.redirectToList();
         } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Contacts.item.id){
@@ -134,18 +149,7 @@ angular.module('mps.serviceRequestContacts')
                 });
                 deferred.then(function(result){
                   if(ServiceRequest.item._links['tombstone']) {
-                    $timeout(function(){
-                      ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                        ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                        $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/receipt/notqueued');
-                        } else {
-                         $rootScope.newContact = $scope.contact;
-                         $rootScope.newSr = $scope.sr;
-                         $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/receipt/queued');
-                        }
-                    });
-                  }, tombstoneWaitTimeout);
+                    getSRNumber($location.url());
                    }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);

@@ -92,6 +92,21 @@ angular.module('mps.serviceRequestAddresses')
 
         };
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         if (Addresses.item === null) {
             $scope.redirectToList();
         } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Addresses.item.id){
@@ -147,21 +162,8 @@ angular.module('mps.serviceRequestAddresses')
                 });
                 deferred.then(function(result){
                   if(ServiceRequest.item._links['tombstone']) {
-                    $timeout(function(){
-                      ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                          $location.search('tab', null);
-                          ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                          $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
-                        } else {
-                          $location.search('tab', null);
-                          //Reviewed with Kris - uncertain why this is here
-                          // $rootScope.newAddress = $scope.address;
-                          // $rootScope.newSr = $scope.sr;
-                          $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/queued');
-                        }
-                      });
-                  }, tombstoneWaitTimeout);
+                    $location.search('tab', null);
+                    getSRNumber($location.url());
                  }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
