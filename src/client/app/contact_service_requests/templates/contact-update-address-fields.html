@@ -1,9 +1,13 @@
-<div ng-show="!needToVerify">
-    <div class="form__field form__field--select form__field--required">
+asdf<div ng-show="!needToVerify">
+    <div class="form__field form__field--select form__field--required" ng-class="(!newContactForm.country.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="CONTACT_MAN.COMMON.TXT_COUNTRY"></label>
-        <div selectric model="contact.address.country" options="countryHAL.countries" value="code" label="name"
-        placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
 
+        <select name="country" ng-model="contact.address.country" ng-change="countrySelected(contact.address.country)" required >
+                 <option value="" translate="LABEL.SELECT"></option>
+                 <option ng-repeat="country in countries" value="{{country.code}}">
+                    {{country.name}}
+                 </option>
+        </select>
         <span ng-hide="!newAddress.country.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
             <span translate="LABEL.ERROR_REQUIRED"></span>
@@ -31,8 +35,13 @@
     </div>
     <div class="form__field form__field--select form__field--required">
         <label translate="CONTACT_MAN.COMMON.TXT_STATE"></label>
-        <div selectric options="country.provinces" value="code" label="name" model="contact.address.state" required
-             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+        <select ng-model="contact.address.state" name="state" required>
+            <option value="" translate="LABEL.SELECT"></option>
+            <option ng-repeat="province in provinces" value="{{ province.code }}">
+            {{province.name}}
+            </option>
+        </select>
+      
         <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
             <span translate="LABEL.ERROR_REQUIRED"></span>

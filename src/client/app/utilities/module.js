@@ -8,5 +8,14 @@ angular.module('mps.utility', [])
             'getHAL': { method: 'GET', url: url, interceptor: halInterceptor }
         });
     }
-]);
+])
+.factory('Country', ['serviceUrl', '$q', 'HATEOASFactory',
+        function(serviceUrl, $q, HATEOASFactory) {
+            var CountryService = {
+                serviceName:'countries',
+                embeddedName: 'users',
+            };
 
+            return new HATEOASFactory(CountryService);
+        }
+    ])

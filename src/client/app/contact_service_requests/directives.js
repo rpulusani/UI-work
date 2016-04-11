@@ -3,70 +3,13 @@ angular.module('mps.serviceRequestContacts')
 .directive('newContactFields', function() {
     return {
         restrict: 'A',
-        templateUrl: '/app/contact_service_requests/templates/contact-fields.html',
-        controller: ['$scope', 'CountryService', function($scope, CountryService) {
-            var loaded = false;
-
-            $scope.countryHAL = CountryService.getHAL();
-           
-            $scope.countrySelected = function(country) {
-               $.each($scope.countryHAL.countries,function(index,c_element){
-                        if(c_element.code==country){
-                            $scope.country =c_element;
-                            return;
-                        }
-                });
-            };
-
-            $scope.$watchGroup(['countryHAL', 'device'], function(vals) {
-                var countries = vals[0],
-                device = vals[1];
-                
-                if (countries && device && !loaded) {
-                    countries.$promise.then(function() {
-                        $.each(countries.countries, function(_i, c) {
-                            if (c.code == device.country) {
-                                $scope.country = c;
-                            }
-                        });
-                    
-                        loaded = true;
-                    });
-                }
-           });
-        }]
+        templateUrl: '/app/contact_service_requests/templates/contact-fields.html'
     };
 })
 .directive('contactUpdateAddressFields', function() {
     return {
         restrict: 'A',
-        templateUrl: '/app/contact_service_requests/templates/contact-update-address-fields.html',
-        controller: ['$scope', 'CountryService', function($scope, CountryService) {
-            var loaded = false;
-
-            $scope.countryHAL = CountryService.getHAL();
-           
-            $scope.countrySelected = function(country) {
-              $scope.country = country;
-            };
-
-            $scope.$watchGroup(['countryHAL', 'device'], function(vals) {
-                var countries = vals[0],
-                device = vals[1];
-                
-                if (countries && device && !loaded) {
-                    countries.$promise.then(function() {
-                        $.each(countries.countries, function(_i, c) {
-                            if (c.code == device.country) {
-                                $scope.country = c;
-                            }
-                        });
-                    
-                        loaded = true;
-                    });
-                }
-           });
-        }]
+        templateUrl: '/app/contact_service_requests/templates/contact-update-address-fields.html'
     };
 })
 .directive('contactUpdateInfoFields', function() {
