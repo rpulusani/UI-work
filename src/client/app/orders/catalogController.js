@@ -120,7 +120,8 @@ angular.module('mps.orders')
                 $scope.optionsName = 'catalogOptions';
                  var params ={
                         contractNumber: $scope.configure.cart.contract.id,
-                        agreementId: $scope.configure.cart.agreement.id
+                        agreementId: $scope.configure.cart.agreement.id,
+                        billingModel: $scope.configure.cart.billingModels.join(',')
                     };
 
                 switch($scope.configure.cart.catalog.toUpperCase()){
