@@ -1,4 +1,4 @@
-<div ng-if="configure && configure.order && configure.order.shipTo" >
+<div ng-if="configure && configure.order && formatedInstallAddress >
     <h2 translate="{{configure.installShipping.translate.installAddress}}"></h2>
     <div class="col-1-3 well well--no-shadow">
         <p ng-bind-html="formatedInstallAddress"></p>
@@ -16,7 +16,7 @@
             <div class="info-list__item-name" translate="{{configure.order.shipTo.translate.deliveryDate}}"></div>
             <div class="info-list__item-value" ng-bind="formattedDeliveryDate"></div>
         </li>
-        <li class="info-list__item" ng-show="configure.order.shipTo.translate.expedite">
+        <li class="info-list__item" ng-show="configure.order.shipTo.translate.expedite && scratchSpace.catalogCart.agreement.allowExpedite">
             <div class="info-list__item-name" translate="{{configure.order.shipTo.translate.expedite}}"></div>
             <div class="info-list__item-value" ng-bind="formattedExpedite"></div>
         </li>
