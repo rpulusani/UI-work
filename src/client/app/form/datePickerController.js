@@ -5,9 +5,13 @@ angular.module('mps.form')
         calendar;
         var rome = require('rome');
         node.type = 'text';
-       
-        if(attrs.beforeEq){
-            attrs.dateValidator = rome.val.before(attrs.beforeEq);
+
+        if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
+            attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+        }
+
+        if (scope.afterEq !== undefined && scope.afterEq !== null) {
+            attrs.dateValidator = rome.val.afterEq(scope.afterEq);
         }
 
         if (!attrs.time) {
@@ -20,10 +24,6 @@ angular.module('mps.form')
             attrs.inputFormat = 'YYYY-MM-DD';
         }
 
-        if (scope.dateValidator) {
-            attrs.dateValidator = scope.dateValidator;
-        }
-
         calendar = rome(node, attrs);
 
         // Watch was avoided due to performance concerns
@@ -32,10 +32,21 @@ angular.module('mps.form')
             scope.$apply();
         });
 
+        calendar.on('show', function() {
+            if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
+                attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+            }
+
+            if (scope.afterEq !== undefined && scope.afterEq !== null) {
+                attrs.dateValidator = rome.val.afterEq(scope.afterEq);
+            }
+        });
+
         // Add apply() call to top of event queue; hence 0 milliseconds
         setTimeout(function() {
             scope.$apply();
         }, 0);
+
     }
 ]);
 

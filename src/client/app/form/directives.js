@@ -134,7 +134,9 @@ angular.module('mps.form')
           timeInterval: '=',
           timeValidator: '&',
           weekdayFormat: '=',
-          dateVal: '='
+          dateVal: '=',
+          beforeEq: '=',
+          afterEq: '='
       },
       controller: 'DatePickerController'
     };
