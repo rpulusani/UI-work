@@ -86,7 +86,6 @@ angular.module('mps.orders')
 
                         deferred.then(function(result){
                             if(Orders.item._links['tombstone']){
-                                $location.search('tab',null);
                                 getSRNumber($location.url());
                             }
                         }, function(reason){
