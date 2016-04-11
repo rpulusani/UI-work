@@ -7,6 +7,7 @@ angular.module('mps.serviceRequestContacts')
             embeddedName: 'contacts',
             url: serviceUrl + 'contacts',
             columns: 'defaultSet',
+            hideBookmark: true,
             columnDefs: {
                 defaultSet: [
                     {
@@ -105,6 +106,12 @@ angular.module('mps.serviceRequestContacts')
                 ]
             },
             route: '/service_requests/contacts',
+            goToCreate: function() {
+                this.newMessage();
+                this.tempSpace = {};
+
+                $location.path('/service_requests/contacts/new');
+            },
             goToUpdate: function(contact) {
                 ServiceRequest.newMessage();
                 if (contact) {
@@ -125,7 +132,7 @@ angular.module('mps.serviceRequestContacts')
                         this.setItem(contact);
                     }
                     $location.path(this.route + '/delete/' + this.item.id + '/review');
-                },
+            },
             verifyAddress: function(addressObj, fn) {
                 this.get({
                     method: 'post',

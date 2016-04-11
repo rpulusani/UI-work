@@ -69,6 +69,22 @@ angular.module('mps.orders')
                 Orders.addField('type', 'SUPPLIES_ASSET_ORDER');
         };
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            Orders.item.requestNumber = Tombstone.item.siebelId;
+                            ServiceReqeust.item = Orders.item;
+                            $location.path(Orders.route + '/catalog/supplies/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         if (Devices.item === null) {
             Orders.item = null;
             $scope.redirectToList();
@@ -136,21 +152,7 @@ angular.module('mps.orders')
 
                     deferred.then(function(result){
                         if(Orders.item._links['tombstone']){
-                            $timeout(function(){
-                                    Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
-                                        if(Tombstone.item && Tombstone.item.siebelId){
-                                            $location.search('tab',null);
-                                            Orders.item.requestNumber = Tombstone.item.siebelId;
-                                            ServiceReqeust.item = Orders.item;
-                                            $location.path(Orders.route + '/catalog/supplies/receipt/notqueued');
-                                        }else{
-
-                                            $location.search('tab',null);
-                                            $location.search("queued","true");
-                                            $location.path(Orders.route + '/catalog/supplies/receipt/queued');
-                                        }
-                                    });
-                                }, tombstoneWaitTimeout);
+                            getSRNumber($location.url());
                         }
                     }, function(reason){
                         NREUM.noticeError('Failed to create SR because: ' + reason);
