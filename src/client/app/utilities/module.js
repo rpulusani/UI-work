@@ -18,4 +18,4 @@ angular.module('mps.utility', [])
 
             return new HATEOASFactory(CountryService);
         }
-    ])
+]);
