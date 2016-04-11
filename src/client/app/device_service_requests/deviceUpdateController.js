@@ -250,7 +250,6 @@ angular.module('mps.serviceRequestDevices')
 
                 $q.all(deferreds).then(function(result) {
                   if(DeviceServiceRequest.item._links['tombstone']) {
-                    $location.search('tab', null);
                     getSRNumber($location.url());
                   }
                 }, function(reason){
