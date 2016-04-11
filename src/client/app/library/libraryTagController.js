@@ -12,8 +12,22 @@ angular.module('mps.library')
         var Grid = new GridService();
 
         if (Tags.item) {
-            $scope.activeTag = Tags.item;
             $scope.phTagName = Tags.item.name;
+
+            if (Tags.item.createSuccess) {
+                $scope.displayCreateSuccess = true;
+                Tags.item.createSuccess = false;
+            }
+
+            if (Tags.item.modifySuccess) {
+                $scope.displayModifySuccess = true;
+                Tags.item.modifySuccess = false;
+            }
+
+            if (Tags.item.deleteSuccess) {
+                $scope.displayDeleteSuccess = true;
+                Tags.item.deleteSuccess = false;
+            }
         }
 
         $scope.goToStartCreate = function () {
@@ -110,8 +124,8 @@ angular.module('mps.library')
 
             Tags.item.name = $scope.selectedTag;
 
-                var tagName = Tags.item.name;
-                var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
+            var tagName = Tags.item.name;
+            var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
             $http({
                 method: 'PUT',
