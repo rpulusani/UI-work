@@ -10,5 +10,11 @@
 
 <div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table"
      ng-style="gridOptions.getStyle()" ui-grid-auto-resize  ui-grid-move-columns ui-grid-resize-columns></div>
-<span ng-if="!gridOptions.data || gridOptions.data.length === 0" translate="LABEL.ZERO_RECORDS"></span>
+
+<div class="alert alert--info" ng-if="!gridOptions.data || gridOptions.data.length === 0">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <div class="alert__body">
+         <span translate="GRID.EMPTY"></span>
+    </div>
+</div>
 <div pagination grid="{{gridOptions}}"></div>
