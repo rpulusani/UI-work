@@ -1,6 +1,7 @@
 src/node_modules
 src/coverage
 src/uploads/*
+src/npm-debug.log
 test-results.xml
 TESTS-*
 .DS_Store
