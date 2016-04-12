@@ -345,7 +345,8 @@ angular.module('mps.serviceRequestDevices')
                                 costCenter: 'REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER',
                                 chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
                                 customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
-                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
+                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
+                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     }
                 },
