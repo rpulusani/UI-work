@@ -265,6 +265,9 @@ angular.module('mps.deviceManagement')
             if (!BlankCheck.isNull($scope.device['contact'])) {
                 $scope.primaryContact = $scope.device['contact']['item'];
             }
+            if (!BlankCheck.isNull($scope.device['chl'])) {
+                $scope.chl = $scope.device['chl']['item'];
+            }
 
                 if ($scope.device !== null && $scope.device !== undefined && $scope.device.installDate !== undefined){
                     $scope.device.installDate = FormatterService.formatDate($scope.device.installDate);
