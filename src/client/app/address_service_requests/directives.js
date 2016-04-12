@@ -7,7 +7,6 @@ angular.module('mps.serviceRequestAddresses')
         controller: ['$scope', 'CountryService', function($scope, CountryService){
         $scope.countryHAL = CountryService.getHAL();
         $scope.countrySelected = function(country) {
-          console.log('test', country);
           $scope.country = country;
         };
 
@@ -32,46 +31,25 @@ angular.module('mps.serviceRequestAddresses')
     return {
         restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/address-update-fields.html',
-        controller: ['$scope', 'CountryService', function($scope, CountryService){
-        $scope.countryHAL = CountryService.getHAL();
-        $scope.countrySelected = function(country) {
-          if (country) {
-            $scope.country = country;
-          } else {
-            $scope.countryHAL.$promise.then(function(res) {
-              var countries = res.data._embedded.countries,
-              i = 0;
+        controller: ['$scope', 'CountryService', function($scope, CountryService) {
+            CountryService.getCountries().then(function(countries) {
+                $scope.countries = countries;
 
-              $.each(countries, function(_i, c) {
-                 if(c.code === $scope.address.countryIsoCode) {
-                   $scope.country = c;
-                   $scope.code = $scope.address.state;
+                $scope.countrySelected = function(countryCode) {
+                    if (!countryCode) {
+                        countryCode = $scope.address.countryIsoCode
+                    }
 
-                   console.log('HERE in Directive', $scope);
-                 }
-              });
+                    CountryService.getCountryByCode(countryCode).then(function(country) {
+                        $scope.country = country;
+                        $scope.code = $scope.address.state;
+                    });
+                };
+
+                if ($scope.address) {
+                    $scope.countrySelected()
+                }
             });
-          }
-        };
-
-        if ($scope.address) {
-          $scope.countrySelected()
-        }
-
-      var loaded = false;
-       $scope.$watchGroup(['countryHAL', 'installAddress'], function(vals) {
-             var countries = vals[0], installAddress = vals[1];
-             if(countries && installAddress && !loaded) {
-               countries.$promise.then(function() {
-                 $.each(countries.countries, function(_i, c) {
-                   if(c.code == installAddress.country) {
-                     $scope.country = c;
-                   }
-                 });
-                 loaded = true;
-               });
-             }
-           });
         }]
     };
 })
