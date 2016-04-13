@@ -129,16 +129,28 @@ angular.module('mps.library')
             $location.path(Documents.route + '/tags');
         };
 
-        $scope.goToView = function(documentItem) {
-            Documents.setItem(documentItem);
+        $scope.goToView = function(id) {
+            var options = {
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
+            };
 
-            $location.path(Documents.route + '/' + documentItem.id + '/view');
+            Documents.get(options).then(function(res) {
+                Documents.setItem(res.data);
+                $location.path(Documents.route + '/' + id + '/view');
+            });
         };
 
-        $scope.goToUpdate = function(documentItem) {
-            Documents.setItem(documentItem);
+        $scope.goToUpdate = function(id) {
+            var options = {
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
+            };
 
-            $location.path(Documents.route + '/' + documentItem.id + '/update');
+            Documents.get(options).then(function(res) {
+                Documents.setItem(res.data);
+                $location.path(Documents.route + '/' + id + '/update');
+            });
         };
 
         $scope.goToDelete = function(documentItem) {
