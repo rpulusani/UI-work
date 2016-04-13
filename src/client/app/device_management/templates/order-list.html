@@ -2,12 +2,18 @@
 
 <div supplies-accessory-order></div>
 
-<div print-export-title titlestring="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_DEVICE_ORDER_HISTORY" id="orders-history" ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"></div>
+<div print-export-title titlestring="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_DEVICE_ORDER_HISTORY" id="orders-history"></div>
 
 <hr ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"/>
 <div ng-show="gridOrdersOptions.data && gridOrdersOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
 <div ng-show="gridOrdersOptions.data && gridOrdersOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
 <div ng-show="gridOrdersOptions.data.length > 0" ui-grid="gridOrdersOptions" class="table"
     ng-style="gridOrdersOptions.getStyle()" ui-grid-auto-resize  ui-grid-move-columns ui-grid-resize-columns></div>
-<span ng-if="!gridOrdersOptions.data || gridOrdersOptions.data.length === 0" translate="LABEL.ZERO_RECORDS"></span>
+
+<div class="alert alert--info" ng-if="!gridOrdersOptions.data || gridOrdersOptions.data.length === 0">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <div class="alert__body">
+         <span translate="GRID.EMPTY"></span>
+    </div>
+</div>
 <div pagination grid="{{gridOrdersOptions}}"></div>
