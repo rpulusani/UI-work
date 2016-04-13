@@ -54,12 +54,11 @@ angular.module('mps.library')
 
         $scope.goToUpdate = function(id) {
             var options = {
-                params:{
-                    id: id
-                }
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
             };
 
-            Documents.item.get(options).then(function(res){
+            Documents.get(options).then(function(res) {
                 Documents.setItem(res.data);
                 $location.path(Documents.route + '/' + id + '/update');
             });
@@ -88,21 +87,21 @@ angular.module('mps.library')
                 showBtn = true;
             }
 
-                if ($rootScope.documentLibraryEditAllAccess) {
-                    showBtn = true;
-                }
+            if ($rootScope.documentLibraryEditAllAccess) {
+                showBtn = true;
+            }
 
-                return showBtn;
-            };
+            return showBtn;
+        };
 
-            $scope.getDeleteAction = function (owner) {
-                var showBtn = false;
+        $scope.getDeleteAction = function (owner) {
+            var showBtn = false;
 
-                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
-                    showBtn = true;
-                }
+            if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
+                showBtn = true;
+            }
 
-                if ($rootScope.documentLibraryDeleteAllAccess) {
+            if ($rootScope.documentLibraryDeleteAllAccess) {
                 showBtn = true;
             }
 

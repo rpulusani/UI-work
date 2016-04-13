@@ -573,12 +573,11 @@ angular.module('mps.report')
 
         $scope.goToDocumentView = function(id) {
             var options = {
-                params:{
-                    id: id
-                }
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
             };
 
-            Documents.item.get(options).then(function(res){
+            Documents.get(options).then(function(res){
                 Documents.setItem(res.data);
                 $location.path(Documents.route + '/' + id + '/view');
             });
@@ -596,16 +595,16 @@ angular.module('mps.report')
                     $scope.goToFinder($scope.reports[i]);
                 }
             }
-            };
+        };
 
-            $scope.getTagNames = function(tags) {
-                var localized = [];
-                if (tags) {
-                    for (var i = 0; i < tags.length; i++) {
-                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
-                    }
+        $scope.getTagNames = function(tags) {
+            var localized = [];
+            if (tags) {
+                for (var i = 0; i < tags.length; i++) {
+                    localized.push(Documents.getTranslationValueFromTag(tags[i]));
                 }
-                return localized.join(', ');
+            }
+            return localized.join(', ');
         };
     }
 ]);

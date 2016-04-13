@@ -131,12 +131,11 @@ angular.module('mps.library')
 
         $scope.goToView = function(id) {
             var options = {
-                params:{
-                    id: id
-                }
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
             };
 
-            Documents.item.get(options).then(function(res){
+            Documents.get(options).then(function(res) {
                 Documents.setItem(res.data);
                 $location.path(Documents.route + '/' + id + '/view');
             });
@@ -144,12 +143,11 @@ angular.module('mps.library')
 
         $scope.goToUpdate = function(id) {
             var options = {
-                params:{
-                    id: id
-                }
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
             };
 
-            Documents.item.get(options).then(function(res){
+            Documents.get(options).then(function(res) {
                 Documents.setItem(res.data);
                 $location.path(Documents.route + '/' + id + '/update');
             });
