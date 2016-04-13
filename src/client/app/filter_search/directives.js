@@ -161,7 +161,8 @@ angular.module('mps.filterSearch')
             title: '@',
             params:'=',
             filterDef: '=',
-            action: '@'
+            action: '@',
+            statusLevel: '@'
         },
         templateUrl: '/app/filter_search/templates/requestStatusFilter.html',
         controller: 'RequestStatusFilterController'
