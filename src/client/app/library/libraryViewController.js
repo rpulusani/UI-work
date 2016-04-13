@@ -52,16 +52,17 @@ angular.module('mps.library')
             return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
         };
 
-        $scope.goToUpdate = function(documentItem) {
-            Documents.setItem(documentItem);
+        $scope.goToUpdate = function(id) {
+            var options = {
+                params:{
+                    id: id
+                }
+            };
 
-            $location.path(Documents.route + '/' + $scope.documentItem.id + '/update');
-        };
-
-        $scope.goToDocumentView = function(documentItem) {
-            Documents.setItem(documentItem);
-
-            $location.path(Documents.route + '/' + $scope.documentItem.id + '/view');
+            Documents.item.get(options).then(function(res){
+                Documents.setItem(res.data);
+                $location.path(Documents.route + '/' + $scope.documentItem.id + '/update');
+            });
         };
 
         $scope.goToStartDelete = function () {

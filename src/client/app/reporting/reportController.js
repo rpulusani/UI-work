@@ -571,10 +571,17 @@ angular.module('mps.report')
                 });
         });
 
-        $scope.goToDocumentView = function(documentItem) {
-            Documents.setItem(documentItem);
+        $scope.goToDocumentView = function(id) {
+            var options = {
+                params:{
+                    id: id
+                }
+            };
 
-            $location.path(Documents.route + '/' + documentItem.id + '/view');
+            Documents.item.get(options).then(function(res){
+                Documents.setItem(res.data);
+                $location.path(Documents.route + '/' + id + '/view');
+            });
         };
 
         $scope.goToFinder = function(report) {
