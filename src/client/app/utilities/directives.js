@@ -1,5 +1,3 @@
-
-
 angular.module('mps.utility')
 .directive('confirmCancel', ['$rootScope', function($rootScope){
     function link(scope, element, attrs) {
@@ -78,6 +76,48 @@ angular.module('mps.utility')
             map: '=map'
         },
         controller: 'BreadcrumbsController'
+    };
+}])
+.directive('stateSelect', [function () {
+    return {
+        restrict: 'A',
+        scope: {
+            country: '@',
+            countryCode: '@'
+        },
+        template: '<select ng-model="country" name="name" ng-change="countrySelected()" required>' +
+            '<option value="" translate="LABEL.SELECT"></option>' +
+            '<option ng-repeat="c in countries" value="{{ country.code }}" ng-selected="c.name === country">' +
+                '{{c.name}}' +
+            '</option>' +
+        '</select>',
+        controller: [
+            '$scope',
+            '$element',
+            '$attrs',
+            'CountryService',
+            function($scope, $ele, $attrs, CountryService) {
+                console.log(arguments);
+                CountryService.getCountries().then(function(countries) {
+                    var country = $attrs.country,
+                    countryCode = $attrs.code;
+
+                    $scope.countries = countries;
+
+                    $scope.countrySelected = function() {
+                        CountryService.getCountryByCode(countryCode).then(function(country) {
+                            console.log($attrs.country);
+                            $scope.country = country;
+                            $scope.code = code;
+                        });
+                    };
+
+                    if (country) {
+                        $scope.countrySelected()
+                    }
+                });
+            }
+        ]
     };
 }])
 .directive('printExportTitle', [function () {

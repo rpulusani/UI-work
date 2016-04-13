@@ -43,12 +43,14 @@
         <label ng-bind="country.name"></label>
         <label ng-bind="code"></label>
 
-        <select ng-model="address.country" name="country" ng-change="countrySelected(address.country)" required>
+        <select ng-model="address.country" name="country" ng-change="countrySelected()" required>
             <option value="" translate="LABEL.SELECT"></option>
             <option ng-repeat="country in countries" value="{{ country.code }}" ng-selected="address.country === country.name">
                 {{country.name}}
             </option>
         </select>
+
+        <select country="{{ address.country }}" countryCode="{{ country.code }}" state-select></select>
     </div>
     <div class="form__field form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_1"></label>
@@ -69,7 +71,7 @@
     <div ng-show="country.provinces.length > 0" class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
         <select ng-model="address.state" required>
-            <option value="" translate="LABEL.SELECT"></option>
+            <option value="" translate="LABEL.SELECT" ng-selected="address.country !== address.countryIsoCode"></option>
             <option ng-repeat="state in country.provinces" value="{{ state.code }}" ng-selected="code === state.code">
                 {{state.name}}
             </option>

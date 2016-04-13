@@ -35,10 +35,8 @@ angular.module('mps.serviceRequestAddresses')
             CountryService.getCountries().then(function(countries) {
                 $scope.countries = countries;
 
-                $scope.countrySelected = function(countryCode) {
-                    if (!countryCode) {
-                        countryCode = $scope.address.countryIsoCode
-                    }
+                $scope.countrySelected = function() {
+                    var countryCode = $scope.address.countryIsoCode;
 
                     CountryService.getCountryByCode(countryCode).then(function(country) {
                         $scope.country = country;
