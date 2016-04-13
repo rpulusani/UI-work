@@ -61,7 +61,7 @@ angular.module('mps.library')
 
             Documents.item.get(options).then(function(res){
                 Documents.setItem(res.data);
-                $location.path(Documents.route + '/' + $scope.documentItem.id + '/update');
+                $location.path(Documents.route + '/' + id + '/update');
             });
         };
 
