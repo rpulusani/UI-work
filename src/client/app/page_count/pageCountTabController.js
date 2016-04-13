@@ -5,12 +5,19 @@ angular.module('mps.pageCount')
     '$rootScope',
     '$scope',
     'SecurityHelper',
+    '$location',
     function(
         $rootScope,
         $scope,
-        SecurityHelper
+        SecurityHelper,
+        $location
     ) {
-        //new SecurityHelper($rootScope).redirectCheck($rootScope.orderAccess);
+    	
+    	if(!$rootScope.pageCountAccess){
+    		 $location.path('device_management');
+    		 return;
+    	}
+       // new SecurityHelper($rootScope).redirectCheck($rootScope.orderAccess);
         $scope.active = function(value){
             $rootScope.serviceTabSelected = value;
         };
