@@ -65,7 +65,7 @@ angular.module('mps.orders')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-        filterSearchService.addPanelFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ORDER_STATUS', 'OrderStatusFilter', undefined,
+        filterSearchService.addPanelFilter('ORDER_MAN.MANAGE_ORDERS.TXT_FILTER_ORDER_STATUS', 'RequestStatusFilterLong', undefined,
             function(Grid) {
                 $scope.$broadcast('setupColumnPicker', Grid);
                 $scope.$broadcast('setupPrintAndExport', $scope);

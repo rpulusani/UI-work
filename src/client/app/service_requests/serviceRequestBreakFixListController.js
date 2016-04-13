@@ -48,7 +48,7 @@ angular.module('mps.serviceRequests')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_STATUS', 'RequestStatusFilter', undefined,
+            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_STATUS', 'RequestStatusFilterShort', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);

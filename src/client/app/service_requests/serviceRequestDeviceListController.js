@@ -50,7 +50,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_STATUS', 'RequestStatusFilter', undefined,
+        filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_STATUS', 'RequestStatusFilterShort', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
@@ -58,7 +58,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.MANAGE_REQUESTS.TXT_FILTER_TYPE', 'DeviceRequestTypeFilter', undefined,
+        filterSearchService.addPanelFilter('REQUEST_MAN.MANAGE_REQUESTS.TXT_FILTER_TYPE', 'DeviceRequestTypeFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
@@ -66,7 +66,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DEVICE_CHL', 'CHLFilter', undefined,
+        filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DEVICE_CHL', 'CHLFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
@@ -74,7 +74,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_LOCATION', 'LocationFilter', undefined,
+        filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_LOCATION', 'LocationFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
@@ -82,7 +82,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DATE_RANGE', 'DateRangeFilter', undefined,
+        filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DATE_RANGE', 'DateRangeFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
@@ -90,7 +90,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addBasicFilter('REQUEST_MAN.COMMON.TXT_FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
+        filterSearchService.addBasicFilter('REQUEST_MAN.COMMON.TXT_FILTER_MY_REQUESTS', {requesterFilter: $rootScope.currentUser.contactId}, myRequestRemoveParamList,
             function(Grid) {
                 $scope.$broadcast('setupColumnPicker', Grid);
                 $scope.$broadcast('setupPrintAndExport', $scope);
