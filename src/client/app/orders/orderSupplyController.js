@@ -47,7 +47,7 @@ angular.module('mps.orders')
             Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
                 var Grid = new GridService();
                 $scope.assetParts = AssetParts.data;
-                if (AssetParts.item && AssetParts.item.page && AssetParts.item.page.totalElements > 0) {
+                if (AssetParts.data && AssetParts.data.length > 0) {
                     $scope.displayOrderContent = true;
                 }
                 $scope.catalogOptions = {};
