@@ -85,6 +85,7 @@ angular.module('mps.utility')
             country: '@',
             countryCode: '@'
         },
+       // replace: true,
         template: '<select ng-model="country" name="name" ng-change="countrySelected()" required>' +
             '<option value="" translate="LABEL.SELECT"></option>' +
             '<option ng-repeat="c in countries" value="{{ country.code }}" ng-selected="c.name === country">' +
@@ -97,7 +98,6 @@ angular.module('mps.utility')
             '$attrs',
             'CountryService',
             function($scope, $ele, $attrs, CountryService) {
-                console.log(arguments);
                 CountryService.getCountries().then(function(countries) {
                     var country = $attrs.country,
                     countryCode = $attrs.code;
@@ -106,9 +106,13 @@ angular.module('mps.utility')
 
                     $scope.countrySelected = function() {
                         CountryService.getCountryByCode(countryCode).then(function(country) {
+                            console.log($scope);
                             console.log($attrs.country);
+                            console.log(country);
+                            console.log(code);
+ 
                             $scope.country = country;
-                            $scope.code = code;
+                            $scope.code = countryCode;
                         });
                     };
 

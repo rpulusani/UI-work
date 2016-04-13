@@ -169,6 +169,7 @@ angular.module('mps.utility')
 
         return columns;
     };
+    
     Grid.prototype.getSize = function(service){
         var size = 0;
         if(service.params && service.params.size && service && service.data){
