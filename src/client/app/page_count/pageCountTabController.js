@@ -13,7 +13,7 @@ angular.module('mps.pageCount')
         $location
     ) {
     	
-    	if(!$rootScope.pageCountAccess){
+    	if (!$rootScope.pageCountAccess){
     		 $location.path('device_management');
     		 return;
     	}
