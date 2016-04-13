@@ -358,6 +358,14 @@ angular.module('mps.user')
             }
         };
 
+        function createModal(popupName){
+            var $ = require('jquery');
+            $('#'+popupName).modal({
+                show: true,
+                static: true
+            });
+        }
+
         $scope.update = function() {
             updateAdminObjectForUpdate();
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
@@ -375,6 +383,14 @@ angular.module('mps.user')
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
             });
+        };
+
+        $scope.verifyDeactivateActivate = function(status) {
+            if (status === 'activate') {
+                createModal('activate-confirm-popup');
+            } else if (status === 'deactivate') {
+                createModal('deactivate-confirm-popup');
+            }
         };
 
         $scope.deactivate = function() {
