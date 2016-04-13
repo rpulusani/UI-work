@@ -158,11 +158,11 @@ angular.module('mps.utility')
         for (i; i < columns.length; i += 1) {
             columns[i].enableColumnMenu = enableColumnMenu;
             columns[i].name = $translate.instant(columns[i].name);
-            if (!columns[i].width && !columns[i].minWidth) {
-                columns[i].minWidth = columns[i].name.length * 15;
+            if (!columns[i].width) {
+                columns[i].width = columns[i].name.length * 15;
 
-                if (columns[i].minWidth < 120) {
-                    columns[i].minWidth = 120;
+                if (columns[i].width < 120) {
+                    columns[i].width = 120;
                 }
             }
         }
