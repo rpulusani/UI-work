@@ -258,9 +258,11 @@ angular.module('mps.serviceRequestDevices')
                     },
                     service:{
                         translate:{
-                                title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_SUMMARY',
-                                description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
-                        }
+                            title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_SUMMARY',
+                            description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC',
+                            linkMakeChangesTxt: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES'
+                        },
+                        linkMakeChanges: '/service_requests/devices/' + $scope.device.id + '/view'
                     }
                 },
                 contact:{
