@@ -82,7 +82,8 @@ angular.module('mps.utility')
     return {
         restrict: 'A',
         scope: {
-            country: '=country'
+            country: '=country',
+            countryIsoCode: '=code'
         },
         template: '<select ng-model="country" name="name" ng-change="countrySelected(country)" required>' +
             '<option value="" translate="LABEL.SELECT"></option>' +
@@ -96,16 +97,13 @@ angular.module('mps.utility')
             '$attrs',
             'CountryService',
             function($scope, $ele, $attrs, CountryService) {
-                console.log($scope.country);
-                console.log($attrs);
-
                 CountryService.getCountries().then(function(countries) {
                     $scope.countries = countries;
 
                     $scope.countrySelected = function(selectedCountryCode) {
                         CountryService.getCountryByCode(selectedCountryCode).then(function(country) {
+                            $scope.countryObj = country;
                             $scope.country = country.name;
-                            //$scope.$parent[$attrs.country] = country.name;
                             $scope.countryIsoCode = country.code;
                         });
                     };
