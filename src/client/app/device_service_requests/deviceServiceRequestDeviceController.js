@@ -87,6 +87,31 @@ angular.module('mps.serviceRequestDevices')
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
             $rootScope.contactPickerReset = false;
+        }else if($rootScope.selectedAddress
+                && $rootScope.returnPickerObjectAddress
+                && $rootScope.selectionId === Devices.item.id){
+            $scope.device = $rootScope.returnPickerObjectAddress;
+            $scope.sr = $rootScope.returnPickerSRObjectAddress;
+            if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
+                $scope.device.addressSelected = true;
+                ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
+
+                $scope.device.installAddress = angular.copy($rootScope.selectedAddress);
+                $scope.setupPhysicalLocations($scope.device.installAddress,
+                                                $scope.device.physicalLocation1,
+                                                $scope.device.physicalLocation2,
+                                                $scope.device.physicalLocation3);
+            }
+            Devices.item = $scope.device;
+            if($scope.device){
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                    NREUM.noticeError('Image url was not found reason: ' + reason);
+                });
+            }
+            $scope.resetAddressPicker();
         }else if($rootScope.selectedDevice &&
             $rootScope.returnPickerObjectDevice){
                 $scope.device = $rootScope.currentSelectedRow;
@@ -118,12 +143,14 @@ angular.module('mps.serviceRequestDevices')
                     $location.path(DeviceServiceRequest.route + "/" + $scope.device.id + '/view');
                 }
         } else {
-            $rootScope.device = Devices.item;
+            $scope.device = Devices.item;
             configureSR(ServiceRequest);
-            if (Devices.item && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
+            if (Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                 $scope.device.installAddress = Devices.item['address']['item'];
-            }else if(Devices.item && !BlankCheck.isNull(Devices.item['address'])){
+                ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
+            }else if(Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address'])){
                 $scope.device.installAddress = Devices.item['address'];
+                ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
             }
             if (Devices.item && !BlankCheck.isNull(Devices.item['contact']) && Devices.item['contact']['item']) {
                 $scope.device.primaryContact = Devices.item['contact']['item'];
@@ -133,9 +160,9 @@ angular.module('mps.serviceRequestDevices')
             if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                 $scope.resetContactPicker();
             }
-            if($rootScope.device){
+            if($scope.device){
                 var image =  ImageService;
-                image.getPartMediumImageUrl($rootScope.device.partNumber).then(function(url){
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
                     $scope.medImage = url;
                 }, function(reason){
                     NREUM.noticeError('Image url was not found reason: ' + reason);
@@ -144,7 +171,7 @@ angular.module('mps.serviceRequestDevices')
         }
         $scope.setupSR(ServiceRequest, configureSR);
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
-        if($rootScope.device){
+        if($scope.device){
             $scope.getRequestor(ServiceRequest, Contacts);
         }
 
@@ -249,12 +276,12 @@ angular.module('mps.serviceRequestDevices')
                 device: {
                     information:{
                         translate: {
-                                title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
-                                serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
-                                partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
-                                product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
-                                ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
-                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                            title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                            serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                            partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                            product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                            ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     },
                     service:{
@@ -316,6 +343,13 @@ angular.module('mps.serviceRequestDevices')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: DeviceServiceRequest.route + '/' + $scope.device.id + '/review'
+                },
+                addressPicker: {
+                    translate: {
+                            currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
+                            replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
+                    },
+                    sourceAddress: $scope.device.installedAddress
                 },
                 devicePicker: {
                     singleDeviceSelection: true,
