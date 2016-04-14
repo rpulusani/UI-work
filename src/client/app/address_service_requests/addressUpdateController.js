@@ -41,8 +41,6 @@ angular.module('mps.serviceRequestAddresses')
         $scope.isLoading = false;
         $scope.returnedForm = false;
 
-        console.log($scope);
-
         SRHelper.addMethods(Addresses, $scope, $rootScope);
         $scope.setTransactionAccount('AddressUpdate', Addresses);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);

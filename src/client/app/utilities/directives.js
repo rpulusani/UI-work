@@ -82,13 +82,11 @@ angular.module('mps.utility')
     return {
         restrict: 'A',
         scope: {
-            country: '@',
-            countryCode: '@'
+            country: '=country'
         },
-       // replace: true,
-        template: '<select ng-model="country" name="name" ng-change="countrySelected()" required>' +
+        template: '<select ng-model="country" name="name" ng-change="countrySelected(country)" required>' +
             '<option value="" translate="LABEL.SELECT"></option>' +
-            '<option ng-repeat="c in countries" value="{{ country.code }}" ng-selected="c.name === country">' +
+            '<option ng-repeat="c in countries" value="{{ c.code }}" ng-selected="c.name === country">' +
                 '{{c.name}}' +
             '</option>' +
         '</select>',
@@ -98,27 +96,19 @@ angular.module('mps.utility')
             '$attrs',
             'CountryService',
             function($scope, $ele, $attrs, CountryService) {
-                CountryService.getCountries().then(function(countries) {
-                    var country = $attrs.country,
-                    countryCode = $attrs.code;
+                console.log($scope.country);
+                console.log($attrs);
 
+                CountryService.getCountries().then(function(countries) {
                     $scope.countries = countries;
 
-                    $scope.countrySelected = function() {
-                        CountryService.getCountryByCode(countryCode).then(function(country) {
-                            console.log($scope);
-                            console.log($attrs.country);
-                            console.log(country);
-                            console.log(code);
- 
-                            $scope.country = country;
-                            $scope.code = countryCode;
+                    $scope.countrySelected = function(selectedCountryCode) {
+                        CountryService.getCountryByCode(selectedCountryCode).then(function(country) {
+                            $scope.country = country.name;
+                            //$scope.$parent[$attrs.country] = country.name;
+                            $scope.countryIsoCode = country.code;
                         });
                     };
-
-                    if (country) {
-                        $scope.countrySelected()
-                    }
                 });
             }
         ]

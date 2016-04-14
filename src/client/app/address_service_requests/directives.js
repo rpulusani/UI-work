@@ -32,6 +32,7 @@ angular.module('mps.serviceRequestAddresses')
         restrict: 'A',
         templateUrl: '/app/address_service_requests/templates/address-update-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService) {
+            /*
             CountryService.getCountries().then(function(countries) {
                 $scope.countries = countries;
 
@@ -48,6 +49,7 @@ angular.module('mps.serviceRequestAddresses')
                     $scope.countrySelected()
                 }
             });
+            */
         }]
     };
 })

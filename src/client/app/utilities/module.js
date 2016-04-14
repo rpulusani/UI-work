@@ -34,6 +34,9 @@ angular.module('mps.utility', [])
                 });
              };
 
+
+             console.log('looking for', isoCountryCode);
+
             if (service.countries) {
                findByCountryCode();
             } else {
