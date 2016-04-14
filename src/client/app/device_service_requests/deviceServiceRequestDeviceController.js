@@ -251,8 +251,7 @@ angular.module('mps.serviceRequestDevices')
                         translate: {
                                 title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
                                 serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
-                                partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
-                                product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                                 ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
                                 installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
