@@ -32,10 +32,17 @@ angular.module('mps.library')
 
         $scope.goToStartCreate = function () {
             $scope.isCreating = true;
+
+            $scope.isEditting = false;
+            $scope.isDeleting = false;
         };
 
         $scope.goToCancelCreate = function () {
             $scope.isCreating = false;
+            $scope.tagName = '';
+
+            $scope.isEditing = false;
+            $scope.isDeleting = false;
         };
 
         $scope.goToStartEdit = function (tag) {
@@ -43,10 +50,16 @@ angular.module('mps.library')
             $scope.selectedTag = Tags.item.name;
 
             $scope.isEditing = true;
+
+            $scope.isCreating = false;
+            $scope.isDeleting = false;
         };
 
         $scope.goToCancelEdit = function () {
             $scope.isEditing = false;
+
+            $scope.isCreating = false;
+            $scope.isDeleting = false;
         };
 
         $scope.goToStartDelete = function (tag) {
@@ -54,10 +67,16 @@ angular.module('mps.library')
             $scope.selectedTag = Tags.item.name;
 
             $scope.isDeleting = true;
+
+            $scope.isCreating = false;
+            $scope.isEditting = false;
         };
 
         $scope.goToCancelDelete = function () {
             $scope.isDeleting = false;
+
+            $scope.isCreating = false;
+            $scope.isEditing = true;
         };
 
         $scope.goToCancelEditStartDelete = function() {
