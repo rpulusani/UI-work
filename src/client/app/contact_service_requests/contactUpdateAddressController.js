@@ -37,7 +37,8 @@ angular.module('mps.serviceRequestContacts')
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
         $scope.checkAddress = function(contactForm) {
-            if($scope.checkedAddress === 0){
+        	if($scope.checkedAddress === 0 && $scope.editContact.$valid){
+        		 $scope.validForm = true;
                 $scope.enteredAddress = {
                     addressLine1: $scope.contact.address.addressLine1,
                     city: $scope.contact.address.city,
@@ -61,11 +62,14 @@ angular.module('mps.serviceRequestContacts')
                         }
                     }else{
                         //an error validating address has occurred with bods (log a different way?)
-                        $scope.canReview = true;
+                    	$scope.canReview = true;
                         $scope.checkedAddress = 1;
                         $scope.saveContact(contactForm);
                     }
                 });
+            }else {
+                $scope.validForm = false;
+                window.scrollTo(0,0);
             }
         };
 

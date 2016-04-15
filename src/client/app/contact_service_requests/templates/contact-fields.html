@@ -53,9 +53,9 @@
             <span translate="LABEL.ERROR_REQUIRED"></span>
         </span>
     </div>
-    <div class="form__field form__field--select form__field--required">
+    <div class="form__field form__field--select form__field--required_multiple">
         <label translate="CONTACT_MAN.COMMON.TXT_STATE"></label>
-        <select ng-model="contact.address.state" name="state" required>
+        <select ng-model="contact.address.state" name="state">
             <option value="" translate="LABEL.SELECT"></option>
             <option ng-repeat="province in provinces" value="{{ province.code }}">
             {{province.name}}
@@ -68,9 +68,9 @@
     </div>
     <div class="row">
         <div class="col-md-1-3">
-            <div class="form__field form__field--required" ng-class="(!newContactForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+            <div class="form__field form__field--required_multiple" ng-class="(!newContactForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="CONTACT_MAN.COMMON.TXT_ZIP_CODE"></label>
-                <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class="" required />
+                <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class=""/>
                 <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
                     <i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span>
