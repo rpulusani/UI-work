@@ -3,6 +3,7 @@
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
     <div class="alert__body">
         <span translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_NOT_RECOGNIZED"></span>
+        <span ng-if="bodsError">{{bodsErrorKey | translate }}</span>
     </div>
 </div>
 <div class="row">
@@ -36,7 +37,7 @@
         </div>
     </div>
 
-    <div class="col-1-2">
+    <div class="col-1-2" ng-if="!bodsError">
         <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_RECOMMENDED_ADDRESS"></p>
         <div class="well well--no-shadow">
             <div class="form__field form__field--no-margin">
