@@ -1,0 +1,270 @@
+[
+    {
+        "id": "1020",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_IN_COUNTRY"
+    },
+    {
+        "id": "1030",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_IN_COUNTRY"
+    },
+
+    {
+        "id": "1020",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_IN_COUNTRY"
+    },
+    {
+        "id": "1040",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.INVALID_CHARACTER"
+    },
+    {
+        "id": "1060",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_IN_COUNTRY"
+    },
+    {
+        "id": "1080",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_SUBMISSION_ISSUE"
+    },
+    {
+        "id": "2000",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+    {
+        "id": "2010",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+    {
+        "id": "2020",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+    {
+        "id": "2030",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+    {
+        "id": "2040",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+
+    {
+        "id": "3080",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+    {
+        "id": "3090",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.CITY_REGION_POSTCODE_ERROR"
+    },
+    {
+        "id": "2050",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ENTERED_ADDRESS_ISSUE"
+    },
+
+    {
+        "id": "3000",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3010",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3020",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3030",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3050",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3060",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3070",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3100",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3110",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3200",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3210",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3220",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3250",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "3300",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE1_ISSUE"
+    },
+    {
+        "id": "4000",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE2_ISSUE"
+    },
+    {
+        "id": "4010",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE2_ISSUE"
+    },
+    {
+        "id": "4500",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ORGANIZATION_NAME_ISSUE"
+    },
+    {
+        "id": "4510",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ORGANIZATION_NAME_ISSUE"
+    },
+    {
+        "id": "4520",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ORGANIZATION_NAME_ISSUE"
+    },
+    {
+        "id": "5000",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.UNDELIVERABLE_ISSUE"
+    },
+    {
+        "id": "5010",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_IN_COUNTRY"
+    },
+    {
+        "id": "5020",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.MANDATORY_MISSING"
+    },
+    {
+        "id": "5030",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.UNDELIVERABLE_ISSUE"
+    },
+    {
+        "id": "6000",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ENTERED_ADDRESS_ISSUE"
+    },
+    {
+        "id": "E101",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.LAST_LINE_ISSUE"
+    },
+    {
+        "id": "E212",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.NO_LOCALITY_ISSUE"
+    },
+    {
+        "id": "E213",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.BAD_LOCALITY_ISSUE"
+    },
+    {
+        "id": "E214",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.BAD_LOCALITY_AND_POSTCODE"
+    },
+
+    {
+        "id": "E216",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.BAD_LOCALITY_AND_POSTCODE"
+    },
+    {
+        "id": "E302",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.NO_PRIMARY_ADDRESSLINE"
+    },
+    {
+        "id": "E412",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.BAD_LOCALITY_VALID_REGION"
+    },
+    {
+        "id": "E413",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_NAME_ISSUE"
+    },
+    {
+        "id": "E420",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_RANGE_ISSUE"
+    },
+    {
+        "id": "E421",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_RANGE_INVALID"
+    },
+    {
+        "id": "E422",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_PREFIX_NEEDED"
+    },
+    {
+        "id": "E423",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_TYPE_NEEDED"
+    },
+    {
+        "id": "E425",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_TYPE_DIRECTION_NEEDED"
+    },
+    {
+        "id": "E427",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.PRIMARY_POSTFIX_NEEDED"
+    },
+    {
+        "id": "E428",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.BAD_POSTAL_CODE"
+    },
+    {
+        "id": "E429",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.BAD_LOCALITY"
+    },
+    {
+        "id": "E430",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_LINE_CLOSE"
+    },
+    {
+        "id": "E431",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.LOCALITY2_NEEDED"
+    },
+    {
+        "id": "E439",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.EXACT_MATCH_EWS"
+    },
+    {
+        "id": "E500",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.OTHER_ERROR"
+    },
+    {
+        "id": "E501",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.FOREIGN_ADDRESS"
+    },
+    {
+        "id": "E502",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.RECORD_BLANK"
+    },
+    {
+        "id": "E503",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.POSTAL_CODE_NOT_COVERED"
+    },
+    {
+        "id": "E504",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.OVERLAPPING_RANGES"
+    },
+    {
+        "id": "E505",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_EXISTING_USPS"
+    },
+    {
+        "id": "E600",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NOT_EXISTING_USPS"
+    },
+    {
+        "id": "E601",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_NUMBER_NOT_DPV_CONFIRMED"
+    },
+    {
+        "id": "404",
+        "key": "ADDRESS_MAN.ADDRESS_VALIDATION.ADDRESS_CLEANSING_ISSUE"
+    }
+]
