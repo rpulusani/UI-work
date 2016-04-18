@@ -24,8 +24,10 @@
             params="currentParams" filter-def="currentFunctionDef"></div>
         <div order-status-filter ng-if="currentFilterPanel == 'OrderStatusFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
-        <div request-status-filter ng-if="currentFilterPanel == 'RequestStatusFilter'"
-            params="currentParams" filter-def="currentFunctionDef"></div>
+        <div request-status-filter ng-if="currentFilterPanel == 'RequestStatusFilterLong'"
+            params="currentParams" filter-def="currentFunctionDef" status-level="RequestStatusFilterLong"></div>
+        <div request-status-filter ng-if="currentFilterPanel == 'RequestStatusFilterShort'"
+            params="currentParams" filter-def="currentFunctionDef" status-level="RequestStatusFilterShort"></div>
         <div supply-order-type-filter ng-if="currentFilterPanel == 'SupplyOrderTypeFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
         <div device-request-type-filter ng-if="currentFilterPanel == 'DeviceRequestTypeFilter'"

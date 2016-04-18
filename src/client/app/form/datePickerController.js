@@ -6,9 +6,13 @@ angular.module('mps.form')
         rome = require('rome');
         
         node.type = 'text';
-       
-        if(attrs.beforeEq){
-            attrs.dateValidator = rome.val.before(attrs.beforeEq);
+
+        if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
+            attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+        }
+
+        if (scope.afterEq !== undefined && scope.afterEq !== null) {
+            attrs.dateValidator = rome.val.afterEq(scope.afterEq);
         }
 
         if (!attrs.time) {
@@ -19,15 +23,21 @@ angular.module('mps.form')
             attrs.inputFormat = 'YYYY-MM-DD HH:mm';
         }
 
-        if (scope.dateValidator) {
-            attrs.dateValidator = scope.dateValidator;
-        }
-
         calendar = rome(node, attrs);
 
         calendar.on('data', function(val) {
             scope.dateVal = val;
             scope.$apply();
+        });
+
+        calendar.on('show', function() {
+            if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
+                attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+            }
+
+            if (scope.afterEq !== undefined && scope.afterEq !== null) {
+                attrs.dateValidator = rome.val.afterEq(scope.afterEq);
+            }
         });
 
         scope.$watchGroup(['min', 'max'], function(newValArr, oldValArr, ctrlScope) {
@@ -46,6 +56,7 @@ angular.module('mps.form')
         setTimeout(function() {
             scope.$apply();
         }, 0);
+
     }
 ]);
 

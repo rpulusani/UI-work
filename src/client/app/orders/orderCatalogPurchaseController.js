@@ -22,6 +22,7 @@ angular.module('mps.orders')
     'ServiceRequestService',
     'UserService',
     'OrderControllerHelperService',
+    'tombstoneWaitTimeout',
     function(
         $scope,
         $location,
@@ -42,7 +43,8 @@ angular.module('mps.orders')
         Tombstone,
         ServiceReqeust,
         Users,
-        OrderControllerHelper) {
+        OrderControllerHelper,
+        tombstoneWaitTimeout) {
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
@@ -111,6 +113,22 @@ angular.module('mps.orders')
         function intitilize(){
             $scope.setupSR(Orders, configureSR);
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
+        }
+
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            Orders.item.requestNumber = Tombstone.item.siebelId;
+                            ServiceReqeust.item = Orders.item;
+                            $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
         }
 
         intitilize();
@@ -218,7 +236,7 @@ angular.module('mps.orders')
         }
 
 
-            $scope.getRequestor(Orders, Contacts);
+        $scope.getRequestor(Orders, Contacts);
 
         function configureReviewTemplate(){
             configureTemplates();
@@ -246,20 +264,7 @@ angular.module('mps.orders')
 
                         deferred.then(function(result){
                             if(Orders.item._links['tombstone']){
-                                $timeout(function(){
-                                        Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
-                                            if(Tombstone.item && Tombstone.item.siebelId){
-                                                $location.search('tab',null);
-                                                Orders.item.requestNumber = Tombstone.item.siebelId;
-                                                ServiceReqeust.item = Orders.item;
-                                                $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
-                                            }else{
-
-                                                $location.search('tab',null);
-                                                $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/queued');
-                                            }
-                                        });
-                                    },6000);
+                                getSRNumber($location.url());
                             }
                         }, function(reason){
                             NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -289,7 +294,25 @@ angular.module('mps.orders')
                     $scope.configure.queued = false;
             }
             function setupConfigurationSupplies(){
-
+                $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
+                    if ($scope.device) {
+                        $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
+                    }
+                    $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                    $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                    $scope.configure.header.readMoreUrl = Devices.route;
+                    $scope.configure.header.translate.bodyValues= {
+                        'order': FormatterService.getFormattedSRNumber($scope.sr),
+                        'srHours': 24,
+                        'deviceManagementUrl': 'device_management/',
+                    };
+                    $scope.configure.receipt = {
+                        translate:{
+                            title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
+                            titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                        }
+                    };
+                $scope.configure.queued = false;
             }
 
         function configureReceiptTemplate(){

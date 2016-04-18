@@ -148,6 +148,21 @@ angular.module('mps.serviceRequestDevices')
             $scope.getRequestor(ServiceRequest, Contacts);
         }
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
                 $scope.configure.device.information.translate.changeTxt = 'Change Device';
@@ -162,21 +177,8 @@ angular.module('mps.serviceRequestDevices')
 
                 deferred.then(function(result){
                   if(DeviceServiceRequest.item._links['tombstone']) {
-                    $timeout(function(){
-                      DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                          $location.search('tab',null);
-                          ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                          // Success logic
-                          $location.path(DeviceServiceRequest.route + '/' + Devices.item.id + '/receipt/notqueued');
-                        } else {
-                          $location.search('tab', null);
-                          ServiceRequest.item = DeviceServiceRequest.item;
-                          $location.path(DeviceServiceRequest.route + '/' + Devices.item.id + '/receipt/queued');
-                        }
-                      });
-                    }, tombstoneWaitTimeout);
-
+                    $location.search('tab',null);
+                    getSRNumber($location.url());
                   }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -249,17 +251,18 @@ angular.module('mps.serviceRequestDevices')
                         translate: {
                                 title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
                                 serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
-                                partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
-                                product: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER',
+                                product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                                 ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
                                 installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     },
                     service:{
                         translate:{
-                                title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_SUMMARY',
-                                description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
-                        }
+                            title:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_SUMMARY',
+                            description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC',
+                            linkMakeChangesTxt: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES'
+                        },
+                        linkMakeChanges: '/service_requests/devices/' + $scope.device.id + '/view'
                     }
                 },
                 contact:{

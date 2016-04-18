@@ -20,6 +20,7 @@ angular.module('mps.serviceRequestDevices')
     '$timeout',
     'tombstoneWaitTimeout',
     '$q',
+    'Country',
     function($scope,
         $location,
         $filter,
@@ -39,7 +40,8 @@ angular.module('mps.serviceRequestDevices')
         Tombstone,
         $timeout,
         tombstoneWaitTimeout,
-        $q
+        $q,
+        Country
         ){
 
         $scope.isLoading = false;
@@ -69,8 +71,16 @@ angular.module('mps.serviceRequestDevices')
             if ($rootScope.selectedContact) {
                 $scope.contact = $rootScope.selectedContact;
             }
-        } 
-
+        }
+        Country.get().then(function(){
+            $scope.countries=Country.data;
+        });
+        $scope.countrySelected = function(countryId) {
+                var item=$scope.countries.filter(function(item) {
+                    return item.code === countryId; 
+                });
+                $scope.provinces = item[0].provinces;
+        };
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
         };
@@ -199,6 +209,21 @@ angular.module('mps.serviceRequestDevices')
             ServiceRequest.addField('attachments', $scope.files_complete);
         };
 
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
+        }
+
         function configureReviewTemplate(){
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
             $scope.configure.actions.submit = function(){
@@ -235,18 +260,7 @@ angular.module('mps.serviceRequestDevices')
 
                 $q.all(deferreds).then(function(result) {
                   if(DeviceServiceRequest.item._links['tombstone']) {
-                    $location.search('tab', null);
-                    $timeout(function(){
-                      DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
-                        } else {
-                          ServiceRequest.item = DeviceServiceRequest.item;
-                          $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/queued');
-                        }
-                      });
-                    }, tombstoneWaitTimeout);
+                    getSRNumber($location.url());
                   }
                 }, function(reason){
                     NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -331,7 +345,8 @@ angular.module('mps.serviceRequestDevices')
                                 costCenter: 'REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER',
                                 chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
                                 customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
-                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
+                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
+                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     }
                 },

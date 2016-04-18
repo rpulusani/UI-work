@@ -35,77 +35,83 @@ angular.module('mps.serviceRequestContacts')
                         dynamic: false
                     },
                     {
-                        name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_FIRST_NAME'),
+                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
                         field:'firstName',
                         visible: false
                     },
                     {
-                        name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_LAST_NAME'),
+                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'),
                         field:'lastName',
                         visible: false
                     },
                     {
-                        name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_ADDRESS_1'),
-                        field:'addressLine1',
+                        name: $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'),
+                        field:'address.addressLine1',
                         cellTemplate:'<div ng-bind="row.entity.address.addressLine1"></div>',
                         visible: false
                     },
                     {
-                        name: $translate.instant('CONTACT_MAN.ADD_CONTACT.TXT_ADDRESS_2'),
-                        field:'addressLine2',
+                        name: $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'),
+                        field:'address.addressLine2',
                         cellTemplate:'<div ng-bind="row.entity.address.addressLine2"></div>',
                         visible: false
                     },
                     {
-                        name: $translate.instant('CONTACT_MAN.ADD_CONTACT.HOUSE_NUMBER'),
+                        name: $translate.instant('ADDRESS.HOUSE_NUMBER'),
                         field:'',
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.CITY'),
-                        field:'city',
+                        field:'address.city',
                         cellTemplate:'<div ng-bind="row.entity.address.city"></div>',
                         visible: false
                     },
                     {
-                        name: $translate.instant('ADDRESS.STATE'),
-                        field:'state',
+                        name: $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'),
+                        field:'address.state',
                         cellTemplate:'<div ng-bind="row.entity.address.state"></div>',
                         visible: false
                     },
                     {
-                        name: $translate.instant('ADDRESS.STATE_PROVINCE'),
-                        field:'province',
+                        name: $translate.instant('ADDRESS.PROVINCE'),
+                        field:'address.province',
                         cellTemplate:'<div ng-bind="row.entity.address.province"></div>',
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.COUNTY'),
-                        field:'county',
+                        field:'address.county',
                         cellTemplate:'<div ng-bind="row.entity.address.county"></div>',
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.DISTRICT'),
-                        field:'district',
+                        field:'address.district',
                         cellTemplate:'<div ng-bind="row.entity.address.district"></div>',
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.COUNTRY'),
-                        field:'country',
+                        field:'address.country',
                         cellTemplate:'<div ng-bind="row.entity.address.country"></div>',
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.ZIP_POSTAL'),
-                        field:'postalCode',
+                        field:'address.postalCode',
                         cellTemplate:'<div ng-bind="row.entity.address.postalCode"></div>',
                         visible: false
                     }
                 ]
             },
             route: '/service_requests/contacts',
+            goToCreate: function() {
+                this.newMessage();
+                this.tempSpace = {};
+
+                $location.path('/service_requests/contacts/new');
+            },
             goToUpdate: function(contact) {
                 ServiceRequest.newMessage();
                 if (contact) {
@@ -126,7 +132,7 @@ angular.module('mps.serviceRequestContacts')
                         this.setItem(contact);
                     }
                     $location.path(this.route + '/delete/' + this.item.id + '/review');
-                },
+            },
             verifyAddress: function(addressObj, fn) {
                 this.get({
                     method: 'post',

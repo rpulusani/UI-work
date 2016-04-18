@@ -2,6 +2,15 @@
 
 <hr />
 
+<div ng-if="errorMessage && errorMessage !== ''" class="alert alert--error" data-js="alert">
+<span class="alert__close" data-js="alert-close" aria-hidden="true">×</span><icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+    <div class="alert__body">
+    <span >
+       {{errorMessage}}
+    </span>
+    </div>
+</div>
+
 <form class="form" data-form="" name="devicePageCount" novalidate>
 	<table class="table table--condensed table--even table--responsive vertical-space--none">
 		<thead>
@@ -27,7 +36,7 @@
 	            </td>
 	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE' | translate}}">
                     <div class="form__field vertical-space--none">
-                        <input type="text" id="page-count-date" ng-if="item.type !== 'MONO'" ng-model="item.newDate" date-val="item.newDate" date-validator="rome.val.beforeEq(page-count-date)" datepicker time="true" time-interval="60"/>
+                        <input type="text" id="page-count-date" ng-if="item.type !== 'MONO'" ng-model="item.newDate" date-val="item.newDate" before-eq="getMeterReadPriorDate(item)" datepicker time="true" time-interval="60"/>
                     </div>
                     <span ng-if="item.type === 'MONO'" ng-bind="getMeterReadPriorDate(item)"></span>
 	            </td>

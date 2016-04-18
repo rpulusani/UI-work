@@ -7,10 +7,31 @@
 	<p><span translate="USER_MAN.MANAGE_USERS.TXT_CREATE_MANAGE_USER_PROFILE_PAR"></span></p>
 
 	<div class="btns">
-	    <button type="button" class="btn btn--default" ng-click="deactivate()" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
+	    <button type="button" class="btn btn--default" ng-click="verifyDeactivateActivate('deactivate')" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
 	    </button>
-	    <button type="button" class="btn btn--default" ng-click="update()" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
+	    <button type="button" class="btn btn--default" ng-click="verifyDeactivateActivate('activate')" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
 	    </button>
+	</div>
+
+	<div id="deactivate-confirm-popup" class="modal">
+	    <div class="modal__body">
+		    <h2 translate="USER_MAN.MANAGE_USERS.WARNING_DEACTIVATE"></h2><hr/>
+		    <p>
+		    	<span translate="USER_MAN.MANAGE_USERS.IGNORE_WARNING"></span>
+		    </p>
+		    <button class="btn btn--secondary" ng-click="deactivate()" data-js="modalClose" translate="LABEL.YES"></button>
+		    <button class="btn btn--primary" data-js="modalClose" translate="LABEL.NO"></button>
+	    </div>
+	</div>
+	<div id="activate-confirm-popup" class="modal">
+	    <div class="modal__body">
+		    <h2 translate="USER_MAN.MANAGE_USERS.WARNING_ACTIVATE"></h2><hr/>
+		    <p>
+		    	<span translate="USER_MAN.MANAGE_USERS.IGNORE_WARNING"></span>
+		    </p>
+		    <button class="btn btn--secondary" ng-click="update()" data-js="modalClose" translate="LABEL.YES"></button>
+		    <button class="btn btn--primary" data-js="modalClose" translate="LABEL.NO"></button>
+	    </div>
 	</div>
 </div>
 <div class="page-tabs" manage-user-tabs></div>

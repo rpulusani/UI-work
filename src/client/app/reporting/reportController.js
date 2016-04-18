@@ -571,10 +571,16 @@ angular.module('mps.report')
                 });
         });
 
-        $scope.goToDocumentView = function(documentItem) {
-            Documents.setItem(documentItem);
+        $scope.goToDocumentView = function(id) {
+            var options = {
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
+            };
 
-            $location.path(Documents.route + '/' + documentItem.id + '/view');
+            Documents.get(options).then(function(res){
+                Documents.setItem(res.data);
+                $location.path(Documents.route + '/' + id + '/view');
+            });
         };
 
         $scope.goToFinder = function(report) {
@@ -589,16 +595,16 @@ angular.module('mps.report')
                     $scope.goToFinder($scope.reports[i]);
                 }
             }
-            };
+        };
 
-            $scope.getTagNames = function(tags) {
-                var localized = [];
-                if (tags) {
-                    for (var i = 0; i < tags.length; i++) {
-                        localized.push(Documents.getTranslationValueFromTag(tags[i]));
-                    }
+        $scope.getTagNames = function(tags) {
+            var localized = [];
+            if (tags) {
+                for (var i = 0; i < tags.length; i++) {
+                    localized.push(Documents.getTranslationValueFromTag(tags[i]));
                 }
-                return localized.join(', ');
+            }
+            return localized.join(', ');
         };
     }
 ]);

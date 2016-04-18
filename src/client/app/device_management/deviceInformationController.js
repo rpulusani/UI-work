@@ -21,6 +21,7 @@ angular.module('mps.deviceManagement')
     'uiGridExporterConstants',
     '$translate',
     '$filter',
+    'PageCountHelper',
     function(
         $rootScope,
         $scope,
@@ -41,7 +42,8 @@ angular.module('mps.deviceManagement')
             $window,
             uiGridExporterConstants,
             $translate,
-            $filter
+            $filter,
+            pageCountHelper
         ) {
         ServiceRequest.setParamsToNull();
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
@@ -107,14 +109,14 @@ angular.module('mps.deviceManagement')
             }
             return FormatterService.formatDate(item.createDate);
         };
-
+        
         $scope.saveMeterReads = function() {
         /*
         desc:   Loops through all meter reads and submits put requests
                 for all that were updated (bulk update)
         */
             var limit, i;
-
+            $scope.errorMessage='';
             if($scope.meterReads){
                 limit = $scope.meterReads.length;
                 var indColor=-1,indLTPC=-1,indMono=-1;
@@ -132,9 +134,13 @@ angular.module('mps.deviceManagement')
 
                     if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){
                         // if a new value was added
-                        if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value){
+                        if ($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value 
+                            && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)){
                             $scope.meterReads[i].value = $scope.meterReads[i].newVal;
                             $scope.meterReads[i].newVal = null;
+                        }else{
+                            $scope.errorMessage=$translate.instant('PAGE_COUNTS.ERROR.VALID_PAGECOUNT');
+                            return;
                         }
 
                         // if a new date was added
@@ -258,6 +264,9 @@ angular.module('mps.deviceManagement')
             }
             if (!BlankCheck.isNull($scope.device['contact'])) {
                 $scope.primaryContact = $scope.device['contact']['item'];
+            }
+            if (!BlankCheck.isNull($scope.device['chl'])) {
+                $scope.chl = $scope.device['chl']['item'];
             }
 
                 if ($scope.device !== null && $scope.device !== undefined && $scope.device.installDate !== undefined){

@@ -3,7 +3,7 @@
 
 <div class="well scrollable">
     <div ng-repeat="account in accounts">
-        <label for="account.name">
+        <label for="account.name" class="form__field form__field--no-margin">
             <input type="checkbox" id="account{{$index + 1}}" name="account{{$index + 1}}"
                 ng-model="account.selected" ng-change="accountsFilter(account)" />
             {{account.name}}

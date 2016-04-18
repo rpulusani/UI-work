@@ -4,7 +4,7 @@
         <h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_CATEGORY"></h3>
 
             <div ng-repeat="cat in categories">
-                <label for="cat.name">
+                <label for="cat.name" class="form__field form__field--no-margin">
                     <input type="checkbox" id="category{{$index + 1}}" name="category{{$index + 1}}"
                         ng-model="cat.selected" ng-change="categoriesFilter(cat)" />
                     {{cat.label}}
@@ -15,7 +15,7 @@
         <h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_OWNER"></h3>
 
         <div ng-repeat="owner in owners">
-                <label for="cat.name">
+                <label for="cat.name" class="form__field form__field--no-margin">
                     <input type="checkbox" id="owner{{$index + 1}}" name="owner{{$index + 1}}"
                         ng-model="owner.selected" ng-change="ownersFilter(owner)" />
                     {{owner.name}}
@@ -27,7 +27,7 @@
         <h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAGS"></h3>
 
         <div ng-repeat="tag in tags">
-                <label for="tag.name">
+                <label for="tag.name" class="form__field form__field--no-margin">
                     <input type="checkbox" id="tag{{$index + 1}}" name="tag{{$index + 1}}"
                         ng-model="tag.selected" ng-change="tagsFilter(tag)" />
                     {{tag.localized}}
