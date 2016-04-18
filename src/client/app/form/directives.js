@@ -136,6 +136,7 @@ angular.module('mps.form')
           weekdayFormat: '=',
           dateVal: '=',
           beforeEq: '=',
+          beforeEqNow: '=',
           afterEq: '='
       },
       controller: 'DatePickerController'
