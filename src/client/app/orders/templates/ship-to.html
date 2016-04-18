@@ -40,7 +40,7 @@
         <input name="requestedDeliveryDate" type="text" ng-model="sr.requestedDeliveryDate"
             date-val="sr.requestedDeliveryDate" datepicker />
 </div>
-<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected && scratchSpace.catalogCart.agreement.allowExpedite">
     <input id = "expediteOrder" name="expediteOrder" type="checkbox" ng-model="sr.expediteOrder"
         data-js="customInput" value="false"/>
     <label for="expediteOrder"><span></span>

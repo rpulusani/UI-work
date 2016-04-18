@@ -20,6 +20,7 @@ angular.module('mps.serviceRequestDevices')
     '$timeout',
     'tombstoneWaitTimeout',
     '$q',
+    'Country',
     function($scope,
         $location,
         $filter,
@@ -39,7 +40,8 @@ angular.module('mps.serviceRequestDevices')
         Tombstone,
         $timeout,
         tombstoneWaitTimeout,
-        $q
+        $q,
+        Country
         ){
 
         $scope.isLoading = false;
@@ -69,8 +71,16 @@ angular.module('mps.serviceRequestDevices')
             if ($rootScope.selectedContact) {
                 $scope.contact = $rootScope.selectedContact;
             }
-        } 
-
+        }
+        Country.get().then(function(){
+            $scope.countries=Country.data;
+        });
+        $scope.countrySelected = function(countryId) {
+                var item=$scope.countries.filter(function(item) {
+                    return item.code === countryId; 
+                });
+                $scope.provinces = item[0].provinces;
+        };
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
         };
@@ -335,7 +345,8 @@ angular.module('mps.serviceRequestDevices')
                                 costCenter: 'REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER',
                                 chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
                                 customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
-                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
+                                contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
+                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     }
                 },

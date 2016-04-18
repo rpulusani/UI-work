@@ -1,4 +1,10 @@
 <div ng-show="catalogOptions.data && catalogOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
-<div ui-grid="catalogOptions" class="table-image catalog" ng-if="catalogOptions"
+<div ui-grid="catalogOptions" class="table-image catalog" ng-if="catalogOptions.data && catalogOptions.data.length > 0"
     ng-style="catalogOptions.getStyle()" ui-grid-auto-resize ui-grid-selection></div>
+<div class="alert alert--info" ng-if="!catalogOptions || !catalogOptions.data || catalogOptions.data.length === 0 || catalogOptions.data.logref === 'not_found'">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <div class="alert__body">
+         <span translate="GRID.EMPTY"></span>
+    </div>
+</div>
 <div pagination grid="{{catalogOptions}}"></div>

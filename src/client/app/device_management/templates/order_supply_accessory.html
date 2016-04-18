@@ -12,7 +12,7 @@
             <div catalog></div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="displayOrderContent">
         <div class="col-1">
             <div order-content editable="{{editable}}" submit-action="submit" datasource="orderItems"></div>
         </div>

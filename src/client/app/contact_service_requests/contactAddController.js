@@ -15,7 +15,9 @@ angular.module('mps.serviceRequestContacts')
     'UserService',
     'HATEAOSConfig',
     '$timeout',
+    'Country',
     'SecurityHelper',
+    'ErrorMsgs',
     function($scope,
         $location,
         $filter,
@@ -30,7 +32,12 @@ angular.module('mps.serviceRequestContacts')
         Users,
         HATEAOSConfig,
         $timeout,
-        SecurityHelper) {
+        Country,
+        SecurityHelper,
+        ErrorMsgs) {
+
+        $scope.bodsError = false;
+        $scope.bodsErrorKey = '';
 
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactAdd', Contacts);
@@ -39,7 +46,15 @@ angular.module('mps.serviceRequestContacts')
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
         }, 8000);
-
+        Country.get().then(function(){
+            $scope.countries=Country.data;
+        });
+        $scope.countrySelected = function(countryId) {
+                var item=$scope.countries.filter(function(item) {
+                    return item.code === countryId; 
+                });
+                $scope.provinces = item[0].provinces;
+        };
             $scope.checkAddress = function(contactForm) {
                     if($scope.checkedAddress === 0 && $scope.newContactForm.$valid){
                         $scope.validForm = true;
@@ -52,12 +67,15 @@ angular.module('mps.serviceRequestContacts')
                     };
                     Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
                         if (statusCode === 200) {
+                            $scope.bodsError = false;
                             $scope.comparisonAddress = bodsData;
                             if($scope.contact.address.addressLine1 != $scope.comparisonAddress.addressLine1  ||
                                 $scope.contact.address.city != $scope.comparisonAddress.city ||
                                 $scope.contact.address.postalCode != $scope.comparisonAddress.postalCode) {
                                 $scope.needToVerify = true;
                                 $scope.checkedAddress = 1;
+                                $scope.acceptedEnteredAddress = 'comparisonAddress';
+                                $scope.setAcceptedAddress();
                             }else{
                                 $scope.canReview = true;
                                 $scope.checkedAddress = 1;
@@ -65,9 +83,23 @@ angular.module('mps.serviceRequestContacts')
                             }
                         }else{
                             //an error validating address has occurred with bods (log a different way?)
-                            $scope.canReview = true;
+                            $scope.needToVerify = true;
+                            $scope.contactUpdate = false;
+                            $scope.bodsError = true;
                             $scope.checkedAddress = 1;
-                            $scope.saveContact(contactForm);
+                            var localKey = '';
+                            if (bodsData && bodsData.message) {
+                                localKey = bodsData.message.substring(0, 4);
+                                ErrorMsgs.query(function(data) {
+                                    for (var i=0;i<data.length;i++) {
+                                        if (data[i].id === localKey) {
+                                            $scope.bodsErrorKey = data[i].key;
+                                        }
+                                    }
+                                });
+                            }
+                            $scope.acceptedEnteredAddress = 'enteredAddress';
+                            $scope.setAcceptedAddress();
                         }
                     });
                     } else {
@@ -96,6 +128,7 @@ angular.module('mps.serviceRequestContacts')
             };
 
             $scope.editAddress = function(addressType){
+                $scope.checkedAddress = 0;
                 $scope.needToVerify = false;
                 if(addressType === 'comparisonAddress'){
                     $scope.contact.address.country = $scope.comparisonAddress.country;
@@ -105,7 +138,7 @@ angular.module('mps.serviceRequestContacts')
                     $scope.contact.address.state = $scope.comparisonAddress.state;
                     $scope.contact.address.postalCode = $scope.comparisonAddress.postalCode;
                 }
-                $scope.canReview = true;
+                $scope.canReview = false;
             };
 
             $scope.resetAddress = function(){

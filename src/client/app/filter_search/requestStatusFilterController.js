@@ -7,25 +7,35 @@ angular.module('mps.filterSearch')
 
         $scope.selectedStatusList = [];
         $scope.requestStatuses = [];
-        ServiceRequestStatus.get().then(function (response) {
-            if (ServiceRequestStatus.item && ServiceRequestStatus.item._embedded 
-                && ServiceRequestStatus.item._embedded.requestStatuses) {
-                var statusList = ServiceRequestStatus.item._embedded.requestStatuses;
-                for (var i=0; i<statusList.length; i++) {
-                    var tempStatus = {};
-                    tempStatus.name = statusList[i];
-                    tempStatus.selected = false;
-                    $scope.requestStatuses.push(tempStatus);
-                }
-            }
-        });
+
+        var statusBarLevels = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'IN_PROCESS', selected: false},
+        { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_CANCELED'), value: 'CANCELED', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_PENDING'), value: 'PENDING', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_DRAFT'), value: 'DRAFT', selected: false}],
+
+        statusBarLevelsShort = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'IN_PROCESS', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED', selected: false}];
+
+        if ($scope.statusLevel && $scope.statusLevel === 'RequestStatusFilterLong') {
+            $scope.requestStatuses = statusBarLevels;
+        }
+
+        if ($scope.statusLevel && $scope.statusLevel === 'RequestStatusFilterShort') {
+            $scope.requestStatuses = statusBarLevelsShort;
+        }
 
         $scope.requestStatusFilter = function(requestStatus){
             if (requestStatus.selected) {
-                $scope.selectedStatusList.push(requestStatus.name);
+                $scope.selectedStatusList.push(requestStatus.value);
             } else {
-                if($scope.selectedStatusList.indexOf(requestStatus.name) !== -1) {
-                    $scope.selectedStatusList.splice($scope.selectedStatusList.indexOf(requestStatus.name), 1);
+                if($scope.selectedStatusList.indexOf(requestStatus.value) !== -1) {
+                    $scope.selectedStatusList.splice($scope.selectedStatusList.indexOf(requestStatus.value), 1);
                 }
             }
             if($scope.selectedStatusList && $scope.filterDef && typeof $scope.filterDef === 'function'){

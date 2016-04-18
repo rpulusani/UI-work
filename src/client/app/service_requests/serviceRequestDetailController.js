@@ -353,12 +353,15 @@ angular.module('mps.serviceRequests')
             case 'SUPPLIES_ASSET_ORDER':
             case 'SUPPLIES_CATALOG_ORDER':
                 addSupplyOrderInfo();
-                $scope.configure.header.showUpdateBtn = true;
+                $scope.configure.header.showUpdateBtn = false;
+                $scope.configure.header.showCancelBtn = false;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
             break;
             case 'UPDATE_HARDWARE_REQUEST':
             case 'HARDWARE_ORDER':
                 addDeviceOrderInfo();
+                $scope.configure.header.showUpdateBtn = false;
+                $scope.configure.header.showCancelBtn = false;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
             break;
             case 'DATA_ADDRESS_ADD':
@@ -366,7 +369,7 @@ angular.module('mps.serviceRequests')
                 $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
-                
+
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');

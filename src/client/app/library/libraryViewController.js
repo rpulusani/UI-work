@@ -52,16 +52,16 @@ angular.module('mps.library')
             return formatter.getFileOwnerForLibrary(owner, $rootScope.idpUser.email);
         };
 
-        $scope.goToUpdate = function(documentItem) {
-            Documents.setItem(documentItem);
+        $scope.goToUpdate = function(id) {
+            var options = {
+                preventDefaultParams: true,
+                url: Documents.url + '/' + id
+            };
 
-            $location.path(Documents.route + '/' + $scope.documentItem.id + '/update');
-        };
-
-        $scope.goToDocumentView = function(documentItem) {
-            Documents.setItem(documentItem);
-
-            $location.path(Documents.route + '/' + $scope.documentItem.id + '/view');
+            Documents.get(options).then(function(res) {
+                Documents.setItem(res.data);
+                $location.path(Documents.route + '/' + id + '/update');
+            });
         };
 
         $scope.goToStartDelete = function () {
@@ -87,21 +87,21 @@ angular.module('mps.library')
                 showBtn = true;
             }
 
-                if ($rootScope.documentLibraryEditAllAccess) {
-                    showBtn = true;
-                }
+            if ($rootScope.documentLibraryEditAllAccess) {
+                showBtn = true;
+            }
 
-                return showBtn;
-            };
+            return showBtn;
+        };
 
-            $scope.getDeleteAction = function (owner) {
-                var showBtn = false;
+        $scope.getDeleteAction = function (owner) {
+            var showBtn = false;
 
-                if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
-                    showBtn = true;
-                }
+            if (owner === $rootScope.idpUser.email && $rootScope.documentLibraryDeleteMyAccess) {
+                showBtn = true;
+            }
 
-                if ($rootScope.documentLibraryDeleteAllAccess) {
+            if ($rootScope.documentLibraryDeleteAllAccess) {
                 showBtn = true;
             }
 

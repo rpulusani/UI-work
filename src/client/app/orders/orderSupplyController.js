@@ -34,6 +34,7 @@ angular.module('mps.orders')
     ){
 
     var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+    $scope.displayOrderContent = false;
     OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
     OrderItems.data = [];
     Orders.tempSpace = {
@@ -46,6 +47,9 @@ angular.module('mps.orders')
             Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
                 var Grid = new GridService();
                 $scope.assetParts = AssetParts.data;
+                if (AssetParts.data && AssetParts.data.length > 0) {
+                    $scope.displayOrderContent = true;
+                }
                 $scope.catalogOptions = {};
                 $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
                                 AssetParts, personal,'catalogAPI');
