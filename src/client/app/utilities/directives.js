@@ -78,40 +78,6 @@ angular.module('mps.utility')
         controller: 'BreadcrumbsController'
     };
 }])
-.directive('stateSelect', [function () {
-    return {
-        restrict: 'A',
-        scope: {
-            country: '=country',
-            countryIsoCode: '=code'
-        },
-        template: '<select ng-model="country" name="name" ng-change="countrySelected(country)" required>' +
-            '<option value="" translate="LABEL.SELECT"></option>' +
-            '<option ng-repeat="c in countries" value="{{ c.code }}" ng-selected="c.name === country">' +
-                '{{c.name}}' +
-            '</option>' +
-        '</select>',
-        controller: [
-            '$scope',
-            '$element',
-            '$attrs',
-            'CountryService',
-            function($scope, $ele, $attrs, CountryService) {
-                CountryService.getCountries().then(function(countries) {
-                    $scope.countries = countries;
-
-                    $scope.countrySelected = function(selectedCountryCode) {
-                        CountryService.getCountryByCode(selectedCountryCode).then(function(country) {
-                            $scope.countryObj = country;
-                            $scope.country = country.name;
-                            $scope.countryIsoCode = country.code;
-                        });
-                    };
-                });
-            }
-        ]
-    };
-}])
 .directive('printExportTitle', [function () {
     return {
         restrict: 'A',

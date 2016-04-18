@@ -5,8 +5,6 @@ angular.module('mps.form')
         calendar,
         rome = require('rome');
         
-        console.log(rome.scope);
-
         node.type = 'text';
        
         if(attrs.beforeEq){
@@ -25,30 +23,26 @@ angular.module('mps.form')
             attrs.dateValidator = scope.dateValidator;
         }
 
-        if (scope.min && !attrs.min) {
-            attrs.min = scope.min;
-        }
-
-        if (scope.max && !attrs.max) {
-            attrs.max = scope.max;
-        }
-
-        console.log(scope);
-        console.log(attrs);
-
         calendar = rome(node, attrs);
 
-        // Watch was avoided due to performance concerns
         calendar.on('data', function(val) {
             scope.dateVal = val;
             scope.$apply();
         });
 
-        scope.$watch(['min', 'max'], function(x, y, updatedScope) {
-            console.log('lol', arguments)
+        scope.$watchGroup(['min', 'max'], function(newValArr, oldValArr, ctrlScope) {
+            if (ctrlScope.min && !attrs.min) {
+                attrs.min = ctrlScope.min;
+            }
+
+            if (ctrlScope.max && !attrs.max) {
+                attrs.max = ctrlScope.max;
+            }
+
+            calendar.options(attrs)
         });
 
-        // Add apply() call to top of event queue; hence 0 milliseconds
+        // Add apply() call to top of event queue
         setTimeout(function() {
             scope.$apply();
         }, 0);

@@ -154,6 +154,93 @@ angular.module('mps.form')
         }
     };
 }])
+.directive('countrySelect', [function () {
+    return {
+        restrict: 'A',
+        scope: {
+            country: '=country',
+            countryIsoCode: '=code',
+            state: '=state'
+        },
+        template: '<select ng-model="country" name="name" ng-change="countrySelected(country)" required>' +
+            '<option value="" translate="LABEL.SELECT" ng-selected="!countryService.item"></option>' +
+            '<option ng-repeat="c in countryService.data" value="{{ c.code }}" ng-selected="c.name === country">' +
+                '{{c.name}}' +
+            '</option>' +
+        '</select>',
+        controller: [
+            '$scope',
+            '$element',
+            '$attrs',
+            'CountryService',
+            function($scope, $ele, $attrs, CountryService) {
+                var setupCountrySelect = function() {
+                    if ($scope.country && !CountryService.item) {
+                        CountryService.setCountryByName($scope.country);
+                    } else if ($scope.countryIsoCode) {
+                        CountryService.setCountryByCode($scope.countryIsoCode);
+                    }
+
+                    $scope.countryService = CountryService;
+
+                    $scope.$parent.countryObj = $scope.countryService.item;
+
+                    $scope.countrySelected = function(selectedCountryCode) {
+                        CountryService.setCountryByCode(selectedCountryCode);
+
+                        $scope.state = null;
+
+                        $scope.$parent.countryObj = CountryService.item;
+                        $scope.country = CountryService.item.name;
+                        $scope.countryIsoCode = CountryService.item.code;
+                    };
+                };
+
+                if (CountryService.data) {
+                   setupCountrySelect();
+                } else {
+                    CountryService.get().then(function() {
+                        setupCountrySelect();
+                    });
+                }
+            }
+        ]
+    };
+}])
+.directive('stateSelect', [function () {
+    return {
+        restrict: 'A',
+        scope: {
+            stateCode: '=stateCode'
+        },
+        template: '<select ng-model="stateCode" name="name" ng-change="provinceSelected(stateCode)" required>' +
+            '<option value="" translate="LABEL.SELECT" ng-selected="!stateCode"></option>' +
+            '<option ng-repeat="state in countryService.item.provinces" value="{{ state.code }}" ng-selected="state.code === stateCode">' +
+                '{{state.name}}' +
+            '</option>' +
+        '</select>',
+        controller: [
+            '$scope',
+            '$element',
+            '$attrs',
+            'CountryService',
+            function($scope, $ele, $attrs, CountryService) {
+                if ($scope.stateCode) {
+                    CountryService.setProvinceByCode($scope.stateCode);
+                }
+
+                $scope.countryService = CountryService;
+
+                $scope.provinceSelected = function(selectedCountryCode) {
+                    CountryService.setProvinceByCode(selectedCountryCode);
+
+                    $scope.countryService.hasBeenChanged = false;
+                    $scope.stateCode = CountryService.state;
+                };
+            }
+        ]
+    };
+}])
 .directive('selectric', [function() {
   return {
     restrict: 'AC',
