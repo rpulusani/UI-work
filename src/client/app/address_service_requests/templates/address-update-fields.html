@@ -6,27 +6,27 @@
 </div>
 <div class="form__field vertical-space--thick" >
     <label class="question text--large" translate="ADDRESS_MAN.COMMON.TXT_STOREFRONT_ADDRESS_QUERY"></label>
-     <div class="form__field form__field--radio">
+     <div class="form__field form__field--no-margin">
         <input type="radio" id="store-front-question-no" name="store-front-question"
-        ng-model="address.storeFrontQuestion" value="false" data-js="customInput" />
+        ng-model="address.storeFrontQuestion" ng-value="false" />
         <label for="store-front-question-no"><span></span>
             {{'ADDRESS_MAN.COMMON.RAD_NO' | translate }}</label>
     </div>
-     <div class="form__field form__field--radio form__field--no-margin">
+     <div class="form__field form__field--no-margin">
         <input type="radio" id="store-front-question-yes" name="store-front-question"
-        ng-model="address.storeFrontQuestion" value="true" data-js="customInput"/><label
+        ng-model="address.storeFrontQuestion" ng-value="true" /><label
         for="store-front-question-yes"><span></span>
         {{ 'ADDRESS_MAN.COMMON.RAD_YES' | translate }}</span></label>
     </div>
 </div>
-<div ng-show="address.storeFrontQuestion === 'true'" class="well">
+<div ng-show="address.storeFrontQuestion === true" class="well">
     <div class="form__field" >
         <label translate="ADDRESS.STORE_NAME"></label>
         <input name="storeFrontName" type="text" ng-model="address.storeFrontName" value="" class="" />
     </div>
-    <div class="form__field form__field--checkbox">
-        <input id ="sameAddress" name="sameAddress" type="checkbox" ng-model="address.storeFrontName"
-        data-js="customInput" value="true" ng-click="setStoreFrontName()"/> <label for="sameAddress"><span></span>
+    <div class="form__field">
+        <input id ="sameAddress" name="sameAddress" type="checkbox" ng-model="storeFrontNameCheck"
+         ng-value="true" ng-click="setStoreFrontName()"/> <label for="sameAddress"><span></span>
     {{'ADDRESS_SERVICE_REQUEST.SAME_ADDRESS_QUESTION' | translate }}<label>
     </div>
 </div>
