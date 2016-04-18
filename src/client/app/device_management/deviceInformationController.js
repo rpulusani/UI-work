@@ -143,11 +143,18 @@ angular.module('mps.deviceManagement')
                             return;
                         }
 
+                        var dateNow = new Date();
+                        var meterReadDate = new Date($scope.meterReads[i].newDate);
+
                         // if a new date was added
-                        if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== $scope.getMeterReadPriorDate($scope.meterReads[i])){
+                        if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null && meterReadDate < dateNow) {
                             $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
                             $scope.meterReads[i].newDate = null;
+                        } else {
+                            $scope.errorMessage = $translate.instant('PAGE_COUNTS.ERROR.VALID_DATE');
+                            return;
                         }
+
                         updateMeterReads($scope.meterReads[i]);
                     }
                     
