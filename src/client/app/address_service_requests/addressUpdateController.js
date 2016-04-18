@@ -18,6 +18,7 @@ angular.module('mps.serviceRequestAddresses')
     'TombstoneService',
     'tombstoneWaitTimeout',
     'SecurityHelper',
+    'ErrorMsgs',
     function($scope,
         $location,
         $filter,
@@ -35,11 +36,13 @@ angular.module('mps.serviceRequestAddresses')
         permissionSet,
         Tombstone,
         tombstoneWaitTimeout,
-        SecurityHelper
-        ) {
+        SecurityHelper,
+        ErrorMsgs) {
 
         $scope.isLoading = false;
         $scope.returnedForm = false;
+        $scope.bodsError = false;
+        $scope.bodsErrorKey = '';
 
         SRHelper.addMethods(Addresses, $scope, $rootScope);
         $scope.setTransactionAccount('AddressUpdate', Addresses);
@@ -63,13 +66,14 @@ angular.module('mps.serviceRequestAddresses')
                 };
                 Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
                     if (statusCode === 200) {
+                        $scope.bodsError = false;
                         $scope.comparisonAddress = bodsData;
                         if($scope.address.addressLine1 != $scope.comparisonAddress.addressLine1  || $scope.address.city != $scope.comparisonAddress.city || $scope.address.postalCode != $scope.comparisonAddress.postalCode){
                             $scope.needToVerify = true;
                             $scope.checkedAddress = 1;
                             $scope.contactUpdate = false;
-                                $scope.acceptedEnteredAddress = 'comparisonAddress';
-                                $scope.setAcceptedAddress();
+                            $scope.acceptedEnteredAddress = 'comparisonAddress';
+                            $scope.setAcceptedAddress();
                         }else{
                             $scope.canReview = true;
                             $scope.checkedAddress = 1;
@@ -78,9 +82,23 @@ angular.module('mps.serviceRequestAddresses')
                         }
                     }else{
                         //an error validating address has occurred with bods (log a different way?)
-                        $scope.canReview = true;
+                        $scope.needToVerify = true;
+                        $scope.contactUpdate = false;
+                        $scope.bodsError = true;
                         $scope.checkedAddress = 1;
-                        $scope.goToReview();
+                        var localKey = '';
+                        if (bodsData && bodsData.message) {
+                            localKey = bodsData.message.substring(0, 4);
+                            ErrorMsgs.query(function(data) {
+                                for (var i=0;i<data.length;i++) {
+                                    if (data[i].id === localKey) {
+                                        $scope.bodsErrorKey = data[i].key;
+                                    }
+                                }
+                            });
+                        }
+                        $scope.acceptedEnteredAddress = 'enteredAddress';
+                        $scope.setAcceptedAddress();
                     }
                 });
                 } else {
@@ -111,6 +129,7 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         $scope.editAddress = function(addressType){
+            $scope.checkedAddress = 0;
             $scope.needToVerify = false;
             if(addressType === 'comparisonAddress'){
                 $scope.address.country = $scope.comparisonAddress.country;
@@ -121,7 +140,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.postalCode = $scope.comparisonAddress.postalCode;
                 $scope.address.addressCleansedFlag = 'Y';
             }
-            $scope.canReview = true;
+            $scope.canReview = false;
         };
 
         $scope.resetAddress = function(){
