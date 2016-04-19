@@ -133,6 +133,7 @@ angular.module('mps.hateoasFactory')
             this.item = this.newMessage();
             this.tempSpace = null;
             this.data = [];
+            this.url = this.rootUrl;
         };
 
         HATEOASFactory.prototype.newMessage  = function(){
@@ -307,7 +308,7 @@ angular.module('mps.hateoasFactory')
             obj.setupDefaultFunctions = self.setupDefaultFunctions;
 
             return obj;
-        }
+        };
 
         HATEOASFactory.prototype.attachLinksAsFunctions = function(item, links, itemOptions) {
             var self = this,

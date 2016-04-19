@@ -22,6 +22,10 @@ angular.module('mps.deviceManagement')
     '$translate',
     '$filter',
     'PageCountHelper',
+    'OrderControllerHelperService',
+    '$q',
+    'AgreementFactory',
+    'ContractFactory',
     function(
         $rootScope,
         $scope,
@@ -39,13 +43,18 @@ angular.module('mps.deviceManagement')
         SecurityHelper,
         FilterSearchService,
         lbsURL,
-            $window,
-            uiGridExporterConstants,
-            $translate,
-            $filter,
-            pageCountHelper
+        $window,
+        uiGridExporterConstants,
+        $translate,
+        $filter,
+        pageCountHelper,
+        orderHelper,
+        $q,
+        Agreement,
+        Contract
         ) {
         ServiceRequest.setParamsToNull();
+        orderHelper.addMethods(Devices,$scope,$rootScope);
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
         $scope.ipLink = '';
@@ -102,14 +111,14 @@ angular.module('mps.deviceManagement')
             });
 
         };
-        
+
         $scope.getMeterReadPriorDate = function(item){
             if(item.updateDate){
                 return FormatterService.formatDate(item.updateDate);
             }
             return FormatterService.formatDate(item.createDate);
         };
-        
+
         $scope.saveMeterReads = function() {
         /*
         desc:   Loops through all meter reads and submits put requests
@@ -130,11 +139,11 @@ angular.module('mps.deviceManagement')
                         indColor=i;
                      }else if ($scope.meterReads[i].type === 'LTPC'){
                         indLTPC=i;
-                     }       
+                     }
 
                     if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){
                         // if a new value was added
-                        if ($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value 
+                        if ($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value
                             && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)){
                             $scope.meterReads[i].value = $scope.meterReads[i].newVal;
                             $scope.meterReads[i].newVal = null;
@@ -150,18 +159,18 @@ angular.module('mps.deviceManagement')
                         }
                         updateMeterReads($scope.meterReads[i]);
                     }
-                    
+
                 }
 
-               
+
                 //Mono Calc goes here
-                if (indLTPC !== -1 && indColor !== -1 
+                if (indLTPC !== -1 && indColor !== -1
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
-                    $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
-                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                   
+                    $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value);
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());
                     updateMeterReads($scope.meterReads[indMono]);
-                }  
-                
+                }
+
             }
 
         };
@@ -305,6 +314,33 @@ angular.module('mps.deviceManagement')
             $location.path(DeviceServiceRequest.route + "/" + device.id + '/view').search('tab', null);
         };
 
+
+        $scope.btnOrderAnotherDevice = function(device) {
+            var promises = [];
+            promises.push($scope.getAgreement());
+            promises.push($scope.getContract());
+            $q.all(promises).then(function(){
+                 Orders.tempSpace = {};
+                    Orders.newMessage();
+                    Orders.tempSpace = {
+                        'catalogCart': {
+                                'billingModels': $scope.getBillingModels(device.billingModel),
+                        'catalog': 'device',
+                        'contract': $scope.contractObject,
+                        'agreement': $scope.agreementObject
+                    }
+                };
+                OrderItems.reset();
+                AssetParts.reset();
+                $location.path('/orders/catalog/hardware/cart');
+            },function(){
+                Agreement.reset();
+                Contract.reset();
+                Devices.item = {};
+                $location.path('/orders/catalog/hardware');
+            });
+        };
+
         $scope.btnDecommissionDevice = function(device) {
             ServiceRequest.reset();
             $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
@@ -341,7 +377,7 @@ angular.module('mps.deviceManagement')
                 if ($scope.device.productModel) {
                     rows.push($scope.device.productMode);
                 }
-               
+
                 if ($scope.device.serialNumber) {
                     rows.push($scope.device.serialNumber);
                 }
@@ -381,12 +417,12 @@ angular.module('mps.deviceManagement')
                 if ($scope.device.contact.item.formattedName) {
                     rows.push($scope.device.contact.item.formattedName);
                 }
-                  
-                if ($scope.device.contact.item.address 
+
+                if ($scope.device.contact.item.address
                     && $scope.device.contact.item.address.addressLine1) {
                     rows.push($scope.device.contact.item.address.addressLine1);
                 }
-                
+
                 csvFile = headers.toString();
                 csvFile += '\r\n';
 
@@ -397,9 +433,9 @@ angular.module('mps.deviceManagement')
                          csvFile += '"' + rows[i] + '"';
                     }
                 }
-                
+
                 blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
-                
+
                 if (navigator.msSaveBlob) {
                     navigator.msSaveBlob(blob, filename);
                 } else {
@@ -407,15 +443,15 @@ angular.module('mps.deviceManagement')
 
                     if (link.download !== undefined) {
                         url = URL.createObjectURL(blob);
-                        
+
                         link.setAttribute('href', url);
                         link.setAttribute('download', filename);
                         link.style.visibility = 'hidden';
-                        
+
                         document.body.appendChild(link);
-                        
+
                         link.click();
-                        
+
                         document.body.removeChild(link);
                     }
                 }

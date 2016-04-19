@@ -8,14 +8,23 @@ angular.module('mps.serviceRequests')
     'FormatterService',
     'UserService',
     '$rootScope',
+    '$q',
+    'AgreementFactory',
+    'ContractFactory',
     function(
         $translate,
         $location,
         BlankCheck,
         FormatterService,
         Users,
-        $rootScope
+        $rootScope,
+        $q,
+        Agreements,
+        Contracts
         ) {
+        var halObject;
+        var scope;
+        var rootScope;
 
         function addShipAndInstall(){
             scope.configure.shipToBillTo = undefined;
@@ -46,6 +55,34 @@ angular.module('mps.serviceRequests')
                 source: 'OrderCatalogPurchase'
             };
         }
+
+        function getAgreement(){
+            var defered = $q.defer();
+            halObj.getAdditional(halObj.item,Agreements,'agreement',false).then(function(){
+                if(Agreements.item){
+                    scope.agreementObject = Agreements.item;
+                    defered.resolve();
+                }else{
+                    defered.reject('ContractType is null');
+                }
+            });
+
+            return defered.promise;
+        }
+        function getContract(){
+            var defered = $q.defer();
+            halObj.getAdditional(halObj.item,Contracts,'contract',false).then(function(){
+                if(Contracts.item){
+                    scope.contractObject = Contracts.item;
+                    defered.resolve();
+                }else{
+                    defered.reject('None found');
+                }
+            });
+
+            return defered.promise;
+        }
+
         function addShipAndBill(){
             scope.configure.installShipping = undefined;
             scope.configure.shipToBillTo = {
@@ -91,6 +128,19 @@ angular.module('mps.serviceRequests')
                 }
             }
 
+        function getBillingModels(paySelection, contracts){
+            var billingModels = [];
+            if(paySelection === 'SHIP_AND_BILL'){
+                billingModels.push(paySelection);
+            }else{
+                var tempArray = angular.copy(contracts.billingModels);
+                billingModels = tempArray.filter(function(i){
+                    return i !== 'SHIP_AND_BILL';
+                });
+            }
+            return billingModels;
+        }
+
         function addMethods(halObject, $scope, $rootScope){
             halObj = halObject;
             scope = $scope;
@@ -99,6 +149,9 @@ angular.module('mps.serviceRequests')
             if(scope){
                 scope.setupShipBillToAndInstallAddresses = setupShipBillToAndInstallAddresses;
                 scope.hideShowPriceColumn = hideShowPriceColumn;
+                scope.getBillingModels = getBillingModels;
+                scope.getAgreement = getAgreement;
+                scope.getContract = getContract;
             }else{
                 throw 'scope was not passed in to addMethods';
             }

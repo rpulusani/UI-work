@@ -39,7 +39,8 @@
 
                 <button class="btn" translate="DEVICE_MAN.COMMON.BTN_ORDER_SUPPLIES"
                     ng-if="orderSupplies"></button>
-
+                <button type="button" class="btn btn--secondary" ng-click="btnOrderAnotherDevice(device)"
+                    translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SAME_DEVICE" ng-if="orderDevice"></button>
                 <button class="btn btn--secondary" ng-click="btnDecommissionDevice(device);"
                 translate="DEVICE_MAN.MANAGE_DEVICE.BTN_DECOM_DEVICE" translate-values="{productModel: device.productModel}"
                     ng-if="decommissionAccess"></button>

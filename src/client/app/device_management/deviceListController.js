@@ -14,6 +14,10 @@ angular.module('mps.deviceManagement')
     'lbsURL',
     'ServiceRequestService',
     'OrderRequest',
+    'OrderControllerHelperService',
+    '$q',
+    'AgreementFactory',
+    'ContractFactory',
     function(
         $scope,
         $location,
@@ -27,12 +31,17 @@ angular.module('mps.deviceManagement')
         $timeout,
         lbsURL,
         ServiceRequest,
-        Orders
+        Orders,
+        orderHelper,
+        $q,
+        Agreement,
+        Contract
         ) {
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
 
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
+        orderHelper.addMethods(Devices,$scope,$rootScope);
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
@@ -54,11 +63,34 @@ angular.module('mps.deviceManagement')
             $location.path('/service_requests/devices/new');
         };
 
-        $scope.goToOrderDevice = function() {
-            Devices.reset();
+        $scope.goToOrderDevice = function(device) {
+          Devices.item = device;
+          var promises = [];
+            promises.push($scope.getAgreement());
+            promises.push($scope.getContract());
+
             ServiceRequest.reset();
-            Devices.item = {};
-            $location.path('/orders/catalog/hardware');
+
+            $q.all(promises).then(function(){
+                 Orders.tempSpace = {};
+                    Orders.newMessage();
+                    Orders.tempSpace = {
+                        'catalogCart': {
+                                'billingModels': $scope.getBillingModels(device.billingModel),
+                        'catalog': 'device',
+                        'contract': $scope.contractObject,
+                        'agreement': $scope.agreementObject
+                    }
+                };
+                OrderItems.reset();
+                AssetParts.reset();
+                $location.path('/orders/catalog/hardware/cart');
+            },function(){
+                Agreement.reset();
+                Contract.reset();
+                Devices.item = {};
+                $location.path('/orders/catalog/hardware');
+            });
         };
         $scope.goToOrderSupplyCatalog = function() {
             Devices.reset();

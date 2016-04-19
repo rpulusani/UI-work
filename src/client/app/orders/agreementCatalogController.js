@@ -14,6 +14,8 @@ angular.module('mps.orders')
 'AssetPartsFactory',
 'SecurityHelper',
 'SRControllerHelperService',
+'Devices',
+'OrderControllerHelperService',
 function(
     $rootScope,
     $scope,
@@ -26,9 +28,12 @@ function(
     OrderItems,
     AssetParts,
     SecurityHelper,
-    SRHelper
+    SRHelper,
+    Device,
+    orderHelper
 ){
     SRHelper.addMethods(Orders, $scope, $rootScope);
+    orderHelper.addMethods(Orders,$scope,$rootScope);
     //multi, none, single
     $scope.print = false;
     $scope.export = false;
@@ -77,18 +82,8 @@ function(
                 $scope.configure.actions.disabled = false;
             }
         }
-                function getBillingModels(paySelection){
-                    var billingModels = [];
-                    if(paySelection === 'SHIP_AND_BILL'){
-                        billingModels.push(paySelection);
-                    }else{
-                        var tempArray = angular.copy(Contracts.item.billingModels);
-                        billingModels = tempArray.filter(function(i){
-                            return i !== 'SHIP_AND_BILL';
-                        });
-                    }
-                    return billingModels;
-                }
+
+
 
     if($scope.inTransactionalAccountContext()){
         $scope.configure = {
@@ -98,7 +93,7 @@ function(
                     Orders.newMessage();
                     Orders.tempSpace = {
                         'catalogCart': {
-                                    'billingModels': getBillingModels($scope.paySelection),
+                                    'billingModels': $scope.getBillingModels($scope.paySelection, Contracts.item),
                             'catalog': $scope.catalog,
                             'contract': $scope.contractObject,
                             'agreement': $scope.agreementObject
