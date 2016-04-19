@@ -15,6 +15,7 @@ angular.module('mps.user')
     'SecurityHelper',
     '$q',
     'AllAccounts',
+    '$translate',
     function(
         $rootScope,
         $scope,
@@ -29,7 +30,8 @@ angular.module('mps.user')
         Personalize,
         SecurityHelper,
         $q,
-        AllAccounts
+        AllAccounts,
+        $translate
         ) {
         var redirect_to_list = function() {
            $location.path(UserAdminstration.route + '/');
@@ -39,6 +41,9 @@ angular.module('mps.user')
             redirect_to_list();
         } else {
             $scope.user = UserAdminstration.item;
+            $scope.user.workPhone=$scope.user.item.workPhone;
+            $scope.user.preferredLanguage=$scope.user.item.preferredLanguage;
+            $scope.languageOptions = UserAdminstration.languageOptions($translate);
             $scope.user.org = [];
             $scope.accountList = [];
             $scope.basicRoles = [];
@@ -331,7 +336,7 @@ angular.module('mps.user')
                 postalCode: $scope.user.address.postalCode
             };
             UserAdminstration.addField('address', addressInfo);
-            UserAdminstration.addField('preferredLanguage', 'en_US');
+            UserAdminstration.addField('preferredLanguage',  $scope.user.preferredLanguage);
             UserAdminstration.addField('resetPassword', true);
             for (var i=0;i<$scope.user.basicRoles.length; i++) {
                 for (var j=0; j<$scope.user.selectedRoleList.length; j++) {
