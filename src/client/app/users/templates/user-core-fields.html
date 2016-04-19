@@ -16,6 +16,11 @@
 </div>
 <div class="form__field form__field--select" >
     <label translate="USER_MAN.COMMON.TXT_PREFERRED_LANGUAGE"></label>
-    <div selectric options="languageOptions" value="code" label="name" model="address.state" required
-             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+                 
+    <select ng-model="user.preferredLanguage" name="language">
+            <option value="" translate="LABEL.SELECT"></option>
+            <option ng-repeat="language in languageOptions" value="{{ language.code }}"  ng-selected="{{user.preferredLanguage === language.code}}">
+            {{language.name}}
+            </option>
+    </select>
 </div>
