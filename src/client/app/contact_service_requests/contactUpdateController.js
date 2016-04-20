@@ -16,7 +16,6 @@ angular.module('mps.serviceRequestContacts')
     'HATEAOSConfig',
     '$timeout',
     'SecurityHelper',
-    'Country',
     function($scope,
         $location,
         $filter,
@@ -31,27 +30,15 @@ angular.module('mps.serviceRequestContacts')
         Users,
         HATEAOSConfig,
         $timeout,
-        SecurityHelper,
-        Country) {
+        SecurityHelper) {
 
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactUpdate', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
-
         $timeout (function() {
             $rootScope.contactAlertMessage = undefined;
         }, 8000);
-
-        Country.get().then(function(){
-           $scope.countries=Country.data;
-        });
-        $scope.countrySelected = function(countryId) {
-               var item=$scope.countries.filter(function(item) {
-                   return item.code === countryId; 
-               });
-               $scope.provinces = item[0].provinces;
-       };
 
         if(Contacts.item === null){
             $scope.redirectToList();

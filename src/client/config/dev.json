@@ -6,7 +6,7 @@
     "clientId": "mps-portal"
     },
     "portal": {
-      "serviceUrl": "https://api.venus-dev.lexmark.com/mps/",
+      "serviceUrl": "https://api.venus-beta.lexmark.com/mps/",
       "adminUrl": "https://mps-porta-mpsporta-44by8x3otx5s-1327508801.us-east-1.elb.amazonaws.com/mps-portal/",
       "lbsUrl": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
       "libraryServiceUrl": "https://mps-documents-dev-47949683.us-east-1.elb.amazonaws.com/documents"

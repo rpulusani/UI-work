@@ -235,6 +235,7 @@ angular.module('mps.serviceRequestAddresses')
 
 
             $scope.checkAddress = function() {
+                console.log($scope);
                     if($scope.checkedAddress === 0 && $scope.newAddress.$valid && $scope.address.country) {
                         $scope.validForm = true;
                     $scope.enteredAddress = {
@@ -336,7 +337,6 @@ angular.module('mps.serviceRequestAddresses')
             };
 
             $scope.goToReview = function() {
-                console.log('here');
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
                     Addresses.item = $scope.address;

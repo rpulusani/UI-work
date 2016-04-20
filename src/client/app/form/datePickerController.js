@@ -56,7 +56,6 @@ angular.module('mps.form')
         setTimeout(function() {
             scope.$apply();
         }, 0);
-
     }
 ]);
 

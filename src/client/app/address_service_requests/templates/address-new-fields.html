@@ -34,8 +34,7 @@
     <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
     <div class="form__field form__field--select form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_COUNTRY"></label>
-        <div selectric model="address.country" options="countryHAL.countries" value="code" label="name"
-      placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+        <div country="address.country" code="address.countryIsoCode" state="address.state" country-select></div>
     </div>
     <div class="form__field form__field--required" ng-class="(!newAddress.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_1"></label>
@@ -53,12 +52,11 @@
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
         <input name="houseNumber" type="text" ng-model="address.houseNumber" ng-required="address.country === 'BR'" />
     </div>
-    <div ng-show="country.provinces.length > 0" class="form__field form__field--select">
+    <div ng-show="countryObj.provinces.length > 0" class="form__field form__field--select">
         <label translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>
-        <div selectric options="country.provinces" value="code" label="name" model="address.state"
-             placeholder="{{'LABEL.SELECT' | translate}}"></div>
+        <div state-code="address.state" state-select></div>
     </div>
-    <div ng-show="address.country !== 'BR'" class="row">
+    <div ng-show="address.country.toLowerCase() !== 'brazil'" class="row">
         <div class="col-md-1-3">
             <div class="form__field form__field--required" ng-class="(!newAddress.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
