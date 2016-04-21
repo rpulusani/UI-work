@@ -187,6 +187,8 @@ angular.module('mps.form')
             'CountryService',
             function($scope, $ele, $attrs, CountryService) {
                 var setupCountrySelect = function() {
+                    CountryService.item = null;
+                    
                     if ($scope.country && !CountryService.item) {
                         CountryService.setCountryByName($scope.country);
                     } else if ($scope.countryIsoCode) {
@@ -225,7 +227,8 @@ angular.module('mps.form')
         scope: {
             stateCode: '=stateCode'
         },
-        template: '<div ng-show="countryService.item.provinces.length > 0" class="form__field form__field--select form__field--required">' +
+        template: '<div ng-show="countryService.item.provinces.length > 0" class="form__field form__field--select" ' + 
+        'ng-class="{\'form__field--has-alert\' : required && (form.$submitted && !form.country.$valid), \'form__field--required\' : required === true}">' +
         '<label ng-if="countryService.item.name.toLowerCase() !== \'canada\' && countryService.item.name.toLowerCase() !== \'ireland\'" translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>' +
         '<label ng-if="countryService.item.name.toLowerCase() === \'canada\'" translate="ADDRESS.PROVINCE"></label>' +
         '<label ng-if="countryService.item.name.toLowerCase() === \'ireland\'" translate="ADDRESS.COUNTY"></label>' +
@@ -244,6 +247,10 @@ angular.module('mps.form')
                 CountryService.setProvinceByCode($scope.stateCode);
 
                 $scope.countryService = CountryService;
+
+                if ($scope.required === undefined) {
+                    $scope.required = true;
+                }
 
                 $scope.provinceSelected = function(provinceCode) {
                     CountryService.setProvinceByCode(provinceCode);

@@ -42,19 +42,9 @@
             <span translate="LABEL.ERROR_REQUIRED"></span>
         </span>
     </div>
-    <div class="form__field form__field--select form__field--required_multiple">
-        <label translate="CONTACT_MAN.COMMON.TXT_STATE"></label>
-        <select ng-model="contact.address.state" name="state">
-            <option value="" translate="LABEL.SELECT"></option>
-            <option ng-repeat="province in provinces" value="{{ province.code }}">
-            {{province.name}}
-            </option>
-        </select>
-        <span ng-hide="!newAddress.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-            <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
-        </span>
-    </div>
+
+    <div form="newContactForm" state-code="contact.address.state" state-select></div>
+
     <div class="row">
         <div class="col-md-1-3">
             <div class="form__field form__field--required_multiple" ng-class="(!newContactForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
