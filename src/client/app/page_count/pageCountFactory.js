@@ -20,7 +20,7 @@ angular.module('mps.pageCount')
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_LAST_READ_DATE'), 'field': 'getFormattedLastReadDate()', 'notSearchable': true},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT_READ_DATE'), 'field': 'getFormattedTodaysDate()', 'notSearchable': true,
                         'cellTemplate': '<div class="ui-grid-cell-contents">' +
-                            '<input datepicker min="grid.appScope.getTodaysDate()" type="text" ng-model="row.entity.currentReadDate" date-val="row.entity.currentReadDate" time="true" time-interval="60"/> ' +
+                            '<input datepicker max="grid.appScope.getTodaysDate()" type="text" ng-model="row.entity.currentReadDate" date-val="row.entity.currentReadDate" time="true" time-interval="60"/> ' +
                         '</div>',
                         enableCellEdit: true,
                         width: '150',
