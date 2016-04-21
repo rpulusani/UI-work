@@ -181,6 +181,7 @@ angular.module('mps.serviceRequestContacts')
             }
 
             var updateContactObjectForSubmit = function() {
+            	$scope.contact.address.isoCountryCode=undefined;
                 Contacts.item = $scope.contact;
                 Contacts.addAccountRelationship();
             };

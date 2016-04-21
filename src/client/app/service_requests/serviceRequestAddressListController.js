@@ -24,7 +24,8 @@ angular.module('mps.serviceRequests')
         filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'addressSet');
 
         $scope.goToCreate = function() {
-            Addresses.item = {};
+            Addresses.item = undefined;
+            ServiceRequest.reset();
             $location.path('/service_requests/addresses/new');
         };
         $scope.view = function(SR){
