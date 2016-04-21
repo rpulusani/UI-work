@@ -45,7 +45,7 @@
 
     <div ng-show="contact.address.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
-        <input name="houseNumber" type="text" ng-model="contact.address.houseNumber" ng-required="contact.address.country.countryIsoCode.toLowerCase() === 'br'" />
+        <input name="houseNumber" type="text" ng-model="contact.address.houseNumber" ng-required="contact.address.countryIsoCode.toLowerCase() === 'br'" />
     </div>
 
     <div form="newContactForm" state-code="contact.address.state" state-select></div>
