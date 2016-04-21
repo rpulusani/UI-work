@@ -66,6 +66,7 @@ function(
             setTimeout(function() {
                 $scope.$broadcast('setupColumnPicker', Grid);
             }, 500);
+            console.log(2);
             $scope.$broadcast('setupPrintAndExport', $scope);
     });
     filterSearchService.addPanelFilter('Filter By Location', 'AddressLocationFilter', {'addressType': 'ACCOUNT'},
@@ -73,6 +74,7 @@ function(
              setTimeout(function() {
                 $scope.$broadcast('setupColumnPicker', Grid);
             }, 500);
+             console.log(1);
             $scope.$broadcast('setupPrintAndExport', $scope);
         });
 

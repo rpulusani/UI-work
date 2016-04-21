@@ -11,6 +11,11 @@ angular.module('mps.form')
             attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
         }
 
+        if (scope.beforeEqNow !== undefined && scope.beforeEqNow !== null) {
+            var dt = new Date();
+            attrs.dateValidator = rome.val.beforeEq(dt);
+        }
+
         if (scope.afterEq !== undefined && scope.afterEq !== null) {
             attrs.dateValidator = rome.val.afterEq(scope.afterEq);
         }
@@ -33,6 +38,11 @@ angular.module('mps.form')
         calendar.on('show', function() {
             if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
                 attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+            }
+
+            if (scope.beforeEqNow !== undefined && scope.beforeEqNow !== null) {
+                var dt = new Date();
+                attrs.dateValidator = rome.val.beforeEq(dt);
             }
 
             if (scope.afterEq !== undefined && scope.afterEq !== null) {

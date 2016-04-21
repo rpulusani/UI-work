@@ -200,7 +200,7 @@ angular.module('mps.serviceRequestAddresses')
         };
         if (Addresses.item === null) {
             $scope.redirectToList();
-        } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Addresses.item.id){
+        } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Addresses.item.id){        	
             $scope.address = $rootScope.returnPickerObject;
             $scope.sr = $rootScope.returnPickerSRObject;
             ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
@@ -216,7 +216,17 @@ angular.module('mps.serviceRequestAddresses')
             $scope.canReview = false;
             $scope.address.addressCleansedFlag = 'N';
         }
-
+        $scope.address.storeFrontQuestion = true;
+        if (BlankCheck.isNullOrWhiteSpace($scope.address.storeFrontName)) {
+            $scope.address.storeFrontQuestion = false;
+        }
+        $scope.setStoreFrontName = function(){
+            if($scope.storeFrontNameCheck){
+                $scope.address.storeFrontName =  $scope.address.name;
+            }else{
+                $scope.address.storeFrontName ='';
+            }
+        };
         $scope.setupSR(ServiceRequest, configureSR);
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
         $scope.getRequestor(ServiceRequest, Contacts);
