@@ -336,7 +336,6 @@ angular.module('mps.serviceRequestAddresses')
             };
 
             $scope.goToReview = function() {
-                console.log('here');
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
                     Addresses.item = $scope.address;

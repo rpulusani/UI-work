@@ -167,9 +167,9 @@
     })
 
     .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
-      'FormatterService',
+      'FormatterService', 'CountryService',
     function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet,
-      FormatterService) {
+      FormatterService, CountryService) {
 
         Gatekeeper.login({organization_id: '30', federation_redirect: 'true'});
 
@@ -445,6 +445,7 @@
                 ]
             }
         ];
+        
         new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
 
         $q.all(security.requests).then(function(){
@@ -453,11 +454,11 @@
 
         $rootScope.idpUser.$promise.then(function(){
             UserService.getLoggedInUserInfo().then(function(){
-              // Construct a display name for rest of login session
-              var user = $rootScope.currentUser;
-              $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
+                // Construct a display name for rest of login session
+                var user = $rootScope.currentUser;
+                $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
+                CountryService.get();
             });
-
         }, function(reason) {
             NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
             $rootScope.currentUser.deferred.reject(reason);

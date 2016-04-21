@@ -86,7 +86,42 @@ angular.module('mps.user')
                     }
                 }
             ],
-            route: '/delegated_admin'
+            route: '/delegated_admin',
+            languageOptions:function($translate){
+            	return [
+                 {name: $translate.instant('LANGUAGES.ARABIC'), code:  'ar_XM'},
+                 {name: $translate.instant('LANGUAGES.BULGARIAN'), code:  'bg_BG'},
+                 {name: $translate.instant('LANGUAGES.CHINESE_SIMPLIFIED'), code:  'zh_CN'},
+                 {name: $translate.instant('LANGUAGES.CHINESE_TRADITIONAL'), code:  'zh_TW'},
+                 {name: $translate.instant('LANGUAGES.CROATIAN'), code:  'hr_HR'},
+                 {name: $translate.instant('LANGUAGES.CZECH'), code:  'cs_CZ'},
+                 {name: $translate.instant('LANGUAGES.DANISH'), code:  'da_DK'},
+                 {name: $translate.instant('LANGUAGES.DUTCH'), code:  'nl_NL'},
+                 {name: $translate.instant('LANGUAGES.ENGLISH'), code:  'en_GB'},
+                 {name: $translate.instant('LANGUAGES.ENGLISH_UK'), code:  'en_GB'},
+                 {name: $translate.instant('LANGUAGES.ENGLISH_US'), code:  'en_US'},
+                 {name: $translate.instant('LANGUAGES.FINNISH'), code:  'fi_FI'},
+                 {name: $translate.instant('LANGUAGES.FRENCH'), code:  'fr_FR'},
+                 {name: $translate.instant('LANGUAGES.FRENCH_CA'), code:  'fr_CA'},
+                 {name: $translate.instant('LANGUAGES.GERMAN'), code:  'de_DE'},
+                 {name: $translate.instant('LANGUAGES.GREEK'), code:  'el_GR'},
+                 {name: $translate.instant('LANGUAGES.HUNGARIAN'), code:  'hu_HU'},
+                 {name: $translate.instant('LANGUAGES.ITALIAN'), code:  'it_IT'},
+                 {name: $translate.instant('LANGUAGES.JAPANESE'), code:  'ja_JP'},
+                 {name: $translate.instant('LANGUAGES.KOREAN'), code:  'ko_KR'},
+                 {name: $translate.instant('LANGUAGES.NORWEGIAN'), code:  'no_NO'},
+                 {name: $translate.instant('LANGUAGES.POLISH'), code:  'pl_PL'},
+                 {name: $translate.instant('LANGUAGES.PORTUGUESE_BRAZIL'), code:  'pt_BR'},
+                 {name: $translate.instant('LANGUAGES.PORTUGUESE_PORTUGAL'), code:  'pt_PT'},
+                 {name: $translate.instant('LANGUAGES.ROMANIAN'), code:  'ro_RO'},
+                 {name: $translate.instant('LANGUAGES.RUSSIAN'), code:  'ru_RU'},
+                 {name: $translate.instant('LANGUAGES.SPANISH_SPAIN'), code:  'es_ES'},
+                 {name: $translate.instant('LANGUAGES.SPANISH_MEXICO'), code:  'es_MX'},
+                 {name: $translate.instant('LANGUAGES.SWEDISH'), code:  'sv_SE'},
+                 {name: $translate.instant('LANGUAGES.TURKISH'), code:  'tr_TR'},
+                 {name: $translate.instant('LANGUAGES.SLOVAK'), code:  'sk_SK'}
+             ];
+            }
         };
 
     return new HATEOASFactory(UserAdminstration);

@@ -105,26 +105,16 @@ angular.module('mps.user')
     return {
         restrict: 'A',
         templateUrl: '/app/users/templates/user-location-fields.html',
-        controller: ['$scope', 'CountryService', function($scope, CountryService){
-            $scope.countryHAL = CountryService.getHAL();
+        controller: ['$scope', 'Country', function($scope, CountryService){        	
+        	CountryService.get().then(function(){
+                 $scope.countries=CountryService.data;
+             });
             $scope.countrySelected = function(country) {
-              $scope.country = country;
-            };
-
-            var loaded = false;
-            $scope.$watchGroup(['countryHAL', 'address'], function(vals) {
-                var countries = vals[0], address = vals[1];
-                if(countries && address && !loaded) {
-                    countries.$promise.then(function() {
-                        $.each(countries.countries, function(_i, c) {
-                        if(c.code == address.country) {
-                            $scope.country = c;
-                        }
-                    });
-                    loaded = true;
-                    });
-                }
-           });
+            	  var item=$scope.countries.filter(function(item) {
+                      return item.code === country; 
+                  });
+                  $scope.provinces = item[0].provinces;
+            };           
         }]
     };
 })
