@@ -39,7 +39,7 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper){
 
         $scope.isLoading = false;
-            $scope.validForm = true;
+        $scope.validForm = true;
         $scope.formattedAddress = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
 
@@ -94,9 +94,15 @@ angular.module('mps.serviceRequestDevices')
             $scope.sr = $rootScope.returnPickerSRObjectAddress;
             if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
                 $scope.device.addressSelected = true;
-                ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
-
+                $scope.device.newAddress = false;
+                if ($rootScope.selectedAddress._links) {
+                    console.log('setting address link');
+                    ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
+                } else {
+                    $scope.device.newAddress = true;
+                }
                 $scope.device.installAddress = angular.copy($rootScope.selectedAddress);
+                console.log('$scope.device.installAddress', $scope.device.installAddress);
                 $scope.setupPhysicalLocations($scope.device.installAddress,
                                                 $scope.device.physicalLocation1,
                                                 $scope.device.physicalLocation2,
@@ -147,10 +153,10 @@ angular.module('mps.serviceRequestDevices')
             configureSR(ServiceRequest);
             if (Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                 $scope.device.installAddress = Devices.item['address']['item'];
-                ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
+                // ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
             }else if(Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address'])){
                 $scope.device.installAddress = Devices.item['address'];
-                ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
+                // ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
             }
             if (Devices.item && !BlankCheck.isNull(Devices.item['contact']) && Devices.item['contact']['item']) {
                 $scope.device.primaryContact = Devices.item['contact']['item'];
@@ -191,28 +197,41 @@ angular.module('mps.serviceRequestDevices')
         }
 
         function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
-                $scope.configure.device.information.translate.changeTxt = 'Change Device';
+            $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+            $scope.configure.device.information.translate.changeTxt = 'Change Device';
             $scope.configure.actions.submit = function(){
-              if(!$scope.isLoading) {
-                $scope.isLoading = true;
+                if(!$scope.isLoading) {
+                    $scope.isLoading = true;
+                    if ($scope.device.newAddress) {
+                        var sourceAddress = {
+                            name: $scope.device.installAddress.name,
+                            storeFrontName: $scope.device.installAddress.storeFrontName,
+                            country: $scope.device.installAddress.country,
+                            addressLine1: $scope.device.installAddress.addressLine1,
+                            addressLine2: $scope.device.installAddress.addressLine2,
+                            city: $scope.device.installAddress.city,
+                            state: $scope.device.installAddress.state,
+                            postalCode: $scope.device.installAddress.postalCode,
+                            addressCleansedFlag: $scope.device.installAddress.addressCleansedFlag
+                        };
+                        ServiceRequest.addField('sourceAddress', sourceAddress);
+                    }
+                    ServiceRequest.addField('attachments', $scope.files_complete);
+                    var deferred = DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    });
 
-               ServiceRequest.addField('attachments', $scope.files_complete);
-               var deferred = DeviceServiceRequest.post({
-                     item:  $scope.sr
-                });
-
-                deferred.then(function(result){
-                  if(DeviceServiceRequest.item._links['tombstone']) {
-                    $location.search('tab',null);
-                    getSRNumber($location.url());
-                  }
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
-              }
+                    deferred.then(function(result){
+                        if(DeviceServiceRequest.item._links['tombstone']) {
+                            getSRNumber($location.url());
+                        }
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+                }
             };
         }
+
         function configureReceiptTemplate(){
             $scope.configure.device.information.translate.changeTxt = undefined;
           var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
@@ -350,7 +369,8 @@ angular.module('mps.serviceRequestDevices')
                             currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
-                    sourceAddress: $scope.device.installedAddress
+                    sourceAddress: $scope.device.installedAddress,
+                    showNewAddressTab: true
                 },
                 devicePicker: {
                     singleDeviceSelection: true,

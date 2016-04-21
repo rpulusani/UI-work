@@ -1,5 +1,3 @@
-
-
 angular.module('mps.orders')
 .directive('allOrderTab', function(){
     return {

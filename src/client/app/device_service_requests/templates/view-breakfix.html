@@ -11,32 +11,6 @@
 
                 <h2 translate="DEVICE_SERVICE_REQUEST.SERVICE_REQUEST_DETAIL"></h2>
 
-                <div class="form__field">
-                    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS"></label>
-                </div>
-                
-                <div class="contact-info">
-                    <div ng-bind-html="formattedDeviceAddress"></div>
-                </div>
-              
-                <div>
-                    <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR" ng-click="goToAddressPicker('DeviceServiceRequestDevice',device)"></a>
-                </div>
-                <div class="form__field">
-                    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
-                    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" mps-update />
-                </div>
-
-                <div class="form__field">
-                    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
-                    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" mps-update />
-                </div>
-
-                <div class="form__field">
-                    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
-                    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" mps-update />
-                </div>
-
                 <div class="form__field form__field--required" ng-class="validForm === false? 'form__field--has-alert' : ''">
                     <label translate="DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC"></label>
                     <textarea name="description" rows="8" cols="129" ng-model="sr.description" required></textarea>

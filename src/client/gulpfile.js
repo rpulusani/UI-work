@@ -11,8 +11,8 @@ var del = require('del');
 var fs = require('fs');
 var template = require('gulp-template');
 
-var env = process.env.MPS_ENV;
-if(env === undefined) env = "dev";
+var env = "beta";
+if(env === undefined) env = "beta";
 
 gulp.task('scripts', ['libs'], function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
