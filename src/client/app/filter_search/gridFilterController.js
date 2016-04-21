@@ -1,12 +1,8 @@
 angular.module('mps.filterSearch')
 .controller('GridFilterController', ['$scope', '$translate', '$location',
     function($scope, $translate, $location) {
-        var initalFilter = '',
+        var initalFilter = $scope.options[0],
         params = $location.search();
-
-        if ($scope.options) {
-            initalFilter = $scope.options[0]
-        }
 
         $scope.selectedFilter = function(selectedOption){
             if(selectedOption.optionsPanel){
