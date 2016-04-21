@@ -54,6 +54,19 @@ angular.module('mps.serviceRequests')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
+            
+        filterSearchService.addPanelFilter('REQUEST_MAN.MANAGE_REQUESTS.TXT_FILTER_TYPE', 'AllRequestTypes', undefined,
+            function(Grid) {
+                $scope.$broadcast('setupColumnPicker', Grid);
+                $scope.$broadcast('setupPrintAndExport', $scope);
+            }
+        );
+        filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_STATUS', 'RequestStatusFilterLong', undefined,
+             function(Grid) {
+                 $scope.$broadcast('setupColumnPicker', Grid);
+                 $scope.$broadcast('setupPrintAndExport', $scope);
+             }
+        );
     }
 ]);
 
