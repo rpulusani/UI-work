@@ -175,5 +175,24 @@ angular.module('mps.user')
                 });
         }
     };
+})
+.directive('inputCompare', function() {
+    return {
+        require: "ngModel",
+        scope: {
+            compareValue: "=inputCompare"
+        },
+        link: function(scope, element, attrs, model) {
+            model.$validators.inputCompare = function(val) {
+                if (val === undefined || val === '' || scope.compareValue === undefined || scope.compareValue === '') {
+                    return false;
+                }
+                return val === scope.compareValue;
+            };
+ 
+            scope.$watch("compareValue", function() {
+                model.$validate();
+            });
+        }
+    };
 });
-
