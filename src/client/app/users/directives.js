@@ -1,5 +1,3 @@
-
-
 angular.module('mps.user')
 .directive('allUsersTab', function(){
     return {
@@ -105,16 +103,18 @@ angular.module('mps.user')
     return {
         restrict: 'A',
         templateUrl: '/app/users/templates/user-location-fields.html',
-        controller: ['$scope', 'Country', function($scope, CountryService){        	
-        	CountryService.get().then(function(){
-                 $scope.countries=CountryService.data;
-             });
+        controller: ['$scope', 'CountryService', function($scope, CountryService){
+            CountryService.get().then(function(){
+                $scope.countries=CountryService.data;
+            });
+
             $scope.countrySelected = function(country) {
-            	  var item=$scope.countries.filter(function(item) {
-                      return item.code === country; 
-                  });
-                  $scope.provinces = item[0].provinces;
-            };           
+                var item = $scope.countries.filter(function(item) {
+                    return item.code === country; 
+                });
+                
+                $scope.provinces = item[0].provinces;
+            };
         }]
     };
 })
@@ -175,5 +175,24 @@ angular.module('mps.user')
                 });
         }
     };
+})
+.directive('inputCompare', function() {
+    return {
+        require: "ngModel",
+        scope: {
+            compareValue: "=inputCompare"
+        },
+        link: function(scope, element, attrs, model) {
+            model.$validators.inputCompare = function(val) {
+                if (val === undefined || val === '' || scope.compareValue === undefined || scope.compareValue === '') {
+                    return false;
+                }
+                return val === scope.compareValue;
+            };
+ 
+            scope.$watch("compareValue", function() {
+                model.$validate();
+            });
+        }
+    };
 });
-

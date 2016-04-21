@@ -259,6 +259,19 @@ angular.module('mps.filterSearch')
         controller: 'SoldToFilterController'
     };
 })
+.directive('allRequestTypes', function() {
+    return {
+        restrict: 'A',
+        scope:{
+            title: '@',
+            params:'=',
+            filterDef: '=',
+            action: '@'
+        },
+        templateUrl: '/app/filter_search/templates/allRequestType.html',
+        controller: 'AllRequestTypeFilterController'
+    };
+})
 .directive('gridSearch', function() {
     return {
         restrict: 'A',
