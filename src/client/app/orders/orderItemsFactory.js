@@ -94,7 +94,7 @@ angular.module('mps.orders')
                     return formatter.formatCurrency(subTotal);
                 },
                 getTax: function(){
-                    var tax = 0.07449;
+                    var tax = 0.0;
                     // call out to some service
                     return tax;
                 },
