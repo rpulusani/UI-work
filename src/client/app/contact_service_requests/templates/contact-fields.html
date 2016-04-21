@@ -19,7 +19,7 @@
 <div ng-show="!needToVerify">
     <h4 translate="CONTACT_MAN.COMMON.TXT_CONTACT_LOCATION_QUERY"></h4>
 
-    <div form="newContactForm" country="contact.address.country" code="contact.address.isoCountryCode" state="address.state" country-select></div>
+    <div form="newContactForm" country="contact.address.country" code="contact.address.isoCountryCode" state="contact.address.state" country-select></div>
 
     <div class="form__field form__field--required" 
     ng-class="(!newContactForm.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">

@@ -36,6 +36,9 @@ angular.module('mps.serviceRequestContacts')
         $scope.setTransactionAccount('ContactUpdate', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
 
+
+        $scope.updating = true;
+
         $timeout (function() {
             $rootScope.contactAlertMessage = undefined;
         }, 8000);
