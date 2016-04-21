@@ -30,6 +30,35 @@ angular.module('mps.pageCount')
             return passed;
         };
 
+        $scope.formatRomeDate = function(date) {
+            console.log(date)
+            if (date) {
+                console.log(date.replace(/T.*/, ''));
+                return date.replace(/T.*/, '');
+            } else {
+                return '';
+            }
+        }
+
+        $scope.getTodaysDate = function() {
+            var today = new Date(),
+            day = today.getDate(),
+            month = today.getMonth() + 1,
+            year = today.getFullYear();
+            
+            if (day < 10){
+                day = '0' + day
+            } 
+
+            if (month < 10){
+                month = '0' + month
+            }
+
+            today = year + '-' + month + '-' + day;
+
+            return today;
+        }
+
         $scope.active('allPageCountTab');
     }
 ]);

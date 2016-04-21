@@ -24,6 +24,7 @@ angular.module('mps.serviceRequestDevices')
         templateUrl: '/app/device_service_requests/templates/device-new-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService){
         $scope.countryHAL = CountryService.getHAL();
+
         $scope.countrySelected = function(country) {
           $scope.country = country;
         };

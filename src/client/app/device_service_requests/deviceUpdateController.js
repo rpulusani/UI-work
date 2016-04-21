@@ -20,7 +20,7 @@ angular.module('mps.serviceRequestDevices')
     '$timeout',
     'tombstoneWaitTimeout',
     '$q',
-    'Country',
+    'CountryService',
     function($scope,
         $location,
         $filter,
