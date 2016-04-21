@@ -136,7 +136,6 @@ angular.module('mps.form')
           weekdayFormat: '=',
           dateVal: '=',
           beforeEq: '=',
-          beforeEqNow: '=',
           afterEq: '='
       },
       controller: 'DatePickerController'
@@ -189,7 +188,7 @@ angular.module('mps.form')
             function($scope, $ele, $attrs, CountryService) {
                 var setupCountrySelect = function() {
                     CountryService.item = null;
-                    
+
                     if ($scope.country && !CountryService.item) {
                         CountryService.setCountryByName($scope.country);
                     } else if ($scope.countryIsoCode) {
@@ -200,6 +199,11 @@ angular.module('mps.form')
 
                     if ($scope.required === undefined) {
                         $scope.required = true;
+                    }
+
+                    if (CountryService.item) {
+                        $scope.country = CountryService.item.name;
+                        $scope.countryIsoCode = CountryService.item.code;
                     }
 
                     $scope.countrySelected = function(selectedCountryCode) {
