@@ -1,0 +1,22 @@
+<div class="set" data-js="set">
+    <div class="set__trigger" data-toggle="pickAddressTab" 
+        ng-class="{'set--is-active':isActive('pickAddressTab')}" 
+        ng-click="active('pickAddressTab')" 
+        >
+        <a href="#pickAddressTab" translate="ADDRESS_MAN.COMMON.ADDRESS_LIST"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="pickAddressTab" ng-class="{'set--is-active':isActive('pickAddressTab')}">
+        <span pick-address-tab ng-if="isActive('pickAddressTab')"></span>
+    </div>
+    <div class="set__trigger" data-toggle="newAddressTab" 
+        ng-class="{'set--is-active':isActive('newAddressTab')}" 
+        ng-click="active('newAddressTab')"
+        ng-show="showNewAddressTab === 'true'">
+        <a href="#newAddressTab" translate="ADDRESS_MAN.COMMON.NEW_SERVICE_ADDRESS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="newAddressTab"
+        ng-class="{'set--is-active':isActive('newAddressTab')}"
+        ng-show="showNewAddressTab === 'true'">
+        <span new-address-tab ng-if="isActive('newAddressTab')"></span>
+    </div>
+</div>

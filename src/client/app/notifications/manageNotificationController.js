@@ -14,8 +14,6 @@ angular.module('mps.notifications')
             redirect_to_list();
         } else {
             $scope.notification = Notifications.item.data;
-            console.log('Notifications.item', Notifications.item);
-            console.log('$scope.notification', $scope.notification);
             $scope.notification.startDate = Notifications.item.startDate;
             $scope.notification.endDate = Notifications.item.endDate;
             if (BlankCheck.checkNotBlank($scope.notification.startDate)) {

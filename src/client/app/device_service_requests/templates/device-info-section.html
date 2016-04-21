@@ -28,7 +28,25 @@
             </li>
             <li class="info-list__item">
                 <div class="info-list__item-name" translate="REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS"></div>
-                <div class="info-list__item-value" style="white-space: pre;" ng-bind-html="formattedDeviceAddress"></div>
+                <div class="info-list__item-value">
+                <div style="white-space: pre;" ng-bind-html="formattedAddressNoPl"></div>
+                    <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR" 
+                        ng-click="goToAddressPicker('DeviceServiceRequestDevice',device)"></a>
+                    <div class="form__field">
+                        <label translate="ADDRESS.BUILDING_NAME"></label>
+                        <input name="buildingName" type="text" ng-model="device.installAddress.building" value="" class="" />
+                    </div>
+
+                    <div class="form__field">
+                        <label translate="ADDRESS.FLOOR_NAME"></label>
+                        <input name="floorName" type="text" ng-model="device.installAddress.floor" value="" class="" />
+                    </div>
+
+                    <div class="form__field form__field--required">
+                        <label translate="ADDRESS.SITE_NAME"></label>
+                        <input name="siteName" type="text" ng-model="device.installAddress.office" value="" class="" />
+                    </div>
+                </div>
             </li>
         </ul>
     </div>

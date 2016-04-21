@@ -125,9 +125,36 @@ angular.module('mps.utility')
             currentInstalledAddressTitle: '@',
             replaceAddressTitle: '@',
             sourceAddress: '@',
-            customConfigure: '='
+            customConfigure: '=',
+            showNewAddressTab: '@'
         },
         templateUrl: '/app/utilities/templates/pick-address.html',
+        controller: 'AddressPickerController'
+    };
+})
+.directive('addressPickerTabs', function(){
+     return {
+        restrict: 'A',
+        templateUrl: '/app/utilities/templates/address-picker-tabs.html',
+        link: function(scope, el, attr){
+            var $ = require('jquery'),
+                 sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+            sets.each(function(i,set){
+                $(set).set({});
+            });
+        }
+    };
+})
+.directive('pickAddressTab', function(){
+     return {
+        restrict: 'A',
+        templateUrl: '/app/utilities/templates/pick-address-tab.html'
+    };
+})
+.directive('newAddressTab', function(){
+     return {
+        restrict: 'A',
+        templateUrl: '/app/utilities/templates/new-address-tab.html',
         controller: 'AddressPickerController'
     };
 })

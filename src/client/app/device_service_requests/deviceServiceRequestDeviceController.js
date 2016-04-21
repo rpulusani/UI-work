@@ -39,7 +39,7 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper){
 
         $scope.isLoading = false;
-            $scope.validForm = true;
+        $scope.validForm = true;
         $scope.formattedAddress = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
 
@@ -87,6 +87,35 @@ angular.module('mps.serviceRequestDevices')
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
             $rootScope.contactPickerReset = false;
+        }else if($rootScope.selectedAddress
+                && $rootScope.returnPickerObjectAddress
+                && $rootScope.selectionId === Devices.item.id){
+            $scope.device = $rootScope.returnPickerObjectAddress;
+            $scope.sr = $rootScope.returnPickerSRObjectAddress;
+            if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
+                $scope.device.addressSelected = true;
+                $scope.device.newAddress = false;
+                if ($rootScope.selectedAddress._links) {
+                    ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
+                } else {
+                    $scope.device.newAddress = true;
+                }
+                $scope.device.installAddress = angular.copy($rootScope.selectedAddress);
+                $scope.setupPhysicalLocations($scope.device.installAddress,
+                                                $scope.device.physicalLocation1,
+                                                $scope.device.physicalLocation2,
+                                                $scope.device.physicalLocation3);
+            }
+            Devices.item = $scope.device;
+            if($scope.device){
+                var image =  ImageService;
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
+                    $scope.medImage = url;
+                }, function(reason){
+                    NREUM.noticeError('Image url was not found reason: ' + reason);
+                });
+            }
+            $scope.resetAddressPicker();
         }else if($rootScope.selectedDevice &&
             $rootScope.returnPickerObjectDevice){
                 $scope.device = $rootScope.currentSelectedRow;
@@ -118,12 +147,20 @@ angular.module('mps.serviceRequestDevices')
                     $location.path(DeviceServiceRequest.route + "/" + $scope.device.id + '/view');
                 }
         } else {
-            $rootScope.device = Devices.item;
+            $scope.device = Devices.item;
             configureSR(ServiceRequest);
-            if (Devices.item && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
+            if (Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                 $scope.device.installAddress = Devices.item['address']['item'];
-            }else if(Devices.item && !BlankCheck.isNull(Devices.item['address'])){
+                $scope.setupPhysicalLocations($scope.device.installAddress,
+                                                $scope.device.physicalLocation1,
+                                                $scope.device.physicalLocation2,
+                                                $scope.device.physicalLocation3);
+            }else if(Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address'])){
                 $scope.device.installAddress = Devices.item['address'];
+                $scope.setupPhysicalLocations($scope.device.installAddress,
+                                                $scope.device.physicalLocation1,
+                                                $scope.device.physicalLocation2,
+                                                $scope.device.physicalLocation3);
             }
             if (Devices.item && !BlankCheck.isNull(Devices.item['contact']) && Devices.item['contact']['item']) {
                 $scope.device.primaryContact = Devices.item['contact']['item'];
@@ -133,9 +170,9 @@ angular.module('mps.serviceRequestDevices')
             if ($rootScope.returnPickerObject && $rootScope.selectionId !== Devices.item.id) {
                 $scope.resetContactPicker();
             }
-            if($rootScope.device){
+            if($scope.device){
                 var image =  ImageService;
-                image.getPartMediumImageUrl($rootScope.device.partNumber).then(function(url){
+                image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
                     $scope.medImage = url;
                 }, function(reason){
                     NREUM.noticeError('Image url was not found reason: ' + reason);
@@ -144,7 +181,7 @@ angular.module('mps.serviceRequestDevices')
         }
         $scope.setupSR(ServiceRequest, configureSR);
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
-        if($rootScope.device){
+        if($scope.device){
             $scope.getRequestor(ServiceRequest, Contacts);
         }
 
@@ -164,28 +201,42 @@ angular.module('mps.serviceRequestDevices')
         }
 
         function configureReviewTemplate(){
-                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
-                $scope.configure.device.information.translate.changeTxt = 'Change Device';
+            $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+            $scope.configure.device.information.translate.changeTxt = 'Change Device';
             $scope.configure.actions.submit = function(){
-              if(!$scope.isLoading) {
-                $scope.isLoading = true;
+                if(!$scope.isLoading) {
+                    $scope.isLoading = true;
+                    if ($scope.device.newAddress) {
+                        var sourceAddress = {
+                            name: $scope.device.installAddress.name,
+                            storeFrontName: $scope.device.installAddress.storeFrontName,
+                            country: $scope.device.installAddress.country,
+                            addressLine1: $scope.device.installAddress.addressLine1,
+                            addressLine2: $scope.device.installAddress.addressLine2,
+                            city: $scope.device.installAddress.city,
+                            state: $scope.device.installAddress.state,
+                            postalCode: $scope.device.installAddress.postalCode,
+                            houseNumber: $scope.device.installAddress.houseNumber,
+                            addressCleansedFlag: $scope.device.installAddress.addressCleansedFlag
+                        };
+                        ServiceRequest.addField('sourceAddress', sourceAddress);
+                    }
+                    ServiceRequest.addField('attachments', $scope.files_complete);
+                    var deferred = DeviceServiceRequest.post({
+                        item:  $scope.sr
+                    });
 
-               ServiceRequest.addField('attachments', $scope.files_complete);
-               var deferred = DeviceServiceRequest.post({
-                     item:  $scope.sr
-                });
-
-                deferred.then(function(result){
-                  if(DeviceServiceRequest.item._links['tombstone']) {
-                    $location.search('tab',null);
-                    getSRNumber($location.url());
-                  }
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
-              }
+                    deferred.then(function(result){
+                        if(DeviceServiceRequest.item._links['tombstone']) {
+                            getSRNumber($location.url());
+                        }
+                    }, function(reason){
+                        NREUM.noticeError('Failed to create SR because: ' + reason);
+                    });
+                }
             };
         }
+
         function configureReceiptTemplate(){
             $scope.configure.device.information.translate.changeTxt = undefined;
           var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
@@ -249,11 +300,11 @@ angular.module('mps.serviceRequestDevices')
                 device: {
                     information:{
                         translate: {
-                                title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
-                                serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
-                                product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
-                                ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
-                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                            title: 'REQUEST_MAN.COMMON.TXT_DEVICE_INFO',
+                            serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                            product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
+                            ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
                         }
                     },
                     service:{
@@ -318,6 +369,14 @@ angular.module('mps.serviceRequestDevices')
                     },
                     returnPath: DeviceServiceRequest.route + '/' + $scope.device.id + '/review'
                 },
+                addressPicker: {
+                    translate: {
+                            currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
+                            replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
+                    },
+                    sourceAddress: $scope.device.installedAddress,
+                    showNewAddressTab: true
+                },
                 devicePicker: {
                     singleDeviceSelection: true,
                     readMoreUrl: '',
@@ -367,6 +426,7 @@ angular.module('mps.serviceRequestDevices')
         /* Format Data for receipt */
         var formatAdditionalData = function(){
             if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
+                $scope.formattedAddressNoPl = FormatterService.formatAddresswoPhysicalLocation($scope.device.installAddress);
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 

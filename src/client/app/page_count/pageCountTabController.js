@@ -31,9 +31,7 @@ angular.module('mps.pageCount')
         };
 
         $scope.formatRomeDate = function(date) {
-            console.log(date)
             if (date) {
-                console.log(date.replace(/T.*/, ''));
                 return date.replace(/T.*/, '');
             } else {
                 return '';
