@@ -29,7 +29,7 @@ angular.module('mps.utility')
             },
             setProvinceByCode: function(provinceCode) {
                 var self = this,
-                i = 0;1
+                i = 0;
 
                 if (provinceCode) {
                     for (i; i < self.item.provinces.length; i += 1) {

@@ -43,10 +43,15 @@
         </span>
     </div>
 
+    <div ng-show="contact.address.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
+        <label translate="ADDRESS.HOUSE_NUMBER"></label>
+        <input name="houseNumber" type="text" ng-model="country.address.houseNumber" ng-required="country.address.countryIsoCode === 'BR'" />
+    </div>
+
     <div form="newContactForm" state-code="contact.address.state" state-select></div>
 
     <div class="row">
-        <div class="col-md-1-3">
+        <div ng-hide="contact.address.country.toLowerCase() === 'brazil'" class="col-md-1-3">
             <div class="form__field form__field--required_multiple" ng-class="(!newContactForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="CONTACT_MAN.COMMON.TXT_ZIP_CODE"></label>
                 <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class=""/>

@@ -50,12 +50,12 @@
     </div>
     <div ng-show="address.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
-        <input name="city" type="text" ng-model="address.houseNumber" ng-required="address.countryIsoCode === 'BR'" />
+        <input name="houseNumber" type="text" ng-model="address.houseNumber" ng-required="address.countryIsoCode === 'BR'" />
     </div>
 
     <div state-code="address.state" state-select></div>
 
-    <div ng-hide="address.country.toLowerCase() !== 'brazil'" class="row">
+    <div ng-hide="address.country.toLowerCase() === 'brazil'" class="row">
         <div class="col-md-1-3">
             <div class="form__field form__field--required">
                 <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
