@@ -13,8 +13,6 @@ angular.module('mps.siebel')
             redirect_to_list();
         } else {
             $scope.siebel = SiebelValues.item.data;
-            console.log('SiebelValues.item', SiebelValues.item);
-            console.log('$scope.siebel', $scope.siebel);
         }
 
         $scope.siebelOptions = [

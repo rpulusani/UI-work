@@ -96,13 +96,11 @@ angular.module('mps.serviceRequestDevices')
                 $scope.device.addressSelected = true;
                 $scope.device.newAddress = false;
                 if ($rootScope.selectedAddress._links) {
-                    console.log('setting address link');
                     ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
                 } else {
                     $scope.device.newAddress = true;
                 }
                 $scope.device.installAddress = angular.copy($rootScope.selectedAddress);
-                console.log('$scope.device.installAddress', $scope.device.installAddress);
                 $scope.setupPhysicalLocations($scope.device.installAddress,
                                                 $scope.device.physicalLocation1,
                                                 $scope.device.physicalLocation2,
@@ -153,10 +151,16 @@ angular.module('mps.serviceRequestDevices')
             configureSR(ServiceRequest);
             if (Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address']) && Devices.item['address']['item']) {
                 $scope.device.installAddress = Devices.item['address']['item'];
-                // ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
+                $scope.setupPhysicalLocations($scope.device.installAddress,
+                                                $scope.device.physicalLocation1,
+                                                $scope.device.physicalLocation2,
+                                                $scope.device.physicalLocation3);
             }else if(Devices.item && !$scope.device.addressSelected && !BlankCheck.isNull(Devices.item['address'])){
                 $scope.device.installAddress = Devices.item['address'];
-                // ServiceRequest.addRelationship('sourceAddress', Devices.item, 'address');
+                $scope.setupPhysicalLocations($scope.device.installAddress,
+                                                $scope.device.physicalLocation1,
+                                                $scope.device.physicalLocation2,
+                                                $scope.device.physicalLocation3);
             }
             if (Devices.item && !BlankCheck.isNull(Devices.item['contact']) && Devices.item['contact']['item']) {
                 $scope.device.primaryContact = Devices.item['contact']['item'];
@@ -212,6 +216,7 @@ angular.module('mps.serviceRequestDevices')
                             city: $scope.device.installAddress.city,
                             state: $scope.device.installAddress.state,
                             postalCode: $scope.device.installAddress.postalCode,
+                            houseNumber: $scope.device.installAddress.houseNumber,
                             addressCleansedFlag: $scope.device.installAddress.addressCleansedFlag
                         };
                         ServiceRequest.addField('sourceAddress', sourceAddress);
@@ -412,6 +417,7 @@ angular.module('mps.serviceRequestDevices')
         /* Format Data for receipt */
         var formatAdditionalData = function(){
             if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.installAddress)) {
+                $scope.formattedAddressNoPl = FormatterService.formatAddresswoPhysicalLocation($scope.device.installAddress);
                 $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.device.installAddress);
             }
 

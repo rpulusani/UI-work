@@ -1,10 +1,11 @@
 angular.module('mps.utility')
 .controller('AddressPickerController', ['$scope', '$location', 'grid', 'Addresses', 'AccountService', 'UserService',
  'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller',
- 'FilterSearchService', 'Country', 'ErrorMsgs',
+ 'FilterSearchService', 'ErrorMsgs',
     function($scope, $location, GridService, Addresses, Account, User, BlankCheck, FormatterService, $rootScope, $routeParams,
-        Personalize, $controller, FilterSearchService, Country, ErrorMsgs) {
+        Personalize, $controller, FilterSearchService, ErrorMsgs) {
         $scope.selectedAddress = {};
+        $scope.selectedAddress.addressCleansedFlag = 'N';
         $rootScope.currentSelectedRow = undefined;
         $scope.bodsError = false;
         $scope.bodsErrorKey = '';
@@ -36,11 +37,6 @@ angular.module('mps.utility')
         
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
-        // if ($rootScope.currentRowList !== undefined && $rootScope.currentRowList.length >= 1) {
-        //     $scope.selectedAddress = $rootScope.currentRowList[$rootScope.currentRowList.length - 1].entity;
-        //     console.log('in current row list', $scope.selectedAddress);
-        // }
-
         if($rootScope.selectedContact) {
             $rootScope.selectedContact = undefined;
         }
@@ -50,15 +46,6 @@ angular.module('mps.utility')
         }
 
         configureTemplates();
-        Country.get().then(function(){
-            $scope.countries=Country.data;
-        });
-        $scope.countrySelected = function(countryId) {
-            var item=$scope.countries.filter(function(item) {
-                return item.code === countryId; 
-            });
-            $scope.provinces = item[0].provinces;
-        };
 
         $scope.sourceController = function() {
             return $controller($routeParams.source + 'Controller', { $scope: $scope }).constructor;
@@ -80,13 +67,6 @@ angular.module('mps.utility')
         };
 
         $scope.checkAddress = function() {
-            console.log('in check address');
-            console.log('$scope.checkedAddress', $scope.checkedAddress);
-            console.log('$scope.selectAddressForm.$valid', $scope.selectAddressForm.$valid);
-            if ($scope.selectedAddress) {
-                $scope.selectedAddress.addressCleansedFlag = 'N';
-            }
-            
             if($scope.checkedAddress === 0 && $scope.selectAddressForm.$valid){
                 $scope.validForm = true;
                 $scope.enteredAddress = {
@@ -94,7 +74,8 @@ angular.module('mps.utility')
                     city: $scope.selectedAddress.city,
                     state:  $scope.selectedAddress.state,
                     country: $scope.selectedAddress.country,
-                    postalCode: $scope.selectedAddress.postalCode
+                    postalCode: $scope.selectedAddress.postalCode,
+                    houseNumber: $scope.selectedAddress.houseNumber
                 };
             Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
                 if (statusCode === 200) {
@@ -148,6 +129,7 @@ angular.module('mps.utility')
                 $scope.selectedAddress.city = $scope.comparisonAddress.city;
                 $scope.selectedAddress.state = $scope.comparisonAddress.state;
                 $scope.selectedAddress.postalCode = $scope.comparisonAddress.postalCode;
+                $scope.selectedAddress.houseNumber = $scope.comparisonAddress.houseNumber;
                 $scope.selectedAddress.addressCleansedFlag = 'Y';
             } else {
                 $scope.selectedAddress.country = $scope.enteredAddress.country;
@@ -156,6 +138,7 @@ angular.module('mps.utility')
                 $scope.selectedAddress.city = $scope.enteredAddress.city;
                 $scope.selectedAddress.state = $scope.enteredAddress.state;
                 $scope.selectedAddress.postalCode = $scope.enteredAddress.postalCode;
+                $scope.selectedAddress.houseNumber = $scope.enteredAddress.houseNumber;
                 $scope.selectedAddress.addressCleansedFlag = 'N';
             }
             $scope.canReview = true;
@@ -171,13 +154,14 @@ angular.module('mps.utility')
                 $scope.selectedAddress.city = $scope.comparisonAddress.city;
                 $scope.selectedAddress.state = $scope.comparisonAddress.state;
                 $scope.selectedAddress.postalCode = $scope.comparisonAddress.postalCode;
+                $scope.selectedAddress.houseNumber = $scope.comparisonAddress.houseNumber;
                 $scope.selectedAddress.addressCleansedFlag = 'Y';
             }
             $scope.canReview = false;
         };
 
         $scope.resetAddress = function(){
-            $scope.contact.address = {};
+            $scope.selectedAddress = {};
             $scope.needToVerify = false;
             $scope.checkedAddress = 0;
         };
@@ -196,7 +180,6 @@ angular.module('mps.utility')
         };
 
         $scope.goToCallingPage = function() {
-            console.log('$scope.selectedAddress', $scope.selectedAddress);
             $rootScope.selectedAddress = $scope.selectedAddress;
             $location.path($rootScope.addressReturnPath);
         };

@@ -31,20 +31,7 @@
     </div>
 </div>
 <div ng-show="!needToVerify">
-    <div class="form__field form__field--select form__field--required" ng-class="((!selectAddressForm.country.$valid || !selectAddressForm.country.$valid) && validForm === false) ? 'form__field--has-alert' : ''">
-        <label translate="CONTACT_MAN.COMMON.TXT_COUNTRY"></label>
-
-        <select name="country" ng-model="selectedAddress.country" ng-change="countrySelected(selectedAddress.country)" required >
-                 <option value="" translate="LABEL.SELECT"></option>
-                 <option ng-repeat="country in countries" value="{{country.code}}">
-                    {{country.name}}
-                 </option>
-        </select>
-        <span ng-hide="!selectAddressForm.country.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-            <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
-        </span>
-    </div>
+    <div country="selectedAddress.country" code="selectedAddress.countryIsoCode" state="selectedAddress.state" country-select></div>
     <div class="form__field form__field--required" ng-class="(!selectAddressForm.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_1"></label>
         <input name="addressLine1" type="text" ng-model="selectedAddress.addressLine1" required/>
@@ -65,34 +52,22 @@
             <span translate="LABEL.ERROR_REQUIRED"></span>
         </span>
     </div>
-    <div class="form__field form__field--select form__field--required_multiple">
-        <label translate="CONTACT_MAN.COMMON.TXT_STATE"></label>
-        <select ng-model="selectedAddress.state" name="state" >
-            <option value="" translate="LABEL.SELECT"></option>
-            <option ng-repeat="province in provinces" value="{{ province.code }}">
-            {{province.name}}
-            </option>
-        </select>
-      
-        <span ng-hide="!selectAddressForm.state.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-            <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
-        </span>
+    <div ng-show="selectedAddress.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
+        <label translate="ADDRESS.HOUSE_NUMBER"></label>
+        <input name="houseNumber" type="text" ng-model="selectedAddress.houseNumber" 
+            ng-required="selectedAddress.country.toLowerCase() === 'brazil'" />
     </div>
-    <div class="row">
+    <div state-code="selectedAddress.state" state-select></div>
+   
+    <div ng-show="selectedAddress.country.toLowerCase() !== 'brazil'" class="row">
         <div class="col-md-1-3">
-            <div class="form__field form__field--required_multiple">
-                <label translate="CONTACT_MAN.COMMON.TXT_ZIP_CODE"></label>
-                <input type="text" name="postalCode" ng-model="selectedAddress.postalCode" value="" class=""  />
-                <span ng-hide="!selectAddressForm.postalCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
-                    <i class="icon icon--ui icon--error-small"></i>
-                    <span translate="LABEL.ERROR_REQUIRED"></span>
-                </span>
+            <div class="form__field form__field--required" ng-class="(!selectAddressForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+                <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
+                <input type="text" name="postalCode" ng-model="selectedAddress.postalCode" value="" class="" 
+                    ng-required="selectedAddress.country.toLowerCase() !== 'brazil'" />
             </div>
         </div>
     </div>
-
-    <div address-location-fields></div>
 </div>
 
 <div ng-show="needToVerify">
