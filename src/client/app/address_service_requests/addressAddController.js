@@ -172,9 +172,9 @@ angular.module('mps.serviceRequestAddresses')
                     },
                     show: {
                         referenceId: true,
-                        costCenter: true,
-                        comments: true,
-                        attachements: true
+                        costCenter: false,
+                        comments: false,
+                        attachements: false
                     }
                 },
                 actions: {
