@@ -68,12 +68,12 @@ angular.module('mps.serviceRequests')
         $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
 
         $scope.goToContactCreate = function(){
-            Contacts.item = {};
-            $location.path(Contacts.route + '/new');
+        	Contacts.goToCreate();
         };
         $scope.goToAddressCreate = function(){
-            Addresses.item = {};
-            $location.path(Addresses.route + '/new');
+        	 Addresses.item = undefined;
+             ServiceRequest.reset();
+             $location.path('/service_requests/addresses/new');
         };
         $scope.goToServiceCreate = function(){
             //$location.search('tab', 'requestTab');
