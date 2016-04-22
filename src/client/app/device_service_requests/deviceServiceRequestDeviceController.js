@@ -39,6 +39,7 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper){
 
         $scope.isLoading = false;
+        $scope.srType = 'break_fix';
         $scope.validForm = true;
         $scope.formattedAddress = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
