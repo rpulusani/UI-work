@@ -5,7 +5,16 @@
 
     <div class="clearfix">
         <a class="pull" href="#bookmark"><i class="icon icon--mps icon--bookmark"></i></a>
-        <h1 class="pull vertical-space--none"><span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></span> <span ng-bind="device.productModel"></span></h1>
+
+        <h1 ng-bind="device.item.machineType"></h1>
+         <div print-export-title csv-model="{{ device.item }}" titlestring="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></div>
+
+        <!-- OLD HEADER 
+
+        <h1 class="pull vertical-space--none">
+            <span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></span>
+            <span ng-bind="device.productModel"></span>
+        </h1>
         <div class="print-export">
             <span>
                 <i class="icon icon--mps icon--print"></i><a onclick="window.print()" href="#" class="text--small text--semi-bold">Print</a>
@@ -14,6 +23,7 @@
                 <i class="icon icon--mps icon--download"></i><a ng-click="exportDevice()" href="#" class="text--small text--semi-bold">Export</a>
             </span>
         </div>
+        -->
     </div>
     <hr>
     <div class="media">
