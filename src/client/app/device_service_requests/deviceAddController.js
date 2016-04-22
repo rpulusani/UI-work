@@ -352,10 +352,6 @@ angular.module('mps.serviceRequestDevices')
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
 
-                    if ($scope.device.isDeviceSelected && $scope.device.isDeviceSelected === true) {
-                        $scope.device.isDeviceSelected = false;
-                    }
-
                     $scope.device.addressSelected = true;
 
                     ServiceRequest.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');

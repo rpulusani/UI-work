@@ -39,6 +39,7 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper) {
 
         $scope.isLoading = false;
+        $scope.srType = 'decommission';
         SRHelper.addMethods(Devices, $scope, $rootScope);
 
         $scope.setTransactionAccount('decommission', Devices);

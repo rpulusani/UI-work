@@ -161,7 +161,8 @@
     <strong class="form__field--required"  translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_REMOVE_DEVICE"></strong>
 
     <div ng-hide="device.isDeviceSelected">
-        <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_BROWSE_DEVICES" ng-click="goToDevicePicker('DeviceAdd',device)"></a>
+        <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_BROWSE_DEVICES" 
+        ng-click="goToDevicePicker('DeviceAdd',device,'/service_requests/devices/new')"></a>
     </div>
     <input type="text" name="deviceDeInstallCheck" ng-model="device.selectedDevice.productModel" ng-show="false"
         ng-required="device.deviceDeInstallQuestion === true" />
@@ -190,7 +191,7 @@
                 </ul>
             </div>
         </div>
-        <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_DIFFERENT_DEVICE"  ng-click="goToDevicePicker('DeviceAdd',device)"></a>
+        <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_DIFFERENT_DEVICE"  ng-click="goToDevicePicker('DeviceAdd',device,'/service_requests/devices/new')"></a>
     </div>
 </div>
 
