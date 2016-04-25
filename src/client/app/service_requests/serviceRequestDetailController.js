@@ -80,11 +80,15 @@ angular.module('mps.serviceRequests')
                         comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                         attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                         attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS_SIZE',
+                        validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                     fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                 },
                 show:{
                     referenceId: true
                 }
+            },
+            attachments:{
+                maxItems:2
             },
             statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort)
         };

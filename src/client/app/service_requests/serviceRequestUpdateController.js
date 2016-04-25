@@ -282,6 +282,7 @@ angular.module('mps.serviceRequests')
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                             attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                             attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
+                            validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show: {
@@ -326,6 +327,9 @@ angular.module('mps.serviceRequests')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: ServiceRequest.route + $scope.sr.id + '/update/' + $scope.sr.type
+                },
+                attachments:{
+                    maxItems:2
                 }
             };
         }
