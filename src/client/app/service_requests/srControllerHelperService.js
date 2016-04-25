@@ -71,6 +71,7 @@ angular.module('mps.serviceRequests')
                 }
                 rootScope.returnPickerObjectAddress = pickerObject;
                 rootScope.returnPickerSRObjectAddress = scope.sr;
+                $location.search('tab', null);
                 $location.path(halObj.route + '/pick_address/' + source);
             } else{
                 throw 'Failed to route to pick an Address either pickerObject or sr object are empty';
