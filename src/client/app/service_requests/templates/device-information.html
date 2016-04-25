@@ -40,7 +40,7 @@
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.customerDeviceTag}}"></div>
                 <div class="info-list__item-value" ng-bind="device.assetTag"></div>
             </li>
-            <li class="info-list__item" ng-if="device.chl && configure.device.information.translate.chl">
+            <li class="info-list__item" ng-if="device.chl  && device.chl.name && configure.device.information.translate.chl">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.chl}}"></div>
                 <div class="info-list__item-value" ng-bind="device.chl.name"></div>
             </li>

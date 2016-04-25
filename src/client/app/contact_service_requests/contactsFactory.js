@@ -114,6 +114,7 @@ angular.module('mps.serviceRequestContacts')
             },
             goToUpdate: function(contact) {
                 ServiceRequest.newMessage();
+
                 if (contact) {
                     this.setItem(contact);
                 }

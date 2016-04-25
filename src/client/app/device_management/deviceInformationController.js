@@ -49,7 +49,7 @@ angular.module('mps.deviceManagement')
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
         $scope.ipLink = '';
-
+        $scope.max=new Date();//This is used in date Picker..
         $scope.breadcrumbs = {
             1: {
                 href: "/device_management",
@@ -143,11 +143,13 @@ angular.module('mps.deviceManagement')
                             return;
                         }
 
+                     
                         // if a new date was added
-                        if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== $scope.getMeterReadPriorDate($scope.meterReads[i])){
+                        if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
                             $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
                             $scope.meterReads[i].newDate = null;
-                        }
+                        } 
+
                         updateMeterReads($scope.meterReads[i]);
                     }
                     

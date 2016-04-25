@@ -23,10 +23,6 @@ angular.module('mps.serviceRequests')
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'addressSet');
 
-        $scope.goToCreate = function() {
-            Addresses.item = {};
-            $location.path('/service_requests/addresses/new');
-        };
         $scope.view = function(SR){
           ServiceRequest.setItem(SR);
             var options = {

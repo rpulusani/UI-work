@@ -27,9 +27,6 @@ angular.module('mps.siebel')
             } else {
                 $scope.documentFlag = true;
             }
-
-            console.log('Translations.item', Translations.item);
-            console.log('$scope.translation', $scope.translation);
         }
 
         var updateTranslationObjectForUpdate = function() {

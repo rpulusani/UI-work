@@ -2,12 +2,39 @@ angular.module('mps.form')
 .controller('DatePickerController', ['$scope', '$element', '$attrs',
     function(scope, element, attrs) {
         var node = element[0],
-        calendar;
-        var rome = require('rome');
+        calendar,
+        rome = require('rome'),
+        setupCalendar = function(calendar) {
+            calendar.on('data', function(val) {
+                scope.dateVal = val;
+                scope.$apply();
+            });
+
+            calendar.on('show', function() {
+                if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
+                    attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+                }
+
+                if (scope.beforeEqNow !== undefined && scope.beforeEqNow !== null) {
+                    var dt = new Date();
+                    attrs.dateValidator = rome.val.beforeEq(dt);
+                }
+
+                if (scope.afterEq !== undefined && scope.afterEq !== null) {
+                    attrs.dateValidator = rome.val.afterEq(scope.afterEq);
+                }
+            });
+        };
+        
         node.type = 'text';
 
         if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
             attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+        }
+
+        if (scope.beforeEqNow !== undefined && scope.beforeEqNow !== null) {
+            var dt = new Date();
+            attrs.dateValidator = rome.val.beforeEq(dt);
         }
 
         if (scope.afterEq !== undefined && scope.afterEq !== null) {
@@ -26,27 +53,26 @@ angular.module('mps.form')
 
         calendar = rome(node, attrs);
 
-        // Watch was avoided due to performance concerns
-        calendar.on('data', function(val) {
-            scope.dateVal = val;
-            scope.$apply();
-        });
+        setupCalendar(calendar);
 
-        calendar.on('show', function() {
-            if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
-                attrs.dateValidator = rome.val.beforeEq(scope.beforeEq);
+        scope.$watchGroup(['min', 'max'], function(newValArr, oldValArr, ctrlScope) {
+            if (ctrlScope.min && !attrs.min) {
+                attrs.min = ctrlScope.min;
             }
 
-            if (scope.afterEq !== undefined && scope.afterEq !== null) {
-                attrs.dateValidator = rome.val.afterEq(scope.afterEq);
+            if (ctrlScope.max && !attrs.max) {
+                attrs.max = ctrlScope.max;
             }
+
+            calendar.options(attrs);
+
+            setupCalendar(calendar);
         });
 
-        // Add apply() call to top of event queue; hence 0 milliseconds
+        // Add apply() call to top of event queue
         setTimeout(function() {
             scope.$apply();
         }, 0);
-
     }
 ]);
 

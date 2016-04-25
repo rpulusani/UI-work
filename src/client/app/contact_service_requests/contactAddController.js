@@ -15,7 +15,6 @@ angular.module('mps.serviceRequestContacts')
     'UserService',
     'HATEAOSConfig',
     '$timeout',
-    'Country',
     'SecurityHelper',
     'ErrorMsgs',
     function($scope,
@@ -32,7 +31,6 @@ angular.module('mps.serviceRequestContacts')
         Users,
         HATEAOSConfig,
         $timeout,
-        Country,
         SecurityHelper,
         ErrorMsgs) {
 
@@ -42,19 +40,12 @@ angular.module('mps.serviceRequestContacts')
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactAdd', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
+       
         if($scope.inTransactionalAccountContext()){
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
         }, 8000);
-        Country.get().then(function(){
-            $scope.countries=Country.data;
-        });
-        $scope.countrySelected = function(countryId) {
-                var item=$scope.countries.filter(function(item) {
-                    return item.code === countryId; 
-                });
-                $scope.provinces = item[0].provinces;
-        };
+
             $scope.checkAddress = function(contactForm) {
                     if($scope.checkedAddress === 0 && $scope.newContactForm.$valid){
                         $scope.validForm = true;
@@ -190,6 +181,7 @@ angular.module('mps.serviceRequestContacts')
             }
 
             var updateContactObjectForSubmit = function() {
+            	$scope.contact.address.isoCountryCode=undefined;
                 Contacts.item = $scope.contact;
                 Contacts.addAccountRelationship();
             };

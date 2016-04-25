@@ -1,5 +1,3 @@
-
-
 angular.module('mps.user')
 .directive('allUsersTab', function(){
     return {
@@ -106,25 +104,17 @@ angular.module('mps.user')
         restrict: 'A',
         templateUrl: '/app/users/templates/user-location-fields.html',
         controller: ['$scope', 'CountryService', function($scope, CountryService){
-            $scope.countryHAL = CountryService.getHAL();
-            $scope.countrySelected = function(country) {
-              $scope.country = country;
-            };
+            CountryService.get().then(function(){
+                $scope.countries=CountryService.data;
+            });
 
-            var loaded = false;
-            $scope.$watchGroup(['countryHAL', 'address'], function(vals) {
-                var countries = vals[0], address = vals[1];
-                if(countries && address && !loaded) {
-                    countries.$promise.then(function() {
-                        $.each(countries.countries, function(_i, c) {
-                        if(c.code == address.country) {
-                            $scope.country = c;
-                        }
-                    });
-                    loaded = true;
-                    });
-                }
-           });
+            $scope.countrySelected = function(country) {
+                var item = $scope.countries.filter(function(item) {
+                    return item.code === country; 
+                });
+                
+                $scope.provinces = item[0].provinces;
+            };
         }]
     };
 })
@@ -185,5 +175,24 @@ angular.module('mps.user')
                 });
         }
     };
+})
+.directive('inputCompare', function() {
+    return {
+        require: "ngModel",
+        scope: {
+            compareValue: "=inputCompare"
+        },
+        link: function(scope, element, attrs, model) {
+            model.$validators.inputCompare = function(val) {
+                if (val === undefined || val === '' || scope.compareValue === undefined || scope.compareValue === '') {
+                    return false;
+                }
+                return val === scope.compareValue;
+            };
+ 
+            scope.$watch("compareValue", function() {
+                model.$validate();
+            });
+        }
+    };
 });
-

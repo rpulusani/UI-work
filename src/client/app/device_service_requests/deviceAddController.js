@@ -112,7 +112,6 @@ angular.module('mps.serviceRequestDevices')
 
                     deferred.then(function(result){
                       if(DeviceServiceRequest.item._links['tombstone']) {
-                        $location.search('tab', null);
                         getSRNumber($location.url());
 
                       }
@@ -264,7 +263,8 @@ angular.module('mps.serviceRequestDevices')
                                 currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
                                 replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                         },
-                        sourceAddress: $scope.device.address
+                        sourceAddress: $scope.device.address,
+                        showNewAddressTab: false
                     },
                     devicePicker: {
                         translate: {
@@ -279,6 +279,15 @@ angular.module('mps.serviceRequestDevices')
                             }
                         },
                         readMoreUrl: ''
+                    }
+                };
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: '/device_management',
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                    },
+                    2: {
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
                     }
                 };
             }
@@ -342,10 +351,6 @@ angular.module('mps.serviceRequestDevices')
                 $scope.device = $rootScope.returnPickerObjectAddress;
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
-
-                    if ($scope.device.isDeviceSelected && $scope.device.isDeviceSelected === true) {
-                        $scope.device.isDeviceSelected = false;
-                    }
 
                     $scope.device.addressSelected = true;
 

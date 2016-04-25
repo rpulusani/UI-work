@@ -62,7 +62,6 @@ angular.module('mps.pageCount')
             });
         };
 
-
         $scope.ignoreAndSave=function(){
             $scope.doSave();
         };

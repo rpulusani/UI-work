@@ -1,8 +1,11 @@
 <br/>
 <h4 translate="FILTERS.BROWSE_DEVICE_REQUEST_TYPE"></h4>
- <div ng-repeat="tempType in deviceRequestTypes">
-    <input type="radio" id="tempType" name="device-request-type-select"
-    ng-model="$parent.deviceRequestType" value="{{tempType}}"/>
-    <label for="tempType"><span></span>
-        {{tempType}}</label>
+<div class="well scrollable">
+	 <div ng-repeat="tempType in deviceRequestTypes">
+	 	<label class="form__field form__field--no-margin">
+	 	 <input type="radio" id="tempType" name="device-request-type-select"
+	 	     ng-model="$parent.deviceRequestType" value="{{tempType}}"/>
+	 	     {{tempType}}
+	 	</label>	   
+	</div>
 </div>

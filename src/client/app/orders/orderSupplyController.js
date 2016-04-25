@@ -146,7 +146,6 @@ angular.module('mps.orders')
         Orders.tempSpace.catalogCart.contract = {
             'id': Devices.item.contractNumber
         };
-        console.log(Orders.tempSpace);
         $location.path(OrderItems.route + '/purchase/review');
     };
 

@@ -39,6 +39,7 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper) {
 
         $scope.isLoading = false;
+        $scope.srType = 'decommission';
         SRHelper.addMethods(Devices, $scope, $rootScope);
 
         $scope.setTransactionAccount('decommission', Devices);
@@ -305,6 +306,15 @@ angular.module('mps.serviceRequestDevices')
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/review'
+                    }
+                };
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: '/device_management',
+                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                    },
+                    2: {
+                        value: Devices.item.productModel
                     }
                 };
             }

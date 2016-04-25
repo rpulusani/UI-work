@@ -86,7 +86,6 @@ angular.module('mps.serviceRequestAddresses')
 
                 deferred.then(function(result){
                   if(ServiceRequest.item._links['tombstone']) {
-                    $location.search('tab', null);
                     getSRNumber($location.url());
                   }
                 }, function(reason){
@@ -173,9 +172,9 @@ angular.module('mps.serviceRequestAddresses')
                     },
                     show: {
                         referenceId: true,
-                        costCenter: true,
-                        comments: true,
-                        attachements: true
+                        costCenter: false,
+                        comments: false,
+                        attachements: false
                     }
                 },
                 actions: {
@@ -336,7 +335,6 @@ angular.module('mps.serviceRequestAddresses')
             };
 
             $scope.goToReview = function() {
-                console.log('here');
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
                     Addresses.item = $scope.address;

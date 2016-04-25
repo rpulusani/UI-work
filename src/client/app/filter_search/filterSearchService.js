@@ -53,7 +53,7 @@ angular.module('mps.filterSearch')
                         self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
                                 self.localScope.gridDataCnt = self.service.page.totalPages;
                                 self.localScope.gridLoading = false;
-
+                                self.localScope.$broadcast('setupColumnPicker', self.Grid);
                             if (typeof fn === 'function') {
                                 return fn(self.Grid);
                             }
@@ -62,7 +62,7 @@ angular.module('mps.filterSearch')
                         self.Grid.display(self.service, self.localScope, self.personalization, undefined, function() {
                                 self.localScope.gridDataCnt = self.service.page.totalPages;
                                 self.localScope.gridLoading = false;
-
+                                self.localScope.$broadcast('setupColumnPicker', self.Grid);
                             if (typeof fn === 'function') {
                                 return fn(self.Grid);
                             }
