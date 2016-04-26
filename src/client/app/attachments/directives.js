@@ -7,7 +7,8 @@ return {
     controller:  [ '$scope',
           '$http',
           '$log',
-          function($scope, $http, $log){
+          '$translate',
+          function($scope, $http, $log, $translate){
             $scope.files = [];
             $scope.files_complete = [];
             $scope.files_error = [];
@@ -18,13 +19,21 @@ return {
               }
             }
 
-            $scope.change = function(files) {
-              $scope.files = files;
-              $log.debug('change', $scope.files);
-              $scope.$apply();
-              for(var i = 0; i < $scope.files.length; i++) {
-                $scope.upload($scope.files[i]);
-              }
+            $scope.change = function(files) {            	
+             	if ($scope.files_complete.length<=$scope.configure.attachments.maxItems-1){
+	            	 $scope.files = files;
+	                 $scope.error = false;
+	                 for(var i = 0; i < $scope.files.length; i++) {
+	                        $scope.upload($scope.files[i]);
+	                 }
+	              }else{
+    	        	  $scope.error = true;
+        	    	  $scope.errorMessage = $translate.instant($scope.configure.detail.translate.validationMessage,
+            			  {count:$scope.configure.attachments.maxItems});
+            	  }
+             $scope.$apply();
+             
+              
             };
 
             // TODO - this belongs in a service

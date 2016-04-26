@@ -241,6 +241,7 @@ angular.module('mps.serviceRequestContacts')
                         comments: 'CONTACT_MAN.DELETE_CONTACT.TXT_COMMENTS',
                         attachments: 'CONTACT_MAN.DELETE_CONTACT.TXT_ATTACHMENTS_SIZE',
                         attachmentMessage: 'CONTACT_MAN.DELETE_CONTACT.TXT_ATTACHMENTS_FORMAT',
+                        validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{
@@ -274,6 +275,9 @@ angular.module('mps.serviceRequestContacts')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: Contacts.route + '/delete/' + $scope.contact.id + '/review'
+                },
+                attachments:{
+                    maxItems:2
                 }
             };
         }

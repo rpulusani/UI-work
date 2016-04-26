@@ -257,4 +257,13 @@ angular.module('mps.utility')
         templateUrl: '/app/utilities/templates/pagination.html',
         link: link
     };
-}]);
+}])
+.directive('errorMsg',function(){
+	 return {
+	        restrict: 'A',
+	        template: 	'<div ng-if="errorMessage" class="alert alert--error" data-js="alert">'+
+	        			'<span class="alert__close" data-js="alert-close" aria-hidden="true"></span>'+
+	        			'<icon class="alert__icon icon icon--small icon--ui icon--error"></icon>'+
+	        			'<div class="alert__body"><span>{{errorMessage}}</span></div></div>'
+	    };
+});
