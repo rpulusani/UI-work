@@ -13,8 +13,6 @@ angular.module('mps.utility')
             rows = [],
             i = 0;
 
-            console.log('creating a CSV', dataObj);
-
             if (dataObj.filename) {
                 filename = dataObj.filename;
             }
@@ -36,11 +34,9 @@ angular.module('mps.utility')
                 if (i !== rows.length - 1) {
                     csvFile += '"' + rows[i] + '",';
                 } else if (i = rows.length - 1) {
-                     csvFile += '"' + rows[i] + '"';
+                    csvFile += '"' + rows[i] + '"';
                 }
             }
-            
-            console.log(csvFile);
 
             blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
             
@@ -63,6 +59,9 @@ angular.module('mps.utility')
                     document.body.removeChild(link);
                 }
             }
+        },
+        createPdf = function(pdfDefinition) {
+            pdfMake.createPdf(pdfDefinition).open();
         };
 
         $scope.titlestring = $scope.titlestring;
@@ -103,17 +102,23 @@ angular.module('mps.utility')
                 }
             });
 
-            $scope.printGrid = function() {
-                ctrlScope.printing = true;
-                ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
-            };
+            if (!$scope.pdfExport) {
+                $scope.printGrid = function() {
+                    ctrlScope.printing = true;
+                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
+                };
+            } else {
+                $scope.printGrid = function() {
+                    createPdf(scope.pdfExport)
+                };
+            }
 
-            if (!attrs.csvExport) {
+            if (!$scope.csvExport) {
                 $scope.exportGrid = function() {
-                    var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-                    var api;
+                    var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location')),
+                    api;
 
-                   ctrlScope.printing = false;
+                    ctrlScope.printing = false;
 
                     if (!ctrlScope.gridApi) {
                         api = ctrlScope.$root.gridApi;
@@ -125,7 +130,7 @@ angular.module('mps.utility')
                 };
             } else {
                 $scope.exportGrid = function() {
-                    createCsv(ctrlScope[attrs.csvExport]);
+                    createCsv(scope.csvExport);
                 };
             }
         });

@@ -88,7 +88,8 @@ angular.module('mps.utility')
             export: '=?',
             nativePrint: '@',
             // csv model must be defined to create a csv
-            csvExport: '@'
+            csvExport: '=?',
+            pdfExport: '=?'
         },
         template: '<div class="col-3-4" ng-cloak>' +
             '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && titlestring" translate="{{ titlestring }}" translate-values="{{titleValues}}"></h2>' +

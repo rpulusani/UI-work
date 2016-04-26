@@ -7,10 +7,10 @@
         <a class="pull" href="#bookmark"><i class="icon icon--mps icon--bookmark"></i></a>
 
         <h1 ng-bind="device.item.machineType"></h1>
-         <div print-export-title csv-model="{{ device.item }}" titlestring="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></div>
+        
+        <div print-export-title csv-export="csvmodel" pdf-export="csvmodel" titlestring="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></div>
 
         <!-- OLD HEADER 
-
         <h1 class="pull vertical-space--none">
             <span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></span>
             <span ng-bind="device.productModel"></span>
