@@ -337,6 +337,7 @@ angular.module('mps.serviceRequestDevices')
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                             attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                             attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
+                            validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{
@@ -391,6 +392,9 @@ angular.module('mps.serviceRequestDevices')
                             submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
                         }
                     }
+                },
+                attachments:{
+                    maxItems:2
                 }
             };
                 $scope.configure.breadcrumbs = {

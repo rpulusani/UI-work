@@ -191,6 +191,7 @@ angular.module('mps.serviceRequestContacts')
                         comments: 'LABEL.COMMENTS',
                         attachments: 'LABEL.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
+                        validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{
@@ -224,6 +225,9 @@ angular.module('mps.serviceRequestContacts')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: Contacts.route + '/update/' + $scope.contact.id + '/review'
+                },
+                attachments:{
+                    maxItems:2
                 }
             };
         }
