@@ -437,6 +437,15 @@ angular.module('mps.serviceRequests')
             break;
             case 'BREAK_FIX':
             case 'BREAK_FIX_ONSITE_REPAIR':
+            case 'BREAK_FIX':
+            case 'BREAK_FIX_ONSITE_REPAIR' :
+            case 'BREAK_FIX_EXCHANGE':
+            case 'BREAK_FIX_OPTION_EXCHANGE':
+            case 'BREAK_FIX_REPLACEMENT':
+            case 'BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL':
+            case 'BREAK_FIX_CONSUMABLE_PART_INSTALL':
+            case 'BREAK_FIX_ONSITE_EXCHANGE':
+            case 'BREAK_FIX_OTHER':
             addDeviceInformation();
             $scope.configure.device.service ={
                     translate:{
