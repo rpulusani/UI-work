@@ -18,5 +18,14 @@
       <div class="progress-bar__fill progress-bar__fill--is-animated progress-green" style="width: 100%"></div>
     </div>
   </div>
+  <div ng-repeat="file in files_complete">  
+  	<div class="card" data-card="">
+		<div class="card__content">
+			<div class="card__title">{{file.filename}}</div>
+			<div class="card__author">Attachment {{$index+1}} of {{files_complete.length}}</div>
+			<a class="card__action">Remove Attachment</a>
+		</div>
+	</div>
+  </div>
   <div error-msg ng-if="error"></div>
 </div>
