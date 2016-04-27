@@ -3,6 +3,8 @@ angular.module('mps.utility')
     function($scope, element, attrs, $translate, uiGridExporterConstants) {
         // consider attacking this to rootscope
         var createCsv = function(dataObj) {
+            console.log('here', dataObj);
+
             var filename = 'download.csv',
             csvFile,
             blob,
@@ -19,14 +21,24 @@ angular.module('mps.utility')
 
             if (dataObj.headers) {
                 headers = dataObj.headers;
-            }
-
-            for (prop in dataObj) {
-                if (dataObj[prop]) {
-                    rows.push(dataObj[prop]);
+            } else if (!dataObj.headers && dataObj.data) {
+                for (prop in dataObj.data) {
+                    headers.push(prop)
                 }
             }
-            
+
+            if (dataObj.rows) {
+                rows = dataObj.rows;
+            } else if (!dataObj.rows && dataObj.data) {
+                for (prop in dataObj.data) {
+                    rows.push(dataObj[prop]);
+                }
+            } 
+
+            if (filename.indexOf('.csv') === -1) {
+                filename += '.csv';
+            }
+
             csvFile = headers.toString();
             csvFile += '\r\n';
 
@@ -37,6 +49,8 @@ angular.module('mps.utility')
                     csvFile += '"' + rows[i] + '"';
                 }
             }
+
+            console.log(csvFile);
 
             blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
             
@@ -129,8 +143,10 @@ angular.module('mps.utility')
                     api.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             } else {
+                console.log('setting this up');
+
                 $scope.exportGrid = function() {
-                    createCsv(scope.csvExport);
+                    createCsv($scope.csvExport);
                 };
             }
         });
