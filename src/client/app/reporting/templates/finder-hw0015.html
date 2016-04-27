@@ -1,13 +1,20 @@
 <form name="newReport" method="post" enctype="multipart/form-data" novalidate>
     <div class="row">
         <div class="col-1-3">
-            <div class="row row--alley-thick">
+             <div class="row row--alley-thick">
                 <div class="col-1-2">
                     <div class="form__field">
-                        <label translate="REPORTING.ACTIVITY_UPDATE_DATE"></label>
+                        <label translate="REPORTING.DATE_FROM"></label>
                         <input type="text" ng-model="finder.dateFrom" date-val="finder.dateFrom" datepicker />
                     </div>
                  </div>
+
+                <div class="col-1-2">
+                     <div class="form__field">
+                        <label translate="REPORTING.DATE_TO"></label>
+                        <input type="text" ng-model="finder.dateTo" date-val="finder.dateTo" datepicker />
+                    </div>
+               </div>
             </div>
 
             <div class="row">
