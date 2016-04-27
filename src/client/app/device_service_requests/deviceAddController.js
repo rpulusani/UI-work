@@ -39,7 +39,7 @@ angular.module('mps.serviceRequestDevices')
         $timeout,
         tombstoneWaitTimeout,
         SecurityHelper) {
-		$rootScope.newDevice=undefined;
+		$rootScope.newDevice = undefined;
         $scope.isLoading = false;
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Devices, $scope, $rootScope);
