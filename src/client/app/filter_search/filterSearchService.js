@@ -1,7 +1,7 @@
 
 angular.module('mps.filterSearch')
-.factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams', '$q',
-    function(GridService, HATEOASFactory, $routeParams, $q) {
+.factory('FilterSearchService', ['grid', 'HATEOASFactory', '$routeParams', '$q', '$timeout',
+    function(GridService, HATEOASFactory, $routeParams, $q, $timeout) {
         var localScope = {},
         service,
         display,
@@ -33,6 +33,14 @@ angular.module('mps.filterSearch')
             self.localScope.gridLoading = true;
             self.columnSet = columnSet;
             self.personalization = personalization;
+
+            function setVisibilityPromise(){
+                var visibleDefered = $q.defer();
+                self.localScope.visibleColumns = visibleDefered.promise;
+                $timeout(function(){
+                    visibleDefered.resolve(self.Grid.getVisibleColumns(self.service));
+                }, 500);
+            }
             self.display = function(fn) {
                 if(self.columnSet){
                     self.service.columns = self.columnSet;
@@ -47,7 +55,7 @@ angular.module('mps.filterSearch')
                 }
                 var deferred = this.beforeFunction();
                 deferred.then(function(){
-                    self.localScope.visibleColumns =  self.Grid.getVisibleColumns(self.service); //sets initial columns visibility
+                    setVisibilityPromise();
                     self.localScope.$broadcast('setUpSearchCss');
                     if (rowHeight) {
                         self.Grid.display(self.service, self.localScope, self.personalization, rowHeight, function() {
@@ -94,7 +102,7 @@ angular.module('mps.filterSearch')
 
             this.localScope.optionParams = {};
             this.localScope.filterOptions = [];
-            this.localScope.visibleColumns =  self.Grid.getVisibleColumns(this.service); //sets initial columns visibility
+            setVisibilityPromise();
             if(OptionName){
                 self.Grid.setGridOptionsName(OptionName);
             }
