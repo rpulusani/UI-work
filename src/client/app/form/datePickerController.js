@@ -64,9 +64,10 @@ angular.module('mps.form')
                 attrs.max = ctrlScope.max;
             }
             //This is to check whether max and min is same. As if its equal Rome will throw error. Hence using afterEq as max.
+            attrs.min=formatter.formatDateForRome(attrs.min);
             if((ctrlScope.min && ctrlScope.max) || (attrs.min && attrs.max)){
                 var max=new Date(attrs.max);
-                var min=new Date(formatter.formatDateForRome(attrs.min));
+                var min=new Date(attrs.min);
                 if(max.getFullYear() === min.getFullYear() && max.getMonth() === min.getMonth() && max.getDate() === min.getDate()){
                 	attrs.dateValidator = rome.val.afterEq(attrs.max);
                 	delete attrs.min;
