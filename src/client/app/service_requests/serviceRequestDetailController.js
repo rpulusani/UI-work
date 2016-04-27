@@ -84,7 +84,10 @@ angular.module('mps.serviceRequests')
                     fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                 },
                 show:{
-                    referenceId: true
+                    referenceId: true,
+                    costCenter: true,
+                    comments : true,
+                    attachements : true
                 }
             },
             attachments:{
@@ -433,6 +436,14 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
             break;
             case 'BREAK_FIX':
+            case 'BREAK_FIX_ONSITE_REPAIR' :
+            case 'BREAK_FIX_EXCHANGE':
+            case 'BREAK_FIX_OPTION_EXCHANGE':
+            case 'BREAK_FIX_REPLACEMENT':
+            case 'BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL':
+            case 'BREAK_FIX_CONSUMABLE_PART_INSTALL':
+            case 'BREAK_FIX_ONSITE_EXCHANGE':
+            case 'BREAK_FIX_OTHER':
             addDeviceInformation();
             $scope.configure.device.service ={
                     translate:{
