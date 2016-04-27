@@ -4,7 +4,7 @@ angular.module('mps.filterSearch')
     function($scope, $routeParams, $route, $location) {
         var paramsList = ['search', 'searchOn'],
         searchParams = $location.search();
-        
+
         $scope.showSearchMessage = false;
         $scope.searchBy = undefined;
         $scope.searchByValue = searchParams.search;
@@ -16,8 +16,12 @@ angular.module('mps.filterSearch')
 
         $scope.$watch('total', function(total) {
             if (total) {
-                $scope.totalItems = total.totalItems()
+                $scope.totalItems = total.totalItems();
             }
+        });
+
+        $scope.columns.then(function(data){
+            $scope.columnSet = data;
         });
 
         $scope.gridSearch = function(){
