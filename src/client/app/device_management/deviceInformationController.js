@@ -154,7 +154,7 @@ angular.module('mps.deviceManagement')
         };
 
         $scope.goToIpControl = function(){
-             $window.open($scope.ipLink);
+            $window.open($scope.ipLink);
         };
 
         $scope.configure = {
