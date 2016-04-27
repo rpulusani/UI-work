@@ -435,6 +435,9 @@ angular.module('mps.serviceRequests')
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
             break;
+            case 'DATA_ASSET_REGISTER':
+                addDeviceInformation();                
+            break;
             case 'BREAK_FIX':
             case 'BREAK_FIX_ONSITE_REPAIR' :
             case 'BREAK_FIX_EXCHANGE':

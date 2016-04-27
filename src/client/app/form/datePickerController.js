@@ -1,6 +1,6 @@
 angular.module('mps.form')
-.controller('DatePickerController', ['$scope', '$element', '$attrs',
-    function(scope, element, attrs) {
+.controller('DatePickerController', ['$scope', '$element', '$attrs','FormatterService',
+    function(scope, element, attrs,formatter) {
         var node = element[0],
         calendar,
         rome = require('rome'),
@@ -63,7 +63,16 @@ angular.module('mps.form')
             if (ctrlScope.max && !attrs.max) {
                 attrs.max = ctrlScope.max;
             }
-
+            //This is to check whether max and min is same. As if its equal Rome will throw error. Hence using afterEq as max.
+            if((ctrlScope.min && ctrlScope.max) || (attrs.min && attrs.max)){
+                var max=new Date(attrs.max);
+                var min=new Date(formatter.formatDateForRome(attrs.min));
+                if(max.getFullYear() === min.getFullYear() && max.getMonth() === min.getMonth() && max.getDate() === min.getDate()){
+                	attrs.dateValidator = rome.val.afterEq(attrs.max);
+                	delete attrs.min;
+                }
+            }
+            
             calendar.options(attrs);
 
             setupCalendar(calendar);
