@@ -198,6 +198,7 @@ angular.module('mps.serviceRequestAddresses')
             }
 
         };
+
         if (Addresses.item === null) {
             $scope.redirectToList();
         } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Addresses.item.id){        	

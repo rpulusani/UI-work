@@ -34,7 +34,7 @@
 <div ng-show="!needToVerify">
     <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
     
-    <div country="address.country" code="address.countryIsoCode" state="address.state" country-select></div>
+    <div country="address.country" code="address.countryIsoCode" state="address.stateFullName" country-select></div>
 
     <div class="form__field form__field--required">
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_1"></label>
@@ -53,7 +53,7 @@
         <input name="houseNumber" type="text" ng-model="address.houseNumber" ng-required="address.countryIsoCode.toLowerCase() === 'br'" />
     </div>
 
-    <div state-code="address.state" state-select></div>
+    <div state-code="address.stateFullName" state-select></div>
 
     <div ng-hide="address.country.toLowerCase() === 'brazil'" class="row">
         <div class="col-md-1-3">

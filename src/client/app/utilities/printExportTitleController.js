@@ -3,8 +3,6 @@ angular.module('mps.utility')
     function($scope, element, attrs, $translate, uiGridExporterConstants) {
         // consider attacking this to rootscope
         var createCsv = function(dataObj) {
-            console.log('here', dataObj);
-
             var filename = 'download.csv',
             csvFile,
             blob,
@@ -49,8 +47,6 @@ angular.module('mps.utility')
                     csvFile += '"' + rows[i] + '"';
                 }
             }
-
-            console.log(csvFile);
 
             blob = new Blob([csvFile], {type: 'text/csv;charset=utf-8;'});
             
@@ -143,8 +139,6 @@ angular.module('mps.utility')
                     api.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
                 };
             } else {
-                console.log('setting this up');
-
                 $scope.exportGrid = function() {
                     createCsv($scope.csvExport);
                 };

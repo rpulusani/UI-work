@@ -49,10 +49,8 @@ angular.module('mps.deviceManagement')
         var generateCsvRows = function() {
             var rows = [];
 
-            console.log($scope.device);
-
             if ($scope.device.productModel) {
-                rows.push($scope.device.productMode);
+                rows.push($scope.device.productModel);
             }
            
             if ($scope.device.serialNumber) {
@@ -101,12 +99,12 @@ angular.module('mps.deviceManagement')
                     rows.push($scope.device.contact.item.address.addressLine1);
                 }
             }
-            
+
             return rows;
         },
         setCsvDefinition = function() {
             $scope.csvModel = {
-                filename: 'Hello World',
+                filename: $scope.device.productModel,
                 data: $scope.device,
                 headers: [
                     $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'),
@@ -423,8 +421,5 @@ angular.module('mps.deviceManagement')
             setCsvDefinition();
             $scope.$broadcast('setupPrintAndExport', $scope);
         }
-
-        // outline our CSV definition with the object outlined in $scope.device
-        console.log($scope.device);
     }
 ]);
