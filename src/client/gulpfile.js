@@ -134,7 +134,7 @@ gulp.task('dev', ['default'], function(){
         .pipe(webserver({
             port: 8080,
             open: true,
-            //livereload: true,
+            livereload: true,
             fallback: '/index.html'
         }));
 });
