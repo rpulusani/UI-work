@@ -139,7 +139,11 @@ angular.module('mps.serviceRequests')
                     translate:{
                             title:'REQUEST_MAN.COMMON.TXT_REQUESTED_UPDATES',
                             move: 'REQUEST_MAN.COMMON.TXT_INSTALL_LXK_TO_MOVE',
-                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                            serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                            partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                            product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
+                            ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
                     }
                 }
             };
