@@ -1,0 +1,83 @@
+<div class="page-content">
+<form class="form" ng-submit="saveAddress()" data-form="" name="selectAddressForm" novalidate>
+<div class="form__field form__field--required" ng-class="(!selectAddressForm.name.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+    <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME"></label>
+    <input name="name" type="text" ng-model="selectedAddress.name" value="" class="" required />
+</div>
+<div class="form__field vertical-space--thick">
+    <label class="question text--large" translate="ADDRESS_MAN.COMMON.TXT_STOREFRONT_ADDRESS_QUERY"></label>
+     <div class="form__field">
+        <input type="radio" id="store-front-question-no" name="store-front-question"
+        ng-model="selectedAddress.storeFrontQuestion" ng-value="false"  />
+        <label for="store-front-question-no"><span></span>
+            {{'ADDRESS_MAN.COMMON.RAD_NO' | translate }}</label>
+    </div>
+     <div class="form__field form__field--no-margin">
+        <input type="radio" id="store-front-question-yes" name="store-front-question"
+        ng-model="selectedAddress.storeFrontQuestion" ng-value="true" /><label
+        for="store-front-question-yes"><span></span>
+        {{ 'ADDRESS_MAN.COMMON.RAD_YES' | translate }}</span></label>
+    </div>
+</div>
+<div ng-show="selectedAddress.storeFrontQuestion === true" class="well">
+    <div class="form__field" >
+        <label translate="ADDRESS.STORE_NAME"></label>
+        <input name="storeFrontName" type="text" ng-model="selectedAddress.storeFrontName" value="" class="" />
+    </div>
+    <div class="form__field ">
+        <input id ="sameAddress" name="sameAddress" type="checkbox" ng-model="storeFrontNameCheck"
+         value="true" ng-click="setStoreFrontName()"/> <label for="sameAddress"><span></span>
+    {{'ADDRESS_SERVICE_REQUEST.SAME_ADDRESS_QUESTION' | translate }}</label>
+    </div>
+</div>
+<div ng-show="!needToVerify">
+    <div country="selectedAddress.country" code="selectedAddress.countryIsoCode" state="selectedAddress.state" country-select></div>
+    <div class="form__field form__field--required" ng-class="(!selectAddressForm.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+        <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_1"></label>
+        <input name="addressLine1" type="text" ng-model="selectedAddress.addressLine1" required/>
+        <span ng-hide="!selectAddressForm.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+            <i class="icon icon--ui icon--error-small"></i>
+            <span translate="LABEL.ERROR_REQUIRED"></span>
+        </span>
+    </div>
+    <div class="form__field">
+        <label translate="CONTACT_MAN.COMMON.TXT_ADDRESS_2"></label>
+        <input name="addressLine2" type="text" ng-model="selectedAddress.addressLine2" />
+    </div>
+    <div class="form__field form__field--required" ng-class="(!selectAddressForm.city.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+        <label translate="CONTACT_MAN.COMMON.TXT_CITY"></label>
+        <input name="city" type="text" ng-model="selectedAddress.city" required />
+        <span ng-hide="!selectAddressForm.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
+            <i class="icon icon--ui icon--error-small"></i>
+            <span translate="LABEL.ERROR_REQUIRED"></span>
+        </span>
+    </div>
+    <div ng-show="selectedAddress.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
+        <label translate="ADDRESS.HOUSE_NUMBER"></label>
+        <input name="houseNumber" type="text" ng-model="selectedAddress.houseNumber" 
+            ng-required="selectedAddress.country.toLowerCase() === 'brazil'" />
+    </div>
+    <div state-code="selectedAddress.state" state-select></div>
+   
+    <div ng-show="selectedAddress.country.toLowerCase() !== 'brazil'" class="row">
+        <div class="col-md-1-3">
+            <div class="form__field form__field--required" ng-class="(!selectAddressForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+                <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
+                <input type="text" name="postalCode" ng-model="selectedAddress.postalCode" value="" class="" 
+                    ng-required="selectedAddress.country.toLowerCase() !== 'brazil'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="needToVerify">
+    <address-bod></address-bod>
+</div>
+
+<div class="col-2-3"></div>
+<div class="col-1">
+    <button class="btn btn--secondary" translate="{{configure.actions.translate.abandonRequest}}" ng-click="discardSelect()"></button>
+    <button class="btn btn--primary" translate="{{configure.actions.translate.submit}}" type="submit"></button>
+</div>
+</form>
+</div>
