@@ -9,7 +9,6 @@ angular.module('mps.orders')
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
                           'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -27,7 +26,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true, visible: false}
                     ],
                     suppliesSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                        
                         {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
                             'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -61,7 +60,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '_embedded.sourceAddress.postalCode', visible: false}
                     ],
                     hardwareSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                       
                         {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
                             'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -91,7 +90,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': '_embedded.sourceAddress.postalCode', visible: false}
                     ],
                     singleAssetOrderSet:[
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                        
                         {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
                             'cellTemplate':'<div>' +
@@ -103,7 +102,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'}
                     ],
                     suppliesCatalogSet:[
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
+                        
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
                             'field':''},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),

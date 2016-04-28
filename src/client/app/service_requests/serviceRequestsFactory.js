@@ -9,7 +9,6 @@ angular.module('mps.serviceRequests')
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                          'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -25,7 +24,6 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter',visible: false}
                     ],
                     madcSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                          'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -41,7 +39,6 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
                     ],
                     madcSetSR: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -82,7 +79,6 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 'field': '_embedded.sourceAddress.postalCode', visible: false}
                     ],
                     breakfixSRSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -122,7 +118,6 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 'field': '_embedded.sourceAddress.postalCode', visible: false}
                     ],
                     breakfixSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                          'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -139,7 +134,6 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CUST_REF_ID'), 'field':'customerReferenceId', visible: false},
                     ],
                     addressSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
@@ -154,7 +148,6 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
                     ],
                      contactSet: [
-                        {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
