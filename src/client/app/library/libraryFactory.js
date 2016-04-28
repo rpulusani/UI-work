@@ -7,7 +7,7 @@ angular.module('mps.library')
             serviceName: 'documents',
             embeddedName: 'documents',
             columns: 'default',
-            springSorting:  true,
+            springSorting: true,
             columnDefs: {
                 defaultSet: [
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
@@ -48,15 +48,15 @@ angular.module('mps.library')
                 ]
             },
             route: '/library',
-                getTranslationKeyFromTag: function(tag) {
-                    var parsedTagName = tag.replace(/[^a-zA-Z0-9]+/g, '_').toUpperCase();
-                    parsedTagName = 'TAG_' + parsedTagName;
-                    return parsedTagName;
-                },
-                getTranslationValueFromTag: function(tag) {
-                    var localized = $translate.instant('DOCUMENT.TAG.' + Documents.getTranslationKeyFromTag(tag));
-                    return localized;
-                },
+            getTranslationKeyFromTag: function(tag) {
+                var parsedTagName = tag.replace(/[^a-zA-Z0-9]+/g, '_').toUpperCase();
+                parsedTagName = 'TAG_' + parsedTagName;
+                return parsedTagName;
+            },
+            getTranslationValueFromTag: function(tag) {
+                var localized = $translate.instant('DOCUMENT.TAG.' + Documents.getTranslationKeyFromTag(tag));
+                return localized;
+            },
             functionArray: [
                 {
                     name: 'getFileSize',
