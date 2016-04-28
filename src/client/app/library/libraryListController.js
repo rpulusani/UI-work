@@ -18,6 +18,8 @@ angular.module('mps.library')
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }, 500);
+                
+                $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
         filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTERS', 'LibraryFilter', undefined,
