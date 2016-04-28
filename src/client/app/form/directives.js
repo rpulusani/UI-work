@@ -331,8 +331,7 @@ angular.module('mps.form')
         $.each(options, function(_index, item) {
           if (item[label]) {
             var option = $('<option></option>').attr('value', item[value]).text(item[label]);
-
-            if (model === item[label]) {
+            if (model === item[value]) {
               option.attr('selected', 'selected');
               selectedVal = item[value];
             }
