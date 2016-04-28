@@ -43,7 +43,7 @@ angular.module('mps.serviceRequestAddresses')
         $scope.isLoading = false;
         $scope.bodsError = false;
         $scope.bodsErrorKey = '';
-
+        $rootScope.newAddress=undefined;
         SRHelper.addMethods(Addresses, $scope, $rootScope);
         $scope.setTransactionAccount('AddressAdd', ServiceRequest);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
