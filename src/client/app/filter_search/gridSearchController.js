@@ -4,7 +4,7 @@ angular.module('mps.filterSearch')
     function($scope, $routeParams, $route, $location) {
         var paramsList = ['search', 'searchOn'],
         searchParams = $location.search();
-        
+        $scope.column = searchParams.searchOn;
         $scope.showSearchMessage = false;
         $scope.searchBy = undefined;
         $scope.searchByValue = searchParams.search;
