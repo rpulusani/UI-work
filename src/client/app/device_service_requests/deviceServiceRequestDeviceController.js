@@ -376,7 +376,7 @@ angular.module('mps.serviceRequestDevices')
                             currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
-                    sourceAddress: $scope.device.installedAddress,
+                    sourceAddress: $scope.device.installAddress,
                     showNewAddressTab: true
                 },
                 devicePicker: {
