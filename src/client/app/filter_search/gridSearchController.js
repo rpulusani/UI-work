@@ -1,7 +1,7 @@
 
 angular.module('mps.filterSearch')
-.controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location',
-    function($scope, $routeParams, $route, $location) {
+.controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location','$window',
+    function($scope, $routeParams, $route, $location,$window) {
         var paramsList = ['search', 'searchOn'],
         searchParams = $location.search();
         $scope.column = searchParams.searchOn;
@@ -37,7 +37,7 @@ angular.module('mps.filterSearch')
             }
 
             if($scope.searchBy && typeof $scope.search === 'function' && $scope.searchByValue){
-                $scope.params['search'] = $scope.searchByValue;
+            	$scope.params['search'] = $window.encodeURIComponent($scope.searchByValue);
                 $scope.params['searchOn'] = $scope.searchBy;
                 $scope.showSearchMessage = true;
 
