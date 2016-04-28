@@ -191,10 +191,11 @@ angular.module('mps.utility')
         };
 
         function setupGrid(){
-            var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal);
+            var filterSearchService = new FilterSearchService(Addresses, $scope, $rootScope, personal),
+            removeParamsList = ['location', 'search', 'searchOn'];
             $scope.gridOptions.showBookmarkColumn = false;
             $scope.gridOptions.multiSelect = false;
-            filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, undefined);
+            filterSearchService.addBasicFilter('ADDRESS.ALL', {'addressType': 'ACCOUNT'}, removeParamsList);
         }
 
         setupGrid();

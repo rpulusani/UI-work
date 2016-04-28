@@ -82,6 +82,7 @@ angular.module('mps.tree')
                 } else {
                     var deferred = $q.defer(),
                     siebelAccount = $rootScope.currentAccount;
+                    siebelAccount.level = $rootScope.currentAccount.accountLevel;
                     siebelAccount._links = {self: {}};
                     siebelAccount._links.self.href = siebelAccount.href;
                     var siebelPromise = setChlChildren(siebelAccount, deferred);
