@@ -25,8 +25,8 @@ angular.module('mps.filterSearch')
         });
 
         $scope.gridSearch = function(){
-            if($scope.searchBy === undefined && $scope.columns && $scope.columns.length > 0){
-                $scope.searchByColumn($scope.columns[0]);
+            if($scope.searchBy === undefined && $scope.columnSet && $scope.columnSet.length > 0){
+                $scope.searchByColumn($scope.columnSet[0]);
             }
             searchParams = $location.search();
 
