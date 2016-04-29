@@ -414,9 +414,14 @@ angular.module('mps.orders')
                                 action:'ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_CHANGE'
                             },
                             actionLink: function(){
-                                $location.search('tab', 'orderTab');
-                                $location.search('orderState', 'manageCurrentOrder');
-                                $location.path(Devices.route +'/' + Devices.item.id +'/review');
+                            	if($scope.type === "HARDWARE"){
+                            		 $location.path(Orders.route + '/catalog/hardware/cart');
+                            	}else{
+                            		$location.search('tab', 'orderTab');
+                                    $location.search('orderState', 'manageCurrentOrder');
+                                    $location.path(Devices.route +'/' + Devices.item.id +'/review');
+                            	}
+                                
                             },
                         },
                         po:{

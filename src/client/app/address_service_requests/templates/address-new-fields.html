@@ -1,8 +1,12 @@
-<div class="form__field form__field--required vertical-space--thick" ng-class="(!newAddress.name.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+newAddress.name.$valid={{newAddress.addressName.$valid}}
+validForm= {{validForm}}
+newAddress.postalCode.$valid={{newAddress.postalCode.$valid}}
+newAddress.addressLine1.$valid={{newAddress.addressLine1.$valid}}
+<div class="form__field form__field--required vertical-space--thick" ng-class="(!newAddress.addressName.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <input name="id" type="hidden" ng-model="address.id"/>
     <input name="accountId" type="hidden" ng-model="address.accountId"/>
     <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME"></label>
-    <input name="name" type="text" ng-model="address.name" value="" class="" required />
+    <input name="addressName" type="text" ng-model="address.name" required />
 </div>
 <div class="form__field vertical-space--thick">
     <label class="question text--large" translate="ADDRESS_MAN.COMMON.TXT_STOREFRONT_ADDRESS_QUERY"></label>
@@ -32,8 +36,9 @@
 </div>
 <div ng-show="!needToVerify">
     <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
-    
-    <div country="address.country" code="address.countryIsoCode" state="address.state" country-select></div>
+    newContactForm.country.$valid={{newAddress.country.$valid}} 
+newContactForm.$submitted= {{newAddress.$submitted}} 
+    <div country="address.country" code="address.countryIsoCode" state="address.state" country-select form="newAddress"></div>
    
     <div class="form__field form__field--required" ng-class="(!newAddress.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_1"></label>
