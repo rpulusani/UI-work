@@ -20,21 +20,13 @@ return {
             }
 
             $scope.change = function(files) {            	
-             	if ($scope.files_complete.length<=$scope.configure.attachments.maxItems-1){
-	            	 $scope.files = files;
-	                 $scope.error = false;
-	                 for(var i = 0; i < $scope.files.length; i++) {
-	                        $scope.upload($scope.files[i]);
-	                 }
-	              }else{
-    	        	  $scope.error = true;
-        	    	  $scope.errorMessage = $translate.instant($scope.configure.detail.translate.validationMessage,
-            			  {count:$scope.configure.attachments.maxItems});
-            	  }
-             $scope.$apply();
-             
-              
-            };
+             	$scope.files = files;
+	            $scope.error = false;
+	            for(var i = 0; i < $scope.files.length; i++) {
+	                   $scope.upload($scope.files[i]);
+	            }
+	            $scope.$apply();
+	        };
 
             // TODO - this belongs in a service
             $scope.upload = function(file) {
@@ -62,7 +54,8 @@ return {
                 if($scope.files[i].name === response.data.filename) {
                   $scope.files[i].complete = true;
                 }
-              }
+              }             
+              
             };
 
             $scope.uploadError = function(response) {
