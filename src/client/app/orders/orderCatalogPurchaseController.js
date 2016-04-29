@@ -91,7 +91,7 @@ angular.module('mps.orders')
                     $scope.sr.destinationAddressPhysicalLocation = {};
                 }
                 Orders.addField('paymentMethod','Purchase Order');
-                if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart){
+                if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart && Orders.tempSpace.catalogCart.agreement){
                     Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
                     Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
                 }
@@ -452,6 +452,7 @@ angular.module('mps.orders')
                             comments: 'ORDER_MAN.COMMON.TXT_ORDER_COMMENTS',
                             attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
                             attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
+                            validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                             fileList: ''
                         },
                         show:{
@@ -492,6 +493,9 @@ angular.module('mps.orders')
                         },
                         pickerObject: Orders.item,
                         source: 'OrderCatalogPurchase'
+                    },
+                    attachments:{
+                        maxItems:2
                     }
                 };
         }

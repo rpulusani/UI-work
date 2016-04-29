@@ -33,9 +33,8 @@
     </div>
 
     <div class="row">
-        <div class="col-2-3">
-            <h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-                translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT" translate-values="{ total: pagination.totalItems() }"></h2>
+        <div class="col-1">
+            <div print-export-title titlestring="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_ALL_DOCS_CNT"></div>
             <hr />
         </div>
     </div>
@@ -57,7 +56,7 @@
 
         <div ng-if="gridLoading === false && gridDataCnt > 0">
             <div ui-grid="gridOptions" class="table"
-                ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+                ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ui-grid-exporter>
             </div>
 
             <div pagination grid="{{gridOptions}}"></div>

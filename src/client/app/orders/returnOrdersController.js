@@ -217,6 +217,7 @@ angular.module('mps.orders')
                             comments: 'ORDER_MAN.COMMON.TXT_ORDER_COMMENTS',
                             attachments: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACHMENTS_SIZE',
                             attachmentMessage: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_ATTACH_FILE_FORMATS',
+                            validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                             fileList: ''
                         },
                         show:{
@@ -250,6 +251,9 @@ angular.module('mps.orders')
                             contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                         },
                         returnPath: Orders.route + '/' +  '/review'
+                    },
+                    attachments:{
+                        maxItems:2
                     }
                 };
             }

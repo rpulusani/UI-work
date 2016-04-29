@@ -84,9 +84,12 @@ angular.module('mps.utility')
         scope: {
             titlestring: '@',
             titleValues: '@',
-            print: '=',
-            export: '=',
-            nativePrint: '@'
+            print: '=?',
+            export: '=?',
+            nativePrint: '@',
+            // csv model must be defined to create a csv
+            csvExport: '=?',
+            pdfExport: '=?'
         },
         template: '<div class="col-3-4" ng-cloak>' +
             '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && titlestring" translate="{{ titlestring }}" translate-values="{{titleValues}}"></h2>' +
@@ -100,8 +103,7 @@ angular.module('mps.utility')
             '</span>' +
             '<span ng-if="displayExport" class="">' +
                 '<i class="icon icon--mps icon--download"></i>' +
-                '<a ng-show="!nativePrint" translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
-                '<a ng-show="nativePrint" translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
+                '<a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
             '</span>' +
         '</div>',
         controller: 'PrintExportTitleController'
@@ -257,4 +259,13 @@ angular.module('mps.utility')
         templateUrl: '/app/utilities/templates/pagination.html',
         link: link
     };
-}]);
+}])
+.directive('errorMsg',function(){
+	 return {
+	        restrict: 'A',
+	        template: 	'<div ng-if="errorMessage" class="alert alert--error" data-js="alert">'+
+	        			'<span class="alert__close" data-js="alert-close" aria-hidden="true"></span>'+
+	        			'<icon class="alert__icon icon icon--small icon--ui icon--error"></icon>'+
+	        			'<div class="alert__body"><span>{{errorMessage}}</span></div></div>'
+	    };
+});

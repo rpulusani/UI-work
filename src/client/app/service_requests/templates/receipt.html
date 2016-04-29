@@ -3,7 +3,7 @@
     <div class="col-1">
         <div print-export-title titlestring="{{configure.receipt.translate.title}}"
             title-values="{{configure.receipt.translate.titleValues}}"
-            print="configure.receipt.print" native-print="true"></div>
+            print="configure.receipt.print" native-print="true" csv-export="csvModel"></div>
     </div>
 
 <hr class="vertical-margin-bottom-48"/>
@@ -33,7 +33,6 @@
                 </li>
                 <li class="info-list__item" ng-show="configure.detail.show.attachements">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.attachments}}"></div>
-                    <div class="info-list__item-value" ng-bind="formattedAttachments"></div>
                     <div ng-repeat="file in sr.attachments">
                       <div>{{file.filename}}</div>
                     </div>
@@ -57,8 +56,8 @@
     <!-- additional request Details go here -->
     <div ng-if="configure && configure.order">
         <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems"
-    </div>
     hide-submit="hideSubmitButton" configure="configure"></div>
+    </div>
     <div order-receipt></div>
     <div order-return-details></div>
     <div sr-device-information></div>

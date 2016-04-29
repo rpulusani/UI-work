@@ -1,6 +1,6 @@
 angular.module('mps.library')
 .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
-    function($scope, $location, $translate, $route, $http, Documents, Grid, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
+    function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
 
@@ -18,6 +18,8 @@ angular.module('mps.library')
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);
                 }, 500);
+                
+                $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
         filterSearchService.addPanelFilter('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTERS', 'LibraryFilter', undefined,

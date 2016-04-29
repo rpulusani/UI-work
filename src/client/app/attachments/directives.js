@@ -7,7 +7,8 @@ return {
     controller:  [ '$scope',
           '$http',
           '$log',
-          function($scope, $http, $log){
+          '$translate',
+          function($scope, $http, $log, $translate){
             $scope.files = [];
             $scope.files_complete = [];
             $scope.files_error = [];
@@ -18,14 +19,14 @@ return {
               }
             }
 
-            $scope.change = function(files) {
-              $scope.files = files;
-              $log.debug('change', $scope.files);
-              $scope.$apply();
-              for(var i = 0; i < $scope.files.length; i++) {
-                $scope.upload($scope.files[i]);
-              }
-            };
+            $scope.change = function(files) {            	
+             	$scope.files = files;
+	            $scope.error = false;
+	            for(var i = 0; i < $scope.files.length; i++) {
+	                   $scope.upload($scope.files[i]);
+	            }
+	            $scope.$apply();
+	        };
 
             // TODO - this belongs in a service
             $scope.upload = function(file) {
@@ -53,7 +54,8 @@ return {
                 if($scope.files[i].name === response.data.filename) {
                   $scope.files[i].complete = true;
                 }
-              }
+              }             
+              
             };
 
             $scope.uploadError = function(response) {

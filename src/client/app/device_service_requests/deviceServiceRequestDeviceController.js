@@ -337,6 +337,7 @@ angular.module('mps.serviceRequestDevices')
                             comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                             attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                             attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACH_FILE_FORMATS',
+                            validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{
@@ -375,7 +376,7 @@ angular.module('mps.serviceRequestDevices')
                             currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
                             replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
                     },
-                    sourceAddress: $scope.device.installedAddress,
+                    sourceAddress: $scope.device.installAddress,
                     showNewAddressTab: true
                 },
                 devicePicker: {
@@ -391,6 +392,9 @@ angular.module('mps.serviceRequestDevices')
                             submit: 'DEVICE_MGT.REQUEST_SERVICE_DEVICE'
                         }
                     }
+                },
+                attachments:{
+                    maxItems:2
                 }
             };
                 $scope.configure.breadcrumbs = {

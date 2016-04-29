@@ -43,7 +43,7 @@ angular.module('mps.serviceRequestAddresses')
         $scope.isLoading = false;
         $scope.bodsError = false;
         $scope.bodsErrorKey = '';
-
+        $rootScope.newAddress=undefined;
         SRHelper.addMethods(Addresses, $scope, $rootScope);
         $scope.setTransactionAccount('AddressAdd', ServiceRequest);
         new SecurityHelper($rootScope).redirectCheck($rootScope.addressAccess);
@@ -437,7 +437,7 @@ angular.module('mps.serviceRequestAddresses')
                 };
 
                 ServiceRequest.addField('sourceAddress', sourceAddress);
-                ServiceRequest.addRelationship('account', $scope.address.requestedByContact, 'account');
+                ServiceRequest.addAccountRelationship();
                 ServiceRequest.addField('attachments', $scope.files_complete);
             };
 

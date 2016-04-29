@@ -18,7 +18,6 @@
 </ul>
 
 <h2 class="vertical-space--none" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_INFO"></h2>
-<em><span translate="DEVICE_MAN.COMMON.TXT_LAST_UPDATED" translate-values="{lastUpdatedDate: '10/22/2015'}"></span></em>
 <hr class="vertical-space--thin" >
 <a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToUpdate(device);"
 translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO" ng-if="updateDeviceAccess"></a>
@@ -38,10 +37,12 @@ translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CTRL_UPDATE_DEVICE_INFO" ng-if="upd
     </li>
 </ul>
 <h3 class="text--n9 vertical-space--thin" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_NETWORK_CONFIG"></h3>
+<a href="" class="call-to-action call-to-action--after vertical-space--thick" ng-click="goToIpControl()"
+translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CONTROL_PANEL"></a>
 <ul class="info-list text--small">
     <li class="info-list__item">
         <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR"></div>
-        <a ng-click="goToIpControl()" href="#" class="call-to-action call-to-action--after" ng-bind="device.ipAddress"></a>
+        <div class="info-list__item-value" ng-bind="device.ipAddress"></a>
     </li>
     <li class="info-list__item">
         <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME"></div>

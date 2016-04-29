@@ -26,16 +26,63 @@ angular.module('mps.deviceManagement')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING'), 'field':'physicalLocation1', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR'), 'field':'physicalLocation2', visible: false},
-                    {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field':'_embedded.address.city', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 'field':'_embedded.address.state', visible: false},
-                    {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.address.storeFrontName', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 'field':'_embedded.address.postalCode', visible: false},
-                        {'name': $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'), 'field':'_embedded.contact.firstName', visible: false},
-                        {'name': $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'), 'field':'_embedded.contact.lastName', visible: false},
-                    {'name': $translate.instant('ADDRESS.DISTRICT'), 'field':'_embedded.address.district', visible: false},
-                    {'name': $translate.instant('ADDRESS.STATE_PROVINCE'), 'field':'_embedded.address.province', notSearchable: true, visible: false},
-                    {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field':'_embedded.address.houseNumber', visible: false}
+                        {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false},
+                        
+                        {
+                         'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 
+                         'field':'address.city',
+                    	  cellTemplate:'<div ng-bind="row.entity._embedded.address.city"></div>',
+                    	  visible: false
+                    	},
+                    	  
+                        {
+                    	 'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 
+                    	 'field':'address.state',
+                    	  cellTemplate:'<div ng-bind="row.entity._embedded.address.state"></div>',
+                    	  visible: false
+                    	},
+                    	{
+                    	 'name': $translate.instant('ADDRESS.STORE_NAME'), 
+                    	 'field':'address.storeFrontName',
+                    	  cellTemplate:'<div ng-bind="row.entity._embedded.address.storeFrontName"></div>',
+                    	  visible: false
+                    	},
+                        {
+                    	 'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'),
+                    	 'field':'address.postalCode',
+                    	  cellTemplate:'<div ng-bind="row.entity._embedded.address.postalCode"></div>',
+                    	  visible: false
+                    	},
+                        {
+                    	 'name': $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
+                    	 'field':'contact.firstName',
+                    	  cellTemplate:'<div ng-bind="row.entity._embedded.contact.firstName"></div>',
+                    	  visible: false
+                    	},
+                        {
+                    	 'name': $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'), 
+                    	 'field':'contact.lastName', 
+                    	  cellTemplate:'<div ng-bind="row.entity._embedded.contact.lastName"></div>',
+                    	  visible: false},
+                    	{
+                    	  'name': $translate.instant('ADDRESS.DISTRICT'), 
+                    	  'field':'address.district', 
+                    	   cellTemplate:'<div ng-bind="row.entity._embedded.address.district"></div>',
+                    	   visible: false
+                    	},
+                        {
+                    	  'name': $translate.instant('ADDRESS.STATE_PROVINCE'),
+                    	  'field':'address.province',
+                    	   cellTemplate:'<div ng-bind="row.entity._embedded.address.province"></div>',
+                    	   notSearchable: true, 
+                    	   visible: false
+                    	},
+                        {
+                    	  'name': $translate.instant('ADDRESS.HOUSE_NUMBER'),
+                    	  'field':'address.houseNumber',
+                    	   cellTemplate:'<div ng-bind="row.entity._embedded.address.houseNumber"></div>',
+                    	   visible: false
+                    	}
                 ]
             },
             route: '/device_management',

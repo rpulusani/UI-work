@@ -36,7 +36,19 @@ angular.module('mps.serviceRequests')
         statusBarLevelsShort = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
+        setCsvDefinition = function() {
+            $scope.csvModel = {
+                filename: $scope.sr.id + '.csv',
+                data: {
+                    id: $scope.sr.id,
+                    requestNumber: $scope.sr.requestNumber,
+                    description: $scope.sr.description,
+                    customerReferenceId: $scope.sr.customerReferenceId,
+                    created: $scope.sr.createDate
+                }
+            };
+        };
 
         $scope.hideSubmitButton = true;
 
@@ -47,13 +59,17 @@ angular.module('mps.serviceRequests')
         }
 
         $scope.sr = ServiceRequest.item;
+
         if(ServiceRequest && ServiceRequest.item &&
             ServiceRequest.item.asset ){
             $scope.device = ServiceRequest.item.asset.item;
 
+            setCsvDefinition();
         }else if(ServiceRequest && ServiceRequest.item &&
             ServiceRequest.item.assetInfo){
-           $scope.device =  ServiceRequest.item.assetInfo;
+            $scope.device =  ServiceRequest.item.assetInfo;
+            
+            setCsvDefinition();
         }
 
         $scope.configure = {
@@ -80,11 +96,18 @@ angular.module('mps.serviceRequests')
                         comments: 'REQUEST_MAN.COMMON.TXT_REQUEST_COMMENTS',
                         attachments: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS',
                         attachmentMessage: 'REQUEST_MAN.COMMON.TXT_REQUEST_ATTACHMENTS_SIZE',
+                        validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                     fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                 },
                 show:{
-                    referenceId: true
+                    referenceId: true,
+                    costCenter: true,
+                    comments : true,
+                    attachements : true
                 }
+            },
+            attachments:{
+                maxItems:2
             },
             statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort)
         };
@@ -132,7 +155,11 @@ angular.module('mps.serviceRequests')
                     translate:{
                             title:'REQUEST_MAN.COMMON.TXT_REQUESTED_UPDATES',
                             move: 'REQUEST_MAN.COMMON.TXT_INSTALL_LXK_TO_MOVE',
-                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                            serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
+                            partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
+                            product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
+                            ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
                     }
                 }
             };
@@ -366,20 +393,20 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
-                $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
+                $scope.formattedAddress = $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
 
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
-                $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
+                $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
             break;
             case 'DATA_ADDRESS_REMOVE':
                 addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
-                $scope.formattedAddress = "ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND";
+                $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
             break;
@@ -428,7 +455,18 @@ angular.module('mps.serviceRequests')
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
             break;
+            case 'DATA_ASSET_REGISTER':
+                addDeviceInformation();                
+            break;
             case 'BREAK_FIX':
+            case 'BREAK_FIX_ONSITE_REPAIR' :
+            case 'BREAK_FIX_EXCHANGE':
+            case 'BREAK_FIX_OPTION_EXCHANGE':
+            case 'BREAK_FIX_REPLACEMENT':
+            case 'BREAK_FIX_CONSUMABLE_SUPPLY_INSTALL':
+            case 'BREAK_FIX_CONSUMABLE_PART_INSTALL':
+            case 'BREAK_FIX_ONSITE_EXCHANGE':
+            case 'BREAK_FIX_OTHER':
             addDeviceInformation();
             $scope.configure.device.service ={
                     translate:{
@@ -489,7 +527,11 @@ angular.module('mps.serviceRequests')
     if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
             $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
     }
-
+    if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)
+    		&& !BlankCheck.isNull($scope.sr.sourceAddress.item.addressLine1) ) {
+    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
+        
+    }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
             $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
     }
@@ -531,4 +573,3 @@ angular.module('mps.serviceRequests')
         $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
     }
 }]);
-

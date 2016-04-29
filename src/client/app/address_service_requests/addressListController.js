@@ -60,7 +60,7 @@ function(
         }
     };
 
-    var removeParamsList = ['location'];
+    var removeParamsList = ['location', 'search', 'searchOn'];
     filterSearchService.addBasicFilter('All addresses', {'addressType': 'ACCOUNT'}, removeParamsList,
          function(Grid) {
             setTimeout(function() {

@@ -198,6 +198,7 @@ angular.module('mps.serviceRequestAddresses')
             }
 
         };
+
         if (Addresses.item === null) {
             $scope.redirectToList();
         } else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === Addresses.item.id){        	
@@ -378,9 +379,9 @@ angular.module('mps.serviceRequestAddresses')
                     },
                     show: {
                         referenceId: true,
-                        costCenter: true,
-                        comments: true,
-                        attachements: true
+                        costCenter: false,
+                        comments: false,
+                        attachements: false
                     }
                 },
                 actions: {

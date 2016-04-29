@@ -257,13 +257,14 @@ angular.module('mps.serviceRequestAddresses')
                         comments: 'LABEL.COMMENTS',
                         attachments: 'LABEL.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
+                        validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },
                     show:{
                         referenceId: true,
-                        costCenter: true,
-                        comments: true,
-                        attachements: true
+                        costCenter: false,
+                        comments: false,
+                        attachements: false
                     }
                 },
                 actions:{
@@ -290,6 +291,9 @@ angular.module('mps.serviceRequestAddresses')
                         contactSelectText: 'CONTACT.SELECTED_CONTACT_IS',
                     },
                     returnPath: Addresses.route + '/delete/' + $scope.address.id + '/review'
+                },
+                attachments:{
+                    maxItems:2
                 }
             };
         }

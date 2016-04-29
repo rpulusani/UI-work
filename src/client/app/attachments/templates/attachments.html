@@ -2,7 +2,7 @@
     <label translate="{{configure.detail.translate.attachments}}"></label>
     <div >
     <input ng-model="attachment" name="attachments" type="file" multiple="multiple"
-      onchange="angular.element(this).scope().change(this.files)"/>
+      onchange="angular.element(this).scope().change(this.files)" ng-disabled="files_complete.length === configure.attachments.maxItems"/>
    <div ng-if="configure.detail.translate.fileList" class="form__field__helper-text"
         translate="{{configure.detail.translate.attachmentMessage}}"
         translate-values="{file_list: configure.detail.translate.fileList}"
@@ -11,11 +11,21 @@
         translate="{{configure.detail.translate.attachmentMessage}}">
     </div>
   </div>
-  <div ng-repeat="file in files">
+  <div ng-repeat="file in files" ng-if="!error">
     <div><span>Attachment 1 of 1</span><a ng-if="!file.complete">Cancel</a></div>
     <div>{{file.name}}</div>
     <div class="progress-bar" ng-if="!file.complete">
       <div class="progress-bar__fill progress-bar__fill--is-animated progress-green" style="width: 100%"></div>
     </div>
   </div>
+  <div ng-repeat="file in files_complete">  
+  	<div class="card" data-card="">
+		<div class="card__content">
+			<div class="card__title">{{file.filename}}</div>
+			<div class="card__author">Attachment {{$index+1}} of {{files_complete.length}}</div>
+			<a class="card__action">Remove Attachment</a>
+		</div>
+	</div>
+  </div>
+  <div error-msg ng-if="error"></div>
 </div>

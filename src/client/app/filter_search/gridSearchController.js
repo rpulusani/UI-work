@@ -1,10 +1,11 @@
 
 angular.module('mps.filterSearch')
-.controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location',
-    function($scope, $routeParams, $route, $location) {
+.controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location','$window',
+    function($scope, $routeParams, $route, $location,$window) {
         var paramsList = ['search', 'searchOn'],
         searchParams = $location.search();
-        
+        $scope.column = searchParams.searchOn;
+	    
         $scope.showSearchMessage = false;
         $scope.searchBy = undefined;
         $scope.searchByValue = searchParams.search;
@@ -16,13 +17,17 @@ angular.module('mps.filterSearch')
 
         $scope.$watch('total', function(total) {
             if (total) {
-                $scope.totalItems = total.totalItems()
+                $scope.totalItems = total.totalItems();
             }
         });
 
+        $scope.columns.then(function(data){
+            $scope.columnSet = data;
+        });
+
         $scope.gridSearch = function(){
-            if($scope.searchBy === undefined && $scope.columns && $scope.columns.length > 0){
-                $scope.searchByColumn($scope.columns[0]);
+            if($scope.searchBy === undefined && $scope.columnSet && $scope.columnSet.length > 0){
+                $scope.searchByColumn($scope.columnSet[0]);
             }
             searchParams = $location.search();
 
@@ -32,7 +37,7 @@ angular.module('mps.filterSearch')
             }
 
             if($scope.searchBy && typeof $scope.search === 'function' && $scope.searchByValue){
-                $scope.params['search'] = $scope.searchByValue;
+            	$scope.params['search'] = $window.encodeURIComponent($scope.searchByValue);
                 $scope.params['searchOn'] = $scope.searchBy;
                 $scope.showSearchMessage = true;
 
