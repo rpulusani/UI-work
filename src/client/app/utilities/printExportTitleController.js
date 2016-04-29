@@ -9,6 +9,7 @@ angular.module('mps.utility')
             url,
             link,
             prop,
+            rowProp,
             headers = [],
             rows = [],
             i = 0;
@@ -28,8 +29,8 @@ angular.module('mps.utility')
             if (dataObj.rows) {
                 rows = dataObj.rows;
             } else if (!dataObj.rows && dataObj.data) {
-                for (prop in dataObj.data) {
-                    rows.push(dataObj[prop]);
+                for (rowProp in dataObj.data) {
+                    rows.push(dataObj.data[rowProp]);
                 }
             } 
 
@@ -96,8 +97,23 @@ angular.module('mps.utility')
         } else {
             $scope.nativePrint = true;
         }
-        
+
+        if ($scope.csvExport) {
+            $scope.exportGrid = function() {
+                createCsv($scope.csvExport);
+            };
+        }
+
+        if ($scope.pdfExport) {
+            $scope.printGrid = function() {
+                createPdf(scope.pdfExport)
+            };
+        }
+
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
+
+            console.log(12312312123)
+
             if ($scope.titlestring && attrs.titleCount !== false && ctrlScope.pagination) {
                 $scope.titleValues = {
                     total: Math.max(0, ctrlScope.pagination.totalItems())
@@ -117,10 +133,6 @@ angular.module('mps.utility')
                     ctrlScope.printing = true;
                     ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
                 };
-            } else {
-                $scope.printGrid = function() {
-                    createPdf(scope.pdfExport)
-                };
             }
 
             if (!$scope.csvExport) {
@@ -137,10 +149,6 @@ angular.module('mps.utility')
                     }
 
                     api.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
-                };
-            } else {
-                $scope.exportGrid = function() {
-                    createCsv($scope.csvExport);
                 };
             }
         });

@@ -103,8 +103,7 @@ angular.module('mps.utility')
             '</span>' +
             '<span ng-if="displayExport" class="">' +
                 '<i class="icon icon--mps icon--download"></i>' +
-                '<a ng-show="!nativePrint" translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
-                '<a ng-show="nativePrint" translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
+                '<a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
             '</span>' +
         '</div>',
         controller: 'PrintExportTitleController'
