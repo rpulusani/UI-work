@@ -3,7 +3,7 @@
     <a href="#" ng-click="goToServiceCreate()"
         ng-if="configure.device.information.translate.changeTxt"
         translate="{{configure.device.information.translate.changeTxt}}"></a>
-    <div class="well well--no-shadow col-1-3">
+    <div class="well well--no-shadow col-2-3">
         <a href="{{configure.device.information.linkMakeChanges}}"
             translate="{{configure.device.information.translate.linkMakeChangesTxt}}"
             ng-if="configure.device.information.translate.linkMakeChangesTxt"></a>
@@ -57,6 +57,7 @@
                 <div class="info-list__item-value" ng-bind-html="formattedDeviceContact"></div>
             </li>
         </ul>
+        <div sr-device-removal></div> 
     </div>
 </div>
 <div ng-if="configure.device.information && configure.updatingMultiple">
