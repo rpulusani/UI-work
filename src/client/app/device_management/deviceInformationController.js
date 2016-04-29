@@ -39,11 +39,11 @@ angular.module('mps.deviceManagement')
         SecurityHelper,
         FilterSearchService,
         lbsURL,
-            $window,
-            uiGridExporterConstants,
-            $translate,
-            $filter,
-            pageCountHelper
+        $window,
+        uiGridExporterConstants,
+        $translate,
+        $filter,
+        pageCountHelper
         ) {
 
         var generateCsvRows = function() {
