@@ -39,11 +39,11 @@ angular.module('mps.deviceManagement')
         SecurityHelper,
         FilterSearchService,
         lbsURL,
-            $window,
-            uiGridExporterConstants,
-            $translate,
-            $filter,
-            pageCountHelper
+        $window,
+        uiGridExporterConstants,
+        $translate,
+        $filter,
+        pageCountHelper
         ) {
 
         var generateCsvRows = function() {
@@ -77,7 +77,7 @@ angular.module('mps.deviceManagement')
                 rows.push($scope.device.installDate);
             }
 
-            if ($scope.device.contact.item) {
+            if ($scope.device.contact && $scope.device.contact.item) {
                 if ($scope.device.contact.item.formattedName) {
                     rows.push($scope.device.contact.item.formattedName);
                 }

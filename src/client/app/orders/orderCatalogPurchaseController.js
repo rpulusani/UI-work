@@ -91,7 +91,7 @@ angular.module('mps.orders')
                     $scope.sr.destinationAddressPhysicalLocation = {};
                 }
                 Orders.addField('paymentMethod','Purchase Order');
-                if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart){
+                if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart && Orders.tempSpace.catalogCart.agreement){
                     Orders.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
                     Orders.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
                 }

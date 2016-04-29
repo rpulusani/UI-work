@@ -36,7 +36,19 @@ angular.module('mps.serviceRequests')
         statusBarLevelsShort = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
+        setCsvDefinition = function() {
+            $scope.csvModel = {
+                filename: $scope.sr.id + '.csv',
+                data: {
+                    id: $scope.sr.id,
+                    requestNumber: $scope.sr.requestNumber,
+                    description: $scope.sr.description,
+                    customerReferenceId: $scope.sr.customerReferenceId,
+                    created: $scope.sr.createDate
+                }
+            };
+        };
 
         $scope.hideSubmitButton = true;
 
@@ -47,13 +59,17 @@ angular.module('mps.serviceRequests')
         }
 
         $scope.sr = ServiceRequest.item;
+
         if(ServiceRequest && ServiceRequest.item &&
             ServiceRequest.item.asset ){
             $scope.device = ServiceRequest.item.asset.item;
 
+            setCsvDefinition();
         }else if(ServiceRequest && ServiceRequest.item &&
             ServiceRequest.item.assetInfo){
-           $scope.device =  ServiceRequest.item.assetInfo;
+            $scope.device =  ServiceRequest.item.assetInfo;
+            
+            setCsvDefinition();
         }
 
         $scope.configure = {
@@ -557,4 +573,3 @@ angular.module('mps.serviceRequests')
         $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
     }
 }]);
-
