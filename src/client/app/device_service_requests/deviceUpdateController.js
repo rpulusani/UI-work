@@ -346,7 +346,8 @@ angular.module('mps.serviceRequestDevices')
                                 chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
                                 customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
                                 contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
-                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                moveAddress: 'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
                         }
                     }
                 },
@@ -444,10 +445,11 @@ angular.module('mps.serviceRequestDevices')
             if (!BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                 $scope.formattedCurrentAddress = FormatterService.formatAddress($scope.device.currentInstalledAddress);
                 $scope.formattedPrevAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
+                $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
-                $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
+                $scope.formattedDeviceMoveAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.primaryContact)) {

@@ -160,6 +160,7 @@ angular.module('mps.serviceRequests')
                             partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
                             product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                             ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                            moveAddress:'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
                     }
                 }
             };
@@ -533,7 +534,7 @@ angular.module('mps.serviceRequests')
         
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
-            $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+            $scope.formattedDeviceMoveAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
     }
 
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {

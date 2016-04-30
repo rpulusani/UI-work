@@ -52,6 +52,10 @@
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.installAddress}}"></div>
                 <div class="info-list__item-value" ng-bind-html="formattedDeviceAddress"></div>
             </li>
+            <li class="info-list__item" ng-if="formattedDeviceMoveAddress && configure.device.information.translate.moveAddress">
+                <div class="info-list__item-name" translate="{{configure.device.information.translate.moveAddress}}"></div>
+                <div class="info-list__item-value" ng-bind-html="formattedDeviceMoveAddress"></div>
+            </li>
             <li class="info-list__item" ng-if="formattedDeviceContact && configure.device.information.translate.contact">
                 <div class="info-list__item-name" translate="{{configure.device.information.translate.contact}}"></div>
                 <div class="info-list__item-value" ng-bind-html="formattedDeviceContact"></div>
