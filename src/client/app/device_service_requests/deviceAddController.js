@@ -261,11 +261,29 @@ angular.module('mps.serviceRequestDevices')
                     },
                     addressPicker: {
                         translate: {
-                                currentInstalledAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_DEVICE_INSTALLED_AT',
-                                replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.TXT_REPLACE_INSTALL_ADDR'
+                                replaceAddressTitle: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.SELECTED_INSTALL_ADDRESS'
                         },
                         sourceAddress: $scope.device.address,
                         showNewAddressTab: false
+                    },
+                    customConfigure:{
+                    	showCurrentAddress:false,
+                    	header: {
+                             translate: {
+                                 h1: 'DEVICE_SERVICE_REQUEST.CHANGE_INSTALL_ADDRESS',
+                                 body: 'MESSAGE.LIPSUM',
+                                 readMore: ''
+                             },
+                             readMoreUrl: '',
+                             showCancelBtn: false
+                         },
+                         actions:{
+                             translate: {
+                                 abandonRequest:'ADDRESS.DISCARD_INSTALL_ADDRESS_CHANGES',
+                                 submit: 'ADDRESS.CHANGE_DEVICE_INSTALL_ADDRESS'
+                             }
+                         },
+                         breadcrumbs: false
                     },
                     devicePicker: {
                         translate: {
