@@ -445,11 +445,10 @@ angular.module('mps.serviceRequestDevices')
             if (!BlankCheck.isNull($scope.device.currentInstalledAddress)) {
                 $scope.formattedCurrentAddress = FormatterService.formatAddress($scope.device.currentInstalledAddress);
                 $scope.formattedPrevAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
-                $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.currentInstalledAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.updatedInstallAddress)) {
-                $scope.formattedDeviceMoveAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
+                $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
             }
 
             if (!BlankCheck.isNull($scope.device.primaryContact)) {
