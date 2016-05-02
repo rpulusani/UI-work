@@ -24,7 +24,7 @@ angular.module('mps.serviceRequests')
           ServiceRequest.setItem(SR);
             var options = {
                 params:{
-                    embed:'primaryContact,requester,address,account,asset,sourceAddress'
+                    embed:'primaryContact,requester,address,account,asset,sourceAddress,destinationAddress'
                 }
             };
             ServiceRequest.item.get(options).then(function(){
