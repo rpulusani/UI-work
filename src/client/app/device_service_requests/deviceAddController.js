@@ -439,9 +439,9 @@ angular.module('mps.serviceRequestDevices')
                $scope.updateSRObjectForSubmit = function() {
                 ServiceRequest.item =  $scope.sr;
 
-                if ($scope.device.deviceDeInstallQuestion === 'true') {
+                if ($scope.device.deviceDeInstallQuestion === true) {
                     ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
-                } else if ($scope.device.deviceInstallQuestion === 'true') {
+                } else if ($scope.device.deviceInstallQuestion === true) {
                     ServiceRequest.addField('type', 'MADC_INSTALL');
                 } else {
                     ServiceRequest.addField('type', 'DATA_ASSET_REGISTER');
