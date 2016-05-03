@@ -280,7 +280,7 @@ angular.module('mps.serviceRequestDevices')
                          actions:{
                              translate: {
                                  abandonRequest:'ADDRESS.DISCARD_INSTALL_ADDRESS_CHANGES',
-                                 submit: 'ADDRESS.CHANGE_DEVICE_INSTALL_ADDRESS'
+                                 submit: 'REQUEST_MAN.REQUEST_DEVICE_CHANGE_INST_ADDR.SELECT_ADDRESS'
                              }
                          },
                          breadcrumbs: false
