@@ -42,7 +42,6 @@ angular.module('mps.tree')
             if ($scope.item.expanded === true) {
                 if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                     $scope.item.items = [];
-                    $scope.item.level = $scope.item.accountLevel;
                     Account.setItem($scope.item);
                     var options = {
                             preventDefaultParams: true,
