@@ -6,6 +6,7 @@ angular.module('mps.serviceRequestAddresses')
             serviceName: 'addresses',
             embeddedName: 'addresses',
             columns: 'default',
+            hideBookmark: true,
             columnDefs: {
                 defaultSet: [
                     {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false, dynamic: false},

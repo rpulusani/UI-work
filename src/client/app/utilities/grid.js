@@ -245,7 +245,7 @@ angular.module('mps.utility')
                     service.page = scope[self.optionsName].servicePage;
                     service.data = scope[self.optionsName].currentGridData;
 
-                    scope[self.optionsName].data = service.data;
+                    scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
                 }, 0);
             });
         };
