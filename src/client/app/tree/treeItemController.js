@@ -10,9 +10,15 @@ angular.module('mps.tree')
                     $scope.item.name  = $scope.item.name + ' [' + $scope.item.country +']';
                 }
             }
+            if ($scope.item && $scope.item.accountLevel) {
+                $scope.item.level = $scope.item.accountLevel;
+            }
 
             if ($scope.previousItems && $scope.previousItems.length > 0) {
                 for (var i=0;i<$scope.previousItems.length; i++) {
+                    if ($scope.previousItems[i] && $scope.previousItems[i].accountLevel) {
+                        $scope.previousItems[i].level = $scope.previousItems[i].accountLevel;
+                    }
                     if ($scope.previousItems[i].accountId
                         && $scope.previousItems[i].accountId === $scope.item.accountId
                         && $scope.previousItems[i].level === $scope.item.level) {
@@ -36,6 +42,7 @@ angular.module('mps.tree')
             if ($scope.item.expanded === true) {
                 if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                     $scope.item.items = [];
+                    $scope.item.level = $scope.item.accountLevel;
                     Account.setItem($scope.item);
                     var options = {
                             preventDefaultParams: true,

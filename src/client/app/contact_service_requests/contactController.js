@@ -181,7 +181,7 @@ angular.module('mps.serviceRequestContacts')
                         primaryAction : true
                     },
                     pickerObject: $scope.contact,
-                    source: 'ContactAddressUpdate'
+                    source: 'ContactUpdateAddress'
                 },
                 detail:{
                     translate:{
