@@ -160,6 +160,7 @@ angular.module('mps.serviceRequests')
                             partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
                             product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                             ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
+                            moveAddress:'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
                     }
                 }
             };
@@ -396,19 +397,27 @@ angular.module('mps.serviceRequests')
                 $scope.formattedAddress = $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
-
+                $scope.configure.detail.show.costCenter = false;
+                $scope.configure.detail.show.comments = false;
+                $scope.configure.detail.show.attachements = false;
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
                 $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
+                $scope.configure.detail.show.costCenter = false;
+                $scope.configure.detail.show.comments = false;
+                $scope.configure.detail.show.attachements = false;
             break;
             case 'DATA_ADDRESS_REMOVE':
                 addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
                 $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
+                $scope.configure.detail.show.costCenter = false;
+                $scope.configure.detail.show.comments = false;
+                $scope.configure.detail.show.attachements = false;
             break;
             case 'DATA_CONTACT_REMOVE':
                 addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_REMOVE_TITLE');
@@ -533,7 +542,7 @@ angular.module('mps.serviceRequests')
         
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
-            $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+            $scope.formattedDeviceMoveAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
     }
 
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {

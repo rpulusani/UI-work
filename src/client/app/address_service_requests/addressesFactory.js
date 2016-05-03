@@ -6,6 +6,7 @@ angular.module('mps.serviceRequestAddresses')
             serviceName: 'addresses',
             embeddedName: 'addresses',
             columns: 'default',
+            hideBookmark: true,
             columnDefs: {
                 defaultSet: [
                     {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false, dynamic: false},
@@ -21,7 +22,7 @@ angular.module('mps.serviceRequestAddresses')
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'), 'field':'addressLine2'},
                     {'name': $translate.instant('ADDRESS.REGION'), 'field':'region'},
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field': 'city'},
-                    {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 'field': 'stateCode'},
+                    {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 'field': 'stateFullName'},
                     {'name': $translate.instant('ADDRESS.PROVINCE'), 'field': 'province'},
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 'field': 'postalCode'},
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'), 'field': 'country'},

@@ -346,7 +346,8 @@ angular.module('mps.serviceRequestDevices')
                                 chl: 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_SUBMITTED.TXT_CHL',
                                 customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
                                 contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
-                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                                installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                moveAddress: 'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
                         }
                     }
                 },

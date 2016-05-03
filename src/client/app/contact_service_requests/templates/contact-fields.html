@@ -9,11 +9,11 @@
 
 <div class="form__field form__field--required" ng-class="(!newContactForm.email.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_EMAIL"></label>
-    <input name="email" type="text" ng-model="contact.email" value="" class="" required />
+    <input name="email" type="text" ng-model="contact.email" value="" class="" required email-valid/>
 </div>
 <div class="form__field form__field--required" ng-class="(!newContactForm.workPhone.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="CONTACT_MAN.COMMON.TXT_PHONE"></label>
-    <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" required />
+    <input name="workPhone" type="text" ng-model="contact.workPhone" value="" class="" required phone-valid/>
 </div>
 
 <div ng-show="!needToVerify">
@@ -36,25 +36,25 @@
     </div>
     <div class="form__field form__field--required" ng-class="(!newContactForm.city.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="CONTACT_MAN.COMMON.TXT_CITY"></label>
-        <input name="city" type="text" ng-model="contact.address.city" required />
+        <input name="city" type="text" ng-model="contact.address.city" required city-valid/>
         <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
             <span translate="LABEL.ERROR_REQUIRED"></span>
         </span>
     </div>
 
-    <div ng-show="contact.address.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
+    <div ng-if="contact.address.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
-        <input name="houseNumber" type="text" ng-model="contact.address.houseNumber" ng-required="contact.address.countryIsoCode.toLowerCase() === 'br'" />
+        <input name="houseNumber" type="text" ng-model="contact.address.houseNumber" required />
     </div>
 
     <div form="newContactForm" state-code="contact.address.state" state-select></div>
 
     <div class="row">
-        <div ng-hide="contact.address.country.toLowerCase() === 'brazil'" class="col-md-1-3">
+        <div ng-if="contact.address.country.toLowerCase() !== 'brazil'" class="col-md-1-3">
             <div class="form__field form__field--required_multiple" ng-class="(!newContactForm.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="CONTACT_MAN.COMMON.TXT_ZIP_CODE"></label>
-                <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class=""/>
+                <input type="text" name="postalCode" ng-model="contact.address.postalCode" value="" class="" required postal-code-valid/>
                 <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
                     <i class="icon icon--ui icon--error-small"></i>
                     <span translate="LABEL.ERROR_REQUIRED"></span>

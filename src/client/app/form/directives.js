@@ -175,11 +175,7 @@ angular.module('mps.form')
             '<option ng-repeat="c in countryService.data track by c.code" value="{{ c.code }}" ng-selected="c.name === country">' +
                 '{{c.name}}' +
             '</option>' +
-        '</select>' +
-        '<span ng-show="required && (form.$submitted && !form.country.$valid)" class="form__field__helper-text form__field__helper-text--alert">' +
-            '<i class="icon icon--ui icon--error-small"></i>' +
-            '<span translate="LABEL.ERROR_REQUIRED"></span>' +
-        '</span></div>',
+        '</select></div>',
         controller: [
             '$scope',
             '$element',

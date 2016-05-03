@@ -78,3 +78,11 @@ input[type='checkbox'] + label {
     content: " **";
     color: @red;
 }
+form.ng-submitted{
+	input,select,textarea{
+		&.ng-invalid-required,&.ng-valid-required.ng-invalid{
+			border-color: @red;
+			color: @red;
+		}
+	}
+}
