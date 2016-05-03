@@ -14,19 +14,19 @@ angular.module('mps.serviceRequestContacts')
                         name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'),
                         field: 'getFullname()',
                         dynamic: false,
-                        searchOn: 'firstName',
+                        notSearchable: true,                        
                         cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
                             'ng-bind="row.entity.getFullname()"></a></div>'
                     },
                     {
                         name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'),
-                        field: 'getWorkPhone()',
+                        field: 'workPhone',
                         searchOn: 'workPhone'
                     },
                     {
                         name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_EMAIL'),
                         field: 'email',
-                        searchOn: 'emailAddress'
+                        searchOn: 'email'
                     },
                     {
                         name: $translate.instant('CONTACT.ID'),
@@ -69,8 +69,8 @@ angular.module('mps.serviceRequestContacts')
                     },
                     {
                         name: $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'),
-                        field:'address.state',
-                        cellTemplate:'<div ng-bind="row.entity.address.state"></div>',
+                        field:'address.stateFullName',
+                        cellTemplate:'<div ng-bind="row.entity.address.stateFullName"></div>',
                         visible: false
                     },
                     {

@@ -38,7 +38,7 @@ angular.module('mps.serviceRequestAddresses')
 
         var params =  {
             type: 'MADC_ALL,DATA_ASSET_ALL',
-            embed: 'primaryContact,requester'
+            embed: 'primaryContact,requester,sourceAddress'
         };
         var removeParamsList = ['from', 'to', 'status', 'chlFilter', 'location', 'requesterFilter'],
             myRequestRemoveParamList = ['from', 'to', 'status', 'chlFilter', 'location'];
