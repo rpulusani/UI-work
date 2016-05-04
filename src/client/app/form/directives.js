@@ -232,7 +232,8 @@ angular.module('mps.form')
             zipMandatory:'=',
             stateOrPostalMandatory:'=',
             form:'=',
-            zipModel:'='
+            zipModel:'=',
+            countryModel:'='
         },
         templateUrl: '/app/form/templates/state-select.html',
         controller: 'StateListController'

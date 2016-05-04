@@ -57,11 +57,11 @@
     <div form="newAddress" state-code="address.state" 
     state-select zip-mandatory="address.zipMandatory" 
     state-or-postal-mandatory="address.stateOrPostalMandatory"
-    zip-model="address.postalCode"></div>
+    zip-model="address.postalCode" country-model="address.countryIsoCode"></div>
    
-    <div ng-show="address.country.toLowerCase() !== 'brazil'" class="row"> 
+    <div class="row"> 
         <div class="col-md-1-3">
-            <div class="form__field form__field--required" ng-class="(!newAddress.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
+            <div class="form__field " ng-class="(!newAddress.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
                 <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
                 <input type="text" name="postalCode" ng-model="address.postalCode" ng-required="address.zipMandatory || (address.stateOrPostalMandatory && address.state == '')" />
             </div>
