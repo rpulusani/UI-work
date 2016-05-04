@@ -8,12 +8,27 @@ angular.module('mps.user')
             embeddedName: 'users', //get away from embedded name and move to a function to convert url name to javascript name
             url: serviceUrl + 'user-administration/users',
             columns: 'default',
+            activeStatus: true,
             columnDefs: {
                 defaultSet: [
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'getFormattedStatus()', 'notSearchable':true},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 'field':'getFormattedCreateDate()', 'notSearchable':true},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field': 'userId', 'notSearchable': true, dynamic: false,
-                     'cellTemplate':'<div>' +
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 
+                        'field': 'active',
+                        'cellTemplate': '<div ng-bind="row.entity.getFormattedStatus()"></div>', 
+                        'notSearchable':true
+                    },
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 
+                        'field':'created',
+                        'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>', 
+                        'notSearchable':true
+                    },
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 
+                        'field': 'userId', 
+                        'notSearchable': true, 
+                        'dynamic' : false,
+                        'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
                                         '{{row.entity.userId}}</a>' +
                                     '</div>'
@@ -21,25 +36,51 @@ angular.module('mps.user')
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': 'getAccounts()', 'notSearchable':true},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': 'getRoles()', 'notSearchable':true}
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
+                        'field': '', 
+                        'cellTemplate': '<div ng-bind="row.entity.getAccounts()"></div>', 
+                        'notSearchable':true
+                    },
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 
+                        'field': '', 
+                        'cellTemplate': '<div ng-bind="row.entity.getRoles()"></div>', 
+                        'notSearchable':true
+                    }
                 ],
                 impersonateSet: [
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field': 'userId', 'notSearchable': true, dynamic: false},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': 'getAccounts()', 'notSearchable':true}
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
+                        'field': '', 
+                        'cellTemplate': '<div ng-bind="row.entity.getAccounts()"></div>', 
+                        'notSearchable':true
+                    }
                 ],
                 invitedSet: [
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'invitedStatus','notSearchable':true},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_INVITATION_DATE'), 'field':'created',
-                             'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>',
-                             'notSearchable':true
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_INVITATION_DATE'), 
+                        'field':'created',
+                        'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>',
+                        'notSearchable':true
                     },
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': 'getAccounts()', 'notSearchable':true},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': 'getRoles()', 'notSearchable':true}
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
+                        'field': '',
+                        'cellTemplate':'<div ng-bind="row.entity.getAccounts()"></div>', 
+                        'notSearchable':true
+                    },
+                    {
+                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 
+                        'field': '', 
+                        'cellTemplate': '<div ng-bind="row.entity.getRoles()"></div>', 
+                        'notSearchable':true
+                    }
                 ]
             },
             functionArray: [
