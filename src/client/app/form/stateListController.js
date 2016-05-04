@@ -3,10 +3,10 @@ angular.module('mps.form')
 		['$scope','$element','$attrs','CountryService',
         function($scope, $ele, $attrs, CountryService){
 			
-				console.log('in controller');
+				
 				 $scope.countryService = CountryService;
 	             CountryService.setProvinceByCode($scope.stateCode);
-	             console.log('in country ser '+CountryService);
+	             
 	             $scope.countryService = CountryService;
 	         
 	             $scope.stateLabel='ADDRESS_MAN.COMMON.TXT_STATE';
@@ -16,27 +16,25 @@ angular.module('mps.form')
 	             var labelState=["usa","india","australia","brazil",
 	            	             "mexico"];
 	             var labelCounty=["ireland"];
-	             console.log('$scope.countryModel !== "" '+$scope.countryModel);
-	             console.log('$scope.countryModel !== "" '+typeof $scope.countryModel);
+	             
+	             
 	             if ($scope.countryModel && $scope.countryModel !== ""){
 	            	 setupState();
 	             }
 	             $scope.$on('countrySelected', function (event, args) {
 	            	 setupState();	            	 
-		             //$scope.$apply();
-		             //$scope.required = $scope.stateOrPostalMandatory;
-	             });
+		         });
 	             
 	            function setupState(){
 	            	
 	            	var countryName=$scope.countryService.item.name.toLowerCase();
-	            	 console.log('in evele country selected'+countryName);
+	            	 
 		             if (labelCounty.indexOf(countryName)!=-1){
 		             	$scope.stateLabel='ADDRESS.COUNTY';
 		             }else if (labelProvince.indexOf(countryName)!=-1){
 		             	$scope.stateLabel='ADDRESS.PROVINCE';
 		             }
-		             console.log(" state =" + $scope.stateLabel);
+		             
 		             if((labelProvince.concat(labelState)).indexOf(countryName)==-1){
 		             	$scope.stateOrPostalMandatory = false;
 		             	$scope.zipMandatory = true;
@@ -45,10 +43,7 @@ angular.module('mps.form')
 		             	$scope.zipMandatory = false;
 		             }
 	            } 	
-	            // if ($scope.required === undefined) {
-	                 
-	            // }
-
+	           
 			
 			
              $scope.provinceSelected = function(provinceCode) {
@@ -56,7 +51,7 @@ angular.module('mps.form')
 
                  $scope.stateCode = CountryService.stateCode;
              }
-            console.log(" out countroler") 
+             
 		}
          
 ]);
