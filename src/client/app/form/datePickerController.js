@@ -74,11 +74,12 @@ angular.module('mps.form')
                 }
             }
             if (attrs.min){
-            	attrs.min = attrs.min + ' 00:00';
+            	attrs.min = attrs.min +' 00:00';
             }
             if (attrs.max){
-            	attrs.max = attrs.max + ' 23:59';
+            	attrs.max = attrs.max +' 23:59';
             }
+            console.log(JSON.stringify(attrs));
             calendar.options(attrs);
 
             setupCalendar(calendar);
