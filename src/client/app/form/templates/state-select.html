@@ -1,6 +1,3 @@
-form.state.$valid={{form.state.$valid}}
-zipModel=--{{zipModel===''}}{{zipModel.length}}{{zipModel!==''}} -- {{!zipModel.length}} --
-stateOrPostalMandatory={{stateOrPostalMandatory}}
 <div ng-show="countryService.item.provinces.length > 0" class="form__field form__field--select"  
   ng-class="(!form.state.$valid && form.$submitted) ? 'form__field--has-alert' : ''">
         <label  translate="{{stateLabel}}"></label>
