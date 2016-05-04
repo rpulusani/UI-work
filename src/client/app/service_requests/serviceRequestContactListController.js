@@ -21,7 +21,6 @@ angular.module('mps.serviceRequests')
 
         $scope.contacts = Contacts;
         ServiceRequest.setParamsToNull();
-        ServiceRequest.columns='contactSet';
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'contactSet');
 
