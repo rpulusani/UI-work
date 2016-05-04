@@ -20,6 +20,7 @@ angular.module('mps.serviceRequestAddresses')
         $rootScope.currentRowList = [];
 
         ServiceRequest.setParamsToNull();
+        ServiceRequest.columns='madcSetSR';
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'madcSetSR');
 
