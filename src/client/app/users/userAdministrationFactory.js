@@ -9,6 +9,7 @@ angular.module('mps.user')
             url: serviceUrl + 'user-administration/users',
             columns: 'default',
             activeStatus: true,
+            hideBookmark: true,
             columnDefs: {
                 defaultSet: [
                     {
