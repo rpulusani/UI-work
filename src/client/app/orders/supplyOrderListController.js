@@ -28,6 +28,7 @@ angular.module('mps.orders')
 
 
         Orders.setParamsToNull();
+        Orders.columns='suppliesSet';
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal,'suppliesSet');
 

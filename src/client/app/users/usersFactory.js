@@ -11,9 +11,9 @@ angular.module('mps.user')
             columns: 'default',
             columnDefs: {
                 defaultSet: [
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'activeStatus'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 'field':'created'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field':'userId'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'activeStatus', notSearchable: true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 'field':'created', notSearchable: true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field':'userId', notSearchable: true},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_LAST_NAME'),
                      'cellTemplate':'<div>' +
                                     '{{row.entity.lastName}}, {{row.entity.firstName}}' +
@@ -21,7 +21,7 @@ angular.module('mps.user')
                     },
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 'field': '' },
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': '' }
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': '' , notSearchable: true}
                 ]
             },
             route: '/delegated_admin'
