@@ -58,15 +58,15 @@ angular.module('mps.utility')
 
                 if (link.download !== undefined) {
                     url = URL.createObjectURL(blob);
-                    
+
                     link.setAttribute('href', url);
                     link.setAttribute('download', filename);
                     link.style.visibility = 'hidden';
-                    
+
                     document.body.appendChild(link);
-                    
+
                     link.click();
-                    
+
                     document.body.removeChild(link);
                 }
             }
@@ -106,14 +106,11 @@ angular.module('mps.utility')
 
         if ($scope.pdfExport) {
             $scope.printGrid = function() {
-                createPdf(scope.pdfExport)
+                createPdf(scope.pdfExport);
             };
         }
 
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
-
-            console.log(12312312123)
-
             if ($scope.titlestring && attrs.titleCount !== false && ctrlScope.pagination) {
                 $scope.titleValues = {
                     total: Math.max(0, ctrlScope.pagination.totalItems())
