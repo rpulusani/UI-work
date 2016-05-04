@@ -51,9 +51,6 @@
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
         <input name="houseNumber" type="text" ng-model="address.houseNumber" ng-required="address.countryIsoCode.toLowerCase() === 'br'" />
     </div>
-   address.zipMandatory={{address.zipMandatory}}
-   address.stateOrPostalMadatory={{address.stateOrPostalMandatory}}
-   newAddress.postalCode.$valid={{newAddress.postalCode.$valid}}
     <div form="newAddress" state-code="address.state" 
     state-select zip-mandatory="address.zipMandatory" 
     state-or-postal-mandatory="address.stateOrPostalMandatory"
