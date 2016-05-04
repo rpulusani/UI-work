@@ -100,13 +100,13 @@ angular.module('mps.utility')
     Grid.prototype.getVisibleColumns = function(service){
         var columnList = this.setColumnDefaults(service.columns, service.columnDefs),
         visibleColumns = [];
-        console.log(" column list "+JSON.stringify(columnList));
+        
         for(var i = 0; i < columnList.length; ++i){
             if(!columnList[i]['notSearchable'] && columnList[i]['field']) {
                 if (!columnList[i].searchOn) {
                     columnList[i].searchOn = columnList[i].field;
                 }
-                console.log("columnList[i] = " + JSON.stringify(columnList[i]));
+                
                 visibleColumns.push({
                     name: columnList[i]['name'],
                     field: columnList[i]['field'],
@@ -114,7 +114,7 @@ angular.module('mps.utility')
                 });
             }
         }
-        console.log(" visible columnes "+ JSON.stringify(visibleColumns));
+        
         return visibleColumns;
     };
 
