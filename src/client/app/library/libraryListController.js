@@ -10,6 +10,15 @@ angular.module('mps.library')
 
         Documents.columns = Documents.columnDefs.defaultSet;
 
+        $scope.deleteSuccess = false;
+        Documents.setParamsToNull();
+        if (Documents.item) {     
+            if (Documents.isDeleted) {
+                $scope.deleteSuccess = true;
+                Documents.isDeleted = false;
+            }
+        }
+
         $scope.gridOptions.showBookmarkColumn = false;
         var removeParamsList = ['bookmarkFilter', 'category', 'owner', 'tag'];
 
@@ -157,11 +166,13 @@ angular.module('mps.library')
 
         $scope.goToDelete = function(documentItem) {
             Documents.setItem(documentItem);
+            Documents.isDeleted = false;
 
             $http({
                 method: 'DELETE',
                 url: Documents.item.url
             }).then(function successCallback(response) {
+                Documents.isDeleted = true;
                 $route.reload();
             }, function errorCallback(response) {
                 NREUM.noticeError('Failed to DELETE existing document library file: ' + response.statusText);
