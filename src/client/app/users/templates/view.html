@@ -19,6 +19,10 @@
         <a href="" translate="USER_MAN.MANAGE_USERS.LNK_MANAGE_USER"  translate-values="{user_name: fullName}" ng-click="view(user)"></a>
     </div>
 
+    <div ng-show="showUserUpdatedMessage" class="alert">
+        <span translate="USER_MAN.MANAGE_USERS.TXT_MSG_USER_UPDATED"></span>
+    </div>
+
     <div ng-show="invited" class="alert">
         <span translate="USER_MAN.INVITE_USERS.TXT_MSG_USER_INVITED"></span>
     </div>
