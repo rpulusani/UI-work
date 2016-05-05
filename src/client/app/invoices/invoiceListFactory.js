@@ -7,6 +7,7 @@ angular.module('mps.invoice')
             serviceName: "invoices",
             url: serviceUrl + 'invoices',
             columns: 'defaultSet',
+            hideBookmark: true,
             columnDefs: {
                 defaultSet: [
                     {'name': $translate.instant('INVOICE.INVOICE_DATE'), 'field':'getInvoiceDate()', 'notSearchable': true},

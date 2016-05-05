@@ -7,6 +7,7 @@ angular.module('mps.orders')
                 serviceName: 'orders',
                 embeddedName: 'orders', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
+                hideBookmark: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
