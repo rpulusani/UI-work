@@ -11,16 +11,12 @@ angular.module('mps.serviceRequestContacts')
             columnDefs: {
                 defaultSet: [
                     {
-                        name: $translate.instant('CONTACT.FIRST_NAME'),
-                        field: 'firstName',
-                        dynamic: false,                        
+                        name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'),
+                        field: 'getFullname()',
+                        dynamic: false,
+                        notSearchable: true,                        
                         cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
-                            'ng-bind="row.entity.firstName"></a></div>'
-                    },
-                    {
-                        name: $translate.instant('CONTACT.LAST_NAME'),
-                        field: 'lastName',
-                        dynamic: false,                        
+                            'ng-bind="row.entity.getFullname()"></a></div>'
                     },
                     {
                         name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'),
@@ -36,78 +32,75 @@ angular.module('mps.serviceRequestContacts')
                         name: $translate.instant('CONTACT.ID'),
                         field: 'id',
                         visible: false,
-                        dynamic: false,
-                        notSearchable: true
+                        dynamic: false
                     },
-                    
+                    {
+                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
+                        field:'firstName',
+                        visible: false
+                    },
+                    {
+                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'),
+                        field:'lastName',
+                        visible: false
+                    },
                     {
                         name: $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'),
                         field:'address.addressLine1',
                         cellTemplate:'<div ng-bind="row.entity.address.addressLine1"></div>',
-                        notSearchable: true,
                         visible: false
-                        
                     },
                     {
                         name: $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'),
                         field:'address.addressLine2',
                         cellTemplate:'<div ng-bind="row.entity.address.addressLine2"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.HOUSE_NUMBER'),
                         field:'',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.CITY'),
                         field:'address.city',
                         cellTemplate:'<div ng-bind="row.entity.address.city"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'),
                         field:'address.stateFullName',
                         cellTemplate:'<div ng-bind="row.entity.address.stateFullName"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.PROVINCE'),
                         field:'address.province',
                         cellTemplate:'<div ng-bind="row.entity.address.province"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.COUNTY'),
                         field:'address.county',
                         cellTemplate:'<div ng-bind="row.entity.address.county"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.DISTRICT'),
                         field:'address.district',
                         cellTemplate:'<div ng-bind="row.entity.address.district"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.COUNTRY'),
                         field:'address.country',
                         cellTemplate:'<div ng-bind="row.entity.address.country"></div>',
-                        notSearchable: true,
                         visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS.ZIP_POSTAL'),
                         field:'address.postalCode',
                         cellTemplate:'<div ng-bind="row.entity.address.postalCode"></div>',
-                        notSearchable: true,
                         visible: false
                     }
                 ]

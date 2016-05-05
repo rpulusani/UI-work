@@ -13,7 +13,6 @@ angular.module('mps.invoice')
                     {'name': $translate.instant('INVOICE.INVOICE_DATE'), 'field':'getInvoiceDate()', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.DUE_DATE'), 'field':'getDueDate()', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.PAID_DATE'), 'field':'getPaidDate()', 'notSearchable': true},
-                    {'name': 'Status', 'field':'status'},
                     {'name': $translate.instant('INVOICE.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',
                      'cellTemplate':'<div><div>' +
                                         '<a href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);" ng-bind="grid.appScope.getFormattedInvoiceNo(row.entity.invoiceNumber)"></a>' +
@@ -21,7 +20,7 @@ angular.module('mps.invoice')
                                         '<a ng-if="row.entity.sapDocId2" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);" translate="INVOICE.DOWNLOAD_AS_TXT"></a>' +
                                     '</div></div>'
                     },
-                    {'name': $translate.instant('INVOICE.AMOUNT'), 'field':'getAmount()'},
+                    {'name': $translate.instant('INVOICE.AMOUNT'), 'field':'getAmount()', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.ACCOUNT_NAME'), 'field':'accountName', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.SOLD_TO'), 'field':'soldTo', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.BILL_TO'), 'field':'getBillToAddress()', 'notSearchable': true,
