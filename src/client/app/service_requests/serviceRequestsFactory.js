@@ -7,6 +7,7 @@ angular.module('mps.serviceRequests')
                 serviceName: 'service-requests',
                 embeddedName: 'serviceRequests', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
+                hideBookmark: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
