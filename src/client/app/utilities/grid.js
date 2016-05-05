@@ -159,6 +159,10 @@ angular.module('mps.utility')
         for (i; i < columns.length; i += 1) {
             columns[i].enableColumnMenu = enableColumnMenu;
             columns[i].name = $translate.instant(columns[i].name);
+        
+            if (!columns[i].width && !columns[i].minWidth) {
+                columns[i].minWidth = 100;
+            }
         }
 
         return columns;
@@ -229,22 +233,13 @@ angular.module('mps.utility')
         scope[self.optionsName].exporterPdfMaxGridWidth = 500;
         scope[self.optionsName].rowEditWaitInterval = 0;
         scope[self.optionsName].exporterAllDataFn = function() {
-            var size = 300;
+            var newService = angular.copy(service),
+            size = newService.page.totalElements;
 
-            if (scope.printing === false) {
-                size = service.page.totalElements;
-            }
-
-            scope[self.optionsName].currentGridData = service.data;
-            scope[self.optionsName].servicePage = service.page;
-
-            return service.getPage(0, size).then(function() {
-                scope[self.optionsName].data = service.data;
-
+            return newService.getPage(0, size).then(function(res) {
+                scope[self.optionsName].data = self.getDataWithDataFormatters(newService.data, service.functionArray);
+                
                 $timeout(function() {
-                    service.page = scope[self.optionsName].servicePage;
-                    service.data = scope[self.optionsName].currentGridData;
-
                     scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
                 }, 0);
             });
