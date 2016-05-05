@@ -128,7 +128,7 @@ angular.module('mps.utility')
             if (!$scope.pdfExport) {
                 $scope.printGrid = function() {
                     ctrlScope.printing = true;
-                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
+                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.VISIBLE);
                 };
             }
 
@@ -145,7 +145,7 @@ angular.module('mps.utility')
                         api = ctrlScope.gridApi;
                     }
 
-                    api.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL, myElement);
+                    api.exporter.csvExport(uiGridExporterConstants.ALL, uiGridExporterConstants.VISIBLE, myElement);
                 };
             }
         });

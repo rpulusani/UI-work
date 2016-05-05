@@ -228,22 +228,13 @@ angular.module('mps.utility')
         scope[self.optionsName].exporterPdfMaxGridWidth = 500;
         scope[self.optionsName].rowEditWaitInterval = 0;
         scope[self.optionsName].exporterAllDataFn = function() {
-            var size = 300;
+            var newService = angular.copy(service),
+            size = newService.page.totalElements;
 
-            if (scope.printing === false) {
-                size = service.page.totalElements;
-            }
-
-            scope[self.optionsName].currentGridData = service.data;
-            scope[self.optionsName].servicePage = service.page;
-
-            return service.getPage(0, size).then(function() {
-                scope[self.optionsName].data = service.data;
+            return newService.getPage(0, size).then(function(res) {
+                scope[self.optionsName].data = newService.data;
 
                 $timeout(function() {
-                    service.page = scope[self.optionsName].servicePage;
-                    service.data = scope[self.optionsName].currentGridData;
-
                     scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
                 }, 0);
             });

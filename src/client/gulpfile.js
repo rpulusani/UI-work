@@ -46,7 +46,7 @@ gulp.task('libs', function() {
         'libs/ng-tags-input.min.js',
         'libs/pdfmake.min.js',
         'libs/vfs_fonts.js',
-        'libs/ui-grid/3.0.6/ui-grid.min.js'
+        'libs/ui-grid/3.0.6/ui-grid.js'
     ])
   .pipe(concat('mps.libs.js'))
   .pipe(wrap('define(\'mps.libs\', function() {<%= contents %>});'))
