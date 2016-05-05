@@ -233,10 +233,12 @@ angular.module('mps.library')
         }
 
         $scope.goToDelete = function() {
+            Documents.isDeleted = false;
             $http({
                 method: 'DELETE',
                 url: $scope.documentItem.url
             }).then(function successCallback(response) {
+                Documents.isDeleted = true;
                 $location.path(Documents.route);
             }, function errorCallback(response) {
                 NREUM.noticeError('Failed to DELETE existing document library file: ' + response.statusText);

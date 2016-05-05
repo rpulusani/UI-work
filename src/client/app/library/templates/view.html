@@ -10,6 +10,10 @@
         <div class="col-2-3">
             <h1 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY"></h1>
             <p class="text--large" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY_PAR"></p>
+
+            <div class="well" ng-show="deleteSuccess === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOC_DELETED"></p>
+            </div>
             <div class="col-1 btns">
                 <button ng-if="documentLibraryUploadAccess" type="button" class="btn btn--default" href="" ng-click="goToNew()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_ADD_NEW_DOC"></button>
                 <button ng-if="documentLibraryManageGlobalTagAccess" type="button" class="btn btn--default" href="" ng-click="goToManageTags()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_MANAGE_TAGS"></button>
