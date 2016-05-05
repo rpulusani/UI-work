@@ -25,6 +25,7 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
 
         Orders.setParamsToNull();
+        Orders.columns='hardwareSet';
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal,'hardwareSet');
 

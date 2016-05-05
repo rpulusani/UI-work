@@ -79,6 +79,7 @@ angular.module('mps.form')
             if (attrs.max){
             	attrs.max = attrs.max + ' 23:59';
             }
+            
             calendar.options(attrs);
 
             setupCalendar(calendar);
