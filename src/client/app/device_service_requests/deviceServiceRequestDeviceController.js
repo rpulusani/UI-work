@@ -317,7 +317,7 @@ angular.module('mps.serviceRequestDevices')
                             serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
                             product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                             ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
-                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                            installAddress: 'REPORTING.SERVICE_ADDRESS'
                         }
                     },
                     service:{
