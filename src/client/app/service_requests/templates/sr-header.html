@@ -6,7 +6,10 @@
             <h1 translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
 
             <p class="" >
-                <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span>
+                <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span><br/>
+                <span ng-if="configure.showAddAnotherAddress">
+                    <span translate="ADDRESS_SERVICE_REQUEST.WOULD_YOU_LIKE"></span> <a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD_ANOTHER_ADDRESS"></a>?
+                </span>
                 <div class="col-1 btns">
                     <button class="btn" ng-click="goToServiceUpdate(sr.id, sr.type)"
                     translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.BTN_CHANGE_REQUEST"

@@ -384,6 +384,7 @@ angular.module('mps.user')
             deferred.then(function(result){
                 UserAdminstration.wasInvited = false;
                 UserAdminstration.wasSaved = false;
+                UserAdminstration.wasUpdated = true;
                 $location.path('/delegated_admin');
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);

@@ -17,6 +17,7 @@ angular.module('mps.serviceRequests')
         FilterSearchService) {
         $rootScope.currentRowList = [];
         ServiceRequest.setParamsToNull();
+        ServiceRequest.columns='defaultSet';
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal, 'defaultSet');
 

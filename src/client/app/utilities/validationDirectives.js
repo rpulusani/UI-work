@@ -3,6 +3,9 @@ angular.module('mps.utility')
     return {
         require: 'ngModel',
         link: function(scope, element, attr, emailCtrl) {
+            scope.$watch(attr.ngModel, function(value) {
+                emailValidation(value);
+            });
             function emailValidation(value) {
                 var emailExpression = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
                 var validEmail = emailExpression.test(value);

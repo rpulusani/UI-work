@@ -11,14 +11,21 @@ angular.module('mps.queue')
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_DATE'),
-                            'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                            'field': 'getFormattedCreateDate()', 
+                            'searchOn': 'created', 
+                            'notSearchable': true},
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_TYPE'), 'field':'kind'},
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_REQUESTOR_NAME'),
-                            'field': 'getFullRequestorName()', 'notSearchable': true},
+                            'field': 'requester.lastName', 
+                            'cellTemplate': '<div ng-bind="row.entity.getFullRequestorName()"></div>',
+                            'notSearchable': true},
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_PRIMARY_CONTACT'),
-                            'field': 'getFullPrimaryName()',visible: true, 'notSearchable': true},
+                            'field': 'primaryContact.lastName', 
+                            'cellTemplate': '<div ng-bind="row.entity.getFullPrimaryName()"></div>',                            
+                            'visible': true, 
+                            'notSearchable': true},
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_ACCOUNT'),
-                            'field': '',visible: false, 'notSearchable': true}
+                            'field': '', visible: false, 'notSearchable': true}
                     ]
                 },
 
