@@ -544,6 +544,10 @@ angular.module('mps.serviceRequests')
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
             $scope.formattedDeviceMoveAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+            if(!BlankCheck.isNull($scope.sr.destinationAddressPhysicalLocation)){
+            	 $scope.formattedDeviceMoveAddress += FormatterService.addBuildingFloorOffice($scope.sr.destinationAddressPhysicalLocation);
+            }
+            
     }
 
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
