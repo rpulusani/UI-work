@@ -18,7 +18,6 @@ angular.module('mps.serviceRequests')
         $rootScope.currentRowList = [];
 
         ServiceRequest.setParamsToNull();
-        ServiceRequest.columns='breakfixSRSet';
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(ServiceRequest, $scope, $rootScope, personal,'breakfixSRSet');
 
