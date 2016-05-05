@@ -208,6 +208,8 @@ angular.module('mps.form')
                         $scope.country = CountryService.item.name;
                         $scope.countryIsoCode = CountryService.item.code;
                         $scope.state = '';
+                        $scope.$parent.$broadcast('countrySelected');
+                        
                     };
                 };
 
@@ -222,46 +224,21 @@ angular.module('mps.form')
         ]
     };
 }])
-.directive('stateSelect', [function () {
+.directive('stateSelect', function () {
     return {
         restrict: 'A',
         scope: {
-            stateCode: '=stateCode'
+            stateCode: '=stateCode',
+            zipMandatory:'=',
+            stateOrPostalMandatory:'=',
+            form:'=',
+            zipModel:'=',
+            countryModel:'='
         },
-        template: '<div ng-show="countryService.item.provinces.length > 0" class="form__field form__field--select" ' + 
-        'ng-class="{\'form__field--has-alert\' : required && (form.$submitted && !form.country.$valid), \'form__field--required\' : required === true}">' +
-        '<label ng-if="countryService.item.name.toLowerCase() !== \'canada\' && countryService.item.name.toLowerCase() !== \'ireland\'" translate="ADDRESS_MAN.COMMON.TXT_STATE"></label>' +
-        '<label ng-if="countryService.item.name.toLowerCase() === \'canada\'" translate="ADDRESS.PROVINCE"></label>' +
-        '<label ng-if="countryService.item.name.toLowerCase() === \'ireland\'" translate="ADDRESS.COUNTY"></label>' +
-        '<select ng-model="stateCode" name="name" ng-change="provinceSelected(stateCode)" ng-required="countryService.item.provinces.length > 0">' +
-            '<option value="" translate="LABEL.SELECT" ng-selected="!stateCode"></option>' +
-            '<option ng-repeat="state in countryService.item.provinces" value="{{ state.code }}" ng-selected="state.code === stateCode">' +
-                '{{state.name}}' +
-            '</option>' +
-        '</select></div>',
-        controller: [
-            '$scope',
-            '$element',
-            '$attrs',
-            'CountryService',
-            function($scope, $ele, $attrs, CountryService) {
-                CountryService.setProvinceByCode($scope.stateCode);
-
-                $scope.countryService = CountryService;
-
-                if ($scope.required === undefined) {
-                    $scope.required = true;
-                }
-
-                $scope.provinceSelected = function(provinceCode) {
-                    CountryService.setProvinceByCode(provinceCode);
-
-                    $scope.stateCode = CountryService.stateCode;
-                };
-            }
-        ]
+        templateUrl: '/app/form/templates/state-select.html',
+        controller: 'StateListController'
     };
-}])
+})
 .directive('selectric', [function() {
   return {
     restrict: 'AC',
