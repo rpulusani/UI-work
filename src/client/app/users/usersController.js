@@ -7,6 +7,11 @@ angular.module('mps.user')
         Personalize, FilterSearchService, formatter) {
         $rootScope.currentRowList = [];
         $scope.lexmarkUserAccess = false;
+        $scope.showUserUpdatedMessage = false;
+        if(UserAdminstration.wasUpdated){
+            $scope.showUserUpdatedMessage = true;
+            UserAdminstration.wasUpdated = false;
+        }
         if ($rootScope.currentUser.type === 'INTERNAL') {
             $scope.lexmarkUserAccess = true;
         }
