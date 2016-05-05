@@ -158,6 +158,10 @@ angular.module('mps.utility')
         for (i; i < columns.length; i += 1) {
             columns[i].enableColumnMenu = enableColumnMenu;
             columns[i].name = $translate.instant(columns[i].name);
+        
+            if (!columns[i].width && !columns[i].minWidth) {
+                columns[i].minWidth = 100;
+            }
         }
 
         return columns;
@@ -232,8 +236,8 @@ angular.module('mps.utility')
             size = newService.page.totalElements;
 
             return newService.getPage(0, size).then(function(res) {
-                scope[self.optionsName].data = newService.data;
-
+                scope[self.optionsName].data = self.getDataWithDataFormatters(newService.data, service.functionArray);
+                
                 $timeout(function() {
                     scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
                 }, 0);
