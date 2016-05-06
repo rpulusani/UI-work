@@ -9,6 +9,10 @@ angular.module('mps.filterSearch')
             {type: 'AUTOMATIC', name: $translate.instant('LABEL.AUTOMATIC')}
         ];
         $scope.meterReadType = 'MANUAL';
+        if ($scope.missing && $scope.missing === 'Y') {
+            $scope.params['missingMeterReads'] = true;
+        }
+        $scope.params['embed'] = 'asset';
 
         $scope.$watch('meterReadType', function(meterReadType) {
             if (meterReadType) {

@@ -41,7 +41,9 @@
         <div invoice-date-filter ng-if="currentFilterPanel == 'InvoiceDateFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
         <div meter-read-type-filter ng-if="currentFilterPanel == 'MeterReadTypeFilter'"
-            params="currentParams" filter-def="currentFunctionDef"></div>
+            params="currentParams" filter-def="currentFunctionDef" missing="N"></div>
+        <div meter-read-type-filter ng-if="currentFilterPanel == 'MeterReadTypeFilterMissing'"
+            params="currentParams" filter-def="currentFunctionDef" missing="Y"></div>
         <div sold-to-filter ng-if="currentFilterPanel == 'SoldToFilter'"
             params="currentParams" filter-def="currentFunctionDef"></div>
         <div category-filter ng-if="currentFilterPanel == 'CategoryFilter'"
