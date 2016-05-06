@@ -1,10 +1,12 @@
 <br/>
 <h4 translate="FILTERS.BROWSE_METER_READ_TYPE"></h4>
  <div ng-repeat="tempType in meterReadTypes">
-    <input type="radio" id="tempType.type" name="meter-read-type-select"
-    ng-model="$parent.meterReadType" value="{{tempType.type}}"/>
-    <label for="tempType.type"><span></span>
-        {{tempType.name}}</label>
+ 	<div class="form__field form__field--no-margin">
+	    <input type="radio" id="tempType.type" name="meter-read-type-select"
+	    ng-model="$parent.meterReadType" value="{{tempType.type}}"/>
+	    <label for="tempType.type"><span></span>
+	        {{tempType.name}}</label>
+	</div>
 </div>
 <br/>
 <div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
