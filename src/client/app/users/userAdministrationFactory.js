@@ -24,19 +24,14 @@ angular.module('mps.user')
                         'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>', 
                         'notSearchable':true
                     },
-                    {
-                        'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 
-                        'field': 'userId', 
-                        'notSearchable': true, 
-                        'dynamic' : false,
-                        'cellTemplate':'<div>' +
-                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
-                                        '{{row.entity.userId}}</a>' +
-                                    '</div>'
-                    },
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email',
+                        'cellTemplate':'<div>' +
+                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
+                                        '{{row.entity.email}}</a>' +
+                                    '</div>'
+                    },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': '', 
