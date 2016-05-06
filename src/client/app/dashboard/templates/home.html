@@ -55,7 +55,7 @@
                         </a>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/orders" ng-if="orderSuppliesHardwareAccess">
+                        <a href="/orders?&filter=requeststatusfilterlong&filteron=completed" ng-if="orderSuppliesHardwareAccess">
                             <p>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srOrderCompletedCnt }}"></span>
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
@@ -70,7 +70,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_DEVICE_CHANGE_REQUESTS"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess">
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab&filter=requeststatusfiltershort&filteron=completed" ng-if="serviceRequestMADCAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srMADCCnt"></span>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -79,7 +79,7 @@
                         </a>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab" ng-if="serviceRequestMADCAccess">
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab&filter=requeststatusfiltershort&filteron=completed" ng-if="serviceRequestMADCAccess">
                             <p>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srMADCCompletedCnt }}"></span>
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>

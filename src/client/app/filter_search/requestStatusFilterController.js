@@ -67,5 +67,22 @@ angular.module('mps.filterSearch')
                 $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark', 'requesterFilter']);
             }
         };
+        if (params.filteron){
+        	var statusValue = null,i;
+        	for (i=0;i<$scope.requestStatuses.length;i++){
+        		if ($scope.requestStatuses[i].value.toLowerCase() === params.filteron){
+        			statusValue = $scope.requestStatuses[i].value;
+        			$scope.requestStatuses[i].selected=true;
+        			break;
+        		}
+        	}
+        	$scope.requestStatus={
+        			selected: true,
+        			value: statusValue
+        	}
+        	
+        	
+        	$scope.requestStatusFilter($scope.requestStatus);
+        }
     }
 ]);
