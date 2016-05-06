@@ -8,6 +8,7 @@ angular.module('mps.filterSearch')
             {type: 'MANUAL', name: $translate.instant('LABEL.MANUAL')},
             {type: 'AUTOMATIC', name: $translate.instant('LABEL.AUTOMATIC')}
         ];
+        $scope.meterReadType = 'MANUAL';
 
         $scope.$watch('meterReadType', function(meterReadType) {
             if (meterReadType) {
