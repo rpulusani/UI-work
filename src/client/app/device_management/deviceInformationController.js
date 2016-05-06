@@ -399,7 +399,39 @@ angular.module('mps.deviceManagement')
             ServiceRequest.reset();
             $location.path(DeviceServiceRequest.route + "/decommission/" + device.id + "/view");
         };
+        
+        $scope.goTocreateMove = function(device){
+        	 Devices.setItem(device);
+        	 var options = {
+                     params:{
+                         embed:'contact,address'
+                     }
+                 };
+             Devices.item.get(options).then(function(){
+                 $location.path('/service_requests/devices/' + device.id + '/update');
+             });
+        };
+        
+        $scope.goToorderSameDevice = function(device){
+        	Devices.item = {};
+            $location.path('/orders/catalog/hardware');
+        };
+        
+        $scope.goToSupplies = function(device){
+        	Devices.setItem(device);
+            var options = {
+                params:{
+                    embed:'contact,address'
+                }
+            };
 
+            Devices.item.get(options).then(function(){
+                $location.search('tab', 'orderTab');
+                $rootScope.currentDeviceTab = 'orderTab';
+                $location.path(Devices.route + '/' + device.id + '/review');
+            });
+        };
+        
         function madcGrid(){
                 var madcServiceRequest = angular.copy(ServiceRequest);
                 madcServiceRequest.setParamsToNull();

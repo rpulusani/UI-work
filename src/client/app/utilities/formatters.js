@@ -200,6 +200,21 @@ angular.module('mps.utility')
                 }
                 return formattedAddress;
             },
+            addBuildingFloorOffice: function(physicalLocationAddress){
+            	/** This adds the building floor office or physicallocation1 physicallocation2 physicallocation3 to 
+            	 * the formatted address*/
+            	var formattedAddress = '';
+            	 if (BlankCheck.checkNotBlank(physicalLocationAddress.physicalLocation1)){
+                     formattedAddress = formattedAddress + physicalLocationAddress.physicalLocation1 + '<br/>';
+                 }
+            	 if (BlankCheck.checkNotBlank(physicalLocationAddress.physicalLocation2)){
+                     formattedAddress = formattedAddress + physicalLocationAddress.physicalLocation2 + '<br/>';
+                 }
+            	 if (BlankCheck.checkNotBlank(physicalLocationAddress.physicalLocation3)){
+                     formattedAddress = formattedAddress + physicalLocationAddress.physicalLocation3 + '<br/>';
+                 }
+            	return formattedAddress;
+            },
             convertUTCDateToLocalDate: function(d) {
                 if (d === undefined || d === null) { return; }
                 var newDate = new Date(d.getTime()+d.getTimezoneOffset()*60*1000);

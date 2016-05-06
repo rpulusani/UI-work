@@ -136,7 +136,13 @@ angular.module('mps.serviceRequestAddresses')
                 print: true
             };
             $scope.configure.contact.show.primaryAction = false;
+            $scope.configure.showAddAnotherAddress = true;
           }
+            $scope.goToCreate = function() {
+                ServiceRequest.newMessage();
+                Addresses.item = undefined;
+                $location.path('/service_requests/addresses/new');
+            };
         }
 
         function configureTemplates() {

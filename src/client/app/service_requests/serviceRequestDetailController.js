@@ -483,6 +483,7 @@ angular.module('mps.serviceRequests')
                         description:'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_PROBLEM_DESC'
                     }
                 };
+            $scope.configure.device.information.translate.installAddress = 'REPORTING.SERVICE_ADDRESS';
             break;
             case 'SUPPLIES_CATALOG_ORDER':
             case 'HARDWARE_ORDER':
@@ -543,6 +544,10 @@ angular.module('mps.serviceRequests')
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
             $scope.formattedDeviceMoveAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
+            if(!BlankCheck.isNull($scope.sr.destinationAddressPhysicalLocation)){
+            	 $scope.formattedDeviceMoveAddress += FormatterService.addBuildingFloorOffice($scope.sr.destinationAddressPhysicalLocation);
+            }
+            
     }
 
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {

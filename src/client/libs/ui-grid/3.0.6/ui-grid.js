@@ -17560,7 +17560,7 @@ module.filter('px', function() {
             if (self.isIE()) {
               self.downloadPDF(grid.options.exporterPdfFilename, docDefinition);
             } else {
-              pdfMake.createPdf(docDefinition).open();
+              pdfMake.createPdf(docDefinition).download('download.pdf');
             }
           });
         },

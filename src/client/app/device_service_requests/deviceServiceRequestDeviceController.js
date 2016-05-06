@@ -47,7 +47,17 @@ angular.module('mps.serviceRequestDevices')
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
+        setCsvDefinition = function() {
+            $scope.csvModel = {
+                filename: $scope.sr.requestNumber + '.csv',
+                data: {
+                    requestNumber: $scope.sr.requestNumber,
+                    description: $scope.sr.description,
+                    type: $scope.sr.type
+                }
+            };
+        };
 
         $scope.setTransactionAccount('DeviceServiceRequestDevice', Devices);
         new SecurityHelper($rootScope).redirectCheck($rootScope.createBreakFixAccess);
@@ -281,6 +291,8 @@ angular.module('mps.serviceRequestDevices')
                 }
             };
             $scope.configure.contact.show.primaryAction = false;
+            
+            setCsvDefinition();
         }
       }
         function configureTemplates(){
@@ -305,7 +317,7 @@ angular.module('mps.serviceRequestDevices')
                             serialNumber: 'REQUEST_MAN.COMMON.TXT_SERIAL_NUMBER',
                             product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                             ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
-                            installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                            installAddress: 'REPORTING.SERVICE_ADDRESS'
                         }
                     },
                     service:{
