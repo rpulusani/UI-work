@@ -14,10 +14,10 @@
         </thead>
         <tbody>
              <tr ng-repeat="device in devices">
-                <td ng-bind="device.serialNumber"></td>
-                <td ng-bind="device.productModel"></td>
-                <td ng-bind="device.productModel"></td>
-                <td ng-bind="device.costCenter"></td>
+                <td>{{::device.serialNumber }}</td>
+                <td>{{::device.productModel }}</td>
+                <td>{{::device.productModel }}</td>
+                <td>{{::device.costCenter }}</td>
              </tr>
         </tbody>
     </table>
