@@ -19,8 +19,8 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true},
-                        {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullRequestorName()',visible: false},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()'},
+                        {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()',visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CUST_REF_ID'), 'field':'customerReferenceId',visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter',visible: false}
                     ],
