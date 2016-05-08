@@ -149,27 +149,99 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
                     ],
                      contactSet: [
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
-                        'cellTemplate':'<div>' +
+                        {
+                            'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 
+                            'field': 'requestNumber',
+                            'cellTemplate': '<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
-                                    '</div>'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
-                        {'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'), 'field':'getFullRequestorName()', 'notSearchable': true},
-                        {'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'), 'field':'_embedded.requester.workPhone', 'notSearchable': true},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS.PROVINCE'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS.COUNTY'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS.DISTRICT'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'), 'field': '', visible: false},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 'field': '', visible: false},
-                        {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
+                                    '</div>'
+                        },
+                        {
+                            'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 
+                            'field': 'createDate', 
+                            'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status'},
+                        {
+                            'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'), 
+                            'field': 'requester.lastName', 
+                            'cellTemplate': '<div ng-bind="row.entity.getFullRequestorName()"></div>'
+                        },
+                        {
+                            'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'), 
+                            'field': 'requester.workPhone', 
+                            'cellTemplate': '<div ng-bind="row.entity.getWorkPhone()"></div>'
+                        },
+                        {
+                            'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_EMAIL'), 
+                            'field': '_embedded.requester.email', 
+                            'searchOn': 'requester.email',
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 
+                            'field': 'sourceAddress.addressLine1', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'), 
+                            'field': 'sourceAddress.addressLine2', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 
+                            'field': 'sourceAddress.houseNumber', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 
+                            'field': 'sourceAddress.city', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 
+                            'field': 'sourceAddress.state', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS.PROVINCE'), 
+                            'field': 'sourceAddress.province', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS.COUNTY'), 
+                            'field': 'sourceAddress.county', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS.DISTRICT'), 
+                            'field': 'sourceAddress.district', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'), 
+                            'field': 'sourceAddress.country', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 
+                            'field': 'sourceAddress.postalCode', 
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 
+                            'field': 'getFullPrimaryName()', 
+                            'searchOn': 'primaryContact.lastName',
+                            'visible': false
+                        },
+                        {
+                            'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 
+                            'field': 'getFullRequestorName()', 
+                            'searchOn': 'requester.lastName',
+                            'visible': false
+                        }
                     ]
                 },
 
@@ -203,6 +275,16 @@ angular.module('mps.serviceRequests')
                                 return '';
                             }
                         }
+                    },
+                    {
+                         name: 'getWorkPhone',
+                         functionDef: function() {
+                            if(this._embedded && this._embedded.requester){
+                                return formatter.getPhoneFormat(this._embedded.requester.workPhone);
+                            }else{
+                                return '';
+                            }
+                         }
                     }
                 ],
 
