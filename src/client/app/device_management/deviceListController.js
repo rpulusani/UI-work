@@ -214,7 +214,7 @@ angular.module('mps.deviceManagement')
 
         var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location'];
 
-        filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact'}, removeParamsList,
+        filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact,account'}, removeParamsList,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);

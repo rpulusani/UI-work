@@ -122,7 +122,8 @@ angular.module('mps.filterSearch')
             title: '@',
             params:'=',
             filterDef: '=',
-            action: '@'
+            action: '@',
+            missing: '@'
         },
         templateUrl: '/app/filter_search/templates/meterReadTypeFilter.html',
         controller: 'MeterReadTypeFilterController'

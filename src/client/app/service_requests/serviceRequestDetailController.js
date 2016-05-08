@@ -43,8 +43,12 @@ angular.module('mps.serviceRequests')
                 data: {
                     id: $scope.sr.id,
                     requestNumber: $scope.sr.requestNumber,
-                    description: $scope.sr.description,
-                    customerReferenceId: $scope.sr.customerReferenceId,
+                    formattedPrimaryContact: $scope.formattedPrimaryContact,
+                    requestedByContactFormatted:$scope.requestedByContactFormatted,
+                    customerReferenceId: $scope.formattedReferenceId,
+                    formattedAddress: $scope.formattedAddress,
+                    description: $scope.formattedDescription,
+                    notes: $scope.formattedNotes,
                     created: $scope.sr.createDate
                 }
             };
@@ -64,12 +68,10 @@ angular.module('mps.serviceRequests')
             ServiceRequest.item.asset ){
             $scope.device = ServiceRequest.item.asset.item;
 
-            setCsvDefinition();
         }else if(ServiceRequest && ServiceRequest.item &&
             ServiceRequest.item.assetInfo){
             $scope.device =  ServiceRequest.item.assetInfo;
             
-            setCsvDefinition();
         }
 
         $scope.configure = {
@@ -324,6 +326,8 @@ angular.module('mps.serviceRequests')
 
                     $scope.formattedPrimaryContactAddress =
                         FormatterService.formatAddress($scope.sr.primaryContact.item.address);
+
+
             }
         }
         function addDecommissionInfo(){
@@ -527,6 +531,7 @@ angular.module('mps.serviceRequests')
     };
 
         $scope.setupTemplates(function(){}, configureReceiptTemplate, function(){});
+
         if($scope.sr.type.indexOf('RETURN_SUPPLIES') > -1){
             addReturnOrderInfo();
         }else{
@@ -557,6 +562,7 @@ angular.module('mps.serviceRequests')
     if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
         !BlankCheck.isNull($scope.sr.primaryContact.item)){
                 $scope.formattedPrimaryContact = FormatterService.formatContact($scope.sr.primaryContact.item);
+
     }
     if(!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.requester) &&
         !BlankCheck.isNull($scope.sr.requester.item)){
@@ -586,4 +592,7 @@ angular.module('mps.serviceRequests')
         $scope.formattedReason = FormatterService.formatNoneIfEmpty(OrderTypes.getDisplay($scope.sr.type));
         $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
     }
+
+    setCsvDefinition();
+    
 }]);

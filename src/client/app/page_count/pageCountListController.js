@@ -185,11 +185,18 @@ angular.module('mps.pageCount')
 
 
         var removeParamsList = ['from', 'to', 'source', 'location', 'chlFilter'];
-        filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_PAGE_COUNTS', {'embed': 'asset'}, removeParamsList,
+        filterSearchService.addPanelFilter('FILTERS.FILTER_BY_METER_READ_TYPE', 'MeterReadTypeFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);
                 }, 0);
+            }
+        );
+        filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_PAGE_COUNTS', {'embed': 'asset'}, removeParamsList,
+            function(Grid) {
+                setTimeout(function() {
+                    $scope.$broadcast('setupPrintAndExport', $scope);
+                }, 500);
             }
         );
         filterSearchService.addPanelFilter('SERVICE_REQUEST.FILTER_BY_CHL', 'CHLFilter', undefined,
@@ -207,13 +214,6 @@ angular.module('mps.pageCount')
             }
         );
         filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'DateRangeFilter', undefined,
-            function(Grid) {
-                setTimeout(function() {
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-                }, 500);
-            }
-        );
-        filterSearchService.addPanelFilter('FILTERS.FILTER_BY_METER_READ_TYPE', 'MeterReadTypeFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
                     $scope.$broadcast('setupPrintAndExport', $scope);

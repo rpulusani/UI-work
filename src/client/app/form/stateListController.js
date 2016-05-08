@@ -11,13 +11,23 @@ angular.module('mps.form')
 	         
 	             $scope.stateLabel='ADDRESS_MAN.COMMON.TXT_STATE';
 	             
-	             var labelProvince=["argentina","canada","spain",
+	             var labelProvince = ["argentina","canada","spain",
 	             	             "portugal","france","netherlands"]	;
-	             var labelState=["usa","india","australia","brazil",
+	             var labelState = ["usa","india","australia","brazil",
 	            	             "mexico"];
-	             var labelCounty=["ireland"];
+	             var labelCounty = ["ireland"];
 	             
-	             
+	             var zipMandatoryList = ["zimbabwe","united arab emirates","antigua & barbuda","angola","aruba",
+	                                 "burkina faso","burundi","benin", "bahamas", "botswana","congo  democratic republic",
+	                                 "central african republic", "congo", "cote divoire","cook islands","cameroon",
+	                                 "curacao", "djibouti","dominica","eritrea","fiji","grenada","ghana","gambia",
+	                                 "guinea","equatorial guinea","guyana","ireland","kenya","kiribati","comoros",
+	                                 "st kitts & nevis","north korea","kuwait","st ucia","mali","macau","mauritania",
+	                                 "montserrat","mauritius","malawi","nauru","niue","qatar","solomon islands",
+	                                 "seychelles","sierra leone","somalia","suriname","sao tome & principe",
+	                                 "sint maarten","syrian arab republic","french southern territory",
+	                                 "togo","tokelau","timor-leste","tonga","tuvalu","tanzania",
+	                                 "uganda","vanuatu","yemen"];
 	             if ($scope.countryModel && $scope.countryModel !== ""){
 	            	 setupState();
 	             }
@@ -34,13 +44,19 @@ angular.module('mps.form')
 		             }else if (labelProvince.indexOf(countryName)!=-1){
 		             	$scope.stateLabel='ADDRESS.PROVINCE';
 		             }
-		             
-		             if((labelProvince.concat(labelState)).indexOf(countryName)==-1){
+		             	$scope.stateOrPostalMandatory = false;
+		             	$scope.zipMandatory = false;
+		             	
+		             if (zipMandatoryList.indexOf(countryName) != -1){
+		            	 
 		             	$scope.stateOrPostalMandatory = false;
 		             	$scope.zipMandatory = true;
-		             }else{
+		             	
+		             }else if ((labelProvince.concat(labelState)).indexOf(countryName) != -1){
+		            	 
 		             	$scope.stateOrPostalMandatory = true;
 		             	$scope.zipMandatory = false;
+		             	
 		             }
 	            } 	
 	           
