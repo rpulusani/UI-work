@@ -29,6 +29,11 @@
     </div>
 </div>
 
+<div ng-show="documentItem.id !== 'new'">
+    <div class="form__field form__field--required">   
+        <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>{{fullDocNameWithExt}}</div>    
+</div>
+
 <div class="form__field form__field--required vertical-space--thick">
     <input name="id" type="hidden" ng-model="documentItem.id"/>
     <input name="accountId" type="hidden" ng-model="documentItem.accountId"/>
