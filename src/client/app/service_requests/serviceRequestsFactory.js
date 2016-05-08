@@ -68,7 +68,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CUST_REF_ID'), 'field':'customerReferenceId', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
                         {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '', visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
@@ -107,7 +107,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CUST_REF_ID'), 'field':'customerReferenceId', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
                         {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.', visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
@@ -146,7 +146,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field':'_embedded.sourceAddress.addressLine1', visible: true},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false, 'notSearchable': true}
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false}
                     ],
                      contactSet: [
                         {
