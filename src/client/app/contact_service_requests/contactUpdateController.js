@@ -32,6 +32,10 @@ angular.module('mps.serviceRequestContacts')
         $timeout,
         SecurityHelper) {
 
+        if(Contacts.item === null){       
+            $location.path('/service_requests/contacts/');
+        }
+
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactUpdate', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);

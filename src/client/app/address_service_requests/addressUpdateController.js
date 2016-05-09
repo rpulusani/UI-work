@@ -38,6 +38,11 @@ angular.module('mps.serviceRequestAddresses')
         tombstoneWaitTimeout,
         SecurityHelper,
         ErrorMsgs) {
+        
+        if(Addresses.item === null){                        
+            window.scrollTo(0,0);
+            $location.path(Addresses.route+'/');
+        }
 
         $scope.isLoading = false;
         $scope.returnedForm = false;

@@ -28,6 +28,8 @@ angular.module('mps.library')
         templateUrl: '/app/library/templates/library-new-fields.html',
         controller: ['$scope', 'AccountService', 'UserService', '$q', function($scope, Account, Users, $q){
             $scope.documentItem.accountList = [];
+            $scope.fullDocNameWithExt = $scope.documentItem.name + "." + $scope.documentItem.ext;
+            
             Users.getLoggedInUserInfo().then(function() {
                 if (Users.item._links.accounts) {
                     $scope.showAllAccounts = false;
