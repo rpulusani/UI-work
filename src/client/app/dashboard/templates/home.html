@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row l-pad-bottom-thick">
-            <div class="col-lg-1-3 l-pad">
+            <div class="col-lg-1-3 l-pad" ng-if="serviceRequestBreakFixAccess">
                 <div class="rollup">
                     <div class="rollup-label">
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_REQUESTS_FOR_SERVICE"></h4>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-1-3 l-pad">
+            <div class="col-lg-1-3 l-pad" ng-if="orderAccess">
                 <div class="rollup">
                     <div class="rollup-label">
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_ORDERS"></h4>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-1-3 l-pad">
+            <div class="col-lg-1-3 l-pad" ng-if="serviceRequestMADCAccess">
                 <div class="rollup">
                     <div class="rollup-label">
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_DEVICE_CHANGE_REQUESTS"></h4>
