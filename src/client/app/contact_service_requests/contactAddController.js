@@ -34,6 +34,9 @@ angular.module('mps.serviceRequestContacts')
         SecurityHelper,
         ErrorMsgs) {
 
+        if(Contacts.item === null){       
+            $location.path('/service_requests/contacts/');
+        }
         $scope.bodsError = false;
         $scope.bodsErrorKey = '';
 
