@@ -188,7 +188,7 @@ angular.module('mps.report')
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.consumables)},
+                        {v: $translate.instant($scope.configure.report.kpi.translate.consumables) + ' (' + data.stat[0].period.replace(/ /g, '') + ')'},
                         {v: d.consumables },
                         {v: "#faa519" }
                     ]}
