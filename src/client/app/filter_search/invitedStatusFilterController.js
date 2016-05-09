@@ -4,8 +4,8 @@ angular.module('mps.filterSearch')
     function($scope, $translate) {
         $scope.showClearMessage = false;
         $scope.invitedStatuses = [
-            {type: 'INVITED', name: $translate.instant('LABEL.INVITED')},
-            {type: 'REJECTED', name: $translate.instant('LABEL.REJECTED')}
+            {type: 'INVITED', name: $translate.instant('LABEL.COMMON.INVITED')},
+            {type: 'REJECTED', name: $translate.instant('LABEL.COMMON.REJECTED')}
         ];
 
         $scope.$watch('inviteStatus', function(inviteStatus) {

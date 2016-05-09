@@ -74,8 +74,8 @@ angular.module('mps.serviceRequestAddresses')
                         title: 'DEVICE_SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
                         referenceId: 'SERVICE_REQUEST.INTERNAL_REFERENCE_ID',
                         costCenter: 'SERVICE_REQUEST.REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
+                        comments: 'LABEL.COMMON.COMMENTS',
+                        attachments: 'LABEL.COMMON.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },

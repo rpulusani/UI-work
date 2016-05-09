@@ -5,7 +5,7 @@
             <th translate="DEVICE_MGT.PAGE_COUNT_TYPE"></th>
             <th ng-show="updateFlag" translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT"></th>
             <th translate="DEVICE_MGT.NEW_COUNT"></th>
-            <th translate="LABEL.DATE"></th>
+            <th translate="LABEL.COMMON.DATE"></th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
                     <span ng-if="item.type === 'MONO' && updateFlag === true" ng-bind="item.value"></span>
                 </div>
             </td>
-            <td data-label="{{'LABEL.DATE' | translate}}">
+            <td data-label="{{'LABEL.COMMON.DATE' | translate}}">
                 <div class="form__field vertical-space--none">
                     <div ng-show="readonly === true">
                         <div ng-bind="getFormattedDate(module.newDate[item.type])"></div>

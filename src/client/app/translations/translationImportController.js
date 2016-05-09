@@ -15,7 +15,7 @@ angular.module('mps.translation')
         $scope.configure = {
             detail: {
                 translate: {
-                    comments: 'LABEL.COMMENTS',
+                    comments: 'LABEL.COMMON.COMMENTS',
                     attachments: 'Please select the file you wish to import translations from...',
                     attachmentMessage: '* Acceptable file format: .xliff'
                 },

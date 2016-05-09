@@ -36,7 +36,7 @@ angular.module('mps.invoice')
 
         Invoices.params.size = 100000;
 
-        filterSearchService.addBasicFilter('INVOICE.ALL_INVOICES', configureParams, removeParamsList, function() {
+        filterSearchService.addBasicFilter('INVOICE.COMMON.ALL_INVOICES', configureParams, removeParamsList, function() {
             $scope.$broadcast('setupPrintAndExport', $scope);
         });
         filterSearchService.addPanelFilter('FILTERS.FILTER_BY_DATE', 'InvoiceDateFilter', undefined,

@@ -37,7 +37,7 @@
         <input name="addressLine1" type="text" ng-model="selectedAddress.addressLine1" required/>
         <span ng-hide="!selectAddressForm.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
+            <span translate="LABEL.COMMON.ERROR_REQUIRED"></span>
         </span>
     </div>
     <div class="form__field">
@@ -49,7 +49,7 @@
         <input name="city" type="text" ng-model="selectedAddress.city" required />
         <span ng-hide="!selectAddressForm.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
+            <span translate="LABEL.COMMON.ERROR_REQUIRED"></span>
         </span>
     </div>
     <div ng-show="selectedAddress.country.toLowerCase() === 'brazil'" class="form__field form__field--required">
