@@ -51,52 +51,100 @@ angular.module('mps.deviceManagement')
 
             if ($scope.device.productModel) {
                 rows.push($scope.device.productModel);
+            } else {
+                rows.push('none');
             }
            
             if ($scope.device.serialNumber) {
                 rows.push($scope.device.serialNumber);
+            } else {
+                rows.push('none');
             }
 
             if ($scope.device.assetTag) {
                 rows.push($scope.device.assetTag);
+            } else {
+                rows.push('none');
             }
 
             if ($scope.device.ipAddress) {
                 rows.push($scope.device.ipAddress);
+            } else {
+                rows.push('none');
             }
 
             if ($scope.device.hostname) {
                 rows.push($scope.device.hostname);
+            } else {
+                rows.push('none');
             }
 
             if ($scope.device.costCenter) {
                 rows.push($scope.device.costCenter);
+            } else {
+                rows.push('none');
             }
 
             if ($scope.device.installDate) {
                 rows.push($scope.device.installDate);
+            } else {
+                rows.push('none');
             }
 
             if ($scope.device.contact && $scope.device.contact.item) {
                 if ($scope.device.contact.item.formattedName) {
                     rows.push($scope.device.contact.item.formattedName);
+                } else {
+                    rows.push('none');
                 }
 
-                if ($scope.device.contact.item.email) {
+                if ($scope.device.contact.item.email && $scope.device.contact.item.email !== ' ') {
                     rows.push($scope.device.contact.item.email);
+                } else {
+                    rows.push('none');
                 }
 
                 if ($scope.device.contact.item.workPhone) {
                     rows.push($scope.device.contact.item.workPhone);
+                } else {
+                    rows.push('none');
                 }
 
                 if ($scope.device.contact.item.formattedName) {
                     rows.push($scope.device.contact.item.formattedName);
+                } else {
+                    rows.push('none');
                 }
                   
                 if ($scope.device.contact.item.address 
                     && $scope.device.contact.item.address.addressLine1) {
                     rows.push($scope.device.contact.item.address.addressLine1);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.chl && $scope.device.chl.item) {
+                    rows.push($scope.device.chl.item.id);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.lifetime) {
+                    rows.push($scope.device.lifetime);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.color) {
+                    rows.push($scope.device.color);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.lastUpdated) {
+                    rows.push($scope.device.lastUpdates);
+                } else {
+                    rows.push('none');
                 }
             }
 
