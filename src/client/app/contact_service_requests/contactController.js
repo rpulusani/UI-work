@@ -188,8 +188,8 @@ angular.module('mps.serviceRequestContacts')
                         title: 'SERVICE_REQUEST.ADDITIONAL_REQUEST_DETAILS',
                         referenceId: 'REQUEST_MAN.COMMON.TXT_REQUEST_CUST_REF_ID',
                         costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
+                        comments: 'LABEL.COMMON.COMMENTS',
+                        attachments: 'LABEL.COMMON.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
                         validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')

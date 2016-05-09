@@ -27,7 +27,7 @@
         <input name="addressLine1" type="text" ng-model="contact.address.addressLine1" required/>
         <span ng-hide="!newAddress.addressLine1.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
+            <span translate="LABEL.COMMON.ERROR_REQUIRED"></span>
         </span>
     </div>
     <div class="form__field">
@@ -39,7 +39,7 @@
         <input name="city" type="text" ng-model="contact.address.city" required city-valid/>
         <span ng-hide="!newAddress.city.$error.required" class="form__field__helper-text form__field__helper-text--alert">
             <i class="icon icon--ui icon--error-small"></i>
-            <span translate="LABEL.ERROR_REQUIRED"></span>
+            <span translate="LABEL.COMMON.ERROR_REQUIRED"></span>
         </span>
     </div>
 
@@ -61,7 +61,7 @@
                 ng-required="contact.address.zipMandatory || (contact.address.stateOrPostalMandatory && contact.address.state == '')" postal-code-valid/>
                 <span ng-hide="!newAddress.zipCode.$error.required" class="form__field__helper-text form__field__helper-text--alert">
                     <i class="icon icon--ui icon--error-small"></i>
-                    <span translate="LABEL.ERROR_REQUIRED"></span>
+                    <span translate="LABEL.COMMON.ERROR_REQUIRED"></span>
                 </span>
             </div>
         </div>

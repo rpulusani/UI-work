@@ -250,7 +250,7 @@ angular.module('mps.library')
         };
 
         $scope.goToSelectAccount = function() {
-            if ($scope.documentItem.accountSelected === $translate.instant('LABEL.SELECT')) {
+            if ($scope.documentItem.accountSelected === $translate.instant('LABEL.COMMON.SELECT')) {
                 return;
             }
 

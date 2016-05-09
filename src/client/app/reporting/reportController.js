@@ -28,7 +28,7 @@ angular.module('mps.report')
                     charts: {
                         translate: {
                             h2: 'REPORTING.CHARTS',
-                            noDataAvailable: 'LABEL.ZERO_RECORDS',
+                            noDataAvailable: 'LABEL.COMMON.ZERO_RECORDS',
                             assetCount: 'REPORTING.ASSET_COUNT',
                             madcEvents: 'REPORTING.MADC_EVENTS',
                             meterReads: 'REPORTING.METER_READS',
@@ -47,9 +47,9 @@ angular.module('mps.report')
                             missedReadsPercent: 'REPORTING.MISSED_READS_PERCENT',
                             autoCount: 'REPORTING.AUTO_COUNT',
                             manualCount: 'REPORTING.MANUAL_COUNT',
-                            consumablesOrdersOpen: 'LABEL.OPEN',
+                            consumablesOrdersOpen: 'LABEL.COMMON.OPEN',
                             consumablesOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
-                            hardwareOrdersOpen: 'LABEL.OPEN',
+                            hardwareOrdersOpen: 'LABEL.COMMON.OPEN',
                             hardwareOrdersShipped: 'REPORTING.SHIPPED_LAST_THIRTY_DAYS',
                             billedPagesColor: 'REPORTING.COLOR_PAGES_COUNT',
                             billedPagesMono: 'REPORTING.MONO_PAGES_COUNT',
@@ -67,9 +67,9 @@ angular.module('mps.report')
                         other: {
                             translate: {
                                 h2: 'REPORTING.OTHER_REPORTS',
-                                fieldCreated: 'LABEL.CREATED',
-                                fieldTaggedAs: 'LABEL.TAGGED_AS',
-                                fieldFile: 'LABEL.FILE'
+                                fieldCreated: 'LABEL.COMMON.CREATED',
+                                fieldTaggedAs: 'LABEL.COMMON.TAGGED_AS',
+                                fieldFile: 'LABEL.COMMON.FILE'
                             }
                         }
                     }

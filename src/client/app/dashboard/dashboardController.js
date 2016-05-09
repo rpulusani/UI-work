@@ -151,7 +151,7 @@ function(
             $scope.chartObject.fleetAvailability.data = {
                 "cols": [
                     {id: "t", label: $translate.instant("REPORTING.FLEET_AVAILABILITY"), type: "string"},
-                    {id: "s", label: $translate.instant("LABEL.PERCENT"), type: "number" },
+                    {id: "s", label: $translate.instant("LABEL.COMMON.PERCENT"), type: "number" },
                     {role: "style", type: "string"}
                 ],
                 "rows": [
@@ -180,7 +180,7 @@ function(
             $scope.chartObject.responseTime.data = {
                 "cols": [
                     {id: "t", label: "Response Time", type: "string"},
-                    {id: "s", label: $translate.instant("LABEL.PERCENT"), type: "number" },
+                    {id: "s", label: $translate.instant("LABEL.COMMON.PERCENT"), type: "number" },
                     {role: "style", type: "string"}
                 ],
                 "rows": [
@@ -209,7 +209,7 @@ function(
             $scope.chartObject.consumables.data = {
                 "cols": [
                     {id: "t", label: $translate.instant("REPORTING.FLEET_AVAILABILITY"), type: "string"},
-                    {id: "s", label: $translate.instant("LABEL.PERCENT"), type: "number" },
+                    {id: "s", label: $translate.instant("LABEL.COMMON.PERCENT"), type: "number" },
                     {role: "style", type: "string"}
                 ],
                 "rows": [
