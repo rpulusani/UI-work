@@ -452,10 +452,10 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                     scope.sr = {};
                     service.addMethods(halObj, scope, rootScope);
                     scope.formatReceiptData();
-                    expect(scope.formattedNotes).toBe('LABEL.NONE');
-                    expect(scope.formattedReferenceId).toBe('LABEL.NONE');
-                    expect(scope.formattedCostCenter).toBe('LABEL.NONE');
-                    expect(scope.formattedAttachments).toBe('LABEL.NONE');
+                    expect(scope.formattedNotes).toBe('LABEL.COMMON.NONE');
+                    expect(scope.formattedReferenceId).toBe('LABEL.COMMON.NONE');
+                    expect(scope.formattedCostCenter).toBe('LABEL.COMMON.NONE');
+                    expect(scope.formattedAttachments).toBe('LABEL.COMMON.NONE');
                 });
                 it('should setup all functions', function(){
                     var halObj = {
@@ -467,10 +467,10 @@ define(['angular','angular-mocks', 'serviceRequest','serviceRequest.controllerHe
                     scope.sr = {};
                     service.addMethods(halObj, scope, rootScope);
                     scope.formatReceiptData(test);
-                    expect(scope.formattedNotes).toBe('LABEL.NONE');
-                    expect(scope.formattedReferenceId).toBe('LABEL.NONE');
-                    expect(scope.formattedCostCenter).toBe('LABEL.NONE');
-                    expect(scope.formattedAttachments).toBe('LABEL.NONE');
+                    expect(scope.formattedNotes).toBe('LABEL.COMMON.NONE');
+                    expect(scope.formattedReferenceId).toBe('LABEL.COMMON.NONE');
+                    expect(scope.formattedCostCenter).toBe('LABEL.COMMON.NONE');
+                    expect(scope.formattedAttachments).toBe('LABEL.COMMON.NONE');
                     expect(scope.cat).toBe('sam');
                 });
             });

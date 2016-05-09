@@ -6,7 +6,7 @@
 <div class="form__field form__field--select form__field--required vertical-margin-bottom-72" ng-if="showAgreements === 'multi'">
     <label translate="ORDER_CATALOGS.COMMON.TXT_AGREEMENT_SELECTION"></label>
     <div selectric model="agreement" options="agreements" value="id" label="name"
-  placeholder="{{'LABEL.SELECT' | translate}}" required on-select="onAgreementSelected(option)" class="col-1-3"></div>
+  placeholder="{{'LABEL.COMMON.SELECT' | translate}}" required on-select="onAgreementSelected(option)" class="col-1-3"></div>
 </div>
 <div ng-if="showAgreements === 'single'" class="col-2-3 vertical-margin-bottom-72">
         {{agreement.name}}
@@ -17,7 +17,7 @@
     <div class="form__field form__field--select form__field--required vertical-margin-bottom-72" ng-if="showContracts === 'multi'" >
         <label translate="ORDER_CATALOGS.COMMON.TXT_CONTRACT_SELECTION"></label>
         <div selectric model="contract" options="contracts" value="id" label="name"
-          placeholder="{{'LABEL.SELECT' | translate}}" required on-select="onContractSelected(option)" class="col-1-3"></div>
+          placeholder="{{'LABEL.COMMON.SELECT' | translate}}" required on-select="onContractSelected(option)" class="col-1-3"></div>
     </div>
     <div ng-if="showContracts === 'single'" class="col-2-3 vertical-margin-bottom-72">
         {{contract.name}}

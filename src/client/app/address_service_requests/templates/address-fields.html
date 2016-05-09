@@ -14,7 +14,7 @@
         <input type="radio" id="store-front-question-no" name="store-front-question"
         ng-model="address.storeFrontQuestion" value="false" data-js="customInput" />
         <label for="store-front-question-no"><span></span>
-            {{'LABEL.NO' | translate }}</label>
+            {{'LABEL.COMMON.NO' | translate }}</label>
     </div>
      <div class="form__field form__field--radio form__field--no-margin">
         <input type="radio" id="store-front-question-yes" name="store-front-question"
@@ -38,7 +38,7 @@
 <div class="form__field form__field--select form__field--required">
     <label translate="ADDRESS.COUNTRY"></label>
     <div selectric model="addresses.item.country" options="countryHAL.countries" value="code" label="name"
-  placeholder="{{'LABEL.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
+  placeholder="{{'LABEL.COMMON.SELECT' | translate}}" required on-select="countrySelected(option)"></div>
 </div>
 <div class="form__field form__field--required" ng-class="(!updateAddress.addressLine1.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="ADDRESS.LINE_1"></label>
@@ -55,7 +55,7 @@
 <div class="form__field form__field--select form__field--required">
     <label translate="ADDRESS.STATE"></label>
     <div selectric options="country.provinces" value="code" label="name" model="addresses.item.state" required
-         placeholder="{{'LABEL.SELECT' | translate}}"></div>
+         placeholder="{{'LABEL.COMMON.SELECT' | translate}}"></div>
 </div>
 <div class="row">
     <div class="col-md-1-3">

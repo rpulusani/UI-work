@@ -18,7 +18,7 @@ angular.module('mps.orders')
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', 'notSearchable': true},
-                        {'name': $translate.instant('LABEL.STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
@@ -36,7 +36,7 @@ angular.module('mps.orders')
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
-                        {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'assetInfo.serialNumber'},
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetInfo.assetTag'},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
@@ -70,7 +70,7 @@ angular.module('mps.orders')
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
-                        {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
@@ -99,7 +99,7 @@ angular.module('mps.orders')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('LABEL.STATUS'), 'field':'status'},
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'}
                     ],
                     suppliesCatalogSet:[

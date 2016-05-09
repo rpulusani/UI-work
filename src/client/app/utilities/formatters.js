@@ -374,13 +374,13 @@ angular.module('mps.utility')
                 return formattedContact;
             },
             formatStatus: function(value) {
-                return (value === true) ? $translate.instant('LABEL.ACTIVE') : $translate.instant('LABEL.INACTIVE');
+                return (value === true) ? $translate.instant('LABEL.COMMON.ACTIVE') : $translate.instant('LABEL.COMMON.INACTIVE');
             },
             formatYesNo: function(value) {
-                return (value === true) ? $translate.instant('LABEL.YES') : $translate.instant('LABEL.NO');
+                return (value === true) ? $translate.instant('LABEL.COMMON.YES') : $translate.instant('LABEL.COMMON.NO');
             },
             formatNoneIfEmpty: function(value) {
-                return (BlankCheck.isNullOrWhiteSpace(value) === true) ? $translate.instant('LABEL.NONE') : value;
+                return (BlankCheck.isNullOrWhiteSpace(value) === true) ? $translate.instant('LABEL.COMMON.NONE') : value;
             },
             getAmountWithCurrency: function(amount, currency){
                 return amount + ' (' + currency + ')';

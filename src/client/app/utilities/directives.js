@@ -98,12 +98,12 @@ angular.module('mps.utility')
         '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
             '<span ng-if="displayPrint" class="">' +
                 '<i class="icon icon--mps icon--print"></i>' +
-                '<a ng-show="!nativePrint" translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
-                '<a ng-show="nativePrint" translate="LABEL.PRINT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
+                '<a ng-show="!nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
+                '<a ng-show="nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
             '</span>' +
             '<span ng-if="displayExport" class="">' +
                 '<i class="icon icon--mps icon--download"></i>' +
-                '<a translate="LABEL.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
+                '<a translate="LABEL.COMMON.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
             '</span>' +
         '</div>',
         controller: 'PrintExportTitleController'

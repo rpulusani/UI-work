@@ -4,9 +4,9 @@ angular.module('mps.filterSearch')
     function($scope, $translate) {
         $scope.showClearMessage = false;
         $scope.meterReadTypes = [
-            {type: 'ALL', name: $translate.instant('LABEL.ALL')},
-            {type: 'MANUAL', name: $translate.instant('LABEL.MANUAL')},
-            {type: 'AUTOMATIC', name: $translate.instant('LABEL.AUTOMATIC')}
+            {type: 'ALL', name: $translate.instant('LABEL.COMMON.ALL')},
+            {type: 'MANUAL', name: $translate.instant('LABEL.COMMON.MANUAL')},
+            {type: 'AUTOMATIC', name: $translate.instant('LABEL.COMMON.AUTOMATIC')}
         ];
         $scope.meterReadType = 'MANUAL';
         if ($scope.missing && $scope.missing === 'Y') {

@@ -112,10 +112,10 @@ define(['angular', 'angular-mocks', 'utility.grid'], function(angular, mocks, Gr
                     ];
                     mockedAddressesFactory.columnDefs.defaultSet = [
                             {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                            {'name': 'LABEL.DATE', 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                            {'name': 'LABEL.COMMON.DATE', 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                             {'name': 'SERVICE_REQUEST.REQUEST_NUMBER', 'field':'requestNumber'},
-                            {'name': 'LABEL.TYPE', 'field':'type', 'notSearchable': true},
-                            {'name': 'LABEL.STATUS', 'field':'status', 'notSearchable': true},
+                            {'name': 'LABEL.COMMON.TYPE', 'field':'type', 'notSearchable': true},
+                            {'name': 'LABEL.COMMON.STATUS', 'field':'status', 'notSearchable': true},
                             {'name': 'SERVICE_REQUEST.HELPDESK_REFERENCE', 'field':'customerReferenceId'},
                             {'name': 'SERVICE_REQUEST.COST_CENTER', 'field':'costCenter'}
                         ];
