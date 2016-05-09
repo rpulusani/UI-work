@@ -10,20 +10,21 @@ angular.module('mps.invoice')
             hideBookmark: true,
             columnDefs: {
                 defaultSet: [
-                    {'name': $translate.instant('INVOICE.INVOICE_DATE'), 'field':'getInvoiceDate()', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.DUE_DATE'), 'field':'getDueDate()', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.PAID_DATE'), 'field':'getPaidDate()', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',
+                    {'name': $translate.instant('INVOICE.COMMON.INVOICE_DATE'), 'field':'getInvoiceDate()', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.DUE_DATE'), 'field':'getDueDate()', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.PAID_DATE'), 'field':'getPaidDate()', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',
                      'cellTemplate':'<div><div>' +
                                         '<a href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);" ng-bind="grid.appScope.getFormattedInvoiceNo(row.entity.invoiceNumber)"></a>' +
                                     '</div><div>' +
-                                        '<a ng-if="row.entity.sapDocId2" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);" translate="INVOICE.DOWNLOAD_AS_TXT"></a>' +
+                                        '<a ng-if="row.entity.sapDocId2" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);" translate="INVOICE.COMMON.DOWNLOAD_AS_TXT"></a>' +
                                     '</div></div>'
                     },
-                    {'name': $translate.instant('INVOICE.AMOUNT'), 'field':'getAmount()', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.ACCOUNT_NAME'), 'field':'accountName', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.SOLD_TO'), 'field':'soldTo', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.BILL_TO'), 'field':'getBillToAddress()', 'notSearchable': true,
+                    {'name': $translate.instant('INVOICE.COMMON.TXT_STATUS'), 'field':'status', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.AMOUNT'), 'field':'getAmount()', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.ACCOUNT_NAME'), 'field':'accountName', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.SOLD_TO'), 'field':'soldTo', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.BILL_TO'), 'field':'getBillToAddress()', 'notSearchable': true,
                      'cellTemplate':'<div ng-bind-html="grid.appScope.getBillToAddress(row.entity.billToAddress)"></div>'
                     }
                 ]
