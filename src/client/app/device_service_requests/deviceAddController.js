@@ -157,6 +157,7 @@ angular.module('mps.serviceRequestDevices')
                     'deviceManagementUrl': '/service_requests/devices/new',
                 };
                 $scope.configure.device.information.translate.linkMakeChangesTxt = false;
+                $scope.configure.device.contact.translate.changeContactLink = false;
                 $scope.configure.receipt = {
                     translate: {
                             title:"REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS",
@@ -204,7 +205,8 @@ angular.module('mps.serviceRequestDevices')
                         },
                         contact: {
                             translate:{
-                                    title:'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT'
+                                    title:'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
+                                    changeContactLink:'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_CHANGE_CONTACT'
                             }
                         }
                     },
