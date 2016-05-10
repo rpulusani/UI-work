@@ -54,6 +54,12 @@ angular.module('mps.serviceRequestDevices')
                 data: {
                     requestNumber: $scope.sr.requestNumber,
                     description: $scope.sr.description,
+                    addressNoPl: $scope.formattedAddressNoPl,
+                    costCenter: $scope.formattedCostCenter,
+                    deviceAddress: $scope.formattedDeviceAddress,
+                    deviceContact: $scope.formattedDeviceContact,
+                    primaryContact: $scope.formattedPrimaryContact,
+                    notes: $scope.formattedNotes,
                     type: $scope.sr.type
                 }
             };
@@ -293,7 +299,6 @@ angular.module('mps.serviceRequestDevices')
             };
             $scope.configure.contact.show.primaryAction = false;
             
-            setCsvDefinition();
         }
       }
         function configureTemplates(){
@@ -462,5 +467,6 @@ angular.module('mps.serviceRequestDevices')
             $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
         };
 
+        setCsvDefinition();
     }
 ]);
