@@ -283,6 +283,7 @@ angular.module('mps.serviceRequestDevices')
                 'srHours': 24,
                 'deviceManagementUrl': 'device_management/',
             };
+            $scope.configure.device.service.translate.linkMakeChangesTxt = false;
             $scope.configure.header.readMoreUrl = '';
             $scope.configure.receipt = {
                 translate:{
