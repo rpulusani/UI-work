@@ -142,9 +142,6 @@ angular.module('mps.serviceRequests')
                                     '</div>'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: true},
-                        {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field':'_embedded.sourceAddress.addressLine1', visible: true},
-                        {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullPrimaryName()', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_CONTACT'), 'field': 'getFullRequestorName()', visible: false}
                     ],
@@ -178,56 +175,6 @@ angular.module('mps.serviceRequests')
                             'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_EMAIL'), 
                             'field': '_embedded.requester.email', 
                             'searchOn': 'requester.email',
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 
-                            'field': 'sourceAddress.addressLine1', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'), 
-                            'field': 'sourceAddress.addressLine2', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 
-                            'field': 'sourceAddress.houseNumber', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 
-                            'field': 'sourceAddress.city', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 
-                            'field': 'sourceAddress.state', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS.PROVINCE'), 
-                            'field': 'sourceAddress.province', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS.COUNTY'), 
-                            'field': 'sourceAddress.county', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS.DISTRICT'), 
-                            'field': 'sourceAddress.district', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'), 
-                            'field': 'sourceAddress.country', 
-                            'visible': false
-                        },
-                        {
-                            'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'), 
-                            'field': 'sourceAddress.postalCode', 
                             'visible': false
                         },
                         {

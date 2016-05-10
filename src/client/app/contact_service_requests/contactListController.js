@@ -27,7 +27,7 @@ function(
 ) {
     var personal = new Personalize($location.url(), $rootScope.idpUser.id),
     filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
-    new SecurityHelper($rootScope).redirectCheck($rootScope.addressContactAccess);
+    //new SecurityHelper($rootScope).redirectCheck($rootScope.addressContactAccess);
 
     SRHelper.addMethods(Contacts, $scope, $rootScope);
     ServiceRequest.reset();
