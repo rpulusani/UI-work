@@ -156,6 +156,7 @@ angular.module('mps.serviceRequestDevices')
                     'srHours': 24,
                     'deviceManagementUrl': '/service_requests/devices/new',
                 };
+                $scope.configure.device.information.translate.linkMakeChangesTxt = false;
                 $scope.configure.receipt = {
                     translate: {
                             title:"REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS",
