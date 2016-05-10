@@ -158,6 +158,14 @@
         });
     })
     .config(function(GatekeeperProvider, serviceUrl, adminUrl){
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function(searchString, position) {
+                position = position || 0;
+                
+                return this.substr(position, searchString.length) === searchString;
+            };
+        }
+
         GatekeeperProvider.configure({
             serviceUri: config.idp.serviceUrl,
             clientId: config.idp.clientId
