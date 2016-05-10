@@ -50,14 +50,6 @@ angular.module('mps.serviceRequests')
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
         );
-            filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_LOCATION', 'LocationFilter', undefined,
-            function(Grid) {
-                setTimeout(function() {
-                    $scope.$broadcast('setupColumnPicker', Grid);
-                }, 500);
-                $scope.$broadcast('setupPrintAndExport', $scope);
-            }
-        );
             filterSearchService.addPanelFilter('REQUEST_MAN.COMMON.TXT_FILTER_DATE_RANGE', 'DateRangeFilter', undefined,
             function(Grid) {
                 setTimeout(function() {
