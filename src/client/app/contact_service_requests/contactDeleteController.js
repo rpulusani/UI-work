@@ -33,7 +33,11 @@ angular.module('mps.serviceRequestContacts')
         Tombstone,
         tombstoneWaitTimeout,
         SecurityHelper) {
-
+    	
+    	 if(Contacts.item === null){       
+             $location.path('/service_requests/contacts/');
+         }
+    	
         $scope.isLoading = false;
 
         SRHelper.addMethods(Contacts, $scope, $rootScope);
