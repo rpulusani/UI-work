@@ -230,11 +230,12 @@ angular.module('mps.serviceRequestDevices')
               var i = 0,
               deferreds = [];
 
+              $scope.savedSR = [];
+
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
 
                 updateSRObjectForSubmit();
-
 
                 if (Devices.updatingMultiple) {
                     for (i; i < Devices.data.length; i += 1) {
@@ -250,6 +251,8 @@ angular.module('mps.serviceRequestDevices')
 
                         deferreds.push(DeviceServiceRequest.post({
                             item:  $scope.sr
+                        }).then(function(res) {
+                            $scope.savedSR.push(res.data);
                         }));
                     }
                 } else {

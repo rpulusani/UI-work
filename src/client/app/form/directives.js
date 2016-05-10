@@ -171,7 +171,7 @@ angular.module('mps.form')
             ' \'form__field--required\' : required === true}">' +
             '<label translate="ADDRESS_MAN.COMMON.TXT_COUNTRY"></label>' +
             '<select name="country" ng-model="countryIsoCode" ng-change="countrySelected(countryIsoCode)" ng-required="required">' +
-            '<option value="" translate="LABEL.SELECT" ng-selected="!countryService.item"></option>' +
+            '<option value="" translate="LABEL.COMMON.SELECT" ng-selected="!countryService.item"></option>' +
             '<option ng-repeat="c in countryService.data track by c.code" value="{{ c.code }}" ng-selected="c.name === country">' +
                 '{{c.name}}' +
             '</option>' +

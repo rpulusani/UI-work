@@ -29,6 +29,11 @@
     </div>
 </div>
 
+<div ng-show="documentItem.id !== 'new'">
+    <div class="form__field form__field--required">   
+        <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>{{fullDocNameWithExt}}</div>    
+</div>
+
 <div class="form__field form__field--required vertical-space--thick">
     <input name="id" type="hidden" ng-model="documentItem.id"/>
     <input name="accountId" type="hidden" ng-model="documentItem.accountId"/>
@@ -36,7 +41,7 @@
     <input name="name" type="text" ng-model="documentItem.name" value="" class="" required />
     <span  ng-hide="!newDocument.name.$error.required"
     class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
-     <span translate="LABEL.ERROR_REQUIRED"></span></span>
+     <span translate="LABEL.COMMON.ERROR_REQUIRED"></span></span>
 </div>
 
 <div class="form__field vertical-space--thick">
@@ -127,7 +132,7 @@
 
             <strong translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_ACCOUNT"></strong>
             <div>
-                 <div selectric model="documentItem.accountSelected" options="libraryAccounts" value="accountId" label="name" placeholder="{{'LABEL.SELECT' | translate}}">
+                 <div selectric model="documentItem.accountSelected" options="libraryAccounts" value="accountId" label="name" placeholder="{{'LABEL.COMMON.SELECT' | translate}}">
             </div>
             <button name="selectAccount" class="btn btn--default" type="submit" value="submit" 
                         translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_ADD_ACCOUNT" ng-click="goToSelectAccount()"></button>

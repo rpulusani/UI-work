@@ -157,7 +157,7 @@ define(['angular','angular-mocks', 'report'], function(angular, mocks, Report) {
 
                 it('should set the finder selectType to \'\' if label is select', function() {
                     var reportItem = scope.reports[0];
-                    scope.finder.selectType = translate.instant('LABEL.SELECT');
+                    scope.finder.selectType = translate.instant('LABEL.COMMON.SELECT');
 
                     scope.runReport(reportItem);
                     expect(scope.finder.selectType).toEqual('');

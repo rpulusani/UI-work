@@ -18,7 +18,7 @@
     <label translate="USER_MAN.COMMON.TXT_PREFERRED_LANGUAGE"></label>
                  
     <select ng-model="user.preferredLanguage" name="language">
-            <option value="" translate="LABEL.SELECT"></option>
+            <option value="" translate="LABEL.COMMON.SELECT"></option>
             <option ng-repeat="language in languageOptions" value="{{ language.code }}"  ng-selected="{{user.preferredLanguage === language.code}}">
             {{language.name}}
             </option>

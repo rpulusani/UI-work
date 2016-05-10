@@ -73,4 +73,23 @@ angular.module('mps.utility')
             cityCtrl.$parsers.push(cityValidation);
         }
     };
+})
+.directive('nullCheck',function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, nullCtrl) {
+            scope.$watch(attr.ngModel, function(value) {
+                nullValidation(value);
+            });
+            function nullValidation(value) {
+                if (value === null || value.indexOf("null") != -1) {
+                    nullCtrl.$setValidity('nullValid', false);
+                } else {
+                    nullCtrl.$setValidity('nullValid', true);
+                }
+                return value;
+            }
+            nullCtrl.$parsers.push(nullValidation);
+        }
+    };
 });

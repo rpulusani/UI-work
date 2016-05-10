@@ -63,7 +63,15 @@ return {
               $scope.files_error.push(response);
             };
 
-
+            $scope.removeAttachment = function(file){
+            	var i=0;
+            	for(;i<$scope.files_complete.length;i++){
+            		if($scope.files_complete[i].filename === file.filename){
+            			$scope.files_complete.splice(i,1);
+            		}
+            	}
+            	$scope.files=[];            
+            }
 
             // Service code //
 

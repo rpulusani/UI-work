@@ -35,7 +35,12 @@ angular.module('mps.serviceRequestAddresses')
         Tombstone,
         tombstoneWaitTimeout,
         SecurityHelper) {
-
+    	
+    	if(Addresses.item === null){                        
+    		      window.scrollTo(0,0);
+    		      $location.path(Addresses.route+'/');
+    	}
+    	
         $scope.isLoading = false;
 
         SRHelper.addMethods(Addresses, $scope, $rootScope);
@@ -254,8 +259,8 @@ angular.module('mps.serviceRequestAddresses')
                         title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
                         referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
                         costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
+                        comments: 'LABEL.COMMON.COMMENTS',
+                        attachments: 'LABEL.COMMON.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
                         validationMessage:'ATTACHMENTS.COMMON.VALIDATION',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')

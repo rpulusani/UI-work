@@ -4,8 +4,8 @@ angular.module('mps.filterSearch')
     function($scope, $translate) {
         $scope.showClearMessage = false;
         $scope.statuses = [
-            {type: true, name: $translate.instant('LABEL.ACTIVE')},
-            {type: false, name: $translate.instant('LABEL.INACTIVE')}
+            {type: true, name: $translate.instant('LABEL.COMMON.ACTIVE')},
+            {type: false, name: $translate.instant('LABEL.COMMON.INACTIVE')}
         ];
 
         $scope.$watch('status', function(status) {

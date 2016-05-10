@@ -39,7 +39,10 @@ angular.module('mps.serviceRequestAddresses')
         tombstoneWaitTimeout,
         SecurityHelper,
         ErrorMsgs) {
-
+        if(Addresses.item === null){                        
+            window.scrollTo(0,0);
+            $location.path(Addresses.route+'/');
+        }
         $scope.isLoading = false;
         $scope.bodsError = false;
         $scope.bodsErrorKey = '';
@@ -128,6 +131,7 @@ angular.module('mps.serviceRequestAddresses')
                 'srHours': 24,
                 'addressUrl': '/service_requests/addresses',
             };
+            $scope.configure.address.information.translate.makeChanges = false;
             $scope.configure.receipt = {
                 translate: {
                     title:"ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS",
@@ -171,8 +175,8 @@ angular.module('mps.serviceRequestAddresses')
                         title: 'ADDRESS_MAN.COMMON.TXT_ADDITIONAL_REQUEST_DETAILS',
                         referenceId: 'ADDRESS_MAN.COMMON.TXT_CUSTOMER_REF_ID',
                         costCenter: 'REQUEST_MAN.COMMON.TXT_REQUEST_COST_CENTER',
-                        comments: 'LABEL.COMMENTS',
-                        attachments: 'LABEL.ATTACHMENTS',
+                        comments: 'LABEL.COMMON.COMMENTS',
+                        attachments: 'LABEL.COMMON.ATTACHMENTS',
                         attachmentMessage: 'MESSAGE.ATTACHMENT',
                         fileList: ['.csv', '.xls', '.xlsx', '.vsd', '.doc', '.docx', '.ppt', '.pptx', '.pdf', '.zip'].join(', ')
                     },

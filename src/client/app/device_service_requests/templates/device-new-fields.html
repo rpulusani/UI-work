@@ -50,7 +50,7 @@
         <label translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_PRODUCT_NUMBER"></label>
          <select ng-model="device.productModel" name="productModel"
             ng-disabled = "!device.serialNumber">
-                <option  value="" translate="LABEL.SELECT"></option>
+                <option  value="" translate="LABEL.COMMON.SELECT"></option>
                 <option ng-repeat="option in device.productNumbers" value="{{option.productNo}}">{{option.productNo}}</option>
             </select>
     </div>
@@ -67,7 +67,7 @@
             ng-model="device.deviceInstallQuestion"
             ng-value="false"
         />
-        <label for="device-install-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+        <label for="device-install-question-no"><span></span> {{'LABEL.COMMON.NO' | translate }}</label>
     </div>
 
     <div class="form__field form__field--no-margin">
@@ -77,7 +77,7 @@
             ng-model="device.deviceInstallQuestion"
             ng-value="true"
         />
-        <label for="device-install-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+        <label for="device-install-question-yes"><span></span> {{ 'LABEL.COMMON.YES' | translate }}</label>
     </div>
 </div>
 <div>
@@ -140,7 +140,7 @@
                 ng-model="device.deviceDeInstallQuestion"
                 ng-value="false"
             />
-            <label for="device-deinstall-question-no"><span></span> {{'LABEL.NO' | translate }}</label>
+            <label for="device-deinstall-question-no"><span></span> {{'LABEL.COMMON.NO' | translate }}</label>
         </div>
 
         <div class="form__field form__field--no-margin">
@@ -150,7 +150,7 @@
                 ng-model="device.deviceDeInstallQuestion"
                 ng-value="true"
             />
-            <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.YES' | translate }}</label>
+            <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.COMMON.YES' | translate }}</label>
         </div>
     </div>
 

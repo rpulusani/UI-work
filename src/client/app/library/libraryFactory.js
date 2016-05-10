@@ -19,14 +19,14 @@ angular.module('mps.library')
                             '<i ng-class="grid.appScope.getFileIcon(row.entity.ext);"></i> ' +
                             '<a class="text--small" href="#" ng-click="grid.appScope.goToView(row.entity.id);">{{row.entity.name}} {{grid.appScope.isUnpublished(row.entity)}}</a><br />' +
                                         '<p class="text--small">{{row.entity.description}}</p>' +
-                                        '<p class="text--small">' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_TAGGED_AS') + ': ' +
+                                        '<p class="text--small">{{row.entity.getTranslatedText("DOCUMENT_LIBRARY.COMMON.TXT_TAGGED_AS")}}: ' +
                                             '{{grid.appScope.getTagNames(row.entity.tags)}}</p>' +
                                     '</div>'
                     },
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', notSearchable: true, searchOn: 'publishDate' },
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true},
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', notSearchable: true, searchOn: 'size' },
-                    {name: $translate.instant('LABEL.ACTION'), field: '',  width: '220', notSearchable: true,
+                    {name: $translate.instant('LABEL.COMMON.ACTION'), field: '',  width: '220', notSearchable: true,
                         'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                             '<a href="" ng-click="grid.appScope.goToUpdate(row.entity.id);"><i class="icon-16 icon-psw-edit"></i></a>' +
                                 '<a href="" ng-if="grid.appScope.getDeleteAction(row.entity.owner)" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +
@@ -72,6 +72,12 @@ angular.module('mps.library')
                         var dy = this.publishDate + 'Z';
                         var d = new Date(dy);
                         return formatter.getDisplayDate(d);
+                    }
+                },
+                {
+                    name: 'getTranslatedText',
+                    functionDef: function(textToTranslate) {
+                        return $translate.instant(textToTranslate);
                     }
                 }
             ]

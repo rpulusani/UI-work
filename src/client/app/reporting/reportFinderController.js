@@ -12,7 +12,7 @@ angular.module('mps.report')
 
             Reports.finder = $scope.finder;
 
-            if (Reports.finder.selectType === $translate.instant('LABEL.SELECT')) {
+            if (Reports.finder.selectType === $translate.instant('LABEL.COMMON.SELECT')) {
                 Reports.finder.selectType = '';
             }
 
