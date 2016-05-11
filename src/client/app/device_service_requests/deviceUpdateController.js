@@ -61,8 +61,12 @@ angular.module('mps.serviceRequestDevices')
         SecureHelper.setupPermissionList(configurePermissions);
         $scope.setTransactionAccount('DeviceUpdate', Devices);
         SecureHelper.redirectCheck($rootScope.addDevice);
-
+        $scope.confirmedSavedSR = [];
         $scope.returnedForm = false;
+
+        if (ServiceRequest.confirmedSavedSR) {
+            $scope.confirmedSavedSR = ServiceRequest.confirmedSavedSR;
+        }
 
         // For updating multiple
         if (Devices.updatingMultiple) {
@@ -210,17 +214,49 @@ angular.module('mps.serviceRequestDevices')
         };
 
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                    if (existingUrl === $location.url()) {
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
-                        } else {
-                            return getSRNumber($location.url());
+            if (!ServiceRequest.confirmedSavedSR) {
+                ServiceRequest.confirmedSavedSR = [];
+            }
+
+            $timeout(function() {
+                var i = 0;
+                if (!Devices.updatingMultiple) {
+                    return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                        if (existingUrl === $location.url()) {
+                            if(Tombstone.item && Tombstone.item.siebelId) {
+                                ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                                $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
+                            } else {
+                                return getSRNumber($location.url());
+                            }
+                        }
+                    });
+                } else {
+                    for (i; i < $scope.savedSR.length; i += 1) {
+                        if (!$scope.savedSR[i].saved) {
+                            return DeviceServiceRequest.getAdditional($scope.savedSR[i], Tombstone, 'tombstone', true).then(function() {
+                                if (existingUrl === $location.url()) {
+                                    if(Tombstone.item && Tombstone.item.siebelId) {
+                                        ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                                        $scope.savedSR[i].saved = true;
+                                        ServiceRequest.confirmedSavedSR.push(Tombstone.item);
+
+                                        if ( ServiceRequest.confirmedSavedSR.length === $scope.savedSR.length) {
+                                            // everything has been saved
+                                            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+
+                                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
+                                        } else {
+                                            return getSRNumber($location.url());
+                                        }
+                                    } else {
+                                        return getSRNumber($location.url());
+                                    }
+                                }
+                            });
                         }
                     }
-                });
+                }
             }, tombstoneWaitTimeout);
         }
 
@@ -273,8 +309,13 @@ angular.module('mps.serviceRequestDevices')
             };
         }
         function configureReceiptTemplate() {
-          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss'),
+          srDisplay = '';
+
+           $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
+
+
+
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
             $scope.configure.header.translate.h1Values = {
@@ -315,6 +356,35 @@ angular.module('mps.serviceRequestDevices')
             $scope.configure.contact.show.primaryAction = false;
             $scope.configure.device.information.translate.linkMakeChangesTxt = undefined;
           }
+
+            if ($scope.confirmedSavedSR) {
+                srDisplay = (function() {
+                    var i = 0,
+                    idArr = [];
+
+                    for (i; i < $scope.confirmedSavedSR.length; i += 1) {
+                        idArr.push($scope.confirmedSavedSR[i].siebelId);
+                    }
+
+                    return idArr.toString().replace(/,/g, ', ');
+                }());
+
+                $scope.configure.receipt.translate.titleValues.srNumber = srDisplay;
+
+                $scope.configure.header.translate.bodyValues= {
+                    'refId': (function() {
+                        var i = 0,
+                        idArr = [];
+
+                        for (i; i < $scope.confirmedSavedSR.length; i += 1) {
+                            idArr.push($scope.confirmedSavedSR[i].siebelId);
+                        }
+
+                        return idArr.toString().replace(/,/g, ', ');
+                    }()),
+                    'srNumber': srDisplay
+                };
+            }
         }
 
         function configureTemplates() {
