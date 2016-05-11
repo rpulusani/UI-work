@@ -7,12 +7,45 @@
     <div class="contact-info">
         <div ng-bind-html="formattedCurrentAddress"></div>
     </div>
+    <div ng-show="device.addressSelected">
+    <div class="form__field">
+    	<label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
+    	<input name="buildingName" type="text" ng-model="device.updatedInstallAddress.building" value="" class="" mps-update />
+	</div>
+
+	<div class="form__field">
+    	<label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
+    	<input name="floorName" type="text" ng-model="device.updatedInstallAddress.floor" value="" class="" mps-update />
+	</div>
+
+	<div class="form__field">
+    	<label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
+    	<input name="siteName" type="text" ng-model="device.updatedInstallAddress.office" value="" class="" mps-update />
+	</div>
+	</div>
+	
     <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_REVERT_TO_ADDR" ng-click="revertAddress()"></a>
     <h3 translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_NEW_INSTALL_ADDR"></h3>
 </div>
+
 <div class="contact-info">
     <div ng-bind-html="formattedDeviceAddress"></div>
 </div>
+<div class="form__field">
+    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
+    <input name="buildingName" type="text" ng-model="device.currentInstalledAddress.building" value="" class="" mps-update />
+</div>
+
+<div class="form__field">
+    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
+    <input name="floorName" type="text" ng-model="device.currentInstalledAddress.floor" value="" class="" mps-update />
+</div>
+
+<div class="form__field">
+    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
+    <input name="siteName" type="text" ng-model="device.currentInstalledAddress.office" value="" class="" mps-update />
+</div>
+
 <span ng-if="moveMADCAccess">
 <div ng-hide="device.addressSelected">
     <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR" ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
@@ -21,20 +54,9 @@
     <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR"
         ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
-<div class="form__field">
-    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING"></label>
-    <input name="buildingName" type="text" ng-model="device.physicalLocation1" value="" class="" mps-update />
-</div>
 
-<div class="form__field">
-    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR"></label>
-    <input name="floorName" type="text" ng-model="device.physicalLocation2" value="" class="" mps-update />
-</div>
 
-<div class="form__field">
-    <label translate="REQUEST_MAN.COMMON.TXT_INSTALL_OFFICE"></label>
-    <input name="siteName" type="text" ng-model="device.physicalLocation3" value="" class="" mps-update />
-</div>
+
 
 <strong translate="REQUEST_MAN.COMMON.TXT_INSTALL_LXK_MOVE"></strong>
 

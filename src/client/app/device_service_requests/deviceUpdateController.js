@@ -92,7 +92,10 @@ angular.module('mps.serviceRequestDevices')
         $scope.revertAddress = function() {
             $scope.device.addressSelected = false;
             $scope.device.updatedInstallAddress = $scope.device.currentInstalledAddress;
-
+            $scope.setupPhysicalLocations($scope.device.currentInstalledAddress,
+                    $scope.device.physicalLocation1,
+                    $scope.device.physicalLocation2,
+                    $scope.device.physicalLocation3);
             $scope.formattedDeviceAddress = FormatterService.formatAddresswoPhysicalLocation($scope.device.updatedInstallAddress);
             ServiceRequest.addRelationship('destinationAddress', $scope.device, 'address');
         };
@@ -137,6 +140,7 @@ angular.module('mps.serviceRequestDevices')
                                                 $scope.device.physicalLocation1,
                                                 $scope.device.physicalLocation2,
                                                 $scope.device.physicalLocation3);
+                $scope.setupPhysicalLocations($scope.device.currentInstalledAddress,'','','');
             }
             Devices.item = $scope.device;
             $scope.resetAddressPicker();
@@ -201,14 +205,22 @@ angular.module('mps.serviceRequestDevices')
                 hostName: $scope.device.hostName,
                 assetTag: $scope.device.assetTag,
                 costCenter: $scope.device.costCenter,
-                physicalLocation1: $scope.device.physicalLocation1,
-                physicalLocation2: $scope.device.physicalLocation2,
-                physicalLocation3: $scope.device.physicalLocation3
+                physicalLocation1: $scope.device.addressSelected?$scope.device.currentInstalledAddress.building:$scope.device.updatedInstallAddress.building,
+                physicalLocation2: $scope.device.addressSelected?$scope.device.currentInstalledAddress.floor:$scope.device.updatedInstallAddress.floor,
+                physicalLocation3: $scope.device.addressSelected?$scope.device.currentInstalledAddress.office:$scope.device.updatedInstallAddress.office                
             };
             if ($scope.device.chl && $scope.device.chl.id) {
                 assetInfo.customerHierarchyLevel = $scope.device.chl.id;
             }
-
+           if($scope.device.addressSelected){
+        	   var sourceAddressPhysicalLocation = {
+               		   physicalLocation1 : $scope.device.addressSelected?$scope.device.updatedInstallAddress.building:$scope.device.currentInstalledAddress.building,
+                       physicalLocation2 : $scope.device.addressSelected?$scope.device.updatedInstallAddress.floor:$scope.device.currentInstalledAddress.floor,
+                       physicalLocation3 : $scope.device.addressSelected?$scope.device.updatedInstallAddress.office:$scope.device.currentInstalledAddress.office
+               };
+        	   ServiceRequest.addField('sourceAddressPhysicalLocation', sourceAddressPhysicalLocation);
+           }
+            
             ServiceRequest.addField('assetInfo', assetInfo);
             ServiceRequest.addField('attachments', $scope.files_complete);
         };
