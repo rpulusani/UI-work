@@ -169,9 +169,15 @@ angular.module('mps.serviceRequestContacts')
 
 
         $scope.saveContact = function(contactForm) {
-            $scope.checkAddress(contactForm);
+        	$scope.checkAddress(contactForm);
             //$scope.addressValuesChanged();
             if($scope.canReview === true && $scope.checkedAddress === 1){
+                $scope.contact.address.isoCountryCode=undefined;
+            	$scope.contact.address.stateOrPostalMandatory=undefined;
+            	$scope.contact.address.zipMandatory=undefined;
+            	$scope.contact.address.physicalLocation1 = $scope.address.buildingName; 
+            	$scope.contact.address.physicalLocation2 = $scope.address.floorName;
+            	$scope.contact.address.physicalLocation3 = $scope.address.siteName;
                 $location.path(Contacts.route + '/update/' + $scope.contact.id + '/review');
             }
         };
