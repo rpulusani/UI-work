@@ -299,6 +299,7 @@ angular.module('mps.serviceRequestDevices')
 
                 $q.all(deferreds).then(function(result) {
                   if(DeviceServiceRequest.item._links['tombstone']) {
+                    ServiceRequest.confirmedSavedSR = [];
                     getSRNumber($location.url());
                   }
                 }, function(reason){
@@ -371,7 +372,7 @@ angular.module('mps.serviceRequestDevices')
 
                 $scope.configure.receipt.translate.titleValues.srNumber = srDisplay;
 
-                $scope.configure.header.translate.bodyValues= {
+                $scope.configure.header.translate.bodyValues = {
                     'refId': (function() {
                         var i = 0,
                         idArr = [];
