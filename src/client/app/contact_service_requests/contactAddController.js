@@ -184,9 +184,11 @@ angular.module('mps.serviceRequestContacts')
             }
 
             var updateContactObjectForSubmit = function() {
-            	$scope.contact.address.isoCountryCode=undefined;
             	$scope.contact.address.stateOrPostalMandatory=undefined;
             	$scope.contact.address.zipMandatory=undefined;
+            	$scope.contact.address.countryIsoCode=$scope.contact.address.isoCountryCode;
+            	$scope.contact.address.isoCountryCode = undefined;
+            	Contacts.setBuildingFloorOffice($scope.contact,$scope.address);
                 Contacts.item = $scope.contact;
                 Contacts.addAccountRelationship();
             };
@@ -205,7 +207,7 @@ angular.module('mps.serviceRequestContacts')
 
                         deferred.then(function(result){
                             $rootScope.contactAlertMessage = 'saved';
-                            $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
+                            $location.path(Contacts.route + '/' + result.data.id + '/update');
                         }, function(reason){
                             NREUM.noticeError('Failed to create Contact because: ' + reason);
                         });

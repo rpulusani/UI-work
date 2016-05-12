@@ -52,7 +52,7 @@ angular.module('mps.serviceRequests')
                 if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
                     obj.formattedAddress = $scope.formattedAddress;
                 } else {
-                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress;
+                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
 
                 if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION') {
@@ -80,6 +80,17 @@ angular.module('mps.serviceRequests')
                 filename: $scope.sr.id + '.csv',
                 data: generateDataObj()
             };
+
+            if ($scope.device.serialNumber) {
+                $scope.csvModel.data.serialNumber = $scope.device.serialNumber;
+                $scope.csvModel.data.productModel = $scope.device.productModel;
+                $scope.csvModel.data.ipAddress = $scope.device.ipAddress;
+            }
+
+            if ($scope.formattedDeviceMoveAddress) {
+                $scope.csvModel.data.lexmarkToMove = $scope.formattedMoveDevice;
+                $scope.csvModel.data.moveAddress = $scope.formattedDeviceMoveAddress;
+            }
         };
 
         $scope.hideSubmitButton = true;

@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row l-pad-bottom-thick">
-            <div class="col-lg-1-3 l-pad" ng-if="serviceRequestBreakFixAccess">
+            <div class="col-lg-1-3 l-pad floatL" ng-if="serviceRequestBreakFixAccess">
                 <div class="rollup">
                     <div class="rollup-label">
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_REQUESTS_FOR_SERVICE"></h4>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-1-3 l-pad" ng-if="orderAccess">
+            <div class="col-lg-1-3 l-pad floatL" ng-if="orderAccess">
                 <div class="rollup">
                     <div class="rollup-label">
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_ORDERS"></h4>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-1-3 l-pad" ng-if="serviceRequestMADCAccess">
+            <div class="col-lg-1-3 l-pad floatL" ng-if="serviceRequestMADCAccess">
                 <div class="rollup">
                     <div class="rollup-label">
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_DEVICE_CHANGE_REQUESTS"></h4>
@@ -111,46 +111,46 @@
             <div class="col-1">
                 <a href="/reporting"><h3 class="blue" translate="HOME_PAGE.REPORTS.TXT_REPORTS"></h3></a>
             </div>
-            <div class="col-1-2">
+            <div class="col-1">
                 <div class="row">
                     <div class="col-1">
                         <h5 class="text--semi-bold" translate="HOME_PAGE.REPORTS.TXT_KPI"></h5>
                     </div>
-                    <div class="col-1-3">
+                    <div class="col-1-3 floatL">
                         <div class="text--align-center">
                             <span translate="HOME_PAGE.REPORTS.TXT_OVERVIEW"></span>
                         </div>
                         <p class="text--align-center" ng-if="chartObject.fleetAvailability < 1" translate="LABEL.COMMON.ZERO_RECORDS"></p>
 
                         <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
-                        <p ng-bind="fleetPeriod" class="text--align-center vertical-space--none text--small"></p>
+                        <p class="text--align-center vertical-space--none text--small">{{fleetPeriod | dateRangeFormat}}</p>
                     </div>
-                    <div class="col-1-3">
+                    <div class="col-1-3 floatL">
                         <div class="text--align-center">
                             <span translate="HOME_PAGE.REPORTS.TXT_SERVICE_RESPONSE_TIME"></span>
                         </div>
                         <p class="text--align-center" ng-if="chartObject.responseTime < 1" translate="LABEL.COMMON.ZERO_RECORDS"></p>
 
                         <div google-chart chart="{{ chartObject.responseTime }}"></div>
-                        <p ng-bind="responsePeriod" class="text--align-center vertical-space--none text--small"></p>
+                        <p class="text--align-center vertical-space--none text--small">{{responsePeriod | dateRangeFormat}}</p>
                     </div>
-                    <div class="col-1-3" ng-if="viewSupplyOrderAccess">
+                    <div class="col-1-3 floatL" ng-if="viewSupplyOrderAccess">
                         <div class="text--align-center">
                             <span translate="HOME_PAGE.REPORTS.TXT_SUPPLIES"></span>
                         </div>
                         <p class="text--align-center" ng-if="chartObject.consumables.dataPoint < 1" translate="LABEL.COMMON.ZERO_RECORDS"></p>
 
                         <div google-chart chart="{{ chartObject.consumables }}"></div>
-                        <p ng-bind="consumablesPeriod" class="text--align-center vertical-space--none text--small"></p>
+                        <p class="text--align-center vertical-space--none text--small">{{consumablesPeriod | dateRangeFormat}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-1-2">
+            <div class="col-1">
                 <div class="row">
                     <div class="col-1">
                         <h5 class="text--semi-bold" translate="HOME_PAGE.REPORTS.TXT_OVERVIEW"></h5>
                     </div>
-                    <div class="col-1-2">
+                    <div class="col-1-2 floatL">
                         <div class="text--align-center">
                             <span translate="HOME_PAGE.REPORTS.TXT_DEVICE_COUNT"></span>
                         </div>
@@ -158,7 +158,7 @@
                         <div google-chart chart="{{ chartObject.assetRegister }}"></div>
                         <p ng-bind="assetPeriod" class="text--align-center vertical-space--none text--small"></p>
                     </div>
-                    <div class="col-1-2">
+                    <div class="col-1-2 floatL">
                         <div class="text--align-center">
                             <span translate="HOME_PAGE.REPORTS.TXT_BILLED_PAGES_LAST_CYCLE"></span>
                         </div>
@@ -173,21 +173,21 @@
             <hr class="vertical-space--thick">
 
             <div class="row row--alley-thick">
-                <div class="col-1-3">
+                <div class="col-1-3 floatL">
                     <div class="text--small vertical-space--thin">
                         <strong translate="HOME_PAGE.MARKETING_CONTENT.TXT_MKT_ARTICLE_1"></strong>
                     </div>
                     <a href="HOME_PAGE.MARKETING_CONTENT.LNK_MKT_ARTICLE_1" title="" translate="HOME_PAGE.MARKETING_CONTENT.LNK_MKT_ARTICLE_1"></a>
                     <p class="l-pad-top" translate="HOME_PAGE.MARKETING_CONTENT.TXT_MKT_ARTICLE_1_DETAILS"></p>
                 </div>
-                <div class="col-1-3">
+                <div class="col-1-3 floatL">
                     <div class="text--small vertical-space--thin">
                         <strong translate="HOME_PAGE.MARKETING_CONTENT.TXT_MKT_ARTICLE_2"></strong>
                     </div>
                     <a href="HOME_PAGE.MARKETING_CONTENT.LNK_MKT_ARTICLE_2" title="" translate="HOME_PAGE.MARKETING_CONTENT.LNK_MKT_ARTICLE_2"></a>
                      <p class="l-pad-top" translate="HOME_PAGE.MARKETING_CONTENT.TXT_MKT_ARTICLE_2_DETAILS"></p>
                 </div>
-                <div class="col-1-3">
+                <div class="col-1-3 floatL">
                     <div class="text--small vertical-space--thin">
                         <strong translate="HOME_PAGE.MARKETING_CONTENT.TXT_MKT_ARTICLE_3"></strong>
                     </div>

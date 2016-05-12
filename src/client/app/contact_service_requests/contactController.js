@@ -13,6 +13,9 @@ angular.module('mps.serviceRequestContacts')
     'ServiceRequestService',
     'SRControllerHelperService',
     'SecurityHelper',
+    '$timeout',
+    'tombstoneWaitTimeout',
+    'TombstoneService',
     function($scope,
         $location,
         $filter,
@@ -24,16 +27,21 @@ angular.module('mps.serviceRequestContacts')
         Users,
         ServiceRequest,
         SRHelper,
-        SecurityHelper
+        SecurityHelper,
+        $timeout,
+        tombstoneWaitTimeout,
+        Tombstone
         ) {
-
+    	$scope.isLoading = false;
         SRHelper.addMethods(Contacts, $scope, $rootScope);
 
         var configureSR = function(ServiceRequest){
+        	ServiceRequest.addRelationship('secondaryContact', $scope.contact, 'self');
             ServiceRequest.addRelationship('account', $scope.contact);
-            ServiceRequest.addRelationship('sourceAddress', $scope.contact, 'self');
+            ServiceRequest.addField('sourceAddress', $scope.contact.address);
             ServiceRequest.addField('type', 'DATA_CONTACT_CHANGE');
             ServiceRequest.addField('attachments', $scope.files_complete);
+           
         },
         statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
@@ -114,17 +122,42 @@ angular.module('mps.serviceRequestContacts')
         function configureReviewTemplate(){
             $scope.configure.actions.translate.submit = 'CONTACT_SERVICE_REQUEST.SUBMIT_UPDATE_CONTACT_REQUEST';
             $scope.configure.actions.submit = function(){
-                var deferred = ServiceRequest.post({
-                     item:  $scope.sr
-                });
-                deferred.then(function(result){
-                    $rootScope.newContact = $scope.contact;
-                    $rootScope.newSr = $scope.sr;
-                    $location.path(Contacts.route + '/update/' + $scope.contact.id + '/receipt');
-                }, function(reason){
-                    NREUM.noticeError('Failed to create SR because: ' + reason);
-                });
+            	  if(!$scope.isLoading) {
+                      $scope.isLoading = true;
+                      if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
+                          HATEAOSConfig.getApi(ServiceRequest.serviceName).then(function(api) {
+                              ServiceRequest.item.postURL = api.url;
+                          });
+                     }
+                     var deferred = ServiceRequest.post({
+                          item:  $scope.sr
+                     });
+                     deferred.then(function(result){
+                     	if(ServiceRequest.item._links['tombstone']) {
+                             getSRNumber($location.url());
+                         }
+                         $rootScope.newContact = $scope.contact;
+                         $rootScope.newSr = $scope.sr;
+                         
+                     }, function(reason){
+                         NREUM.noticeError('Failed to create SR because: ' + reason);
+                     });
+            	  }
             };
+        }
+        function getSRNumber(existingUrl) {
+            $timeout(function(){
+                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+                    if (existingUrl === $location.url()) {
+                        if(Tombstone.item && Tombstone.item.siebelId) {
+                            ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                            $location.path(Contacts.route + '/update/' + $scope.contact.id + '/receipt');
+                        } else {
+                            return getSRNumber($location.url());
+                        }
+                    }
+                });
+            }, tombstoneWaitTimeout);
         }
         function configureReceiptTemplate(){
             var srMsg = FormatterService.getFormattedSRNumber($scope.sr),

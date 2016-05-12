@@ -6,12 +6,11 @@
       "clientId": "mps-portal"
     },
     "portal": {
-      "serviceUrl": "https://api.venus-beta.lexmark.com/mps/",
-      "adminUrl": "https://mps-porta-mpsporta-1atn0yswqx8or-82406218.us-east-1.elb.amazonaws.com/mps-portal/",
+      "serviceUrl": "https://venus-beta.lexmark.com/mps/",
+      "adminUrl": "https://venus-beta.lexmark.com/mps-portal/",
       "lbsUrl": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
-      "libraryServiceUrl": "https://mps-documents-stable-638688285.us-east-1.elb.amazonaws.com/documents"
+      "libraryServiceUrl": "https://venus-beta.lexmark.com/documents"
     }
   },
   "NEWRELICID":10059346
 }
-

@@ -85,6 +85,12 @@ angular.module('mps.deviceManagement')
                 rows.push('none');
             }
 
+            if ($scope.formattedAddress) {
+                rows.push($scope.formattedAddress.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
             if ($scope.device.installDate) {
                 rows.push($scope.device.installDate);
             } else {
@@ -98,6 +104,12 @@ angular.module('mps.deviceManagement')
                     rows.push('none');
                 }
 
+                if ($scope.formattedContactAddress) {
+                    rows.push($scope.formattedContactAddress);
+                } else {
+                    rows.push('none');
+                }
+
                 if ($scope.device.contact.item.email && $scope.device.contact.item.email !== ' ') {
                     rows.push($scope.device.contact.item.email);
                 } else {
@@ -105,44 +117,31 @@ angular.module('mps.deviceManagement')
                 }
 
                 if ($scope.device.contact.item.workPhone) {
-                    rows.push($scope.device.contact.item.workPhone);
-                } else {
-                    rows.push('none');
-                }
-
-                if ($scope.device.contact.item.formattedName) {
-                    rows.push($scope.device.contact.item.formattedName);
-                } else {
-                    rows.push('none');
-                }
-                  
-                if ($scope.device.contact.item.address 
-                    && $scope.device.contact.item.address.addressLine1) {
-                    rows.push($scope.device.contact.item.address.addressLine1);
+                    rows.push($scope.device.contact.item.formattedworkPhone);
                 } else {
                     rows.push('none');
                 }
 
                 if ($scope.device.chl && $scope.device.chl.item) {
-                    rows.push($scope.device.chl.item.id);
+                    rows.push($scope.device.chl.item.name);
                 } else {
                     rows.push('none');
                 }
 
-                if ($scope.device.lifetime) {
-                    rows.push($scope.device.lifetime);
+                if ($scope.ltpc) {
+                    rows.push($scope.ltpc.value);
                 } else {
                     rows.push('none');
                 }
 
-                if ($scope.device.color) {
-                    rows.push($scope.device.color);
+                if ($scope.mono) {
+                    rows.push($scope.mono.value);
                 } else {
                     rows.push('none');
                 }
 
                 if ($scope.device.lastUpdated) {
-                    rows.push($scope.device.lastUpdates);
+                    rows.push($scope.device.lastUpdated);
                 } else {
                     rows.push('none');
                 }
@@ -151,29 +150,46 @@ angular.module('mps.deviceManagement')
             return rows;
         },
         setCsvDefinition = function() {
+            var headers = [
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'),
+                $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_ADDRESS'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_DATE'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_NAME'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_ADDRESS'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_EMAIL'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
+                $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
+                $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
+                $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
+            ],
+            rows = generateCsvRows();
+
             $scope.csvModel = {
                 filename: $scope.device.productModel,
                 data: $scope.device,
-                headers: [
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'),
-                    $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_DATE'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_NAME'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_EMAIL'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_ADDRESS'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_INSTALL_ADDRESS'),
-                    $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
-                    $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
-                    $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
-                    $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
-                ],
+                headers: headers,
                 // rows are just property names found on the dataObj
-                rows: generateCsvRows()
+                rows: rows
+            };
+
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      headers,
+                      rows
+                    ]
+                  }
+                }
+              ]
             };
         };
 
@@ -390,6 +406,8 @@ angular.module('mps.deviceManagement')
                 }
 
                 $scope.meterReads = reorderedData.concat(tempData);
+                
+                setCsvDefinition();
 
             var image =  ImageService;
             image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){

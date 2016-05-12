@@ -30,8 +30,8 @@
 </div>
 
 <div ng-if="gridLoading === false && gridDataCnt > 0">
-    <div ui-grid="gridOptions" class="table" ui-grid-exporter
-        ng-style="gridOptions.getStyle()" ui-grid-auto-resize
+    <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()"
+        ui-grid-auto-resize ui-grid-exporter
         ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
     </div>
 

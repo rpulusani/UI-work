@@ -353,7 +353,7 @@ angular.module('mps.serviceRequestAddresses')
                 address: {
                     information:{
                         translate: {
-                            title: 'ADDRESS_MAN.COMMON.TXT_ADDRESS_INFORMATION',
+                            title: 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED',
                             contact: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS',
                             makeChanges: 'ADDRESS_MAN.COMMON.CTRL_MAKE_CHANGES'
                         }

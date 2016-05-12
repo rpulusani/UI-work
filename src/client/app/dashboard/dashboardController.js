@@ -243,7 +243,7 @@ function(
                 ],
                 "rows": [
                     {c: [
-                        {v: ''},
+                        {v: $translate.instant('REPORTING.ASSET_COUNT')},
                         {v: total }
                     ]}
                 ]};
@@ -255,10 +255,11 @@ function(
             for (var i = 0; i < data.stat.length; i++) {
                 d[data.stat[i].label] = data.stat[i].value;
             }
-
+            
             $scope.chartObject.pagesBilled = {};
             $scope.chartObject.pagesBilled.type = "PieChart";
             $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
+            $scope.chartObject.pagesBilled.options.height = 300;
             $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
             $scope.chartObject.pagesBilled.options.pieHole = 0.4;
             $scope.chartObject.pagesBilled.dataPoint = d.pagesBilledTotal;
@@ -270,14 +271,15 @@ function(
                 ],
                 "rows": [
                     {c: [
-                        {v: '' },
+                        {v: $translate.instant($translate.instant('REPORTING.MONO'))},
                         {v: d.pagesBilledMono }
                     ]},
                     {c: [
-                        {v: '' },
+                        {v: $translate.instant($translate.instant('REPORTING.COLOR'))},
                         {v: d.pagesBilledColor }
                     ]}
                 ]};
+            console.log(JSON.stringify($scope.chartObject.pagesBilled));
         },
         buildCharts = function() {
             var report;
@@ -324,19 +326,20 @@ function(
         $scope.chartObject = {};
         $scope.chartOptions = {};
         $scope.chartOptions.pieChartOptions = {
-            backgroundColor: '#fff',
-            height: 250,
-            enableInteractivity: true,
-            fontName: 'tpHero',
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'value',
-            title: '',
-            titlePosition: 'none',
-            tooltip: {
-                textStyle: {fontSize: 14}
-            }
+        		 backgroundColor: '#eff0f6',
+                 enableInteractivity: true,
+                 fontSize: 36,
+                 fontName: 'tpHero',
+                 legend: {
+                     position: 'none'
+                 },
+                 pieSliceText: 'value',
+                 title: '',
+                 titlePosition: 'none',
+                 tooltip: {
+                     text: 'percentage',
+                     textStyle: {fontSize: 14}
+                 }
         };
 
         $scope.chartOptions.columnChartOptions = {
@@ -403,4 +406,34 @@ function(
             NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
         });
     });
-}]);
+}]).filter('dateRangeFormat',function(){
+    return function(text){
+        var splitArr = text.split('/');
+        var year = Number(splitArr[0].trim());
+        var month = Number(splitArr[1].trim());
+        var isLeapYear = (year%4 === 0)?true:false;
+        var dateRange = '';
+        var monthArr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        switch(month){
+            case 1:             
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                dateRange = ' 1 - 31 ';
+                break;
+            case 2: 
+                dateRange = (isLeapYear)?'1 - 29':'1 - 28';
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateRange = '1 - 30';
+                break;
+        }
+        return monthArr[month-1] + ' ' + dateRange + ', ' + year;
+    }
+});

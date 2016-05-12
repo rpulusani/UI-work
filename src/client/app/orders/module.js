@@ -1,5 +1,3 @@
-
-
 angular.module('mps.orders', ['mps.utility']).config(['$routeProvider',
 function($routeProvider) {
     $routeProvider
@@ -37,7 +35,6 @@ function($routeProvider) {
         templateUrl: '/app/orders/templates/create-asset-supplies.html',
         activeItem: '/orders'
     })
-
     .when('/orders/supply/return/review', {
         templateUrl: '/app/service_requests/templates/review.html',
         controller: 'ReturnOrdersController',
