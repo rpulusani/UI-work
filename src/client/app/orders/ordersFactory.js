@@ -17,7 +17,7 @@ angular.module('mps.orders')
                                     '</div>'
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width:300, 'notSearchable': true},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
