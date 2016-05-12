@@ -411,7 +411,6 @@ function(
         var isLeapYear = (year%4 === 0)?true:false;
         var dateRange = '';
         var monthArr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        console.log(monthArr[month]);
         switch(month){
             case 1:             
             case 3:
