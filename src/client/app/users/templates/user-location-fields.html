@@ -1,12 +1,12 @@
 <div class="form__field form__field--select form__field--required">
     <label translate="USER_MAN.COMMON.TXT_COUNTRY"></label>
- <select ng-model="user.address.country" name="country" required ng-change=countrySelected(user.address.country)>
+ <select ng-model="user.address.country" name="country" required null-check ng-change=countrySelected(user.address.country)>
             <option value="" translate="LABEL.COMMON.SELECT"></option>
             <option ng-repeat="country in countries" value="{{ country.code }}"  ng-selected="{{user.address.country === country.code}}">
             {{country.name}}
             </option>
     </select>
-
+</div>
 <div class="form__field form__field--required">
     <label translate="USER_MAN.COMMON.TXT_ADDRESS_LINE1"></label>
     <input name="addressLine1" type="text" ng-model="user.address.addressLine1" required/>
@@ -14,7 +14,7 @@
 
 <div class="form__field">
     <label translate="USER_MAN.COMMON.TXT_ADDRESS_LINE2"></label>
-    <input name="addressLine2" type="text" ng-model="user.address.addressLine2"  required/>
+    <input name="addressLine2" type="text" ng-model="user.address.addressLine2" />
 </div>
 
 <div class="form__field form__field--required">
@@ -24,12 +24,13 @@
 
 <div class="form__field form__field--select form__field--required">
     <label translate="USER_MAN.COMMON.TXT_STATE"></label>
- <select ng-model="user.address.state" name="state" required>
+ <select ng-model="user.address.state" name="state" required null-check>
             <option value="" translate="LABEL.COMMON.SELECT"></option>
             <option ng-repeat="province in provinces" value="{{ province.code }}" ng-selected="{{user.address.state === province.code}}">
             {{province.name}}
             </option>
         </select>
+</div>        
 <div class="row">
     <div class="col-md-1-3">
         <div class="form__field form__field--required">

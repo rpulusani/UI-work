@@ -1,4 +1,5 @@
 <div sr-header></div>
+
 <div class="clearfix page-content">
     <div class="col-1">
         <div print-export-title titlestring="{{configure.receipt.translate.title}}"
@@ -6,8 +7,8 @@
             print="configure.receipt.print" native-print="true" csv-export="csvModel"></div>
     </div>
 
-<hr class="vertical-margin-bottom-48"/>
-<a ng-if="configure.queued" href="/queue" translate="QUEUE.COMMON.LINK_TXT_QUEUE"></a>
+    <hr class="vertical-margin-bottom-48"/>
+    <a ng-if="configure.queued" href="/queue" translate="QUEUE.COMMON.LINK_TXT_QUEUE"></a>
 
     <h4 translate="{{configure.receipt.translate.subtitle}}"></h4>
     <div class="vertical-margin-bottom-48 col-1-2" status-bar></div>

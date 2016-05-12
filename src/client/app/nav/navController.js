@@ -162,7 +162,7 @@
             return passed;
         };
 
-        $scope.goToAccountPicker = function() {
+        $scope.goToAccountPicker = function(param) {
             var i = 0,
             accts = Users.item.transactionalAccount.data;
 
@@ -178,17 +178,37 @@
 
                 $scope.selectedAccount = $rootScope.currentAccount;
 
+                i = 0;
                 Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                     Security.setWorkingPermission(permissions);
 
                     new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
 
-                    $rootScope.accountReturnPath = $location.path();
+                    if(param)
+                    {
+                        $rootScope.accountReturnPath = $location.path();
+                        setTimeout(function() {
+                            for (i; i < $scope.items.length; i += 1) {
+                                $scope.items[i].permissionFlag = $rootScope[$scope.items[i].permission];
+                            }
 
-                    $location.path('/accounts/pick_account/Account');
+                        }, 0);
+
+                        $location.path('/accounts/pick_account/Account');
+                    }
+                    else
+                    {
+                        setTimeout(function() {
+                            for (i; i < $scope.items.length; i += 1) {
+                                $scope.items[i].permissionFlag = $rootScope[$scope.items[i].permission];
+                            }
+
+                            $route.reload();
+                        }, 0);
+                    }
                 });
             });
-        };
+        };        
 
         if ($scope.items.length === 0) {
             Nav.query(function(){

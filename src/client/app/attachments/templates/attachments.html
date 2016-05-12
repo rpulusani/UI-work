@@ -23,7 +23,7 @@
 		<div class="card__content">
 			<div class="card__title">{{file.filename}}</div>
 			<div class="card__author">Attachment {{$index+1}} of {{files_complete.length}}</div>
-			<a class="card__action">Remove Attachment</a>
+			<a class="card__action" href="#" ng-click="removeAttachment(file)">Remove Attachment</a>
 		</div>
 	</div>
   </div>
