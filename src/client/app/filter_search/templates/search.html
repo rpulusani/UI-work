@@ -1,7 +1,7 @@
 
 <div class="form__field filter--search" ng-show="columnSet">
     <div class="row">
-        <div class="col-lg-1-5 col-md-1-5 col-sm-1-1 col-xs-1-1">
+        <div class="col-lg-1-5 col-md-1-5 col-sm-1-1 col-xs-1-1 floatL">
             <div selectric class="search-menu"
                     model="column"
                     options="columnSet"
@@ -10,14 +10,14 @@
                     on-select="searchByColumn(option)">
             </div>
         </div>
-        <div class="col-lg-4-5 col-md-4-5 col-sm-1-1 col-xs-1-1">
+        <div class="col-lg-4-5 col-md-4-5 col-sm-1-1 col-xs-1-1 floatL">
             <div class="row">
                 <div class="form__field form__field-btn">
-                    <div class="col-lg-11-12 col-md-11-12 col-sm-11-12 col-xs-7-8">
+                    <div class="col-lg-11-12 col-md-11-12 col-sm-11-12 col-xs-7-8 floatL">
                         <input type="text" ng-model="searchByValue" class="search-box"/>
                         <a class="icon close-icon" ng-show="searchByValue" ng-click="clearSearch()">X</a>
                     </div>
-                    <div class="col-lg-1-12 col-md-1-12 col-sm-1-12 col-xs-1-8">
+                    <div class="col-lg-1-12 col-md-1-12 col-sm-1-12 col-xs-1-8 floatL">
                         <button class="search" ng-click="gridSearch()"><i class="icon icon--ui icon--search-secondary"></i></i></button>
                     </div>
                 </div>
