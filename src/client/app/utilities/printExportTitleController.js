@@ -72,7 +72,7 @@ angular.module('mps.utility')
             }
         },
         createPdf = function(pdfDefinition) {
-            pdfMake.createPdf(pdfDefinition).open();
+            pdfMake.createPdf(pdfDefinition).download('download.pdf');
         };
 
         $scope.titlestring = $scope.titlestring;
@@ -106,7 +106,7 @@ angular.module('mps.utility')
 
         if ($scope.pdfExport) {
             $scope.printGrid = function() {
-                createPdf(scope.pdfExport);
+                createPdf($scope.pdfExport);
             };
         }
 
