@@ -86,7 +86,7 @@ angular.module('mps.deviceManagement')
             }
 
             if ($scope.formattedAddress) {
-                rows.push($scope.formattedAddress);
+                rows.push($scope.formattedAddress.replace(/<br\/>/g, ', '));
             } else {
                 rows.push('none');
             }
@@ -117,7 +117,7 @@ angular.module('mps.deviceManagement')
                 }
 
                 if ($scope.device.contact.item.workPhone) {
-                    rows.push($scope.device.contact.item.workPhone.replace('+', "'"));
+                    rows.push($scope.device.contact.item.formattedworkPhone);
                 } else {
                     rows.push('none');
                 }
