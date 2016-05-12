@@ -127,8 +127,18 @@ angular.module('mps.utility')
 
             if (!$scope.pdfExport) {
                 $scope.printGrid = function() {
+                    var api;
+
                     ctrlScope.printing = true;
-                    ctrlScope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.VISIBLE);
+
+
+                    if (!ctrlScope.gridApi) {
+                        api = ctrlScope.$root.gridApi;
+                    } else {
+                        api = ctrlScope.gridApi;
+                    }
+
+                    api.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.VISIBLE);
                 };
             }
 

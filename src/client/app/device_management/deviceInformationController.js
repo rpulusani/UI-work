@@ -389,7 +389,9 @@ angular.module('mps.deviceManagement')
                 }
 
                 $scope.meterReads = reorderedData.concat(tempData);
-          setCsvDefinition();
+                
+                setCsvDefinition();
+
             var image =  ImageService;
             image.getPartMediumImageUrl($scope.device.partNumber).then(function(url){
                 $scope.medImage = url;
