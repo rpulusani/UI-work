@@ -52,6 +52,17 @@ angular.module('mps.serviceRequests')
                     created: $scope.sr.createDate
                 }
             };
+
+            if ($scope.device) {
+                $scope.csvModel.serialNumber = $scope.device.serialNumber;
+                $scope.csvModel.productModel = $scope.device.productModel;
+                $scope.csvModel.ipAddress = $scope.device.ipAddress;
+            }
+
+            if ($scope.formattedDeviceMoveAddress) {
+                $scope.csvModel.lexmarkToMove = $scope.formattedMoveDevice;
+                $scope.csvModel.moveAddress = $scope.formattedDeviceMoveAddress;
+            }
         };
 
         $scope.hideSubmitButton = true;
