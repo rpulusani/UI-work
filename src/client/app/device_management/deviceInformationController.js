@@ -86,7 +86,7 @@ angular.module('mps.deviceManagement')
             }
 
             if ($scope.formattedAddress) {
-                rows.push($scope.formattedAddress);
+                rows.push($scope.formattedAddress.replace(/<br\/>/g, ', '));
             } else {
                 rows.push('none');
             }
