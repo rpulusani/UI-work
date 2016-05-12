@@ -13,6 +13,9 @@ angular.module('mps.serviceRequestContacts')
     'ServiceRequestService',
     'SRControllerHelperService',
     'SecurityHelper',
+    '$timeout',
+    'tombstoneWaitTimeout',
+    'TombstoneService',
     function($scope,
         $location,
         $filter,
@@ -24,16 +27,21 @@ angular.module('mps.serviceRequestContacts')
         Users,
         ServiceRequest,
         SRHelper,
-        SecurityHelper
+        SecurityHelper,
+        $timeout,
+        tombstoneWaitTimeout,
+        Tombstone
         ) {
     	$scope.isLoading = false;
         SRHelper.addMethods(Contacts, $scope, $rootScope);
 
         var configureSR = function(ServiceRequest){
+        	ServiceRequest.addRelationship('secondaryContact', $scope.contact, 'self');
             ServiceRequest.addRelationship('account', $scope.contact);
             ServiceRequest.addField('sourceAddress', $scope.contact.address);
             ServiceRequest.addField('type', 'DATA_CONTACT_CHANGE');
             ServiceRequest.addField('attachments', $scope.files_complete);
+           
         },
         statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},

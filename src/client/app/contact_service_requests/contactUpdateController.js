@@ -52,6 +52,10 @@ angular.module('mps.serviceRequestContacts')
         }else{
             Contacts.tempSpace = {};
             $scope.contact = Contacts.item;
+            $scope.address = {};
+            $scope.address.buildingName = $scope.contact.address.physicalLocation1;  
+            $scope.address.floorName = $scope.contact.address.physicalLocation2;
+            $scope.address.siteName = $scope.contact.address.physicalLocation3;
             if($rootScope.contactAlertMessage === 'saved'){
                 $rootScope.contactAlertMessage = 'saved';
             }else if($rootScope.contactAlertMessage === 'updated'){

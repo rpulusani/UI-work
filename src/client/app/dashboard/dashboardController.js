@@ -243,7 +243,7 @@ function(
                 ],
                 "rows": [
                     {c: [
-                        {v: ''},
+                        {v: $translate.instant('REPORTING.ASSET_COUNT')},
                         {v: total }
                     ]}
                 ]};
@@ -255,10 +255,11 @@ function(
             for (var i = 0; i < data.stat.length; i++) {
                 d[data.stat[i].label] = data.stat[i].value;
             }
-
+            
             $scope.chartObject.pagesBilled = {};
             $scope.chartObject.pagesBilled.type = "PieChart";
             $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
+            $scope.chartObject.pagesBilled.options.height = 300;
             $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
             $scope.chartObject.pagesBilled.options.pieHole = 0.4;
             $scope.chartObject.pagesBilled.dataPoint = d.pagesBilledTotal;
@@ -270,14 +271,15 @@ function(
                 ],
                 "rows": [
                     {c: [
-                        {v: '' },
+                        {v: $translate.instant($translate.instant('REPORTING.MONO'))},
                         {v: d.pagesBilledMono }
                     ]},
                     {c: [
-                        {v: '' },
+                        {v: $translate.instant($translate.instant('REPORTING.COLOR'))},
                         {v: d.pagesBilledColor }
                     ]}
                 ]};
+            console.log(JSON.stringify($scope.chartObject.pagesBilled));
         },
         buildCharts = function() {
             var report;
@@ -324,19 +326,20 @@ function(
         $scope.chartObject = {};
         $scope.chartOptions = {};
         $scope.chartOptions.pieChartOptions = {
-            backgroundColor: '#fff',
-            height: 250,
-            enableInteractivity: true,
-            fontName: 'tpHero',
-            legend: {
-                position: 'none'
-            },
-            pieSliceText: 'value',
-            title: '',
-            titlePosition: 'none',
-            tooltip: {
-                textStyle: {fontSize: 14}
-            }
+        		 backgroundColor: '#eff0f6',
+                 enableInteractivity: true,
+                 fontSize: 36,
+                 fontName: 'tpHero',
+                 legend: {
+                     position: 'none'
+                 },
+                 pieSliceText: 'value',
+                 title: '',
+                 titlePosition: 'none',
+                 tooltip: {
+                     text: 'percentage',
+                     textStyle: {fontSize: 14}
+                 }
         };
 
         $scope.chartOptions.columnChartOptions = {

@@ -1,7 +1,8 @@
 
 angular.module('mps.serviceRequestContacts')
 .factory('Contacts', ['$translate', 'HATEOASFactory', 'FormatterService', '$location', '$rootScope', 'serviceUrl', 'UserService', 'ServiceRequestService',
-    function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users, ServiceRequest) {
+        'BlankCheck',function($translate, HATEOASFactory, formatter, $location, $rootScope, serviceUrl, Users, ServiceRequest,
+        		BlankCheck) {
         var Contacts = {
             serviceName: 'contacts',
             embeddedName: 'contacts',
@@ -164,7 +165,14 @@ angular.module('mps.serviceRequestContacts')
                         return formatter.getPhoneFormat(this.alternatePhone);
                     }
                 }
-            ]
+            ],
+           setBuildingFloorOffice : function(contact, address){
+        	   if (BlankCheck.checkNotNullOrUndefined(address)){        		   
+        		    contact.address.physicalLocation1 = address.buildingName; 
+               		contact.address.physicalLocation2 = address.floorName;
+               		contact.address.physicalLocation3 = address.siteName;
+        	   }
+           }
          };
 
         return new HATEOASFactory(Contacts);
