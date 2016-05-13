@@ -295,8 +295,10 @@ angular.module('mps.deviceManagement')
 
                     if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){
                         // if a new value was added
-                        if ($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value 
-                            && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)){
+                        if ($scope.meterReads[i].newVal 
+                            && $scope.meterReads[i].newVal !== $scope.meterReads[i].value
+                            && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)
+                            && $scope.meterReads[i].newVal > $scope.meterReads[i].value){
                             $scope.meterReads[i].value = $scope.meterReads[i].newVal;
                             $scope.meterReads[i].newVal = null;
                         }else{
