@@ -370,7 +370,7 @@ angular.module('mps.serviceRequestDevices')
             $scope.configure.device.information.translate.linkMakeChangesTxt = undefined;
           }
 
-            if ($scope.confirmedSavedSR) {
+            if ($scope.confirmedSavedSR && angular.isArray($scope.confirmedSavedSR) && $scope.confirmedSavedSR.length > 0) {
                 srDisplay = (function() {
                     var i = 0,
                     idArr = [];
