@@ -131,6 +131,7 @@ angular.module('mps.serviceRequestAddresses')
                 'srHours': 24,
                 'addressUrl': '/service_requests/addresses',
             };
+            $scope.configure.address.information.translate.makeChanges = false;
             $scope.configure.receipt = {
                 translate: {
                     title:"ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS",

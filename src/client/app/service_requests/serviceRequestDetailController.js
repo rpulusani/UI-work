@@ -38,20 +38,59 @@ angular.module('mps.serviceRequests')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
         setCsvDefinition = function() {
-            $scope.csvModel = {
-                filename: $scope.sr.id + '.csv',
-                data: {
-                    id: $scope.sr.id,
+            var generateDataObj = function() {
+                 var obj = {
                     requestNumber: $scope.sr.requestNumber,
                     formattedPrimaryContact: $scope.formattedPrimaryContact,
                     requestedByContactFormatted:$scope.requestedByContactFormatted,
                     customerReferenceId: $scope.formattedReferenceId,
-                    formattedAddress: $scope.formattedAddress,
-                    description: $scope.formattedDescription,
-                    notes: $scope.formattedNotes,
+                    costCenter: $scope.formattedCostCenter,
+                    comments: $scope.formattedNotes,
                     created: $scope.sr.createDate
+                };
+
+                if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
+                    obj.formattedAddress = $scope.formattedAddress;
+                } else {
+                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
+
+                if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION') {
+                    obj.serialNumber = $scope.device.serialNumber;
+                    obj.productModel = $scope.device.productModel;
+                    obj.ipAddress = $scope.device.ipAddress
+
+                    if ($scope.sr.type === 'DATA_ASSET_CHANGE') {
+                        obj.lexmarkToMove = $scope.formattedMoveDevice;
+                    } else {
+                        obj.lexmarkToPickup = $scope.formattedPickupDevice;
+                        
+                        if ($scope.sr.meterReads) {
+                            obj.pageCounts = $scope.sr.meterReads;
+                        } else {
+                            obj.pageCounts = 'none';
+                        }
+                    }
+                }
+
+                return obj;
             };
+
+            $scope.csvModel = {
+                filename: $scope.sr.id + '.csv',
+                data: generateDataObj()
+            };
+
+            if ($scope.device.serialNumber) {
+                $scope.csvModel.data.serialNumber = $scope.device.serialNumber;
+                $scope.csvModel.data.productModel = $scope.device.productModel;
+                $scope.csvModel.data.ipAddress = $scope.device.ipAddress;
+            }
+
+            if ($scope.formattedDeviceMoveAddress) {
+                $scope.csvModel.data.lexmarkToMove = $scope.formattedMoveDevice;
+                $scope.csvModel.data.moveAddress = $scope.formattedDeviceMoveAddress;
+            }
         };
 
         $scope.hideSubmitButton = true;

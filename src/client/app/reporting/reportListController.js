@@ -33,7 +33,7 @@ angular.module('mps.report')
                     value: $scope.report.name
                 }
             };
-
+            
             Reports.item.links.results({
                 serviceName: 'results',
                 embeddedName: 'reportData',
@@ -41,15 +41,23 @@ angular.module('mps.report')
                 columnDefs: Reports.columnDefs,
                 params: params
             }).then(function(res) {
-                $scope.gridDataCnt = Reports.item.results.data.length;
                 $scope.gridLoading = false;
-
                 Reports.item.results.hideBookmark = true;
-                Grid.display(Reports.item.results, $scope, personal, false, function() {
-                        $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});
-
-                    $scope.$broadcast('setupPrintAndExport', $scope);
-                });
+                if(res._embedded && res._embedded.reportData){
+                    $scope.gridDataCnt = Reports.item.results.data.length;   
+                          
+                    Grid.display(Reports.item.results, $scope, personal, false, function() {
+                            $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});                            
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    });
+                }
+                else
+                {
+                    Grid.display(Reports.item.results, $scope, personal, false, function() {
+                            $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.gridDataCnt)});                            
+                        $scope.$broadcast('setupPrintAndExport', $scope);
+                    });
+                }
             }, function(reason) {
                 NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
             });

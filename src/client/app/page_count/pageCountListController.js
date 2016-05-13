@@ -92,7 +92,9 @@ angular.module('mps.pageCount')
                     MeterReads.wasSaved = true;
                     if ( pageCountResponse.data.type && pageCountResponse.data.type === 'LTPC'){
                          devicePageCount.ltpcValue=pageCountResponse.data.value; 
-                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate; 
+                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate;                         
+                         devicePageCount.currentReadDate = "";
+                         devicePageCount.newLtpcCount = "";
                     }
                                       
                 });
@@ -120,7 +122,9 @@ angular.module('mps.pageCount')
                     MeterReads.wasSaved = true;
                        if ( pageCountResponse.data.type && pageCountResponse.data.type === 'COLOR'){
                          devicePageCount.colorValue=pageCountResponse.data.value; 
-                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate; 
+                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate;                       
+                         devicePageCount.currentReadDate = "";
+                         devicePageCount.newColorCount = "";
                        }
                 });
             }

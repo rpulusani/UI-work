@@ -23,7 +23,7 @@ angular.module('mps.invoice')
                     {'name': $translate.instant('INVOICE.COMMON.TXT_STATUS'), 'field':'status', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.COMMON.AMOUNT'), 'field':'getAmount()', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.COMMON.ACCOUNT_NAME'), 'field':'accountName', 'notSearchable': true},
-                    {'name': $translate.instant('INVOICE.COMMON.SOLD_TO'), 'field':'soldTo', 'notSearchable': true},
+                    {'name': $translate.instant('INVOICE.COMMON.SOLD_TO'), 'field':'soldToNum', 'notSearchable': true},
                     {'name': $translate.instant('INVOICE.COMMON.BILL_TO'), 'field':'getBillToAddress()', 'notSearchable': true,
                      'cellTemplate':'<div ng-bind-html="grid.appScope.getBillToAddress(row.entity.billToAddress)"></div>'
                     }

@@ -14,7 +14,7 @@ angular.module('mps.user')
                 defaultSet: [
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 
-                        'field': 'active',
+                        'field': 'status',
                         'cellTemplate': '<div ng-bind="row.entity.getFormattedStatus()"></div>', 
                         'notSearchable':true
                     },
@@ -36,13 +36,15 @@ angular.module('mps.user')
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': '', 
                         'cellTemplate': '<div ng-bind="row.entity.getAccounts()"></div>', 
-                        'notSearchable':true
+                        'notSearchable':true,
+                        'enableSorting':false
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 
                         'field': '', 
                         'cellTemplate': '<div ng-bind="row.entity.getRoles()"></div>', 
-                        'notSearchable':true
+                        'notSearchable':true,
+                        'enableSorting':false
                     }
                 ],
                 impersonateSet: [
@@ -69,13 +71,15 @@ angular.module('mps.user')
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': '',
                         'cellTemplate':'<div ng-bind="row.entity.getAccounts()"></div>', 
-                        'notSearchable':true
+                        'notSearchable':true,
+                        'enableSorting':false
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 
                         'field': '', 
                         'cellTemplate': '<div ng-bind="row.entity.getRoles()"></div>', 
-                        'notSearchable':true
+                        'notSearchable':true,
+                        'enableSorting':false
                     }
                 ]
             },

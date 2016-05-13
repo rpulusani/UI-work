@@ -236,7 +236,7 @@ angular.module('mps.serviceRequestAddresses')
                 address: {
                     information:{
                         translate: {
-                            title: 'ADDRESS_MAN.COMMON.TXT_ADDRESS_INFORMATION',
+                            title: 'ADDRESS_MAN.DELETE_ADDRESS.TXT_ADDRESS_DELETED',
                             contact: 'ADDRESS_MAN.COMMON.TXT_REQUEST_CONTACTS'
                         }
                     }

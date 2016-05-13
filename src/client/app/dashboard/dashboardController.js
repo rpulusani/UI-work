@@ -406,4 +406,34 @@ function(
             NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
         });
     });
-}]);
+}]).filter('dateRangeFormat',function(){
+    return function(text){
+        var splitArr = text.split('/');
+        var year = Number(splitArr[0].trim());
+        var month = Number(splitArr[1].trim());
+        var isLeapYear = (year%4 === 0)?true:false;
+        var dateRange = '';
+        var monthArr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        switch(month){
+            case 1:             
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                dateRange = ' 1 - 31 ';
+                break;
+            case 2: 
+                dateRange = (isLeapYear)?'1 - 29':'1 - 28';
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateRange = '1 - 30';
+                break;
+        }
+        return monthArr[month-1] + ' ' + dateRange + ', ' + year;
+    }
+});
