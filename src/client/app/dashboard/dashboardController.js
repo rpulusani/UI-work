@@ -326,20 +326,20 @@ function(
         $scope.chartObject = {};
         $scope.chartOptions = {};
         $scope.chartOptions.pieChartOptions = {
-        		 backgroundColor: '#eff0f6',
-                 enableInteractivity: true,
-                 fontSize: 36,
-                 fontName: 'tpHero',
-                 legend: {
-                     position: 'none'
-                 },
-                 pieSliceText: 'value',
-                 title: '',
-                 titlePosition: 'none',
-                 tooltip: {
-                     text: 'percentage',
-                     textStyle: {fontSize: 14}
-                 }
+        		 backgroundColor: '#fff',
+                            height: 300,
+                             enableInteractivity: true,
+                             fontSize: 36,
+                             fontName: 'tpHero',
+                             legend: {
+                                 position: 'none'
+                             },
+                             pieSliceText: 'value',
+                             title: '',
+                             titlePosition: 'none',
+                             tooltip: {
+                                 textStyle: {fontSize: 14}
+                             }
         };
 
         $scope.chartOptions.columnChartOptions = {
