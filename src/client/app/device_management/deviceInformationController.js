@@ -134,8 +134,14 @@ angular.module('mps.deviceManagement')
                     rows.push('none');
                 }
 
-                if ($scope.mono) {
+                if ($scope.mono && $scope.mono.value) {
                     rows.push($scope.mono.value);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.color && $scope.color.value) {
+                    rows.push($scope.color.value);
                 } else {
                     rows.push('none');
                 }
@@ -165,6 +171,7 @@ angular.module('mps.deviceManagement')
                 $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
                 $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
+                $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_MONO'),
                 $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
             ],
