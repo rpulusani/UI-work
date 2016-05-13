@@ -10,8 +10,13 @@
 
 <div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions" class="table"
      ng-style="gridOptions.getStyle()" ui-grid-auto-resize  ui-grid-move-columns ui-grid-resize-columns></div>
-
-<div class="alert alert--info" ng-if="!gridOptions.data || gridOptions.data.length === 0">
+<div class="alert alert--info" ng-if="gridLoading === true">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+    <div class="alert__body">
+         <span translate="GRID.LOADING"></span>
+    </div>
+</div>
+<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
     <div class="alert__body">
          <span translate="GRID.EMPTY"></span>
