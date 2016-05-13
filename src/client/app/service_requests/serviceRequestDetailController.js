@@ -73,6 +73,19 @@ angular.module('mps.serviceRequests')
                     }
                 }
 
+                if ($scope.device.serialNumber) {
+                    obj.serialNumber = $scope.device.serialNumber;
+                    obj.productModel = $scope.device.productModel;
+                    obj.partNumber = $scope.device.partNumber;
+                    obj.ipAddress = $scope.device.ipAddress;
+                    obj.problemDescription = $scope.formattedDescription;
+                }
+
+                if ($scope.formattedDeviceMoveAddress) {
+                    obj.lexmarkToMove = $scope.formattedMoveDevice;
+                    obj.moveAddress = $scope.formattedDeviceMoveAddress;
+                }
+
                 return obj;
             };
 
@@ -81,16 +94,7 @@ angular.module('mps.serviceRequests')
                 data: generateDataObj()
             };
 
-            if ($scope.device.serialNumber) {
-                $scope.csvModel.data.serialNumber = $scope.device.serialNumber;
-                $scope.csvModel.data.productModel = $scope.device.productModel;
-                $scope.csvModel.data.ipAddress = $scope.device.ipAddress;
-            }
-
-            if ($scope.formattedDeviceMoveAddress) {
-                $scope.csvModel.data.lexmarkToMove = $scope.formattedMoveDevice;
-                $scope.csvModel.data.moveAddress = $scope.formattedDeviceMoveAddress;
-            }
+            console.log($scope);
         };
 
         $scope.hideSubmitButton = true;
