@@ -8,6 +8,7 @@ angular.module('mps.filterSearch')
 	    
         $scope.showSearchMessage = false;
         $scope.searchBy = undefined;
+        $scope.searchByDisplayName = undefined;
         $scope.searchByValue = searchParams.search;
         $scope.totalItems = 0;
 
@@ -48,6 +49,7 @@ angular.module('mps.filterSearch')
         };
 
         $scope.searchByColumn = function(selectedOption) {
+            $scope.searchByDisplayName  = selectedOption.name;             
             $scope.searchBy = selectedOption.searchOn;
         };
 
