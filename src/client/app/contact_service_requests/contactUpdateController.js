@@ -39,7 +39,13 @@ angular.module('mps.serviceRequestContacts')
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactUpdate', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
-
+        $scope.configure = {
+        		header : {
+        				translate : {
+        					body :'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLES_CONTACT_REVIEW'
+        				}
+        		}	
+        };
 
         $scope.updating = true;
 
