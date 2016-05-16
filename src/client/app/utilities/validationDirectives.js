@@ -92,4 +92,23 @@ angular.module('mps.utility')
             nullCtrl.$parsers.push(nullValidation);
         }
     };
+})
+.directive('nonZero',function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, nonZeroCtrl) {
+            scope.$watch(attr.ngModel, function(value) {
+                nonZeroValidation(value);
+            });
+            function nonZeroValidation(value) {
+                if (value === 0) {
+                    nonZeroCtrl.$setValidity('nonZeroValid', false);
+                } else {
+                    nonZeroCtrl.$setValidity('nonZeroValid', true);
+                }
+                return value;
+            }
+            nonZeroCtrl.$parsers.push(nonZeroValidation);
+        }
+    };
 });

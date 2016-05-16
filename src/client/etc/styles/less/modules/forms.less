@@ -79,6 +79,9 @@ input[type='checkbox'] + label {
     color: @red;
 }
 form.ng-submitted{
+    div[data-required$="false"]{
+        border-color: @red;
+    }
 	input,select,textarea{
 		&.ng-invalid-required,&.ng-valid-required.ng-invalid{
 			border-color: @red;
