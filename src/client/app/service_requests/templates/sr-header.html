@@ -11,7 +11,10 @@
                     <span translate="ADDRESS_SERVICE_REQUEST.WOULD_YOU_LIKE"></span> <a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD_ANOTHER_ADDRESS"></a>?
                 </span>
                 <span ng-if="configure.showManageAnotherDevice">
-                    <span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_WOULD_YOU_LIKE"></span> <a href="" ng-click="goToList()" translate="DEVICE_MAN.MANAGE_DEVICE.LNK_MANAGE_ANOTHER_DEVICE"></a>
+                    <span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_WOULD_YOU_LIKE"></span> <a href="" ng-click="goToList()" translate="DEVICE_MAN.MANAGE_DEVICE.LNK_MANAGE_ANOTHER_DEVICE"></a>?
+                </span>
+                <span ng-if="configure.showAddAnotherDevice">
+                    <span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_WOULD_YOU_LIKE"></span> <a href="" ng-click="goToCreate()" translate="DEVICE_MAN.MANAGE_DEVICE.LNK_ADD_ANOTHER_DEVICE"></a>?
                 </span>
                 <div class="col-1 btns">
                     <button class="btn" ng-click="goToServiceUpdate(sr.id, sr.type)"
