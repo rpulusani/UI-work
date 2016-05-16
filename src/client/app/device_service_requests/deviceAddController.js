@@ -165,7 +165,14 @@ angular.module('mps.serviceRequestDevices')
                     }
                 };
                 $scope.configure.contact.show.primaryAction = false;
+                $scope.configure.showAddAnotherDevice = true;
               }
+              $scope.goToCreate = function() {
+                Devices.reset();
+                ServiceRequest.reset();
+                Devices.item = {};
+                $location.path('/service_requests/devices/new');
+              };
             }
 
             function configureTemplates() {

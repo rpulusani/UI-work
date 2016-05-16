@@ -214,7 +214,12 @@ angular.module('mps.serviceRequestDevices')
                 }
             };
             $scope.configure.contact.show.primaryAction = false;
+            $scope.configure.showManageAnotherDevice = true;
           }
+          $scope.goToList = function() {     
+            Devices.item = undefined;
+            $location.path('/device_management');
+          };
         }
         function configureTemplates(){
             if($scope.device){
