@@ -25,14 +25,16 @@ angular.module('mps.deviceManagement')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'ipAddress'},
                         {
                          'name': $translate.instant('ADDRESS.NAME'), 
-                         'field':'address.name',
+                         'field':'_embedded.address.name',
+                         'searchOn':'address.name',
                           cellTemplate:'<div ng-bind="row.entity.getAddressName()"></div>',
                           visible: false
                         },
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_LEX_ASSET_TAG'), 'field':'lexmarkAssetTag' , visible: false},
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_MAC_ADDRESS'), 'field':'macAddress', visible: false},
                         {'name': $translate.instant('ACCOUNT.NAME'), 
-                            'field':'account.name', 
+                            'field':'_embedded.account.name', 
+                            'searchOn':'account.name',
                             cellTemplate:'<div ng-bind="row.entity._embedded.account.name"></div>',
                             visible: false},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'), 'field':'costCenter', visible: false},
@@ -41,73 +43,85 @@ angular.module('mps.deviceManagement')
                         {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false},
                         {
                          'name': $translate.instant('ADDRESS.STORE_NAME'), 
-                         'field':'address.storeFrontName',
+                         'field':'_embedded.address.storeFrontName',
+                         'searchOn':'address.storeFrontName',
                           cellTemplate:'<div ng-bind="row.entity._embedded.address.storeFrontName"></div>',
                           visible: false
                         },
                         {
                          'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 
-                         'field':'address.addressLine1',
+                         'field':'_embedded.address.addressLine1',
+                         'searchOn':'address.addressLine1',
                           cellTemplate:'<div ng-bind="row.entity._embedded.address.addressLine1"></div>',
                           visible: false
                         },
                         {
                          'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 
-                         'field':'address.city',
+                         'field':'_embedded.address.city',
+                         'searchOn':'address.city',
                           cellTemplate:'<div ng-bind="row.entity._embedded.address.city"></div>',
                           visible: false
                         },
                         {
                          'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 
-                         'field':'address.state',
+                         'field':'_embedded.address.state',
+                         'searchOn':'address.state',
                           cellTemplate:'<div ng-bind="row.entity._embedded.address.state"></div>',
                           visible: false
                         },
                         {
                          'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ZIP_CODE'),
-                         'field':'address.postalCode',
+                         'field':'_embedded.address.postalCode',
+                         'searchOn':'address.postalCode',
                           cellTemplate:'<div ng-bind="row.entity._embedded.address.postalCode"></div>',
                           visible: false
                         },
                         {
                          'name': $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
-                         'field':'contact.firstName',
+                         'field':'_embedded.contact.firstName',
+                         'searchOn':'contact.firstName',
                           cellTemplate:'<div ng-bind="row.entity._embedded.contact.firstName"></div>',
                           visible: false
                         },
                         {
                          'name': $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'), 
-                         'field':'contact.lastName', 
+                         'field':'_embedded.contact.lastName', 
+                         'searchOn':'contact.lastName',
                           cellTemplate:'<div ng-bind="row.entity._embedded.contact.lastName"></div>',
                           visible: false},
                         {
                           'name': $translate.instant('ADDRESS.DISTRICT'), 
-                          'field':'address.district', 
+                          'field':'_embedded.address.district', 
+                          'searchOn':'address.district',
                            cellTemplate:'<div ng-bind="row.entity._embedded.address.district"></div>',
                            visible: false
                         },
                         {
                           'name': $translate.instant('ADDRESS.PROVINCE'),
-                          'field':'address.province',
+                          'field':'_embedded.address.province',
+                          'searchOn':'address.province',
                            cellTemplate:'<div ng-bind="row.entity._embedded.address.province"></div>',
                            notSearchable: true, 
                            visible: false
                         },
                         {
                           'name': $translate.instant('ADDRESS.HOUSE_NUMBER'),
-                          'field':'address.houseNumber',
+                          'field':'_embedded.address.houseNumber',
+                          'searchOn':'address.houseNumber',
                            cellTemplate:'<div ng-bind="row.entity._embedded.address.houseNumber"></div>',
                            visible: false
                         },
                         {
                           'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'),
-                          'field':'address.country',
+                          'field':'_embedded.address.country',
+                          'searchOn':'address.country',
                            cellTemplate:'<div ng-bind="row.entity._embedded.address.country"></div>',
                            visible: false
                         },
                         {
                           'name': $translate.instant('ADDRESS.COUNTY'),
-                          'field':'address.county',
+                          'field':'_embedded.address.county',
+                          'searchOn':'address.county',
                            cellTemplate:'<div ng-bind="row.entity._embedded.address.county"></div>',
                            visible: false
                         }
