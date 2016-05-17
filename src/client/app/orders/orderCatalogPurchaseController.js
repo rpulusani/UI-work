@@ -416,6 +416,8 @@ angular.module('mps.orders')
                             actionLink: function(){
                             	if($scope.type === "HARDWARE"){
                             		 $location.path(Orders.route + '/catalog/hardware/cart');
+                            	}else if($scope.type === "SUPPLIES"){
+                            		 $location.path(Orders.route + '/catalog/supplies/cart');                            		
                             	}else{
                             		$location.search('tab', 'orderTab');
                                     $location.search('orderState', 'manageCurrentOrder');
