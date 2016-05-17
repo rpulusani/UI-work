@@ -6,7 +6,10 @@ angular.module('mps.filterSearch')
         $scope.categories = [
             {type: 'SIEBEL', name: 'SIEBEL'},
             {type: 'NOTIFICATION', name: 'NOTIFICATION'},
-            {type: 'PORTAL_UI', name: 'PORTAL UI'}
+            {type: 'PORTAL_UI', name: 'PORTAL UI'},
+            {type: 'FAQ', name: 'FAQ'},
+            {type: 'DOCUMENT', name: 'DOCUMENT TAGS'},
+            {type: 'ERRORS_MESSAGES', name: 'ERRORS/MESSAGES'}
         ];
 
         $scope.$watch('category', function(category) {

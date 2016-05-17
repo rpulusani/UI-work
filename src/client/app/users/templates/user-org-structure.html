@@ -18,11 +18,14 @@
     	<a class="float-right" translate="LABEL.COMMON.REMOVE" href="" ng-click="removeAccount(assignedAccount)"></a>
     </div>
 </div>
-<strong translate="USER_MAN.INVITE_USERS.TXT_DEVICE_MANAGEMENT_STRUCTURE" ng-if="!showAllAccounts"></strong>
-<div class="well scrollable" ng-if="!showAllAccounts">
+<div class="form__field form__field--required">
+    <label translate="USER_MAN.INVITE_USERS.TXT_DEVICE_MANAGEMENT_STRUCTURE" ng-if="!showAllAccounts"></label>
+</div>
+<div class="well scrollable" data-required="accountSelected{{accounts.length>0}}" ng-if="!showAllAccounts">
     <div ng-repeat="account in accountList">
         <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
             value="$parent.user.org" previous-items="$parent.accounts">
         </div>
     </div>
+    <input type="text" ng-model="accounts.length" non-zero required hidden />
 </div>

@@ -40,6 +40,7 @@ angular.module('mps.orders')
     Orders.tempSpace = {
         'catalogCart': {}
     };
+    $scope.gridLoading = true;
     if(Devices.item){
         Agreement.params.type = 'SUPPLIES';
         Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
@@ -48,7 +49,7 @@ angular.module('mps.orders')
                 var Grid = new GridService();
                 $scope.assetParts = AssetParts.data;
                 if (AssetParts.data && AssetParts.data.length > 0) {
-                    $scope.displayOrderContent = true;
+                    $scope.displayOrderContent = true;                    
                 }
                 $scope.catalogOptions = {};
                 $scope.catalogOptions.onRegisterAPI = Grid.getGridActions($scope,
@@ -60,7 +61,12 @@ angular.module('mps.orders')
                 $scope.hideShowPriceColumn(AssetParts);
                 AssetParts.getThumbnails();
                 $q.all(AssetParts.thumbnails).then(function(){
-                    Grid.display(AssetParts,$scope,personal, 92);
+                	Grid.display(AssetParts,$scope,personal, 92, function(){
+                		setTimeout(function(){
+                			$scope.gridLoading = false;	
+                		},0);                    	
+                    });
+                    
                 });
             });
 

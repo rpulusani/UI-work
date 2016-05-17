@@ -191,7 +191,7 @@ angular.module('mps.serviceRequestContacts')
                 header: {
                     translate:{
                         h1: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT',
-                        body: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLIES_CONTACT_PAR',
+                        body: 'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLES_CONTACT_REVIEW',
                         bodyValues: '',
                         readMore: ''
                     },

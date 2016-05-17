@@ -69,9 +69,9 @@ angular.module('mps.orders')
                 {
                         name: 'priceCurrencyFormat',
                         functionDef: function(){
-                            if(this.billingModel === 'Usage Based Billing'){
+                            if (this.billingModel === 'USAGE_BASED_BILLING'){
                                 return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
-                            }else{
+                            } else {
                                 return formatter.formatCurrency(this.price);
                             }
                         }
@@ -79,8 +79,13 @@ angular.module('mps.orders')
                     {
                         name: 'itemSubTotal',
                         functionDef: function(){
-                            var subTotal = formatter.itemSubTotal(this.price, this.quantity);
-                            return formatter.formatCurrency(subTotal);
+                        	if (this.billingModel === 'USAGE_BASED_BILLING'){
+                        		return '-';
+                        	} else {
+                        		var subTotal = formatter.itemSubTotal(this.price, this.quantity);
+                                return formatter.formatCurrency(subTotal);	
+                        	}
+                            
                         }
                     }
 

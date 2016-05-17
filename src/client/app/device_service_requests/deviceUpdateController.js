@@ -368,9 +368,15 @@ angular.module('mps.serviceRequestDevices')
             };
             $scope.configure.contact.show.primaryAction = false;
             $scope.configure.device.information.translate.linkMakeChangesTxt = undefined;
+            $scope.configure.showManageAnotherDevice = true;
           }
 
-            if ($scope.confirmedSavedSR) {
+          $scope.goToList = function() {     
+            Devices.item = undefined;
+            $location.path('/device_management');
+          };
+
+            if ($scope.confirmedSavedSR && angular.isArray($scope.confirmedSavedSR) && $scope.confirmedSavedSR.length > 0) {
                 srDisplay = (function() {
                     var i = 0,
                     idArr = [];

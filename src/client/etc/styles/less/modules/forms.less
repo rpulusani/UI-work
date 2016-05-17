@@ -79,10 +79,24 @@ input[type='checkbox'] + label {
     color: @red;
 }
 form.ng-submitted{
+    div[data-required$="false"]{
+        border-color: @red;
+    }
+    div[data-required$="false"]{
+        .selectric{
+            border-color: @red;
+        }
+    }
 	input,select,textarea{
 		&.ng-invalid-required,&.ng-valid-required.ng-invalid{
 			border-color: @red;
 			color: @red;
 		}
 	}
+}
+.ng-scope.ng-isolate-scope{
+    .col-1-3 {
+        word-break: break-all;
+        padding-right: 10px;
+    }  
 }

@@ -7,7 +7,37 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-1-2 l-alley-after floatL">
+    <div class="col-1-2 floatL l-alley-after" ng-if="!bodsError">
+        <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_RECOMMENDED_ADDRESS"></p>
+        <div class="well well--no-shadow">
+            <div class="form__field form__field--no-margin">
+                <input type="radio" 
+                    id="accepted-entered-address-comparison-address"
+                    name="verify-question"
+                    ng-model="acceptedEnteredAddress"
+                    value="comparisonAddress" 
+                    data-js="customInput"
+                    ng-click="setAcceptedAddress()"/>
+                    <label for="accepted-entered-address-comparison-address">
+                        <span></span>
+                        {{'ADDRESS_MAN.COMMON.RAD_USE_THIS_ADDRESS' | translate }}
+                    </label>
+            </div>
+
+            <div ng-bind="comparisonAddress.addressLine1"></div>
+            <div>
+                <span ng-bind="comparisonAddress.city"></span>,
+                <span ng-bind="comparisonAddress.state"></span>
+                <span ng-bind="comparisonAddress.postalCode"></span>
+            </div>
+            <div ng-bind="comparisonAddress.country"></div>
+
+            <div class="l-pad-top">
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-1-2 floatL">
         <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_YOU_ENTERED"></p>
         <div class="well well--no-shadow">
             <div class="form__field form__field--no-margin">
@@ -38,36 +68,6 @@
         </div>
     </div>
 
-    <div class="col-1-2 floatL" ng-if="!bodsError">
-        <p class="text--bold vertical-space--thin" translate="ADDRESS_MAN.COMMON.TXT_RECOMMENDED_ADDRESS"></p>
-        <div class="well well--no-shadow">
-            <div class="form__field form__field--no-margin">
-                <input type="radio" 
-                    id="accepted-entered-address-comparison-address"
-                    name="verify-question"
-                    ng-model="acceptedEnteredAddress"
-                    value="comparisonAddress" 
-                    data-js="customInput"
-                    ng-click="setAcceptedAddress()"/>
-                    <label for="accepted-entered-address-comparison-address">
-                        <span></span>
-                        {{'ADDRESS_MAN.COMMON.RAD_USE_THIS_ADDRESS' | translate }}
-                    </label>
-            </div>
-
-            <div ng-bind="comparisonAddress.addressLine1"></div>
-            <div>
-                <span ng-bind="comparisonAddress.city"></span>,
-                <span ng-bind="comparisonAddress.state"></span>
-                <span ng-bind="comparisonAddress.postalCode"></span>
-            </div>
-            <div ng-bind="comparisonAddress.country"></div>
-
-            <div class="l-pad-top">
-                
-            </div>
-        </div>
-    </div>
 </div>
 <div class="col-1 vertical-space--thick">
     <a translate="ADDRESS_MAN.COMMON.CTRL_RESET_ADDRESS"  href="" ng-click="resetAddress()"></a>

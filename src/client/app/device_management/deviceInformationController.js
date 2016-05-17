@@ -134,8 +134,14 @@ angular.module('mps.deviceManagement')
                     rows.push('none');
                 }
 
-                if ($scope.mono) {
+                if ($scope.mono && $scope.mono.value) {
                     rows.push($scope.mono.value);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.color && $scope.color.value) {
+                    rows.push($scope.color.value);
                 } else {
                     rows.push('none');
                 }
@@ -165,6 +171,7 @@ angular.module('mps.deviceManagement')
                 $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
                 $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
+                $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_MONO'),
                 $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
             ],
@@ -288,8 +295,10 @@ angular.module('mps.deviceManagement')
 
                     if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){
                         // if a new value was added
-                        if ($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== $scope.meterReads[i].value 
-                            && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)){
+                        if ($scope.meterReads[i].newVal 
+                            && $scope.meterReads[i].newVal !== $scope.meterReads[i].value
+                            && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)
+                            && $scope.meterReads[i].newVal > $scope.meterReads[i].value){
                             $scope.meterReads[i].value = $scope.meterReads[i].newVal;
                             $scope.meterReads[i].newVal = null;
                         }else{
@@ -381,12 +390,12 @@ angular.module('mps.deviceManagement')
                             break;
                         }
                     }
-                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].updateDate)){
-                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].updateDate);
+                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].lastUpdateDate)){
+                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].lastUpdateDate);
                            if ($scope.lastUpdated === null){
-                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                                $scope.lastUpdated = $scope.meterReads[i].lastUpdateDate;
                            } else if (meterDate.getTime() > tempLastUpdate.getTime()){
-                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                                $scope.lastUpdated = $scope.meterReads[i].lastUpdateDate;
                            }
                         tempLastUpdate = FormatterService.getDateFromString($scope.lastUpdated);
                     }
