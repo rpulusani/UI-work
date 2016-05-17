@@ -1,7 +1,7 @@
 
 angular.module('mps.filterSearch')
-.controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location','$window',
-    function($scope, $routeParams, $route, $location,$window) {
+.controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location','$window', '$rootScope',
+    function($scope, $routeParams, $route, $location,$window, $rootScope) {
         var paramsList = ['search', 'searchOn'],
         searchParams = $location.search();
         $scope.column = searchParams.searchOn;
@@ -11,6 +11,32 @@ angular.module('mps.filterSearch')
         $scope.searchByDisplayName = undefined;
         $scope.searchByValue = searchParams.search;
         $scope.totalItems = 0;
+
+        $scope.$on('columnPickerSelect', function(e, col) {
+            var newSet = angular.copy($scope.columnSet);
+            newSet.push(col);
+
+            $scope.columnSet = newSet;
+            $scope.$apply();
+           
+            $rootScope.$broadcast('setUpSearchCss');
+        });
+
+        $scope.$on('columnPickerDeselect', function(e, col) {
+            var i = 0,
+            newSet = angular.copy($scope.columnSet);
+
+            for (i; i <  newSet.length; i += 1) {
+                if (newSet[i].name === col.name) {
+                    newSet.splice(i, 1);
+                }
+            }
+
+            $scope.columnSet = newSet;
+            $scope.$apply();
+            
+            $rootScope.$broadcast('setUpSearchCss');
+        });
 
         if (!$scope.searchByValue) {
             $scope.searchByValue = '';
@@ -22,8 +48,17 @@ angular.module('mps.filterSearch')
             }
         });
 
-        $scope.columns.then(function(data){
-            $scope.columnSet = data;
+        $scope.columns.then(function(data) {
+            var i = 0,
+            setArr = [];
+
+            for (i; i < data.length; i += 1) {
+                if (data[i].visible !== false) {
+                    setArr.push(data[i]);
+                }
+            }
+
+            $scope.columnSet = setArr;
         });
 
         $scope.gridSearch = function(){
@@ -49,7 +84,7 @@ angular.module('mps.filterSearch')
         };
 
         $scope.searchByColumn = function(selectedOption) {
-            $scope.searchByDisplayName  = selectedOption.name;             
+            $scope.searchByDisplayName  = selectedOption.name;
             $scope.searchBy = selectedOption.searchOn;
         };
 
