@@ -110,10 +110,12 @@ angular.module('mps.utility')
                 visibleColumns.push({
                     name: columnList[i]['name'],
                     field: columnList[i]['field'],
-                    searchOn: columnList[i].searchOn
+                    searchOn: columnList[i].searchOn,
+                    visible: columnList[i].visible
                 });
             }
         }
+
         return visibleColumns;
     };
 
