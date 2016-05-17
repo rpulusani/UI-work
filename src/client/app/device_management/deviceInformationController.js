@@ -390,12 +390,12 @@ angular.module('mps.deviceManagement')
                             break;
                         }
                     }
-                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].updateDate)){
-                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].updateDate);
+                    if ($scope.meterReads[i] && BlankCheck.checkNotBlank($scope.meterReads[i].lastUpdateDate)){
+                        meterDate = FormatterService.getDateFromString($scope.meterReads[i].lastUpdateDate);
                            if ($scope.lastUpdated === null){
-                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                                $scope.lastUpdated = $scope.meterReads[i].lastUpdateDate;
                            } else if (meterDate.getTime() > tempLastUpdate.getTime()){
-                                $scope.lastUpdated = $scope.meterReads[i].updateDate;
+                                $scope.lastUpdated = $scope.meterReads[i].lastUpdateDate;
                            }
                         tempLastUpdate = FormatterService.getDateFromString($scope.lastUpdated);
                     }

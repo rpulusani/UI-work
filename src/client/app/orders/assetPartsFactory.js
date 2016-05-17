@@ -60,9 +60,9 @@ angular.module('mps.orders')
                     {
                         name: 'priceCurrencyFormat',
                         functionDef: function(){
-                            if(this.billingModel === 'USAGE_BASED_BILLING'){
+                            if (this.billingModel === 'USAGE_BASED_BILLING'){
                                 return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
-                            }else{
+                            } else {
                                 return formatter.formatCurrency(this.price);
                             }
                         }
