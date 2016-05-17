@@ -279,7 +279,7 @@ function(
                         {v: d.pagesBilledColor }
                     ]}
                 ]};
-            console.log(JSON.stringify($scope.chartObject.pagesBilled));
+            
         },
         buildCharts = function() {
             var report;
@@ -386,19 +386,27 @@ function(
         Reports.getPage().then(function() {
         var i = 0,
             tmp = Reports.data;
-
-            $scope.finder = Reports.finder;
+        	$scope.finder = Reports.finder;
             $scope.visualizations = [];
             $scope.reports = [];
 
             for (i = 0; i < tmp.length; i++) {
-                if (tmp[i]._links.stats !== undefined) {
-                    $scope.visualizations.push(tmp[i]);
-                }
+            	if(tmp[i].id === 'fleet-availability' ||
+            	   tmp[i].id === 'response-time' ||
+            	   tmp[i].id === 'consumables' || 
+            	   tmp[i].id === 'mp9058sp' ||
+            	   tmp[i].id === 'pb0001'){
+            		
+            		 if (tmp[i]._links.stats !== undefined) {
+                         $scope.visualizations.push(tmp[i]);
+                     }
 
-                if (tmp[i]._links.results !== undefined) {
-                    $scope.reports.push(tmp[i]);
-                }
+                     if (tmp[i]._links.results !== undefined) {
+                         $scope.reports.push(tmp[i]);
+                     }
+            	}
+            		
+               
             }
 
             buildCharts();
