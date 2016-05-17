@@ -50,7 +50,9 @@ angular.module('mps.notifications')
         };
 
         filterSearchService.addBasicFilter('All Siebel Values', undefined, undefined,
-            function(Grid) {}
+            function(Grid) {
+                $scope.$broadcast('setupPrintAndExport', $scope);
+            }
         );
     }
 ]);
