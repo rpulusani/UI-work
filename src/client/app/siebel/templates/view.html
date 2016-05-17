@@ -8,6 +8,13 @@
 </div>
 <div class="page-content">
     <div grid-filter options="filterOptions" params="optionParams"></div>
+
+    <div class="row l-pad-top l-pad-bottom">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
+        </div>        
+    </div>    
+
     <div class="alert alert--info" ng-if="gridLoading === true">
 	    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
 	        <div class="alert__body">
