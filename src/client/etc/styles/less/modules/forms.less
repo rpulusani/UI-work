@@ -82,6 +82,11 @@ form.ng-submitted{
     div[data-required$="false"]{
         border-color: @red;
     }
+    div[data-required$="false"]{
+        .selectric{
+            border-color: @red;
+        }
+    }
 	input,select,textarea{
 		&.ng-invalid-required,&.ng-valid-required.ng-invalid{
 			border-color: @red;

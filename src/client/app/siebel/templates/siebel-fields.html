@@ -4,7 +4,7 @@
     <h3 translate="PORTAL_ADMIN.SIEBEL_VALUE_DETAILS"></h3>
 
     
-    <div class="form__field form__field--select" >
+    <div class="form__field form__field--select form__field--required">
         <label translate="PORTAL_ADMIN.SIEBEL_OPTION"></label>
         <div selectric
             model="siebel.subModule"
@@ -12,22 +12,24 @@
             value="key"
             label="name"
             placeholder="{{'LABEL.COMMON.SELECT' | translate}}"
+            data-required="siebelOptionSelected{{siebel.subModule.length>0}}"
         ></div>
+        <input type="hidden" ng-model="siebel.subModule" required />
     </div>
 
-    <div class="form__field">
+    <div class="form__field form__field--required">
         <label translate="PORTAL_ADMIN.SIEBEL_VALUE"></label>
-        <input name="actualValue" type="text" class="" value="" ng-model="siebel.actualValue" />
+        <input name="actualValue" type="text" class="" value="" ng-model="siebel.actualValue" required />
     </div>
 
-    <div class="form__field">
+    <div class="form__field form__field--required">
         <label translate="PORTAL_ADMIN.DISPLAY_VALUE"></label>
-        <input name="defaultText" type="text" class="" value="" ng-model="siebel.values.EN" />
+        <input name="defaultText" type="text" class="" value="" ng-model="siebel.values.EN" required />
     </div>
 
-    <div class="form__field">
+    <div class="form__field form__field--required">
         <label translate="PORTAL_ADMIN.DISPLAY_ORDER"></label>
-        <input name="order" type="text" class="" value="" ng-model="siebel.order" />
+        <input name="order" type="text" class="" value="" ng-model="siebel.order" required />
     </div>
 </div>
 
