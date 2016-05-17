@@ -12,7 +12,7 @@ angular.module('mps.form')
 	             $scope.stateLabel='ADDRESS_MAN.COMMON.TXT_STATE';
 	             
 	             var labelProvince = ["argentina","canada","spain",
-	             	             "portugal","france","netherlands"]	;
+	             	             "portugal","france","netherlands", "brazil"];
 	             var labelState = ["usa","india","australia","brazil",
 	            	             "mexico"];
 	             var labelCounty = ["ireland"];
