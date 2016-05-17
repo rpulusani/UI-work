@@ -59,7 +59,8 @@
     <div class="row"> 
         <div class="col-md-1-3">
             <div class="form__field " ng-class="(!newAddress.postalCode.$valid && validForm === false) ? 'form__field--has-alert' : ''">
-                <label translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
+                <label ng-show="address.country.toLowerCase() === 'brazil'" translate="REPORTING.POSTAL_CODE"></label>
+                <label ng-show="address.country.toLowerCase() !== 'brazil'"translate="ADDRESS_MAN.COMMON.TXT_ZIP_CODE"></label>
                 <input type="text" name="postalCode" ng-model="address.postalCode" ng-required="address.zipMandatory || (address.stateOrPostalMandatory && address.state == '')" postal-code-valid/>
             </div>
         </div>

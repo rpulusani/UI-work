@@ -171,7 +171,7 @@ angular.module('mps.deviceManagement')
                 $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CONTACT_PHONE'),
                 $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_ORG_STRUCTURE'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_LIFETIME'),
-                $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_MONO'),
+                $translate.instant('DEVICE_MAN.COMMON.TXT_PAGE_COUNT_MONO'),
                 $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
             ],

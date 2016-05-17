@@ -93,8 +93,6 @@ angular.module('mps.serviceRequests')
                 filename: $scope.sr.id + '.csv',
                 data: generateDataObj()
             };
-
-            console.log($scope);
         };
 
         $scope.hideSubmitButton = true;
