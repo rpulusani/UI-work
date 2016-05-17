@@ -31,7 +31,7 @@
   },
   {
     "id": "4",
-    "action": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
+    "action": "",
     "target": "_blank",
     "text": "NAVIGATION.LEFT_NAV.TXT_LOCATIONS",
     "description": "NAVIGATION.LEFT_NAV.TXT_LOCATIONS",

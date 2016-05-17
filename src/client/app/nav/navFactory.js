@@ -3,8 +3,8 @@
 
 
  angular.module('mps.nav')
-.factory('Nav', ['$http', 'filterFilter', 'NavItem',
-    function($http, filter, Item) {
+.factory('Nav', ['$http', 'filterFilter', 'NavItem','lbsURL',
+    function($http, filter, Item, lbsURL) {
 
         var Nav = function() {
             var self = this;
@@ -46,6 +46,10 @@
                 var limit = data.length;
 
                 for(var i=0;i<limit;i++){
+                	// This is for fleet management condition.
+                	if(data[i].id == 4){
+                		data[i].action = lbsURL;
+                	}
                     self.items[i] = new Item.init(data[i]);
                 }
 
