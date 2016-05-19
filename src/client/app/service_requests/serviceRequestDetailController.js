@@ -471,6 +471,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_CONTACT_CHANGE':
                 addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE');
+                addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
                 $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_DETAIL';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_REQUEST_NUMBER';
             break;
@@ -598,6 +599,13 @@ angular.module('mps.serviceRequests')
     }
     if (!BlankCheck.isNull($scope.sr.item._embedded.secondaryContact)) {
     	$scope.formattedContact = FormatterService.formatContact($scope.sr.item._embedded.secondaryContact);  
+    	 if (!BlankCheck.isNull($scope.sr.item._embedded.secondaryContact.address) 
+    			 && !BlankCheck.isNull($scope.sr.item._embedded.secondaryContact.address)
+    	    		&& !BlankCheck.isNull($scope.sr.item._embedded.secondaryContact.address.addressLine1) ) {
+    	    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.item._embedded.secondaryContact.address);
+    	    	$scope.formattedAddress += FormatterService.addBuildingFloorOffice($scope.sr.item._embedded.secondaryContact.address);
+    	        
+    	    }
     }
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
             $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
