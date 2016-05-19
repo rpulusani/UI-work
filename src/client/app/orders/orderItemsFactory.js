@@ -61,6 +61,28 @@ angular.module('mps.orders')
                         'field':'itemSubTotal()',
                         enableCellEdit:false
                     }
+                  ],
+                  pruchaseSubmitSet: [
+                    {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
+                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_NUMBER'),
+                        'field':'', 
+                        'cellTemplate':'<div ng-bind="grid.appScope.orderId"></div>',
+                        enableCellEdit:false},
+                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
+                        'field':'type', enableCellEdit:false},
+                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
+                        'field':'displayItemNumber', enableCellEdit:false},
+                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
+                        'field':'priceCurrencyFormat()', enableCellEdit:false},
+                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
+                            width: '125',
+                            type: 'number'
+                    },
+                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL'),
+                        'cellClass': 'text--semi-bold',
+                        'field':'itemSubTotal()',
+                        enableCellEdit:false
+                    }
                   ]
                 },
 

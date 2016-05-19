@@ -103,6 +103,7 @@ angular.module('mps.orders')
             columnDef: '=',
             editable:"@",
             taxable:"=",
+            ordernbr:"=",
             submitAction:"=",
             datasource:"=",
             configure: "=",
