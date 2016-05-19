@@ -12,7 +12,7 @@
     </div>
   </div>
   <div ng-repeat="file in files" ng-if="!error">
-    <div><span>Attachment 1 of 1</span><a ng-if="!file.complete">Cancel</a></div>
+    <div><span>Attachment 1 of 1</span></div>
     <div>{{file.name}}</div>
     <div class="progress-bar" ng-if="!file.complete">
       <div class="progress-bar__fill progress-bar__fill--is-animated progress-green" style="width: 100%"></div>

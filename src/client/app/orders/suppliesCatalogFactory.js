@@ -32,7 +32,7 @@ angular.module('mps.orders')
                             'field':'type', enableCellEdit:false, width:'20%'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
                             'field':'displayItemNumber', enableCellEdit:false, width:'12%',
-                             'cellTemplate': '<span>{{drow.entity.isplayItemNumber}}</span>'+
+                             'cellTemplate': '<span>{{row.entity.displayItemNumber}}</span>'+
                              '<ul ng-if="row.entity.childItems && row.entity.childItems.length > 0"> Hi </ul>'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_DESC'),
                             'field':'description', enableCellEdit:false, width:'27%', cellClass:'long-text-wrap'},
@@ -58,7 +58,7 @@ angular.module('mps.orders')
                     {
                         name: 'priceCurrencyFormat',
                         functionDef: function(){
-                            if(this.billingModel === 'Usage Based Billing'){
+                            if(this.billingModel === 'USAGE_BASED_BILLING'){
                                 return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
                             }else{
                                 return formatter.formatCurrency(this.price);
