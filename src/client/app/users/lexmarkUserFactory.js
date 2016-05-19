@@ -10,6 +10,7 @@ angular.module('mps.user')
             columns: 'default',
             columnDefs: {
                 defaultSet: [
+                    {'name': $translate.instant('USER_MAN.MANAGE_LXK_USERS.TXT_GRID_SHORT_NAME'), 'field':'shortName'},
                     {'name': $translate.instant('USER_MAN.MANAGE_LXK_USERS.TXT_GRID_EMAIL'), 'field': 'email',
                      'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
@@ -17,8 +18,7 @@ angular.module('mps.user')
                                     '</div>'
                     },
                     {'name': $translate.instant('USER_MAN.MANAGE_LXK_USERS.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
-                    {'name': $translate.instant('USER_MAN.MANAGE_LXK_USERS.TXT_GRID_LAST_NAME'), 'field':'lastName'},
-                    {'name': $translate.instant('USER_MAN.MANAGE_LXK_USERS.TXT_GRID_SHORT_NAME'), 'field':'shortName', visible: false}
+                    {'name': $translate.instant('USER_MAN.MANAGE_LXK_USERS.TXT_GRID_LAST_NAME'), 'field':'lastName'}
                     
                 ]
             },
