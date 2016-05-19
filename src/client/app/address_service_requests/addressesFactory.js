@@ -17,7 +17,6 @@ angular.module('mps.serviceRequestAddresses')
                                 '<span ng-if="!grid.appScope.addressAccess">{{row.entity.name}}</span>' +
                             '</div>'
                     },
-                    {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName', visible:false},
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field':'addressLine1'},
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_2'), 'field':'addressLine2'},
                     {'name': $translate.instant('ADDRESS.REGION'), 'field':'region'},
@@ -28,7 +27,8 @@ angular.module('mps.serviceRequestAddresses')
                     {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_COUNTRY'), 'field': 'country'},
                     {'name': $translate.instant('ADDRESS.COUNTY'), 'field': 'county'},
                     {'name': $translate.instant('ADDRESS.DISTRICT'), 'field': 'district'},
-                    {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': 'houseNumber'}
+                    {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': 'houseNumber'},
+                    {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'storeFrontName', visible:false}
                 ]
             },
             route: '/service_requests/addresses',
