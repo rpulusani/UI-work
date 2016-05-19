@@ -57,6 +57,11 @@ function(
                     $scope.paySelection = Contracts.item.billingModels;
                }
                $scope.configure.actions.disabled = false;
+               if ($scope.showContracts === 'single' 
+            	   &&  $scope.showAgreements === 'single' 
+            	   && $scope.showBillingOptions === 'single'){
+            	   $scope.configure.actions.submit();
+               }
             }else{
                     $scope.showBillingOptions = 'none';
             }
