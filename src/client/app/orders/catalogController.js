@@ -111,7 +111,15 @@ angular.module('mps.orders')
                             submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                 };
             }
-
+            $scope.configure.modal = {
+                    translate: {
+                        abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                        abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                        abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                        abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
+                    },
+                    returnPath: Orders.route + '/'
+                };
 
 
             function getParts(){
