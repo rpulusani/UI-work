@@ -46,6 +46,7 @@ angular.module('mps.utility')
                         } else {
                             service.params.sort = sortColumns[0].colDef.searchOn;
                         }
+                        service.params.sort = service.params.sort.replace('_embedded.','');  
                     }
 
                     service.params.direction = currentDir;
@@ -479,8 +480,16 @@ angular.module('mps.utility')
             gotoPage: function(pageNumber, size) {
                 var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
                 service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
-                        self.display(service, scope, personal, scope[self.optionsName].rowHeight );
-                    size = service.page.size;
+                	if(service.afterLoadData){
+                		service.afterLoadData().then(function(){
+                			self.display(service, scope, personal, scope[self.optionsName].rowHeight);
+                            size = service.page.size;
+                		});
+                	}else{
+                		self.display(service, scope, personal, scope[self.optionsName].rowHeight);
+                        size = service.page.size;
+                	}                		
+                        
                 }, function(reason) {
                     NREUM.noticeError('failed Paging: ' + reason);
                 });
