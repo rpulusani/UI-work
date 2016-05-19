@@ -10,19 +10,20 @@ angular.module('mps.deviceManagement')
             addBookmarkFn: true,
             columnDefs: {
                 defaultSet: [
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field': 'serialNumber',
-                            'cellTemplate':'<div>' +
-                                '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
-                                'ng-if="grid.appScope.deviceView">{{row.entity.serialNumber}}</a>' +
-                                '<span ng-if="!grid.appScope.deviceView">{{row.entity.serialNumber}}</span>' +
-                            '</div>'
-
-                        },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'hostName'},
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'productModel'},
-                        {'name': $translate.instant('REPORTING.MACHINE_TYPE_MODEL'), 'field':'machineType'},
+                             	{'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field': 'serialNumber',
+                             			'cellTemplate':'<div>' +
+                             			'<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                             			'ng-if="grid.appScope.deviceView">{{row.entity.serialNumber}}</a>' +
+                             			'<span ng-if="!grid.appScope.deviceView">{{row.entity.serialNumber}}</span>' +
+                             			'</div>'
+                        },     
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'assetTag'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'hostName'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'ipAddress'},
+                        
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'productModel'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'), 'field':'costCenter'},
+                        {'name': $translate.instant('REPORTING.MACHINE_TYPE_MODEL'), 'field':'machineType', visible:false},
                         {
                          'name': $translate.instant('ADDRESS.NAME'), 
                          'field':'_embedded.address.name',
@@ -37,7 +38,6 @@ angular.module('mps.deviceManagement')
                             'searchOn':'account.name',
                             cellTemplate:'<div ng-bind="row.entity._embedded.account.name"></div>',
                             visible: false},
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_INSTALL_BUILDING'), 'field':'physicalLocation1', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_INSTALL_FLOOR'), 'field':'physicalLocation2', visible: false},
                         {'name': $translate.instant('ADDRESS.SITE_NAME'), 'field':'physicalLocation3', visible: false},

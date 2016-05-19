@@ -1,15 +1,17 @@
 angular.module('mps.library')
     .controller('LibraryTagController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents',
-        'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService',
+        'Tags', 'Translations', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService',
         function($scope, $location, $translate, $route, $http, Documents, Tags, Translations, GridService,
-            $rootScope, Personalize, formatter) {
+            $rootScope, Personalize, formatter, FilterSearchService) {
 
         $scope.isCreating = false;
         $scope.isEditing = false;
         $scope.isDeleting = false;
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
+        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet, 160);
         var Grid = new GridService();
+        Tags.setParamsToNull();
 
         if (Tags.item) {
             $scope.phTagName = Tags.item.name;

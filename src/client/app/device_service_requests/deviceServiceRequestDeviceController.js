@@ -431,7 +431,7 @@ angular.module('mps.serviceRequestDevices')
                         readMoreUrl: '',
                         translate: {
                                 replaceDeviceTitle: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_DEVICE_DEVICE_FOR_INSTALL',
-                                h1: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL',
+                                h1: 'REQUEST_MAN.REQUEST_SERVICE.TXT_SELECT_DEVICE_FOR_REQUESTSERVICE',
                                 body: 'REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.TXT_SELECT_DEVICE_FOR_REMOVAL_PAR',
                             readMore: '',
                             confirmation:{

@@ -12,17 +12,14 @@ angular.module('mps.serviceRequestContacts')
             columnDefs: {
                 defaultSet: [
                     {
-                        name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'),
-                        field: 'getFullname()',
-                        dynamic: false,
-                        notSearchable: true,                        
+                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
+                        field:'firstName',
                         cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
-                            'ng-bind="row.entity.getFullname()"></a></div>'
+                            'ng-bind="row.entity.firstName"></a></div>'
                     },
                     {
-                        name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'),
-                        field: 'workPhone',
-                        searchOn: 'workPhone'
+                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'),
+                        field:'lastName'
                     },
                     {
                         name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_EMAIL'),
@@ -30,20 +27,15 @@ angular.module('mps.serviceRequestContacts')
                         searchOn: 'email'
                     },
                     {
+                        name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'),
+                        field: 'workPhone',
+                        searchOn: 'workPhone'
+                    },
+                    {
                         name: $translate.instant('CONTACT.ID'),
                         field: 'id',
                         visible: false,
                         dynamic: false
-                    },
-                    {
-                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
-                        field:'firstName',
-                        visible: false
-                    },
-                    {
-                        name: $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'),
-                        field:'lastName',
-                        visible: false
                     },
                     {
                         name: $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'),

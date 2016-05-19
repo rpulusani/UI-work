@@ -41,7 +41,7 @@ angular.module('mps.serviceRequests')
             var generateDataObj = function() {
                  var obj = {
                     requestNumber: $scope.sr.requestNumber,
-                    formattedPrimaryContact: $scope.formattedPrimaryContact,
+                    formattedPrimaryContact: $scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
                     requestedByContactFormatted:$scope.requestedByContactFormatted,
                     customerReferenceId: $scope.formattedReferenceId,
                     costCenter: $scope.formattedCostCenter,
@@ -50,9 +50,9 @@ angular.module('mps.serviceRequests')
                 };
 
                 if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
-                    obj.formattedAddress = $scope.formattedAddress;
+                    obj.formattedAddress = $scope.formattedAddress === undefined ?"":$scope.formattedAddress.replace(/<br\/>/g, ', ');
                 } else {
-                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
+                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress === undefined ?"": $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
 
                 if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION') {
@@ -83,7 +83,7 @@ angular.module('mps.serviceRequests')
 
                 if ($scope.formattedDeviceMoveAddress) {
                     obj.lexmarkToMove = $scope.formattedMoveDevice;
-                    obj.moveAddress = $scope.formattedDeviceMoveAddress;
+                    obj.moveAddress = $scope.formattedDeviceMoveAddress.replace(/<br\/>/g, ', ');
                 }
 
                 return obj;
@@ -439,7 +439,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
-                $scope.formattedAddress = $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
+                
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.detail.show.costCenter = false;
@@ -448,7 +448,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
-                $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
+                
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.detail.show.costCenter = false;
@@ -457,7 +457,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_REMOVE':
                 addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
-                $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
+                
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.detail.show.costCenter = false;
@@ -471,6 +471,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_CONTACT_CHANGE':
                 addContactInfo('CONTACT_SERVICE_REQUEST.DATA_CONTACT_CHANGE');
+                addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
                 $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_DETAIL';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.UPDATE_CONTACT_REQUEST_NUMBER';
             break;
@@ -583,9 +584,10 @@ angular.module('mps.serviceRequests')
     if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
             $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
     }
-    if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)
-    		&& !BlankCheck.isNull($scope.sr.sourceAddress.item.addressLine1) ) {
-    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
+    if (!BlankCheck.isNull($scope.sr.item.sourceAddress) && !BlankCheck.isNull($scope.sr.item.sourceAddress)
+    		&& !BlankCheck.isNull($scope.sr.item.sourceAddress.addressLine1) ) {
+    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.item.sourceAddress);
+    	$scope.formattedAddress += FormatterService.addBuildingFloorOffice($scope.sr.item.sourceAddressPhysicalLocation);
         
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
@@ -595,7 +597,16 @@ angular.module('mps.serviceRequests')
             }
             
     }
-
+    if (!BlankCheck.isNull($scope.sr.item._embedded.secondaryContact)) {
+    	$scope.formattedContact = FormatterService.formatContact($scope.sr.item._embedded.secondaryContact);  
+    	 if (!BlankCheck.isNull($scope.sr.item._embedded.secondaryContact.address) 
+    			 && !BlankCheck.isNull($scope.sr.item._embedded.secondaryContact.address)
+    	    		&& !BlankCheck.isNull($scope.sr.item._embedded.secondaryContact.address.addressLine1) ) {
+    	    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.item._embedded.secondaryContact.address);
+    	    	$scope.formattedAddress += FormatterService.addBuildingFloorOffice($scope.sr.item._embedded.secondaryContact.address);
+    	        
+    	    }
+    }
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
             $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
     }

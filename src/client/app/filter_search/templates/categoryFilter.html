@@ -1,12 +1,11 @@
 <br/>
 <h4 translate="Browse Categories"></h4>
- <div ng-repeat="tempcategory in categories">
+ <div ng-repeat="tempcategory in categories" class="clear">
     <input type="radio" id="tempcategory.type" name="category-select"
     ng-model="$parent.category" value="{{tempcategory.type}}"/>
     <label for="tempcategory.type"><span></span>
         {{tempcategory.name}}</label>
 </div>
-<br/>
 <div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
     <div class="footnotes">
         <a href="" ng-click="clearCategoryFilter()" translate="Clear Category"></a>

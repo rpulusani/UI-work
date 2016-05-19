@@ -313,12 +313,21 @@ angular.module('mps.orders')
                         }
                     };
                 $scope.configure.queued = false;
+                $scope.ordernbr = FormatterService.getFormattedSRNumber($scope.sr);
             }
 
         function configureReceiptTemplate(){
             $scope.configure.order.details.translate.action = undefined;
             $timeout(function(){
-                OrderItems.columns = 'pruchaseSet';
+                switch($scope.type){
+                        case 'HARDWARE':
+                            OrderItems.columns = 'pruchaseSet';
+                        break;
+                        case 'SUPPLIES':
+                            OrderItems.columns = 'pruchaseSubmitSet';
+                        break;
+                    }
+                
                     $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': OrderItems // send whatever you want
                     });
