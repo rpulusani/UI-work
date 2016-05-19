@@ -16,15 +16,9 @@ angular.module('mps.orders')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-<<<<<<< HEAD
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
-=======
-                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()'},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width:300},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', visible: false, 'notSearchable': true},
->>>>>>> upstream/integrated
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
@@ -40,7 +34,6 @@ angular.module('mps.orders')
                                     '</div>',
                             width: 150
                         },
-<<<<<<< HEAD
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
@@ -49,16 +42,6 @@ angular.module('mps.orders')
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'assetInfo.ipAddress'},
                         {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'assetInfo.hostName', visible: false},
-=======
-                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()'},
-                        {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetInfo.assetTag'},
-                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'assetInfo.serialNumber'},
-                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'assetInfo.hostName'},
-                        {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'assetInfo.ipAddress'},
-                        {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', visible: false},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', visible: false},
->>>>>>> upstream/integrated
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'', visible: false},
@@ -85,14 +68,8 @@ angular.module('mps.orders')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-<<<<<<< HEAD
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
-=======
-                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()'},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
->>>>>>> upstream/integrated
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', visible: false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
