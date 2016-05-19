@@ -88,6 +88,16 @@ angular.module('mps.orders')
                         self.getSingleThumbnail(data[i]);
                     }
                 },
+                afterLoadData: function(){                	
+                	 var deferred = $q.defer();
+                	 var self = this;
+                     self.getThumbnails();
+                     $q.all(self.thumbnails).then(function(){
+                        deferred.resolve();
+                     });
+                    return deferred.promise;          
+                	
+                },
             route: ''
         };
 
