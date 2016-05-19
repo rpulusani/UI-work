@@ -50,6 +50,11 @@ angular.module('mps.serviceRequests')
                         
                     ],
                     madcSetSR: [
+                                {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber', 
+                                    'cellTemplate':'<div>' +
+                                                    '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                                    '>{{row.entity.requestNumber}}</a>' +
+                                                '</div>'},        
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'assetInfo.assetTag',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.assetTag"></div>'
                         },
@@ -65,11 +70,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'assetInfo.productModel',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.productModel"></div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber', visible: false,
-                        'cellTemplate':'<div>' +
-                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
-                                        '>{{row.entity.requestNumber}}</a>' +
-                                    '</div>'},
+                       
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true, visible: false, searchOn :'createDate'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true, visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true, visible: false},

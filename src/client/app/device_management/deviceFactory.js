@@ -10,17 +10,17 @@ angular.module('mps.deviceManagement')
             addBookmarkFn: true,
             columnDefs: {
                 defaultSet: [
+                             	{'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field': 'serialNumber',
+                             			'cellTemplate':'<div>' +
+                             			'<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                             			'ng-if="grid.appScope.deviceView">{{row.entity.serialNumber}}</a>' +
+                             			'<span ng-if="!grid.appScope.deviceView">{{row.entity.serialNumber}}</span>' +
+                             			'</div>'
+                        },     
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'assetTag'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'hostName'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'ipAddress'},
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field': 'serialNumber',
-                            'cellTemplate':'<div>' +
-                                '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
-                                'ng-if="grid.appScope.deviceView">{{row.entity.serialNumber}}</a>' +
-                                '<span ng-if="!grid.appScope.deviceView">{{row.entity.serialNumber}}</span>' +
-                            '</div>'
-
-                        },
+                        
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'productModel'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_DEVICE_COST_CENTER'), 'field':'costCenter'},
                         {'name': $translate.instant('REPORTING.MACHINE_TYPE_MODEL'), 'field':'machineType', visible:false},

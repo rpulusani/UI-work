@@ -12,17 +12,10 @@ angular.module('mps.serviceRequestContacts')
             columnDefs: {
                 defaultSet: [
                     {
-                        name: $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_NAME'),
-                        field: 'getFullname()',
-                        dynamic: false,
-                        notSearchable: true,
-                        visible: false,                        
-                        cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
-                            'ng-bind="row.entity.getFullname()"></a></div>'
-                    },
-                    {
                         name: $translate.instant('CONTACT_MAN.COMMON.TXT_FIRST_NAME'),
-                        field:'firstName'
+                        field:'firstName',
+                        cellTemplate: '<div><a href="#" ng-click="grid.appScope.contacts.goToUpdate(row.entity);" ' +
+                            'ng-bind="row.entity.firstName"></a></div>'
                     },
                     {
                         name: $translate.instant('CONTACT_MAN.COMMON.TXT_LAST_NAME'),
