@@ -50,9 +50,9 @@ angular.module('mps.serviceRequests')
                 };
 
                 if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
-                    obj.formattedAddress = $scope.formattedAddress.replace(/<br\/>/g, ', ');
+                    obj.formattedAddress = $scope.formattedAddress === undefined ?"":$scope.formattedAddress.replace(/<br\/>/g, ', ');
                 } else {
-                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
+                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress === undefined ?"": $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
 
                 if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION') {
