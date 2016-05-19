@@ -16,14 +16,14 @@ angular.module('mps.serviceRequests')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate'},
+                        
                         
                         
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName'},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName'},
-                                                
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true,visible: false},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true,visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
@@ -36,7 +36,7 @@ angular.module('mps.serviceRequests')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId'},
@@ -50,29 +50,29 @@ angular.module('mps.serviceRequests')
                         
                     ],
                     madcSetSR: [
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber',
-                        'cellTemplate':'<div>' +
-                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
-                                        '>{{row.entity.requestNumber}}</a>' +
-                                    '</div>'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'assetInfo.serialNumber',
-                                 'cellTemplate':'<div ng-bind="row.entity.assetInfo.serialNumber"></div>'
-                        },
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'assetInfo.assetTag',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.assetTag"></div>'
-                        },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'assetInfo.productModel',
-                                 'cellTemplate':'<div ng-bind="row.entity.assetInfo.productModel"></div>'
-                        },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'assetInfo.ipAddress',
-                                 'cellTemplate':'<div ng-bind="row.entity.assetInfo.ipAddress"></div>'
                         },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'assetInfo.hostName',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.hostName"></div>'
                         },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'assetInfo.ipAddress',
+                                 'cellTemplate':'<div ng-bind="row.entity.assetInfo.ipAddress"></div>'
+                        },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'assetInfo.serialNumber',
+                                 'cellTemplate':'<div ng-bind="row.entity.assetInfo.serialNumber"></div>'
+                        },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'assetInfo.productModel',
+                                 'cellTemplate':'<div ng-bind="row.entity.assetInfo.productModel"></div>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_NUMBER'), 'field':'requestNumber', visible: false,
+                        'cellTemplate':'<div>' +
+                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                                        '>{{row.entity.requestNumber}}</a>' +
+                                    '</div>'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true, visible: false, searchOn :'createDate'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true, visible: false},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true, visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
@@ -100,23 +100,23 @@ angular.module('mps.serviceRequests')
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'_embedded.asset.serialNumber',
-                                 'cellTemplate':'<div ng-bind="row.entity._embedded.asset.serialNumber"></div>'
-                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate'},
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'_embedded.asset.assetTag',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.assetTag"></div>'
-                        },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'_embedded.asset.productModel',
-                                 'cellTemplate':'<div ng-bind="row.entity._embedded.asset.productModel"></div>'
-                        },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'_embedded.asset.ipAddress',
-                                 'cellTemplate':'<div ng-bind="row.entity._embedded.asset.ipAddress"></div>'
                         },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'_embedded.asset.hostName',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.hostName"></div>'
                         },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'_embedded.asset.ipAddress',
+                                 'cellTemplate':'<div ng-bind="row.entity._embedded.asset.ipAddress"></div>'
+                        },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'_embedded.asset.serialNumber',
+                                 'cellTemplate':'<div ng-bind="row.entity._embedded.asset.serialNumber"></div>'
+                        },
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'_embedded.asset.productModel',
+                                 'cellTemplate':'<div ng-bind="row.entity._embedded.asset.productModel"></div>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true, visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
@@ -147,7 +147,7 @@ angular.module('mps.serviceRequests')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true,searchOn :'createDate'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter'},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_PROB_DESC'), 'field':'description'},
@@ -166,10 +166,10 @@ angular.module('mps.serviceRequests')
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status'},                        
-                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName', visible: false}
@@ -187,19 +187,21 @@ angular.module('mps.serviceRequests')
                         {
                             'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 
                             'field': 'createDate', 
+                            searchOn :'createDate',
                             'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>'
                         },
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status'},
                                               
-                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName'},
-                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName'},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName','visible': false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName','visible': false},
                         
                         
                         {
                             'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_PHONE'), 
                             'field': 'requester.workPhone', 
-                            'cellTemplate': '<div ng-bind="row.entity.getWorkPhone()"></div>'
+                            'cellTemplate': '<div ng-bind="row.entity.getWorkPhone()"></div>',
+                            'visible': false
                         },
                         {
                             'name': $translate.instant('CONTACT_MAN.MANAGE_CONTACTS.TXT_GRID_EMAIL'), 

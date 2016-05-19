@@ -25,11 +25,17 @@
         <div class="col-1">
             <h4 translate="DOCUMENT_LIBRARY.MANAGE_TAGS.TXT_TAG_LIBRARY"></h4>
 
-            <hr/>
+            <hr/>            
 
+            <div class="row l-pad-top l-pad-bottom">
+                <div class="col-lg-2-3 col-md-1-1">
+                    <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
+                </div>        
+            </div>                    
+           
             <div ui-grid="gridOptions" class="table"
-                ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-move-columns ui-grid-resize-columns></div>
-            <div pagination grid="{{gridOptions}}"></div>
+                   ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-move-columns ui-grid-resize-columns></div>
+            <div pagination grid="{{gridOptions}}"></div>            
         </div>
     </div>
 
