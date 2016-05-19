@@ -41,7 +41,7 @@ angular.module('mps.serviceRequests')
             var generateDataObj = function() {
                  var obj = {
                     requestNumber: $scope.sr.requestNumber,
-                    formattedPrimaryContact: $scope.formattedPrimaryContact,
+                    formattedPrimaryContact: $scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
                     requestedByContactFormatted:$scope.requestedByContactFormatted,
                     customerReferenceId: $scope.formattedReferenceId,
                     costCenter: $scope.formattedCostCenter,
@@ -50,7 +50,7 @@ angular.module('mps.serviceRequests')
                 };
 
                 if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
-                    obj.formattedAddress = $scope.formattedAddress;
+                    obj.formattedAddress = $scope.formattedAddress.replace(/<br\/>/g, ', ');
                 } else {
                     obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
@@ -83,7 +83,7 @@ angular.module('mps.serviceRequests')
 
                 if ($scope.formattedDeviceMoveAddress) {
                     obj.lexmarkToMove = $scope.formattedMoveDevice;
-                    obj.moveAddress = $scope.formattedDeviceMoveAddress;
+                    obj.moveAddress = $scope.formattedDeviceMoveAddress.replace(/<br\/>/g, ', ');
                 }
 
                 return obj;

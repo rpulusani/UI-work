@@ -10,14 +10,14 @@ angular.module('mps.orders')
                 hideBookmark: true,
                 columnDefs: {
                     defaultSet: [
-                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
-                          'cellTemplate':'<div>' +
+                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',  width: 150,
+                            'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width:300, 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
@@ -27,21 +27,21 @@ angular.module('mps.orders')
                         {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true, visible: false}
                     ],
                     suppliesSet: [
-                        
                         {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
                             'cellTemplate':'<div>' +
-                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
-                                        '>{{row.entity.requestNumber}}</a>' +
-                                    '</div>'
+                                        '<a href="#" ng-click="grid.appScope.view(row.entity);">' +
+                                        '{{row.entity.requestNumber}}</a>' +
+                                    '</div>',
+                            width: 150
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'assetInfo.serialNumber'},
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetInfo.assetTag'},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
                         {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'assetInfo.ipAddress'},
-                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'assetInfo.hostName'},
+                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'assetInfo.hostName', visible: false},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'', visible: false},
@@ -51,7 +51,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullRequestorName()',visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true, visible: false},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
-                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.', visible: false},
+                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.houseNumber', visible: false},
                         {'name': $translate.instant('ADDRESS.CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
                         {'name': $translate.instant('ADDRESS.STATE'), 'field': '_embedded.sourceAddress.state', visible: false},
                         {'name': $translate.instant('ADDRESS.PROVINCE'), 'field': '_embedded.sourceAddress.province', visible: false},
@@ -62,14 +62,14 @@ angular.module('mps.orders')
                     ],
                     hardwareSet: [
                        
-                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
+                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',  width: 150,
                             'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
@@ -81,7 +81,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
-                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.', visible: false},
+                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.houseNumber', visible: false},
                         {'name': $translate.instant('ADDRESS.CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
                         {'name': $translate.instant('ADDRESS.STATE'), 'field': '_embedded.sourceAddress.state', visible: false},
                         {'name': $translate.instant('ADDRESS.PROVINCE'), 'field': '_embedded.sourceAddress.province', visible: false},
