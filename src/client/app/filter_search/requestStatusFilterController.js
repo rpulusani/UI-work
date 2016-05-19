@@ -13,7 +13,7 @@ angular.module('mps.filterSearch')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'IN_PROCESS', selected: false},
         { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED', selected: false},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED', selected: false},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_CANCELED'), value: 'CANCELED', selected: false},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_CANCELED'), value: 'CANCELLED', selected: false},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_PENDING'), value: 'PENDING', selected: false},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_DRAFT'), value: 'DRAFT', selected: false}],
 
