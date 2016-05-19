@@ -24,14 +24,14 @@ angular.module('mps.user')
                         'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>', 
                         'notSearchable':true
                     },
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email',
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
                                         '{{row.entity.email}}</a>' +
                                     '</div>'
                     },
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': '', 
@@ -60,18 +60,16 @@ angular.module('mps.user')
                     }
                 ],
                 invitedSet: [
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'invitedStatus','notSearchable':true},
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 'field': 'invitedStatus','notSearchable':true},                    
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_INVITATION_DATE'), 
                         'field':'created',
-                        'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>',
-                        'notSearchable':true
+                        'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>'
                     },
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': '',
                         'cellTemplate':'<div ng-bind="row.entity.getAccounts()"></div>', 
-                        'notSearchable':true,
                         'enableSorting':false
                     },
                     {
