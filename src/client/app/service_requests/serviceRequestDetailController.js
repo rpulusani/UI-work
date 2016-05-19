@@ -439,7 +439,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
-                $scope.formattedAddress = $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
+                
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_ADDRESS_DETAILS';
                 $scope.configure.detail.show.costCenter = false;
@@ -448,7 +448,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_CHANGE':
                 addAddressInfo('ADDRESS_MAN.UPDATE_ADDRESS.TXT_ADDRESS_UPDATED');
-                $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
+                
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.UPDATE_ADDRESS.TXT_UPDATE_ADDRESS_DETAILS';
                 $scope.configure.detail.show.costCenter = false;
@@ -457,7 +457,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'DATA_ADDRESS_REMOVE':
                 addAddressInfo('ADDRESS_SERVICE_REQUEST.DATA_ADDRESS_REMOVE');
-                $scope.formattedAddress =  $translate.instant("ADDRESS_MAN.COMMON.TXT_NO_ADDRESS_FOUND");
+                
                 $scope.configure.receipt.translate.title = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.header.translate.h1 = 'ADDRESS_MAN.DELETE_ADDRESS.TXT_DELETE_ADDRESS_DETAILS';
                 $scope.configure.detail.show.costCenter = false;
@@ -583,9 +583,10 @@ angular.module('mps.serviceRequests')
     if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
             $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
     }
-    if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)
-    		&& !BlankCheck.isNull($scope.sr.sourceAddress.item.addressLine1) ) {
-    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
+    if (!BlankCheck.isNull($scope.sr.item.sourceAddress) && !BlankCheck.isNull($scope.sr.item.sourceAddress)
+    		&& !BlankCheck.isNull($scope.sr.item.sourceAddress.addressLine1) ) {
+    	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.item.sourceAddress);
+    	$scope.formattedAddress += FormatterService.addBuildingFloorOffice($scope.sr.item.sourceAddressPhysicalLocation);
         
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
@@ -595,7 +596,9 @@ angular.module('mps.serviceRequests')
             }
             
     }
-
+    if (!BlankCheck.isNull($scope.sr.item._embedded.secondaryContact)) {
+    	$scope.formattedContact = FormatterService.formatContact($scope.sr.item._embedded.secondaryContact);  
+    }
     if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
             $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
     }
