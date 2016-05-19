@@ -5,8 +5,8 @@ a target Grid.
 */
 
 angular.module('mps.utility')
-.controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate',
-    function(scope, element, attrs, translate) {
+.controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate', '$rootScope',
+    function(scope, element, attrs, translate, $rootScope) {
         var node = element[0],
         $ = require('jquery'),
         addColumn = function(column, gridOptions) {
@@ -30,6 +30,7 @@ angular.module('mps.utility')
                     gridOptions.columnDefs[i].visible = false;
                 }
             }
+
 
             return gridOptions;
         },
@@ -59,10 +60,14 @@ angular.module('mps.utility')
                         checkbox.checked = true;
                         gridOptions = addColumn(column, gridOptions);
                         checkboxLabel.toggleClass('form__field--is-checked');
+
+                        $rootScope.$broadcast('columnPickerSelect', column);
                     } else {
                         checkbox.checked = false;
                         gridOptions = removeColumn(column, gridOptions);
                         checkboxLabel.toggleClass('form__field--is-checked');
+                    
+                        $rootScope.$broadcast('columnPickerDeselect', column);
                     }
 
                     scope.$root.gridApi.core.refresh();

@@ -288,6 +288,7 @@ angular.module('mps.filterSearch')
             scope.setupStyle = function () {
                 var $ = require('jquery');
                 var filterDiv = $(el).find(".filter--search");
+
                 $(filterDiv).hover(function(){
                     $(this).toggleClass("hover");
                     $(".search-box").toggleClass("hover");
@@ -308,12 +309,15 @@ angular.module('mps.filterSearch')
                     $(".selectric").removeClass("focus");
                     $(".form__field-btn").removeClass("focus");
                 });
+
                 $(filterDiv).find(".selectric").click(function(){
                     $(".selectricItems").width(filterDiv.width()-1);
                 });
                 
             };
+
             scope.setupStyle();
+
             scope.$on('setUpSearchCss', function(evt){
                 scope.setupStyle();
             });

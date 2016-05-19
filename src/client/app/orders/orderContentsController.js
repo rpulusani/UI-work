@@ -35,6 +35,10 @@ angular.module('mps.orders')
         $scope.$broadcast('OrderContentRefresh', {'OrderItems':OrderItems});
     });
 
+    $scope.$watch($scope.ordernbr, function(){
+        $scope.orderId = $scope.ordernbr;
+    });
+
     $scope.removeItem  = function(row){
         var index = $scope.orderSummaryGridOptions.data.indexOf(row.entity);
         $scope.orderSummaryGridOptions.data.splice(index,1);

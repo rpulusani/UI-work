@@ -142,6 +142,16 @@ function(
             $scope.catalog = 'supplies';
         }
 
+        $scope.configure.modal = {
+            translate: {
+                abandonTitle: 'SERVICE_REQUEST.TITLE_ABANDON_MODAL',
+                abandondBody: 'SERVICE_REQUEST.BODY_ABANDON_MODAL',
+                abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
+                abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM'
+            },
+            returnPath: Orders.route + '/'
+        };
+
                 $scope.setCatalogChoice = function(selection){
                     $scope.catalogSelection = selection;
                 };
