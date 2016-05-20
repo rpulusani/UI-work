@@ -12,7 +12,10 @@ angular.module('mps.orders')
         SecurityHelper,
         $location
     ) {
-        new SecurityHelper($rootScope).redirectCheck($rootScope.orderAccess);
+        
+        if(!$rootScope.orderAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("orderAccess");    
+        }
         $scope.active = function(value){
             $rootScope.currentOrderTab = value;
             $location.search('tab', value);

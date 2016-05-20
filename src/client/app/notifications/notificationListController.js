@@ -6,6 +6,7 @@ angular.module('mps.notifications')
     '$location',
     '$rootScope',
     'Notifications',
+    'SecurityHelper',
     'grid',
     'PersonalizationServiceFactory',
     'FilterSearchService',
@@ -16,11 +17,16 @@ angular.module('mps.notifications')
         $location,
         $rootScope,
         Notifications,
+        SecurityHelper,
         Grid,
         Personalize,
         FilterSearchService,
         $http,
         $route) {
+        
+        if(!$rootScope.translationAdminAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("translationAdminAccess");    
+        }
         $rootScope.currentRowList = [];
         Notifications.setParamsToNull();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),

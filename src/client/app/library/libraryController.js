@@ -36,7 +36,6 @@ angular.module('mps.library')
             if (BlankCheck.checkNotNullOrUndefined(Documents.item.publishDate)) {
                 var dy = Documents.item.publishDate + 'Z';
                 $scope.documentItem.publishDate = formatter.getDatePickerDisplayDate(new Date(dy));
-                $scope.phDocumentName = $scope.phDocumentName+ "-" + formatter.getDisplayDate(new Date(dy));
             }
 
             if (BlankCheck.checkNotNullOrUndefined(Documents.item.endDate)) {

@@ -6,6 +6,7 @@ angular.module('mps.notifications')
     '$location',
     '$rootScope',
     'SiebelValues',
+    'SecurityHelper',
     'grid',
     'PersonalizationServiceFactory',
     'FilterSearchService',
@@ -16,11 +17,15 @@ angular.module('mps.notifications')
         $location,
         $rootScope,
         SiebelValues,
+        SecurityHelper,
         Grid,
         Personalize,
         FilterSearchService,
         $http,
         $route) {
+        if(!$rootScope.translationAdminAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("translationAdminAccess");    
+        }
         $rootScope.currentRowList = [];
         SiebelValues.setParamsToNull();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),

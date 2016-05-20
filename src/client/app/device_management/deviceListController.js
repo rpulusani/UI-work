@@ -32,9 +32,10 @@ angular.module('mps.deviceManagement')
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
 
-        
+        if(!$rootScope.deviceAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("deviceAccess");    
+        }
 
-        new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
