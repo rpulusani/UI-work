@@ -23,7 +23,7 @@ angular.module('mps.library')
                                     '</div>'
                     },
                     {name: $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'), field: 'description'},
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', searchOn: 'publishDate' },
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISH_DATE'), field: 'getPublishedDate()', searchOn: 'publishDate' },
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true},
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', searchOn: 'size' },
                     {name: $translate.instant('LABEL.COMMON.ACTION'), field: '',  width: '220', notSearchable: true,
