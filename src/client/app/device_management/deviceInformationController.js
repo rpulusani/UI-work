@@ -476,6 +476,7 @@ angular.module('mps.deviceManagement')
         };
         
         $scope.goTocreateMove = function(device){
+        	 ServiceRequest.reset();
         	 Devices.setItem(device);
         	 var options = {
                      params:{
