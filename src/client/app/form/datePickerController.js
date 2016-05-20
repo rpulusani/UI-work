@@ -56,15 +56,19 @@ angular.module('mps.form')
         setupCalendar(calendar);
 
         scope.$watchGroup(['min', 'max'], function(newValArr, oldValArr, ctrlScope) {
-            if (ctrlScope.min && !attrs.min) {
+            if (ctrlScope.min && !attrs.min) {//console.log("ctrlScope.min::  "+ctrlScope.min);
                 attrs.min = ctrlScope.min;
             }
 
             if (ctrlScope.max && !attrs.max) {
                 attrs.max = ctrlScope.max;
             }
+            //console.log("newValArr::"+newValArr[0]);console.log("oldValArr::"+oldValArr[0]);
+            //console.log();
             //This is to check whether max and min is same. As if its equal Rome will throw error. Hence using afterEq as max.
-            attrs.min=formatter.formatDateForRome(attrs.min);
+            attrs.min=formatter.formatDateForRome(newValArr[0]);//console.log("newValArr[0].replace('T', '')::"+newValArr[0].replace('T', ''));
+            attrs.max=formatter.formatDateForRome(attrs.max);
+            //console.log("attrs.min::"+attrs.min);console.log("attrs.max::"+attrs.max);
             if((ctrlScope.min && ctrlScope.max) || (attrs.min && attrs.max)){
                 var max=new Date(attrs.max);
                 var min=new Date(attrs.min);
