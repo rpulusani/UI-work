@@ -12,7 +12,9 @@ angular.module('mps.serviceRequests')
         SecurityHelper,
         $location
     ) {
-        new SecurityHelper($rootScope).redirectCheck($rootScope.serviceRequestAccess);
+        if(!$rootScope.addressContactAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("addressContactAccess");    
+        }
 
         $scope.active = function(value){
             $rootScope.currentServiceRequestTab = value;

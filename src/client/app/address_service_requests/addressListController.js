@@ -30,6 +30,11 @@ function(
     Account,
     User
     ) {
+
+    if(!$rootScope.addressAccess){
+        new SecurityHelper($rootScope).confirmPermissionCheck("addressAccess");    
+    }
+
     $rootScope.currentRowList = [];
     $scope.visibleColumns = [];
 
