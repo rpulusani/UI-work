@@ -255,6 +255,14 @@ angular.module('mps.utility')
                     var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
                 return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
             },
+            formatLocalDateForPost: function(dateToBeFormatted){
+                    if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                        return '';
+                    }
+                    var localDate = new Date(dateToBeFormatted);
+                    var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
+                return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
+            },
             formatDateForAdmin: function(dateToBeFormatted){
                     if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                         return '';
@@ -265,7 +273,7 @@ angular.module('mps.utility')
             formatDateForRome: function(dateToBeFormatted){
 	                if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
 	                    return '';
-	                }
+	                }                    
 	            var d = new Date(dateToBeFormatted);
 	            return $filter('date')(d, 'yyyy-MM-dd');
             },

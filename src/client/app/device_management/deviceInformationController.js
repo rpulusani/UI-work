@@ -309,7 +309,7 @@ angular.module('mps.deviceManagement')
                      
                         // if a new date was added
                         if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                            $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
+                            $scope.meterReads[i].updateDate = FormatterService.formatLocalDateForPost($scope.meterReads[i].newDate);
                             $scope.meterReads[i].newDate = null;
                         } 
 
@@ -323,7 +323,7 @@ angular.module('mps.deviceManagement')
                 if (indLTPC !== -1 && indColor !== -1 
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
                     $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
-                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                   
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatLocalDateForPost(new Date());                   
                     updateMeterReads($scope.meterReads[indMono]);
                 }  
                 
