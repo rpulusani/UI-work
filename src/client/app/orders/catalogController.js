@@ -230,7 +230,19 @@ angular.module('mps.orders')
             'OrderItems': OrderItems // send whatever you want
         });
     };
-
+    $scope.params={};
+     
+    $scope.searchPartNumber = function(){
+    	$scope.params.search = $scope.partNumber;
+    	$scope.params.searchOn = "displayItemNumber";
+    	$scope.showSearchMessage = true;
+    	$scope.catalogOptions.data = [];
+    	$scope.searchFunctionDef($scope.params); 
+    }
+    $scope.clearPartNumberSearch = function(){
+    	$scope.partNumber = "";
+    	$scope.searchPartNumber();
+    }
             getParts();
 
     }]);

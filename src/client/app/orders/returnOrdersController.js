@@ -41,6 +41,9 @@ angular.module('mps.orders')
         tombstoneWaitTimeout
     ){
     SRHelper.addMethods(Orders, $scope, $rootScope);
+    if (Orders.item === null){
+    	$location.path(Orders.route).search({tab:'orderAllTab'});
+    }
     $scope.setTransactionAccount('ReturnOrders', Orders);
     new SecurityHelper($rootScope).redirectCheck($rootScope.createSuppliesReturn);
 
