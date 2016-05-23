@@ -385,7 +385,7 @@ angular.module('mps.utility')
                 return (value === true) ? $translate.instant('LABEL.COMMON.ACTIVE') : $translate.instant('LABEL.COMMON.INACTIVE');
             },
             formatYesNo: function(value) {
-                return (value === true) ? $translate.instant('LABEL.COMMON.YES') : $translate.instant('LABEL.COMMON.NO');
+                return (value === true || value === 'true') ? $translate.instant('LABEL.COMMON.YES') : $translate.instant('LABEL.COMMON.NO');
             },
             formatNoneIfEmpty: function(value) {
                 return (BlankCheck.isNullOrWhiteSpace(value) === true) ? $translate.instant('LABEL.COMMON.NONE') : value;
