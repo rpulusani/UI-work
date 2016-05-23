@@ -43,7 +43,11 @@ angular.module('mps.serviceRequestContacts')
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactAdd', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
-       
+       $scope.configure = {
+    		   button : {
+    			   name : 'CONTACT_MAN.ADD_CONTACT.BTN_CREATE_SUPPLIES_CONTACT'  
+    		   } 	   
+       };
         if($scope.inTransactionalAccountContext()){
             $timeout (function() {
                 $rootScope.contactAlertMessage = undefined;
@@ -192,7 +196,7 @@ angular.module('mps.serviceRequestContacts')
                 Contacts.item = $scope.contact;
                 Contacts.addAccountRelationship();
             };
-
+            $scope.isLoading = false;
             $scope.saveContact = function(contactForm) {
                 $scope.checkAddress(contactForm);
                 if($scope.canReview === true && $scope.checkedAddress === 1){
@@ -201,10 +205,11 @@ angular.module('mps.serviceRequestContacts')
                     var deferred;
 
                     if(contactForm === 'newContact'){
+                    	$scope.isLoading = true;
                         deferred = Contacts.post({
                             item: Contacts.item
                         });
-
+                        
                         deferred.then(function(result){
                             $rootScope.contactAlertMessage = 'saved';
                             $location.path(Contacts.route + '/' + result.data.id + '/update');
@@ -215,6 +220,7 @@ angular.module('mps.serviceRequestContacts')
                         delete $scope.contact.account;
                         delete $scope.contact.params;
                         delete $scope.contact.url;
+                        $scope.isLoading = true;
                         Contacts.item.postURL = Contacts.item._links.self.href;
                         deferred = Contacts.put({
                             item: $scope.contact

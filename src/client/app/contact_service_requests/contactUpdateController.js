@@ -35,7 +35,9 @@ angular.module('mps.serviceRequestContacts')
         if(Contacts.item === null){       
             $location.path('/service_requests/contacts/');
         }
-
+        $scope.configure = {
+     		  	   
+        };
         SRHelper.addMethods(Contacts, $scope, $rootScope);
         $scope.setTransactionAccount('ContactUpdate', Contacts);
         new SecurityHelper($rootScope).redirectCheck($rootScope.contactAccess);
@@ -44,7 +46,10 @@ angular.module('mps.serviceRequestContacts')
         				translate : {
         					body :'CONTACT_MAN.UPDATE_CONTACT.TXT_UPDATE_SUPPLES_CONTACT_REVIEW'
         				}
-        		}	
+        		},	
+        		button : {
+        					name : 'CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT'  
+        		} 
         };
 
         $scope.updating = true;
@@ -79,7 +84,7 @@ angular.module('mps.serviceRequestContacts')
             $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/review');
         };
 
-
+        $scope.isLoading = false;
         $scope.saveContact = function(contactForm) {
                 updateContactObjectForSubmit();
                 Contacts.item.postURL = Contacts.item._links.self.href;
@@ -89,7 +94,7 @@ angular.module('mps.serviceRequestContacts')
                 delete $scope.contact.url;
                 delete $scope.contact.primaryContact;
                 delete $scope.contact.requestedByContact;
-
+                $scope.isLoading = true;
                 var deferred = Contacts.put({
                     item: $scope.contact
                 });
@@ -98,6 +103,7 @@ angular.module('mps.serviceRequestContacts')
                     $rootScope.contactAlertMessage = 'updated';
                     window.scrollTo(0,0);
                     $rootScope.originalContact = angular.copy($scope.contact);
+                    $scope.isLoading = false;
                     $location.path(Contacts.route + '/' + $scope.contact.id + '/update');
                 }, function(reason){
                     NREUM.noticeError('Failed to update Contact because: ' + reason);

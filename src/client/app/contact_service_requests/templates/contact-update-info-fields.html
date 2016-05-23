@@ -40,7 +40,9 @@
                 translate="CONTACT_MAN.UPDATE_CONTACT.BTN_DISCARD_CHANGES"></button>
 
             <button name="submit" class="btn btn--primary" type="submit"
-                translate="CONTACT_MAN.UPDATE_CONTACT.BTN_UPDATE_SUPPLIES_CONTACT"></button>
+                v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}">
+                <span translate="{{configure.button.name}}"></span>
+                </button>   
         </div>
     </form>
 </div>
