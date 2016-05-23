@@ -29,6 +29,8 @@
     </div>
 </div>
 
+<input ng-if="documentItem.id === 'new'" type="hidden" ng-model="documentFile" required />
+
 <div ng-show="documentItem.id !== 'new'">
     <div class="form__field form__field--required">   
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>{{fullDocNameWithExt}}</div>    
@@ -38,10 +40,7 @@
     <input name="id" type="hidden" ng-model="documentItem.id"/>
     <input name="accountId" type="hidden" ng-model="documentItem.accountId"/>
     <label translate="DOCUMENT_LIBRARY.COMMON.TXT_DOCUMENT_NAME"></label>
-    <input name="name" type="text" ng-model="documentItem.name" value="" class="" required />
-    <span  ng-hide="!newDocument.name.$error.required"
-    class="form__field__helper-text form__field__helper-text--alert"><i class="icon icon--ui icon--error-small"></i>
-     <span translate="LABEL.COMMON.ERROR_REQUIRED"></span></span>
+    <input name="name" type="text" ng-model="documentItem.name" value="" class="" required />    
 </div>
 
 <div class="form__field vertical-space--thick">
@@ -86,8 +85,10 @@
 <div ng-if="documentLibraryManageAccountAccess" class="row">
     <div class="col-2-3">
         <p class="text--semi-bold" translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ACCOUNT_VISIBILITY"></p>
-        <input type="checkbox" name="allAccounts" ng-model="allAccounts" ng-change="changeOptionsLimit()"/>
-        <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CHK_VISIBILITY__ALL_ACCOUNTS"></label>
+        <label for="accountVisibility">
+            <input type="checkbox" id="accountVisibility" name="allAccounts" ng-model="allAccounts" ng-change="changeOptionsLimit()"/>
+        </label>
+        <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.CHK_VISIBILITY__ALL_ACCOUNTS"></label>        
         <div ng-show="allAccounts === false" class="well">
             <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_LIMIT_OR_EXCLUDE"></p>
 
