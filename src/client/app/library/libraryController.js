@@ -42,7 +42,7 @@ angular.module('mps.library')
                 var dy = Documents.item.endDate + 'Z';
                 $scope.documentItem.endDate = formatter.getDatePickerDisplayDate(new Date(dy));
             }
-
+            
             if ($scope.documentItem.accounts && $scope.documentItem.accounts.length > 0) {
                 $scope.allAccounts = false;
                 $scope.documentItem.optionsLimit = 'include';
@@ -126,16 +126,16 @@ angular.module('mps.library')
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.strategic)) {
                 Documents.addField('strategic', $scope.documentItem.strategic);
             }
-
+            
             if ($rootScope.documentLibraryManageAccountAccess) {
                 var accountsToSend = [];
-
+                
                 if ($scope.documentItem.optionsLimit === 'include') {
                     if ($scope.selectedLibraryAccounts.length > 0) {
                         accountsToSend = $scope.selectedLibraryAccounts;
                     }
                 }
-
+                
                 if (accountsToSend.length > 0) {
                     Documents.addField('accounts', accountsToSend);
                 }
@@ -275,9 +275,17 @@ angular.module('mps.library')
             }
         };
 
-        $scope.changeOptionsLimit = function() {
-            if ($scope.allAccounts === true) {
+        $scope.changeOptionsLimit = function() {            
+            var acntAllCheckBox = document.querySelector("[id='accountVisibility']");
+            var checkBoxVal = acntAllCheckBox.checked;
+            if (checkBoxVal === true) {                
+                $scope.documentItem.optionsLimit = '';
+                $scope.selectedLibraryAccounts = [];
+                $scope.allAccounts = true;
+            }
+            else if (checkBoxVal === false) {
                 $scope.documentItem.optionsLimit = 'include';
+                $scope.allAccounts = false;
             }
         };
 
