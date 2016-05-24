@@ -164,6 +164,12 @@ angular.module('mps.orders')
         Orders.tempSpace.catalogCart.catalog ='supplies';
         $location.path(OrderItems.route + '/purchase/review');
     };
+    
+    $scope.goToSuppliesCatalogCreate = function(){
+        Orders.newMessage();
+        Orders.tempSpace = {};
+        $location.path(Orders.route + '/catalog/supplies');
+    };
 
 }]);
 
