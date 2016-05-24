@@ -7,9 +7,7 @@ angular.module('mps.filterSearch')
             {type: 'SIEBEL', name: 'SIEBEL'},
             {type: 'NOTIFICATION', name: 'NOTIFICATION'},
             {type: 'PORTAL_UI', name: 'PORTAL UI'},
-            {type: 'FAQ', name: 'FAQ'},
-            {type: 'DOCUMENT', name: 'DOCUMENT TAGS'},
-            {type: 'ERRORS_MESSAGES', name: 'ERRORS/MESSAGES'}
+            {type: 'DOCUMENT', name: 'DOCUMENT TAGS'}            
         ];
 
         $scope.$watch('category', function(category) {
