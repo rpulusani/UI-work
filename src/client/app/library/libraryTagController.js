@@ -37,10 +37,6 @@ angular.module('mps.library')
 
             $scope.isEditting = false;
             $scope.isDeleting = false;
-            setTimeout(function() {
-                window.scroll(0,$("form[name='newTag']").offset().top);
-            },1000);
-           
         };
 
         $scope.goToCancelCreate = function () {
