@@ -46,6 +46,7 @@ angular.module('mps.serviceRequestContacts')
         		 $scope.validForm = true;
                 $scope.enteredAddress = {
                     addressLine1: $scope.contact.address.addressLine1,
+                    addressLine2: $scope.contact.address.addressLine2,
                     city: $scope.contact.address.city,
                     state:  $scope.contact.address.state,
                     country: $scope.contact.address.country,

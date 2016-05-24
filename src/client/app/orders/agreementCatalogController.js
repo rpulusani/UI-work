@@ -38,7 +38,10 @@ function(
     $scope.showContracts = 'none';
     //hardware, multi, supplies, none
     $scope.showCatalogTypes = 'none';
-
+    if (Orders.item === null){
+    	$location.path(Orders.route).search({tab:'orderAllTab'});
+    	return;
+    }
     $scope.setTransactionAccount('AgreementCatalogDevice', Orders);
     if($scope.type === 'HARDWARE'){
         new SecurityHelper($rootScope).redirectCheck($rootScope.orderHardware);

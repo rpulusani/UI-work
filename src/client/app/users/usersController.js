@@ -26,7 +26,9 @@ angular.module('mps.user')
             }
 
             if (UserAdminstration.wasInvited) {
+                $scope.noOfUsersInvited = UserAdminstration.noOfInvitation;
                 $scope.invited = true;
+                UserAdminstration.wasInvited = false;
             }
         }
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),

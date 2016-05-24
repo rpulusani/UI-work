@@ -10,7 +10,7 @@ angular.module('mps.library')
             springSorting: true,
             columnDefs: {
                 defaultSet: [
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '30', notSearchable: true,
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '75', notSearchable: true,
                         cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>', visible: $rootScope.documentLibraryViewStrategicAccess,
                         showInColumnPicker: $rootScope.documentLibraryViewStrategicAccess
                     },
@@ -22,11 +22,11 @@ angular.module('mps.library')
                                             '{{grid.appScope.getTagNames(row.entity.tags)}}</p>' +
                                     '</div>'
                     },
-                    {name: $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'), field: 'description'},
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISHED'), field: 'getPublishedDate()', searchOn: 'publishDate' },
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true},
+                    {name: $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'), field: 'description', width: 300},
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISH_DATE'), field: 'getPublishedDate()', searchOn: 'publishDate', width: 200 },
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true, width: '300'},
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', searchOn: 'size' },
-                    {name: $translate.instant('LABEL.COMMON.ACTION'), field: '',  width: '220', notSearchable: true,
+                    {name: $translate.instant('LABEL.COMMON.ACTION'), field: 'actions',  width: '220', notSearchable: true,
                         'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                             '<a href="" ng-click="grid.appScope.goToUpdate(row.entity.id);"><i class="icon-16 icon-psw-edit"></i></a>' +
                                 '<a href="" ng-if="grid.appScope.getDeleteAction(row.entity.owner)" library-inline-delete on-confirm-delete="grid.appScope.goToDelete(row.entity);"></div>' +

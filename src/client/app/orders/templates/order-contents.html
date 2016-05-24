@@ -8,6 +8,7 @@
         translate="{{configure.order.details.translate.action}}" ng-click="configure.order.details.actionLink()"></a>
 </div>
 </div>
+
  <div ng-class="{'well': (!editable || editable === 'false')}" ng-if="orderSummaryGridOptions || (editable && editable === 'true')">
      <div class="col-1" ng-if="(orderSummaryGridOptions && orderSummaryGridOptions.data) || showEmpty">
                 <h3 ng-if="editable === 'true'">
@@ -24,7 +25,7 @@
                     <div class="col-1">
                         <ul>
                             <li ng-repeat="message in validationMessages">
-                                <span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.MAX_QTY_VALIDATION"
+                                <span translate="{{message.key}}"
                                     translate-values="message"></span>
                             </li>
                         </ul>

@@ -86,9 +86,11 @@
                 <div class="col-1"></div>
                 <p><strong translate="PORTAL_ADMIN.EXPORT_LANGUAGE"></strong></p>
                 <div ng-repeat="language in languages">
-                    <input type="radio" id="{{ language.localeCode }}" name="exportedFileLanguage" ng-model="$parent.exportedFileLanguage" value="{{language.localeCode}}" />
-                    <label for="{{ language.localeCode }}">
-                        <span></span>{{ language.language }}
+                    <label class="form__field form__field--no-margin">
+                        <input type="radio" id="{{ language.localeCode }}" name="exportedFileLanguage" ng-model="$parent.exportedFileLanguage" value="{{language.localeCode}}" />
+                        <label for="{{ language.localeCode }}">
+                            <span></span>{{ language.language }}
+                        </label>
                     </label>
                 </div>
 

@@ -114,23 +114,38 @@ angular.module('mps.tree')
                             var tempState = {},
                             cityList = [],
                             currentState = countryList[i].states[j];
-                            tempState.accountId = currentState.value;
-                            tempState.name = currentState.name;
-
-                            for (var k=0; k<currentState.cities.length; k++) {
-                                var tempCity = {},
-                                currentCity = currentState.cities[k];
-                                tempCity.accountId = currentCity.value;
-                                tempCity.name = currentCity.name;
-                                tempCity.numberOfChildren = 0;
-                                cityList.push(tempCity);
-                            }
-                            if (cityList && cityList.length >0) {
-                                tempState.items = cityList;
+                            if (currentState.name === "") {
+                                if (currentState.cities && currentState.cities.length > 0) {
+                                    for (var k=0; k<currentState.cities.length; k++) {
+                                        var tempCity = {},
+                                        currentCity = currentState.cities[k];
+                                        if (currentCity.name !== "") {
+                                            tempCity.accountId = currentCity.value;
+                                            tempCity.name = currentCity.name;
+                                            tempCity.numberOfChildren = 0;
+                                            stateList.push(tempCity);
+                                        }
+                                    }
+                                }
                             } else {
-                                tempState.numberOfChildren = 0;
+                                tempState.accountId = currentState.value;
+                                tempState.name = currentState.name;
+
+                                for (var k=0; k<currentState.cities.length; k++) {
+                                    var tempCity = {},
+                                    currentCity = currentState.cities[k];
+                                    tempCity.accountId = currentCity.value;
+                                    tempCity.name = currentCity.name;
+                                    tempCity.numberOfChildren = 0;
+                                    cityList.push(tempCity);
+                                }
+                                if (cityList && cityList.length >0) {
+                                    tempState.items = cityList;
+                                } else {
+                                    tempState.numberOfChildren = 0;
+                                }
+                                stateList.push(tempState);
                             }
-                            stateList.push(tempState);
                         }
                         tempItem.items = stateList;
                         $scope.items.push(tempItem);

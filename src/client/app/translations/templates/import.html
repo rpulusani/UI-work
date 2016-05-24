@@ -13,9 +13,12 @@
                 <div attachments></div>
 
                 <div ng-repeat="language in languages">
-                    <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}" />
-                    <label for="{{ language.localeCode }}">
-                        <span></span>{{ language.language }}
+
+                    <label class="form__field form__field--no-margin">
+                        <input type="radio" id="{{ language.localeCode }}" name="importedFileLanguage" ng-model="$parent.importedFileLanguage" value="{{language.localeCode}}"/>
+                        <label for="{{ language.localeCode }}">
+                            <span></span>{{ language.language }}
+                        </label>
                     </label>
                 </div>
 

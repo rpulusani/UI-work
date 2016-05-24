@@ -31,6 +31,18 @@ angular.module('mps.security')
                         scope[permissionCheckHolderName]  = passed;
                     });
             };
+            SecurityHelper.prototype.confirmPermissionCheck = function(permissionAccess){
+                var accessForPage = scope.configurePermissions.reduce(function(previous, current) {
+                    return (current.name==permissionAccess) ? current : previous;
+                },null);
+                if(accessForPage !== null){
+                   scope.security.isAllowed(accessForPage.permission).then(function(passed){
+                        if(!passed){
+                            $location.path('/');
+                        }
+                    }); 
+                }
+            }
             SecurityHelper.prototype.setupPermissionList = function(permissionCheckList){
                 var self = this;
                 if(!permissionCheckList){

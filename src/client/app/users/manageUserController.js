@@ -372,7 +372,7 @@ angular.module('mps.user')
         }
 
         $scope.update = function() {
-            updateAdminObjectForUpdate();
+            updateAdminObjectForUpdate($scope.userActive == false? 'deactivate' : 'activate');
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
             var options = {
                 preventDefaultParams: true

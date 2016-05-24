@@ -5,8 +5,9 @@
 <hr ng-if="showAgreements === 'multi' || showAgreements === 'single'"/>
 <div class="form__field form__field--select form__field--required vertical-margin-bottom-72" ng-if="showAgreements === 'multi'">
     <label translate="ORDER_CATALOGS.COMMON.TXT_AGREEMENT_SELECTION"></label>
-    <div selectric model="agreement" options="agreements" value="id" label="name"
-  placeholder="{{'LABEL.COMMON.SELECT' | translate}}" required on-select="onAgreementSelected(option)" class="col-1-3"></div>
+    <div class="col-1-3">
+		  <select required ng-model="agreement" ng-options="a.name for a in agreements" ng-change="onAgreementSelected(agreement)"></select>
+  	</div>
 </div>
 <div ng-if="showAgreements === 'single'" class="col-2-3 vertical-margin-bottom-72">
         {{agreement.name}}
@@ -68,7 +69,7 @@
                     id="device-catalog"
                     name="catalogSelection"
                     ng-model="catalogSelection"
-                    ng-value="device"
+                    value="device"
                     ng-click="setCatalogChoice('device')"/>
                     <label for="device-catalog">
                         <span></span>
@@ -80,7 +81,7 @@
                     id="accessorie-catalog"
                     name="catalogSelection"
                     ng-model="catalogSelection"
-                    ng-value="accessory"
+                    value="accessory"
                     ng-click="setCatalogChoice('accessory')"/>
                     <label for="accessorie-catalog">
                         <span></span>

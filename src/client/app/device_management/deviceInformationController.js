@@ -175,7 +175,10 @@ angular.module('mps.deviceManagement')
                 $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
             ],
-            rows = generateCsvRows();
+            rows = generateCsvRows(),
+            pdfHeaders = [],
+            pdfRows = [],
+            i = 0;
 
             $scope.csvModel = {
                 filename: $scope.device.productModel,
@@ -185,14 +188,24 @@ angular.module('mps.deviceManagement')
                 rows: rows
             };
 
+            for (i; i < headers.length; i += 1) {
+               pdfHeaders.push({text: headers[i], fontSize: 8});
+            }
+
+            i = 0;
+
+            for (i; i < rows.length; i += 1) {
+               pdfRows.push({text: rows[i], fontSize: 8});
+            }
+
             $scope.pdfModel = {
               content: [
                 {
                   table: {
                     headerRows: 1,
                     body: [
-                      headers,
-                      rows
+                      pdfHeaders,
+                      pdfRows
                     ]
                   }
                 }
@@ -270,6 +283,23 @@ angular.module('mps.deviceManagement')
             }
             return item.createDate;
         };
+
+        $scope.bookmark = function(item) {
+            var node = angular.element(document.getElementsByClassName('favorite'));
+            Devices.setItem(item);
+
+            if (item.bookmarked === false) {
+                Devices.item.links.bookmark({method: 'post'}).then(function() {
+                    node.toggleClass('icon--not-favorite');
+                    node.toggleClass('icon--favorite');
+                });
+            } else {
+                Devices.item.links.bookmark({method: 'delete'}).then(function() {
+                    node.toggleClass('icon--not-favorite');
+                    node.toggleClass('icon--favorite');
+                });
+            }
+        };
         
         $scope.saveMeterReads = function() {
         /*
@@ -309,7 +339,7 @@ angular.module('mps.deviceManagement')
                      
                         // if a new date was added
                         if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                            $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
+                            $scope.meterReads[i].updateDate = FormatterService.formatLocalDateForPost($scope.meterReads[i].newDate);
                             $scope.meterReads[i].newDate = null;
                         } 
 
@@ -323,7 +353,7 @@ angular.module('mps.deviceManagement')
                 if (indLTPC !== -1 && indColor !== -1 
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
                     $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
-                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                   
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatLocalDateForPost(new Date());                   
                     updateMeterReads($scope.meterReads[indMono]);
                 }  
                 
@@ -476,6 +506,7 @@ angular.module('mps.deviceManagement')
         };
         
         $scope.goTocreateMove = function(device){
+        	 ServiceRequest.reset();
         	 Devices.setItem(device);
         	 var options = {
                      params:{

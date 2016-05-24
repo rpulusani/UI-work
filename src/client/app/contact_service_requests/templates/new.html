@@ -31,7 +31,9 @@
             <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
                 translate="CONTACT_MAN.ADD_CONTACT.BTN_ABANDON_CONTACT_ADD"></button>
             <button name="submit" class="btn btn--primary" type="submit"
-                translate="CONTACT_MAN.ADD_CONTACT.BTN_CREATE_SUPPLIES_CONTACT"></button>
+                v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}">
+                <span translate="{{configure.button.name}}"></span>
+                </button>
         </div>
     </form>
 </div>

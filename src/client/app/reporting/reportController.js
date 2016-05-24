@@ -1,8 +1,12 @@
 
 
 angular.module('mps.report')
-.controller('ReportController', ['$scope', '$location', '$translate', 'Reports', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory',
-    function($scope, $location, $translate, Reports, Documents, GridService, $rootScope, Personalize) {
+.controller('ReportController', ['$scope', '$location', '$translate', 'SecurityHelper', 'Reports', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory',
+    function($scope, $location, $translate, SecurityHelper, Reports, Documents, GridService, $rootScope, Personalize) {
+
+        if(!$rootScope.reportAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("reportAccess");    
+        }
 
         $scope.chartObject = {};
         $scope.chartData = {};
@@ -585,7 +589,8 @@ angular.module('mps.report')
 
         $scope.goToFinder = function(report) {
             Reports.setItem(report);
-
+            $scope.finder.dateFrom = '';
+            $scope.finder.dateTo = '';
             $location.path(Reports.route + '/' + Reports.item.id + '/results');
         };
 

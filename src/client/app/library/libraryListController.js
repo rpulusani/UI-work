@@ -3,8 +3,9 @@ angular.module('mps.library')
     function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
-
-        new SecurityHelper($rootScope).redirectCheck($rootScope.documentLibraryAccess);
+        if(!$rootScope.documentLibraryAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("documentLibraryAccess");    
+        }
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 

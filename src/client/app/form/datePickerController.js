@@ -63,8 +63,11 @@ angular.module('mps.form')
             if (ctrlScope.max && !attrs.max) {
                 attrs.max = ctrlScope.max;
             }
+            
             //This is to check whether max and min is same. As if its equal Rome will throw error. Hence using afterEq as max.
-            attrs.min=formatter.formatDateForRome(attrs.min);
+            attrs.min=formatter.formatDateForRome(newValArr[0]);
+            attrs.max=formatter.formatDateForRome(attrs.max);
+            
             if((ctrlScope.min && ctrlScope.max) || (attrs.min && attrs.max)){
                 var max=new Date(attrs.max);
                 var min=new Date(attrs.min);

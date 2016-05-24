@@ -57,6 +57,7 @@ angular.module('mps.orders')
         $scope.editable = false; //make order summary not actionable
 
         $scope.isLoading = false;
+        Orders.tempSpace.shipToAddress = (Devices.item._embedded.address === undefined)? Devices.item.address.item : Devices.item._embedded.address;
         $scope.scratchSpace = Orders.tempSpace;
         $scope.type = 'SUPPLIES';
         var configureSR = function(Orders){
@@ -67,8 +68,9 @@ angular.module('mps.orders')
                 Orders.addRelationship('asset', $scope.device, 'self');
                 Orders.addRelationship('primaryContact', $scope.device, 'contact');
                 Orders.addField('type', 'SUPPLIES_ASSET_ORDER');
+                
         };
-
+       
         function getSRNumber(existingUrl) {
             $timeout(function(){
                 return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
@@ -120,6 +122,12 @@ angular.module('mps.orders')
         }
         function intitilize(){
             $scope.setupSR(Orders, configureSR);
+            Orders.addRelationship('shipToAddress', Devices.item, 'address');
+            $scope.sr.shipToAddressPhysicalLocation = {
+            		physicalLocation1 : Devices.item.physicalLocation1,
+            		physicalLocation2 : Devices.item.physicalLocation2,
+            		physicalLocation3 : Devices.item.physicalLocation3
+            };
             $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate );
         }
         if($rootScope.device){
@@ -392,5 +400,6 @@ angular.module('mps.orders')
                 $scope.formattedPONumber = FormatterService.formatNoneIfEmpty(Orders.item.purchaseOrderNumber);
                 $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
         }
+        $scope.configure.cart = Orders.tempSpace.catalogCart;
     }
 ]);

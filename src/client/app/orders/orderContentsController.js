@@ -82,7 +82,7 @@ angular.module('mps.orders')
     $scope.submit = function(){
         if($scope.validationMessages.length === 0 &&
             $scope.submitAction !== null &&
-            typeof $scope.submitAction === "function"){
+            typeof $scope.submitAction === "function" && OrderItems.data.length > 0){
                 $scope.submitAction();
         }
     };
@@ -110,24 +110,26 @@ angular.module('mps.orders')
         if(dataRow){
             dataRow.quantity = row.entity.quantity;
         }
-        if($scope.maxQuantity && row.entity.quantity > $scope.maxQuantity && index === -1){
+        if($scope.maxQuantity !== 'undefined' && row.entity.quantity > $scope.maxQuantity && index === -1){
             message = {
               partNumber: row.entity.displayItemNumber,
               maxQuantity: $scope.maxQuantity,
-              quantity: row.entity.quantity
+              quantity: row.entity.quantity,
+              key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.MAX_QTY_VALIDATION'
             };
 
             $scope.validationMessages.push(message);
             row.entity.quantityError = true;
             justAdded = true;
-        }else if($scope.maxQuantity && row.entity.quantity <=  $scope.maxQuantity && index > -1){
+        }else if($scope.maxQuantity !== 'undefined' && row.entity.quantity <=  $scope.maxQuantity && index > -1){
             $scope.validationMessages.splice(index,1);
             row.entity.quantityError = false;
         }else if(index > -1){
             message = {
               partNumber: row.entity.displayItemNumber,
               maxQuantity: $scope.maxQuantity,
-              quantity: row.entity.quantity
+              quantity: row.entity.quantity,
+              key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.MAX_QTY_VALIDATION'
             };
             $scope.validationMessages[index] = message;
         }
