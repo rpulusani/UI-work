@@ -12,7 +12,7 @@ angular.module('mps.utility')
         this.serviceInfo = {};
         this.optionsName = 'gridOptions';
         this.gridOptions = {};
-            this.enableServerSort = true;
+        this.enableServerSort = true;
     };
 
     Grid.prototype.setGridOptionsName = function(newName) {
@@ -234,6 +234,7 @@ angular.module('mps.utility')
         scope[self.optionsName].exporterPdfPageSize = 'LETTER';
         scope[self.optionsName].exporterPdfMaxGridWidth = 500;
         scope[self.optionsName].rowEditWaitInterval = 0;
+        scope[self.optionsName].exporterSuppressColumns = [ 'actions', 'Actions' ];
         scope[self.optionsName].exporterAllDataFn = function() {
             var newService = angular.copy(service),
             size = newService.page.totalElements;
