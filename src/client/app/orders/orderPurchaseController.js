@@ -392,5 +392,6 @@ angular.module('mps.orders')
                 $scope.formattedPONumber = FormatterService.formatNoneIfEmpty(Orders.item.purchaseOrderNumber);
                 $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
         }
+        $scope.configure.cart = Orders.tempSpace.catalogCart;
     }
 ]);

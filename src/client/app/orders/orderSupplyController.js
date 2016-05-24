@@ -16,6 +16,7 @@ angular.module('mps.orders')
     'OrderRequest',
     'AgreementFactory',
     'OrderControllerHelperService',
+    'ContractFactory',
     function(
         GridService,
         $scope,
@@ -30,7 +31,8 @@ angular.module('mps.orders')
         uiGridConstants,
         Orders,
         Agreement,
-        OrderControllerHelper
+        OrderControllerHelper,
+        Contracts
     ){
 
     var personal = new Personalize($location.url(),$rootScope.idpUser.id);
@@ -41,10 +43,21 @@ angular.module('mps.orders')
         'catalogCart': {}
     };
     $scope.gridLoading = true;
+    $scope.maxQuantity = 0;
+    
     if(Devices.item){
         Agreement.params.type = 'SUPPLIES';
         Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
-            Orders.tempSpace.catalogCart.agreement = Agreement.item;
+            Orders.tempSpace.catalogCart.agreement = Agreement.data[0];
+            if(Orders.tempSpace.catalogCart.agreement.length == 1){
+            	$scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;	
+            }
+            
+            Contracts.params.type =  Agreement.params.type;
+            Agreement.getAdditional(Agreement.data[0],Contracts,'contracts',true).then(function(){
+            	Orders.tempSpace.catalogCart.contract = Contracts.data[0];            	
+            });
+            
             Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
                 var Grid = new GridService();
                 $scope.assetParts = AssetParts.data;
@@ -149,9 +162,6 @@ angular.module('mps.orders')
         Orders.newMessage();
         Orders.tempSpace.catalogCart.billingModels = getBillingModels();
         Orders.tempSpace.catalogCart.catalog ='supplies';
-        Orders.tempSpace.catalogCart.contract = {
-            'id': Devices.item.contractNumber
-        };
         $location.path(OrderItems.route + '/purchase/review');
     };
 
