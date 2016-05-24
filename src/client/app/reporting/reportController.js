@@ -589,7 +589,8 @@ angular.module('mps.report')
 
         $scope.goToFinder = function(report) {
             Reports.setItem(report);
-
+            $scope.finder.dateFrom = '';
+            $scope.finder.dateTo = '';
             $location.path(Reports.route + '/' + Reports.item.id + '/results');
         };
 
