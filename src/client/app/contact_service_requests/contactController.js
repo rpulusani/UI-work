@@ -267,5 +267,15 @@ angular.module('mps.serviceRequestContacts')
 
         $scope.formatReceiptData($scope.formatAdditionalData);
 
+        $scope.csvModel = {
+            data: {
+                customerReferenceId:$scope.formattedReferenceId,
+                contact: $scope.formattedContact.replace(/<br\/>/g, ', '),
+                contactAddress: $scope.formattedContactAddress.replace(/<br\/>/g, ', '),
+                requestedByContactFormatted: $scope.requestedByContactFormatted,
+                costCenter: $scope.formattedCostCenter,
+                notes: $scope.formattedNotes
+            }
+        };
     }
 ]);

@@ -175,7 +175,10 @@ angular.module('mps.deviceManagement')
                 $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_COLOR'),
                 $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
             ],
-            rows = generateCsvRows();
+            rows = generateCsvRows(),
+            pdfHeaders = [],
+            pdfRows = [],
+            i = 0;
 
             $scope.csvModel = {
                 filename: $scope.device.productModel,
@@ -185,14 +188,24 @@ angular.module('mps.deviceManagement')
                 rows: rows
             };
 
+            for (i; i < headers.length; i += 1) {
+               pdfHeaders.push({text: headers[i], fontSize: 8});
+            }
+
+            i = 0;
+
+            for (i; i < rows.length; i += 1) {
+               pdfRows.push({text: rows[i], fontSize: 8});
+            }
+
             $scope.pdfModel = {
               content: [
                 {
                   table: {
                     headerRows: 1,
                     body: [
-                      headers,
-                      rows
+                      pdfHeaders,
+                      pdfRows
                     ]
                   }
                 }
