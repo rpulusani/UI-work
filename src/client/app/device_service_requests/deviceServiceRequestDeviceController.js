@@ -239,6 +239,12 @@ angular.module('mps.serviceRequestDevices')
                         ServiceRequest.addField('sourceAddress', sourceAddress);
                     }
                     ServiceRequest.addField('attachments', $scope.files_complete);
+                    var assetInfo = {
+                    		physicalLocation1 : $scope.device.installAddress.building,
+                    		physicalLocation2 : $scope.device.installAddress.floor,
+                    		physicalLocation3 : $scope.device.installAddress.office
+                    }
+                    ServiceRequest.addField('assetInfo' , assetInfo);
                     var deferred = DeviceServiceRequest.post({
                         item:  $scope.sr
                     });
