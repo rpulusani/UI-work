@@ -205,6 +205,7 @@ angular.module('mps.user')
                 if ($scope.user.emails) {
                     $scope.userInfoList = [];
                     var emailList = $scope.user.emails.split(',');
+                    $scope.user.noOfInvitation = emailList.length;
                     for (var i=0;i<emailList.length;i++) {
                         UserAdminstration.newMessage();
                         $scope.userInfoList[i] = UserAdminstration.item;
@@ -311,6 +312,7 @@ angular.module('mps.user')
             $q.all(deferredList).then(function(result) {
                 UserAdminstration.wasSaved = false;
                 UserAdminstration.wasInvited = true;
+                UserAdminstration.noOfInvitation = $scope.user.noOfInvitation;
                 $location.path('/delegated_admin');
             }, function(reason){
                 NREUM.noticeError('Failed to create SR because: ' + reason);
