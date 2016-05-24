@@ -283,6 +283,23 @@ angular.module('mps.deviceManagement')
             }
             return item.createDate;
         };
+
+        $scope.bookmark = function(item) {
+            var node = angular.element(document.getElementsByClassName('favorite'));
+            Devices.setItem(item);
+
+            if (item.bookmarked === false) {
+                Devices.item.links.bookmark({method: 'post'}).then(function() {
+                    node.toggleClass('icon--not-favorite');
+                    node.toggleClass('icon--favorite');
+                });
+            } else {
+                Devices.item.links.bookmark({method: 'delete'}).then(function() {
+                    node.toggleClass('icon--not-favorite');
+                    node.toggleClass('icon--favorite');
+                });
+            }
+        };
         
         $scope.saveMeterReads = function() {
         /*
