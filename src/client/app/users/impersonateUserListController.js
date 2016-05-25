@@ -5,7 +5,11 @@ angular.module('mps.user')
     'PersonalizationServiceFactory','FilterSearchService', 'FormatterService', 'Impersonate', '$http', 'gatekeeper-cookie-compat', '$window', 'SecurityHelper',
     function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration,
         Personalize, FilterSearchService, formatter, Impersonate, $http, $cookies, $window, SecurityHelper) {
-        new SecurityHelper($rootScope).redirectCheck($rootScope.userManagementAccess);
+
+        if(!$rootScope.userManagementAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("userManagementAccess");    
+        }
+        
         $rootScope.currentRowList = [];
         UserAdminstration.setParamsToNull();
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
