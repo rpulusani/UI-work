@@ -85,9 +85,6 @@ angular.module('mps.serviceRequestDevices')
                 });
                 $scope.provinces = item[0].provinces;
         };
-        $scope.makeChanges = function(){
-            $location.path(DeviceServiceRequest.route + '/' + $scope.device.id + '/update');
-        };
         $scope.goToReview = function() {
             $location.path(DeviceServiceRequest.route + '/update/' + $scope.device.id + '/review');
         };
@@ -370,7 +367,7 @@ angular.module('mps.serviceRequestDevices')
                 }
             };
             $scope.configure.contact.show.primaryAction = false;
-            $scope.configure.device.information.translate.makeChanges = false;
+            $scope.configure.device.information.translate.linkMakeChangesTxt = undefined;
             $scope.configure.showManageAnotherDevice = true;
           }
 
@@ -442,8 +439,7 @@ angular.module('mps.serviceRequestDevices')
                                 customerDeviceTag: 'REQUEST_MAN.COMMON.TXT_DEVICE_TAG',
                                 contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
                                 installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
-                                moveAddress: 'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS',
-                                makeChanges: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES'
+                                moveAddress: 'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
                         }
                     }
                 },
