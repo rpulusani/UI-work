@@ -35,7 +35,7 @@ angular.module('mps.user')
         filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'defaultSet');
 
         var removeParamsList = ['roles', 'activeStatus', 'fromDate', 'toDate'];
-        filterSearchService.addBasicFilter('USER_MAN.MANAGE_USERS.TXT_FILTER_ALL_USERS', {'type': 'BUSINESS_PARTNER','embed': 'roles'}, removeParamsList,
+        filterSearchService.addBasicFilter('USER_MAN.MANAGE_USERS.TXT_FILTER_ALL_USERS', {'type': 'BUSINESS_PARTNER','embed': 'roles,accounts'}, removeParamsList,
             function() {
                 $scope.$broadcast('setupPrintAndExport', $scope);
             }
