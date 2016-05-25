@@ -1,5 +1,12 @@
 <div ng-if="configure.device.information && !configure.updatingMultiple">
-    <h2 translate="{{configure.device.information.translate.title}}"></h2>
+    <div class="page-tabs">
+        <h2 translate="{{configure.device.information.translate.title}}"></h2>
+        <a class="inlineWithH2" ng-if="configure.device.information.translate.makeChanges"
+        class="read-more"
+        ng-click="makeChanges()"
+        href
+        translate="{{configure.device.information.translate.makeChanges}}"></a>
+    </div>
     <a href="#" ng-click="goToServiceCreate()"
         ng-if="configure.device.information.translate.changeTxt"
         translate="{{configure.device.information.translate.changeTxt}}"></a>
