@@ -49,12 +49,19 @@ return {
 
             $scope.uploadComplete = function(response) {
               $log.debug('uploadComplete', response);
-              $scope.files_complete.push(ifData(response));
-              for(var i =0; i < $scope.files.length; i++) {
-                if($scope.files[i].name === response.data.filename) {
-                  $scope.files[i].complete = true;
-                }
-              }             
+              if(response.status === 201){
+            	  $scope.error = false;
+            	  $scope.files_complete.push(ifData(response));
+                  for(var i =0; i < $scope.files.length; i++) {
+                    if($scope.files[i].name === response.data.filename) {
+                      $scope.files[i].complete = true;
+                    }
+                  }  
+              }else{
+            	  $scope.error = true;
+            	  $scope.errorMessage = response.data.message;
+              }
+                           
               
             };
 
