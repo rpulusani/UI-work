@@ -92,12 +92,28 @@ angular.module('mps.library')
             $scope.libraryAccounts = LibraryAccounts.data;
         });
 
+        $scope.allowedExtensions = ["csv", "xls", "xlsx", "vsd", "doc", "docx", "ppt", "pptx", "pdf", "zip"];
+        $scope.allowedExtensionsString = ".csv, .xls, .xlsx, .vsd, .doc, .docx, .ppt, .pptx, .pdf, .zip";
         $scope.setDocumentName = function(files) {
+            $scope.uploadError = false;
+            $scope.documentItem.name = "";
             var tmp = files[0].name;
             var l = tmp.split('.').pop();
 
-            $scope.documentItem.extension = l;
-            $scope.documentItem.name = tmp.slice(0, -(l.length+1));
+            if($scope.allowedExtensions.indexOf(l) >= 0) {
+                $scope.documentItem.extension = l;            
+                $scope.documentItem.name = tmp.slice(0, -(l.length+1));
+            }
+            else
+            {
+                $scope.uploadError = true;
+                angular.element("input[type='file']").val(null);
+            }
+        };
+
+        $scope.hideError = function() {
+            $scope.uploadError = false;
+            return true;
         };
 
         $scope.save = function() {

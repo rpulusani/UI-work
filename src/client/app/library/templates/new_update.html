@@ -4,6 +4,9 @@
             <h1 translate="{{ translationPlaceHolder.h1 }}" translate-values="{ fileName: phDocumentName }"></h1>
             <p class="text--large" translate="{{ translationPlaceHolder.paragraph }}"></p>
 
+            <div class="well" ng-show="uploadError === true">
+                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOC_UPLOAD_ERROR" translate-values="{ fileTypes: allowedExtensionsString }"></p>
+            </div>
             <div class="well" ng-show="documentItem.uploadSuccess === true">
                 <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOCUMENT_ADDED" translate-values="{ fileName: phDocumentName }"</p>
             </div>
@@ -29,7 +32,7 @@
                 <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
                         translate="{{ translationPlaceHolder.cancel }}"></button>
                 <button name="submit" class="btn btn--primary" type="submit" value="submit"
-                        translate="{{ translationPlaceHolder.submit }}" ng-disabled="isCommitting" ng-click="newDocument.$valid && save();"></button>
+                        translate="{{ translationPlaceHolder.submit }}" ng-disabled="isCommitting" ng-click="hideError() && newDocument.$valid && save();"></button>
             </div>
         </div>
     </form>
