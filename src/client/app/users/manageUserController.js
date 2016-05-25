@@ -371,8 +371,14 @@ angular.module('mps.user')
             });
         }
 
-        $scope.update = function() {
-            updateAdminObjectForUpdate($scope.userActive == false? 'deactivate' : 'activate');
+        $scope.update = function(status) {
+        	if(status == undefined){
+        		// It will be undefined when update button is clicked...
+        		updateAdminObjectForUpdate($scope.userActive == false? 'deactivate' : 'activate');	
+        	}else{
+        		updateAdminObjectForUpdate(status);
+        	}
+            
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
             var options = {
                 preventDefaultParams: true
@@ -417,6 +423,10 @@ angular.module('mps.user')
                 NREUM.noticeError('Failed to update user because: ' + reason);
             });
         };
+        
+        $scope.activate = function() {
+        	$scope.update('activate');
+        }
     }
 ]);
 
