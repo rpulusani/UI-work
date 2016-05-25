@@ -49,7 +49,7 @@ angular.module('mps.library')
 
         $scope.goToStartEdit = function (tag) {
             Tags.setItem(tag);
-            $scope.selectedTag = Tags.item.name;
+            $scope.selectedEditTag = Tags.item.name;
 
             $scope.isEditing = true;
 
