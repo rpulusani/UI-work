@@ -10,16 +10,16 @@ angular.module('mps.pageCount')
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'assetId', visible:false, 'notSearchable': true},
-                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'asset.serialNumber',
+                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'serialNumber',
                           'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.serialNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 
-                         'field': 'asset.productModel',
-                         cellTemplate:'<div ng-bind="row.entity.productModel"></div>',
-                        },
+                        {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'assetTag'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field': 'productModel'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'ipAddress'},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'hostName'},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_LAST_READ_DATE'), 'field': 'getFormattedLastReadDate()', 'notSearchable': true},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_CURRENT_READ_DATE'), 'field': 'getFormattedTodaysDate()', 'notSearchable': true,
                         'cellTemplate': '<div class="ui-grid-cell-contents">' +
