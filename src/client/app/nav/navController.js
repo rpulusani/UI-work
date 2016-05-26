@@ -235,6 +235,17 @@
         $scope.setActive = function(text){
 
         };
+
+        if (!$rootScope.windowResized) {
+            var contentHeight = angular.element('.site-header').outerHeight() + angular.element('.site-footer').outerHeight();
+            contentHeight = $window.innerHeight - (contentHeight + 156);
+
+            //ensuring the site content area is always as big as possible while supporting autoscroll
+
+            angular.element('.site-content').css('height', contentHeight + 'px');
+
+            $rootScope.windowResized = true;
+        }
     }
 ]);
 
