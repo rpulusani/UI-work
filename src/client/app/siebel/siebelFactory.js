@@ -11,7 +11,7 @@ angular.module('mps.siebel')
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
-                        {'name': $translate.instant('PORTAL_ADMIN.OPTION'), 'field': 'subModule.subModuleName'},
+                        {'name': $translate.instant('PORTAL_ADMIN.OPTION'), 'field': 'subModule.subModuleName', 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.VALUE'), 'field': 'actualValue',
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +

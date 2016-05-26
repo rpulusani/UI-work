@@ -54,10 +54,14 @@ angular.module('mps.notifications')
             $location.path('/siebel/new');
         };
 
-        filterSearchService.addBasicFilter('All Siebel Values', undefined, undefined,
-            function(Grid) {
+        var removeParamsList = ['subModule.subModuleName', 'search', 'searchOn'];
+        filterSearchService.addBasicFilter('PORTAL_ADMIN_SECTION.MANAGE_SIEBEL.TXT_ALL_SIEBELS', false, removeParamsList,
+             function(Grid) {       
                 $scope.$broadcast('setupPrintAndExport', $scope);
-            }
-        );
+        });
+        filterSearchService.addPanelFilter('PORTAL_ADMIN_SECTION.MANAGE_SIEBEL.TXT_FILTER_OPTIONS', 'SiebelOptionFilter', undefined,
+             function(Grid) {
+                 $scope.$broadcast('setupPrintAndExport', $scope);
+        });
     }
 ]);
