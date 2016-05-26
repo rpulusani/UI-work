@@ -92,6 +92,11 @@ angular.module('mps.utility')
         $scope.gridOptions.multiSelect = false;
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
         var options = {};
+        options = {
+            params:{
+                embed:'contact'
+            }
+        };
         if ($rootScope.returnPickerObjectDevice && $rootScope.returnPickerObjectDevice.selectedDevice) {
             $scope.prevDevice = $rootScope.returnPickerObjectDevice;
             if ($scope.prevDevice.selectedDevice.partNumber) {
@@ -104,20 +109,10 @@ angular.module('mps.utility')
 
            if ($scope.prevDevice.address && !$scope.singleDeviceSelection) {
                 $scope.formattedSingleLineAddress = FormatterService.formatAddressSingleLine($scope.prevDevice.address);
-                options = {
-                    params: {
-                        search: $scope.prevDevice.address.id,
-                        searchOn: 'addressId',
-                    }
-                };
+                options.params.addressId = $scope.prevDevice.address.id;
             }
 
         }
-        options = {
-            params:{
-                embed:'contact'
-            }
-        };
 
 
         Devices.getPage(0, 20, options).then(function() {
