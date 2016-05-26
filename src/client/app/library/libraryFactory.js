@@ -10,7 +10,7 @@ angular.module('mps.library')
             springSorting: true,
             columnDefs: {
                 defaultSet: [
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '75', notSearchable: true,
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '100', notSearchable: true,
                         cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>', visible: $rootScope.documentLibraryViewStrategicAccess,
                         showInColumnPicker: $rootScope.documentLibraryViewStrategicAccess
                     },
@@ -24,7 +24,7 @@ angular.module('mps.library')
                     },
                     {name: $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'), field: 'description', width: 300},
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISH_DATE'), field: 'getPublishedDate()', searchOn: 'publishDate', width: 200 },
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true, width: '300'},
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true, width: 325},
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', searchOn: 'size' },
                     {name: $translate.instant('LABEL.COMMON.ACTION'), field: 'actions',  width: '220', notSearchable: true,
                         'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
@@ -40,7 +40,7 @@ angular.module('mps.library')
                                 '{{grid.appScope.getTagNames(row.entity.tags)}}' +
                             '</div>'
                     },
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), field: name,
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE'), field: 'name',
                         'cellTemplate':'<div>' +
                             '<a class="text--small" href="#" ng-click="grid.appScope.goToDocumentView(row.entity.id);">{{row.entity.name}}</a>' +
                             '</div>'
