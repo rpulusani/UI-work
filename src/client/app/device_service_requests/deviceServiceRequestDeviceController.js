@@ -77,7 +77,17 @@ angular.module('mps.serviceRequestDevices')
                 ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
                 ServiceRequest.addField('type', 'BREAK_FIX');
         };
-
+        
+        $scope.$watch('device.installAddress.building',function(newVal){
+        	$scope.device.physicalLocation1 = newVal;
+        });
+        $scope.$watch('device.installAddress.floor',function(newVal){
+        	$scope.device.physicalLocation2 = newVal;
+        });
+        $scope.$watch('device.installAddress.office',function(newVal){
+        	$scope.device.physicalLocation3 = newVal;
+        });
+        
         if (Devices.item === null &&
             $location.path() !== DeviceServiceRequest.route + "/picker" &&
             $location.path() !== "/device_management/pick_device/DeviceServiceRequestDevice") {
