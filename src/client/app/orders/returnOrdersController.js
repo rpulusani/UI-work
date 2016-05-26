@@ -197,7 +197,8 @@ angular.module('mps.orders')
                                     submit: 'ORDER_MAN.ORDER_SELECT_ADDRESS.BTN_ORDER_CHANGE_ADDRESS'
                                 }
                             }
-                        }
+                        },
+                        type: 'RETURN_SUPPLIES'
                     },
                     contact:{
                         translate: {
