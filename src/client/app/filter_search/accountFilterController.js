@@ -12,9 +12,13 @@ angular.module('mps.filterSearch')
             for (i; i < accts.length; i += 1) {
                 $scope.accounts.push({
                     name: accts[i].account.name,
-                        accountId: accts[i].account.accountId
+                    accountId: accts[i].account.accountId
                 });
             }
+
+            $scope.showClearMessage = true;
+            $scope.params['accountId'] = $scope.accounts[0].accountId;
+            $scope.filterDef($scope.params, ['fromDate', 'toDate', 'soldToNumber']);
         });
 
             $scope.$watch('accountFilter', function(accountFilter) {
