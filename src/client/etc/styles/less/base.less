@@ -22,7 +22,6 @@ body{
 
 .site-wrapper{
     min-height: 100%;
-    overflow: hidden;
 }
 
 .site-header{
@@ -36,7 +35,8 @@ body{
 
 .site-content{
     //box-shadow: inset 3px 0px 10px 0px rgba(0,0,0,0.5);
-    overflow-x: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     min-height: 350px;
 
     > :last-child{
@@ -50,7 +50,6 @@ body{
 
 .site-footer{
     padding: @base-grid-v @base-grid-h;
-
     .logo{
         float: left;
         border-right: 1px solid;

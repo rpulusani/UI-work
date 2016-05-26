@@ -235,12 +235,11 @@
         $scope.setActive = function(text){
 
         };
-
+        
+        //ensuring the site content area is always as big as possible while supporting autoscroll
         if (!$rootScope.windowResized) {
-            var contentHeight = angular.element('.site-header').outerHeight() + angular.element('.site-footer').outerHeight();
-            contentHeight = $window.innerHeight - (contentHeight + 156);
-
-            //ensuring the site content area is always as big as possible while supporting autoscroll
+            var contentHeight = angular.element('.site-header').outerHeight();
+            contentHeight = $window.innerHeight - (contentHeight + 85);
 
             angular.element('.site-content').css('height', contentHeight + 'px');
 
