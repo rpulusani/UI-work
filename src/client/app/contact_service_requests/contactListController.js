@@ -55,7 +55,7 @@ function(
 
 
     Contacts.alertState = false;
-    var removeParamsList = ['location'];
+    var removeParamsList = ['location', 'search', 'searchOn'];
     filterSearchService.addBasicFilter('CONTACT.ALL', undefined, removeParamsList,
         function(Grid) {
             $scope.$broadcast('setupPrintAndExport', $scope);
