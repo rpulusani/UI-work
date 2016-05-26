@@ -54,21 +54,21 @@
                     </div>
                 </div>
     </div>
-    <div class="row" ng-if="showTax && orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length > 0 && total && total >0">
+    <div class="row" ng-if="showTax && orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length > 0 && total && total !== ''">
         <div class="col-1-3 push">
             <table class="table total">
                 <tbody>
-                    <tr ng-if="subTotal && subTotal > 0">
+                    <tr ng-if="subTotal && subTotal !== '' ">
                         <td><span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL"></span></td>
                         <td><span>{{subTotal}}</span></td>
                     </tr>
-                    <tr ng-if="tax && tax > 0">
+                    <tr ng-if="displaytax && displaytax !== '' ">
                         <td><span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_TAX"></span></td>
-                        <td><span>{{tax}}</span></td>
+                        <td><span>{{displaytax}}</span></td>
                     </tr>
                 </tbody>
                 <tfoot>
-                   <tr ng-if="total && total > 0">
+                   <tr ng-if="total && total !== '' ">
                         <td><span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_TOTAL"></span></td>
                         <td><span>{{total}}</span></td>
                     </tr>

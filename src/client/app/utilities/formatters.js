@@ -24,6 +24,9 @@ angular.module('mps.utility')
                 }
                 return percentage;
             },
+            formatPercent : function (tax){
+            	return  $filter('number')(tax , 2) + '%';
+            },
             formatCurrency: function(incommingMoney){
                 var moneyValue = 0.0,
                 price;
