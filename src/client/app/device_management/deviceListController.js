@@ -215,7 +215,7 @@ angular.module('mps.deviceManagement')
             });
         };
 
-        var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location', 'search', 'searchOn'];
+        var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location', 'search', 'searchOn', 'addressId'];
 
         filterSearchService.addBasicFilter('DEVICE_MAN.MANAGE_DEVICES.FILTER_ALL_DEVICES', {'embed': 'address,contact,account'}, removeParamsList,
             function(Grid) {

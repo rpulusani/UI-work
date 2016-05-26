@@ -109,8 +109,6 @@ angular.module('mps.utility')
 
            if ($scope.prevDevice.address && !$scope.singleDeviceSelection) {
                 $scope.formattedSingleLineAddress = FormatterService.formatAddressSingleLine($scope.prevDevice.address);
-                console.log(123);
-                console.log('$scope.prevDevice', $scope.prevDevice);
                 options.params.addressId = $scope.prevDevice.address.id;
             }
 
