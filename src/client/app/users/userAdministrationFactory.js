@@ -24,7 +24,7 @@ angular.module('mps.user')
                         'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>', 
                         'notSearchable':true
                     },
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email',
+                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email', width: 275,
                         'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" >' +
                                         '{{row.entity.email}}</a>' +
