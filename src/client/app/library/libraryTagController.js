@@ -9,7 +9,7 @@ angular.module('mps.library')
         $scope.isDeleting = false;
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet, 160);
+        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet);
         var Grid = new GridService();
         Tags.setParamsToNull();
 
