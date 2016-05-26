@@ -50,6 +50,19 @@ angular.module('mps.filterSearch')
         controller: 'LocationFilterController'
     };
 })
+.directive('siebelOptionFilter', function() {
+    return {
+        restrict: 'A',
+        scope:{
+            title: '@',
+            params:'=',
+            filterDef: '=',
+            action: '@'
+        },
+        templateUrl: '/app/filter_search/templates/siebelOptionFilter.html',
+        controller: 'SiebelFilterController'
+    };
+})
 .directive('chlFilter', function() {
     return {
         restrict: 'A',

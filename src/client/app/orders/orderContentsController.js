@@ -9,6 +9,7 @@ angular.module('mps.orders')
     'PersonalizationServiceFactory',
     '$location',
     'FormatterService',
+    'BlankCheck',
     function(
         GridService,
         $scope,
@@ -16,7 +17,8 @@ angular.module('mps.orders')
         OrderItems,
         Personalize,
         $location,
-        formatter
+        formatter,
+        BlankCheck
     ){
     $scope.validationMessages = [];
     if($scope.editable === "true" || $scope.editable === true){
@@ -38,7 +40,11 @@ angular.module('mps.orders')
     $scope.$watch($scope.ordernbr, function(){
         $scope.orderId = $scope.ordernbr;
     });
-
+    $scope.$on('TaxDataAvaialable', function(e,data){
+    	
+    	$scope.tax = data.tax;
+    	$scope.calculate();
+    });
     $scope.removeItem  = function(row){
         var index = $scope.orderSummaryGridOptions.data.indexOf(row.entity);
         $scope.orderSummaryGridOptions.data.splice(index,1);
@@ -146,10 +152,17 @@ angular.module('mps.orders')
             }
         }
         $scope.subTotal = formatter.formatCurrency(subTotal);
-        $scope.tax = OrderItems.formatTax();
-        $scope.total = formatter.formatCurrency(subTotal + (subTotal * OrderItems.getTax()));
+        if (BlankCheck.checkNotNullOrUndefined($scope.tax) &&  $scope.tax !== ''){
+        	var taxNumeric = $scope.tax;
+        	var amount = subTotal + taxNumeric;
+        	$scope.total = formatter.formatCurrency(amount);
+        	var taxPercent = (((amount - subTotal)/amount)*100);
+        	
+        	$scope.displaytax = OrderItems.formatTax(taxPercent);
+        }
+        
     };
-
+    
     $scope.submitDisable = function(){
         var disabled = true;
 
@@ -180,6 +193,6 @@ angular.module('mps.orders')
         }
     });
     $scope.calculate();
-
+    
 }]);
 

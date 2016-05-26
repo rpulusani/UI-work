@@ -131,7 +131,7 @@ angular.module('mps.serviceRequestDevices')
                 && $rootScope.selectionId === Devices.item.id){
             $scope.device = $rootScope.returnPickerObjectAddress;
             $scope.sr = $rootScope.returnPickerSRObjectAddress;
-            if(BlankCheck.isNull($scope.device.addressSelected) || $scope.device.addressSelected) {
+            if(BlankCheck.isNull($scope.device.addressSelected) || !$scope.device.addressSelected) {
                 $scope.device.addressSelected = true;
                 ServiceRequest.addRelationship('destinationAddress', $rootScope.selectedAddress, 'self');
 

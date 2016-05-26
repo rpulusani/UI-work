@@ -9,7 +9,7 @@ angular.module('mps.library')
         $scope.isDeleting = false;
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet, 160);
+        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet);
         var Grid = new GridService();
         Tags.setParamsToNull();
 
@@ -37,6 +37,9 @@ angular.module('mps.library')
 
             $scope.isEditting = false;
             $scope.isDeleting = false;
+            setTimeout(function() {
+                window.scroll(0,$("form[name='newTag']").offset().top);
+            },1000);
         };
 
         $scope.goToCancelCreate = function () {
@@ -49,7 +52,7 @@ angular.module('mps.library')
 
         $scope.goToStartEdit = function (tag) {
             Tags.setItem(tag);
-            $scope.selectedTag = Tags.item.name;
+            $scope.selectedEditTag = Tags.item.name;
 
             $scope.isEditing = true;
 

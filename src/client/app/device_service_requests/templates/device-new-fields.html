@@ -51,7 +51,7 @@
          <select ng-model="device.productModel" name="productModel"
             ng-disabled = "!device.serialNumber">
                 <option  value="" translate="LABEL.COMMON.SELECT"></option>
-                <option ng-repeat="option in device.productNumbers" value="{{option.productNo}}">{{option.productNo}}</option>
+                <option ng-repeat="option in device.productNumbers" value="{{option.productNo}}"  ng-selected="{{device.productModel === option.productNo}}" >{{option.productNo}}</option>
             </select>
     </div>
 </div>

@@ -23,6 +23,7 @@ angular.module('mps.orders')
     'UserService',
     'OrderControllerHelperService',
     'tombstoneWaitTimeout',
+    'TaxService',
     function(
         $scope,
         $location,
@@ -44,11 +45,14 @@ angular.module('mps.orders')
         ServiceReqeust,
         Users,
         OrderControllerHelper,
-        tombstoneWaitTimeout) {
+        tombstoneWaitTimeout,
+        taxService) {
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
-
+        if(taxService.item === undefined && taxService.item._links === undefined){
+        	taxService.newMessage();
+        }
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
@@ -205,6 +209,7 @@ angular.module('mps.orders')
                 Orders.item = $rootScope.returnPickerObject;
                 $scope.sr = $rootScope.returnPickerSRObject;
                 Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
+                taxService.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                 Orders.tempSpace.primaryContact= angular.copy($rootScope.selectedContact);
                 $scope.resetContactPicker();
                 $scope.formatAdditionalData();
@@ -213,6 +218,8 @@ angular.module('mps.orders')
             configureSR(Orders);
             $scope.sr = $rootScope.returnPickerSRObjectAddressBillTo;
             Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
+            taxService.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
+            callTax();
             Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
             $scope.resetAddressBillToPicker();
             $scope.formatAdditionalData();
@@ -221,10 +228,12 @@ angular.module('mps.orders')
             configureSR(Orders);
             $scope.sr = $rootScope.returnPickerSRObjectAddressShipTo;
             Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
+            taxService.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
+            callTax();
             Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
             $scope.resetAddressShipToPicker();
             $scope.formatAdditionalData();
-            } else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+        } else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
                 configureSR(Orders);
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 Orders.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
@@ -515,6 +524,55 @@ angular.module('mps.orders')
                     }
                 };
         }
+        function callTax(){
+        	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 
+        			&& taxService.getRelationship('billToAddress',taxService.item) !== undefined){
+        		var i = 0,hasShipBill = false;
+            	for(;i<Orders.tempSpace.catalogCart.billingModels.length;i++){
+            		if(Orders.tempSpace.catalogCart.billingModels[i] === 'SHIP_AND_BILL'){
+            			hasShipBill = true;
+            			break;
+            		}
+            	}
+            	if(hasShipBill){
+            		
+            		taxService.addAccountRelationship();            	
+                	
+                	
+                	taxService.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
+                	taxService.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
+                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.agreement.salesOrganization);
+                	
+                	taxService.addField('billingModel', 'SHIP_AND_BILL');
+                	
+                	
+                	var taxItems = [];
+                    for(var i = 0; i < OrderItems.data.length; ++i){
+                        var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
+                        if (lineTotal !== 0){
+                        	taxItems.push({
+                            	itemNumber : OrderItems.data[i].itemNumber,
+                            	price : lineTotal
+                            });
+                        }
+                        
+                    }
+                    taxService.addField('orderItems',taxItems);
+                   
+                    taxService.post().then(function(response){
+                    	
+                    	var total = 0.0;
+                    	for(i=0;i<response.data.orderItems.length;i++){
+                    		total += response.data.orderItems[i].tax;
+                    	}
+                    	taxAmount = total;
+                    	$scope.$broadcast('TaxDataAvaialable', {'tax':taxAmount});
+                    	
+                    });
+                	
+            	}
+        	}
+        };
     }
 ]);
 

@@ -22,7 +22,7 @@
     <div return-supply></div>
     <div order-account-details></div>
 
-    <div ng-if="configure && configure.order">
+    <div ng-if="configure && configure.order && configure.order.type === undefined ">
         <div order-content editable="{{editable}}"  submit-action="submit" datasource="orderItems" configure="configure"></div>
     </div>
     <div order-ship-to-bill-to-details></div>

@@ -1,0 +1,13 @@
+<br/>
+<h4 translate="PORTAL_ADMIN_SECTION.MANAGE_SIEBEL.TXT_BROWSE_OPTIONS"></h4>
+ <div ng-repeat="tempoption in options" class="clear">
+    <input type="radio" id="tempoption.type" name="option-select"
+    ng-model="$parent.option" value="{{tempoption.type}}"/>
+    <label for="tempoption.type"><span></span>
+        {{tempoption.name}}</label>
+</div>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
+    <div class="footnotes">
+        <a href="" ng-click="clearOptionFilter()" translate="PORTAL_ADMIN_SECTION.MANAGE_SIEBEL.TXT_CLEAR_OPTION"></a>
+    </div>
+</div>

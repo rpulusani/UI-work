@@ -40,7 +40,10 @@
             </ul>
         </div>
     </div>
+    <div ng-if="configure && configure.order && configure.order.type === undefined ">
     <div order-content editable="{{editable}}" ordernbr="ordernbr" submit-action="submit" datasource="orderItems"
     hide-submit="hideSubmitButton" configure="configure"></div>
+    </div>
+    
     <div order-receipt></div>
 </div>

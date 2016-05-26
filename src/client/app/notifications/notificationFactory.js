@@ -12,12 +12,6 @@ angular.module('mps.notifications')
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.DISPLAY_ORDER'), 'field': 'order', 'notSearchable': true},
-                        {'name': 'Move', 'field':'order',
-                         'cellTemplate':'<div>' +
-                                        '<span class="item-icon icon icon-psw-up-arrow"></span>' +
-                                        '<span class="item-icon icon icon-psw-down-arrow"></span>' +
-                                    '</div>'
-                        },
                         {'name': $translate.instant('PORTAL_ADMIN.START_DATE'), 'field': 'getFormattedStartDate()', 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.END_DATE'), 'field': 'getFormattedEndDate()', 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.NAME'), 'field': 'subModule.subModuleName',
@@ -37,15 +31,23 @@ angular.module('mps.notifications')
                 functionArray: [
                     {
                         name: 'getFormattedStartDate',
-                        functionDef: function(){
-                            return formatter.formatDate(this.startDate);
+                        functionDef: function() {
+                            if (this.startDate === undefined || this.startDate === null) { return; }
+
+                            var dy = this.startDate.replace(/\+[0]*/, "") + 'Z';
+                            var d = new Date(dy);
+                            return formatter.getDisplayDate(d);
                         }
                     },
                     {
                         name: 'getFormattedEndDate',
-                        functionDef: function(){
-                            return formatter.formatDate(this.endDate);
-                        }
+                        functionDef: function() {
+                            if (this.endDate === undefined || this.endDate === null) { return; }
+
+                            var dy = this.endDate.replace(/\+[0]*/, "") + 'Z';
+                            var d = new Date(dy);
+                            return formatter.getDisplayDate(d);
+                        }                        
                     }
                 ],
 
