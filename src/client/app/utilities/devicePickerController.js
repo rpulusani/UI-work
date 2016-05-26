@@ -106,8 +106,7 @@ angular.module('mps.utility')
                 $scope.formattedSingleLineAddress = FormatterService.formatAddressSingleLine($scope.prevDevice.address);
                 options = {
                     params: {
-                        search: $scope.prevDevice.address.id,
-                        searchOn: 'addressId',
+                        addressId: $scope.prevDevice.address.id
                     }
                 };
             }
