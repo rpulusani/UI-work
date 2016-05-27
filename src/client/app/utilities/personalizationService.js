@@ -7,19 +7,16 @@ angular.module('mps.utility')
         this.userId = userId;
     };
 
-    PersonalizationServiceFactory.prototype.save = function(key, value) {
+    PersonalizationServiceFactory.prototype.save = function(key, dataObj) {
         var self = this,
         deferred = $q.defer();
 
+        if (!dataObj) {
+            dataObj = key;
+            key = self.currentPageUri;
+        }
+
         Users.getEmail(function(email) {
-            var dataObj = {};
-
-            if (!angular.isObject(value)) {
-                dataObj[key] = value;
-            } else {
-                dataObj = value;
-            }
-
             $http({
                 method: 'POST',
                 url: self.url + email + '/' + key,
@@ -59,6 +56,10 @@ angular.module('mps.utility')
     PersonalizationServiceFactory.prototype.getByKey = function(key) {
         var self = this,
         deferred = $q.defer();
+
+        if (!key) {
+            key = self.currentPageUri;
+        }
         
         Users.getEmail(function(email) {
             $http({
@@ -72,19 +73,16 @@ angular.module('mps.utility')
         return deferred.promise;
     };
 
-    PersonalizationServiceFactory.prototype.update = function(key, value) {
+    PersonalizationServiceFactory.prototype.update = function(key, dataObj) {
         var self = this,
         deferred = $q.defer();
 
+        if (!dataObj) {
+            dataObj = key;
+            key = self.currentPageUri;
+        }
+
         Users.getEmail(function(email) {
-            var dataObj = {};
-
-            if (!angular.isObject(value)) {
-                dataObj[key] = value;
-            } else {
-                dataObj = value;
-            }
-
             $http({
                 method: 'PUT',
                 url: self.url + email + '/' + key,
@@ -102,6 +100,10 @@ angular.module('mps.utility')
     PersonalizationServiceFactory.prototype.remove = function(key) {
         var self = this,
         deferred = $q.defer();
+
+        if (!key) {
+            key = self.currentPageUri;
+        }
 
         Users.getEmail(function(email) {
             $http({
