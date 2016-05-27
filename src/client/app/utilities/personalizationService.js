@@ -3,7 +3,7 @@ angular.module('mps.utility')
 .factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', function($http, $q, $rootScope, serviceUrl, Users) {
     var PersonalizationServiceFactory = function(currentPageUri, userId) {
         this.url = serviceUrl + 'user-preferences/';
-        this.currentPageUri = currentPageUri;
+        this.currentPageUri = currentPageUri.replace(/\//g, '_');
         this.userId = userId;
     };
 
