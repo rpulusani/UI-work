@@ -462,7 +462,7 @@ angular.module('mps.serviceRequestDevices')
                     productModel: $scope.device.productModel,
                     hostName: $scope.device.hostName,
                     assetTag: $scope.device.customerDeviceTag,
-                    costCenter: $scope.device.costCenter,
+                    costCenter: $scope.device.deviceCostCenter,
                     physicalLocation1: $scope.device.physicalLocation1,
                     physicalLocation2: $scope.device.physicalLocation2,
                     physicalLocation3: $scope.device.physicalLocation3
