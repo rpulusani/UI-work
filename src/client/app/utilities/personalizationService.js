@@ -1,53 +1,120 @@
-
-
 angular.module('mps.utility')
-.factory('PersonalizationServiceFactory', [function() {
-    var PersonalizationServiceFactory = function(uri, userId){
-         var self = this;
-         self.modulePesonalization = this.getPersonalizedFragment(uri, userId);
-         // tentative place for preference keys
+.factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', function($http, $q, $rootScope, serviceUrl, Users) {
+    var PersonalizationServiceFactory = function(currentPageUri, userId) {
+        this.url = serviceUrl + 'user-preferences/';
+        this.currentPageUri = currentPageUri;
+        this.userId = userId;
     };
 
-    PersonalizationServiceFactory.prototype.save = function(fragment){
-        this.modulePesonalization = fragment;
-        //save back to db the updated/new settings
+    // POST
+    PersonalizationServiceFactory.prototype.save = function(key, value) {
+        var self = this,
+        deferred = $q.defer();
+
+        Users.getEmail(function(email) {
+            var dataObj = {};
+
+            if (!angular.isObject(value)) {
+                dataObj[key] = value;
+            } else {
+                dataObj = value;
+            }
+
+            $http({
+                method: 'POST',
+                url: self.url + email + '/' + key,
+                data: dataObj
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationSave');
+
+                return deferred.resolve(res);
+            });
+        });
+
+        return deferred.promise;
     };
 
-    PersonalizationServiceFactory.prototype.getPersonalizedFragment = function(uri, userId){
-        var fragment = {};
-        //query for personalized fragment based on  uri and userId
-        if(this.modulePesonalization !== undefined && this.modulePesonalization.name === uri){
-            fragment = angular.copy(this.modulePesonalization);
-        }else{
-            //setup starter fragment
-            fragment =
-                {
-                   'name': uri
-                };
-        }
-        return fragment;
+    PersonalizationServiceFactory.prototype.getAll = function(targetEmail) {
+        var self = this,
+        deferred = $q.defer();
+        
+        Users.getEmail(function(email) {
+            if (targetEmail) {
+                email = targetEmail;
+            }
+
+            $http({
+                method: 'GET',
+                url: self.url + email
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationGetAll');
+
+                return deferred.resolve(res);
+            });
+        });
+
+        return deferred.promise;
     };
 
-     PersonalizationServiceFactory.prototype.getFragment = function(){
-        return angular.copy(this.modulePesonalization);
+    PersonalizationServiceFactory.prototype.getByKey = function(key) {
+        var self = this,
+        deferred = $q.defer();
+        
+        Users.getEmail(function(email) {
+            $http({
+                method: 'GET',
+                url: self.url + email + '/' + key
+            }).then(function(res) {
+                return deferred.resolve(res);
+            });
+        });
+
+        return deferred.promise;
     };
 
-    PersonalizationServiceFactory.prototype.getPersonalizedConfiguration = function(configPropName){
-        var fragment = this.getFragment(),
-            value;
-        if(fragment !== null && fragment !== undefined &&
-             fragment[configPropName] !== null &&
-             fragment[configPropName] !== undefined ){
-            value =  fragment[configPropName];
-        }
-        return value;
+    PersonalizationServiceFactory.prototype.update = function(key, value) {
+        var self = this,
+        deferred = $q.defer();
+
+        Users.getEmail(function(email) {
+            var dataObj = {};
+
+            if (!angular.isObject(value)) {
+                dataObj[key] = value;
+            } else {
+                dataObj = value;
+            }
+
+            $http({
+                method: 'PUT',
+                url: self.url + email + '/' + key,
+                data: dataObj
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationUpdate');
+
+                return deferred.resolve(res);
+            });
+        });
+
+        return deferred.promise;
     };
 
-    PersonalizationServiceFactory.prototype.setPersonalizedConfiguration = function(configPropName, value){
-        var fragment = this.getFragment();
-        fragment[configPropName] = value; //update or add
-        //push personalization to the database repo via api
-        this.save(fragment);
+    PersonalizationServiceFactory.prototype.remove = function(key) {
+        var self = this,
+        deferred = $q.defer();
+
+        Users.getEmail(function(email) {
+            $http({
+                method: 'DELETE',
+                url: self.url + email + '/' + key,
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationRemove');
+
+                return deferred.resolve(res);
+            });
+        });
+
+        return deferred.promise;
     };
 
     return PersonalizationServiceFactory;
