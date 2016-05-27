@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mps.utility')
 .factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', function($http, $q, $rootScope, serviceUrl, Users) {
     var PersonalizationServiceFactory = function(currentPageUri, userId) {
@@ -6,7 +7,6 @@ angular.module('mps.utility')
         this.userId = userId;
     };
 
-    // POST
     PersonalizationServiceFactory.prototype.save = function(key, value) {
         var self = this,
         deferred = $q.defer();
