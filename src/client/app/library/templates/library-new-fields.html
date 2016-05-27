@@ -26,6 +26,7 @@
     <div class="form__field form__field--required vertical-space--thick">
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>
         <input type="file" name="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)" accept=".csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip" />
+        <div class="form__field__helper-text ng-scope" translate="* Acceptable file format: .csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip" ng-if="!configure.detail.translate.fileList"></div>
     </div>
 </div>
 
