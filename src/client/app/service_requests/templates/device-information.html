@@ -78,7 +78,11 @@
              <tr ng-repeat="device in configure.updatingMultiple">
                 <td ng-bind="device.serialNumber"></td>
                 <td ng-bind="device.productModel"></td>
-                <td ng-bind="device.productModel"></td>
+                <td>
+                    {{device._embedded.contact.firstName + ' ' + device._embedded.contact.lastName}}<br/>
+                    {{device._embedded.contact.email}}<br/>
+                    {{device._embedded.contact.workPhone}}
+                </td>
                 <td ng-bind="device.costCenter"></td>
              </tr>
         </tbody>
