@@ -45,13 +45,19 @@
                 <div class="col-1"></div>
 
                 <div class="col-2-3">
-                    <p><strong><span translate="PORTAL_ADMIN.EXPORT_CATEGORY"></span></strong></p>
+                    <p><strong>
+                        <span translate="PORTAL_ADMIN.EXPORT_CATEGORY"></span>
+                        <span class="right">
+                            <a href="#" class="l" ng-click="checkUncheckCategory(true);" translate="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.CTRL_SELECT_ALL"></a> | <a href="#" class="r" ng-click="checkUncheckCategory(false);" translate="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.CTRL_DESELECT_ALL"></a>
+                        </span>
+                    </strong></p>
                         <label for="a">
                             <input type="checkbox"
                                 id="a"
                                 name="a"
+                                class="trans-cat-check"
                                 ng-model="category_notification"
-                                ng-change="selectExportCategory('a')"
+                                ng-click="selectExportCategory('a')"
                             /><span translate="PORTAL_ADMIN.EXPORT_NOTIFICATION"></span>
                         </label>
                         <div class="col-1"></div>
@@ -59,8 +65,9 @@
                             <input type="checkbox"
                                 id="b"
                                 name="category_siebel"
+                                class="trans-cat-check"
                                 ng-model="category_siebel"
-                                ng-change="selectExportCategory('b')"
+                                ng-click="selectExportCategory('b')"
                             /><span translate="PORTAL_ADMIN.EXPORT_SIEBEL"></span>
                         </label>
                         <div class="col-1"></div>
@@ -68,8 +75,9 @@
                             <input type="checkbox"
                                 id="c"
                                 name="category_portal"
+                                class="trans-cat-check"
                                 ng-model="category_portal"
-                                ng-change="selectExportCategory('c')"
+                                ng-click="selectExportCategory('c')"
                             /><span translate="PORTAL_ADMIN.EXPORT_PORTAL"></span>
                         </label>
                         <div class="col-1"></div>
@@ -77,8 +85,9 @@
                             <input type="checkbox"
                                 id="d"
                                 name="category_document"
+                                class="trans-cat-check"
                                 ng-model="category_document"
-                                ng-change="selectExportCategory('d')"
+                                ng-click="selectExportCategory('d')"
                             /><span translate="PORTAL_ADMIN.EXPORT_TAGS"></span>
                         </label>
                 </div>

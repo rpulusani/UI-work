@@ -37,6 +37,24 @@ angular.module('mps.siebel')
         Translations.getLocales().then(function(res) {
             $scope.languages = res.data.locales;
         });
+
+        $scope.checkUncheckCategory = function(param) {
+            $scope.currentCategories = [];
+            var allCatCheckBoxes = angular.element("input[type='checkbox']");
+            var i = 0;
+            var checkBoxId = "";
+            
+            for (i; i < allCatCheckBoxes.length; i++ ) {
+                checkBoxId = allCatCheckBoxes[i].id;
+                if(param) {
+                    allCatCheckBoxes[i].checked = true;
+                    $scope.currentCategories.push(checkBoxId);
+                }
+                else {
+                    allCatCheckBoxes[i].checked = false;
+                }                
+            }        
+        };
     }
 ]);
 

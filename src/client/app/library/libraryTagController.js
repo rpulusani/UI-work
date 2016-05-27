@@ -35,7 +35,7 @@ angular.module('mps.library')
         $scope.goToStartCreate = function () {
             $scope.isCreating = true;
 
-            $scope.isEditting = false;
+            $scope.isEditing = false;
             $scope.isDeleting = false;
             setTimeout(function() {
                 window.scroll(0,$("form[name='newTag']").offset().top);
@@ -74,14 +74,14 @@ angular.module('mps.library')
             $scope.isDeleting = true;
 
             $scope.isCreating = false;
-            $scope.isEditting = false;
+            $scope.isEditing = false;
         };
 
         $scope.goToCancelDelete = function () {
             $scope.isDeleting = false;
 
             $scope.isCreating = false;
-            $scope.isEditing = true;
+            $scope.isEditing = false;
         };
 
         $scope.goToCancelEditStartDelete = function() {
@@ -145,8 +145,8 @@ angular.module('mps.library')
 
         $scope.goToEditTag = function() {
             var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
-
-            Tags.item.name = $scope.selectedTag;
+            
+            Tags.item.name = $scope.selectedEditTag;
 
             var tagName = Tags.item.name;
             var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
