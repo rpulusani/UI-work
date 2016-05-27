@@ -382,9 +382,6 @@ function(
             }
         }, 1500);
 
-        personal.get().then(function(res) {
-            console.log(res);
-        });
 
         Reports.getPage().then(function() {
         var i = 0,

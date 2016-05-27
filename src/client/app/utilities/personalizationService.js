@@ -53,7 +53,7 @@ angular.module('mps.utility')
         return deferred.promise;
     };
 
-    PersonalizationServiceFactory.prototype.getByKey = function(key) {
+    PersonalizationServiceFactory.prototype.get = function(key) {
         var self = this,
         deferred = $q.defer();
 
