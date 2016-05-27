@@ -38,10 +38,15 @@ angular.module('mps.orders')
     var personal = new Personalize($location.url(),$rootScope.idpUser.id);
     $scope.displayOrderContent = false;
     OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
-    OrderItems.data = [];
-    Orders.tempSpace = {
-        'catalogCart': {}
-    };
+    if (Orders.backFrom !== 'change'){
+    	OrderItems.data = [];
+        Orders.tempSpace = {
+            'catalogCart': {}
+        };
+    }else{
+    	Orders.backFrom = '';
+    }
+    
     $scope.gridLoading = true;
     $scope.maxQuantity = 0;
     
