@@ -8,11 +8,12 @@ angular.module('mps.siebel')
         var redirect_to_list = function() {
            $location.path(SiebelValues.route + '/');
         };
-
+        $scope.isEditting = false;
         if (SiebelValues.item === null) {
             redirect_to_list();
         } else {
             $scope.siebel = SiebelValues.item.data;
+            $scope.isEditting = true;
         }
 
         $scope.siebelOptions = [
@@ -47,6 +48,7 @@ angular.module('mps.siebel')
             }, options);
 
             deferred.then(function(result){
+                SiebelValues.isEditted = true;
                 $location.path('/siebel');
             }, function(reason){
                 NREUM.noticeError('Failed to update Siebel value because: ' + reason);
@@ -58,11 +60,31 @@ angular.module('mps.siebel')
                 method: 'DELETE',
                 url: SiebelValues.item.url
             }).then(function(response) {
+                SiebelValues.isDeleted = true;
                 $location.path('/siebel');
             }, function(response) {
                 NREUM.noticeError('Failed to DELETE Siebel value: ' + response.statusText);
             });
         };
+
+        $scope.toCamelCaseOption = function(str) {
+           var parts = str.split("_");
+           var ind = 0;
+           var partsLen = parts.length;
+           $scope.camelCaseOption = "";
+           for (ind=0; ind<partsLen; ind++){
+              $scope.camelCaseOption = $scope.camelCaseOption + " " + $scope.toProperCase(parts[ind]);
+           }           
+        };
+
+        $scope.toProperCase = function(part) {
+            return part.substring(0, 1).toUpperCase() +
+                       part.substring(1).toLowerCase();
+        };
+
+        if ($scope.siebel.subModule.length > 0) {
+            $scope.toCamelCaseOption($scope.siebel.subModule);
+        }
     }
 ]);
 
