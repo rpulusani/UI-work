@@ -34,10 +34,9 @@ angular.module('mps.utility')
                 $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
                     var direction,
                     currentDir;
-
-                    if (sortColumns.length == 0) {
+                    console.log('sortColumns', sortColumns);
+                    if (sortColumns.length === 0) {
                         currentDir = null;
-                        service.params.sort = null;
                     } else {
                         currentDir = sortColumns[0].sort.direction.toUpperCase();
 
@@ -49,9 +48,16 @@ angular.module('mps.utility')
                         service.params.sort = service.params.sort.replace('_embedded.','');  
                     }
 
-                    service.params.direction = currentDir;
+                    if (currentDir !== null) {
+                        service.params.direction = currentDir;
+                    }
+                    
 
-                    if (service.springSorting) {
+                    if (service.documentSorting && currentDir !== null) {
+                        service.params.sort = service.params.sort + ',' + currentDir;
+                    }
+
+                    if (service.springSorting && currentDir !== null) {
                         service.params[service.params.sort + '.dir'] = currentDir;
                         service.params.direction = null;
                     }

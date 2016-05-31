@@ -7,7 +7,7 @@ angular.module('mps.library')
             serviceName: 'documents',
             embeddedName: 'documents',
             columns: 'default',
-            springSorting: true,
+            documentSorting: true,
             columnDefs: {
                 defaultSet: [
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '100', notSearchable: true,
