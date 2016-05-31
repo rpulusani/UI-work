@@ -34,7 +34,6 @@ angular.module('mps.utility')
                 $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
                     var direction,
                     currentDir;
-                    console.log('sortColumns', sortColumns);
                     if (sortColumns.length === 0) {
                         currentDir = null;
                     } else {
