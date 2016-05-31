@@ -38,7 +38,7 @@ angular.module('mps.library')
             $scope.isEditing = false;
             $scope.isDeleting = false;
             setTimeout(function() {
-                window.scroll(0,$("form[name='newTag']").offset().top);
+                $('div.site-content').scrollTop($("form[name='newTag']").offset().top);
             },1000);
         };
 
