@@ -258,7 +258,8 @@ angular.module('mps.orders')
 
             $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
             $scope.configure.actions.submit = function(){
-                if(!$scope.isLoading){
+
+                if(!$scope.isLoading && $scope.formatedShipToAddress != 'None'){ 
                    $scope.isLoading = true;
                   // for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
                        Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[0]);

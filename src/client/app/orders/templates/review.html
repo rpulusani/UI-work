@@ -8,6 +8,7 @@
     <div order-content editable="{{editable}}"  taxable="taxable" submit-action="submit" datasource="orderItems"
     hide-submit="hideSubmitButton" configure="configure"></div>
     <div order-ship-to-bill-to-details></div>
+    <form class="form" data-form="" name="reviewDetail" novalidate>
     <div order-ship-install-details></div>
     <div ng-if="type === 'SUPPLIES' && paymentMethod ==='payLater'">
         <h2 translate="{{configure.order.shipTo.translate.shipToAddress}}"></h2>
@@ -20,7 +21,7 @@
     <div order-po-number></div>
     <div request-contacts></div>
     <div class="col-lg-2-3 col-md-1-1">
-    <form class="form" data-form="" name="reviewDetail" novalidate>
+   
         <div sr-cancel></div>
         <h2 translate="{{configure.detail.translate.title}}"></h2>
 
