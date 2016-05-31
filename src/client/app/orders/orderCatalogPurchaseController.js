@@ -24,6 +24,7 @@ angular.module('mps.orders')
     'OrderControllerHelperService',
     'tombstoneWaitTimeout',
     'TaxService',
+    '$window',
     function(
         $scope,
         $location,
@@ -46,7 +47,8 @@ angular.module('mps.orders')
         Users,
         OrderControllerHelper,
         tombstoneWaitTimeout,
-        taxService) {
+        taxService,
+        $window) {
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
@@ -64,6 +66,7 @@ angular.module('mps.orders')
         $scope.export = false;
         $scope.taxable = false;
         $scope.editable = false; //make order summary not actionable
+        $scope.errorAddress = false; // showing shiptoaddress error & billtoAddress error
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
             $scope.scratchSpace = Orders.tempSpace;
@@ -258,7 +261,18 @@ angular.module('mps.orders')
 
             $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
             $scope.configure.actions.submit = function(){
-                if(!$scope.isLoading){
+            	if(!$scope.scratchSpace.shipToAddresssSelected){
+            		$scope.errorAddress = true;
+            		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
+            		return;
+            	} 
+            	if(!$scope.scratchSpace.billToAddresssSelected){
+            		$scope.errorAddress = true;
+            		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
+            		return;
+            	}
+            	
+                if(!$scope.isLoading){ 
                    $scope.isLoading = true;
                   // for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
                        Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[0]);
@@ -572,7 +586,7 @@ angular.module('mps.orders')
                 	
             	}
         	}
-        };
+        };      
     }
 ]);
 

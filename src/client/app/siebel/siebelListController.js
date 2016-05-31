@@ -31,6 +31,20 @@ angular.module('mps.notifications')
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(SiebelValues, $scope, $rootScope, personal, 'defaultSet');
 
+        $scope.showDeleted = false;
+        $scope.showEditted = false;
+        if(SiebelValues.item) { 
+            if(SiebelValues.isDeleted) {
+                $scope.showDeleted = true;
+                SiebelValues.isDeleted = false;
+            }
+
+            if(SiebelValues.isEditted) {
+                $scope.showEditted = true;
+                SiebelValues.isEditted = false;
+            }
+        }
+
         $scope.view = function(siebel){
           SiebelValues.setItem(siebel);
             SiebelValues.item.get().then(function(){
@@ -44,6 +58,7 @@ angular.module('mps.notifications')
                 method: 'DELETE',
                 url: SiebelValues.item.url
             }).then(function(response) {
+                SiebelValues.isDeleted = true;
                 $route.reload();
             }, function(response) {
                 NREUM.noticeError('Failed to DELETE siebel value: ' + response.statusText);

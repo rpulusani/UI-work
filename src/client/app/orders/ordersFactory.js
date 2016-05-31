@@ -37,16 +37,16 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
-                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'assetInfo.serialNumber'},
-                        {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'assetInfo.assetTag'},
-                        {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
-                        {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'assetInfo.ipAddress'},
-                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'assetInfo.hostName', visible: false},
-                        {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
+                        {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'_embedded.asset.serialNumber'},
+                        {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'_embedded.asset.assetTag'},
+                        {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'_embedded.asset.productModel'},
+                        {'name': $translate.instant('DEVICE_MGT.IP_ADDRESS'), 'field':'_embedded.asset.ipAddress'},
+                        {'name': $translate.instant('DEVICE_MGT.HOST_NAME'), 'field':'_embedded.asset.hostName', visible: false},                        
+                        {'name': $translate.instant('ADDRESS.NAME'), 'field':'sourceAddress.name', visible: false},                        
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
-                        {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
+                        {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'assetInfo.costCenter', visible: false},
                         {'name': $translate.instant('ORDER_MGT.PO'), 'field':'purchaseOrderNumber', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullRequestorName()',visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true, visible: false},
@@ -91,16 +91,25 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ADDRESS.ZIP_POSTAL'), 'field': 'sourceAddress.postalCode', visible: false}
                     ],
                     singleAssetOrderSet:[
-                        
+						{'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
+						    'cellTemplate':'<div>' +
+						                '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+						                '>{{row.entity.requestNumber}}</a>' +
+						            '</div>'
+						},
                         {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',
-                            'cellTemplate':'<div>' +
-                                        '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
-                                        '>{{row.entity.requestNumber}}</a>' +
-                                    '</div>'
-                        },
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'}
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName', visible: false},
+                        {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),'field':'', visible: false},
+                        {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
+                        {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'assetInfo.costCenter', visible: false}
+                        
+                        
                     ],
                     suppliesCatalogSet:[
                         
@@ -147,7 +156,8 @@ angular.module('mps.orders')
                     }
                 ],
 
-                route: '/orders'
+                route: '/orders',
+                backFrom : ''
         };
 
     return  new HATEOASFactory(OrderRequest);

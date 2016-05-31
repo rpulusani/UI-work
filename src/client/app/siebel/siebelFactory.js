@@ -24,7 +24,9 @@ angular.module('mps.siebel')
                          'cellTemplate':'<div>' +
                             '<a href="#" ng-click="grid.appScope.delete(row.entity);" ' +
                             '>{{"PORTAL_ADMIN.DELETE_VALUE" | translate}}</a>' +
-                        '</div>', 'notSearchable': true}
+                        '</div>', 
+                        'notSearchable': true,
+                        'enableSorting': false}
                     ]
                 },
                 route: '/siebel'

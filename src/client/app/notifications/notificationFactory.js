@@ -24,7 +24,7 @@ angular.module('mps.notifications')
                          'cellTemplate':'<div>' +
                             '<a href="#" ng-click="grid.appScope.delete(row.entity);" ' +
                             '>{{"PORTAL_ADMIN.DELETE_NOTIFICATION" | translate}}</a>' +
-                        '</div>', 'notSearchable': true}
+                        '</div>', 'notSearchable': true, 'enableSorting': false}
                     ]
                 },
 
