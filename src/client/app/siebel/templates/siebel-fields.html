@@ -13,8 +13,12 @@
             label="name"
             placeholder="{{'LABEL.COMMON.SELECT' | translate}}"
             data-required="siebelOptionSelected{{siebel.subModule.length>0}}"
+            ng-show="isEditting === false"
         ></div>
         <input type="hidden" ng-model="siebel.subModule" required />
+
+        <input name="siebelOption" type="text" class="" value="" ng-model="camelCaseOption"
+        required ng-if="isEditting" disabled/>
     </div>
 
     <div class="form__field form__field--required">

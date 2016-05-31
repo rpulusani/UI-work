@@ -9,7 +9,7 @@ angular.module('mps.library')
         $scope.isDeleting = false;
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
-        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet, 160);
+        filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet);
         var Grid = new GridService();
         Tags.setParamsToNull();
 
@@ -35,10 +35,10 @@ angular.module('mps.library')
         $scope.goToStartCreate = function () {
             $scope.isCreating = true;
 
-            $scope.isEditting = false;
+            $scope.isEditing = false;
             $scope.isDeleting = false;
             setTimeout(function() {
-                window.scroll(0,$("form[name='newTag']").offset().top);
+                $('div.site-content').scrollTop($("form[name='newTag']").offset().top);
             },1000);
         };
 
@@ -74,14 +74,14 @@ angular.module('mps.library')
             $scope.isDeleting = true;
 
             $scope.isCreating = false;
-            $scope.isEditting = false;
+            $scope.isEditing = false;
         };
 
         $scope.goToCancelDelete = function () {
             $scope.isDeleting = false;
 
             $scope.isCreating = false;
-            $scope.isEditing = true;
+            $scope.isEditing = false;
         };
 
         $scope.goToCancelEditStartDelete = function() {
@@ -145,8 +145,8 @@ angular.module('mps.library')
 
         $scope.goToEditTag = function() {
             var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
-
-            Tags.item.name = $scope.selectedTag;
+            
+            Tags.item.name = $scope.selectedEditTag;
 
             var tagName = Tags.item.name;
             var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);

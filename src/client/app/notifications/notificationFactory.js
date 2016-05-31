@@ -12,12 +12,6 @@ angular.module('mps.notifications')
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.DISPLAY_ORDER'), 'field': 'order', 'notSearchable': true},
-                        {'name': 'Move', 'field':'order',
-                         'cellTemplate':'<div>' +
-                                        '<span class="item-icon icon icon-psw-up-arrow"></span>' +
-                                        '<span class="item-icon icon icon-psw-down-arrow"></span>' +
-                                    '</div>'
-                        },
                         {'name': $translate.instant('PORTAL_ADMIN.START_DATE'), 'field': 'getFormattedStartDate()', 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.END_DATE'), 'field': 'getFormattedEndDate()', 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.NAME'), 'field': 'subModule.subModuleName',
@@ -30,7 +24,7 @@ angular.module('mps.notifications')
                          'cellTemplate':'<div>' +
                             '<a href="#" ng-click="grid.appScope.delete(row.entity);" ' +
                             '>{{"PORTAL_ADMIN.DELETE_NOTIFICATION" | translate}}</a>' +
-                        '</div>', 'notSearchable': true}
+                        '</div>', 'notSearchable': true, 'enableSorting': false}
                     ]
                 },
 

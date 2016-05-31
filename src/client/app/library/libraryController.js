@@ -100,7 +100,7 @@ angular.module('mps.library')
             var tmp = files[0].name;
             var l = tmp.split('.').pop();
 
-            if($scope.allowedExtensions.indexOf(l) >= 0) {
+            if($scope.allowedExtensions.indexOf(l.toLowerCase()) >= 0) {
                 $scope.documentItem.extension = l;            
                 $scope.documentItem.name = tmp.slice(0, -(l.length+1));
             }

@@ -1,6 +1,13 @@
 <div class="page-header">
     <h1 translate="PORTAL_ADMIN.SIEBEL_VALUES"></h1>
     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span>
+
+    <div class="well" ng-if="showDeleted === true">
+        <p translate="PORTAL_ADMIN_SECTION.MANAGE_SIEBEL.TXT_SIEBEL_DELETED"></p>
+    </div>
+    <div class="well" ng-if="showEditted === true">
+        <p translate="PORTAL_ADMIN_SECTION.MANAGE_SIEBEL.TXT_SIEBEL_EDITTED"></p>
+    </div>
     <div class="col-1 btns">
         <button type="button" class="btn btn--default" href="" translate="PORTAL_ADMIN.ADD_NEW_SIEBEL_VALUE_BTN"
         	ng-click="goToCreate()"></button>

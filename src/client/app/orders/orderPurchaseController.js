@@ -276,6 +276,7 @@ angular.module('mps.orders')
                                 $location.search('tab', 'orderTab');
                                 $location.search('orderState', 'manageCurrentOrder');
                                 $location.path(Devices.route +'/' + Devices.item.id +'/review');
+                                Orders.backFrom = 'change';
                             },
                         },
                         po:{

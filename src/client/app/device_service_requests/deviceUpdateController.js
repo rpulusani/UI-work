@@ -273,6 +273,11 @@ angular.module('mps.serviceRequestDevices')
         }
 
         function configureReviewTemplate(){
+            if (Devices.updatingMultiple) {
+                for (var k=0; k < Devices.data.length; k += 1) {
+                    Devices.data[k].costCenter = $scope.device.costCenter;
+                }
+            }
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
             $scope.configure.actions.submit = function(){
               var i = 0,

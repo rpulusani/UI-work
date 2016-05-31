@@ -311,10 +311,23 @@ angular.module('mps.deviceManagement')
             if($scope.meterReads){
                 limit = $scope.meterReads.length;
                 var indColor=-1,indLTPC=-1,indMono=-1;
+                var meterReadType = "";
+                var colorMeterRead = null;
+                var ltpcMeterRead = null;
+                var otherColorMeterRead = null;
+                var otherLtpcMeterRead = null;
+                var ltpcMeterReadNameParts = [];
+                var colorMeterReadNameParts = [];
+                var mrNamePrefix = "";
+                var errorMessage = [];
+                var oldDate = null;
+                var meterReadCnt = 0;
+                var totalMRCount = $scope.meterReads.length;
                 for(i=0; i<limit; i+=1){
                     // ignore Mono reads since they can't be updated
                     // ignore reads that weren't updated
-
+                     errorMessage[i]='';
+                     
                      if ($scope.meterReads[i].type === 'MONO'){
                         indMono=i;
                      }else if ($scope.meterReads[i].type === 'COLOR'){
@@ -323,42 +336,146 @@ angular.module('mps.deviceManagement')
                         indLTPC=i;
                      }
 
-                    if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){
-                        // if a new value was added
-                        if ($scope.meterReads[i].newVal 
-                            && $scope.meterReads[i].newVal !== $scope.meterReads[i].value
-                            && pageCountHelper.isDigitPageCount($scope.meterReads[i].newVal)
-                            && $scope.meterReads[i].newVal > $scope.meterReads[i].value){
-                            $scope.meterReads[i].value = $scope.meterReads[i].newVal;
-                            $scope.meterReads[i].newVal = null;
-                        }else{
-                            $scope.errorMessage=$translate.instant('PAGE_COUNTS.ERROR.VALID_PAGECOUNT');
-                            return;
-                        }
-
-                     
-                        // if a new date was added
-                        if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                            $scope.meterReads[i].updateDate = FormatterService.formatLocalDateForPost($scope.meterReads[i].newDate);
-                            $scope.meterReads[i].newDate = null;
-                        } 
-
-                        updateMeterReads($scope.meterReads[i]);
+                    meterReadType = $scope.meterReads[i].type.toLowerCase();
+                    meterRead = $scope.meterReads[i];
+                    
+                    if(meterReadType === 'ltpc') {
+                        ltpcMeterRead = meterRead;
+                    }
+                    else if(meterReadType.indexOf('ltpc') >= 0) {
+                        otherLtpcMeterRead = meterRead;
+                        ltpcMeterReadNameParts = meterReadType.split("_");                                            
                     }
                     
-                }
+                    if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate){                        
+                                                
+                        if(meterReadType === 'color' || meterReadType === 'ltpc') {
+                            errorMessage[i] = validateCommonLtpcColorMR(meterRead.value, meterRead.newVal, $scope.meterReads[i].type);                            
 
+                            if(errorMessage[i].length > 0) {
+                                $scope.errorMessage = errorMessage[i];
+                                return;                         
+                            }
+
+                            if(meterReadType === 'color') {
+                                colorMeterRead = meterRead;                                
+                            }                                  
+                        }
+                        else if(meterReadType.indexOf('color') >= 0 || meterReadType.indexOf('ltpc') >= 0)
+                        {
+                            errorMessage[i] = validateCommonOtherMR(meterRead.value, meterRead.newVal, $scope.meterReads[i].type);
+
+                            if(errorMessage[i].length > 0) {
+                                $scope.errorMessage = errorMessage[i];
+                                return;                         
+                            }
+                            
+                            if(meterReadType.indexOf('color') >= 0) {
+                                otherColorMeterRead = meterRead;
+                                colorMeterReadNameParts = meterReadType.split("_");                          
+                            }
+                        }
+                        else {
+                            errorMessage[i] = validateCommonOtherMR(meterRead.value, meterRead.newVal, $scope.meterReads[i].type);
+
+                            if(errorMessage[i].length > 0) {
+                                $scope.errorMessage = errorMessage[i];
+                                return;                         
+                            }
+                        }
+                        if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null) {
+                            if(meterRead.updateDate) {
+                                oldDate = meterRead.updateDate;
+                            }
+                            else {
+                                oldDate = meterRead.createDate;
+                            }
+                            
+                            errorMessage[i] = validateMeterReadDate(oldDate, $scope.meterReads[i].newDate);
+
+                            if(errorMessage[i].length > 0) {
+                                $scope.errorMessage = errorMessage[i];
+                                return;                         
+                            }
+                        }
+                    }
+                    else if(!meterRead.newVal) {
+                        meterReadCnt++;
+                    } 
+                    
+                    if(colorMeterRead !== null && meterReadType === 'ltpc') {
+                        errorMessage[i] = validateRequiredLtpcColorMR(colorMeterRead, ltpcMeterRead, $scope.meterReads[i].type);
+                        
+                        if(errorMessage[i].length > 0) {
+                            $scope.errorMessage = errorMessage[i];
+                            return;                         
+                        } 
+                    }
+
+                    if(otherColorMeterRead !== null && meterReadType.indexOf('ltpc') >= 0 && colorMeterReadNameParts[0] === ltpcMeterReadNameParts[0]) {
+                        errorMessage[i] = validateRequiredOtherMR(otherColorMeterRead, otherLtpcMeterRead, $scope.meterReads[i].type);
+                        
+                        if(errorMessage[i].length > 0) {
+                            $scope.errorMessage = errorMessage[i];
+                            return;                         
+                        } 
+                    }
+                   
+                    if(errorMessage[i].length === 0) {
+                        if(meterReadType === 'ltpc' || meterReadType.indexOf('ltpc') >= 0) {
+                            if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate) {
+                                if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== null) {
+                                    $scope.meterReads[i].value = $scope.meterReads[i].newVal;
+                                    $scope.meterReads[i].newVal = null;
+                                }                              
+                                if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
+                                    $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
+                                    $scope.meterReads[i].newDate = null;
+                                }
+                                updateMeterReads($scope.meterReads[i]);
+                            }
+
+                            if($scope.meterReads[i-1].newVal || $scope.meterReads[i-1].newDate) {
+                                if($scope.meterReads[i-1].newVal && $scope.meterReads[i-1].newVal !== null) {
+                                    $scope.meterReads[i-1].value = $scope.meterReads[i-1].newVal;
+                                    $scope.meterReads[i-1].newVal = null;
+                                }
+                                if($scope.meterReads[i-1].newDate && $scope.meterReads[i-1].newDate !== null ) {
+                                    $scope.meterReads[i-1].updateDate = FormatterService.formatDateForPost($scope.meterReads[i-1].newDate);
+                                    $scope.meterReads[i-1].newDate = null;
+                                }                                
+                                updateMeterReads($scope.meterReads[i-1]);
+                            }
+                        }
+                        else if(meterReadType.indexOf('color') < 0 && meterReadType.indexOf('ltpc') < 0) {
+                            if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate) {
+                                if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== null) {
+                                    $scope.meterReads[i].value = $scope.meterReads[i].newVal;
+                                    $scope.meterReads[i].newVal = null;
+                                }                              
+                                if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
+                                    $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
+                                    $scope.meterReads[i].newDate = null;
+                                }
+                                updateMeterReads($scope.meterReads[i]);
+                            }
+                        }
+                    }                                     
+                }                
                
-                //Mono Calc goes here
+                //Mono Calc goes here                
                 if (indLTPC !== -1 && indColor !== -1 
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
                     $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
-                    $scope.meterReads[indMono].updateDate = FormatterService.formatLocalDateForPost(new Date());                   
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                    
                     updateMeterReads($scope.meterReads[indMono]);
-                }  
-                
-            }
+                }
 
+                if(meterReadCnt === totalMRCount) {
+                    $scope.errorMessage = "Please enter value at least in one page count type.";
+                    return; 
+                }      
+            }
         };
 
         function updateMeterReads(meterRead){
@@ -376,6 +493,104 @@ angular.module('mps.deviceManagement')
             }, function(reason){
                 NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
             });
+        }
+
+        function validateCommonLtpcColorMR(oldVal, newVal, meterReadType){
+            var errorMsg = "";
+            var warnMsg = "";
+            if(!newVal) {
+                errorMsg += meterReadType + " Page count value can not be blank.";
+            }
+            else if(!pageCountHelper.isDigitPageCount(newVal)) {
+                errorMsg += meterReadType + " Page count value must be numeric.";
+            }
+            else if(newVal < oldVal) {
+                errorMsg += meterReadType + " Meter Read value should be greater than or equal to previous value.";
+            }
+            else if((newVal - oldVal) > 50000) {
+                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too high).";
+            }
+            else if((newVal - oldVal) < 10) {
+                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too low).";
+            }
+            if(warnMsg.length > 0) {
+                $scope.errorMessage = warnMsg;
+            }
+            return errorMsg;
+        }
+
+        function validateCommonOtherMR(oldVal, newVal, meterReadType){
+            var errorMsg = "";
+            var warnMsg = "";
+            if(!newVal) {
+                errorMsg += meterReadType + " Page count value can not be blank.";
+            }
+            else if(!pageCountHelper.isDigitPageCount(newVal)) {
+                errorMsg += meterReadType + " Page count value must be numeric.";
+            }
+            else if(newVal < oldVal) {
+                errorMsg += meterReadType + " Meter Read value should be greater than or equal to previous value.";
+            }
+            else if((newVal - oldVal) > 50000) {
+                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too high).";
+            }
+            else if((newVal - oldVal) < 10) {
+                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too low).";
+            }
+            if(warnMsg.length > 0) {
+                $scope.errorMessage = warnMsg;
+            }
+            return errorMsg;
+        }
+
+        function validateRequiredLtpcColorMR(colorMR, ltpcMR, meterReadType){
+            var errorMsg = "";
+            if(colorMR.newVal && 
+                pageCountHelper.isDigitPageCount(colorMR.newVal) && 
+                (ltpcMR === null ||
+                !ltpcMR.newVal)) {
+                errorMsg += "For Color device, both a LTPC and Color Meter Read required.";
+            }
+            else if(colorMR.newVal && 
+                pageCountHelper.isDigitPageCount(colorMR.newVal) && 
+                ltpcMR !== null &&
+                ltpcMR.newVal &&
+                pageCountHelper.isDigitPageCount(ltpcMR.newVal) &&
+                (colorMR.newVal - colorMR.val) > (ltpcMR.newVal - ltpcMR.val)) {
+                errorMsg += "The Meter Read difference for Color cannot be greater than the Meter Read difference for LTPC.";
+            }
+            return errorMsg;
+        }
+
+        function validateRequiredOtherMR(colorMR, ltpcMR, meterReadType){
+            var errorMsg = "";
+            if(colorMR.newVal && 
+                pageCountHelper.isDigitPageCount(colorMR.newVal) && 
+                ltpcMR !== null && 
+                ltpcMR.newVal &&
+                pageCountHelper.isDigitPageCount(ltpcMR.newVal) &&
+                colorMR.newVal > ltpcMR.newVal) {
+                errorMsg += "The Meter Read difference for " + colorMR.type + " cannot be greater than the Meter Read difference for " + ltpcMR.type + ".";
+            }
+            else if(colorMR.newVal && 
+                pageCountHelper.isDigitPageCount(colorMR.newVal) && 
+                ltpcMR !== null && 
+                ltpcMR.value &&
+                pageCountHelper.isDigitPageCount(ltpcMR.value) &&
+                colorMR.newVal < ltpcMR.value) {
+                errorMsg += "The Meter Read difference for " + colorMR.type + " cannot be greater than the Meter Read difference for " + ltpcMR.type + ".";
+            }
+            return errorMsg;
+        }
+
+        function validateMeterReadDate(oldDate, newDate){
+            var errorMsg = "";
+            newDate = FormatterService.formatDateForPost(newDate);
+            
+            if(newDate < oldDate) {
+                errorMsg = "Date/Time selected should not be previous to last submitted date/time."
+            }
+            return errorMsg;
         }
 
         function setupPhysicalLocations(address, building, floor, office) {

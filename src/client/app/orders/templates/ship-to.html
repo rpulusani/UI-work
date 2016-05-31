@@ -1,3 +1,4 @@
+<div class="col-1" data-required="formatedShipToAddress{{formatedShipToAddress!='None'}}">
 <h3 translate="{{configure.order.shipTo.translate.shipToAddress}}"></h3>
 <div ng-show="scratchSpace.lexmarkInstallQuestion && scratchSpace.installAddresssSelected"
     class="form__field form__field--no-margin">
@@ -17,6 +18,7 @@
 <a ng-click="goToAddressShipToPicker(configure.shipToPicker.source, configure.shipToPicker.pickerObject)" href="#"
     ng-if="configure.order.shipTo.translate.shipToAction"
     translate="{{configure.order.shipTo.translate.shipToAction}}"></a>
+    </div>
 <div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
         <label translate="{{configure.order.shipTo.translate.building}}"></label>
         <input name="office" type="text" class="" value="" ng-model="sr.shipToAddressPhysicalLocation.physicalLocation1" />

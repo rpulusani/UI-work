@@ -2,15 +2,15 @@
 <h3 translate="PORTAL_ADMIN.NOTIFICATION_WHEN"></h3>
 <div class="row row--alley-thick">
 <div class="col-1-2">
-    <div class="form__field">
+    <div class="form__field form__field--required">
         <label translate="REPORTING.DATE_FROM"></label>
-        <input type="text" ng-model="notification.startDate" date-val="notification.startDate" datepicker />
+        <input type="text" required="" ng-model="notification.startDate" date-val="notification.startDate" datepicker />
     </div>
 </div>
 <div class="col-1-2">
-     <div class="form__field">
+     <div class="form__field form__field--required">
         <label translate="REPORTING.DATE_TO"></label>
-        <input type="text" ng-model="notification.endDate" date-val="notification.endDate" datepicker />
+        <input type="text" required="" ng-model="notification.endDate" date-val="notification.endDate" datepicker />
     </div>
 </div>
 </div>
@@ -18,14 +18,14 @@
 <div class="col-lg-2-3 col-md-1-1">
     <h3 translate="PORTAL_ADMIN.NOTIFICATION_COMMUNICATION"></h3>
 
-    <div class="form__field">
+    <div class="form__field form__field--required">
         <label translate="PORTAL_ADMIN.TITLE"></label>
-        <input name="title" type="text" class="" value="" ng-model="notification.subModule" />
+        <input name="title" type="text" class="" value="" ng-model="notification.subModule" required />
     </div>
 
-    <div class="form__field">
+    <div class="form__field form__field--required">
         <label translate="PORTAL_ADMIN.MESSAGE"></label>
-        <textarea name="message" type="text" rows="8" cols="129" ng-model="notification.actualValue"></textarea>
+        <textarea name="message" type="text" rows="8" cols="129" ng-model="notification.actualValue" required ></textarea>
     </div>
 
     <div class="form__field">

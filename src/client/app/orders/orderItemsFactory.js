@@ -1,8 +1,8 @@
 
 
 angular.module('mps.orders')
-.factory('OrderItems', ['serviceUrl', '$translate', 'HATEOASFactory', 'FormatterService','$filter',
-    function(serviceUrl, $translate, HATEOASFactory, formatter, $filter) {
+.factory('OrderItems', ['serviceUrl', '$translate', 'HATEOASFactory', 'FormatterService','$filter','BlankCheck',
+    function(serviceUrl, $translate, HATEOASFactory, formatter, $filter,BlankCheck) {
 
         var OrderItems = {
                 serviceName: 'orderItems',
@@ -125,10 +125,8 @@ angular.module('mps.orders')
                     // call out to some service
                     return tax;
                 },
-                formatTax: function(){
-                    var self = this;
-                    var tax = self.getTax();
-                    return formatter.formatPercentage(tax);
+                formatTax: function(tax){
+                	return formatter.formatPercent(tax);  
                 },
                 subTotal: function(){
                     var self = this,
