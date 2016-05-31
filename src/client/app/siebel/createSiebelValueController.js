@@ -4,6 +4,7 @@ angular.module('mps.siebel')
 .controller('CreateSiebelValueController', ['$scope', '$location', '$rootScope', 'SiebelValues', '$q', 'FormatterService', 'BlankCheck',
     function($scope, $location, $rootScope, SiebelValues, $q, FormatterService, BlankCheck) {
         $scope.siebelInfo = {};
+        $scope.isEditting = false;
 
         $scope.siebelOptions = [
             {key: 'SERVICE_STATUS', name:  'Service Status'},
