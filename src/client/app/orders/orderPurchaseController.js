@@ -55,7 +55,7 @@ angular.module('mps.orders')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         $scope.editable = false; //make order summary not actionable
-
+        $scope.errorAddress = false;
         $scope.isLoading = false;
         Orders.tempSpace.shipToAddress = (Devices.item._embedded.address === undefined)? Devices.item.address.item : Devices.item._embedded.address;
         $scope.scratchSpace = Orders.tempSpace;
@@ -147,6 +147,11 @@ angular.module('mps.orders')
 
             $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
             $scope.configure.actions.submit = function(){
+            	if(!$scope.scratchSpace.shipToAddresssSelected){
+            		$scope.errorAddress = true;
+            		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
+            		return;
+            	}
                 if(!$scope.isLoading){
                    $scope.isLoading = true;
                    if(Orders.item.requestedDeliveryDate){

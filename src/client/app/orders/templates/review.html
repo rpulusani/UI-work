@@ -4,6 +4,7 @@
         <h2 translate="{{configure.header.subHeader.translate.title}}" class="vertical-margin-bottom-0"></h2>
         <hr class="vertical-margin-bottom-48"/>
     </div>
+    <div error-msg ng-if="errorAddress"></div>
     <div order-account-detials class="vertical-margin-bottom-72"></div>
     <div order-content editable="{{editable}}"  taxable="taxable" submit-action="submit" datasource="orderItems"
     hide-submit="hideSubmitButton" configure="configure"></div>
