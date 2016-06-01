@@ -72,7 +72,7 @@ angular.module('mps.serviceRequestAddresses')
         }
 
         function configureReviewTemplate(){
-            $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_REVIEW_SUBMIT';
+            $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_SUBMIT_ADDRESS_REQUEST';
             $scope.configure.actions.submit = function(){
               if(!$scope.isLoading) {
                 $scope.isLoading = true;
@@ -153,7 +153,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.configure = {
                 header: {
                     translate: {
-                        h1: 'ADDRESS_MAN.ADD_ADDRESS.TXT_REVIEW_ADD_ADDRESS',
+                        h1: 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_INSTALL_ADDRESS',
                         body: 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_INSTALL_ADDRESS_PAR',
                         readMore: 'ADDRESS_MAN.COMMON.LNK_LEARN_MORE'
                     },

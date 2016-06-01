@@ -1,3 +1,4 @@
+<h4 translate="ADDRESS_MAN.COMMON.TXT_iDENTIFY_ADDRESS_QUERY"></h4>
 <div class="form__field form__field--required vertical-space--thick" ng-class="(!newAddress.addressName.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <input name="id" type="hidden" ng-model="address.id"/>
     <input name="accountId" type="hidden" ng-model="address.accountId"/>
@@ -5,7 +6,7 @@
     <input name="addressName" type="text" ng-model="address.name" required />
 </div>
 <div class="form__field vertical-space--thick">
-    <label class="question text--large" translate="ADDRESS_MAN.COMMON.TXT_STOREFRONT_ADDRESS_QUERY"></label>
+    <label title="{{'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_DELIVERY_NOTE' | translate }}" class="question text--large" translate="ADDRESS_MAN.COMMON.TXT_STOREFRONT_ADDRESS_QUERY"></label>
      <div class="form__field">
         <input type="radio" id="store-front-question-no" name="store-front-question"
         ng-model="address.storeFrontQuestion" ng-value="false"  />
@@ -31,7 +32,7 @@
     </div>
 </div>
 <div ng-show="!needToVerify">
-    <h4 translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_DETAILS"></h4>
+    <h4 translate="ADDRESS_SERVICE_REQUEST.LOCATION_OF_ADDRESS"></h4>
 
     <div country="address.country" code="address.countryIsoCode" state="address.state" country-select form="newAddress"></div>
    
