@@ -2,7 +2,7 @@
 angular.module('mps.utility')
 .factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', function($http, $q, $rootScope, serviceUrl, Users) {
     var PersonalizationServiceFactory = function(currentPageUri, userId) {
-        this.url = serviceUrl + 'user-preferences/';
+        this.url = 'https://venus-dev.lexmark.com/mps-portal/user-preferences/';
         this.currentPageUri = currentPageUri.replace(/\//g, '_');
         this.userId = userId;
     };
@@ -24,6 +24,16 @@ angular.module('mps.utility')
             }).then(function(res) {
                 $rootScope.$broadcast('personalizationSave');
 
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data, res);
+                } else if (res.status === 400) {
+                    self.update(key, dataObj).then(function(updateRes) {
+                         return deferred.resolve(updateRes, res);
+                    });
+                } else {
+                    return deferred.resolve(null, res);
+                }
+
                 return deferred.resolve(res);
             });
         });
@@ -42,11 +52,15 @@ angular.module('mps.utility')
 
             $http({
                 method: 'GET',
-                url: self.url + email
+                url: self.url + email + '/'
             }).then(function(res) {
                 $rootScope.$broadcast('personalizationGetAll');
 
-                return deferred.resolve(res);
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data.userPreferences);
+                } else {
+                    return deferred.resolve([], res);
+                }
             });
         });
 
@@ -66,7 +80,11 @@ angular.module('mps.utility')
                 method: 'GET',
                 url: self.url + email + '/' + key
             }).then(function(res) {
-                return deferred.resolve(res);
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data);
+                } else {
+                    return deferred.resolve(null, res);
+                }
             });
         });
 
@@ -89,8 +107,11 @@ angular.module('mps.utility')
                 data: dataObj
             }).then(function(res) {
                 $rootScope.$broadcast('personalizationUpdate');
-
-                return deferred.resolve(res);
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data);
+                } else {
+                    return deferred.resolve(null, res);
+                }
             });
         });
 
@@ -112,7 +133,11 @@ angular.module('mps.utility')
             }).then(function(res) {
                 $rootScope.$broadcast('personalizationRemove');
 
-                return deferred.resolve(res);
+                if (res.status === 200 || res.status === 201 || res.status === 202) {
+                    return deferred.resolve(true, res);
+                } else {
+                    return deferred.resolve(null, res);
+                }
             });
         });
 
