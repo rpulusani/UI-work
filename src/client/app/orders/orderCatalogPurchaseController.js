@@ -69,6 +69,12 @@ angular.module('mps.orders')
         $scope.errorAddress = false; // showing shiptoaddress error & billtoAddress error
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
+        if(Orders.tempSpace === undefined){
+        	// If the page is refreshed.
+        	$location.path('/orders');
+            $location.search('tab', 'orderAllTab');
+            return;
+        }
             $scope.scratchSpace = Orders.tempSpace;
             if($scope.scratchSpace && ($scope.scratchSpace.lexmarkInstallQuestion === undefined ||
                     $scope.scratchSpace.lexmarkInstallQuestion === null)){
