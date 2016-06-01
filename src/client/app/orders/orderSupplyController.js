@@ -52,8 +52,7 @@ angular.module('mps.orders')
     
     if(Devices.item){
         Agreement.params.type = 'SUPPLIES';
-        console.log('printing Devices item');
-        console.log(Devices.item);
+        
         if(!$rootScope.currentAccount){
         	$rootScope.currentAccount = {};
         }
