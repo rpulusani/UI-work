@@ -212,7 +212,7 @@ angular.module('mps.serviceRequestDevices')
                         },
                         contact: {
                             translate:{
-                                    title:'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
+                                    title:'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT',
                                     changeContactLink:'REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_CHANGE_CONTACT'
                             }
                         }
@@ -319,7 +319,7 @@ angular.module('mps.serviceRequestDevices')
                         value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
                     },
                     2: {
-                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                        value: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE'
                     }
                 };
             }

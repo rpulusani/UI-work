@@ -1,16 +1,16 @@
 <div class="set" data-js="set">
-    <div class="set__trigger" data-toggle="allPageCountTab" ng-click="active('allPageCountTab')">
+    <div class="set__trigger" data-toggle="allPageCountTab" ng-click="active('allPageCountTab')" ng-class="{'set--is-active':isActive('allPageCountTab')}">
         <a href="#allPageCountTab" 
         translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_ALL_PAGE_COUNTS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="allPageCountTab">
+    <div class="set__content" id="allPageCountTab" ng-class="{'set--is-active':isActive('allPageCountTab')}">
         <span all-page-count-tab ng-if="isActive('allPageCountTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="missingPageCountTab" ng-click="active('missingPageCountTab')">
+    <div class="set__trigger" data-toggle="missingPageCountTab" ng-click="active('missingPageCountTab')" ng-class="{'set--is-active':isActive('missingPageCountTab')}">
         <a href="#missingPageCountTab" 
         translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_MISSING_METER_READS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="missingPageCountTab" >
+    <div class="set__content" id="missingPageCountTab"  ng-class="{'set--is-active':isActive('missingPageCountTab')}">
         <span missing-page-count-tab ng-if="isActive('missingPageCountTab')"></span>
     </div>
 </div>

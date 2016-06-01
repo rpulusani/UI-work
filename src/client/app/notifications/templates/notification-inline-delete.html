@@ -1,0 +1,12 @@
+<div class="deleteConfirmation">
+    <div ng-hide="isDeleting">
+        <a href="#" ng-click="startDelete()" translate="PORTAL_ADMIN_SECTION.MANAGE_NOTIFICATION.LNK_DELETE_NOTIFICATION"></a>
+    </div>
+    <div ng-show="isDeleting">
+        <span class="text--small" translate="PORTAL_ADMIN_SECTION.MANAGE_NOTIFICATION.TXT_DELETE_CONFIRMATION"></span>
+        <span class="text--small" >
+            <a href="#" ng-click="cancelDelete()" translate="PORTAL_ADMIN_SECTION.MANAGE_NOTIFICATION.LNK_CANCEL_DELETE"></a>
+            <a href="#" ng-click="confirmDelete()" translate="PORTAL_ADMIN_SECTION.MANAGE_NOTIFICATION.LNK_CONFIRM_DELETE"></a>
+        </span>
+    </div>
+</div>
