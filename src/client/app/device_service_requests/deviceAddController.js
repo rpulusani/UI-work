@@ -319,7 +319,7 @@ angular.module('mps.serviceRequestDevices')
                         value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
                     },
                     2: {
-                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                        value: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE'
                     }
                 };
             }

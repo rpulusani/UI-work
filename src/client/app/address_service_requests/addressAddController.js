@@ -227,7 +227,7 @@ angular.module('mps.serviceRequestAddresses')
                         value: 'ADDRESS.TITLE'
                     },
                     2: {
-                        value: 'ADDRESS_MAN.ADD_ADDRESS.TXT_REVIEW_ADD_ADDRESS'
+                        value: 'ADDRESS_MAN.ADD_ADDRESS.TXT_ADD_INSTALL_ADDRESS'
                     }
                 }
             };

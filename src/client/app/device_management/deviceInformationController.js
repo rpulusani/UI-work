@@ -224,7 +224,7 @@ angular.module('mps.deviceManagement')
                 value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
             },
             2: {
-                value: Devices.item.productModel
+                value: Devices.item.serialNumber
             }
         };
 
