@@ -1,21 +1,24 @@
 <div class="set" data-js="set">
-	<div class="set__trigger" data-toggle="allInvoiceTab" ng-click="onClickTb('allInvoiceTab')">
+	<div class="set__trigger" data-toggle="allInvoiceTab" ng-click="onClickTb('allInvoiceTab')"
+		ng-class="{'set--is-active':isActive('allInvoiceTab')}">
 		<a href="#allInvoiceTab" translate="INVOICE.COMMON.ALL_INVOICES"><i class="set__icon"></i></a>
 	</div>
-	<div class="set__content" id="allInvoiceTab">
+	<div class="set__content" id="allInvoiceTab" ng-class="{'set--is-active':isActive('allInvoiceTab')}">
 		<div invoice-list ng-if="isActive('allInvoiceTab');"></div>
 	</div>
-	<div class="set__trigger" data-toggle="openInvoiceTab" ng-click="onClickTb('openInvoiceTab')">
+	<div class="set__trigger" data-toggle="openInvoiceTab" ng-click="onClickTb('openInvoiceTab')"
+		ng-class="{'set--is-active':isActive('openInvoiceTab')}">
 		<a href="#openInvoiceTab" translate="INVOICE.COMMON.OPEN_INVOICES"><i class="set__icon"></i></a>
 	</div>
-	<div class="set__content" id="openInvoiceTab">
+	<div class="set__content" id="openInvoiceTab" ng-class="{'set--is-active':isActive('openInvoiceTab')}">
 		<div invoice-list status="OPEN" ng-if="isActive('openInvoiceTab');"></div>
 	</div>
 
-	<div class="set__trigger" data-toggle="closedInvoiceTab" ng-click="onClickTb('closedInvoiceTab')">
+	<div class="set__trigger" data-toggle="closedInvoiceTab" ng-click="onClickTb('closedInvoiceTab')"
+		ng-class="{'set--is-active':isActive('closedInvoiceTab')}">
 		<a href="#closedInvoiceTab" translate="INVOICE.COMMON.CLOSED_INVOICES"><i class="set__icon"></i></a>
 	</div>
-	<div class="set__content" id="closedInvoiceTab">
+	<div class="set__content" id="closedInvoiceTab" ng-class="{'set--is-active':isActive('closedInvoiceTab')}">
 		<div invoice-list status="CLOSE" ng-if="isActive('closedInvoiceTab');"></div>
 	</div>
 </div>
