@@ -1,14 +1,14 @@
 <div class="set" data-js="set">
-    <div class="set__trigger" data-toggle="allUsers" ng-click="active('allUsers')">
+    <div class="set__trigger" data-toggle="allUsers" ng-click="active('allUsers')" ng-class="{'set--is-active':isActive('allUsers')}">
         <a href="#allUsers" translate="USER_MAN.MANAGE_USERS.TXT_TAB_ALL_USERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="allUsers">
+    <div class="set__content" id="allUsers" ng-class="{'set--is-active':isActive('allUsers')}">
         <span all-users-tab ng-if="isActive('allUsers')"></span>
     </div>
-    <div class="set__trigger" data-toggle="invitedUsers" ng-click="active('invitedUsers')">
+    <div class="set__trigger" data-toggle="invitedUsers" ng-click="active('invitedUsers')" ng-class="{'set--is-active':isActive('invitedUsers')}">
         <a href="#invitedUsers" translate="USER_MAN.MANAGE_USERS.TXT_TAB_INVITED_USERS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="invitedUsers" >
+    <div class="set__content" id="invitedUsers" ng-class="{'set--is-active':isActive('invitedUsers')}">
         <span invited-users-tab ng-if="isActive('invitedUsers')"></span>
     </div>
 </div>
