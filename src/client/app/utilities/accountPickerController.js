@@ -54,7 +54,7 @@ angular.module('mps.utility')
             },
             breadcrumbs: false
         };
-
+        
         $rootScope.$emit('refreshNav');
         $rootScope.$emit('toggleAccountNav');
 
@@ -95,7 +95,14 @@ angular.module('mps.utility')
         for (i; i < tAccts.length; i += 1) {
             Accounts.data[i] = tAccts[i];
         }
-
+        
+        if (Accounts.data.length === 1){
+        	if(Accounts.data[0].account.level.toUpperCase() === 'SIEBEL'){
+        		$rootScope.currentSelectedRow = Accounts.data[0]; 
+        		$scope.selectAccount();
+        	}
+        }
+        
         setTimeout(function() {
             Grid.display(Accounts, $scope, personal);
          }, 0);

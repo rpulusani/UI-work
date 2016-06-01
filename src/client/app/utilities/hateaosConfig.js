@@ -97,7 +97,7 @@ angular.module('mps.utility')
                                 acctLink = $rootScope.currentUser._links.accounts.href;
                             }
 
-                            self.updateCurrentAccount($rootScope.currentUser.accounts[0], acctLink);
+                            
                         }
 
                     }
