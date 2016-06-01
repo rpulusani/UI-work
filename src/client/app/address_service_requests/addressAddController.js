@@ -444,7 +444,8 @@ angular.module('mps.serviceRequestAddresses')
                     city: $scope.address.city,
                     state: $scope.address.state,
                     postalCode: $scope.address.postalCode,
-                    addressCleansedFlag: $scope.address.addressCleansedFlag
+                    addressCleansedFlag: $scope.address.addressCleansedFlag,
+                    houseNumber: $scope.address.houseNumber
                 };
 
                 ServiceRequest.addField('sourceAddress', sourceAddress);

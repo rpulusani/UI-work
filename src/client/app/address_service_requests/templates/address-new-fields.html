@@ -45,7 +45,7 @@
     </div>
     <div class="form__field form__field--required" ng-class="(!newAddress.city.$valid && validForm === false) ? 'form__field--has-alert' : ''">
         <label translate="ADDRESS_MAN.COMMON.TXT_CITY"></label>
-        <input name="city" type="text" ng-model="address.city" required city-valid/>
+        <input name="city" type="text" ng-model="address.city" required />
     </div>
     <div ng-show="address.country.toLowerCase() === 'brazil'"  class="form__field form__field--required">
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
