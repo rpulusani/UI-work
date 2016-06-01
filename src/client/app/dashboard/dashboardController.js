@@ -27,7 +27,7 @@ function(
     Reports,
     $translate
 ) {
-    HATEAOSConfig.getCurrentAccount().then(function() {
+    
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal),
         /* The 'bar' at the top of the homepage with SR counts */
@@ -35,8 +35,6 @@ function(
             ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
-                    accountId: $rootScope.currentAccount.accountId,
-                    accountLevel: $rootScope.currentAccount.accountLevel,
                         status:  ['SUBMITTED', 'IN_PROCESS', 'SHIPPED'],
                         'type': 'BREAK_FIX'
                 }
@@ -50,8 +48,6 @@ function(
             ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
-                    accountId: $rootScope.currentAccount.accountId,
-                    accountLevel: $rootScope.currentAccount.accountLevel,
                         status:  ['COMPLETED'],
                         'type': 'BREAK_FIX'
                 }
@@ -63,8 +59,6 @@ function(
             var options = {
                 preventDefaultParams: true,
                 params: {
-                    accountId: $rootScope.currentAccount.accountId,
-                    accountLevel: $rootScope.currentAccount.accountLevel,
                     status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
                     type: 'ORDERS_ALL'
                 }
@@ -85,8 +79,6 @@ function(
             var options = {
                 preventDefaultParams: true,
                 params: {
-                    accountId: $rootScope.currentAccount.accountId,
-                    accountLevel: $rootScope.currentAccount.accountLevel,
                         status:  ['COMPLETED'],
                         type: 'ORDERS_ALL'
                 }
@@ -105,8 +97,6 @@ function(
             ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
-                    accountId: $rootScope.currentAccount.accountId,
-                    accountLevel: $rootScope.currentAccount.accountLevel,
                     type: [
                         'MADC_ALL','DATA_ASSET_ALL'
                     ],
@@ -122,8 +112,6 @@ function(
             ServiceRequests.get({
                 preventDefaultParams: true,
                 params: {
-                    accountId: $rootScope.currentAccount.accountId,
-                    accountLevel: $rootScope.currentAccount.accountLevel,
                     type: [
                         'MADC_ALL','DATA_ASSET_ALL'
                     ],
@@ -375,11 +363,11 @@ function(
         // Calls to setup action bar
 
         setTimeout(function() {
-            if ($rootScope.currentAccount) {
+            
                 getSROpenCnt();
                 getSROrderCnt();
                 getSRMADCCnt();
-            }
+            
         }, 1500);
 
 
@@ -413,7 +401,7 @@ function(
         }, function(reason) {
             NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
         });
-    });
+   
 }]).filter('dateRangeFormat',function(){
     return function(text){
         var splitArr = text.split('/');
