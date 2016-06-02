@@ -6,6 +6,7 @@ angular.module('mps.utility')
     'Contacts',
     function($scope, $location, GridService, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
         Personalize, $controller, ImageService, Contacts) {
+        $rootScope.deviceToRegisterInPicker = angular.copy(Devices.item);
         $scope.selectedDevice = undefined;
         $rootScope.currentSelectedRow = undefined;
 
@@ -118,6 +119,9 @@ angular.module('mps.utility')
         Devices.getPage(0, 20, options).then(function() {
             $scope.itemCount = Devices.data.length;
             Grid.display(Devices, $scope, personal);
+            if(Devices.item.serialNumber === undefined){
+                $rootScope.devicesNotFoundInPicker = true;
+            }
         }, function(reason) {
             NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
         });
