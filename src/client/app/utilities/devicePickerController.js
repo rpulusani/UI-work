@@ -95,7 +95,7 @@ angular.module('mps.utility')
         var options = {};
         options = {
             params:{
-                embed:'contact'
+                embed:'address,contact,account'
             }
         };
         if ($rootScope.returnPickerObjectDevice && $rootScope.returnPickerObjectDevice.selectedDevice) {
