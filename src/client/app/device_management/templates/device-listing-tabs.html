@@ -1,8 +1,8 @@
 <div class="set" data-js="set">
-    <div id="deviceListTabOutter" class="set__trigger" data-toggle="deviceListTab">
+    <div id="deviceListTabOutter" class="set__trigger" data-toggle="deviceListTab" ng-click="active('deviceListTab')" ng-class="{'set--is-active':isActive('deviceListTab')}">
         <a href="#deviceListTab" translate="DEVICE_MAN.MANAGE_DEVICES.TAB_DEVICE_LIST"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="deviceListTab">
+    <div class="set__content" ng-click="active('deviceListTab')" id="deviceListTab" ng-class="{'set--is-active':isActive('deviceListTab')}">
     <div class="col-1">
         <div print-export-title titlestring="DEVICE_MAN.MANAGE_DEVICES.TXT_DEVICE_LISTING"></div>
         <hr/>
@@ -72,8 +72,8 @@
     </div>
     </div>
 
-    <div id="lbs" class="set__trigger" data-toggle="mapViewTab" ng-click="goToLBS()" ng-show="lbsAccess">
+    <div id="lbs" class="set__trigger" data-toggle="mapViewTab" ng-show="lbsAccess" ng-click="active('mapViewTab');goToLBS()"  ng-class="{'set--is-active':isActive('mapViewTab')}">
         <a  translate="DEVICE_MAN.MANAGE_DEVICES.TAB_MAP_VIEW"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="mapViewTab"></div>
+    <div class="set__content" id="mapViewTab" ng-click="active('mapViewTab');goToLBS()" ng-class="{'set--is-active':isActive('mapViewTab')}"></div>
 </div>

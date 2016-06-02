@@ -78,6 +78,8 @@ angular.module('mps.deviceManagement')
             $window.open(lbsURL);
             $timeout(function(){
                 $('#deviceListTabOutter a').click();
+                $scope.active('deviceListTab');
+                $('deviceListTabOutter').addClass('set--is-active');
             }, 0);
 
             return false;
@@ -214,6 +216,20 @@ angular.module('mps.deviceManagement')
                 $location.path(Devices.route + '/' + device.id + '/review');
             });
         };
+
+        $scope.active = function(value){
+            $rootScope.serviceTabSelected = value;
+        };
+
+        $scope.isActive = function(value){
+            var passed = false;
+            if($rootScope.serviceTabSelected === value){
+                passed = true;
+            }
+            return passed;
+        };
+
+        $scope.active('deviceListTab');
 
         var removeParamsList = ['bookmarkFilter', 'chlFilter', 'location', 'search', 'searchOn', 'addressId'];
 
