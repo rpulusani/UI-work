@@ -374,9 +374,9 @@ angular.module('mps.orders')
                 };
             }
         }
-
-        if (Devices.item && !BlankCheck.isNull(Devices.item['contact']['item'])){
-                $scope.formattedPrimaryContact = FormatterService.formatContact(Devices.item['contact']['item']);
+       
+        if (Devices.item && !BlankCheck.isNull(Devices.item['contact']['item'] === undefined ? Devices.item['contact'] : Devices.item['contact']['item'])){
+                $scope.formattedPrimaryContact = FormatterService.formatContact(Devices.item['contact']['item'] === undefined ? Devices.item['contact'] : Devices.item['contact']['item']);
         }
 
         if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
