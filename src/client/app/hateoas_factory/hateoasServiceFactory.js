@@ -266,11 +266,23 @@ angular.module('mps.hateoasFactory')
                     }).then(function(processedResponse) {
                         deferred.resolve();
 
-                        if(newService.rootUrl){
+                        if (newService.rootUrl){
                             newService.url = newService.rootUrl;
                             newService.rootUrl = undefined;
                         }
                     });
+                } else {
+                	 newService.get({
+                         page: newService.params.page,
+                         size: newService.params.size
+                     }).then(function(processedResponse) {
+                         deferred.resolve();
+
+                         if (newService.rootUrl){
+                             newService.url = newService.rootUrl;
+                             newService.rootUrl = undefined;
+                         }
+                     });
                 }
             });
 
