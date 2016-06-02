@@ -47,8 +47,9 @@ angular.module('mps.user')
             $scope.accountList.push(siebelAccount);
         } else {
             User.getLoggedInUserInfo().then(function() {
-                if (User.item._links.accounts) {
+            	if (User.item._links.accounts) {
                     if (angular.isArray(User.item._links.accounts)) {
+                    	console.log('in if f');
                         var promises = [],
                         options = {},
                         promise, deferred;
@@ -79,7 +80,11 @@ angular.module('mps.user')
                             }
                         });
                     } else {
+                    	$rootScope.currentAccount = {};
+                    	$rootScope.currentAccount.accountId = $rootScope.currentUser.accounts[0].accountId;
+                        $rootScope.currentAccount.accountLevel = $rootScope.currentUser.accounts[0].level;
                         User.getAdditional(User.item, Account).then(function() {
+                        	$rootScope.currentAccount = undefined;
                             if ($scope.accountList.length === 0) {
                                 $scope.accountList.push(Account.item);
                             }

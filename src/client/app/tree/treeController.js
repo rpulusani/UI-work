@@ -47,7 +47,7 @@ angular.module('mps.tree')
         }
 
         if ($scope.treeType && $scope.treeType === 'chl') {
-                if ($rootScope.currentAccount.accountLevel !== 'siebel') {
+                if (!$rootScope.currentAccount || ($rootScope.currentAccount && $rootScope.currentAccount.accountLevel !== 'siebel')) {
                     Users.getTransactionalAccounts().then(function(accounts) {
                         if(accounts._embedded && accounts._embedded.transactionalAccounts 
                             && accounts._embedded.transactionalAccounts.length > 0) {
