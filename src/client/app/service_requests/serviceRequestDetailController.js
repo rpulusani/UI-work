@@ -530,6 +530,7 @@ angular.module('mps.serviceRequests')
                     }
                 };
             $scope.configure.device.information.translate.installAddress = 'REPORTING.SERVICE_ADDRESS';
+            $scope.configure.detail.show.comments = false;
             break;
             case 'SUPPLIES_CATALOG_ORDER':
             case 'HARDWARE_ORDER':
