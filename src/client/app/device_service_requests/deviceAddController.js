@@ -39,6 +39,9 @@ angular.module('mps.serviceRequestDevices')
         $timeout,
         tombstoneWaitTimeout,
         SecurityHelper) {
+        if($rootScope.devicesNotFoundInPicker){
+            Devices.item = $rootScope.deviceToRegisterInPicker;
+        }
 		$rootScope.newDevice = undefined;
         $scope.isLoading = false;
         $rootScope.currentRowList = [];
