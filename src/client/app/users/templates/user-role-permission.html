@@ -3,9 +3,11 @@
 <div class="form__field form__field--select form__field--required">
     <label translate='USER_MAN.COMMON.TXT_BASE_ROLE'></label>
     <div selectric model="basicRole" 
+        data-required="basicRole{{basicRole.length>0}}"
         options="user.basicRoles" value="description" label="description" placeholder="{{'LABEL.COMMON.SELECT' | translate}}" 
         on-select="setPermissionsForBasic(option)">
     </div>
+    <input type="hidden" ng-model="basicRole" required />
 </div>
 <strong><label translate='USER_MAN.COMMON.TXT_ADDITIONAL_PERMISSIONS'></label></strong>
 <div class="well">
