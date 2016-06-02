@@ -1,14 +1,14 @@
 <div class="set" data-js="set">
-    <div class="set__trigger" data-toggle="userProfileTab" ng-click="active('userProfileTab')">
+    <div class="set__trigger" data-toggle="userProfileTab" ng-click="active('userProfileTab')" ng-class="{'set--is-active':isActive('userProfileTab')}">
         <a href="#userProfileTab" translate="USER_MAN.MANAGE_USERS.TXT_TAB_USER_PROFILE"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="userProfileTab">
+    <div class="set__content" id="userProfileTab" ng-class="{'set--is-active':isActive('userProfileTab')}">
         <span user-profile-tab ng-if="isActive('userProfileTab')"></span>
     </div>
-    <div class="set__trigger" data-toggle="accountAccessTab" ng-click="active('accountAccessTab')">
+    <div class="set__trigger" data-toggle="accountAccessTab" ng-click="active('accountAccessTab')" ng-class="{'set--is-active':isActive('accountAccessTab')}">
         <a href="#accountAccessTab" translate="USER_MAN.MANAGE_USERS.TXT_TAB_ACCOUNT_ACCESS"><i class="set__icon"></i></a>
     </div>
-    <div class="set__content" id="accountAccessTab" >
+    <div class="set__content" id="accountAccessTab" ng-class="{'set--is-active':isActive('accountAccessTab')}" >
         <span account-access-tab ng-if="isActive('accountAccessTab')"></span>
     </div>
 </div>

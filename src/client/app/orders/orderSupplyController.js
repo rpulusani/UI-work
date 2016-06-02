@@ -52,6 +52,13 @@ angular.module('mps.orders')
     
     if(Devices.item){
         Agreement.params.type = 'SUPPLIES';
+        
+        if(!$rootScope.currentAccount){
+        	$rootScope.currentAccount = {};
+        }
+        $rootScope.currentAccount.accountId = Devices.item._embedded.account.accountId; 
+        $rootScope.currentAccount.accountLevel = 'siebel';
+        
         Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
             Orders.tempSpace.catalogCart.agreement = Agreement.data[0];
             if(Orders.tempSpace.catalogCart.agreement.length == 1){
@@ -86,9 +93,11 @@ angular.module('mps.orders')
                     });
                     
                 });
+                $rootScope.currentAccount = undefined;
             });
 
         });
+        
     }
 
     $scope.selectRow = function(row){

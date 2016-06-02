@@ -77,6 +77,7 @@ angular.module('mps.filterSearch')
                 $scope.params['searchOn'] = $scope.searchBy.replace('_embedded.','');
                 $scope.showSearchMessage = true;
 
+                $scope.showGridSearch();
                 $scope.search($scope.params, paramsList);
             }else{
                 $scope.clearSearch();
@@ -92,7 +93,26 @@ angular.module('mps.filterSearch')
             $scope.showSearchMessage = false;
             $scope.searchByValue = '';
             $scope.params = {};
+            $scope.preventSearch();
             $scope.search($scope.params, paramsList);
+        };
+        
+        if($rootScope.mandatSearchGridContent !== undefined && $rootScope.mandatSearchGridContent !== null) {
+            $scope.mandatSearchGridContent = $rootScope.mandatSearchGridContent;
+            $rootScope.mandatSearchGridContent = null;
+        }
+        
+        $scope.preventSearch = function(){
+            if($scope.mandatSearchGridContent !== undefined && $scope.mandatSearchGridContent !== null) {
+                $scope.mandatSearchGridContent.hide();
+                return;
+            }
+        };
+
+        $scope.showGridSearch = function(){
+            if($scope.mandatSearchGridContent !== undefined && $scope.mandatSearchGridContent !== null) {
+                $scope.mandatSearchGridContent.show();
+            }
         };
     }
 ]);

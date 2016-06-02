@@ -74,7 +74,10 @@ angular.module('mps.orders')
                 };
                 $scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;
             }else{
-                $location.path('/');
+            	//If the page is refreshed.
+                $location.path('/orders');
+                $location.search('tab', 'orderAllTab');
+                return;
             }
                 if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
                     Orders.tempSpace.catalogCart.billingModels){

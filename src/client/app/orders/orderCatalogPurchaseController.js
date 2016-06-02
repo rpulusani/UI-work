@@ -69,6 +69,12 @@ angular.module('mps.orders')
         $scope.errorAddress = false; // showing shiptoaddress error & billtoAddress error
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
+        if(Orders.tempSpace === undefined){
+        	// If the page is refreshed.
+        	$location.path('/orders');
+            $location.search('tab', 'orderAllTab');
+            return;
+        }
             $scope.scratchSpace = Orders.tempSpace;
             if($scope.scratchSpace && ($scope.scratchSpace.lexmarkInstallQuestion === undefined ||
                     $scope.scratchSpace.lexmarkInstallQuestion === null)){
@@ -259,14 +265,14 @@ angular.module('mps.orders')
                     });
             }, 50);
 
-            $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
+            $scope.configure.actions.translate.submit = ($scope.type === "HARDWARE"? 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_HARDWARE' : 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES');
             $scope.configure.actions.submit = function(){
             	if(!$scope.scratchSpace.shipToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
             		return;
             	} 
-            	if(!$scope.scratchSpace.billToAddresssSelected){
+            	if( $scope.paymentMethod === 'payNow' && !$scope.scratchSpace.billToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
             		return;
@@ -417,7 +423,7 @@ angular.module('mps.orders')
                     cart: cart,
                     header: {
                         translate:{
-                            h1: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES',
+                            h1: ($scope.type === "HARDWARE"? 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_HARDWARE' : 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES'),
                             h1Values:{ },
                             body: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_SUPPLIES_PAR',
                             bodyValues: '',
@@ -504,7 +510,7 @@ angular.module('mps.orders')
                     actions:{
                         translate: {
                             abandonRequest:'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_ABANDON_SUPPLIES',
-                            submit: 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES'
+                            submit: ($scope.type === "HARDWARE"? 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_HARDWARE' : 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES')
                         },
                         submit: function() {
                             $location.path(Orders.route + '/' + $scope.device.id + '/review');

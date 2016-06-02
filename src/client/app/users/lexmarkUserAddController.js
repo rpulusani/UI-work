@@ -23,6 +23,7 @@ angular.module('mps.user')
             }
         };
 
+        $scope.csvModel = {};
         UserAdminstration.item.get(options).then(function(response){
             if (response.status === 200) {
                 $scope.newUser = false;
@@ -78,6 +79,24 @@ angular.module('mps.user')
                     }
                 }
             }
+
+            $scope.setCsvDefinition = function() {
+                var generateDataObj = function() {
+                     var obj = {
+                        shortName: $scope.user.shortName,
+                        email: $scope.user.email,
+                        firstName: $scope.user.firstName,
+                        lastName: $scope.user.lastName
+                    };
+                    return obj;
+                };
+
+                $scope.csvModel = {
+                    filename: $scope.user.email + '.csv',
+                    data: generateDataObj()
+                };
+            };
+            $scope.setCsvDefinition();
 
             User.getLoggedInUserInfo().then(function() {
                 if (User.item._links.accounts) {

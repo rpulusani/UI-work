@@ -46,7 +46,7 @@ angular.module('mps.orders')
         };
         var params =  {
             type: 'SUPPLIES_ORDERS_ALL',
-            embed: 'primaryContact,requester'
+            embed: 'primaryContact,requester,asset'
         };
 
         var removeParamsList = ['from', 'to', 'status', 'bookmarkFilter', 'requesterFilter'],

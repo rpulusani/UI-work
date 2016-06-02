@@ -416,7 +416,7 @@ angular.module('mps.serviceRequestAddresses')
                         value: 'ADDRESS.TITLE'
                     },
                     2: {
-                        value: $scope.address.id
+                        value: $scope.address.name
                     }
                 }
             };
