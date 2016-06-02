@@ -28,10 +28,7 @@
                     <div class="info-list__item-name" translate="{{configure.detail.translate.costCenter}}"></div>
                     <div class="info-list__item-value" ng-bind="formattedCostCenter"></div>
                 </li>
-                <li class="info-list__item" ng-show="configure.detail.show.comments">
-                    <div class="info-list__item-name" translate="{{configure.detail.translate.comments}}"></div>
-                    <div class="info-list__item-value" ng-bind="formattedNotes"></div>
-                </li>
+               
                 <li class="info-list__item" ng-show="configure.detail.show.attachements">
                     <div class="info-list__item-name" translate="{{configure.detail.translate.attachments}}"></div>
                     <div ng-repeat="file in sr.attachments">
