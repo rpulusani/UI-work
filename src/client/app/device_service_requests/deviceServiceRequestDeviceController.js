@@ -376,7 +376,7 @@ angular.module('mps.serviceRequestDevices')
                     },
                     show:{
                         referenceId: true,
-                        comments: true,
+                        comments: false,
                         attachements: true
                     }
                 },
