@@ -8,7 +8,7 @@
         <i ng-click="bookmark(device)" 
            ng-class="device.bookmarked === true ? 'icon icon--ui icon--favorite favorite' : 'icon icon--ui icon--not-favorite favorite' "></i></a>
 
-        <h1 ng-bind="device.item.machineType"></h1>
+        <h1 ng-bind="device.serialNumber"></h1>
         
         <div print-export-title csv-export="csvModel" pdf-export="pdfModel" titlestring="DEVICE_MAN.MANAGE_DEVICE.TXT_MANAGE_DEVICE"></div>
     </div>
