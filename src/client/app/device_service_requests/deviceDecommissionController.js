@@ -253,7 +253,7 @@ angular.module('mps.serviceRequestDevices')
                                     ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
                                     hostName: 'REQUEST_MAN.COMMON.TXT_HOSTNAME',
                                     installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
-                                    contact: 'DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_SUPPLIES_CONTACT'
+                                    contact: 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                             }
                         }
                     },
