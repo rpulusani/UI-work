@@ -6,12 +6,14 @@
     <div class="page-header">
         <div class="row">
             <div class="col-1 l-pad-before l-pad-after">
-                <div class="alert alert--info" data-js="alert" ng-if="showDashboardNotification">
+                <div class="alert alert--info" data-js="alert" ng-if="showDashboardNotification" >
                     <span class="alert__close" data-js="alert-close" aria-hidden="true" ng-click="hideDashboardNotification()">×</span>
-                    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
-                    <div class="alert__body">
-                        <span translate="DASHBOARD.NOTIFICATION"></span>
-                    </div>
+                    <div ng-repeat="n in filteredNotifications">
+	                    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+	                    <div class="alert__body">
+	                        <span>{{n.actualValue}}</span> 
+	                    </div>
+	                </div>
                 </div>
             </div>
         </div>
