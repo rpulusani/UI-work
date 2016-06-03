@@ -72,7 +72,10 @@ angular.module('mps.orders')
                     },
                     cart:Orders.tempSpace.catalogCart
                 };
-                $scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;
+                 if ($scope.type !== 'HARDWARE'){
+                	 $scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;
+                 }
+                
             }else{
             	//If the page is refreshed.
                 $location.path('/orders');
