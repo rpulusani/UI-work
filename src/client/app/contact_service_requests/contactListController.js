@@ -25,7 +25,7 @@ function(
     SRHelper,
     ServiceRequest
 ) {
-    var personal = new Personalize($location.url(), $rootScope.idpUser.id),
+	var personal = new Personalize($location.url(), $rootScope.idpUser.id),
     filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
     if(!$rootScope.addressContactAccess){
         new SecurityHelper($rootScope).confirmPermissionCheck("addressContactAccess");    
@@ -56,7 +56,7 @@ function(
 
     Contacts.alertState = false;
     var removeParamsList = ['location', 'search', 'searchOn'];
-    filterSearchService.addBasicFilter('CONTACT.ALL', undefined, removeParamsList,
+    filterSearchService.addBasicFilter('CONTACT.ALL', {consumables : true}, removeParamsList,
         function(Grid) {
             $scope.$broadcast('setupPrintAndExport', $scope);
 
