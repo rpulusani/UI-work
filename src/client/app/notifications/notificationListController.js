@@ -30,7 +30,7 @@ angular.module('mps.notifications')
         $rootScope.currentRowList = [];
         Notifications.setParamsToNull();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
-        filterSearchService = new FilterSearchService(Notifications, $scope, $rootScope, personal, 'defaultSet');
+        filterSearchService = new FilterSearchService(Notifications, $scope, $rootScope, personal, 'defaultSet', 90);
 
         $scope.showDeleted = false;        
         if(Notifications.item) { 
