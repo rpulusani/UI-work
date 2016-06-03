@@ -768,6 +768,22 @@ angular.module('mps.deviceManagement')
             });
         }
 
+        $scope.doNothing = function(event){   
+            var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+            if( keyCode == 13 ) {
+
+                if(!e) var e = event;
+
+                e.cancelBubble = true;
+                e.returnValue = false;
+
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+            }
+        };
+       
         if ($rootScope.serviceRequestMADCAccess) {
             setCsvDefinition();
             madcGrid();
