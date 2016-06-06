@@ -40,7 +40,7 @@
 <div class="form__field" ng-show="scratchSpace.shipToAddresssSelected">
         <label translate="{{configure.order.shipTo.translate.deliveryDate}}"></label>
         <input name="requestedDeliveryDate" type="text" ng-model="sr.requestedDeliveryDate"
-            date-val="sr.requestedDeliveryDate" datepicker />
+            date-val="sr.requestedDeliveryDate" datepicker min="min" time="true" time-interval="60" />
 </div>
 <div class="form__field" ng-show="scratchSpace.shipToAddresssSelected && scratchSpace.catalogCart.agreement.allowExpedite">
     <input id = "expediteOrder" name="expediteOrder" type="checkbox" ng-model="sr.expediteOrder"

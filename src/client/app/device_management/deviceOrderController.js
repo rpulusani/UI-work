@@ -63,7 +63,10 @@ angular.module('mps.deviceManagement')
                 itemUrl: function(){
                      $scope.view($scope.openOrder);
                 },
-                statusList: $scope.setStatusBar($scope.openOrder.status, $scope.openOrder.statusDate, statusBarLevels)
+                statusList: $scope.setStatusBar($scope.openOrder.status, $scope.openOrder.statusDate, statusBarLevels),
+                mostRecent : {
+                	date : FormatterService.formatDate($scope.openOrder.statusDate)
+                }
             };
         }
 

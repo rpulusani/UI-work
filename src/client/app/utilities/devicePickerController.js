@@ -137,7 +137,15 @@ angular.module('mps.utility')
                     readMoreUrl: $scope.readMoreUrl,
                     showCancelBtn: false
                 },
-                breadcrumbs: false
+                breadcrumbs: {
+                    1: {
+                        href: "/device_management",
+                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+                    },
+                    2: {
+                        value: "REQUEST_MAN.REQUEST_SELECT_DEVICE_REMOVAL.LNK_SELECT_DEVICE"
+                    } 
+                }
             };
         }
 

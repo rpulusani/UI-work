@@ -72,7 +72,10 @@ angular.module('mps.orders')
                     },
                     cart:Orders.tempSpace.catalogCart
                 };
-                $scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;
+                 if ($scope.type !== 'HARDWARE'){
+                	 $scope.maxQuantity = Orders.tempSpace.catalogCart.agreement.maxQuantity;
+                 }
+                
             }else{
             	//If the page is refreshed.
                 $location.path('/orders');
@@ -102,6 +105,17 @@ angular.module('mps.orders')
                         abandonRequest:'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
                             submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                 };
+                
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: "/orders",
+                        value: "ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS"
+                    },
+                    2: {
+                        value: "ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_ORDER"
+                    }
+                }
+
             }else if($scope.type  === 'SUPPLIES'){
                 $scope.configure.header = {
                     translate:{
@@ -113,6 +127,16 @@ angular.module('mps.orders')
                         abandonRequest:'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
                             submit: 'ORDER_MAN.COMMON.BTN_NEW_ORDER_SUBMIT'
                 };
+                
+                $scope.configure.breadcrumbs = {
+                    1: {
+                        href: "/orders",
+                        value: "ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS"
+                    },
+                    2: {
+                        value: "ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER"
+                    }
+                }
             }
             $scope.configure.modal = {
                     translate: {

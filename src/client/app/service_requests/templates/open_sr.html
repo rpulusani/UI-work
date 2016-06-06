@@ -1,6 +1,11 @@
 <div class="vertical-margin-48" ng-if="configure && configure.sr">
     <div class="col-1 ">
         <h2 translate="{{configure.translate.title}}" class="vertical-margin-bottom-0"></h2>
+        
+        <em>
+        <span translate-values="{lastUpdatedDate: configure.mostRecent.date, status:configure.sr.status}" 
+        translate="DEVICE_MANAGEMENT.HEADER.LAST_UPDATED"></span>
+        </em>
         <hr class="vertical-margin-bottom-0"/>
         <a href="" ng-click="actionLink(configure.actionLink);" translate="{{configure.translate.action}}"
             ng-if="configure.translate.action"></a>

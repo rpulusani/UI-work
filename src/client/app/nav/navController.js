@@ -133,7 +133,7 @@
                 i = 0;
 
                 $scope.selectedAccount = $rootScope.currentAccount;
-
+                $scope.selectedAccount.isDefault = false;
                 Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                     Security.setWorkingPermission(permissions);
 
@@ -169,15 +169,13 @@
             for (i; i < accts.length; i += 1) {
                 accts[i].isActive = false;
             }
-
-            $rootScope.currentAccount.refresh = true;
-
-            HATEAOSConfig.getCurrentAccount().then(function() {
-                $rootScope.currentAccount = angular.copy($rootScope.defaultAccount);
-                $rootScope.currentAccount.refresh = true;
+            $rootScope.currentAccount = {};
+         
+            $rootScope.currentUser.permissions.params = {};
+         
 
                 $scope.selectedAccount = $rootScope.currentAccount;
-
+                $scope.selectedAccount.isDefault = true;
                 i = 0;
                 Security.getPermissions($rootScope.currentUser).then(function(permissions) {
                     Security.setWorkingPermission(permissions);
@@ -207,7 +205,7 @@
                         }, 0);
                     }
                 });
-            });
+           
         };        
 
         if ($scope.items.length === 0) {

@@ -299,6 +299,15 @@ angular.module('mps.serviceRequestAddresses')
                 },
                 attachments:{
                     maxItems:2
+                },
+                breadcrumbs:{
+                   1: {
+                        href: '/service_requests/addresses',
+                        value: 'ADDRESS.TITLE'
+                    },
+                    2: {
+                        value: $scope.address.name
+                    }
                 }
             };
         }

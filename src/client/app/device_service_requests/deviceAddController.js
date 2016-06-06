@@ -316,11 +316,12 @@ angular.module('mps.serviceRequestDevices')
                         maxItems:2
                     }
                 };
+                $rootScope.preBreadcrumb = {
+                    href: '/device_management',
+                    value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
+                };
                 $scope.configure.breadcrumbs = {
-                    1: {
-                        href: '/device_management',
-                        value: 'DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES'
-                    },
+                    1: $rootScope.preBreadcrumb,
                     2: {
                         value: 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REGISTER_DEVICE'
                     }

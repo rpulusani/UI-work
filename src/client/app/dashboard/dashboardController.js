@@ -13,6 +13,7 @@ angular.module('mps.dashboard')
 'HATEAOSConfig',
 'Reports',
 '$translate',
+'Notifications',
 function(
     $scope,
     $location,
@@ -25,9 +26,37 @@ function(
     Orders,
     HATEAOSConfig,
     Reports,
-    $translate
+    $translate,
+    Notifications
 ) {
-    
+	
+		$scope.filteredNotifications = [];
+		
+		Notifications.get({
+			params:{
+				sort : 'order'
+			}			
+		}).then(function(res){			
+			$scope.filteredNotifications = [];
+			var i = 0,
+			currentTime = new Date().getTime(),
+			startTime,endTime;
+			for(;i<Notifications.data.length;i++){
+				
+				if (Notifications.data[i].startDate !== null && Notifications.data[i].endDate !== null){
+					startTime = new Date(Notifications.data[i].startDate).getTime();
+					endTime = new Date(Notifications.data[i].endDate).getTime();
+					
+					if(startTime <= currentTime && endTime >= currentTime){
+						$scope.filteredNotifications.push(Notifications.data[i]);
+					}
+				}				
+			}
+			if($scope.filteredNotifications.length === 0){
+				$scope.hideDashboardNotification();
+			}
+			
+		});
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal),
         /* The 'bar' at the top of the homepage with SR counts */

@@ -219,6 +219,15 @@ angular.module('mps.serviceRequestContacts')
                     readMoreUrl: '',
                     showCancelBtn: false
                 },
+                breadcrumbs:{
+                    1:{
+                        href:'/service_requests/contacts',
+                        value: 'CONTACT.TITLE'
+                    },
+                    2:{
+                        value: $scope.contact.firstName + ' ' + $scope.contact.lastName
+                    }
+                },
                 contactsr:{
                     translate: {
                         title: 'CONTACT_MAN.COMMON.TXT_CONTACT_INFORMATION'

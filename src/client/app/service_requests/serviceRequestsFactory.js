@@ -86,7 +86,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName', visible: false},
                         
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_1'), 'field': '_embedded.sourceAddress.addressLine1', visible: false},
-                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '', visible: false},
+                        {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': '_embedded.sourceAddress.houseNumber', visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_CITY'), 'field': '_embedded.sourceAddress.city', visible: false},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_STATE'), 'field': '_embedded.sourceAddress.state', visible: false},
                         {'name': $translate.instant('ADDRESS.PROVINCE'), 'field': '_embedded.sourceAddress.province', visible: false},

@@ -16,6 +16,8 @@ angular.module('mps.utility')
     'FilterSearchService',
     'SecurityService',
     'SecurityHelper',
+    '$filter',
+    '$window',
     function(
         $scope,
         $location,
@@ -31,7 +33,9 @@ angular.module('mps.utility')
         HATEOASConfig,
         FilterSearchService,
         SecurityService,
-        SecurityHelper
+        SecurityHelper,
+        $filter,
+        $window
     ) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Accounts, $scope, $rootScope, personal),
@@ -39,7 +43,31 @@ angular.module('mps.utility')
         tAccts = $rootScope.currentUser.transactionalAccount.data,
         i = 0,
         Security = new SecurityService();
-
+        
+        $scope.abc = Accounts;
+        $scope.searchFunctionDef = function(params, removeParams){
+        	
+        	var filterData = [],i=0;
+        	if(params.searchOn === undefined){
+        		filterData = Accounts.data;
+        	}else{
+        		for (;i<Accounts.data.length;i++){
+            		if(Accounts.data[i].account[params.searchOn].toLowerCase().indexOf(($window.decodeURIComponent(params.search)).toLowerCase()) != -1){
+            			filterData.push(Accounts.data[i]);
+            		}
+            	}	
+        	}
+        	
+        	if(filterData.length === 0){
+        		$scope.gridLoading = false;
+        	}
+        	$scope.gridDataCnt = filterData.length;
+        	$scope.gridOptions.data = filterData;
+        	$scope.pagination = {};
+        	$scope.pagination.totalItems = function (){ return $scope.gridDataCnt; };       	
+        	
+        };
+        
         Accounts.data = [];
 
         $scope.configure = {
@@ -52,7 +80,12 @@ angular.module('mps.utility')
                 readMoreUrl: '',
                 showCancelBtn: false
             },
-            breadcrumbs: false
+            breadcrumbs: {
+                1:$rootScope.preBreadcrumb,
+                2:{
+                    value:'ACCOUNT.BROWSE'
+                }
+            }
         };
         
         $rootScope.$emit('refreshNav');
@@ -91,11 +124,15 @@ angular.module('mps.utility')
         $scope.gridOptions = {};
         $scope.gridOptions.multiSelect = false;
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Users, personal);
-
+       
+        	Accounts.page.totalElements = $scope.gridDataCnt;
+       
+        
+         
         for (i; i < tAccts.length; i += 1) {
             Accounts.data[i] = tAccts[i];
         }
-        
+        $scope.gridDataCnt = Accounts.data.length;
         if (Accounts.data.length === 1){
         	if(Accounts.data[0].account.level.toUpperCase() === 'SIEBEL'){
         		$rootScope.currentSelectedRow = Accounts.data[0]; 

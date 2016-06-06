@@ -46,7 +46,16 @@ angular.module('mps.utility')
         $scope.gridOptions = {};
         $scope.gridOptions.multiSelect = false;
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-        Contacts.getPage().then(function() {
+        var filterParams = {};
+        
+        if ($routeParams.source === 'DeviceAdd' && $rootScope.currentSelected === 'updateDeviceContact'){
+           	filterParams.consumables = true;        	
+        }else {
+        	filterParams.consumables = false; 
+        }
+        Contacts.getPage(undefined,undefined,{
+        	params : filterParams
+        }).then(function() {	
             Grid.display(Contacts, $scope, personal);
         }, function(reason) {
             NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
@@ -63,8 +72,25 @@ angular.module('mps.utility')
                     readMoreUrl: '',
                     showCancelBtn: false
                 },
-                breadcrumbs: false
+                breadcrumbs:{
+                        1: {
+                            href: "/contacts",
+                            value: "CONTACT.TITLE"
+                        },
+                        2: {
+                            value: "DEVICE_SERVICE_REQUEST.CHANGE_CONTACT"
+                        } 
+                    }
             };
+
+            if($rootScope.preBreadcrumb){
+                $scope.configure.breadcrumbs={
+                        1: $rootScope.preBreadcrumb,
+                        2: {
+                            value: "DEVICE_SERVICE_REQUEST.CHANGE_CONTACT"
+                        } 
+                    }  
+            }
         }
 
     }
