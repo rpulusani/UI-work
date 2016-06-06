@@ -71,7 +71,7 @@ angular.module('mps.orders')
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'searchOn':'createDate', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', visible: false},
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
