@@ -68,7 +68,7 @@ angular.module('mps.orders')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'searchOn':'createDate', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'assetInfo.productModel'},
                         {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', visible: false},
@@ -76,8 +76,10 @@ angular.module('mps.orders')
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('ORDER_MGT.PO'), 'field':'purchaseOrderNumber', visible: false},
-                        {'name': $translate.instant('SERVICE_REQUEST.PRIMARY_CONTACT'), 'field': 'getFullRequestorName()',visible: false},
-                        {'name': $translate.instant('SERVICE_REQUEST.REQUESTOR_CONTACT'), 'field': 'getFullPrimaryName()', 'notSearchable': true, visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
+                        {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName', visible: false},
                         {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field': 'sourceAddress.addressLine1', visible: false},
