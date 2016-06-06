@@ -45,6 +45,27 @@ angular.module('mps.user')
                 $window.location.reload();
             });
         };
+
+        $scope.gridOptions.exporterFieldCallback = function(grid, row, col, value) {
+            if(col.name === $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT')) {
+                value = $scope.getAccountsExportValue(value);            
+            }
+            return value;
+        }
+
+        $scope.getAccountsExportValue = function(accounts) {
+            if(accounts && accounts.length){
+                var accountList = [], accountListStr = '';
+                var i=0;
+                for (i=0; i<accounts.length; i++) {
+                    accountList.push(accounts[i].name);
+                }
+                var accountListStr = accountList.join(", ");
+                return accountListStr;
+            }else{
+                return '';
+            }
+        };
     }
 ]);
 

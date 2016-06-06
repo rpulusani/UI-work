@@ -14,9 +14,10 @@ angular.module('mps.user')
                 defaultSet: [
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'), 
-                        'field': 'status',
+                        'field': 'active',
                         'cellTemplate': '<div ng-bind="row.entity.getFormattedStatus()"></div>', 
-                        'notSearchable':true
+                        'notSearchable':true,
+                        'searchOn': 'status'
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_CREATION_DATE'), 
@@ -34,14 +35,14 @@ angular.module('mps.user')
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
-                        'field': '', 
+                        'field': 'accounts', 
                         'cellTemplate': '<div ng-bind="row.entity.getAccounts()"></div>', 
                         'notSearchable':true,
                         'enableSorting':false
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 
-                        'field': '', 
+                        'field': '_embedded.roles', 
                         'cellTemplate': '<div ng-bind="row.entity.getRoles()"></div>', 
                         'notSearchable':true,
                         'enableSorting':false
@@ -54,9 +55,10 @@ angular.module('mps.user')
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
-                        'field': '', 
+                        'field': 'accounts', 
                         'cellTemplate': '<div ng-bind="row.entity.getAccounts()"></div>', 
-                        'notSearchable':true
+                        'notSearchable':true,
+                        'enableSorting':false
                     }
                 ],
                 invitedSet: [
