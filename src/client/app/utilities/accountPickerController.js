@@ -44,6 +44,7 @@ angular.module('mps.utility')
         i = 0,
         Security = new SecurityService();
         
+        $scope.abc = Accounts;
         $scope.searchFunctionDef = function(params, removeParams){
         	
         	var filterData = [],i=0;
@@ -51,7 +52,7 @@ angular.module('mps.utility')
         		filterData = Accounts.data;
         	}else{
         		for (;i<Accounts.data.length;i++){
-            		if(Accounts.data[i].account[params.searchOn].indexOf($window.decodeURIComponent(params.search)) != -1){
+            		if(Accounts.data[i].account[params.searchOn].toLowerCase().indexOf(($window.decodeURIComponent(params.search)).toLowerCase()) != -1){
             			filterData.push(Accounts.data[i]);
             		}
             	}	
@@ -62,8 +63,11 @@ angular.module('mps.utility')
         	}
         	$scope.gridDataCnt = filterData.length;
         	$scope.gridOptions.data = filterData;
+        	$scope.pagination = {};
+        	$scope.pagination.totalItems = function (){ return $scope.gridDataCnt; };       	
+        	
         };
-
+        
         Accounts.data = [];
 
         $scope.configure = {
@@ -121,7 +125,10 @@ angular.module('mps.utility')
         $scope.gridOptions.multiSelect = false;
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Users, personal);
        
+        	Accounts.page.totalElements = $scope.gridDataCnt;
+       
         
+         
         for (i; i < tAccts.length; i += 1) {
             Accounts.data[i] = tAccts[i];
         }

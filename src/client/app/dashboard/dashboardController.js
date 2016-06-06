@@ -53,7 +53,7 @@ function(
 				}				
 			}
 			if($scope.filteredNotifications.length === 0){
-				hideDashboardNotification();
+				$scope.hideDashboardNotification();
 			}
 			
 		});
