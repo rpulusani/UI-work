@@ -70,7 +70,7 @@ angular.module('mps.orders')
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
 
-        $scope.min = FormatterService.formatDateForRome(new Date());//This is used in date Picker
+        $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
 
         if(Orders.tempSpace === undefined){
         	// If the page is refreshed.

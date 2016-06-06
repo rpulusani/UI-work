@@ -61,8 +61,8 @@ angular.module('mps.orders')
         $scope.scratchSpace = Orders.tempSpace;
         $scope.type = 'SUPPLIES';
 
-        $scope.min = FormatterService.formatDateForRome(new Date());//This is used in date Picker
-
+        $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
+        
         var configureSR = function(Orders){
                 if(Orders.item && !Orders.item.description){
                     Orders.addField('description', '');
