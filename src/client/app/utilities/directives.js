@@ -268,4 +268,9 @@ angular.module('mps.utility')
 	        			'<icon class="alert__icon icon icon--small icon--ui icon--error"></icon>'+
 	        			'<div class="alert__body"><span>{{errorMessage}}</span></div></div>'
 	    };
+})
+.directive('adminHomeHeight',function(){
+     return function (scope, element, attrs) {
+        element.height($(document).height() - $('header').outerHeight() - $('footer').outerHeight() - 48);
+    }
 });
