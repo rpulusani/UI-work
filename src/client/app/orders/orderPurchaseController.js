@@ -60,6 +60,9 @@ angular.module('mps.orders')
         Orders.tempSpace.shipToAddress = (Devices.item._embedded.address === undefined)? Devices.item.address.item : Devices.item._embedded.address;
         $scope.scratchSpace = Orders.tempSpace;
         $scope.type = 'SUPPLIES';
+
+        $scope.min = FormatterService.formatDateForRome(new Date());//This is used in date Picker
+
         var configureSR = function(Orders){
                 if(Orders.item && !Orders.item.description){
                     Orders.addField('description', '');

@@ -69,6 +69,9 @@ angular.module('mps.orders')
         $scope.errorAddress = false; // showing shiptoaddress error & billtoAddress error
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
+
+        $scope.min = FormatterService.formatDateForRome(new Date());//This is used in date Picker
+
         if(Orders.tempSpace === undefined){
         	// If the page is refreshed.
         	$location.path('/orders');
