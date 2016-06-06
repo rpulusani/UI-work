@@ -227,6 +227,25 @@ angular.module('mps.utility')
                     breadcrumbs: false
                 };
             }
+            if($rootScope.preBreadcrumb){
+                $scope.configure.breadcrumbs={
+                    1: $rootScope.preBreadcrumb,
+                    2: {
+                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_ADDRESS_PICKER"
+                    } 
+                }
+            }
+            else{
+                $scope.configure.breadcrumbs={
+                    1: {
+                        href: "/device_management",
+                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
+                    },
+                    2: {
+                        value: "DEVICE_MAN.MANAGE_DEVICES.TXT_ADDRESS_PICKER"
+                    } 
+                }
+            }
         }
 
     }

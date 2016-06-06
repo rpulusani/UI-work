@@ -260,6 +260,18 @@ angular.module('mps.orders')
                         maxItems:2
                     }
                 };
+
+                $rootScope.preBreadcrumb = {
+                    href: "/orders",
+                    value: "ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS"
+                };
+                $scope.configure.breadcrumbs = {
+                    1: $rootScope.preBreadcrumb,
+                    2: {
+                        value: "ORDER_MAN.ORDER_SUPPLY_RETURN_REVIEW.TXT_TITLE"
+                    }
+                };
+                
             }
 
     function getRequestor(Order, Contacts) {

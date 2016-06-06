@@ -28,6 +28,10 @@ function(
     SecurityHelper,
     SRHelper
 ){
+    $rootScope.preBreadcrumb = {
+        href: "/orders",
+        value: "ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS"
+    }
     SRHelper.addMethods(Orders, $scope, $rootScope);
     //multi, none, single
     $scope.print = false;
@@ -142,6 +146,12 @@ function(
                     abandonRequest:'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_ABANDON_SUPPLIES',
                     submit: 'ORDER_CATALOGS.SUPPLIES_CATALOG.BTN_ORDER_SUBMINT_SUPPLIES'
             };
+            $scope.configure.breadcrumbs = {
+                1: $rootScope.preBreadcrumb,
+                2: {
+                    value: "ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER"
+                }
+            }
             $scope.catalog = 'supplies';
         }
 

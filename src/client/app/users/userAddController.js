@@ -26,6 +26,30 @@ angular.module('mps.user')
                 roleType: 'addon'
             }
         };
+        $rootScope.preBreadcrumb = {
+            href:'/delegated_admin',
+            value:'USER_MAN.MANAGE_USERS.TXT_MANAGE_USERS'
+        }
+        if ($location.path() === "/delegated_admin/invite_user") {
+            $scope.configure = {
+                breadcrumbs:{
+                    1: $rootScope.preBreadcrumb,
+                    2:{
+                        value:'USER_MAN.INVITE_USERS.TXT_INVITE_NEW_USERS'
+                    }
+                }
+            }
+        }
+        else{
+         $scope.configure = {
+            breadcrumbs:{
+                    1: $rootScope.preBreadcrumb,
+                    2:{
+                        value:'USER_MAN.CREATE_USER.TXT_CREATE_NEW_USER'
+                    }
+                }
+            }   
+        }
 
         Roles.get(addonRoleOptions).then(function() {
             if(Roles.data) {

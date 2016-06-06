@@ -76,7 +76,12 @@ angular.module('mps.utility')
                 readMoreUrl: '',
                 showCancelBtn: false
             },
-            breadcrumbs: false
+            breadcrumbs: {
+                1:$rootScope.preBreadcrumb,
+                2:{
+                    value:'ACCOUNT.BROWSE'
+                }
+            }
         };
         
         $rootScope.$emit('refreshNav');

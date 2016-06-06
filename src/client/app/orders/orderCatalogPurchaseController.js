@@ -324,6 +324,12 @@ angular.module('mps.orders')
                             }
                         };
                     $scope.configure.queued = false;
+                    $scope.configure.breadcrumbs = {
+                        1: $rootScope.preBreadcrumb,
+                        2: {
+                            value: "ORDER_MAN.HARDWARE_ORDER.TXT_REGISTER_DEVICE_SUBMITTED"
+                        }
+                    };
             }
             function setupConfigurationSupplies(){
                 $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
@@ -546,6 +552,26 @@ angular.module('mps.orders')
                         maxItems:2
                     }
                 };
+                $rootScope.preBreadcrumb = {
+                    href: "/orders",
+                    value: "ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS"
+                };
+                if($scope.type === 'SUPPLIES'){
+                    $scope.configure.breadcrumbs = {
+                        1: $rootScope.preBreadcrumb,
+                        2: {
+                            value: "ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_SUPPLIES_CATALOG_ORDER"
+                        }
+                    };
+                }
+                if($scope.type === 'HARDWARE'){
+                    $scope.configure.breadcrumbs = {
+                        1: $rootScope.preBreadcrumb,
+                        2: {
+                            value: "ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_REVIEW_HARDWARE"
+                        }
+                    };
+                }
         }
         function callTax(){
         	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 

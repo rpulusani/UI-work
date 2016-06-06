@@ -30,7 +30,10 @@ function(
     if(!$rootScope.addressContactAccess){
         new SecurityHelper($rootScope).confirmPermissionCheck("addressContactAccess");    
     }
-
+    $rootScope.preBreadcrumb ={
+            href:'/service_requests/contacts',
+            value: 'CONTACT.TITLE'
+        }
     SRHelper.addMethods(Contacts, $scope, $rootScope);
     ServiceRequest.reset();
 
