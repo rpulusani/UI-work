@@ -18,7 +18,7 @@
     "description": "NAVIGATION.LEFT_NAV.TXT_HOME",
     "icon": "icon icon-psw-home",
     "permissionFlag":"viewHomePage",
-    "tags":["primary"]
+    "tags":["primary", "admin"]
   },
     {
     "id": "3",
