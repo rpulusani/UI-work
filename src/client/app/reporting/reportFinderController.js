@@ -17,6 +17,7 @@ angular.module('mps.report')
             }
 
             Reports.setItem(report);
+            Reports.isRun = true;
 
             newRoute = Reports.route + '/' + Reports.item.id + '/results';
 
