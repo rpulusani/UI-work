@@ -6,6 +6,10 @@ angular.module('mps.user')
     function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration,
         Personalize, FilterSearchService, formatter) {
         $rootScope.currentRowList = [];
+        $rootScope.preBreadcrumb = {
+            href:'/delegated_admin',
+            value:'USER_MAN.MANAGE_USERS.TXT_MANAGE_USERS'
+        }
         $scope.lexmarkUserAccess = false;
         $scope.showUserUpdatedMessage = false;
         if(UserAdminstration.wasUpdated){

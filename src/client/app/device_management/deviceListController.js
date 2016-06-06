@@ -40,12 +40,12 @@ angular.module('mps.deviceManagement')
         filterSearchService = new FilterSearchService(Devices, $scope, $rootScope, personal);
 
         ServiceRequest.reset();
-
-        $scope.breadcrumbs = {
-            1: {
+        $rootScope.preBreadcrumb = {
                 href: "/device_management",
                 value: "DEVICE_MAN.MANAGE_DEVICES.TXT_MANAGE_DEVICES"
             }
+        $scope.breadcrumbs = {
+            1: $rootScope.preBreadcrumb
         };
 
         Devices.updatingMultiple = false;

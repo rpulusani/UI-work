@@ -309,5 +309,28 @@ angular.module('mps.library')
             $scope.documentItem.accountName = '';
             $scope.selectedLibraryAccounts = [];
         };
+        
+
+        if($location.path() === "/library/new"){
+            $scope.breadcrumbs = {
+                1:{
+                    href:'/library',
+                    value:'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY'
+                },
+                2:{
+                    value: 'DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_NEW_DOCUMENT'
+                }
+            }
+        }else{
+            $scope.breadcrumbs = {
+                1:{
+                    href:'/library',
+                    value:'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY'
+                },
+                2:{
+                    value: $scope.documentItem.name
+                }
+            }
+        }
     }
 ]);

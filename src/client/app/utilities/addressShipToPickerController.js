@@ -86,7 +86,13 @@ angular.module('mps.utility')
                     readMoreUrl: '',
                     showCancelBtn: false
                 },
-                breadcrumbs: false
+                breadcrumbs: {
+                        1: {href: "/orders",
+                            value: "ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS"},
+                        2: {
+                            value: "ORDER_MAN.ORDER_SELECT_SHIP_TO_ADDR.TXT_ORDER_ADDRESS_SELECTION"
+                        }
+                    }
             };
         }
 

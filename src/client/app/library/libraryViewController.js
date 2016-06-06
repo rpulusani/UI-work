@@ -140,6 +140,15 @@ angular.module('mps.library')
                 NREUM.noticeError('Failed to DOWNLOAD existing document library file: ' + response.statusText);
             });
         };
+        $scope.breadcrumbs = {
+            1:{
+                href:'/library',
+                value:'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY'
+            },
+            2:{
+                value: $scope.documentItem.name
+            }
+        }
     }
 ]);
 

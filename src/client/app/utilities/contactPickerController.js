@@ -71,8 +71,25 @@ angular.module('mps.utility')
                     readMoreUrl: '',
                     showCancelBtn: false
                 },
-                breadcrumbs: false
+                breadcrumbs:{
+                        1: {
+                            href: "/contacts",
+                            value: "CONTACT.TITLE"
+                        },
+                        2: {
+                            value: "DEVICE_SERVICE_REQUEST.CHANGE_CONTACT"
+                        } 
+                    }
             };
+
+            if($rootScope.preBreadcrumb){
+                $scope.configure.breadcrumbs={
+                        1: $rootScope.preBreadcrumb,
+                        2: {
+                            value: "DEVICE_SERVICE_REQUEST.CHANGE_CONTACT"
+                        } 
+                    }  
+            }
         }
 
     }

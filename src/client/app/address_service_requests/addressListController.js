@@ -34,7 +34,10 @@ function(
     if(!$rootScope.addressAccess){
         new SecurityHelper($rootScope).confirmPermissionCheck("addressAccess");    
     }
-
+    $rootScope.preBreadcrumb ={
+            href:'/service_requests/addresses',
+            value: 'ADDRESS.TITLE'
+        }
     $rootScope.currentRowList = [];
     $scope.visibleColumns = [];
 
