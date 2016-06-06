@@ -12,6 +12,7 @@ angular.module('mps.deviceManagement')
   'FilterSearchService',
   'SRControllerHelperService',
   '$anchorScroll',
+  'FormatterService',
     function(
       $scope,
       $translate,
@@ -23,7 +24,8 @@ angular.module('mps.deviceManagement')
       Devices,
       FilterSearchService,
       SRHelper,
-      $anchorScroll
+      $anchorScroll,
+      FormatterService
       ) {
         ServiceRequest.setParamsToNull();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
@@ -61,7 +63,10 @@ angular.module('mps.deviceManagement')
             itemUrl: function(){
               $scope.view($scope.openSR);
             },
-            statusList: $scope.setStatusBar($scope.openSR.status, $scope.openSR.statusDate, statusBarLevels)
+            statusList: $scope.setStatusBar($scope.openSR.status, $scope.openSR.statusDate, statusBarLevels),
+            mostRecent : {
+                	date : FormatterService.formatDate($scope.openSR.statusDate)
+                }
           };
         }
 

@@ -72,7 +72,7 @@ angular.module('mps.serviceRequests')
         };
         $scope.goToAddressCreate = function(){
         	 Addresses.item = undefined;
-             ServiceRequest.reset();
+        	 ServiceRequest.newMessage();
              $location.path('/service_requests/addresses/new');
         };
         $scope.goToServiceCreate = function(){
