@@ -46,15 +46,16 @@ angular.module('mps.utility')
         $scope.gridOptions = {};
         $scope.gridOptions.multiSelect = false;
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-        var filterParams;
-        if ($routeParams.source === 'DeviceAdd'){
-        	filterParams = {
-        			consumables : true
-        	}
+        var filterParams = {};
+        
+        if ($routeParams.source === 'DeviceAdd' && $rootScope.currentSelected === 'updateDeviceContact'){
+           	filterParams.consumables = true;        	
+        }else {
+        	filterParams.consumables = false; 
         }
         Contacts.getPage(undefined,undefined,{
         	params : filterParams
-        }).then(function() {
+        }).then(function() {	
             Grid.display(Contacts, $scope, personal);
         }, function(reason) {
             NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
