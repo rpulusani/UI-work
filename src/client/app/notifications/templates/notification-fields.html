@@ -4,13 +4,16 @@
 <div class="col-1-2">
     <div class="form__field form__field--required">
         <label translate="REPORTING.DATE_FROM"></label>
-        <input type="text" required="" ng-model="notification.startDate" date-val="notification.startDate" datepicker />
+        <input type="text" required="" ng-model="notification.startDate" date-val="notification.startDate" datepicker min="min" time="true" time-interval="60" />
     </div>
 </div>
 <div class="col-1-2">
      <div class="form__field form__field--required">
         <label translate="REPORTING.DATE_TO"></label>
-        <input type="text" required="" ng-model="notification.endDate" date-val="notification.endDate" datepicker />
+        <input type="text" required="" ng-model="notification.endDate" date-val="notification.endDate" datepicker min="min" time="true" time-interval="60" />
+        <span ng-show="isDateValidated === false"
+        class="form__field__helper-text form__field__helper-text--alert">
+        <i class="icon icon--ui icon--error-small"></i> {{ 'PORTAL_ADMIN_SECTION.MANAGE_NOTIFICATION.DATE_VALIDATION_ERROR' | translate}}</span>
     </div>
 </div>
 </div>
