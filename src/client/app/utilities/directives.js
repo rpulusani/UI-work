@@ -273,4 +273,9 @@ angular.module('mps.utility')
      return function (scope, element, attrs) {
         element.height($(document).height() - $('header').outerHeight() - $('footer').outerHeight() - 48);
     }
+})
+.directive('blankPageHeight',function(){
+     return function (scope, element, attrs) {
+        element.height($('.site-content').height() - $('footer').outerHeight());
+    }
 });

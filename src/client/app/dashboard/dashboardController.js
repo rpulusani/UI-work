@@ -14,6 +14,7 @@ angular.module('mps.dashboard')
 'Reports',
 '$translate',
 'Notifications',
+'FormatterService',
 function(
     $scope,
     $location,
@@ -27,19 +28,22 @@ function(
     HATEAOSConfig,
     Reports,
     $translate,
-    Notifications
+    Notifications,
+    FormatterService
 ) {
 	
 		$scope.filteredNotifications = [];
 		
 		Notifications.get({
 			params:{
-				sort : 'order'
+				sort : 'order',
+				page : 0,
+				size : 1000
 			}			
 		}).then(function(res){			
 			$scope.filteredNotifications = [];
 			var i = 0,
-			currentTime = new Date().getTime(),
+			currentTime = new Date(FormatterService.getDateWithoutTime(new Date())).getTime(),
 			startTime,endTime;
 			for(;i<Notifications.data.length;i++){
 				

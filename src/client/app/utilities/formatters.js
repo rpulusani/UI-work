@@ -158,6 +158,9 @@ angular.module('mps.utility')
                     if (BlankCheck.checkNotBlank(address.addressLine2)){
                         formattedAddress += address.addressLine2 + '<br/>';
                     }
+                    if (BlankCheck.checkNotBlank(address.houseNumber)){
+                        formattedAddress += address.houseNumber + '<br/>';
+                    }
                     if (BlankCheck.checkNotBlank(address.city)){
                         formattedAddress = formattedAddress + address.city;
                         if (!BlankCheck.checkNotBlank(address.postalCode) && !BlankCheck.checkNotBlank(address.state)) {
@@ -294,6 +297,13 @@ angular.module('mps.utility')
                     return '';
                 }
                 return new Date(dateToBeFormatted.replace(/\s/, 'T')+'Z');
+            },
+            getDateWithoutTime : function(d){
+            	// d - should be date object..
+            	if(d === null){
+            		return '';            		
+            	}
+            	return d.getFullYear()+ '-'+ (d.getMonth()<10?('0'+(d.getMonth()+1)):d.getMonth())+'-' + (d.getDate()<10?('0'+d.getDate()):d.getDate());
             },
             formatAddresswoPhysicalLocation: function(address){
                 var formattedAddress = '';

@@ -42,6 +42,10 @@ angular.module('mps.orders')
             }
          
         }
+        $rootScope.preBreadcrumb = {
+                href:'/orders',
+                value:'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+        }
     }
 ]);
 

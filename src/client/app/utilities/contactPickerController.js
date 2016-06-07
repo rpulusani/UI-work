@@ -4,6 +4,9 @@ angular.module('mps.utility')
 .controller('ContactPickerController', ['$scope', '$location', '$controller', '$routeParams', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
     'PersonalizationServiceFactory',
     function($scope, $location, $controller, $routeParams, GridService, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
+        if($rootScope.contactRequestFor === undefined){
+            $rootScope.contactRequestFor = angular.copy($rootScope.currentSelected);
+        }
         $scope.selectedContact = [];
         $rootScope.currentRowList = [];
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
@@ -33,6 +36,10 @@ angular.module('mps.utility')
         };
 
         $scope.goToCallingPage = function(){
+            if($rootScope.currentSelected === undefined){
+                $rootScope.currentSelected = $rootScope.contactRequestFor;
+            }
+            $rootScope.contactRequestFor = undefined;
             $location.path($rootScope.contactReturnPath);
         };
 

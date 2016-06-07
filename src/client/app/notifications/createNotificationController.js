@@ -5,6 +5,9 @@ angular.module('mps.notifications')
     function($scope, $location, $rootScope, Notifications, $q, FormatterService, BlankCheck) {
         $scope.notificationLength = 0;
         $scope.notificationInfo = {};
+        $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
+        $scope.isDateValidated = "";
+
         Notifications.get().then(function(){
             $scope.notificationLength = parseInt(Notifications.data.length) + 1;
         });
@@ -18,10 +21,10 @@ angular.module('mps.notifications')
             Notifications.addField('module', 'NOTIFICATION');
             Notifications.addField('subModule', $scope.notification.subModule);
             if (BlankCheck.checkNotBlank($scope.notification.startDate)) {
-                Notifications.addField('startDate', FormatterService.formatDateForAdmin($scope.notification.startDate));
+                Notifications.addField('startDate', FormatterService.formatDateForPost($scope.notification.startDate));
             }
             if (BlankCheck.checkNotBlank($scope.notification.endDate)) {
-                Notifications.addField('endDate', FormatterService.formatDateForAdmin($scope.notification.endDate));
+                Notifications.addField('endDate', FormatterService.formatDateForPost($scope.notification.endDate));
             }
             Notifications.addField('actualValue', $scope.notification.actualValue);
             Notifications.addField('order', $scope.notificationLength);
@@ -30,6 +33,10 @@ angular.module('mps.notifications')
         };
 
         $scope.save = function() {
+            $scope.checkNotificationDates();
+            if(!$scope.isDateValidated) {
+                return false;
+            }
             updateNotificationObjectForSubmit();
             Notifications.item.postURL = Notifications.url;
             var deferred = Notifications.post({
@@ -41,6 +48,15 @@ angular.module('mps.notifications')
             }, function(reason){
                 NREUM.noticeError('Failed to create Notification because: ' + reason);
             });
+        };
+        
+        $scope.checkNotificationDates = function(){
+            if($scope.notification.endDate && $scope.notification.startDate) {
+                $scope.isDateValidated = false;
+                if($scope.notification.endDate >= $scope.notification.startDate){
+                    $scope.isDateValidated = true;
+                }
+            }
         };
     }
 ]);

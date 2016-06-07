@@ -6,6 +6,9 @@ angular.module('mps.notifications')
     function($scope, $location, $rootScope, Notifications, $q, FormatterService, BlankCheck, $http) {
         $scope.notificationLength = 0;
         $scope.notificationInfo = {};
+        $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
+        $scope.isDateValidated = "";
+        
         var redirect_to_list = function() {
            $location.path(Notifications.route + '/');
         };
@@ -33,10 +36,10 @@ angular.module('mps.notifications')
             Notifications.addField('module', $scope.notification.module);
             Notifications.addField('subModule', $scope.notification.subModule);
             if (BlankCheck.checkNotBlank($scope.notification.startDate)) {
-                Notifications.addField('startDate', FormatterService.formatDateForAdmin($scope.notification.startDate));
+                Notifications.addField('startDate', FormatterService.formatDateForPost($scope.notification.startDate));
             }
             if (BlankCheck.checkNotBlank($scope.notification.endDate)) {
-                Notifications.addField('endDate', FormatterService.formatDateForAdmin($scope.notification.endDate));
+                Notifications.addField('endDate', FormatterService.formatDateForPost($scope.notification.endDate));
             }
             Notifications.addField('actualValue', $scope.notification.actualValue);
             Notifications.addField('order', $scope.notification.order);
@@ -45,6 +48,10 @@ angular.module('mps.notifications')
         };
 
         $scope.update = function() {
+            $scope.checkNotificationDates();
+            if(!$scope.isDateValidated) {
+                return false;
+            }
             updateNotificationObjectForUpdate();
             Notifications.item.postURL = Notifications.url + '/' + $scope.notificationInfo.key;
             var options = {
@@ -70,6 +77,15 @@ angular.module('mps.notifications')
             }, function(response) {
                 NREUM.noticeError('Failed to DELETE notification: ' + response.statusText);
             });
+        };
+
+        $scope.checkNotificationDates = function(){
+            if($scope.notification.endDate && $scope.notification.startDate) {
+                $scope.isDateValidated = false;
+                if($scope.notification.endDate >= $scope.notification.startDate){
+                    $scope.isDateValidated = true;
+                }
+            }
         };
     }
 ]);

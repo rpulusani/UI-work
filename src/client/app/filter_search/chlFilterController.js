@@ -12,7 +12,7 @@ angular.module('mps.filterSearch')
                 }
                 var chl = selectedList.join();
                 $scope.params['chlFilter'] = chl;
-                $scope.filterDef($scope.params, ['bookmarkFilter', 'location', 'status', 'from', 'to', 'requesterFilter']);
+                $scope.filterDef($scope.params, ['bookmarkFilter', 'location', 'status', 'from', 'to', 'requesterFilter', 'source']);
             }
         };
 
@@ -21,7 +21,7 @@ angular.module('mps.filterSearch')
                 $scope.params = {};
                 $scope.$broadcast('deselectAll');
                 $scope.noOfSelected = 0;
-                $scope.filterDef($scope.params, ['bookmarkFilter', 'chlFilter', 'location', 'status', 'from', 'to', 'requesterFilter']);
+                $scope.filterDef($scope.params, ['bookmarkFilter', 'chlFilter', 'location', 'status', 'from', 'to', 'requesterFilter', 'source']);
             }
         };
     }

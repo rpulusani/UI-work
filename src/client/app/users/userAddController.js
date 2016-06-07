@@ -4,7 +4,7 @@ angular.module('mps.user')
         function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration, HATEAOSConfig, AllAccounts) {
 
         $scope.templateUrl = UrlHelper.user_template;
-
+        $scope.addUser = true;
         $scope.user_info_active = true;
         $scope.account_access_active = false;
         $scope.user = {};
