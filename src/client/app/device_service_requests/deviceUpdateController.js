@@ -276,6 +276,12 @@ angular.module('mps.serviceRequestDevices')
             if (Devices.updatingMultiple) {
                 for (var k=0; k < Devices.data.length; k += 1) {
                     Devices.data[k].costCenter = $scope.device.costCenter;
+                    if($rootScope.currentSelected === 'updateDeviceContact')
+                        $scope.configure.updatingMultiple[k]._embedded.contact = $rootScope.selectedContact;
+
+                }
+                if($rootScope.currentSelected === 'updateRequestContact'){
+                    $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 }
             }
                 $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
