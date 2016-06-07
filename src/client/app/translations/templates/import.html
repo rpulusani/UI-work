@@ -24,7 +24,21 @@
 
                 <div class="l-pad-top">
                     <hr />
+                    <button name="cancel"
+                        class="btn btn--secondary"
+                        data-js="modalOpen"
+                        data-target="#cancel"
+                        translate="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.BTN_ABANDON_IMPORT"
+                    ></button>
                     <button class="btn" ng-click="importLanguage(languageImportForm)" type="submit" translate="PORTAL_ADMIN.IMPORT_TRANSLATION_BTN"></button>
+
+                    <div confirm-cancel
+                        title="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.TITLE_IMPORT_ABANDON_MODAL"
+                        body="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.BODY_IMPORT_ABANDON_MODAL"
+                        cancel="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.ABANDON_IMPORT_MODAL_CANCEL"
+                        confirm="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.ABANDON_IMPORT_MODAL_CONFIRM"
+                        return-path="/translations"
+                    ></div>
                 </div>
             </form>
         </div>
