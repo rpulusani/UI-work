@@ -136,7 +136,7 @@
     "text": "NAVIGATION.FOOTER.TXT_GET_HELP",
     "description": "NAVIGATION.FOOTER.TXT_GET_HELP",
     "icon": "icon icon--lxk-ui icon--error",
-    "tags": ["footer"]
+    "tags": []
   },
   {
     "id": "16",
