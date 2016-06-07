@@ -101,6 +101,8 @@ angular.module('mps.orders')
             function configureReceiptTemplate(){
                 var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
                 $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
+                
+                
                 if($routeParams.queued ==='queued'){
                     $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                         $scope.configure.header.translate.h1Values = {
@@ -350,6 +352,7 @@ angular.module('mps.orders')
                 if(Orders.item){
                     $scope.formattedReason = Formatter.formatNoneIfEmpty(OrderTypes.getDisplay(Orders.item.type));
                     $scope.formattedDescription = Formatter.formatNoneIfEmpty(Orders.item.description);
+                    $scope.formattedAddress = Formatter.formatAddress(Orders.tempSpace.address);
                 }
             });
         }

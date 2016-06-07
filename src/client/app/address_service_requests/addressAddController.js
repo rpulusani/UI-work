@@ -252,7 +252,8 @@ angular.module('mps.serviceRequestAddresses')
                         city: $scope.address.city,
                         state:  $scope.address.state,
                         country: $scope.address.country,
-                        postalCode: $scope.address.postalCode
+                        postalCode: $scope.address.postalCode,
+                        houseNumber: $scope.address.houseNumber
                     };
                     Addresses.verifyAddress($scope.enteredAddress, function(statusCode, bodsData) {
                         if (statusCode === 200) {

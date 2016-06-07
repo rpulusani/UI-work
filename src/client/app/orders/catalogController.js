@@ -25,6 +25,7 @@ angular.module('mps.orders')
     '$q',
     'SuppliesCatalogFactory',
     'OrderControllerHelperService',
+    'AccessoriesCatalogFactory',
     function(
         $scope,
         $location,
@@ -48,7 +49,8 @@ angular.module('mps.orders')
         Personalize,
         $q,
         SuppliesCatalog,
-        OrderControllerHelper) {
+        OrderControllerHelper,
+        AccessoriesCatalogFactory) {
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
             $scope.type = $routeParams.type.toUpperCase();
@@ -61,7 +63,7 @@ angular.module('mps.orders')
             $scope.submit = function(){
                 $location.path(OrderItems.route + '/catalog/' + $routeParams.type + '/review');
             };
-
+            
             if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart && Orders.tempSpace.catalogCart.agreement){
                  $scope.configure = {
                      actions:{
@@ -195,7 +197,22 @@ angular.module('mps.orders')
                         filterSearchService.addBasicFilter('all device packages', params, {});
                     break;
                     case  'ACCESSORIES':
-                    break;
+                    	beforeDisplay = function(){
+	                        var deferred = $q.defer();
+	                        AccessoriesCatalogFactory.getThumbnails();
+	                         $q.all(AccessoriesCatalogFactory.thumbnails).then(function(){
+	                            deferred.resolve();
+	                         });
+	                        return deferred.promise;
+                    	};
+                    	$scope.hideShowPriceColumn(AccessoriesCatalogFactory);
+	                   filterSearchService = new FilterSearchService(AccessoriesCatalogFactory, $scope, $rootScope, personal,
+	                        'defaultSet', 92, 'catalogOptions', beforeDisplay);
+	                    $scope.catalogOptions.showBookmarkColumn = false;
+	                    $scope.catalogOptions.enableRowHeaderSelection = false;
+	                    $scope.catalogOptions.enableFullRowSelection = false;
+	                    filterSearchService.addBasicFilter('all accessories', params, {});
+	                break;
                     default:
                         AssetParts.data = undefined;
                     break;

@@ -111,7 +111,7 @@ function(
                     Orders.tempSpace = {
                         'catalogCart': {
                                     'billingModels': getBillingModels($scope.paySelection),
-                            'catalog': $scope.catalog,
+                            'catalog': ($scope.type === 'HARDWARE' && $scope.catalogSelection === "accessory" && $scope.catalog === 'device') ? 'accessories' : $scope.catalog, 
                             'contract': $scope.contractObject,
                             'agreement': $scope.agreementObject
                         }
