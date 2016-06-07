@@ -158,6 +158,9 @@ angular.module('mps.utility')
                     if (BlankCheck.checkNotBlank(address.addressLine2)){
                         formattedAddress += address.addressLine2 + '<br/>';
                     }
+                    if (BlankCheck.checkNotBlank(address.houseNumber)){
+                        formattedAddress += address.houseNumber + '<br/>';
+                    }
                     if (BlankCheck.checkNotBlank(address.city)){
                         formattedAddress = formattedAddress + address.city;
                         if (!BlankCheck.checkNotBlank(address.postalCode) && !BlankCheck.checkNotBlank(address.state)) {

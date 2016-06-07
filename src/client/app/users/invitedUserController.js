@@ -7,41 +7,45 @@ angular.module('mps.user')
         UserAdminstration.setParamsToNull();
 
         $scope.selectRow = function() {
-                var selectedUser = $scope.gridApi.selection.getSelectedRows()[0];
-            UserAdminstration.setItem(selectedUser);
-                UserAdminstration.reset();
-                UserAdminstration.newMessage();
-                $scope.userInfo = UserAdminstration.item;
-                UserAdminstration.addField('type', 'INVITED');
-                UserAdminstration.addField('invitedStatus', 'REJECTED');
-                UserAdminstration.addField('active', false);
-                UserAdminstration.addField('resetPassword', false);
-                UserAdminstration.addField('email', selectedUser.email);
-                UserAdminstration.addField('userId', selectedUser.userId);
-                if (selectedUser._links.roles) {
-                    $scope.userInfo._links.roles = selectedUser._links.roles;
+                var selectedUser = $scope.gridApi.selection.getSelectedRows();
+                
+                for(var i=0;i<selectedUser.length;i++){
+                	UserAdminstration.setItem(selectedUser[i]);
+                    UserAdminstration.reset();
+                    UserAdminstration.newMessage();
+                    $scope.userInfo = UserAdminstration.item;
+                    UserAdminstration.addField('type', 'INVITED');
+                    UserAdminstration.addField('invitedStatus', 'REJECTED');
+                    UserAdminstration.addField('active', false);
+                    UserAdminstration.addField('resetPassword', false);
+                    UserAdminstration.addField('email', selectedUser[i].email);
+                    UserAdminstration.addField('userId', selectedUser[i].userId);
+                    if (selectedUser[i]._links.roles) {
+                        $scope.userInfo._links.roles = selectedUser[i]._links.roles;
+                    }
+                    if (selectedUser[i]._links.accounts) {
+                        $scope.userInfo._links.accounts = selectedUser[i]._links.accounts;
+                    }
+                    UserAdminstration.item.postURL = UserAdminstration.url + '/' + selectedUser[i].userId;
+	                var options = {
+	                        preventDefaultParams: true
+	                    }
+	                    var deferred = UserAdminstration.put({
+	                        item:  $scope.userInfo
+	                    }, options);
+	
+	                    deferred.then(function(result){
+	                        UserAdminstration.wasInvited = false;
+	                        UserAdminstration.wasSaved = false;
+	                        setTimeout(function() {
+	                            $rootScope.currentRowList = [];
+	                            $scope.searchFunctionDef({'type': 'INVITED', 'embed': 'roles'}, undefined);
+	                        }, 500);
+	                    }, function(reason){
+	                        NREUM.noticeError('Failed to update user because: ' + reason);
+	                });
                 }
-                if (selectedUser._links.accounts) {
-                    $scope.userInfo._links.accounts = selectedUser._links.accounts;
-                }
-                UserAdminstration.item.postURL = UserAdminstration.url + '/' + selectedUser.userId;
-            var options = {
-                    preventDefaultParams: true
-                }
-                var deferred = UserAdminstration.put({
-                    item:  $scope.userInfo
-                }, options);
-
-                deferred.then(function(result){
-                    UserAdminstration.wasInvited = false;
-                    UserAdminstration.wasSaved = false;
-                    setTimeout(function() {
-                        $rootScope.currentRowList = [];
-                        $scope.searchFunctionDef({'type': 'INVITED', 'embed': 'roles'}, undefined);
-                    }, 500);
-                }, function(reason){
-                    NREUM.noticeError('Failed to update user because: ' + reason);
-            });
+            
         };
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
