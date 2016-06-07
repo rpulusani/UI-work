@@ -12,10 +12,10 @@ angular.module('mps.invoice')
                 defaultSet: [
                     {'name': $translate.instant('INVOICE.COMMON.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',
                      'cellTemplate':'<div><div>' +
-                                        '<a href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);" ng-bind="grid.appScope.getFormattedInvoiceNo(row.entity.invoiceNumber)"></a>' +
+                                        '<a ng-if="row.entity.sapDocId1" href="#" ng-click="row.entity.sapDocId1 && grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);" ng-bind="grid.appScope.getFormattedInvoiceNo(row.entity.invoiceNumber)"></a>' +
                                     '</div><div>' +
                                         '<a ng-if="row.entity.sapDocId2" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);" translate="INVOICE.COMMON.DOWNLOAD_AS_TXT"></a>' +
-                                    '</div></div>'
+                                    '</div>' + '<div ng-if="!row.entity.sapDocId1 && !row.entity.sapDocId2" ng-bind="row.entity.invoiceNumber">' + '</div></div>'
                     },
                     {'name': $translate.instant('INVOICE.COMMON.INVOICE_DATE'), 'field':'getInvoiceDate()'},
                     {'name': $translate.instant('INVOICE.COMMON.DUE_DATE'), 'field':'getDueDate()'},
