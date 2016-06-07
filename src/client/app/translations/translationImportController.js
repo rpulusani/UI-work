@@ -17,7 +17,7 @@ angular.module('mps.translation')
                 translate: {
                     comments: 'LABEL.COMMON.COMMENTS',
                     attachments: 'Please select the file you wish to import translations from...',
-                    attachmentMessage: '* Acceptable file format: .xliff'
+                    attachmentMessage: '* Acceptable file format: .xliff, .xlf'
                 },
                 show: {
                     referenceId: true,
@@ -25,11 +25,15 @@ angular.module('mps.translation')
                     comments: true,
                     attachements: true
                 }
+            },
+            attachments:{
+                maxItems:1
             }
         };
 
         $scope.importedFileLanguage = '';
-
+        $rootScope.sourcefeature = 'translation';
+        
         $rootScope.currentRowList = [];
 
         Translations.getLocales().then(function(res) {
@@ -37,9 +41,11 @@ angular.module('mps.translation')
         });
 
         $scope.importLanguage = function(formData) {
-            Translations.importFile($scope.importedFileLanguage, $scope.files[0]).then(function() {
-                $location.path(Translations.route + '/');
-            });
+            if($scope.files[0] && $scope.files[0].complete) {
+                Translations.importFile($scope.importedFileLanguage, $scope.files[0]).then(function(res) {               
+                    $location.path(Translations.route + '/');
+                });
+            }
         };
     }
 ]);

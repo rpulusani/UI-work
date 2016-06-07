@@ -17,12 +17,10 @@ angular.module('mps.report')
 
             // Setting up the grid
             var Grid = new GridService();
-            $scope.gridOptions = {};
-            $scope.gridOptions.showLoader = true;
+            $scope.gridOptions = {};            
             $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
 
-            $scope.gridDataCnt = 0;
-            $scope.gridLoading = true;
+            $scope.gridDataCnt = 0;            
 
             $scope.breadcrumbs = {
                 1: {
@@ -33,34 +31,43 @@ angular.module('mps.report')
                     value: $scope.report.name
                 }
             };
-            
-            Reports.item.links.results({
-                serviceName: 'results',
-                embeddedName: 'reportData',
-                columns: Reports.item.id,
-                columnDefs: Reports.columnDefs,
-                params: params
-            }).then(function(res) {
-                $scope.gridLoading = false;
-                Reports.item.results.hideBookmark = true;
-                if(res._embedded && res._embedded.reportData){
-                    $scope.gridDataCnt = Reports.item.results.data.length;   
-                          
-                    Grid.display(Reports.item.results, $scope, personal, false, function() {
-                            $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});                            
-                        $scope.$broadcast('setupPrintAndExport', $scope);
-                    });
-                }
-                else
-                {
-                    Grid.display(Reports.item.results, $scope, personal, false, function() {
-                            $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.gridDataCnt)});                            
-                        $scope.$broadcast('setupPrintAndExport', $scope);
-                    });
-                }
-            }, function(reason) {
-                NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
-            });
+
+            if($scope.report.id !== "mp0075" || ($scope.report.id === "mp0075" 
+                && Reports.isRun === true
+                && Reports.finder.selectType.length > 0)) {
+                $scope.gridOptions.showLoader = true;
+                $scope.gridLoading = true;
+                        
+                Reports.item.links.results({
+                    serviceName: 'results',
+                    embeddedName: 'reportData',
+                    columns: Reports.item.id,
+                    columnDefs: Reports.columnDefs,
+                    params: params
+                }).then(function(res) {
+                    $scope.gridLoading = false;
+                    Reports.item.results.hideBookmark = true;
+                    if(res._embedded && res._embedded.reportData){
+                        $scope.gridDataCnt = Reports.item.results.data.length;   
+                              
+                        Grid.display(Reports.item.results, $scope, personal, false, function() {
+                                $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.pagination.totalItems())});                            
+                            $scope.$broadcast('setupPrintAndExport', $scope);
+                        });
+                    }
+                    else
+                    {
+                        Grid.display(Reports.item.results, $scope, personal, false, function() {
+                                $scope.gridTitle = $translate.instant($scope.report.name + ' ({{ total }})', {total: Math.max(0, $scope.gridDataCnt)});                            
+                            $scope.$broadcast('setupPrintAndExport', $scope);
+                        });
+                    }
+                    Reports.isRun = false;
+                }, function(reason) {
+                    Reports.isRun = false;
+                    NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
+                });
+            }
         }
 
         function configureTemplates() {
@@ -92,7 +99,7 @@ angular.module('mps.report')
                 /* Missing Meter Reads */
                 case 'mp0075':
                     params = {
-                        meterSource: Reports.finder ? Reports.finder.selectType : '',
+                        meterSource: Reports.finder ? (Reports.finder.selectType !== "All" ? Reports.finder.selectType : "") : "",
                         numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
                     };
                     break;

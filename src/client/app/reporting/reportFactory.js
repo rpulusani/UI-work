@@ -367,7 +367,7 @@ angular.module('mps.report')
                     ],
                 orderTypes: [{value: 'Consumable Supplies'}, {value: 'Consumable SVC Parts'}, {value: 'Consumable SVC Parts & Install'}],
                 mmrDays: '60',
-                mmrTypes: [{value: 'Manual'}, {value: 'Automated Electronic'}],
+                mmrTypes: [{value: 'All'}, {value: 'Manual'}, {value: 'Automated Electronic'}],
                 srStatus: '',
                 srStatusTypes: [{value: 'Open'}, {value: 'Close'}],
                 withParts: '',
