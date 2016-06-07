@@ -1,17 +1,24 @@
 
-angular.module('mps.attachments', [])
+angular.module('mps.attachments')
   .directive('attachments', ['serviceUrl', function(serviceUrl) {
 return {
     restrict: 'A',
     templateUrl: '/app/attachments/templates/attachments.html',
     controller:  [ '$scope',
+          '$rootScope',
           '$http',
           '$log',
           '$translate',
-          function($scope, $http, $log, $translate){
+          function($scope, $rootScope, $http, $log, $translate){
             $scope.files = [];
             $scope.files_complete = [];
             $scope.files_error = [];
+            $scope.sourcefeature = "";
+
+            if($rootScope.sourcefeature && $rootScope.sourcefeature.length > 0) {
+                $scope.sourcefeature = $rootScope.sourcefeature;
+                $rootScope.sourcefeature = "";
+            }
 
             function ifData(d) {
               if(d.data) {
@@ -19,11 +26,14 @@ return {
               }
             }
 
-            $scope.change = function(files) {            	
+            $scope.change = function(files) {              
              	$scope.files = files;
 	            $scope.error = false;
 	            for(var i = 0; i < $scope.files.length; i++) {
-	                   $scope.upload($scope.files[i]);
+                     $scope.checkFileType($scope.files[i]);
+                     if(!$scope.error){
+	                     $scope.upload($scope.files[i]);
+                     }
 	            }
 	            $scope.$apply();
 	        };
@@ -78,7 +88,25 @@ return {
             		}
             	}
             	$scope.files=[];            
-            }
+            };
+
+            $scope.checkFileType = function(file){
+              var tmp = file.name;
+              var l = tmp.split('.').pop();
+              $scope.error = false;
+
+              switch($scope.sourcefeature) {
+                  case 'translation':
+                      $scope.fileExtToCheck = ["xliff", "xlf"]; 
+                      if($scope.fileExtToCheck.indexOf(l.toLowerCase()) < 0) {
+                        $scope.error = true;
+                        $scope.errorMessage = $translate.instant('PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.TXT_UNSUPPORTED_FILE_TYPE_ERROR') + " - " + l;
+                      }
+                      break;                  
+                  default:
+                      break;
+              }
+            };
 
             // Service code //
 
