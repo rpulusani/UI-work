@@ -2,11 +2,11 @@
     <label translate="USER_MAN.COMMON.TXT_EMAIL_ADDRESS"></label>
     <input name="email" type="text" ng-model="user.email" value="" class="" required email-valid/>
 </div>
-<div class="form__field form__field--required">
+<div class="form__field" ng-class="{'form__field--required':addUser}">
     <label translate="USER_MAN.COMMON.TXT_PASSWORD"></label>
     <input name="password" type="password" ng-model="user.password" value="" class=""  />
 </div>
-<div class="form__field form__field--required">
+<div class="form__field" ng-class="{'form__field--required':addUser}">
     <label translate="USER_MAN.COMMON.TXT_CONFIRM_PASSWORD"></label>
     <input name="passwordConfirm" type="password" ng-model="user.passwordConfirm" value="" class=""  />
 </div>
