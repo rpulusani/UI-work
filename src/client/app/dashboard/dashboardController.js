@@ -34,7 +34,9 @@ function(
 		
 		Notifications.get({
 			params:{
-				sort : 'order'
+				sort : 'order',
+				page : 0,
+				size : 1000
 			}			
 		}).then(function(res){			
 			$scope.filteredNotifications = [];
