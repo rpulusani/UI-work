@@ -79,14 +79,22 @@ angular.module('mps.utility')
                 },
                 readMoreUrl: '',
                 showCancelBtn: false
-            },
-            breadcrumbs: {
+            }
+        };
+        if($location.url() == "/accounts/pick_account/Account"){
+            $scope.configure.breadcrumbs = {                
+                1:{
+                    value:'ACCOUNT.BROWSE'
+                }
+            }
+        }else{
+            $scope.configure.breadcrumbs = {                
                 1:$rootScope.preBreadcrumb,
                 2:{
                     value:'ACCOUNT.BROWSE'
                 }
             }
-        };
+        }
         
         $rootScope.$emit('refreshNav');
         $rootScope.$emit('toggleAccountNav');
