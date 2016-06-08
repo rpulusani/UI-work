@@ -37,7 +37,7 @@ angular.module('mps.serviceRequestDevices')
         $timeout,
         tombstoneWaitTimeout,
         SecurityHelper) {
-
+        $scope.isUpdateRequestContact = ($rootScope.currentSelected === 'updateRequestContact') ? true : false;
         $scope.isLoading = false;
         $scope.srType = 'decommission';
         SRHelper.addMethods(Devices, $scope, $rootScope);
@@ -69,7 +69,7 @@ angular.module('mps.serviceRequestDevices')
             $scope.device = $rootScope.returnPickerObject;
             $scope.sr = $rootScope.returnPickerSRObject;
             ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-            $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
+            $scope.tryContact = angular.copy($rootScope.selectedContact);
             $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
@@ -336,6 +336,9 @@ angular.module('mps.serviceRequestDevices')
             if (!BlankCheck.isNull($scope.device.primaryContact)){
             $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
                 $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+                   if($scope.isUpdateRequestContact){
+                      $scope.formattedPrimaryContact = FormatterService.formatContact($scope.tryContact);
+                }
             }
 
         if (!BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkPickupDevice)) {
