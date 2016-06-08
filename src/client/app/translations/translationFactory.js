@@ -62,10 +62,16 @@ angular.module('mps.translation')
 
                         fileExt = '.csv';
 
+                        if (ctrlScope.exportedFileLanguage) {
+                             url += '?language=' + ctrlScope.exportedFileLanguage
+                        }
+
                         if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
-                            url += '?language=' + ctrlScope.exportedFileLanguage + '&missing=' + ctrlScope.exportedFileLanguage;
-                        } else {
-                             url += '?language=' + ctrlScope.exportedFileLanguage;
+                            if (!ctrlScope.exportedFileLanguage) {
+                                url += '?missing=translations';
+                            } else {
+                                url += '&missing=' + ctrlScope.exportedFileLanguage;
+                            }
                         }
 
                         if (ctrlScope.currentCategories.length > 0) {
@@ -87,10 +93,10 @@ angular.module('mps.translation')
                         filename = '';
 
                         if (!ctrlScope.exportedFileLanguage) {
-                            ctrlScope.exportedFileLanguage = 'translations';
+                            filename = 'translations' + fileExt;
+                        } else {
+                            filename = ctrlScope.exportedFileLanguage + fileExt;
                         }
-
-                        filename = ctrlScope.exportedFileLanguage + fileExt;
             
                         if (navigator.msSaveBlob) {
                             navigator.msSaveBlob(blob, filename);
