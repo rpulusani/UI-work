@@ -176,6 +176,7 @@ angular.module('mps.orders')
         Orders.newMessage();
         Orders.tempSpace.catalogCart.billingModels = getBillingModels();
         Orders.tempSpace.catalogCart.catalog ='supplies';
+        Orders.sourcePage = $location.path(); 
         $location.path(OrderItems.route + '/purchase/review');
     };
     

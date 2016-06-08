@@ -346,7 +346,7 @@ angular.module('mps.orders')
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
                         },
-                        returnPath: Orders.route + '/'
+                        returnPath: (Orders.sourcePage.indexOf('device_management') !== -1?Orders.sourcePage : Orders.route + '/') 
                     },
                     contactPicker:{
                         translate:{
