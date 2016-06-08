@@ -96,8 +96,9 @@ angular.module('mps.orders')
                     Orders.item['_links']['account'] = {
                         href: $rootScope.currentAccount.href
                     };
+                    $scope.sr.soldToNumber = $rootScope.currentAccount.soldToNumber;
                 }
-                $scope.sr.soldToNumber = $rootScope.currentAccount.soldToNumber;
+                
                 if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
                     $scope.sr.sourceAddressPhysicalLocation = {};
                 }
