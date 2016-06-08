@@ -108,22 +108,24 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-1-2 floatL">
-                            <div><p class="text--align-center" translate="{{ configure.report.charts.translate.consumablesOrdersOpen }}"></p></div>
-
-                            <div class="full-circle" ng-if="chartObject.consumablesOrdersOpen.dataPoint < 1">
-                                <div class="empty-chart-text">0</div>
+                            <div><p class="h50 text--align-center" translate="{{ configure.report.charts.translate.consumablesOrdersOpen }}"></p></div>
+							<div class="emptyCircle" ng-if="chartObject.consumablesOrdersOpen.dataPoint < 1">
+                                <div class="full-circle" >
+                                    <div class="empty-chart-text">0</div>
+                                </div>
                             </div>
-
-                            <div google-chart chart="{{ chartObject.consumablesOrdersOpen }}"></div>
+                            <div google-chart ng-if="chartObject.consumablesOrdersOpen.dataPoint >= 1" chart="{{ chartObject.consumablesOrdersOpen }}"></div>
                         </div>
                         <div class="col-1-2 floatL">
-                            <div><p class="text--align-center" translate="{{ configure.report.charts.translate.consumablesOrdersShipped }}"></p></div>
+                            <div><p class="h50 text--align-center" translate="{{ configure.report.charts.translate.consumablesOrdersShipped }}"></p></div>
 
-                            <div class="full-circle" ng-if="chartObject.consumablesOrdersShipped.dataPoint < 1">
-                                <div class="empty-chart-text">0</div>
+                            <div class="emptyCircle" ng-if="chartObject.consumablesOrdersShipped.dataPoint < 1">
+                                <div class="full-circle" >
+                                    <div class="empty-chart-text">0</div>
+                                </div>
                             </div>
 
-                            <div google-chart chart="{{ chartObject.consumablesOrdersShipped }}"></div>
+                            <div google-chart ng-if="chartObject.consumablesOrdersShipped.dataPoint >= 1" chart="{{ chartObject.consumablesOrdersShipped }}"></div>
                         </div>
                     </div>
                 </div>
@@ -135,22 +137,26 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-1-2 floatL">
-                            <div><p class="text--align-center" translate="{{ configure.report.charts.translate.hardwareOrdersOpen }}"></p></div>
+                            <div><p class="h50 text--align-center" translate="{{ configure.report.charts.translate.hardwareOrdersOpen }}"></p></div>
 
-                            <div class="full-circle" ng-if="chartObject.hardwareOrdersOpen.dataPoint < 1">
-                                <div class="empty-chart-text">0</div>
+                            <div class="emptyCircle" ng-if="chartObject.hardwareOrdersOpen.dataPoint < 1">
+                                <div class="full-circle" >
+                                    <div class="empty-chart-text">0</div>
+                                </div>
                             </div>
 
-                            <div google-chart chart="{{ chartObject.hardwareOrdersOpen }}"></div>
+                            <div google-chart ng-if="chartObject.hardwareOrdersOpen.dataPoint >= 1" chart="{{ chartObject.hardwareOrdersOpen }}"></div>
                         </div>
                         <div class="col-1-2 floatL">
-                            <div><p class="text--align-center" translate="{{ configure.report.charts.translate.hardwareOrdersShipped }}"></p></div>
+                            <div><p class="h50 text--align-center" translate="{{ configure.report.charts.translate.hardwareOrdersShipped }}"></p></div>
 
-                            <div class="full-circle" ng-if="chartObject.hardwareOrdersShipped.dataPoint < 1">
-                                <div class="empty-chart-text">0</div>
+                            <div class="emptyCircle" ng-if="chartObject.hardwareOrdersShipped.dataPoint < 1">
+                                <div class="full-circle" >
+                                    <div class="empty-chart-text">0</div>
+                                </div>
                             </div>
 
-                            <div google-chart chart="{{ chartObject.hardwareOrdersShipped }}"></div>
+                            <div google-chart ng-if="chartObject.hardwareOrdersShipped.dataPoint >= 1" chart="{{ chartObject.hardwareOrdersShipped }}"></div>
                         </div>
                     </div>
                 </div>
