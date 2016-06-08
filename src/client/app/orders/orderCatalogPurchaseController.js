@@ -97,6 +97,7 @@ angular.module('mps.orders')
                         href: $rootScope.currentAccount.href
                     };
                 }
+                $scope.sr.soldToNumber = $rootScope.currentAccount.soldToNumber;
                 if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
                     $scope.sr.sourceAddressPhysicalLocation = {};
                 }
@@ -535,7 +536,7 @@ angular.module('mps.orders')
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
                         },
-                        returnPath: Orders.route + '/'
+                        returnPath: (Orders.sourcePage.indexOf('device_management') !== -1?Orders.sourcePage : Orders.route + '/')
                     },
                     billToPicker:{
                         translate:{
