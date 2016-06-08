@@ -161,15 +161,18 @@ angular.module('mps.orders')
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
             }
-                if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
+            if($scope.type === 'SUPPLIES'){
+            	if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
                     $scope.scratchSpace.installAddresssSelected = true;
                     $scope.formatedInstallAddress = FormatterService.formatAddress(Orders.tempSpace.installAddress);
                 }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.installAddress)){
                     $scope.scratchSpace.installAddresssSelected = false;
-                    $scope.formatedInstallAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.installAddress);
+                    //$scope.formatedInstallAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.installAddress);
                 }else{
                     $scope.scratchSpace.installAddresssSelected = false;
                 }
+            }
+                
 
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
                         $scope.scratchSpace.billToAddresssSelected = true;
