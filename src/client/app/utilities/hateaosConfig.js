@@ -137,6 +137,7 @@ angular.module('mps.utility')
                 $rootScope.currentAccount.accountLevel = account.level;
                 $rootScope.currentAccount.name = account.name;
                 $rootScope.currentAccount.href = accountLink;
+                $rootScope.currentAccount.soldToNumber = account.soldToNumber;
                 $rootScope.currentAccount.refresh = false;
                 $rootScope.currentAccount.isDefault = false;
 
