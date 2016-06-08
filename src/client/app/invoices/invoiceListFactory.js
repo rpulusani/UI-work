@@ -17,9 +17,9 @@ angular.module('mps.invoice')
                                         '<a ng-if="row.entity.sapDocId2" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);" translate="INVOICE.COMMON.DOWNLOAD_AS_TXT"></a>' +
                                     '</div>' + '<div ng-if="!row.entity.sapDocId1 && !row.entity.sapDocId2" ng-bind="row.entity.invoiceNumber">' + '</div></div>'
                     },
-                    {'name': $translate.instant('INVOICE.COMMON.INVOICE_DATE'), 'field':'getInvoiceDate()'},
-                    {'name': $translate.instant('INVOICE.COMMON.DUE_DATE'), 'field':'getDueDate()'},
-                    {'name': $translate.instant('INVOICE.COMMON.PAID_DATE'), 'field':'getPaidDate()'},
+                    {'name': $translate.instant('INVOICE.COMMON.INVOICE_DATE'), 'field':'getInvoiceDate()','notSearchable': true,'visible':true},
+                    {'name': $translate.instant('INVOICE.COMMON.DUE_DATE'), 'field':'getDueDate()','notSearchable': true,'visible':true},
+                    {'name': $translate.instant('INVOICE.COMMON.PAID_DATE'), 'field':'getPaidDate()','notSearchable': true,'visible':true},
                     {'name': $translate.instant('INVOICE.COMMON.TXT_STATUS'), 'field':'status'},
                     {'name': $translate.instant('INVOICE.COMMON.AMOUNT'), 'field':'getAmount()'},
                     {'name': $translate.instant('INVOICE.COMMON.ACCOUNT_NAME'), 'field':'accountName', 'notSearchable': true,'visible':false},
