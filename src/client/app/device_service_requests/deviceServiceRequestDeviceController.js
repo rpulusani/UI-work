@@ -57,12 +57,12 @@ angular.module('mps.serviceRequestDevices')
                     description: $scope.sr.description,
                     customerReferenceId: $scope.formattedReferenceId,
                     costCenter: $scope.formattedCostCenter,
-                    deviceAddress: $scope.formattedDeviceAddress.replace(/<br\/>/g, ', '),
-                    primaryContact: $scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
-                    requestedByContact: $scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
-                    serialNumber: $scope.device.serialNumber,
-                    productModel: $scope.device.productModel,
-                    ipAddress: $scope.device.ipAddress,
+                    deviceAddress: $scope.formattedDeviceAddress === undefined ?"" :$scope.formattedDeviceAddress.replace(/<br\/>/g, ', '),
+                    primaryContact: $scope.formattedPrimaryContact === undefined?"":$scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
+                    requestedByContact: $scope.requestedByContactFormattedExport=== undefined? "":$scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
+                    serialNumber: $scope.device === undefined?"":$scope.device.serialNumber,
+                    productModel: $scope.device === undefined?"":$scope.device.productModel,
+                    ipAddress: $scope.device === undefined?"":$scope.device.ipAddress,
                     notes: $scope.formattedNotes,
                     type: $scope.sr.type
                 }
