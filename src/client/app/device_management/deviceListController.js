@@ -61,6 +61,7 @@ angular.module('mps.deviceManagement')
             Devices.reset();
             ServiceRequest.reset();
             Devices.item = {};
+            Orders.sourcePage = $location.path(); 
             $location.path('/orders/catalog/hardware');
         };
         $scope.goToOrderSupplyCatalog = function() {
@@ -68,6 +69,7 @@ angular.module('mps.deviceManagement')
             Orders.reset();
             Devices.item = {};
             Orders.item = {};
+            Orders.sourcePage = $location.path(); 
             $location.path('/orders/catalog/supplies');
         };
 

@@ -96,7 +96,9 @@ angular.module('mps.orders')
                     Orders.item['_links']['account'] = {
                         href: $rootScope.currentAccount.href
                     };
+                    $scope.sr.soldToNumber = $rootScope.currentAccount.soldToNumber;
                 }
+                
                 if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
                     $scope.sr.sourceAddressPhysicalLocation = {};
                 }
@@ -161,15 +163,18 @@ angular.module('mps.orders')
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
             }
-                if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
+            if($scope.type === 'SUPPLIES'){
+            	if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
                     $scope.scratchSpace.installAddresssSelected = true;
                     $scope.formatedInstallAddress = FormatterService.formatAddress(Orders.tempSpace.installAddress);
                 }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.installAddress)){
                     $scope.scratchSpace.installAddresssSelected = false;
-                    $scope.formatedInstallAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.installAddress);
+                    //$scope.formatedInstallAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.installAddress);
                 }else{
                     $scope.scratchSpace.installAddresssSelected = false;
                 }
+            }
+                
 
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.billToAddress)){
                         $scope.scratchSpace.billToAddresssSelected = true;
@@ -532,7 +537,7 @@ angular.module('mps.orders')
                             abandonCancel:'SERVICE_REQUEST.ABANDON_MODAL_CANCEL',
                             abandonConfirm: 'SERVICE_REQUEST.ABANDON_MODAL_CONFIRM',
                         },
-                        returnPath: Orders.route + '/'
+                        returnPath: (Orders.sourcePage.indexOf('device_management') !== -1?Orders.sourcePage : Orders.route + '/')
                     },
                     billToPicker:{
                         translate:{

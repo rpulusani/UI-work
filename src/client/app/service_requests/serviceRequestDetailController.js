@@ -55,7 +55,8 @@ angular.module('mps.serviceRequests')
                     obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress === undefined ?"": $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
 
-                if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION') {
+                if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION'
+                     || $scope.sr.type === 'DATA_ASSET_DEREGISTER') {
                     obj.serialNumber = $scope.device.serialNumber;
                     obj.productModel = $scope.device.productModel;
                     obj.ipAddress = $scope.device.ipAddress
@@ -63,7 +64,9 @@ angular.module('mps.serviceRequests')
                     if ($scope.sr.type === 'DATA_ASSET_CHANGE') {
                         obj.lexmarkToMove = $scope.formattedMoveDevice;
                     } else {
-                        obj.lexmarkToPickup = $scope.formattedPickupDevice;
+                        if($scope.sr.type === 'MADC_DECOMMISSION') {
+                            obj.lexmarkToPickup = $scope.formattedPickupDevice;
+                        }
                         
                         if ($scope.sr.meterReads) {
                             obj.pageCounts = $scope.sr.meterReads;
@@ -78,7 +81,10 @@ angular.module('mps.serviceRequests')
                     obj.productModel = $scope.device.productModel;
                     obj.partNumber = $scope.device.partNumber;
                     obj.ipAddress = $scope.device.ipAddress;
-                    obj.problemDescription = $scope.formattedDescription;
+
+                    if ($scope.sr.type.indexOf("BREAK_FIX") >= 0) {
+                        obj.problemDescription = $scope.formattedDescription;
+                    }                    
                 }
 
                 if ($scope.formattedDeviceMoveAddress) {
@@ -339,6 +345,14 @@ angular.module('mps.serviceRequests')
                                 billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
                             }
                         };
+            $scope.configure.order.shipTo = {
+            		translate : {
+            			shipToAddress: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+            			instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+            			deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                        expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE'
+            		}
+            }
             $scope.configure.order.po = {
                 translate:{
                     label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
@@ -423,6 +437,7 @@ angular.module('mps.serviceRequests')
             case 'SVC_ASSET_ORDER':
             case 'SVC_CATALOG_ORDER':
             case 'MIXED_PARTS_ASSET_ORDER':
+            case 'MIXED_PARTS_CATALOG_ORDER':
             case 'SUPPLIES_PROACTIVE_ORDER':
             case 'SUPPLIES_ASSET_ORDER':
             case 'SUPPLIES_CATALOG_ORDER':
@@ -586,11 +601,10 @@ angular.module('mps.serviceRequests')
     if (!BlankCheck.isNull($scope.sr.sourceAddress) && !BlankCheck.isNull($scope.sr.sourceAddress.item)) {
             $scope.formattedDeviceAddress = FormatterService.formatAddress($scope.sr.sourceAddress.item);
     }
-    if (!BlankCheck.isNull($scope.sr.item.sourceAddress) && !BlankCheck.isNull($scope.sr.item.sourceAddress)
-    		&& !BlankCheck.isNull($scope.sr.item.sourceAddress.addressLine1) ) {
+    if (!BlankCheck.isNull($scope.sr.item.sourceAddress) && !BlankCheck.isNull($scope.sr.item.sourceAddress.addressLine1) ) {
     	$scope.formattedAddress = FormatterService.formatAddress($scope.sr.item.sourceAddress);
     	$scope.formattedAddress += FormatterService.addBuildingFloorOffice($scope.sr.item.sourceAddressPhysicalLocation);
-        
+    	$scope.formatedShipToAddress = $scope.formattedAddress;
     }
     if (!BlankCheck.isNull($scope.sr.destinationAddress) && !BlankCheck.isNull($scope.sr.destinationAddress.item)) {
             $scope.formattedDeviceMoveAddress = FormatterService.formatAddress($scope.sr.destinationAddress.item);
@@ -628,11 +642,11 @@ angular.module('mps.serviceRequests')
             $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
     }
 
-    if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
+    /*if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
             $scope.formatedShipToAddress = FormatterService.formatAddress($scope.sr.shipToAddress.item);
     }else {
             $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty($scope.sr.shipToAddress);
-    }
+    }*/
 
     if (!BlankCheck.isNull($scope.sr)) {
         $scope.formattedNotes = FormatterService.formatNoneIfEmpty($scope.sr.notes);

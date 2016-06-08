@@ -42,22 +42,26 @@ angular.module('mps.orders')
             Orders.newMessage();
             Orders.tempSpace = {};
             Devices.item = {};
+            Orders.sourcePage = $location.path(); 
             $location.search('tab', 'orderTab');
             $scope.goToDevicePicker('DeviceInformation', Devices.item, '/device_management/{{id}}/review');
         };
         $scope.goToHardwareCreate = function(){
-            Orders.newMessage();
+        	Orders.newMessage();
             Orders.tempSpace = {};
+            Orders.sourcePage = $location.path(); 
             $location.path(Orders.route + '/catalog/hardware');
         };
         $scope.goToReturnSuppliesCreate = function(){
             Orders.newMessage();
             Orders.tempSpace = {};
+            Orders.sourcePage = $location.path(); 
             $location.path(Orders.route + '/supply/return/review');
         };
         $scope.goToSuppliesCatalogCreate = function(){
             Orders.newMessage();
             Orders.tempSpace = {};
+            Orders.sourcePage = $location.path(); 
             $location.path(Orders.route + '/catalog/supplies');
         };
     }

@@ -1,5 +1,5 @@
 <div class="page-content">
-<form class="form" ng-submit="saveAddress()" data-form="" name="selectAddressForm" novalidate>
+<form check-form-valid  class="form" ng-submit="saveAddress()" data-form="" name="selectAddressForm" novalidate>
 <div class="form__field form__field--required" ng-class="(!selectAddressForm.name.$valid && validForm === false) ? 'form__field--has-alert' : ''">
     <label translate="ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME"></label>
     <input name="name" type="text" ng-model="selectedAddress.name" value="" class="" required />

@@ -58,21 +58,27 @@ angular.module('mps.translation')
                      }
 
                     if (ctrlScope.exportFor === 'review') {
-                        url += '/xls';
+                        url += '/csv';
 
-                        fileExt = '.xls';
+                        fileExt = '.csv';
 
-                        if (ctrlScope.stringVal !== 'all') {
-                            if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing') {
-                                url += '?missing=' + ctrlScope.exportedFileLanguage;
+                        if (ctrlScope.exportedFileLanguage) {
+                             url += '?language=' + ctrlScope.exportedFileLanguage
+                        }
+
+                        if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
+                            if (!ctrlScope.exportedFileLanguage || ctrlScope.exportedFileLanguage === 'EN') {
+                                url += '?missing=translations';
+                            } else {
+                                url += '&missing=' + ctrlScope.exportedFileLanguage;
                             }
+                        }
 
-                            if (ctrlScope.currentCategories) {
-                                if (url.indexOf('?') !== -1) {
-                                    url += '&category=' + ctrlScope.currentCategories.toString();
-                                } else {
-                                     url += '?category=' + ctrlScope.currentCategories.toString();
-                                }
+                        if (ctrlScope.currentCategories.length > 0) {
+                            if (url.indexOf('?') !== -1) {
+                                url += '&category=' + ctrlScope.currentCategories.toString();
+                            } else {
+                                url += '?category=' + ctrlScope.currentCategories.toString();
                             }
                         }
                     } else {
@@ -83,20 +89,34 @@ angular.module('mps.translation')
                         method: 'GET',
                         url: url
                     }).success(function(res) {
-                        var anchor = angular.element('<a/>');
-                        anchor.css({display: 'none'});
-                        angular.element(document.body).append(anchor);
+                        var blob = new Blob([res], {type: 'text/csv;charset=utf-8;'}),
+                        filename = '';
 
                         if (!ctrlScope.exportedFileLanguage) {
-                            ctrlScope.exportedFileLanguage = 'translations'
-
+                            filename = 'translations' + fileExt;
+                        } else {
+                            filename = ctrlScope.exportedFileLanguage + fileExt;
                         }
+            
+                        if (navigator.msSaveBlob) {
+                            navigator.msSaveBlob(blob, filename);
+                        } else {
+                            link = document.createElement('a');
 
-                        anchor.attr({
-                             href: 'data:attachment/csv;charset=utf-8,' + encodeURI(res),
-                             target: '_blank',
-                             download: ctrlScope.exportedFileLanguage + fileExt
-                         })[0].click();
+                            if (link.download !== undefined) {
+                                url = URL.createObjectURL(blob);
+
+                                link.setAttribute('href', url);
+                                link.setAttribute('download', filename);
+                                link.style.visibility = 'hidden';
+
+                                document.body.appendChild(link);
+
+                                link.click();
+
+                                document.body.removeChild(link);
+                            }
+                        }
                     });
                 },
                 importFile: function(language, file) {

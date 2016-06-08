@@ -42,6 +42,7 @@ angular.module('mps.serviceRequestDevices')
         $scope.srType = 'break_fix';
         $scope.validForm = true;
         $scope.formattedAddress = '';
+        $scope.requestedByContactFormattedExport = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
 
         var statusBarLevels = [
@@ -54,11 +55,14 @@ angular.module('mps.serviceRequestDevices')
                 data: {
                     requestNumber: $scope.sr.requestNumber,
                     description: $scope.sr.description,
-                    addressNoPl: $scope.formattedAddressNoPl,
+                    customerReferenceId: $scope.formattedReferenceId,
                     costCenter: $scope.formattedCostCenter,
-                    deviceAddress: $scope.formattedDeviceAddress,
-                    deviceContact: $scope.formattedDeviceContact,
-                    primaryContact: $scope.formattedPrimaryContact,
+                    deviceAddress: $scope.formattedDeviceAddress === undefined ?"" :$scope.formattedDeviceAddress.replace(/<br\/>/g, ', '),
+                    primaryContact: $scope.formattedPrimaryContact === undefined?"":$scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
+                    requestedByContact: $scope.requestedByContactFormattedExport=== undefined? "":$scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
+                    serialNumber: $scope.device === undefined?"":$scope.device.serialNumber,
+                    productModel: $scope.device === undefined?"":$scope.device.productModel,
+                    ipAddress: $scope.device === undefined?"":$scope.device.ipAddress,
                     notes: $scope.formattedNotes,
                     type: $scope.sr.type
                 }
@@ -470,9 +474,13 @@ angular.module('mps.serviceRequestDevices')
             }
 
             if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.primaryContact)){
-                    $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
-                    $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+                $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
+                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
             }
+
+            if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.requestedByContact)){
+                $scope.requestedByContactFormattedExport = FormatterService.formatContact($scope.device.requestedByContact);
+            }            
         };
 
         $scope.formatReceiptData(formatAdditionalData);
