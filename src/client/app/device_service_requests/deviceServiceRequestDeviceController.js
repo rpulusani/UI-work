@@ -42,6 +42,7 @@ angular.module('mps.serviceRequestDevices')
         $scope.srType = 'break_fix';
         $scope.validForm = true;
         $scope.formattedAddress = '';
+        $scope.requestedByContactFormattedExport = '';
         SRHelper.addMethods(Devices, $scope, $rootScope);
 
         var statusBarLevels = [
@@ -58,7 +59,7 @@ angular.module('mps.serviceRequestDevices')
                     costCenter: $scope.formattedCostCenter,
                     deviceAddress: $scope.formattedDeviceAddress.replace(/<br\/>/g, ', '),
                     primaryContact: $scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
-                    requestedByContact: $scope.requestedByContactFormatted.replace(/<br\/>/g, ', '),
+                    requestedByContact: $scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
                     serialNumber: $scope.device.serialNumber,
                     productModel: $scope.device.productModel,
                     ipAddress: $scope.device.ipAddress,
@@ -478,7 +479,7 @@ angular.module('mps.serviceRequestDevices')
             }
 
             if (!BlankCheck.isNull($scope.device) && !BlankCheck.isNull($scope.device.requestedByContact)){
-                $scope.requestedByContactFormatted = FormatterService.formatContact($scope.device.requestedByContact);
+                $scope.requestedByContactFormattedExport = FormatterService.formatContact($scope.device.requestedByContact);
             }            
         };
 
