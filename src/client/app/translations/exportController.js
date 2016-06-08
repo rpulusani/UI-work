@@ -20,6 +20,8 @@ angular.module('mps.siebel')
             var i = 0,
             fnd = false;
 
+            catKey = catKey.replace(/ /g, '_');
+
             if ($scope.currentCategories.length) {
                 for (i; i < $scope.currentCategories.length; i += 1) {
                     if ($scope.currentCategories[i] === catKey) {
@@ -48,7 +50,7 @@ angular.module('mps.siebel')
                 checkBoxId = allCatCheckBoxes[i].id;
                 if(param) {
                     allCatCheckBoxes[i].checked = true;
-                    $scope.currentCategories.push(checkBoxId);
+                    $scope.currentCategories.push(checkBoxId.replace(/ /g, '_'));
                 }
                 else {
                     allCatCheckBoxes[i].checked = false;
