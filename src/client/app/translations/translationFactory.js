@@ -67,7 +67,7 @@ angular.module('mps.translation')
                         }
 
                         if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
-                            if (!ctrlScope.exportedFileLanguage) {
+                            if (!ctrlScope.exportedFileLanguage || ctrlScope.exportedFileLanguage === 'EN') {
                                 url += '?missing=translations';
                             } else {
                                 url += '&missing=' + ctrlScope.exportedFileLanguage;
