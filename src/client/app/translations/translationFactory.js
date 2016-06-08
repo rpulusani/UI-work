@@ -62,8 +62,6 @@ angular.module('mps.translation')
 
                         fileExt = '.csv';
 
-                        console.log('checking controller scope', ctrlScope);
-
                         if (ctrlScope.stringVal !== 'all') {
                             if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing') {
                                 url += '?missing=' + ctrlScope.exportedFileLanguage;
