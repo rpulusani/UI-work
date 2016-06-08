@@ -9,7 +9,7 @@
     <div order-content editable="{{editable}}"  taxable="taxable" submit-action="submit" datasource="orderItems"
     hide-submit="hideSubmitButton" configure="configure"></div>
     <div order-ship-to-bill-to-details></div>
-    <form class="form" data-form="" name="reviewDetail" novalidate>
+    <form check-form-valid  class="form" data-form="" name="reviewDetail" novalidate>
     <div order-ship-install-details></div>
     <div ng-if="type === 'SUPPLIES' && paymentMethod ==='payLater'">
         <h2 translate="{{configure.order.shipTo.translate.shipToAddress}}"></h2>
