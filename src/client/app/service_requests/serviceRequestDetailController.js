@@ -78,7 +78,18 @@ angular.module('mps.serviceRequests')
                     obj.productModel = $scope.device.productModel;
                     obj.partNumber = $scope.device.partNumber;
                     obj.ipAddress = $scope.device.ipAddress;
-                    obj.problemDescription = $scope.formattedDescription;
+
+                    if ($scope.sr.type.indexOf("BREAK_FIX") >= 0) {
+                        obj.problemDescription = $scope.formattedDescription;
+                    }
+
+                    if ($scope.sr.type === 'DATA_ASSET_DEREGISTER') {
+                        if ($scope.sr.meterReads) {
+                            obj.pageCounts = $scope.sr.meterReads;
+                        } else {
+                            obj.pageCounts = 'none';
+                        }
+                    }
                 }
 
                 if ($scope.formattedDeviceMoveAddress) {
