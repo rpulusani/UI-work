@@ -62,10 +62,10 @@ angular.module('mps.translation')
 
                         fileExt = '.csv';
 
-                        if (ctrlScope.stringVal !== 'all') {
-                            if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing') {
-                                url += '?missing=' + ctrlScope.exportedFileLanguage;
-                            }
+                        if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
+                            url += '?language=' + ctrlScope.exportedFileLanguage + '&missing=' + ctrlScope.exportedFileLanguage;
+                        } else {
+                             url += '?language=' + ctrlScope.exportedFileLanguage;
                         }
 
                         if (ctrlScope.currentCategories.length > 0) {
