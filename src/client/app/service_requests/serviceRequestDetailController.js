@@ -55,7 +55,8 @@ angular.module('mps.serviceRequests')
                     obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress === undefined ?"": $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
                 }
 
-                if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION') {
+                if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION'
+                     || $scope.sr.type === 'DATA_ASSET_DEREGISTER') {
                     obj.serialNumber = $scope.device.serialNumber;
                     obj.productModel = $scope.device.productModel;
                     obj.ipAddress = $scope.device.ipAddress
@@ -63,7 +64,9 @@ angular.module('mps.serviceRequests')
                     if ($scope.sr.type === 'DATA_ASSET_CHANGE') {
                         obj.lexmarkToMove = $scope.formattedMoveDevice;
                     } else {
-                        obj.lexmarkToPickup = $scope.formattedPickupDevice;
+                        if($scope.sr.type === 'MADC_DECOMMISSION') {
+                            obj.lexmarkToPickup = $scope.formattedPickupDevice;
+                        }
                         
                         if ($scope.sr.meterReads) {
                             obj.pageCounts = $scope.sr.meterReads;
@@ -81,15 +84,7 @@ angular.module('mps.serviceRequests')
 
                     if ($scope.sr.type.indexOf("BREAK_FIX") >= 0) {
                         obj.problemDescription = $scope.formattedDescription;
-                    }
-
-                    if ($scope.sr.type === 'DATA_ASSET_DEREGISTER') {
-                        if ($scope.sr.meterReads) {
-                            obj.pageCounts = $scope.sr.meterReads;
-                        } else {
-                            obj.pageCounts = 'none';
-                        }
-                    }
+                    }                    
                 }
 
                 if ($scope.formattedDeviceMoveAddress) {
