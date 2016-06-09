@@ -69,7 +69,8 @@ angular.module('mps.serviceRequestDevices')
             $scope.device = $rootScope.returnPickerObject;
             $scope.sr = $rootScope.returnPickerSRObject;
             ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-            $scope.tryContact = angular.copy($rootScope.selectedContact);
+            $scope.device.sr = {};
+            $scope.device.sr.selectedContact = angular.copy($rootScope.selectedContact);
             $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
@@ -334,10 +335,10 @@ angular.module('mps.serviceRequestDevices')
         }
 
             if (!BlankCheck.isNull($scope.device.primaryContact)){
-            $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
-                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.primaryContact);
+            	$scope.formattedDeviceContact = FormatterService.formatContact($scope.device.primaryContact);
+                $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.sr === undefined? $scope.device.primaryContact:$scope.device.sr.selectedContact);
                    if($scope.isUpdateRequestContact){
-                      $scope.formattedPrimaryContact = FormatterService.formatContact($scope.tryContact);
+                      $scope.formattedPrimaryContact = FormatterService.formatContact($scope.device.sr === undefined? $scope.device.primaryContact:$scope.device.sr.selectedContact);
                 }
             }
 
