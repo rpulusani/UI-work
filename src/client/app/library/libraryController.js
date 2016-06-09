@@ -194,7 +194,7 @@ angular.module('mps.library')
                 }).then(function successCallback(response) {
                     response.data.modifySuccess = true;
                     Documents.setItem(response.data);
-
+                    $('.site-content').scrollTop(0,0);
                     $route.reload();
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to UPDATE new document library file: ' + response.statusText);
@@ -220,7 +220,7 @@ angular.module('mps.library')
                 }).then(function successCallback(response) {
                     response.data.uploadSuccess = true;
                     Documents.setItem(response.data);
-
+                    $('.site-content').scrollTop(0,0);
                     $location.path(Documents.route + "/" + Documents.item.id + "/update");
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
