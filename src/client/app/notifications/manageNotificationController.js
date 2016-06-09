@@ -20,10 +20,10 @@ angular.module('mps.notifications')
             $scope.notification.startDate = Notifications.item.startDate;
             $scope.notification.endDate = Notifications.item.endDate;
             if (BlankCheck.checkNotBlank($scope.notification.startDate)) {
-                $scope.notification.startDate = FormatterService.formatDateForAdmin($scope.notification.startDate);
+                $scope.notification.startDate = FormatterService.formatUTCToLocalTime($scope.notification.startDate);
             }
             if (BlankCheck.checkNotBlank($scope.notification.endDate)) {
-                $scope.notification.endDate = FormatterService.formatDateForAdmin($scope.notification.endDate);
+                $scope.notification.endDate = FormatterService.formatUTCToLocalTime($scope.notification.endDate);
             }
         }
 
