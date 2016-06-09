@@ -281,6 +281,20 @@ angular.module('mps.utility')
 	            var d = new Date(dateToBeFormatted);
 	            return $filter('date')(d, 'yyyy-MM-dd');
             },
+            formatUTCToLocal: function(dateToBeFormatted){
+                    if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                        return '';
+                    }
+                var d = new Date(dateToBeFormatted.replace(/\s/, 'T')+'Z');
+                return $filter('date')(d, 'yyyy-MM-dd');
+            },
+            formatLocalToUTC: function(dateToBeFormatted){
+                    if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                        return '';
+                    }
+                    var d = new Date(dateToBeFormatted.getTime() + dateToBeFormatted.getTimezoneOffset()*60*1000);
+                return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
+            },
             addTimeToDate:function(dateToBeFormatted,hour,min){
                  if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                         return '';

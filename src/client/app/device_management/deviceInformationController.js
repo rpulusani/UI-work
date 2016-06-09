@@ -217,7 +217,7 @@ angular.module('mps.deviceManagement')
         new SecurityHelper($rootScope).redirectCheck($rootScope.deviceAccess);
 
         $scope.ipLink = '';
-        $scope.max=FormatterService.formatDateForRome(new Date());//This is used in date Picker..
+        $scope.max=FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker..
         $scope.breadcrumbs = {
             1: {
                 href: "/device_management",
@@ -279,9 +279,9 @@ angular.module('mps.deviceManagement')
         };
         $scope.minDate = function(item){
         	if(item.updateDate){
-                return item.updateDate;
+                return FormatterService.formatUTCToLocal(item.updateDate);
             }
-            return item.createDate;
+            return FormatterService.formatUTCToLocal(item.createDate);
         };
 
         $scope.bookmark = function(item) {
@@ -467,7 +467,7 @@ angular.module('mps.deviceManagement')
                 if (indLTPC !== -1 && indColor !== -1 
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
                     $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
-                    $scope.meterReads[indMono].updateDate = FormatterService.formatDateForPost(new Date());                    
+                    $scope.meterReads[indMono].updateDate = FormatterService.formatLocalToUTC(new Date());                    
                     updateMeterReads($scope.meterReads[indMono]);
                 }
 
