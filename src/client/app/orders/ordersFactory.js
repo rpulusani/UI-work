@@ -62,7 +62,7 @@ angular.module('mps.orders')
                     ],
                     hardwareSet: [
                        
-                        {'name': $translate.instant('ORDER_MGT.ORDER_NO'), 'field':'requestNumber',  width: 150,
+                        {'name': $translate.instant('SERVICE_REQUEST.REQUEST_NUMBER'), 'field':'requestNumber',  width: 150,
                             'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
@@ -80,7 +80,6 @@ angular.module('mps.orders')
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName', visible: false},
-                        {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('ADDRESS.LINE_1'), 'field': 'sourceAddress.addressLine1', visible: false},
                         {'name': $translate.instant('ADDRESS.HOUSE_NUMBER'), 'field': 'sourceAddress.houseNumber', visible: false},
