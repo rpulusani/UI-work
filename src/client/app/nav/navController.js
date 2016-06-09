@@ -169,12 +169,12 @@
             for (i; i < accts.length; i += 1) {
                 accts[i].isActive = false;
             }
-            $rootScope.currentAccount = {};
+            $rootScope.currentAccount = undefined;
          
             $rootScope.currentUser.permissions.params = {};
          
 
-                $scope.selectedAccount = $rootScope.currentAccount;
+                $scope.selectedAccount = {};
                 $scope.selectedAccount.isDefault = true;
                 i = 0;
                 Security.getPermissions($rootScope.currentUser).then(function(permissions) {
