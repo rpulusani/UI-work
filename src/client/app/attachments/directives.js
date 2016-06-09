@@ -61,6 +61,8 @@ return {
               $log.debug('uploadComplete', response);
               if(response.status === 201){
             	  $scope.error = false;
+            	  response.data.size = parseInt(response.data.size) /1000000;
+                 
             	  $scope.files_complete.push(ifData(response));
                   for(var i =0; i < $scope.files.length; i++) {
                     if($scope.files[i].name === response.data.filename) {

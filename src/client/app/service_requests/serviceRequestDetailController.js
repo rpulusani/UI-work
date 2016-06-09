@@ -659,6 +659,7 @@ angular.module('mps.serviceRequests')
         $scope.formattedInstructions = FormatterService.formatNoneIfEmpty($scope.sr.specialHandlingInstructions);
         $scope.formattedReason = FormatterService.formatNoneIfEmpty(OrderTypes.getDisplay($scope.sr.type));
         $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
+        $scope.sr.attachments = $scope.sr.item.attachments;
     }
 
     setCsvDefinition();
