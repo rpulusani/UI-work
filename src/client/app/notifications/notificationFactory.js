@@ -33,20 +33,14 @@ angular.module('mps.notifications')
                         name: 'getFormattedStartDate',
                         functionDef: function() {
                             if (this.startDate === undefined || this.startDate === null) { return; }
-
-                            var dy = this.startDate.replace(/\+[0]*/, "") + 'Z';
-                            var d = new Date(dy);
-                            return formatter.getDisplayDate(d);
+                            return formatter.formatUTCToDisplay(this.startDate);
                         }
                     },
                     {
                         name: 'getFormattedEndDate',
                         functionDef: function() {
                             if (this.endDate === undefined || this.endDate === null) { return; }
-
-                            var dy = this.endDate.replace(/\+[0]*/, "") + 'Z';
-                            var d = new Date(dy);
-                            return formatter.getDisplayDate(d);
+                            return formatter.formatUTCToDisplay(this.endDate);
                         }                        
                     }
                 ],
