@@ -12,6 +12,10 @@ angular.module('mps.report')
         } else {
             $scope.report = Reports.item;
 
+            if (Reports.item.id === 'mp9058sp') {
+                $scope.print = false;
+            }
+
             configureTemplates();
             configureFinderType();
 
