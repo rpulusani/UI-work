@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div ng-if="documentItem.id === 'new'">
+<div ng-show="documentItem.id === 'new'">
     <div class="form__field form__field--required vertical-space--thick">
         <label translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_BROWSE_FILE"></label>
         <input valid-file ng-model="browseFileName" type="file" name="file" file-model="documentFile" onchange="angular.element(this).scope().setDocumentName(this.files)" accept=".csv,.xls,.xlsx,.vsd,.doc,.docx,.ppt,.pptx,.pdf,.zip" />
