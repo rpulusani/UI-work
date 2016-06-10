@@ -401,7 +401,7 @@ angular.module('mps.user')
 
         $scope.verifyDeactivateActivate = function(status) {
         	
-        	if($scope.user.address === null || ($scope.user.address && $scope.user.address.addressLine1 !== '')){
+        	if($scope.user.address === null || ($scope.user.address && $scope.user.address.addressLine1 === undefined)){
         		$scope.error = true;
         		$scope.errorMessage = 'Please enter user address';
         		return;
