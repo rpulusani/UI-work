@@ -36,11 +36,11 @@ angular.module('mps.report')
                 }
             };
 
-            if($scope.report.id !== "mp0075" || ($scope.report.id === "mp0075" 
-                && Reports.isRun === true
-                && Reports.finder.selectType.length > 0)) {
+            if($scope.report.id === "mp9058sp" || ($scope.report.id !== "mp9058sp" 
+                && Reports.isRun === true)) {
                 $scope.gridOptions.showLoader = true;
                 $scope.gridLoading = true;
+                Reports.isRun = false;
                         
                 Reports.item.links.results({
                     serviceName: 'results',
@@ -66,7 +66,6 @@ angular.module('mps.report')
                             $scope.$broadcast('setupPrintAndExport', $scope);
                         });
                     }
-                    Reports.isRun = false;
                 }, function(reason) {
                     Reports.isRun = false;
                     NREUM.noticeError('Grid Load Failed for ' + Reports.serviceName +  ' reason: ' + reason);
@@ -95,7 +94,7 @@ angular.module('mps.report')
                 /* MADC */
                 case 'mp9073':
                     params = {
-                        eventType: Reports.finder ? Reports.finder.selectType : '',
+                        eventType: Reports.finder ? (Reports.finder.selectType !== 'All' ? Reports.finder.selectType : '') : '',
                         eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         eventDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
@@ -103,14 +102,14 @@ angular.module('mps.report')
                 /* Missing Meter Reads */
                 case 'mp0075':
                     params = {
-                        meterSource: Reports.finder ? (Reports.finder.selectType !== "All" ? Reports.finder.selectType : "") : "",
+                        meterSource: Reports.finder ? (Reports.finder.selectType !== 'All' ? Reports.finder.selectType : '') : '',
                         numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
                     };
                     break;
                 /* Consumables Orders */
                 case 'mp0021':
                     params = {
-                        orderType: Reports.finder ? Reports.finder.selectType : '',
+                        orderType: Reports.finder ? (Reports.finder.selectType !== 'All' ? Reports.finder.selectType : '') : '',
                         srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
