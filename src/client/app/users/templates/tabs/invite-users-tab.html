@@ -13,6 +13,7 @@
     <button type="button" class="btn btn--default" href="" ng-click="selectRow()"
             translate="USER_MAN.INVITE_USERS.BTN_CANCEL_INVITATION" ></button>
 </div>
+<div error-msg ng-if="error"></div>
 <div class="alert alert--info" ng-if="gridLoading === true">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
         <div class="alert__body">
