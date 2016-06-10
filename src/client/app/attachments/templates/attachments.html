@@ -3,8 +3,8 @@
     <div >
     <input ng-model="attachment" name="attachments" type="file" multiple="multiple"
       onchange="angular.element(this).scope().change(this.files)" ng-disabled="files_complete.length === configure.attachments.maxItems" ng-if="sourcefeature.length === 0" />
-    <input ng-model="attachment" name="attachments" type="file" 
-      onchange="angular.element(this).scope().change(this.files)" ng-disabled="files_complete.length === configure.attachments.maxItems" ng-if="sourcefeature === 'translation'" />
+    <input valid-file ng-model="attachment" name="attachments" type="file" 
+      onchange="angular.element(this).scope().change(this.files)" ng-disabled="files_complete.length === configure.attachments.maxItems" ng-if="sourcefeature.length > 0" />
    <div ng-if="configure.detail.translate.fileList" class="form__field__helper-text"
         translate="{{configure.detail.translate.attachmentMessage}}"
         translate-values="{file_list: configure.detail.translate.fileList}"
