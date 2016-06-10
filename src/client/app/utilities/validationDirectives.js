@@ -135,17 +135,10 @@ angular.module('mps.utility')
             elem.on('submit', function () {
                 if(!ctrl.$valid){
                     var $ = require('jquery');
-                    //var c = 1;
                     $('form input.ng-invalid,form select.ng-invalid,form textarea.ng-invalid,form [data-required$=false]').each(function(){
-                        //$(this).css({"border":"1px solid blue"});
-                        //console.log(c);
-                        //c++;
                         var ftop = $('[ng-view]').offset().top;
-                        console.log('ftop : ' + ftop);
                         var $thisTop = $(this).offset().top;
-                        console.log('$thisTop : ' + $thisTop);
                         var diff = $thisTop - ftop;
-                        console.log('diff : ' + diff);
                         $('div.site-content').scrollTop(diff-50);
                         if($thisTop)
                             return false;

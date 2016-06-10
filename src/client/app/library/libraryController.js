@@ -25,6 +25,7 @@ angular.module('mps.library')
             redirect_to_list();
         }
 
+        $('.site-content').scrollTop(0,0);
         if (!$routeParams.id) {
             $scope.documentItem = { id:'new', strategic: false };
         } else {
@@ -99,6 +100,7 @@ angular.module('mps.library')
             $scope.documentItem.name = "";
             var tmp = files[0].name;
             var l = tmp.split('.').pop();
+            $scope.documentFile = files[0];
 
             if($scope.allowedExtensions.indexOf(l.toLowerCase()) >= 0) {
                 $scope.documentItem.extension = l;            
