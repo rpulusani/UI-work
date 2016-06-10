@@ -5,6 +5,8 @@ angular.module('mps.library')
         if (Documents.item === null) {
             $location.path(Documents.route);
         } else {
+            
+            $('.site-content').scrollTop(0,0);
             $scope.documentItem = Documents.item;
 
             if ($scope.documentItem.ext === 'pdf') {
