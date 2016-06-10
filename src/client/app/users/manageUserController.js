@@ -400,6 +400,14 @@ angular.module('mps.user')
         };
 
         $scope.verifyDeactivateActivate = function(status) {
+        	
+        	if($scope.user.address === null || ($scope.user.address && $scope.user.address.addressLine1 !== '')){
+        		$scope.error = true;
+        		$scope.errorMessage = 'Please enter user address';
+        		return;
+        	}else {
+        		$scope.error = false;
+        	}         	
             if (status === 'activate') {
                 createModal('activate-confirm-popup');
             } else if (status === 'deactivate') {
