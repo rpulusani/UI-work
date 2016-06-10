@@ -71,9 +71,10 @@ angular.module('mps.user')
             $scope.accountList.push(siebelAccount);
         } else {
             User.getLoggedInUserInfo().then(function() {
+            	$scope.userDebug = User;
             	if (User.item._links.accounts) {
                     if (angular.isArray(User.item._links.accounts)) {
-                    	console.log('in if f');
+                    	
                         var promises = [],
                         options = {},
                         promise, deferred;
@@ -92,6 +93,8 @@ angular.module('mps.user')
                                     accountLevel: Account.item.level
                                 }
                             };
+                            
+                            $rootScope.currentAccount = {};// setting it , otherwise the call to hateos will fail the accountid & level will get deleted.
                             promise = Account.item.get(options);
                             promises.push(promise);
                         }
@@ -102,6 +105,7 @@ angular.module('mps.user')
                                     $scope.accountList.push(response[j].data);
                                 }
                             }
+                            $rootScope.currentAccount = undefined;
                         });
                     } else {
                     	$rootScope.currentAccount = {};

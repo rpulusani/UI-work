@@ -163,8 +163,10 @@ angular.module('mps.orders')
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
             }
-            if($scope.type === 'SUPPLIES'){
+            if($scope.type === 'SUPPLIES' || ($scope.type === 'HARDWARE' && $rootScope.orderInstall) ){
+            	
             	if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
+            		
                     $scope.scratchSpace.installAddresssSelected = true;
                     $scope.formatedInstallAddress = FormatterService.formatAddress(Orders.tempSpace.installAddress);
                 }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.installAddress)){
@@ -251,6 +253,7 @@ angular.module('mps.orders')
             $scope.resetAddressShipToPicker();
             $scope.formatAdditionalData();
         } else if($rootScope.selectedAddress && $rootScope.returnPickerObjectAddress){
+        	
                 configureSR(Orders);
                 $scope.sr = $rootScope.returnPickerSRObjectAddress;
                 Orders.addRelationship('sourceAddress', $rootScope.selectedAddress, 'self');
@@ -553,6 +556,13 @@ angular.module('mps.orders')
                         pickerObject: Orders.item,
                         source: 'OrderCatalogPurchase'
                     },
+                    installPicker:{
+                    	translate:{
+                            selectedAddressTitle:''
+                        },
+                        pickerObject: Orders.item,
+                        source: 'OrderCatalogPurchase'
+                    },
                     attachments:{
                         maxItems:2
                     }
@@ -579,6 +589,7 @@ angular.module('mps.orders')
                 }
         }
         function callTax(){
+        	
         	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 
         			&& taxService.getRelationship('billToAddress',taxService.item) !== undefined){
         		var i = 0,hasShipBill = false;

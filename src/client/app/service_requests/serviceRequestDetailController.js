@@ -259,7 +259,7 @@ angular.module('mps.serviceRequests')
                     $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': $scope.sr.item.orderItems // send whatever you want
                     });
-            }, 50);
+            }, 2000);
             $scope.configure.header.translate.h1 = "ORDER_CATALOGS.RECEIPT.TXT_DETAIL_TITLE";
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
                     $scope.configure.header.translate.body = "ORDER_CATALOGS.RECEIPT.TXT_PARA";
