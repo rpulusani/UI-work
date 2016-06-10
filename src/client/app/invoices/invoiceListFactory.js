@@ -21,7 +21,7 @@ angular.module('mps.invoice')
                     {'name': $translate.instant('INVOICE.COMMON.DUE_DATE'), 'field':'getDueDate()','notSearchable': true,'visible':true},
                     {'name': $translate.instant('INVOICE.COMMON.PAID_DATE'), 'field':'getPaidDate()','notSearchable': true,'visible':true},
                     {'name': $translate.instant('INVOICE.COMMON.TXT_STATUS'), 'field':'status'},
-                    {'name': $translate.instant('INVOICE.COMMON.AMOUNT'), 'field':'getAmount()'},
+                    {'name': $translate.instant('INVOICE.COMMON.AMOUNT'), 'field':'amount'},
                     {'name': $translate.instant('INVOICE.COMMON.ACCOUNT_NAME'), 'field':'accountName', 'notSearchable': true,'visible':false},
                     {'name': $translate.instant('INVOICE.COMMON.SOLD_TO'), 'field':'soldToNum', 'notSearchable': true,'visible':false},
                     {'name': $translate.instant('INVOICE.COMMON.BILL_TO'), 'field':'getBillToAddress()', 'notSearchable': true,
