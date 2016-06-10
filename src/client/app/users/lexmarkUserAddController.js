@@ -120,6 +120,7 @@ angular.module('mps.user')
                                     accountLevel: Account.item.level
                                 }
                             };
+                            $rootScope.currentAccount = {};
                             promise = Account.item.get(options);
                             promises.push(promise);
                         }
@@ -129,7 +130,9 @@ angular.module('mps.user')
                                 if($scope.accountList.length < prLength && response[j] && response[j].data) {
                                     $scope.accountList.push(response[j].data);
                                 }
+                                
                             }
+                            $rootScope.currentAccount = undefined;
                         });
                     } else {
                         User.getAdditional(User.item, Account).then(function() {
