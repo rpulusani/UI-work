@@ -5,46 +5,59 @@ angular.module('mps.user')
     'PersonalizationServiceFactory','FilterSearchService',
     function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration, Personalize,FilterSearchService) {
         UserAdminstration.setParamsToNull();
-
+        $scope.error = false;
         $scope.selectRow = function() {
                 var selectedUser = $scope.gridApi.selection.getSelectedRows();
-                
+                var rejected = [];
+                $scope.error = false;
                 for(var i=0;i<selectedUser.length;i++){
-                	UserAdminstration.setItem(selectedUser[i]);
-                    UserAdminstration.reset();
-                    UserAdminstration.newMessage();
-                    $scope.userInfo = UserAdminstration.item;
-                    UserAdminstration.addField('type', 'INVITED');
-                    UserAdminstration.addField('invitedStatus', 'REJECTED');
-                    UserAdminstration.addField('active', false);
-                    UserAdminstration.addField('resetPassword', false);
-                    UserAdminstration.addField('email', selectedUser[i].email);
-                    UserAdminstration.addField('userId', selectedUser[i].userId);
-                    if (selectedUser[i]._links.roles) {
-                        $scope.userInfo._links.roles = selectedUser[i]._links.roles;
+                	if(selectedUser[i].invitedStatus !== 'REJECTED'){
+                		UserAdminstration.setItem(selectedUser[i]);
+                        UserAdminstration.reset();
+                        UserAdminstration.newMessage();
+                        $scope.userInfo = UserAdminstration.item;
+                        UserAdminstration.addField('type', 'INVITED');
+                        UserAdminstration.addField('invitedStatus', 'REJECTED');
+                        UserAdminstration.addField('active', false);
+                        UserAdminstration.addField('resetPassword', false);
+                        UserAdminstration.addField('email', selectedUser[i].email);
+                        UserAdminstration.addField('userId', selectedUser[i].userId);
+                        if (selectedUser[i]._links.roles) {
+                            $scope.userInfo._links.roles = selectedUser[i]._links.roles;
+                        }
+                        if (selectedUser[i]._links.accounts) {
+                            $scope.userInfo._links.accounts = selectedUser[i]._links.accounts;
+                        }
+                        UserAdminstration.item.postURL = UserAdminstration.url + '/' + selectedUser[i].userId;
+    	                var options = {
+    	                        preventDefaultParams: true
+    	                    }
+    	                    var deferred = UserAdminstration.put({
+    	                        item:  $scope.userInfo
+    	                    }, options);
+    	
+    	                    deferred.then(function(result){
+    	                        UserAdminstration.wasInvited = false;
+    	                        UserAdminstration.wasSaved = false;
+    	                        setTimeout(function() {
+    	                            $rootScope.currentRowList = [];
+    	                            $scope.searchFunctionDef({'type': 'INVITED', 'embed': 'roles'}, undefined);
+    	                        }, 500);
+    	                    }, function(reason){
+    	                        NREUM.noticeError('Failed to update user because: ' + reason);
+    	                });
+                    }else{
+                    	$scope.error = true;
+                    	rejected.push(selectedUser[i].email);
+                    	
                     }
-                    if (selectedUser[i]._links.accounts) {
-                        $scope.userInfo._links.accounts = selectedUser[i]._links.accounts;
-                    }
-                    UserAdminstration.item.postURL = UserAdminstration.url + '/' + selectedUser[i].userId;
-	                var options = {
-	                        preventDefaultParams: true
-	                    }
-	                    var deferred = UserAdminstration.put({
-	                        item:  $scope.userInfo
-	                    }, options);
-	
-	                    deferred.then(function(result){
-	                        UserAdminstration.wasInvited = false;
-	                        UserAdminstration.wasSaved = false;
-	                        setTimeout(function() {
-	                            $rootScope.currentRowList = [];
-	                            $scope.searchFunctionDef({'type': 'INVITED', 'embed': 'roles'}, undefined);
-	                        }, 500);
-	                    }, function(reason){
-	                        NREUM.noticeError('Failed to update user because: ' + reason);
-	                });
                 }
+                if($scope.error){
+                	$scope.errorMessage = 'Cannot Cancel Invitaion for Rejected Status users '+rejected.toString();
+                }else{
+                	$scope.error = false;
+                }
+                	
             
         };
 
