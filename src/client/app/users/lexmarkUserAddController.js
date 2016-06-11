@@ -120,7 +120,7 @@ angular.module('mps.user')
                                     accountLevel: Account.item.level
                                 }
                             };
-                            $rootScope.currentAccount = {};
+                            
                             promise = Account.item.get(options);
                             promises.push(promise);
                         }
@@ -132,7 +132,7 @@ angular.module('mps.user')
                                 }
                                 
                             }
-                            $rootScope.currentAccount = undefined;
+                            
                         });
                     } else {
                         User.getAdditional(User.item, Account).then(function() {
