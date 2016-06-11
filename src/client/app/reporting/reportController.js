@@ -589,8 +589,12 @@ angular.module('mps.report')
 
         $scope.goToFinder = function(report) {
             Reports.setItem(report);
-            $scope.finder.dateFrom = '';
-            $scope.finder.dateTo = '';
+            Reports.finder.selectType = '';
+            Reports.finder.dateFrom = '';
+            Reports.finder.dateTo = '';
+            Reports.finder.srStatus = '';
+            Reports.finder.withParts = '';
+            Reports.finder.mmrDays = '60';
             $location.path(Reports.route + '/' + Reports.item.id + '/results');
         };
 
