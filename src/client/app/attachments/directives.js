@@ -9,7 +9,8 @@ return {
           '$http',
           '$log',
           '$translate',
-          function($scope, $rootScope, $http, $log, $translate){
+          '$filter',
+          function($scope, $rootScope, $http, $log, $translate,$filter){
             $scope.files = [];
             $scope.files_complete = [];
             $scope.files_error = [];
@@ -61,7 +62,7 @@ return {
               $log.debug('uploadComplete', response);
               if(response.status === 201){
             	  $scope.error = false;
-            	  response.data.size = parseInt(response.data.size) /1000000;
+            	  response.data.size = $filter('number')((parseInt(response.data.size) /1000000), 2)  ;
                  
             	  $scope.files_complete.push(ifData(response));
                   for(var i =0; i < $scope.files.length; i++) {

@@ -11,11 +11,9 @@ angular.module('mps.invoice')
             columnDefs: {
                 defaultSet: [
                     {'name': $translate.instant('INVOICE.COMMON.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',
-                     'cellTemplate':'<div><div>' +
-                                        '<a ng-if="row.entity.sapDocId1" href="#" ng-click="row.entity.sapDocId1 && grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);" ng-bind="grid.appScope.getFormattedInvoiceNo(row.entity.invoiceNumber)"></a>' +
-                                    '</div><div>' +
-                                        '<a ng-if="row.entity.sapDocId2" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);" translate="INVOICE.COMMON.DOWNLOAD_AS_TXT"></a>' +
-                                    '</div>' + '<div ng-if="!row.entity.sapDocId1 && !row.entity.sapDocId2" ng-bind="row.entity.invoiceNumber">' + '</div></div>'
+                     'cellTemplate':'<div ng-bind-html="row.entity.invoiceNumber"></div>'+
+                    '<a ng-if="row.entity.sapDocId1 !== \'\'" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId1);">(PDF)</a>'+
+                    '<a ng-if="row.entity.sapDocId2 !== \'\'" href="#" ng-click="grid.appScope.redirectToInvoiceUrl(row.entity.sapDocId2);">(TXT)</a>'
                     },
                     {'name': $translate.instant('INVOICE.COMMON.INVOICE_DATE'), 'field':'getInvoiceDate()','notSearchable': true,'visible':true},
                     {'name': $translate.instant('INVOICE.COMMON.DUE_DATE'), 'field':'getDueDate()','notSearchable': true,'visible':true},
