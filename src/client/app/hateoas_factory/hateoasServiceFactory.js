@@ -836,11 +836,7 @@ angular.module('mps.hateoasFactory')
                         options.params.accountLevel = $rootScope.currentAccount.accountLevel;
                     }
                 }
-                 if($rootScope.currentAccount === undefined){
-                	 delete options.params.accountId;
-                	 delete options.params.accountLevel;
-                 }   
-                 
+                                 
                 if (!options.url) {
                     self.url = self.setupUrl(self.url);
                     options.url = self.buildUrl(self.url, options.params);

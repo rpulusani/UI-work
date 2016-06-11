@@ -22,6 +22,11 @@ angular.module('mps.filterSearch')
             if(!rootScope || !personalization){
                 throw new Error('Grid Options onRegisterAPI was not setup, possibly missing rootScope, Service Definition or Personalization');
             }
+            
+            serviceDefinition.params.accountId = rootScope.currentAccount === undefined? null : rootScope.currentAccount.accountId;
+            serviceDefinition.params.accountLevel = rootScope.currentAccount === undefined? null : rootScope.currentAccount.accountLevel;
+            
+            
             var self = this;
             var $ = require('jquery');
             self.Grid = new GridService();
