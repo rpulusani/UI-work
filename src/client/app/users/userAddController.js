@@ -94,7 +94,7 @@ angular.module('mps.user')
                                 }
                             };
                             
-                            $rootScope.currentAccount = {};// setting it , otherwise the call to hateos will fail the accountid & level will get deleted.
+                            
                             promise = Account.item.get(options);
                             promises.push(promise);
                         }
@@ -105,7 +105,7 @@ angular.module('mps.user')
                                     $scope.accountList.push(response[j].data);
                                 }
                             }
-                            $rootScope.currentAccount = undefined;
+                            
                         });
                     } else {
                     	$rootScope.currentAccount = {};
