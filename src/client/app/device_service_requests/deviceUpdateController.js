@@ -45,6 +45,7 @@ angular.module('mps.serviceRequestDevices')
         ){
 
         $scope.isLoading = false;
+        $scope.multiple = {};
 
         var configurePermissions = [
             {
@@ -71,9 +72,15 @@ angular.module('mps.serviceRequestDevices')
         // For updating multiple
         if (Devices.updatingMultiple) {
             $scope.devices = Devices.data;
-
             if ($rootScope.selectedContact) {
                 $scope.contact = $rootScope.selectedContact;
+            }
+            if (!BlankCheck.isNull($scope.contact) && !BlankCheck.isNull($scope.contact.address)) {
+                $scope.formattedMultiContactAddress = FormatterService.formatAddresswoPhysicalLocation($scope.contact.address);
+            }
+
+            if (!BlankCheck.isNull($scope.contact)) {
+                $scope.formattedMultiContact = FormatterService.formatContact($scope.contact);
             }
         }
         Country.get().then(function(){
@@ -146,7 +153,6 @@ angular.module('mps.serviceRequestDevices')
             $scope.resetAddressPicker();
         } else {
             $scope.device = Devices.item;
-
             if (!$rootScope.selectedAddress) {
                 if (!(ServiceRequest.item && ServiceRequest.item._links && ServiceRequest.item._links.destinationAddress)) {
                     ServiceRequest.addRelationship('destinationAddress', Devices.item, 'address');
@@ -275,7 +281,7 @@ angular.module('mps.serviceRequestDevices')
         function configureReviewTemplate(){
             if (Devices.updatingMultiple) {
                 for (var k=0; k < Devices.data.length; k += 1) {
-                    Devices.data[k].costCenter = $scope.device.costCenter;
+                    Devices.data[k].multipleCostCenter = $scope.device.multipleCostCenter;
                     if($rootScope.currentSelected === 'updateDeviceContact')
                         $scope.configure.updatingMultiple[k]._embedded.contact = $rootScope.selectedContact;
 
@@ -300,7 +306,7 @@ angular.module('mps.serviceRequestDevices')
                     for (i; i < Devices.data.length; i += 1) {
                         $scope.sr.assetInfo = {
                             assetTag: Devices.data[i].assetTag,
-                            costCenter: Devices.data[i].costCenter,
+                            costCenter: Devices.data[i].multipleCostCenter,
                             hostName: Devices.data[i].hostName,
                             ipAddress: Devices.data[i].ipAddress,
                             physicalLocation1: Devices.data[i].physicalLocation1,

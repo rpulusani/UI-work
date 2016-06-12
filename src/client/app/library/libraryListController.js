@@ -1,6 +1,7 @@
 angular.module('mps.library')
 .controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
     function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
+        $translate.refresh();
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
         if(!$rootScope.documentLibraryAccess){

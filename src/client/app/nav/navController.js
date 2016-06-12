@@ -162,6 +162,29 @@
             return passed;
         };
 
+        $scope.defaultExpanded = function(item){
+            if(item.dropdown){
+                var dropdownTags = {};
+                var ind = 0;
+                var tagsCnt = 0;
+                var tagItem = "";
+                dropdownTags = $scope.getItemsByTag(item.id);
+                if(dropdownTags.length > 0){
+                    tagsCnt = dropdownTags.length;
+                    for (ind=0; ind<tagsCnt; ind++){
+                        tagItem = dropdownTags[ind];
+                        
+                        if($location.path() === tagItem.action || 
+                            $route.current.activeItem === tagItem.action){
+                            $scope.dropdownNonAccount(item);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        };
+
         $scope.goToAccountPicker = function(param) {
             var i = 0,
             accts = Users.item.transactionalAccount.data;

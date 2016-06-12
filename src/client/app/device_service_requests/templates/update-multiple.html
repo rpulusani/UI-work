@@ -38,14 +38,19 @@
         <div class="col-1-4">
             <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.LNK_CHANGE_CONTACT" ng-click="goToContactPicker('DeviceUpdate', 'updateDeviceContact', devices[0])"></a>
         </div>
-
-        <div new-contact-fields></div>
+        <div style="white-space: pre;" ng-bind-html="formattedMultiContact"></div>
+        <div ng-if="contact">
+        <h4 translate="CONTACT_MAN.COMMON.TXT_CONTACT_LOCATION_QUERY"></h4>
+        <div style="white-space: pre;" ng-bind-html="formattedMultiContactAddress"></div>
+            
+            
+        </div>
 
         <div class="col-1">
             <h3 translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></h3>
             <div class="form__field">
                 <label translate="REQUEST_MAN.COMMON.TXT_DEVICE_COST_CENTER"></label>
-                <input type="text" name="costCenter" ng-model="device.costCenter" value="" class=""  mps-update />
+                <input type="text" name="costCenter" ng-model="device.multipleCostCenter" value="" class=""  mps-update />
             </div>
         </div>
         
