@@ -55,7 +55,7 @@ function(
 
     $scope.goToCreate = function() {
         ServiceRequest.newMessage();
-        Addresses.item = undefined;
+        Addresses.item = {};
         $location.path('/service_requests/addresses/new');
     };
 
