@@ -12,8 +12,23 @@ angular.module('mps.filterSearch')
             		$scope.allRequestTypes= $scope.allRequestTypes.concat(element.data._embedded.requestTypes);                   
                 }        		
         	});
+        	groupBy();
         	
         });
+        function groupBy(){
+        	var i=0,groupedTypes=[],tempType=[];
+        	for(;i<$scope.allRequestTypes.length;i++){
+        		if($scope.allRequestTypes[i] === 'INSTALL_BAU' || $scope.allRequestTypes[i] === 'MADC_INSTALL'){
+        			tempType.push($scope.allRequestTypes[i]);
+        		}else{
+        			groupedTypes.push({value:$scope.allRequestTypes[i],disValue:$scope.allRequestTypes[i]});
+        		}
+        		
+        	}
+        	//combining the grouped 
+        	groupedTypes.push({value:tempType.join(","),disValue:'MADC_INSTALL'});
+        	$scope.allRequestTypes = groupedTypes; 
+        }
         $scope.type="";
         $scope.$watch('type', function(type) {
         	    $scope.params['type'] = type;
