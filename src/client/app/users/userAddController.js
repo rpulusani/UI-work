@@ -249,10 +249,10 @@ angular.module('mps.user')
                         UserAdminstration.addField('email', emailList[i]);
                         UserAdminstration.addField('userId', emailList[i]);
 
-                        for (var i=0;i<$scope.user.basicRoles.length; i++) {
+                        for (var j=0;j<$scope.user.basicRoles.length; j++) {
                             if ($scope.basicRole
-                                && $scope.user.basicRoles[i].description === $scope.basicRole) {
-                                $scope.user.selectedRoleList.push($scope.user.basicRoles[i]);
+                                && $scope.user.basicRoles[j].description === $scope.basicRole) {
+                                $scope.user.selectedRoleList.push($scope.user.basicRoles[j]);
                             }
                         }
                         if ($scope.user.selectedRoleList) {
