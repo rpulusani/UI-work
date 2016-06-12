@@ -89,6 +89,11 @@ angular.module('mps.utility')
                             }
                             $rootScope.currentSelectedRow = undefined;
                         }
+                        // added for custom function on row selected
+                        if(service.onSelectRow && typeof service.onSelectRow === "function"){
+                        	console.log(" on select row grid");
+                        	service.onSelectRow(row);
+                        }
                     }
                 );
             }
