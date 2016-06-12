@@ -148,7 +148,7 @@ angular.module('mps.user')
                 var options = {
                     preventDefaultParams: true,
                     params:{    
-                        searchTerm: $scope.user.accountName
+                        searchTerm: encodeURIComponent($scope.user.accountName)
                     }
                 };
                 AllAccounts.get(options).then(function(){
