@@ -15,6 +15,7 @@ angular.module('mps.dashboard')
 '$translate',
 'Notifications',
 'FormatterService',
+'BlankCheck',
 function(
     $scope,
     $location,
@@ -29,7 +30,8 @@ function(
     Reports,
     $translate,
     Notifications,
-    FormatterService
+    FormatterService,
+    BlankCheck
 ) {
 	
 		$scope.filteredNotifications = [];
@@ -66,7 +68,7 @@ function(
         /* The 'bar' at the top of the homepage with SR counts */
         getSROpenCnt = function() {
             ServiceRequests.get({
-                preventDefaultParams: true,
+                preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                         status:  ['SUBMITTED', 'IN_PROCESS', 'SHIPPED'],
                         'type': 'BREAK_FIX'
@@ -79,7 +81,7 @@ function(
             },
         getSRCompletedCnt = function() {
             ServiceRequests.get({
-                preventDefaultParams: true,
+                preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                         status:  ['COMPLETED'],
                         'type': 'BREAK_FIX'
@@ -90,7 +92,7 @@ function(
         },
         getSROrderCnt = function() {
             var options = {
-                preventDefaultParams: true,
+                preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                     status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
                     type: 'ORDERS_ALL'
@@ -110,7 +112,7 @@ function(
         },
         getOrderCompletedCnt = function() {
             var options = {
-                preventDefaultParams: true,
+                preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                         status:  ['COMPLETED'],
                         type: 'ORDERS_ALL'
@@ -128,7 +130,7 @@ function(
         },
         getSRMADCCnt = function() {
             ServiceRequests.get({
-                preventDefaultParams: true,
+                preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                     type: [
                         'MADC_ALL','DATA_ASSET_ALL'
@@ -143,7 +145,7 @@ function(
         },
         getMADCCompletedCnt = function() {
             ServiceRequests.get({
-                preventDefaultParams: true,
+                preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                     type: [
                         'MADC_ALL','DATA_ASSET_ALL'
