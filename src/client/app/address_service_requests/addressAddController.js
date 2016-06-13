@@ -405,6 +405,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.resetContactPicker();
             }else if(Addresses.item){
                 $scope.address = Addresses.item;
+                $scope.getRequestor(ServiceRequest, Contacts);
             }else{
                 $scope.address = {};
                 $scope.enteredAddress = {};
