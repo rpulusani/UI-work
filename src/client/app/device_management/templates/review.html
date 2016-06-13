@@ -32,20 +32,22 @@
 
             <div class="btns">
                 <button class="btn" ng-click="btnRequestService(device);" translate="DEVICE_MAN.MANAGE_DEVICES.BTN_REQUEST_SERVICE"
-                    ng-if="createBreakFixAccess"></button>
+                    ng-if="deviceActionPermissions.createBreakFixAccess"></button>
 				
 				<button type="button" class="btn btn--default" href="" ng-click="goToSupplies(device)"
-            	translate="ORDER_MAN.MANAGE_ORDERS.BTN_ORDER_SUPPLIES"  ng-if="orderSuppliesAsset">        		
+            	translate="ORDER_MAN.MANAGE_ORDERS.BTN_ORDER_SUPPLIES"  ng-if="deviceActionPermissions.orderSuppliesAsset">        		
         		</button>
                 <button class="btn btn--default" ng-click="btnDecommissionDevice(device);"
                 translate="DEVICE_MAN.MANAGE_DEVICE.BTN_DECOM_DEVICE" translate-values="{productModel: device.productModel}"
-                    ng-if="decommissionAccess"></button>
+                    ng-if="deviceActionPermissions.decommissionAccess"></button>
                 
-                <button type="button" class="btn btn--default" href="" ng-click="goTocreateMove(device)" ng-if="moveDevice"
+                <button type="button" class="btn btn--default" href="" ng-click="goTocreateMove(device)"
+                 ng-if="deviceActionPermissions.moveDevice"
             	translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MOVE_DEVICE"></button>
               
                 <button type="button" class="btn btn--default" href="" ng-click="goToorderSameDevice(device)"
-            	translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SAME_DEVICE" ng-if="orderDevice"></button>
+            	translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SAME_DEVICE" 
+            	ng-if="deviceActionPermissions.orderDevice"></button>
             </div>
         </div>
     </div>

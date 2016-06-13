@@ -209,7 +209,7 @@ angular.module('mps.deviceManagement')
             Devices.setItem(device);
             var options = {
                 params:{
-                    embed:'contact,address,chl'
+                    embed:'contact,address,chl,account'
                 }
             };
 
