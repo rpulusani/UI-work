@@ -60,7 +60,7 @@ angular.module('mps.user')
                 	
             
         };
-
+        UserAdminstration.columns = 'invitedSet';
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'invitedSet');
 
