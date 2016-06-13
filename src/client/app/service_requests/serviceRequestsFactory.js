@@ -16,7 +16,7 @@ angular.module('mps.serviceRequests')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate','notSearchable': true},
                         
                         
                         
@@ -101,7 +101,7 @@ angular.module('mps.serviceRequests')
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate','notSearchable': true},
                         {'name': $translate.instant('DEVICE_MAN.COMMON.TXT_DEVICE_TAG'), 'field':'_embedded.asset.assetTag',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.assetTag"></div>'
                         },
@@ -167,7 +167,7 @@ angular.module('mps.serviceRequests')
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate','notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status'},                        
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
@@ -189,6 +189,7 @@ angular.module('mps.serviceRequests')
                             'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 
                             'field': 'createDate', 
                             searchOn :'createDate',
+                            'notSearchable': true,
                             'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>'
                         },
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
