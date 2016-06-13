@@ -3,6 +3,7 @@
 angular.module('mps.serviceRequests')
 .controller('ServiceRequestCancelController', [
     '$scope',
+    '$filter',
     '$location',
     '$routeParams',
     '$rootScope',
@@ -20,6 +21,7 @@ angular.module('mps.serviceRequests')
     'tombstoneWaitTimeout',
     function(
         $scope,
+        $filter,
         $location,
         $routeParams,
         $rootScope,
@@ -44,6 +46,10 @@ angular.module('mps.serviceRequests')
         $scope.isLoading = false;
 
         SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
+        var statusBarLevelsShort = [
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
         function getSRNumber(existingUrl) {
             $timeout(function(){
@@ -177,6 +183,8 @@ angular.module('mps.serviceRequests')
         }
 
         function configureReceiptTemplate() {
+          var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+          $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevelsShort);
           if($routeParams.queued === 'queued') {
             $scope.configure.header.translate.h1="QUEUE.RECEIPT.TXT_TITLE";
                 $scope.configure.header.translate.h1Values = {

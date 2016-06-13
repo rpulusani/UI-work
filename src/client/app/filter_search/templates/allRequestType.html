@@ -3,8 +3,8 @@
 <div class="well scrollable">
 	<div ng-repeat="reqType in allRequestTypes">
 		<label class="form__field form__field--no-margin">
-	    	 <input type="radio" ng-model="$parent.type" value="{{reqType}}" name="request-Type-grp"/>
-	         {{reqType}}
+	    	 <input type="radio" ng-model="$parent.type" value="{{reqType.value}}" name="request-Type-grp"/>
+	         {{reqType.disValue}}
 	    </label> 
 	</div>
 </div>

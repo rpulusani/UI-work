@@ -44,8 +44,14 @@
     <div order-content editable="{{editable}}" ordernbr="ordernbr" submit-action="submit" datasource="orderItems"
     hide-submit="hideSubmitButton" configure="configure"></div>
     </div>
-    
+    <ul class="info-list" ng-if="sr.status === 'CANCELLED'">
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS"></div>
+                    <div class="info-list__item-value" ng-bind="sr.status"></div>
+    			</li>
+    </ul>
     <div order-receipt></div>
+    
     <div order-return-details></div>
    
     

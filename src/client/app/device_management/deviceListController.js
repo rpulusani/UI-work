@@ -13,7 +13,7 @@ angular.module('mps.deviceManagement')
     '$timeout',
     'lbsURL',
     'ServiceRequestService',
-    'OrderRequest',
+    'OrderRequest',    
     function(
         $scope,
         $location,
@@ -270,5 +270,46 @@ angular.module('mps.deviceManagement')
             }
         );
 
+            var configPermissions = [];
+            configPermissions = angular.copy($rootScope.configurePermissions);
+            $scope.deviceActionPermissions = {};          		
+            		
+            
+            function setupInitDevicePermissions(){
+                $scope.deviceActionPermissions.orderSuppliesAsset = $rootScope.orderSuppliesAsset;
+                $scope.deviceActionPermissions.createBreakFixAccess = $rootScope.createBreakFixAccess;
+                $scope.deviceActionPermissions.pageCountAccess = $rootScope.pageCountAccess;
+                $scope.deviceActionPermissions.updateDevice = $rootScope.updateDevice;
+                $scope.deviceActionPermissions.moveDevice = $rootScope.moveDevice;
+                $scope.deviceActionPermissions.orderDevice = $rootScope.orderDevice;
+                $scope.deviceActionPermissions.decommissionAccess = $rootScope.decommissionAccess;
+        		
+            }
+            setupInitDevicePermissions();
+            var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions)
+            Devices.onSelectRow = function(row){
+            	/** This method is to check individual button permission on select of the 
+            	 * asset row. */
+            	if($rootScope.currentRowList.length === 0){
+            		setupInitDevicePermissions();
+            	} 
+            	var accId = row.entity._embedded.account.accountId,
+            	i=0,
+            	acntPermissions,
+            	accounts = $rootScope.currentUser.transactionalAccount.data;
+            	
+            	if ($rootScope.currentRowList.length == 1){
+            		for(;i<accounts.length;i++){
+                		if(accounts[i].account.accountId === accId){
+                			acntPermissions = accounts[i].permisssions.permissions;
+                			
+                			break;
+                		}
+                	}
+            		$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
+            		helperDeviceSelect.setupPermissionList(configPermissions);
+            	}
+            	
+            };    
     }
 ]);

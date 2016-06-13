@@ -82,12 +82,17 @@ angular.module('mps.user')
                     }
                 }
             }
-
-            if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
-                $scope.user.fullName = $scope.user.firstName + $scope.user.lastName;
+			
+	    if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
+                $scope.user.fullName = $scope.user.firstName + ' ' + $scope.user.lastName;
             }
-
-            
+           
+            $scope.breadcrumbs = {
+                1: $rootScope.preBreadcrumb,
+                2: {
+                    value: $scope.user.firstName + ' ' + $scope.user.lastName
+                }
+            }
 
             var removeParams,
             addonRoleOptions = {
@@ -164,7 +169,7 @@ angular.module('mps.user')
                                     accountLevel: Account.item.level
                                 }
                             };
-                            $rootScope.currentAccount = {};
+                            
                             promise = Account.item.get(options);
                             promises.push(promise);
                         }
@@ -175,7 +180,7 @@ angular.module('mps.user')
                                     $scope.accountList.push(response[j].data);
                                 }
                             }
-                            $rootScope.currentAccount = undefined;
+                            
                         });
                     } else {
                         User.getAdditional(User.item, Account).then(function() {
@@ -218,7 +223,7 @@ angular.module('mps.user')
                 var options = {
                     preventDefaultParams: true,
                     params:{    
-                        searchTerm: $scope.user.accountName
+                        searchTerm: encodeURIComponent($scope.user.accountName)
                     }
                 };
                 AllAccounts.get(options).then(function(){

@@ -55,11 +55,12 @@ angular.module('mps.utility')
         $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
         var filterParams = {};
         
-        if ($routeParams.source === 'DeviceAdd' && $rootScope.currentSelected === 'updateDeviceContact'){
+        /*if ($routeParams.source === 'DeviceAdd' && $rootScope.currentSelected === 'updateDeviceContact'){
            	filterParams.consumables = true;        	
         }else {
         	filterParams.consumables = false; 
-        }
+        }*/
+        filterParams.consumables = false;
         Contacts.getPage(undefined,undefined,{
         	params : filterParams
         }).then(function() {	

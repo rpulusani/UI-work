@@ -30,22 +30,22 @@
     </div>
     <div class="col-md-1-1 btns">
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderSupplies')"
-            translate="ORDER_MAN.MANAGE_ORDERS.BTN_ORDER_SUPPLIES" ng-disabled="!isSingleSelected()" ng-if="orderSuppliesAsset">
+            translate="ORDER_MAN.MANAGE_ORDERS.BTN_ORDER_SUPPLIES" ng-disabled="!isSingleSelected()" ng-if="deviceActionPermissions.orderSuppliesAsset">
         </button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('requestService')"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_REQUEST_SERVICE" ng-disabled="!isSingleSelected()"
-            ng-if="createBreakFixAccess"></button>
+            ng-if="deviceActionPermissions.createBreakFixAccess"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('updatePageCounts')"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="pageCountAccess"
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_PAGE_COUNTS_UC" ng-if="deviceActionPermissions.pageCountAccess"
             ng-disabled="!isSingleSelected()"></button>
-        <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')" ng-if="updateDevice"
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('edit')" ng-if="deviceActionPermissions.updateDevice"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_UPDATE_DEVICE_INFO_UC" ng-disabled="!isMultipleSelected()"></button>
-        <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')" ng-if="moveDevice"
+        <button type="button" class="btn btn--default" href="" ng-click="selectRow('move')" ng-if="deviceActionPermissions.moveDevice"
             translate="DEVICE_MAN.MANAGE_DEVICES.BTN_MOVE_DEVICE" ng-disabled="!isSingleSelected()"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('orderAnother')"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SAME_DEVICE" ng-disabled="!isSingleSelected()" ng-if="orderDevice"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_ORDER_SAME_DEVICE" ng-disabled="!isSingleSelected()" ng-if="deviceActionPermissions.orderDevice"></button>
         <button type="button" class="btn btn--default" href="" ng-click="selectRow('delete')"
-            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_DECOM_DEVICE" ng-disabled="!isSingleSelected()" ng-if="decommissionAccess"></button>
+            translate="DEVICE_MAN.MANAGE_DEVICES.BTN_DECOM_DEVICE" ng-disabled="!isSingleSelected()" ng-if="deviceActionPermissions.decommissionAccess"></button>
     </div>
     <div class="col-1">
         <div class="alert alert--info" ng-if="gridLoading === true">
