@@ -66,13 +66,15 @@ angular.module('mps.user')
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_INVITATION_DATE'), 
                         'field':'created',
-                        'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>'
+                        'cellTemplate':'<div ng-bind="row.entity.getFormattedCreateDate()"></div>',
+                        'notSearchable':true
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': '',
                         'cellTemplate':'<div ng-bind="row.entity.getAccounts()"></div>', 
-                        'enableSorting':false
+                        'enableSorting':false,
+                        'notSearchable':true
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 

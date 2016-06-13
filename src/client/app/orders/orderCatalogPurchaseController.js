@@ -616,7 +616,7 @@ angular.module('mps.orders')
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         if (lineTotal !== 0){
                         	taxItems.push({
-                            	itemNumber : OrderItems.data[i].itemNumber,
+                            	itemNumber : OrderItems.data[i].displayItemNumber,
                             	price : lineTotal
                             });
                         }

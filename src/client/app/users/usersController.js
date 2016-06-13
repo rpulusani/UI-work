@@ -35,6 +35,7 @@ angular.module('mps.user')
                 UserAdminstration.wasInvited = false;
             }
         }
+        UserAdminstration.columns = 'defaultSet';
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(UserAdminstration, $scope, $rootScope, personal,'defaultSet');
 
