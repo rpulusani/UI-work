@@ -14,7 +14,11 @@ angular.module('mps.filterSearch')
 
         $scope.$on('columnPickerSelect', function(e, col) {
             var newSet = angular.copy($scope.columnSet);
-            newSet.push(col);
+            
+            if(col.notSearchable === undefined || !col.notSearchable){
+            	newSet.push(col);
+            }
+            	
 
             $scope.columnSet = newSet;
             $scope.$apply();
@@ -43,6 +47,8 @@ angular.module('mps.filterSearch')
         }
 
         $scope.$watch('total', function(total) {
+        	console.log('totallll ');
+        	console.log(total);
             if (total) {
                 $scope.totalItems = total.totalItems();
             }
