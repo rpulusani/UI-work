@@ -9,12 +9,13 @@ angular.module('mps.utility')
     function(scope, element, attrs, translate, $rootScope) {
         var node = element[0],
         $ = require('jquery'),
+        columns = [],
         addColumn = function(column, gridOptions) {
             var i = 0,
             fnd = false;
 
             for (i; i < gridOptions.columnDefs.length; i += 1) {
-                if (gridOptions.columnDefs[i].field === column.field) {
+                if (gridOptions.columnDefs[i].field === column.field && column.field) {
                     gridOptions.columnDefs[i].visible = true;
                 }
             }
@@ -30,7 +31,6 @@ angular.module('mps.utility')
                     gridOptions.columnDefs[i].visible = false;
                 }
             }
-
 
             return gridOptions;
         },
@@ -52,20 +52,67 @@ angular.module('mps.utility')
 
             checkbox.customInput();
 
-            if (checkbox && (column.dynamic === undefined || column.dynamic === true)) {
+            if (column.field !== 'select_all') {
+                if (checkbox && (column.dynamic === undefined || column.dynamic === true)) {
+                    checkbox.on('change', function(e) {
+                        e.preventDefault();
+
+                        if (checkbox.checked === false) {
+                            checkbox.checked = true;
+                            gridOptions = addColumn(column, gridOptions);
+                            checkboxLabel.toggleClass('form__field--is-checked');
+
+                            $rootScope.$broadcast('columnPickerSelect', column);
+                        } else {
+                            checkbox.checked = false;
+                            gridOptions = removeColumn(column, gridOptions);
+                            checkboxLabel.toggleClass('form__field--is-checked');
+                        
+                            $rootScope.$broadcast('columnPickerDeselect', column);
+                        }
+
+                        scope.$root.gridApi.core.refresh();
+                        scope.$apply();
+                    });
+
+                    listItem.append(checkBoxWrapper);
+
+                    return listItem;
+                } else {
+                    return false;
+                }
+            } else {
                 checkbox.on('change', function(e) {
+                    var i = 0;
+
                     e.preventDefault();
 
                     if (checkbox.checked === false) {
                         checkbox.checked = true;
-                        gridOptions = addColumn(column, gridOptions);
-                        checkboxLabel.toggleClass('form__field--is-checked');
+
+                        for (i; i < columns.length; i += 1) {
+                            console.log(i, columns.length, columns[i]);
+
+                            if (columns[i].field !== 'select_all') {
+                                gridOptions = addColumn(columns[i], gridOptions);
+                            
+                                checkboxLabel =  $('<label for="' + columns[i].name + '"><span></span> ' + columns[i].name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
+                                checkboxLabel.toggleClass('form__field--is-checked');
+                            }
+                        }
 
                         $rootScope.$broadcast('columnPickerSelect', column);
                     } else {
                         checkbox.checked = false;
-                        gridOptions = removeColumn(column, gridOptions);
-                        checkboxLabel.toggleClass('form__field--is-checked');
+
+                        for (i; i < columns.length; i += 1) {
+                            if (columns[i].field !== 'select_all') {
+                                gridOptions = removeColumn(columns[i], gridOptions);
+                                
+                                checkboxLabel =  $('<label for="' + columns[i].name + '"><span></span> ' + columns[i].name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
+                                checkboxLabel.toggleClass('form__field--is-checked');
+                            }
+                        }
                     
                         $rootScope.$broadcast('columnPickerDeselect', column);
                     }
@@ -77,11 +124,9 @@ angular.module('mps.utility')
                 listItem.append(checkBoxWrapper);
 
                 return listItem;
-            } else {
-                return false;
             }
         },
-        possibleColumns = [],
+        columns = [],
         prop;
 
         scope.$on('setupColumnPicker', function(e, Grid) {
@@ -89,7 +134,6 @@ angular.module('mps.utility')
             if (!element.hasClass('columnpicker')) {
                 var i = 0,
                 columnMax = 7,
-                columns = [],
                 list = angular.element('<div class="form"></div>'),
                 selectorContent,
                 links = [],
@@ -117,6 +161,12 @@ angular.module('mps.utility')
                         if (e.targetScope.gridOptions) {
                             if (Grid.gridOptions.columnDefs.length > 0) {
                                 columns = e.targetScope.gridOptions.columnDefs;
+
+                                columns.push({
+                                    field: 'select_all',
+                                    name: 'Select All',
+                                    visible: false
+                                });
                             }
 
                             for (i; i < columns.length; i += 1) {
