@@ -39,6 +39,10 @@ angular.module('mps.serviceRequestDevices')
         $timeout,
         tombstoneWaitTimeout,
         SecurityHelper) {
+        
+        if(Devices.item === null){       
+            $location.path('/device_management');
+        }
         if($rootScope.devicesNotFoundInPicker){
             Devices.item = $rootScope.deviceToRegisterInPicker;
         }
