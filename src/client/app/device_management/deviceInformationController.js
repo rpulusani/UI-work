@@ -791,5 +791,43 @@ angular.module('mps.deviceManagement')
             setCsvDefinition();
             $scope.$broadcast('setupPrintAndExport', $scope);
         }
+        // BElow section checks the device account permissions...
+        var configPermissions = [];
+        configPermissions = angular.copy($rootScope.configurePermissions);        
+    	$scope.deviceActionPermissions = {};          		
+		
+        
+        function setupInitDevicePermissions(){
+            $scope.deviceActionPermissions.orderSuppliesAsset = $rootScope.orderSuppliesAsset;
+            $scope.deviceActionPermissions.createBreakFixAccess = $rootScope.createBreakFixAccess;
+            $scope.deviceActionPermissions.pageCountAccess = $rootScope.pageCountAccess;
+            $scope.deviceActionPermissions.updateDevice = $rootScope.updateDevice;
+            $scope.deviceActionPermissions.moveDevice = $rootScope.moveDevice;
+            $scope.deviceActionPermissions.orderDevice = $rootScope.orderDevice;
+            $scope.deviceActionPermissions.decommissionAccess = $rootScope.decommissionAccess;
+            $scope.deviceActionPermissions.serviceRequestBreakFixAccess = $rootScope.serviceRequestBreakFixAccess;
+            $scope.deviceActionPermissions.viewSupplyOrderAccess = $rootScope.viewSupplyOrderAccess; 
+            $scope.deviceActionPermissions.deviceInfoAccess = $rootScope.deviceInfoAccess; 
+    		
+        }
+        setupInitDevicePermissions();
+    	var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions) 
+    	var accId = Devices.item._embedded.account.accountId,
+    	i=0,
+    	acntPermissions,
+    	accounts = $rootScope.currentUser.transactionalAccount.data;    	
+    	
+    	for(;i<accounts.length;i++){
+        	if(accounts[i].account.accountId === accId){
+        		acntPermissions = accounts[i].permisssions.permissions;
+        		break;
+        	}
+        }
+    	$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
+    	helperDeviceSelect.setupPermissionList(configPermissions);
+    	
+    	
+        
+        
     }
 ]);
