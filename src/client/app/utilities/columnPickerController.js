@@ -3,7 +3,7 @@ Controller for the Column Picker Directive.
 Builds a list of links that modify the columns on
 a target Grid.
 */
-'use strict'
+'use strict';
 angular.module('mps.utility')
 .controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate', '$rootScope', '$compile',
     function(scope, element, attrs, translate, $rootScope, $compile) {
@@ -99,10 +99,10 @@ angular.module('mps.utility')
                     '</div>'),
                 dropdownMenu = $('<div class="row l-hidden"><div class="col-lg-3-4 col-md-1-1"><div class="row l-pad columnpicker__menu">' + 
                     '<div class="col-1-2"><h2>' + translate.instant('COLUMNPICKER.TITLE') + '</h2></div>' + 
-                    '<div class="col-1-2"><ul>' + 
+                    '<div class="col-1-2"><ul class="columnactions">' + 
                         '<li><a href="#" ng-click="selectAll()">Select All</a></li>' + 
                         '<li><a href="#" ng-click="deselectAll()" href="">Select None</a></li>' + 
-                        '<li><a href="#" ng-click="resetColumns()" href="">Reset Columns</a></li>' + 
+                        '<li class="last"><a href="#" ng-click="resetColumns()" href="">Reset Columns</a></li>' + 
                     '</ul></div>' + 
                     '</div></div></div>');
 
