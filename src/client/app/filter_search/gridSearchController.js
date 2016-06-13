@@ -47,9 +47,7 @@ angular.module('mps.filterSearch')
         }
 
         $scope.$watch('total', function(total) {
-        	console.log('totallll ');
-        	console.log(total);
-            if (total) {
+        	 if (total) {
                 $scope.totalItems = total.totalItems();
             }
         });
