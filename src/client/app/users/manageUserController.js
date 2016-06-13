@@ -82,12 +82,17 @@ angular.module('mps.user')
                     }
                 }
             }
-
-            if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
-                $scope.user.fullName = $scope.user.firstName + $scope.user.lastName;
+			
+			if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
+                $scope.user.fullName = $scope.user.firstName + ' ' + $scope.user.lastName;
             }
-
-            
+           
+            $scope.breadcrumbs = {
+                1: $rootScope.preBreadcrumb,
+                2: {
+                    value: $scope.user.firstName + ' ' + $scope.user.lastName
+                }
+            }
 
             var removeParams,
             addonRoleOptions = {
