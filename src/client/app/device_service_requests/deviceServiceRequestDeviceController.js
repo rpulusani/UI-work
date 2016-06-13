@@ -38,6 +38,10 @@ angular.module('mps.serviceRequestDevices')
         tombstoneWaitTimeout,
         SecurityHelper){
 
+         if(Devices.item === null){       
+            $location.path('/service_requests');
+        }
+
         $scope.isLoading = false;
         $scope.srType = 'break_fix';
         $scope.validForm = true;
