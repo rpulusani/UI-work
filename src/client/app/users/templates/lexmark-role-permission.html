@@ -12,10 +12,10 @@
 <strong><label translate='USER_MAN.COMMON.TXT_ADDITIONAL_PERMISSIONS'></label></strong>
 <div class="well">
     <div ng-repeat="role in user.addonRoles">
-        <label for="role.roleId" class="form__field form__field--no-margin">
+        <label for="{{role.roleId}}" class="form__field form__field--no-margin">
             <input type="checkbox"
-                id="role.roleId"
-                name="role.roleId"
+                id="{{role.roleId}}"
+                name="{{role.roleId}}"
                 ng-model="role.selected"
                 ng-change="setPermissions(role)"
             />
