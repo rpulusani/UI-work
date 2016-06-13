@@ -83,7 +83,7 @@ angular.module('mps.user')
                 }
             }
 			
-			if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
+	    if ($scope.user && $scope.user.firstName && $scope.user.lastName) {
                 $scope.user.fullName = $scope.user.firstName + ' ' + $scope.user.lastName;
             }
            
