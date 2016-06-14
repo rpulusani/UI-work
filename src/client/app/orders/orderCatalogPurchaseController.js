@@ -304,7 +304,7 @@ angular.module('mps.orders')
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
             		return;
             	} 
-            	if( $scope.paymentMethod === 'payNow' && !$scope.scratchSpace.billToAddresssSelected){
+            	if(($scope.paymentMethod === 'payNow'|| $scope.paymentMethod === 'SHIP_AND_BILL') && !$scope.scratchSpace.billToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
             		return;
