@@ -260,7 +260,25 @@ angular.module('mps.serviceRequests')
                         'OrderItems': $scope.sr.item.orderItems // send whatever you want
                     });
             }, 2000);
-            $scope.configure.header.translate.h1 = "ORDER_CATALOGS.RECEIPT.TXT_DETAIL_TITLE";
+            $scope.configure.header.translate.h1 = "ORDER_MAN.COMMON.TXT_ORDER_NUMBER";
+            $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
+            $scope.configure.contact.translate.requestedByTitle = "ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY";
+            $scope.configure.detail.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_ADDITIONAL_DETAILS";
+            
+          
+            $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/orders',
+                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+
+         
+
+
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
                     $scope.configure.header.translate.body = "ORDER_CATALOGS.RECEIPT.TXT_PARA";
                     $scope.configure.header.translate.readMore = "";
@@ -272,8 +290,8 @@ angular.module('mps.serviceRequests')
                     };
                     $scope.configure.receipt = {
                         translate:{
-                            title:"ORDER_CATALOGS.RECEIPT.TXT_DETAIL_TITLE",
-                            titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                            title:"ORDER_MAN.COMMON.TXT_ORDER_NUMBER_SUBMITTED_HEADER",
+                            titleValues: {'orderNumber': FormatterService.getFormattedSRNumber($scope.sr) }
                         }
                     };
             $scope.configure.queued = false;
@@ -312,9 +330,22 @@ angular.module('mps.serviceRequests')
                     });
             }, 2000);
              $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES";
+             $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
+             $scope.configure.contact.translate.requestedByTitle = "ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY";
+             $scope.configure.detail.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_ADDITIONAL_DETAILS";
+             $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/orders',
+                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+         
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
                     $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
-                    $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
+                    $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
                     $scope.configure.header.translate.bodyValues= {
                         'order': FormatterService.getFormattedSRNumber($scope.sr),

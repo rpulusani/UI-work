@@ -17,7 +17,7 @@
   </div>
   <div ng-repeat="file in files" ng-if="!error">
     
-    <div>{{file.name}}</div>
+    
     <div class="progress-bar" ng-if="!file.complete">
       <div class="progress-bar__fill progress-bar__fill--is-animated progress-green" style="width: 100%"></div>
     </div>
@@ -25,7 +25,11 @@
   <div ng-repeat="file in files_complete">  
   	<div class="card" data-card="">
 		<div class="card__content">
-			<div class="card__title">{{file.filename}}({{file.size}}MB)</div>
+			<div class="card__title">
+			{{file.filename}}<span ng-if="file.size < 1000">({{file.size}} Bytes)</span>
+			<span ng-if="file.size > 1000 && file.size < 1000000">({{file.size/1000}} KB)</span>
+			<span ng-if="file.size > 1000000">({{file.size/1000000 | number :  2}} MB)</span>
+			</div>
 			<div class="card__author">Attachment {{$index+1}} of {{files_complete.length}}</div>
 			<a class="card__action" href="#" ng-click="removeAttachment(file)">Remove Attachment</a>
 		</div>

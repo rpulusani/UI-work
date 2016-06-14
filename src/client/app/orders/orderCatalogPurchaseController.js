@@ -52,15 +52,36 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
+
         if(taxService.item === undefined && taxService.item._links === undefined){
         	taxService.newMessage();
         }
+       
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
         { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
+        setCsvDefinition = function() {
+            $scope.csvModel = {
+                filename: $scope.sr.requestNumber + '.csv',
+                data: {
+                    requestNumber: $scope.sr.requestNumber,
+                    description: $scope.sr.description,
+                    customerReferenceId: $scope.formattedReferenceId,
+                    costCenter: $scope.formattedCostCenter,
+                    shipToAddress: $scope.formatedShipToAddress === undefined ? "" :$scope.formatedShipToAddress.replace(/<br\/>/g, ', '),
+                    primaryContact: $scope.formattedPrimaryContact === undefined ? "":$scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
+                    requestedByContact: $scope.requestedByContactFormattedExport === undefined ? "" : $scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
+                    serialNumber: $scope.device === undefined ? "" : $scope.device.serialNumber,
+                    productModel: $scope.device === undefined ? "": $scope.device.productModel,
+                    ipAddress: $scope.device === undefined ? "" : $scope.device.ipAddress,
+                    notes: $scope.formattedNotes,
+                    type: $scope.sr.type
+                }
+            };
+        };
 
         $scope.print = false;
         $scope.export = false;
@@ -283,7 +304,7 @@ angular.module('mps.orders')
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
             		return;
             	} 
-            	if( $scope.paymentMethod === 'payNow' && !$scope.scratchSpace.billToAddresssSelected){
+            	if(($scope.paymentMethod === 'payNow'|| $scope.paymentMethod === 'SHIP_AND_BILL') && !$scope.scratchSpace.billToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
             		return;
@@ -616,7 +637,7 @@ angular.module('mps.orders')
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         if (lineTotal !== 0){
                         	taxItems.push({
-                            	itemNumber : OrderItems.data[i].itemNumber,
+                            	itemNumber : OrderItems.data[i].displayItemNumber,
                             	price : lineTotal
                             });
                         }
@@ -637,7 +658,9 @@ angular.module('mps.orders')
                 	
             	}
         	}
-        };      
+        };
+
+        setCsvDefinition();
     }
 ]);
 
