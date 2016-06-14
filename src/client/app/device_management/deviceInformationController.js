@@ -792,11 +792,6 @@ angular.module('mps.deviceManagement')
             $scope.$broadcast('setupPrintAndExport', $scope);
         }
         // BElow section checks the device account permissions...
-        var configPermissions = [];
-        configPermissions = angular.copy($rootScope.configurePermissions);        
-    	$scope.deviceActionPermissions = {};          		
-		
-        
         function setupInitDevicePermissions(){
             $scope.deviceActionPermissions.orderSuppliesAsset = $rootScope.orderSuppliesAsset;
             $scope.deviceActionPermissions.createBreakFixAccess = $rootScope.createBreakFixAccess;
@@ -810,21 +805,30 @@ angular.module('mps.deviceManagement')
             $scope.deviceActionPermissions.deviceInfoAccess = $rootScope.deviceInfoAccess; 
     		
         }
-        setupInitDevicePermissions();
-    	var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions) 
-    	var accId = Devices.item._embedded.account.accountId,
-    	i=0,
-    	acntPermissions,
-    	accounts = $rootScope.currentUser.transactionalAccount.data;    	
-    	
-    	for(;i<accounts.length;i++){
-        	if(accounts[i].account.accountId === accId){
-        		acntPermissions = accounts[i].permisssions.permissions;
-        		break;
-        	}
+        if(Devices.item && Devices.item._embedded){
+        	var configPermissions = [];
+            configPermissions = angular.copy($rootScope.configurePermissions);        
+        	$scope.deviceActionPermissions = {};          		
+    		
+            
+           
+            setupInitDevicePermissions();
+        	var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions) 
+        	var accId = Devices.item._embedded.account.accountId,
+        	i=0,
+        	acntPermissions,
+        	accounts = $rootScope.currentUser.transactionalAccount.data;    	
+        	
+        	for(;i<accounts.length;i++){
+            	if(accounts[i].account.accountId === accId){
+            		acntPermissions = accounts[i].permisssions.permissions;
+            		break;
+            	}
+            }
+        	$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
+        	helperDeviceSelect.setupPermissionList(configPermissions);
         }
-    	$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
-    	helperDeviceSelect.setupPermissionList(configPermissions);
+        //Ends device account permissions...
     	
     	
         

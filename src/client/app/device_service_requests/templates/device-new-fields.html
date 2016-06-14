@@ -96,7 +96,7 @@
 
 <div>
     <strong ng-hide="device.deviceInstallQuestion === true" translate="REQUEST_MAN.COMMON.TXT_WHERE_INSTALLED"></strong>
-    <strong class="form__field--required" ng-show="device.deviceInstallQuestion === true"
+    <strong ng-show="device.deviceInstallQuestion === true"
         translate="DEVICE_SERVICE_REQUEST.NEW_DEVICE_INSTALL_LOCATION"></strong>
 </div>
 
@@ -104,9 +104,6 @@
     <a href="" translate="REQUEST_MAN.COMMON.LNK_SELECT_INSTALL_ADDR"
         ng-click="goToAddressPicker('DeviceAdd',device)"></a>
 </div>
-
-<input type="text" name="installAddresssCheck" ng-model="formattedDeviceAddress" ng-show="false"
-        ng-required="device.deviceInstallQuestion === true" />
 
 <div ng-show="device.addressSelected">
     <div class="contact-info">
