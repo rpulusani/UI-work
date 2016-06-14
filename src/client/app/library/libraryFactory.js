@@ -25,7 +25,7 @@ angular.module('mps.library')
                     {name: $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'), field: 'description', width: 300},
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_PUBLISH_DATE'), field: 'getPublishedDate()', searchOn: 'publishDate', width: 200 },
                     {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_OWNER'), field: 'owner', notSearchable: true, width: 325},
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', searchOn: 'size' },
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_FILE_SIZE'), field: 'getFileSize()', searchOn: 'size', type: 'numberStr' },
                     {name: $translate.instant('LABEL.COMMON.ACTION'), field: 'actions',  width: '220', notSearchable: true, enableSorting: false,
                         'cellTemplate':'<div ng-show="grid.appScope.getEditAction(row.entity.owner)">' +
                             '<a href="" ng-click="grid.appScope.goToUpdate(row.entity.id);"><i class="icon-16 icon-psw-edit"></i></a>' +
