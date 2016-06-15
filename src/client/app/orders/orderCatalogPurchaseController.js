@@ -336,7 +336,8 @@ angular.module('mps.orders')
                    $scope.isLoading = true;
                    var deffereds = [];
                    $scope.savedSR = [];
-                   var partsGroupedByBiling = OrderItems.groupPartsByBillingModel();
+                   var partsGroupedByBiling = OrderItems.groupPartsByBillingModel(),billingModel;
+                   
                    for (billingModel in partsGroupedByBiling){     
                 	   
                 	   
@@ -492,6 +493,7 @@ angular.module('mps.orders')
             $scope.configure.orderItems = {
             		multipleSr : OrderItems.groupPartsByBillingModel()	
             };
+            $scope.configure.orderItems.srMap = getBillingModelSRMap();
             $scope.configure.orderItems.taxAmount = OrderItems.taxAmount;
         }
         $scope.formatReceiptData($scope.formatAdditionalData);
@@ -713,10 +715,22 @@ angular.module('mps.orders')
         	var srNums = [];
         	if (Orders.confirmedSavedSR && angular.isArray(Orders.confirmedSavedSR) && Orders.confirmedSavedSR.length > 0) {
            	 for (var i=0; i < Orders.confirmedSavedSR.length; i++) {
-           		 srNums.push(Orders.confirmedSavedSR[i].siebelId);
+           		srNums.push(Orders.confirmedSavedSR[i].siebelId);            		 
                 }
            }
-        	return srNums.join(",");
+        	return srNums.join(","); 
+        }
+        
+        function getBillingModelSRMap(){
+        	var objBillingSr = {};
+        	if (Orders.confirmedSavedSR && angular.isArray(Orders.confirmedSavedSR) && Orders.confirmedSavedSR.length > 0) {
+           	 for (var i=0; i < Orders.confirmedSavedSR.length; i++) {
+           		 // Below we will map 'billingmodel' : 'srNumber'
+           		 objBillingSr[Orders.confirmedSavedSR[i].tombstonePayload.billingModel] =Orders.confirmedSavedSR[i].siebelId; 
+           		 
+                }
+           }
+        	return objBillingSr;
         }
         
         setCsvDefinition();

@@ -41,8 +41,10 @@
         </div>
     </div>
     <div ng-if="configure && configure.order && configure.order.type === undefined ">
-    	<div ng-repeat = "eachSr in configure.orderItems.multipleSr" >
-	    	<div order-content-table items="eachSr" tax="configure.orderItems.taxAmount"></div>
+    	
+    	<div ng-repeat = "(billingModel , orderItems) in configure.orderItems.multipleSr" >
+    	<div>Order Number : {{configure.orderItems.srMap[billingModel]}}</div>
+	    	<div order-content-table items="orderItems" tax="configure.orderItems.taxAmount"></div>
     	</div>
 	    
     </div>
