@@ -104,10 +104,10 @@ angular.module('mps.orders')
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName', visible: false},
-                        {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'', visible: false},
+                        {'name': $translate.instant('ORDER_MGT.TRACKING_NUMBER'), 'field':'trackingNumber'},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),'field':'', visible: false},
-                        {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
-                        {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'assetInfo.costCenter', visible: false}
+                        {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId'},
+                        {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'assetInfo.costCenter'}
                         
                         
                     ],
