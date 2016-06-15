@@ -169,7 +169,7 @@ angular.module('mps.pageCount')
         $scope.save = function(devicePageCount) {
                 $scope.errorMessage='',
                 $scope.popupMsg='';
-                $scope.currentPageCountEdit=devicePageCount; 
+                $scope.currentPageCountEdit=devicePageCount;
                     var pageCountParams={
                         newLTPC: BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)==true?devicePageCount.newLtpcCount:'',
                         oldLTPC: devicePageCount.ltpcValue,
