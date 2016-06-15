@@ -103,8 +103,12 @@ angular.module('mps.deviceManagement')
               type: 'BREAK_FIX',
               assetId: Devices.item.id
           };
+          
           $scope.gridOptions.showBookmarkColumn = false;
-              filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_DEVICE_SERVICE_HISTORY', params);
+          
+          filterSearchService.addBasicFilter('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_DEVICE_SERVICE_HISTORY', params, undefined, function() {
+             $scope.$broadcast('setupPrintAndExport', $scope);
+          });
         }
       }
 

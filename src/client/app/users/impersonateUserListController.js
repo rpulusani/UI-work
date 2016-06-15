@@ -42,6 +42,7 @@ angular.module('mps.user')
             Impersonate.query(user.email, function(data) {
                 var authToken = 'Bearer ' + data.accessToken;
                 $cookies.put('impersonateToken', authToken);
+                $cookies.put('impersonateUrl', $window.location.href);
                 $window.location.reload();
             });
         };

@@ -148,4 +148,28 @@ angular.module('mps.utility')
 
         }
     };
+})
+.directive('confirmPairField',function(){
+    return{
+        require: 'ngModel',
+        restrict: 'A',
+        link: function(scope,elem,attr,ctrl){
+
+            scope.$watch(attr.ngModel, function() {
+                confirmPairFieldValidation();
+            });
+            scope.$watch(attr.linkField, function() {
+                confirmPairFieldValidation();
+            });
+            function confirmPairFieldValidation(){
+                if ($(elem).val() === scope.$eval(attr.linkField)) {
+                    ctrl.$setValidity('confirmField', true);
+                } else {
+                    ctrl.$setValidity('confirmField', false);
+                }
+                return $(elem).val();
+            }
+            ctrl.$parsers.push(confirmPairFieldValidation);
+        }
+    }
 });

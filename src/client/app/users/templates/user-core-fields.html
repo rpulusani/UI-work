@@ -7,14 +7,19 @@
     <input name="lastName" type="text" ng-model="user.lastName" value="" class="" required />
 </div>
 <div class="form__field form__field--required">
-    <label translate="USER_MAN.COMMON.TXT_PHONE_NUMBER"></label>
+    <label ng-hide="userPreference" translate="USER_MAN.COMMON.TXT_PHONE_NUMBER"></label>
+    <label ng-show="userPreference" translate="USER_PROFILE_MAN.PROFILE.LABEL_Work_phone"></label>
     <input name="workPhone" type="text" ng-model="user.workPhone" value="" class="" required phone-valid/>
 </div>
-<div class="form__field form__field--required">
-    <label translate="USER_MAN.COMMON.TXT_EMAIL_ADDRESS"></label>
-    <input name="email" type="text" ng-model="user.email" value="" class="" required  email-valid/>
+<div class="form__field" ng-class="{'form__field--required':!userPreference}">
+    <label ng-hide="userPreference" translate="USER_MAN.COMMON.TXT_EMAIL_ADDRESS"></label>
+    <div ng-show="userPreference">
+        <b><span translate="USER_MAN.COMMON.TXT_EMAIL_ADDRESS"></span></b>
+        <a class="marginLeft50px" translate="USER_PROFILE_MAN.PROFILE.LNK_CHANGE_EMAIL" href="/user_update_email"></a>
+    </div>
+    <input name="email" type="text" ng-model="user.email" value="" class="" ng-disabled="userPreference" required  email-valid/>
 </div>
-<div class="form__field form__field--select" >
+<div ng-if="!userPreference" class="form__field form__field--select" >
     <label translate="USER_MAN.COMMON.TXT_PREFERRED_LANGUAGE"></label>
                  
     <select ng-model="user.preferredLanguage" name="language">
@@ -23,4 +28,8 @@
             {{language.name}}
             </option>
     </select>
+</div>
+<div ng-if="userPreference" class="form__field">
+    <label translate="USER_PROFILE_MAN.PROFILE.LABEL_FAX"></label>
+    <input name="fax" type="text" ng-model="user.fax" value="" class="" />
 </div>

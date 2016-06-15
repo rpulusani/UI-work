@@ -108,7 +108,8 @@ angular.module('mps.orders')
             datasource:"=",
             configure: "=",
             hideSubmit: "=",
-            maxQuantity: "="
+            maxServiceQuantity: "=",
+            maxSuppliesQuantity: "="
         },
         compile: function(element, attrs){
             if(!attrs.editable) {
@@ -119,6 +120,17 @@ angular.module('mps.orders')
             }
         },
         controller: 'OrderContentsController'
+    };
+})
+.directive('orderContentTable', function(){
+    return {
+        restrict: 'A',
+        templateUrl: '/app/orders/templates/order-contents-table.html',
+        scope:{
+            items: '=',
+            tax: '='
+        },
+        controller:'OrderContentTableController'
     };
 })
 .directive('orderActionButtons', function() {

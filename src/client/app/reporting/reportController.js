@@ -558,6 +558,12 @@ angular.module('mps.report')
         $scope.gridOptions.showBookmarkColumn = false;
         $scope.gridDataCnt = 0;
         $scope.gridLoading = true;
+        $scope.gridOptions.exporterFieldCallback = function ( grid, row, col, value ){
+            if ( col.name === 'Tags'){
+                value = $scope.getTagNames(value)
+            }
+            return value;
+        };
 
         Documents.columns = Documents.columnDefs['otherReports'];
         Documents.get({

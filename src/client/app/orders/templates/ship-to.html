@@ -42,7 +42,7 @@
         <input name="requestedDeliveryDate" type="text" ng-model="sr.requestedDeliveryDate"
             date-val="sr.requestedDeliveryDate" datepicker min="min" time="true" time-interval="60" />
 </div>
-<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected && scratchSpace.catalogCart.agreement.allowExpedite">
+<div class="form__field" ng-show="scratchSpace.shipToAddresssSelected && (scratchSpace.catalogCart.agreement.allowExpediteSupply || scratchSpace.catalogCart.agreement.allowExpediteService)">
     <input id = "expediteOrder" name="expediteOrder" type="checkbox" ng-model="sr.expediteOrder"
         data-js="customInput" value="false"/>
     <label for="expediteOrder"><span></span>
