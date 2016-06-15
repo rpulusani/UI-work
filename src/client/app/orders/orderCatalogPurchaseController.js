@@ -168,7 +168,7 @@ angular.module('mps.orders')
                                  if(Tombstone.item && Tombstone.item.siebelId) {
                                      //Orders.item.requestNumber = Tombstone.item.siebelId;
                                      $scope.savedSR[i].saved = true;
-                                     console.log(Tombstone.item);
+                                     
                                      Orders.confirmedSavedSR.push(Tombstone.item);
                                     // ServiceReqeust.item = Orders.item;
                                     // $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
@@ -338,8 +338,7 @@ angular.module('mps.orders')
                    $scope.savedSR = [];
                    var partsGroupedByBiling = OrderItems.groupPartsByBillingModel();
                    for (billingModel in partsGroupedByBiling){     
-                	   console.log('billingModel '+billingModel);
-                	   console.log( partsGroupedByBiling[billingModel]);
+                	   
                 	   
                 	   Orders.addField('billingModel', billingModel);
                        if(Orders.item.requestedDeliveryDate){
