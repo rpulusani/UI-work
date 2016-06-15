@@ -42,7 +42,7 @@
     </div>
     <div ng-if="configure && configure.order && configure.order.type === undefined ">
     	<div ng-repeat = "eachSr in configure.orderItems.multipleSr" >
-	    	<div order-content-table items="eachSr"></div>
+	    	<div order-content-table items="eachSr" tax="configure.orderItems.taxAmount"></div>
     	</div>
 	    
     </div>

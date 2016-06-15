@@ -6,8 +6,8 @@ angular.module('mps.orders')
     'PersonalizationServiceFactory',
     'HATEOASFactory',
     '$location',
-    '$rootScope',
-    function($scope,$translate,GridService,Personalize,HATEOASFactory,$location,$rootScope){
+    '$rootScope','FormatterService','BlankCheck',
+    function($scope,$translate,GridService,Personalize,HATEOASFactory,$location,$rootScope,formatter,BlankCheck){
         var template = {
         		serviceName: 'orderItems',
                 embeddedName: 'orderItems', 
@@ -31,7 +31,32 @@ angular.module('mps.orders')
         	                        enableCellEdit:false
         	                    }
         	        		]
-        		}
+        		},
+        		 functionArray: [
+        		                 {
+        		                         name: 'priceCurrencyFormat',
+        		                         functionDef: function(){
+        		                             if (this.billingModel === 'USAGE_BASED_BILLING'){
+        		                                 return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
+        		                             } else {
+        		                                 return formatter.formatCurrency(this.price);
+        		                             }
+        		                         }
+        		                     },
+        		                     {
+        		                         name: 'itemSubTotal',
+        		                         functionDef: function(){
+        		                         	if (this.billingModel === 'USAGE_BASED_BILLING'){
+        		                         		return '-';
+        		                         	} else {
+        		                         		var subTotal = formatter.itemSubTotal(this.price, this.quantity);
+        		                                 return formatter.formatCurrency(subTotal);	
+        		                         	}
+        		                             
+        		                         }
+        		                     }
+
+        		                 ]
         };
         $scope.orderSummaryGridOptions = new HATEOASFactory(template);
         
@@ -45,7 +70,33 @@ angular.module('mps.orders')
         $scope.orderSummaryGridOptions.onRegisterAPI = Grid.getGridActions($scope,
         $scope.orderSummaryGridOptions, personal);
         Grid.display($scope.orderSummaryGridOptions,$scope,personal, 48);
-        //$scope.calculate();
+        $scope.calculate = function(){
+        	
+        	if($scope.tax !== null && $scope.tax !== undefined){
+        		var subTotal = 0.0;
+                if($scope.orderSummaryGridOptions.data){
+                    for(var i = 0; i < $scope.orderSummaryGridOptions.data.length; ++i){
+                        var lineTotal = formatter.itemSubTotal($scope.orderSummaryGridOptions.data[i].price,
+                        		$scope.orderSummaryGridOptions.data[i].quantity);
+                        subTotal += lineTotal;
+                    }
+                }
+                $scope.subTotal = formatter.formatCurrency(subTotal);
+                if (BlankCheck.checkNotNullOrUndefined($scope.tax) &&  $scope.tax !== ''){
+                	var taxNumeric = $scope.tax;
+                	var amount = subTotal + taxNumeric;
+                	$scope.total = formatter.formatCurrency(amount);
+                	var taxPercent = (((amount - subTotal)/amount)*100);
+                	
+                	$scope.displaytax = formatter.formatPercent(taxPercent);
+                }	
+        	}
+            
+            
+        };
+        $scope.calculate();
+        
+        
     
 }]);
 

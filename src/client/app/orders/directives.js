@@ -126,8 +126,8 @@ angular.module('mps.orders')
         restrict: 'A',
         templateUrl: '/app/orders/templates/order-contents-table.html',
         scope:{
-            items: '='
-            
+            items: '=',
+            tax: '='
         },
         controller:'OrderContentTableController'
     };

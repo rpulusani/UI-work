@@ -492,6 +492,7 @@ angular.module('mps.orders')
             $scope.configure.orderItems = {
             		multipleSr : OrderItems.groupPartsByBillingModel()	
             };
+            $scope.configure.orderItems.taxAmount = OrderItems.taxAmount;
         }
         $scope.formatReceiptData($scope.formatAdditionalData);
         function configureTemplates(){
@@ -694,11 +695,14 @@ angular.module('mps.orders')
                     		total += response.data.orderItems[i].tax;
                     	}
                     	taxAmount = total;
+                    	OrderItems.taxAmount = taxAmount;
                     	$scope.$broadcast('TaxDataAvaialable', {'tax':taxAmount});
                     	
                     });
                 	
             	}
+        	}else{
+        		OrderItems.taxAmount = null;
         	}
 
         }; 
