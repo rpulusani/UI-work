@@ -26,7 +26,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_REQUESTS_FOR_SERVICE"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests?tab=serviceRequestsServiceTab" ng-if="serviceRequestBreakFixAccess">
+                        <a href="/service_requests?tab=serviceRequestsServiceTab&filter=requeststatusfiltershort&filteron=submitted,in_process,shipped" ng-if="serviceRequestBreakFixAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srOpenCnt"></span> 
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -50,7 +50,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_ORDERS"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/orders" ng-if="orderSuppliesHardwareAccess">
+                        <a href="/orders?&filter=requeststatusfilterlong&filteron=submitted,in_process,shipped" ng-if="orderSuppliesHardwareAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srOrderCnt"></span> 
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -74,7 +74,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_DEVICE_CHANGE_REQUESTS"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab&filter=requeststatusfiltershort&filteron=completed" ng-if="serviceRequestMADCAccess">
+                        <a href="/service_requests?tab=serviceRequestsDeviceTab&filter=requeststatusfiltershort&filteron=submitted,in_process,shipped" ng-if="serviceRequestMADCAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srMADCCnt"></span>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -113,7 +113,7 @@
         <!-- dashboard charts -->
         <div class="row">
             <div class="col-1">
-                <a href="/reporting"><h3 class="blue" translate="HOME_PAGE.REPORTS.TXT_REPORTS"></h3></a>
+                <h3 class="blue" ><a href="/reporting" translate="HOME_PAGE.REPORTS.TXT_REPORTS"></a></h3>
             </div>
             <div class="col-1">
                 <div class="row">

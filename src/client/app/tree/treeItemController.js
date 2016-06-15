@@ -4,6 +4,9 @@ angular.module('mps.tree')
         if($scope.item){
             $scope.item.disabled = false;
             $scope.item.selected = false;
+            if($scope.value && $scope.value.id){
+                $scope.item.selected = ($scope.value.id === $scope.item.accountId);
+            }
             if ($scope.treeType && ($scope.treeType === 'chl' || $scope.treeType === 'daAccounts')) {
                 $scope.item.name = $scope.item.name + ' [' + $scope.item.accountId +']';
                 if ($scope.item.country) {
@@ -211,6 +214,11 @@ angular.module('mps.tree')
                         if(item.items && item.items.length > 0) {
                             enableChildren(item.items, item);
                         }
+                    }
+                    else if ($scope.treeType === 'chl') {
+                            $scope.value.id = '';
+                            $scope.value.name = '';
+                            deselectOthers(item, $scope.treeNodes);
                     }
                 }
             } else {

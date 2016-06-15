@@ -68,21 +68,19 @@ angular.module('mps.filterSearch')
             }
         };
         if (params.filteron){
+            var filterOnAr = params.filteron.split(',');
         	var statusValue = null,i;
         	for (i=0;i<$scope.requestStatuses.length;i++){
-        		if ($scope.requestStatuses[i].value.toLowerCase() === params.filteron){
+        		if (filterOnAr.indexOf($scope.requestStatuses[i].value.toLowerCase()) >= 0){
         			statusValue = $scope.requestStatuses[i].value;
         			$scope.requestStatuses[i].selected=true;
-        			break;
+                    $scope.requestStatus={
+                            selected: true,
+                            value: statusValue
+                    }
+                    $scope.requestStatusFilter($scope.requestStatus);
         		}
         	}
-        	$scope.requestStatus={
-        			selected: true,
-        			value: statusValue
-        	}
-        	
-        	
-        	$scope.requestStatusFilter($scope.requestStatus);
         }
     }
 ]);

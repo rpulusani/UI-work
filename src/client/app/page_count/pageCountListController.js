@@ -68,6 +68,7 @@ angular.module('mps.pageCount')
         $scope.doSave=function(){
             var color,
             ltpc,
+            mono,
             devicePageCount=$scope.currentPageCountEdit;
 
             if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount)) {
@@ -129,7 +130,38 @@ angular.module('mps.pageCount')
                 });
             }
             
-              
+            if (BlankCheck.checkNotNullOrUndefined(devicePageCount.ltpcMeterReadId) && 
+                BlankCheck.checkNotNullOrUndefined(devicePageCount.newLtpcCount) && 
+                BlankCheck.checkNotNullOrUndefined(devicePageCount.colorMeterReadId) && 
+                BlankCheck.checkNotNullOrUndefined(devicePageCount.newColorCount) &&
+                BlankCheck.checkNotNullOrUndefined(devicePageCount.monoMeterReadId)) {
+                MeterReads.newMessage();
+                mono = MeterReads.item;
+                mono.postURL = devicePageCount._links.monoMeterRead.href;
+
+                MeterReads.addField('id', devicePageCount.monoMeterReadId);
+                MeterReads.addField('value', devicePageCount.newLtpcCount-devicePageCount.newColorCount);
+                MeterReads.addField('type', 'MONO');
+
+                if (BlankCheck.checkNotNullOrUndefined(devicePageCount.currentReadDate)) {
+                    MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
+                }
+                
+                
+                    $http({
+                    method: 'PUT',
+                    url: devicePageCount._links.monoMeterRead.href,
+                    data: mono
+                }).then(function(pageCountResponse) {
+                    MeterReads.wasSaved = true;
+                    if ( pageCountResponse.data.type && pageCountResponse.data.type === 'MONO'){
+                         devicePageCount.monoValue=pageCountResponse.data.value; 
+                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate;                         
+                         devicePageCount.currentReadDate = "";                         
+                    }
+                                      
+                });
+            }
         };
         $scope.errorMessage='';
         $scope.popupMsg='';

@@ -54,15 +54,36 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
+
         if(taxService.item === undefined && taxService.item._links === undefined){
         	taxService.newMessage();
         }
+       
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
         { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
+        setCsvDefinition = function() {
+            $scope.csvModel = {
+                filename: $scope.sr.requestNumber + '.csv',
+                data: {
+                    requestNumber: $scope.sr.requestNumber,
+                    description: $scope.sr.description,
+                    customerReferenceId: $scope.formattedReferenceId,
+                    costCenter: $scope.formattedCostCenter,
+                    shipToAddress: $scope.formatedShipToAddress === undefined ? "" :$scope.formatedShipToAddress.replace(/<br\/>/g, ', '),
+                    primaryContact: $scope.formattedPrimaryContact === undefined ? "":$scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
+                    requestedByContact: $scope.requestedByContactFormattedExport === undefined ? "" : $scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
+                    serialNumber: $scope.device === undefined ? "" : $scope.device.serialNumber,
+                    productModel: $scope.device === undefined ? "": $scope.device.productModel,
+                    ipAddress: $scope.device === undefined ? "" : $scope.device.ipAddress,
+                    notes: $scope.formattedNotes,
+                    type: $scope.sr.type
+                }
+            };
+        };
 
         $scope.print = false;
         $scope.export = false;
@@ -680,6 +701,7 @@ angular.module('mps.orders')
                 	
             	}
         	}
+
         }; 
         
         
@@ -694,6 +716,11 @@ angular.module('mps.orders')
         	return srNums.join(",");
         }
         
+        setCsvDefinition();
+       
+
+       
+
     }
 ]);
 
