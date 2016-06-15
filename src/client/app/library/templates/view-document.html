@@ -1,22 +1,7 @@
 <div class="page-content">
     <div breadcrumbs map="breadcrumbs"></div>
     <div>
-        <div class="col-2-3">
-            <h2 translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_VIEWING_DOCUMENT" translate-values="{ fileName: documentItem.name }"></h2>
-        </div>
-
-        <div class="print-export">
-            <span class="">
-                <i class="icon icon--mps icon--print"></i>
-                <a translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold"></a>
-            </span>
-            
-            <span class="">
-                <i class="icon icon--mps icon--download"></i>
-                <a translate="LABEL.COMMON.EXPORT" href="#" ng-click="goToDownload(documentItem);" class="text--small text--semi-bold"></a>
-            </span>
-        </div>
-
+        <div print-export-title titlestring="{{ titleString }}" csv-export="csvModel" pdf-export="pdfModel"></div>
     </div>
 
     <div class="row">

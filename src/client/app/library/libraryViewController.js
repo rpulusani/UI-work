@@ -1,6 +1,61 @@
+'use strict';
 angular.module('mps.library')
 .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
     function($scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {
+        var setCsvDefinition = function() {
+            var headers = [
+                $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_NAME'),
+                $translate.instant('DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION'),
+                $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_TAGS'),
+                $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_SIZE'),
+                $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_PUBLISHED'),
+                $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_EXPIRES'),
+                $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_OWNER')
+            ],
+            rows = [
+                $scope.documentItem.name,
+                $scope.documentItem.description,
+                $scope.getTagNames($scope.documentItem.tags),
+                $scope.getFileSize($scope.documentItem.size),
+                $scope.getFormatDate($scope.documentItem.publishDate),
+                $scope.getFormatDate($scope.documentItem.endDate),
+                $scope.getFileOwner($scope.documentItem.owner)
+            ],
+            pdfHeaders = [],
+            pdfRows = [],
+            i = 0;
+
+            $scope.csvModel = {
+                filename: 'export-' + $scope.documentItem.name.replace(/ /g, '-').toLowerCase() + '.csv',
+                headers: headers,
+                // rows are just property names found on the dataObj
+                rows: rows
+            };
+
+            for (i; i < headers.length; i += 1) {
+               pdfHeaders.push({text: headers[i], fontSize: 8});
+            }
+
+            i = 0;
+
+            for (i; i < rows.length; i += 1) {
+               pdfRows.push({text: rows[i], fontSize: 8});
+            }
+
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders,
+                      pdfRows
+                    ]
+                  }
+                }
+              ]
+            };
+        };
 
         if (Documents.item === null) {
             $location.path(Documents.route);
@@ -142,6 +197,7 @@ angular.module('mps.library')
                 NREUM.noticeError('Failed to DOWNLOAD existing document library file: ' + response.statusText);
             });
         };
+
         $scope.breadcrumbs = {
             1:{
                 href:'/library',
@@ -150,7 +206,12 @@ angular.module('mps.library')
             2:{
                 value: $scope.documentItem.name
             }
-        }
+        };
+
+        setCsvDefinition();
+        $scope.$broadcast('setupPrintAndExport', $scope);
+
+        $scope.titleString = $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_VIEWING_DOCUMENT') + ' ' + $scope.documentItem.name
     }
 ]);
 
