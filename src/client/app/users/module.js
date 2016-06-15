@@ -49,7 +49,20 @@ function ($routeProvider, UrlHelper) {
         templateUrl: '/app/users/templates/invite-user.html',
         controller: 'ManageUserController',
         activeItem: '/delegated_admin'
+	})
+    .when('/user_preference', {
+        templateUrl: '/app/users/templates/user-preference.html',
+        controller: 'ManageUserPreferenceController',
+        activeItem: '/'
+    })
+    .when('/user_update_email', {
+        templateUrl: '/app/users/templates/user-update-email.html',
+        controller: 'UserUpdateEmailController',
+        activeItem: '/'
+    })
+    .when('/user_reset_password', {
+        templateUrl: '/app/users/templates/user-reset-password.html',
+        controller: 'UserResetPasswordController',
+        activeItem: '/'
     });
 }]);
-
-

@@ -1,0 +1,40 @@
+<div class="page-header">
+	<div class="col-1">
+        <div breadcrumbs map="configure.breadcrumbs"></div>
+    </div>
+	<div class="clearfix">
+		<h1 class="pull vertical-space--none" translate="USER_PROFILE_MAN.UPDATE_EMAIL.TXT_UPDATE_EMAIL"></h1>
+	</div>
+	<br/>
+	<p><span translate="USER_PROFILE_MAN.UPDATE_EMAIL.TXT_DESC"></span></p>
+	<div class="alert" ng-if="showUserUpdatedMessage">
+        <span translate="USER_PROFILE_MAN.UPDATE_EMAIL.CONFIRMATION" class="ng-scope"></span>
+    </div>
+</div>
+<div class="page-tabs">
+	<div class="set" data-js="set">
+		<div class="set__tab-container">
+		    <div class="set__trigger set--is-active">
+		        <a href="#userEmailTab" translate="USER_PROFILE_MAN.UPDATE_EMAIL.TXT_UPDATE_EMAIL"><i class="set__icon"></i></a>
+		    </div>
+		</div>
+	    <div class="set__content-container">
+	    	<div class="set__content set--is-active" id="userEmailTab">
+	        	<div class="col-lg-2-3 col-md-1-1">
+				    <form check-form-valid  class="form" data-form="" name="userProfile" novalidate>
+		        		<div class="form__field">
+						    <label translate="USER_PROFILE_MAN.UPDATE_EMAIL.CURRENT_EMAIL"></label>
+						    <input name="currentEmail" type="text" ng-model="currentEmail" value="" class="" disabled />
+						</div>
+						<div class="form__field form__field--required">
+						    <label translate="USER_PROFILE_MAN.UPDATE_EMAIL.NEW_EMAIL"></label>
+						    <input email-valid name="newEmail" type="text" ng-model="newEmail" value="" class="" required />
+						</div>
+						<hr>
+						<div user-profile-buttons></div>
+					</form>
+				</div>
+	    	</div>
+	    </div>
+	</div>
+</div>
