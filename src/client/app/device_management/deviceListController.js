@@ -286,13 +286,13 @@ angular.module('mps.deviceManagement')
         		
             }
             setupInitDevicePermissions();
-            var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions)
             Devices.onSelectRow = function(row){
             	/** This method is to check individual button permission on select of the 
             	 * asset row. */
             	if($rootScope.currentRowList.length === 0){
             		setupInitDevicePermissions();
             	} 
+                var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions);
             	var accId = row.entity._embedded.account.accountId,
             	i=0,
             	acntPermissions,
