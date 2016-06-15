@@ -26,6 +26,7 @@ angular.module('mps.serviceRequests')
         OrderItems,
         OrderTypes
     ) {
+        $('.site-content').scrollTop(0,0);
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
@@ -165,7 +166,7 @@ angular.module('mps.serviceRequests')
              $scope.configure.breadcrumbs = {
                 1: {
                     href: '/orders',
-                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                    value: 'SERVICE_REQUEST.ORDERS'
                 },
                 2: {
                     value: $scope.sr.requestNumber
@@ -231,7 +232,7 @@ angular.module('mps.serviceRequests')
             $scope.configure.breadcrumbs = {
                 1: {
                     href: '/orders',
-                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                    value: 'SERVICE_REQUEST.ORDERS'
                 },
                 2: {
                     value: $scope.sr.requestNumber
@@ -291,7 +292,7 @@ angular.module('mps.serviceRequests')
             $scope.configure.breadcrumbs = {
                 1: {
                     href: '/orders',
-                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                    value: 'SERVICE_REQUEST.ORDERS'
                 },
                 2: {
                     value: $scope.sr.requestNumber
@@ -358,7 +359,7 @@ angular.module('mps.serviceRequests')
              $scope.configure.breadcrumbs = {
                 1: {
                     href: '/orders',
-                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                    value: 'SERVICE_REQUEST.ORDERS'
                 },
                 2: {
                     value: $scope.sr.requestNumber
