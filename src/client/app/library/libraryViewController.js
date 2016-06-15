@@ -19,7 +19,7 @@ angular.module('mps.library')
                 $scope.getFileSize($scope.documentItem.size),
                 $scope.getFormatDate($scope.documentItem.publishDate),
                 $scope.getFormatDate($scope.documentItem.endDate),
-                $scope.getFileOwner($scope.documentItem.owner)
+                $scope.documentItem.owner
             ],
             pdfHeaders = [],
             pdfRows = [],
