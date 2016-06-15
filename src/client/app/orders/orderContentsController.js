@@ -48,6 +48,7 @@ angular.module('mps.orders')
     $scope.removeItem  = function(row){
         var index = $scope.orderSummaryGridOptions.data.indexOf(row.entity);
         $scope.orderSummaryGridOptions.data.splice(index,1);
+        var errIndex = getValidationMessageIndex(row);
         OrderItems.data = $scope.orderSummaryGridOptions.data;
         if(OrderItems.data.length === 0){
             if($scope.configure && $scope.configure.actions){
@@ -58,6 +59,9 @@ angular.module('mps.orders')
             $scope.$broadcast('OrderContentRefresh', {
                 'OrderItems': [] // send whatever you want
             });
+        }
+        if (errIndex !== -1){
+        	$scope.validationMessages.splice(errIndex,1);
         }
         $scope.calculate();
     };
@@ -109,48 +113,66 @@ angular.module('mps.orders')
         return row;
     }
     $scope.editOnChange = function(row){
-        var justAdded = false;
+        
         var message;
         var index = getValidationMessageIndex(row);
         var dataRow = getDataRow(row.entity);
         if(dataRow){
             dataRow.quantity = row.entity.quantity;
         }
-        if(row.entity.quantity === undefined ){
-        	message = {
-                      key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.ZERO_QUANTITY'
-                  		};
-        	$scope.validationMessages.push(message);
-        	return;
+               
+        // Here comes the service and supplies part max quantity vaidation
+        
+        if(dataRow.partRequestArea.toUpperCase() === 'CONSUMABLE SVC PARTS REQUEST'){
+        	$scope.maxCheck($scope.maxServiceQuantity,row,index);
+        }else if(dataRow.partRequestArea.toUpperCase() === 'CONSUMABLES SUPPLIES REQUEST'){
+        	$scope.maxCheck($scope.maxSuppliesQuantity,row,index);
         }else{
-        	$scope.validationMessages = [];
+        	// part type not matching... 
         }
-        if($scope.maxQuantity !== 'undefined' && row.entity.quantity > $scope.maxQuantity && index === -1){
+        
+        $scope.calculate();
+    };
+    $scope.maxCheck = function(maxQuantity,row,index){
+    	
+    	if(row.entity.quantity === undefined){
+    		//this validation is if quantity is 0
+        	message = {
+        				partNumber: row.entity.displayItemNumber, 
+        				key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.ZERO_QUANTITY'
+                  	  };
+        	row.entity.quantityError = true;
+        	if(index === -1)
+        		$scope.validationMessages.push(message);
+        	else
+        		$scope.validationMessages[index] = message;
+    	}else if(maxQuantity !== 'undefined' && row.entity.quantity > maxQuantity && index === -1){
             message = {
-              partNumber: row.entity.displayItemNumber,
-              maxQuantity: $scope.maxQuantity,
+              partNumber: row.entity.displayItemNumber, 
+              maxQuantity: maxQuantity,
               quantity: row.entity.quantity,
               key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.MAX_QTY_VALIDATION'
             };
 
             $scope.validationMessages.push(message);
             row.entity.quantityError = true;
-            justAdded = true;
-        }else if($scope.maxQuantity !== 'undefined' && row.entity.quantity <=  $scope.maxQuantity && index > -1){
+            
+        }else if((maxQuantity !== 'undefined' && 
+        		(row.entity.quantity > 0 && row.entity.quantity <=  maxQuantity) && 
+        		index > -1)){
             $scope.validationMessages.splice(index,1);
             row.entity.quantityError = false;
         }else if(index > -1){
             message = {
               partNumber: row.entity.displayItemNumber,
-              maxQuantity: $scope.maxQuantity,
+              maxQuantity: maxQuantity,
               quantity: row.entity.quantity,
               key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.MAX_QTY_VALIDATION'
             };
             $scope.validationMessages[index] = message;
         }
-        $scope.calculate();
     };
-
+    
     $scope.calculate = function(){
         var subTotal = 0.0;
         if(OrderItems && OrderItems.data){

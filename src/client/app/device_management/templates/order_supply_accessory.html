@@ -12,9 +12,12 @@
             <div catalog></div>
         </div>
     </div>
+
     <div class="row" ng-if="displayOrderContent">
         <div class="col-1">
-            <div order-content editable="{{editable}}" submit-action="submit" datasource="orderItems" max-quantity="maxQuantity"></div>
+            <div order-content editable="{{editable}}" submit-action="submit" datasource="orderItems" 
+            max-service-quantity="serviceMaxQuantity" 
+            max-supplies-quantity="supplyMaxQuantity"></div>
         </div>
     </div>
 </div>
