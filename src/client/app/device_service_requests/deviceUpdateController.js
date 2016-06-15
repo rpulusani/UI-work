@@ -305,8 +305,7 @@ angular.module('mps.serviceRequestDevices')
                 if (Devices.updatingMultiple) {
                     for (i; i < Devices.data.length; i += 1) {
                         $scope.sr.assetInfo = {
-                        	id : Devices.data[i].id,
-                            assetTag: Devices.data[i].assetTag,
+                        	assetTag: Devices.data[i].assetTag,
                             costCenter: Devices.data[i].multipleCostCenter,
                             hostName: Devices.data[i].hostName,
                             ipAddress: Devices.data[i].ipAddress,
