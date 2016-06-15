@@ -1,0 +1,58 @@
+<div class="page-header">
+	<div class="col-1">
+        <div breadcrumbs map="configure.breadcrumbs"></div>
+    </div>
+	<div class="clearfix">
+		<h1 class="pull vertical-space--none">
+			<span translate="USER_MAN.MANAGE_USERS.TXT_CREATE_MANAGE_USER_PROFILE"></span> | 
+			<span>{{userName}}</span>
+		</h1>
+	</div>
+	<br/>
+	<p><span translate="USER_MAN.MANAGE_USERS.TXT_CREATE_MANAGE_USER_PROFILE_PAR"></span></p>
+	<div class="alert" ng-if="showUserUpdatedMessage">
+        <span translate="USER_MAN.MANAGE_USERS.TXT_MSG_USER_UPDATED" class="ng-scope"></span>
+    </div>
+	<div class="btns">
+	    <button type="button" class="btn btn--default" ng-click="updateEmail()" translate="USER_PROFILE_MAN.COMMON.BTN_UPDATE_EMAIL">
+	    </button>
+	    <button type="button" class="btn btn--default" ng-click="resetPassword()" translate="USER_PROFILE_MAN.COMMON.BTN_RESET_PASSWORD" >
+	    </button>
+	</div>
+</div>
+<div class="page-tabs">
+	<div class="set" data-js="set">
+		<div class="set__tab-container">
+		    <div class="set__trigger set--is-active">
+		        <a href="#userProfileTab" translate="USER_MAN.MANAGE_USERS.TXT_TAB_USER_PROFILE"><i class="set__icon"></i></a>
+		    </div>
+		</div>
+	    <div class="set__content-container">
+	    	<div class="set__content set--is-active" id="userProfileTab">
+	        	<div class="col-lg-2-3 col-md-1-1">
+				    <form check-form-valid  class="form" data-form="" name="userProfile" novalidate>
+				        <h3 translate="USER_PROFILE_MAN.PROFILE.TXT_PERSONAL_INFORMATION"></h3>
+						<div user-core-fields></div>
+
+						<h3 translate="USER_PROFILE_MAN.PROFILE.TXT_LOCATION"></h3>
+						<div user-location-fields></div>
+
+						<h3 translate="USER_PROFILE_MAN.SETTINGS.TXT_PREFERENCES"></h3>						
+						<div class="form__field form__field--select" >
+						    <label translate="USER_MAN.COMMON.TXT_PREFERRED_LANGUAGE"></label>
+						    <select ng-model="user.preferredLanguage" name="language">
+						            <option value="" translate="LABEL.COMMON.SELECT"></option>
+						            <option ng-repeat="language in languageOptions" value="{{ language.code }}"  ng-selected="{{user.preferredLanguage === language.code}}">
+						            {{language.name}}
+						            </option>
+						    </select>
+						</div>
+
+						<hr>
+						<div user-profile-buttons></div>
+				    </form>
+				</div>
+	    	</div>
+	    </div>
+	</div>
+</div>
