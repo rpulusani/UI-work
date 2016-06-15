@@ -160,6 +160,31 @@ angular.module('mps.orders')
                         arrayResult.push(item);
                     }
                     return arrayResult;
+                },
+                groupPartsByBillingModel : function(){
+                	var partsBilling = {};
+                	self = this;
+                    for(var i = 0; i < self.data.length; ++i){
+                        if (partsBilling[self.data[i].billingModel] === undefined){
+                        	partsBilling[self.data[i].billingModel] = [];
+                        }
+                        partsBilling[self.data[i].billingModel].push(self.data[i]);
+                    }
+                    return partsBilling;
+                },
+                buildGroupedSrArray: function(orderItem){
+                    var arrayResult = [];
+                    for(var i = 0; i < orderItem.length; ++i){
+                        var item = {
+                            'itemNumber': orderItem[i].itemNumber,
+                            'displayItemNumber': orderItem[i].displayItemNumber,
+                             'quantity': orderItem[i].quantity,
+                             'price': orderItem[i].price,
+                             'type': orderItem[i].type
+                        };
+                        arrayResult.push(item);
+                    }
+                    return arrayResult;
                 }
         };
     return  new HATEOASFactory(OrderItems);

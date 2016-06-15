@@ -63,7 +63,7 @@ angular.module('mps.orders')
             $scope.submit = function(){
                 $location.path(OrderItems.route + '/catalog/' + $routeParams.type + '/review');
             };
-            
+            OrderItems.columns = 'defaultSet';
             if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart && Orders.tempSpace.catalogCart.agreement){
                  $scope.configure = {
                      actions:{

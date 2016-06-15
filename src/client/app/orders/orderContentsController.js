@@ -116,6 +116,15 @@ angular.module('mps.orders')
         if(dataRow){
             dataRow.quantity = row.entity.quantity;
         }
+        if(row.entity.quantity === undefined ){
+        	message = {
+                      key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.ZERO_QUANTITY'
+                  		};
+        	$scope.validationMessages.push(message);
+        	return;
+        }else{
+        	$scope.validationMessages = [];
+        }
         if($scope.maxQuantity !== 'undefined' && row.entity.quantity > $scope.maxQuantity && index === -1){
             message = {
               partNumber: row.entity.displayItemNumber,
