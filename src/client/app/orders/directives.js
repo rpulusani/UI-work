@@ -108,7 +108,8 @@ angular.module('mps.orders')
             datasource:"=",
             configure: "=",
             hideSubmit: "=",
-            maxQuantity: "="
+            maxServiceQuantity: "=",
+            maxSuppliesQuantity: "="
         },
         compile: function(element, attrs){
             if(!attrs.editable) {
