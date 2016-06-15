@@ -217,6 +217,28 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.h1 = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE.TXT_DEVICE_REQUEST_NUMBER';
         }
         function addReturnOrderInfo(){
+                        
+            $scope.configure.header.translate.h1 = "ORDER_MAN.COMMON.TXT_ORDER_NUMBER";
+            $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
+            $scope.configure.contact.translate.requestedByTitle = "ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY";
+            $scope.configure.detail.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_ADDITIONAL_DETAILS";
+            $scope.configure.receipt = {
+                        translate:{
+                            title:"ORDER_MAN.COMMON.TXT_ORDER_NUMBER_SUBMITTED_HEADER",
+                            titleValues: {'orderNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                        }
+                    };
+            $scope.configure.breadcrumbs = {
+                1: {
+                    href: '/orders',
+                    value: 'ORDER_MAN.MANAGE_ORDERS.TXT_MANAGE_ORDERS'
+                },
+                2: {
+                    value: $scope.sr.requestNumber
+                }
+            };
+
+
             $scope.configure.order = {
                     returnSupplies:{
                         translate:{
