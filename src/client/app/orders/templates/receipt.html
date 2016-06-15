@@ -41,8 +41,10 @@
         </div>
     </div>
     <div ng-if="configure && configure.order && configure.order.type === undefined ">
-    <div order-content editable="{{editable}}" ordernbr="ordernbr" submit-action="submit" datasource="orderItems"
-    hide-submit="hideSubmitButton" configure="configure"></div>
+    	<div ng-repeat = "eachSr in configure.orderItems.multipleSr" >
+	    	<div order-content-table items="eachSr"></div>
+    	</div>
+	    
     </div>
     <ul class="info-list" ng-if="sr.status === 'CANCELLED'">
                 <li class="info-list__item">

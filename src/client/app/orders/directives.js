@@ -121,6 +121,17 @@ angular.module('mps.orders')
         controller: 'OrderContentsController'
     };
 })
+.directive('orderContentTable', function(){
+    return {
+        restrict: 'A',
+        templateUrl: '/app/orders/templates/order-contents-table.html',
+        scope:{
+            items: '='
+            
+        },
+        controller:'OrderContentTableController'
+    };
+})
 .directive('orderActionButtons', function() {
     return {
         restrict: 'A',

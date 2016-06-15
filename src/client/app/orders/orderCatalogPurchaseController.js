@@ -25,6 +25,7 @@ angular.module('mps.orders')
     'tombstoneWaitTimeout',
     'TaxService',
     '$window',
+    '$q',
     function(
         $scope,
         $location,
@@ -48,7 +49,8 @@ angular.module('mps.orders')
         OrderControllerHelper,
         tombstoneWaitTimeout,
         taxService,
-        $window) {
+        $window,
+        $q) {
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
@@ -69,7 +71,8 @@ angular.module('mps.orders')
         $scope.errorAddress = false; // showing shiptoaddress error & billtoAddress error
         $scope.hideSubmitButton = true;
         $scope.isLoading = false;
-
+        
+        
         $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
 
         if(Orders.tempSpace === undefined){
@@ -134,18 +137,37 @@ angular.module('mps.orders')
         }
 
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
-                    if (existingUrl === $location.url()) {
-                        if(Tombstone.item && Tombstone.item.siebelId) {
-                            Orders.item.requestNumber = Tombstone.item.siebelId;
-                            ServiceReqeust.item = Orders.item;
-                            $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
-                        } else {
-                            return getSRNumber($location.url());
-                        }
-                    }
-                });
+        	 
+        	$timeout(function(){
+            	
+            	 for (var i=0; i < $scope.savedSR.length; i++){
+            		 if (!$scope.savedSR[i].saved){
+            			 return Orders.getAdditional($scope.savedSR[i], Tombstone, 'tombstone', true).then(function(){
+                             if (existingUrl === $location.url()) {
+                                 if(Tombstone.item && Tombstone.item.siebelId) {
+                                     //Orders.item.requestNumber = Tombstone.item.siebelId;
+                                     $scope.savedSR[i].saved = true;
+                                     console.log(Tombstone.item);
+                                     Orders.confirmedSavedSR.push(Tombstone.item);
+                                    // ServiceReqeust.item = Orders.item;
+                                    // $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
+                                     
+                                     if ( Orders.confirmedSavedSR.length === $scope.savedSR.length) {
+                                         $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
+                                     } else {
+                                         return getSRNumber($location.url());
+                                     }
+                                     
+                                     
+                                 } else {
+                                     return getSRNumber($location.url());
+                                 }
+                             }
+                         });
+            		 }
+            	 }
+            	
+                
             }, tombstoneWaitTimeout);
         }
 
@@ -283,7 +305,7 @@ angular.module('mps.orders')
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
             		return;
             	} 
-            	if(($scope.paymentMethod === 'payNow'|| $scope.paymentMethod === 'SHIP_AND_BILL') && !$scope.scratchSpace.billToAddresssSelected){
+            	if( ($scope.paymentMethod === 'payNow' || $scope.paymentMethod === 'SHIP_AND_BILL')  && !$scope.scratchSpace.billToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
             		return;
@@ -291,29 +313,45 @@ angular.module('mps.orders')
             	
                 if(!$scope.isLoading){ 
                    $scope.isLoading = true;
-                  // for(var i = 0; i < Orders.tempSpace.catalogCart.billingModels.length; ++i){
-                       Orders.addField('billingModel', Orders.tempSpace.catalogCart.billingModels[0]);
+                   var deffereds = [];
+                   $scope.savedSR = [];
+                   var partsGroupedByBiling = OrderItems.groupPartsByBillingModel();
+                   for (billingModel in partsGroupedByBiling){     
+                	   console.log('billingModel '+billingModel);
+                	   console.log( partsGroupedByBiling[billingModel]);
+                	   
+                	   Orders.addField('billingModel', billingModel);
                        if(Orders.item.requestedDeliveryDate){
                             Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                        }
                        Orders.addField('attachments', $scope.files_complete);
-                       Orders.addField('orderItems', OrderItems.buildSrArray());
-                       var deferred = Orders.post({
-                             item:  $scope.sr
-                        });
+                       Orders.addField('orderItems', OrderItems.buildGroupedSrArray(partsGroupedByBiling[billingModel]));
+                        
 
-                        deferred.then(function(result){
-                            if(Orders.item._links['tombstone']){
-                                getSRNumber($location.url());
-                            }
-                        }, function(reason){
-                            NREUM.noticeError('Failed to create SR because: ' + reason);
-                        });
-                    //}
-                }
+                       deffereds.push(Orders.post({
+                             item:  JSON.parse(JSON.stringify($scope.sr))
+                       }).then(function(res){
+                        	$scope.savedSR.push(res.data);
+                       }));
+                       
+                      
+
+                   }
+                   
+                   $q.all(deffereds).then(function(result) {
+                	   if(Orders.item._links['tombstone']){
+                		   Orders.confirmedSavedSR = [];
+                           getSRNumber($location.url());
+                       }
+                   }, function(reason){
+                           NREUM.noticeError('Failed to create SR because: ' + reason);
+                   });
+               }
 
             };
         }
+        
+        
             function setupConfigurationHardware(){
                  $scope.configure.header.translate.h1 = "ORDER_MAN.HARDWARE_ORDER.TXT_REGISTER_DEVICE_SUBMITTED";
                         $scope.configure.header.translate.h1Values = {};
@@ -321,14 +359,14 @@ angular.module('mps.orders')
                         $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
                         $scope.configure.header.readMoreUrl = Devices.route;
                         $scope.configure.header.translate.bodyValues= {
-                            'orderList': FormatterService.getFormattedSRNumber($scope.sr),
+                            'orderList': getNumberForMultiple(),
                             'srHours': 24,
                             'deviceManagementUrl': 'orders/',
                         };
                         $scope.configure.receipt = {
                             translate:{
                                 title:"ORDER_MAN.HARDWARE_ORDER.TXT_DEVICE_ORDER_DETAILS",
-                                titleValues: {}
+                                titleValues: {'srNumber': getNumberForMultiple()}
                             }
                         };
                     $scope.configure.queued = false;
@@ -340,6 +378,7 @@ angular.module('mps.orders')
                     };
             }
             function setupConfigurationSupplies(){
+            	var srNum = getNumberForMultiple();
                 $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
                     if ($scope.device) {
                         $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
@@ -348,18 +387,18 @@ angular.module('mps.orders')
                     $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
                     $scope.configure.header.readMoreUrl = Devices.route;
                     $scope.configure.header.translate.bodyValues= {
-                        'order': FormatterService.getFormattedSRNumber($scope.sr),
+                        'order': srNum,
                         'srHours': 24,
                         'deviceManagementUrl': 'device_management/',
                     };
                     $scope.configure.receipt = {
                         translate:{
                             title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
-                            titleValues: {'srNumber': FormatterService.getFormattedSRNumber($scope.sr) }
+                            titleValues: {'srNumber': srNum }
                         }
                     };
                 $scope.configure.queued = false;
-                $scope.ordernbr = FormatterService.getFormattedSRNumber($scope.sr);
+                $scope.ordernbr = srNum;
             }
 
         function configureReceiptTemplate(){
@@ -374,9 +413,9 @@ angular.module('mps.orders')
                         break;
                     }
                 
-                    $scope.$broadcast('OrderContentRefresh', {
+                   /* $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': OrderItems // send whatever you want
-                    });
+                    });*/
             }, 50);
             var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
             $scope.configure.statusList = $scope.setStatusBar('SUBMITTED', submitDate.toString(), statusBarLevels);
@@ -429,6 +468,10 @@ angular.module('mps.orders')
                 }
             };
             $scope.configure.contact.show.primaryAction = false;
+            
+            $scope.configure.orderItems = {
+            		multipleSr : OrderItems.groupPartsByBillingModel()	
+            };
         }
         $scope.formatReceiptData($scope.formatAdditionalData);
         function configureTemplates(){
@@ -637,7 +680,20 @@ angular.module('mps.orders')
                 	
             	}
         	}
-        };      
+        }; 
+        
+        
+        //// Below section is for multiple sr's receipt.. 
+        function getNumberForMultiple(){
+        	var srNums = [];
+        	if (Orders.confirmedSavedSR && angular.isArray(Orders.confirmedSavedSR) && Orders.confirmedSavedSR.length > 0) {
+           	 for (var i=0; i < Orders.confirmedSavedSR.length; i++) {
+           		 srNums.push(Orders.confirmedSavedSR[i].siebelId);
+                }
+           }
+        	return srNums.join(",");
+        }
+        
     }
 ]);
 

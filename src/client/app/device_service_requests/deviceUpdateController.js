@@ -305,6 +305,7 @@ angular.module('mps.serviceRequestDevices')
                 if (Devices.updatingMultiple) {
                     for (i; i < Devices.data.length; i += 1) {
                         $scope.sr.assetInfo = {
+                        	id : Devices.data[i].id,
                             assetTag: Devices.data[i].assetTag,
                             costCenter: Devices.data[i].multipleCostCenter,
                             hostName: Devices.data[i].hostName,
@@ -315,7 +316,7 @@ angular.module('mps.serviceRequestDevices')
                         };
 
                         deferreds.push(DeviceServiceRequest.post({
-                            item:  $scope.sr
+                            item:  JSON.parse(JSON.stringify($scope.sr))
                         }).then(function(res) {
                             $scope.savedSR.push(res.data);
                         }));
