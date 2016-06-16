@@ -54,28 +54,7 @@ angular.module('mps.serviceRequestDevices')
         SecureHelper = new SecurityHelper($scope);
         SRHelper.addMethods(Devices, $scope, $rootScope);
         
-        //Changes for permission of the particular device account starts
         
-        var configPermissions = [];
-        configPermissions = angular.copy($rootScope.configurePermissions);
-        $scope.deviceActionPermissions = {};          		
-       
-        var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions);
-        var accId = Devices.item._embedded.account.accountId,
-        	i=0,
-        	acntPermissions,
-        	accounts = $rootScope.currentUser.transactionalAccount.data;
-        	
-        	if ($rootScope.currentRowList.length == 1){
-        		for(;i<accounts.length;i++){
-            		if(accounts[i].account.accountId === accId){
-            			acntPermissions = accounts[i].permisssions.permissions;            			
-            			break;
-            		}
-            	}
-        		$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
-        		helperDeviceSelect.setupPermissionList(configPermissions);
-        	}
         	
         
         
@@ -603,5 +582,30 @@ angular.module('mps.serviceRequestDevices')
         };
 
         $scope.formatReceiptData(formatAdditionalData);
+        
+        //Changes for permission of the particular device account starts
+        
+        var configPermissions = [];
+        configPermissions = angular.copy($rootScope.configurePermissions);
+        $scope.deviceActionPermissions = {};          		
+       
+        var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions);
+        console.log('Devices.item');
+        console.log(Devices.item);
+        var accId = Devices.item._embedded.account.accountId,
+        	i=0,
+        	acntPermissions,
+        	accounts = $rootScope.currentUser.transactionalAccount.data;
+        	
+        	
+        	for(;i<accounts.length;i++){
+            		if(accounts[i].account.accountId === accId){
+            			acntPermissions = accounts[i].permisssions.permissions;            			
+            			break;
+            		}
+            }
+        		$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
+        		helperDeviceSelect.setupPermissionList(configPermissions);
+        	
     }
 ]);

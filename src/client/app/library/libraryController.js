@@ -136,8 +136,8 @@ angular.module('mps.library')
             if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.publishDate)) {
                 Documents.addField('publishDate', formatter.formatDateForPost($scope.documentItem.publishDate));
             }
-
-            if (BlankCheck.checkNotNullOrUndefined($scope.documentItem.endDate)) {
+            
+            if (BlankCheck.checkNotBlank($scope.documentItem.endDate)) {
                 Documents.addField('endDate', formatter.formatDateForPost($scope.documentItem.endDate));
             }
 
@@ -183,7 +183,7 @@ angular.module('mps.library')
                 /* update */
 
                 var fd = new FormData();
-
+                
                 var documentJson = angular.toJson(Documents.item);
 
                 fd.append('document', new Blob([documentJson], {type: 'application/json'}));
