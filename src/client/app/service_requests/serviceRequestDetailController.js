@@ -69,8 +69,8 @@ angular.module('mps.serviceRequests')
                             obj.lexmarkToPickup = $scope.formattedPickupDevice;
                         }
                         
-                        if ($scope.sr.meterReads) {
-                            obj.pageCounts = $scope.sr.meterReads;
+                        if ($scope.sr.item.meterReads) {
+                            obj.pageCounts = $scope.sr.item.meterReads;
                         } else {
                             obj.pageCounts = 'none';
                         }
@@ -446,9 +446,10 @@ angular.module('mps.serviceRequests')
                             title: 'REQUEST_MAN.COMMON.TXT_DECOM_OPTIONS',
                                 pickup: 'REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY',
                                 pageCount: 'REQUEST_MAN.COMMON.TXT_PAGE_COUNTS'
-                        },
-                        source: 'decommission'
+                        }
                 };
+             $scope.device.meterReads =$scope.sr.item.meterReads;
+             groupPageCounts($scope.device);
         }
         function configureReceiptTemplate(){
             $scope.configure.header.translate.h1 = 'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_REQUEST_NUMBER';
@@ -715,7 +716,17 @@ angular.module('mps.serviceRequests')
         $scope.formattedDescription = FormatterService.formatNoneIfEmpty($scope.sr.description);
         $scope.sr.attachments = $scope.sr.item.attachments;
     }
-
-    setCsvDefinition();
+    function groupPageCounts(device){
+    	
+    	var newCount = {},newDate = {},i=0;
+    	for(;i<device.meterReads.length;i++){
+    		newCount[device.meterReads[i].type] = device.meterReads[i].value;
+    		newDate[device.meterReads[i].type]  = device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate;
+    	}
+    	device.newCount = newCount;
+    	device.newDate = newDate;
+    } 
     
+    setCsvDefinition();
+
 }]);
