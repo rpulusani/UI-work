@@ -9,10 +9,16 @@
 
     <hr class="vertical-margin-bottom-48"/>
     <a ng-if="configure.queued" href="/queue" translate="QUEUE.COMMON.LINK_TXT_QUEUE"></a>
-
-    <h4 translate="{{configure.receipt.translate.subtitle}}"></h4>
-    <div class="vertical-margin-bottom-48 col-1-2" status-bar></div>
-
+	<div ng-if="sr.status !== 'CANCELLED'">
+		<h4 translate="{{configure.receipt.translate.subtitle}}"></h4>
+    	<div class="vertical-margin-bottom-48 col-1-2" status-bar></div>
+	</div>
+    <ul class="info-list" ng-if="sr.status === 'CANCELLED'">
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS"></div>
+                    <div class="info-list__item-value" ng-bind="sr.status"></div>
+    			</li>
+    </ul>
     <div request-contacts></div>
 
     <div ng-if="configure.detail">
@@ -60,6 +66,7 @@
     hide-submit="hideSubmitButton" configure="configure"></div>
     </div>
     <div order-receipt></div>
+    
     <div order-return-details></div>
     <div sr-device-information></div>
     <div sr-device-contact></div>

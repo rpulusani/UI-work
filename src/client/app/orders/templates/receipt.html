@@ -8,10 +8,16 @@
 
     <hr class="vertical-margin-bottom-48"/>
     <a ng-if="configure.queued" href="/queue">view in Queued items &gt; </a>
-
-    <h4 translate="{{configure.receipt.translate.subtitle}}"></h4>
-    <div class="vertical-margin-bottom-48 col-1-2" status-bar></div>
-
+	<div ng-if="sr.status !== 'CANCELLED'">
+    	<h4 translate="{{configure.receipt.translate.subtitle}}"></h4>
+    	<div class="vertical-margin-bottom-48 col-1-2" status-bar></div>
+    </div>
+	<ul class="info-list" ng-if="sr.status === 'CANCELLED'">
+                <li class="info-list__item">
+                    <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS"></div>
+                    <div class="info-list__item-value" ng-bind="sr.status"></div>
+    			</li>
+    </ul>
     <div request-contacts></div>
 
     <div ng-if="configure.detail">
@@ -42,18 +48,20 @@
     </div>
     <div ng-if="configure && configure.order && configure.order.type === undefined ">
     	
-    	<div ng-repeat = "(billingModel , orderItems) in configure.orderItems.multipleSr" >
-    	<div>Order Number : {{configure.orderItems.srMap[billingModel]}}</div>
+    	<div ng-if="configure.orderItems.multipleSr" ng-repeat = "(billingModel , orderItems) in configure.orderItems.multipleSr" >
+    	<div class="col-3-4">
+ 			<h2 class="print-export-header vertical-margin-bottom-0">{{configure.orderItems.srMap[billingModel].message}}</h2> 			 			
+ 		</div>
+    	<div translate="ORDER_MGT.ORDER_NO"></div><div>{{configure.orderItems.srMap[billingModel].siebelId}}</div>
+    	
 	    	<div order-content-table items="orderItems" tax="configure.orderItems.taxAmount"></div>
     	</div>
-	    
+	    <div ng-if="!configure.orderItems.multipleSr">
+    		<div order-content editable="{{editable}}" ordernbr="ordernbr" submit-action="submit" datasource="orderItems"
+    			hide-submit="hideSubmitButton" configure="configure"></div>
+    	</div>
     </div>
-    <ul class="info-list" ng-if="sr.status === 'CANCELLED'">
-                <li class="info-list__item">
-                    <div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_STATUS"></div>
-                    <div class="info-list__item-value" ng-bind="sr.status"></div>
-    			</li>
-    </ul>
+    
     <div order-receipt></div>
     
     <div order-return-details></div>

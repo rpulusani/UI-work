@@ -62,9 +62,9 @@ angular.module('mps.orders')
         Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
         	
         	Orders.tempSpace.catalogCart.agreement = Agreement.data[0];
-            
-           	$scope.supplyMaxQuantity = Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity;
-           	$scope.serviceMaxQuantity = Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity;
+        	$scope.supplyMaxQuantity = (Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity === 0)?1:Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity;
+        	$scope.serviceMaxQuantity = (Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity === 0)?1:Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity;
+          
            
             
             Contracts.params.type =  Agreement.params.type;
