@@ -2,7 +2,7 @@
 <p><span translate="USER_MAN.COMMON.TXT_ROLE_PERMISSIONS_PAR"></span></p>
 <div class="form__field form__field--select form__field--required">
     <label translate="USER_MAN.COMMON.TXT_BASE_ROLE"></label>
-    <select ng-model="basicRole" name="basicRole" ng-change="setPermissionsForBasic(basicRole)">
+    <select ng-model="basicRole" name="basicRole" ng-change="setPermissionsForBasic(basicRole)" required >
         <option value="" translate="LABEL.COMMON.SELECT"></option>
         <option ng-repeat="option in user.basicRoles" value="{{option.roleId}}" ng-selected="basicRole == option.roleId">
             {{option.description}}

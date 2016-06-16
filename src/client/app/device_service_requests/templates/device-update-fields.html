@@ -46,7 +46,7 @@
     <input name="siteName" type="text" ng-model="device.currentInstalledAddress.office" value="" class="" mps-update />
 </div>
 
-<span ng-if="moveMADCAccess">
+
 <div ng-hide="device.addressSelected">
     <a href="" translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.LNK_SELECT_DIFFERENT_ADDR" ng-click="goToAddressPicker('DeviceUpdate',device)"></a>
 </div>
@@ -56,7 +56,7 @@
 </div>
 
 
-
+<span ng-if="deviceActionPermissions.moveDevice">
 
 <strong translate="REQUEST_MAN.COMMON.TXT_INSTALL_LXK_MOVE"></strong>
 
@@ -80,7 +80,7 @@
     <label for="device-move-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
 </div>
 </span>
-<span ng-if="updateDevice">
+<span ng-if="deviceActionPermissions.updateDevice">
 <h3 translate="REQUEST_MAN.COMMON.TXT_NETWORK_CONFIG"></h3>
 
 <div class="form__field" >

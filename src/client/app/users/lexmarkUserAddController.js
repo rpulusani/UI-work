@@ -3,13 +3,15 @@
 angular.module('mps.user')
 .controller('LexmarkUserAddController', ['$scope', '$location', '$translate', '$routeParams',
     '$rootScope', 'UrlHelper', 'UserService', 'AccountService', 'Roles', '$q', 'UserAdminstration',
-    'LexmarkUser', 'AllAccounts', 'FormatterService', 'BlankCheck',
+    'LexmarkUser', 'AllAccounts', 'FormatterService', 'BlankCheck', '$route',
     function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration,
-        LexmarkUser, AllAccounts, FormatterService, BlankCheck) {
+        LexmarkUser, AllAccounts, FormatterService, BlankCheck, $route) {
 
+        $scope.showUserUpdatedMessage = false;        
+        
         $scope.templateUrl = UrlHelper.user_template;
         $scope.userCreate = true;
-        $scope.newUser = true;
+        $scope.isNewUser = true;
         $scope.user = {};
         $scope.accountList = [];
         $scope.basicRoles = [];
@@ -26,7 +28,7 @@ angular.module('mps.user')
         $scope.csvModel = {};
         UserAdminstration.item.get(options).then(function(response){
             if (response.status === 200) {
-                $scope.newUser = false;
+                $scope.isNewUser = false;
             }
             $scope.user = UserAdminstration.item;
             $scope.user_info_active = true;
@@ -53,7 +55,7 @@ angular.module('mps.user')
                 $scope.formattedUserContact = FormatterService.formatContact($scope.user);
             }
 
-            if ($scope.newUser === false) {
+            if ($scope.isNewUser === false) {
                 if (!BlankCheck.isNull($scope.user.item._embedded.roles)) {
                     $scope.user.selectedRoleList = $scope.user.item._embedded.roles;
                 }
@@ -311,12 +313,16 @@ angular.module('mps.user')
             }
         };
 
-        var updateAdminObjectForSubmit = function() {
+        var updateAdminObjectForSubmit = function(saveStatus) {
             UserAdminstration.newMessage();
             $scope.userInfo = UserAdminstration.item;
             UserAdminstration.addField('ldapId', $scope.user.ldapId);
             UserAdminstration.addField('type', 'INTERNAL');
-            UserAdminstration.addField('active', $scope.user.item.active);
+            if (saveStatus && saveStatus === 'deactivate') {
+                UserAdminstration.addField('active', false);
+            } else {
+                UserAdminstration.addField('active', true);
+            }
             UserAdminstration.addField('firstName', $scope.user.firstName);
             UserAdminstration.addField('lastName', $scope.user.lastName);
             UserAdminstration.addField('email', $scope.user.email);
@@ -359,8 +365,7 @@ angular.module('mps.user')
             UserAdminstration.addField('ldapId', $scope.user.ldapId);
             UserAdminstration.addField('contactId', $scope.user.contactId);
             UserAdminstration.addField('idpId', $scope.user.idpId);
-            UserAdminstration.addField('type', 'INTERNAL');
-            UserAdminstration.addField('active', $scope.user.item.active);
+            UserAdminstration.addField('type', 'INTERNAL');            
             if (updateStatus && updateStatus === 'deactivate') {
                 UserAdminstration.addField('active', false);
             } else {
@@ -405,8 +410,21 @@ angular.module('mps.user')
             }
         };
 
-        $scope.update = function() {
-            updateAdminObjectForUpdate();
+        function createModal(popupName){
+            var $ = require('jquery');
+            $('#'+popupName).modal({
+                show: true,
+                static: true
+            });
+        }
+
+        $scope.update = function(status) {
+            if(status == undefined){
+                // It will be undefined when update button is clicked...
+                updateAdminObjectForUpdate($scope.userActive == false? 'deactivate' : 'activate');  
+            }else{
+                updateAdminObjectForUpdate(status);
+            }            
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
             var options = {
                 preventDefaultParams: true
@@ -415,29 +433,75 @@ angular.module('mps.user')
                 item:  $scope.userInfo
             }, options);
 
-            deferred.then(function(result){
-                $location.path('/delegated_admin/lexmark_user');
+            deferred.then(function(result){                
+                if(status === undefined){
+                    UserAdminstration.wasUpdated = true;
+                    $location.path('/delegated_admin/lexmark_user');
+                }
+                else{
+                    $scope.showUserUpdatedMessage = true;
+                    if(status === "deactivate"){
+                        $scope.userActive = false;
+                    }
+                    else if(status === "activate"){
+                        $scope.userActive = true;
+                    }
+                    window.scrollTo(0,0);
+                }
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
             });
         };
 
-        $scope.save = function() {
-            updateAdminObjectForSubmit();
+        $scope.save = function(status) {
+            if(status == undefined){
+                // It will be undefined when update button is clicked...
+                updateAdminObjectForSubmit($scope.userActive == false? 'deactivate' : 'activate');  
+            }else{
+                updateAdminObjectForSubmit(status);
+            }             
             UserAdminstration.item.postURL = UserAdminstration.url;
             var deferred = UserAdminstration.post({
                 item:  $scope.userInfo
             });
 
             deferred.then(function(result){
-                $location.path('/delegated_admin/lexmark_user');
+                if(status === undefined){
+                    UserAdminstration.wasUpdated = true;
+                    $location.path('/delegated_admin/lexmark_user');
+                }
+                else{
+                    $scope.isNewUser = false;
+                    $scope.showUserUpdatedMessage = true;
+                    if(status === "deactivate"){
+                        $scope.userActive = false;
+                    }
+                    else if(status === "activate"){
+                        $scope.userActive = true;
+                    }
+                    window.scrollTo(0,0);
+                }
             }, function(reason){
                 NREUM.noticeError('Failed to create SR because: ' + reason);
             });
         };
 
+        $scope.verifyDeactivateActivate = function(status) {
+            $scope.showUserUpdatedMessage = false;
+            if (status === 'activate') {
+                createModal('activate-confirm-popup');
+            } else if (status === 'deactivate') {
+                createModal('deactivate-confirm-popup');
+            }
+        };
+
         $scope.deactivate = function() {
-            updateAdminObjectForUpdate('deactivate');
+            if ($scope.isNewUser === true){
+                updateAdminObjectForSubmit('deactivate');
+            }
+            else{
+                updateAdminObjectForUpdate('deactivate');
+            }
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
             var options = {
                 preventDefaultParams: true
@@ -447,19 +511,30 @@ angular.module('mps.user')
             }, options);
 
             deferred.then(function(result){
-                $location.path('/delegated_admin/lexmark_user');
+                $scope.showUserUpdatedMessage = true;
+                $scope.userActive = false;
+                window.scrollTo(0,0);              
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
             });
         };
 
+        $scope.activate = function() {
+            if ($scope.isNewUser === true){
+                $scope.save('activate');
+            }
+            else{
+                $scope.update('activate');
+            }
+        };
+
         $scope.saveLexmarkUser = function() {
-            if ($scope.newUser === true) {
+            if ($scope.isNewUser === true) {
                 $scope.save();
             } else {
                 $scope.update();
             }
-        }
+        };
 
         $scope.setUserInfo = function() {
             $scope.user_info_active = true;

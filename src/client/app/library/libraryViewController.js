@@ -18,7 +18,7 @@ angular.module('mps.library')
                 $scope.getTagNames($scope.documentItem.tags),
                 $scope.getFileSize($scope.documentItem.size),
                 $scope.getFormatDate($scope.documentItem.publishDate),
-                $scope.getFormatDate($scope.documentItem.endDate),
+                $scope.documentItem.endDate === null? "" : $scope.getFormatDate($scope.documentItem.endDate),
                 $scope.documentItem.owner
             ],
             pdfHeaders = [],

@@ -137,27 +137,25 @@ angular.module('mps.pageCount')
                 BlankCheck.checkNotNullOrUndefined(devicePageCount.monoMeterReadId)) {
                 MeterReads.newMessage();
                 mono = MeterReads.item;
-                mono.postURL = devicePageCount._links.monoMeterRead.href;
+                mono.postURL = devicePageCount._links.monorMeterRead.href;
 
                 MeterReads.addField('id', devicePageCount.monoMeterReadId);
                 MeterReads.addField('value', devicePageCount.newLtpcCount-devicePageCount.newColorCount);
                 MeterReads.addField('type', 'MONO');
 
                 if (BlankCheck.checkNotNullOrUndefined(devicePageCount.currentReadDate)) {
-                    MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
+                    MeterReads.addField('updateDate', FormatterService.formatLocalToUTC(new Date()));
                 }
                 
                 
                     $http({
                     method: 'PUT',
-                    url: devicePageCount._links.monoMeterRead.href,
+                    url: devicePageCount._links.monorMeterRead.href,
                     data: mono
                 }).then(function(pageCountResponse) {
                     MeterReads.wasSaved = true;
                     if ( pageCountResponse.data.type && pageCountResponse.data.type === 'MONO'){
-                         devicePageCount.monoValue=pageCountResponse.data.value; 
-                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate;                         
-                         devicePageCount.currentReadDate = "";                         
+                         devicePageCount.monoValue=pageCountResponse.data.value;
                     }
                                       
                 });

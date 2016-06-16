@@ -1,3 +1,4 @@
+<form check-form-valid  class="form" data-form="" name="newUser" novalidate>
 <div class="page-header">
 	<div class="clearfix">
 		<h1 class="pull vertical-space--none"><span translate="USER_MAN.MANAGE_LXK_USERS.TXT_MANAGE_LXK_USERS"></span> 
@@ -8,24 +9,46 @@
 	</div>
 	<br/>
 	<p><span translate="USER_MAN.MANAGE_LXK_USERS.TXT_MANAGE_LXK_USERS_PAR"></span></p>
+	
+    <div ng-show="showUserUpdatedMessage" class="alert">
+        <span translate="USER_MAN.MANAGE_LXK_USERS.TXT_MSG_USER_UPDATED"></span>
+    </div>
 
 	<div class="btns">
-	    <button type="button" class="btn btn--default" ng-click="deactivate()" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
+	    <button class="btn btn--default" ng-click="newUser.$valid && verifyDeactivateActivate('deactivate')" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
 	    </button>
-	    <button type="button" class="btn btn--default" ng-click="update()" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
+	    <button class="btn btn--default" ng-click="newUser.$valid && verifyDeactivateActivate('activate')" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
 	    </button>
+	</div>
+
+	<div id="deactivate-confirm-popup" class="modal">
+	    <div class="modal__body">
+		    <h2 translate="USER_MAN.MANAGE_USERS.WARNING_DEACTIVATE"></h2><hr/>
+		    <p>
+		    	<span translate="USER_MAN.MANAGE_USERS.IGNORE_WARNING"></span>
+		    </p>
+		    <button class="btn btn--secondary" ng-click="deactivate()" data-js="modalClose" translate="LABEL.COMMON.YES"></button>
+		    <button class="btn btn--primary" data-js="modalClose" translate="LABEL.COMMON.NO"></button>
+	    </div>
+	</div>
+	<div id="activate-confirm-popup" class="modal">
+	    <div class="modal__body">
+		    <h2 translate="USER_MAN.MANAGE_USERS.WARNING_ACTIVATE"></h2><hr/>
+		    <p>
+		    	<span translate="USER_MAN.MANAGE_USERS.IGNORE_WARNING"></span>
+		    </p>
+		    <button class="btn btn--secondary" ng-click="activate()" data-js="modalClose" translate="LABEL.COMMON.YES"></button>
+		    <button class="btn btn--primary" data-js="modalClose" translate="LABEL.COMMON.NO"></button>
+	    </div>
 	</div>
 </div>
 <div class="page-content">
     <div ng-hide="isSubmitted">
-        <div class="col-lg-2-3 col-md-1-1">
-            <form check-form-valid  class="form" data-form="" name="newUser" novalidate>
-                <div lexmark-user-fields></div>
-            
-                <hr/>
-
-                <div lexmark-user-buttons></div>
-            </form>
+        <div class="col-lg-2-3 col-md-1-1">            
+        	<div lexmark-user-fields></div>            
+            <hr/>
+            <div lexmark-user-buttons></div>            
         </div>
     </div>
 </div>
+</form>

@@ -118,7 +118,7 @@ angular.module('mps.deviceManagement')
                 }
             };
             ServiceRequest.item.get(options).then(function(){
-                Devices.setItem(ServiceRequest.item.asset);
+                //Devices.setItem(ServiceRequest.item.asset);
                 $location.path(Orders.route + '/' + ServiceRequest.item.id + '/receipt');
             });
         };

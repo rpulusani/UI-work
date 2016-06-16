@@ -6,6 +6,12 @@ angular.module('mps.user')
     function($scope, $location, $translate, GridService, $routeParams, $rootScope, BlankCheck, LexmarkUser,
         Personalize, FilterSearchService, formatter, UserAdminstration) {
         
+        $scope.showUserUpdatedMessage = false;
+        if(UserAdminstration.wasUpdated){
+            $scope.showUserUpdatedMessage = true;
+            UserAdminstration.wasUpdated = false;
+        }
+        
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(LexmarkUser, $scope, $rootScope, personal,'defaultSet');
         LexmarkUser.setParamsToNull();
