@@ -137,7 +137,7 @@ angular.module('mps.pageCount')
                 BlankCheck.checkNotNullOrUndefined(devicePageCount.monoMeterReadId)) {
                 MeterReads.newMessage();
                 mono = MeterReads.item;
-                mono.postURL = devicePageCount._links.monoMeterRead.href;
+                mono.postURL = devicePageCount._links.monorMeterRead.href;
 
                 MeterReads.addField('id', devicePageCount.monoMeterReadId);
                 MeterReads.addField('value', devicePageCount.newLtpcCount-devicePageCount.newColorCount);
@@ -150,7 +150,7 @@ angular.module('mps.pageCount')
                 
                     $http({
                     method: 'PUT',
-                    url: devicePageCount._links.monoMeterRead.href,
+                    url: devicePageCount._links.monorMeterRead.href,
                     data: mono
                 }).then(function(pageCountResponse) {
                     MeterReads.wasSaved = true;
