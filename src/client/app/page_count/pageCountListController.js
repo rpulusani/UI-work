@@ -144,7 +144,7 @@ angular.module('mps.pageCount')
                 MeterReads.addField('type', 'MONO');
 
                 if (BlankCheck.checkNotNullOrUndefined(devicePageCount.currentReadDate)) {
-                    MeterReads.addField('updateDate', FormatterService.formatDateForPost(devicePageCount.currentReadDate));
+                    MeterReads.addField('updateDate', FormatterService.formatLocalToUTC(new Date()));
                 }
                 
                 
@@ -155,9 +155,7 @@ angular.module('mps.pageCount')
                 }).then(function(pageCountResponse) {
                     MeterReads.wasSaved = true;
                     if ( pageCountResponse.data.type && pageCountResponse.data.type === 'MONO'){
-                         devicePageCount.monoValue=pageCountResponse.data.value; 
-                         devicePageCount.lastReadDate=pageCountResponse.data.updateDate;                         
-                         devicePageCount.currentReadDate = "";                         
+                         devicePageCount.monoValue=pageCountResponse.data.value;
                     }
                                       
                 });
