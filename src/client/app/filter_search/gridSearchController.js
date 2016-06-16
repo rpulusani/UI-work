@@ -77,7 +77,7 @@ angular.module('mps.filterSearch')
             }
 
             if($scope.searchBy && typeof $scope.search === 'function' && $scope.searchByValue){
-            	$scope.params['search'] = $window.encodeURIComponent($scope.searchByValue);
+            	$scope.params['search'] = $scope.searchByValue;
                 $scope.params['searchOn'] = $scope.searchBy.replace('_embedded.','');
                 $scope.showSearchMessage = true;
 
