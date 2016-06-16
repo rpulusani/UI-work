@@ -47,19 +47,41 @@ angular.module('mps.serviceRequestDevices')
         $scope.isLoading = false;
         $scope.multiple = {};
 
-        var configurePermissions = [
-            {
-                name: 'moveMADCAccess',
-                permission: permissionSet.serviceRequestManagement.moveMADC
-            }
-        ],
-        statusBarLevels = [
+        var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
         SecureHelper = new SecurityHelper($scope);
         SRHelper.addMethods(Devices, $scope, $rootScope);
-        SecureHelper.setupPermissionList(configurePermissions);
+        
+        //Changes for permission of the particular device account starts
+        
+        var configPermissions = [];
+        configPermissions = angular.copy($rootScope.configurePermissions);
+        $scope.deviceActionPermissions = {};          		
+       
+        var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions);
+        var accId = Devices.item._embedded.account.accountId,
+        	i=0,
+        	acntPermissions,
+        	accounts = $rootScope.currentUser.transactionalAccount.data;
+        	
+        	if ($rootScope.currentRowList.length == 1){
+        		for(;i<accounts.length;i++){
+            		if(accounts[i].account.accountId === accId){
+            			acntPermissions = accounts[i].permisssions.permissions;            			
+            			break;
+            		}
+            	}
+        		$scope.deviceActionPermissions.security.setWorkingPermission(acntPermissions);
+        		helperDeviceSelect.setupPermissionList(configPermissions);
+        	}
+        	
+        
+        
+        
+        
+        
         $scope.setTransactionAccount('DeviceUpdate', Devices);
         SecureHelper.redirectCheck($rootScope.addDevice);
         $scope.confirmedSavedSR = [];

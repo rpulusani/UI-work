@@ -75,8 +75,8 @@ angular.module('mps.orders')
                     cart:Orders.tempSpace.catalogCart
                 };
                  if ($scope.type !== 'HARDWARE'){
-                	 $scope.supplyMaxQuantity = Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity;
-                	 $scope.serviceMaxQuantity = Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity;
+                	 $scope.supplyMaxQuantity = (Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity === 0)?1:Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity;
+                	 $scope.serviceMaxQuantity = (Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity === 0)?1:Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity;
                  }
                 
             }else{
