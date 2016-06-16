@@ -50,8 +50,10 @@
         });
 
         $scope.removeImpersonate = function() {
+            var impersonateURL = $cookies['impersonateUrl'];
             delete $cookies['impersonateToken'];
-            $window.location.reload();
+            delete $cookies['impersonateUrl'];
+            $window.location.href = impersonateURL;
         };
 
         $scope.getItemsByTag = function(tag){

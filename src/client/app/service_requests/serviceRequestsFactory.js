@@ -117,7 +117,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'_embedded.asset.productModel',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.productModel"></div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true, visible: false},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},

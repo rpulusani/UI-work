@@ -139,7 +139,7 @@
 <!-- <User Info> -->
       <div class="user push">
         <div class="user__img pull">
-          <div class="user__notify pull l-hidden--gt-tablet"><a class="badge badge--important" href="#notifications">1</a></div>
+          <div  ng-if="translationAdminAccess" class="user__notify pull l-hidden--gt-tablet"><a class="badge badge--important" href="/notifications">1</a></div>
           <a href="/user_preference"><img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" /></a>
         </div>
         <div class="user__info pull text--small l-visible--gt-tablet">

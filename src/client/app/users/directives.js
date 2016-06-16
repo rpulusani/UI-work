@@ -195,4 +195,10 @@ angular.module('mps.user')
             });
         }
     };
+})
+.directive('userProfileButtons', function() {
+    return {
+        restrict: 'A',
+        templateUrl: '/app/users/templates/user-profile-buttons.html'
+    };
 });

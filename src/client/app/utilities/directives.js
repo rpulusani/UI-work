@@ -97,21 +97,21 @@ angular.module('mps.utility')
         '</div>' +
         '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
             '<span ng-if="displayPrint && displayExport" class="">' +
-                '<i class="icon icon--mps icon--print"></i>' +
+                '<i class="icon icon--mps icon--print" ng-click="printGrid()"></i>' +
                 '<a ng-show="!nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
                 '<a ng-show="nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
             '</span>' +
             '<div ng-if="displayPrint && !displayExport" class="">' +
-                '<i class="icon icon--mps icon--print"></i>' +
+                '<i class="icon icon--mps icon--print" ng-click="printGrid()"></i>' +
                 '<a ng-show="!nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
                 '<a ng-show="nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" onclick="window.print()"></a>' +
             '</div>' +
             '<span ng-if="displayExport && displayPrint" class="">' +
-                '<i class="icon icon--mps icon--download"></i>' +
+                '<i class="icon icon--mps icon--download" ng-click="exportGrid()"></i>' +
                 '<a translate="LABEL.COMMON.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
             '</span>' +
             '<div ng-if="displayExport && !displayPrint" class="">' +
-                '<i class="icon icon--mps icon--download"></i>' +
+                '<i class="icon icon--mps icon--download" ng-click="exportGrid()"></i>' +
                 '<a translate="LABEL.COMMON.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
             '</div>' +
         '</div>',

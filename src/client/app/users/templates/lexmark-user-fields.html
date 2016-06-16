@@ -14,10 +14,11 @@
         <input type="checkbox"
             id="portalAccess"
             name="portalAccess"
-            ng-model="user.item.active"
+            ng-model="userActive"
         />
         {{'USER_MAN.MANAGE_LXK_USERS.CHK_PORTAL_ACCESS_ENABLED' | translate}}
     </label>
+    <input type="hidden" name="isNewUser" ng-model="isNewUser" />
 </div>
 <br/>
 <div lexmark-org-structure></div>
