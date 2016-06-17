@@ -328,6 +328,14 @@ angular.module('mps.deviceManagement')
                 });
             }
         };
+
+        function createModal(){
+            var $ = require('jquery');
+            $('#pageCounts-error-popup').modal({
+                show: true,
+                static: true
+            });
+        }
         
         $scope.saveMeterReads = function() {
         /*
@@ -336,6 +344,7 @@ angular.module('mps.deviceManagement')
         */
             var limit, i;
             $scope.errorMessage='';
+            $scope.warnMessage='';
             if($scope.meterReads){
                 limit = $scope.meterReads.length;
                 var indColor=-1,indLTPC=-1,indMono=-1;
@@ -491,18 +500,21 @@ angular.module('mps.deviceManagement')
                     }                                     
                 }                
                
-                //Mono Calc goes here                
-                if (indLTPC !== -1 && indColor !== -1 
+                if(meterReadCnt === totalMRCount) {
+                    $scope.errorMessage = "Please enter value at least in one page count type.";
+                    return; 
+                }
+                else if (indLTPC !== -1 && indColor !== -1 
                     && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
                     $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
                     $scope.meterReads[indMono].updateDate = FormatterService.formatLocalToUTC(new Date());                    
                     updateMeterReads($scope.meterReads[indMono]);
                 }
 
-                if(meterReadCnt === totalMRCount) {
-                    $scope.errorMessage = "Please enter value at least in one page count type.";
-                    return; 
-                }      
+                if($scope.warnMessage.length > 0) {
+                    $scope.popupMsg = $scope.warnMessage;
+                    createModal();
+                }    
             }
         };
 
@@ -542,7 +554,7 @@ angular.module('mps.deviceManagement')
                 warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too low).";
             }
             if(warnMsg.length > 0) {
-                $scope.errorMessage = warnMsg;
+                $scope.warnMessage = warnMsg;
             }
             return errorMsg;
         }
@@ -566,7 +578,7 @@ angular.module('mps.deviceManagement')
                 warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too low).";
             }
             if(warnMsg.length > 0) {
-                $scope.errorMessage = warnMsg;
+                $scope.warnMessage = warnMsg;
             }
             return errorMsg;
         }
@@ -584,7 +596,7 @@ angular.module('mps.deviceManagement')
                 ltpcMR !== null &&
                 ltpcMR.newVal &&
                 pageCountHelper.isDigitPageCount(ltpcMR.newVal) &&
-                (colorMR.newVal - colorMR.val) > (ltpcMR.newVal - ltpcMR.val)) {
+                (colorMR.newVal - colorMR.value) > (ltpcMR.newVal - ltpcMR.value)) {
                 errorMsg += "The Meter Read difference for Color cannot be greater than the Meter Read difference for LTPC.";
             }
             return errorMsg;
