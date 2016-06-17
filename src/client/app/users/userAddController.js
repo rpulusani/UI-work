@@ -241,6 +241,7 @@ angular.module('mps.user')
                     $scope.user.noOfInvitation = emailList.length;
                     for (var i=0;i<emailList.length;i++) {
                         UserAdminstration.newMessage();
+                        $scope.user.selectedRoleList = [];
                         $scope.userInfoList[i] = UserAdminstration.item;
                         UserAdminstration.addField('type', 'INVITED');
                         UserAdminstration.addField('invitedStatus', 'INVITED');
