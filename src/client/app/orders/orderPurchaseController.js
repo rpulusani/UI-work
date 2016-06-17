@@ -150,6 +150,7 @@ angular.module('mps.orders')
 
             $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
             $scope.configure.actions.submit = function(){
+            	$scope.sr.soldToNumber = $scope.device._embedded.account.soldToNumber;
             	if(!$scope.scratchSpace.shipToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');

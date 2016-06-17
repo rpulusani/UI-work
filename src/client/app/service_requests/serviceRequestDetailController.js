@@ -340,6 +340,14 @@ angular.module('mps.serviceRequests')
                                 billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
                             }
                         };
+            $scope.configure.order.shipTo = {
+            		translate : {
+            			shipToAddress: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+            			instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+            			deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                        expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE'
+            		}
+            }
             $scope.configure.order.po = {
                 translate:{
                     label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',

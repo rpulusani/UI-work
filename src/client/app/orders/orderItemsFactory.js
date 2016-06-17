@@ -54,7 +54,8 @@ angular.module('mps.orders')
                         'field':'priceCurrencyFormat()', enableCellEdit:false},
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
                             width: '125',
-                            type: 'number'
+                            type: 'number',
+                            enableCellEdit:false
                     },
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL'),
                         'cellClass': 'text--semi-bold',
@@ -76,7 +77,8 @@ angular.module('mps.orders')
                         'field':'priceCurrencyFormat()', enableCellEdit:false},
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
                             width: '125',
-                            type: 'number'
+                            type: 'number',
+                            enableCellEdit:false
                     },
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL'),
                         'cellClass': 'text--semi-bold',
