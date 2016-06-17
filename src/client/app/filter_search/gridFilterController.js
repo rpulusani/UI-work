@@ -1,6 +1,6 @@
 angular.module('mps.filterSearch')
-.controller('GridFilterController', ['$scope', '$translate', '$location',
-    function($scope, $translate, $location) {
+.controller('GridFilterController', ['$scope', '$rootScope', '$translate', '$location',
+    function($scope, $rootScope, $translate, $location) {
         var initalFilter = $scope.options[0],
         params = $location.search();
 
@@ -21,9 +21,11 @@ angular.module('mps.filterSearch')
         for(var item in $scope.options){
             $scope.options[item].display = $translate.instant($scope.options[item].display);
         
-            if (($scope.options[item].optionsPanel && params.filter)
-                && $scope.options[item].optionsPanel.toLowerCase() === params.filter.toLowerCase()) {
+            if (($scope.options[item].optionsPanel && $rootScope.searchParamsFromHome 
+                && $rootScope.searchParamsFromHome.filterSelectric.doSearch)
+                && $scope.options[item].optionsPanel.toLowerCase() === $rootScope.searchParamsFromHome.filterSelectric.filter) {
                 initalFilter = $scope.options[item];
+                $rootScope.searchParamsFromHome.filterSelectric.doSearch = false;   
             }
         }
         

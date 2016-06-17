@@ -104,7 +104,7 @@ function(
             } else if (!$rootScope.viewSupplyOrderAccess && $rootScope.viewHardwareOrderAccess) {
                 options.params.type = 'HARDWARE_ORDERS_ALL';
             }
-
+            $scope.orderCompleteType = options.params.type;
             Orders.get(options).then(function(res) {
                 $scope.srOrderCnt = Orders.page.totalElements;
                 getOrderCompletedCnt();
@@ -382,6 +382,24 @@ function(
                 textStyle: {fontSize: 14}
             }
         };
+
+        $scope.goToRespectiveOpenGrid = function(tab,filter,filteron,type,path){
+            var param = {
+                tab: tab
+            }
+            $rootScope.searchParamsFromHome = {
+                filterSelectric :{
+                    filter: filter,
+                    doSearch: true
+                },
+                queryParam: {
+                    filteron : filteron,
+                    type : type,
+                    doQuery : true
+                }
+            };
+            $location.path(path).search(param);
+        }
 
         // Device search
         $scope.searchFunctionDef = function(searchVals) {

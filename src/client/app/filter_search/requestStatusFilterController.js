@@ -1,7 +1,7 @@
 
 angular.module('mps.filterSearch')
-.controller('RequestStatusFilterController', ['$scope', '$translate', '$location', 'ServiceRequestStatus', 
-    function($scope, $translate, $location, ServiceRequestStatus) {
+.controller('RequestStatusFilterController', ['$scope', '$rootScope', '$translate', '$location', 'ServiceRequestStatus', 
+    function($scope, $rootScope, $translate, $location, ServiceRequestStatus) {
         var params = $location.search(),
         i = 0; // loop through requestStatuses
 
@@ -67,20 +67,23 @@ angular.module('mps.filterSearch')
                 $scope.filterDef($scope.params, ['status', 'from', 'to', 'bookmark', 'requesterFilter']);
             }
         };
-        if (params.filteron){
-            var filterOnAr = params.filteron.split(',');
+        if ($rootScope.searchParamsFromHome && $rootScope.searchParamsFromHome.queryParam.doQuery){
+            var filterOnAr = $rootScope.searchParamsFromHome.queryParam.filteron.split(',');
         	var statusValue = null,i;
+            var queryParamAr = [];
         	for (i=0;i<$scope.requestStatuses.length;i++){
         		if (filterOnAr.indexOf($scope.requestStatuses[i].value.toLowerCase()) >= 0){
         			statusValue = $scope.requestStatuses[i].value;
+                    queryParamAr.push($scope.requestStatuses[i].value);
         			$scope.requestStatuses[i].selected=true;
-                    $scope.requestStatus={
-                            selected: true,
-                            value: statusValue
-                    }
-                    $scope.requestStatusFilter($scope.requestStatus);
         		}
+
         	}
+
+            $scope.params['status'] = queryParamAr.join();
+            $scope.params['type'] = $rootScope.searchParamsFromHome.queryParam.type;
+            $scope.filterDef($scope.params,['from', 'to', 'bookmark', 'requesterFilter']);
+            $rootScope.searchParamsFromHome.queryParam.doQuery = false;
         }
     }
 ]);
