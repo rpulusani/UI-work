@@ -50,7 +50,7 @@
     	
     	<div ng-if="configure.orderItems.multipleSr" ng-repeat = "(billingModel , orderItems) in configure.orderItems.multipleSr" >
     	<div class="col-3-4">
- 			<h2 class="print-export-header vertical-margin-bottom-0">{{configure.orderItems.srMap[billingModel].message}}</h2> 			 			
+ 			<h2 class="print-export-header vertical-margin-bottom-0" translate="{{configure.orderItems.srMap[billingModel].message}}"></h2> 			 			
  		</div>
     	<div translate="ORDER_MGT.ORDER_NO"></div><div>{{configure.orderItems.srMap[billingModel].siebelId}}</div>
     	

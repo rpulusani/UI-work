@@ -399,7 +399,9 @@ angular.module('mps.orders')
                     };
             }
             function setupConfigurationSupplies(){
+            	
             	var srNum = getNumberForMultiple();
+            	srNum= BlankCheck.isNullOrWhiteSpace(srNum)? Orders.item.requestNumber : srNum;
                 $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMIT_SUPPLIES";
                     if ($scope.device) {
                         $scope.configure.header.translate.h1Values = {'productModel': $scope.device.productModel};
