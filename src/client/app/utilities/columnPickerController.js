@@ -38,7 +38,7 @@ angular.module('mps.utility')
             var listItem = $('<div class="col-1-3">'),
             checkboxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
             checkbox = $('<input type="checkbox" id="' + column.name.replace(/ /g, '-') + '" name="' + column.field  + '" value="">'),
-            checkboxLabel = $('<label for="' + column.name + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
+            checkboxLabel = $('<label for="' + column.name.replace(/ /g, '-') + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
 
             checkboxWrapper.append(checkbox);
             checkboxWrapper.append(checkboxLabel);
@@ -57,7 +57,7 @@ angular.module('mps.utility')
                 checkboxWrapper.on('click', function(e) {
                     e.preventDefault();
 
-                    if (checkbox.checked === false) {
+                    if (!checkboxLabel.hasClass('form__field--is-checked')) {
                         checkbox.checked = true;
                         gridOptions = addColumn(column, gridOptions);
                         checkboxLabel.toggleClass('form__field--is-checked');
@@ -126,6 +126,7 @@ angular.module('mps.utility')
                                 gridOptions = addColumn(column, gridOptions);
 
                                 checkboxLabel.toggleClass('form__field--is-checked');
+                                $rootScope.$broadcast('columnPickerSelect', column);
                             }
                         }
                     }
@@ -153,6 +154,7 @@ angular.module('mps.utility')
                                 gridOptions = removeColumn(column, gridOptions);
 
                                 checkboxLabel.toggleClass('form__field--is-checked');
+                                $rootScope.$broadcast('columnPickerDeselect', column);
                             }
                         }
                     }
@@ -182,6 +184,7 @@ angular.module('mps.utility')
                                 gridOptions = addColumn(column, gridOptions);
 
                                 checkboxLabel.toggleClass('form__field--is-checked');
+                                $rootScope.$broadcast('columnPickerSelect', column);
                             }
                         }
                     }
