@@ -176,8 +176,6 @@ angular.module('mps.deviceManagement')
                 $translate.instant('DEVICE_MAN.COMMON.TXT_LAST_UPDATED')
             ],
             rows = generateCsvRows(),
-            pdfHeaders = [],
-            pdfRows = [],
             i = 0;
 
             $scope.csvModel = {
@@ -188,15 +186,36 @@ angular.module('mps.deviceManagement')
                 rows: rows
             };
 
-            for (i; i < headers.length; i += 1) {
-               pdfHeaders.push({text: headers[i], fontSize: 8});
+            var pdfHeaders1 = [],
+            pdfRows1 = [],
+            pdfHeaders2 = [],
+            pdfRows2 = [];
+            var pdfFirstHeaderColumnsCnt = 11;
+            var totalColumnsCnt = headers.length;
+            if(totalColumnsCnt <= pdfFirstHeaderColumnsCnt) {
+                pdfFirstHeaderColumnsCnt = totalColumnsCnt;
+            }            
+
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: headers[i], fontSize: 8});
             }
 
             i = 0;
-
-            for (i; i < rows.length; i += 1) {
-               pdfRows.push({text: rows[i], fontSize: 8});
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});
             }
+
+            if(totalColumnsCnt > pdfFirstHeaderColumnsCnt) {
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfHeaders2.push({text: headers[i], fontSize: 8});
+                }
+
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfRows2.push({text: rows[i], fontSize: 8});
+                }
+            }            
 
             $scope.pdfModel = {
               content: [
@@ -204,8 +223,17 @@ angular.module('mps.deviceManagement')
                   table: {
                     headerRows: 1,
                     body: [
-                      pdfHeaders,
-                      pdfRows
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                },
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders2,
+                      pdfRows2
                     ]
                   }
                 }
