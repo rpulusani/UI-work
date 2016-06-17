@@ -223,6 +223,9 @@ angular.module('mps.serviceRequests')
             $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
             $scope.configure.contact.translate.requestedByTitle = "ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY";
             $scope.configure.detail.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_ADDITIONAL_DETAILS";
+            $scope.configure.detail.translate.costCenter = "ORDER_MAN.COMMON.TXT_ORDER_COST_CENTER";
+            $scope.configure.contact.translate.primaryTitle = "ORDER_MAN.COMMON.TXT_ORDER_CONTACT";
+            
             $scope.configure.receipt = {
                         translate:{
                             title:"ORDER_MAN.COMMON.TXT_ORDER_NUMBER_SUBMITTED_HEADER",
@@ -239,7 +242,8 @@ angular.module('mps.serviceRequests')
                 }
             };
 
-
+            $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
+            $scope.configure.header.readMoreUrl = Orders.route;
             $scope.configure.order = {
                     returnSupplies:{
                         translate:{
@@ -287,7 +291,8 @@ angular.module('mps.serviceRequests')
             $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
             $scope.configure.contact.translate.requestedByTitle = "ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY";
             $scope.configure.detail.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_ADDITIONAL_DETAILS";
-            
+            $scope.configure.detail.translate.costCenter = "ORDER_MAN.COMMON.TXT_ORDER_COST_CENTER";
+            $scope.configure.contact.translate.primaryTitle = "ORDER_MAN.COMMON.TXT_ORDER_CONTACT";
           
             $scope.configure.breadcrumbs = {
                 1: {
@@ -304,7 +309,7 @@ angular.module('mps.serviceRequests')
 
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
                     $scope.configure.header.translate.body = "ORDER_CATALOGS.RECEIPT.TXT_PARA";
-                    $scope.configure.header.translate.readMore = "";
+                    $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
                     $scope.configure.header.translate.bodyValues= {
                         'order': FormatterService.getFormattedSRNumber($scope.sr),
@@ -335,6 +340,14 @@ angular.module('mps.serviceRequests')
                                 billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
                             }
                         };
+            $scope.configure.order.shipTo = {
+            		translate : {
+            			shipToAddress: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
+            			instructions:'ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR',
+            			deliveryDate:'ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE',
+                        expedite:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DELIVERY_EXPEDITE'
+            		}
+            }
             $scope.configure.order.po = {
                 translate:{
                     label: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_PURCHASE_ORDER',
@@ -356,6 +369,8 @@ angular.module('mps.serviceRequests')
              $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
              $scope.configure.contact.translate.requestedByTitle = "ORDER_MAN.COMMON.TXT_ORDER_CREATED_BY";
              $scope.configure.detail.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_ADDITIONAL_DETAILS";
+             $scope.configure.detail.translate.costCenter = "ORDER_MAN.COMMON.TXT_ORDER_COST_CENTER";
+             $scope.configure.contact.translate.primaryTitle = "ORDER_MAN.COMMON.TXT_ORDER_CONTACT";
              $scope.configure.breadcrumbs = {
                 1: {
                     href: '/orders',

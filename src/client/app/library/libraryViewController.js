@@ -13,8 +13,8 @@ angular.module('mps.library')
                 $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_OWNER')
             ],
             rows = [
-                $scope.documentItem.name,
-                $scope.documentItem.description,
+                $scope.documentItem.name === null? "" : $scope.documentItem.name,
+                $scope.documentItem.description === null? "" : $scope.documentItem.description,
                 $scope.getTagNames($scope.documentItem.tags),
                 $scope.getFileSize($scope.documentItem.size),
                 $scope.getFormatDate($scope.documentItem.publishDate),

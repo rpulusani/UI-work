@@ -26,7 +26,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_REQUESTS_FOR_SERVICE"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests?tab=serviceRequestsServiceTab&filter=requeststatusfiltershort&filteron=submitted,in_process,shipped" ng-if="serviceRequestBreakFixAccess">
+                        <a href="#" ng-click="goToRespectiveOpenGrid('serviceRequestsServiceTab', 'requeststatusfiltershort', 'submitted,in_process,shipped', 'BREAK_FIX', '/service_requests')" ng-if="serviceRequestBreakFixAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srOpenCnt"></span> 
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -35,7 +35,7 @@
                         </a>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests?tab=serviceRequestsServiceTab&filter=requeststatusfiltershort&filteron=completed" ng-if="serviceRequestBreakFixAccess">
+                        <a href="#" ng-click="goToRespectiveOpenGrid('serviceRequestsServiceTab', 'requeststatusfiltershort', 'completed', 'BREAK_FIX', '/service_requests')" ng-if="serviceRequestBreakFixAccess">
                             <p>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srCompletedCnt }}"></span>
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
@@ -50,7 +50,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_ORDERS"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/orders?&filter=requeststatusfilterlong&filteron=submitted,in_process,shipped" ng-if="orderSuppliesHardwareAccess">
+                        <a href="#" ng-click="goToRespectiveOpenGrid('orderAllTab', 'requeststatusfilterlong', 'submitted,in_process,shipped', 'ORDERS_ALL', '/orders')" ng-if="orderSuppliesHardwareAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srOrderCnt"></span> 
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -59,7 +59,7 @@
                         </a>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/orders?&filter=requeststatusfilterlong&filteron=completed" ng-if="orderSuppliesHardwareAccess">
+                        <a href="#" ng-click="goToRespectiveOpenGrid('orderAllTab', 'requeststatusfilterlong', 'completed', orderCompleteType, '/orders')" href="/orders?&filter=requeststatusfilterlong&filteron=completed" ng-if="orderSuppliesHardwareAccess">
                             <p>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srOrderCompletedCnt }}"></span>
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
@@ -74,7 +74,7 @@
                         <h4 class="text--thick" translate="HOME_PAGE.REQUEST_STATUS.TXT_DEVICE_CHANGE_REQUESTS"></h4>
                     </div>
                     <div class="rollup-content">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab&filter=requeststatusfiltershort&filteron=submitted,in_process,shipped" ng-if="serviceRequestMADCAccess">
+                        <a href="#" ng-click="goToRespectiveOpenGrid('serviceRequestsDeviceTab', 'requeststatusfiltershort', 'submitted,in_process,shipped', 'MADC_ALL,DATA_ASSET_ALL', '/service_requests')" ng-if="serviceRequestMADCAccess">
                             <h1 class="blue text--bold">
                                 <span ng-bind="srMADCCnt"></span>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_OPEN"></span>
@@ -83,7 +83,7 @@
                         </a>
                     </div>
                     <div class="rollup-footer">
-                        <a href="/service_requests?tab=serviceRequestsDeviceTab&filter=requeststatusfiltershort&filteron=completed" ng-if="serviceRequestMADCAccess">
+                        <a href="#" ng-click="goToRespectiveOpenGrid('serviceRequestsDeviceTab', 'requeststatusfiltershort', 'completed', 'MADC_ALL,DATA_ASSET_ALL', '/service_requests')" ng-if="serviceRequestMADCAccess">
                             <p>
                                 <span translate="HOME_PAGE.REQUEST_STATUS.TXT_COMPLETED_REQUESTS" translate-values="{{ srMADCCompletedCnt }}"></span>
                                 <i class="icon-24 icon-psw-disclosure_right_triangle push"></i>
