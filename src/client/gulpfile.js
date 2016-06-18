@@ -11,8 +11,9 @@ var del = require('del');
 var fs = require('fs');
 var template = require('gulp-template');
 
-var env = process.env.MPS_ENV;
-if(env === undefined) env = "dev";
+/*var env = process.env.MPS_ENV;
+if(env === undefined) env = "dev";*/
+var env = 'dev';
 
 gulp.task('scripts', ['libs'], function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
@@ -134,7 +135,7 @@ gulp.task('dev', ['default'], function(){
         .pipe(webserver({
             port: 8080,
             open: true,
-            livereload: true,
+            livereload: false,
             fallback: '/index.html'
         }));
 });
