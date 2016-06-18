@@ -42,8 +42,8 @@ angular.module('mps.pageCount')
         PageCountService.setParamsToNull();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(PageCountService, $scope, $rootScope, personal, 'defaultSet');
-        $scope.print = false;
-        $scope.export = false;
+        $scope.print = true;
+        $scope.export = true;
         $scope.view = function(devicePageCount){
             $scope.device = devicePageCount._embedded.asset;
             $scope.device._links = {'self':{'href':{}}};
