@@ -187,7 +187,7 @@ angular.module('mps.orders')
         	var taxNumeric = $scope.tax;
         	var amount = subTotal + taxNumeric;
         	$scope.total = formatter.formatCurrency(amount);
-        	var taxPercent = (((amount - subTotal)/amount)*100);
+        	var taxPercent = (((amount - subTotal)/subTotal)*100);
         	
         	$scope.displaytax = OrderItems.formatTax(taxPercent);
         }

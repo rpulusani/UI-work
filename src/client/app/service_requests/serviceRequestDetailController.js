@@ -581,7 +581,8 @@ angular.module('mps.serviceRequests')
                                 partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
                                 product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                                 ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
-                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                contact : 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                         }
                 }
 
@@ -770,7 +771,13 @@ angular.module('mps.serviceRequests')
             };
          
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
-                    $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                    if($scope.sr.status === 'CANCELLED'){
+                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_CANCELLED_PAR";
+                    }else{
+                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                    }
+                    
+                    
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
                     $scope.configure.header.translate.bodyValues= {
@@ -802,6 +809,7 @@ angular.module('mps.serviceRequests')
                                 billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
                             }
                         };
+            
             $scope.configure.order.shipTo = {
             		translate : {
             			shipToAddress: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
@@ -1091,8 +1099,8 @@ angular.module('mps.serviceRequests')
     	        
     	    }
     }
-    if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
-            $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+    if ($scope.sr.item._embedded && !BlankCheck.isNull($scope.sr.item._embedded.secondaryContact)) {
+            $scope.formattedDeviceContact = FormatterService.formatContact($scope.sr.item._embedded.secondaryContact);
     }
 
     if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
@@ -1105,6 +1113,7 @@ angular.module('mps.serviceRequests')
         $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
     }
     if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
+    	 	$scope.scratchSpace.billToAddresssSelected = true;
             $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
     }else {
             $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
