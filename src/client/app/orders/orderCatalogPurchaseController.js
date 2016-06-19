@@ -281,6 +281,7 @@ angular.module('mps.orders')
             
             
             Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
+            Orders.addField('billToNumber', Orders.tempSpace.billToAddress.billToNumber);
             callTax();
             $scope.resetAddressBillToPicker();
             $scope.formatAdditionalData();
