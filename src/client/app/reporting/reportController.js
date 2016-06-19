@@ -94,7 +94,6 @@ angular.module('mps.report')
                 title: '',
                 titlePosition: 'none',
                 tooltip: {
-                    text: 'percentage',
                     textStyle: {fontSize: 14}
                 }
             };
