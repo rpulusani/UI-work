@@ -1,0 +1,36 @@
+<div class="set" data-js="set">
+
+    <div class="set__trigger" data-toggle="srDetailsAssociateRequestsTabl"
+        ng-class="{'set--is-active':isActive('srDetailsAssociateRequestsTabl')}"
+        ng-click="active('srDetailsAssociateRequestsTabl')">
+        <a href="#srDetailsAssociateRequestsTabl" translate="ASSOCIATED REQUESTS"><i class="set__icon"></i></a>
+    </div>
+
+    <div class="set__content" id="srDetailsAssociateRequestsTabl"
+        ng-class="{'set--is-active':isActive('srDetailsAssociateRequestsTabl')}">
+        <span ng-if="isActive('srDetailsAssociateRequestsTabl')">
+        	<div associated-tab sr="sr"></div>
+        </span>
+        
+    </div>
+
+    <div class="set__trigger" data-toggle="srDetailsActivitiesTab"
+        ng-class="{'set--is-active':isActive('srDetailsActivitiesTab')}"
+        ng-click="active('srDetailsActivitiesTab')">
+        <a href="#srDetailsActivitiesTab" translate="ACTIVITY"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="srDetailsActivitiesTab"
+        ng-class="{'set--is-active':isActive('srDetailsActivitiesTab')}" >
+        <span activities sr="sr" ng-if="isActive('srDetailsActivitiesTab')"></span>
+    </div>
+
+<div class="set__trigger" data-toggle="srDetailAssociateRequestsTab"
+        ng-class="{'set--is-active':isActive('srDetailAssociateRequestsTab')}"
+        ng-click="active('srDetailAssociateRequestsTab')">
+        <a href="#srDetailAssociateRequestsTab" translate="SHIPMENTS"><i class="set__icon"></i></a>
+    </div>
+    <div class="set__content" id="srDetailAssociateRequestsTab"
+        ng-class="{'set--is-active':isActive('srDetailAssociateRequestsTab')}">
+        <span shipments sr="sr" ng-if="isActive('srDetailAssociateRequestsTab')"></span>
+    </div>
+</div>

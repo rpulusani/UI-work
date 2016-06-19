@@ -24,7 +24,8 @@ function($routeProvider) {
     .when('/service_requests/:id/receipt', {
         templateUrl: '/app/service_requests/templates/receipt.html',
         controller:'ServiceRequestDetailController',
-        activeItem: '/service_requests?tab=serviceRequestsAllTab'
+        activeItem: '/service_requests?tab=serviceRequestsAllTab',
+        reloadOnSearch: false
     })
     .when('/service_requests/review-test', {
         templateUrl: '/app/service_requests/templates/review.html',
