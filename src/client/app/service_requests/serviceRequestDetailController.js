@@ -903,6 +903,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.showUpdateBtn = false;
                 $scope.configure.header.showCancelBtn = false;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                addTabsForBreakFix();
             break;
             case 'UPDATE_HARDWARE_REQUEST':
             case 'HARDWARE_ORDER':
@@ -910,6 +911,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.showUpdateBtn = false;
                 $scope.configure.header.showCancelBtn = false;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                addTabsForBreakFix();
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
@@ -954,10 +956,12 @@ angular.module('mps.serviceRequests')
                 $scope.formattedMoveDevice = 'Yes';
                 $scope.configure.header.showCancelBtn = true;
                 $scope.configure.header.showUpdateBtn = true;
+                addTabsForMADC();
             break;
             case 'DATA_ASSET_CHANGE':
                 addDeviceMove();
                 $scope.formattedMoveDevice = 'No';
+                addTabsForMADC();
             break;
             case 'MADC_INSTALL':
                 addDeviceInformation();
@@ -965,6 +969,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
                 $scope.configure.header.showCancelBtn = true;
                 $scope.configure.header.showUpdateBtn = true;
+                addTabsForMADC();
             break;
             case 'MADC_DECOMMISSION':
                 addDeviceInformation();
@@ -975,6 +980,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                 $scope.configure.header.showCancelBtn = true;
                 $scope.configure.header.showUpdateBtn = true;
+                addTabsForMADC();
             break;
             case 'DATA_ASSET_DEREGISTER':
                 addDeviceInformation();
@@ -983,9 +989,11 @@ angular.module('mps.serviceRequests')
                 $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
+                addTabsForMADC();
             break;
             case 'DATA_ASSET_REGISTER':
-                addDeviceInformation();                
+                addDeviceInformation();  
+                addTabsForMADC();
             break;
             case 'BREAK_FIX':
             case 'BREAK_FIX_ONSITE_REPAIR' :
@@ -1005,12 +1013,14 @@ angular.module('mps.serviceRequests')
                 };
             $scope.configure.device.information.translate.installAddress = 'REPORTING.SERVICE_ADDRESS';
             $scope.configure.detail.show.comments = false;
+            addTabsForBreakFix();
             break;
             case 'SUPPLIES_CATALOG_ORDER':
             case 'HARDWARE_ORDER':
             case 'HARDWARE_ORDER_INSTALL':
                 $scope.configure.header.showUpdateBtn = true;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                addTabsForBreakFix();
             break;
             default:
             break;
@@ -1132,6 +1142,21 @@ angular.module('mps.serviceRequests')
     	device.newCount = newCount;
     	device.newDate = newDate;
     } 
+    
+    function addTabsForMADC(){
+    	$scope.configure.allSRTabs = {
+    			showAssociated : true,
+    			showActivities : true,
+    			shipments : false
+        }
+    }
+    function addTabsForBreakFix(){
+    	$scope.configure.allSRTabs = {
+    			showAssociated : true,
+    			showActivities : true,
+    			shipments : true
+        }
+    }
     
     setCsvDefinition();
 

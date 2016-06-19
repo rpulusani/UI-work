@@ -31,6 +31,7 @@ angular.module('mps.serviceRequests')
             };
             ServiceRequest.item.get(options).then(function(){
                 $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+                $location.path('tab','srDetailsAssociateRequestsTabl');
             });
 
         };
