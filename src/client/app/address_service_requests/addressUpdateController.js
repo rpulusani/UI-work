@@ -58,6 +58,97 @@ angular.module('mps.serviceRequestAddresses')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
+        function generateCsvRows() {
+            var rows = [];
+
+            if ($scope.sr && FormatterService.getFormattedSRNumber($scope.sr)) {
+                rows.push(FormatterService.getFormattedSRNumber($scope.sr));
+            } else {
+                rows.push('none');
+            }
+           
+            if ($scope.requestedByContactFormatted) {
+                rows.push($scope.requestedByContactFormatted.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedPrimaryContact) {
+                rows.push($scope.formattedPrimaryContact.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }           
+            
+            if ($scope.sr && FormatterService.getFormattedSRNumber($scope.sr)) {
+                var submittedDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+                rows.push(submittedDate.toString());
+                rows.push($translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_SUBMITTED_STATUS'));
+            } else {
+                rows.push('none');
+                rows.push('none');
+            }
+
+            if ($scope.formattedReferenceId) {
+                rows.push($scope.formattedReferenceId);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedAddress) {
+                rows.push($scope.formattedAddress.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }        
+
+            return rows;
+        }
+        function setCsvDefinition() {
+            var headers = [
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_REQUEST_NBR'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_REQUESTED_BY_CONTACT'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_PRIMARY_CONTACT'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_CREATED_ON'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_STATUS'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_CUSTOMER_REF_NBR'),
+                $translate.instant('ADDRESS_MAN.UPDATE_ADDRESS.TXT_CSV_UPDATED_ADDRESS')
+            ],
+            rows = generateCsvRows(),
+            i = 0;
+
+            $scope.csvModel = {
+                filename: FormatterService.getFormattedSRNumber($scope.sr),
+                headers: headers,
+                // rows are just property names found on the dataObj
+                rows: rows
+            };
+
+            var pdfHeaders1 = [],
+            pdfRows1 = [];
+            var totalColumnsCnt = headers.length;                      
+
+            for (i; i < totalColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: headers[i], fontSize: 8});
+            }
+
+            i = 0;
+            for (i; i < totalColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});
+            }
+            
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                }
+              ]
+            };
+        }
 
         $scope.checkAddress = function() {
                 if($scope.checkedAddress === 0 && $scope.updateAddress.$valid && $scope.address.country){
@@ -424,5 +515,6 @@ angular.module('mps.serviceRequestAddresses')
         }
 
         $scope.formatReceiptData($scope.formatAdditionalData);
+        setCsvDefinition();
     }
 ]);
