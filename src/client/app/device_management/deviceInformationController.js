@@ -46,6 +46,13 @@ angular.module('mps.deviceManagement')
         pageCountHelper
         ) {
 
+        
+        if(!Devices.item){
+                
+            $location.path('/device_management');
+            return;
+        }
+
         var generateCsvRows = function() {
             var rows = [];
 

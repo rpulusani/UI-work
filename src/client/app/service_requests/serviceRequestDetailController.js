@@ -26,6 +26,10 @@ angular.module('mps.serviceRequests')
         OrderItems,
         OrderTypes
     ) {
+        if(!Orders.item){
+            $location.path(Orders.route).search({tab:'orderAllTab'});
+            return;
+        }
         $('.site-content').scrollTop(0,0);
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
@@ -37,68 +41,456 @@ angular.module('mps.serviceRequests')
         statusBarLevelsShort = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
-        setCsvDefinition = function() {
-            var generateDataObj = function() {
-                 var obj = {
-                    requestNumber: $scope.sr.requestNumber,
-                    formattedPrimaryContact: $scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
-                    requestedByContactFormatted:$scope.requestedByContactFormatted,
-                    customerReferenceId: $scope.formattedReferenceId,
-                    costCenter: $scope.formattedCostCenter,
-                    comments: $scope.formattedNotes,
-                    created: $scope.sr.createDate
-                };
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        var generateCsvRows = function() {
+            var rows = [];
 
-                if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
-                    obj.formattedAddress = $scope.formattedAddress === undefined ?"":$scope.formattedAddress.replace(/<br\/>/g, ', ');
+            if ($scope.sr.requestNumber) {
+                rows.push($scope.sr.requestNumber);
+            } else {
+                rows.push('none');
+            }
+           
+            if ($scope.formattedPrimaryContact) {
+                rows.push($scope.formattedPrimaryContact.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.requestedByContactFormatted) {
+                rows.push($scope.requestedByContactFormatted.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedReferenceId) {
+                rows.push($scope.formattedReferenceId);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedCostCenter) {
+                rows.push($scope.formattedCostCenter);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedNotes) {
+                rows.push($scope.formattedNotes);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.sr.createDate) {
+                rows.push($scope.sr.createDate);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
+                if ($scope.formattedAddress) {
+                    rows.push($scope.formattedAddress.replace(/<br\/>/g, ', '));
                 } else {
-                    obj.formattedPrimaryContactAddress = $scope.formattedPrimaryContactAddress === undefined ?"": $scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', ');
+                    rows.push('');
+                }                
+            } else {
+                if ($scope.formattedPrimaryContactAddress) {
+                    rows.push($scope.formattedPrimaryContactAddress.replace(/<br\/>/g, ', '));
+                } else {
+                    rows.push('');
+                }                
+            }
+
+            if ($scope.device.serialNumber) {
+                rows.push($scope.device.serialNumber);
+                
+                if ($scope.device.productModel) {
+                    rows.push($scope.device.productModel);
+                } else {
+                    rows.push('none');
                 }
 
-                if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION'
-                     || $scope.sr.type === 'DATA_ASSET_DEREGISTER') {
-                    obj.serialNumber = $scope.device.serialNumber;
-                    obj.productModel = $scope.device.productModel;
-                    obj.ipAddress = $scope.device.ipAddress
+                if ($scope.device.ipAddress) {
+                    rows.push($scope.device.ipAddress);
+                } else {
+                    rows.push('none');
+                }
 
-                    if ($scope.sr.type === 'DATA_ASSET_CHANGE') {
-                        obj.lexmarkToMove = $scope.formattedMoveDevice;
+                if ($scope.device.partNumber) {
+                    rows.push($scope.device.partNumber);
+                } else {
+                    rows.push('none');
+                }
+                
+                if ($scope.sr.type.indexOf("BREAK_FIX") >= 0) {                    
+                    if ($scope.formattedDescription) {
+                        rows.push($scope.formattedDescription);
                     } else {
-                        if($scope.sr.type === 'MADC_DECOMMISSION') {
-                            obj.lexmarkToPickup = $scope.formattedPickupDevice;
-                        }
-                        
-                        if ($scope.sr.item.meterReads) {
-                            obj.pageCounts = $scope.sr.item.meterReads;
+                        rows.push('none');
+                    }
+                }                    
+            }
+
+            if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION'
+                || $scope.sr.type === 'DATA_ASSET_DEREGISTER') {
+                if ($scope.sr.type === 'DATA_ASSET_CHANGE') {
+                    if ($scope.formattedMoveDevice) {
+                        rows.push($scope.formattedMoveDevice);
+                    } else {
+                        rows.push('');
+                    }
+                } else {
+                    if($scope.sr.type === 'MADC_DECOMMISSION') {
+                        if ($scope.formattedPickupDevice) {
+                            rows.push($scope.formattedPickupDevice);
                         } else {
-                            obj.pageCounts = 'none';
+                            rows.push('');
                         }
                     }
+                        
+                    if ($scope.sr.item.meterReads) {
+                        rows.push($scope.sr.item.meterReads);                        
+                    } else {
+                        rows.push('none');
+                    }
+                }
+            }
+
+            if ($scope.formattedDeviceMoveAddress) {
+                rows.push($scope.formattedDeviceMoveAddress.replace(/<br\/>/g, ', '));
+            }           
+
+            if($scope.sr.type === 'SUPPLIES_CATALOG_ORDER' ||
+              $scope.sr.type === 'HARDWARE_ORDER' ||
+              $scope.sr.type === 'SVC_CATALOG_ORDER') {
+                
+                if ($scope.formattedInstructions) {
+                    rows.push($scope.formattedInstructions.replace(/<br\/>/g, ', '));
+                } else {
+                    rows.push('');
+                }
+                if ($scope.formattedDeliveryDate) {
+                    rows.push($scope.formattedDeliveryDate);
+                } else {
+                    rows.push('');
+                }
+                
+                if ($scope.formattedPONumber) {
+                    rows.push($scope.formattedPONumber);
+                } else {
+                    rows.push('');
+                }
+            }           
+
+            return rows;
+        },
+        buildOrderTableBody = function(headers) {
+            var body = [],
+            headersLen = headers.length,
+            headersInd = 0,
+            pdfHeaders = [];
+            
+            if($scope.sr.type !== 'SUPPLIES_CATALOG_ORDER' &&
+              $scope.sr.type !== 'HARDWARE_ORDER' &&
+              $scope.sr.type !== 'SVC_CATALOG_ORDER') {
+               body = [[],[]];
+               return body;
+            }
+            for (headersInd; headersInd < headersLen; headersInd += 1) {
+               pdfHeaders.push({text: headers[headersInd], fontSize: 8});
+            }
+            body.push(pdfHeaders);
+
+            if($scope.sr.item.orderItems && $scope.sr.item.orderItems !== null
+                && $scope.sr.item.orderItems.length > 0) {
+                var orderLen = $scope.sr.item.orderItems.length,
+                orderItem = [],
+                orderInd = 0;
+
+                for(orderInd; orderInd<orderLen; orderInd++) {
+                    var dataRow = [],
+                    orderHeaderInd = 0;
+                    orderItem = $scope.sr.item.orderItems[orderInd];
+                    orderPrice = priceCurrencyFormat(orderItem);
+                    orderSubTotal = itemSubTotal(orderItem);
+
+                    for (orderHeaderInd; orderHeaderInd < headersLen; orderHeaderInd += 1) {                        
+                        switch(headers[orderHeaderInd]) {
+                            case 'Supply Type':
+                                if (orderItem.type) {
+                                    dataRow.push({text: orderItem.type, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Part Number':
+                                if (orderItem.displayItemNumber) {
+                                    dataRow.push({text: orderItem.displayItemNumber, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Price':
+                                if (orderPrice) {
+                                    dataRow.push({text: orderPrice, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Quantity':
+                                if (orderItem.quantity) {
+                                    dataRow.push({text: orderItem.quantity.toString(), fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Subtotal':
+                                if (orderSubTotal) {
+                                    dataRow.push({text: orderSubTotal, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                        }
+                    }
+                    body.push(dataRow);
+                }
+            }
+            return body;
+        },
+        generateCsvOrderDetails = function(headers) {
+            var orderDetails = '';
+            if($scope.sr.item.orderItems && $scope.sr.item.orderItems !== null
+                && $scope.sr.item.orderItems.length > 0) {
+                var orderLen = $scope.sr.item.orderItems.length,
+                orderItem = [],
+                orderInd = 0,
+                headersLen = headers.length;                
+
+                for(orderInd; orderInd<orderLen; orderInd++) {
+                    var orderHeaderInd = 0;
+                    orderItem = $scope.sr.item.orderItems[orderInd];
+                    orderPrice = priceCurrencyFormat(orderItem);
+                    orderSubTotal = itemSubTotal(orderItem);
+
+                    for (orderHeaderInd; orderHeaderInd < headersLen; orderHeaderInd += 1) {
+                        switch(headers[orderHeaderInd]) {
+                            case 'Supply Type':
+                                orderDetails = orderDetails + 'Supply Type: ';                                
+                                if (orderItem.type) {
+                                    orderDetails = orderDetails + orderItem.type + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Part Number':
+                                orderDetails = orderDetails + 'Part Number: ';
+                                if (orderItem.displayItemNumber) {
+                                    orderDetails = orderDetails + orderItem.displayItemNumber + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Price':
+                                orderDetails = orderDetails + 'Price: ';
+                                if (orderPrice) {
+                                    orderDetails = orderDetails + orderPrice + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Quantity':
+                                orderDetails = orderDetails + 'Quantity: ';
+                                if (orderItem.quantity) {
+                                    orderDetails = orderDetails + orderItem.quantity.toString() + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Subtotal':
+                                orderDetails = orderDetails + 'Subtotal: ';
+                                if (orderSubTotal) {
+                                    orderDetails = orderDetails + orderSubTotal + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                        }
+                    }
+                    orderDetails = orderDetails + '\r\n';
+                }
+            }
+            return orderDetails;
+        },
+        priceCurrencyFormat = function(orderItem) {
+            if (orderItem.billingModel === 'USAGE_BASED_BILLING'){
+                return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
+            } else {
+                return FormatterService.formatCurrency(orderItem.price);
+            }
+        },
+        itemSubTotal = function(orderItem) {
+            if (orderItem.billingModel === 'USAGE_BASED_BILLING'){
+                return '-';
+            } else {
+                var subTotal = FormatterService.itemSubTotal(orderItem.price, orderItem.quantity);
+                return FormatterService.formatCurrency(subTotal);  
+            }
+        },
+        showOrderDetailsText = function() {
+            var orderText = '';
+            if($scope.sr.type === 'SUPPLIES_CATALOG_ORDER' ||
+              $scope.sr.type === 'HARDWARE_ORDER' ||
+              $scope.sr.type === 'SVC_CATALOG_ORDER') {
+                orderText = '\r\nOrder Details';
+            }
+            return orderText;
+        }
+        setCsvDefinition = function() {
+            var headers = [
+                'Request Number',
+                'Primary Contact',
+                'Requested By Contact',
+                'Customer ReferenceId',
+                'CostCenter',
+                'Comments',
+                'Created'
+            ],
+            rows = generateCsvRows(),            
+            orderHeaders = [
+                'Supply Type',
+                'Part Number',
+                'Price',
+                'Quantity',
+                'Subtotal'
+            ],
+            csvHeaders = [],
+            csvRows = [],
+            i = 0;
+
+            csvRows = rows;
+
+            if ($scope.sr.type !== 'DATA_CONTACT_CHANGE') {
+                if($scope.sr.type === 'SUPPLIES_CATALOG_ORDER' ||                  
+                  $scope.sr.type === 'SVC_CATALOG_ORDER' ||
+                  $scope.sr.type === 'HARDWARE_ORDER') {
+                    headers.push('Ship To Address');
+                }
+                else {
+                    headers.push('Address');
+                }
+            } else {
+                headers.push('Primary Contact Address');                
+            }
+
+            if ($scope.device.serialNumber) {
+                headers.push('Serial Number');
+                headers.push('Product Model');
+                headers.push('IpAddress');
+                headers.push('PartNumber');
+
+                if ($scope.sr.type.indexOf("BREAK_FIX") >= 0) {
+                    headers.push('Problem Description');
+                }                    
+            }
+
+            if ($scope.sr.type === 'DATA_ASSET_CHANGE' || $scope.sr.type === 'MADC_DECOMMISSION'
+                || $scope.sr.type === 'DATA_ASSET_DEREGISTER') {
+                if ($scope.sr.type === 'DATA_ASSET_CHANGE') {
+                    headers.push('Lexmark To Move');
+                } else {
+                    if($scope.sr.type === 'MADC_DECOMMISSION') {
+                        headers.push('Lexmark To Pickup');
+                    }                        
+                    headers.push('PageCounts');                    
+                }
+            }            
+
+            if ($scope.formattedDeviceMoveAddress) {
+                headers.push('Move Address');  
+            }
+
+            if($scope.sr.type === 'SUPPLIES_CATALOG_ORDER' ||
+              $scope.sr.type === 'HARDWARE_ORDER' ||
+              $scope.sr.type === 'SVC_CATALOG_ORDER') {                
+                headers.push('Delivery Instructions');
+                headers.push('Requested Delivery Date');                
+                headers.push('Purchase Order Number');                
+            }          
+
+            var pdfHeaders1 = [],
+            pdfRows1 = [],
+            pdfHeaders2 = [],
+            pdfRows2 = [];
+            var pdfFirstHeaderColumnsCnt = 8;
+            var totalColumnsCnt = headers.length;
+            if(totalColumnsCnt <= pdfFirstHeaderColumnsCnt) {
+                pdfFirstHeaderColumnsCnt = totalColumnsCnt;
+            }            
+
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: headers[i], fontSize: 8});               
+            }
+
+            i = 0;
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});               
+            }
+
+            if(totalColumnsCnt > pdfFirstHeaderColumnsCnt) {
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfHeaders2.push({text: headers[i], fontSize: 8});                   
                 }
 
-                if ($scope.device.serialNumber) {
-                    obj.serialNumber = $scope.device.serialNumber;
-                    obj.productModel = $scope.device.productModel;
-                    obj.partNumber = $scope.device.partNumber;
-                    obj.ipAddress = $scope.device.ipAddress;
-
-                    if ($scope.sr.type.indexOf("BREAK_FIX") >= 0) {
-                        obj.problemDescription = $scope.formattedDescription;
-                    }                    
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfRows2.push({text: rows[i], fontSize: 8});                   
                 }
-
-                if ($scope.formattedDeviceMoveAddress) {
-                    obj.lexmarkToMove = $scope.formattedMoveDevice;
-                    obj.moveAddress = $scope.formattedDeviceMoveAddress.replace(/<br\/>/g, ', ');
+            }
+            
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                },
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders2,
+                      pdfRows2
+                    ]
+                  }
+                },
+                {text: showOrderDetailsText()},
+                {
+                  table: {
+                    headerRows: 1,
+                    body: buildOrderTableBody(orderHeaders)
+                  }
                 }
-
-                return obj;
+              ]
             };
 
+            if($scope.sr.type === 'SUPPLIES_CATALOG_ORDER' ||
+              $scope.sr.type === 'HARDWARE_ORDER' ||
+              $scope.sr.type === 'SVC_CATALOG_ORDER') {
+                headers.push('Order Details');
+                csvRows.push(generateCsvOrderDetails(orderHeaders));
+            }
+                        
             $scope.csvModel = {
                 filename: $scope.sr.id + '.csv',
-                data: generateDataObj()
+                headers: headers,
+                // rows are just property names found on the dataObj
+                rows: csvRows
             };
         };
 
@@ -193,7 +585,8 @@ angular.module('mps.serviceRequests')
                                 partNumber: 'REQUEST_MAN.COMMON.TXT_PART_NUMBER',
                                 product: 'REQUEST_MAN.COMMON.TXT_PRODUCT_MODEL',
                                 ipAddress: 'REQUEST_MAN.COMMON.TXT_IP_ADDR',
-                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS'
+                                installAddress: 'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
+                                contact : 'DEVICE_SERVICE_REQUEST.DEVICE_CONTACT'
                         }
                 }
 
@@ -382,7 +775,13 @@ angular.module('mps.serviceRequests')
             };
          
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
-                    $scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                    if($scope.sr.status === 'CANCELLED'){
+                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_CANCELLED_PAR";
+                    }else{
+                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
+                    }
+                    
+                    
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
                     $scope.configure.header.translate.bodyValues= {
@@ -414,6 +813,7 @@ angular.module('mps.serviceRequests')
                                 billToAddress:'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_BILL_TO_ADDR'
                             }
                         };
+            
             $scope.configure.order.shipTo = {
             		translate : {
             			shipToAddress: 'ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SHIP_TO_ADDR',
@@ -515,6 +915,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.showUpdateBtn = false;
                 $scope.configure.header.showCancelBtn = false;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                addTabsForBreakFix();
             break;
             case 'UPDATE_HARDWARE_REQUEST':
             case 'HARDWARE_ORDER':
@@ -522,6 +923,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.showUpdateBtn = false;
                 $scope.configure.header.showCancelBtn = false;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                addTabsForBreakFix();
             break;
             case 'DATA_ADDRESS_ADD':
                 addAddressInfo('ADDRESS_MAN.ADD_ADDRESS.TXT_ADDRESS_ADDED');
@@ -566,10 +968,12 @@ angular.module('mps.serviceRequests')
                 $scope.formattedMoveDevice = 'Yes';
                 $scope.configure.header.showCancelBtn = true;
                 $scope.configure.header.showUpdateBtn = true;
+                addTabsForMADC();
             break;
             case 'DATA_ASSET_CHANGE':
                 addDeviceMove();
                 $scope.formattedMoveDevice = 'No';
+                addTabsForMADC();
             break;
             case 'MADC_INSTALL':
                 addDeviceInformation();
@@ -577,6 +981,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
                 $scope.configure.header.showCancelBtn = true;
                 $scope.configure.header.showUpdateBtn = true;
+                addTabsForMADC();
             break;
             case 'MADC_DECOMMISSION':
                 addDeviceInformation();
@@ -587,6 +992,7 @@ angular.module('mps.serviceRequests')
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
                 $scope.configure.header.showCancelBtn = true;
                 $scope.configure.header.showUpdateBtn = true;
+                addTabsForMADC();
             break;
             case 'DATA_ASSET_DEREGISTER':
                 addDeviceInformation();
@@ -595,9 +1001,11 @@ angular.module('mps.serviceRequests')
                 $scope.formattedPickupDevice = FormatterService.formatYesNo($scope.device.lexmarkPickupDevice);
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_DECOM_SUBMITTED.TXT_DECOM_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.DECOMMISSION_DEVICE_REQUEST_NUMBER';
+                addTabsForMADC();
             break;
             case 'DATA_ASSET_REGISTER':
-                addDeviceInformation();                
+                addDeviceInformation();  
+                addTabsForMADC();
             break;
             case 'BREAK_FIX':
             case 'BREAK_FIX_ONSITE_REPAIR' :
@@ -617,12 +1025,14 @@ angular.module('mps.serviceRequests')
                 };
             $scope.configure.device.information.translate.installAddress = 'REPORTING.SERVICE_ADDRESS';
             $scope.configure.detail.show.comments = false;
+            addTabsForBreakFix();
             break;
             case 'SUPPLIES_CATALOG_ORDER':
             case 'HARDWARE_ORDER':
             case 'HARDWARE_ORDER_INSTALL':
                 $scope.configure.header.showUpdateBtn = true;
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                addTabsForBreakFix();
             break;
             default:
             break;
@@ -693,8 +1103,8 @@ angular.module('mps.serviceRequests')
     	        
     	    }
     }
-    if ($scope.device && !BlankCheck.isNull($scope.device.deviceContact)) {
-            $scope.formattedDeviceContact = FormatterService.formatContact($scope.device.deviceContact);
+    if ($scope.sr.item._embedded && !BlankCheck.isNull($scope.sr.item._embedded.secondaryContact)) {
+            $scope.formattedDeviceContact = FormatterService.formatContact($scope.sr.item._embedded.secondaryContact);
     }
 
     if (!BlankCheck.isNull($scope.sr) && !BlankCheck.isNull($scope.sr.primaryContact) &&
@@ -707,6 +1117,9 @@ angular.module('mps.serviceRequests')
         $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
     }
     if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
+    	 	$scope.scratchSpace = {
+    	 			billToAddresssSelected : true	
+    	 	};
             $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
     }else {
             $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
@@ -734,13 +1147,31 @@ angular.module('mps.serviceRequests')
     function groupPageCounts(device){
     	
     	var newCount = {},newDate = {},i=0;
-    	for(;i<device.meterReads.length;i++){
-    		newCount[device.meterReads[i].type] = device.meterReads[i].value;
-    		newDate[device.meterReads[i].type]  = device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate;
-    	}
+    	if(device.meterReads && device.meterReads !== null){
+            var meterReadCnt = device.meterReads.length;
+            for(;i<meterReadCnt;i++){
+                newCount[device.meterReads[i].type] = device.meterReads[i].value;
+                newDate[device.meterReads[i].type]  = device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate;
+            }
+        }
     	device.newCount = newCount;
     	device.newDate = newDate;
     } 
+    
+    function addTabsForMADC(){
+    	$scope.configure.allSRTabs = {
+    			showAssociated : true,
+    			showActivities : true,
+    			shipments : false
+        }
+    }
+    function addTabsForBreakFix(){
+    	$scope.configure.allSRTabs = {
+    			showAssociated : true,
+    			showActivities : true,
+    			shipments : true
+        }
+    }
     
     setCsvDefinition();
 

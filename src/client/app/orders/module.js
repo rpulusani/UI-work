@@ -58,7 +58,8 @@ function($routeProvider) {
     .when('/orders/:id/receipt', {
         templateUrl: '/app/orders/templates/receipt.html',
         controller:'ServiceRequestDetailController',
-        activeItem: '/orders'
+        activeItem: '/orders',
+        reloadOnSearch: false
     })
     .when('/orders/purchase/receipt/:queued', {
         templateUrl: '/app/orders/templates/receipt.html',

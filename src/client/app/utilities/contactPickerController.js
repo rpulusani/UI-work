@@ -1,9 +1,9 @@
 
 
 angular.module('mps.utility')
-.controller('ContactPickerController', ['$scope', '$location', '$controller', '$routeParams', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
+.controller('ContactPickerController', ['$scope', '$timeout', '$location', '$controller', '$routeParams', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
     'PersonalizationServiceFactory',
-    function($scope, $location, $controller, $routeParams, GridService, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
+    function($scope, $timeout, $location, $controller, $routeParams, GridService, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
         if($rootScope.contactRequestFor === undefined){
             $rootScope.contactRequestFor = angular.copy($rootScope.currentSelected);
         }
@@ -43,10 +43,13 @@ angular.module('mps.utility')
             $location.path($rootScope.contactReturnPath);
         };
 
-        $scope.discardSelect = function(){
-            $rootScope.selectedContact = undefined;
-            $rootScope.formattedSelectedContact = undefined;
-            $location.path($rootScope.contactReturnPath);
+         $scope.discardSelect = function(){
+            $timeout(function() {
+                angular.element('div.ui-grid-icon-ok.ui-grid-row-selected').triggerHandler('click');
+                $rootScope.selectedContact = undefined;
+                $rootScope.formattedSelectedContact = undefined;
+                $location.path($rootScope.contactReturnPath);
+            });
         };
 
         var Grid = new GridService();

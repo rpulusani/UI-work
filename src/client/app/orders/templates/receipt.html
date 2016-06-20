@@ -3,7 +3,7 @@
     <div class="col-1">
         <div print-export-title titlestring="{{configure.receipt.translate.title}}"
             title-values="{{configure.receipt.translate.titleValues}}"
-            print="configure.receipt.print" csv-export="csvModel" native-print="true"></div>
+            print="configure.receipt.print" csv-export="csvModel" pdf-export="pdfModel"></div>
     </div>
 
     <hr class="vertical-margin-bottom-48"/>
@@ -68,3 +68,4 @@
    
     
 </div>
+<div class = "page-tabs" all-tabs ng-if="configure.allSRTabs"></div>

@@ -162,13 +162,14 @@
                         <div google-chart chart="{{ chartObject.assetRegister }}"></div>
                         <p ng-bind="assetPeriod" class="text--align-center vertical-space--none text--small"></p>
                     </div>
-                    <div class="col-1-2 floatL">
+                    <div class="col-1-2 floatL relative">
                         <div class="text--align-center">
                             <span translate="HOME_PAGE.REPORTS.TXT_BILLED_PAGES_LAST_CYCLE"></span>
                         </div>
                         <p class="text--align-center" ng-if="chartObject.pagesBilled.dataPoint < 1" translate="LABEL.COMMON.ZERO_RECORDS"></p>
 
                         <div google-chart chart="{{ chartObject.pagesBilled }}"></div>
+                        <div class="reportTotalCount">{{chartObject.pagesBilled.dataPoint}}</div>
                     </div>
                 </div>
             </div>

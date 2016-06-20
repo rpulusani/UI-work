@@ -108,6 +108,7 @@ angular.module('mps.orders')
             $scope.sr = $rootScope.returnPickerSRObjectAddressBillTo;
             Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
             Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
+            Orders.addField('billToNumber', Orders.tempSpace.billToAddress.billToNumber);
             $scope.resetAddressBillToPicker();
 
         } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){

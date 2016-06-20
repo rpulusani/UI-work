@@ -27,7 +27,9 @@ angular.module('mps.pageCount')
                         '</div>',
                         enableCellEdit: true,
                         width: '150',
-                        enableCellEditOnFocus: true
+                        enableCellEditOnFocus: true,
+                        exporterSuppressExport: true,
+                        enableSorting: false
                         },
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_LIFETIME_PAGE_COUNT'), 'field':'ltpcValue', 'notSearchable': true, width: '100',},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_LIFETIME_PAGE_COUNT'), 'field':'status', 'notSearchable': true,
@@ -37,7 +39,9 @@ angular.module('mps.pageCount')
                                     '</div>',
                         width: '150',
                         enableCellEdit: true,
-                        enableCellEditOnFocus: true},
+                        enableCellEditOnFocus: true,
+                    	exporterSuppressExport: true,
+                    	enableSorting: false},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_PRIOR_COLOR_COUNT'), 'field':'colorValue', 'notSearchable': true},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW_COLOR_COUNT'), 'field':'', 'notSearchable': true,
                          'cellTemplate':'<div ng-if="row.entity.colorMeterReadId">' +
@@ -46,13 +50,18 @@ angular.module('mps.pageCount')
                                     '</div>',
                         enableCellEdit: true,
                         width: '150',
-                        enableCellEditOnFocus: true
+                        enableCellEditOnFocus: true,
+                        exporterSuppressExport: true,
+                        enableSorting: false
                         },
                         {'name': 'Save', 'field': 'assetId',
                          'cellTemplate':'<div>' +
                                 '<a href="" ng-click="grid.appScope.save(row.entity);" ' +
                             '>Save</a>' +
-                        '</div>', 'notSearchable': true}
+                        '</div>',
+                        'notSearchable': true,
+                    	'exporterSuppressExport': true,
+                        'enableSorting': false}
                     ],
                 },
                 functionArray: [

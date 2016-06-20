@@ -62,26 +62,375 @@ angular.module('mps.orders')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('DEVICE_MAN.COMMON.TXT_ORDER_SHIPPED'), value: 'SHIPPED'},
         { name: $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED'), value: 'DELIVERED'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
-        setCsvDefinition = function() {
-            $scope.csvModel = {
-                filename: $scope.sr.requestNumber + '.csv',
-                data: {
-                    requestNumber: $scope.sr.requestNumber,
-                    description: $scope.sr.description,
-                    customerReferenceId: $scope.formattedReferenceId,
-                    costCenter: $scope.formattedCostCenter,
-                    shipToAddress: $scope.formatedShipToAddress === undefined ? "" :$scope.formatedShipToAddress.replace(/<br\/>/g, ', '),
-                    primaryContact: $scope.formattedPrimaryContact === undefined ? "":$scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
-                    requestedByContact: $scope.requestedByContactFormattedExport === undefined ? "" : $scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
-                    serialNumber: $scope.device === undefined ? "" : $scope.device.serialNumber,
-                    productModel: $scope.device === undefined ? "": $scope.device.productModel,
-                    ipAddress: $scope.device === undefined ? "" : $scope.device.ipAddress,
-                    notes: $scope.formattedNotes,
-                    type: $scope.sr.type
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+        
+        if($routeParams.type){
+            $scope.type = $routeParams.type.toUpperCase();
+        }
+
+        $scope.srNums = "download";
+        switch($scope.type){
+            case 'SUPPLIES':
+                var srNumber = getNumberForMultiple();
+                $scope.srNums = BlankCheck.isNullOrWhiteSpace(srNumber)? Orders.item.requestNumber : srNumber;
+                break;
+            case 'HARDWARE':
+                $scope.srNums = getNumberForMultiple();
+                break;
+            case 'ACCESSORIES':
+                break;
+            default:
+                break;
+        }
+        function generateCsvRows() {
+            var rows = [];
+
+            if ($scope.srNums) {
+                rows.push($scope.srNums);
+            } else {
+                rows.push('none');
+            }
+           
+            if ($scope.formattedPrimaryContact) {
+                rows.push($scope.formattedPrimaryContact.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.requestedByContactFormatted) {
+                rows.push($scope.requestedByContactFormatted.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedReferenceId) {
+                rows.push($scope.formattedReferenceId);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedCostCenter) {
+                rows.push($scope.formattedCostCenter);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedNotes) {
+                rows.push($scope.formattedNotes);
+            } else {
+                rows.push('none');
+            }
+
+            var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+            rows.push(submitDate.toString());
+            
+            if ($scope.formatedShipToAddress) {
+                rows.push($scope.formatedShipToAddress.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.type === "SUPPLIES" && $scope.device && $scope.device.serialNumber) {
+                rows.push($scope.device.serialNumber);
+                
+                if ($scope.device.productModel) {
+                    rows.push($scope.device.productModel);
+                } else {
+                    rows.push('none');
                 }
+
+                if ($scope.device.ipAddress) {
+                    rows.push($scope.device.ipAddress);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.partNumber) {
+                    rows.push($scope.device.partNumber);
+                } else {
+                    rows.push('none');
+                }                  
+            }                       
+                
+            if ($scope.formattedInstructions) {
+                rows.push($scope.formattedInstructions.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('');
+            }
+            if ($scope.formattedDeliveryDate) {
+                rows.push($scope.formattedDeliveryDate);
+            } else {
+                rows.push('');
+            }
+                
+            if ($scope.formattedPONumber) {
+                rows.push($scope.formattedPONumber);
+            } else {
+                rows.push('');
+            }                       
+
+            return rows;
+        }
+        function buildOrderTableBody(headers) {
+            var body = [],
+            headersLen = headers.length,
+            headersInd = 0,
+            pdfHeaders = [];
+            
+            for (headersInd; headersInd < headersLen; headersInd += 1) {
+               pdfHeaders.push({text: headers[headersInd], fontSize: 8});
+            }
+            body.push(pdfHeaders);
+
+            if(OrderItems.data && OrderItems.data !== null
+                && OrderItems.data.length > 0) {
+                var orderLen = OrderItems.data.length,
+                orderItem = [],
+                orderInd = 0;
+
+                for(orderInd; orderInd<orderLen; orderInd++) {
+                    var dataRow = [],
+                    orderHeaderInd = 0;
+                    orderItem = OrderItems.data[orderInd];
+                    orderPrice = priceCurrencyFormat(orderItem);
+                    orderSubTotal = itemSubTotal(orderItem);
+
+                    for (orderHeaderInd; orderHeaderInd < headersLen; orderHeaderInd += 1) {                        
+                        switch(headers[orderHeaderInd]) {
+                            case 'Supply Type':
+                                if (orderItem.type) {
+                                    dataRow.push({text: orderItem.type, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Part Number':
+                                if (orderItem.displayItemNumber) {
+                                    dataRow.push({text: orderItem.displayItemNumber, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Price':
+                                if (orderPrice) {
+                                    dataRow.push({text: orderPrice, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Quantity':
+                                if (orderItem.quantity) {
+                                    dataRow.push({text: orderItem.quantity.toString(), fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                            case 'Subtotal':
+                                if (orderSubTotal) {
+                                    dataRow.push({text: orderSubTotal, fontSize: 8});
+                                } else {
+                                    dataRow.push({text: '', fontSize: 8});
+                                }
+                            break;
+                        }
+                    }
+                    body.push(dataRow);
+                }
+            }
+            return body;
+        }
+        function generateCsvOrderDetails(headers) {
+            var orderDetails = '';
+            if(OrderItems.data && OrderItems.data !== null
+                && OrderItems.data.length > 0) {
+                var orderLen = OrderItems.data.length,
+                orderItem = [],
+                orderInd = 0,
+                headersLen = headers.length;                
+
+                for(orderInd; orderInd<orderLen; orderInd++) {
+                    var orderHeaderInd = 0;
+                    orderItem = OrderItems.data[orderInd];
+                    orderPrice = priceCurrencyFormat(orderItem);
+                    orderSubTotal = itemSubTotal(orderItem);
+
+                    for (orderHeaderInd; orderHeaderInd < headersLen; orderHeaderInd += 1) {
+                        switch(headers[orderHeaderInd]) {
+                            case 'Supply Type':
+                                orderDetails = orderDetails + 'Supply Type: ';                                
+                                if (orderItem.type) {
+                                    orderDetails = orderDetails + orderItem.type + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Part Number':
+                                orderDetails = orderDetails + 'Part Number: ';
+                                if (orderItem.displayItemNumber) {
+                                    orderDetails = orderDetails + orderItem.displayItemNumber + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Price':
+                                orderDetails = orderDetails + 'Price: ';
+                                if (orderPrice) {
+                                    orderDetails = orderDetails + orderPrice + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Quantity':
+                                orderDetails = orderDetails + 'Quantity: ';
+                                if (orderItem.quantity) {
+                                    orderDetails = orderDetails + orderItem.quantity.toString() + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                            case 'Subtotal':
+                                orderDetails = orderDetails + 'Subtotal: ';
+                                if (orderSubTotal) {
+                                    orderDetails = orderDetails + orderSubTotal + ', ';
+                                } else {
+                                    orderDetails = orderDetails + ', ';
+                                }
+                            break;
+                        }
+                    }
+                    orderDetails = orderDetails + '\r\n';
+                }
+            }
+            return orderDetails;
+        }
+        function priceCurrencyFormat(orderItem) {
+            if (orderItem.billingModel === 'USAGE_BASED_BILLING'){
+                return $translate.instant('ORDER_MAN.COMMON.TEXT_INCLUDED_IN_LEASE');
+            } else {
+                return FormatterService.formatCurrency(orderItem.price);
+            }
+        }
+        function itemSubTotal(orderItem) {
+            if (orderItem.billingModel === 'USAGE_BASED_BILLING'){
+                return '-';
+            } else {
+                var subTotal = FormatterService.itemSubTotal(orderItem.price, orderItem.quantity);
+                return FormatterService.formatCurrency(subTotal);  
+            }
+        }
+        function showOrderDetailsText() {
+            var orderText = '\r\nOrder Details';
+            return orderText;
+        }
+
+        function setCsvDefinition() {
+            var headers = [
+                'Request Numbers',
+                'Primary Contact',
+                'Requested By Contact',
+                'Internal Reference ID',
+                'CostCenter',
+                'Comments',
+                'Created',
+                'Ship To Address'
+            ],
+            rows = generateCsvRows(),            
+            orderHeaders = [
+                'Supply Type',
+                'Part Number',
+                'Price',
+                'Quantity',
+                'Subtotal'
+            ],
+            csvHeaders = [],
+            csvRows = [],
+            i = 0;
+
+            csvRows = rows;            
+
+            if ($scope.type === "SUPPLIES" && $scope.device && $scope.device.serialNumber) {
+                headers.push('Serial Number');
+                headers.push('Product Model');
+                headers.push('IpAddress');
+                headers.push('PartNumber');
+            }
+            
+            headers.push('Delivery Instructions');
+            headers.push('Requested Delivery Date');                
+            headers.push('Purchase Order Number');     
+                     
+
+            var pdfHeaders1 = [],
+            pdfRows1 = [],
+            pdfHeaders2 = [],
+            pdfRows2 = [];
+            var pdfFirstHeaderColumnsCnt = 8;
+            var totalColumnsCnt = headers.length;
+            if(totalColumnsCnt <= pdfFirstHeaderColumnsCnt) {
+                pdfFirstHeaderColumnsCnt = totalColumnsCnt;
+            }            
+
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: headers[i], fontSize: 8});               
+            }
+
+            i = 0;
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});               
+            }
+
+            if(totalColumnsCnt > pdfFirstHeaderColumnsCnt) {
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfHeaders2.push({text: headers[i], fontSize: 8});                   
+                }
+
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfRows2.push({text: rows[i], fontSize: 8});                   
+                }
+            }
+            
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                },
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders2,
+                      pdfRows2
+                    ]
+                  }
+                },
+                {text: showOrderDetailsText()},
+                {
+                  table: {
+                    headerRows: 1,
+                    body: buildOrderTableBody(orderHeaders)
+                  }
+                }
+              ]
             };
-        };
+
+            headers.push('Order Details');
+            csvRows.push(generateCsvOrderDetails(orderHeaders));
+                         
+            $scope.csvModel = {
+                filename: $scope.srNums + '.csv',
+                headers: headers,
+                // rows are just property names found on the dataObj
+                rows: csvRows
+            };
+        }
 
         $scope.print = false;
         $scope.export = false;
@@ -105,11 +454,7 @@ angular.module('mps.orders')
                     $scope.scratchSpace.lexmarkInstallQuestion === null)){
                 $scope.scratchSpace.lexmarkInstallQuestion = false;
             }
-
-        if($routeParams.type){
-            $scope.type = $routeParams.type.toUpperCase();
-        }
-
+        
         var configureSR = function(Orders){
                 if(Orders.item && !Orders.item.description){
                     Orders.addField('description', '');
@@ -281,6 +626,7 @@ angular.module('mps.orders')
             
             
             Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
+            Orders.addField('billToNumber', Orders.tempSpace.billToAddress.billToNumber);
             callTax();
             $scope.resetAddressBillToPicker();
             $scope.formatAdditionalData();
@@ -377,8 +723,8 @@ angular.module('mps.orders')
                  $scope.configure.header.translate.h1 = "ORDER_MAN.HARDWARE_ORDER.TXT_REGISTER_DEVICE_SUBMITTED";
                         $scope.configure.header.translate.h1Values = {};
                         $scope.configure.header.translate.body = "ORDER_MAN.HARDWARE_ORDER.RECEIPT_BODY";
-                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
-                        $scope.configure.header.readMoreUrl = Devices.route;
+                        $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
+                        $scope.configure.header.readMoreUrl = Orders.route;
                         $scope.configure.header.translate.bodyValues= {
                             'orderList': getNumberForMultiple(),
                             'srHours': 24,

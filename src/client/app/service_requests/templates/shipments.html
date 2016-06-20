@@ -1,0 +1,74 @@
+ 
+ <div class="alert alert--info" ng-if="gridLoading === true">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.LOADING"></span>
+                </div>
+        </div>
+
+        <div class="alert alert--info" ng-if="gridLoading === false && shipments.length === 0">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.EMPTY"></span>
+                </div>
+        </div> 
+ 
+ <div class="row groupingTable" ng-if="shipments.length > 0" ng-repeat = "shipment in shipments">
+	<div class="firstCol col-1-8 floatL">
+		<span>Shipment</span><br/>
+		<span><b>{{$index+1}}</b></span><br/>
+		<span>{{shipment.status}}</span>
+	</div>
+	<div class="secondCol col-7-8 floatL">
+			
+		<h4 class="vertical-space--none">
+			Delivered {{shipment.deliveryDate}} via {{shipment.carrier}} | 
+			<a href="{{shipment.trackingLink}}" target="_blank">{{shipment.trackingNumber}}</a>
+		</h4>
+		<div>
+			<a ng-click="$parent.showHideDetails(shipment)" href="#">{{shipment.showHideMessage}}</a>
+			<div ng-show="shipment.showDetails">
+			
+				<ul class="info-list text--small">
+					<li class="info-list__item">
+					
+					<div class="info-list__item-name">Shipment date</div>
+	        		<div class="info-list__item-value">{{shipment.shipDate}}</div>
+	        		
+					</li> 
+					<li class="info-list__item">
+					
+					<div class="info-list__item-name">Delivery date</div>
+	        		<div class="info-list__item-value">{{shipment.deliveryDate}}</div>
+					</li> 
+					<li class="info-list__item">
+					
+					
+					<div class="info-list__item-name">Carrier</div>
+	        		<div class="info-list__item-value">{{shipment.carrier}}</div>
+	        		
+					</li> 
+					
+					<li class="info-list__item">
+					
+					<div class="info-list__item-name">Tracking Number</div>
+	        		<div class="info-list__item-value">{{shipment.trackingNumber}}</div>
+	        		
+					</li> 
+					<li class="info-list__item">
+					
+					<div class="info-list__item-name">Shipped To</div>
+	        		<div class="info-list__item-value" ng-bind-html="shipment.formattedShipToAddress"></div>
+					</li> 
+				</ul>
+			</div>
+		</div>
+		<div class="text--n9 vertical-space--thin">Shipment Contents ({{shipment.shipmentParts.length}})</div>
+		 <div shipment-content items="shipment.shipmentParts"></div>
+		
+
+
+	</div>
+	
+	
+</div> 

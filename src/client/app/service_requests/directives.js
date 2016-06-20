@@ -161,6 +161,16 @@ angular.module('mps.serviceRequests')
         templateUrl: '/app/service_requests/templates/update-request.html'
     };
 })
+.directive('associatedTab',function(){
+	 return {
+	        restrict: 'A',
+	        scope: {
+	        	sr:'='
+	        },
+	        templateUrl: '/app/service_requests/templates/associate-grid-request.html',
+	        controller:'SRAssociatedController'
+	    };
+})
 .directive('serviceRequestTabs', function() {
     return {
         restrict: 'A',
@@ -170,8 +180,66 @@ angular.module('mps.serviceRequests')
             var $ = require('jquery');
                 var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
                 sets.each(function(i,set){
+                
                     $(set).set({});
                 });
+        }
+    };
+})
+.directive('activity',function(){
+	 return {
+	        restrict: 'A',
+	        scope: {
+	        	items : '='
+	        },
+	        templateUrl: '/app/service_requests/templates/activity.html',
+	        controller:'SRActivityController'
+	    };
+})
+.directive('activities',function(){
+	 return {
+	        restrict: 'A',
+	        scope: {
+	        	sr:'='
+	        },
+	        templateUrl: '/app/service_requests/templates/activities.html',
+	        controller:'SRActivitiesController'
+	    };
+})
+.directive('shipments',function(){
+	 return {
+	        restrict: 'A',
+	        scope: {
+	        	sr:'='
+	        },
+	        templateUrl: '/app/service_requests/templates/shipments.html',
+	        controller:'SRShipmentsController'
+	    };
+})
+.directive('shipmentContent',function(){
+	 return {
+	        restrict: 'A',
+	        scope: {
+	        	items :'='
+	        },
+	        templateUrl: '/app/service_requests/templates/shipment.html',
+	        controller:'ShipmentController'
+	    };
+})
+.directive('allTabs', function(){
+    return {
+        restrict: 'A',
+        templateUrl : '/app/service_requests/templates/tabs/all-tabs.html',
+        controller: 'allTabsController', 
+        link: function(scope, el, attr){
+            var $ = require('jquery');
+                var sets = $(el).find("[data-js=tab], [data-js=set], [data-js=accordion]");
+                
+                    sets.each(function(i,set){
+                        $(set).set({});
+                    });
+                
+                
         }
     };
 });
