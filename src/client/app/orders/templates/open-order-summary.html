@@ -1,6 +1,5 @@
 <span ng-if="configure.orderHistorySr">
     <div class="col-1"><h4 class="margin0" translate="{{configure.orderHistorySr.translate.title}}"></h4></div>
-
-    <div order-content editable="{{editable}}" ordernbr="ordernbr" submit-action="submit" datasource="orderItems"
-    	hide-submit="hideSubmitButton" configure="configure"></div>    
+	
+     <div order-content-table items="sr.item.orderItems"></div>     
 </span>

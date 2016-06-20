@@ -37,7 +37,7 @@ angular.module('mps.serviceRequests')
         $scope.associateRequests, personal);
         
         $scope.associateRequests.enableColumnMenus = false;
-        
+        AssociateRequestService.newMessage();
         AssociateRequestService.get({
         	params:{
         		requestId:$scope.sr.requestNumber
@@ -48,19 +48,7 @@ angular.module('mps.serviceRequests')
         	if(AssociateRequestService.item._embedded && AssociateRequestService.item._embedded.associatedServiceRequests){
         		$scope.associateRequests.data = AssociateRequestService.item._embedded.associatedServiceRequests;
         	}else {
-        		$scope.associateRequests.data = [];
-        		/*$scope.associateRequests.data.push({ 
-        			'date' : '02/20/2016',
-        			'requestNumber' : '1-12345',
-        			'type' : 'Update',
-        			'status' : 'Submitted'
-        		});
-        		$scope.associateRequests.data.push({
-        			'date' : '02/21/2016',
-        			'requestNumber' : '1-00012345',
-        			'type' : 'Remove',
-        			'status' : 'Process'
-        		});*/
+        		$scope.associateRequests.data = [];        		
         	}
         	Grid.display($scope.associateRequests,$scope,personal, 48);
         	

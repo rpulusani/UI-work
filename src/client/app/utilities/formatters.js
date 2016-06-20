@@ -326,13 +326,6 @@ angular.module('mps.utility')
                 }
                 return new Date(dateToBeFormatted.replace(/\s/, 'T')+'Z');
             },
-            getDateWithoutTime : function(d){
-            	// d - should be date object..
-            	if(d === null){
-            		return '';            		
-            	}
-            	return d.getFullYear()+ '-'+ (d.getMonth()<10?('0'+(d.getMonth()+1)):d.getMonth())+'-' + (d.getDate()<10?('0'+d.getDate()):d.getDate());
-            },
             formatAddresswoPhysicalLocation: function(address){
                 var formattedAddress = '';
                 if (BlankCheck.checkNotNullOrUndefined(address) ) {
