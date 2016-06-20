@@ -316,6 +316,12 @@ angular.module('mps.serviceRequestDevices')
                             physicalLocation2: Devices.data[i].physicalLocation2,
                             physicalLocation3: Devices.data[i].physicalLocation3
                         };
+                        $scope.sr.assetContact = {
+                            firstName: $scope.contact.firstName,
+                            lastName: $scope.contact.lastName,
+                            email: $scope.contact.email,
+                            workPhone: $scope.contact.workPhone
+                        }
 
                         deferreds.push(DeviceServiceRequest.post({
                             item:  JSON.parse(JSON.stringify($scope.sr))
