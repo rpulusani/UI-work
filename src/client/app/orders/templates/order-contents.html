@@ -31,11 +31,14 @@
                         </ul>
                     </div>
                 </div>
-                    <div ng-if="orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length > 0">
-                        <div ui-grid="orderSummaryGridOptions" class="table summary"
+                                
+                <div ng-if="orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length > 0">
+                    <div ui-grid="orderSummaryGridOptions" class="table summary"
                             ng-style="orderSummaryGridOptions.getStyle()" ui-grid-auto-resize ui-grid-edit ui-grid-row-edit></div>
-                    </div>
-                <span ng-if="!orderSummaryGridOptions  || (orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length   === 0)"
+                </div>
+                <span ng-if="gridLoading === true"
+                    translate="GRID.LOADING"></span>
+                <span ng-if="gridLoading === false && orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length === 0"
                     translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_EMPTY_ORDER_SUMMARY"></span>
                 <div class="row" ng-if="editable === 'true'">
                     <div class="col-2-3">

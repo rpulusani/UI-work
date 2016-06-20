@@ -18,7 +18,11 @@ angular.module('mps.orders')
 .directive('openOrderSummary', function(){
     return {
         restrict: 'A',
-        templateUrl : '/app/orders/templates/open-order-summary.html'
+        templateUrl : '/app/orders/templates/open-order-summary.html',
+        scope:{
+            configure: "="          
+        },
+        controller: 'DeviceOrderHistoryController'
     };
 })
 .directive('returnOrderAddress', function(){
