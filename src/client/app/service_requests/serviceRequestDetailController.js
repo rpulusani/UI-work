@@ -26,6 +26,10 @@ angular.module('mps.serviceRequests')
         OrderItems,
         OrderTypes
     ) {
+        if(!Orders.item){
+            $location.path(Orders.route).search({tab:'orderAllTab'});
+            return;
+        }
         $('.site-content').scrollTop(0,0);
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
