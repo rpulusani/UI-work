@@ -5,7 +5,7 @@ angular.module('mps.serviceRequests')
     function(serviceUrl, $translate, HATEOASFactory, formatter) {
         var Shipments = {
         		 serviceName: 'shipmentDetails',
-        		 embeddedName: 'shipment', //get away from embedded name and move to a function to convert url name to javascript name
+        		 embeddedName: 'shipments', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
                 hideBookmark: true,
                 columnDefs: {

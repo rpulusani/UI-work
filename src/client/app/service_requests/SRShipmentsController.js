@@ -30,7 +30,7 @@ angular.module('mps.serviceRequests')
     			shipment.showHideMessage = 'Show Shipment details';
     		}
     	};
-    	Carriers.query();// Need to queue this with the shipments call.
+    	//Carriers.query();// Need to queue this with the shipments call.
     	Shipments.get({
         	params:{
         		requestId:$scope.sr.requestNumber
@@ -38,8 +38,8 @@ angular.module('mps.serviceRequests')
         }).then(function(){
     		console.log(Shipments);
     		$scope.gridLoading = false;
-    		if(Shipments.item && Shipments.item._embedded && Shipments.item._embedded.shipment){
-    			$scope.shipments = Shipments.item._embedded.shipment;
+    		if(Shipments.item && Shipments.item._embedded && Shipments.item._embedded.shipments){
+    			$scope.shipments = Shipments.item._embedded.shipments;
     			updateShipments();
     		}else{
     			$scope.shipments = [];
@@ -162,12 +162,12 @@ angular.module('mps.serviceRequests')
         		$scope.shipments[i].showDetails = false;
         		$scope.shipments[i].showHideMessage = 'Show Shipment details';
         		$scope.shipments[i].formattedShipToAddress = FormatterService.formatAddress($scope.shipments[i].shipToAddress);
-        		var shipment = $scope.shipments[i];
+        		/*var shipment = $scope.shipments[i];
         		for(var j = 0 ;j<Carriers.data.length;j++){
         			if(Carriers.data[j].name === shipment.carrier){
         				shipment.trackingUrl = Carriers.data[j].trackingUrl+"?no="+shipment.trackingNumber;
         			}
-        		}
+        		}*/
         		
         	}
     	}
