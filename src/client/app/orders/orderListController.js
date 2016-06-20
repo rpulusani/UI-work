@@ -37,7 +37,7 @@ angular.module('mps.orders')
             ServiceRequest.item.get(options).then(function(){
                 Devices.setItem(ServiceRequest.item.asset);
                 $location.path(Orders.route + '/' + ServiceRequest.item.id + '/receipt');
-                $location.search('tab','srDetailsAssociateRequestsTabl');
+                $location.search('tab','srDetailAssociateRequestsTab');
             });
         };
 
