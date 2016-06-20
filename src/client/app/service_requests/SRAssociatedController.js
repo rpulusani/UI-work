@@ -40,7 +40,7 @@ angular.module('mps.serviceRequests')
         
         AssociateRequestService.get({
         	params:{
-        		requestId:$scope.sr.id
+        		requestId:$scope.sr.requestNumber
         	}
         }).then(function(){
         	

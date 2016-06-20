@@ -16,14 +16,14 @@
  <div class="row groupingTable" ng-if="shipments.length > 0" ng-repeat = "shipment in shipments">
 	<div class="firstCol col-1-8 floatL">
 		<span>Shipment</span><br/>
-		<span><b>{{$index}}</b></span><br/>
+		<span><b>{{$index+1}}</b></span><br/>
 		<span>{{shipment.status}}</span>
 	</div>
 	<div class="secondCol col-7-8 floatL">
 			
 		<h4 class="vertical-space--none">
-			Delivered {{shipment.deliveredDate}} via {{shipment.company}} | 
-			<a href="{{shipment.trackingUrl}}" target="_blank">{{shipment.trackingNumber}}</a>
+			Delivered {{shipment.deliveryDate}} via {{shipment.carrier}} | 
+			<a href="{{shipment.trackingLink}}" target="_blank">{{shipment.trackingNumber}}</a>
 		</h4>
 		<div>
 			<a ng-click="$parent.showHideDetails(shipment)" href="#">{{shipment.showHideMessage}}</a>
@@ -33,7 +33,7 @@
 					<li class="info-list__item">
 					
 					<div class="info-list__item-name">Shipment date</div>
-	        		<div class="info-list__item-value">{{shipment.shipmentDate}}</div>
+	        		<div class="info-list__item-value">{{shipment.shipDate}}</div>
 	        		
 					</li> 
 					<li class="info-list__item">
@@ -52,7 +52,7 @@
 					<li class="info-list__item">
 					
 					<div class="info-list__item-name">Tracking Number</div>
-	        		<div class="info-list__item-value">{{shipment.tracking}}</div>
+	        		<div class="info-list__item-value">{{shipment.trackingNumber}}</div>
 	        		
 					</li> 
 					<li class="info-list__item">
@@ -63,8 +63,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="text--n9 vertical-space--thin">Shipment Contents ({{shipment.contents.length}})</div>
-		 <div shipment-content items="shipment.contents"></div>
+		<div class="text--n9 vertical-space--thin">Shipment Contents ({{shipment.shipmentParts.length}})</div>
+		 <div shipment-content items="shipment.shipmentParts"></div>
 		
 
 
