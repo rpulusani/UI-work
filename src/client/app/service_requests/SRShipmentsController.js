@@ -31,124 +31,19 @@ angular.module('mps.serviceRequests')
     		}
     	};
     	//Carriers.query();// Need to queue this with the shipments call.
+    	Shipments.newMessage();
     	Shipments.get({
         	params:{
         		requestId:$scope.sr.requestNumber
         	}
         }).then(function(){
-    		console.log(Shipments);
-    		$scope.gridLoading = false;
+        	$scope.gridLoading = false;
     		if(Shipments.item && Shipments.item._embedded && Shipments.item._embedded.shipments){
     			$scope.shipments = Shipments.item._embedded.shipments;
     			updateShipments();
     		}else{
     			$scope.shipments = [];
-    			/*$scope.shipments = [{        		
-        		status : 'Shipped',deliveredDate : '12/06/2016',company: 'UPS',
-        		trackingNumber : '12345555',shipmentDate : '1/1/2016',deliveryDate : '13/06/2016',carrier : 'PostNet',
-        		shipToAddress : {
-        			 	"name" : " 1301 NORTH ILLINOIS AVE., HARRISBURG, AZ","storeFrontName" : null,
-        		        "addressLine1" : " 1301 NORTH ILLINOIS AVE.","addressLine2" : null,"houseNumber" : null,
-        		        "city" : "HARRISBURG","stateFullName" : null,"province" : null,"county" : null,
-        		        "district" : null,"country" : "USA","countryIsoCode" : null,"postalCode" : "72432-3021",
-        		        "zoneId" : null,"zoneName" : null,"lbsIdentifierFlag" : null,"region" : "AR",
-        		        "latitude" : null,"longitude" : null,"lbsGridX" : null,"lbsGridY" : null,
-        		        "account" : null,"assets" : null,"soldToNumber" : null,"addressCleansedFlag" : null,
-        		        "physicalLocation1" : null,"physicalLocation2" : null,"physicalLocation3" : null,
-        		        "id" : null,"state" : "AZ"
-        		} ,
-        		contents : [{
-        			quantity : '2',
-        			partNumber : '1-1234',
-        			partType : 'Yellow Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		},
-        		{
-        			quantity : '3',
-        			partNumber : '1-5667',
-        			partType : 'Magenta Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		},
-        		{
-        			quantity : '2',
-        			partNumber : '1-TxGH',
-        			partType : 'Black Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		},
-        		{
-        			quantity : '2',
-        			partNumber : '1-XYZ',
-        			partType : 'Green Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		}]
-        	},
-        	{
-        		
-        		status : 'Delivered',
-        		deliveredDate : '12/06/2016',
-        		company: 'USPS',
-        		trackingNumber : '9065678',
-        		shipmentDate : '1/1/2016',
-        		deliveryDate : '13/06/2016',
-        		carrier : 'upsdp',
-        		shipToAddress : {
-        			 	"name" : " 1301 NORTH ILLINOIS AVE., HARRISBURG, AZ",
-        		        "storeFrontName" : null,
-        		        "addressLine1" : " 1301 NORTH ILLINOIS AVE.",
-        		        "addressLine2" : null,
-        		        "houseNumber" : null,
-        		        "city" : "HARRISBURG",
-        		        "stateFullName" : null,
-        		        "province" : null,
-        		        "county" : null,
-        		        "district" : null,
-        		        "country" : "USA",
-        		        "countryIsoCode" : null,
-        		        "postalCode" : "72432-3021",
-        		        "zoneId" : null,
-        		        "zoneName" : null,
-        		        "lbsIdentifierFlag" : null,
-        		        "region" : "AR",
-        		        "latitude" : null,
-        		        "longitude" : null,
-        		        "lbsGridX" : null,
-        		        "lbsGridY" : null,
-        		        "account" : null,
-        		        "assets" : null,
-        		        "soldToNumber" : null,
-        		        "addressCleansedFlag" : null,
-        		        "physicalLocation1" : null,
-        		        "physicalLocation2" : null,
-        		        "physicalLocation3" : null,
-        		        "id" : null,
-        		        "state" : "AZ"
-        		} ,
-        		contents : [{
-        			quantity : '2',
-        			partNumber : '1-1234',
-        			partType : 'Yellow Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		},
-        		{
-        			quantity : '3',
-        			partNumber : '1-5667',
-        			partType : 'Magenta Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		},
-        		{
-        			quantity : '2',
-        			partNumber : '1-TxGH',
-        			partType : 'Black Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		},
-        		{
-        			quantity : '2',
-        			partNumber : '1-XYZ',
-        			partType : 'Green Cartridge',
-        			description: 'Cs Corp EA Yel Tnr Cart'
-        		}]
-        	}];
-    	*/		updateShipments();
+    			
     		}
     		
     		
