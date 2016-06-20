@@ -71,14 +71,14 @@ angular.module('mps.user')
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
-                        'field': '',
+                        'field': 'accounts',
                         'cellTemplate':'<div ng-bind="row.entity.getAccounts()"></div>', 
                         'enableSorting':false,
                         'notSearchable':true
                     },
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 
-                        'field': '', 
+                        'field': '_embedded.roles',
                         'cellTemplate': '<div ng-bind="row.entity.getRoles()"></div>', 
                         'notSearchable':true,
                         'enableSorting':false
