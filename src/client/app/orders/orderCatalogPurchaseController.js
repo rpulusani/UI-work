@@ -378,8 +378,8 @@ angular.module('mps.orders')
                  $scope.configure.header.translate.h1 = "ORDER_MAN.HARDWARE_ORDER.TXT_REGISTER_DEVICE_SUBMITTED";
                         $scope.configure.header.translate.h1Values = {};
                         $scope.configure.header.translate.body = "ORDER_MAN.HARDWARE_ORDER.RECEIPT_BODY";
-                        $scope.configure.header.translate.readMore = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.LNK_MANAGE_DEVICES";
-                        $scope.configure.header.readMoreUrl = Devices.route;
+                        $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
+                        $scope.configure.header.readMoreUrl = Orders.route;
                         $scope.configure.header.translate.bodyValues= {
                             'orderList': getNumberForMultiple(),
                             'srHours': 24,
