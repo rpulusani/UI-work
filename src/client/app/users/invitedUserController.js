@@ -2,8 +2,8 @@
 
 angular.module('mps.user')
 .controller('InvitedUsersController', ['$scope', '$location', '$translate', 'grid', '$routeParams', '$rootScope', 'BlankCheck', 'UserAdminstration',
-    'PersonalizationServiceFactory','FilterSearchService',
-    function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration, Personalize,FilterSearchService) {
+    'PersonalizationServiceFactory','FilterSearchService', 'FormatterService',
+    function($scope, $location, $translate, Grid, $routeParams, $rootScope, BlankCheck, UserAdminstration, Personalize, FilterSearchService, formatter) {
         UserAdminstration.setParamsToNull();
         $scope.error = false;
         $scope.selectRow = function() {
@@ -91,6 +91,55 @@ angular.module('mps.user')
 
         $scope.getStatus = function(status) {
             return BlankCheck.checkNotBlank(status) && status === 'Y' ? active : inactive;
+        };
+
+        $scope.gridOptions.exporterFieldCallback = function(grid, row, col, value) {
+            switch(col.name){
+                case $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'):
+                    value = $scope.getAccountsExportValue(value); 
+                    break;
+                case $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'):
+                    value = $scope.getRolesExportValue(value); 
+                    break;
+                case $translate.instant('USER_MAN.COMMON.TXT_GRID_STATUS'):
+                    value = $scope.getStatusExportValue(value); 
+                    break;
+                default:
+                    break;
+            }            
+            return value;
+        }
+
+        $scope.getAccountsExportValue = function(accounts) {
+            if(accounts && accounts.length) {
+                var accountList = [], accountListStr = '';
+                var i=0;
+                for(i=0; i<accounts.length; i++) {
+                    accountList.push(accounts[i].name);
+                }
+                var accountListStr = accountList.join(", ");
+                return accountListStr;
+            }else {
+                return '';
+            }
+        };
+
+        $scope.getRolesExportValue = function(roles) {
+            if(roles && roles.length) {
+                var roleList = [], roleListStr = '';
+                var i=0;
+                for(i=0; i<roles.length; i++) {
+                    roleList.push(roles[i].description);
+                }
+                roleListStr = roleList.join(", ");
+                return roleListStr;
+            }else {
+                return '';
+            }
+        };
+
+        $scope.getStatusExportValue = function(status) {
+            return formatter.formatStatus(status);
         };
     }
 ]);
