@@ -147,9 +147,9 @@ angular.module('mps.serviceRequests')
                             rows.push('');
                         }
                     }
-                        
-                    if ($scope.sr.item.meterReads) {
-                        rows.push($scope.sr.item.meterReads);                        
+                     
+                    if ($scope.meterReadsForCsv && $scope.meterReadsForCsv.length > 0) {
+                        rows.push($scope.meterReadsForCsv);                        
                     } else {
                         rows.push('none');
                     }
@@ -1150,15 +1150,22 @@ angular.module('mps.serviceRequests')
     function groupPageCounts(device){
     	
     	var newCount = {},newDate = {},i=0;
-    	if(device.meterReads && device.meterReads !== null){
+        var meterReadStr = "";
+        if(device.meterReads && device.meterReads !== null){
             var meterReadCnt = device.meterReads.length;
             for(;i<meterReadCnt;i++){
+                ind = i + 1;
                 newCount[device.meterReads[i].type] = device.meterReads[i].value;
                 newDate[device.meterReads[i].type]  = device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate;
+                meterReadStr = meterReadStr + ind + ". ";                    
+                meterReadStr = meterReadStr + "Type:" + device.meterReads[i].type + ", ";
+                meterReadStr = meterReadStr + "Count:" + device.meterReads[i].value + ", ";                    
+                meterReadStr = meterReadStr + "Date:" + (device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate) + " ";
             }
         }
     	device.newCount = newCount;
     	device.newDate = newDate;
+        $scope.meterReadsForCsv = meterReadStr;     
     } 
     
     function addTabsForMADC(){
