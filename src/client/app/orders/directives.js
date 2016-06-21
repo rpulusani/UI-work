@@ -113,7 +113,8 @@ angular.module('mps.orders')
             configure: "=",
             hideSubmit: "=",
             maxServiceQuantity: "=",
-            maxSuppliesQuantity: "="
+            maxSuppliesQuantity: "=",
+            taxLoading: '='
         },
         compile: function(element, attrs){
             if(!attrs.editable) {
@@ -125,6 +126,16 @@ angular.module('mps.orders')
         },
         controller: 'OrderContentsController'
     };
+})
+.directive('alertTaxCalulating',function(){
+	return{
+		restrict: 'A',
+		template: '<div class="alert alert--info" ng-if="calculatingTax">'+
+        		  '<icon class="alert__icon icon icon--small icon--ui icon--info"></icon>'+
+                  '<div class="alert__body">'+
+                  '<span>Calculating Tax</span></div></div>'
+	}
+	
 })
 .directive('orderContentTable', function(){
     return {

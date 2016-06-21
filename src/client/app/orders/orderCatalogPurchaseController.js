@@ -56,7 +56,7 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
-
+        $scope.calculatingTax = false;
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
@@ -677,6 +677,9 @@ angular.module('mps.orders')
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
             		return;
             	}
+            	if($scope.calculatingTax){
+            		return;
+            	}
             	
                 if(!$scope.isLoading){ 
                    $scope.isLoading = true;
@@ -1037,7 +1040,9 @@ angular.module('mps.orders')
                         
                     }
                 	taxService.addField('orderItems',taxItems);
+                	$scope.calculatingTax = true;
                     taxService.post(taxService).then(function(response){
+                    	$scope.calculatingTax = false;
                     	var total = 0.0;
                     	for(i=0;i<response.data.orderItems.length;i++){
                     		total += response.data.orderItems[i].tax;
