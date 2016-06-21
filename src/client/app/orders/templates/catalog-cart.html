@@ -25,6 +25,12 @@
             <div catalog></div>
         </div>
     </div>
+    <div ng-show="showDeviceSelectionErrorMessage" class="alert alert--error" data-js="alert">
+        <icon class="alert__icon icon icon--small icon--ui icon--error"></icon>
+        <div class="alert__body">
+			<span translate="ORDER_CATALOGS.SUPPLIES_CATALOG.TXT_ERROR_NO_ITEM_SELECTION"></span>
+        </div>
+    </div>
     <div class="row vertical-margin-bottom-72">
         <div class="col-1">
             <div order-content editable="{{editable}}" taxable="taxable" max-service-quantity="serviceMaxQuantity" max-supplies-quantity="supplyMaxQuantity" submit-action="submit"
