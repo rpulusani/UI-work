@@ -1,8 +1,9 @@
+'use strict';
 angular.module('mps.utility')
 .factory('DTMUpdater', ['$rootScope', function($rootScope) {
     var DTM = function() {};
 
-    DTM.prototype.update = function() {
+    DTM.prototype.update = function(currentUser, currentAccount, currentAddress) {
         var metaTagArr = angular.element('[data-dtm]'),
         tag, // current meta tag reference, used in loop
         i = 0;
