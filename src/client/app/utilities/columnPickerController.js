@@ -37,8 +37,8 @@ angular.module('mps.utility')
         createColumnSelection = function(column, gridOptions) {
             var listItem = $('<div class="col-1-3">'),
             checkboxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
-            checkbox = $('<input type="checkbox" id="' + column.name.replace(/ /g, '-') + '" name="' + column.field  + '" value="">'),
-            checkboxLabel = $('<label for="' + column.name.replace(/ /g, '-') + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
+            checkbox = $('<input type="checkbox" id="' + column.name.replace(/ /g, '-').replace(/\//g, '') + '" name="' + column.field  + '" value="">'),
+            checkboxLabel = $('<label for="' + column.name.replace(/ /g, '-').replace(/\//g, '') + '"><span></span> ' + column.name.replace(/\s*\(.*?\)\s*/g, '') + '</label>');
 
             checkboxWrapper.append(checkbox);
             checkboxWrapper.append(checkboxLabel);
@@ -116,7 +116,7 @@ angular.module('mps.utility')
                         if (columns[i].inColumnSelector) {
                             column = columns[i];
                             
-                            checkbox = $('#' + column.name.replace(/ /g, '-'));
+                            checkbox = $('#' + column.name.replace(/ /g, '-').replace(/\//g, ''));
 
                             checkboxLabel = checkbox.parent().find('label');
 
@@ -144,7 +144,7 @@ angular.module('mps.utility')
                         if (columns[i].inColumnSelector) {
                             column = columns[i];
                             
-                            checkbox = $('#' + column.name.replace(/ /g, '-'));
+                            checkbox = $('#' + column.name.replace(/ /g, '-').replace(/\//g, ''));
 
                             checkboxLabel = checkbox.parent().find('label');
 
@@ -174,7 +174,7 @@ angular.module('mps.utility')
                         if (columns[i].inColumnSelector && columns[i].default) {
                             column = columns[i];
                             
-                            checkbox = $('#' + column.name.replace(/ /g, '-'));
+                            checkbox = $('#' + column.name.replace(/ /g, '-').replace(/\//g, ''));
 
                             checkboxLabel = checkbox.parent().find('label');
 
