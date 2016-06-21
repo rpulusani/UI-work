@@ -270,7 +270,7 @@ angular.module('mps.orders')
     $scope.addToOrder = function(item){
         $scope.showDeviceSelectionErrorMessage = false;
         var newItem = angular.copy(item);
-        newItem.quantity += 1;
+        newItem.quantity = 1;
         OrderItems.data.push(newItem);
         $scope.orderItems = OrderItems.data;
         OrderItems.columns = 'defaultSet';
