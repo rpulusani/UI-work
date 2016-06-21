@@ -577,7 +577,10 @@ angular.module('mps.orders')
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
                 $scope.scratchSpace.shipToAddresssSelected = true;
                 $scope.taxable = true;
-                $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+                $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress); 
+                if($scope.sr.shipToAddressPhysicalLocation !== undefined){
+                	$scope.formatedShipToAddress +=  FormatterService.addBuildingFloorOffice($scope.sr.shipToAddressPhysicalLocation);
+                }
             }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
                 $scope.scratchSpace.shipToAddresssSelected = false;
                 $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
