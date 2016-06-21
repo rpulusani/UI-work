@@ -16,7 +16,7 @@ angular.module('mps.filterSearch')
         	
         });
         function groupBy(){
-        	var i=0,groupedTypes=[],tempType=[];
+           var i=0,groupedTypes=[],tempType=[];
         	for(;i<$scope.allRequestTypes.length;i++){
         		if($scope.allRequestTypes[i] === 'INSTALL_BAU' || $scope.allRequestTypes[i] === 'MADC_INSTALL'){
         			tempType.push($scope.allRequestTypes[i]);
@@ -30,8 +30,13 @@ angular.module('mps.filterSearch')
         	$scope.allRequestTypes = groupedTypes; 
         }
         $scope.type="";
+        $scope.displayType = "";
         $scope.$watch('type', function(type) {
         	    $scope.params['type'] = type;
+                $scope.displayType = type;
+                if(type.indexOf("MADC_INSTALL") >= 0 && type.indexOf("INSTALL_BAU") >= 0) {
+                    $scope.displayType = "MADC_INSTALL";
+                }
                 $scope.filterDef($scope.params, ['from', 'to', 'requesterFilter']);
         });
     }

@@ -49,7 +49,7 @@ angular.module('mps.utility')
                 }
             }
 
-            blob = new Blob([csvFile], {type: 'text/csv; charset=UTF-8'});
+            blob = new Blob(["\uFEFF", csvFile], {type: 'text/csv; charset=UTF-8'});
             
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, filename);
