@@ -1016,7 +1016,7 @@ angular.module('mps.orders')
         	
         	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 
         			&& taxService.getRelationship('billToAddress',taxService.item) !== undefined){
-        		var i = 0,hasShipBill = false;
+        		var i = 0,hasShipBill = false,itemNumber;
             	for(;i<Orders.tempSpace.catalogCart.billingModels.length;i++){
             		if(Orders.tempSpace.catalogCart.billingModels[i] === 'SHIP_AND_BILL'){
             			hasShipBill = true;
@@ -1035,8 +1035,12 @@ angular.module('mps.orders')
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         
                         if (lineTotal !== 0){
+                        	itemNumber = OrderItems.data[i].itemNumber;
+                        	if($scope.type === 'HARDWARE' && OrderItems.data[i].childItems && OrderItems.data[i].childItems[0]){
+                        		itemNumber = OrderItems.data[i].childItems[0].displayItemNumber;                        		
+                        	}
                         	taxItems.push({
-                            	itemNumber : OrderItems.data[i].displayItemNumber,
+                            	itemNumber : itemNumber,
                             	price : lineTotal
                             });
                         }
