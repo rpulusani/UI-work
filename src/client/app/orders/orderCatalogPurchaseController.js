@@ -56,7 +56,7 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
-
+        $scope.calculatingTax = false;
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
@@ -577,7 +577,10 @@ angular.module('mps.orders')
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
                 $scope.scratchSpace.shipToAddresssSelected = true;
                 $scope.taxable = true;
-                $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+                $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress); 
+                if($scope.sr.shipToAddressPhysicalLocation !== undefined){
+                	$scope.formatedShipToAddress +=  FormatterService.addBuildingFloorOffice($scope.sr.shipToAddressPhysicalLocation);
+                }
             }else if(Orders.tempSpace && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
                 $scope.scratchSpace.shipToAddresssSelected = false;
                 $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
@@ -675,6 +678,9 @@ angular.module('mps.orders')
             	if( ($scope.paymentMethod === 'payNow' || $scope.paymentMethod === 'SHIP_AND_BILL')  && !$scope.scratchSpace.billToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
+            		return;
+            	}
+            	if($scope.calculatingTax){
             		return;
             	}
             	
@@ -1010,7 +1016,7 @@ angular.module('mps.orders')
         	
         	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 
         			&& taxService.getRelationship('billToAddress',taxService.item) !== undefined){
-        		var i = 0,hasShipBill = false;
+        		var i = 0,hasShipBill = false,itemNumber;
             	for(;i<Orders.tempSpace.catalogCart.billingModels.length;i++){
             		if(Orders.tempSpace.catalogCart.billingModels[i] === 'SHIP_AND_BILL'){
             			hasShipBill = true;
@@ -1029,15 +1035,21 @@ angular.module('mps.orders')
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         
                         if (lineTotal !== 0){
+                        	itemNumber = OrderItems.data[i].itemNumber;
+                        	if($scope.type === 'HARDWARE' && OrderItems.data[i].childItems && OrderItems.data[i].childItems[0]){
+                        		itemNumber = OrderItems.data[i].childItems[0].displayItemNumber;                        		
+                        	}
                         	taxItems.push({
-                            	itemNumber : OrderItems.data[i].displayItemNumber,
+                            	itemNumber : itemNumber,
                             	price : lineTotal
                             });
                         }
                         
                     }
                 	taxService.addField('orderItems',taxItems);
+                	$scope.calculatingTax = true;
                     taxService.post(taxService).then(function(response){
+                    	$scope.calculatingTax = false;
                     	var total = 0.0;
                     	for(i=0;i<response.data.orderItems.length;i++){
                     		total += response.data.orderItems[i].tax;

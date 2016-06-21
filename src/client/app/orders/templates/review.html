@@ -7,7 +7,7 @@
     <div error-msg ng-if="errorAddress"></div>
     <div order-account-detials class="vertical-margin-bottom-72"></div>
     <div order-content editable="{{editable}}"  taxable="taxable" submit-action="submit" datasource="orderItems"
-    hide-submit="hideSubmitButton" configure="configure"></div>
+    hide-submit="hideSubmitButton" configure="configure" tax-loading="calculatingTax"></div>
     <div order-ship-to-bill-to-details></div>
     <form check-form-valid  class="form" data-form="" name="reviewDetail" novalidate>
     <div order-ship-install-details></div>
@@ -42,7 +42,7 @@
         </div>
 
         <div attachments></div>
-
+		<div alert-tax-calulating></div>
         <div sr-form-buttons></div>
     </form>
 </div>

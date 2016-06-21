@@ -19,6 +19,7 @@ angular.module('mps.serviceRequests')
         SRHelper) {
     	
     	$scope.gridLoading = true;
+    	ActivityService.newMessage();
     	ActivityService.get({
         	params:{
         		requestId:$scope.sr.id
@@ -33,23 +34,7 @@ angular.module('mps.serviceRequests')
         	}
         	
         });
-    	/*$scope.activities = [{
-            "serialNumber": 123,
-            "deviceType": 'type ',
-            "activityNumber": "1-1LMA3JT6",
-            "statusDetail": "Archive",
-            "physicalLocation1": 1,
-            "physicalLocation2": 3,
-            "physicalLocation3": 4
-          },{
-              "serialNumber": 456,
-              "deviceType": 'type2',
-              "activityNumber": "1-1LMasdf",
-              "statusDetail": "Archive",
-              "physicalLocation1": 5,
-              "physicalLocation2": 6,
-              "physicalLocation3": 7
-            }];*/
+    	
         
         
         

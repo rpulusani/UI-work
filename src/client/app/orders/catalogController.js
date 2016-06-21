@@ -51,6 +51,7 @@ angular.module('mps.orders')
         SuppliesCatalog,
         OrderControllerHelper,
         AccessoriesCatalogFactory) {
+            $scope.showDeviceSelectionErrorMessage = false;
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
             $scope.type = $routeParams.type.toUpperCase();
@@ -68,7 +69,11 @@ angular.module('mps.orders')
                  $scope.configure = {
                      actions:{
                         submit: function(){
-                            $scope.$broadcast('OrderCatalogSubmit', {});
+                            if(OrderItems.data.length > 0)
+                                $scope.$broadcast('OrderCatalogSubmit', {});
+                            else{
+                                $scope.showDeviceSelectionErrorMessage = true;
+                            }
                         },
                         disabled: true
                     },
@@ -263,8 +268,9 @@ angular.module('mps.orders')
         });
     };
     $scope.addToOrder = function(item){
+        $scope.showDeviceSelectionErrorMessage = false;
         var newItem = angular.copy(item);
-        newItem.quantity += 1;
+        newItem.quantity = 1;
         OrderItems.data.push(newItem);
         $scope.orderItems = OrderItems.data;
         OrderItems.columns = 'defaultSet';

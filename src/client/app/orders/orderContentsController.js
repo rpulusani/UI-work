@@ -36,7 +36,7 @@ angular.module('mps.orders')
     $scope.$watch($scope.taxable, function(){
         $scope.$broadcast('OrderContentRefresh', {'OrderItems':OrderItems});
     });
-
+    $scope.calculatingTax = $scope.taxLoading;
     $scope.$watch($scope.ordernbr, function(){
         $scope.orderId = $scope.ordernbr;
     });
@@ -44,6 +44,7 @@ angular.module('mps.orders')
     	
     	$scope.tax = data.tax;
     	$scope.calculate();
+    	$scope.calculatingTax = false;
     });
     $scope.removeItem  = function(row){
         var index = $scope.orderSummaryGridOptions.data.indexOf(row.entity);

@@ -63,7 +63,7 @@ angular.module('mps.orders')
         };
         $scope.orderSummaryGridOptions = new HATEOASFactory(template);
         
-        $scope.orderSummaryGridOptions.data = $scope.items;
+        $scope.orderSummaryGridOptions.data = ($scope.items === null || $scope.items === undefined)?[]:$scope.items ;
         
         
     	var Grid = new GridService();
@@ -89,7 +89,7 @@ angular.module('mps.orders')
                 	var taxNumeric = $scope.tax;
                 	var amount = subTotal + taxNumeric;
                 	$scope.total = formatter.formatCurrency(amount);
-                	var taxPercent = (((amount - subTotal)/amount)*100);
+                	var taxPercent = (((amount - subTotal)/subTotal)*100);
                 	
                 	$scope.displaytax = formatter.formatPercent(taxPercent);
                 }	
@@ -97,8 +97,12 @@ angular.module('mps.orders')
             
             
         };
+        $scope.orderSummaryGridOptions.height = $scope.orderSummaryGridOptions.getStyle().height;
         $scope.calculate();
-        
+        $scope.$watch('items', function(){
+        	$scope.orderSummaryGridOptions.data = $scope.items;
+        	$scope.orderSummaryGridOptions.height = 100+(45 * $scope.orderSummaryGridOptions.data.length);
+        });
         
     
 }]);

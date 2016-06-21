@@ -1,5 +1,4 @@
-
-
+'use strict';
 angular.module('mps.utility')
 .factory('HATEAOSConfig', ['serviceUrl', '$http', '$q', '$rootScope',
     function(serviceUrl, $http, $q, $rootScope) {
@@ -84,26 +83,30 @@ angular.module('mps.utility')
                 var url = api.url + '/' + loginId,
                 acctLink; // String for account link needed for initial setup
 
-                $http.get(url).then(function(processedResponse) {
-                    angular.extend($rootScope.currentUser, processedResponse.data);
-                    $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
+                if (!self.calledUrl || self.calledUrl !== url) {
+                    self.calledUrl = url;
+                    
 
-                    if (!$rootScope.currentAccount) {
-                        if ($rootScope.currentUser._links &&
-                            $rootScope.currentUser._links.accounts) {
-                            if (angular.isArray($rootScope.currentUser._links.accounts)) {
-                                acctLink = $rootScope.currentUser._links.accounts[0].href;
-                            } else {
-                                acctLink = $rootScope.currentUser._links.accounts.href;
+                    $http.get(url).then(function(processedResponse) {
+                        angular.extend($rootScope.currentUser, processedResponse.data);
+                        $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
+
+                        if (!$rootScope.currentAccount) {
+                            if ($rootScope.currentUser._links &&
+                                $rootScope.currentUser._links.accounts) {
+                                if (angular.isArray($rootScope.currentUser._links.accounts)) {
+                                    acctLink = $rootScope.currentUser._links.accounts[0].href;
+                                } else {
+                                    acctLink = $rootScope.currentUser._links.accounts.href;
+                                }
                             }
-
-                            
                         }
 
-                    }
-
+                        deferred.resolve(api);
+                    });
+                } else {
                     deferred.resolve(api);
-                });
+                }
             });
 
             return deferred.promise;

@@ -119,7 +119,7 @@ angular.module('mps.serviceRequestDevices')
             $scope.redirectToList();
         } else if($rootScope.selectedContact
                 && $rootScope.returnPickerObject
-                && $rootScope.selectionId === Devices.item.id){
+                && ($rootScope.selectionId === Devices.item.id || Devices.updatingMultiple)){
             $scope.device = $rootScope.returnPickerObject;
             $scope.sr = $rootScope.returnPickerSRObject;
             if ($rootScope.currentSelected) {
@@ -316,7 +316,7 @@ angular.module('mps.serviceRequestDevices')
                             physicalLocation2: Devices.data[i].physicalLocation2,
                             physicalLocation3: Devices.data[i].physicalLocation3
                         };
-
+                        
                         deferreds.push(DeviceServiceRequest.post({
                             item:  JSON.parse(JSON.stringify($scope.sr))
                         }).then(function(res) {

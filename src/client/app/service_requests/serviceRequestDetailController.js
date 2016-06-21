@@ -147,9 +147,9 @@ angular.module('mps.serviceRequests')
                             rows.push('');
                         }
                     }
-                        
-                    if ($scope.sr.item.meterReads) {
-                        rows.push($scope.sr.item.meterReads);                        
+                     
+                    if ($scope.meterReadsForCsv && $scope.meterReadsForCsv.length > 0) {
+                        rows.push($scope.meterReadsForCsv);                        
                     } else {
                         rows.push('none');
                     }
@@ -976,6 +976,7 @@ angular.module('mps.serviceRequests')
                 addTabsForMADC();
             break;
             case 'MADC_INSTALL':
+            case 'MADC_INSTALL_AND_DECOMMISSION':
                 addDeviceInformation();
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
@@ -1004,7 +1005,9 @@ angular.module('mps.serviceRequests')
                 addTabsForMADC();
             break;
             case 'DATA_ASSET_REGISTER':
-                addDeviceInformation();  
+                addDeviceInformation(); 
+                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
+                $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL'; 
                 addTabsForMADC();
             break;
             case 'BREAK_FIX':
@@ -1116,7 +1119,8 @@ angular.module('mps.serviceRequests')
         !BlankCheck.isNull($scope.sr.requester.item)){
         $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
     }
-    if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
+    if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item) 
+    		&& !BlankCheck.isNull($scope.sr.billToAddress.item.addressLine1)){
     	 	$scope.scratchSpace = {
     	 			billToAddresssSelected : true	
     	 	};
@@ -1147,15 +1151,22 @@ angular.module('mps.serviceRequests')
     function groupPageCounts(device){
     	
     	var newCount = {},newDate = {},i=0;
-    	if(device.meterReads && device.meterReads !== null){
+        var meterReadStr = "";
+        if(device.meterReads && device.meterReads !== null){
             var meterReadCnt = device.meterReads.length;
             for(;i<meterReadCnt;i++){
+                ind = i + 1;
                 newCount[device.meterReads[i].type] = device.meterReads[i].value;
                 newDate[device.meterReads[i].type]  = device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate;
+                meterReadStr = meterReadStr + ind + ". ";                    
+                meterReadStr = meterReadStr + "Type:" + device.meterReads[i].type + ", ";
+                meterReadStr = meterReadStr + "Count:" + device.meterReads[i].value + ", ";                    
+                meterReadStr = meterReadStr + "Date:" + (device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate) + " ";
             }
         }
     	device.newCount = newCount;
     	device.newDate = newDate;
+        $scope.meterReadsForCsv = meterReadStr;     
     } 
     
     function addTabsForMADC(){
