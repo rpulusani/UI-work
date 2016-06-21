@@ -119,7 +119,7 @@ angular.module('mps.serviceRequestDevices')
             $scope.redirectToList();
         } else if($rootScope.selectedContact
                 && $rootScope.returnPickerObject
-                && $rootScope.selectionId === Devices.item.id){
+                && ($rootScope.selectionId === Devices.item.id || Devices.updatingMultiple)){
             $scope.device = $rootScope.returnPickerObject;
             $scope.sr = $rootScope.returnPickerSRObject;
             if ($rootScope.currentSelected) {

@@ -56,12 +56,12 @@ function(
     function checkBilling(){
             if(Contracts && Contracts.item && Contracts.item.billingModels){
                var isShipBill =  $.inArray('SHIP_AND_BILL', Contracts.item.billingModels);
-               if(isShipBill > -1){
+               if(isShipBill > -1 && Contracts.item.billingModels.length > 1){
                     $scope.showBillingOptions = 'multi';
                }else{
                     $scope.showBillingOptions = 'single';
                     $scope.showCatalogTypes = $routeParams.type.toUpperCase();
-                    $scope.paySelection = Contracts.item.billingModels;
+                    $scope.paySelection = Contracts.item.billingModels[0];
                }
                $scope.configure.actions.disabled = false;
                if ($scope.showContracts === 'single' 
