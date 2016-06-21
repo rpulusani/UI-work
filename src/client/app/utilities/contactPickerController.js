@@ -48,6 +48,7 @@ angular.module('mps.utility')
                 angular.element('div.ui-grid-icon-ok.ui-grid-row-selected').triggerHandler('click');
                 $rootScope.selectedContact = undefined;
                 $rootScope.formattedSelectedContact = undefined;
+				$rootScope.currentRowList = [];
                 $location.path($rootScope.contactReturnPath);
             });
         };
