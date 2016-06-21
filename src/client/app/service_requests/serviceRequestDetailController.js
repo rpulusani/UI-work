@@ -1004,7 +1004,9 @@ angular.module('mps.serviceRequests')
                 addTabsForMADC();
             break;
             case 'DATA_ASSET_REGISTER':
-                addDeviceInformation();  
+                addDeviceInformation(); 
+                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
+                $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL'; 
                 addTabsForMADC();
             break;
             case 'BREAK_FIX':
