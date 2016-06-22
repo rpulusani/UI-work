@@ -8,7 +8,7 @@
 <div ng-show="gridOrdersOptions.data && gridOrdersOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
 <div ng-show="gridOrdersOptions.data && gridOrdersOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef"></div>
 <div ng-show="gridOrdersOptions.data.length > 0" ui-grid="gridOrdersOptions" class="table"
-    ng-style="gridOrdersOptions.getStyle()" ui-grid-auto-resize  ui-grid-move-columns ui-grid-resize-columns></div>
+    ng-style="gridOrdersOptions.getStyle()" ui-grid-auto-resize ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns></div>
     
 <div class="alert alert--info" ng-if="gridLoading === true">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
