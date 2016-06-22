@@ -85,7 +85,6 @@ angular.module('mps.utility')
 
                 if (!self.calledUrl || self.calledUrl !== url) {
                     self.calledUrl = url;
-                    
 
                     $http.get(url).then(function(processedResponse) {
                         angular.extend($rootScope.currentUser, processedResponse.data);

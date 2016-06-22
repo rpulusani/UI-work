@@ -7,7 +7,6 @@
     'Nav',
     'UserService',
     'AccountService',
-    'Addresses',
     'HATEAOSConfig',
     '$cookies',
     '$http',
@@ -23,7 +22,6 @@
         Nav,
         Users,
         Accounts,
-        Addresses,
         HATEAOSConfig,
         $cookies,
         $http,
@@ -146,8 +144,6 @@
                         }
 
                         $route.reload();
-
-                        DTMUpdater.update($rootScope.currentUser, $rootScope.currentAccount, Addresses);
                     }, 0);
                 });
             });
