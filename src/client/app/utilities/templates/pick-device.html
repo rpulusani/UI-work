@@ -7,7 +7,7 @@
 <p translate="{{currentDeviceTitle}}"></p>
 
 <div class="well" ng-if="!singleDeviceSelection">
-	<div ng-show="prevDevice">
+	<div ng-show="prevDevice && prevDevice.selectedDevice.serialNumber">
         <div class="media">
             <div class="media__visual">
                 <img ng-src="{{prevDevice.medImage}}" ng-show="prevDevice.medImage"
@@ -38,7 +38,7 @@
 <p translate="{{replaceDeviceTitle}}"></p>
 
 <div class="well">
-	<div ng-show="isRowSelected()">
+	<div ng-show="isRowSelected() && selectedDevice.serialNumber">
         <div class="media">
             <div class="media__visual">
                 <img ng-src="{{selectedImageUrl}}" ng-show="selectedDevice.partNumber"
