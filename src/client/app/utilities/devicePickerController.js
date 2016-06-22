@@ -9,7 +9,6 @@ angular.module('mps.utility')
         $rootScope.deviceToRegisterInPicker = angular.copy(Devices.item);
         $scope.selectedDevice = undefined;
         $rootScope.currentSelectedRow = undefined;
-        $scope.prevDevice={};
 
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
 
@@ -34,49 +33,32 @@ angular.module('mps.utility')
         $scope.isRowSelected = function(){
             if ($rootScope.currentSelectedRow) {
                $rootScope.selectedDevice = $rootScope.currentSelectedRow;
-               if($rootScope.returnPickerObjectDevice.deviceDeInstallQuestion){
-                    $scope.prevDevice.selectedDevice = $rootScope.selectedDevice;
-                }
-                else{
-                    $scope.selectedDevice = $rootScope.selectedDevice;
-                }
+               $scope.selectedDevice = $rootScope.selectedDevice;
                return true;
             } else {
                return false;
             }
         };
 
-        $scope.$watch('prevDevice.selectedDevice',function(){
-            if ($scope.prevDevice.selectedDevice && $scope.prevDevice.selectedDevice.partNumber) {
-                $scope.getPartImage($scope.prevDevice.selectedDevice.partNumber);
-            }
-            $scope.getSelectedDeviceContact($scope.prevDevice.selectedDevice);
-        });
-
         $scope.$watch('selectedDevice', function() {
             if ($scope.selectedDevice && $scope.selectedDevice.partNumber) {
                 $scope.getPartImage($scope.selectedDevice.partNumber);
             }
-            $scope.getSelectedDeviceContact($scope.selectedDevice);
+            $scope.getSelectedDeviceContact();
         });
 
         $scope.getPartImage = function(partNumber) {
             var imageUrl = '';
-            ImageService.getPartMediumImageUrl(partNumber).then(function(url){                
-                if($rootScope.returnPickerObjectDevice.deviceDeInstallQuestion){
-                    $scope.prevDevice.medImage = url;
-                }
-                else{
-                    $scope.selectedImageUrl = url;
-                }
+            ImageService.getPartMediumImageUrl(partNumber).then(function(url){
+                $scope.selectedImageUrl = url;
             }, function(reason){
                  NREUM.noticeError('Image url was not found reason: ' + reason);
             });
         };
 
-        $scope.getSelectedDeviceContact = function(selectedDevice) {
-            if(selectedDevice){
-                Devices.setItem(selectedDevice);
+        $scope.getSelectedDeviceContact = function() {
+            if($scope.selectedDevice){
+                Devices.setItem($scope.selectedDevice);
                 var options = {
                     params:{
                         embed:'contact,address'
@@ -84,13 +66,8 @@ angular.module('mps.utility')
                 };
                 Devices.item.get(options).then(function(){
                     if(Devices.item && Devices.item.contact){
-                        selectedDevice.contact = Devices.item.contact.item;
-                        if($rootScope.returnPickerObjectDevice.deviceDeInstallQuestion){
-                            $scope.formattedPrevDeviceContact = FormatterService.formatContact(selectedDevice.contact);
-                        }
-                        else{
-                            $scope.formattedSelectedDeviceContact = FormatterService.formatContact(selectedDevice.contact);
-                        }
+                        $scope.selectedDevice.contact = Devices.item.contact.item;
+                        $scope.formattedSelectedDeviceContact = FormatterService.formatContact($scope.selectedDevice.contact);
                     }
                 });
             }
