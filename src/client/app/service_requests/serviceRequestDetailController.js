@@ -26,8 +26,15 @@ angular.module('mps.serviceRequests')
         OrderItems,
         OrderTypes
     ) {
-        if(!Orders.item){
-            $location.path(Orders.route).search({tab:'orderAllTab'});
+
+        if(!Orders.item && !ServiceRequest.item){
+            
+            if($location.path().indexOf('/orders')>=0){
+                $location.path(Orders.route).search({tab:'orderAllTab'});   
+            }
+            else if($location.path().indexOf('/service_requests')>=0){
+                $location.path(ServiceRequest.route).search({tab:'serviceRequestsAllTab'});
+            }
             return;
         }
         $('.site-content').scrollTop(0,0);
