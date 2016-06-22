@@ -1,9 +1,9 @@
 'use strict';
 angular.module('mps.utility')
-.factory('DTMUpdater', ['$rootScope', '$http', function($rootScope, $http) {
+.factory('DTMUpdater', ['$rootScope', function($rootScope) {
     var DTM = function() {};
 
-    DTM.prototype.update = function() {
+    DTM.prototype.update = function(currentUser, currentAccount, currentAddress) {
         var metaTagArr = angular.element('[data-dtm]'),
         tag, // current meta tag reference, used in loop
         i = 0;
@@ -29,25 +29,13 @@ angular.module('mps.utility')
                         tag.content = $rootScope.currentAccount.accountId;
                     }
                 case 'account-geo':
-                    tag.content = $rootScope.currentUser.address.countryIsoCode;
+                    tag.content = null;
                 case 'account-country':
-                    tag.content =  (function() {
-                        if ($rootScope.currentUser.address.country) {
-                            return $rootScope.currentUser.address.country;
-                        } else {
-                            return $rootScope.currentUser.address.countryIsoCode;
-                        }
-                    }());
+                    tag.content = null;
                 case 'account-region':
-                    tag.content = (function() {
-                        if (!$rootScope.currentUser.address.region) {
-                            return $rootScope.currentUser.address.state;
-                        } else {
-                            return $rootScope.currentUser.address.region;
-                        }
-                    }());
+                    tag.content = null;
                 case 'account-city':
-                    tag.content = $rootScope.currentUser.address.city;
+                    tag.content =  null;
                 case 'user-name':
                     tag.content = $rootScope.currentUser.userId;
                 case 'user-shortname':
