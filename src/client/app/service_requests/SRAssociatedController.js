@@ -3,27 +3,46 @@ angular.module('mps.serviceRequests')
     '$scope',
     '$location',
     '$rootScope',
-    'AssociateRequestService',
     'grid',
     'PersonalizationServiceFactory',
     'FilterSearchService',
-    'Addresses','SRControllerHelperService',
+    'Addresses','SRControllerHelperService','serviceUrl','HATEOASFactory','ServiceRequestService',
     function(
         $scope,
         $location,
         $rootScope,
-        AssociateRequestService,
         GridService,
         Personalize,
         FilterSearchService,
-        Addresses,SRHelper) {
+        Addresses,SRHelper,serviceUrl,HATEOASFactory,ServiceRequest) {
     	
-    	
+    	 var AssociateRequest = {
+        		 serviceName: 'associatedRequestDetails',
+        		 embeddedName: 'associatedServiceRequests', //get away from embedded name and move to a function to convert url name to javascript name
+                columns: 'defaultSet',
+                hideBookmark: true,
+                url: serviceUrl + 'service-requests/associatedRequestDetails',
+                columnDefs: {
+                    defaultSet: [
+                        {'name':'Date', 'field':'requestDate'},
+                        {'name':'Request Number', 'field':'requestNumber',
+                        	'cellTemplate':'<div>' +
+                            '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
+                            '>{{row.entity.requestNumber}}</a>' +
+                        '</div>'
+                        	
+                        	},
+                        {'name': 'Type', 'field': 'serviceRequestType'},
+                        {'name': 'Status', 'field': 'serviceRequestStatus'}
+                    ],             
+                route: '/service_requests'
+              }
+        };
        
         $scope.visibleColumns = [];
 
         
-        $scope.associateRequests = AssociateRequestService;
+        $scope.associateRequests = new HATEOASFactory(AssociateRequest);
         $scope.gridLoading = true;
         
         $scope.associateRequests.data = [];
@@ -37,16 +56,17 @@ angular.module('mps.serviceRequests')
         $scope.associateRequests, personal);
         
         $scope.associateRequests.enableColumnMenus = false;
-        AssociateRequestService.newMessage();
-        AssociateRequestService.get({
+        $scope.associateRequests.newMessage();
+        $scope.associateRequests.get({
         	params:{
         		requestId:$scope.sr.requestNumber
         	}
         }).then(function(){
-        	
+        	console.log($scope.associateRequests);
         	$scope.gridLoading = false;
-        	if(AssociateRequestService.item._embedded && AssociateRequestService.item._embedded.associatedServiceRequests){
-        		$scope.associateRequests.data = AssociateRequestService.item._embedded.associatedServiceRequests;
+        	if($scope.associateRequests.item._embedded && $scope.associateRequests.item._embedded.associatedServiceRequests){
+        		$scope.associateRequests.data = $scope.associateRequests.item._embedded.associatedServiceRequests;
+        		console.log($scope.associateRequests.data );
         	}else {
         		$scope.associateRequests.data = [];        		
         	}
@@ -55,7 +75,18 @@ angular.module('mps.serviceRequests')
        });
        
         
-        
+      $scope.view = function (srId){
+    	  ServiceRequest.setItem(SR);
+          var options = {
+              params:{
+                  embed:'primaryContact,requester,address,account,asset,sourceAddress,destinationAddress,secondaryContact,attachments'
+              }
+          };
+          ServiceRequest.item.get(options).then(function(){
+              $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+              $location.search('tab','srDetailsActivitiesTab');
+          });
+      }  
      }
 ]);
 
