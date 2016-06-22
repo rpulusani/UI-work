@@ -12,8 +12,8 @@ angular.module('mps.serviceRequests')
         SecurityHelper,
         $location
     ) {
-        if(!$rootScope.addressContactAccess){
-            new SecurityHelper($rootScope).confirmPermissionCheck("addressContactAccess");    
+        if(!$rootScope.serviceRequestAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("serviceRequestAccess");    
         }
 
         $scope.active = function(value){

@@ -549,6 +549,9 @@ angular.module('mps.orders')
             if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.primaryContact)){
                     $scope.formattedPrimaryContact = FormatterService.formatContact(Orders.tempSpace.primaryContact);
             }
+            if (Devices.item && Devices.item.contact && !BlankCheck.isNull(Devices.item['contact']['item'] === undefined ? Devices.item['contact'] : Devices.item['contact']['item'])){
+                $scope.formattedPrimaryContact = FormatterService.formatContact(Devices.item['contact']['item'] === undefined ? Devices.item['contact'] : Devices.item['contact']['item']);
+            }
             if($scope.type === 'SUPPLIES' || ($scope.type === 'HARDWARE' && $rootScope.orderInstall) ){
             	
             	if (Orders.tempSpace && !BlankCheck.isNull(Orders.tempSpace.installAddress)){
@@ -673,11 +676,13 @@ angular.module('mps.orders')
             	if(!$scope.scratchSpace.shipToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
+                    $('.site-content').scrollTop($('.page-header').height());
             		return;
             	} 
             	if( ($scope.paymentMethod === 'payNow' || $scope.paymentMethod === 'SHIP_AND_BILL')  && !$scope.scratchSpace.billToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_BILLTO');
+                    $('.site-content').scrollTop($('.page-header').height());
             		return;
             	}
             	if($scope.calculatingTax){
@@ -1035,7 +1040,7 @@ angular.module('mps.orders')
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         
                         if (lineTotal !== 0){
-                        	itemNumber = OrderItems.data[i].itemNumber;
+                        	itemNumber = OrderItems.data[i].displayItemNumber;
                         	if($scope.type === 'HARDWARE' && OrderItems.data[i].childItems && OrderItems.data[i].childItems[0]){
                         		itemNumber = OrderItems.data[i].childItems[0].displayItemNumber;                        		
                         	}

@@ -1,5 +1,13 @@
 <span ng-if="configure.orderHistorySr">
-    <div class="col-1"><h4 class="margin0" translate="{{configure.orderHistorySr.translate.title}}"></h4></div>
-	
-     <div order-content-table items="sr.item.orderItems"></div>     
+    <div class="col-1">
+    <h4 class="margin0" translate="{{configure.orderHistorySr.translate.title}}"></h4>
+    <div class="alert alert--info" ng-if="!sr.item.orderItems">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.EMPTY"></span>
+                </div>
+     </div> 
+     <div ng-if = "sr.item && sr.item.orderItems && sr.item.orderItems.length > 0" order-content-table items="sr.item.orderItems"></div>
+    </div>
+	     
 </span>

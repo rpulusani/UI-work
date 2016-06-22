@@ -101,7 +101,7 @@ angular.module('mps.orders')
         $scope.calculate();
         $scope.$watch('items', function(){
         	$scope.orderSummaryGridOptions.data = $scope.items;
-        	$scope.orderSummaryGridOptions.height = 100+(45 * $scope.orderSummaryGridOptions.data.length);
+        	$scope.orderSummaryGridOptions.height = formatter.getHeightFromdata($scope.orderSummaryGridOptions.data);
         });
         
     
