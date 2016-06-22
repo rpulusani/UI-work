@@ -82,11 +82,9 @@ angular.module('mps.hateoasFactory')
 
                     if (!$rootScope.currentAccount && !HATEAOSConfig.mapCallInProgress) {
                         HATEAOSConfig.getLoggedInUserInfo().then(function() {
-                            DTM.update();
                             deferred.resolve();
                         });
                     } else {
-                        DTM.update();
                         deferred.resolve();
                     }
 
