@@ -45,6 +45,12 @@
     <div class="modal__body">
     <h2>Parts Details</h2><hr/>
     <div>
+    	<div class="alert alert--info" ng-if="partsInfoDetails.data.length === 0">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.EMPTY"></span>
+                </div>
+        </div> 
     	 <div ui-grid="partsInfoDetails" class="table summary" 
               ng-style="{height : partsInfoDetails.height}" ui-grid-auto-resize ui-grid-edit ui-grid-row-edit></div>
     </div>
