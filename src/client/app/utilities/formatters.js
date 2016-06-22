@@ -437,6 +437,9 @@ angular.module('mps.utility')
                 else {
                     return owner;
                 }
+            },
+            getHeightFromdata: function(list){
+            	return (100+(45 * list.length));
             }
         };
 }]);

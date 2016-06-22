@@ -1040,7 +1040,7 @@ angular.module('mps.orders')
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         
                         if (lineTotal !== 0){
-                        	itemNumber = OrderItems.data[i].itemNumber;
+                        	itemNumber = OrderItems.data[i].displayItemNumber;
                         	if($scope.type === 'HARDWARE' && OrderItems.data[i].childItems && OrderItems.data[i].childItems[0]){
                         		itemNumber = OrderItems.data[i].childItems[0].displayItemNumber;                        		
                         	}
