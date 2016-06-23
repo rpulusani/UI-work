@@ -1,7 +1,7 @@
 
 angular.module('mps.filterSearch')
-    .controller('LibraryFilterController', ['$scope', '$translate', '$rootScope', 'Documents', 'Tags', 'Owners',
-        function($scope, $translate, $rootScope, Documents, Tags, Owners) {
+    .controller('LibraryFilterController', ['$scope', '$translate', '$rootScope', 'Documents', 'Tags', 'Owners', 'FormatterService',
+        function($scope, $translate, $rootScope, Documents, Tags, Owners, formatter) {
 
             if ($rootScope.documentLibraryViewStrategicAccess) {
                 $scope.renderStrategicColumn = true;
@@ -167,6 +167,33 @@ angular.module('mps.filterSearch')
                     $scope.tags[i].selected = false;
                 }
                 $scope.filterDef($scope.params, ['tag', 'bookmark', 'requesterFilter']);
+            }
+        };
+
+        $scope.showDateClearMessage = false;
+        $scope.$watch('dateFrom', function(dateFrom) {
+            if (dateFrom) {
+                $scope.showDateClearMessage = true;
+                $scope.params['fromDate'] = formatter.formatDateForPost(dateFrom);
+                $scope.filterDef($scope.params, ['bookmark', 'requesterFilter']);
+            }
+        });
+
+        $scope.$watch('dateTo', function(dateTo) {
+            if (dateTo) {
+               $scope.showDateClearMessage = true;
+               $scope.params['toDate'] = formatter.addTimeToDate(dateTo,23,59);
+               $scope.filterDef($scope.params, ['bookmark', 'requesterFilter']);
+            }
+        });
+
+        $scope.clearDateFilter = function(){
+            if($scope.filterDef && typeof $scope.filterDef === 'function'){
+                $scope.showDateClearMessage = false;
+                $scope.dateFrom = '';
+                $scope.dateTo = '';
+                $scope.params = {};
+                $scope.filterDef($scope.params, ['fromDate', 'toDate', 'bookmark', 'requesterFilter']);
             }
         };
     }
