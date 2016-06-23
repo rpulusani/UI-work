@@ -6,7 +6,7 @@ angular.module('mps.serviceRequests')
     'grid',
     'PersonalizationServiceFactory',
     'FilterSearchService',
-    'SRControllerHelperService','serviceUrl','HATEOASFactory',
+    'SRControllerHelperService','serviceUrl','HATEOASFactory','FormatterService',
     function(
         $scope,
         $location,
@@ -14,7 +14,7 @@ angular.module('mps.serviceRequests')
         GridService,
         Personalize,
         FilterSearchService,
-        SRHelper,serviceUrl,HATEOASFactory) {
+        SRHelper,serviceUrl,HATEOASFactory,Formatter) {
     	
     	
     	var Activity = {
@@ -63,7 +63,7 @@ angular.module('mps.serviceRequests')
         	}else{
         		$scope.activityGridOptions.data = [];
         	}
-        	
+        	$scope.activityGridOptions.height = Formatter.getHeightFromdata($scope.activityGridOptions.data); 
         });
     	
         

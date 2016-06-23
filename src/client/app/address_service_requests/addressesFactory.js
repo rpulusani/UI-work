@@ -1,7 +1,8 @@
 
 angular.module('mps.serviceRequestAddresses')
 .factory('Addresses', ['$translate', 'serviceUrl', '$location', '$rootScope', 'FormatterService', 'ServiceRequestService', 'HATEOASFactory',
-    function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory) {
+                       'BlankCheck',
+    function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory,BlankCheck) {
         var Addresses = {
             serviceName: 'addresses',
             embeddedName: 'addresses',
@@ -49,10 +50,16 @@ angular.module('mps.serviceRequestAddresses')
                 $location.path(this.route + '/delete/' + this.item.id + '/review');
             },
             verifyAddress: function(addressObj, fn) {
+            	var postAddressObj = addressObj;
+            	if(BlankCheck.checkNotBlank(postAddressObj.houseNumber)){
+            		postAddressObj = angular.copy(addressObj);
+            		postAddressObj.addressLine1 +=', '+postAddressObj.houseNumber;  
+                }
+            	
                     this.get({
                         method: 'post',
                         url: serviceUrl + 'address-validation',
-                        data: addressObj,
+                        data: postAddressObj,
                         preventDefaultParams: true
                     }).then(function(bodsRes) {
                         return fn(bodsRes.status, bodsRes.data);

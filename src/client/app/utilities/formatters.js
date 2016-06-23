@@ -211,13 +211,13 @@ angular.module('mps.utility')
             	 * the formatted address*/
             	var formattedAddress = '';
             	 if (BlankCheck.checkNotBlank(physicalLocationAddress.physicalLocation1)){
-                     formattedAddress = formattedAddress + physicalLocationAddress.physicalLocation1 + ',';
+                     formattedAddress = formattedAddress +'Building '+ physicalLocationAddress.physicalLocation1 + ', ';
                  }
             	 if (BlankCheck.checkNotBlank(physicalLocationAddress.physicalLocation2)){
-                     formattedAddress = formattedAddress + physicalLocationAddress.physicalLocation2 + ',';
+                     formattedAddress = formattedAddress +'Floor ' +physicalLocationAddress.physicalLocation2 + ', ';
                  }
             	 if (BlankCheck.checkNotBlank(physicalLocationAddress.physicalLocation3)){
-                     formattedAddress = formattedAddress + physicalLocationAddress.physicalLocation3;
+                     formattedAddress = formattedAddress +'Office ' +physicalLocationAddress.physicalLocation3;
                  }
             	return formattedAddress;
             },

@@ -15,7 +15,7 @@
 
 
  		<div ng-if ="activityGridOptions.data.length > 0">
-            <div ui-grid="activityGridOptions" class="table" ng-style="activityGridOptions.getStyle()" ui-grid-auto-resize
+            <div ui-grid="activityGridOptions" class="table" ng-style="{height: activityGridOptions.height}" ui-grid-auto-resize
             ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
             </div>            
         </div>
