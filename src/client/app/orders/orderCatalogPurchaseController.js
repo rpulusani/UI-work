@@ -1021,7 +1021,7 @@ angular.module('mps.orders')
         	
         	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 
         			&& taxService.getRelationship('billToAddress',taxService.item) !== undefined){
-        		var i = 0,hasShipBill = false,itemNumber;
+        		var i = 0,j = 0,hasShipBill = false,itemNumber;
             	for(;i<Orders.tempSpace.catalogCart.billingModels.length;i++){
             		if(Orders.tempSpace.catalogCart.billingModels[i] === 'SHIP_AND_BILL'){
             			hasShipBill = true;
@@ -1036,7 +1036,7 @@ angular.module('mps.orders')
                 	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.agreement.salesOrganization);
                 	taxService.addField('billingModel', 'SHIP_AND_BILL');
                 	var taxItems = [];
-                	for(var i = 0; i < OrderItems.data.length; ++i){
+                	for(i = 0; i < OrderItems.data.length; ++i){
                         var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
                         
                         if (lineTotal !== 0){
@@ -1055,12 +1055,22 @@ angular.module('mps.orders')
                 	$scope.calculatingTax = true;
                     taxService.post(taxService).then(function(response){
                     	$scope.calculatingTax = false;
-                    	var total = 0.0;
-                    	for(i=0;i<response.data.orderItems.length;i++){
-                    		total += response.data.orderItems[i].tax;
+                    	var total = 0.0,taxAmount = null;
+                    	if(response.data.orderItems){
+                    		
+                        	for(i=0;i<response.data.orderItems.length;i++){
+                        		for(j=0;j<OrderItems.data.length;j++){
+                        			if(OrderItems.data[j].itemNumber === response.data.orderItems[i].itemNumber){
+                        				OrderItems.data[j].tax = response.data.orderItems[i].tax;
+                        				break;
+                        			}
+                        		}
+                        		total += response.data.orderItems[i].tax;
+                        	}
+                        	taxAmount = total;
+                        	OrderItems.taxAmount = taxAmount;
                     	}
-                    	taxAmount = total;
-                    	OrderItems.taxAmount = taxAmount;
+                    	
                     	$scope.$broadcast('TaxDataAvaialable', {'tax':taxAmount});
                     	taxService.newMessage();
                     	
