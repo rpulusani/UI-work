@@ -21,9 +21,9 @@
     </div>
 </div>
 <div ng-show="address.storeFrontQuestion === true" class="well">
-    <div class="form__field" >
+    <div class="form__field form__field--required" >
         <label translate="ADDRESS.STORE_NAME"></label>
-        <input name="storeFrontName" type="text" ng-model="address.storeFrontName" value="" class="" />
+        <input name="storeFrontName" type="text" ng-model="address.storeFrontName" value="" class="" ng-required="address.storeFrontQuestion"/>
     </div>
     <div class="form__field ">
         <input id ="sameAddress" name="sameAddress" type="checkbox" ng-model="storeFrontNameCheck"
