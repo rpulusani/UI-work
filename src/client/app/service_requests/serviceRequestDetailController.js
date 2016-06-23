@@ -681,11 +681,17 @@ angular.module('mps.serviceRequests')
                 };
         }
         function addDeviceOrderInfo(){
+        	var tax = calculateTax();
+        	$scope.taxable = tax === 0? false:true;
             $timeout(function(){
                 OrderItems.columns = 'pruchaseSet';
                     $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': $scope.sr.item.orderItems // send whatever you want
                     });
+                    if($scope.taxable){
+                    	$scope.$broadcast('TaxDataAvaialable', {'tax':tax});
+                    }
+                    
             }, 2000);
             $scope.configure.header.translate.h1 = "ORDER_MAN.COMMON.TXT_ORDER_NUMBER";
             $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
@@ -758,12 +764,15 @@ angular.module('mps.serviceRequests')
         }
 
         function addSupplyOrderInfo(){
-
+        	var tax = calculateTax();
+        	$scope.taxable = tax === 0 ? false : true;
             $timeout(function(){
                 OrderItems.columns = 'pruchaseSet';
                     $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': $scope.sr.item.orderItems // send whatever you want
                     });
+                    if($scope.taxable)
+                    	$scope.$broadcast('TaxDataAvaialable', {'tax':tax});
             }, 2000);
              $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES";
              $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
@@ -1190,7 +1199,15 @@ angular.module('mps.serviceRequests')
     			shipments : true
         }
     }
-    
+    function calculateTax(){
+    	
+    	var i = 0,tax=0;
+    	for(;i<$scope.sr.item.orderItems.length;i++){
+    		tax +=$scope.sr.item.orderItems[i].taxAmount;
+    	}
+    	
+    	return tax;
+    }
     setCsvDefinition();
 
 }]);
