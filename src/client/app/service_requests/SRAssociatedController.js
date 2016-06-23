@@ -6,7 +6,7 @@ angular.module('mps.serviceRequests')
     'grid',
     'PersonalizationServiceFactory',
     'FilterSearchService',
-    'Addresses','SRControllerHelperService','serviceUrl','HATEOASFactory','ServiceRequestService',
+    'Addresses','SRControllerHelperService','serviceUrl','HATEOASFactory','ServiceRequestService','OrderRequest','Devices',
     function(
         $scope,
         $location,
@@ -14,7 +14,7 @@ angular.module('mps.serviceRequests')
         GridService,
         Personalize,
         FilterSearchService,
-        Addresses,SRHelper,serviceUrl,HATEOASFactory,ServiceRequest) {
+        Addresses,SRHelper,serviceUrl,HATEOASFactory,ServiceRequest,Orders,Devices) {
     	
     	 var AssociateRequest = {
         		 serviceName: 'associatedRequestDetails',
@@ -66,6 +66,7 @@ angular.module('mps.serviceRequests')
         	$scope.gridLoading = false;
         	if($scope.associateRequests.item._embedded && $scope.associateRequests.item._embedded.associatedServiceRequests){
         		$scope.associateRequests.data = $scope.associateRequests.item._embedded.associatedServiceRequests;
+        		processData();
         		console.log($scope.associateRequests.data );
         	}else {
         		$scope.associateRequests.data = [];        		
@@ -75,7 +76,7 @@ angular.module('mps.serviceRequests')
        });
        
         
-      $scope.view = function (srId){
+      $scope.view = function (SR){
     	  ServiceRequest.setItem(SR);
           var options = {
               params:{
@@ -83,10 +84,24 @@ angular.module('mps.serviceRequests')
               }
           };
           ServiceRequest.item.get(options).then(function(){
-              $location.path(ServiceRequest.route + '/' + SR.id + '/receipt');
+        	  var getItem = angular.copy(ServiceRequest.item.item);
+        	  ServiceRequest.item = getItem;
+        	  ServiceRequest.item.item = getItem;
+              $location.path(Orders.route + '/' + SR.requestId + '/receipt'); 
               $location.search('tab','srDetailsActivitiesTab');
           });
       }  
+      
+      function processData(){
+    	  var i=0;
+    	  for(;i<$scope.associateRequests.data.length;i++){
+    		  $scope.associateRequests.data[i]._links = {
+    				  self: {
+    					  href: serviceUrl+'orders/'+$scope.associateRequests.data[i].requestId
+    				  }
+    		  }
+    	  }
+      }
      }
 ]);
 
