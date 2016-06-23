@@ -6,20 +6,21 @@
                 </div>
         </div>
 
-        <div class="alert alert--info" ng-if="gridLoading === false && shipments.length === 0">
+        <div class="alert alert--info" ng-if="gridLoading === false && (shipments.length === 0 || hasData === false)">
             <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
                 <div class="alert__body">
                      <span translate="GRID.EMPTY"></span>
                 </div>
         </div> 
  
- <div class="row groupingTable" ng-if="shipments.length > 0" ng-repeat = "shipment in shipments">
-	<div class="firstCol col-1-8 floatL">
-		<span>Shipment</span><br/>
-		<span><b>{{$index+1}}</b></span><br/>
-		<span>{{shipment.status}}</span>
-	</div>
-	<div class="secondCol col-7-8 floatL">
+ <div class="row groupingTable" ng-if="shipments.length > 0 && hasData" ng-repeat = "shipment in shipments">
+ 	<div ng-if = "shipment.shipmentParts.length > 0">
+ 		<div class="firstCol col-1-8 floatL">
+			<span>Shipment</span><br/>
+			<span><b>{{$index+1}}</b></span><br/>
+			<span>{{shipment.status}}</span>
+		</div>
+		<div class="secondCol col-7-8 floatL">
 			
 		<h4 class="vertical-space--none">
 			Delivered {{shipment.deliveryDate}} via {{shipment.carrier}} | 
@@ -68,7 +69,6 @@
 		
 
 
-	</div>
-	
-	
+		</div>
+ 	</div>	
 </div> 

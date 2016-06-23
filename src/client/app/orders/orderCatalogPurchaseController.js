@@ -1060,7 +1060,10 @@ angular.module('mps.orders')
                     		
                         	for(i=0;i<response.data.orderItems.length;i++){
                         		for(j=0;j<OrderItems.data.length;j++){
-                        			if(OrderItems.data[j].itemNumber === response.data.orderItems[i].itemNumber){
+                        			if($scope.type === 'HARDWARE' && OrderItems.data[j].childItems){
+                        				itemNumber = OrderItems.data[j].childItems[0].displayItemNumber; 
+                        			}
+                        			if(itemNumber === response.data.orderItems[i].itemNumber){
                         				OrderItems.data[j].tax = response.data.orderItems[i].tax;
                         				break;
                         			}
