@@ -39,7 +39,7 @@ angular.module('mps.serviceRequestDevices')
         SecurityHelper){
 
          if(Devices.item === null){       
-            $location.path('/service_requests');
+            $location.path('/device_management');
         }
 
         $scope.isLoading = false;
