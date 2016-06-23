@@ -40,7 +40,6 @@ angular.module('mps.serviceRequestDevices')
         tombstoneWaitTimeout,
         SecurityHelper) {
         
-        $scope.contactAddOrChange = typeof $rootScope.selectedContact;
         if(Devices.item === null){       
             $location.path('/device_management');
         }
@@ -332,7 +331,7 @@ angular.module('mps.serviceRequestDevices')
                     }
                 };
 
-                if($scope.contactAddOrChange === 'undefined'){
+                if($scope.device.deviceContact === undefined){
                     $scope.configure.device.contact.translate.changeContactLink = 'ADDRESS.CONTACT_ADD';
                 }
             }
@@ -342,7 +341,7 @@ angular.module('mps.serviceRequestDevices')
             $scope.goToReview = function() {
                 $rootScope.newDevice = $scope.device;
                 $location.path(DeviceServiceRequest.route + '/add/review');
-                            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
+                $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
             };
 
             $scope.setModels = function() {

@@ -182,7 +182,10 @@ angular.module('mps.orders')
                             'displayItemNumber': orderItem[i].displayItemNumber,
                              'quantity': orderItem[i].quantity,
                              'price': orderItem[i].price,
-                             'type': orderItem[i].type
+                             'type': orderItem[i].type,
+                             'totalLinePrice' : orderItem[i].totalLinePrice,
+                             'taxAmount' : orderItem[i].tax === undefined ? 0.0:orderItem[i].tax
+                             
                         };
                         arrayResult.push(item);
                     }

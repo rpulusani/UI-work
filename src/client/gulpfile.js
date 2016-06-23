@@ -18,8 +18,8 @@ gulp.task('scripts', ['libs'], function(){
   return gulp.src(['app/**/module.js','app/**/*.js', 'app.js'])
     .pipe(jshint())
     .pipe(concat('mps.app.js'))
-    //.pipe(minify())
-    .pipe(wrap('define([\'mps.app\',\'lxk.fef\'], function() {<%= contents %>});'))
+    .pipe(minify({mangle: false}))
+    .pipe(wrap('define([\'mps.libs\',\'lxk.fef\'], function() {<%= contents %>});'))
     .pipe(gulp.dest('dist/build'));
 });
 
@@ -49,7 +49,8 @@ gulp.task('libs', function() {
         'libs/ui-grid/3.0.6/ui-grid.js'
     ])
   .pipe(concat('mps.libs.js'))
-  .pipe(wrap('define(\'mps.libs\', function() {<%= contents %>});'))
+  .pipe(minify({mangle: false}))
+  .pipe(wrap('define(function() {<%= contents %>});'))
   .pipe(gulp.dest('dist/build'));
 });
 

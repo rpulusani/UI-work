@@ -72,6 +72,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter', visible: false},
+                        {'name': $translate.instant('REPORTING.CUSTOMER_PO_NUMBER'), 'field':'customerPONumber', visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         
@@ -146,7 +147,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter'},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_PROB_DESC'), 'field':'description'},
-                        {'name': $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_RESOLUTION'), 'field':''},
+                        {'name': $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_RESOLUTION'), 'field':'problemResolution'},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         

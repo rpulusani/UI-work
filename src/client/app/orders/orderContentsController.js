@@ -180,6 +180,7 @@ angular.module('mps.orders')
             for(var i = 0; i < OrderItems.data.length; ++i){
                 var lineTotal = formatter.itemSubTotal(OrderItems.data[i].price,
                     OrderItems.data[i].quantity);
+                OrderItems.data[i].totalLinePrice = lineTotal;
                 subTotal += lineTotal;
             }
         }

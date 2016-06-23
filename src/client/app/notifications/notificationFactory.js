@@ -12,8 +12,8 @@ angular.module('mps.notifications')
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.DISPLAY_ORDER'), 'field': 'order', visible:false, 'notSearchable': true},
-                        {'name': $translate.instant('PORTAL_ADMIN.START_DATE'), 'field': 'getFormattedStartDate()', 'notSearchable': true},
-                        {'name': $translate.instant('PORTAL_ADMIN.END_DATE'), 'field': 'getFormattedEndDate()', 'notSearchable': true},
+                        {'name': $translate.instant('PORTAL_ADMIN.START_DATE'), 'field': 'getFormattedStartDate()', 'searchOn': 'startDate', 'notSearchable': true},
+                        {'name': $translate.instant('PORTAL_ADMIN.END_DATE'), 'field': 'getFormattedEndDate()', 'searchOn': 'endDate', 'notSearchable': true},
                         {'name': $translate.instant('PORTAL_ADMIN.NAME'), 'field': 'subModule.subModuleName',
                           'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +

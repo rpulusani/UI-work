@@ -291,7 +291,11 @@ angular.module('mps.serviceRequestDevices')
                     $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 }
             }
-                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+            $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+            $scope.configure.device.information.translate.linkMakeChangesTxt = "REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES";
+            
+
+           
             $scope.configure.actions.submit = function(){
               var i = 0,
               deferreds = [];
@@ -460,7 +464,10 @@ angular.module('mps.serviceRequestDevices')
                                 contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
                                 installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
                                 moveAddress: 'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
-                        }
+                                
+                        },
+                        linkMakeChanges: '/service_requests/devices/' + $scope.device.id + '/update'
+                        
                     }
                 },
                 contact: {
