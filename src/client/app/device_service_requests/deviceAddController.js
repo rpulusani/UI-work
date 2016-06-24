@@ -83,6 +83,221 @@ angular.module('mps.serviceRequestDevices')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
+        var generateCsvRows = function() {
+            var rows = [];
+
+            if ($scope.sr && FormatterService.getFormattedSRNumber($scope.sr)) {
+                rows.push(FormatterService.getFormattedSRNumber($scope.sr));
+            } else {
+                rows.push('none');
+            }
+           
+            if ($scope.formattedPrimaryContact) {
+                rows.push($scope.formattedPrimaryContact.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.requestedByContactFormatted) {
+                rows.push($scope.requestedByContactFormatted.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedReferenceId) {
+                rows.push($scope.formattedReferenceId);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedCostCenter) {
+                rows.push($scope.formattedCostCenter);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.formattedNotes) {
+                rows.push($scope.formattedNotes);
+            } else {
+                rows.push('none');
+            }
+
+            var submitDate = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+            rows.push(submitDate.toString());                     
+
+            if ($scope.device.serialNumber) {
+                rows.push($scope.device.serialNumber);
+                
+                if ($scope.device.productModel) {
+                    rows.push($scope.device.productModel);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.ipAddress) {
+                    rows.push($scope.device.ipAddress);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.hostName) {
+                    rows.push($scope.device.hostName);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.chl.name) {
+                    rows.push($scope.device.chl.name);
+                } else {
+                    rows.push('none');
+                }
+
+                if ($scope.device.customerDeviceTag) {
+                    rows.push($scope.device.customerDeviceTag);
+                } else {
+                    rows.push('none');
+                }
+                
+                if ($scope.formattedDeviceAddress) {
+                    rows.push($scope.formattedDeviceAddress.replace(/<br\/>/g, ', '));
+                } else {
+                    rows.push('');
+                }
+
+                if ($scope.formattedDeviceContact) {
+                    rows.push($scope.formattedDeviceContact.replace(/<br\/>/g, ', '));
+                } else {
+                    rows.push('');
+                }
+
+                var meterReadForCsv = groupPageCounts();
+                if (meterReadForCsv.length > 0) {
+                    rows.push(meterReadForCsv);
+                } else {
+                    rows.push('none');
+                }
+            }           
+
+            return rows;
+        },
+        groupPageCounts = function() {            
+            var meterReadStr = "", i=0;
+            if($scope.sr && $scope.sr.meterReads 
+                && $scope.sr.meterReads !== null
+                && $scope.sr.meterReads.length > 0){
+                var meterReadCnt = $scope.sr.meterReads.length;
+                for(;i<meterReadCnt;i++){
+                    meterRead = $scope.sr.meterReads[i];                                        
+                    meterReadStr = meterReadStr + $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PAGE_COUNT_TYPE') + ":" + meterRead.type + ", ";
+                    meterReadStr = meterReadStr + $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PAGE_COUNT_NBR') + ":" + meterRead.value + ", ";
+                    
+                    meterReadDate = "none";
+                    if(meterRead.updateDate && meterRead.updateDate !== null) {
+                        meterReadDate = meterRead.updateDate;
+                    }
+                    else if(meterRead.createDate && meterRead.createDate !== null) {
+                        meterReadDate = meterRead.createDate;
+                    }
+                    meterReadStr = meterReadStr + $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PAGE_COUNT_DATE') + ":" + meterReadDate;
+                    if(i !== (meterReadCnt-1)) {
+                        meterReadStr = meterReadStr + " || ";
+                    }
+                }
+            }
+            return meterReadStr;     
+        };
+        
+        var setCsvDefinition = function() {
+            var headers = [
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_NUMBER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRIMARY_CONTACT'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_BY_CONTACT'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CUSTOMER_REF_NBR'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_COST_CENTER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_COMMENTS'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CREATED_DATE')
+            ],
+            rows = generateCsvRows(),            
+            i = 0;
+            
+            if ($scope.device.serialNumber) {
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_SERIAL_NBR'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRODUCT_NBR'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_IP_ADDRESS'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_HOSTNAME'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CHL'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CUSTOMER_DEVICE_TAG'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_INSTALL_ADDRESS'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_DEVICE_CONTACT'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PAGE_COUNTS'));
+            }           
+
+            var pdfHeaders1 = [],
+            pdfRows1 = [],
+            pdfHeaders2 = [],
+            pdfRows2 = [];
+            var pdfFirstHeaderColumnsCnt = 8;
+            var totalColumnsCnt = headers.length;
+            if(totalColumnsCnt <= pdfFirstHeaderColumnsCnt) {
+                pdfFirstHeaderColumnsCnt = totalColumnsCnt;
+            }            
+
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: headers[i], fontSize: 8});               
+            }
+
+            i = 0;
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});               
+            }
+
+            if(totalColumnsCnt > pdfFirstHeaderColumnsCnt) {
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfHeaders2.push({text: headers[i], fontSize: 8});                   
+                }
+
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfRows2.push({text: rows[i], fontSize: 8});                   
+                }
+            }
+            
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                },
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders2,
+                      pdfRows2
+                    ]
+                  }
+                }
+              ]
+            };
+            
+            $scope.csvFileName = "download";
+
+            if ($scope.sr && FormatterService.getFormattedSRNumber($scope.sr)) {
+                $scope.csvFileName = FormatterService.getFormattedSRNumber($scope.sr);
+            }     
+            $scope.csvModel = {
+                filename: $scope.csvFileName + '.csv',
+                headers: headers,
+                // rows are just property names found on the dataObj
+                rows: rows
+            };
+        };
 
         function getSRNumber(existingUrl) {
             $timeout(function(){
@@ -536,6 +751,7 @@ angular.module('mps.serviceRequestDevices')
             };
 
             $scope.formatReceiptData(formatAdditionalData);
+            setCsvDefinition();
         }
     }
 ]);
