@@ -287,4 +287,16 @@ angular.module('mps.utility')
      return function (scope, element, attrs) {
         element.height($('.site-content').height() - $('footer').outerHeight());
     }
+})
+.directive('backToTop',function(){
+     return{
+        restrict: 'A',
+        link: function(scope, elem, attrs) {
+            elem.bind('click', function() {
+                window.scroll(0,0);
+                var $ = require('jquery');
+                $('.site-content').scrollTop(0);
+            });
+        }
+     }
 });
