@@ -1121,7 +1121,7 @@ angular.module('mps.serviceRequests')
         !BlankCheck.isNull($scope.sr.requester.item)){
         $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
     }
-    if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item) 
+    /*if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item) 
     		&& !BlankCheck.isNull($scope.sr.billToAddress.item.addressLine1)){
     	 	$scope.scratchSpace = {
     	 			billToAddresssSelected : true	
@@ -1129,7 +1129,7 @@ angular.module('mps.serviceRequests')
             $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
     }else {
             $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
-    }
+    }*/
 
     /*if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
             $scope.formatedShipToAddress = FormatterService.formatAddress($scope.sr.shipToAddress.item);
