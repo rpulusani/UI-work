@@ -43,6 +43,10 @@ angular.module('mps.serviceRequestDevices')
         $q,
         Country
         ){
+		
+        if(Devices.item === null){       
+            $location.path('/device_management');
+        }
 
         $scope.isLoading = false;
         $scope.multiple = {};
