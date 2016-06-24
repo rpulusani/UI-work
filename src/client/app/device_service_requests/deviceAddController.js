@@ -146,7 +146,7 @@ angular.module('mps.serviceRequestDevices')
                     rows.push('none');
                 }
 
-                if ($scope.device.chl.name) {
+                if ($scope.device.chl && $scope.device.chl.name) {
                     rows.push($scope.device.chl.name);
                 } else {
                     rows.push('none');
