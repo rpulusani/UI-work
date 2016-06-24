@@ -7,6 +7,131 @@ angular.module('mps.user')
     function($scope, $location, $translate, $routeParams, $rootScope, UrlHelper, User, Account, Roles, $q, UserAdminstration,
         LexmarkUser, AllAccounts, FormatterService, BlankCheck, $route) {
 
+        $scope.headers = [
+            $translate.instant('USER_MAN.COMMON.TXT_FIRST_NAME'),
+            $translate.instant('USER_MAN.COMMON.TXT_LAST_NAME'),
+            $translate.instant('USER_MAN.COMMON.TXT_EMAIL_ADDRESS'),
+            $translate.instant('USER_MAN.COMMON.TXT_PHONE_NUMBER'),
+            $translate.instant('USER_MAN.COMMON.TXT_USER_ADDRESS'),
+            $translate.instant('USER_MAN.MANAGE_LXK_USERS.CHK_PORTAL_ACCESS_ENABLED'),
+            $translate.instant('USER_MAN.COMMON.TXT_USER_ACCOUNTS'),
+            $translate.instant('USER_MAN.COMMON.TXT_BASE_ROLE'),
+            $translate.instant('USER_MAN.COMMON.TXT_ADDITIONAL_PERMISSIONS'),
+            $translate.instant('USER_MAN.COMMON.TXT_PERMISSION_DETAILS')
+        ];
+
+        function generateCsvRows() {
+            var rows = [];
+
+            if ($scope.user.firstName) {
+                rows.push($scope.user.firstName);
+            } else {
+                rows.push('none');
+            }
+            if ($scope.user.lastName) {
+                rows.push($scope.user.lastName);
+            } else {
+                rows.push('none');
+            }
+            if ($scope.user.email) {
+                rows.push($scope.user.email);
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.user.workPhone) {
+                rows.push($scope.user.workPhone);
+            } else {
+                rows.push('none');
+            }
+           
+            if ($scope.formattedUserAddress) {
+                rows.push($scope.formattedUserAddress.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.userActive) {
+                rows.push('YES');
+            } else {
+                rows.push('NO');
+            }
+
+            if ($scope.csvAcntArr && $scope.csvAcntArr.length > 0) {
+                rows.push($scope.csvAcntArr.join());              
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.basicRoleCsvStr) {
+                rows.push($scope.basicRoleCsvStr);
+            } else {
+                rows.push('none');
+            }            
+
+            if ($scope.csvAddOnRolesArr && $scope.csvAddOnRolesArr.length > 0) {
+                rows.push($scope.csvAddOnRolesArr.join());
+            } else {
+                rows.push('none');
+            }
+
+            if ($scope.csvPermissionsArr && $scope.csvPermissionsArr.length > 0) {
+                rows.push($scope.csvPermissionsArr.join());
+            } else {
+                rows.push('none');
+            }
+            return rows;
+        }
+
+        function setCsvDefinition() {
+            var rows = generateCsvRows(),
+            i = 0;
+
+            var csvFileName = "download";
+            if($scope.user.email && $scope.user.email !== null) {
+                csvFileName = $scope.user.email;
+            }
+            $scope.csvModel = {
+                filename: csvFileName + '.csv',
+                headers: $scope.headers,
+                // rows are just property names found on the dataObj
+                rows: rows
+            };
+
+            var pdfHeaders1 = [],
+            pdfRows1 = [];
+            
+            var pdfFirstHeaderColumnsCnt = 11;
+            var totalColumnsCnt = $scope.headers.length;
+            if(totalColumnsCnt <= pdfFirstHeaderColumnsCnt) {
+                pdfFirstHeaderColumnsCnt = totalColumnsCnt;
+            }            
+
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: $scope.headers[i], fontSize: 8});
+            }
+
+            i = 0;
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});
+            }
+
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                }
+
+              ]
+            };
+        }
+
         $scope.showUserUpdatedMessage = false;        
         
         $scope.templateUrl = UrlHelper.user_template;
@@ -24,8 +149,7 @@ angular.module('mps.user')
                 embed:'roles,accounts'
             }
         };
-
-        $scope.csvModel = {};
+       
         UserAdminstration.item.get(options).then(function(response){
             if (response.status === 200) {
                 $scope.isNewUser = false;
@@ -39,6 +163,7 @@ angular.module('mps.user')
             $scope.user.selectedRoleList = [];
             $scope.userActive = false;
             $scope.showAllAccounts = true;
+            $scope.csvAcntArr = [];
 
             if ($scope.user.active === true) {
                 $scope.userActive = true;
@@ -64,6 +189,7 @@ angular.module('mps.user')
                     if ($scope.accounts.length > 0) {
                         for (var i=0;i<$scope.accounts.length;i++) {
                             $scope.accounts[i].name = $scope.accounts[i].name + ' [' + $scope.accounts[i].accountId +']';
+                            $scope.csvAcntArr[i]=$scope.accounts[i].name;
                             if ($scope.accounts[i].country) {
                                 $scope.accounts[i].name  = $scope.accounts[i].name + ' [' + $scope.accounts[i].country +']';
                             }
@@ -79,26 +205,11 @@ angular.module('mps.user')
                             }
                         }
                     }
+                    setCsvDefinition();
                 }
             }
 
-            $scope.setCsvDefinition = function() {
-                var generateDataObj = function() {
-                     var obj = {
-                        shortName: $scope.user.shortName,
-                        email: $scope.user.email,
-                        firstName: $scope.user.firstName,
-                        lastName: $scope.user.lastName
-                    };
-                    return obj;
-                };
-
-                $scope.csvModel = {
-                    filename: $scope.user.email + '.csv',
-                    data: generateDataObj()
-                };
-            };
-            $scope.setCsvDefinition();
+            
 
             User.getLoggedInUserInfo().then(function() {
                 if (User.item._links.accounts) {
@@ -148,6 +259,8 @@ angular.module('mps.user')
             });
 
             $scope.user.addonRoles = [];
+            $scope.csvAddOnRolesArr = [];
+            $scope.csvPermissionsArr = [];
             var removeParams,
             addonRoleOptions = {
                 'params': {
@@ -171,21 +284,26 @@ angular.module('mps.user')
                         for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
                             if ($scope.user.selectedRoleList[i].roleId === tempRole.roleId) {
                                 $scope.basicRole = tempRole.roleId;
+                                $scope.basicRoleCsvStr = $scope.user.selectedRoleList[i].description;
                                 $scope.setPermissionsForBasic(tempRole.roleId);
                             }
                         }
+                        setCsvDefinition();
                     }
                 }
                 Roles.get(addonRoleOptions).then(function() {
                     if(Roles.data) {
                         var roleList = Roles.data;
+                        var ind = 0;
                         for (var j=0; j<roleList.length; j++) {
                             var role = roleList[j];
                             if($scope.user.addonRoles.length < roleList.length) {
                                 role.selected = false;
                                 if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.length > 0) {
                                     for (var i=0;i<$scope.user.selectedRoleList.length;i++) {
+
                                         if ($scope.user.selectedRoleList[i].roleId === role.roleId) {
+                                            $scope.csvAddOnRolesArr[ind] = $scope.user.selectedRoleList[i].description;
                                             Roles.setItem(role);
                                             role.selected = true;
                                             var options = {
@@ -195,12 +313,15 @@ angular.module('mps.user')
                                             };
                                             var permissionPromise = Roles.item.get(options);
                                             permissionPromiseList.push(permissionPromise);
+                                            ind++;
                                         }
                                     }
                                 }
                                 $scope.user.addonRoles.push(role);
                             }
                         }
+                        setCsvDefinition();
+                        
                         $q.all(permissionPromiseList).then(function(response) {
                             for (var i=0;i<permissionPromiseList.length;i++) {
                                 if (response[i] && response[i].data && response[i].data.permissions) {
@@ -211,6 +332,8 @@ angular.module('mps.user')
                                     }
                                 }
                             }
+                            $scope.csvPermissionsArr = $scope.user.permissions;
+                            setCsvDefinition();
                         });
                     }
                 });
@@ -266,6 +389,7 @@ angular.module('mps.user')
 
             Roles.item.get(options).then(function(){
                 if (Roles.item && Roles.item.permissions) {
+
                     for (var i=0; i<Roles.item.permissions.length; i++) {
                         if (role.selected && $scope.user.permissions.indexOf(Roles.item.permissions[i]) === -1) {
                             $scope.user.permissions.push(Roles.item.permissions[i]);
@@ -447,6 +571,7 @@ angular.module('mps.user')
                         $scope.userActive = true;
                     }
                     window.scrollTo(0,0);
+                    setCsvDefinition();
                 }
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
@@ -480,6 +605,7 @@ angular.module('mps.user')
                         $scope.userActive = true;
                     }
                     window.scrollTo(0,0);
+                    setCsvDefinition();
                 }
             }, function(reason){
                 NREUM.noticeError('Failed to create SR because: ' + reason);
@@ -513,7 +639,8 @@ angular.module('mps.user')
             deferred.then(function(result){
                 $scope.showUserUpdatedMessage = true;
                 $scope.userActive = false;
-                window.scrollTo(0,0);              
+                window.scrollTo(0,0);
+                setCsvDefinition();              
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
             });
@@ -545,6 +672,8 @@ angular.module('mps.user')
             $scope.user_info_active = false;
             $scope.account_access_active = true;
         };
+
+       setCsvDefinition();
     }
 ]);
 
