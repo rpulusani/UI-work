@@ -714,14 +714,10 @@ angular.module('mps.serviceRequests')
 
 
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
-                    $scope.configure.header.translate.body = "ORDER_CATALOGS.RECEIPT.TXT_PARA";
+                    
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
-                    $scope.configure.header.translate.bodyValues= {
-                        'order': FormatterService.getFormattedSRNumber($scope.sr),
-                        'srHours': 24,
-                        'deviceManagementUrl': 'orders/',
-                    };
+                   
                     $scope.configure.receipt = {
                         translate:{
                             title:"ORDER_MAN.COMMON.TXT_ORDER_NUMBER_SUBMITTED_HEADER",
@@ -791,20 +787,11 @@ angular.module('mps.serviceRequests')
             };
          
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
-                    if($scope.sr.status === 'CANCELLED'){
-                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_CANCELLED_PAR";
-                    }else{
-                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
-                    }
-                    
+                                       
                     
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
-                    $scope.configure.header.translate.bodyValues= {
-                        'order': FormatterService.getFormattedSRNumber($scope.sr),
-                        'srHours': 24,
-                        'deviceManagementUrl': 'device_management/',
-                    };
+                    
                     $scope.configure.receipt = {
                         translate:{
                             title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
@@ -887,8 +874,7 @@ angular.module('mps.serviceRequests')
             $scope.configure.header.translate.h1Values = {
                 'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
             };
-                $scope.configure.header.translate.body = 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS_PAR';
-            $scope.configure.header.translate.bodyValues= {};
+                
             $scope.configure.receipt = {
                 translate:{
                     title:'REQUEST_MAN.MANAGE_REQUESTS.TXT_DEVICE_SERVICE_REQUEST_DETAILS',
