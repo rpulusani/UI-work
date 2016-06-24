@@ -504,7 +504,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.formatAdditionalData();
                 $scope.resetContactPicker();
-            }else if(Addresses.item){
+            }else if(Addresses.item && !angular.equals({}, Addresses.item)){
                 $scope.address = Addresses.item;
                 $scope.getRequestor(ServiceRequest, Contacts);
             }else{
