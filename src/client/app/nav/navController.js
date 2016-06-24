@@ -111,6 +111,7 @@
 
             $scope.acctSelected = true;
 
+            $rootScope.$emit('toggleAccountNav');
             HATEAOSConfig.getCurrentAccount().then(function() {
                 var i = 0,
                 accts = Users.item.transactionalAccount.data;
