@@ -706,7 +706,7 @@ angular.module('mps.orders')
                             Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                        }
                        Orders.addField('attachments', $scope.files_complete);
-                       Orders.addField('orderItems', OrderItems.buildGroupedSrArray(partsGroupedByBiling[billingModel]));
+                       Orders.addField('orderItems', OrderItems.buildGroupedSrArray(partsGroupedByBiling[billingModel],Orders.tempSpace.catalogCart.catalog));
                         
 
                        deffereds.push(Orders.post({
