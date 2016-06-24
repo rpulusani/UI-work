@@ -43,6 +43,9 @@ angular.module('mps.orders')
         tombstoneWaitTimeout,
         ServiceReqeust,
         OrderControllerHelper) {
+        if (Orders.item === null){
+            $location.path(Orders.route).search({tab:'orderAllTab'});
+        }
 
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);

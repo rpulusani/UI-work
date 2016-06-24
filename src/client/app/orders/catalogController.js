@@ -53,6 +53,9 @@ angular.module('mps.orders')
         OrderControllerHelper,
         AccessoriesCatalogFactory,
         PartsInfo) {
+        if (Orders.item === null){
+            $location.path(Orders.route).search({tab:'orderAllTab'});
+        }
             $scope.showDeviceSelectionErrorMessage = false;
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
