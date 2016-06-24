@@ -174,11 +174,11 @@ angular.module('mps.orders')
                     }
                     return partsBilling;
                 },
-                buildGroupedSrArray: function(orderItem){
+                buildGroupedSrArray: function(orderItem,catalog){
                     var arrayResult = [];
                     for(var i = 0; i < orderItem.length; ++i){
                         var item = {
-                            'itemNumber': orderItem[i].itemNumber,
+                            'itemNumber': catalog === 'accessories'? orderItem[i].displayItemNumber:orderItem[i].itemNumber,
                             'displayItemNumber': orderItem[i].displayItemNumber,
                              'quantity': orderItem[i].quantity,
                              'price': orderItem[i].price,

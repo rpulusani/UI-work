@@ -37,6 +37,9 @@ angular.module('mps.serviceRequestDevices')
         $timeout,
         tombstoneWaitTimeout,
         SecurityHelper) {
+        if(Devices.item === null){       
+            $location.path('/device_management');
+        }
         $scope.isUpdateRequestContact = ($rootScope.currentSelected === 'updateRequestContact') ? true : false;
         $scope.isLoading = false;
         $scope.srType = 'decommission';

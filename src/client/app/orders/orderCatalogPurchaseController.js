@@ -53,6 +53,9 @@ angular.module('mps.orders')
         $window,
         $q,
         HATEAOSConfig) {
+        if (Orders.item === null){
+            $location.path(Orders.route).search({tab:'orderAllTab'});
+        }
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Orders, $scope, $rootScope);
         OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
@@ -703,7 +706,7 @@ angular.module('mps.orders')
                             Orders.item.requestedDeliveryDate = FormatterService.formatDateForPost(Orders.item.requestedDeliveryDate);
                        }
                        Orders.addField('attachments', $scope.files_complete);
-                       Orders.addField('orderItems', OrderItems.buildGroupedSrArray(partsGroupedByBiling[billingModel]));
+                       Orders.addField('orderItems', OrderItems.buildGroupedSrArray(partsGroupedByBiling[billingModel],Orders.tempSpace.catalogCart.catalog));
                         
 
                        deffereds.push(Orders.post({
