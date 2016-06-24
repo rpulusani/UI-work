@@ -162,7 +162,7 @@ angular.module('mps.serviceRequests')
         };
 
         if(ServiceRequest.item === null){
-            $scope.redirectToList();
+            $location.path('/service_requests').search('tab','serviceRequestsAllTab');
         }else if($rootScope.selectedContact && $rootScope.returnPickerObject && $rootScope.selectionId === ServiceRequest.item.id){
             $scope.sr = $rootScope.returnPickerSRObject;
             ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
