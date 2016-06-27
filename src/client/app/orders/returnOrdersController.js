@@ -82,7 +82,7 @@ angular.module('mps.orders')
                 $scope.configure.actions.submit = function(){
                     if(!$scope.isLoading){
                        $scope.isLoading = true;
-
+                       Orders.addField('attachments', $scope.files_complete);
                        var deferred = Orders.post({
                              item:  $scope.order
                         });
