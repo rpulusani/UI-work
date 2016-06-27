@@ -52,7 +52,7 @@ angular.module('mps.serviceRequests')
     	$scope.shipments = [];
     	
     	function updateShipments(){
-    		var cancelledIndex = -1;
+    		var cancelledIndex = -1,requestedQty = 0,fulfilledQty = 0;
     		$scope.cancelledItems = [];
     		$scope.pending = {
     				total : 0,
@@ -76,14 +76,17 @@ angular.module('mps.serviceRequests')
         			}
         		}*/
         		for(var j = 0;j<$scope.shipments[i].shipmentParts.length ; j++){
-        			$scope.pending.total += ($scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity);
-        			$scope.pending.pendCount = $scope.pending.total - ($scope.shipments[i].shipmentParts[j].quantity === null ? 0 :$scope.shipments[i].shipmentParts[j].quantity);
+        			requestedQty = $scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity;
+        			fulfilledQty = $scope.shipments[i].shipmentParts[j].quantity === null ? 0 :$scope.shipments[i].shipmentParts[j].quantity;
+        			$scope.pending.total += requestedQty;
+        			$scope.pending.pendCount += (requestedQty - fulfilledQty);
         		}
         		
         	}
     		if(cancelledIndex !== -1){    			
     			$scope.cancelledItems.push($scope.shipments[cancelledIndex]);
-    			$scope.shipments.splice(i,1);    			
+    			$scope.shipments.splice(cancelledIndex,1);  
+    			
     		}
     		
     	}
