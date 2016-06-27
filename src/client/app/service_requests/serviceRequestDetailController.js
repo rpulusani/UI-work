@@ -786,7 +786,7 @@ angular.module('mps.serviceRequests')
                 }
             };
          
-                    $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
+                    $scope.configure.header.translate.h1Values = {'srNumber': "<span>" + FormatterService.getFormattedSRNumber($scope.sr) + "</span>"};
                                        
                     
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
@@ -872,7 +872,7 @@ angular.module('mps.serviceRequests')
         function configureReceiptTemplate(){
             $scope.configure.header.translate.h1 = 'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_REQUEST_NUMBER';
             $scope.configure.header.translate.h1Values = {
-                'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                'srNumber': '<span>' + FormatterService.getFormattedSRNumber($scope.sr) + '</span>'
             };
                 
             $scope.configure.receipt = {
