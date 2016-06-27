@@ -72,6 +72,13 @@
 
 <hr/>
 
+ <div class="row l-pad-top l-pad-bottom">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
+        </div>
+       
+</div>
+
 <div ng-if="pagination.totalItems() > 0">
     <div ui-grid="gridOptions" class="table"
         ng-style="gridOptions.getStyle()" ui-grid-auto-resize
