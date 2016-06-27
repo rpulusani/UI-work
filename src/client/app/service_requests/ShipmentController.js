@@ -7,26 +7,44 @@ angular.module('mps.serviceRequests')
     'BlankCheck',
     'FormatterService',
     '$rootScope',
-    'ShipmentsService',
     '$scope',
     'grid',
     'PersonalizationServiceFactory',
-    'FilterSearchService',
+    'HATEOASFactory',
     function(
         $translate,
         $location,
         BlankCheck,
         FormatterService,
         $rootScope,
-        ShipmentsService,
         $scope,
         GridService,
-        Personalize
+        Personalize,
+        HATEOASFactory
         ) { 
     	
-    	$scope.shipmentGridOptions = ShipmentsService;
+    	var Shipments = {
+       		 serviceName: 'shipmentDetails',
+       		 embeddedName: 'shipments', //get away from embedded name and move to a function to convert url name to javascript name
+               columns: 'defaultSet',
+               hideBookmark: true,
+               columnDefs: {
+                   defaultSet: [
+                       {'name':'Quantity', 'field':'requestedQuantity'},
+                       {'name': 'Part Number', 'field': 'partNumber'},
+                       {'name': 'Part Type', 'field': 'type'},
+                       {'name': 'Description', 'field': 'description'}                        
+                       
+                   ],             
+               
+             }
+       }; 
+
+   
+    	
+    	
+    	$scope.shipmentGridOptions = new HATEOASFactory(Shipments);
         $scope.shipmentGridOptions.data = ($scope.items);
-        console.log($scope.items);
         var Grid = new GridService();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         $scope.shipmentGridOptions.showBookmarkColumn = false;

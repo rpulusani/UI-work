@@ -241,7 +241,6 @@ angular.module('mps.user')
                     $scope.user.noOfInvitation = emailList.length;
                     for (var i=0;i<emailList.length;i++) {
                         UserAdminstration.newMessage();
-                        $scope.user.selectedRoleList = [];
                         $scope.userInfoList[i] = UserAdminstration.item;
                         UserAdminstration.addField('type', 'INVITED');
                         UserAdminstration.addField('invitedStatus', 'INVITED');
@@ -252,7 +251,8 @@ angular.module('mps.user')
 
                         for (var j=0;j<$scope.user.basicRoles.length; j++) {
                             if ($scope.basicRole
-                                && $scope.user.basicRoles[j].description === $scope.basicRole) {
+                                && $scope.user.basicRoles[j].description === $scope.basicRole
+                                && $scope.user.selectedRoleList.indexOf($scope.user.basicRoles[j]) === -1) {
                                 $scope.user.selectedRoleList.push($scope.user.basicRoles[j]);
                             }
                         }

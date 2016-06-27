@@ -6,7 +6,7 @@ angular.module('mps.serviceRequests')
     'grid',
     'PersonalizationServiceFactory',
     'FilterSearchService',
-    'SRControllerHelperService','serviceUrl','HATEOASFactory','FormatterService',
+    'SRControllerHelperService','serviceUrl','HATEOASFactory','FormatterService','BlankCheck',
     function(
         $scope,
         $location,
@@ -14,7 +14,7 @@ angular.module('mps.serviceRequests')
         GridService,
         Personalize,
         FilterSearchService,
-        SRHelper,serviceUrl,HATEOASFactory,Formatter) {
+        SRHelper,serviceUrl,HATEOASFactory,Formatter,BlankCheck) {
     	
     	
     	var Activity = {
@@ -28,13 +28,31 @@ angular.module('mps.serviceRequests')
                         {'name':'Serial Number', 'field':'serialNumber', 'notSearchable': true},
                         {'name': 'Device Type', 'field': 'deviceType', 'notSearchable': true},
                         {'name': 'Activity Number', 'field': 'activityNumber', 'notSearchable': true},
-                        {'name': 'Status Detail', 'field' : 'statusDetail', 'notSearchable': true},
+                        {'name': 'Status Detail', 'field' : 'getStatusDetail()', 'notSearchable': true},
                         {'name': 'Building' , 'field' : 'physicalLocation1', 'notSearchable': true},
                         {'name': 'Floor' , 'field' :'physicalLocation2', 'notSearchable': true},
                         {'name': 'Office' , 'field' : 'physicalLocation3', 'notSearchable': true}                        
                     ]             
                 
-              }
+              },
+              functionArray: [{
+            	  
+                      name: 'getStatusDetail',
+                      functionDef: function(){
+                    	  var value = "";
+                    	  if(BlankCheck.checkNotBlank(this.statusDetail)){
+                    		  if(this.statusDetail.toLowerCase().indexOf('cancelled') === -1 
+                    				  && this.statusDetail.toLowerCase().indexOf('completed') === -1){
+                    			  value = 'In Progress';  
+                    		  }else{
+                    			  value = this.statusDetail;
+                    		  }
+                    	  }
+                    			  
+                    	  return value;
+                      }
+                  
+              }]
        };
     	
     	$scope.activityGridOptions = new HATEOASFactory(Activity);
@@ -59,7 +77,7 @@ angular.module('mps.serviceRequests')
         	
         	$scope.gridLoading = false;
         	if($scope.activityGridOptions.item && $scope.activityGridOptions.item._embedded && $scope.activityGridOptions.item._embedded.serviceActivities){
-        		$scope.activityGridOptions.data = $scope.activityGridOptions.item._embedded.serviceActivities;
+        		$scope.activityGridOptions.data = Grid.getDataWithDataFormatters($scope.activityGridOptions.item._embedded.serviceActivities, $scope.activityGridOptions.functionArray);
         	}else{
         		$scope.activityGridOptions.data = [];
         	}

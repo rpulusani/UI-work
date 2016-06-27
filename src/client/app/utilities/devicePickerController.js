@@ -3,9 +3,9 @@
 angular.module('mps.utility')
 .controller('DevicePickerController', ['$scope', '$location', 'grid', 'Devices',
     'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller', 'imageService',
-    'Contacts',
+    'Contacts','$q','$timeout',
     function($scope, $location, GridService, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
-        Personalize, $controller, ImageService, Contacts) {
+        Personalize, $controller, ImageService, Contacts,$q,$timeout) {
         $rootScope.deviceToRegisterInPicker = angular.copy(Devices.item);
         $scope.selectedDevice = undefined;
         $rootScope.currentSelectedRow = undefined;
@@ -79,7 +79,7 @@ angular.module('mps.utility')
                 Devices.setItem(selectedDevice);
                 var options = {
                     params:{
-                        embed:'contact,address'
+                        embed:'contact,address,account'
                     }
                 };
                 Devices.item.get(options).then(function(){
@@ -121,6 +121,32 @@ angular.module('mps.utility')
                 embed:'address,contact,account'
             }
         };
+        
+        
+
+        var visibleDefered = $q.defer();
+        $scope.visibleColumns = visibleDefered.promise;
+        $timeout(function(){
+            visibleDefered.resolve(Grid.getVisibleColumns(Devices));
+        }, 500);
+        $scope.optionParams = {};
+        $scope.searchFunctionDef = function(params, removeParamsList){
+        	
+        	params['embed'] = 'address,contact,account';
+        	
+        	options = {
+        			params:params
+        	};
+        	Devices.params = {};
+        	Devices.getPage(0, 20, options).then(function() {
+                $scope.itemCount = Devices.data.length;
+                Grid.display(Devices, $scope, personal);
+                if(Devices.item.serialNumber === undefined){
+                    $rootScope.devicesNotFoundInPicker = true;
+                }
+            });
+        };
+        
         if ($rootScope.returnPickerObjectDevice && $rootScope.returnPickerObjectDevice.selectedDevice) {
             $scope.prevDevice = $rootScope.returnPickerObjectDevice;
             if ($scope.prevDevice.selectedDevice.partNumber) {

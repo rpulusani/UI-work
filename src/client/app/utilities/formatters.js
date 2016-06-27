@@ -1,8 +1,8 @@
 
 
 angular.module('mps.utility')
-.factory('FormatterService', [ '$translate', 'BlankCheck','$filter',
-    function($translate, BlankCheck, $filter) {
+.factory('FormatterService', [ '$translate', 'BlankCheck','$filter', '$window',
+    function($translate, BlankCheck, $filter, $window) {
         return{
             formatPercentage: function(incommingValue){
                 var percentage;
@@ -253,6 +253,26 @@ angular.module('mps.utility')
                 var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
                 return $filter('date')(d, 'MM/dd/yyyy');
             },
+            detectBrowser: function() {
+                var userAgent = $window.navigator.userAgent;
+
+                var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer|trident\//i};
+
+                for (var key in browsers) {
+                  if (browsers[key].test(userAgent)) {
+                    return key;
+                  }
+                }
+                return 'unknown';
+            },            
+            formatLocalDateForPost: function(dateToBeFormatted){
+                    if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                        return '';
+                    }
+                    var localDate = new Date(dateToBeFormatted);
+                    var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
+                return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
+            },
             formatDateForPost: function(dateToBeFormatted){
                     if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
                         return '';
@@ -260,6 +280,27 @@ angular.module('mps.utility')
                     var localDate = new Date(dateToBeFormatted.replace(/\s/, 'T'));
                     var d = new Date(localDate.getTime() + localDate.getTimezoneOffset()*60*1000);
                 return $filter('date')(d, 'yyyy-MM-ddTHH:mm:ss');
+            },
+            formatDatePostForBrowsers: function(dateToBeFormatted){
+                if (dateToBeFormatted === undefined || dateToBeFormatted === null) {
+                    return '';
+                }
+
+                var browser = this.detectBrowser();
+                var dateStr = '';
+                switch(browser) {
+                    case 'chrome':
+                        dateStr = this.formatLocalDateForPost(dateToBeFormatted);
+                        break;
+                    case 'safari':
+                        dateStr = this.formatLocalDateForPost(dateToBeFormatted);
+                        break;
+                    default:
+                        dateStr = this.formatDateForPost(dateToBeFormatted);
+                        break;
+                }
+                
+                return dateStr;
             },
             formatLocalDateForRome: function(dateToBeFormatted){
                     if (dateToBeFormatted === undefined || dateToBeFormatted === null) {

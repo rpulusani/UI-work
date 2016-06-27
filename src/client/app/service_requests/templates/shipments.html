@@ -12,6 +12,35 @@
                      <span translate="GRID.EMPTY"></span>
                 </div>
         </div> 
+ <div class="row groupingTable" ng-repeat = "cancelledItem in cancelledItems">
+ <div>
+ 		<div class="firstCol col-1-8 floatL">
+			<span>Cancellation</span><br/>			
+		</div>
+		<div class="secondCol col-7-8 floatL">
+			<h4 class="vertical-space--none">
+				{{cancelledItems.length}} item cancelled on this order			
+			</h4>
+			<div class="text--n9 vertical-space--thin">Cancelled Items ({{cancelledItems.length}})</div>
+			<div shipment-content items="cancelledItem.shipmentParts"></div>
+		</div>
+ </div>
+ </div>
+ 
+ <div class="row groupingTable" >
+ <div>
+ 		<div class="firstCol col-1-8 floatL">
+			<span>Shipment(s)</span><br/>
+			<span>pending</span><br/>			
+		</div>
+		<div class="secondCol col-7-8 floatL">
+			<h4 class="vertical-space--none">
+				{{pending.pendCount}} of {{pending.total}} items still pending shipment.		
+			</h4>
+			
+		</div>
+ </div>
+ </div>
  
  <div class="row groupingTable" ng-if="shipments.length > 0 && hasData" ng-repeat = "shipment in shipments">
  	<div ng-if = "shipment.shipmentParts.length > 0">
