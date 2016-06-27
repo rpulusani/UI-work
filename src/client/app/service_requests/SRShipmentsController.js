@@ -52,6 +52,12 @@ angular.module('mps.serviceRequests')
     	$scope.shipments = [];
     	
     	function updateShipments(){
+    		var cancelledIndex = -1;
+    		$scope.cancelledItems = [];
+    		$scope.pending = {
+    				total : 0,
+    				pendCount : 0
+    		}
     		for(var i=0;i<$scope.shipments.length;i++){
         		$scope.shipments[i].showDetails = false;
         		$scope.shipments[i].showHideMessage = 'Show Shipment details';
@@ -59,14 +65,27 @@ angular.module('mps.serviceRequests')
         		if($scope.hasData === false && $scope.shipments[i].shipmentParts.length > 0){
         			$scope.hasData = true;
         		}
+        		//Below is for removing the cancelled item
+        		if($scope.shipments[i].cancelledQty > 0 && $scope.shipments[i].cancelledReason){
+        			cancelledIndex = i;        			
+        		}
         		/*var shipment = $scope.shipments[i];
         		for(var j = 0 ;j<Carriers.data.length;j++){
         			if(Carriers.data[j].name === shipment.carrier){
         				shipment.trackingUrl = Carriers.data[j].trackingUrl+"?no="+shipment.trackingNumber;
         			}
         		}*/
+        		for(var j = 0;j<$scope.shipments[i].shipmentParts.length ; j++){
+        			$scope.pending.total += ($scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity);
+        			$scope.pending.pendCount = $scope.pending.total - ($scope.shipments[i].shipmentParts[j].quantity === null ? 0 :$scope.shipments[i].shipmentParts[j].quantity);
+        		}
         		
         	}
+    		if(cancelledIndex !== -1){    			
+    			$scope.cancelledItems.push($scope.shipments[cancelledIndex]);
+    			$scope.shipments.splice(i,1);    			
+    		}
+    		
     	}
     		
     	
