@@ -35,9 +35,9 @@
     </div>
 </div>
 
-<p translate="{{replaceDeviceTitle}}"></p>
+<p ng-hide="!singleDeviceSelection" translate="{{replaceDeviceTitle}}"></p>
 
-<div class="well">
+<div class="well" ng-hide="!singleDeviceSelection">
 	<div ng-show="isRowSelected() && selectedDevice.serialNumber">
         <div class="media">
             <div class="media__visual">
