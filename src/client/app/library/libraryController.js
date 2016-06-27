@@ -19,6 +19,7 @@ angular.module('mps.library')
         $scope.isCommitting = false;
         $scope.accountList = [];
         $scope.documentItem.searchAccountName = '';
+        $scope.min = formatter.formatLocalDateForRome(new Date());//This is used in date Picker
 
         var redirect_to_list = function() {
            $location.path(Documents.route + '/');

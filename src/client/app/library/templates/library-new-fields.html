@@ -61,14 +61,14 @@
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_FROM"></label>
-            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" before-eq="documentItem.endDate" datepicker />
+            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" before-eq="documentItem.endDate" datepicker min="min" />
         </div>
     </div>
 
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_TO"></label>
-            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" after-eq="documentItem.publishDate" datepicker />
+            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" after-eq="documentItem.publishDate" datepicker min="min" />
         </div>
     </div>
 </div>
