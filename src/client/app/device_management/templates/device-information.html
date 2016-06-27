@@ -90,10 +90,23 @@ translate="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.CONTROL_PANEL"></a>
 <div print-export-title titlestring="DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_CHANGE_HISTORY"></div>
 
 <hr />
+
 <p ng-show="gridOptions.data && gridOptions.data.length > 0" translate="DEVICE_MAN.COMMON.TXT_SEARCH" class="vertical-space--none"></p>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-filter options="filterOptions" params="optionParams" ng-show="filterOptions.length > 1"></div>
 <div ng-show="gridOptions.data && gridOptions.data.length > 0" grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
-<div ng-show="gridOptions.data.length > 0" ui-grid="gridOptions"  class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize  ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
-<span ng-if="!gridOptions.data || gridOptions.data.length === 0" translate="LABEL.COMMON.ZERO_RECORDS"></span>
+<div ng-show="gridLoading === false && gridDataCnt > 0 && gridOptions.data.length > 0" ui-grid="gridOptions"  class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize  ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection ></div>
+		<div class="alert alert--info" ng-if="gridLoading === true">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.LOADING"></span>
+                </div>
+        </div>
+<div class="alert alert--info" ng-if="gridLoading === false && gridDataCnt === 0">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.EMPTY"></span>
+                </div>
+        </div>
+
 <div pagination grid="{{gridOptions}}"></div>
 </span>

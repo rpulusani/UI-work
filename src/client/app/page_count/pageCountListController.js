@@ -45,13 +45,13 @@ angular.module('mps.pageCount')
         $scope.print = true;
         $scope.export = true;
         $scope.view = function(devicePageCount){
-            $scope.device = devicePageCount._embedded.asset;
+            $scope.device = {};
             $scope.device._links = {'self':{'href':{}}};
             $scope.device._links.self.href = devicePageCount._links.asset.href;
             Devices.setItem($scope.device);
             var options = {
                 params:{
-                    embed:'contact,address'
+                    embed:'contact,address,chl,account'
                 }
             };
 

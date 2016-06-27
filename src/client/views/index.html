@@ -51,9 +51,9 @@
             ],
             paths: {
                 'lxk.fef': 'etc/lxk-framework/js/lxk-framework.min',
-                'mps.libs': 'mps.libs',
+                'mps.libs': 'mps.libs-min',
                 'rome': 'rome',
-                'mps.app': 'mps.app'
+                'mps.app': 'mps.app-min'
             },
             map: {
                 '*': {
@@ -62,6 +62,7 @@
                 },
                 'jquery-private': {'jquery': 'jquery'}
             },
+            waitSeconds: 0,
             bundles: {
                 'lxk.fef': [
                     'jquery',
@@ -160,7 +161,7 @@
         <div ng-view autoscroll="true"></div>
         
         <footer class="site-footer">
-        <a class="top-btn l-hidden--gt-tablet" href="#top" title="Scroll to top">Back to top</a>
+        <a class="top-btn l-hidden--gt-tablet" href="" back-to-top title="Scroll to top">Back to top</a>
         <div class="util-nav pull text--small">
           <ul footer-nav></ul>
         </div>

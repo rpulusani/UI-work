@@ -42,6 +42,9 @@ angular.module('mps.serviceRequests')
         // to fire configureReviewTemplate. This is not used by cancel
         // since the type comes through a url parameter. Changes should
         // go in the goToSubmit function
+        if(ServiceRequest.item === null){
+            $location.path('/service_requests').search('tab','serviceRequestsAllTab');
+        }
 
         $scope.isLoading = false;
 

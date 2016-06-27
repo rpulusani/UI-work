@@ -1,8 +1,9 @@
+'use strict';
 angular.module('mps.utility')
 .factory('DTMUpdater', ['$rootScope', function($rootScope) {
     var DTM = function() {};
 
-    DTM.prototype.update = function() {
+    DTM.prototype.update = function(currentUser, currentAccount, currentAddress) {
         var metaTagArr = angular.element('[data-dtm]'),
         tag, // current meta tag reference, used in loop
         i = 0;
@@ -28,13 +29,37 @@ angular.module('mps.utility')
                         tag.content = $rootScope.currentAccount.accountId;
                     }
                 case 'account-geo':
-                    tag.content = null;
+                    if ($rootScope.currentUser.address) {
+                        tag.content = $rootScope.currentUser.address.countryIsoCode;
+                    } else {
+                         tag.content = '';
+                    }
                 case 'account-country':
-                    tag.content = null;
+                    if ($rootScope.currentUser.address) {
+                        if ($rootScope.currentUser.address.country) {
+                            tag.content = $rootScope.currentUser.address.country;
+                        } else {
+                            tag.content = $rootScope.currentUser.address.countryIsoCode;
+                        }
+                    } else {
+                       tag.content = '';
+                    }
                 case 'account-region':
-                    tag.content = null;
+                    if ($rootScope.currentUser.address) {
+                        if (!$rootScope.currentUser.address.region) {
+                             tag.content =  $rootScope.currentUser.address.state;
+                        } else {
+                             tag.content =  $rootScope.currentUser.address.region;
+                        }
+                    } else {
+                         tag.content =  '';
+                    }
                 case 'account-city':
-                    tag.content =  null;
+                    if ($rootScope.currentUser.address) {
+                        tag.content = $rootScope.currentUser.address.city;
+                    } else {
+                        tag.content = '';
+                    }
                 case 'user-name':
                     tag.content = $rootScope.currentUser.userId;
                 case 'user-shortname':

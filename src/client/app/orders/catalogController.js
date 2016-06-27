@@ -26,6 +26,7 @@ angular.module('mps.orders')
     'SuppliesCatalogFactory',
     'OrderControllerHelperService',
     'AccessoriesCatalogFactory',
+    'PartsInfo',
     function(
         $scope,
         $location,
@@ -50,7 +51,11 @@ angular.module('mps.orders')
         $q,
         SuppliesCatalog,
         OrderControllerHelper,
-        AccessoriesCatalogFactory) {
+        AccessoriesCatalogFactory,
+        PartsInfo) {
+        if (Orders.item === null){
+            $location.path(Orders.route).search({tab:'orderAllTab'});
+        }
             $scope.showDeviceSelectionErrorMessage = false;
             var personal = new Personalize($location.url(),$rootScope.idpUser.id);
             OrderControllerHelper.addMethods(Orders, $scope, $rootScope);
@@ -270,7 +275,7 @@ angular.module('mps.orders')
     $scope.addToOrder = function(item){
         $scope.showDeviceSelectionErrorMessage = false;
         var newItem = angular.copy(item);
-        newItem.quantity += 1;
+        newItem.quantity = 1;
         OrderItems.data.push(newItem);
         $scope.orderItems = OrderItems.data;
         OrderItems.columns = 'defaultSet';
@@ -294,6 +299,46 @@ angular.module('mps.orders')
     	$scope.partNumber = "";
     	$scope.searchPartNumber();
     }
+    
+    $scope.showExtraInfo = function(row){
+    	 PartsInfo.data = []
+    	 PartsInfo.get({
+    		preventDefaultParams : true,
+    		params:{
+    			agreementId:$scope.configure.cart.agreement.id,
+    			productNumber:row.itemNumber    			
+    		}
+    	}).then(function(){
+    		console.log(PartsInfo); 
+    		if(PartsInfo.item && PartsInfo.item._embedded && PartsInfo.item._embedded.productInfoes){
+    			$scope.partsInfoDetails.data  = PartsInfo.item._embedded.productInfoes; 
+    		}
+    		$scope.partsInfoDetails.height = FormatterService.getHeightFromdata($scope.partsInfoDetails.data);
+    		createModal();
+    	});
+    }
+    function initPartsInfoGrid(){
+    	var Grid = new GridService();
+        var personal = new Personalize($location.url(),$rootScope.idpUser.id);
+        
+        $scope.partsInfoDetails = {};
+        $scope.partsInfoDetails.showBookmarkColumn = false;
+        Grid.setGridOptionsName('partsInfoDetails');
+        $scope.partsInfoDetails.onRegisterAPI = Grid.getGridActions($scope,
+       		 PartsInfo, personal);
+        PartsInfo.data = [];
+        $scope.partsInfoDetails.data = [];
+        $scope.partsInfoDetails.height = FormatterService.getHeightFromdata($scope.partsInfoDetails.data);
+        Grid.display(PartsInfo,$scope,personal, 48);
+    }
+    function createModal(){
+        var $ = require('jquery');
+        $('#partsInfoDetails').modal({
+            show: true,
+            static: true
+        });
+    }
+    		initPartsInfoGrid();
             getParts();
 
     }]);

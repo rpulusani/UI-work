@@ -1,7 +1,8 @@
 
 angular.module('mps.serviceRequestAddresses')
 .factory('Addresses', ['$translate', 'serviceUrl', '$location', '$rootScope', 'FormatterService', 'ServiceRequestService', 'HATEOASFactory',
-    function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory) {
+                       'BlankCheck',
+    function($translate, serviceUrl, $location, $rootScope, formatter, ServiceRequest, HATEOASFactory,BlankCheck) {
         var Addresses = {
             serviceName: 'addresses',
             embeddedName: 'addresses',
@@ -10,7 +11,7 @@ angular.module('mps.serviceRequestAddresses')
             columnDefs: {
                 defaultSet: [
                     {'name': 'id', 'field': 'id', 'notSearchable': true, visible:false, dynamic: false},
-                    {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field': 'addressName', width: 200,
+                    {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field': 'name', width: 200,
                             'cellTemplate':'<div>' +
                                 '<a href="#" ng-click="grid.appScope.addresses.goToUpdate(row.entity);" ' +
                                 'ng-if="grid.appScope.addressAccess">{{row.entity.name}}</a>' +
@@ -49,10 +50,16 @@ angular.module('mps.serviceRequestAddresses')
                 $location.path(this.route + '/delete/' + this.item.id + '/review');
             },
             verifyAddress: function(addressObj, fn) {
+            	var postAddressObj = addressObj;
+            	if(BlankCheck.checkNotBlank(postAddressObj.houseNumber)){
+            		postAddressObj = angular.copy(addressObj);
+            		postAddressObj.addressLine1 +=', '+postAddressObj.houseNumber;  
+                }
+            	
                     this.get({
                         method: 'post',
                         url: serviceUrl + 'address-validation',
-                        data: addressObj,
+                        data: postAddressObj,
                         preventDefaultParams: true
                     }).then(function(bodsRes) {
                         return fn(bodsRes.status, bodsRes.data);

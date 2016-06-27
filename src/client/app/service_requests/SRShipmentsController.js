@@ -21,6 +21,7 @@ angular.module('mps.serviceRequests')
         Shipments
         ) {
     	$scope.gridLoading = true; 	
+    	$scope.hasData = false;
     	$scope.showHideDetails = function(shipment){
     		
     		shipment.showDetails = (shipment.showDetails === false?true:false);
@@ -39,13 +40,11 @@ angular.module('mps.serviceRequests')
         }).then(function(){
         	$scope.gridLoading = false;
     		if(Shipments.item && Shipments.item._embedded && Shipments.item._embedded.shipments){
-    			$scope.shipments = Shipments.item._embedded.shipments;
-    			updateShipments();
+    			$scope.shipments = Shipments.item._embedded.shipments;    			
     		}else{
-    			$scope.shipments = [];
-    			
+    			$scope.shipments = [];    			
     		}
-    		
+    		updateShipments();
     		
     		
     	
@@ -57,6 +56,9 @@ angular.module('mps.serviceRequests')
         		$scope.shipments[i].showDetails = false;
         		$scope.shipments[i].showHideMessage = 'Show Shipment details';
         		$scope.shipments[i].formattedShipToAddress = FormatterService.formatAddress($scope.shipments[i].shipToAddress);
+        		if($scope.hasData === false && $scope.shipments[i].shipmentParts.length > 0){
+        			$scope.hasData = true;
+        		}
         		/*var shipment = $scope.shipments[i];
         		for(var j = 0 ;j<Carriers.data.length;j++){
         			if(Carriers.data[j].name === shipment.carrier){

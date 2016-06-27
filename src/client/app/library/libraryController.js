@@ -1,9 +1,9 @@
 angular.module('mps.library')
 .controller('LibraryController', ['$scope', '$location', '$routeParams', '$translate', '$http',
     'translationPlaceHolder', 'Documents', 'Tags', 'AccountService', 'UserService', 'BlankCheck', '$rootScope',
-    'FormatterService', '$route', 'LibraryAccounts',
+    'FormatterService', '$route', 'LibraryAccounts', 'AllAccounts',
     function($scope, $location, $routeParams, $translate, $http, translationPlaceHolder, Documents, Tags, Accounts, Users, BlankCheck,
-        $rootScope, formatter, $route, LibraryAccounts) {
+        $rootScope, formatter, $route, LibraryAccounts, AllAccountsService) {
 
         $scope.translationPlaceHolder = translationPlaceHolder;
         $scope.documentItem = {};
@@ -14,8 +14,12 @@ angular.module('mps.library')
 
         $scope.inputTag = '';
         $scope.allAccounts = true;
+        $scope.searchAccounts = true;
 
         $scope.isCommitting = false;
+        $scope.accountList = [];
+        $scope.documentItem.searchAccountName = '';
+        $scope.min = formatter.formatLocalDateForRome(new Date());//This is used in date Picker
 
         var redirect_to_list = function() {
            $location.path(Documents.route + '/');
@@ -26,6 +30,11 @@ angular.module('mps.library')
         }
 
         $('.site-content').scrollTop(0,0);
+
+        if (Users.item && Users.item._links && Users.item._links.accounts) {
+            $scope.searchAccounts = false;
+        }        
+
         if (!$routeParams.id) {
             $scope.documentItem = { id:'new', strategic: false };
         } else {
@@ -148,9 +157,27 @@ angular.module('mps.library')
             if ($rootScope.documentLibraryManageAccountAccess) {
                 var accountsToSend = [];
                 
-                if ($scope.documentItem.optionsLimit === 'include') {
+                if ($scope.searchAccounts || $scope.documentItem.optionsLimit === 'include') {
                     if ($scope.selectedLibraryAccounts.length > 0) {
-                        accountsToSend = $scope.selectedLibraryAccounts;
+                        if($scope.searchAccounts) {
+                            var ind = 0, acntCnt = $scope.selectedLibraryAccounts.length;
+                            var selectedAcnt = {};
+                            for(ind=0; ind<acntCnt; ind++) {
+                                selectedAcnt = {
+                                    accountId: $scope.selectedLibraryAccounts[ind].accountId,
+                                    name: $scope.selectedLibraryAccounts[ind].name,
+                                    soldToNumber: $scope.selectedLibraryAccounts[ind].soldToNumber,
+                                    level: $scope.selectedLibraryAccounts[ind].level,
+                                    country: $scope.selectedLibraryAccounts[ind].country,
+                                    numberOfChildren: $scope.selectedLibraryAccounts[ind].numberOfChildren
+                                };
+                                
+                                accountsToSend.push(selectedAcnt);
+                            }
+                        }
+                        else {
+                            accountsToSend = $scope.selectedLibraryAccounts;
+                        }
                     }
                 }
                 
@@ -291,6 +318,9 @@ angular.module('mps.library')
                     $scope.selectedLibraryAccounts.splice(i, 1);
                 }
             }
+            if($scope.searchAccounts) {
+                $scope.$broadcast('searchAccount');
+            }
         };
 
         $scope.changeOptionsLimit = function() {            
@@ -312,6 +342,44 @@ angular.module('mps.library')
             $scope.selectedLibraryAccounts = [];
         };
         
+        $scope.setAccounts = function() {
+            $scope.$broadcast('searchAccount');
+        };
+
+        $scope.removeAccount = function(item) {
+            if ($scope.selectedLibraryAccounts && $scope.selectedLibraryAccounts.length > 0) {
+                for (var j=0;j<$scope.selectedLibraryAccounts.length; j++) {
+                    if ($scope.selectedLibraryAccounts[j].accountId
+                        && $scope.selectedLibraryAccounts[j].accountId === item.accountId
+                        && $scope.selectedLibraryAccounts[j].level === item.level
+                        && $scope.selectedLibraryAccounts[j].name === item.name) {
+                        $scope.selectedLibraryAccounts.splice(j, 1);
+                    }
+                }
+            }            
+            $scope.$broadcast('searchAccount');
+        };
+
+        $scope.$on('searchAccount', function(evt){
+            $scope.accountList = [];
+            if($scope.documentItem.searchAccountName && $scope.documentItem.searchAccountName.length >=3) {                
+                var options = {
+                    preventDefaultParams: true,
+                    params:{
+                        searchTerm: encodeURIComponent($scope.documentItem.searchAccountName)
+                    }
+                };
+                AllAccountsService.get(options).then(function(){
+                    $scope.accountList = [];
+                    if (AllAccountsService.item._embedded && AllAccountsService.item._embedded.accounts) {
+                        var allAccountList = AllAccountsService.item._embedded.accounts;
+                        for (var i=0; i<allAccountList.length; i++) {
+                            $scope.accountList.push(allAccountList[i]);
+                        }
+                    }
+                });
+            }            
+        });
 
         if($location.path() === "/library/new"){
             $scope.breadcrumbs = {

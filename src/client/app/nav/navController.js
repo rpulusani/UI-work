@@ -1,7 +1,4 @@
-
-
-
-
+'use strict';
  angular.module('mps.nav')
 .controller('NavController', ['$scope',
     '$rootScope',
@@ -10,6 +7,7 @@
     'Nav',
     'UserService',
     'AccountService',
+    'Addresses',
     'HATEAOSConfig',
     '$cookies',
     '$http',
@@ -25,6 +23,7 @@
         Nav,
         Users,
         Accounts,
+        Addresses,
         HATEAOSConfig,
         $cookies,
         $http,
@@ -112,6 +111,7 @@
 
             $scope.acctSelected = true;
 
+            $rootScope.$emit('toggleAccountNav');
             HATEAOSConfig.getCurrentAccount().then(function() {
                 var i = 0,
                 accts = Users.item.transactionalAccount.data;
@@ -147,6 +147,8 @@
                         }
 
                         $route.reload();
+
+                        DTMUpdater.update($rootScope.currentUser, $rootScope.currentAccount, Addresses);
                     }, 0);
                 });
             });

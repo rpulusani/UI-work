@@ -414,6 +414,7 @@ angular.module('mps.serviceRequestAddresses')
             $scope.editAddress = function(addressType){
                 $scope.checkedAddress = 0;
                 $scope.needToVerify = false;
+                
                 if(addressType === 'comparisonAddress'){
                     $scope.address.country = $scope.comparisonAddress.country;
                     $scope.address.addressLine1 = $scope.comparisonAddress.addressLine1;
@@ -422,6 +423,14 @@ angular.module('mps.serviceRequestAddresses')
                     $scope.address.state = $scope.comparisonAddress.state;
                     $scope.address.postalCode = $scope.comparisonAddress.postalCode;
                     $scope.address.addressCleansedFlag = 'Y';
+                }else{
+                	 $scope.address.country = $scope.enteredAddress.country;
+                     $scope.address.addressLine1 = $scope.enteredAddress.addressLine1;
+                     $scope.address.addressLine2 = $scope.enteredAddress.addressLine2;
+                     $scope.address.city = $scope.enteredAddress.city;
+                     $scope.address.state = $scope.enteredAddress.state;
+                     $scope.address.postalCode = $scope.enteredAddress.postalCode;
+                     $scope.address.addressCleansedFlag = 'N';
                 }
                 $scope.canReview = false;
             };
@@ -495,7 +504,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.formatAdditionalData();
                 $scope.resetContactPicker();
-            }else if(Addresses.item){
+            }else if(Addresses.item && !angular.equals({}, Addresses.item)){
                 $scope.address = Addresses.item;
                 $scope.getRequestor(ServiceRequest, Contacts);
             }else{

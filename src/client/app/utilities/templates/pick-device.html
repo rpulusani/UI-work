@@ -7,7 +7,7 @@
 <p translate="{{currentDeviceTitle}}"></p>
 
 <div class="well" ng-if="!singleDeviceSelection">
-	<div ng-show="prevDevice">
+	<div ng-show="prevDevice && prevDevice.selectedDevice.serialNumber">
         <div class="media">
             <div class="media__visual">
                 <img ng-src="{{prevDevice.medImage}}" ng-show="prevDevice.medImage"
@@ -35,10 +35,10 @@
     </div>
 </div>
 
-<p translate="{{replaceDeviceTitle}}"></p>
+<p ng-hide="!singleDeviceSelection" translate="{{replaceDeviceTitle}}"></p>
 
-<div class="well">
-	<div ng-show="isRowSelected()">
+<div class="well" ng-hide="!singleDeviceSelection">
+	<div ng-show="isRowSelected() && selectedDevice.serialNumber">
         <div class="media">
             <div class="media__visual">
                 <img ng-src="{{selectedImageUrl}}" ng-show="selectedDevice.partNumber"
@@ -71,6 +71,13 @@
 </h3>
 
 <hr/>
+
+ <div class="row l-pad-top l-pad-bottom">
+        <div class="col-lg-2-3 col-md-1-1">
+            <div grid-search columns="visibleColumns" params="optionParams" search="searchFunctionDef" total="pagination"></div>
+        </div>
+       
+</div>
 
 <div ng-if="pagination.totalItems() > 0">
     <div ui-grid="gridOptions" class="table"

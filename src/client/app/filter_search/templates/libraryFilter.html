@@ -36,6 +36,23 @@
     </div>
 </div>
 
+<h3 translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_DATES"></h3>
+<div class="row">    
+    <div class="col-1-2 paddingR20 floatL">
+        <div class="form__field">
+            <label translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_PUBLISH_DATE"></label>
+            <input type="text" ng-model="dateFrom" date-val="dateFrom" datepicker/>
+        </div>
+     </div>
+
+    <div class="col-1-2 floatL">
+         <div class="form__field">
+            <label translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_EXPIRY_DATE"></label>
+            <input type="text" ng-model="dateTo" date-val="dateTo" datepicker/>
+        </div>
+    </div>
+</div>
+
 <br/>
 <div class="col-lg-2-3 col-md-1-1" ng-if="showCategoryClearMessage">
     <div class="footnotes">
@@ -53,5 +70,11 @@
     <div class="footnotes">
         <i>{{noOfTagsSelected}} {{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_TAG_SELECTED' | translate }}</i>
         <a href="" ng-click="clearTagsFilter()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_CLEAR_TAG"></a>
+    </div>
+</div>
+<div class="col-lg-2-3 col-md-1-1" ng-if="showDateClearMessage">
+    <div class="footnotes">
+        <i>{{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_DATE_RANGE' | translate}} - {{dateFrom}} - {{dateTo}}</i>
+        <a href="" ng-click="clearDateFilter()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.CTRL_CLEAR_DATE_RANGE"></a>
     </div>
 </div>

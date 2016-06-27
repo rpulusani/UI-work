@@ -6,13 +6,17 @@
                 </div>
         </div>
 
-        <div class="alert alert--info" ng-if="gridLoading === false && activities.length === 0">
+        <div class="alert alert--info" ng-if="gridLoading === false && activityGridOptions.data.length === 0">
             <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
                 <div class="alert__body">
                      <span translate="GRID.EMPTY"></span>
                 </div>
         </div> 
 
-		<div ng-if= "activities.length > 0" ng-repeat="act in activities">
-			<div activity items="act"></div> 
-		</div>
+
+ 		<div ng-if ="activityGridOptions.data.length > 0">
+            <div ui-grid="activityGridOptions" class="table" ng-style="{height: activityGridOptions.height}" ui-grid-auto-resize
+            ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns ui-grid-selection>
+            </div>            
+        </div>
+		

@@ -61,14 +61,14 @@
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_FROM"></label>
-            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" before-eq="documentItem.endDate" datepicker />
+            <input type="text" id="dateLeft" ng-model="documentItem.publishDate" date-val="documentItem.publishDate" before-eq="documentItem.endDate" datepicker min="min" />
         </div>
     </div>
 
     <div class="col-1-2">
         <div class="form__field">
             <label translate="DOCUMENT_LIBRARY.COMMON.TXT_PUBLISH_TO"></label>
-            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" after-eq="documentItem.publishDate" datepicker />
+            <input type="text" id="dateRight" ng-model="documentItem.endDate" date-val="documentItem.endDate" after-eq="documentItem.publishDate" datepicker min="min" />
         </div>
     </div>
 </div>
@@ -102,6 +102,19 @@
 
             <p translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_SELECTED_ACCOUNTS"></p>
 
+            <strong translate="USER_MAN.MANAGE_LXK_USERS.TXT_FIND_ACCOUNT" ng-if="searchAccounts"></strong>
+            <div class="form__field" ng-if="searchAccounts">
+                <input name="accountName" type="text" ng-model="documentItem.searchAccountName" value="" class="" ng-change="setAccounts()"/>
+            </div>
+
+            <div class="well scrollable" ng-if="searchAccounts">
+                <div ng-repeat="account in accountList">
+                    <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
+                        value="$parent.user.org" previous-items="$parent.selectedLibraryAccounts">
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-1">
                     <table class="table table--responsive table--condensed table--bordered" style="min-height:0;">
@@ -130,12 +143,14 @@
                 </div>
             </div>
 
-            <strong translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_ACCOUNT"></strong>
-            <div>
-                 <div selectric model="documentItem.accountSelected" options="libraryAccounts" value="accountId" label="name" placeholder="{{'LABEL.COMMON.SELECT' | translate}}">
+            <strong translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.TXT_ADD_ACCOUNT" ng-if="!searchAccounts"></strong>
+            <div  ng-if="!searchAccounts">
+                <div selectric model="documentItem.accountSelected" options="libraryAccounts" value="accountId" label="name" placeholder="{{'LABEL.COMMON.SELECT' | translate}}">
+                </div>
+                <button name="selectAccount" class="btn btn--default" type="submit" value="submit" 
+                    translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_ADD_ACCOUNT" ng-click="goToSelectAccount()">
+                </button>
             </div>
-            <button name="selectAccount" class="btn btn--default" type="submit" value="submit" 
-                        translate="DOCUMENT_LIBRARY.ADD_NEW_DOCUMENT.BTN_ADD_ACCOUNT" ng-click="goToSelectAccount()"></button>
         </div>
     </div>
 </div>

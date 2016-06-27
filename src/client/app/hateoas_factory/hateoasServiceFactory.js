@@ -67,7 +67,6 @@ angular.module('mps.hateoasFactory')
                 self.url = api.url;
                 url = self.url + '/' + loginId;
 
-
                 $http.get(url).then(function(processedResponse) {
                     var user = self.createItem(processedResponse.data);
                     // this should be working directly with UserService
@@ -78,15 +77,14 @@ angular.module('mps.hateoasFactory')
                     $rootScope.currentUser.item = self.setItem(user);
 
                     angular.extend($rootScope.currentUser, user);
+             
                     $rootScope.currentUser.deferred.resolve($rootScope.currentUser);
 
-                    if (!$rootScope.currentAccount) {
+                    if (!$rootScope.currentAccount && !HATEAOSConfig.mapCallInProgress) {
                         HATEAOSConfig.getLoggedInUserInfo().then(function() {
-                            DTM.update();
                             deferred.resolve();
                         });
                     } else {
-                        DTM.update();
                         deferred.resolve();
                     }
 

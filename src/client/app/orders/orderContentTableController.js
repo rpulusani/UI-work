@@ -89,7 +89,7 @@ angular.module('mps.orders')
                 	var taxNumeric = $scope.tax;
                 	var amount = subTotal + taxNumeric;
                 	$scope.total = formatter.formatCurrency(amount);
-                	var taxPercent = (((amount - subTotal)/amount)*100);
+                	var taxPercent = (((amount - subTotal)/subTotal)*100);
                 	
                 	$scope.displaytax = formatter.formatPercent(taxPercent);
                 }	
@@ -101,7 +101,7 @@ angular.module('mps.orders')
         $scope.calculate();
         $scope.$watch('items', function(){
         	$scope.orderSummaryGridOptions.data = $scope.items;
-        	$scope.orderSummaryGridOptions.height = 100+(45 * $scope.orderSummaryGridOptions.data.length);
+        	$scope.orderSummaryGridOptions.height = formatter.getHeightFromdata($scope.orderSummaryGridOptions.data);
         });
         
     

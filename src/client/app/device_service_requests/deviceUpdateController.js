@@ -43,6 +43,10 @@ angular.module('mps.serviceRequestDevices')
         $q,
         Country
         ){
+		
+        if(Devices.item === null){       
+            $location.path('/device_management');
+        }
 
         $scope.isLoading = false;
         $scope.multiple = {};
@@ -119,7 +123,7 @@ angular.module('mps.serviceRequestDevices')
             $scope.redirectToList();
         } else if($rootScope.selectedContact
                 && $rootScope.returnPickerObject
-                && $rootScope.selectionId === Devices.item.id){
+                && ($rootScope.selectionId === Devices.item.id || Devices.updatingMultiple)){
             $scope.device = $rootScope.returnPickerObject;
             $scope.sr = $rootScope.returnPickerSRObject;
             if ($rootScope.currentSelected) {
@@ -291,7 +295,11 @@ angular.module('mps.serviceRequestDevices')
                     $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 }
             }
-                $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+            $scope.configure.actions.translate.submit = 'REQUEST_MAN.REQUEST_DEVICE_UPDATE_REVIEW.BTN_DEVICE_UPDATE_SUBMIT';
+            $scope.configure.device.information.translate.linkMakeChangesTxt = "REQUEST_MAN.REQUEST_DEVICE_REGISTER_REVIEW.TXT_MAKE_CHANGES";
+            
+
+           
             $scope.configure.actions.submit = function(){
               var i = 0,
               deferreds = [];
@@ -316,13 +324,7 @@ angular.module('mps.serviceRequestDevices')
                             physicalLocation2: Devices.data[i].physicalLocation2,
                             physicalLocation3: Devices.data[i].physicalLocation3
                         };
-                        $scope.sr.assetContact = {
-                            firstName: $scope.contact.firstName,
-                            lastName: $scope.contact.lastName,
-                            email: $scope.contact.email,
-                            workPhone: $scope.contact.workPhone
-                        }
-
+                        
                         deferreds.push(DeviceServiceRequest.post({
                             item:  JSON.parse(JSON.stringify($scope.sr))
                         }).then(function(res) {
@@ -466,7 +468,10 @@ angular.module('mps.serviceRequestDevices')
                                 contact: 'REQUEST_MAN.COMMON.TXT_SUPPLIES_CONTACT',
                                 installAddress:'REQUEST_MAN.COMMON.TXT_INSTALL_ADDRESS',
                                 moveAddress: 'REQUEST_MAN.COMMON.TXT_MOVE_ADDRESS'
-                        }
+                                
+                        },
+                        linkMakeChanges: '/service_requests/devices/' + $scope.device.id + '/update'
+                        
                     }
                 },
                 contact: {

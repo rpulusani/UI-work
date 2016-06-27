@@ -26,8 +26,15 @@ angular.module('mps.serviceRequests')
         OrderItems,
         OrderTypes
     ) {
-        if(!Orders.item){
-            $location.path(Orders.route).search({tab:'orderAllTab'});
+
+        if(!Orders.item && !ServiceRequest.item){
+            
+            if($location.path().indexOf('/orders')>=0){
+                $location.path(Orders.route).search({tab:'orderAllTab'});   
+            }
+            else if($location.path().indexOf('/service_requests')>=0){
+                $location.path(ServiceRequest.route).search({tab:'serviceRequestsAllTab'});
+            }
             return;
         }
         $('.site-content').scrollTop(0,0);
@@ -147,9 +154,9 @@ angular.module('mps.serviceRequests')
                             rows.push('');
                         }
                     }
-                        
-                    if ($scope.sr.item.meterReads) {
-                        rows.push($scope.sr.item.meterReads);                        
+                     
+                    if ($scope.meterReadsForCsv && $scope.meterReadsForCsv.length > 0) {
+                        rows.push($scope.meterReadsForCsv);                        
                     } else {
                         rows.push('none');
                     }
@@ -674,11 +681,17 @@ angular.module('mps.serviceRequests')
                 };
         }
         function addDeviceOrderInfo(){
+        	var tax = calculateTax();
+        	$scope.taxable = tax === 0? false:true;
             $timeout(function(){
                 OrderItems.columns = 'pruchaseSet';
                     $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': $scope.sr.item.orderItems // send whatever you want
                     });
+                    if($scope.taxable){
+                    	$scope.$broadcast('TaxDataAvaialable', {'tax':tax});
+                    }
+                    
             }, 2000);
             $scope.configure.header.translate.h1 = "ORDER_MAN.COMMON.TXT_ORDER_NUMBER";
             $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
@@ -701,14 +714,10 @@ angular.module('mps.serviceRequests')
 
 
                     $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
-                    $scope.configure.header.translate.body = "ORDER_CATALOGS.RECEIPT.TXT_PARA";
+                    
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
-                    $scope.configure.header.translate.bodyValues= {
-                        'order': FormatterService.getFormattedSRNumber($scope.sr),
-                        'srHours': 24,
-                        'deviceManagementUrl': 'orders/',
-                    };
+                   
                     $scope.configure.receipt = {
                         translate:{
                             title:"ORDER_MAN.COMMON.TXT_ORDER_NUMBER_SUBMITTED_HEADER",
@@ -751,12 +760,15 @@ angular.module('mps.serviceRequests')
         }
 
         function addSupplyOrderInfo(){
-
+        	var tax = calculateTax();
+        	$scope.taxable = tax === 0 ? false : true;
             $timeout(function(){
                 OrderItems.columns = 'pruchaseSet';
                     $scope.$broadcast('OrderContentRefresh', {
                         'OrderItems': $scope.sr.item.orderItems // send whatever you want
                     });
+                    if($scope.taxable)
+                    	$scope.$broadcast('TaxDataAvaialable', {'tax':tax});
             }, 2000);
              $scope.configure.header.translate.h1 = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES";
              $scope.configure.contact.translate.title = "ORDER_MAN.COMMON.TXT_ORDER_CONTACTS";
@@ -774,21 +786,12 @@ angular.module('mps.serviceRequests')
                 }
             };
          
-                    $scope.configure.header.translate.h1Values = {'srNumber': FormatterService.getFormattedSRNumber($scope.sr)};
-                    if($scope.sr.status === 'CANCELLED'){
-                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_CANCELLED_PAR";
-                    }else{
-                    	$scope.configure.header.translate.body = "ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_SUBMITTED_PAR";
-                    }
-                    
+                    $scope.configure.header.translate.h1Values = {'srNumber': "<span>" + FormatterService.getFormattedSRNumber($scope.sr) + "</span>"};
+                                       
                     
                     $scope.configure.header.translate.readMore = "ORDER_MAN.COMMON.LNK_MANAGE_ORDERS";
                     $scope.configure.header.readMoreUrl = Orders.route;
-                    $scope.configure.header.translate.bodyValues= {
-                        'order': FormatterService.getFormattedSRNumber($scope.sr),
-                        'srHours': 24,
-                        'deviceManagementUrl': 'device_management/',
-                    };
+                    
                     $scope.configure.receipt = {
                         translate:{
                             title:"ORDER_MAN.SUPPLY_ORDER_SUBMITTED.TXT_ORDER_DETAIL_SUPPLIES",
@@ -869,10 +872,9 @@ angular.module('mps.serviceRequests')
         function configureReceiptTemplate(){
             $scope.configure.header.translate.h1 = 'DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_SERVICE_REQUEST_NUMBER';
             $scope.configure.header.translate.h1Values = {
-                'srNumber': FormatterService.getFormattedSRNumber($scope.sr)
+                'srNumber': '<span>' + FormatterService.getFormattedSRNumber($scope.sr) + '</span>'
             };
-                $scope.configure.header.translate.body = 'REQUEST_MAN.MANAGE_REQUESTS.TXT_MANAGE_REQUESTS_PAR';
-            $scope.configure.header.translate.bodyValues= {};
+                
             $scope.configure.receipt = {
                 translate:{
                     title:'REQUEST_MAN.MANAGE_REQUESTS.TXT_DEVICE_SERVICE_REQUEST_DETAILS',
@@ -976,6 +978,7 @@ angular.module('mps.serviceRequests')
                 addTabsForMADC();
             break;
             case 'MADC_INSTALL':
+            case 'MADC_INSTALL_AND_DECOMMISSION':
                 addDeviceInformation();
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
@@ -1004,7 +1007,9 @@ angular.module('mps.serviceRequests')
                 addTabsForMADC();
             break;
             case 'DATA_ASSET_REGISTER':
-                addDeviceInformation();  
+                addDeviceInformation(); 
+                $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';
+                $scope.configure.receipt.translate.title = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_DETAIL'; 
                 addTabsForMADC();
             break;
             case 'BREAK_FIX':
@@ -1116,14 +1121,15 @@ angular.module('mps.serviceRequests')
         !BlankCheck.isNull($scope.sr.requester.item)){
         $scope.requestedByContactFormatted = FormatterService.formatContact($scope.sr.requester.item);
     }
-    if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item)){
+    /*if ($scope.sr.billToAddress && !BlankCheck.isNull($scope.sr.billToAddress.item) 
+    		&& !BlankCheck.isNull($scope.sr.billToAddress.item.addressLine1)){
     	 	$scope.scratchSpace = {
     	 			billToAddresssSelected : true	
     	 	};
             $scope.formatedBillToAddress = FormatterService.formatAddress($scope.sr.billToAddress.item);
     }else {
             $scope.formatedBillToAddress = FormatterService.formatNoneIfEmpty($scope.sr.billToAddress);
-    }
+    }*/
 
     /*if ($scope.sr.shipToAddress && !BlankCheck.isNull($scope.sr.shipToAddress.item)){
             $scope.formatedShipToAddress = FormatterService.formatAddress($scope.sr.shipToAddress.item);
@@ -1147,15 +1153,22 @@ angular.module('mps.serviceRequests')
     function groupPageCounts(device){
     	
     	var newCount = {},newDate = {},i=0;
-    	if(device.meterReads && device.meterReads !== null){
+        var meterReadStr = "";
+        if(device.meterReads && device.meterReads !== null){
             var meterReadCnt = device.meterReads.length;
             for(;i<meterReadCnt;i++){
+                ind = i + 1;
                 newCount[device.meterReads[i].type] = device.meterReads[i].value;
                 newDate[device.meterReads[i].type]  = device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate;
+                meterReadStr = meterReadStr + ind + ". ";                    
+                meterReadStr = meterReadStr + "Type:" + device.meterReads[i].type + ", ";
+                meterReadStr = meterReadStr + "Count:" + device.meterReads[i].value + ", ";                    
+                meterReadStr = meterReadStr + "Date:" + (device.meterReads[i].updateDate === null ? device.meterReads[i].createDate : device.meterReads[i].updateDate) + " ";
             }
         }
     	device.newCount = newCount;
     	device.newDate = newDate;
+        $scope.meterReadsForCsv = meterReadStr;     
     } 
     
     function addTabsForMADC(){
@@ -1172,7 +1185,15 @@ angular.module('mps.serviceRequests')
     			shipments : true
         }
     }
-    
+    function calculateTax(){
+    	
+    	var i = 0,tax=0;
+    	for(;i<$scope.sr.item.orderItems.length;i++){
+    		tax +=$scope.sr.item.orderItems[i].taxAmount;
+    	}
+    	
+    	return tax;
+    }
     setCsvDefinition();
 
 }]);
