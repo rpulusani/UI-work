@@ -473,7 +473,7 @@ angular.module('mps.deviceManagement')
                                     $scope.meterReads[i].newVal = null;
                                 }                              
                                 if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                                    $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
+                                    $scope.meterReads[i].updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i].newDate);
                                     $scope.meterReads[i].newDate = null;
                                 }
                                 updateMeterReads($scope.meterReads[i]);
@@ -485,7 +485,7 @@ angular.module('mps.deviceManagement')
                                     $scope.meterReads[i-1].newVal = null;
                                 }
                                 if($scope.meterReads[i-1].newDate && $scope.meterReads[i-1].newDate !== null ) {
-                                    $scope.meterReads[i-1].updateDate = FormatterService.formatDateForPost($scope.meterReads[i-1].newDate);
+                                    $scope.meterReads[i-1].updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i-1].newDate);
                                     $scope.meterReads[i-1].newDate = null;
                                 }                                
                                 updateMeterReads($scope.meterReads[i-1]);
@@ -498,7 +498,7 @@ angular.module('mps.deviceManagement')
                                     $scope.meterReads[i].newVal = null;
                                 }                              
                                 if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                                    $scope.meterReads[i].updateDate = FormatterService.formatDateForPost($scope.meterReads[i].newDate);
+                                    $scope.meterReads[i].updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i].newDate);
                                     $scope.meterReads[i].newDate = null;
                                 }
                                 updateMeterReads($scope.meterReads[i]);
@@ -632,7 +632,7 @@ angular.module('mps.deviceManagement')
 
         function validateMeterReadDate(oldDate, newDate){
             var errorMsg = "";
-            newDate = FormatterService.formatDateForPost(newDate);
+            newDate = FormatterService.formatDatePostForBrowsers(newDate);
             
             if(newDate < oldDate) {
                 errorMsg = "Date/Time selected should not be previous to last submitted date/time."
