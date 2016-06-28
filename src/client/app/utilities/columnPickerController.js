@@ -38,7 +38,7 @@ angular.module('mps.utility')
             var listItem = $('<div class="col-1-3">'),
             checkboxWrapper = $('<div class="form__field form__field--checkbox"></div>'),
             checkbox = $('<input type="checkbox" id="' + column.name.replace(/ /g, '-').replace(/\//g, '').replace(/(\(|\))/g, '') + '" name="' + column.field  + '" value="">'),
-            checkboxLabel = $('<label for="' + column.name.replace(/ /g, '-').replace(/\//g, '').replace(/(\(|\))/g, '') + '"><span></span> ' + column.name.replace(/\s*.*?\s*/g, '') + '</label>');
+            checkboxLabel = $('<label for="' + column.name.replace(/ /g, '-').replace(/\//g, '').replace(/(\(|\))/g, '') + '"><span></span> ' + column.name + '</label>');
 
             checkboxWrapper.append(checkbox);
             checkboxWrapper.append(checkboxLabel);
