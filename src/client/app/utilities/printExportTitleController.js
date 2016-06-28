@@ -110,6 +110,14 @@ angular.module('mps.utility')
             };
         }
 
+        function createModal(){
+            var $ = require('jquery');
+            $('#print-export-warning-popup').modal({
+                show: true,
+                static: true
+            });
+        }
+
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
             if ($scope.titlestring && attrs.titleCount !== false && ctrlScope.pagination) {
                 $scope.titleValues = {
@@ -127,6 +135,10 @@ angular.module('mps.utility')
 
             if (!$scope.pdfExport) {
                 $scope.printGrid = function() {
+                    if($scope.titleValues.total === 0) {
+                        createModal();
+                        return;
+                    }
                     var api;
 
                     ctrlScope.printing = true;
@@ -144,6 +156,10 @@ angular.module('mps.utility')
 
             if (!$scope.csvExport) {
                 $scope.exportGrid = function() {
+                    if($scope.titleValues.total === 0) {
+                        createModal();
+                        return;
+                    }
                     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location')),
                     api;
 
