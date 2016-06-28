@@ -25,13 +25,13 @@ angular.module('mps.serviceRequests')
                 url: serviceUrl + 'service-requests/serviceActivityDetails',
                 columnDefs: {
                     defaultSet: [
-                        {'name':'Serial Number', 'field':'serialNumber', 'notSearchable': true},
-                        {'name': 'Device Type', 'field': 'deviceType', 'notSearchable': true},
+                        {'name':'Serial Number', 'field':'assetDetails.serialNumber', 'notSearchable': true},
+                        {'name': 'Device Type', 'field': 'assetDetails.productModel', 'notSearchable': true},
                         {'name': 'Activity Number', 'field': 'activityNumber', 'notSearchable': true},
                         {'name': 'Status Detail', 'field' : 'getStatusDetail()', 'notSearchable': true},
-                        {'name': 'Building' , 'field' : 'physicalLocation1', 'notSearchable': true},
-                        {'name': 'Floor' , 'field' :'physicalLocation2', 'notSearchable': true},
-                        {'name': 'Office' , 'field' : 'physicalLocation3', 'notSearchable': true}                        
+                        {'name': 'Building' , 'field' : 'assetDetails.physicalLocation1', 'notSearchable': true},
+                        {'name': 'Floor' , 'field' :'assetDetails.physicalLocation2', 'notSearchable': true},
+                        {'name': 'Office' , 'field' : 'assetDetails.physicalLocation3', 'notSearchable': true}                        
                     ]             
                 
               },

@@ -16,7 +16,7 @@ angular.module('mps.orders')
     'OrderRequest',
     'AgreementFactory',
     'OrderControllerHelperService',
-    'ContractFactory',
+    'ContractFactory','BlankCheck',
     function(
         GridService,
         $scope,
@@ -32,7 +32,7 @@ angular.module('mps.orders')
         Orders,
         Agreement,
         OrderControllerHelper,
-        Contracts
+        Contracts,BlankCheck
     ){
 
     var personal = new Personalize($location.url(),$rootScope.idpUser.id);
@@ -72,7 +72,17 @@ angular.module('mps.orders')
             	Orders.tempSpace.catalogCart.contract = Contracts.data[0];            	
             });
             
+            
+          
+            	AssetParts.params = {
+                		search : Devices.item.specialUsage,
+                		searchOn : 'specialUsage'
+                		
+                };
+          
+            
             Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
+            	AssetParts.params = {};
                 var Grid = new GridService();
                 $scope.assetParts = AssetParts.data;
                 if (AssetParts.data && AssetParts.data.length > 0) {
