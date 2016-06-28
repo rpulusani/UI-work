@@ -1,7 +1,7 @@
 <ul class="info-list text--small">
     <li class="info-list__item">
         <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_NAME"></div>
-        <div class="info-list__item-value" ng-bind="documentItem.name"></div>
+        <a href="#" ng-click="goToDownload(documentItem)"><div class="info-list__item-value" ng-bind="documentItem.name"></div></a>
     </li>
     <li class="info-list__item">
         <div class="info-list__item-name" translate="DOCUMENT_LIBRARY.COMMON.TXT_DESCRIPTION"></div>

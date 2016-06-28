@@ -114,6 +114,14 @@ angular.module('mps.utility')
                 '<i class="icon icon--mps icon--download" ng-click="exportGrid()"></i>' +
                 '<a translate="LABEL.COMMON.EXPORT" href="#" class="text--small text--semi-bold" ng-click="exportGrid()"></a>' +
             '</div>' +
+        '</div>' +
+        '<div id="print-export-warning-popup" class="modal">' +
+            '<div class="modal__body">' +
+                '<h2 translate="CSV_EXPORT.WARNING.HEADER"></h2><hr/>' +
+                '<p translate="CSV_EXPORT.WARNING.MESSAGE">' +    
+                '</p>' +
+                '<button class="btn" data-js="modalClose" translate="LABEL.COMMON.OK"></button>' +
+            '</div>' +
         '</div>',
         controller: 'PrintExportTitleController'
     };
