@@ -135,9 +135,8 @@ angular.module('mps.utility')
 
             if (!$scope.pdfExport) {
                 $scope.printGrid = function() {
-                    if($scope.titleValues &&
-                        $scope.titleValues.total !== undefined &&
-                        $scope.titleValues.total === 0) {
+                    if(ctrlScope.gridDataCnt !== undefined &&
+                        ctrlScope.gridDataCnt === 0) {
                         createModal();
                         return;
                     }
@@ -158,9 +157,8 @@ angular.module('mps.utility')
 
             if (!$scope.csvExport) {
                 $scope.exportGrid = function() {
-                    if($scope.titleValues &&
-                        $scope.titleValues.total !== undefined &&
-                        $scope.titleValues.total === 0) {
+                    if(ctrlScope.gridDataCnt !== undefined &&
+                        ctrlScope.gridDataCnt === 0) {
                         createModal();
                         return;
                     }
