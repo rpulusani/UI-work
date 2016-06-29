@@ -61,6 +61,8 @@ angular.module('mps.deviceManagement')
             Devices.reset();
             ServiceRequest.reset();
             Devices.item = {};
+            Orders.newMessage();
+            Orders.tempSpace = {};
             Orders.sourcePage = $location.path(); 
             $location.path('/orders/catalog/hardware');
         };

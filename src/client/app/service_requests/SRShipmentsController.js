@@ -61,6 +61,7 @@ angular.module('mps.serviceRequests')
     		for(var i=0;i<$scope.shipments.length;i++){
         		$scope.shipments[i].showDetails = false;
         		$scope.shipments[i].showHideMessage = 'Show Shipment details';
+        		$scope.shipments[i].shipDate = FormatterService.formatDate($scope.shipments[i].shipDate); 
         		$scope.shipments[i].formattedShipToAddress = FormatterService.formatAddress($scope.shipments[i].shipToAddress);
         		if($scope.hasData === false && $scope.shipments[i].shipmentParts.length > 0){
         			$scope.hasData = true;
