@@ -15,7 +15,7 @@
                     <span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_NEW_ORDER_SUMMARY"></span>
                     <span class="push" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_HEADER_ITEMS_COUNT_SUMMARY"
                         ng-if="orderSummaryGridOptions && orderSummaryGridOptions.data"
-                        translate-values="{ count: orderSummaryGridOptions.data.length}"></span></h3>
+                        translate-values="{ total: orderSummaryGridOptions.data.length}"></span></h3>
 
                 <div class="row alert alert--error" ng-if="editable === 'true' && validationMessages && validationMessages.length > 0">
                     <div class="col-1">
