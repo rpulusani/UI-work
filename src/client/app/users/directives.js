@@ -114,7 +114,9 @@ angular.module('mps.user')
                 });
                 
                 $scope.provinces = item[0].provinces;
-            };
+                $scope.user.address.state = "";
+                
+                            };
         }]
     };
 })
