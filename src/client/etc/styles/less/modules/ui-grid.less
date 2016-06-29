@@ -61,9 +61,11 @@
     border-top: none;
     border-right: solid 1px @grey4;
   }
-  .ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
-    background-color: @grey1;
-    border:@grey4;
+  .ui-grid-row.ui-grid-row-selected:nth-child(even) > [ui-grid-row] > .ui-grid-cell {
+    background-color: white;
+  }
+  .ui-grid-row.ui-grid-row-selected:nth-child(odd) > [ui-grid-row] > .ui-grid-cell {
+    background-color: @grey2;
   }
   .selection, .bookmark{
     padding: 12px 5px !important;
