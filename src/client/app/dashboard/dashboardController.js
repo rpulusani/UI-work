@@ -33,7 +33,13 @@ function(
     FormatterService,
     BlankCheck
 ) {
-	
+	    $scope.isInternal = false;
+        $rootScope.currentUser.deferred.promise.then(function() {
+            if ($rootScope.currentUser.type === 'INTERNAL') {
+                $scope.isInternal = true;
+            }
+        });
+        
 		$scope.filteredNotifications = [];
 		
 		Notifications.get({

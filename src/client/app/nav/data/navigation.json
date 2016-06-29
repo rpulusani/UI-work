@@ -199,7 +199,7 @@
     "action": "/carrier",
     "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
     "description": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
-    "permissionFlag":"viewHomePage",
+    "permissionFlag":"portalAdminAccess",
     "icon": "portalAdminAccess",
     "tags":["16"]
   }
