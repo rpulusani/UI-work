@@ -44,6 +44,7 @@ angular.module('mps.orders')
             'catalogCart': {}
         };
     }else{
+        OrderItems.columns = 'defaultSet';
     	Orders.backFrom = '';
     }
     
