@@ -38,6 +38,11 @@ angular.module('mps.siebel')
             Translations.addField('subModule', $scope.translation.subModule);
             Translations.addField('actualValue', $scope.translation.actualValue);
             Translations.addField('values', $scope.translation.values);
+            if($scope.translation.type === 'NOTIFICATION'){
+            	Translations.addField('startDate', $scope.translation.startDate);
+                Translations.addField('endDate', $scope.translation.endDate);	
+            }
+            
         };
 
         $scope.update = function() {
