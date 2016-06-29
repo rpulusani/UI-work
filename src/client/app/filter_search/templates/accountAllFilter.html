@@ -1,7 +1,7 @@
 <br />
-<h4 translate="FILTERS.FILTER_BY_ACCOUNT"></h4>
+<h4 translate="FILTERS.FILTER_BY_ACCOUNT" ng-if="!searchAccounts"></h4>
 
-<div class="well scrollable">
+<div class="well scrollable"  ng-if="!searchAccounts">
     <div ng-repeat="account in accounts">
         <label for="account.name" class="form__field form__field--no-margin">
             <input type="checkbox" id="account{{$index + 1}}" name="account{{$index + 1}}"
@@ -10,7 +10,18 @@
         </label>
     </div>
 </div>
-<br />
+<h4 translate="USER_MAN.MANAGE_LXK_USERS.TXT_FIND_ACCOUNT" ng-if="searchAccounts"></h4>
+<div class="form__field" ng-if="searchAccounts">
+    <input name="accountName" type="text" ng-model="searchAccountObj.name" class="" ng-change="setAccounts()"/>
+</div>
+
+<div class="accountTree well scrollable" ng-if="searchAccounts">
+    <div ng-repeat="account in accountList">
+        <div tree tree-type='daAccounts' action='selectLevel' initial-item="account" 
+            value="account.accountId" previous-items="$parent.filteredAccountsList">
+        </div>
+    </div>
+</div>
 <div class="col-lg-2-3 col-md-1-1" ng-if="showClearMessage">
     <div class="footnotes">
         <i>{{noOfAccountsSelected}} {{'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_ACCOUNT_SELECTED' | translate }}</i>

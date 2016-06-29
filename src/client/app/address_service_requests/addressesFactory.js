@@ -51,7 +51,8 @@ angular.module('mps.serviceRequestAddresses')
             },
             verifyAddress: function(addressObj, fn) {
             	var postAddressObj = addressObj;
-            	if(BlankCheck.checkNotBlank(postAddressObj.houseNumber)){
+            	if(BlankCheck.checkNotBlank(postAddressObj.houseNumber) 
+            			&& postAddressObj.addressLine1.toLowerCase().indexOf(postAddressObj.houseNumber) === -1){
             		postAddressObj = angular.copy(addressObj);
             		postAddressObj.addressLine1 +=', '+postAddressObj.houseNumber;  
                 }

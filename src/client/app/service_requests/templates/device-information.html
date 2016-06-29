@@ -75,15 +75,15 @@
             </tr>
         </thead>
         <tbody>
-             <tr ng-repeat="device in configure.updatingMultiple">
-                <td ng-bind="device.serialNumber"></td>
-                <td ng-bind="device.productModel"></td>
+             <tr ng-repeat="deviceItem in configure.updatingMultiple">
+                <td ng-bind="deviceItem.serialNumber"></td>
+                <td ng-bind="deviceItem.productModel"></td>
                 <td>
-                    {{device._embedded.contact.firstName + ' ' + device._embedded.contact.lastName}}<br/>
-                    {{device._embedded.contact.email}}<br/>
-                    {{device._embedded.contact.workPhone}}
+                    {{device.deviceContact.firstName + ' ' + device.deviceContact.lastName}}<br/>
+                    {{device.deviceContact.email}}<br/>
+                    {{device.deviceContact.workPhone}}
                 </td>
-                <td ng-bind="device.multipleCostCenter"></td>
+                <td ng-bind="deviceItem.multipleCostCenter"></td>
              </tr>
         </tbody>
     </table>
