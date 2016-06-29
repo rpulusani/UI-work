@@ -14,10 +14,10 @@
         </div> 
  <div class="row groupingTable" ng-repeat = "cancelledItem in cancelledItems">
  <div>
- 		<div class="firstCol col-1-8 floatL">
+ 		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
 			<span>Cancellation</span><br/>			
 		</div>
-		<div class="secondCol col-7-8 floatL">
+		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
 			<h4 class="vertical-space--none">
 				{{cancelledItems.length}} item cancelled on this order			
 			</h4>
@@ -27,13 +27,13 @@
  </div>
  </div>
  
- <div class="row groupingTable" >
+ <div class="row groupingTable" ng-if="pending.pendCount > 0 && pending.total > 0">
  <div>
- 		<div class="firstCol col-1-8 floatL">
-			<span>Shipment(s)</span><br/>
+ 		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
+			<span class="col-lg-1 col-sm-auto col-xs-auto  col-md-auto">Shipment(s)</span>
 			<span>pending</span><br/>			
 		</div>
-		<div class="secondCol col-7-8 floatL">
+		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
 			<h4 class="vertical-space--none">
 				{{pending.pendCount}} of {{pending.total}} items still pending shipment.		
 			</h4>
@@ -44,12 +44,12 @@
  
  <div class="row groupingTable" ng-if="shipments.length > 0 && hasData" ng-repeat = "shipment in shipments">
  	<div ng-if = "shipment.shipmentParts.length > 0">
- 		<div class="firstCol col-1-8 floatL">
-			<span>Shipment</span><br/>
-			<span><b>{{$index+1}}</b></span><br/>
+ 		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
+			<span class="col-lg-1 col-sm-auto col-xs-auto col-md-auto">Shipment</span>
+			<span class="col-lg-1 col-sm-auto col-xs-auto col-md-auto"><b>{{$index+1}}</b></span>
 			<span>{{shipment.status}}</span>
 		</div>
-		<div class="secondCol col-7-8 floatL">
+		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
 			
 		<h4 class="vertical-space--none">
 			Delivered {{shipment.deliveryDate}} via {{shipment.carrier}} | 

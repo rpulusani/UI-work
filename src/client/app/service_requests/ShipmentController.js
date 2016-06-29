@@ -30,10 +30,10 @@ angular.module('mps.serviceRequests')
                hideBookmark: true,
                columnDefs: {
                    defaultSet: [
-                       {'name':'Quantity', 'field':'requestedQuantity'},
                        {'name': 'Part Number', 'field': 'partNumber'},
+                       {'name': 'Description', 'field': 'description'},
                        {'name': 'Part Type', 'field': 'type'},
-                       {'name': 'Description', 'field': 'description'}                        
+                       {'name':'Quantity', 'field':'requestedQuantity'}                   
                        
                    ],             
                

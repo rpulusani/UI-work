@@ -28,7 +28,7 @@ angular.module('mps.invoice')
                     }
                 ]
             },
-            route: '/device_management',
+            route: '/invoices',
             functionArray: [
                     {
                         name: 'getAmount',

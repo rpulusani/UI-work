@@ -64,7 +64,7 @@ angular.module('mps.library')
             $('.site-content').scrollTop(0,0);
             $scope.documentItem = Documents.item;
 
-            if ($scope.documentItem.ext === 'pdf') {
+            if ($scope.documentItem.ext && $scope.documentItem.ext.toLowerCase() === 'pdf') {
                 $http({
                     method: 'GET',
                     url: $scope.documentItem.download.url,
