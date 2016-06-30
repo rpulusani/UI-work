@@ -62,6 +62,7 @@ angular.module('mps.serviceRequests')
         		$scope.shipments[i].showDetails = false;
         		$scope.shipments[i].showHideMessage = 'Show Shipment details';
         		$scope.shipments[i].shipDate = FormatterService.formatDate($scope.shipments[i].shipDate); 
+        		$scope.shipments[i].deliveryDate = FormatterService.formatDate($scope.shipments[i].deliveryDate); 
         		$scope.shipments[i].formattedShipToAddress = FormatterService.formatAddress($scope.shipments[i].shipToAddress);
         		if($scope.hasData === false && $scope.shipments[i].shipmentParts.length > 0){
         			$scope.hasData = true;
@@ -89,7 +90,8 @@ angular.module('mps.serviceRequests')
     			$scope.shipments.splice(cancelledIndex,1);  
     			
     		}
-    		
+    		$scope.$emit('shipmentsCount',$scope.shipments.length);
+        	
     	}
     		
     	

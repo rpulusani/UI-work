@@ -169,11 +169,23 @@ angular.module('mps.orders')
                  var params ={
                         contractNumber: $scope.configure.cart.contract.id,
                         agreementId: $scope.configure.cart.agreement.id,
-                        billingModel: $scope.configure.cart.billingModels.join(',')
+                        billingModel: $scope.configure.cart.billingModels.join(','),
+                        supplyParam: false,
+                        serviceParam: false
                     };
-
+                 if(BlankCheck.checkNotBlank($scope.configure.cart.agreement.supplyCatalogType)
+                		 && $scope.configure.cart.agreement.supplyCatalogType.toLowerCase().indexOf('supply')!== -1){
+                	 params.supplyParam = true;
+                 }
+                 if(BlankCheck.checkNotBlank($scope.configure.cart.agreement.serviceCatalogType)
+                		 && $scope.configure.cart.agreement.serviceCatalogType.toLowerCase().indexOf('service')!== -1){
+                	 params.serviceParam = true;
+                 }
+                
+                
                 switch($scope.configure.cart.catalog.toUpperCase()){
                     case 'SUPPLIES':
+                    	SuppliesCatalog.reset();
                         beforeDisplay = function(){
                             var deferred = $q.defer();
                              SuppliesCatalog.getThumbnails();
@@ -191,6 +203,7 @@ angular.module('mps.orders')
                         filterSearchService.addBasicFilter('all supplies', params, {});
                     break;
                     case  'DEVICE':
+                    	HardwareCatalog.reset();
                         beforeDisplay = function(){
                             var deferred = $q.defer();
                              HardwareCatalog.getThumbnails();
@@ -208,6 +221,7 @@ angular.module('mps.orders')
                         filterSearchService.addBasicFilter('all device packages', params, {});
                     break;
                     case  'ACCESSORIES':
+                    	AccessoriesCatalogFactory.reset();
                     	beforeDisplay = function(){
 	                        var deferred = $q.defer();
 	                        AccessoriesCatalogFactory.getThumbnails();
@@ -318,6 +332,7 @@ angular.module('mps.orders')
     	});
     }
     function initPartsInfoGrid(){
+    	console.log('inside partsinfo '+PartsInfo.data.length);
     	var Grid = new GridService();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         
