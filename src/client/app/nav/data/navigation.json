@@ -199,8 +199,8 @@
     "action": "/carrier",
     "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
     "description": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
-    "permissionFlag":"viewHomePage",
-    "icon": "portalAdminAccess",
+    "permissionFlag":"portalAdmin",
+    "icon": "",
     "tags":["16"]
   }
 ]
