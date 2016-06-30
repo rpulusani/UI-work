@@ -163,7 +163,7 @@
     "action": "/notifications",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
-    "permissionFlag":"translationAdminAccess",
+    "permissionFlag":"portalAdmin",
     "icon": "",
     "tags":["16"]
   },
@@ -172,7 +172,7 @@
     "action": "/siebel",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
-    "permissionFlag":"translationAdminAccess",
+    "permissionFlag":"portalAdmin",
     "icon": "",
     "tags":["16"]
   },
