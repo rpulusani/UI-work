@@ -12,7 +12,10 @@ angular.module('mps.utility')
         this.serviceInfo = {};
         this.optionsName = 'gridOptions';
         this.gridOptions = {};
+        this.cache = []; 
+        this.resetCache = false;
         this.enableServerSort = true;
+        this.currentSelectedRowIndex = [];
     };
 
     Grid.prototype.setGridOptionsName = function(newName) {
@@ -91,8 +94,7 @@ angular.module('mps.utility')
                         }
                         // added for custom function on row selected
                         if(service.onSelectRow && typeof service.onSelectRow === "function"){
-                        	console.log(" on select row grid");
-                        	service.onSelectRow(row);
+                            service.onSelectRow(row);
                         }
                     }
                 );
@@ -307,7 +309,8 @@ angular.module('mps.utility')
 
         var tempOptionName = self.optionsName;
         $timeout(function() {
-            var totalItems = scope.pagination.totalItems();
+            var totalItems = scope.pagination.totalItems(),
+            i = 0;
 
             scope[self.optionsName].showLoader = false;
 
@@ -323,7 +326,61 @@ angular.module('mps.utility')
                 scope[self.optionsName].rowHeight = rowHeight;
             }
 
+            self.currentSelectedRowIndex = [];
+
             scope[self.optionsName].data = self.getDataWithDataFormatters(service.data, service.functionArray);
+
+            if (self.cache.length === 0) {
+                service.gridCache = null;
+                self.cachePage(service.page.number, scope[self.optionsName].data);
+            }
+
+            if (self.resetCache === true) {
+                self.cache = [];
+            }
+
+            if (service.gridCache) {
+                $rootScope.gridApi.grid.modifyRows(scope[self.optionsName].data);
+                
+                self.currentSelectedRowIndex = service.gridCache.selections;
+
+                for (i; i < service.gridCache.selections.length; i += 1) {
+                    $rootScope.gridApi.selection.selectRow(scope[self.optionsName].data[service.gridCache.selections[i]]);
+                }
+            }
+
+            if (!self.eventsSetup) {
+                self.eventsSetup = true;
+
+                $rootScope.gridApi.selection.on.rowSelectionChanged(scope, function(row, evt) {
+                    var rowIndex = scope[self.optionsName].data.indexOf(row.entity),
+                    i = 0;
+                    
+                    if (evt && evt.type === 'click') {
+                        if (self.currentSelectedRowIndex.length > 0) {
+                            for (i; i < self.currentSelectedRowIndex.length; i += 1) {
+                                if (self.currentSelectedRowIndex[i] === rowIndex) {
+                                    if (self.currentSelectedRowIndex.length > 1) {
+                                       self.currentSelectedRowIndex.splice(i, 1);
+                                    } else {
+                                        self.currentSelectedRowIndex = [];
+                                    }
+
+                                    return true;
+                                }
+                            }
+
+                            self.currentSelectedRowIndex.push(rowIndex);
+
+                            return true;
+                        } else {
+                            self.currentSelectedRowIndex.push(rowIndex);
+
+                            return true;
+                        }
+                    }
+                });
+            }
 
             if (totalItems === 0) {
                 newHeight = baseHeight;
@@ -361,6 +418,63 @@ angular.module('mps.utility')
         if (typeof fn === 'function') {
             return fn(self);
         }
+    };
+
+    Grid.prototype.cachePage = function(id, data, selections) {
+        var cacheObj = {
+            id: id,
+            data: data
+        };
+
+        if (selections) {
+            cacheObj.selections = selections;
+        }
+
+        this.cache.push(cacheObj);
+    };
+
+    Grid.prototype.searchCache = function(pageNumber, fn) {
+        var i = 0;
+
+        for (i; i < this.cache.length; i += 1) {
+            if (this.cache[i].id === pageNumber) {
+                return fn(this.cache[i], i);
+            }
+        }
+
+        return fn(false);
+    };
+
+    Grid.prototype.updateCache = function(pageNumber, service, fn) {
+        var self = this;
+
+        self.searchCache(pageNumber, function(cache, cacheIndex) {
+            if (!cache) {
+                if (self.currentSelectedRowIndex.length === 0) {
+                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data);
+                } else {
+                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, self.currentSelectedRowIndex);
+                }
+
+                self.searchCache(pageNumber, function(cache) {
+                    if (cache) {
+                        return fn(cache);
+                    } else {
+                        return fn(false);
+                    }
+                });
+            } else {
+                self.cache[cacheIndex].data = service.data;
+
+                if (!self.currentSelectedRowIndex || self.currentSelectedRowIndex.length === 0) {
+                    self.cache[cacheIndex].selections = [];
+                } else {
+                    self.cache[cacheIndex].selections = self.currentSelectedRowIndex;
+                }
+
+                return fn(self.cache[cacheIndex]);
+            }
+        });
     };
 
     Grid.prototype.pagination = function(service, scope, personal) {
@@ -491,20 +605,40 @@ angular.module('mps.utility')
                 this.gotoPage(0);
             },
             gotoPage: function(pageNumber, size) {
-                var pageSize = personal.getPersonalizedConfiguration('itemsPerPage');
-                service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
-                	if(service.afterLoadData){
-                		service.afterLoadData().then(function(){
-                			self.display(service, scope, personal, scope[self.optionsName].rowHeight);
+                var pageSize = personal.getPersonalizedConfiguration('itemsPerPage'),
+                reloadService = function(cache) {
+                    if (cache) {
+                        service.gridCache = cache;
+                    }
+
+                    if (service.afterLoadData) {
+                        service.afterLoadData().then(function() {
+                            self.display(service, scope, personal, scope[self.optionsName].rowHeight);
                             size = service.page.size;
-                		});
-                	}else{
-                		self.display(service, scope, personal, scope[self.optionsName].rowHeight);
+                        });
+                    } else {
+                        self.display(service, scope, personal, scope[self.optionsName].rowHeight);
                         size = service.page.size;
-                	}                		
-                        
-                }, function(reason) {
-                    NREUM.noticeError('failed Paging: ' + reason);
+                    }
+                };
+
+                self.updateCache(service.page.number, service, function() {
+                    self.searchCache(pageNumber, function(cache) {
+                        if (!cache) {
+                            service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
+                                self.cachePage(service.page.number, service.data);
+                                reloadService(cache);
+                            }, function(reason) {
+                                NREUM.noticeError('failed Paging: ' + reason);
+                            });
+                        } else {
+                            service.page.number = cache.id;
+                            service.data = cache.data;
+                            scope[self.optionsName].data = cache.data;
+
+                            reloadService(cache);
+                        }
+                    });
                 });
             },
             nextPage: function() {
