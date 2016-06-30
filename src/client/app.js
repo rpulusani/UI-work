@@ -143,6 +143,9 @@ angular.module('mps', [
         report: 'ADMIN_REPORT_DOCUMENT',
         homepage:'ADMIN_HOME_PAGE',
         translationManager: 'ADMIN_TRANSLATION_MANAGER'
+    },
+    portalAdmin:{
+    	admin: 'PORTAL_ADMIN'
     }
 })
 .constant('tombstoneWaitTimeout', 3000)
@@ -471,6 +474,10 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
                 permissionSet.contentManagement.deleteAll,
                 permissionSet.contentManagement.manageAccountTag
             ]
+        },
+        {
+            name: 'portalAdmin',
+            permission: permissionSet.portalAdmin.admin
         }
     ];
     
