@@ -10,7 +10,7 @@ angular.module('mps.library')
             documentSorting: true,
             columnDefs: {
                 defaultSet: [
-                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'strategic', width: '100', notSearchable: true,
+                    {name: $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_FILTER_STRATEGIC'), field: 'getStrategicStatus()',  searchOn: 'strategic', width: '100', notSearchable: true,
                         cellTemplate: '<i ng-class="grid.appScope.getStrategicIcon(row.entity.strategic)"></i>', visible: $rootScope.documentLibraryViewStrategicAccess,
                         showInColumnPicker: $rootScope.documentLibraryViewStrategicAccess
                     },
@@ -58,6 +58,20 @@ angular.module('mps.library')
                 return localized;
             },
             functionArray: [
+                {
+                    name: 'getStrategicStatus',
+                    functionDef: function() {
+                        if(this.strategic !== undefined && this.strategic){
+                            return($translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.EXPORT_STRATEGIC'));
+                        }
+                        else if(this.strategic !== undefined && !this.strategic){
+                            return($translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.EXPORT_NONSTRATEGIC'));
+                        }
+                        else{
+                            return "";
+                        }
+                    }
+                },
                 {
                     name: 'getFileSize',
                     functionDef: function() {

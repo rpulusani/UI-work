@@ -1,10 +1,10 @@
 <div class="row l-pad" ng-if="!viewHomePage">
     <div class="col-1" translate="MESSAGE.NO_ACCESS"></div>
 </div>
-<div ng-if="translationAdminAccess" class="page-header" admin-home-height>
+<div ng-if="isInternal" class="page-header" admin-home-height>
     <h2 translate="HOME_PAGE.REQUEST_STATUS.TXT_HOME_PAGE_COMING_SOON"></h2>
 </div>
-<div ng-if="viewHomePage && !translationAdminAccess">
+<div ng-if="viewHomePage && !isInternal">
     <div class="page-header">
         <div class="row">
             <div class="col-1 l-pad-before l-pad-after">
@@ -169,7 +169,7 @@
                         <p class="text--align-center" ng-if="chartObject.pagesBilled.dataPoint < 1" translate="LABEL.COMMON.ZERO_RECORDS"></p>
 
                         <div google-chart chart="{{ chartObject.pagesBilled }}"></div>
-                        <div class="reportTotalCount">{{chartObject.pagesBilled.dataPoint}}</div>
+                        
                     </div>
                 </div>
             </div>
