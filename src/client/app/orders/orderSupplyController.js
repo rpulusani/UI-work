@@ -81,11 +81,20 @@ angular.module('mps.orders')
           
             	AssetParts.params = {
                 		search : Devices.item.specialUsage,
-                		searchOn : 'specialUsage'
-                		
+                		searchOn : 'specialUsage',
+                		supplyParam: false,
+                        serviceParam: false
                 };
           
-            
+            	 if(BlankCheck.checkNotBlank(Orders.tempSpace.catalogCart.agreement.supplyCatalogType)
+                		 && Orders.tempSpace.catalogCart.agreement.supplyCatalogType.toLowerCase().indexOf('supply')!== -1){
+            		 AssetParts.params.supplyParam = true;
+                 }
+                 if(BlankCheck.checkNotBlank(Orders.tempSpace.catalogCart.agreement.serviceCatalogType)
+                		 && Orders.tempSpace.catalogCart.agreement.serviceCatalogType.toLowerCase().indexOf('service')!== -1){
+                	 AssetParts.params.serviceParam = true;
+                 }
+                 
             Devices.getAdditional(Devices.item, AssetParts,'parts').then(function(){
             	AssetParts.params = {};
                 var Grid = new GridService();
