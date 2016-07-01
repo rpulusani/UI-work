@@ -121,18 +121,17 @@ angular.module('mps.orders')
         if(dataRow){
             dataRow.quantity = row.entity.quantity;
         }
-               
+        $scope.calculate();
         // Here comes the service and supplies part max quantity vaidation
         
-        if(dataRow.partRequestArea.toUpperCase() === 'CONSUMABLE SVC PARTS REQUEST'){
+        if(dataRow.partRequestArea && dataRow.partRequestArea.toUpperCase() === 'CONSUMABLE SVC PARTS REQUEST'){
         	$scope.maxCheck($scope.maxServiceQuantity,row,index);
-        }else if(dataRow.partRequestArea.toUpperCase() === 'CONSUMABLES SUPPLIES REQUEST'){
+        }else if(dataRow.partRequestArea && dataRow.partRequestArea.toUpperCase() === 'CONSUMABLES SUPPLIES REQUEST'){
         	$scope.maxCheck($scope.maxSuppliesQuantity,row,index);
         }else{
         	// part type not matching... 
         }
         
-        $scope.calculate();
     };
     $scope.maxCheck = function(maxQuantity,row,index){
     	
@@ -193,6 +192,9 @@ angular.module('mps.orders')
         	
         	$scope.displaytax = OrderItems.formatTax(taxPercent);
         }
+        else if(OrderItems && OrderItems.data &&  $scope.tax !== '' && subTotal > 0){
+            $scope.total = formatter.formatCurrency(subTotal);
+        }
         
     };
     
@@ -225,6 +227,10 @@ angular.module('mps.orders')
             $scope.calculate();
         }
     });
+    if($rootScope.taxAvailableOnReturnChangeContact){
+        $scope.tax = $rootScope.taxAvailableOnReturnChangeContact;
+        $rootScope.taxAvailableOnReturnChangeContact = null;
+    }
     $scope.calculate();
     
 }]);
