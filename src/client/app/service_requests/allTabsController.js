@@ -15,7 +15,10 @@ angular.module('mps.serviceRequests')
             $location.search('tab', value);
             return false;
         };
-
+        $scope.shipmentCount = 0;
+        $scope.serviceActivitiesCount = 0;
+        $scope.associatedRequestsCount = 0;
+        
         $scope.isActive = function(value){
             var passed = false;
             if($rootScope.currentSRTab === value){
@@ -25,11 +28,25 @@ angular.module('mps.serviceRequests')
         };
 
         var tabId = $location.search().tab;
-        console.log('tabId '+tabId);
+        
         if(tabId){
             $rootScope.currentSRTab = tabId;
             $scope.isActive(tabId);
         }else{
             $scope.active('srDetailsAssociateRequestsTabl');
         }
+        $scope.$on('activityCount', function(event,data){
+        	$scope.serviceActivitiesCount = data;
+        });
+        
+        $scope.$on('shipmentsCount', function(event,data){
+        	$scope.shipmentCount = data;
+        });
+        $scope.$on('associateRequestsCount', function(event,data){
+        	$scope.associatedRequestsCount = data;
+        });
+        
+        
+        
+        
     }]);

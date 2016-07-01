@@ -66,11 +66,12 @@ angular.module('mps.serviceRequests')
         	$scope.gridLoading = false;
         	if($scope.associateRequests.item._embedded && $scope.associateRequests.item._embedded.associatedServiceRequests){
         		$scope.associateRequests.data = $scope.associateRequests.item._embedded.associatedServiceRequests;
-        		processData();
-        		console.log($scope.associateRequests.data );
+        		processData();        		
         	}else {
         		$scope.associateRequests.data = [];        		
         	}
+        	$scope.$emit('associateRequestsCount',$scope.associateRequests.data.length);
+        	
         	Grid.display($scope.associateRequests,$scope,personal, 48);
         	
        });
