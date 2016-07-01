@@ -81,6 +81,9 @@ angular.module('mps.serviceRequests')
         	}else{
         		$scope.activityGridOptions.data = [];
         	}
+        	
+        	$scope.$emit('activityCount',$scope.activityGridOptions.data.length);
+        	
         	$scope.activityGridOptions.height = Formatter.getHeightFromdata($scope.activityGridOptions.data); 
         });
     	

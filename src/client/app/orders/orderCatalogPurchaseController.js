@@ -627,6 +627,9 @@ angular.module('mps.orders')
                 Orders.tempSpace.primaryContact= angular.copy($rootScope.selectedContact);
                 $scope.resetContactPicker();
                 $scope.formatAdditionalData();
+                if(OrderItems.taxAmount){
+                    $rootScope.taxAvailableOnReturnChangeContact = OrderItems.taxAmount;
+                }
 
         } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
             configureSR(Orders);
@@ -659,6 +662,9 @@ angular.module('mps.orders')
                 $scope.resetAddressPicker();
                 $scope.formatAdditionalData();
         } else{
+            if(Orders.item._links.shipToAddress && Orders.item.billToNumber){
+                callTax();
+            }
             configureSR(Orders);
         }
 

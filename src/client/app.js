@@ -142,7 +142,9 @@ angular.module('mps', [
     admin:{
         report: 'ADMIN_REPORT_DOCUMENT',
         homepage:'ADMIN_HOME_PAGE',
-        translationManager: 'ADMIN_TRANSLATION_MANAGER'
+        translationManager: 'ADMIN_TRANSLATION_MANAGER',
+        portalAdmin : 'PORTAL_ADMIN',
+        lexmarkAdmin : 'LEXMARK_ADMIN'
     }
 })
 .constant('tombstoneWaitTimeout', 3000)
@@ -471,6 +473,14 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
                 permissionSet.contentManagement.deleteAll,
                 permissionSet.contentManagement.manageAccountTag
             ]
+        },
+        {
+            name: 'portalAdmin',
+            permission: permissionSet.admin.portalAdmin
+        },
+        {
+        	name : 'lexmarkAdmin',
+        	permission: permissionSet.admin.lexmarkAdmin
         }
     ];
     

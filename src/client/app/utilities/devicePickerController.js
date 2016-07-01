@@ -98,7 +98,7 @@ angular.module('mps.utility')
 
         $scope.goToCallingPage = function(){
             var url = $rootScope.deviceReturnPath;
-            if($rootScope.deviceReturnPath.indexOf("{{id}}") > -1){
+            if($rootScope.currentSelectedRow && $rootScope.deviceReturnPath.indexOf("{{id}}") > -1){
                 url = $rootScope.deviceReturnPath.replace("{{id}}", $rootScope.currentSelectedRow.id);
             }
             $location.path(url);

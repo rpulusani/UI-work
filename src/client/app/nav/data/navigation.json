@@ -163,7 +163,7 @@
     "action": "/notifications",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_NOTIFICATION_MANAGEMENT",
-    "permissionFlag":"translationAdminAccess",
+    "permissionFlag":"portalAdmin",
     "icon": "",
     "tags":["16"]
   },
@@ -172,7 +172,7 @@
     "action": "/siebel",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_SIEBEL_MANAGEMENT",
-    "permissionFlag":"translationAdminAccess",
+    "permissionFlag":"portalAdmin",
     "icon": "",
     "tags":["16"]
   },
@@ -199,8 +199,8 @@
     "action": "/carrier",
     "text": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
     "description": "ADMIN.CARRIER.TXT_CARRIER_MANAGEMENT",
-    "permissionFlag":"portalAdminAccess",
-    "icon": "portalAdminAccess",
+    "permissionFlag":"portalAdmin",
+    "icon": "",
     "tags":["16"]
   }
 ]

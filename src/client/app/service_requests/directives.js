@@ -164,9 +164,7 @@ angular.module('mps.serviceRequests')
 .directive('associatedTab',function(){
 	 return {
 	        restrict: 'A',
-	        scope: {
-	        	sr:'='
-	        },
+	       
 	        templateUrl: '/app/service_requests/templates/associate-grid-request.html',
 	        controller:'SRAssociatedController'
 	    };
@@ -199,9 +197,6 @@ angular.module('mps.serviceRequests')
 .directive('activities',function(){
 	 return {
 	        restrict: 'A',
-	        scope: {
-	        	sr:'='
-	        },
 	        templateUrl: '/app/service_requests/templates/activities.html',
 	        controller:'SRActivitiesController'
 	    };
@@ -209,9 +204,7 @@ angular.module('mps.serviceRequests')
 .directive('shipments',function(){
 	 return {
 	        restrict: 'A',
-	        scope: {
-	        	sr:'='
-	        },
+	        
 	        templateUrl: '/app/service_requests/templates/shipments.html',
 	        controller:'SRShipmentsController'
 	    };
