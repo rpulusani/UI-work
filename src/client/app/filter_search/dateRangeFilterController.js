@@ -7,7 +7,7 @@ angular.module('mps.filterSearch')
             if (dateFrom) {
                 $scope.showClearMessage = true;
                 $scope.params['from'] = formatter.formatDateForPost(dateFrom);
-                $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter']);
+                $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter', 'source']);
             }
         });
 
@@ -15,7 +15,7 @@ angular.module('mps.filterSearch')
             if (dateTo) {
                $scope.showClearMessage = true;
                $scope.params['to'] = formatter.addTimeToDate(dateTo,23,59);
-			   $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter']);
+			   $scope.filterDef($scope.params, ['location', 'status', 'chlFilter', 'requesterFilter', 'source']);
             }
         });
 
@@ -24,7 +24,7 @@ angular.module('mps.filterSearch')
                 $scope.dateFrom = '';
                 $scope.dateTo = '';
                 $scope.params = {};
-                $scope.filterDef($scope.params, ['from', 'to', 'location', 'status', 'chlFilter', 'requesterFilter']);
+                $scope.filterDef($scope.params, ['from', 'to', 'location', 'status', 'chlFilter', 'requesterFilter', 'source']);
             }
         };
     }
