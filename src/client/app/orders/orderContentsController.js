@@ -124,9 +124,9 @@ angular.module('mps.orders')
                
         // Here comes the service and supplies part max quantity vaidation
         
-        if(dataRow.partRequestArea.toUpperCase() === 'CONSUMABLE SVC PARTS REQUEST'){
+        if(dataRow.partRequestArea && dataRow.partRequestArea.toUpperCase() === 'CONSUMABLE SVC PARTS REQUEST'){
         	$scope.maxCheck($scope.maxServiceQuantity,row,index);
-        }else if(dataRow.partRequestArea.toUpperCase() === 'CONSUMABLES SUPPLIES REQUEST'){
+        }else if(dataRow.partRequestArea && dataRow.partRequestArea.toUpperCase() === 'CONSUMABLES SUPPLIES REQUEST'){
         	$scope.maxCheck($scope.maxSuppliesQuantity,row,index);
         }else{
         	// part type not matching... 
