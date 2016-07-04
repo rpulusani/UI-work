@@ -630,6 +630,9 @@ angular.module('mps.orders')
                 if(OrderItems.taxAmount){
                     $rootScope.taxAvailableOnReturnChangeContact = OrderItems.taxAmount;
                 }
+                if(Orders.item.attachments){
+                    $scope.files_complete = Orders.item.attachments
+                }
 
         } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
             configureSR(Orders);
@@ -662,6 +665,9 @@ angular.module('mps.orders')
                 $scope.resetAddressPicker();
                 $scope.formatAdditionalData();
         } else{
+            if(Orders.item.attachments){
+                $scope.files_complete = Orders.item.attachments
+            }
             if(Orders.item._links.shipToAddress && Orders.item.billToNumber){
                 callTax();
             }
@@ -1124,6 +1130,9 @@ angular.module('mps.orders')
         }
         
         setCsvDefinition();
+        $scope.$on('attachedFileSuccess', function(e, files) {
+            Orders.addField('attachments', files);
+        });
      }
 ]);
 
