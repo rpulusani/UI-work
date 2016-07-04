@@ -7,7 +7,8 @@ angular.module('mps.library')
         $scope.isCreating = false;
         $scope.isEditing = false;
         $scope.isDeleting = false;
-
+        $scope.gridLoading = true;
+        $scope.gridDataCnt = 0;
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
         filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet);
         var Grid = new GridService();
@@ -99,6 +100,8 @@ angular.module('mps.library')
                 size: 20
             }
         }).then(function() {
+            $scope.gridDataCnt = Documents.page.totalElements;
+            $scope.gridLoading = false;
             Grid.display(Tags, $scope, personal);
         });
 
