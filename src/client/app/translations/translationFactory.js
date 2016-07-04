@@ -61,28 +61,28 @@ angular.module('mps.translation')
                         url += '/csv';
 
                         fileExt = '.csv';
-
-                        if (ctrlScope.exportedFileLanguage) {
-                             url += '?language=' + ctrlScope.exportedFileLanguage
-                        }
-
-                        if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
-                            if (!ctrlScope.exportedFileLanguage || ctrlScope.exportedFileLanguage === 'EN') {
-                                url += '?missing=translations';
-                            } else {
-                                url += '&missing=' + ctrlScope.exportedFileLanguage;
-                            }
-                        }
-
-                        if (ctrlScope.currentCategories.length > 0) {
-                            if (url.indexOf('?') !== -1) {
-                                url += '&category=' + ctrlScope.currentCategories.toString();
-                            } else {
-                                url += '?category=' + ctrlScope.currentCategories.toString();
-                            }
-                        }
                     } else {
                         url += '/xliff';
+                    }
+
+                    if (ctrlScope.exportedFileLanguage) {
+                        url += '?language=' + ctrlScope.exportedFileLanguage
+                    }
+
+                    if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
+                        if (!ctrlScope.exportedFileLanguage) {
+                            url += '?missing=translations';
+                        } else {
+                            url += '&missing=' + ctrlScope.exportedFileLanguage;
+                        }
+                    }
+
+                    if (ctrlScope.currentCategories.length > 0) {
+                        if (url.indexOf('?') !== -1) {
+                            url += '&category=' + ctrlScope.currentCategories.toString();
+                        } else {
+                            url += '?category=' + ctrlScope.currentCategories.toString();
+                        }
                     }
 
                     return $http({
