@@ -314,6 +314,8 @@ angular.module('mps.serviceRequestDevices')
                 if (Devices.updatingMultiple) {
                     for (i; i < Devices.data.length; i += 1) {
                     	ServiceRequest.addRelationship('asset', Devices.data[i], 'self');
+                    	ServiceRequest.addRelationship('sourceAddress', Devices.data[i], 'address');
+                    	ServiceRequest.removeRelationship('destinationAddress');
                         $scope.sr.assetInfo = {
                         	serialNumber :Devices.data[i].serialNumber, 
                         	assetTag: Devices.data[i].assetTag,
