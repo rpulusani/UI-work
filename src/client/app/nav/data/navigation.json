@@ -190,7 +190,7 @@
     "action": "/impersonate",
     "text": "NAVIGATION.LEFT_NAV_ADMIN.TXT_IMPERSONATION",
     "description": "NAVIGATION.LEFT_NAV_ADMIN.TXT_IMPERSONATION",
-    "permissionFlag":"userManagementAccess",
+    "permissionFlag":"impersonateAccess",
     "icon": "",
     "tags":["16"]
   },
