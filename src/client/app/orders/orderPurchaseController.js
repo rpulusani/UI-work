@@ -105,6 +105,9 @@ angular.module('mps.orders')
                 Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                 Devices.item.contact.item = angular.copy($rootScope.selectedContact);
                 $scope.resetContactPicker();
+                if(Orders.item.attachments){
+                    $scope.files_complete = Orders.item.attachments
+                }
 
         } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
             configureSR(Orders);
@@ -124,6 +127,9 @@ angular.module('mps.orders')
         } else{
             if(!Orders.tempSpace){
                 Orders.tempSpace = {};
+            }
+            if(Orders.item.attachments){
+                $scope.files_complete = Orders.item.attachments
             }
             $rootScope.device = Devices.item;
         }
@@ -415,5 +421,8 @@ angular.module('mps.orders')
                 $scope.formattedInstructions = FormatterService.formatNoneIfEmpty(Orders.item.specialHandlingInstructions);
         }
         $scope.configure.cart = Orders.tempSpace.catalogCart;
+        $scope.$on('attachedFileSuccess', function(e, files) {
+            Orders.addField('attachments', files);
+        });
     }
 ]);

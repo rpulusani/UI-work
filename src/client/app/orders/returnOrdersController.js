@@ -325,9 +325,15 @@ angular.module('mps.orders')
                     Orders.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
                     Orders.tempSpace.primaryContact = angular.copy($rootScope.selectedContact);
                     $scope.resetContactPicker();
+                    if(Orders.item.attachments){
+                        $scope.files_complete = Orders.item.attachments
+                    }
 
             }else{
                 $rootScope.order = Orders.item;
+                if(Orders.item.attachments){
+                    $scope.files_complete = Orders.item.attachments
+                }
                 getRequestor(Orders, Contacts);
             }
             $scope.setupSR(Orders, configureSR);
@@ -356,5 +362,9 @@ angular.module('mps.orders')
                 }
             });
         }
+
+        $scope.$on('attachedFileSuccess', function(e, files) {
+            Orders.addField('attachments', files);
+        });
 }]);
 
