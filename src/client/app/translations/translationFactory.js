@@ -21,6 +21,8 @@ angular.module('mps.translation')
                         },
                             {'name': $translate.instant('LANGUAGES.ENGLISH'), 'field': 'EN', 
                              'cellTemplate':'<div ng-bind="row.entity.defaultText"></div>'},
+                             {'name': $translate.instant('LANGUAGES.ENGLISH_UK'), 'field': 'EN_GB', 
+                                 'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'EN_GB\')"></div>'},
                             {'name': $translate.instant('LANGUAGES.SPANISH'), 'field': 'ES', 
                              'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'ES\')"></div>'},
                             {'name': $translate.instant('LANGUAGES.GERMAN'), 'field': 'DE', 

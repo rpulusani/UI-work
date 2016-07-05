@@ -466,7 +466,7 @@ angular.module('mps.orders')
                     Orders.item['_links']['account'] = {
                         href: $rootScope.currentAccount.href
                     };
-                    $scope.sr.soldToNumber = $rootScope.currentAccount.soldToNumber;
+                    $scope.sr.soldToNumber = Orders.tempSpace.catalogCart.contract.soldToNumber;
                 }
                 
                 if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
@@ -1048,7 +1048,7 @@ angular.module('mps.orders')
             		taxService.addAccountRelationship();            	
                 	taxService.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
                 	taxService.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
-                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.agreement.salesOrganization);
+                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.contract.salesOrganization);
                 	taxService.addField('billingModel', 'SHIP_AND_BILL');
                 	var taxItems = [];
                 	for(i = 0; i < OrderItems.data.length; ++i){
