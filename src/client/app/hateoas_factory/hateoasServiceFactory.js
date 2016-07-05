@@ -912,6 +912,10 @@ angular.module('mps.hateoasFactory')
 
             return deferred.promise;
         };
+        
+        HATEOASFactory.prototype.removeRelationship = function(name){
+        	this.item._links[name] = undefined;
+        };
 
         return HATEOASFactory;
     }
