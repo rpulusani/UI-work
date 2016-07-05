@@ -169,7 +169,7 @@ angular.module('mps.orders')
 
             $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
             $scope.configure.actions.submit = function(){
-            	$scope.sr.soldToNumber = $scope.device._embedded.account.soldToNumber;
+            	$scope.sr.soldToNumber = Orders.tempSpace.catalogCart.contract.soldToNumber;
             	if(!$scope.scratchSpace.shipToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
@@ -451,7 +451,7 @@ angular.module('mps.orders')
             		taxService.addAccountRelationship();            	
                 	taxService.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
                 	taxService.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
-                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.agreement.salesOrganization);
+                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.contract.salesOrganization);
                 	taxService.addField('billingModel', 'SHIP_AND_BILL');
                 	var taxItems = [];
                 	for(i = 0; i < OrderItems.data.length; ++i){
