@@ -481,6 +481,10 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
         {
         	name : 'lexmarkAdmin',
         	permission: permissionSet.admin.lexmarkAdmin
+        },
+        {
+        	name:'impersonateAccess',
+        	permission: permissionSet.userManagement.impersonate
         }
     ];
     

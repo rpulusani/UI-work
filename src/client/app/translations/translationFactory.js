@@ -21,6 +21,8 @@ angular.module('mps.translation')
                         },
                             {'name': $translate.instant('LANGUAGES.ENGLISH'), 'field': 'EN', 
                              'cellTemplate':'<div ng-bind="row.entity.defaultText"></div>'},
+                             {'name': $translate.instant('LANGUAGES.ENGLISH_UK'), 'field': 'EN_GB', 
+                                 'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'EN_GB\')"></div>'},
                             {'name': $translate.instant('LANGUAGES.SPANISH'), 'field': 'ES', 
                              'cellTemplate':'<div ng-bind="row.entity.getTextForLang(\'ES\')"></div>'},
                             {'name': $translate.instant('LANGUAGES.GERMAN'), 'field': 'DE', 
@@ -61,28 +63,28 @@ angular.module('mps.translation')
                         url += '/csv';
 
                         fileExt = '.csv';
-
-                        if (ctrlScope.exportedFileLanguage) {
-                             url += '?language=' + ctrlScope.exportedFileLanguage
-                        }
-
-                        if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
-                            if (!ctrlScope.exportedFileLanguage || ctrlScope.exportedFileLanguage === 'EN') {
-                                url += '?missing=translations';
-                            } else {
-                                url += '&missing=' + ctrlScope.exportedFileLanguage;
-                            }
-                        }
-
-                        if (ctrlScope.currentCategories.length > 0) {
-                            if (url.indexOf('?') !== -1) {
-                                url += '&category=' + ctrlScope.currentCategories.toString();
-                            } else {
-                                url += '?category=' + ctrlScope.currentCategories.toString();
-                            }
-                        }
                     } else {
                         url += '/xliff';
+                    }
+
+                    if (ctrlScope.exportedFileLanguage) {
+                        url += '?language=' + ctrlScope.exportedFileLanguage
+                    }
+
+                    if (ctrlScope.stringVal && ctrlScope.stringVal === 'missing' && ctrlScope.stringVal !== 'all') {
+                        if (!ctrlScope.exportedFileLanguage) {
+                            url += '?missing=translations';
+                        } else {
+                            url += '&missing=' + ctrlScope.exportedFileLanguage;
+                        }
+                    }
+
+                    if (ctrlScope.currentCategories.length > 0) {
+                        if (url.indexOf('?') !== -1) {
+                            url += '&category=' + ctrlScope.currentCategories.toString();
+                        } else {
+                            url += '?category=' + ctrlScope.currentCategories.toString();
+                        }
                     }
 
                     return $http({

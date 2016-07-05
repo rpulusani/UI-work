@@ -66,14 +66,14 @@ angular.module('mps.orders')
         };
         Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
         	
-        	Orders.tempSpace.catalogCart.agreement = Agreement.data[0];
+        	Orders.tempSpace.catalogCart.agreement = Agreement.item;
         	$scope.supplyMaxQuantity = (Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity === 0)?1:Orders.tempSpace.catalogCart.agreement.supplyMaxQuantity;
         	$scope.serviceMaxQuantity = (Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity === 0)?1:Orders.tempSpace.catalogCart.agreement.serviceMaxQuantity;
           
            
             
             Contracts.params.type =  Agreement.params.type;
-            Agreement.getAdditional(Agreement.data[0],Contracts,'contracts',true).then(function(){
+            Agreement.getAdditional(Agreement.item,Contracts,'contracts',true).then(function(){
             	Orders.tempSpace.catalogCart.contract = Contracts.data[0];            	
             });
             

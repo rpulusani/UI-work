@@ -36,7 +36,7 @@ angular.module('mps.serviceRequests')
         };
         var removeParamsList = ['from', 'to', 'requesterFilter'],
             myRequestRemoveParamList = ['from', 'to'];
-        filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester'}, removeParamsList,
+        filterSearchService.addBasicFilter('REQUEST_MGMT.ALL_REQUESTS', {embed: 'primaryContact,requester',type: 'SERVICE_REQUESTS_ALL'}, removeParamsList,
             function(Grid) {
                  setTimeout(function() {
                     $scope.$broadcast('setupColumnPicker', Grid);

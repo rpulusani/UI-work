@@ -7,7 +7,8 @@ angular.module('mps.library')
         $scope.isCreating = false;
         $scope.isEditing = false;
         $scope.isDeleting = false;
-
+        $scope.gridLoading = true;
+        $scope.gridDataCnt = 0;
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
         filterSearchService = new FilterSearchService(Tags, $scope, $rootScope, personal, $scope.columnSet);
         var Grid = new GridService();
@@ -99,6 +100,8 @@ angular.module('mps.library')
                 size: 20
             }
         }).then(function() {
+            $scope.gridDataCnt = Documents.page.totalElements;
+            $scope.gridLoading = false;
             Grid.display(Tags, $scope, personal);
         });
 
@@ -112,11 +115,12 @@ angular.module('mps.library')
                 url: Tags.url,
                 data: Tags.item
             }).then(function successCallback(response) {
+                Tags.item.createSuccess = true;
+                $route.reload();
             }, function errorCallback(response) {
+                $route.reload();
                 NREUM.noticeError('Failed to CREATE tag: ' + response.statusText);
             });
-
-            Tags.item.createSuccess = true;
 
             var parsedTagName = Documents.getTranslationKeyFromTag($scope.tagName);
 
@@ -139,8 +143,6 @@ angular.module('mps.library')
             }, function errorCallback(response) {
                 NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
             });
-
-            $route.reload();
         };
 
         $scope.goToEditTag = function() {
@@ -156,11 +158,12 @@ angular.module('mps.library')
                 url: Tags.item.url,
                 data: Tags.item
             }).then(function successCallback(response) {
+                Tags.item.modifySuccess = true;
+                $route.reload();
             }, function errorCallback(response) {
+                $route.reload();
                 NREUM.noticeError('Failed to MODIFY tag: ' + response.statusText);
             });
-
-            Tags.item.modifySuccess = true;
 
             // When editing a tag we don't edit the translation, we DELETE and INSERT
             $http({
@@ -190,8 +193,6 @@ angular.module('mps.library')
             }, function errorCallback(response) {
                 NREUM.noticeError('Failed to CREATE translation: ' + response.statusText);
             });
-
-            $route.reload();
         };
 
         $scope.goToDeleteTag = function() {
@@ -201,12 +202,12 @@ angular.module('mps.library')
                 method: 'DELETE',
                 url: Tags.item.url
             }).then(function successCallback(response) {
-
+                Tags.item.deleteSuccess = true;
+                $route.reload();
             }, function errorCallback(response) {
+                $route.reload();
                 NREUM.noticeError('Failed to DELETE tag: ' + response.statusText);
             });
-
-            Tags.item.deleteSuccess = true;
 
             $http({
                 method: 'DELETE',
@@ -215,8 +216,6 @@ angular.module('mps.library')
             }, function errorCallback(response) {
                 NREUM.noticeError('Failed to DELETE translation: ' + response.statusText);
             });
-
-            $route.reload();
         };
     }
 ]);

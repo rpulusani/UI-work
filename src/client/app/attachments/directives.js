@@ -12,7 +12,9 @@ return {
           '$filter',
           function($scope, $rootScope, $http, $log, $translate,$filter){
             $scope.files = [];
-            $scope.files_complete = [];
+            if($scope.files_complete === undefined){
+              $scope.files_complete = [];
+            }
             $scope.files_error = [];
             $scope.sourcefeature = "";
 
@@ -64,6 +66,7 @@ return {
             	  $scope.error = false;
             	                   
             	  $scope.files_complete.push(ifData(response));
+                $rootScope.$broadcast('attachedFileSuccess', $scope.files_complete);
                   for(var i =0; i < $scope.files.length; i++) {
                     if($scope.files[i].name === response.data.filename) {
                       $scope.files[i].complete = true;
@@ -89,6 +92,7 @@ return {
             			$scope.files_complete.splice(i,1);
             		}
             	}
+              $rootScope.$broadcast('attachedFileSuccess', $scope.files_complete);
             	$scope.files=[];            
             };
 

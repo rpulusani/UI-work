@@ -466,7 +466,7 @@ angular.module('mps.orders')
                     Orders.item['_links']['account'] = {
                         href: $rootScope.currentAccount.href
                     };
-                    $scope.sr.soldToNumber = $rootScope.currentAccount.soldToNumber;
+                    $scope.sr.soldToNumber = Orders.tempSpace.catalogCart.contract.soldToNumber;
                 }
                 
                 if(BlankCheck.isNull($scope.sr.sourceAddressPhysicalLocation)){
@@ -630,6 +630,9 @@ angular.module('mps.orders')
                 if(OrderItems.taxAmount){
                     $rootScope.taxAvailableOnReturnChangeContact = OrderItems.taxAmount;
                 }
+                if(Orders.item.attachments){
+                    $scope.files_complete = Orders.item.attachments
+                }
 
         } else if($rootScope.selectedBillToAddress && $rootScope.returnPickerObjectAddressBillTo){
             configureSR(Orders);
@@ -662,6 +665,9 @@ angular.module('mps.orders')
                 $scope.resetAddressPicker();
                 $scope.formatAdditionalData();
         } else{
+            if(Orders.item.attachments){
+                $scope.files_complete = Orders.item.attachments
+            }
             if(Orders.item._links.shipToAddress && Orders.item.billToNumber){
                 callTax();
             }
@@ -1042,7 +1048,7 @@ angular.module('mps.orders')
             		taxService.addAccountRelationship();            	
                 	taxService.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
                 	taxService.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
-                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.agreement.salesOrganization);
+                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.contract.salesOrganization);
                 	taxService.addField('billingModel', 'SHIP_AND_BILL');
                 	var taxItems = [];
                 	for(i = 0; i < OrderItems.data.length; ++i){
@@ -1124,6 +1130,9 @@ angular.module('mps.orders')
         }
         
         setCsvDefinition();
+        $scope.$on('attachedFileSuccess', function(e, files) {
+            Orders.addField('attachments', files);
+        });
      }
 ]);
 
