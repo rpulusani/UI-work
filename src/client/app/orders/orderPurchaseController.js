@@ -22,6 +22,8 @@ angular.module('mps.orders')
     'tombstoneWaitTimeout',
     'ServiceRequestService',
     'OrderControllerHelperService',
+    'TaxService',
+    '$q',
     function(
         $scope,
         $location,
@@ -42,7 +44,9 @@ angular.module('mps.orders')
         Tombstone,
         tombstoneWaitTimeout,
         ServiceReqeust,
-        OrderControllerHelper) {
+        OrderControllerHelper,
+        taxService,
+        $q) {
         if (Orders.item === null){
             $location.path(Orders.route).search({tab:'orderAllTab'});
         }
@@ -61,6 +65,9 @@ angular.module('mps.orders')
         $scope.errorAddress = false;
         $scope.isLoading = false;
         Orders.tempSpace.shipToAddress = (Devices.item._embedded.address === undefined)? Devices.item.address.item : Devices.item._embedded.address;
+        taxService.addRelationship('shipToAddress', Devices.item, 'address');
+        taxService.addRelationship('account', $scope.device, 'account');
+        
         $scope.scratchSpace = Orders.tempSpace;
         $scope.type = 'SUPPLIES';
 
@@ -115,6 +122,7 @@ angular.module('mps.orders')
             Orders.addRelationship('billToAddress', $rootScope.selectedBillToAddress, 'self');
             Orders.tempSpace.billToAddress = angular.copy($rootScope.selectedBillToAddress);
             Orders.addField('billToNumber', Orders.tempSpace.billToAddress.billToNumber);
+            callTax();
             $scope.resetAddressBillToPicker();
 
         } else if($rootScope.selectedShipToAddress && $rootScope.returnPickerObjectAddressShipTo){
@@ -122,6 +130,7 @@ angular.module('mps.orders')
             $scope.sr = $rootScope.returnPickerSRObjectAddressShipTo;
             Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
             Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
+            callTax();
             $scope.resetAddressShipToPicker();
 
         } else{
@@ -424,5 +433,76 @@ angular.module('mps.orders')
         $scope.$on('attachedFileSuccess', function(e, files) {
             Orders.addField('attachments', files);
         });
+        
+        function callTax(){
+        	taxService.addRelationship('shipToAddress', Orders.tempSpace.shipToAddress, 'self');
+        	taxService.addRelationship('billToAddress', Orders.tempSpace.billToAddress, 'self');
+        	if (taxService.getRelationship('shipToAddress',taxService.item) !== undefined 
+        			&& taxService.getRelationship('billToAddress',taxService.item) !== undefined){
+        		var i = 0,j = 0,hasShipBill = false,itemNumber;
+        		for(;i<Orders.tempSpace.catalogCart.billingModels.length;i++){
+            		if(Orders.tempSpace.catalogCart.billingModels[i] === 'SHIP_AND_BILL'){
+            			hasShipBill = true;
+            			break;
+            		}
+            	}
+            	if(hasShipBill){
+            		
+            		taxService.addAccountRelationship();            	
+                	taxService.addField('agreementId',Orders.tempSpace.catalogCart.agreement.id);
+                	taxService.addField('contractNumber',Orders.tempSpace.catalogCart.contract.id);
+                	taxService.addField('salesOrganization', Orders.tempSpace.catalogCart.agreement.salesOrganization);
+                	taxService.addField('billingModel', 'SHIP_AND_BILL');
+                	var taxItems = [];
+                	for(i = 0; i < OrderItems.data.length; ++i){
+                        var lineTotal = FormatterService.itemSubTotal(OrderItems.data[i].price, OrderItems.data[i].quantity);
+                        
+                        if (lineTotal !== 0){
+                        	itemNumber = OrderItems.data[i].displayItemNumber;
+                        	if($scope.type === 'HARDWARE' && OrderItems.data[i].childItems && OrderItems.data[i].childItems[0]){
+                        		itemNumber = OrderItems.data[i].childItems[0].displayItemNumber;                        		
+                        	}
+                        	taxItems.push({
+                            	itemNumber : itemNumber,
+                            	price : lineTotal
+                            });
+                        }
+                        
+                    }
+                	taxService.addField('orderItems',taxItems);
+                	$scope.calculatingTax = true;
+                	
+                    taxService.post(taxService).then(function(response){
+                    	$scope.calculatingTax = false;
+                    	var total = 0.0,taxAmount = null;
+                    	if(response.data.orderItems){
+                    		
+                        	for(i=0;i<response.data.orderItems.length;i++){
+                        		for(j=0;j<OrderItems.data.length;j++){
+                        			if($scope.type === 'HARDWARE' && OrderItems.data[j].childItems){
+                        				itemNumber = OrderItems.data[j].childItems[0].displayItemNumber; 
+                        			}
+                        			if(itemNumber === response.data.orderItems[i].itemNumber){
+                        				OrderItems.data[j].tax = response.data.orderItems[i].tax;
+                        				break;
+                        			}
+                        		}
+                        		total += response.data.orderItems[i].tax;
+                        	}
+                        	taxAmount = total;
+                        	OrderItems.taxAmount = taxAmount;
+                    	}
+                    	
+                    	$scope.$broadcast('TaxDataAvaialable', {'tax':taxAmount});
+                    	taxService.newMessage();
+                    	
+                    });
+                	
+            	}
+        	}else{
+        		OrderItems.taxAmount = null;
+        	}
+
+        };
     }
 ]);
