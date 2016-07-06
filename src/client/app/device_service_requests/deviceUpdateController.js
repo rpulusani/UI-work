@@ -252,7 +252,7 @@ angular.module('mps.serviceRequestDevices')
                             }
                         }
                     });
-            	}, tombstoneWaitTimeout, tombstoneCheckCount);
+            	}, tombstoneWaitTimeout, tombstoneCheckCount); 
             	intervalPromise.then(function(){
             		$location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/queued');
             		$interval.cancel(intervalPromise);
