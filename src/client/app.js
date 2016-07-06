@@ -197,9 +197,9 @@ angular.module('mps', [
 })
 
 .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
-  'FormatterService', 'CountryService',
+  'FormatterService', 'CountryService', 'DTMUpdater',
 function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet,
-  FormatterService, CountryService) {
+  FormatterService, CountryService, DTMUpdater) {
 
     Gatekeeper.login({organization_id: '30', federation_redirect: 'true'});
 
@@ -500,6 +500,8 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
             var user = $rootScope.currentUser;
             $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
             CountryService.get();
+
+            DTMUpdater.update($rootScope.currentUser, $rootScope.currentAccount);
         });
     }, function(reason) {
         NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
