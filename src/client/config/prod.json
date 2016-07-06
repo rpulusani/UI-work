@@ -1,0 +1,16 @@
+{
+  "languages_json": [ "en-US", "en" ],
+  "config": {
+    "idp": {
+      "serviceUrl": "https://idp-staging.psft.co",
+      "clientId": "mps-portal"
+    },
+    "portal": {
+      "serviceUrl": "https://managedservices.lexmark.com/mps/",
+      "adminUrl": "https://managedservices.lexmark.com/mps-portal/",
+      "lbsUrl": "https://maps.managedservices.lexmark.com/group/lbsportal/fleet-management",
+      "libraryServiceUrl": "https://managedservices.lexmark.com/documents"
+    }
+  },
+  "NEWRELICID":10059346
+}
