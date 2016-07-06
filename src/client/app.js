@@ -147,7 +147,7 @@ angular.module('mps', [
         lexmarkAdmin : 'LEXMARK_ADMIN'
     }
 })
-.constant('tombstoneWaitTimeout', 3000)
+.constant('tombstoneWaitTimeout', 1200)
 .constant('tombstoneCheckCount', 3)
 .config(function (SpringDataRestAdapterProvider) {
 
