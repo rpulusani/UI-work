@@ -17,7 +17,7 @@ angular.module('mps.serviceRequestAddresses')
     'UserService',
     'TombstoneService',
     'tombstoneWaitTimeout',
-    'SecurityHelper',
+    'SecurityHelper','$interval','tombstoneCheckCount',
     function($scope,
         $filter,
         $rootScope,
@@ -34,7 +34,7 @@ angular.module('mps.serviceRequestAddresses')
         Users,
         Tombstone,
         tombstoneWaitTimeout,
-        SecurityHelper) {
+        SecurityHelper,$interval,tombstoneCheckCount) {
     	
     	if(Addresses.item === null){                        
     		      window.scrollTo(0,0);
@@ -98,18 +98,24 @@ angular.module('mps.serviceRequestAddresses')
         };
 
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+            var intervalPromise = $interval(function(){        		
+        		ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+        			
                     if (existingUrl === $location.url()) {
                         if(Tombstone.item && Tombstone.item.siebelId) {
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/notqueued');
-                        } else {
-                            return getSRNumber($location.url());
+                            $interval.cancel(intervalPromise);
                         }
                     }
                 });
-            }, tombstoneWaitTimeout);
+        	}, tombstoneWaitTimeout, tombstoneCheckCount);
+        	
+        	intervalPromise.then(function(){
+        		$location.path(Addresses.route + '/delete/' + $scope.address.id + '/receipt/queued');
+        		$interval.cancel(intervalPromise);
+        	});
+            
         }
 
         if (Addresses.item === null) {

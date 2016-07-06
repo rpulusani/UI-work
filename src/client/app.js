@@ -148,6 +148,7 @@ angular.module('mps', [
     }
 })
 .constant('tombstoneWaitTimeout', 3000)
+.constant('tombstoneCheckCount', 3)
 .config(function (SpringDataRestAdapterProvider) {
 
     // set the links key to _myLinks

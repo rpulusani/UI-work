@@ -18,7 +18,7 @@ angular.module('mps.serviceRequestDevices')
     'TombstoneService',
     '$timeout',
     'tombstoneWaitTimeout',
-    'SecurityHelper',
+    'SecurityHelper','$interval','tombstoneCheckCount',
     function($scope,
         $location,
         $filter,
@@ -38,7 +38,7 @@ angular.module('mps.serviceRequestDevices')
         Tombstone,
         $timeout,
         tombstoneWaitTimeout,
-        SecurityHelper) {
+        SecurityHelper,$interval,tombstoneCheckCount) {
         
         if(Devices.item === null){       
             $location.path('/device_management');
@@ -300,18 +300,23 @@ angular.module('mps.serviceRequestDevices')
         };
 
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+            var intervalPromise = $interval(function(){        		
+        		DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+        			
                     if (existingUrl === $location.url()) {
                         if(Tombstone.item && Tombstone.item.siebelId) {
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued');
-                        } else {
-                            return getSRNumber($location.url());
+                            $interval.cancel(intervalPromise);
                         }
                     }
                 });
-            }, tombstoneWaitTimeout);
+        	}, tombstoneWaitTimeout, tombstoneCheckCount);
+        	
+        	intervalPromise.then(function(){
+        		$location.path(DeviceServiceRequest.route + '/add/receipt/queued');
+        		$interval.cancel(intervalPromise);
+        	});
         }
 
 

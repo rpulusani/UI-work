@@ -20,7 +20,7 @@ angular.module('mps.serviceRequestDevices')
     '$timeout',
     'tombstoneWaitTimeout',
     '$q',
-    'CountryService',
+    'CountryService','$interval','tombstoneCheckCount',
     function($scope,
         $location,
         $filter,
@@ -41,7 +41,7 @@ angular.module('mps.serviceRequestDevices')
         $timeout,
         tombstoneWaitTimeout,
         $q,
-        Country
+        Country,$interval,tombstoneCheckCount
         ){
 		
         if(Devices.item === null){       
@@ -240,49 +240,64 @@ angular.module('mps.serviceRequestDevices')
             if (!ServiceRequest.confirmedSavedSR) {
                 ServiceRequest.confirmedSavedSR = [];
             }
-
-            $timeout(function() {
-                var i = 0;
-                if (!Devices.updatingMultiple) {
-                    return DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+            
+            if (!Devices.updatingMultiple) {
+            	var intervalPromise = $interval(function(){
+            		DeviceServiceRequest.getAdditional(DeviceServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
                         if (existingUrl === $location.url()) {
                             if(Tombstone.item && Tombstone.item.siebelId) {
                                 ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                                 $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
-                            } else {
-                                return getSRNumber($location.url());
+                                $interval.cancel(intervalPromise);
                             }
                         }
                     });
-                } else {
-                    for (i; i < $scope.savedSR.length; i += 1) {
-                        if (!$scope.savedSR[i].saved) {
-                            return DeviceServiceRequest.getAdditional($scope.savedSR[i], Tombstone, 'tombstone', true).then(function() {
-                                if (existingUrl === $location.url()) {
-                                    if(Tombstone.item && Tombstone.item.siebelId) {
-                                        ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
-                                        $scope.savedSR[i].saved = true;
-                                        ServiceRequest.confirmedSavedSR.push(Tombstone.item);
-
-                                        if ( ServiceRequest.confirmedSavedSR.length === $scope.savedSR.length) {
-                                            // everything has been saved
-                                            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
-
-                                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
-                                        } else {
-                                            return getSRNumber($location.url());
-                                        }
-                                    } else {
-                                        return getSRNumber($location.url());
-                                    }
-                                }
-                            });
-                        }
-                    }
+            	}, tombstoneWaitTimeout, tombstoneCheckCount);
+            	intervalPromise.then(function(){
+            		$location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/queued');
+            		$interval.cancel(intervalPromise);
+            	});
+            	  
+            }else{
+            	var i = 0, promises = [];
+            	for (i; i < $scope.savedSR.length; i += 1) {
+            		var srItem = $scope.savedSR[i]; 
+            		var intervalPromise = $interval(tombstoneMultiple.bind(null,srItem,existingUrl,promises), 
+            				tombstoneWaitTimeout, tombstoneCheckCount); 
+            		promises.push(intervalPromise);
                 }
-            }, tombstoneWaitTimeout);
+            	$q.all(promises).then(function(){
+            		for(i = 0 ; i<promises.length ; i++){
+            			$interval.cancel(promises[i]);
+            		}
+            		if(ServiceRequest.confirmedSavedSR.length < $scope.savedSR.length){
+            			 $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+                         $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/queued');
+            		}
+            		
+            	});
+            }
+            
         }
-
+        function tombstoneMultiple(srItem,existingUrl,promises){
+        	DeviceServiceRequest.getAdditional(srItem, Tombstone, 'tombstone', true).then(function() {
+                if (existingUrl === $location.url()) {
+                    if(Tombstone.item && Tombstone.item.siebelId) {
+                        ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
+                        srItem.saved = true;
+                        ServiceRequest.confirmedSavedSR.push(Tombstone.item);
+                        if ( ServiceRequest.confirmedSavedSR.length === $scope.savedSR.length) {
+                            // everything has been saved 
+                            $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate, ServiceRequest);
+                            $location.path(DeviceServiceRequest.route + '/updates/' + $scope.device.id + '/receipt/notqueued');
+                            for(i = 0 ; i<promises.length ; i++){
+                    			$interval.cancel(promises[i]);
+                    		}
+                        } 
+                    } 
+                }
+            });
+        }
         function configureReviewTemplate(){
             if (Devices.updatingMultiple) {
                 for (var k=0; k < Devices.data.length; k += 1) {

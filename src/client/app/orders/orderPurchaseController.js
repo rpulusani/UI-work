@@ -23,7 +23,7 @@ angular.module('mps.orders')
     'ServiceRequestService',
     'OrderControllerHelperService',
     'TaxService',
-    '$q',
+    '$q','$interval','tombstoneCheckCount',
     function(
         $scope,
         $location,
@@ -46,7 +46,7 @@ angular.module('mps.orders')
         ServiceReqeust,
         OrderControllerHelper,
         taxService,
-        $q) {
+        $q,$interval,tombstoneCheckCount) {
         if (Orders.item === null){
             $location.path(Orders.route).search({tab:'orderAllTab'});
         }
@@ -85,19 +85,24 @@ angular.module('mps.orders')
         };
        
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+            var intervalPromise = $interval(function(){        		
+        		Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+        			
                     if (existingUrl === $location.url()) {
                         if(Tombstone.item && Tombstone.item.siebelId) {
                             Orders.item.requestNumber = Tombstone.item.siebelId;
-                            ServiceReqeust.item = Orders.item;
+							ServiceReqeust.item = Orders.item;
                             $location.path(Orders.route + '/catalog/supplies/receipt/notqueued');
-                        } else {
-                            return getSRNumber($location.url());
+                            $interval.cancel(intervalPromise);
                         }
                     }
                 });
-            }, tombstoneWaitTimeout);
+        	}, tombstoneWaitTimeout, tombstoneCheckCount);
+        	
+        	intervalPromise.then(function(){
+        		$location.path(Orders.route + '/catalog/supplies/receipt/queued');
+        		$interval.cancel(intervalPromise);
+        	});
         }
 
         if (Devices.item === null) {
