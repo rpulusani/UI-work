@@ -169,7 +169,7 @@
                         <p class="text--align-center" ng-if="chartObject.pagesBilled.dataPoint < 1" translate="LABEL.COMMON.ZERO_RECORDS"></p>
 
                         <div google-chart chart="{{ chartObject.pagesBilled }}"></div>
-                        
+                        <div class="reportTotalCount">{{chartObject.pagesBilled.dataPoint}}</div> 
                     </div>
                 </div>
             </div>
