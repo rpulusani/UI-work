@@ -430,9 +430,8 @@ angular.module('mps.report')
             $scope.chartObject.pagesBilled = {};
             $scope.chartObject.pagesBilled.type = "PieChart";
             $scope.chartObject.pagesBilled.options = angular.copy($scope.chartOptions.pieChartOptions);
-            $scope.chartObject.pagesBilled.options.pieSliceTextStyle = {
-                color: '#000000'
-              };
+            
+            $scope.chartObject.pagesBilled.options.pieSliceText = 'none';
             $scope.chartObject.pagesBilled.options.height = 300;
             $scope.chartObject.pagesBilled.options.slices = [{color: '#7e7e85'}, {color: '#faa519'}];
             $scope.chartObject.pagesBilled.options.pieHole = 0.4;
