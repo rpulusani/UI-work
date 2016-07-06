@@ -144,7 +144,7 @@
           <a href="/user_preference"><img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" /></a>
         </div>
         <div class="user__info pull text--small l-visible--gt-tablet">
-          <a class="user__name" href="/user_preference">{{idpUser.custom_attributes.display_name}}</a><br />
+          <a class="user__name" href="/user_preference">{{idpUser.custom_attributes.first_name}} {{idpUser.custom_attributes.last_name}}</a><br />
           <a class="user__name" href="#" ng-click="logout()">Log out</a>
         </div>
       </div>
