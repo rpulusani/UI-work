@@ -113,7 +113,7 @@ angular.module('mps.library')
                 size: 20
             }
         }).then(function() {
-            $scope.gridDataCnt = Documents.page.totalElements;
+            $scope.gridDataCnt = Tags.page.totalElements;
             $scope.gridLoading = false;
             Grid.display(Tags, $scope, personal);
         });
