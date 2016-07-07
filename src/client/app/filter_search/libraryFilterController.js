@@ -34,18 +34,36 @@ angular.module('mps.filterSearch')
         });
 
         $scope.tags = [];
+        Tags.setParamsToNull();
         Tags.get().then(function() {
-            if (Tags.data) {
-                var tagList = Tags.data;
-                for (var i = 0; i < tagList.length; i++) {
-                    var tag = {};
+            if (Tags.page.totalElements > 0) {
+                Tags.get({
+                    preventDefaultParams: true,
+                    params: {
+                        page: 0,
+                        size: Tags.page.totalElements
+                    }
+                }).then(function() {
+                    if (Tags.data) {
+                        var tagList = Tags.data;
+                        $scope.setTagsFilter(tagList);
+                    }
+                });                
+            }
+        });
+
+        $scope.setTagsFilter = function(tagList) {
+            var i = 0;
+            for (i=0; i<tagList.length; i++) {
+                var tag = {};
+                if(tagList[i]['name'] && tagList[i]['name'] !== null) {
                     tag.name = tagList[i]['name'];
-                        tag.localized = Documents.getTranslationValueFromTag(tagList[i]['name']);
+                    tag.localized = Documents.getTranslationValueFromTag(tagList[i]['name']);
                     tag.selected = false;
                     $scope.tags.push(tag);
                 }
             }
-        });
+        }
 
         $scope.categoriesFilter = function(cat) {
             if (cat.selected) {

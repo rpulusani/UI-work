@@ -9,8 +9,9 @@
     <p ng-show="isRowSelected()" ng-bind-html="formattedSelectedContact"></p>
 </div>
 
-<h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined"
-    translate="CONTACT.SEARCH_EXISTING_CONTACT">
+<h2 ng-show="pagination.totalItems() !== -1 && pagination.totalItems() !== undefined">
+    <span translate="CONTACT.SEARCH_EXISTING_CONTACT"></span>
+    <span>({{pagination.totalItems()}})</span>
 </h2>
 
 <hr/>
