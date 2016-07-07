@@ -491,6 +491,7 @@ angular.module('mps.serviceRequestDevices')
 
 
          $scope.goToServiceCreate = function(){
+            $rootScope.deviceToRegisterInPicker = Devices.item;
             Devices.item = {};
             $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
         };

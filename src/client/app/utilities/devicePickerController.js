@@ -6,7 +6,9 @@ angular.module('mps.utility')
     'Contacts','$q','$timeout',
     function($scope, $location, GridService, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
         Personalize, $controller, ImageService, Contacts,$q,$timeout) {
-        $rootScope.deviceToRegisterInPicker = angular.copy(Devices.item);
+        if(Devices.item && Object.keys(Devices.item).length !== 0){
+            $rootScope.deviceToRegisterInPicker = angular.copy(Devices.item);
+        }
         $scope.selectedDevice = undefined;
         $rootScope.currentSelectedRow = undefined;
         $scope.prevDevice={};
@@ -108,6 +110,10 @@ angular.module('mps.utility')
             $rootScope.selectedDevice = undefined;
             $rootScope.formattedDevice = undefined;
             $rootScope.currentSelectedRow = undefined;
+            if($rootScope.deviceToRegisterInPicker){
+                Devices.item = $rootScope.deviceToRegisterInPicker;
+                $rootScope.deviceToRegisterInPicker = undefined;
+            }
             $location.path($rootScope.deviceReturnPath);
         };
 
