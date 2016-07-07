@@ -2,7 +2,7 @@
 angular.module('mps.filterSearch')
 .controller('GridSearchController', ['$scope', '$routeParams', '$route', '$location','$window', '$rootScope',
     function($scope, $routeParams, $route, $location,$window, $rootScope) {
-        var paramsList = ['search', 'searchOn'],
+        var paramsList = ['search', 'searchOn', 'source'],
         searchParams = $location.search();
         $scope.column = searchParams.searchOn;
 	    
