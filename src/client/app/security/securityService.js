@@ -126,10 +126,8 @@ angular.module('mps.security')
                     });
                 } else {
                 if (currentUser.accounts && currentUser.accounts[0] && currentUser.accounts[0].accountId){
-                    options.params.accountId = currentUser.accounts[0].accountId;
-                    options.params.accountLevel = currentUser.accounts[0].level;
-
-                    currentUser.links['permissions'](options).then(function(data){
+              
+                	currentUser.links['permissions'](options).then(function(data){
                         if(data.permissions && data.permissions.data){
                             permissions.resolve(data.permissions.data);
                         }else if(data.permissions && !data.permissions.data){

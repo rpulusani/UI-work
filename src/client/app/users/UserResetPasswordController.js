@@ -39,10 +39,15 @@ angular.module('mps.user')
         var redirect_to_preference = function() {
            $location.path('/user_preference');
         };
-        if(User.item === null)
-            redirect_to_preference();
+        if(User.item === null){
+            User.getLoggedInUserInfo().then(function() {
+                $scope.user = User.item;
+            });
+        }
+        else{
+            $scope.user = User.item;
+        }
         $scope.showUserUpdatedMessage = false;
-        $scope.user = User.item;
         
         $scope.saveUserInfo = function(){
             $scope.user.password = $scope.new_Password;

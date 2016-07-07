@@ -59,6 +59,12 @@ angular.module('mps.library')
 
             $scope.isCreating = false;
             $scope.isDeleting = false;
+
+            $('div.site-content').scrollTop(0);         
+            setTimeout(function() {
+                offset = $("form[name='editTag']").offset().top;
+                $('div.site-content').scrollTop(offset);
+            },10);
         };
 
         $scope.goToCancelEdit = function () {
@@ -69,6 +75,7 @@ angular.module('mps.library')
         };
 
         $scope.goToStartDelete = function (tag) {
+            var offset = 0;
             Tags.setItem(tag);
             $scope.selectedTag = Tags.item.name;
 
@@ -76,6 +83,12 @@ angular.module('mps.library')
 
             $scope.isCreating = false;
             $scope.isEditing = false;
+
+            $('div.site-content').scrollTop(0);         
+            setTimeout(function() {
+                offset = $("form[name='deleteTag']").offset().top;
+                $('div.site-content').scrollTop(offset);
+            },10);
         };
 
         $scope.goToCancelDelete = function () {
@@ -100,7 +113,7 @@ angular.module('mps.library')
                 size: 20
             }
         }).then(function() {
-            $scope.gridDataCnt = Documents.page.totalElements;
+            $scope.gridDataCnt = Tags.page.totalElements;
             $scope.gridLoading = false;
             Grid.display(Tags, $scope, personal);
         });
