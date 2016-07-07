@@ -62,6 +62,9 @@ angular.module('mps.orders')
 						ServiceReqeust.item = Orders.item;
                         $location.path(Orders.route + '/return/receipt/notqueued');
                         $interval.cancel(intervalPromise);
+                    }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                    	$location.path(Orders.route + '/return/receipt/queued');
+                		$interval.cancel(intervalPromise);
                     }
                 }
             });

@@ -308,6 +308,9 @@ angular.module('mps.serviceRequestDevices')
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(DeviceServiceRequest.route + '/add/receipt/notqueued');
                             $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(DeviceServiceRequest.route + '/add/receipt/queued');
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });

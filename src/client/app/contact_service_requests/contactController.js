@@ -154,6 +154,9 @@ angular.module('mps.serviceRequestContacts')
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(Contacts.route + '/update/' + $scope.contact.id + '/receipt/notqueued');
                             $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(Contacts.route + '/update/' + $scope.contact.id + '/receipt/queued');
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });

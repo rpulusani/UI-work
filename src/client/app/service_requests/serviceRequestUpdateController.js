@@ -59,6 +59,13 @@ angular.module('mps.serviceRequests')
                                 type: $routeParams.type,
                                 queued: 'notqueued'}));
                             $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(exp({
+                                root: ServiceRequest.route,
+                                id: $scope.sr.id,
+                                type: $routeParams.type,
+                                queued: 'queued'}));
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });

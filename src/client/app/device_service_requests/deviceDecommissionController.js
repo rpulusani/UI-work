@@ -151,6 +151,9 @@ angular.module('mps.serviceRequestDevices')
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/notqueued');
                             $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(DeviceServiceRequest.route + '/decommission/' + $scope.device.id + '/receipt/queued');
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });

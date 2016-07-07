@@ -353,6 +353,9 @@ angular.module('mps.serviceRequestAddresses')
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(Addresses.route + '/updates/' + $scope.address.id + '/receipt/notqueued');
                             $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(Addresses.route + '/updates/' + $scope.address.id + '/receipt/queued');
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });

@@ -159,7 +159,11 @@ angular.module('mps.serviceRequestAddresses')
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(Addresses.route + '/add/receipt/notqueued');
                             $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(Addresses.route + '/add/receipt/queued');
+                    		$interval.cancel(intervalPromise);
                         }
+                        
                     }
                 });
         	}, tombstoneWaitTimeout, tombstoneCheckCount);
@@ -169,7 +173,7 @@ angular.module('mps.serviceRequestAddresses')
         		$interval.cancel(intervalPromise);
         	});
         }
-
+       
         function configureReviewTemplate(){
             $scope.configure.actions.translate.submit = 'ADDRESS_MAN.COMMON.BTN_SUBMIT_ADDRESS_REQUEST';
             $scope.configure.actions.submit = function(){
