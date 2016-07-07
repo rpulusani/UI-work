@@ -262,7 +262,8 @@ angular.module('mps.orders')
         var added = false;
 
         for(var i = 0; i < OrderItems.data.length; ++i){
-            if(item.itemNumber === OrderItems.data[i].itemNumber){
+            if(item.itemNumber === OrderItems.data[i].itemNumber 
+            		&& item.billingModel === OrderItems.data[i].billingModel){
                 added = true;
                 break;
             }
@@ -323,7 +324,7 @@ angular.module('mps.orders')
     			productNumber:row.itemNumber    			
     		}
     	}).then(function(){
-    		console.log(PartsInfo); 
+    		 
     		if(PartsInfo.item && PartsInfo.item._embedded && PartsInfo.item._embedded.productInfoes){
     			$scope.partsInfoDetails.data  = PartsInfo.item._embedded.productInfoes; 
     		}
@@ -332,7 +333,7 @@ angular.module('mps.orders')
     	});
     }
     function initPartsInfoGrid(){
-    	console.log('inside partsinfo '+PartsInfo.data.length);
+    	
     	var Grid = new GridService();
         var personal = new Personalize($location.url(),$rootScope.idpUser.id);
         

@@ -67,6 +67,7 @@ angular.module('mps.serviceRequestContacts')
                         }else{
                             $scope.canReview = true;
                             $scope.checkedAddress = 1;
+                            $scope.contact.address.addressCleansedFlag = 'Y';
                             $scope.saveContact(contactForm);
                         }
                     }else{
@@ -104,6 +105,7 @@ angular.module('mps.serviceRequestContacts')
                 $scope.contact.address.city = $scope.comparisonAddress.city;
                 $scope.contact.address.state = $scope.comparisonAddress.state;
                 $scope.contact.address.postalCode = $scope.comparisonAddress.postalCode;
+                $scope.contact.address.addressCleansedFlag = 'Y';
             } else {
                 $scope.contact.address.country = $scope.enteredAddress.country;
                 $scope.contact.address.addressLine1 = $scope.enteredAddress.addressLine1;
@@ -111,6 +113,7 @@ angular.module('mps.serviceRequestContacts')
                 $scope.contact.address.city = $scope.enteredAddress.city;
                 $scope.contact.address.state = $scope.enteredAddress.state;
                 $scope.contact.address.postalCode = $scope.enteredAddress.postalCode;
+                $scope.contact.address.addressCleansedFlag = 'N';
             }
             $scope.canReview = true;
         };

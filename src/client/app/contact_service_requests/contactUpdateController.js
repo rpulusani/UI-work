@@ -67,6 +67,20 @@ angular.module('mps.serviceRequestContacts')
             $scope.address.buildingName = $scope.contact.address.physicalLocation1;  
             $scope.address.floorName = $scope.contact.address.physicalLocation2;
             $scope.address.siteName = $scope.contact.address.physicalLocation3;
+            
+            var tempAddress = {};
+            angular.extend(tempAddress,Contacts.item.address);
+            $scope.contact.address = {};
+            
+            $scope.contact.address.addressLine1 = tempAddress.addressLine1;
+            $scope.contact.address.addressLine2 = tempAddress.addressLine2;
+            $scope.contact.address.countryIsoCode = tempAddress.countryIsoCode;
+            $scope.contact.address.city = tempAddress.city;
+            $scope.contact.address.country = tempAddress.country;
+            $scope.contact.address.state = tempAddress.state;
+            $scope.contact.address.id = tempAddress.id;
+            $scope.contact.address.postalCode = tempAddress.postalCode;
+            
             if($rootScope.contactAlertMessage === 'saved'){
                 $rootScope.contactAlertMessage = 'saved';
             }else if($rootScope.contactAlertMessage === 'updated'){

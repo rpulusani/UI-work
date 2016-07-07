@@ -1188,9 +1188,12 @@ angular.module('mps.serviceRequests')
     function calculateTax(){
     	
     	var i = 0,tax=0;
-    	for(;i<$scope.sr.item.orderItems.length;i++){
-    		tax +=$scope.sr.item.orderItems[i].taxAmount;
+    	if($scope.sr.item.orderItems && $scope.sr.item.orderItems !== null){
+    		for(;i<$scope.sr.item.orderItems.length;i++){
+        		tax +=$scope.sr.item.orderItems[i].taxAmount;
+        	}
     	}
+    	
     	
     	return tax;
     }
