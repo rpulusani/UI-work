@@ -19,7 +19,7 @@ angular.module('mps.orders')
     '$translate',
     'SecurityHelper',
     'ServiceRequestService',
-    'tombstoneWaitTimeout',
+    'tombstoneWaitTimeout','$interval','tombstoneCheckCount',
     function(
         SRHelper,
         $scope,
@@ -38,7 +38,7 @@ angular.module('mps.orders')
         $translate,
         SecurityHelper,
         ServiceReqeust,
-        tombstoneWaitTimeout
+        tombstoneWaitTimeout,$interval,tombstoneCheckCount
     ){
     SRHelper.addMethods(Orders, $scope, $rootScope);
     if (Orders.item === null){
@@ -53,19 +53,27 @@ angular.module('mps.orders')
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
 
     function getSRNumber(existingUrl) {
-        $timeout(function(){
-            return Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+       var intervalPromise = $interval(function(){        		
+    		Orders.getAdditional(Orders.item, Tombstone, 'tombstone', true).then(function(){
+    			
                 if (existingUrl === $location.url()) {
                     if(Tombstone.item && Tombstone.item.siebelId) {
                         Orders.item.requestNumber = Tombstone.item.siebelId;
-                        ServiceReqeust.item = Orders.item;
+						ServiceReqeust.item = Orders.item;
                         $location.path(Orders.route + '/return/receipt/notqueued');
-                    } else {
-                        return getSRNumber($location.url());
+                        $interval.cancel(intervalPromise);
+                    }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                    	$location.path(Orders.route + '/return/receipt/queued');
+                		$interval.cancel(intervalPromise);
                     }
                 }
             });
-        }, tombstoneWaitTimeout);
+    	}, tombstoneWaitTimeout, tombstoneCheckCount);
+    	
+    	intervalPromise.then(function(){
+    		$location.path(Orders.route + '/return/receipt/queued');
+    		$interval.cancel(intervalPromise);
+    	});
     }
 
     function configureReviewTemplate(){
