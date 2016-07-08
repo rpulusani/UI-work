@@ -13,7 +13,8 @@ angular.module('mps.deviceManagement')
     '$timeout',
     'lbsURL',
     'ServiceRequestService',
-    'OrderRequest',    
+    'OrderRequest',  
+    'SiebelStatus',
     function(
         $scope,
         $location,
@@ -27,7 +28,8 @@ angular.module('mps.deviceManagement')
         $timeout,
         lbsURL,
         ServiceRequest,
-        Orders
+        Orders,
+        SiebelStatus
         ) {
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
@@ -312,6 +314,10 @@ angular.module('mps.deviceManagement')
             		helperDeviceSelect.setupPermissionList(configPermissions);
             	}
             	
-            };    
+            };  
+            $scope.siebelDown = false;
+            SiebelStatus.get().then(function(response){
+            	 $scope.siebelDown = (response.data.errorcode === 1? true : false); 
+            });
     }
 ]);

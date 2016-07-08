@@ -5,7 +5,9 @@
             <li translate="CONTACT.TITLE"></li>
         </ul>
     </div>
-
+	<div class="alert alert--info" ng-if="siebelDown">
+    	<div class="alert__body"><span translate="PORTAL.SIEBEL.STATUS"></span></div>        
+	</div>
     <div class="col-lg-2-3 col-md-1">
         <h1 translate="CONTACT_MAN.MANAGE_CONTACTS.TXT_MANAGE_CONTACTS"></h1>
 
@@ -13,7 +15,7 @@
         <a href="/service_requests/learn_more" translate="CONTACT_MAN.MANAGE_CONTACTS.LNK_LEARN_MORE"></a>
         <div class="l-pad-top">
             <button type="button" class="btn btn--default" href="" ng-click="goToCreate()"
-            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_ADD_NEW_CONTACT" ng-if="contactAccess"></button>
+            translate="CONTACT_MAN.MANAGE_CONTACTS.BTN_ADD_NEW_CONTACT" ng-if="contactAccess" ng-disabled="siebelDown"></button>
         </div>
         <div queue-alert></div>
     </div>
