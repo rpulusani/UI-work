@@ -12,6 +12,7 @@ angular.module('mps.serviceRequestContacts')
 'FormatterService',
 'SRControllerHelperService',
 'ServiceRequestService',
+'SiebelStatus',
 function(
     $scope,
     $location,
@@ -23,7 +24,8 @@ function(
     SecurityHelper,
     formatter,
     SRHelper,
-    ServiceRequest
+    ServiceRequest,
+    SiebelStatus
 ) {
 	var personal = new Personalize($location.url(), $rootScope.idpUser.id),
     filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal);
@@ -76,4 +78,9 @@ function(
             $scope.$broadcast('setupPrintAndExport', $scope);
         }
     );
+    
+    $scope.siebelDown = false;
+    SiebelStatus.get().then(function(response){
+    	 $scope.siebelDown = (response.data.errorcode === 1? true : false);            	 
+    });
 }]);
