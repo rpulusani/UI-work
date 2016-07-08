@@ -26,7 +26,7 @@ angular.module('mps.orders')
     'TaxService',
     '$window',
     '$q',
-    'HATEAOSConfig',
+    'HATEAOSConfig','$interval','tombstoneCheckCount',
     function(
         $scope,
         $location,
@@ -52,7 +52,7 @@ angular.module('mps.orders')
         taxService,
         $window,
         $q,
-        HATEAOSConfig) {
+        HATEAOSConfig,$interval,tombstoneCheckCount) {
         if (Orders.item === null){
             $location.path(Orders.route).search({tab:'orderAllTab'});
         }
@@ -504,40 +504,40 @@ angular.module('mps.orders')
         }
 
         function getSRNumber(existingUrl) {
-        	 
-        	$timeout(function(){
-            	
-            	 for (var i=0; i < $scope.savedSR.length; i++){
-            		 if (!$scope.savedSR[i].saved){
-            			 return Orders.getAdditional($scope.savedSR[i], Tombstone, 'tombstone', true).then(function(){
-                             if (existingUrl === $location.url()) {
-                                 if(Tombstone.item && Tombstone.item.siebelId) {
-                                     //Orders.item.requestNumber = Tombstone.item.siebelId;
-                                     $scope.savedSR[i].saved = true;
-                                     
-                                     Orders.confirmedSavedSR.push(Tombstone.item);
-                                    // ServiceReqeust.item = Orders.item;
-                                    // $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
-                                     
-                                     if ( Orders.confirmedSavedSR.length === $scope.savedSR.length) {
-                                         $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
-                                     } else {
-                                         return getSRNumber($location.url());
-                                     }
-                                     
-                                     
-                                 } else {
-                                     return getSRNumber($location.url());
-                                 }
-                             }
-                         });
-            		 }
-            	 }
-            	
-                
-            }, tombstoneWaitTimeout);
+        	var i = 0,promises = [];
+        	for (i=0; i < $scope.savedSR.length; i++){
+        		var intervalPromise = $interval(tombstoneMultiple.bind(null,$scope.savedSR[i],existingUrl,promises),
+        				tombstoneWaitTimeout, tombstoneCheckCount);
+        		promises.push(intervalPromise);
+        	}
+        	$q.all(promises).then(function(){
+        		for(i = 0 ; i<promises.length ; i++){
+        			$interval.cancel(promises[i]);
+        		}
+        		if(Orders.confirmedSavedSR.length < $scope.savedSR.length){        			 
+        			 $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/queued');
+        		}
+        		
+        	});
+        	
+        	
         }
-
+        function tombstoneMultiple(srItem,existingUrl,promises){
+        	 Orders.getAdditional(srItem, Tombstone, 'tombstone', true).then(function(){
+                 if (existingUrl === $location.url()) {
+                     if(Tombstone.item && Tombstone.item.siebelId) {
+                    	 srItem.saved = true;
+                         Orders.confirmedSavedSR.push(Tombstone.item);
+                         if ( Orders.confirmedSavedSR.length === $scope.savedSR.length) {
+                        	 $location.path(Orders.route + '/catalog/' + $routeParams.type + '/receipt/notqueued');
+                        	 for(i = 0 ; i<promises.length ; i++){
+                     			$interval.cancel(promises[i]);
+                     		}
+                         } 
+                     } 
+                 }
+             });
+        }
         intitilize();
         $scope.setupShipBillToAndInstallAddresses(Orders);
 

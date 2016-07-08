@@ -16,7 +16,7 @@ angular.module('mps.serviceRequestContacts')
     'UserService',
     'TombstoneService',
     'tombstoneWaitTimeout',
-    'SecurityHelper',
+    'SecurityHelper','$interval','tombstoneCheckCount',
     function($scope,
         $rootScope,
         $filter,
@@ -32,7 +32,7 @@ angular.module('mps.serviceRequestContacts')
         Users,
         Tombstone,
         tombstoneWaitTimeout,
-        SecurityHelper) {
+        SecurityHelper,$interval,tombstoneCheckCount) {
     	
     	 if(Contacts.item === null){       
              $location.path('/service_requests/contacts/');
@@ -99,18 +99,27 @@ angular.module('mps.serviceRequestContacts')
         };
 
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+          	var intervalPromise = $interval(function(){        		
+        		ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+        			
                     if (existingUrl === $location.url()) {
                         if(Tombstone.item && Tombstone.item.siebelId) {
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(Contacts.route + '/delete/' + $scope.contact.id + '/receipt/notqueued');
-                        } else {
-                            return getSRNumber($location.url());
+                            $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(Contacts.route + '/delete/' + $scope.contact.id + '/receipt/queued');
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });
-            }, tombstoneWaitTimeout);
+        	}, tombstoneWaitTimeout, tombstoneCheckCount);
+        	
+        	intervalPromise.then(function(){
+        		$location.path(Contacts.route + '/delete/' + $scope.contact.id + '/receipt/queued');
+        		$interval.cancel(intervalPromise);
+        	});
+        
         }
 
         if (Contacts.item === null) {

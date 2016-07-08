@@ -75,7 +75,7 @@ angular.module('mps.orders')
         Grid.display($scope.orderSummaryGridOptions,$scope,personal, 48);
         $scope.calculate = function(){
         	
-        	if($scope.tax !== null && $scope.tax !== undefined){
+        	if($scope.orderSummaryGridOptions && $scope.orderSummaryGridOptions.data){
         		var subTotal = 0.0;
                 if($scope.orderSummaryGridOptions.data){
                     for(var i = 0; i < $scope.orderSummaryGridOptions.data.length; ++i){
@@ -93,6 +93,9 @@ angular.module('mps.orders')
                 	
                 	$scope.displaytax = formatter.formatPercent(taxPercent);
                 }	
+                else if($scope.orderSummaryGridOptions && $scope.orderSummaryGridOptions.data && subTotal > 0){
+                    $scope.total = formatter.formatCurrency(subTotal);
+				}
         	}
             
             
