@@ -126,6 +126,7 @@ angular.module('mps.security')
                     });
                 } else {
                 if (currentUser.accounts && currentUser.accounts[0] && currentUser.accounts[0].accountId){
+              
                 	currentUser.links['permissions'](options).then(function(data){
                         if(data.permissions && data.permissions.data){
                             permissions.resolve(data.permissions.data);
