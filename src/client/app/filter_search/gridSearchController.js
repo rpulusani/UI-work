@@ -9,7 +9,7 @@ angular.module('mps.filterSearch')
         $scope.showSearchMessage = false;
         $scope.searchBy = undefined;
         $scope.searchByDisplayName = undefined;
-        $scope.searchByValue = searchParams.search;
+        $scope.searchByValue = (searchParams.search)? decodeURIComponent(searchParams.search) : '';
         $scope.totalItems = 0;
 
         $scope.$on('columnPickerSelect', function(e, col) {
@@ -72,7 +72,7 @@ angular.module('mps.filterSearch')
             searchParams = $location.search();
 
             if (searchParams.searchOn && searchParams.search) {
-                $scope.searchByValue = searchParams.search;
+                $scope.searchByValue = decodeURIComponent(searchParams.search);
                 $scope.searchBy = searchParams.searchOn;
             }
 
