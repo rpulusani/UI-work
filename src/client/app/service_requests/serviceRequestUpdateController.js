@@ -17,7 +17,7 @@ angular.module('mps.serviceRequests')
     'HATEAOSConfig',
     '$timeout',
     'TombstoneService',
-    'tombstoneWaitTimeout',
+    'tombstoneWaitTimeout','$interval','tombstoneCheckCount',
     function(
         $scope,
         $location,
@@ -34,7 +34,7 @@ angular.module('mps.serviceRequests')
         HATEAOSConfig,
         $timeout,
         Tombstone,
-        tombstoneWaitTimeout) {
+        tombstoneWaitTimeout,$interval,tombstoneCheckCount) {
 
         // NOTE - setupTemplates expects 'review' in the URL in order
         // to fire configureReviewTemplate. This is not used by cancel
@@ -46,23 +46,39 @@ angular.module('mps.serviceRequests')
         SRHelper.addMethods(ServiceRequest, $scope, $rootScope);
 
         function getSRNumber(existingUrl) {
-            $timeout(function(){
-                return ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
-                    var exp = $interpolate('{{root}}/{{id}}/update/{{type}}/receipt/{{queued}}');
+            var exp = $interpolate('{{root}}/{{id}}/update/{{type}}/receipt/{{queued}}');
+            var intervalPromise = $interval(function(){        		
+        		ServiceRequest.getAdditional(ServiceRequest.item, Tombstone, 'tombstone', true).then(function(){
+        			
                     if (existingUrl === $location.url()) {
                         if(Tombstone.item && Tombstone.item.siebelId) {
                             ServiceRequest.item.requestNumber = Tombstone.item.siebelId;
                             $location.path(exp({
-                              root: ServiceRequest.route,
-                              id: $scope.sr.id,
-                              type: $routeParams.type,
-                              queued: 'notqueued'}));
-                        } else {
-                            return getSRNumber($location.url());
+                                root: ServiceRequest.route,
+                                id: $scope.sr.id,
+                                type: $routeParams.type,
+                                queued: 'notqueued'}));
+                            $interval.cancel(intervalPromise);
+                        }else if(Tombstone.item.status && Tombstone.item.status.toLowerCase() === 'fail'){
+                        	$location.path(exp({
+                                root: ServiceRequest.route,
+                                id: $scope.sr.id,
+                                type: $routeParams.type,
+                                queued: 'queued'}));
+                    		$interval.cancel(intervalPromise);
                         }
                     }
                 });
-            }, tombstoneWaitTimeout);
+        	}, tombstoneWaitTimeout, tombstoneCheckCount);
+        	
+        	intervalPromise.then(function(){
+        		$location.path(exp({
+                    root: ServiceRequest.route,
+                    id: $scope.sr.id,
+                    type: $routeParams.type,
+                    queued: 'queued'}));
+        		$interval.cancel(intervalPromise);
+        	});
         }
 
         $scope.goToReview = function() {
