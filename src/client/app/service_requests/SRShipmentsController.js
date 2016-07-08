@@ -55,7 +55,6 @@ angular.module('mps.serviceRequests')
     		var cancelledIndex = -1,requestedQty = 0,fulfilledQty = 0;
     		$scope.cancelledItems = [];
     		$scope.pending = {
-    				total : 0,
     				pendCount : 0
     		}
     		for(var i=0;i<$scope.shipments.length;i++){
@@ -80,7 +79,7 @@ angular.module('mps.serviceRequests')
         		for(var j = 0;j<$scope.shipments[i].shipmentParts.length ; j++){
         			requestedQty = $scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity;
         			fulfilledQty = $scope.shipments[i].shipmentParts[j].quantity === null ? 0 :$scope.shipments[i].shipmentParts[j].quantity;
-        			$scope.pending.total += requestedQty;
+        			
                     if($scope.shipments[i].shipmentParts[j].cancelledQuantity === null || $scope.shipments[i].shipmentParts[j].cancelledQuantity === 0){
         			    $scope.pending.pendCount += (requestedQty - fulfilledQty);
                     }
