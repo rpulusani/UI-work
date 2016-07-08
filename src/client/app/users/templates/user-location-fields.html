@@ -22,7 +22,9 @@
     <input name="city" type="text" ng-model="user.address.city" required city-valid/>
 </div>
 
-<div class="form__field form__field--select form__field--required">
+<div ng-if="provinces.length > 0"  class="form__field form__field--select"  
+  ng-class="(!form.state.$valid && form.$submitted) ? 'form__field--has-alert' : ''">
+
     <label translate="USER_MAN.COMMON.TXT_STATE"></label>
  <select ng-model="user.address.state" name="state" required null-check>
             <option value="" translate="LABEL.COMMON.SELECT"></option>
