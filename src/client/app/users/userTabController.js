@@ -10,8 +10,8 @@ angular.module('mps.user')
         $scope,
         SecurityHelper
     ) {
-        if(!$rootScope.orderAccess){
-            new SecurityHelper($rootScope).confirmPermissionCheck("orderAccess");    
+        if(!$rootScope.userManagementAccess){
+            new SecurityHelper($rootScope).confirmPermissionCheck("userManagementAccess");    
         }
         $scope.active = function(value){
             $rootScope.serviceTabSelected = value;
