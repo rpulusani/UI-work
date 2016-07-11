@@ -80,8 +80,8 @@ angular.module('mps.deviceManagement')
                 rows.push('none');
             }
 
-            if ($scope.device.hostname) {
-                rows.push($scope.device.hostname);
+            if ($scope.device.hostName) {
+                rows.push($scope.device.hostName);
             } else {
                 rows.push('none');
             }
