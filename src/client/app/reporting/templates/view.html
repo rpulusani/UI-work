@@ -60,7 +60,7 @@
     </div>
     <div class="report-charts">
         <div class="row row--alley-thick">
-            <div class="col-1-3 floatL">
+            <div class="col-lg-1-3 floatL">
                 <div class="text--align-center">
                     <a href="#" ng-click="goToFinderById('mp9058sp')" translate="{{ configure.report.charts.translate.assetCount }}"></a>
                 </div>
@@ -69,7 +69,7 @@
                     <div google-chart chart="{{ chartObject.assetRegister }}"></div>
                 </div>
             </div>
-            <div class="col-1-3 floatL">
+            <div class="col-lg-1-3 floatL">
                 <div class="text--align-center">
                     <a href="#" ng-click="goToFinderById('mp9073')" translate="{{ configure.report.charts.translate.madcEvents }}"></a>
                 </div>
@@ -78,20 +78,20 @@
                     <div google-chart chart="{{ chartObject.madc }}"></div>
                 </div>
             </div>
-            <div class="col-1-3 floatL">
+            <div class="col-lg-1-3 floatL">
                 <div class="text--align-center">
                     <a href="#" ng-click="goToFinderById('mp0075')" translate="{{ configure.report.charts.translate.meterReads }}"></a>
                 </div>
                 <div class="well">
                     <div class="row">
                         <div class="col-1-2 floatL">
-                            <div><p class="text--align-center" translate="{{ configure.report.charts.translate.allReads }}"></p></div>
+                            <div><p class="h50 text--align-center" translate="{{ configure.report.charts.translate.allReads }}"></p></div>
 
                             <p class="text--align-center" ng-if="chartObject.missingMeterReadsAll.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
                             <div google-chart chart="{{ chartObject.missingMeterReadsAll }}"></div>
                         </div>
                         <div class="col-1-2 floatL">
-                            <div><p class="text--align-center" translate="{{ configure.report.charts.translate.missedReads }}"></p></div>
+                            <div><p class="h50 text--align-center" translate="{{ configure.report.charts.translate.missedReads }}"></p></div>
                             <p class="text--align-center" ng-if="chartObject.missingMeterReadsMissed.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
                             <div google-chart chart="{{ chartObject.missingMeterReadsMissed }}"></div>
                         </div>
@@ -101,7 +101,7 @@
         </div>
 
         <div class="row row--alley-thick">
-            <div class="col-1-3 floatL" ng-if="viewSupplyOrderAccess">
+            <div class="col-lg-1-3 floatL" ng-if="viewSupplyOrderAccess">
                 <div class="text--align-center">
                     <a href="#" ng-click="goToFinderById('mp0021')" translate="{{ configure.report.charts.translate.consumablesOrders }}"></a>
                 </div>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-1-3 floatL" ng-if="viewHardwareOrderAccess">
+            <div class="col-lg-1-3 floatL" ng-if="viewHardwareOrderAccess">
                 <div class="text--align-center">
                     <a href="#" ng-click="goToFinderById('hw0008')" translate="{{ configure.report.charts.translate.hardwareOrders }}"></a>
                 </div>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-1-3 floatL relative">
+            <div class="col-lg-1-3 floatL relative">
                 <div class="text--align-center">
                     <a href="#" ng-click="goToFinderById('pb0001')" translate="{{ configure.report.charts.translate.billedPages }}"></a>
                 </div>
@@ -196,7 +196,7 @@
     
     <div class="row">
         <div class="col-1">
-            <div print-export-title titlestring="REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS"></div>
+            <div print-export-title class="row"  titlestring="REPORT_MAN.OTHER_REPORTS.TXT_VIEW_ADDITIONAL_REPORTS"></div>
             <hr/>
             <div class="alert alert--info" ng-if="gridLoading === true">
                 <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
