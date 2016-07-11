@@ -5,8 +5,10 @@
         <div class="col-lg-2-3 col-md-1-1">
             <h1 translate="{{configure.header.translate.h1}}" translate-values="{{configure.header.translate.h1Values}}">Lorem ipsum dolor</h1>
 
-            <p class="" >
-                <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span><br/>
+            <div class="" >
+                <span ng-if="configure.header.translate.body">
+                    <span translate="{{configure.header.translate.body}}" translate-values="{{configure.header.translate.bodyValues}}"></span><br/>
+                </span>
                 <span ng-if="configure.showAddAnotherAddress">
                     <span translate="ADDRESS_SERVICE_REQUEST.WOULD_YOU_LIKE"></span> <a href="" ng-click="goToCreate()" translate="ADDRESS_SERVICE_REQUEST.ADD_ANOTHER_ADDRESS"></a>?
                 </span>
@@ -16,7 +18,7 @@
                 <span ng-if="configure.showAddAnotherDevice">
                     <span translate="DEVICE_MAN.MANAGE_DEVICE.TXT_WOULD_YOU_LIKE"></span> <a href="" ng-click="goToCreate()" translate="DEVICE_MAN.MANAGE_DEVICE.LNK_ADD_ANOTHER_DEVICE"></a>?
                 </span>
-                <div class="col-1 btns">
+                <div class="col-1 btns" ng-if="cancelServiceRequest && (configure.header.showUpdateBtn || configure.header.showCancelBtn)">
                     <button class="btn" ng-click="goToServiceUpdate(sr.id, sr.type)"
                     translate="REQUEST_MAN.REQUEST_DEVICE_UPDATE.BTN_CHANGE_REQUEST"
                     ng-if="cancelServiceRequest && configure.header.showUpdateBtn"></button>
@@ -29,8 +31,8 @@
                 class="read-more"
                 href="{{configure.header.readMoreUrl}}"
                 translate="{{configure.header.translate.readMore}}" href-target></a>
-                <p ng-if="configure.header.translate.action" translate="{{configure.header.translate.action}}" translate-values="{{configure.header.translate.actionValues}}"></p>
-            </p>
+                <div ng-if="configure.header.translate.action" translate="{{configure.header.translate.action}}" translate-values="{{configure.header.translate.actionValues}}"></div>
+            </div>
         </div>
     </div>
 </div>
