@@ -91,11 +91,11 @@ angular.module('mps.utility')
             csvExport: '=?',
             pdfExport: '=?'
         },
-        template: '<div class="col-3-4" ng-cloak>' +
+        template: '<div class="col-lg-3-4" ng-cloak>' +
             '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="titleValues && titlestring" translate="{{ titlestring }}" translate-values="{{titleValues}}"></h2>' +
             '<h2 class="print-export-header vertical-margin-bottom-0" ng-show="!titleValues && titlestring" translate="{{ titlestring }}"></h2>' +
         '</div>' +
-        '<div ng-if="displayPrint || displayExport" class="print-export" ng-cloak>' +
+        '<div ng-if="displayPrint || displayExport" class="col-lg-1-4 print-export" ng-cloak>' +
             '<span ng-if="displayPrint && displayExport" class="">' +
                 '<i class="icon icon--mps icon--print" ng-click="printGrid()"></i>' +
                 '<a ng-show="!nativePrint" translate="LABEL.COMMON.PRINT" href="#" class="text--small text--semi-bold" ng-click="printGrid()"></a>' +
