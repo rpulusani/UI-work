@@ -26,7 +26,6 @@ angular.module('mps.form')
                   };
                   if(elm[0][i].attributes && elm[0][i].attributes['default'] && elm[0][i].attributes['default'].value){
                     item.originalValue = elm[0][i].attributes['default'].value;
-                    console.log(elm[0][i]);
                     watchSpecialInputs(elm[0][i]);
                   }
                   self.scope.inputs.push(item);
@@ -49,9 +48,6 @@ angular.module('mps.form')
           function watchSpecialInputs(currentElement){
             if(currentElement.attributes && currentElement.attributes['ng-model'] && currentElement.attributes['ng-model'].value){
               scope.$watch(currentElement.attributes['ng-model'].value, function(newValue, oldValue){
-                console.log('watching model: ', currentElement.name);
-                console.log('watching newValue: ', newValue);
-                console.log('watching oldValue: ', oldValue);
                 getItemValidation(currentElement.name);
               });
             }
@@ -63,7 +59,6 @@ angular.module('mps.form')
                     }
               }),
               firstIndex = indexes[0];
-              console.log('Input New Value: ' + item.model.$viewValue);
               if(item.originalValue === item.model.$viewValue){
                 if(firstIndex === undefined || firstIndex === -1){
                   self.scope.inputsUnchanged.push(item);

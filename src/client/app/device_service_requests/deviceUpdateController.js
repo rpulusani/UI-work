@@ -623,8 +623,6 @@ angular.module('mps.serviceRequestDevices')
         $scope.deviceActionPermissions = {};          		
        
         var helperDeviceSelect = new SecurityHelper($scope.deviceActionPermissions);
-        console.log('Devices.item');
-        console.log(Devices.item);
         var accId = Devices.item._embedded.account.accountId,
         	i=0,
         	acntPermissions,
