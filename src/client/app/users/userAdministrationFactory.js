@@ -52,7 +52,6 @@ angular.module('mps.user')
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_USER_ID'), 'field': 'userId', 'notSearchable': true, dynamic: false},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_FIRST_NAME'), 'field':'firstName'},
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_LAST_NAME'), 'field':'lastName'},
-                    {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_EMAIL'), 'field': 'email'},
                     {
                         'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_COMPANY_ACCOUNT'), 
                         'field': 'accounts', 
