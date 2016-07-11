@@ -190,6 +190,9 @@ angular.module('mps.orders')
                    }
                    Orders.addField('attachments', $scope.files_complete);
                    Orders.addField('orderItems', OrderItems.buildSrArray());
+                   if(OrderItems.checkSameBillingModel()){
+                	   Orders.addField('billingModel', OrderItems.data[0].billingModel);
+                   }
                    var deferred = Orders.post({
                          item:  $scope.sr
                     });
