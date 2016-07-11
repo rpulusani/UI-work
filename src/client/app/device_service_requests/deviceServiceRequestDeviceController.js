@@ -52,24 +52,162 @@ angular.module('mps.serviceRequestDevices')
         var statusBarLevels = [
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_SUBMITTED_SHORT'), value: 'SUBMITTED'},
         { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_IN_PROCESS'), value: 'INPROCESS'},
-        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}],
+        { name: $translate.instant('REQUEST_MAN.COMMON.TXT_REQUEST_COMPLETED'), value: 'COMPLETED'}];
+
+        var generateCsvRows = function() {
+            var rows = [];
+
+            if ($scope.sr.requestNumber) {
+                rows.push($scope.sr.requestNumber);
+            } else {
+                rows.push('');
+            }
+           
+            if ($scope.sr.description) {
+                rows.push($scope.sr.description);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.formattedReferenceId) {
+                rows.push($scope.formattedReferenceId);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.formattedCostCenter) {
+                rows.push($scope.formattedCostCenter);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.formattedDeviceAddress) {
+                rows.push($scope.formattedDeviceAddress.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.formattedPrimaryContact) {
+                rows.push($scope.formattedPrimaryContact.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.requestedByContactFormattedExport) {
+                rows.push($scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '));
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.device) {
+                rows.push($scope.device.serialNumber);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.device) {
+                rows.push($scope.device.productModel);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.device) {
+                rows.push($scope.device.ipAddress);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.formattedNotes) {
+                rows.push($scope.formattedNotes);
+            } else {
+                rows.push('');
+            }
+
+            if ($scope.sr.type) {
+                rows.push($scope.sr.type);
+            } else {
+                rows.push('');
+            }
+            
+            return rows;
+        },
         setCsvDefinition = function() {
+            var headers = [
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_NUMBER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PROBLEM_DESCR'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CUSTOMER_REF_NBR'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_COST_CENTER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_DEVICE_ADDRESS'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRIMARY_CONTACT'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_BY_CONTACT'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_SERIAL_NBR'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRODUCT_MODEL'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_IP_ADDRESS'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_NOTES'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_SR_TYPE')
+            ],
+            rows = generateCsvRows(),
+            i = 0;
+
             $scope.csvModel = {
                 filename: $scope.sr.requestNumber + '.csv',
-                data: {
-                    requestNumber: $scope.sr.requestNumber,
-                    description: $scope.sr.description,
-                    customerReferenceId: $scope.formattedReferenceId,
-                    costCenter: $scope.formattedCostCenter,
-                    deviceAddress: $scope.formattedDeviceAddress === undefined ?"" :$scope.formattedDeviceAddress.replace(/<br\/>/g, ', '),
-                    primaryContact: $scope.formattedPrimaryContact === undefined?"":$scope.formattedPrimaryContact.replace(/<br\/>/g, ', '),
-                    requestedByContact: $scope.requestedByContactFormattedExport=== undefined? "":$scope.requestedByContactFormattedExport.replace(/<br\/>/g, ', '),
-                    serialNumber: $scope.device === undefined?"":$scope.device.serialNumber,
-                    productModel: $scope.device === undefined?"":$scope.device.productModel,
-                    ipAddress: $scope.device === undefined?"":$scope.device.ipAddress,
-                    notes: $scope.formattedNotes,
-                    type: $scope.sr.type
+                headers: headers,
+                // rows are just property names found on the dataObj
+                rows: rows
+            };
+
+            var pdfHeaders1 = [],
+            pdfRows1 = [],
+            pdfHeaders2 = [],
+            pdfRows2 = [];
+            var pdfFirstHeaderColumnsCnt = 8;
+            var totalColumnsCnt = headers.length;
+            if(totalColumnsCnt <= pdfFirstHeaderColumnsCnt) {
+                pdfFirstHeaderColumnsCnt = totalColumnsCnt;
+            }            
+
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfHeaders1.push({text: headers[i], fontSize: 8});
+            }
+
+            i = 0;
+            for (i; i < pdfFirstHeaderColumnsCnt; i += 1) {
+               pdfRows1.push({text: rows[i], fontSize: 8});
+            }
+
+            if(totalColumnsCnt > pdfFirstHeaderColumnsCnt) {
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfHeaders2.push({text: headers[i], fontSize: 8});
                 }
+
+                i = pdfFirstHeaderColumnsCnt;
+                for (i; i < totalColumnsCnt; i += 1) {
+                   pdfRows2.push({text: rows[i], fontSize: 8});
+                }
+            }            
+
+            $scope.pdfModel = {
+              content: [
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders1,
+                      pdfRows1
+                    ]
+                  }
+                },
+                {
+                  table: {
+                    headerRows: 1,
+                    body: [
+                      pdfHeaders2,
+                      pdfRows2
+                    ]
+                  }
+                }
+              ]
             };
         };
 
