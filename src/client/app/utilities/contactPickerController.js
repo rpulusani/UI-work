@@ -3,7 +3,8 @@
 angular.module('mps.utility')
 .controller('ContactPickerController', ['$scope', '$timeout', '$location', '$controller', '$routeParams', 'grid', 'Contacts', 'BlankCheck', 'FormatterService', '$rootScope',
     'PersonalizationServiceFactory',
-    function($scope, $timeout, $location, $controller, $routeParams, GridService, Contacts, BlankCheck, FormatterService, $rootScope, Personalize) {
+    'FilterSearchService',
+    function($scope, $timeout, $location, $controller, $routeParams, GridService, Contacts, BlankCheck, FormatterService, $rootScope, Personalize, FilterSearchService) {
         if($rootScope.contactRequestFor === undefined){
             $rootScope.contactRequestFor = angular.copy($rootScope.currentSelected);
         }
@@ -53,25 +54,21 @@ angular.module('mps.utility')
             });
         };
 
-        var Grid = new GridService();
-        $scope.gridOptions = {};
-        $scope.gridOptions.multiSelect = false;
-        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Contacts, personal);
-        var filterParams = {};
+        function setupGrid(){
+            var filterSearchService = new FilterSearchService(Contacts, $scope, $rootScope, personal),
+            removeParamsList = ['location', 'search', 'searchOn'];
+            $scope.gridOptions.showBookmarkColumn = false;
+            $scope.gridOptions.multiSelect = false;
+            filterSearchService.addBasicFilter('CONTACT.ALL', {consumables : false}, removeParamsList);
+        }
+
+        setupGrid();
         
         /*if ($routeParams.source === 'DeviceAdd' && $rootScope.currentSelected === 'updateDeviceContact'){
            	filterParams.consumables = true;        	
         }else {
         	filterParams.consumables = false; 
         }*/
-        filterParams.consumables = false;
-        Contacts.getPage(undefined,undefined,{
-        	params : filterParams
-        }).then(function() {	
-            Grid.display(Contacts, $scope, personal);
-        }, function(reason) {
-            NREUM.noticeError('Grid Load Failed for ' + Contacts.serviceName +  ' reason: ' + reason);
-        });
 
         function configureTemplates() {
             $scope.configure = {

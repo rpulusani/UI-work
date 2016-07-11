@@ -893,6 +893,9 @@ angular.module('mps.serviceRequests')
                 case 'MADC_DECOMMISSION':
                     $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_DECOMMISSION');
                 break;
+                case 'MADC_INSTALL_AND_DECOMMISSION':
+                    $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_DECOMMISSION');
+                break;
                 case 'MADC_INSTALL':
                     $location.path('/service_requests/' + requestNumber + '/cancel/CANCEL_INSTALL');
                 break;
@@ -1048,6 +1051,9 @@ angular.module('mps.serviceRequests')
         ServiceRequest.tempSpace = {};
         switch(type){
             case 'MADC_DECOMMISSION':
+                $location.path('/service_requests/' + requestNumber + '/update/UPDATE_DECOMMISSION');
+            break;
+            case 'MADC_INSTALL_AND_DECOMMISSION':
                 $location.path('/service_requests/' + requestNumber + '/update/UPDATE_DECOMMISSION');
             break;
             case 'MADC_INSTALL':

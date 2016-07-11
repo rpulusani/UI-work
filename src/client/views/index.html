@@ -140,10 +140,14 @@
 <!-- <User Info> -->
       <div class="user push">
         <div class="user__img pull">
-          <div  ng-if="translationAdminAccess" class="user__notify pull l-hidden--gt-tablet"><a class="badge badge--important" href="/notifications">1</a></div>
-          <a href="/user_preference"><img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" /></a>
+            <div  ng-if="translationAdminAccess" class="user__notify pull l-hidden--gt-tablet">
+                <a class="badge badge--important" href="/notifications">1</a>
+            </div>
+            <a href="/user_preference" class="l-hidden--mobile">
+                <img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" />
+            </a>
         </div>
-        <div class="user__info pull text--small l-visible--gt-tablet">
+        <div class="user__info pull text--small">
           <a class="user__name" href="/user_preference">{{idpUser.custom_attributes.first_name}} {{idpUser.custom_attributes.last_name}}</a><br />
           <a class="user__name" href="#" ng-click="logout()">Log out</a>
         </div>
@@ -152,7 +156,7 @@
     </header>
 
     <aside left-nav class="site-nav pull l-visible--gt-tablet"></aside>
-    <div id="mobileNav" class="slide-in-panel" data-js="slideInPanel" data-breakpoint="tablet">
+    <div id="mobileNav" class="theme--dark slide-in-panel" data-js="slideInPanel" data-breakpoint="tablet">
       <aside left-nav></aside>
     </div>
 

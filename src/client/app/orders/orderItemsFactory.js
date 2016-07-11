@@ -190,6 +190,15 @@ angular.module('mps.orders')
                         arrayResult.push(item);
                     }
                     return arrayResult;
+                },
+                checkSameBillingModel: function(){
+                	var self = this,model = self.data[0].billingModel;
+                	for(var i = 1; i < self.data.length; ++i){
+                		if(model !== self.data[i].billingModel){
+                			return false;
+                		}
+                	}
+                	return true;
                 }
         };
     return  new HATEOASFactory(OrderItems);

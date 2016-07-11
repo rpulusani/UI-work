@@ -8,7 +8,7 @@
     "portal": {
       "serviceUrl": "https://venus-dev.lexmark.com/mps/",
       "adminUrl": "https://venus-dev.lexmark.com/mps-portal/",
-      "lbsUrl": "https://venus-beta-lbs.lexmark.com/group/lbsportal/fleet-management",
+      "lbsUrl": "https://portal-test.lexmark.com/group/lbsportal/fleet-management",
       "libraryServiceUrl": "https://venus-dev.lexmark.com/documents"
     }
   },

@@ -21,8 +21,8 @@ angular.module('mps.filterSearch')
                     $scope.params['source'] = meterReadType;
                     $scope.filterDef($scope.params, ['chlFilter', 'location', 'from', 'to']);
                 } else {
-                    $scope.params = {};
-                    $scope.filterDef($scope.params, ['source', 'chlFilter', 'location', 'from', 'to']);
+                    $scope.params['source'] = meterReadType;
+                    $scope.filterDef($scope.params, ['chlFilter', 'location', 'from', 'to']);
                 }
                 
             }
