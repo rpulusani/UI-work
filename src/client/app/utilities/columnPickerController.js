@@ -87,7 +87,7 @@ angular.module('mps.utility')
         scope.$on('setupColumnPicker', function(e, Grid) {
             // make sure we only answer this call once
             if (!element.hasClass('columnpicker')) {
-                var i = 0,
+                var i = 0, j = 0,
                 columnMax = 7,
                 list = angular.element('<div class="form"></div>'),
                 selectorContent,
@@ -95,7 +95,7 @@ angular.module('mps.utility')
                 gridOptions = e.targetScope.gridOptions,
                 dropdownBtn = $(
                     '<p class="l-visible--lt-laptop"><strong>' + translate.instant('COLUMNPICKER.CUSTOMIZE_COLUMNS') + '</strong></p><div class="dropdown columnpicker" data-column-count="' + Grid.gridOptions.columnDefs.length + '">' +
-                        '<button class="btn dropdown__trigger"><i class="icon icon--ui icon--navicon-secondary rotate"></i></button>' +
+                        '<button class="btn marR0 dropdown__trigger"><i class="icon icon--ui icon--navicon-secondary rotate"></i></button>' +
                     '</div>'),
                 dropdownMenu = $('<div class="row l-hidden"><div class="col-lg-3-4 col-md-1-1"><div class="row l-pad columnpicker__menu">' + 
                     '<div class="col-1-2"><h2>' + translate.instant('COLUMNPICKER.TITLE') + '</h2></div>' + 
@@ -209,6 +209,13 @@ angular.module('mps.utility')
                         dropdownBtn.addClass('active');
 
                         if (gridOptions) {
+                            var bookmarkCnt = 0, j = 0;
+                            for (j; j < Grid.gridOptions.columnDefs.length; j += 1) {
+                                if(Grid.gridOptions.columnDefs[j].field === 'bookmark') {
+                                    bookmarkCnt++;
+                                }
+                            }
+                            i = i + bookmarkCnt;
                             for (i; i < Grid.gridOptions.columnDefs.length; i += 1) {
                                 if (Grid.gridOptions.columnDefs[i].field !== 'bookmark' 
                                     && !((Grid.gridOptions.columnDefs[i].showInColumnPicker !== undefined) && (Grid.gridOptions.columnDefs[i].showInColumnPicker === false))
@@ -230,6 +237,7 @@ angular.module('mps.utility')
                             selectorContent = $('.columnpicker__menu');
 
                             selectorContent.append(list);
+                            i++;
                         }
                     } else {
                         dropdownMenu.addClass('l-hidden');

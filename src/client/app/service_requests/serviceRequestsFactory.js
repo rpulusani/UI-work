@@ -22,8 +22,12 @@ angular.module('mps.serviceRequests')
                         
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName'},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_LAST_NAME'), 'field': '_embedded.requester.lastName'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
@@ -37,8 +41,12 @@ angular.module('mps.serviceRequests')
                                     '</div>'
                         },
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter'}
                         
@@ -55,7 +63,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'assetInfo.hostName',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.hostName"></div>'
                         },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'assetInfo.ipAddress',
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'headerCellTemplate':'<div>{{"DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR" | translate}}</div>', 'field':'assetInfo.ipAddress',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.ipAddress"></div>'
                         },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'assetInfo.serialNumber',
@@ -66,8 +74,12 @@ angular.module('mps.serviceRequests')
                         },
                        
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true, searchOn :'createDate'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
@@ -103,7 +115,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'_embedded.asset.hostName',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.hostName"></div>'
                         },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'_embedded.asset.ipAddress',
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'headerCellTemplate':'<div>{{"DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR" | translate}}</div>', 'field':'_embedded.asset.ipAddress',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.ipAddress"></div>'
                         },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'_embedded.asset.serialNumber',
@@ -112,7 +124,9 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL'), 'field':'_embedded.asset.productModel',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.productModel"></div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('ADDRESS_MAN.COMMON.TXT_ADDRESS_NAME'), 'field':'_embedded.sourceAddress.name', visible: false},
                         {'name': $translate.instant('ADDRESS.STORE_NAME'), 'field':'_embedded.sourceAddress.storeFrontName', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
@@ -144,7 +158,9 @@ angular.module('mps.serviceRequests')
                                     '</div>'
                         },
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true,searchOn :'createDate'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_REQUEST_COST_CENTER'), 'field':'costCenter',visible: false},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_PROB_DESC'), 'field':'description'},
                         {'name': $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_RESOLUTION'), 'field':'problemResolution'},
@@ -163,8 +179,12 @@ angular.module('mps.serviceRequests')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'},
                         {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_DATE'), 'field': 'getFormattedCreateDate()',searchOn :'createDate','notSearchable': true},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status'},                        
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type','notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status','notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },                        
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
@@ -187,8 +207,12 @@ angular.module('mps.serviceRequests')
                             'notSearchable': true,
                             'cellTemplate': '<div ng-bind="row.entity.getFormattedCreateDate()"></div>'
                         },
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type'},
-                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status'},
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_TYPE'), 'field':'type','notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('REQUEST_MAN.COMMON.TXT_GRID_STATUS'), 'field':'status','notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                                               
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName','visible': false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName','visible': false},
