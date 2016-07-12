@@ -5,10 +5,9 @@ a target Grid.
 */
 'use strict';
 angular.module('mps.utility')
-.controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate', '$rootScope', '$compile', 'PersonalizationServiceFactory',
-    function(scope, element, attrs, translate, $rootScope, $compile, personalize) {
+.controller('ColumnPickerController', ['$scope', '$element', '$attrs', '$translate', '$rootScope', '$compile',
+    function(scope, element, attrs, translate, $rootScope, $compile) {
         var node = element[0],
-        personalize = new personalize();
         $ = require('jquery'),
         columns = [],
         addColumn = function(column, gridOptions) {
@@ -18,12 +17,6 @@ angular.module('mps.utility')
             for (i; i < gridOptions.columnDefs.length; i += 1) {
                 if (gridOptions.columnDefs[i].field === column.field && column.field) {
                     gridOptions.columnDefs[i].visible = true;
-
-                    personalize.update({
-                        data: {
-                            columnDefs: gridOptions.columnDefs
-                        }
-                    });
                 }
             }
 
@@ -36,12 +29,6 @@ angular.module('mps.utility')
             for (i; i < gridOptions.columnDefs.length; i += 1) {
                 if (gridOptions.columnDefs[i].name === column.name) {
                     gridOptions.columnDefs[i].visible = false;
-
-                     personalize.update({
-                        data: {
-                            columnDefs: gridOptions.columnDefs
-                        }
-                    });
                 }
             }
 
@@ -94,7 +81,8 @@ angular.module('mps.utility')
             } else {
                 return false;
             }
-        };
+        },
+        prop;
 
         scope.$on('setupColumnPicker', function(e, Grid) {
             // make sure we only answer this call once
