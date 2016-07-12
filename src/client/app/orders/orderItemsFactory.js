@@ -14,7 +14,13 @@ angular.module('mps.orders')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
                             'field':'type', enableCellEdit:false},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
-                            'field':'displayItemNumber', enableCellEdit:false},
+                            'field':'displayItemNumber', enableCellEdit:false,
+                            'cellTemplate': '<span ng-if="!row.entity.childItems">{{row.entity.displayItemNumber}}</span>'+
+                                         '<span ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
+                                         '<span ng-repeat="part in row.entity.childItems">'+
+                                         '{{part.displayItemNumber}}'+
+                                         '</span> </span>'
+                        },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
                             'field':'priceCurrencyFormat()', enableCellEdit:false},
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
@@ -49,7 +55,13 @@ angular.module('mps.orders')
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
                         'field':'type', enableCellEdit:false},
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
-                        'field':'displayItemNumber', enableCellEdit:false},
+                        'field':'displayItemNumber', enableCellEdit:false,
+                        'cellTemplate': '<span ng-if="!row.entity.childItems">{{row.entity.displayItemNumber}}</span>'+
+                                         '<span ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
+                                         '<span ng-repeat="part in row.entity.childItems">'+
+                                         '{{part.displayItemNumber}}'+
+                                         '</span> </span>'
+                    },
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
                         'field':'priceCurrencyFormat()', enableCellEdit:false},
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',
@@ -72,7 +84,13 @@ angular.module('mps.orders')
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_SUPPLIES_TYPE'),
                         'field':'type', enableCellEdit:false},
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PART_NUM'),
-                        'field':'displayItemNumber', enableCellEdit:false},
+                        'field':'displayItemNumber', enableCellEdit:false,
+                        'cellTemplate': '<span ng-if="!row.entity.childItems">{{row.entity.displayItemNumber}}</span>'+
+                                         '<span ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
+                                         '<span ng-repeat="part in row.entity.childItems">'+
+                                         '{{part.displayItemNumber}}'+
+                                         '</span> </span>'
+                    },
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
                         'field':'priceCurrencyFormat()', enableCellEdit:false},
                     {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'), 'field':'quantity',

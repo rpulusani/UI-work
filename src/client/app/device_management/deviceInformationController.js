@@ -447,7 +447,11 @@ angular.module('mps.deviceManagement')
                         meterReadCnt++;
                     } 
                     
-                    if(colorMeterRead !== null && meterReadType === 'ltpc') {
+                    if((colorMeterRead !== null || 
+                        (colorMeterRead === null && indColor > -1 && 
+                        ltpcMeterRead !== null && ltpcMeterRead.newVal !== null &&
+                        ltpcMeterRead.newVal !== undefined)) && 
+                        meterReadType === 'ltpc') {
                         errorMessage[i] = validateRequiredLtpcColorMR(colorMeterRead, ltpcMeterRead, $scope.meterReads[i].type);
                         
                         if(errorMessage[i].length > 0) {
@@ -592,10 +596,16 @@ angular.module('mps.deviceManagement')
 
         function validateRequiredLtpcColorMR(colorMR, ltpcMR, meterReadType){
             var errorMsg = "";
-            if(colorMR.newVal && 
+            if(colorMR !== null && colorMR.newVal && 
                 pageCountHelper.isDigitPageCount(colorMR.newVal) && 
                 (ltpcMR === null ||
                 !ltpcMR.newVal)) {
+                errorMsg += "For Color device, both a LTPC and Color Meter Read required.";
+            }
+            else if(ltpcMR !== null && ltpcMR.newVal && 
+                pageCountHelper.isDigitPageCount(ltpcMR.newVal) && 
+                (colorMR === null ||
+                !colorMR.newVal)) {
                 errorMsg += "For Color device, both a LTPC and Color Meter Read required.";
             }
             else if(colorMR.newVal && 
