@@ -209,12 +209,13 @@ angular.module('mps.utility')
                         dropdownBtn.addClass('active');
 
                         if (gridOptions) {
+                            var bookmarkCnt = 0, j = 0;
                             for (j; j < Grid.gridOptions.columnDefs.length; j += 1) {
                                 if(Grid.gridOptions.columnDefs[j].field === 'bookmark') {
-                                    Grid.gridOptions.columnDefs.splice(j, 1);
+                                    bookmarkCnt++;
                                 }
                             }
-
+                            i = i + bookmarkCnt;
                             for (i; i < Grid.gridOptions.columnDefs.length; i += 1) {
                                 if (Grid.gridOptions.columnDefs[i].field !== 'bookmark' 
                                     && !((Grid.gridOptions.columnDefs[i].showInColumnPicker !== undefined) && (Grid.gridOptions.columnDefs[i].showInColumnPicker === false))
@@ -237,7 +238,6 @@ angular.module('mps.utility')
 
                             selectorContent.append(list);
                             i++;
-                            j = i;
                         }
                     } else {
                         dropdownMenu.addClass('l-hidden');
