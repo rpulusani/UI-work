@@ -63,7 +63,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'assetInfo.hostName',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.hostName"></div>'
                         },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'assetInfo.ipAddress',
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'headerCellTemplate':'<div>{{"DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR" | translate}}</div>', 'field':'assetInfo.ipAddress',
                                  'cellTemplate':'<div ng-bind="row.entity.assetInfo.ipAddress"></div>'
                         },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'assetInfo.serialNumber',
@@ -115,7 +115,7 @@ angular.module('mps.serviceRequests')
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_HOSTNAME'), 'field':'_embedded.asset.hostName',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.hostName"></div>'
                         },
-                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'field':'_embedded.asset.ipAddress',
+                        {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR'), 'headerCellTemplate':'<div>{{"DEVICE_MAN.MANAGE_DEVICE_OVERVIEW.TXT_IP_ADDR" | translate}}</div>', 'field':'_embedded.asset.ipAddress',
                                  'cellTemplate':'<div ng-bind="row.entity._embedded.asset.ipAddress"></div>'
                         },
                         {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE.TXT_SERIAL_NUMBER'), 'field':'_embedded.asset.serialNumber',
