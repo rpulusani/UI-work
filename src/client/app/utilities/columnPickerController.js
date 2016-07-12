@@ -87,7 +87,7 @@ angular.module('mps.utility')
         scope.$on('setupColumnPicker', function(e, Grid) {
             // make sure we only answer this call once
             if (!element.hasClass('columnpicker')) {
-                var i = 0,
+                var i = 0, j = 0,
                 columnMax = 7,
                 list = angular.element('<div class="form"></div>'),
                 selectorContent,
@@ -209,6 +209,12 @@ angular.module('mps.utility')
                         dropdownBtn.addClass('active');
 
                         if (gridOptions) {
+                            for (j; j < Grid.gridOptions.columnDefs.length; j += 1) {
+                                if(Grid.gridOptions.columnDefs[j].field === 'bookmark') {
+                                    Grid.gridOptions.columnDefs.splice(j, 1);
+                                }
+                            }
+
                             for (i; i < Grid.gridOptions.columnDefs.length; i += 1) {
                                 if (Grid.gridOptions.columnDefs[i].field !== 'bookmark' 
                                     && !((Grid.gridOptions.columnDefs[i].showInColumnPicker !== undefined) && (Grid.gridOptions.columnDefs[i].showInColumnPicker === false))
@@ -230,6 +236,8 @@ angular.module('mps.utility')
                             selectorContent = $('.columnpicker__menu');
 
                             selectorContent.append(list);
+                            i++;
+                            j = i;
                         }
                     } else {
                         dropdownMenu.addClass('l-hidden');
