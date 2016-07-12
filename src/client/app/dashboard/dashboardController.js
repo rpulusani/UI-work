@@ -253,6 +253,12 @@ function(
             $scope.chartObject.assetRegister = {};
             $scope.chartObject.assetRegister.type = 'PieChart';
             $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
+            $scope.chartObject.assetRegister.options.tooltip = {
+                "text":"value"
+            };
+            $scope.chartObject.assetRegister.options.tooltipFontSize = 14;
+            $scope.chartObject.assetRegister.options.tooltipWidth = 300;
+            $scope.chartObject.assetRegister.options.tooltipHeight = 150;
             $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
             $scope.chartObject.assetRegister.options.fontSize = 36;
             $scope.chartObject.assetRegister.dataPoint = total;

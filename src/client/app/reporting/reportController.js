@@ -208,6 +208,12 @@ angular.module('mps.report')
             $scope.chartObject.assetRegister = {};
             $scope.chartObject.assetRegister.type = "PieChart";
             $scope.chartObject.assetRegister.options = angular.copy($scope.chartOptions.pieChartOptions);
+            $scope.chartObject.assetRegister.options.tooltip = {
+                "text":"value"
+            };
+            $scope.chartObject.assetRegister.options.tooltipFontSize = 14;
+            $scope.chartObject.assetRegister.options.tooltipWidth = 300;
+            $scope.chartObject.assetRegister.options.tooltipHeight = 150;
             $scope.chartObject.assetRegister.options.height = 300;
             $scope.chartObject.assetRegister.options.slices = [{color: '#00ad21'}];
             //$scope.chartObject.assetRegister.options.fontSize = 36;
@@ -334,11 +340,11 @@ angular.module('mps.report')
             for (var i = 0; i < data.stat.length; i++) {
                 d[data.stat[i].label] = data.stat[i].value;
             }
-
             $scope.chartObject.consumablesOrdersOpen = {};
             $scope.chartObject.consumablesOrdersOpen.type = "PieChart";
             $scope.chartObject.consumablesOrdersOpen.options = angular.copy($scope.chartOptions.pieChartOptions);
             $scope.chartObject.consumablesOrdersOpen.options.slices = [{color: '#00ad21'}];
+            
             //$scope.chartObject.consumablesOrdersOpen.options.fontSize = 36;
             $scope.chartObject.consumablesOrdersOpen.dataPoint = d.Open;
 
