@@ -222,6 +222,7 @@ angular.module('mps.serviceRequestDevices')
                 ServiceRequest.addRelationship('asset', $scope.device, 'self');
                 ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
                 ServiceRequest.addField('type', 'BREAK_FIX');
+                ServiceRequest.addField('primaryContact', $scope.device.primaryContact);
         };
         
         $scope.$watch('device.installAddress.building',function(newVal){
@@ -252,10 +253,17 @@ angular.module('mps.serviceRequestDevices')
                 $scope.sr = $rootScope.returnPickerSRObject;
 
                 ServiceRequest.addRelationship('primaryContact', $rootScope.selectedContact, 'self');
-
+                
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.device.contact.item = $scope.device.primaryContact;
-
+                var pContact = {
+                	id: $scope.device.primaryContact.id,
+                	firstName : $scope.device.primaryContact.firstName,
+                	lastName : $scope.device.primaryContact.lastName,
+                	email: $scope.device.primaryContact.email,
+                	workPhone: $scope.device.primaryContact.workPhone,
+                };
+                ServiceRequest.addField('primaryContact', pContact);
                 $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
