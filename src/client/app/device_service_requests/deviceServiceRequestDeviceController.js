@@ -222,7 +222,7 @@ angular.module('mps.serviceRequestDevices')
                 ServiceRequest.addRelationship('asset', $scope.device, 'self');
                 ServiceRequest.addRelationship('primaryContact', $scope.device, 'contact');
                 ServiceRequest.addField('type', 'BREAK_FIX');
-                ServiceRequest.addField('primaryContact', $scope.device.primaryContact);
+                ServiceRequest.addField('primaryContact', getPrimaryContact($scope.device));
         };
         
         $scope.$watch('device.installAddress.building',function(newVal){
@@ -256,14 +256,8 @@ angular.module('mps.serviceRequestDevices')
                 
                 $scope.device.primaryContact = angular.copy($rootScope.selectedContact);
                 $scope.device.contact.item = $scope.device.primaryContact;
-                var pContact = {
-                	id: $scope.device.primaryContact.id,
-                	firstName : $scope.device.primaryContact.firstName,
-                	lastName : $scope.device.primaryContact.lastName,
-                	email: $scope.device.primaryContact.email,
-                	workPhone: $scope.device.primaryContact.workPhone,
-                };
-                ServiceRequest.addField('primaryContact', pContact);
+               
+                ServiceRequest.addField('primaryContact', getPrimaryContact($scope.device));
                 $scope.resetContactPicker();
         }else if($rootScope.contactPickerReset){
             $rootScope.device = Devices.item;
@@ -649,7 +643,17 @@ angular.module('mps.serviceRequestDevices')
             Devices.item = {};
             $scope.goToDevicePicker('DeviceServiceRequestDevice', Devices.item, '/service_requests/devices/breakfix');
         };
-
+        function getPrimaryContact(device){
+        	 var pContact= {};
+        	 if(device.primaryContact){
+        		 pContact.id = device.primaryContact.id;
+            	 pContact.firstName = device.primaryContact.firstName;
+            	 pContact.lastName = device.primaryContact.lastName;
+            	 pContact.email = device.primaryContact.email;
+            	 pContact.workPhone = device.primaryContact.workPhone;                  
+        	 }
+        	 return pContact;
+        }
         setCsvDefinition();
     }
 ]);
