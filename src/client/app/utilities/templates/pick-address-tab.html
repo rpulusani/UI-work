@@ -11,11 +11,29 @@
     <div class="col-1-8 l-alley-before-thick">
     </div>
 </div>
-<div ui-grid="gridOptions" class="table"
-    ng-style="gridOptions.getStyle()" ui-grid-auto-resize
-    ui-grid-move-columns ui-grid-resize-columns ui-grid-selection></div>
+<div class="col-1">
+        <div class="alert alert--info" ng-if="gridLoading === true">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.LOADING"></span>
+                </div>
+        </div>
 
-<div pagination grid="{{gridOptions}}"></div>
+        <div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.EMPTY"></span>
+                </div>
+        </div>
+
+        <div ng-if="gridLoading === false && gridDataCnt > 0">
+            <div ui-grid="gridOptions" class="table" ng-style="gridOptions.getStyle()" ui-grid-auto-resize ui-grid-exporter
+                ui-grid-move-columns ui-grid-resize-columns ui-grid-selection >
+            </div>
+
+            <div pagination grid="{{gridOptions}}"></div>
+        </div>
+    </div>
 
 <div class="col-2-3"></div>
 <div class="col-1">
