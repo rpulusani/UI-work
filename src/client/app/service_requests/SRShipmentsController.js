@@ -52,7 +52,7 @@ angular.module('mps.serviceRequests')
     	$scope.shipments = [];
     	
     	function updateShipments(){
-    		var cancelledIndex = -1,requestedQty = 0,fulfilledQty = 0;
+    		var requestedQty = 0,fulfilledQty = 0,finalList = [];
     		$scope.cancelledItems = [];
     		$scope.pending = {
     				pendCount : 0
@@ -66,10 +66,7 @@ angular.module('mps.serviceRequests')
         		if($scope.hasData === false && $scope.shipments[i].shipmentParts.length > 0){
         			$scope.hasData = true;
         		}
-        		//Below is for removing the cancelled item
-        		if($scope.shipments[i].cancelledQty > 0 && $scope.shipments[i].cancelledReason){
-        			cancelledIndex = i;        			
-        		}
+        		
         		/*var shipment = $scope.shipments[i];
         		for(var j = 0 ;j<Carriers.data.length;j++){
         			if(Carriers.data[j].name === shipment.carrier){
@@ -84,13 +81,17 @@ angular.module('mps.serviceRequests')
         			    $scope.pending.pendCount += (requestedQty - fulfilledQty);
                     }
         		}
-        		
+        		//Below is for removing the cancelled item
+        		if($scope.shipments[i].cancelledQty > 0 && $scope.shipments[i].cancelledReason === "Customer Requested"){
+        			$scope.cancelledItems.push($scope.shipments[i]);
+        			continue;
+        		}else if($scope.shipments[i].status === 'SUBMITTED'){
+        			continue;
+        		}
+        		finalList.push($scope.shipments[i]);
         	}
-    		if(cancelledIndex !== -1){    			
-    			$scope.cancelledItems.push($scope.shipments[cancelledIndex]);
-    			$scope.shipments.splice(cancelledIndex,1);  
-    			
-    		}
+    		
+    		$scope.shipments = finalList;
     		$scope.$emit('shipmentsCount',$scope.shipments.length);
         	
     	}
