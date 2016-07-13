@@ -17,8 +17,12 @@ angular.module('mps.orders')
                                     '</div>'
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId',visible: false},
                         {'name': $translate.instant('ORDER_MGT.PO'), 'field':'purchaseOrderNumber', visible: false},
@@ -36,8 +40,12 @@ angular.module('mps.orders')
                             width: 150
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300,'notSearchable': true},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300,'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'_embedded.asset.serialNumber'},
                         {'name': $translate.instant('DEVICE_MGT.CUSTOMER_DEVICE_TAG'), 'field':'_embedded.asset.assetTag'},
                         {'name': $translate.instant('DEVICE_MGT.PRODUCT_MODEL'), 'field':'_embedded.asset.productModel'},
@@ -69,8 +77,12 @@ angular.module('mps.orders')
                                     '</div>'
                         },
                         {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'searchOn':'createDate', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('ADDRESS.NAME'), 'field':'status', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.HELPDESK_REFERENCE'), 'field':'customerReferenceId', visible: false},
                         {'name': $translate.instant('SERVICE_REQUEST.COST_CENTER'), 'field':'costCenter', visible: false},
@@ -98,8 +110,12 @@ angular.module('mps.orders')
 						            '</div>'
 						},
                         {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
-                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type'},
-                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status'},
+                        {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
+                        },
+                        {'name': $translate.instant('LABEL.COMMON.STATUS'), 'field':'status', 'notSearchable': true,
+                            'cellTemplate': '<span translate="SIEBEL.SERVICE_ACTIVITY_STATUS_DESCRIPTION.SIEBEL_SERVICE_ACTIVITY_STATUS_DESCRIPTION_{{row.entity.status}}"></span>'
+                        },
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_FIRST_NAME'), 'field': '_embedded.primaryContact.firstName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.PRIMARY_CONTACT_LAST_NAME'), 'field': '_embedded.primaryContact.lastName',visible: false},
                         {'name': $translate.instant('CONTACT_MAN.COMMON.REQUESTER_CONTACT_FIRST_NAME'), 'field': '_embedded.requester.firstName', visible: false},
