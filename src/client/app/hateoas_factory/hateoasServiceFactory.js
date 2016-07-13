@@ -9,7 +9,7 @@ angular.module('mps.hateoasFactory')
             self.defaultParams = {};
             self.route = '';
             self.isNewMessage = false;
-
+            self.status = "";
             if (serviceDefinition.columns instanceof Array) {
                 if (!serviceDefinition.columnDefs) {
                    serviceDefinition.columnDefs = {defaultSet: []};
@@ -716,7 +716,9 @@ angular.module('mps.hateoasFactory')
             var self = this,
             i = 0,
             prop;
-
+            if(self.status === 'failed'){
+            	return;
+            }
             if (processedResponse.data._embedded && processedResponse.data.page) {
                 if (!self.embeddedName) {
                     self.data = processedResponse.data._embedded[self.serviceName];
@@ -849,6 +851,11 @@ angular.module('mps.hateoasFactory')
                 self.checkForEvent(self.item, 'onGet');
 
                 $http(options).then(function(processedResponse) {
+                	if(processedResponse.status === 0){
+                		self.status = 'failed';
+                	}else{
+                		self.status = '';
+                	}
                     if (!options.noUpdate) {
                         self.setupItem(processedResponse);
                     }
@@ -862,6 +869,10 @@ angular.module('mps.hateoasFactory')
                     self.checkForEvent(self.item, 'afterGet');
 
                     deferred.resolve(processedResponse);
+                })
+                .catch(function(response){
+                	self.status = 'failed';
+                	
                 });
             });
         };

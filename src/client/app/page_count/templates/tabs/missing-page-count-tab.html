@@ -40,10 +40,16 @@
         </div>
 </div>
 
-<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt">
+<div class="alert alert--info" ng-if="gridLoading === false && !gridDataCnt && status !== 'failed'">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
         <div class="alert__body">
              <span translate="GRID.EMPTY"></span>
+        </div>
+</div>
+<div class="alert alert--info" ng-if="status === 'failed' && gridLoading === false">
+    <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+        <div class="alert__body">
+             <span translate="PORTAL.SERVICE.TIMED_OUT"></span>
         </div>
 </div>
 <div ng-if="gridLoading === false && gridDataCnt > 0">
