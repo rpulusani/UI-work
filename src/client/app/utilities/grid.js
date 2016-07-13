@@ -207,24 +207,15 @@ angular.module('mps.utility')
                 $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
         };
 
-        personalize.get($location.url()).then(function(res) {
-            if (res && res.data.columnDefs) {
+        personalize.get().then(function(res) {
+            if (res.data.columnDefs) {
                scope[self.optionsName].columnDefs = res.data.columnDefs;
 
                 if (personalize.data.itemsPerPage) {
                     scope[self.optionsName].minRowsToShow = personalize.data.itemsPerPage;
                 }
             } else {
-                scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
-
-                if (!res) {
-                    personalize.save({
-                        data: {
-                            columnDefs: scope[self.optionsName].columnDefs,
-                            itemsPerPage: scope[self.optionsName].minRowsToShow
-                        }
-                    });
-                }
+               scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
             }
         });
 
