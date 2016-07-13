@@ -1,17 +1,5 @@
  
- <div class="alert alert--info" ng-if="gridLoading === true">
-            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
-                <div class="alert__body">
-                     <span translate="GRID.LOADING"></span>
-                </div>
-        </div>
 
-        <div class="alert alert--info" ng-if="gridLoading === false && (shipments.length === 0 || hasData === false)">
-            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
-                <div class="alert__body">
-                     <span translate="GRID.EMPTY"></span>
-                </div>
-        </div> 
  <div class="row groupingTable" ng-repeat = "cancelledItem in cancelledItems">
  <div>
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
@@ -27,7 +15,7 @@
  </div>
  </div>
  
- <div class="row groupingTable" ng-if="pending.pendCount > 0 && pending.total > 0">
+ <div class="row groupingTable" ng-if="pending.pendCount > 0">
  <div>
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
 			<span class="col-lg-1 col-sm-auto col-xs-auto  col-md-auto">Shipment(s)</span>
@@ -41,7 +29,19 @@
 		</div>
  </div>
  </div>
- 
+  <div class="alert alert--info" ng-if="gridLoading === true">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="GRID.LOADING"></span>
+                </div>
+        </div>
+
+        <div class="alert alert--info" ng-if="gridLoading === false && (shipments.length === 0 || hasData === false)">
+            <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
+                <div class="alert__body">
+                     <span translate="SHIPMENT.GRID.EMPTY"></span>
+                </div>
+        </div> 
  <div class="row groupingTable" ng-if="shipments.length > 0 && hasData" ng-repeat = "shipment in shipments">
  	<div ng-if = "shipment.shipmentParts.length > 0">
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">

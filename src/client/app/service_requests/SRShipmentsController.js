@@ -66,7 +66,11 @@ angular.module('mps.serviceRequests')
         		if($scope.hasData === false && $scope.shipments[i].shipmentParts.length > 0){
         			$scope.hasData = true;
         		}
-        		
+        		//Below is for removing the cancelled item
+        		if($scope.shipments[i].cancelledQty > 0 && $scope.shipments[i].cancelledReason === "Customer Requested"){
+        			$scope.cancelledItems.push($scope.shipments[i]);
+        			continue;
+        		}
         		/*var shipment = $scope.shipments[i];
         		for(var j = 0 ;j<Carriers.data.length;j++){
         			if(Carriers.data[j].name === shipment.carrier){
@@ -76,18 +80,14 @@ angular.module('mps.serviceRequests')
         		for(var j = 0;j<$scope.shipments[i].shipmentParts.length ; j++){
         			requestedQty = $scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity;
         			fulfilledQty = $scope.shipments[i].shipmentParts[j].quantity === null ? 0 :$scope.shipments[i].shipmentParts[j].quantity;
-        			
-                    if($scope.shipments[i].shipmentParts[j].cancelledQuantity === null || $scope.shipments[i].shipmentParts[j].cancelledQuantity === 0){
-        			    $scope.pending.pendCount += (requestedQty - fulfilledQty);
-                    }
+        			if($scope.shipments[i].shipmentParts[j].cancelledQuantity === null || $scope.shipments[i].shipmentParts[j].cancelledQuantity === 0){
+        				$scope.pending.pendCount += (requestedQty - fulfilledQty);
+        			}
         		}
-        		//Below is for removing the cancelled item
-        		if($scope.shipments[i].cancelledQty > 0 && $scope.shipments[i].cancelledReason === "Customer Requested"){
-        			$scope.cancelledItems.push($scope.shipments[i]);
-        			continue;
-        		}else if($scope.shipments[i].status === 'SUBMITTED'){
-        			continue;
-        		}
+        		
+        		if($scope.shipments[i].status === 'SUBMITTED'){
+         			continue;
+         		}        		
         		finalList.push($scope.shipments[i]);
         	}
     		
