@@ -26,8 +26,6 @@ angular.module('mps.utility')
         if (!dataObj) {
             dataObj = key;
             key = self.currentPageUri;
-        } else {
-            key = key.replace(/\//g, '_');
         }
 
         Users.getEmail(function(email) {
@@ -95,8 +93,6 @@ angular.module('mps.utility')
 
         if (!key) {
             key = self.currentPageUri;
-        } else {
-            key = key.replace(/\//g, '_');
         }
         
         Users.getEmail(function(email) {
@@ -126,8 +122,6 @@ angular.module('mps.utility')
         if (!dataObj) {
             dataObj = key;
             key = self.currentPageUri;
-        } else {
-            key = key.replace(/\//g, '_');
         }
 
         Users.getEmail(function(email) {
@@ -158,8 +152,6 @@ angular.module('mps.utility')
 
         if (!key) {
             key = self.currentPageUri;
-        } else {
-            key = key.replace(/\//g, '_');
         }
 
         Users.getEmail(function(email) {
