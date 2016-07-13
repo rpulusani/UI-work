@@ -1,55 +1,188 @@
-
-
+'use strict';
 angular.module('mps.utility')
-.factory('PersonalizationServiceFactory', [function() {
-    var PersonalizationServiceFactory = function(uri, userId){
-         var self = this;
-         self.modulePesonalization = this.getPersonalizedFragment(uri, userId);
-         // tentative place for preference keys
-    };
+.factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', '$location', function($http, $q, $rootScope, serviceUrl, Users, $location) {
+    var PersonalizationServiceFactory = function(currentPageUri, userId) {
+        this.url = 'https://venus-dev.lexmark.com/mps-portal/user-preferences/';
 
-    PersonalizationServiceFactory.prototype.save = function(fragment){
-        this.modulePesonalization = fragment;
-        //save back to db the updated/new settings
-    };
-
-    PersonalizationServiceFactory.prototype.getPersonalizedFragment = function(uri, userId){
-        var fragment = {};
-        //query for personalized fragment based on  uri and userId
-        if(this.modulePesonalization !== undefined && this.modulePesonalization.name === uri){
-            fragment = angular.copy(this.modulePesonalization);
-        }else{
-            //setup starter fragment
-            fragment =
-                {
-                   'name': uri
-                };
+        if (currentPageUri) {
+            this.currentPageUri = currentPageUri.replace(/\//g, '_');
+        } else {
+            this.currentPageUri = $location.url().replace(/\//g, '_');
         }
-        return fragment;
-    };
-
-     PersonalizationServiceFactory.prototype.getFragment = function(){
-        return angular.copy(this.modulePesonalization);
-    };
-
-    PersonalizationServiceFactory.prototype.getPersonalizedConfiguration = function(configPropName){
-        var fragment = this.getFragment(),
-            value;
-        if(fragment !== null && fragment !== undefined &&
-             fragment[configPropName] !== null &&
-             fragment[configPropName] !== undefined ){
-            value =  fragment[configPropName];
+        
+        if (userId) {
+            this.userId = userId;
+        } else {
+            this.userId = false;
         }
-        return value;
+
+        this.data;
     };
 
-    PersonalizationServiceFactory.prototype.setPersonalizedConfiguration = function(configPropName, value){
-        var fragment = this.getFragment();
-        fragment[configPropName] = value; //update or add
-        //push personalization to the database repo via api
-        this.save(fragment);
+    PersonalizationServiceFactory.prototype.save = function(key, dataObj) {
+        var self = this,
+        deferred = $q.defer();
+
+        if (!dataObj) {
+            dataObj = key;
+            key = self.currentPageUri;
+        }
+
+        Users.getEmail(function(email) {
+            $http({
+                method: 'POST',
+                url: self.url + email + '/' + key,
+                data: dataObj
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationSave');
+
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data, res);
+                } else if (res.status === 400) {
+                    self.update(key, dataObj).then(function(updateRes) {
+                        return deferred.resolve(updateRes, res);
+                    });
+                } else {
+                    return deferred.resolve(null, res);
+                }
+
+                if (res.data) {
+                    self.data = dataObj;
+                }
+
+                return deferred.resolve(res);
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    PersonalizationServiceFactory.prototype.getAll = function(targetEmail) {
+        var self = this,
+        deferred = $q.defer();
+        
+        Users.getEmail(function(email) {
+            if (targetEmail) {
+                email = targetEmail;
+            }
+
+            $http({
+                method: 'GET',
+                url: self.url + email + '/'
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationGetAll');
+
+                if (res.data) {
+                    self.data = res.data;
+                }
+
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data.userPreferences);
+                } else {
+                    return deferred.resolve([], res);
+                }
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    PersonalizationServiceFactory.prototype.get = function(key) {
+        var self = this,
+        deferred = $q.defer();
+
+        if (!key) {
+            key = self.currentPageUri;
+        }
+        
+        Users.getEmail(function(email) {
+            $http({
+                method: 'GET',
+                url: self.url + email + '/' + key
+            }).then(function(res) {
+                if (res.data) {
+                    self.data = res.data;
+                }
+
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data);
+                } else {
+                    return deferred.resolve(null, res);
+                }
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    PersonalizationServiceFactory.prototype.update = function(key, dataObj) {
+        var self = this,
+        deferred = $q.defer();
+
+        if (!dataObj) {
+            dataObj = key;
+            key = self.currentPageUri;
+        }
+
+        Users.getEmail(function(email) {
+            $http({
+                method: 'PUT',
+                url: self.url + email + '/' + key,
+                data: dataObj
+            }).then(function(res) {
+                if (res.data) {
+                    self.data = dataObj;
+                }
+
+                $rootScope.$broadcast('personalizationUpdate');
+                if (res.status === 200 || res.status === 201) {
+                    return deferred.resolve(res.data);
+                } else {
+                    return deferred.resolve(null, res);
+                }
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    PersonalizationServiceFactory.prototype.remove = function(key) {
+        var self = this,
+        deferred = $q.defer();
+
+        if (!key) {
+            key = self.currentPageUri;
+        }
+
+        Users.getEmail(function(email) {
+            $http({
+                method: 'DELETE',
+                url: self.url + email + '/' + key,
+            }).then(function(res) {
+                $rootScope.$broadcast('personalizationRemove');
+
+                if (res.data) {
+                    self.data = null;
+                }
+
+                if (res.status === 200 || res.status === 201 || res.status === 202) {
+                    return deferred.resolve(true, res);
+                } else {
+                    return deferred.resolve(null, res);
+                }
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    PersonalizationServiceFactory.prototype.getPersonalizedConfiguration = function(keyName) {
+        if (this.data) {
+            return data[keyName];
+        } else {
+            return false;
+        }
     };
 
     return PersonalizationServiceFactory;
 }]);
-
