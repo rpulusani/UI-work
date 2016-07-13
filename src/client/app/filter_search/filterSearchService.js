@@ -234,7 +234,9 @@ angular.module('mps.filterSearch')
 
                     var promise = self.service.get(options);
 
-                    promise.then(function() {
+                    promise.then(function(response) {
+                    	
+                    	self.localScope.status = self.service.status;
                         if (!self.service.item) {
                             self.service.setItem(self.service.data[0]);
                         }
