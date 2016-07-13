@@ -286,7 +286,7 @@ angular.module('mps.user')
                     postalCode: $scope.user.address.postalCode
                 };
                 UserAdminstration.addField('address', addressInfo);
-                UserAdminstration.addField('preferredLanguage', 'en_US');
+                UserAdminstration.addField('preferredLanguage', $scope.user.preferredLanguage);
                 UserAdminstration.addField('resetPassword', true);
                 for (var i=0;i<$scope.user.basicRoles.length; i++) {
                     if ($scope.basicRole
