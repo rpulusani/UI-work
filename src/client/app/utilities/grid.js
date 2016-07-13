@@ -1,7 +1,6 @@
 angular.module('mps.utility')
-.factory('grid', ['uiGridConstants', '$timeout', '$translate', '$rootScope', '$location', 'PersonalizationServiceFactory', function(uiGridConstants, $timeout, $translate, $rootScope, $location, personalize) {
-    var personalize = new personalize($location.url(), $rootScope.idpUser.id),
-    Grid = function() {
+.factory('grid', ['uiGridConstants', '$timeout', '$translate', '$rootScope', function(uiGridConstants, $timeout, $translate, $rootScope) {
+    var Grid = function() {
         this.itemsPerPageArr = [
             {items: 20},
             {items: 40},
@@ -207,19 +206,8 @@ angular.module('mps.utility')
                 $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
         };
 
-        personalize.get().then(function(res) {
-            if (res.data.columnDefs) {
-               scope[self.optionsName].columnDefs = res.data.columnDefs;
-
-                if (personalize.data.itemsPerPage) {
-                    scope[self.optionsName].minRowsToShow = personalize.data.itemsPerPage;
-                }
-            } else {
-               scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
-            }
-        });
-
         scope[self.optionsName].getStyle = function(){
+
             if (service.data && service.data.length > 0) {
                 if (rowHeight) {
                     newHeight = baseHeight + (parseInt(rowHeight, 10) + 1) * size;
@@ -614,15 +602,11 @@ angular.module('mps.utility')
                 }
             },
             onChangeItemsCount: function(option) {
-                var dataObj = personalize.data;
-                dataObj.itemsPerPage = option.items;
-
-                personalize.update(dataObj);
-
+                personal.setPersonalizedConfiguration('itemsPerPage', option['items']);
                 this.gotoPage(0);
             },
             gotoPage: function(pageNumber, size) {
-                var pageSize = personalize.data.itemsPerPage,
+                var pageSize = personal.getPersonalizedConfiguration('itemsPerPage'),
                 reloadService = function(cache) {
                     if (cache) {
                         service.gridCache = cache;
