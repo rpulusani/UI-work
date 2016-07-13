@@ -22,7 +22,7 @@ angular.module('mps.report')
             // Setting up the grid
             var Grid = new GridService();
             $scope.gridOptions = {};            
-            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports, personal);
+            $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Reports.item.results, personal);
 
             $scope.gridDataCnt = 0;            
 
