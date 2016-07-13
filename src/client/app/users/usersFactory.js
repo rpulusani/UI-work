@@ -23,18 +23,7 @@ angular.module('mps.user')
                     {'name': $translate.instant('USER_MAN.COMMON.TXT_GRID_ROLES'), 'field': '' }
                 ]
             },
-            route: '/delegated_admin',
-            getEmail: function(fn) {
-                var self = this;
-
-                if (self.item) {
-                    return fn(self.item.email);
-                } else {
-                    setTimeout(function() {
-                        return self.getEmail(fn);
-                    }, 50);
-                }
-            }
+            route: '/delegated_admin'
         };
         return new HATEOASFactory(UserService);
     }
