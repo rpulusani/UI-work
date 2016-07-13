@@ -273,7 +273,8 @@ angular.module('mps.orders')
     $scope.removeFromOrder = function(item){
         var index = -1;
         for(var i = 0; i < OrderItems.data.length; ++i){
-            if(item.itemNumber === OrderItems.data[i].itemNumber){
+            if(item.itemNumber === OrderItems.data[i].itemNumber
+                && item.billingModel === OrderItems.data[i].billingModel){
                 index = i;
                 break;
             }
