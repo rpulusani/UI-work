@@ -15,6 +15,8 @@ angular.module('mps.utility')
         } else {
             this.userId = false;
         }
+
+        this.data;
     };
 
     PersonalizationServiceFactory.prototype.save = function(key, dataObj) {
@@ -44,6 +46,10 @@ angular.module('mps.utility')
                     return deferred.resolve(null, res);
                 }
 
+                if (res.data) {
+                    self.data = dataObj;
+                }
+
                 return deferred.resolve(res);
             });
         });
@@ -65,6 +71,10 @@ angular.module('mps.utility')
                 url: self.url + email + '/'
             }).then(function(res) {
                 $rootScope.$broadcast('personalizationGetAll');
+
+                if (res.data) {
+                    self.data = res.data;
+                }
 
                 if (res.status === 200 || res.status === 201) {
                     return deferred.resolve(res.data.userPreferences);
@@ -90,6 +100,10 @@ angular.module('mps.utility')
                 method: 'GET',
                 url: self.url + email + '/' + key
             }).then(function(res) {
+                if (res.data) {
+                    self.data = res.data;
+                }
+
                 if (res.status === 200 || res.status === 201) {
                     return deferred.resolve(res.data);
                 } else {
@@ -116,6 +130,10 @@ angular.module('mps.utility')
                 url: self.url + email + '/' + key,
                 data: dataObj
             }).then(function(res) {
+                if (res.data) {
+                    self.data = dataObj;
+                }
+
                 $rootScope.$broadcast('personalizationUpdate');
                 if (res.status === 200 || res.status === 201) {
                     return deferred.resolve(res.data);
@@ -143,6 +161,10 @@ angular.module('mps.utility')
             }).then(function(res) {
                 $rootScope.$broadcast('personalizationRemove');
 
+                if (res.data) {
+                    self.data = null;
+                }
+
                 if (res.status === 200 || res.status === 201 || res.status === 202) {
                     return deferred.resolve(true, res);
                 } else {
@@ -152,6 +174,14 @@ angular.module('mps.utility')
         });
 
         return deferred.promise;
+    };
+
+    PersonalizationServiceFactory.prototype.getPersonalizedConfiguration = function(keyName) {
+        if (this.data) {
+            return data[keyName];
+        } else {
+            return false;
+        }
     };
 
     return PersonalizationServiceFactory;

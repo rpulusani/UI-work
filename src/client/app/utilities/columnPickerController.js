@@ -21,7 +21,8 @@ angular.module('mps.utility')
 
                     personalize.update({
                         data: {
-                            columnDefs: gridOptions.columnDefs
+                            columnDefs: gridOptions.columnDefs,
+                            itemsPerPage: gridOptions.minRowsToShow
                         }
                     });
                 }
@@ -39,7 +40,8 @@ angular.module('mps.utility')
 
                      personalize.update({
                         data: {
-                            columnDefs: gridOptions.columnDefs
+                            columnDefs: gridOptions.columnDefs,
+                            itemsPerPage:  gridOptions.minRowsToShow
                         }
                     });
                 }

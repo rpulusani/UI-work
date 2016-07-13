@@ -207,9 +207,13 @@ angular.module('mps.utility')
                 $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
         };
 
-         personalize.get().then(function(res) {
+        personalize.get().then(function(res) {
             if (res.data.columnDefs) {
                scope[self.optionsName].columnDefs = res.data.columnDefs;
+
+                if (personalize.data.itemsPerPage) {
+                    scope[self.optionsName].minRowsToShow = personalize.data.itemsPerPage;
+                }
             } else {
                scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
             }
@@ -609,11 +613,15 @@ angular.module('mps.utility')
                 }
             },
             onChangeItemsCount: function(option) {
-                personal.setPersonalizedConfiguration('itemsPerPage', option['items']);
+                var dataObj = personalize.data;
+                dataObj.itemsPerPage = option.items;
+
+                personalize.update(dataObj);
+
                 this.gotoPage(0);
             },
             gotoPage: function(pageNumber, size) {
-                var pageSize = personal.getPersonalizedConfiguration('itemsPerPage'),
+                var pageSize = personalize.data.itemsPerPage,
                 reloadService = function(cache) {
                     if (cache) {
                         service.gridCache = cache;
