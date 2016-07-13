@@ -688,6 +688,7 @@ angular.module('mps.orders')
 
             $scope.configure.actions.translate.submit = ($scope.type === "HARDWARE"? 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_HARDWARE' : 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES');
             $scope.configure.actions.submit = function(){
+            	
             	if(!$scope.scratchSpace.shipToAddresssSelected){
             		$scope.errorAddress = true;
             		$scope.errorMessage = $translate.instant('ORDER_MAN.ERROR.SELECT_SHIPTO');
@@ -702,6 +703,9 @@ angular.module('mps.orders')
             	}
             	if($scope.calculatingTax){
             		return;
+            	}
+            	if($scope.scratchSpace.lexmarkInstallQuestion && $scope.scratchSpace.lexmarkInstallQuestion === true){
+            		Orders.addField('type', 'HARDWARE_ORDER_INSTALL');	
             	}
             	
                 if(!$scope.isLoading){ 

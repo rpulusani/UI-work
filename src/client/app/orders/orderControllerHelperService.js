@@ -19,8 +19,17 @@ angular.module('mps.serviceRequests')
 
         function addShipAndInstall(){
             scope.configure.shipToBillTo = undefined;
-            scope.configure.installShipping = {
-                translate: {
+            if($rootScope.orderInstall){
+            	scope.configure.installShipping = addinstallShipping();
+            }
+            
+            scope.configure.installPicker = {
+                pickerObject: halObj.item,
+                source: 'OrderCatalogPurchase'
+            };
+        }
+        function addinstallShipping(){
+        	return {   translate: {
                     title: 'ORDER_MAN.HARDWARE_ORDER.TXT_INSTALL_SHIP_BILL_ADDRESSES',
                     installQuestion:'ORDER_MAN.COMMON.TXT_LXK_INSTALL_QUERY',
                     installAddress:'ORDER_MAN.HARDWARE_ORDER.TXT_INSTALLATION_ADDRESS',
@@ -38,16 +47,22 @@ angular.module('mps.serviceRequests')
                         halObj.item.shipToAddressPhysicalLocation.physicalLocation3 =
                             scope.sr.sourceAddressPhysicalLocation.physicalLocation3;
                         scope.formatAdditionalData();
+                    }else{
+                    	halObj.removeRelationship('shipToAddress');
+                    	halObj.tempSpace.shipToAddress =  null;
+                        halObj.item.shipToAddressPhysicalLocation.physicalLocation1 = "";                            
+                        halObj.item.shipToAddressPhysicalLocation.physicalLocation2 = "";
+                        halObj.item.shipToAddressPhysicalLocation.physicalLocation3 = "";                            
+                        scope.formatAdditionalData();
                     }
-                }
-            };
-            scope.configure.installPicker = {
-                pickerObject: halObj.item,
-                source: 'OrderCatalogPurchase'
-            };
+               }
+            
+        	};
         }
         function addShipAndBill(){
-            scope.configure.installShipping = undefined;
+        	if($rootScope.orderInstall){
+            	scope.configure.installShipping = addinstallShipping();
+            }            
             scope.configure.shipToBillTo = {
                 translate:{
                     title:'ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ORDER_SHIPPING_BILLING',
