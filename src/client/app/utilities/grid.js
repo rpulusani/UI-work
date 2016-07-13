@@ -218,7 +218,7 @@ angular.module('mps.utility')
                 scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
 
                 if (!res) {
-                    personalize.save($location.url(), {
+                    personalize.save({
                         data: {
                             columnDefs: scope[self.optionsName].columnDefs,
                             itemsPerPage: scope[self.optionsName].minRowsToShow

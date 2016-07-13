@@ -5,9 +5,9 @@ angular.module('mps.utility')
         this.url = 'https://venus-dev.lexmark.com/mps-portal/user-preferences/';
 
         if (currentPageUri) {
-            this.currentPageUri = currentPageUri.replace(/\//g, '_').replace(/\/|[?&=]/g, '_');
+            this.currentPageUri = currentPageUri.replace(/\//g, '_');
         } else {
-            this.currentPageUri = $location.url().replace(/\//g, '_').replace(/\/|[?&=]/g, '_');
+            this.currentPageUri = $location.url().replace(/\//g, '_');
         }
         
         if (userId) {
@@ -27,7 +27,7 @@ angular.module('mps.utility')
             dataObj = key;
             key = self.currentPageUri;
         } else {
-            key = key.replace(/\//g, '_').replace(/\/|[?&=]/g, '_');
+            key = key.replace(/\//g, '_');
         }
 
         Users.getEmail(function(email) {
@@ -96,7 +96,7 @@ angular.module('mps.utility')
         if (!key) {
             key = self.currentPageUri;
         } else {
-            key = key.replace(/\/|[?&=]/g, '_');
+            key = key.replace(/\//g, '_');
         }
         
         Users.getEmail(function(email) {
@@ -127,7 +127,7 @@ angular.module('mps.utility')
             dataObj = key;
             key = self.currentPageUri;
         } else {
-            key = key.replace(/\//g, '_').replace(/\/|[?&=]/g, '_');
+            key = key.replace(/\//g, '_');
         }
 
         Users.getEmail(function(email) {
@@ -159,7 +159,7 @@ angular.module('mps.utility')
         if (!key) {
             key = self.currentPageUri;
         } else {
-            key = key.replace(/\//g, '_').replace(/\/|[?&=]/g, '_');
+            key = key.replace(/\//g, '_');
         }
 
         Users.getEmail(function(email) {
