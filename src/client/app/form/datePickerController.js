@@ -1,6 +1,7 @@
 angular.module('mps.form')
 .controller('DatePickerController', ['$scope', '$element', '$attrs','FormatterService',
     function(scope, element, attrs,formatter) {
+        var $ = require('jquery');
         var node = element[0],
         calendar,
         rome = require('rome'),
@@ -25,7 +26,11 @@ angular.module('mps.form')
                 }
             });
         };
-        
+        $("div.site-content").on('scroll', function(){
+            if(calendar){
+                calendar.hide();
+            }
+        });
         node.type = 'text';
 
         if (scope.beforeEq !== undefined && scope.beforeEq !== null) {
