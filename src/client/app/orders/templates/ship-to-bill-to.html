@@ -1,8 +1,55 @@
+
 <div ng-if="configure && configure.order && configure.shipToBillTo" >
     <h2 translate="{{configure.shipToBillTo.translate.title}}"></h2>
     <div class="row--alley-thick">
         <div class="col-1-3">
             <div class="well">
+            <div ng-if="orderInstall">
+                    <div><strong translate="{{configure.installShipping.translate.installQuestion}}"></strong></div>
+                    <div class="form__field form__field--no-margin">
+                        <input type="radio"
+                            id="lexmark-install-question-no"
+                            name="lexmark-install-question"
+                            ng-model="scratchSpace.lexmarkInstallQuestion"
+                            ng-value="false"
+                            data-js="customInput"
+                        />
+                        <label for="lexmark-install-question-no"><span></span> {{'ORDER_MAN.HARDWARE_ORDER.RAD_NO' | translate }}</label>
+                    </div>
+
+                    <div class="form__field form__field--no-margin">
+                        <input type="radio"
+                            id="lexmark-install-question-yes"
+                            name="lexmark-install-question"
+                            ng-model="scratchSpace.lexmarkInstallQuestion"
+                            ng-value="true"
+                            data-js="customInput"
+
+                        />
+                        <label for="lexmark-install-question-yes"><span></span> {{ 'ORDER_MAN.HARDWARE_ORDER.RAD_YES' | translate }}</label>
+                    </div>
+
+                    <div ng-show="scratchSpace.lexmarkInstallQuestion">
+                        <h3 translate="{{configure.installShipping.translate.installAddress}}"></h3>
+                         <p class="vertical-margin-24" ng-bind-html="formatedInstallAddress"></p>
+                        <a ng-click="goToAddressPicker(configure.installPicker.source, configure.installPicker.pickerObject)" href="#"
+                            ng-if="configure.installShipping.translate.installAction"
+                            translate="{{configure.installShipping.translate.installAction}}"></a>
+
+                        <div class="form__field" ng-show="scratchSpace.installAddresssSelected">
+                                <label translate="{{configure.order.shipTo.translate.building}}"></label>
+                                <input name="office" type="text" class="" value="" ng-model="sr.sourceAddressPhysicalLocation.physicalLocation1" />
+                        </div>
+                        <div class="form__field" ng-show="scratchSpace.installAddresssSelected">
+                                <label translate="{{configure.order.shipTo.translate.floor}}"></label>
+                                <input name="office" type="text" class="" value="" ng-model="sr.sourceAddressPhysicalLocation.physicalLocation2" />
+                        </div>
+                        <div class="form__field" ng-show="scratchSpace.installAddresssSelected">
+                                <label translate="{{configure.order.shipTo.translate.office}}"></label>
+                                <input name="office" type="text" class="" value="" ng-model="sr.sourceAddressPhysicalLocation.physicalLocation3" />
+                        </div>
+                    </div> 
+                </div>
                 <div ship-to></div>
                 <h3 translate="{{configure.shipToBillTo.translate.billToAddress}}"></h3>
                     <p class="vertical-margin-24" ng-bind-html="formatedBillToAddress"></p>
