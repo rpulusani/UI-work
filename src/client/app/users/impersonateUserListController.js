@@ -43,7 +43,7 @@ angular.module('mps.user')
                 var authToken = 'Bearer ' + data.accessToken;
                 $cookies.put('impersonateToken', authToken);
                 $cookies.put('impersonateUrl', $window.location.href);
-                $window.location.reload();
+                $window.location = $window.location.replace(/[\?].*/,'');
             });
         };
 
