@@ -23,7 +23,6 @@ angular.module('mps.orders')
                 serviceName: 'orderParts',
                 embeddedName: 'orderParts', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
-                preventPersonalization: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
