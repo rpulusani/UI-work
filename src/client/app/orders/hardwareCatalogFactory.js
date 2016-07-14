@@ -21,6 +21,7 @@ angular.module('mps.orders')
         var OrderTypes = {
             serviceName: 'hardware-catalog',
             embeddedName: 'orderParts',
+            preventPersonalization: true,
             columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [

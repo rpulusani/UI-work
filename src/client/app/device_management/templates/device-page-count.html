@@ -37,15 +37,19 @@
                     <div ng-bind="item.value"></div>
                     <div ng-bind="getMeterReadPriorDate(item)"></div>
                 </td>
-	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW' | translate}}">
+	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_NEW' | translate}}" 
+                pre-update="{{(item.type !== 'MONO' && !item.isValueUpdated) || (item.isValueUpdated && item.type === 'MONO')}}" >
 	            	<div class="form__field vertical-space--none">
-                        <input type="number" ng-model="item.newVal" ng-if="item.type !== 'MONO'" ng-keydown="doNothing($event)" />
+                        <input type="number" ng-model="item.newVal" ng-if="item.type !== 'MONO'" 
+                        ng-keydown="doNothing($event)" pre-update="{{item.isValueUpdated}}" />
                     </div>
                     <span ng-if="item.type === 'MONO'" ng-bind="item.value"></span>
 	            </td>
-	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE' | translate}}">
+	            <td data-label="{{'DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_DATE' | translate}}" 
+                pre-update="{{(item.type !== 'MONO' && !item.isDateUpdated) || (item.isDateUpdated && item.type === 'MONO')}}">
                     <div class="form__field vertical-space--none">
-                        <input type="text" id="page-count-date" ng-if="item.type !== 'MONO'" ng-model="item.newDate" date-val="item.newDate" before-eq-now="true" datepicker max="max" min="minDate(item)" time="true" time-interval="60" ng-keydown="doNothing($event)" />
+                        <input type="text" id="page-count-date" ng-if="item.type !== 'MONO'" ng-model="item.newDate" date-val="item.newDate" before-eq-now="true" datepicker max="max" min="minDate(item)" time="true" 
+                        time-interval="60" ng-keydown="doNothing($event)" pre-update="{{item.isDateUpdated}}" />
                     </div>
                     <span ng-if="item.type === 'MONO'" ng-bind="getMeterReadPriorDate(item)"></span>
 	            </td>

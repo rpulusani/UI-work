@@ -851,7 +851,8 @@ angular.module('mps.hateoasFactory')
                 self.checkForEvent(self.item, 'onGet');
 
                 $http(options).then(function(processedResponse) {
-                	if(processedResponse.status === 0){
+                	
+                	if(processedResponse.status === 0 || processedResponse.status === 504){
                 		self.status = 'failed';
                 	}else{
                 		self.status = '';
