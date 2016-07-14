@@ -75,8 +75,10 @@ angular.module('mps.serviceRequests')
             if(Orders && Orders.tempSpace && Orders.tempSpace.catalogCart &&
                 Orders.tempSpace.catalogCart.billingModels){
                 var isShipBill =  $.inArray('SHIP_AND_BILL', Orders.tempSpace.catalogCart.billingModels);
+                scope.isShipBill = false;
                 if(isShipBill > -1){
                     scope.paymentMethod = 'SHIP_AND_BILL';
+                    scope.isShipBill = true;
                     addShipAndBill();
                 }else if(Orders.tempSpace.catalogCart.billingModels.length > 0 && scope.type !== 'SUPPLIES'){
                     scope.paymentMethod = 'payLater';
