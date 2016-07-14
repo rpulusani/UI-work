@@ -21,6 +21,7 @@ angular.module('mps.orders')
         var OrderTypes = {
             serviceName: 'supply-catalog',
             embeddedName: 'orderParts',
+            preventPersonalization: true,
              columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
