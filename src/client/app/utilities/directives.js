@@ -307,4 +307,35 @@ angular.module('mps.utility')
             });
         }
      }
-});
+})
+.directive('selectricWidth',['$timeout',function($timeout){
+    return {
+        link: function( scope, element, attrs ) {
+             $(window).resize(function(){
+                adjustSelectricWidth();
+            });
+
+            scope.$watch('searchByDisplayName',function(){
+                adjustSelectricWidth();
+                $timeout(function() {
+                    adjustSelectricWidth();
+                });
+            });
+            function adjustSelectricWidth(){
+                if($(window).width() <= 864){
+                    angular.element('.selectricItems').width('100%');
+                    element.next().width('100%');
+                    return;
+                }
+                var parentWidth = element.parent().width();
+                var searchBarWidth = parentWidth - element.width();
+                element.next().width(searchBarWidth -1 );
+                if(!(searchBarWidth)){
+                    element.next().width(300);
+                }
+                angular.element('.selectricItems').width(parentWidth-3);
+            }
+            adjustSelectricWidth();
+        }
+    }
+}]);
