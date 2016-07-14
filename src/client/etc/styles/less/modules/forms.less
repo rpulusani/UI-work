@@ -51,7 +51,7 @@ select {
     background-position: 97% center;
     background-repeat: no-repeat;
     border: 1px solid #0061de;
-    color: #ffffff;
+    color: #1d1d25;
     font-size: inherit;
     overflow: hidden;
     padding: 15px 10px;
@@ -94,6 +94,15 @@ form.ng-submitted{
 			color: @red;
 		}
 	}
+    input[pre-update$="false"]{
+        background: url(/etc/resources/img/loading-icon.png) no-repeat;
+        background-position: right center;
+    }
+
+    td[pre-update$="false"]{
+        background: url(/etc/resources/img/loading-icon.png) no-repeat;
+        background-position: 97%;
+    }
 }
 .ng-scope.ng-isolate-scope{
     .col-1-3 {

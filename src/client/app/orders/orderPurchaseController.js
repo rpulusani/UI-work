@@ -138,6 +138,7 @@ angular.module('mps.orders')
             $scope.sr = $rootScope.returnPickerSRObjectAddressShipTo;
             Orders.addRelationship('shipToAddress', $rootScope.selectedShipToAddress, 'self');
             Orders.tempSpace.shipToAddress = angular.copy($rootScope.selectedShipToAddress);
+             $rootScope.changedShiptoAddress =  angular.copy($rootScope.selectedShipToAddress);
             callTax();
             $scope.resetAddressShipToPicker();
 
@@ -425,7 +426,15 @@ angular.module('mps.orders')
 
         if (Orders.item && !BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
                     $scope.scratchSpace.shipToAddresssSelected = true;
-                $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+
+                if(!BlankCheck.isNull($rootScope.changedShiptoAddress)){
+                    $scope.formatedShipToAddress = FormatterService.formatAddress($rootScope.changedShiptoAddress);
+
+                }else{
+                    $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+                }    
+                
+
         }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
                 $scope.scratchSpace.shipToAddresssSelected = false;
             $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
