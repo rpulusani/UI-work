@@ -312,7 +312,6 @@ angular.module('mps.utility')
     return {
         link: function( scope, element, attrs ) {
              $(window).resize(function(){
-                console.log($(window).width());
                 adjustSelectricWidth();
             });
 
@@ -323,7 +322,6 @@ angular.module('mps.utility')
                 });
             });
             function adjustSelectricWidth(){
-                console.log($(window).width());
                 if($(window).width() <= 864){
                     angular.element('.selectricItems').width('100%');
                     element.next().width('100%');
