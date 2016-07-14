@@ -121,7 +121,9 @@ angular.module('mps.serviceRequestContacts')
 
         function configureReviewTemplate(){
             $scope.configure.actions.translate.submit = 'CONTACT_SERVICE_REQUEST.SUBMIT_UPDATE_CONTACT_REQUEST';
+            
             $scope.configure.actions.submit = function(){
+            	ServiceRequest.addField('attachments', $scope.files_complete);
             	  if(!$scope.isLoading) {
                       $scope.isLoading = true;
                       if (!BlankCheck.checkNotBlank(ServiceRequest.item.postURL)) {
