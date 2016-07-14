@@ -367,6 +367,9 @@ angular.module('mps.deviceManagement')
                 var oldDate = null;
                 var meterReadCnt = 0;
                 var totalMRCount = $scope.meterReads.length;
+                var updateMeterReadObj = [];
+                $scope.colorUpdatedVal = null;
+                $scope.ltpcUpdatedVal = null;
                 for(i=0; i<limit; i+=1){
                     // ignore Mono reads since they can't be updated
                     // ignore reads that weren't updated
@@ -468,44 +471,41 @@ angular.module('mps.deviceManagement')
                             return;                         
                         } 
                     }
-                   
+                    
                     if(errorMessage[i].length === 0) {
                         if(meterReadType === 'ltpc' || meterReadType.indexOf('ltpc') >= 0) {
                             if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate) {
+                                updatedMeterReadObj = setUpdateMeterReadObj($scope.meterReads[i]);
                                 if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== null) {
-                                    $scope.meterReads[i].value = $scope.meterReads[i].newVal;
-                                    $scope.meterReads[i].newVal = null;
+                                    updatedMeterReadObj.value = $scope.meterReads[i].newVal;                                    
                                 }                              
                                 if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                                    $scope.meterReads[i].updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i].newDate);
-                                    $scope.meterReads[i].newDate = null;
+                                    updatedMeterReadObj.updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i].newDate);                                    
                                 }
-                                updateMeterReads($scope.meterReads[i]);
+                                updateMeterReads(updatedMeterReadObj, $scope.meterReads[i]);
                             }
 
                             if($scope.meterReads[i-1].newVal || $scope.meterReads[i-1].newDate) {
+                                updatedMeterReadObj = setUpdateMeterReadObj($scope.meterReads[i-1]);
                                 if($scope.meterReads[i-1].newVal && $scope.meterReads[i-1].newVal !== null) {
-                                    $scope.meterReads[i-1].value = $scope.meterReads[i-1].newVal;
-                                    $scope.meterReads[i-1].newVal = null;
+                                    updatedMeterReadObj.value = $scope.meterReads[i-1].newVal;
                                 }
                                 if($scope.meterReads[i-1].newDate && $scope.meterReads[i-1].newDate !== null ) {
-                                    $scope.meterReads[i-1].updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i-1].newDate);
-                                    $scope.meterReads[i-1].newDate = null;
+                                    updatedMeterReadObj.updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i-1].newDate);
                                 }                                
-                                updateMeterReads($scope.meterReads[i-1]);
+                                updateMeterReads(updatedMeterReadObj, $scope.meterReads[i-1]);
                             }
                         }
                         else if(meterReadType.indexOf('color') < 0 && meterReadType.indexOf('ltpc') < 0) {
                             if ($scope.meterReads[i].newVal || $scope.meterReads[i].newDate) {
+                                updatedMeterReadObj = setUpdateMeterReadObj($scope.meterReads[i]);
                                 if($scope.meterReads[i].newVal && $scope.meterReads[i].newVal !== null) {
-                                    $scope.meterReads[i].value = $scope.meterReads[i].newVal;
-                                    $scope.meterReads[i].newVal = null;
+                                    updatedMeterReadObj.value = $scope.meterReads[i].newVal;
                                 }                              
                                 if($scope.meterReads[i].newDate && $scope.meterReads[i].newDate !== null ) {
-                                    $scope.meterReads[i].updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i].newDate);
-                                    $scope.meterReads[i].newDate = null;
+                                    updatedMeterReadObj.updateDate = FormatterService.formatDatePostForBrowsers($scope.meterReads[i].newDate);
                                 }
-                                updateMeterReads($scope.meterReads[i]);
+                                updateMeterReads(updatedMeterReadObj, $scope.meterReads[i]);
                             }
                         }
                     }                                     
@@ -516,10 +516,13 @@ angular.module('mps.deviceManagement')
                     return; 
                 }
                 else if (indLTPC !== -1 && indColor !== -1 
-                    && indMono !== -1 && ($scope.meterReads[indLTPC].value > $scope.meterReads[indColor].value)) {
-                    $scope.meterReads[indMono].value = ($scope.meterReads[indLTPC].value - $scope.meterReads[indColor].value); 
-                    $scope.meterReads[indMono].updateDate = FormatterService.formatLocalToUTC(new Date());                    
-                    updateMeterReads($scope.meterReads[indMono]);
+                    && indMono !== -1 
+                    && ($scope.ltpcUpdatedVal > $scope.colorUpdatedVal)) {
+                    updatedMeterReadObj = setUpdateMeterReadObj($scope.meterReads[indMono]);
+                    updatedMeterReadObj.value = ($scope.ltpcUpdatedVal - $scope.colorUpdatedVal);
+                    updatedMeterReadObj.updateDate = FormatterService.formatLocalToUTC(new Date());                    
+
+                    updateMeterReads(updatedMeterReadObj, $scope.meterReads[indMono]);
                 }
 
                 if($scope.warnMessage.length > 0) {
@@ -529,19 +532,66 @@ angular.module('mps.deviceManagement')
             }
         };
 
-        function updateMeterReads(meterRead){
+        function setUpdateMeterReadObj(meterReadObj){
+            updatedMeterReadObj = [];
+            updatedMeterReadObj.id = meterReadObj.id;
+            updatedMeterReadObj.value = meterReadObj.value;
+            updatedMeterReadObj.type = meterReadObj.type;
+            updatedMeterReadObj.updateDate = null;
+            updatedMeterReadObj.postURL = meterReadObj._links.self.href;
+
+            return updatedMeterReadObj;
+        }
+
+        function updateMeterReads(updatedMeterReadObj, meterRead){
             // init MeterReads.item
+            meterRead.isValueUpdated = true;
+            meterRead.isDateUpdated = true;
+
+            if(updatedMeterReadObj.updateDate && updatedMeterReadObj.updateDate !== null) {
+                meterRead.isDateUpdated = false;
+            }
+            if(updatedMeterReadObj.value && updatedMeterReadObj.value !== null) {
+                meterRead.isValueUpdated = false;
+            }
+
             MeterReads.newMessage();
-            MeterReads.addField('id', meterRead.id);
-            MeterReads.addField('value', meterRead.value);
-            MeterReads.addField('type', meterRead.type);
-            MeterReads.addField('updateDate', meterRead.updateDate);
+            MeterReads.addField('id', updatedMeterReadObj.id);
+            MeterReads.addField('value', updatedMeterReadObj.value);
+            MeterReads.addField('type', updatedMeterReadObj.type);
+            MeterReads.addField('updateDate', updatedMeterReadObj.updateDate);
             // reset the postURL
-            MeterReads.addField("postURL", meterRead._links.self.href);
+            MeterReads.addField("postURL", updatedMeterReadObj.postURL);
+
+            if(meterRead.type.toUpperCase() === "COLOR") {
+                $scope.colorUpdatedVal = updatedMeterReadObj.value;
+            }
+            else if(meterRead.type.toUpperCase() === "LTPC") {
+                $scope.ltpcUpdatedVal = updatedMeterReadObj.value;
+            }
             // submit the request
             MeterReads.put(MeterReads).then(function(){
+                meterRead.value = updatedMeterReadObj.value;
+                meterRead.updateDate = updatedMeterReadObj.updateDate;
+
+                if(updatedMeterReadObj.updateDate && updatedMeterReadObj.updateDate !== null) {
+                    meterRead.isDateUpdated = true;
+                }
+                if(updatedMeterReadObj.value && updatedMeterReadObj.value !== null) {
+                    meterRead.isValueUpdated = true;
+                }
+                if(meterRead.type.toUpperCase() !== "MONO") {
+                    meterRead.newVal = null;
+                    meterRead.newDate = null;                    
+                }
                 MeterReads.reset();
             }, function(reason){
+                if(updatedMeterReadObj.updateDate && updatedMeterReadObj.updateDate !== null) {
+                    meterRead.isDateUpdated = true;
+                }
+                if(updatedMeterReadObj.value && updatedMeterReadObj.value !== null) {
+                    meterRead.isValueUpdated = true;
+                }
                 NREUM.noticeError('Failed to update Meter Read ' + MeterReads.item["id"] +  ' because: ' + reason);
             });
         }
