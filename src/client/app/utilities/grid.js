@@ -1,7 +1,6 @@
 angular.module('mps.utility')
-.factory('grid', ['uiGridConstants', '$timeout', '$translate', '$rootScope', '$location', 'PersonalizationServiceFactory', function(uiGridConstants, $timeout, $translate, $rootScope, $location, personalize) {
-    var personalize = new personalize($location.url(), $rootScope.idpUser.id),
-    Grid = function() {
+.factory('grid', ['uiGridConstants', '$timeout', '$translate', '$rootScope', function(uiGridConstants, $timeout, $translate, $rootScope) {
+    var Grid = function() {
         this.itemsPerPageArr = [
             {items: 20},
             {items: 40},
@@ -207,30 +206,8 @@ angular.module('mps.utility')
                 $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
         };
 
-        if (!service.preventPersonalization) {
-            personalize.get($location.url()).then(function(res) {
-                if (res && res.data.columnDefs) {
-                    scope[self.optionsName].columnDefs = res.data.columnDefs;
-
-                    if (personalize.data.itemsPerPage) {
-                        scope[self.optionsName].minRowsToShow = personalize.data.itemsPerPage;
-                    }
-                } else {
-                    scope[self.optionsName].columnDefs = self.setColumnDefaults(service.columns, service.columnDefs);
-
-                    if (!res) {
-                        personalize.save($location.url(), {
-                            data: {
-                                columnDefs: scope[self.optionsName].columnDefs,
-                                itemsPerPage: scope[self.optionsName].minRowsToShow
-                            }
-                        });
-                    }
-                }
-            });
-        }
-
         scope[self.optionsName].getStyle = function(){
+
             if (service.data && service.data.length > 0) {
                 if (rowHeight) {
                     newHeight = baseHeight + (parseInt(rowHeight, 10) + 1) * size;
@@ -355,7 +332,7 @@ angular.module('mps.utility')
 
             if (self.cache.length === 0) {
                 service.gridCache = null;
-                self.cachePage(service.page.number, scope[self.optionsName].data);
+                self.cachePage(service.page.number, scope[self.optionsName].data, scope[self.optionsName].data.length);
             }
 
             if (self.resetCache === true) {
@@ -443,10 +420,11 @@ angular.module('mps.utility')
         }
     };
 
-    Grid.prototype.cachePage = function(id, data, selections) {
+    Grid.prototype.cachePage = function(id, data, pagecnt, selections) {
         var cacheObj = {
             id: id,
-            data: data
+            data: data,
+            pagesize: pagecnt
         };
 
         if (selections) {
@@ -474,9 +452,9 @@ angular.module('mps.utility')
         self.searchCache(pageNumber, function(cache, cacheIndex) {
             if (!cache) {
                 if (self.currentSelectedRowIndex.length === 0) {
-                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data);
+                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, $rootScope.gridApi.grid.data.length);
                 } else {
-                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, self.currentSelectedRowIndex);
+                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, $rootScope.gridApi.grid.data.length, self.currentSelectedRowIndex);
                 }
 
                 self.searchCache(pageNumber, function(cache) {
@@ -624,15 +602,11 @@ angular.module('mps.utility')
                 }
             },
             onChangeItemsCount: function(option) {
-                var dataObj = personalize.data;
-                dataObj.itemsPerPage = option.items;
-
-                personalize.update(dataObj);
-
+                personal.setPersonalizedConfiguration('itemsPerPage', option['items']);
                 this.gotoPage(0);
             },
             gotoPage: function(pageNumber, size) {
-                var pageSize = personalize.data.itemsPerPage,
+                var pageSize = personal.getPersonalizedConfiguration('itemsPerPage'),
                 reloadService = function(cache) {
                     if (cache) {
                         service.gridCache = cache;
@@ -648,12 +622,13 @@ angular.module('mps.utility')
                         size = service.page.size;
                     }
                 };
-
                 self.updateCache(service.page.number, service, function() {
                     self.searchCache(pageNumber, function(cache) {
-                        if (!cache) {
+                        if (!cache || (cache && cache.pagesize !== pageSize)) {
                             service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
-                                self.cachePage(service.page.number, service.data);
+                                self.cachePage(service.page.number, service.data, service.page.size);
+                                cache.data = service.data;
+                                cache.pagesize = service.page.size;
                                 reloadService(cache);
                             }, function(reason) {
                                 NREUM.noticeError('failed Paging: ' + reason);
