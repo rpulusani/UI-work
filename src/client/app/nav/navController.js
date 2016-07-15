@@ -12,6 +12,7 @@
     '$cookies',
     '$http',
     '$window',
+    '$timeout',
     'SecurityService',
     'SecurityHelper',
     'DTMUpdater',
@@ -28,6 +29,7 @@
         $cookies,
         $http,
         $window,
+        $timeout,
         SecurityService,
         SecurityHelper,
         DTMUpdater
@@ -263,13 +265,25 @@
         
         //ensuring the site content area is always as big as possible while supporting autoscroll
         if (!$rootScope.windowResized) {
-            var contentHeight = angular.element('.site-header').outerHeight();
-            contentHeight = $window.innerHeight - (contentHeight + 85);
-
-            angular.element('.site-content').css('height', contentHeight + 'px');
-
+            resizeSiteContent();
             $rootScope.windowResized = true;
         }
+        function resizeSiteContent(){
+            var windowHeight = $(window).height();
+            var headerHeight = angular.element('.site-header').outerHeight();
+            var navHeight = angular.element('.rail-nav').outerHeight();
+            var contentHeight = ((windowHeight - headerHeight) <= navHeight) ? navHeight : (windowHeight - headerHeight);
+            angular.element('.site-content').css('height', contentHeight + 'px');
+            if(!navHeight){
+                $timeout(function(){
+                    resizeSiteContent();
+                },5000);
+            }
+
+        }
+        $(window).resize(function(){
+            resizeSiteContent();
+        });
     }
 ]);
 
