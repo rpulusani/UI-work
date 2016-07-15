@@ -1,5 +1,5 @@
 
-<div ng-if="configure && configure.order" >
+<div ng-if="configure && configure.order && configure.order.type !== 'RETURN_SUPPLIES'" >
     <h2 translate="{{configure.shipToBillTo.translate.title}}"></h2>
     <div class="row--alley-thick">
         <div class="col-1-3">
