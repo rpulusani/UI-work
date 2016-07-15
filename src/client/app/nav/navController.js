@@ -34,6 +34,7 @@
         ) {
 
         var Security = new SecurityService();
+        var $ = require('jquery');
 
         $scope.items = Nav.items;
         $scope.tags = Nav.getTags();
@@ -263,11 +264,12 @@
         
         //ensuring the site content area is always as big as possible while supporting autoscroll
         if (!$rootScope.windowResized) {
-            var contentHeight = angular.element('.site-header').outerHeight();
-            contentHeight = $window.innerHeight - (contentHeight + 85);
+            if($(window).width() > 767){
+                var contentHeight = angular.element('.site-header').outerHeight();
+                contentHeight = $window.innerHeight - (contentHeight + 85);
 
-            angular.element('.site-content').css('height', contentHeight + 'px');
-
+                angular.element('.site-content').css('height', contentHeight + 'px');
+            }
             $rootScope.windowResized = true;
         }
     }
