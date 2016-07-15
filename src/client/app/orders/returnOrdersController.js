@@ -343,7 +343,8 @@ angular.module('mps.orders')
                 if(Orders.item.attachments){
                     $scope.files_complete = Orders.item.attachments
                 }
-                if ($routeParams.queued !=='queued' || $routeParams.queued !=='notqueued'){
+                
+                if ($routeParams.queued !=='queued' && $routeParams.queued !=='notqueued'){
                 	getRequestor(Orders, Contacts);
                 }
                 	
