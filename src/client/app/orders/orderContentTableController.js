@@ -12,6 +12,7 @@ angular.module('mps.orders')
         		serviceName: 'orderItems',
                 embeddedName: 'orderItems', 
                 columns: 'defaultSet',
+                preventPersonalization: true,
         		columnDefs: {
         			defaultSet:[
         	                    {'name': 'id', 'field': 'itemNumber', visible:false, 'notSearchable': true,  enableCellEdit:false},
