@@ -155,6 +155,7 @@ angular.module('mps.serviceRequestAddresses')
                     $scope.validForm = true;
                 $scope.enteredAddress = {
                     addressLine1: $scope.address.addressLine1,
+                    addressLine2: $scope.address.addressLine2,
                     city: $scope.address.city,
                     state:  $scope.address.state,
                     country: $scope.address.country,
