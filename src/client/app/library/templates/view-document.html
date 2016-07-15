@@ -1,5 +1,5 @@
 <div class="page-content">
-    <div breadcrumbs map="breadcrumbs"></div>
+    <div ng-if="breadcrumbs" breadcrumbs map="breadcrumbs"></div>
     <div>
         <div print-export-title class="row"  titlestring="{{ titleString }}" csv-export="csvModel" pdf-export="pdfModel"></div>
     </div>

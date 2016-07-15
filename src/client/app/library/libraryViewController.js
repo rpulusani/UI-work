@@ -2,6 +2,26 @@
 angular.module('mps.library')
 .controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
     function($scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {
+        $scope.$on("$routeChangeSuccess", function(event, next, current) {
+            if(current.originalPath === "/reporting" && next.originalPath === "/library/:id/view"){
+                $scope.breadCrumbObject = {
+                    href:'/reporting',
+                    value: 'REPORTING.TITLE'
+                };
+            } else {
+                $scope.breadCrumbObject = {
+                    href:'/library',
+                    value:'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY'
+                };
+            }
+
+            $scope.breadcrumbs = {
+                1:$scope.breadCrumbObject,
+                2:{
+                    value: $scope.documentItem.name
+                }
+            };
+        });
         var setCsvDefinition = function() {
             var headers = [
                 $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_NAME'),
@@ -198,15 +218,7 @@ angular.module('mps.library')
             });
         };
 
-        $scope.breadcrumbs = {
-            1:{
-                href:'/library',
-                value:'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY'
-            },
-            2:{
-                value: $scope.documentItem.name
-            }
-        };
+        
 
         setCsvDefinition();
         $scope.$broadcast('setupPrintAndExport', $scope);
