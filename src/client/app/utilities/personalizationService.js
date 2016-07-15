@@ -1,8 +1,9 @@
 'use strict';
 angular.module('mps.utility')
-.factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', '$location', function($http, $q, $rootScope, serviceUrl, Users, $location) {
+.factory('PersonalizationServiceFactory', ['$http', '$q', '$rootScope', 'serviceUrl', 'UserService', '$location','adminUrl',
+                                           function($http, $q, $rootScope, serviceUrl, Users, $location,adminUrl) {
     var PersonalizationServiceFactory = function(currentPageUri, userId) {
-        this.url = 'https://venus-dev.lexmark.com/mps-portal/user-preferences/';
+    	this.url = adminUrl+'user-preferences/';
 
         if (currentPageUri) {
             this.currentPageUri = currentPageUri.replace(/\//g, '_').replace(/\/|[?&=]/g, '_');
