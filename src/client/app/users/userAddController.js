@@ -30,6 +30,7 @@ angular.module('mps.user')
             href:'/delegated_admin',
             value:'USER_MAN.MANAGE_USERS.TXT_MANAGE_USERS'
         }
+        $scope.userPreference = false;
         if ($location.path() === "/delegated_admin/invite_user") {
             $scope.configure = {
                 breadcrumbs:{

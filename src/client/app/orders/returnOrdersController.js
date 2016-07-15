@@ -338,11 +338,15 @@ angular.module('mps.orders')
                     }
 
             }else{
+            	
                 $rootScope.order = Orders.item;
                 if(Orders.item.attachments){
                     $scope.files_complete = Orders.item.attachments
                 }
-                getRequestor(Orders, Contacts);
+                if ($routeParams.queued !=='queued' || $routeParams.queued !=='notqueued'){
+                	getRequestor(Orders, Contacts);
+                }
+                	
             }
             $scope.setupSR(Orders, configureSR);
 

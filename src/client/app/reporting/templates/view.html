@@ -22,8 +22,8 @@
                 <p translate="{{ configure.report.kpi.translate.fleetAvailability }}"></p>
             </div>
             <div>
-                <p class="text--align-center" ng-if="chartObject.fleetAvailability.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
                 <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
+                <p class="text--align-center" ng-if="chartObject.fleetAvailability.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
             </div>
         </div>
 
@@ -32,8 +32,8 @@
                 <p translate="{{ configure.report.kpi.translate.responseTime }}"></p>
             </div>
             <div>
-                <p class="text--align-center" ng-if="chartObject.responseTime.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
                 <div google-chart chart="{{ chartObject.responseTime }}"></div>
+                <p class="text--align-center" ng-if="chartObject.responseTime.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
             </div>
         </div>
         <div class="col-1-3 floatL">
@@ -41,8 +41,8 @@
                 <p translate="{{ configure.report.kpi.translate.consumables }}"></p>
             </div>
             <div>
-                <p class="text--align-center" ng-if="chartObject.consumables.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
                 <div google-chart chart="{{ chartObject.consumables }}"></div>
+                <p class="text--align-center" ng-if="chartObject.consumables.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
             </div>
         </div>
     </div>

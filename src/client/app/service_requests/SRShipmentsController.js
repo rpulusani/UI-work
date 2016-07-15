@@ -52,7 +52,7 @@ angular.module('mps.serviceRequests')
     	$scope.shipments = [];
     	
     	function updateShipments(){
-    		var requestedQty = 0,fulfilledQty = 0,finalList = [];
+    		var requestedQty = 0,fulfilledQty = 0,finalList = [],alreadyProcessedItems = [],cancelledQuantity = 0;
     		$scope.cancelledItems = [];
     		$scope.pending = {
     				pendCount : 0
@@ -67,7 +67,7 @@ angular.module('mps.serviceRequests')
         			$scope.hasData = true;
         		}
         		//Below is for removing the cancelled item
-        		if($scope.shipments[i].cancelledQty > 0 && $scope.shipments[i].cancelledReason === "Customer Requested"){
+        		if($scope.shipments[i].status === 'CANCELLED'){
         			$scope.cancelledItems.push($scope.shipments[i]);
         			continue;
         		}
@@ -77,12 +77,18 @@ angular.module('mps.serviceRequests')
         				shipment.trackingUrl = Carriers.data[j].trackingUrl+"?no="+shipment.trackingNumber;
         			}
         		}*/
+        		
         		for(var j = 0;j<$scope.shipments[i].shipmentParts.length ; j++){
-        			requestedQty = $scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity;
+        			if(alreadyProcessedItems.indexOf($scope.shipments[i].shipmentParts[j].orderLineId) === -1){
+        				requestedQty = $scope.shipments[i].shipmentParts[j].requestedQuantity === null? 0: $scope.shipments[i].shipmentParts[j].requestedQuantity;
+        			}else{
+        				requestedQty = 0;
+        			}        			
         			fulfilledQty = $scope.shipments[i].shipmentParts[j].quantity === null ? 0 :$scope.shipments[i].shipmentParts[j].quantity;
-        			if($scope.shipments[i].shipmentParts[j].cancelledQuantity === null || $scope.shipments[i].shipmentParts[j].cancelledQuantity === 0){
-        				$scope.pending.pendCount += (requestedQty - fulfilledQty);
-        			}
+        			cancelledQuantity = $scope.shipments[i].shipmentParts[j].cancelledQuantity === null ? 0 :$scope.shipments[i].shipmentParts[j].cancelledQuantity;
+
+        			$scope.pending.pendCount += (requestedQty - fulfilledQty);
+        			alreadyProcessedItems.push($scope.shipments[i].shipmentParts[j].orderLineId);
         		}
         		
         		if($scope.shipments[i].status === 'SUBMITTED'){

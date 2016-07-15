@@ -12,6 +12,7 @@
     '$cookies',
     '$http',
     '$window',
+    '$timeout',
     'SecurityService',
     'SecurityHelper',
     'DTMUpdater',
@@ -28,13 +29,13 @@
         $cookies,
         $http,
         $window,
+        $timeout,
         SecurityService,
         SecurityHelper,
         DTMUpdater
         ) {
 
         var Security = new SecurityService();
-        var $ = require('jquery');
 
         $scope.items = Nav.items;
         $scope.tags = Nav.getTags();
@@ -42,12 +43,33 @@
         $scope.selectedAccount = $rootScope.currentAccount;
         $scope.dropdownItem = null;
         $scope.isInternal = false;
+        $scope.userDisplayName = "";
 
         $rootScope.currentUser.deferred.promise.then(function() {
             if ($rootScope.currentUser.type === 'INTERNAL') {
                 $scope.isInternal = true;
             }
         });
+        
+        if($rootScope.idpUser && $rootScope.idpUser.$promise) {
+            $rootScope.idpUser.$promise.then(function() {
+                if($rootScope.idpUser.custom_attributes) {
+                    var custom_attr = $rootScope.idpUser.custom_attributes;
+                    if(custom_attr.display_name) {
+                        $scope.userDisplayName = custom_attr.display_name;
+                    } else if(custom_attr.first_name && custom_attr.last_name) {
+                        $scope.userDisplayName = custom_attr.first_name + ' ' + custom_attr.last_name;
+                    } else if(custom_attr.first_name) {
+                        $scope.userDisplayName = custom_attr.first_name;
+                    } else if(custom_attr.last_name) {
+                        $scope.userDisplayName = custom_attr.last_name;
+                    }
+                }
+                else {
+                    $scope.userDisplayName = $rootScope.idpUser.email;
+                }
+            });
+        }
 
         $scope.removeImpersonate = function() {
             var impersonateURL = $cookies['impersonateUrl'];
@@ -264,14 +286,25 @@
         
         //ensuring the site content area is always as big as possible while supporting autoscroll
         if (!$rootScope.windowResized) {
-            if($(window).width() > 767){
-                var contentHeight = angular.element('.site-header').outerHeight();
-                contentHeight = $window.innerHeight - (contentHeight + 85);
-
-                angular.element('.site-content').css('height', contentHeight + 'px');
-            }
+            resizeSiteContent();
             $rootScope.windowResized = true;
         }
+        function resizeSiteContent(){
+            var windowHeight = $(window).height();
+            var headerHeight = angular.element('.site-header').outerHeight();
+            var navHeight = angular.element('.rail-nav').outerHeight();
+            var contentHeight = ((windowHeight - headerHeight) <= navHeight) ? navHeight : (windowHeight - headerHeight);
+            angular.element('.site-content').css('height', contentHeight + 'px');
+            if(!navHeight){
+                $timeout(function(){
+                    resizeSiteContent();
+                },5000);
+            }
+
+        }
+        $(window).resize(function(){
+            resizeSiteContent();
+        });
     }
 ]);
 
