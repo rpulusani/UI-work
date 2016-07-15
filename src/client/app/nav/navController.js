@@ -41,12 +41,33 @@
         $scope.selectedAccount = $rootScope.currentAccount;
         $scope.dropdownItem = null;
         $scope.isInternal = false;
+        $scope.userDisplayName = "";
 
         $rootScope.currentUser.deferred.promise.then(function() {
             if ($rootScope.currentUser.type === 'INTERNAL') {
                 $scope.isInternal = true;
             }
         });
+        
+        if($rootScope.idpUser && $rootScope.idpUser.$promise) {
+            $rootScope.idpUser.$promise.then(function() {
+                if($rootScope.idpUser.custom_attributes) {
+                    var custom_attr = $rootScope.idpUser.custom_attributes;
+                    if(custom_attr.display_name) {
+                        $scope.userDisplayName = custom_attr.display_name;
+                    } else if(custom_attr.first_name && custom_attr.last_name) {
+                        $scope.userDisplayName = custom_attr.first_name + ' ' + custom_attr.last_name;
+                    } else if(custom_attr.first_name) {
+                        $scope.userDisplayName = custom_attr.first_name;
+                    } else if(custom_attr.last_name) {
+                        $scope.userDisplayName = custom_attr.last_name;
+                    }
+                }
+                else {
+                    $scope.userDisplayName = $rootScope.idpUser.email;
+                }
+            });
+        }
 
         $scope.removeImpersonate = function() {
             var impersonateURL = $cookies['impersonateUrl'];
