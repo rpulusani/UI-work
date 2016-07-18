@@ -218,6 +218,8 @@ angular.module('mps.deviceManagement')
             };
 
             Devices.item.get(options).then(function(){
+                $location.search('search', null);
+                $location.search('searchOn', null);
                 $location.search('tab', 'deviceInfoTab');
                 $location.path(Devices.route + '/' + device.id + '/review');
             });
