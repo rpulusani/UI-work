@@ -22,6 +22,7 @@ angular.module('mps.serviceRequests')
         		embeddedName: 'serviceActivities', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
                 hideBookmark: true,
+                preventPersonalization: true,
                 url: serviceUrl + 'service-requests/serviceActivityDetails',
                 columnDefs: {
                     defaultSet: [

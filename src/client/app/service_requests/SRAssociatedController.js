@@ -17,10 +17,11 @@ angular.module('mps.serviceRequests')
         Addresses,SRHelper,serviceUrl,HATEOASFactory,ServiceRequest,Orders,Devices) {
     	
     	 var AssociateRequest = {
-        		 serviceName: 'associatedRequestDetails',
-        		 embeddedName: 'associatedServiceRequests', //get away from embedded name and move to a function to convert url name to javascript name
+        		serviceName: 'associatedRequestDetails',
+        		embeddedName: 'associatedServiceRequests', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
                 hideBookmark: true,
+                preventPersonalization: true,
                 url: serviceUrl + 'service-requests/associatedRequestDetails',
                 columnDefs: {
                     defaultSet: [
