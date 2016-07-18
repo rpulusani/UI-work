@@ -9,7 +9,7 @@ angular.module('mps.pageCount')
                 columns: 'defaultSet',
                 columnDefs: {
                     defaultSet: [
-                        {'name': 'id', 'field': 'assetId', visible:false, 'notSearchable': true},
+                        //{'name': 'id', 'field': 'assetId', visible:false, 'notSearchable': true},
                         {'name': $translate.instant('DEVICE_MGT.SERIAL_NO'), 'field':'serialNumber',
                           'cellTemplate':'<div>' +
                                         '<a href="#" ng-click="grid.appScope.view(row.entity);" ' +
