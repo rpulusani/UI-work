@@ -24,17 +24,17 @@ angular.module('mps.user')
                 ]
             },
             route: '/delegated_admin',
-            getEmail: function(fn) {		
-            	                 var self = this;		
-            	 		
-            	                 if (self.item) {		
-            	                     return fn(self.item.email);		
-            	                 } else {		
-            	                     setTimeout(function() {		
-            	                         return self.getEmail(fn);		
-            	                     }, 50);		
-            	                 }		
-            	             }
+            getEmail: function(fn) {
+                var self = this;
+
+                if (self.item) {
+                    return fn(self.item.email);
+                } else {
+                    setTimeout(function() {
+                        return self.getEmail(fn);
+                    }, 50);
+                }
+            }
         };
         return new HATEOASFactory(UserService);
     }

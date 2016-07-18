@@ -82,8 +82,19 @@ angular.module('mps.orders')
 
     function getValidationMessageIndex(row){
         var index = -1;
+        var partNbr = row.entity.displayItemNumber;
+        if(row.entity.childItems && row.entity.childItems.length > 0) {
+            var ind = 0, 
+            partLen = row.entity.childItems.length,
+            partNbr = "";
+
+            for(ind=0; ind<partLen; ind++) {
+                partNbr = partNbr + row.entity.childItems[ind].displayItemNumber + "|";
+            }
+            partNbr = partNbr.substr(0, partNbr.length-1);
+        }
         for(var i = 0; i < $scope.validationMessages.length; ++i){
-            if($scope.validationMessages[i].partNumber == row.entity.displayItemNumber){
+            if($scope.validationMessages[i].partNumber == partNbr){
                 index = i;
                 break;
             }
@@ -129,17 +140,46 @@ angular.module('mps.orders')
         }else if(dataRow.partRequestArea && dataRow.partRequestArea.toUpperCase() === 'CONSUMABLES SUPPLIES REQUEST'){
         	$scope.maxCheck($scope.maxSuppliesQuantity,row,index);
         }else{
-        	// part type not matching... 
+        	$scope.blankQuantityCheck(row,index);
         }
         
     };
+    $scope.blankQuantityCheck = function(row,index){
+        var partNbr = row.entity.displayItemNumber;
+        if(row.entity.childItems && row.entity.childItems.length > 0) {
+            var ind = 0, 
+            partLen = row.entity.childItems.length,
+            partNbr = "";
+
+            for(ind=0; ind<partLen; ind++) {
+                partNbr = partNbr + row.entity.childItems[ind].displayItemNumber + "|";
+            }
+            partNbr = partNbr.substr(0, partNbr.length-1);
+        }
+        if(row.entity.quantity === undefined || row.entity.quantity === null){
+            //this validation is if quantity is 0
+            message = {
+                        partNumber: partNbr, 
+                        key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.ZERO_QUANTITY_VALIDATION'
+                      };
+            row.entity.quantityError = true;
+            if(index === -1)
+                $scope.validationMessages.push(message);
+            else
+                $scope.validationMessages[index] = message;
+        }
+        else if(index > -1){
+            $scope.validationMessages.splice(index,1);
+            row.entity.quantityError = false;
+        }
+    };
     $scope.maxCheck = function(maxQuantity,row,index){
     	
-    	if(row.entity.quantity === undefined){
+    	if(row.entity.quantity === undefined || row.entity.quantity === null){
     		//this validation is if quantity is 0
         	message = {
         				partNumber: row.entity.displayItemNumber, 
-        				key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.ZERO_QUANTITY'
+        				key: 'DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.ZERO_QUANTITY_VALIDATION'
                   	  };
         	row.entity.quantityError = true;
         	if(index === -1)
