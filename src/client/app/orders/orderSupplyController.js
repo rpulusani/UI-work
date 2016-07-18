@@ -83,8 +83,8 @@ angular.module('mps.orders')
                        		search : Devices.item.specialUsage,
                        		searchOn : 'specialUsage',
                        		supplyParam: false,
-                            serviceParam: false,
-							contractNumber: Devices.item.contractNumber
+                                serviceParam: false,
+				contractNumber: Devices.item.contractNumber
                        };
                  
                    	 if(BlankCheck.checkNotBlank(Orders.tempSpace.catalogCart.agreement.supplyCatalogType)
