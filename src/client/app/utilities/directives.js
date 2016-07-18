@@ -307,4 +307,32 @@ angular.module('mps.utility')
             });
         }
      }
-});
+})
+.directive('emptyChartText',['$timeout',function($timeout){
+    return{
+        restrict: 'C',
+        link: function(scope,element,attrs){
+            function resizeEmptyCircle(){
+                var rad = 0, c = 5;
+                $('.posZeroCircle ellipse').each(function(){
+                    rad = $(this).attr('rx');
+                    var pW = ($('.emptyCircle').width()/2) - rad;
+                    var pH = ($('.emptyCircle').height()/2) - rad;
+                    $('.full-circle').css({'height':(rad*2)+'px','width':(rad*2)+'px','left':pW+'px','top':pH+'px'});
+                    $('.empty-chart-text').css({'padding-top':0,'line-height':(rad*2)+'px'});
+                });
+                if(!rad && c){
+                    c--;
+                    $timeout(function(){
+                        resizeEmptyCircle();
+                    },5000);
+                }
+            }
+            $(window).resize(function(){
+                resizeEmptyCircle();
+            });
+            resizeEmptyCircle();
+        }
+    }
+}]);
+

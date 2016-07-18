@@ -16,24 +16,27 @@ angular.module('mps.utility')
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.name;
                     }
+                    break;
                 case 'company-level':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountLevel;
                     }
+                    break;
                 case 'account-name':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.name;
                     }
+                    break;
                 case 'account-id':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountId;
                     }
+                    break;
                 case 'account-geo':
                     if ($rootScope.currentUser.address) {
                         tag.content = $rootScope.currentUser.address.countryIsoCode;
-                    } else {
-                         tag.content = '';
                     }
+                    break;
                 case 'account-country':
                     if ($rootScope.currentUser.address) {
                         if ($rootScope.currentUser.address.country) {
@@ -41,35 +44,36 @@ angular.module('mps.utility')
                         } else {
                             tag.content = $rootScope.currentUser.address.countryIsoCode;
                         }
-                    } else {
-                       tag.content = '';
                     }
+                    break;
                 case 'account-region':
                     if ($rootScope.currentUser.address) {
                         if (!$rootScope.currentUser.address.region) {
-                             tag.content =  $rootScope.currentUser.address.state;
+                            tag.content =  $rootScope.currentUser.address.state;
                         } else {
-                             tag.content =  $rootScope.currentUser.address.region;
+                            tag.content =  $rootScope.currentUser.address.region;
                         }
-                    } else {
-                         tag.content =  '';
                     }
+                    break;
                 case 'account-city':
                     if ($rootScope.currentUser.address) {
                         tag.content = $rootScope.currentUser.address.city;
-                    } else {
-                        tag.content = '';
                     }
+                    break;
                 case 'user-name':
                     tag.content = $rootScope.currentUser.userId;
+                    break;
                 case 'user-shortname':
                     tag.content = $rootScope.currentUser.shortName;
+                    break;
                 case 'user-role':
                     tag.content = $rootScope.currentUser.firstName;
+                    break;
                 case 'user-level':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountLevel;
                     }
+                    break;
                 default:
                     break;
             }

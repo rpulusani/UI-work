@@ -36,6 +36,7 @@
         ) {
 
         var Security = new SecurityService();
+        var $ = require('jquery');
 
         $scope.items = Nav.items;
         $scope.tags = Nav.getTags();
@@ -290,17 +291,18 @@
             $rootScope.windowResized = true;
         }
         function resizeSiteContent(){
-            var windowHeight = $(window).height();
-            var headerHeight = angular.element('.site-header').outerHeight();
-            var navHeight = angular.element('.rail-nav').outerHeight();
-            var contentHeight = ((windowHeight - headerHeight) <= navHeight) ? navHeight : (windowHeight - headerHeight);
-            angular.element('.site-content').css('height', contentHeight + 'px');
-            if(!navHeight){
-                $timeout(function(){
-                    resizeSiteContent();
-                },5000);
+            if($(window).width() > 767){ // Resize only when opened to tablet (landscape) and desktop.
+                var windowHeight = $(window).height();
+                var headerHeight = angular.element('.site-header').outerHeight();
+                var navHeight = angular.element('.rail-nav').outerHeight();
+                var contentHeight = ((windowHeight - headerHeight) <= navHeight) ? navHeight : (windowHeight - headerHeight);
+                angular.element('.site-content').css('height', contentHeight + 'px');
+                if(!navHeight){
+                    $timeout(function(){
+                        resizeSiteContent();
+                    },5000);
+                }
             }
-
         }
         $(window).resize(function(){
             resizeSiteContent();

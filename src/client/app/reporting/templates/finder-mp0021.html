@@ -4,23 +4,25 @@
             
             <div class="row row--alley-thick">
                 <div class="col-1-2 floatL">
-                    <div class="form__field">
+                    <div class="form__field form__field--required">
                         <label translate="REPORTING.DATE_FROM"></label>
-                        <input type="text" ng-model="finder.dateFrom" date-val="finder.dateFrom" datepicker />
+                        <input type="text" ng-model="finder.dateFrom" date-val="finder.dateFrom" datepicker 
+                        required />
                     </div>
                  </div>
 
                 <div class="col-1-2 floatL">
-                     <div class="form__field">
+                    <div class="form__field form__field--required">
                         <label translate="REPORTING.DATE_TO"></label>
-                        <input type="text" ng-model="finder.dateTo" date-val="finder.dateTo" datepicker />
+                        <input type="text" ng-model="finder.dateTo" date-val="finder.dateTo" datepicker 
+                        required />
                     </div>
                </div>
             </div>
 
             <div class="row">
                 <div class="col-1">
-                    <button name="submit" class="btn btn--primary" ng-click="runReport(report)" type="submit"
+                    <button name="submit" class="btn btn--primary" ng-click="newReport.$valid && runReport(report)" type="submit"
                         translate="REPORTING.RUN_REPORT"></button>
 
                     <input type="hidden" name="report.id" ng-value="report.id"/>
