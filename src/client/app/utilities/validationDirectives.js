@@ -74,6 +74,24 @@ angular.module('mps.utility')
         }
     };
 })
+.directive('ipAddressValid',function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, ipCtrl) {
+            function ipValidation(value) {
+                var ipExpression = /^([0-9]{1,20}.){3}([0-9]{1,20}){1}$/;
+                var validIP = ipExpression.test(value);
+                if (validIP) {
+                    ipCtrl.$setValidity('ipCode', true);
+                } else {
+                    ipCtrl.$setValidity('ipCode', false);
+                }
+                return value;
+            }
+            ipCtrl.$parsers.push(ipValidation);
+        }
+    };
+})
 .directive('nullCheck',function(){
     return {
         require: 'ngModel',
