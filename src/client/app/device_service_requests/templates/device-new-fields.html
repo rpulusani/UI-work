@@ -126,7 +126,7 @@
     </div>
 </div>
 
-<div ng-show="device.address && device.address.id">
+<div ng-if="device.address && device.address.id && device.deviceInstallQuestion">
     <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong>
 
     <div ng-init="device.deviceDeInstallQuestion ? device.deviceDeInstallQuestion : device.deviceDeInstallQuestion=false " />
@@ -198,7 +198,7 @@
     <label translate="REQUEST_MAN.COMMON.TXT_IP_ADDR"></label>
     <input name="ipAddress" type="text" ng-model="device.ipAddress" value="" class=""
         ng-required="!scratchSpace.oneOfFiveFieldsFilled"
-        ng-change="checkOneOfFiveFields()"/>
+        ip-address-valid ng-change="checkOneOfFiveFields()"/>
         <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
         class="form__field__helper-text form__field__helper-text--alert">
         <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
