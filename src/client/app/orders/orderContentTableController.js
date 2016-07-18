@@ -23,7 +23,7 @@ angular.module('mps.orders')
         	                        'field':'displayItemNumber', enableCellEdit:false,
                                     'cellTemplate': '<span ng-if="!row.entity.childItems">{{row.entity.displayItemNumber}}</span>'+
                                          '<span ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
-                                         '<span class="marginR3 floatL" ng-repeat="part in row.entity.childItems">'+
+                                         '<span class="floatL" ng-repeat="part in row.entity.childItems">'+
                                          '{{part.displayItemNumber}}'+ '<span ng-show=" ! $last ">'+'|'+ 
                                          '</span></span> </span>'
                                 },
