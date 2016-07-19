@@ -1,6 +1,6 @@
 <div ng-if="configure.device.removal" class="col-2-3">
        <ul class="info-list">
-            <li class="info-list__item">
+            <li class="info-list__item" ng-if="deinstallDevice">
                 <div class="info-list__item-name" translate="{{configure.device.removal.translate.pickup}}"></div>
                 <div class="info-list__item-value" ng-bind="formattedPickupDevice"></div>
             </li>

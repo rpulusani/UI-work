@@ -1,13 +1,13 @@
 
 
 angular.module('mps.utility')
-.controller('DevicePickerController', ['$scope', '$location', 'grid', 'Devices',
+.controller('DevicePickerController', ['$scope', '$location', 'grid', 'DevicePickerService',
     'BlankCheck', 'FormatterService', '$rootScope', '$routeParams', 'PersonalizationServiceFactory', '$controller', 'imageService',
     'Contacts','$q','$timeout',
-    function($scope, $location, GridService, Devices, BlankCheck, FormatterService, $rootScope, $routeParams,
+    function($scope, $location, GridService, DevicePickerService, BlankCheck, FormatterService, $rootScope, $routeParams,
         Personalize, $controller, ImageService, Contacts,$q,$timeout) {
-        if(Devices.item && Object.keys(Devices.item).length !== 0){
-            $rootScope.deviceToRegisterInPicker = angular.copy(Devices.item);
+        if(DevicePickerService.item && Object.keys(DevicePickerService.item).length !== 0){
+            $rootScope.deviceToRegisterInPicker = angular.copy(DevicePickerService.item);
         }
         $scope.selectedDevice = undefined;
         $rootScope.currentSelectedRow = undefined;
@@ -78,15 +78,15 @@ angular.module('mps.utility')
 
         $scope.getSelectedDeviceContact = function(selectedDevice) {
             if(selectedDevice){
-                Devices.setItem(selectedDevice);
+                DevicePickerService.setItem(selectedDevice);
                 var options = {
                     params:{
                         embed:'contact,address,account'
                     }
                 };
-                Devices.item.get(options).then(function(){
-                    if(Devices.item && Devices.item.contact){
-                        selectedDevice.contact = Devices.item.contact.item;
+                DevicePickerService.item.get(options).then(function(){
+                    if(DevicePickerService.item && DevicePickerService.item.contact){
+                        selectedDevice.contact = DevicePickerService.item.contact.item;
                         if($rootScope.returnPickerObjectDevice.deviceDeInstallQuestion){
                             $scope.formattedPrevDeviceContact = FormatterService.formatContact(selectedDevice.contact);
                         }
@@ -111,7 +111,7 @@ angular.module('mps.utility')
             $rootScope.formattedDevice = undefined;
             $rootScope.currentSelectedRow = undefined;
             if($rootScope.deviceToRegisterInPicker){
-                Devices.item = $rootScope.deviceToRegisterInPicker;
+                DevicePickerService.item = $rootScope.deviceToRegisterInPicker;
                 $rootScope.deviceToRegisterInPicker = undefined;
             }
             $location.path($rootScope.deviceReturnPath);
@@ -120,7 +120,7 @@ angular.module('mps.utility')
         var Grid = new GridService();
         $scope.gridOptions = {};
         $scope.gridOptions.multiSelect = false;
-        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Devices, personal);
+        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, DevicePickerService, personal);
         var options = {};
         options = {
             params:{
@@ -133,7 +133,7 @@ angular.module('mps.utility')
         var visibleDefered = $q.defer();
         $scope.visibleColumns = visibleDefered.promise;
         $timeout(function(){
-            visibleDefered.resolve(Grid.getVisibleColumns(Devices));
+            visibleDefered.resolve(Grid.getVisibleColumns(DevicePickerService));
         }, 500);
         $scope.optionParams = {};
         $scope.searchFunctionDef = function(params, removeParamsList){
@@ -143,11 +143,11 @@ angular.module('mps.utility')
         	options = {
         			params:params
         	};
-        	Devices.params = {};
-        	Devices.getPage(0, 20, options).then(function() {
-                $scope.itemCount = Devices.data.length;
-                Grid.display(Devices, $scope, personal);
-                if(Devices.item.serialNumber === undefined){
+        	DevicePickerService.params = {};
+        	DevicePickerService.getPage(0, 20, options).then(function() {
+                $scope.itemCount = DevicePickerService.data.length;
+                Grid.display(DevicePickerService, $scope, personal);
+                if(DevicePickerService.item.serialNumber === undefined){
                     $rootScope.devicesNotFoundInPicker = true;
                 }
             });
@@ -171,14 +171,14 @@ angular.module('mps.utility')
         }
 
 
-        Devices.getPage(0, 20, options).then(function() {
-            $scope.itemCount = Devices.data.length;
-            Grid.display(Devices, $scope, personal);
-            if(Devices.item.serialNumber === undefined){
+        DevicePickerService.getPage(0, 20, options).then(function() {
+            $scope.itemCount = DevicePickerService.data.length;
+            Grid.display(DevicePickerService, $scope, personal);
+            if(DevicePickerService.item.serialNumber === undefined){
                 $rootScope.devicesNotFoundInPicker = true;
             }
         }, function(reason) {
-            NREUM.noticeError('Grid Load Failed for ' + Devices.serviceName +  ' reason: ' + reason);
+            NREUM.noticeError('Grid Load Failed for ' + DevicePickerService.serviceName +  ' reason: ' + reason);
         });
 
         function configureTemplates() {
