@@ -58,8 +58,9 @@
 
 <h3><span translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></span></h3>
 
-<div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></strong></div>
-<div ng-init="device.deviceInstallQuestion ? device.deviceInstallQuestion : device.deviceInstallQuestion=false " />
+<div ng-if="installDevice"><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_INSTALLATION"></strong></div>
+<div ng-init="device.deviceInstallQuestion ? device.deviceInstallQuestion : device.deviceInstallQuestion=false " 
+ng-if="installDevice" >
     <div class="form__field form__field--no-margin">
         <input type="radio"
             id="device-install-question-no"
@@ -80,14 +81,16 @@
         <label for="device-install-question-yes"><span></span> {{ 'LABEL.COMMON.YES' | translate }}</label>
     </div>
 </div>
+
 <div>
     <div class="form__field">
         <strong ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}"
             ng-hide="device.deviceInstallQuestion === true" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_INSTALLED"></strong>
         <strong ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}"
-            ng-hide="device.deviceInstallQuestion === false" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_WOULD_INSTALLED"></strong>
+            ng-hide="device.deviceInstallQuestion === undefined || device.deviceInstallQuestion === false" 
+            translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_WOULD_INSTALLED"></strong>
         <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"
-            ng-required="!scratchSpace.oneOfFiveFieldsFilled"/>
+            ng-required="!scratchSpace.oneOfFiveFieldsFilled" min="min" />
             <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
         class="form__field__helper-text form__field__helper-text--alert">
         <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>

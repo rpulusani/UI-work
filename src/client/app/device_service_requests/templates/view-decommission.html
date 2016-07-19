@@ -13,29 +13,29 @@
     >
         <h2 translate="REQUEST_MAN.COMMON.TXT_DECOM_OPTIONS"></h2>
         <hr>
+        <div ng-if="deinstallDevice">
+            <strong translate="REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY"></strong>
 
-        <strong translate="REQUEST_MAN.COMMON.TXT_LXK_PICK_UP_QUERY"></strong>
+            <div class="form__field form__field--no-margin">
+                <input type="radio"
+                    id="lexmark-pickup-device-question-no"
+                    name="lexmark-pickup-device-question"
+                    ng-model="device.lexmarkPickupDevice"
+                    ng-value="false"
+                />
+                <label for="lexmark-pickup-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+            </div>
 
-        <div class="form__field form__field--no-margin">
-            <input type="radio"
-                id="lexmark-pickup-device-question-no"
-                name="lexmark-pickup-device-question"
-                ng-model="device.lexmarkPickupDevice"
-                ng-value="false"
-            />
-            <label for="lexmark-pickup-device-question-no"><span></span> {{'REQUEST_MAN.COMMON.CHK_NO' | translate }}</label>
+            <div class="form__field form__field--no-margin">
+                <input type="radio"
+                    id="lexmark-pickup-device-question-yes"
+                    name="lexmark-pickup-device-question"
+                    ng-model="device.lexmarkPickupDevice"
+                    ng-value="true"
+                />
+                <label for="lexmark-pickup-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
+            </div>
         </div>
-
-        <div class="form__field form__field--no-margin">
-            <input type="radio"
-                id="lexmark-pickup-device-question-yes"
-                name="lexmark-pickup-device-question"
-                ng-model="device.lexmarkPickupDevice"
-                ng-value="true"
-            />
-            <label for="lexmark-pickup-device-question-yes"><span></span> {{ 'REQUEST_MAN.COMMON.CHK_YES' | translate }}</label>
-        </div>
-
         <strong translate="REQUEST_MAN.REQUEST_DEVICE_DECOM.TXT_ENTER_PAGE_COUNTS_QUERY"></strong>
 
         <div class="form__field form__field--no-margin">
