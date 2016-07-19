@@ -355,7 +355,7 @@ angular.module('mps.utility')
 
             if (self.cache.length === 0) {
                 service.gridCache = null;
-                self.cachePage(service.page.number, scope[self.optionsName].data);
+                self.cachePage(service.page.number, scope[self.optionsName].data, scope[self.optionsName].data.length);
             }
 
             if (self.resetCache === true) {
@@ -443,10 +443,11 @@ angular.module('mps.utility')
         }
     };
 
-    Grid.prototype.cachePage = function(id, data, selections) {
+    Grid.prototype.cachePage = function(id, data, pagecnt, selections) {
         var cacheObj = {
             id: id,
-            data: data
+            data: data,
+            pagesize: pagecnt
         };
 
         if (selections) {
@@ -474,9 +475,9 @@ angular.module('mps.utility')
         self.searchCache(pageNumber, function(cache, cacheIndex) {
             if (!cache) {
                 if (self.currentSelectedRowIndex.length === 0) {
-                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data);
+                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, $rootScope.gridApi.grid.data.length);
                 } else {
-                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, self.currentSelectedRowIndex);
+                    self.cachePage(service.page.number,  $rootScope.gridApi.grid.data, $rootScope.gridApi.grid.data.length, self.currentSelectedRowIndex);
                 }
 
                 self.searchCache(pageNumber, function(cache) {
@@ -651,9 +652,11 @@ angular.module('mps.utility')
 
                 self.updateCache(service.page.number, service, function() {
                     self.searchCache(pageNumber, function(cache) {
-                        if (!cache) {
+                        if (!cache || (cache && cache.pagesize !== pageSize)) {
                             service.getPage(pageNumber, pageSize, scope.additionalParams).then(function() {
-                                self.cachePage(service.page.number, service.data);
+                                self.cachePage(service.page.number, service.data, service.page.size);
+                                cache.data = service.data;
+                                cache.pagesize = service.page.size;
                                 reloadService(cache);
                             }, function(reason) {
                                 NREUM.noticeError('failed Paging: ' + reason);
