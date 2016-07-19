@@ -48,6 +48,7 @@ angular.module('mps.serviceRequestDevices')
         }
 		$rootScope.newDevice = undefined;
         $scope.isLoading = false;
+        $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
         $rootScope.currentRowList = [];
         SRHelper.addMethods(Devices, $scope, $rootScope);
         $scope.setTransactionAccount('DeviceAdd', Devices);
