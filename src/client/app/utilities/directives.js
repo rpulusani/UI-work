@@ -384,7 +384,7 @@ angular.module('mps.utility')
                                 adjustSelectricWidth();
                             }
                             $('#maxWidthDiv').remove();
-                            $(that).siblings('.selectric').children('span.form__field__current-option').width(maxWidth);
+                            $(that).siblings('.selectric').children('span.form__field__current-option').width(maxWidth+10);
                             adjustAdjacentWIdth();
                         });
                     }

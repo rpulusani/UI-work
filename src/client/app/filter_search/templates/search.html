@@ -10,16 +10,16 @@
                     on-select="searchByColumn(option)">
             </div>
         </div>
-        <div class="floatL col-sm-1 col-md-2-3 col-lg-2-3">
+        <div class="floatL col-sm-1 col-md-2-3 col-lg-2-3 searchBarInput">
             <div class="row">
                 <div class="form__field form__field-btn">
-                    <div class="col-lg-11-12 col-md-11-12 col-sm-11-12 col-xs-7-8 floatL">
+                    <div class="floatL input-box">
                         <input type="text" ng-model="searchByValue" class="search-box"
                             ng-keydown="$event.keyCode == 13 && gridSearch()"
                             ng-keyup="($event.keyCode === 8 || $event.keyCode === 46) && showSearchMessage && searchByValue === '' && clearSearch()"/>
                         <a class="icon close-icon" ng-show="searchByValue" ng-click="clearSearch()">X</a>
                     </div>
-                    <div class="col-lg-1-12 col-md-1-12 col-sm-1-12 col-xs-1-8 floatL">
+                    <div class="selectricButton floatL">
                         <button class="search" ng-click="gridSearch()"><i class="icon icon--ui icon--search-secondary"></i></i></button>
                     </div>
                 </div>
