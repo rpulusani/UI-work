@@ -87,7 +87,7 @@
         <strong ng-class="{'form__field--required': !scratchSpace.oneOfFiveFieldsFilled}"
             ng-hide="device.deviceInstallQuestion === false" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_WHEN_WOULD_INSTALLED"></strong>
         <input datepicker type="text" ng-model="device.deviceInstallDate" date-val="device.deviceInstallDate"
-            ng-required="!scratchSpace.oneOfFiveFieldsFilled"/>
+            ng-required="!scratchSpace.oneOfFiveFieldsFilled" min="min" />
             <span ng-show="!scratchSpace.oneOfFiveFieldsFilled"
         class="form__field__helper-text form__field__helper-text--alert">
         <i class="icon icon--ui icon--error-small"></i> {{ 'REQUEST_MAN.REQUEST_DEVICE_REGISTER.ONE_OF_FIVE_ERROR_MESSAGE' | translate}}</span>
