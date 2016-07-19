@@ -558,7 +558,7 @@ angular.module('mps.serviceRequests')
             attachments:{
                 maxItems:2
             },
-            statusList: $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevelsShort)
+            statusList: $scope.setStatusBar($scope.sr.item.status, $scope.sr.item.statusDate, statusBarLevelsShort)
         };
 
         if ($scope.sr.type === 'SUPPLIES_PROACTIVE_ORDER') {
@@ -919,7 +919,8 @@ angular.module('mps.serviceRequests')
                 addSupplyOrderInfo();
                 $scope.configure.header.showUpdateBtn = false;
                 $scope.configure.header.showCancelBtn = false;
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                console.log('$scope.sr', $scope.sr);
+                $scope.configure.statusList = $scope.setStatusBar($scope.sr.item.status, $scope.sr.item.statusDate, statusBarLevels);
                 addTabsForBreakFix();
             break;
             case 'UPDATE_HARDWARE_REQUEST':
@@ -927,7 +928,7 @@ angular.module('mps.serviceRequests')
                 addDeviceOrderInfo();
                 $scope.configure.header.showUpdateBtn = false;
                 $scope.configure.header.showCancelBtn = false;
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                $scope.configure.statusList = $scope.setStatusBar($scope.sr.item.status, $scope.sr.item.statusDate, statusBarLevels);
                 addTabsForBreakFix();
             break;
             case 'DATA_ADDRESS_ADD':
@@ -1039,7 +1040,8 @@ angular.module('mps.serviceRequests')
             case 'HARDWARE_ORDER':
             case 'HARDWARE_ORDER_INSTALL':
                 $scope.configure.header.showUpdateBtn = true;
-                $scope.configure.statusList = $scope.setStatusBar($scope.sr.status, $scope.sr.statusDate, statusBarLevels);
+                console.log('$scope.sr', $scope.sr);
+                $scope.configure.statusList = $scope.setStatusBar($scope.sr.item.status, $scope.sr.item.statusDate, statusBarLevels);
                 addTabsForBreakFix();
             break;
             default:
