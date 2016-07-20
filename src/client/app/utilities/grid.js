@@ -628,7 +628,7 @@ angular.module('mps.utility')
                 var dataObj = personalize.data;
                 dataObj.itemsPerPage = option.items;
 
-                personalize.update(dataObj);
+                personalize.update($location.url(), dataObj);
 
                 this.gotoPage(0);
             },
