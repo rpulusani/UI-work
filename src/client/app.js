@@ -111,6 +111,7 @@ angular.module('mps', [
         viewMADC: 'VIEW_MADC_REQUESTS',
         moveMADC: 'MOVE_MADC_REQUEST',
         addMADC: 'ADD_MADC_REQUEST',
+        installMADC: 'INSTALL_MADC_DEVICE',
         deinstallMADC: 'DEINSTALL_MADC_REQUEST',
         decommissionMADC: 'DECOMMISSION_MADC_REQUEST',
         changeMADC: 'CREATE_MADC_CHANGE',
@@ -148,7 +149,7 @@ angular.module('mps', [
     }
 })
 .constant('tombstoneWaitTimeout', 1000)
-.constant('tombstoneCheckCount', 3)
+.constant('tombstoneCheckCount', 8)
 .config(function (SpringDataRestAdapterProvider) {
 
     // set the links key to _myLinks
@@ -282,6 +283,10 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
             permission: permissionSet.serviceRequestManagement.addMADC
         },
         {
+            name: 'installDevice',
+            permission: permissionSet.serviceRequestManagement.installMADC
+        },
+        {
             name: 'orderDevice',
             permission: permissionSet.serviceRequestManagement.orderHardware
         },
@@ -304,6 +309,10 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
         {
             name: 'contactAccess',
             permission: permissionSet.serviceRequestManagement.contactMADC
+        },
+        {
+            name: 'deinstallDevice',
+            permission: permissionSet.serviceRequestManagement.deinstallMADC
         },
         {
             name: 'decommissionAccess',

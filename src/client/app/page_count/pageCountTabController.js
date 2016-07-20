@@ -6,18 +6,19 @@ angular.module('mps.pageCount')
     '$scope',
     'SecurityHelper',
     '$location',
+    'MeterReadService',
     function(
         $rootScope,
         $scope,
         SecurityHelper,
-        $location
+        $location,
+        MeterReads
     ) {
     	
-    	if (!$rootScope.pageCountAccess){
-    		 $location.path('device_management');
-    		 return;
-    	}
-       // new SecurityHelper($rootScope).redirectCheck($rootScope.orderAccess);
+    	if (!MeterReads.item) {
+            $location.path('page_count');
+        }
+
         $scope.active = function(value){
             $rootScope.serviceTabSelected = value;
         };

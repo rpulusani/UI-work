@@ -79,6 +79,10 @@ input[type='checkbox'] + label {
     content: " **";
     color: @red;
 }
+input.ng-invalid-ip-code{
+    border-color: @red  !important;
+    color: @red !important;
+}
 form.ng-submitted{
     div[data-required$="false"]{
         border: 1px solid @red;
@@ -109,4 +113,22 @@ form.ng-submitted{
         word-break: break-all;
         padding-right: 10px;
     }  
+}
+.searchBarInput{
+    .form__field-btn{
+        .input-box{
+            width: ~'calc(100% - 40px)';
+            .icon{
+                left: ~'calc(100% - 68px)';
+            }
+        }
+        .search-box{
+             padding: 12px 30px 12px 10px;
+        }
+    }
+    .selectricButton{
+        .icon{
+            margin: -6px;
+        }
+    }
 }

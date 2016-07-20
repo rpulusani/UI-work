@@ -161,7 +161,7 @@ angular.module('mps.serviceRequests')
                 Users.item.links.contact().then(function() {
                     scope.device.requestedByContact = Users.item.contact.item;
                     ServiceRequest.addRelationship('requester', $rootScope.currentUser, 'contact');
-                        if (!scope.device.primaryContact) {
+                        if (!scope.device.primaryContact || (scope.device.primaryContact && scope.device.primaryContact.id && scope.device.primaryContact.id ==='No Match Row Id')) {
                             scope.device.primaryContact = scope.device.requestedByContact;
                             ServiceRequest.addRelationship('primaryContact', scope.device.requestedByContact, 'self');
                         }

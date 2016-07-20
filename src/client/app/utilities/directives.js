@@ -334,5 +334,69 @@ angular.module('mps.utility')
             resizeEmptyCircle();
         }
     }
+}])
+.directive('selectricWidth',['$timeout',function($timeout){
+    return {
+        link: function( scope, element, attrs ) {
+             $(window).resize(function(){
+                adjustSelectricWidth();
+            });
+            var counterCheck = 5;
+            function adjustAdjacentWIdth(){
+                if(!counterCheck){
+                    counterCheck = 5;
+                }
+                var parentWidth = element.parent().width();
+                var searchBarWidth = parentWidth - element.width();
+                if(parentWidth ===  element.width()){
+                    element.next().width("100%");
+                }else{
+                    element.next().width(searchBarWidth -1 );
+                }
+                counterCheck--;
+                if(!parentWidth && counterCheck>0){
+                    $timeout(function() {
+                        adjustAdjacentWIdth();
+                    }, 3000);
+                }
+            }
+            var adjustCheck = 8;
+            function adjustSelectricWidth(){
+                var flag = false;
+                element.children().children().children('div[selectric-width] .selectricItems').each(function(){
+                    flag = true;
+                    var maxWidth = 0;
+                    var maxText = '';
+                    var that = this;
+                    $(this).children('ul').children('li').each(function(){
+                        var curText = $(this).text();
+                        var curLen = curText.length;
+                        if(maxWidth<curLen){
+                            maxText = curText;
+                            maxWidth = curLen;
+                        }
+                    });
+                    if(maxWidth){
+                        $('body').append('<div id="maxWidthDiv" style="display:none">'+maxText+'</div>');
+                        $timeout(function(){
+                            maxWidth = $('#maxWidthDiv').width();
+                            if(maxWidth == 0){
+                                adjustSelectricWidth();
+                            }
+                            $('#maxWidthDiv').remove();
+                            $(that).siblings('.selectric').children('span.form__field__current-option').width(maxWidth+10);
+                            adjustAdjacentWIdth();
+                        });
+                    }
+                });
+                adjustCheck--;
+                if(!flag && adjustCheck>0){
+                    $timeout(function() {
+                        adjustSelectricWidth();
+                    }, 2000);   
+                }
+            }
+            adjustSelectricWidth();
+        }
+    }
 }]);
-
