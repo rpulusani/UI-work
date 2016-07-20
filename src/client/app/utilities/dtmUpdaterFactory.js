@@ -78,6 +78,20 @@ angular.module('mps.utility')
                     break;
             }
         }
+
+        s.prop20 = s.eVar20 = document.querySelector('meta[name="company-name"]').getAttribute('content');
+        s.prop21 = s.eVar21 = document.querySelector('meta[name="company-level"]').getAttribute('content');
+        s.prop28 = s.eVar28 = document.querySelector('meta[name="user-name"]').getAttribute('content');
+        s.prop29 = s.eVar29 = document.querySelector('meta[name="user-shortname"]').getAttribute('content');
+        s.prop30 = s.eVar30 = document.querySelector('meta[name="user-role"]').getAttribute('content');
+        s.prop22 = s.eVar22 = document.querySelector('meta[name="account-name"]').getAttribute('content');
+        s.prop23 = s.eVar23 = document.querySelector('meta[name="account-id"]').getAttribute('content');
+        s.prop24 = s.eVar24 = document.querySelector('meta[name="user-level"]').getAttribute('content');
+        s.prop25 = s.eVar25 = document.querySelector('meta[name="account-country"]').getAttribute('content');
+        s.prop26 = s.eVar26 = document.querySelector('meta[name="account-region"]').getAttribute('content');
+        s.prop27 = s.eVar27 = document.querySelector('meta[name="account-city"]').getAttribute('content');
+
+        s.t();
     };
 
     DTM.prototype.getTag = function(tagName) {
