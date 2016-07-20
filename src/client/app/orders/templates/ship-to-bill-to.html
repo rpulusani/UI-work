@@ -4,7 +4,7 @@
     <div class="row--alley-thick">
         <div class="col-1-3">
             <div class="well">
-            <div ng-if="orderInstall">
+            <div ng-if="orderInstall && type === 'HARDWARE'">
                     <div><strong translate="{{configure.installShipping.translate.installQuestion}}"></strong></div>
                     <div class="form__field form__field--no-margin">
                         <input type="radio"

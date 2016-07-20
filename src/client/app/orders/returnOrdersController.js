@@ -84,7 +84,9 @@ angular.module('mps.orders')
                     }
                 };
                 OrderTypes.get(options).then(function(){
-                        $scope.configure.order.returnSupplies.typeList = OrderTypes.getTranslated();
+                        $scope.configure.order.returnSupplies.typeList = OrderTypes.getTranslated().filter(function(item) {
+                           return item.value !== 'RETURN_SUPPLIES_ALL';
+                       });
                 });
                 $scope.configure.actions.translate.submit = 'ORDER_MAN.SUPPLY_ORDER_REVIEW.BTN_ORDER_SUBMINT_SUPPLIES';
                 $scope.configure.actions.submit = function(){

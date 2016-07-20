@@ -162,7 +162,7 @@ angular.module('mps', [
     if (!String.prototype.startsWith) {
         String.prototype.startsWith = function(searchString, position) {
             position = position || 0;
-            
+
             return this.substr(position, searchString.length) === searchString;
         };
     }
@@ -203,7 +203,7 @@ angular.module('mps', [
 function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet,
   FormatterService, CountryService, DTMUpdater) {
 
-    Gatekeeper.login({organization_id: '30', federation_redirect: 'true'});
+    Gatekeeper.login({organization_id: config.idp.organization_id, federation_redirect: config.idp.federation_redirect});
 
     $rootScope.idpUser = Gatekeeper.user;
     $rootScope.currentUser = {
@@ -497,7 +497,7 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
         	permission: permissionSet.userManagement.impersonate
         }
     ];
-    
+
     new SecurityHelper($rootScope).setupPermissionList($rootScope.configurePermissions);
 
     $q.all(security.requests).then(function(){

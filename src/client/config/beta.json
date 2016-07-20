@@ -3,7 +3,9 @@
   "config": {
     "idp": {
       "serviceUrl": "https://idp-staging.psft.co",
-      "clientId": "mps-portal"
+      "clientId": "mps-portal",
+      "organization_id": 30,
+      "federation_redirect": "true"
     },
     "portal": {
       "serviceUrl": "https://venus-beta.lexmark.com/mps/",

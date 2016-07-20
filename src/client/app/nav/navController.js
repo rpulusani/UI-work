@@ -284,6 +284,15 @@
         $scope.setActive = function(text){
 
         };
+
+        $rootScope.$on('$routeChangeSuccess', function(scope, next, current) {
+            if (current) {
+                if (next.loadedTemplateUrl && (!$rootScope.lastCheckedRoute || $rootScope.lastCheckedRoute !== next.loadedTemplateUrl)) {
+                    DTMUpdater.update();
+                    $rootScope.lastCheckedRoute = next.loadedTemplateUrl;
+                }
+            }
+        });
         
         //ensuring the site content area is always as big as possible while supporting autoscroll
         if (!$rootScope.windowResized) {

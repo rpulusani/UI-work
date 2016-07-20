@@ -2,8 +2,10 @@
   "languages_json": [ "en-US", "en" ],
   "config": {
     "idp": {
-    "serviceUrl": "https://idp-staging.psft.co",
-    "clientId": "mps-portal"
+    "serviceUrl": "https://idp-dev.iss.lxk.co",
+    "clientId": "0251eff42ed167867ad1aa9d6f22e01df21ddd9e7552847f860ad8da3e35ce0f",
+    "organization_id": 26,
+    "federation_redirect": "true"
     },
     "portal": {
       "serviceUrl": "https://venus-dev.lexmark.com/mps/",
@@ -14,4 +16,3 @@
   },
   "NEWRELICID":10059346
 }
-

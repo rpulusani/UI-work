@@ -8,6 +8,7 @@ angular.module('mps.utility')
     'grid',
     'UserService',
     'AccountService',
+    'UserTransactionalAccountsService',
     'BlankCheck',
     'FormatterService',
     '$rootScope',
@@ -26,6 +27,7 @@ angular.module('mps.utility')
         GridService,
         Users,
         Accounts,
+        UserTransactionalAccounts,
         BlankCheck,
         FormatterService,
         $rootScope,
@@ -131,8 +133,8 @@ angular.module('mps.utility')
 
         $scope.gridOptions = {};
         $scope.gridOptions.multiSelect = false;
-        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, Users, personal);
-       
+        $scope.gridOptions.onRegisterApi = Grid.getGridActions($rootScope, UserTransactionalAccounts, personal);
+
         	Accounts.page.totalElements = $scope.gridDataCnt;
        
         
