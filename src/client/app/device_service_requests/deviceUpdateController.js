@@ -214,6 +214,7 @@ angular.module('mps.serviceRequestDevices')
             var assetInfo = {
                 ipAddress: $scope.device.ipAddress,
                 hostName: $scope.device.hostName,
+                serialNumber: $scope.device.serialNumber,
                 assetTag: $scope.device.assetTag,
                 costCenter: $scope.device.costCenter,
                 physicalLocation1: $scope.device.addressSelected?$scope.device.currentInstalledAddress.building:$scope.device.updatedInstallAddress.building,
