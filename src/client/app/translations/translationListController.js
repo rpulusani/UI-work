@@ -27,8 +27,12 @@ angular.module('mps.translation')
         filterSearchService = new FilterSearchService(Translations, $scope, $rootScope, personal, 'defaultSet');
 
         $scope.view = function(translation){
-          Translations.setItem(translation);
-            Translations.item.get().then(function(){
+            Translations.setItem(translation);
+            var options = {
+                preventDefaultParams: true,
+                url: Translations.url + '/' + translation.subModule.subModuleName + '/' + translation.contentKey
+            };
+            Translations.item.get(options).then(function(){
                 $location.path(Translations.route + '/review');
             });
         };
