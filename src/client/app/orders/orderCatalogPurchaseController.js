@@ -118,8 +118,8 @@ angular.module('mps.orders')
                 rows.push('none');
             }
 
-            if ($scope.formattedNotes) {
-                rows.push($scope.formattedNotes);
+            if ($scope.formattedDescription) {
+                rows.push($scope.formattedDescription);
             } else {
                 rows.push('none');
             }
@@ -595,6 +595,7 @@ angular.module('mps.orders')
             }
 
             if (Orders.item){
+                    $scope.formattedDescription = FormatterService.formatNoneIfEmpty(Orders.item.description);
                     $scope.formattedExpedite = FormatterService.formatYesNo(Orders.item.expediteOrder);
                     $scope.formattedDeliveryDate = FormatterService.formatNoneIfEmpty(
                         FormatterService.formatDate(Orders.item.requestedDeliveryDate));
