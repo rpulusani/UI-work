@@ -2,9 +2,9 @@
   "languages_json": [ "en-US", "en" ],
   "config": {
     "idp": {
-      "serviceUrl": "	https://idp-staging.iss.lxk.co",
-      "clientId": "19bb5f19a1023c64a2edbe2de3edaccdce7378d4fb32574ee2b1137ac7e83df3",
-      "organization_id": 2,
+      "serviceUrl": "https://idp-staging.psft.co",
+      "clientId": "mps-portal",
+      "organization_id": 30,
       "federation_redirect": "true"
     },
     "portal": {
