@@ -46,6 +46,15 @@ angular.module('mps.serviceRequestDevices')
         if($rootScope.devicesNotFoundInPicker){
             Devices.item = $rootScope.deviceToRegisterInPicker;
         }
+
+        $scope.$on('$routeChangeSuccess', function(event, next, current) {
+            
+            if (current.originalPath === '/service_requests/devices/new' && next.originalPath === '/service_requests/devices/add/review') {
+
+               $scope.device.costCenter = $scope.device.deviceCostCenter;
+            }
+        });
+
 		$rootScope.newDevice = undefined;
         $scope.isLoading = false;
         $scope.min = FormatterService.formatLocalDateForRome(new Date());//This is used in date Picker
