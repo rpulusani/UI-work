@@ -7,6 +7,7 @@ angular.module('mps.queue')
                 serviceName: 'tombstones',
                 embeddedName: 'tombstones', //this is an issue with getting and receiving tombstone(s)
                 columns: 'defaultSet',
+                preventPersonalization: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
@@ -15,15 +16,32 @@ angular.module('mps.queue')
                             'searchOn': 'created', 
                             'notSearchable': true},
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_TYPE'), 'field':'kind'},
-                        {'name': $translate.instant('QUEUE.COMMON.COLUMN_REQUESTOR_NAME'),
-                            'field': 'requester.lastName', 
-                            'cellTemplate': '<div ng-bind="row.entity.getFullRequestorName()"></div>',
-                            'notSearchable': true},
-                        {'name': $translate.instant('QUEUE.COMMON.COLUMN_PRIMARY_CONTACT'),
-                            'field': 'primaryContact.lastName', 
-                            'cellTemplate': '<div ng-bind="row.entity.getFullPrimaryName()"></div>',                            
-                            'visible': true, 
-                            'notSearchable': true},
+                        {'name': $translate.instant('QUEUE.COMMON.COLUMN_REQUESTER_FIRST_NAME'),
+                            'field':'_embedded.requester.firstName',
+                            'searchOn':'requester.firstName',
+                            'cellTemplate':'<div ng-bind="row.entity._embedded.requester.firstName"></div>',
+                            'notSearchable': true
+                        },
+                        {'name': $translate.instant('QUEUE.COMMON.COLUMN_REQUESTER_LAST_NAME'), 
+                            'field':'_embedded.requester.lastName', 
+                            'searchOn':'requester.lastName',
+                            'cellTemplate':'<div ng-bind="row.entity._embedded.requester.lastName"></div>',
+                            'notSearchable': true
+                        },
+                        {'name': $translate.instant('QUEUE.COMMON.COLUMN_CONTACT_FIRST_NAME'),
+                            'field':'_embedded.primaryContact.firstName',
+                            'searchOn':'primaryContact.firstName',
+                            'cellTemplate':'<div ng-bind="row.entity._embedded.primaryContact.firstName"></div>',
+                            'visible': true,
+                            'notSearchable': true
+                        },
+                        {'name': $translate.instant('QUEUE.COMMON.COLUMN_CONTACT_LAST_NAME'), 
+                            'field':'_embedded.primaryContact.lastName', 
+                            'searchOn':'primaryContact.lastName',
+                            'cellTemplate':'<div ng-bind="row.entity._embedded.primaryContact.lastName"></div>',
+                            'visible': true,
+                            'notSearchable': true
+                        },
                         {'name': $translate.instant('QUEUE.COMMON.COLUMN_ACCOUNT'),
                             'field': '', visible: false, 'notSearchable': true}
                     ]

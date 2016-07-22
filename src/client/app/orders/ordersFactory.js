@@ -17,7 +17,11 @@ angular.module('mps.orders')
                                         '>{{row.entity.requestNumber}}</a>' +
                                     '</div>'
                         },
-                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'),
+                            'field': 'getFormattedCreateDate()', 
+                            'searchOn': 'createDate', 
+                            'notSearchable': true
+                        },
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300, 'notSearchable': true,
                             'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
                         },
@@ -40,7 +44,11 @@ angular.module('mps.orders')
                                     '</div>',
                             width: 150
                         },
-                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.DATE_TIME_CREATED'),
+                            'field': 'getFormattedCreateDate()', 
+                            'searchOn': 'createDate', 
+                            'notSearchable': true
+                        },
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', width: 300,'notSearchable': true,
                             'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
                         },
@@ -110,7 +118,7 @@ angular.module('mps.orders')
 						                '>{{row.entity.requestNumber}}</a>' +
 						            '</div>'
 						},
-                        {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'notSearchable': true},
+                        {'name': $translate.instant('ORDER_MGT.DATE'), 'field': 'getFormattedCreateDate()', 'searchOn':'createDate', 'notSearchable': true},
                         {'name': $translate.instant('ORDER_MGT.ORDER_TYPE'), 'field':'type', 'notSearchable': true,
                             'cellTemplate': '<span translate="SERVICE_REQUEST_COMMON.TYPES.{{row.entity.type}}"></span>'
                         },
