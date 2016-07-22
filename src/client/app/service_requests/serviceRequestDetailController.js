@@ -983,6 +983,7 @@ angular.module('mps.serviceRequests')
             break;
             case 'MADC_INSTALL':
             case 'MADC_INSTALL_AND_DECOMMISSION':
+            case 'INSTALL_BAU':
                 addDeviceInformation();
                 $scope.configure.receipt.translate.title = 'REQUEST_MAN.REQUEST_DEVICE_REGISTER_SUBMITTED.TXT_REGISTER_DEVICE_DETAILS';
                 $scope.configure.header.translate.h1 = 'DEVICE_SERVICE_REQUEST.ADD_DEVICE_REQUEST_NUMBER';

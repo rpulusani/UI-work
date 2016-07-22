@@ -8,5 +8,5 @@
 </div>
 <div class="form__field" ng-class="{'form__field--required':addUser}">
     <label translate="USER_MAN.COMMON.TXT_CONFIRM_PASSWORD"></label>
-    <input name="passwordConfirm" type="password" ng-model="user.passwordConfirm" value="" class=""   ng-required="addUser" />
+    <input confirm-pair-field link-field="user.password"  name="passwordConfirm" type="password" ng-model="user.passwordConfirm" value="" class=""   ng-required="addUser" />
 </div>

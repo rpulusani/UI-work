@@ -130,20 +130,20 @@ angular.module('mps.user')
             ],
             route: '/delegated_admin',
             languageOptions:function($translate){
-            	return [
-                 {name: $translate.instant('LANGUAGES.ENGLISH'), code:  'en_US'},
-                 {name: $translate.instant('LANGUAGES.GERMAN'), code:  'de_DE'},
-                 {name: $translate.instant('LANGUAGES.SPANISH'), code:  'es_ES'},
-                 {name: $translate.instant('LANGUAGES.FRENCH'), code:  'fr_FR'},
-                 {name: $translate.instant('LANGUAGES.ITALIAN'), code:  'it_IT'},
-                 {name: $translate.instant('LANGUAGES.PORTUGUESE_BRAZIL'), code:  'pt_BR'},
-                 {name: $translate.instant('LANGUAGES.PORTUGUESE_PORTUGAL'), code:  'pt_PT'},
-                 {name: $translate.instant('LANGUAGES.TURKISH'), code:  'tr_TR'},
-                 {name: $translate.instant('LANGUAGES.CHINESE_SIMPLIFIED'), code:  'zh_CN'},
-                 {name: $translate.instant('LANGUAGES.CHINESE_TRADITIONAL'), code:  'zh_TW'},
-                 {name: $translate.instant('LANGUAGES.RUSSIAN'), code:  'ru_RU'},
-                 {name: $translate.instant('LANGUAGES.KOREAN'), code:  'ko_KR'},
-                 {name: $translate.instant('LANGUAGES.JAPANESE'), code:  'ja_JP'},
+                   return [
+                {name: $translate.instant('LANGUAGES.ENGLISH'), code:  'EN'},
+                {name: $translate.instant('LANGUAGES.GERMAN'), code:  'DE'},
+                {name: $translate.instant('LANGUAGES.SPANISH'), code:  'ES'},
+                {name: $translate.instant('LANGUAGES.FRENCH'), code:  'IT'},
+                {name: $translate.instant('LANGUAGES.ITALIAN'), code:  'it_IT'},
+                {name: $translate.instant('LANGUAGES.PORTUGUESE_BRAZIL'), code:  'PT_BR'},
+                {name: $translate.instant('LANGUAGES.PORTUGUESE_PORTUGAL'), code:  'PT_PT'},
+                {name: $translate.instant('LANGUAGES.TURKISH'), code:  'TR'},
+                {name: $translate.instant('LANGUAGES.CHINESE_SIMPLIFIED'), code:  'ZH_CN'},
+                {name: $translate.instant('LANGUAGES.CHINESE_TRADITIONAL'), code:  'ZH_TW'},
+                {name: $translate.instant('LANGUAGES.RUSSIAN'), code:  'RU'},
+                {name: $translate.instant('LANGUAGES.KOREAN'), code:  'KO'},
+                {name: $translate.instant('LANGUAGES.JAPANESE'), code:  'JA'},
              ];
             }
         };

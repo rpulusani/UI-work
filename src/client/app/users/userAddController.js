@@ -19,6 +19,7 @@ angular.module('mps.user')
         $scope.showAllAccounts = false;
         $scope.accounts = [];
         $scope.languageOptions = UserAdminstration.languageOptions($translate);
+        $scope.errorMessage = false;
         var removeParams,
         addonRoleOptions = {
             'params': {
@@ -323,9 +324,20 @@ angular.module('mps.user')
             });
 
             deferred.then(function(result){
-                UserAdminstration.wasInvited = false;
-                UserAdminstration.wasSaved = true;
-                $location.path('/delegated_admin');
+                if(result.statusText === "Created" ){
+                    UserAdminstration.wasInvited = false;
+                    UserAdminstration.wasSaved = true;
+                    $location.path('/delegated_admin');
+                }
+                else if(result.statusText === "Internal Server Error"){
+                    $scope.errorUser = true;
+                    $scope.errorMessage = $translate.instant('USER_MAN.CREATE_USER.TXT_ERROR_CREATING_USER');
+                    $('.site-content').scrollTop(100);
+                    
+                }                
+                else{
+                    $location.path('/delegated_admin');
+                }
             }, function(reason){
                 NREUM.noticeError('Failed to create SR because: ' + reason);
             });

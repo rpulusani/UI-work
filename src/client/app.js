@@ -199,9 +199,9 @@ angular.module('mps', [
 })
 
 .run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
-  'FormatterService', 'CountryService', 'DTMUpdater',
+  'FormatterService', 'CountryService', 'DTMUpdater','$translate',
 function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet,
-  FormatterService, CountryService, DTMUpdater) {
+  FormatterService, CountryService, DTMUpdater,$translate) {
 
     Gatekeeper.login({organization_id: config.idp.organization_id, federation_redirect: config.idp.federation_redirect});
 
@@ -508,6 +508,7 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
         UserService.getLoggedInUserInfo().then(function(){
             // Construct a display name for rest of login session
             var user = $rootScope.currentUser;
+            $translate.use(user.preferredLanguage);
             $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
             CountryService.get();
 
