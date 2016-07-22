@@ -65,6 +65,7 @@ angular.module('mps.user')
 
             deferred.then(function(result){
                 $scope.showUserUpdatedMessage = true;
+                $translate.use(result.data.preferredLanguage);
                 $('.site-content').scrollTop(0,0);
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
