@@ -63,9 +63,11 @@ angular.module('mps.serviceRequests')
         		requestId:$scope.sr.requestNumber
         	}
         }).then(function(){
-        	console.log($scope.associateRequests);
         	$scope.gridLoading = false;
-        	if($scope.associateRequests.item._embedded && $scope.associateRequests.item._embedded.associatedServiceRequests){
+            if($scope.associateRequests.data){
+                processData();                
+            }
+        	else if($scope.associateRequests.item._embedded && $scope.associateRequests.item._embedded.associatedServiceRequests){
         		$scope.associateRequests.data = $scope.associateRequests.item._embedded.associatedServiceRequests;
         		processData();        		
         	}else {
@@ -76,8 +78,8 @@ angular.module('mps.serviceRequests')
         	Grid.display($scope.associateRequests,$scope,personal, 48);
         	
        });
-       
-        
+
+     
       $scope.view = function (SR){
     	  ServiceRequest.setItem(SR);
           var options = {
@@ -89,7 +91,7 @@ angular.module('mps.serviceRequests')
         	  var getItem = angular.copy(ServiceRequest.item.item);
         	  ServiceRequest.item = getItem;
         	  ServiceRequest.item.item = getItem;
-              $location.path(Orders.route + '/' + SR.requestId + '/receipt'); 
+              $location.path(Orders.route + '/' + SR.id + '/receipt'); 
               $location.search('tab','srDetailsActivitiesTab');
           });
       }  
@@ -99,7 +101,7 @@ angular.module('mps.serviceRequests')
     	  for(;i<$scope.associateRequests.data.length;i++){
     		  $scope.associateRequests.data[i]._links = {
     				  self: {
-    					  href: serviceUrl+'orders/'+$scope.associateRequests.data[i].requestId
+    					  href: serviceUrl+'orders/'+$scope.associateRequests.data[i].id
     				  }
     		  }
     	  }
