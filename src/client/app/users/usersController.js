@@ -27,7 +27,7 @@ angular.module('mps.user')
             $scope.fullName = formatter.getFullName($scope.user.firstName, $scope.user.lastName);
             if (UserAdminstration.wasSaved) {
                 $scope.saved = true;
-                UserAdminstration.saved = false;
+                UserAdminstration.wasSaved = false;
             }
 
             if (UserAdminstration.wasInvited) {
