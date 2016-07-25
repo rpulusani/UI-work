@@ -35,7 +35,8 @@ angular.module('mps.serviceRequests')
     	Shipments.newMessage();
     	Shipments.get({
         	params:{
-        		requestId:$scope.sr.requestNumber
+        		requestId:$scope.sr.requestNumber,
+                type: 'BREAK_FIX'
         	}
         }).then(function(){
         	$scope.gridLoading = false;
