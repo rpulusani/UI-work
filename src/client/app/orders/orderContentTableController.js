@@ -24,7 +24,7 @@ angular.module('mps.orders')
                                     'cellTemplate': '<span ng-if="!row.entity.childItems">{{row.entity.displayItemNumber}}</span>'+
                                          '<span ng-if="row.entity.childItems && row.entity.childItems.length > 0"> ' +
                                          '<span class="floatL" ng-repeat="part in row.entity.childItems">'+
-                                         '{{part.displayItemNumber}}'+ '<span ng-show=" ! $last ">'+','+ 
+                                         '{{part.displayItemNumber}}'+ '<span ng-show=" ! $last ">'+','+'&nbsp;'+ 
                                          '</span></span> </span>'
                                 },
         	                    {'name': $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
