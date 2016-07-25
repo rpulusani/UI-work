@@ -2,9 +2,9 @@
   "languages_json": [ "en-US", "en" ],
   "config": {
     "idp": {
-      "serviceUrl": "https://idp-staging.psft.co",
+      "serviceUrl": "https://idp.iss.lexmark.com",
       "clientId": "mps-portal",
-      "organization_id": 30,
+      "organization_id": 9,
       "federation_redirect": "true"
     },
     "portal": {
