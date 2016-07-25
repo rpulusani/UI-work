@@ -3,7 +3,7 @@
   "config": {
     "idp": {
       "serviceUrl": "https://idp.iss.lexmark.com",
-      "clientId": "mps-portal",
+      "clientId": "c918d39cd4560db85ab146f5e75cda15bcf30a17002d5d39e3c2e1eb1943ea06",
       "organization_id": 9,
       "federation_redirect": "true"
     },
