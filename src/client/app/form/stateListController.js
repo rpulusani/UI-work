@@ -67,7 +67,14 @@ angular.module('mps.form')
 
                  $scope.stateCode = CountryService.stateCode;
              }
-             
+             if($scope.provinceName){
+             	for(var x =0;x<$scope.countryService.item.provinces.length;x++){
+             		if($scope.countryService.item.provinces[x].name === $scope.provinceName){
+             			$scope.stateCode = $scope.countryService.item.provinces[x].code;
+             			break;
+             		}
+             	}
+             }
 		}
          
 ]);

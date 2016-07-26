@@ -228,6 +228,8 @@ angular.module('mps.serviceRequestAddresses')
         $scope.editAddress = function(addressType){
             $scope.checkedAddress = 0;
             $scope.needToVerify = false;
+            $scope.acceptedEnteredAddress = 'enteredAddress';
+            $scope.setAcceptedAddress();
             if(addressType === 'comparisonAddress'){
                 $scope.address.country = $scope.comparisonAddress.country;
                 $scope.address.addressLine1 = $scope.comparisonAddress.addressLine1;
@@ -257,6 +259,10 @@ angular.module('mps.serviceRequestAddresses')
         $scope.goToReview = function() {
             $scope.checkAddress();
             if($scope.canReview === true && $scope.checkedAddress === 1){
+                    if($scope.acceptedEnteredAddress==='comparisonAddress' && !$scope.address.state.trim() && $scope.comparisonAddress.province){
+                        $scope.address.state = $scope.comparisonAddress.region;
+                        $scope.address.addressCleansedFlag = 'Y';
+                    }
                 $location.path(Addresses.route + '/update/' + $scope.address.id + '/review');
             }
         };
@@ -312,7 +318,6 @@ angular.module('mps.serviceRequestAddresses')
             $scope.checkedAddress = 0;
             $scope.needToVerify = false;
             $scope.canReview = false;
-            $scope.address.addressCleansedFlag = 'N';
         }
         $scope.address.storeFrontQuestion = true;
         if (BlankCheck.isNullOrWhiteSpace($scope.address.storeFrontName)) {
