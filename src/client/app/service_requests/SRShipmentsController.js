@@ -33,9 +33,17 @@ angular.module('mps.serviceRequests')
     	};
     	//Carriers.query();// Need to queue this with the shipments call.
     	Shipments.newMessage();
+        $scope.sr.shiptype = "";
+        if($scope.sr.type.indexOf('BREAK_FIX') > -1){
+            $scope.sr.shiptype = "BREAK_FIX";
+        }
+        else{            
+            $scope.sr.shiptype = "ALL";
+        }
     	Shipments.get({
         	params:{
-        		requestId:$scope.sr.requestNumber
+        		requestId:$scope.sr.requestNumber,
+                type: $scope.sr.shiptype
         	}
         }).then(function(){
         	$scope.gridLoading = false;

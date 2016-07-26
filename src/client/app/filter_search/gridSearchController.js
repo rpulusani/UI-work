@@ -69,12 +69,12 @@ angular.module('mps.filterSearch')
             if($scope.searchBy === undefined && $scope.columnSet && $scope.columnSet.length > 0){
                 $scope.searchByColumn($scope.columnSet[0]);
             }
-            searchParams = $location.search();
+            // searchParams = $location.search();
 
-            if (searchParams.searchOn && searchParams.search) {
-                $scope.searchByValue = decodeURIComponent(searchParams.search);
-                $scope.searchBy = searchParams.searchOn;
-            }
+            // if (searchParams.searchOn && searchParams.search) {
+            //     $scope.searchByValue = decodeURIComponent(searchParams.search);
+            //     $scope.searchBy = searchParams.searchOn;
+            // }
 
             if($scope.searchBy && typeof $scope.search === 'function' && $scope.searchByValue){
             	$scope.params['search'] = encodeURIComponent($scope.searchByValue);

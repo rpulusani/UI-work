@@ -3,7 +3,7 @@
         <label  translate="{{stateLabel}}"></label>
         <select ng-model="stateCode" name="state" ng-change="provinceSelected(stateCode)" ng-required="stateOrPostalMandatory && !zipModel.length">
             <option value="" translate="LABEL.COMMON.SELECT" ng-selected="!stateCode"></option>
-            <option ng-repeat="state in countryService.item.provinces" value="{{ state.code }}" ng-selected="state.code === stateCode">
+            <option ng-repeat="state in countryService.item.provinces" value="{{ state.code }}" myvalue="{{ state.code }}" myProvince={{provinceName}} ng-selected="((stateCode==='' || stateCode === ' ' || stateCode === null) && provinceName && (state.name === provinceName)) || ((stateCode!='' || stateCode !=' ' || stateCode != null) && (state.code === stateCode))">
                 {{state.name}}
             </option>
         </select>

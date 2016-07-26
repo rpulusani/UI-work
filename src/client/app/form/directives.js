@@ -223,6 +223,7 @@ angular.module('mps.form')
     return {
         restrict: 'A',
         scope: {
+            provinceName: '= provinceName',
             stateCode: '=stateCode',
             zipMandatory:'=',
             stateOrPostalMandatory:'=',

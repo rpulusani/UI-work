@@ -149,6 +149,9 @@ angular.module('mps.user')
                     $scope.accountList.push(siebelAccount);
             } else {
                 User.getLoggedInUserInfo().then(function() {
+                if($rootScope.portalAdmin || $rootScope.lexmarkAdmin) {
+                    $scope.showAllAccounts = true;
+                }
                 if (User.item._links.accounts) {
                     if (angular.isArray(User.item._links.accounts)) {
                         var promises = [],
