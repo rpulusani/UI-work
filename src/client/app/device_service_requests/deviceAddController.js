@@ -665,8 +665,17 @@ angular.module('mps.serviceRequestDevices')
                     $scope.resetDevicePicker();
                 }
             } else if(ServiceRequest.item && Devices.item){
-                $scope.sr = ServiceRequest.item;
-                $scope.device = Devices.item;
+                if($rootScope.returnPickerObjectDevice){
+                    $scope.sr = $rootScope.returnPickerSRObjectDevice;
+                    $scope.device = $rootScope.returnPickerObjectDevice;
+                }
+                else{
+                    $scope.sr = ServiceRequest.item;
+                    $scope.device = Devices.item;
+                }
+                if(Devices.item !== $scope.device) {
+                    $scope.device.selectedDevice=Devices.item;
+                }
 
             } else {
                 $scope.device = {};
