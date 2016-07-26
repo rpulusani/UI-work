@@ -35,7 +35,8 @@ angular.module('mps.serviceRequests')
     	Shipments.newMessage();
     	Shipments.get({
         	params:{
-        		requestId:$scope.sr.requestNumber
+        		requestId:$scope.sr.requestNumber,
+                type: $scope.sr.type
         	}
         }).then(function(){
         	$scope.gridLoading = false;
