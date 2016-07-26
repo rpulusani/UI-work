@@ -53,7 +53,7 @@
         <label translate="ADDRESS.HOUSE_NUMBER"></label>
         <input name="houseNumber" type="text" ng-model="address.houseNumber" ng-required="address.countryIsoCode.toLowerCase() === 'br'" />
     </div>
-    <div form="updateAddress" state-code="address.state" 
+    <div form="updateAddress" province-name="address.province" state-code="address.state" 
     state-select zip-mandatory="address.zipMandatory" 
     state-or-postal-mandatory="address.stateOrPostalMandatory"
     zip-model="address.postalCode" country-model="address.countryIsoCode"></div>
