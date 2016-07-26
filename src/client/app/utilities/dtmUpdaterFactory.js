@@ -61,15 +61,15 @@ angular.module('mps.utility')
                     }
                     break;
                 case 'user-name':
-                    tag.content = $rootScope.currentUser.userId;
+                    tag.content = $rootScope.currentUser.firstname + ' ' + $rootScope.currentUser.lastname;
                     break;
                 case 'user-shortname':
-                    tag.content = $rootScope.currentUser.shortName;
+                    tag.content = $rootScope.currentUser.userid;
                     break;
                 case 'user-role':
                     tag.content = $rootScope.currentUser.firstName;
                     break;
-                case 'user-level':
+                case 'account-level':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountLevel;
                     }
@@ -86,7 +86,7 @@ angular.module('mps.utility')
         s.prop30 = s.eVar30 = document.querySelector('meta[name="user-role"]').getAttribute('content');
         s.prop22 = s.eVar22 = document.querySelector('meta[name="account-name"]').getAttribute('content');
         s.prop23 = s.eVar23 = document.querySelector('meta[name="account-id"]').getAttribute('content');
-        s.prop24 = s.eVar24 = document.querySelector('meta[name="user-level"]').getAttribute('content');
+        s.prop24 = s.eVar24 = document.querySelector('meta[name="account-level"]').getAttribute('content');
         s.prop25 = s.eVar25 = document.querySelector('meta[name="account-country"]').getAttribute('content');
         s.prop26 = s.eVar26 = document.querySelector('meta[name="account-region"]').getAttribute('content');
         s.prop27 = s.eVar27 = document.querySelector('meta[name="account-city"]').getAttribute('content');

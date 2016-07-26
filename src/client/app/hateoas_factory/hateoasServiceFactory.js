@@ -65,11 +65,11 @@ angular.module('mps.hateoasFactory')
 
             HATEAOSConfig.getApi(self.serviceName).then(function(api) {
                 self.url = api.url;
-                url = self.url + '/' + loginId;
-
+                url = self.url + '/' + loginId + '?embed=roles,accounts';
                 $http.get(url).then(function(processedResponse) {
                     var user = self.createItem(processedResponse.data);
                     // this should be working directly with UserService
+                    //DTM.update();
                     if (self.serviceName === 'users' && !self.item) {
                         self.item = user;
                     }
