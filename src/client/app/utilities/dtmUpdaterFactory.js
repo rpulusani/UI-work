@@ -4,9 +4,22 @@ angular.module('mps.utility')
     var DTM = function() {};
 
     DTM.prototype.update = function(currentUser, currentAccount, currentAddress) {
+        
         var metaTagArr = angular.element('[data-dtm]'),
         tag, // current meta tag reference, used in loop
-        i = 0;
+        i = 0, j = 0,
+        roles = [];
+
+        if ($rootScope.currentUser && 
+            $rootScope.currentUser._embedded && 
+            $rootScope.currentUser._embedded.roles &&
+            $rootScope.currentUser._embedded.roles.length > 0) {
+
+            for (j; j < $rootScope.currentUser._embedded.roles.length; j += 1) {
+                roles.push($rootScope.currentUser._embedded.roles[j].description);
+            }
+            roles.join(', ');
+        }
 
         for (i; i < metaTagArr.length; i += 1) {
             tag = metaTagArr[i];
@@ -33,8 +46,8 @@ angular.module('mps.utility')
                     }
                     break;
                 case 'account-geo':
-                    if ($rootScope.currentUser.address) {
-                        tag.content = $rootScope.currentUser.address.countryIsoCode;
+                    if ($rootScope.currentUser.geo) {
+                        tag.content = $rootScope.currentUser.geo;
                     }
                     break;
                 case 'account-country':
@@ -61,13 +74,13 @@ angular.module('mps.utility')
                     }
                     break;
                 case 'user-name':
-                    tag.content = $rootScope.currentUser.firstname + ' ' + $rootScope.currentUser.lastname;
+                    tag.content = $rootScope.currentUser.lastName + ',' + $rootScope.currentUser.firstName;
                     break;
                 case 'user-shortname':
-                    tag.content = $rootScope.currentUser.userid;
+                    tag.content = $rootScope.currentUser.userId;
                     break;
                 case 'user-role':
-                    tag.content = $rootScope.currentUser.firstName;
+                    tag.content = roles;
                     break;
                 case 'account-level':
                     if ($rootScope.currentAccount) {
