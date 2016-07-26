@@ -4,9 +4,22 @@ angular.module('mps.utility')
     var DTM = function() {};
 
     DTM.prototype.update = function(currentUser, currentAccount, currentAddress) {
+        
         var metaTagArr = angular.element('[data-dtm]'),
         tag, // current meta tag reference, used in loop
-        i = 0;
+        i = 0, j = 0,
+        roles = [];
+
+        if ($rootScope.currentUser && 
+            $rootScope.currentUser._embedded && 
+            $rootScope.currentUser._embedded.roles &&
+            $rootScope.currentUser._embedded.roles.length > 0) {
+
+            for (j; j < $rootScope.currentUser._embedded.roles.length; j += 1) {
+                roles.push($rootScope.currentUser._embedded.roles[j].description);
+            }
+            roles.join(', ');
+        }
 
         for (i; i < metaTagArr.length; i += 1) {
             tag = metaTagArr[i];
@@ -33,8 +46,8 @@ angular.module('mps.utility')
                     }
                     break;
                 case 'account-geo':
-                    if ($rootScope.currentUser.address) {
-                        tag.content = $rootScope.currentUser.address.countryIsoCode;
+                    if ($rootScope.currentUser.geo) {
+                        tag.content = $rootScope.currentUser.geo;
                     }
                     break;
                 case 'account-country':
@@ -61,15 +74,15 @@ angular.module('mps.utility')
                     }
                     break;
                 case 'user-name':
-                    tag.content = $rootScope.currentUser.userId;
+                    tag.content = $rootScope.currentUser.lastName + ',' + $rootScope.currentUser.firstName;
                     break;
                 case 'user-shortname':
-                    tag.content = $rootScope.currentUser.shortName;
+                    tag.content = $rootScope.currentUser.userId;
                     break;
                 case 'user-role':
-                    tag.content = $rootScope.currentUser.firstName;
+                    tag.content = roles;
                     break;
-                case 'user-level':
+                case 'account-level':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountLevel;
                     }
@@ -86,7 +99,7 @@ angular.module('mps.utility')
         s.prop30 = s.eVar30 = document.querySelector('meta[name="user-role"]').getAttribute('content');
         s.prop22 = s.eVar22 = document.querySelector('meta[name="account-name"]').getAttribute('content');
         s.prop23 = s.eVar23 = document.querySelector('meta[name="account-id"]').getAttribute('content');
-        s.prop24 = s.eVar24 = document.querySelector('meta[name="user-level"]').getAttribute('content');
+        s.prop24 = s.eVar24 = document.querySelector('meta[name="account-level"]').getAttribute('content');
         s.prop25 = s.eVar25 = document.querySelector('meta[name="account-country"]').getAttribute('content');
         s.prop26 = s.eVar26 = document.querySelector('meta[name="account-region"]').getAttribute('content');
         s.prop27 = s.eVar27 = document.querySelector('meta[name="account-city"]').getAttribute('content');
