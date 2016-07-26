@@ -461,6 +461,9 @@ angular.module('mps.serviceRequestAddresses')
             $scope.goToReview = function() {
                 $scope.checkAddress();
                 if($scope.canReview === true && $scope.checkedAddress === 1){
+                    if($scope.acceptedEnteredAddress==='comparisonAddress' && !$scope.address.state.trim() && $scope.comparisonAddress.province){
+                        $scope.address.state = $scope.comparisonAddress.region;
+                    }
                     Addresses.item = $scope.address;
                     $rootScope.newAddress = $scope.address;
                     $location.path(Addresses.route + '/add/review');

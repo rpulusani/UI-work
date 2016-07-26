@@ -162,7 +162,7 @@ angular.module('mps.user')
             $scope.user.permissions = [];
             $scope.user.selectedRoleList = [];
             $scope.userActive = false;
-            $scope.showAllAccounts = true;
+            $scope.showAllAccounts = false;
             $scope.csvAcntArr = [];
 
             if ($scope.user.active === true) {
@@ -212,8 +212,10 @@ angular.module('mps.user')
             
 
             User.getLoggedInUserInfo().then(function() {
+                if($rootScope.portalAdmin || $rootScope.lexmarkAdmin) {
+                    $scope.showAllAccounts = true;
+                }
                 if (User.item._links.accounts) {
-                    $scope.showAllAccounts = false;
                     if (angular.isArray(User.item._links.accounts)) {
                         var promises = [],
                         options = {},
@@ -254,6 +256,9 @@ angular.module('mps.user')
                             }
                         });
                     }
+                }
+                else {
+                    $scope.showAllAccounts = true;
                 }
 
             });

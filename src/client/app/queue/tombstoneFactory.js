@@ -8,6 +8,7 @@ angular.module('mps.queue')
                 embeddedName: 'tombstones', //this is an issue with getting and receiving tombstone(s)
                 columns: 'defaultSet',
                 preventPersonalization: true,
+                enableServerSorting: false,
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},

@@ -34,6 +34,10 @@ angular.module('mps.utility')
         return function( gridApi ) {
             $rootScope.gridApi = gridApi;
 
+            if(service.enableServerSorting !== undefined && 
+                service.enableServerSorting !== null) {
+                self.enableServerSort = service.enableServerSorting;
+            }
             if (self.enableServerSort) {
                 $rootScope.gridApi.core.on.sortChanged($rootScope, function(grid, sortColumns) {
                     var direction,
