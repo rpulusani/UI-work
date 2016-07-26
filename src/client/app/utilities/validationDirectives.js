@@ -190,4 +190,20 @@ angular.module('mps.utility')
             ctrl.$parsers.push(confirmPairFieldValidation);
         }
     }
+})
+.directive('passwordLengthCheck',function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, passwordLengthCtrl) {
+            function passwordLengthValidation(value) {
+                if (value.length >= 8) {
+                    passwordLengthCtrl.$setValidity('passwordLength', true);
+                } else {
+                    passwordLengthCtrl.$setValidity('passwordLength', false);
+                }
+                return value;
+            }
+            passwordLengthCtrl.$parsers.push(passwordLengthValidation);
+        }
+    };
 });

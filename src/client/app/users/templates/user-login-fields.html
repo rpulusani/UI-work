@@ -3,10 +3,10 @@
     <input name="email" type="text" ng-model="user.email" value="" class="" required email-valid/>
 </div>
 <div class="form__field" ng-class="{'form__field--required':addUser}">
-    <label translate="USER_MAN.COMMON.TXT_PASSWORD"></label>
-    <input name="password" type="password" ng-model="user.password" value="" class="" ng-required="addUser" />
+    <label class="inlineBlock" translate="USER_MAN.COMMON.TXT_PASSWORD"></label><span translate="USER_MAN.COMMON.TXT_MIN_PASSWORD_LENGTH"></span>
+    <input password-length-check name="password" type="password" ng-model="user.password" value="" class="" ng-required="addUser" />
 </div>
 <div class="form__field" ng-class="{'form__field--required':addUser}">
     <label translate="USER_MAN.COMMON.TXT_CONFIRM_PASSWORD"></label>
-    <input confirm-pair-field link-field="user.password"  name="passwordConfirm" type="password" ng-model="user.passwordConfirm" value="" class=""   ng-required="addUser" />
+    <input password-length-check confirm-pair-field link-field="user.password"  name="passwordConfirm" type="password" ng-model="user.passwordConfirm" value="" class=""   ng-required="addUser" />
 </div>
