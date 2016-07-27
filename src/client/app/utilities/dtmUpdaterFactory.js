@@ -26,23 +26,29 @@ angular.module('mps.utility')
 
             switch (tag.name) {
                 case 'company-name':
-                    if ($rootScope.currentAccount) {
-                        tag.content = $rootScope.currentAccount.name;
+                    if ($rootScope.globalAccount) {
+                        tag.content = $rootScope.globalAccount.name;
                     }
                     break;
                 case 'company-level':
-                    if ($rootScope.currentAccount) {
-                        tag.content = $rootScope.currentAccount.accountLevel;
+                    if ($rootScope.globalAccount) {
+                        tag.content = $rootScope.globalAccount.level;
                     }
                     break;
                 case 'account-name':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.name;
                     }
+                    else if($rootScope.singleTransactionalAccount){
+                        tag.content = $rootScope.singleTransactionalAccount.name;
+                    }
                     break;
                 case 'account-id':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountId;
+                    }
+                    else if($rootScope.singleTransactionalAccount){
+                        tag.content = $rootScope.singleTransactionalAccount.accountId;
                     }
                     break;
                 case 'account-geo':
@@ -85,6 +91,9 @@ angular.module('mps.utility')
                 case 'account-level':
                     if ($rootScope.currentAccount) {
                         tag.content = $rootScope.currentAccount.accountLevel;
+                    }
+                    else if($rootScope.singleTransactionalAccount){
+                        tag.content = $rootScope.singleTransactionalAccount.level;
                     }
                     break;
                 default:
