@@ -198,9 +198,9 @@ angular.module('mps', [
     GatekeeperProvider.protect(adminUrl);
 })
 
-.run(['Gatekeeper', '$rootScope', '$cookies','$q', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
+.run(['Gatekeeper', '$http', '$rootScope', '$cookies','$q', 'AccountService', 'UserService','SecurityService', 'SecurityHelper', 'permissionSet',
   'FormatterService', 'CountryService', 'DTMUpdater','$translate',
-function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, SecurityHelper, permissionSet,
+function(Gatekeeper, $http, $rootScope, $cookies, $q, AccountService, UserService, SecurityService, SecurityHelper, permissionSet,
   FormatterService, CountryService, DTMUpdater,$translate) {
 
     Gatekeeper.login({organization_id: config.idp.organization_id, federation_redirect: config.idp.federation_redirect});
@@ -511,8 +511,21 @@ function(Gatekeeper, $rootScope, $cookies, $q, UserService, SecurityService, Sec
             $translate.use(user.preferredLanguage);
             $rootScope.currentUser.displayName = FormatterService.getFullName(user.firstName, user.lastName);
             CountryService.get();
-
-            DTMUpdater.update($rootScope.currentUser, $rootScope.currentAccount);
+            var userAccount = user.accounts[0];
+            $http.get(AccountService.url + '/' + userAccount.accountId + "?accountLevel="+userAccount.level+"&embed=globalAccount").success(function(data){
+                if(data._embedded && data._embedded.globalAccount){
+                    $rootScope.globalAccount = data._embedded.globalAccount;
+                }
+                else if(userAccount.level === 'global'){
+                    $rootScope.globalAccount = userAccount;
+                }
+                UserService.getTransactionalAccounts().then(function(res) {
+                    if(res._embedded.transactionalAccounts.length == 1 || !$rootScope.currentAccount){
+                        $rootScope.singleTransactionalAccount = res._embedded.transactionalAccounts[0].account;
+                    }
+                    DTMUpdater.update($rootScope.currentUser, $rootScope.globalAccount);
+                });
+            });
         });
     }, function(reason) {
         NREUM.noticeError('IDP User failed to load for app.js reason: ' + reason);
