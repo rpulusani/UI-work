@@ -171,8 +171,7 @@
                         }
 
                         $route.reload();
-
-                        DTMUpdater.update($rootScope.currentUser, $rootScope.currentAccount, Addresses);
+                        DTMUpdater.update($rootScope.currentUser, $rootScope.globalAccount, Addresses);
                     }, 0);
                 });
             });
