@@ -15,6 +15,7 @@ angular.module('mps.serviceRequests')
             $location.search('tab', value);
             return false;
         };
+        
         $scope.shipmentCount = 0;
         $scope.serviceActivitiesCount = 0;
         $scope.associatedRequestsCount = 0;
@@ -27,8 +28,8 @@ angular.module('mps.serviceRequests')
             return passed;
         };
 
+        $scope.active('srDetailsAssociateRequestsTabl'); 
         var tabId = $location.search().tab;
-        
         if(tabId){
             $rootScope.currentSRTab = tabId;
             $scope.isActive(tabId);
