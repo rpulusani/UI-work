@@ -574,8 +574,12 @@ angular.module('mps.serviceRequestDevices')
         if($scope.inTransactionalAccountContext()){
             $scope.goToReview = function() {
                 if(!$scope.isLoading) {
-                    $scope.isLoading = true;
-                    if (BlankCheck.isNull($scope.device.address) || BlankCheck.isNull($scope.device.deviceContact)) {
+                    $scope.isLoading = true;                    
+                    
+                    if (BlankCheck.isNull($scope.device.address) || 
+                        (!BlankCheck.isNull($scope.device.address) && 
+                         BlankCheck.isNull($scope.device.address.addressLine1)) ||
+                        BlankCheck.isNull($scope.device.deviceContact)) {
                         $scope.errorAddressContact = true;
                         $scope.errorMessage = $translate.instant('REQUEST_MAN.REQUEST_DEVICE_REGISTER.SELECT_ADDRESS_CONTACT_ERROR');
                         $('.site-content').scrollTop($('.page-header').height());
