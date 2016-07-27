@@ -211,6 +211,7 @@ angular.module('mps.serviceRequestAddresses')
                 $scope.address.addressLine2 = $scope.comparisonAddress.addressLine2;
                 $scope.address.city = $scope.comparisonAddress.city;
                 $scope.address.state = $scope.comparisonAddress.state;
+                $scope.address.region = $scope.comparisonAddress.region;
                 $scope.address.postalCode = $scope.comparisonAddress.postalCode;
                 $scope.address.addressCleansedFlag = 'Y';
             } else {
@@ -262,6 +263,7 @@ angular.module('mps.serviceRequestAddresses')
                     if($scope.acceptedEnteredAddress==='comparisonAddress' && !$scope.address.state.trim() && $scope.comparisonAddress.province){
                         $scope.address.state = $scope.comparisonAddress.region;
                         $scope.address.addressCleansedFlag = 'Y';
+                        $scope.address.region = $scope.comparisonAddress.region;
                     }
                 $location.path(Addresses.route + '/update/' + $scope.address.id + '/review');
             }
@@ -346,6 +348,9 @@ angular.module('mps.serviceRequestAddresses')
                 postalCode: $scope.address.postalCode,
                 addressCleansedFlag: $scope.address.addressCleansedFlag
             };
+            if($scope.address.addressCleansedFlag === 'Y'){
+                destinationAddress.region = $scope.address.region;
+            }
             ServiceRequest.addField('destinationAddress', destinationAddress);
             ServiceRequest.addField('attachments', $scope.files_complete);
         };

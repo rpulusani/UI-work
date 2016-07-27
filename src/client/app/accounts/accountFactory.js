@@ -1,10 +1,11 @@
 
 angular.module('mps.account')
-.factory('AccountService', ['HATEOASFactory', '$translate',
-    function(HATEOASFactory, $translate) {
+.factory('AccountService', ['serviceUrl','HATEOASFactory', '$translate',
+    function(serviceUrl, HATEOASFactory, $translate) {
         var Account = {
             serviceName: 'accounts',
             embeddedName: 'accounts',
+            url: serviceUrl + 'accounts',
             route: '',
             columns: 'defaultSet',
             columnDefs: {
