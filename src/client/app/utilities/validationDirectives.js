@@ -180,6 +180,9 @@ angular.module('mps.utility')
                 confirmPairFieldValidation();
             });
             function confirmPairFieldValidation(){
+                if(!$(elem).val() && !scope.$eval(attr.linkField)){
+                    return true;
+                }
                 if ($(elem).val() === scope.$eval(attr.linkField)) {
                     ctrl.$setValidity('confirmField', true);
                 } else {
