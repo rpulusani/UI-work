@@ -1,12 +1,17 @@
 angular.module('mps.library')
-.controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
-    function($scope, $location, $translate, $route, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
+.controller('LibraryListController', ['$scope', '$location', '$translate', '$route', '$routeParams', '$http', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', 'FormatterService', 'FilterSearchService', 'SecurityHelper',
+    function($scope, $location, $translate, $route, $routeParams, $http, Documents, GridService, $rootScope, Personalize, formatter, FilterSearchService, SecurityHelper) {
         $translate.refresh();
         $rootScope.currentRowList = [];
         $scope.visibleColumns = [];
         if(!$rootScope.documentLibraryAccess){
             new SecurityHelper($rootScope).confirmPermissionCheck("documentLibraryAccess");    
         }
+        if($routeParams.status && $routeParams.fileName && $routeParams.status === "addSuccess"){
+            $scope.addSuccess = true;
+            $scope.phDocumentName = $routeParams.fileName;
+        }
+
         var personal = new Personalize($location.url(), $rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
@@ -15,7 +20,8 @@ angular.module('mps.library')
 
         $scope.deleteSuccess = false;
         Documents.setParamsToNull();
-        if (Documents.item) {     
+        if (Documents.item) {   
+        $('.site-content').scrollTop(0,0);  
             if (Documents.isDeleted) {
                 $scope.deleteSuccess = true;
                 Documents.isDeleted = false;
