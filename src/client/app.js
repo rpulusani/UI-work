@@ -541,7 +541,11 @@ function(Gatekeeper, $http, $rootScope, $cookies, $q, AccountService, UserServic
 
     $rootScope.showDashboardNotification = true;
 
-    $rootScope.logout = Gatekeeper.logout;
+    $rootScope.logout = function() {
+        Gatekeeper.logout;
+        delete $cookies['impersonateToken'];
+        delete $cookies['impersonateUrl'];
+    };
 }])
 
 .config(['$translateProvider', '$routeProvider', '$locationProvider', '$httpProvider',
