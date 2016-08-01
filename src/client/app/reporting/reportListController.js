@@ -15,6 +15,32 @@ angular.module('mps.report')
             if (Reports.item.id === 'mp9058sp') {
                 $scope.print = false;
             }
+            if (Reports.item.id === 'mp9073') {
+                $scope.print = false;
+            }
+            if (Reports.item.id === 'mp0075') {
+                $scope.print = false;
+            }
+            if (Reports.item.id === 'mp0021') {
+                $scope.print = false;
+            }
+            if (Reports.item.id === 'hw0008') {
+                $scope.print = false;
+            }
+            if (Reports.item.id === 'pb0001') {
+                $scope.print = false;
+            }
+            if (Reports.item.id === 'hw0015') {
+                $scope.print = false;
+            }
+            if (Reports.item.id === 'sd0101') {
+                $scope.print = false;
+            }
+            
+            
+            
+            
+            
 
             configureTemplates();
             configureFinderType();
