@@ -47,6 +47,7 @@ angular.module('mps.serviceRequestDevices')
             Devices.item = $rootScope.deviceToRegisterInPicker;
         }
 
+        $scope.errorAddressContact = false;
         $scope.$on('$routeChangeSuccess', function(event, next, current) {
             
             if (current.originalPath === '/service_requests/devices/new' && next.originalPath === '/service_requests/devices/add/review') {
@@ -572,6 +573,20 @@ angular.module('mps.serviceRequestDevices')
 
         if($scope.inTransactionalAccountContext()){
             $scope.goToReview = function() {
+                if(!$scope.isLoading) {
+                    $scope.isLoading = true;                    
+                    
+                    if (BlankCheck.isNull($scope.device.address) || 
+                        (!BlankCheck.isNull($scope.device.address) && 
+                         BlankCheck.isNull($scope.device.address.addressLine1)) ||
+                        BlankCheck.isNull($scope.device.deviceContact)) {
+                        $scope.errorAddressContact = true;
+                        $scope.errorMessage = $translate.instant('REQUEST_MAN.REQUEST_DEVICE_REGISTER.SELECT_ADDRESS_CONTACT_ERROR');
+                        $('.site-content').scrollTop($('.page-header').height());
+                        $scope.isLoading = false;
+                        return;
+                    }
+                }
                 $rootScope.newDevice = $scope.device;
                 $location.path(DeviceServiceRequest.route + '/add/review');
                 $scope.setupTemplates(configureTemplates, configureReceiptTemplate, configureReviewTemplate);
