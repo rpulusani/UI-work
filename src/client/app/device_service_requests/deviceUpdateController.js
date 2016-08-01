@@ -305,7 +305,7 @@ angular.module('mps.serviceRequestDevices')
         function configureReviewTemplate(){
             if (Devices.updatingMultiple) {
                 for (var k=0; k < Devices.data.length; k += 1) {
-                    Devices.data[k].multipleCostCenter = $scope.device.multipleCostCenter;
+                    Devices.data[k].multipleCostCenter = $scope.devices[0].multipleCostCenter;
                     if($rootScope.currentSelected === 'updateDeviceContact')
                         $scope.configure.updatingMultiple[k]._embedded.contact = $rootScope.selectedContact;
 
