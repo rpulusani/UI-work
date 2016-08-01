@@ -249,8 +249,11 @@ angular.module('mps.library')
                 }).then(function successCallback(response) {
                     response.data.uploadSuccess = true;
                     Documents.setItem(response.data);
+                    $scope.documentItem = Documents.item;
+                    $scope.phDocumentName = $scope.documentItem.name;
 
-                    $location.path(Documents.route + "/" + Documents.item.id + "/update");
+                    $location.path(Documents.route + "/" + $scope.phDocumentName + "/addSuccess"); // Document added successfully
+                    ///$location.path(Documents.route + "/" + Documents.item.id + "/update");
                 }, function errorCallback(response) {
                     NREUM.noticeError('Failed to UPLOAD new document library file: ' + response.statusText);
                 });

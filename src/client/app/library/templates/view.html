@@ -14,6 +14,10 @@
             <div class="well" ng-show="deleteSuccess === true">
                 <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOC_DELETED"></p>
             </div>
+            <div class="well" ng-show="addSuccess">
+                <p translate="DOCUMENT_LIBRARY.MANAGING_DOCUMENT.TXT_DOCUMENT_ADDED" translate-values="{ fileName: phDocumentName }"></p>
+            </div>
+            
             <div class="col-1 btns">
                 <button ng-if="documentLibraryUploadAccess" type="button" class="btn btn--default" href="" ng-click="goToNew()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_ADD_NEW_DOC"></button>
                 <button ng-if="documentLibraryManageGlobalTagAccess" type="button" class="btn btn--default" href="" ng-click="goToManageTags()" translate="DOCUMENT_LIBRARY.DOCUMENT_LISTING.BTN_MANAGE_TAGS"></button>

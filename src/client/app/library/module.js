@@ -44,5 +44,10 @@ angular.module('mps.library', []).config(['$routeProvider', function ($routeProv
         templateUrl: '/app/library/templates/library-tags.html',
         activeItem: '/library',
         controller: 'LibraryTagController'
+    })
+    .when('/library/:fileName/:status', {
+        templateUrl: '/app/library/templates/view.html',
+        activeItem: '/library',
+        controller: 'LibraryListController'
     });
 }]);
