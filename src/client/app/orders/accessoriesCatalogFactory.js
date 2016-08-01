@@ -81,7 +81,7 @@ angular.module('mps.orders')
 
                 getSingleThumbnail: function(item){
                     var self = this;
-                    var thumbService = ImageService.getPartStandardImageUrl(item.itemNumber);
+                    var thumbService = ImageService.getPartStandardImageUrl(item.displayItemNumber);
                     self.thumbnails.push(thumbService);
                     thumbService.then(function(url){
                         item.imageUrl = url;
