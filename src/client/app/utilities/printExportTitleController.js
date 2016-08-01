@@ -119,6 +119,11 @@ angular.module('mps.utility')
         }
 
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
+
+            if(ctrlScope.queueditem === true){
+              $scope.displayPrint = false;
+              $scope.displayExport = false;
+            }
             if ($scope.titlestring && attrs.titleCount !== false && ctrlScope.pagination) {
                 $scope.titleValues = {
                     total: Math.max(0, ctrlScope.pagination.totalItems())
