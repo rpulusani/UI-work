@@ -248,7 +248,7 @@ angular.module('mps.report')
             $scope.chartObject.madc.data = {
                 "cols": [
                     {id: "t", label: "MADC", type: "string"},
-                    {id: "s", label: "Month", type: "number" },
+                    {id: "s", label: "", type: "number" },
                     {role: "style", type: "string"}
                 ],
                 "rows": [
