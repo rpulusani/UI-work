@@ -573,6 +573,7 @@ angular.module('mps.report')
         };
 
         Documents.columns = Documents.columnDefs['otherReports'];
+        Documents.preventPersonalization = true;
         Documents.get({
             params: {
                 page: 0,

@@ -11,6 +11,7 @@ angular.module('mps.library')
         filterSearchService = new FilterSearchService(Documents, $scope, $rootScope, personal, $scope.columnSet, 160);
 
         Documents.columns = Documents.columnDefs.defaultSet;
+        Documents.preventPersonalization = false;
 
         $scope.deleteSuccess = false;
         Documents.setParamsToNull();
