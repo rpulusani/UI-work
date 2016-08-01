@@ -110,6 +110,9 @@
             }
 
             $scope.dropdownItem = item;
+            $timeout(function(){
+                resizeSiteContent();
+            },10);
         };
 
         $scope.dropdownNonAccount = function(item) {
