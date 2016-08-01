@@ -29,7 +29,7 @@ angular.module('mps.orders')
             return passed;
         };
         var tabId = $location.search().tab;
-        if(tabId){
+        if(tabId && ['orderAllTab','deviceOrderTab','supplyOrderTab'].indexOf(tabId) >= 0){
             $rootScope.currentOrderTab = tabId;
             $scope.isActive(tabId);
         }else{
