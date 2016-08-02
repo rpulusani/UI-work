@@ -343,13 +343,20 @@ angular.module('mps.deviceManagement')
                 static: true
             });
         }
+        $scope.configure = {
+                   button : {
+                       name : 'DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE'  
+                   }       
+           }
+        $scope.isLoading=false;
         
         $scope.saveMeterReads = function() {
         /*
         desc:   Loops through all meter reads and submits put requests
                 for all that were updated (bulk update)
         */
-            var limit, i;
+			$scope.isLoading=true;            
+			var limit, i;
             $scope.errorMessage='';
             $scope.warnMessage='';
             if($scope.meterReads){
@@ -400,6 +407,7 @@ angular.module('mps.deviceManagement')
                             errorMessage[i] = validateCommonLtpcColorMR(meterRead.value, meterRead.newVal, $scope.meterReads[i].type);                            
 
                             if(errorMessage[i].length > 0) {
+								$scope.isLoading=false;
                                 $scope.errorMessage = errorMessage[i];
                                 return;                         
                             }
@@ -413,6 +421,7 @@ angular.module('mps.deviceManagement')
                             errorMessage[i] = validateCommonOtherMR(meterRead.value, meterRead.newVal, $scope.meterReads[i].type);
 
                             if(errorMessage[i].length > 0) {
+                                $scope.isLoading=false;
                                 $scope.errorMessage = errorMessage[i];
                                 return;                         
                             }
@@ -426,6 +435,7 @@ angular.module('mps.deviceManagement')
                             errorMessage[i] = validateCommonOtherMR(meterRead.value, meterRead.newVal, $scope.meterReads[i].type);
 
                             if(errorMessage[i].length > 0) {
+                                $scope.isLoading=false;
                                 $scope.errorMessage = errorMessage[i];
                                 return;                         
                             }
@@ -441,6 +451,7 @@ angular.module('mps.deviceManagement')
                             errorMessage[i] = validateMeterReadDate(oldDate, $scope.meterReads[i].newDate);
 
                             if(errorMessage[i].length > 0) {
+                                $scope.isLoading=false;
                                 $scope.errorMessage = errorMessage[i];
                                 return;                         
                             }
@@ -458,6 +469,7 @@ angular.module('mps.deviceManagement')
                         errorMessage[i] = validateRequiredLtpcColorMR(colorMeterRead, ltpcMeterRead, $scope.meterReads[i].type);
                         
                         if(errorMessage[i].length > 0) {
+                            $scope.isLoading=false;
                             $scope.errorMessage = errorMessage[i];
                             return;                         
                         } 
@@ -467,6 +479,7 @@ angular.module('mps.deviceManagement')
                         errorMessage[i] = validateRequiredOtherMR(otherColorMeterRead, otherLtpcMeterRead, $scope.meterReads[i].type);
                         
                         if(errorMessage[i].length > 0) {
+                            $scope.isLoading=false;
                             $scope.errorMessage = errorMessage[i];
                             return;                         
                         } 
@@ -512,6 +525,7 @@ angular.module('mps.deviceManagement')
                 }                
                
                 if(meterReadCnt === totalMRCount) {
+                    $scope.isLoading=false;
                     $scope.errorMessage = "Please enter value at least in one page count type.";
                     return; 
                 }
@@ -526,6 +540,7 @@ angular.module('mps.deviceManagement')
                 }
 
                 if($scope.warnMessage.length > 0) {
+                    $scope.isLoading=true;
                     $scope.popupMsg = $scope.warnMessage;
                     createModal();
                 }    
@@ -571,6 +586,7 @@ angular.module('mps.deviceManagement')
             }
             // submit the request
             MeterReads.put(MeterReads).then(function(){
+                $scope.isLoading=false;
                 meterRead.value = updatedMeterReadObj.value;
                 meterRead.updateDate = updatedMeterReadObj.updateDate;
 

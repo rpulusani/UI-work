@@ -150,6 +150,8 @@ angular.module('mps.deviceManagement')
                 window.scrollTo(0,0);
 
                 Devices.item.get(options).then(function(){
+                    $location.search('search', null);
+                    $location.search('searchOn', null);
                     $location.path('/service_requests/devices/' + device.id + '/update');
                 });
             } else {

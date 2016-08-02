@@ -51,7 +51,8 @@ angular.module('mps.serviceRequestContacts')
                     },
                     {
                         name: $translate.instant('ADDRESS.HOUSE_NUMBER'),
-                        field:'',
+                        field:'address.houseNumber',
+                        cellTemplate:'<div ng-bind="row.entity.address.houseNumber"></div>',
                         visible: false
                     },
                     {

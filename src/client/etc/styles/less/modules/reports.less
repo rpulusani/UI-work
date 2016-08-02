@@ -36,3 +36,12 @@
     top: ~'calc(50% - 29px)';
     width: ~'calc(100% - 81px)';
 }
+div[google-chart] {
+    svg {
+        &> g{
+            &:last-child * {
+                pointer-events: none;
+            }
+        }
+    }
+}

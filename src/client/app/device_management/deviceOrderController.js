@@ -95,6 +95,7 @@ angular.module('mps.deviceManagement')
             Orders.data = [];
             Orders.setParamsToNull();
             Orders.params.size = 20;
+            Orders.preventPersonalization = true;
             var filterSearchService = new FilterSearchService(Orders, $scope, $rootScope,
                 personal, 'singleAssetOrderSet', null, 'gridOrdersOptions');
 

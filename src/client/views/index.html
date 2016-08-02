@@ -4,7 +4,7 @@
     <base href="/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8" />
-    <title>Customer Portal &#8734;.0</title>
+    <title>Managed Services Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- DTM meta tags -->
     <meta name="company-name" content="" data-dtm="">
@@ -143,9 +143,6 @@
             <div  ng-if="translationAdminAccess" class="user__notify pull l-hidden--gt-tablet">
                 <a class="badge badge--important" href="/notifications">1</a>
             </div>
-            <a href="/user_preference" class="l-hidden--mobile">
-                <img src="{{idpUser.avatar_url}}" alt="User Name Profile Image" height="50px" width="50px" />
-            </a>
         </div>
         <div class="user__info pull text--small">
           <a class="user__name" href="/user_preference">{{idpUser.custom_attributes.first_name}} {{idpUser.custom_attributes.last_name}}</a><br />

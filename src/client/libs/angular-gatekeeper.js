@@ -160,6 +160,8 @@ function($routeParams, Gatekeeper, $location, $cookies, $http, $window, $timeout
       if(!Gatekeeper.logout) {
         Gatekeeper.logout = function() {
           $cookies.remove('access-token');
+          $cookies.remove('impersonateToken');
+          $cookies.remove('impersonateUrl');
           $window.location.href = Gatekeeper.serviceUri + '/auth/users/sign_out?redirect_uri=' +
                                   encodeURIComponent($window.location.href);
         };

@@ -61,7 +61,7 @@ angular.module('mps.utility')
         require: 'ngModel',
         link: function(scope, element, attr, cityCtrl) {
             function cityValidation(value) {
-                var cityExpression = /^[a-zA-ZÀ-ÿ0-9\s]{1,50}$/;
+                var cityExpression = /^([a-zA-Z0-9\u0080-\u024F]+(?:. || |'))*[a-zA-Z0-9\u0080-\u024F]*$/;
                 var validCity = cityExpression.test(value);
                 if (validCity) {
                     cityCtrl.$setValidity('cityCode', true);
@@ -180,6 +180,9 @@ angular.module('mps.utility')
                 confirmPairFieldValidation();
             });
             function confirmPairFieldValidation(){
+                if(!$(elem).val() && !scope.$eval(attr.linkField)){
+                    return true;
+                }
                 if ($(elem).val() === scope.$eval(attr.linkField)) {
                     ctrl.$setValidity('confirmField', true);
                 } else {

@@ -52,6 +52,21 @@ angular.module('mps.user')
                 }
             }   
         }
+        if ($location.path() === "/delegated_admin/invite_user"){
+            $scope.configure = {
+                   button : {
+                       name : 'USER_MAN.INVITE_USERS.BTN_SEND_INVITATIONS'  
+                   }       
+           }
+        }
+        else{
+            $scope.configure = {
+                   button : {
+                       name : 'USER_MAN.CREATE_USER.BTN_CREATE_USER'  
+                   }       
+           }
+
+        }
 
         Roles.get(addonRoleOptions).then(function() {
             if(Roles.data) {
@@ -319,7 +334,10 @@ angular.module('mps.user')
             $scope.account_access_active = true;
         };
 
+        $scope.isLoading=false;
+
         $scope.save = function() {
+            $scope.isLoading=true;
             updateAdminObjectForSubmit();
             UserAdminstration.item.postURL = UserAdminstration.url;
             var deferred = UserAdminstration.post({
@@ -327,12 +345,14 @@ angular.module('mps.user')
             });
 
             deferred.then(function(result){
+                $scope.isLoading=false;
                 if(result.statusText === "Created" ){
                     UserAdminstration.wasInvited = false;
                     UserAdminstration.wasSaved = true;
                     $location.path('/delegated_admin');
                 }
                 else if(result.statusText === "Internal Server Error"){
+                    $scope.isLoading=false;
                     $scope.errorUser = true;
                     $scope.errorMessage = $translate.instant('USER_MAN.CREATE_USER.TXT_ERROR_CREATING_USER');
                     $('.site-content').scrollTop(100);
@@ -347,6 +367,7 @@ angular.module('mps.user')
         };
 
         $scope.invite = function() {
+            $scope.isLoading=true;
             updateAdminObjectForSubmit();
             UserAdminstration.item.postURL = UserAdminstration.url;
             var deferredList = [];
