@@ -172,9 +172,8 @@ function(
                 $scope.setAcceptedPayChoice= function(selection){
                     $scope.paySelection = selection;
                     if(selection === 'SHIP_AND_BILL'){
-                         //catalogOptions();
-                         $scope.catalogSelection = 'accessory';
-                    }
+                catalogOptions();
+            }
         };
 
         $scope.onAgreementSelected = function(option){
