@@ -10,7 +10,7 @@
     "portal": {
       "serviceUrl": "https://managedservices.qa.lexmark.com/mps/",
       "adminUrl": "https://managedservices.qa.lexmark.com/mps-portal/",
-      "lbsUrl": "https://portal-test.lexmark.com/group/lbsportal/fleet-management",
+      "lbsUrl": "https://maps.managedservices.qa.lexmark.com/group/lbsportal/fleet-management",
       "libraryServiceUrl": "https://managedservices.qa.lexmark.com/documents"
     }
   },
