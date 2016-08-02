@@ -24,6 +24,7 @@ angular.module('mps.orders')
         $rootScope.currentRowList = [];
         Orders.setParamsToNull();
         Orders.columns='defaultSet';
+        Orders.preventPersonalization = false;
         var personal = new Personalize($location.url(),$rootScope.idpUser.id),
         filterSearchService = new FilterSearchService(Orders, $scope, $rootScope, personal, 'defaultSet');
 
