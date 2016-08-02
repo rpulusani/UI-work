@@ -255,12 +255,13 @@ angular.module('mps.hateoasFactory')
 
             HATEAOSConfig.getCurrentAccount().then(function(account) {
                 if ($rootScope.currentAccount) {
-                    newService.params.accountId = $rootScope.currentAccount.accountId;
+                    //newService.params.accountId = $rootScope.currentAccount.accountId;
                     newService.params.accountLevel = $rootScope.currentAccount.accountLevel;
 
                     newService.get({
                         page: newService.params.page,
-                        size: newService.params.size
+                        size: newService.params.size,
+                        url: newService.url + '/' + $rootScope.currentAccount.accountId
                     }).then(function(processedResponse) {
                         deferred.resolve();
 
