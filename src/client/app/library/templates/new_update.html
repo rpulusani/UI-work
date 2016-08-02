@@ -32,8 +32,9 @@
             <div class="col-1">
                 <button name="cancel" class="btn btn--secondary" data-js="modalOpen" data-target="#cancel"
                         translate="{{ translationPlaceHolder.cancel }}"></button>
-                <button name="submit" class="btn btn--primary" type="submit" value="submit"
-                        translate="{{ translationPlaceHolder.submit }}" ng-disabled="isCommitting" ng-click="newDocument.$valid && hideError() && save();"></button>
+                <button name="submit" class="Button Button--default btn btn--primary" type="submit" value="submit"
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}" ng-disabled="isCommitting"
+            ng-click="newDocument.$valid && hideError() && save();"><span translate="{{ translationPlaceHolder.submit }}"></span></button>
             </div>
         </div>
     </form>

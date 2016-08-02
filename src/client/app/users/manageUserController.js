@@ -202,6 +202,18 @@ angular.module('mps.user')
         
     }
 
+        $scope.configure = {
+                   button : {
+                       name : 'USER_MAN.MANAGE_USERS.BTN_UPDATE_USER'  
+                   },
+                   deactive : {
+                       name : 'USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER'  
+                   },
+                   active : {
+                       name : 'USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER'  
+                   }
+
+           }
         $scope.setAccounts = function() {
             $scope.$broadcast('searchAccount');
         };
@@ -381,7 +393,9 @@ angular.module('mps.user')
             });
         }
 
+        $scope.isLoading=false;
         $scope.update = function(status) {
+            $scope.isLoading=true;
         	if(status == undefined){
         		// It will be undefined when update button is clicked...
         		updateAdminObjectForUpdate($scope.userActive == false? 'deactivate' : 'activate');	
@@ -424,6 +438,7 @@ angular.module('mps.user')
         };
 
         $scope.deactivate = function() {
+            $scope.isLoading=true;
             updateAdminObjectForUpdate('deactivate');
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.userInfo.userId;
             var options = {

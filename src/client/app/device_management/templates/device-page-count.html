@@ -61,6 +61,8 @@
         <span ng-show="showAllMeterReads" translate="DEVICE_MAN.DEVICE_PAGE_COUNTS.TXT_PAGE_COUNT_VIEW_LESS"></span>
     </a>
     <div class="l-pad-top-2">
-	    <button class="btn btn--primary" ng-click="saveMeterReads();" translate="DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE"></button>
+	    <button class="Button Button--default btn btn--primary" 
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="saveMeterReads();"><span translate="{{configure.button.name}}"></span></button>
 	</div>
 </form>

@@ -6,10 +6,9 @@
         translate="USER_MAN.INVITE_USERS.BTN_DISCARD_INVITATIONS"
     ></button>
     
-    <button class="btn btn--primary"
-        ng-click="inviteUser.$valid && invite()"
-        translate="USER_MAN.INVITE_USERS.BTN_SEND_INVITATIONS"
-    ></button>
+    <button class="Button Button--default btn btn--primary" 
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="inviteUser.$valid && invite()"><span translate="{{configure.button.name}}"></span></button>
 
     <div confirm-cancel
         title="USER.TITLE_USER_ABANDON_MODAL"
