@@ -22,7 +22,8 @@ angular.module('mps.utility')
                     personalize.update({
                         data: {
                             columnDefs: gridOptions.columnDefs,
-                            itemsPerPage: gridOptions.minRowsToShow
+                            itemsPerPage: gridOptions.minRowsToShow,
+                            preferredLanguage: $rootScope.currentUser.preferredLanguage
                         }
                     });
                 }
@@ -41,7 +42,8 @@ angular.module('mps.utility')
                      personalize.update({
                         data: {
                             columnDefs: gridOptions.columnDefs,
-                            itemsPerPage:  gridOptions.minRowsToShow
+                            itemsPerPage:  gridOptions.minRowsToShow,
+                            preferredLanguage: $rootScope.currentUser.preferredLanguage
                         }
                     });
                 }

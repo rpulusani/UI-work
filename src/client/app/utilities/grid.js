@@ -201,7 +201,6 @@ angular.module('mps.utility')
         newHeight = '46',
         baseHeight = 100,
         size = self.getSize(service),
-
         setClasses = function(tempOptionName) {
                 $('[ui-grid="' + tempOptionName + '"] .ui-grid-disable-selection').parent().addClass('selection');
                 $('[ui-grid="' + tempOptionName + '"] .favorite').parent().addClass('bookmark');
@@ -209,7 +208,7 @@ angular.module('mps.utility')
 
         if (!service.preventPersonalization) {
             personalize.get($location.url()).then(function(res) {
-                if (res && res.data.columnDefs) {
+                if (res && res.data.columnDefs && res.data.preferredLanguage && res.data.preferredLanguage === $rootScope.currentUser.preferredLanguage) {
                     scope[self.optionsName].columnDefs = res.data.columnDefs;
 
                     if (personalize.data.itemsPerPage) {
@@ -221,6 +220,15 @@ angular.module('mps.utility')
                     if (!res) {
                         personalize.save($location.url(), {
                             data: {
+                                preferredLanguage: $rootScope.currentUser.preferredLanguage,
+                                columnDefs: scope[self.optionsName].columnDefs,
+                                itemsPerPage: scope[self.optionsName].minRowsToShow
+                            }
+                        });
+                    } else if (res.data.columnDefs) {
+                        personalize.update($location.url(), {
+                            data: {
+                                preferredLanguage: $rootScope.currentUser.preferredLanguage,
                                 columnDefs: scope[self.optionsName].columnDefs,
                                 itemsPerPage: scope[self.optionsName].minRowsToShow
                             }
