@@ -21,8 +21,6 @@ angular.module('mps.utility')
 
         if(BlankCheck.checkNotBlank($scope.source) && $scope.source!== 'add'
             && BlankCheck.checkNotNullOrUndefined($scope.module)) {
-            console.log($scope.module);
-            console.log(MeterReads);
             $scope.updateFlag = true;
             Devices.getAdditional($scope.module, MeterReads, false, true).then(function(){
                 var tempData = [],
