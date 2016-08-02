@@ -8,10 +8,13 @@
 	<p><span translate="USER_MAN.MANAGE_USERS.TXT_CREATE_MANAGE_USER_PROFILE_PAR"></span></p>
 
 	<div class="btns">
-	    <button type="button" class="btn btn--default" ng-click="verifyDeactivateActivate('deactivate')" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
-	    </button>
-	    <button type="button" class="btn btn--default" ng-click="verifyDeactivateActivate('activate')" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
-	    </button>
+		<button type="button" class="Button Button--default btn btn--primary"
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="verifyDeactivateActivate('deactivate')" ng-if="userActive"><span translate="{{configure.deactive.name}}"></span></button>
+
+        <button type="button" class="Button Button--default btn btn--primary"
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="verifyDeactivateActivate('activate')" ng-if="!userActive"><span translate="{{configure.active.name}}"></span></button>
 	</div>
 
 	<div id="deactivate-confirm-popup" class="modal">

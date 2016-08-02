@@ -127,10 +127,12 @@ angular.module('mps.library')
             return true;
         };
 
+        $scope.isLoading=false;
         $scope.save = function() {
             $scope.isCommitting = true;
             $scope.uploadSuccess = false;
             $scope.modifySuccess = false;
+            $scope.isLoading=true;
 
             Documents.newMessage();
 
