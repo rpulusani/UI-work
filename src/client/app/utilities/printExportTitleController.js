@@ -119,6 +119,7 @@ angular.module('mps.utility')
         }
 
         $scope.$on('setupPrintAndExport', function(e, ctrlScope) {
+            $scope.displayPrint = false;
 
             if(ctrlScope.queueditem === true){
               $scope.displayPrint = false;
