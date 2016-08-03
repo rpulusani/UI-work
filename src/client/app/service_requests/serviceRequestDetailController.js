@@ -355,21 +355,21 @@ angular.module('mps.serviceRequests')
         }
         setCsvDefinition = function() {
             var headers = [
-                'Request Number',
-                'Primary Contact',
-                'Requested By Contact',
-                'Customer ReferenceId',
-                'CostCenter',
-                'Comments',
-                'Created'
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_REQUEST_NBR'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_PRIMARY_CONTACT'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_REQUESTED_BY_CONTACT'),
+                $translate.instant('ADDRESS_MAN.COMMON.TXT_CSV_CUSTOMER_REF_NBR'),
+                $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_COST_CENTER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_COMMENTS'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CREATED_DATE')
             ],
             rows = generateCsvRows(),            
             orderHeaders = [
-                'Supply Type',
-                'Part Number',
-                'Price',
-                'Quantity',
-                'Subtotal'
+                $translate.instant('REPORTING.SUPPLY_TYPE'),
+                $translate.instant('REPORTING.MATERIAL'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL')
             ],
             csvHeaders = [],
             csvRows = [],

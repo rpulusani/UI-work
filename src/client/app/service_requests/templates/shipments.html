@@ -19,7 +19,7 @@
  <div>
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
 			<span class="col-lg-1 col-sm-auto col-xs-auto  col-md-auto">Shipment(s)</span>
-			<span>pending</span><br/>			
+			<span translate="REQUEST_MAN.COMMON.TXT_REQUEST_PENDING"></span><br/>			
 		</div>
 		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
 			<h4 class="vertical-space--none">
@@ -52,7 +52,7 @@
 		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
 			
 		<h4 class="vertical-space--none">
-			Delivered {{shipment.deliveryDate}} via {{shipment.carrier}} | 
+			{{DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED || translate}} {{shipment.deliveryDate}} via {{shipment.carrier}} | 
 			<a href="{{shipment.trackingLink}}" target="_blank">{{shipment.trackingNumber}}</a>
 		</h4>
 		<div>
@@ -74,14 +74,14 @@
 					<li class="info-list__item">
 					
 					
-					<div class="info-list__item-name">Carrier</div>
+					<div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_CARRIER"></div>
 	        		<div class="info-list__item-value">{{shipment.carrier}}</div>
 	        		
 					</li> 
 					
 					<li class="info-list__item">
 					
-					<div class="info-list__item-name">Tracking Number</div>
+					<div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SHIPMENT"></div>
 	        		<div class="info-list__item-value">{{shipment.trackingNumber}}</div>
 	        		
 					</li> 

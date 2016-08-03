@@ -328,22 +328,22 @@ angular.module('mps.orders')
 
         function setCsvDefinition() {
             var headers = [
-                'Request Numbers',
-                'Primary Contact',
-                'Requested By Contact',
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_NUMBER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRIMARY_CONTACT'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_BY_CONTACT'),
                 'Internal Reference ID',
-                'CostCenter',
-                'Comments',
-                'Created',
+                $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_COST_CENTER'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_COMMENTS'),
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CREATED_DATE'),
                 'Ship To Address'
             ],
             rows = generateCsvRows(),            
             orderHeaders = [
-                'Supply Type',
-                'Part Number',
-                'Price',
-                'Quantity',
-                'Subtotal'
+                $translate.instant('REPORTING.SUPPLY_TYPE'),
+                $translate.instant('REPORTING.MATERIAL'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_PRICE'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_ORDER_QUANTITY'),
+                $translate.instant('DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SUBTOTAL')
             ],
             csvHeaders = [],
             csvRows = [],
