@@ -211,6 +211,10 @@ function(Gatekeeper, $http, $rootScope, $cookies, $q, AccountService, UserServic
     };
     var security = new SecurityService();
 
+    $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
+        angular.element('.site-content').scrollTop(0);
+    });
+	
     $rootScope.configurePermissions = [
         {
             name: 'documentLibraryAccess',

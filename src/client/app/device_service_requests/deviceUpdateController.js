@@ -184,8 +184,11 @@ angular.module('mps.serviceRequestDevices')
                 $scope.device.prevDeviceContact = angular.copy($scope.device.deviceContact);
             }
 
-            if (BlankCheck.isNullOrWhiteSpace($scope.device.lexmarkMoveDevice)) {
-                $scope.device.lexmarkMoveDevice = false;
+            if ($rootScope.pagestatus === 'edit') {
+              $scope.device.lexmarkMoveDevice = false;
+            }
+            else{
+            $scope.device.lexmarkMoveDevice = true;
             }
 
             if (BlankCheck.isNullOrWhiteSpace($scope.device.deviceCHLQuestion)) {
