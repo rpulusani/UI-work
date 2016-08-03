@@ -50,7 +50,7 @@ angular.module('mps.siebel')
         $scope.update = function() {
             $scope.isLoading=true;
             updateTranslationObjectForUpdate();
-            Translations.item.postURL = Translations.url + '/' + $scope.translationInfo.key + '?subModule=' + $scope.translationInfo.subModule;
+            Translations.item.postURL = Translations.url + '/' + $scope.translationInfo.key + '?module=' + $scope.translationInfo.module + '&subModule=' + $scope.translationInfo.subModule;
             var options = {
                 preventDefaultParams: true
             }
