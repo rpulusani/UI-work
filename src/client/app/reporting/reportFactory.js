@@ -18,6 +18,7 @@ angular.module('mps.report')
                 ],
                 /* Asset Register */
                 mp9058sp: [
+                    {'name': $translate.instant('REPORTING.ACCOUNT_NAME'), 'field': 'accountName', minWidth: 270},
                     {'name': $translate.instant('REPORTING.REPORTING_HIERARCHY'), 'field': 'chl', minWidth: 420},
                     {'name': $translate.instant('REPORTING.ADDRESS_NAME'), 'field': 'addressName', minWidth: 240},
                     {'name': $translate.instant('REPORTING.DEVICE'), 'field': 'device', minWidth: 120},
