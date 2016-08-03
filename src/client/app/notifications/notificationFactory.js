@@ -8,6 +8,7 @@ angular.module('mps.notifications')
                 embeddedName: 'contents', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
                 url: adminUrl + 'notifications',
+                preventPersonalization: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
