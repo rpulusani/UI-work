@@ -8,6 +8,7 @@ angular.module('mps.siebel')
                 embeddedName: 'contents', //get away from embedded name and move to a function to convert url name to javascript name
                 columns: 'defaultSet',
                 url: adminUrl + 'siebelvalues',
+                preventPersonalization: true,
                 columnDefs: {
                     defaultSet: [
                         {'name': 'id', 'field': 'id', visible:false, 'notSearchable': true},
