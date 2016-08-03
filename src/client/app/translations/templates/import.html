@@ -30,7 +30,11 @@
                         data-target="#cancel"
                         translate="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.BTN_ABANDON_IMPORT"
                     ></button>
-                    <button class="btn" ng-click="importLanguage(languageImportForm)" type="submit" translate="PORTAL_ADMIN.IMPORT_TRANSLATION_BTN"></button>
+                    <button class="Button Button--default btn btn--primary" type="submit"
+                            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+                            ng-click="importLanguage(languageImportForm)">
+                            <span translate="{{configure.button.name}}"></span>
+                    </button>
 
                     <div confirm-cancel
                         title="PORTAL_ADMIN_SECTION.MANAGE_TRANSLATION.TITLE_IMPORT_ABANDON_MODAL"

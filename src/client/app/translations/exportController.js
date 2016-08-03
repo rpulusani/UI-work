@@ -6,13 +6,18 @@ angular.module('mps.siebel')
     '$location',
     '$rootScope',
     'Translations',
-    function($scope, $location, $rootScope, Translations) {
+    '$route',
+    function($scope, $location, $rootScope, Translations, $route) {
         $scope.exportedFileLanguage = '';
         $scope.currentCategories = []; // a,b,c,d
+        $scope.isLoading=false;
 
         $scope.exportLanguage = function(formData) {
+            $scope.isLoading=true;
             Translations.exportFile($scope).then(function() {
+                $scope.isLoading=false;
                 //$location.path(Translations.route + '/');
+               $route.reload();
             });
         };
 
