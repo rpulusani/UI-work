@@ -883,6 +883,7 @@ angular.module('mps.deviceManagement')
                 madcServiceRequest.setParamsToNull();
                 madcServiceRequest.data = [];
                 madcServiceRequest.columns = 'madcSet';
+                madcServiceRequest.preventPersonalization = true;
                 var filterSearchService = new FilterSearchService(madcServiceRequest, $scope, $rootScope, personal, 'madcSet');
             var params =  {
                 type: 'DEVICE_CHANGE_HISTORY',

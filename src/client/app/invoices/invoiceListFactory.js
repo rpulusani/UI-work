@@ -8,6 +8,7 @@ angular.module('mps.invoice')
             url: serviceUrl + 'invoices',
             columns: 'defaultSet',
             hideBookmark: true,
+            preventPersonalization: true,
             columnDefs: {
                 defaultSet: [
                     {'name': $translate.instant('INVOICE.COMMON.INVOICE_NUMBER'), 'field':'invoiceNumber', 'width': '17%',

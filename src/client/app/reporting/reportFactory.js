@@ -7,6 +7,7 @@ angular.module('mps.report')
             serviceName: 'reports',
             embeddedName: 'reportTypes',
             columns: 'defaultSet',
+            preventPersonalization: true,
             columnDefs: {
                 defaultSet: [
                     {'name': $translate.instant('REPORTING.NAME'), 'field': 'name',
