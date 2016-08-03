@@ -201,8 +201,10 @@ angular.module('mps.deviceManagement')
             } else if (btnType === 'updatePageCounts') {
                 $scope.goToUpdatePageCount($scope.gridApi.selection.getSelectedRows()[0]);
             } else if (btnType === 'edit') {
+                $rootScope.pagestatus = 'edit';
                 $scope.goToUpdate($scope.gridApi.selection.getSelectedRows());
             } else if (btnType === 'move') {
+                $rootScope.pagestatus = 'move';
                 $scope.goToUpdate($scope.gridApi.selection.getSelectedRows()[0]);
             } else if (btnType === 'orderAnother') {
                 $scope.goToOrderAnother($scope.gridApi.selection.getSelectedRows()[0]);

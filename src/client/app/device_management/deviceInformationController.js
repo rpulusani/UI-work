@@ -829,6 +829,7 @@ angular.module('mps.deviceManagement')
             }
 
         $scope.goToUpdate = function(device) {
+            $rootScope.pagestatus = 'edit';
             ServiceRequest.reset();
             $location.path(DeviceServiceRequest.route + "/" + device.id + '/update');
         };
@@ -844,6 +845,7 @@ angular.module('mps.deviceManagement')
         };
         
         $scope.goTocreateMove = function(device){
+             $rootScope.pagestatus = 'move';
         	 ServiceRequest.reset();
         	 Devices.setItem(device);
         	 var options = {
@@ -881,6 +883,7 @@ angular.module('mps.deviceManagement')
                 madcServiceRequest.setParamsToNull();
                 madcServiceRequest.data = [];
                 madcServiceRequest.columns = 'madcSet';
+                madcServiceRequest.preventPersonalization = true;
                 var filterSearchService = new FilterSearchService(madcServiceRequest, $scope, $rootScope, personal, 'madcSet');
             var params =  {
                 type: 'DEVICE_CHANGE_HISTORY',

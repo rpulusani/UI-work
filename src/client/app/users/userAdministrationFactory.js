@@ -10,6 +10,7 @@ angular.module('mps.user')
             columns: 'default',
             activeStatus: true,
             hideBookmark: true,
+            preventPersonalization: true,
             columnDefs: {
                 defaultSet: [
                     {

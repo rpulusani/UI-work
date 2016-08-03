@@ -6,10 +6,11 @@
         translate="USER_MAN.MANAGE_LXK_USERS.BTN_DISCARD_LXK_USER_CHANGES"
     ></button>
     
-    <button class="btn btn--primary"
-        ng-click="newUser.$valid && saveLexmarkUser()"
-        translate="USER_MAN.MANAGE_LXK_USERS.BTN_UPDATE_LXK_USER"
-    ></button>
+    <button type="button" class="Button Button--default btn btn--primary"
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="newUser.$valid && saveLexmarkUser()">
+            <span translate="{{'USER_MAN.MANAGE_LXK_USERS.BTN_UPDATE_LXK_USER' | translate}}"></span>
+    </button>
 
     <div confirm-cancel
         title="USER.TITLE_USER_ABANDON_MODAL"

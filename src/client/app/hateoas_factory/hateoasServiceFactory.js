@@ -260,7 +260,8 @@ angular.module('mps.hateoasFactory')
 
                     newService.get({
                         page: newService.params.page,
-                        size: newService.params.size
+                        size: newService.params.size,
+                        url: (newService.url.indexOf('/accounts')>0 && newService.url.indexOf('/accounts/' + $rootScope.currentAccount.accountId) === -1) ? (newService.url + '/' + $rootScope.currentAccount.accountId) : newService.url
                     }).then(function(processedResponse) {
                         deferred.resolve();
 

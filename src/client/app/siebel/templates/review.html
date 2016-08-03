@@ -1,7 +1,10 @@
 <div class="page-header">
     <h1 translate="PORTAL_ADMIN.UPDATE_SIEBEL_VALUE" translate-values="{'siebelValue': siebel.actualValue}"></h1>
     <div class="btns">
-        <button type="button" class="btn btn--default" ng-click="delete()" translate="PORTAL_ADMIN.DELETE_THIS_SIEBEL_VALUE">
+        <button type="button" class="Button Button--default btn btn--primary"
+            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+            ng-click="delete()">
+            <span translate="{{configure.title.name}}"></span>
         </button>
     </div>
 </div>
