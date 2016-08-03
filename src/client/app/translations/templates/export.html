@@ -105,7 +105,11 @@
 
                 <div class="l-pad-top">
                     <hr />
-                    <button ng-click="exportLanguage(languageExportForm)" type="submit" class="btn" translate="PORTAL_ADMIN.EXPORT_TRANSLATION_BTN"></button>
+                    <button class="Button Button--default btn btn--primary" type="submit"
+                            v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}"
+                            ng-click="exportLanguage(languageExportForm)">
+                            <span translate="{{ 'PORTAL_ADMIN.EXPORT_TRANSLATION_BTN' | translate }}"></span>
+                    </button>
                 </div>
             </form>
         </div>

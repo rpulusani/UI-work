@@ -45,7 +45,10 @@ angular.module('mps.siebel')
             
         };
 
+        $scope.isLoading=false;
+
         $scope.update = function() {
+            $scope.isLoading=true;
             updateTranslationObjectForUpdate();
             Translations.item.postURL = Translations.url + '/' + $scope.translationInfo.key + '?subModule=' + $scope.translationInfo.subModule;
             var options = {
