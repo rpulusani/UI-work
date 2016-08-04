@@ -55,8 +55,7 @@
             </div>
             <div ng-if="gridLoading === false && gridDataCnt > 0">
                 <div ui-grid="gridOptions" class="table"
-                    ng-style="gridOptions.getStyle()" ui-grid-auto-resize
-                    ui-grid-move-columns ui-grid-resize-columns ui-grid-exporter>
+                    ng-style="gridOptions.getStyle()" ui-grid-resize-columns ui-grid-selection ui-grid-move-columns ui-grid-auto-resize ui-grid-exporter>
                 </div>
                 <div pagination grid="{{gridOptions}}"></div>
             </div>
