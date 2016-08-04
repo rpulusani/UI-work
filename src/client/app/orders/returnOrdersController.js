@@ -322,7 +322,20 @@ angular.module('mps.orders')
 
                 configureSR(Orders);
                 $scope.order = $rootScope.returnPickerSRObjectAddress;
-                Orders.addRelationship('shipToAddress', $rootScope.selectedAddress, 'self');
+                //Orders.addRelationship('shipToAddress', $rootScope.selectedAddress, 'self');
+                $scope.order.shipToAddress = {
+                    id: $rootScope.selectedAddress.id,
+                    name: $rootScope.selectedAddress.name,
+                    storeFrontName: $rootScope.selectedAddress.storeFrontName,
+                    addressLine1: $rootScope.selectedAddress.addressLine1,
+                    state: $rootScope.selectedAddress.state,
+                    stateFullName: $rootScope.selectedAddress.stateFullName,
+                    region: $rootScope.selectedAddress.region,
+                    county: $rootScope.selectedAddress.county,
+                    countryCode: $rootScope.selectedAddress.countryCode,
+                    country: $rootScope.selectedAddress.country,
+                    postalCode: $rootScope.selectedAddress.postalCode
+                };
                 Orders.tempSpace.address = angular.copy($rootScope.selectedAddress);
                 $scope.resetAddressPicker();
 
