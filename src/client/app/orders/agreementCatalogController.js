@@ -134,6 +134,12 @@ function(
                     abandonRequest:'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_ABANDON',
                     submit: 'ORDER_CATALOGS.DEVICE_CATALOG.BTN_DEVICE_ORDER_SUBMIT'
             };
+            $scope.configure.breadcrumbs = {
+                1: $rootScope.preBreadcrumb,
+                2: {
+                    value: "ORDER_CATALOGS.DEVICE_CATALOG.TXT_DEVICE_CATALOG_ORDER"
+                }
+            }
             $scope.catalog = 'device';
         }else if($scope.type  === 'SUPPLIES'){
             $scope.configure.header = {
