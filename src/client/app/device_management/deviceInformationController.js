@@ -724,7 +724,14 @@ angular.module('mps.deviceManagement')
             redirect_to_list();
         } else {
             $scope.device = Devices.item;
-
+            if(JSON.stringify($scope.device) === '{}')
+            {
+                if($rootScope.selectedDevice){
+                    Devices.setItem($rootScope.selectedDevice);
+                    $scope.device = $rootScope.selectedDevice;
+                    $rootScope.selectedDevice = undefined;
+                }
+            }
             if (!BlankCheck.isNull($scope.device.hostName)) {
                 $scope.ipLink = 'http://' + $scope.device.hostName;
             } else if (!BlankCheck.isNull($scope.device.ipAddress)) {
