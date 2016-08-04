@@ -343,11 +343,9 @@ angular.module('mps.deviceManagement')
                 static: true
             });
         }
-        $scope.configure = {
-                   button : {
+        $scope.configure.button = {
                        name : 'DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE'  
                    }       
-           }
         $scope.isLoading=false;
         
         $scope.saveMeterReads = function() {
