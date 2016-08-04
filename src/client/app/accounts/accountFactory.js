@@ -8,6 +8,7 @@ angular.module('mps.account')
             url: serviceUrl + 'accounts',
             route: '',
             columns: 'defaultSet',
+            preventPersonalization: true,
             columnDefs: {
                 defaultSet: [{
                     name: $translate.instant('ACCOUNT.ID'),

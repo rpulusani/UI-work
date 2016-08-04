@@ -343,11 +343,9 @@ angular.module('mps.deviceManagement')
                 static: true
             });
         }
-        $scope.configure = {
-                   button : {
+        $scope.configure.button = {
                        name : 'DEVICE_MGT.SUBMIT_PAGE_COUNT_UPDATE'  
                    }       
-           }
         $scope.isLoading=false;
         
         $scope.saveMeterReads = function() {
@@ -526,7 +524,7 @@ angular.module('mps.deviceManagement')
                
                 if(meterReadCnt === totalMRCount) {
                     $scope.isLoading=false;
-                    $scope.errorMessage = "Please enter value at least in one page count type.";
+                    $scope.errorMessage = $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_REQUIRED');
                     return; 
                 }
                 else if (indLTPC !== -1 && indColor !== -1 
@@ -616,19 +614,19 @@ angular.module('mps.deviceManagement')
             var errorMsg = "";
             var warnMsg = "";
             if(!newVal) {
-                errorMsg += meterReadType + " Page count value can not be blank.";
+                errorMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_NOT_BLANK');
             }
             else if(!pageCountHelper.isDigitPageCount(newVal)) {
-                errorMsg += meterReadType + " Page count value must be numeric.";
+                errorMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_NUMERIC');
             }
             else if(newVal < oldVal) {
-                errorMsg += meterReadType + " Meter Read value should be greater than or equal to previous value.";
+                errorMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_GREATER_EQUAL_PREVIOUS_VALUE');
             }
             else if((newVal - oldVal) > 50000) {
-                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too high).";
+                warnMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_HIGH_VALUE');
             }
             else if((newVal - oldVal) < 10) {
-                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too low).";
+                warnMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_LOW_VALUE');
             }
             if(warnMsg.length > 0) {
                 $scope.warnMessage = warnMsg;
@@ -640,19 +638,19 @@ angular.module('mps.deviceManagement')
             var errorMsg = "";
             var warnMsg = "";
             if(!newVal) {
-                errorMsg += meterReadType + " Page count value can not be blank.";
+                errorMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_NOT_BLANK');
             }
             else if(!pageCountHelper.isDigitPageCount(newVal)) {
-                errorMsg += meterReadType + " Page count value must be numeric.";
+                errorMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_NUMERIC');
             }
             else if(newVal < oldVal) {
-                errorMsg += meterReadType + " Meter Read value should be greater than or equal to previous value.";
+                errorMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_GREATER_EQUAL_PREVIOUS_VALUE');
             }
             else if((newVal - oldVal) > 50000) {
-                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too high).";
+                warnMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_HIGH_VALUE');
             }
             else if((newVal - oldVal) < 10) {
-                warnMsg += "Unreasonable " + meterReadType + " Meter Read (Value too low).";
+                warnMsg += meterReadType + "- " + $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_LOW_VALUE');
             }
             if(warnMsg.length > 0) {
                 $scope.warnMessage = warnMsg;
@@ -666,13 +664,13 @@ angular.module('mps.deviceManagement')
                 pageCountHelper.isDigitPageCount(colorMR.newVal) && 
                 (ltpcMR === null ||
                 !ltpcMR.newVal)) {
-                errorMsg += "For Color device, both a LTPC and Color Meter Read required.";
+                errorMsg += $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_LTPC_COLORMR');
             }
             else if(ltpcMR !== null && ltpcMR.newVal && 
                 pageCountHelper.isDigitPageCount(ltpcMR.newVal) && 
                 (colorMR === null ||
                 !colorMR.newVal)) {
-                errorMsg += "For Color device, both a LTPC and Color Meter Read required.";
+                errorMsg += $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_LTPC_COLORMR');
             }
             else if(colorMR.newVal && 
                 pageCountHelper.isDigitPageCount(colorMR.newVal) && 
@@ -680,7 +678,7 @@ angular.module('mps.deviceManagement')
                 ltpcMR.newVal &&
                 pageCountHelper.isDigitPageCount(ltpcMR.newVal) &&
                 (colorMR.newVal - colorMR.value) > (ltpcMR.newVal - ltpcMR.value)) {
-                errorMsg += "The Meter Read difference for Color cannot be greater than the Meter Read difference for LTPC.";
+                errorMsg += $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_COLORMR_DIFFERENCE_LESSER_LTPCMR');
             }
             return errorMsg;
         }
@@ -693,7 +691,7 @@ angular.module('mps.deviceManagement')
                 ltpcMR.newVal &&
                 pageCountHelper.isDigitPageCount(ltpcMR.newVal) &&
                 colorMR.newVal > ltpcMR.newVal) {
-                errorMsg += "The Meter Read difference for " + colorMR.type + " cannot be greater than the Meter Read difference for " + ltpcMR.type + ".";
+                errorMsg += $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_COLORMR_DIFFERENCE_LESSER_LTPCMR');
             }
             else if(colorMR.newVal && 
                 pageCountHelper.isDigitPageCount(colorMR.newVal) && 
@@ -701,7 +699,7 @@ angular.module('mps.deviceManagement')
                 ltpcMR.value &&
                 pageCountHelper.isDigitPageCount(ltpcMR.value) &&
                 colorMR.newVal < ltpcMR.value) {
-                errorMsg += "The Meter Read difference for " + colorMR.type + " cannot be greater than the Meter Read difference for " + ltpcMR.type + ".";
+                errorMsg += $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_COLORMR_DIFFERENCE_LESSER_LTPCMR');
             }
             return errorMsg;
         }
@@ -711,7 +709,8 @@ angular.module('mps.deviceManagement')
             newDate = FormatterService.formatDatePostForBrowsers(newDate);
             
             if(newDate < oldDate) {
-                errorMsg = "Date/Time selected should not be previous to last submitted date/time."
+                errorMsg = $translate.instant('PAGE_COUNTS.ERROR.PAGE_COUNT_DATETIME_SELECTED_NOT_PREVIOUS');
+
             }
             return errorMsg;
         }
@@ -726,7 +725,14 @@ angular.module('mps.deviceManagement')
             redirect_to_list();
         } else {
             $scope.device = Devices.item;
-
+            if(JSON.stringify($scope.device) === '{}')
+            {
+                if($rootScope.selectedDevice){
+                    Devices.setItem($rootScope.selectedDevice);
+                    $scope.device = $rootScope.selectedDevice;
+                    $rootScope.selectedDevice = undefined;
+                }
+            }
             if (!BlankCheck.isNull($scope.device.hostName)) {
                 $scope.ipLink = 'http://' + $scope.device.hostName;
             } else if (!BlankCheck.isNull($scope.device.ipAddress)) {
