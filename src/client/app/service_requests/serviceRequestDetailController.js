@@ -1041,7 +1041,6 @@ angular.module('mps.serviceRequests')
             case 'HARDWARE_ORDER':
             case 'HARDWARE_ORDER_INSTALL':
                 $scope.configure.header.showUpdateBtn = true;
-                console.log('$scope.sr', $scope.sr);
                 $scope.configure.statusList = $scope.setStatusBar($scope.sr.item.status, $scope.sr.item.statusDate, statusBarLevels);
                 addTabsForBreakFix();
             break;
