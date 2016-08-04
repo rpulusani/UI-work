@@ -330,12 +330,11 @@ angular.module('mps.orders')
             var headers = [
                 $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_NUMBER'),
                 $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRIMARY_CONTACT'),
-                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_REQUEST_BY_CONTACT'),
-                'Internal Reference ID',
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_INTERNAL_REF_ID'),
                 $translate.instant('DEVICE_MAN.DEVICE_SERVICE_HISTORY.TXT_GRID_SERVICE_HISTORY_COST_CENTER'),
                 $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_COMMENTS'),
                 $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_CREATED_DATE'),
-                'Ship To Address'
+                $translate.instant('CSV_EXPORT.COMMON.TXT_CSV_SHIP_TO_ADDRESS')
             ],
             rows = generateCsvRows(),            
             orderHeaders = [
@@ -352,15 +351,15 @@ angular.module('mps.orders')
             csvRows = rows;            
 
             if ($scope.type === "SUPPLIES" && $scope.device && $scope.device.serialNumber) {
-                headers.push('Serial Number');
-                headers.push('Product Model');
-                headers.push('IpAddress');
-                headers.push('PartNumber');
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_SERIAL_NBR'));
+                headers.push($translate.instant('CSV_EXPORT.COMMON.TXT_CSV_PRODUCT_MODEL'));
+                headers.push($translate.instant('REPORTING.IP_ADDRESS'));
+                headers.push($translate.instant('DEVICE_MGT.PART_NUMBER'));
             }
             
-            headers.push('Delivery Instructions');
-            headers.push('Requested Delivery Date');                
-            headers.push('Purchase Order Number');     
+            headers.push($translate.instant('ORDER_MAN.COMMON.TXT_ORDER_DELIVERY_INSTR')); 
+            headers.push($translate.instant('ORDER_MAN.COMMON.TXT_ORDER_REQ_DELIV_DATE'));                
+            headers.push($translate.instant('ORDER_MAN.COMMON.TXT_ORDER_PO_NUM')); 
                      
 
             var pdfHeaders1 = [],
