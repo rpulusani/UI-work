@@ -3,13 +3,13 @@
  <div class="row groupingTable" ng-repeat = "cancelledItem in cancelledItems">
  <div>
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
-			<span>Cancellation</span><br/>			
+			<span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCELLATION"></span><br/>			
 		</div>
 		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
-			<h4 class="vertical-space--none">
-				{{cancelledItems.length}} item cancelled on this order			
-			</h4>
-			<div class="text--n9 vertical-space--thin">Cancelled Items ({{cancelledItems.length}})</div>
+			<h4 class="vertical-space--none" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_ITEMS_CANCELLED_IN_ORDER"
+				translate-values="{total:{{cancelledItems.length}}}"></h4>
+			<div class="text--n9 vertical-space--thin" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_CANCELLED_ITEMS_TOTAL" 
+				translate-values="{count:{{cancelledItems.length}}}"></div>
 			<div shipment-content items="cancelledItem.shipmentParts"></div>
 		</div>
  </div>
@@ -18,12 +18,13 @@
  <div class="row groupingTable" ng-if="pending.pendCount > 0">
  <div>
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
-			<span class="col-lg-1 col-sm-auto col-xs-auto  col-md-auto">Shipment(s)</span>
-			<span>pending</span><br/>			
+			<span class="col-lg-1 col-sm-auto col-xs-auto  col-md-auto" 
+			translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_SHIPMENTS_S"></span>
+			<span translate="REQUEST_MAN.COMMON.TXT_REQUEST_PENDING"></span><br/>			
 		</div>
 		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
-			<h4 class="vertical-space--none">
-				{{pending.pendCount}} items still pending shipment.		
+			<h4 class="vertical-space--none" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_PENDING_SHIPMENT_COUNT"
+				translate-values="{count:{{pending.pendCount}}}">		
 			</h4>
 			
 		</div>
@@ -45,14 +46,14 @@
  <div class="row groupingTable" ng-if="shipments.length > 0 && hasData" ng-repeat = "shipment in shipments">
  	<div ng-if = "shipment.shipmentParts.length > 0">
  		<div class="firstCol col-sm-1 col-lg-1-6 floatL">
-			<span class="col-lg-1 col-sm-auto col-xs-auto col-md-auto">Shipment</span>
+			<span class="col-lg-1 col-sm-auto col-xs-auto col-md-auto" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_SHIPMENT"></span>
 			<span class="col-lg-1 col-sm-auto col-xs-auto col-md-auto"><b>{{$index+1}}</b></span>
 			<span>{{shipment.status}}</span>
 		</div>
 		<div class="secondCol col-sm-1 col-lg-5-6 floatL">
 			
 		<h4 class="vertical-space--none">
-			Delivered {{shipment.deliveryDate}} via {{shipment.carrier}} | 
+			{{DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED || translate}} {{shipment.deliveryDate}} via {{shipment.carrier}} | 
 			<a href="{{shipment.trackingLink}}" target="_blank">{{shipment.trackingNumber}}</a>
 		</h4>
 		<div>
@@ -62,38 +63,39 @@
 				<ul class="info-list text--small">
 					<li class="info-list__item">
 					
-					<div class="info-list__item-name">Shipment date</div>
+					<div class="info-list__item-name" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_SHIPMENT_DATE"></div>
 	        		<div class="info-list__item-value">{{shipment.shipDate}}</div>
 	        		
 					</li> 
 					<li class="info-list__item">
 					
-					<div class="info-list__item-name">Delivery date</div>
+					<div class="info-list__item-name" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_DELIVERY_DATE"></div>
 	        		<div class="info-list__item-value">{{shipment.deliveryDate}}</div>
 					</li> 
 					<li class="info-list__item">
 					
 					
-					<div class="info-list__item-name">Carrier</div>
+					<div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_CARRIER"></div>
 	        		<div class="info-list__item-value">{{shipment.carrier}}</div>
 	        		
 					</li> 
 					
 					<li class="info-list__item">
 					
-					<div class="info-list__item-name">Tracking Number</div>
+					<div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_SHIPMENT"></div>
 	        		<div class="info-list__item-value">{{shipment.trackingNumber}}</div>
 	        		
 					</li> 
 					<li class="info-list__item">
 					
-					<div class="info-list__item-name">Shipped To</div>
+					<div class="info-list__item-name" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_SHIPPED_TO"></div>
 	        		<div class="info-list__item-value" ng-bind-html="shipment.formattedShipToAddress"></div>
 					</li> 
 				</ul>
 			</div>
 		</div>
-		<div class="text--n9 vertical-space--thin">Shipment Contents ({{shipment.shipmentParts.length}})</div>
+		<div class="text--n9 vertical-space--thin" translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_SHIPMENT_CONTENTS" 
+		translate-values="{count:{{shipment.shipmentParts.length}}}"></div>
 		 <div shipment-content items="shipment.shipmentParts"></div>
 		
 

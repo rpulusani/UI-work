@@ -23,7 +23,7 @@
             <ul>
                 <div ng-repeat="sr in openSRList">
                     <li>
-                        <span ng-init="srType = getNotificationMessage(sr.updatedStatus)" translate="{{srType}}"></span>
+                        <span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_SINGLE_SERVICE_REQUEST"></span>
                         <a href="" ng-click="$parent.viewSR(sr)">({{sr.requestNumber}})</a> 
                         <span translate="REQUEST_MAN.MANAGE_REQUESTS.TXT_STATUS_CHANGE_DETAILS" 
                             translate-values="{'status': sr.updatedStatus, 'statusDate': sr.updatedStatusDate}">

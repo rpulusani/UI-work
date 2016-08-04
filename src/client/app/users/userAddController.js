@@ -53,17 +53,13 @@ angular.module('mps.user')
             }   
         }
         if ($location.path() === "/delegated_admin/invite_user"){
-            $scope.configure = {
-                   button : {
+            $scope.configure.button = {
                        name : 'USER_MAN.INVITE_USERS.BTN_SEND_INVITATIONS'  
-                   }       
-           }
+            }
         }
         else{
-            $scope.configure = {
-                   button : {
+            $scope.configure.button = {
                        name : 'USER_MAN.CREATE_USER.BTN_CREATE_USER'  
-                   }       
            }
 
         }

@@ -125,13 +125,7 @@ angular.module('mps.deviceManagement')
               }
 
           });
-          $scope.getNotificationMessage = function(status){
-            if(status === "SUBMITTED"){
-              return "REQUEST_MAN.MANAGE_REQUESTS.TXT_SINGLE_SERVICE_REQUEST";
-            } else {
-              return "ORDER_MAN.MANAGE_ORDERS.TXT_SINGLE_SUPPLY_ORDER";
-            }
-          };
+          
           $scope.goto = function(tab){
             $rootScope.currentDeviceTab = tab;
             $location.search('tab', tab);

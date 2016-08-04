@@ -25,13 +25,13 @@
   <div ng-repeat="file in files_complete">  
   	<div class="card" data-card="">
 		<div class="card__content">
-			<div class="card__title">
+			<div class="card__title breakAll">
 			{{file.filename}}<span ng-if="file.size < 1000">({{file.size}} Bytes)</span>
 			<span ng-if="file.size > 1000 && file.size < 1000000">({{file.size/1000}} KB)</span>
 			<span ng-if="file.size > 1000000">({{file.size/1000000 | number :  2}} MB)</span>
 			</div>
-			<div class="card__author">Attachment {{$index+1}} of {{files_complete.length}}</div>
-			<a class="card__action" href="#" ng-click="removeAttachment(file)">Remove Attachment</a>
+			<div class="card__author" translate="ORDER_MAN.SUPPLY_ORDER_REVIEW.TXT_ATTACHMENT_INDEX_COUNT" translate-values="{index:{{$index+1}},total:{{files_complete.length}}}"></div>
+			<a class="card__action" href="#" ng-click="removeAttachment(file)" translate="ORDER_MAN.SUPPLY_ORDER_REVIEW.LNK_REMOVE_ATTACHMENT"></a>
 		</div>
 	</div>
   </div>

@@ -23,6 +23,15 @@ angular.module('mps.siebel')
             {key: 'HARDWARE_PAYMENT_TYPE', name:  'Hardware Payment Type'}
         ];
 
+        $scope.configure = {
+                   button : {
+                       name : 'PORTAL_ADMIN.SAVE_SIEBEL_CHANGE'  
+                   },
+                   title : {
+                       name : 'PORTAL_ADMIN.DELETE_THIS_SIEBEL_VALUE'  
+                   }             
+           }
+
 
         var updateSiebelObjectForUpdate = function() {
             SiebelValues.newMessage();
@@ -36,8 +45,9 @@ angular.module('mps.siebel')
             SiebelValues.addField('order', $scope.siebel.order);
             SiebelValues.addField('values', siebelValues);
         };
-
+        $scope.isLoading=false;
         $scope.update = function() {
+            $scope.isLoading=true;
             updateSiebelObjectForUpdate();
             SiebelValues.item.postURL = SiebelValues.url + '/' + $scope.siebelInfo.key;
             var options = {
@@ -48,6 +58,7 @@ angular.module('mps.siebel')
             }, options);
 
             deferred.then(function(result){
+                $scope.isLoading=false;
                 SiebelValues.isEditted = true;
                 $location.path('/siebel');
             }, function(reason){
@@ -56,11 +67,13 @@ angular.module('mps.siebel')
         };
 
         $scope.delete = function() {
+            $scope.isLoading=true;
             $http({
                 method: 'DELETE',
                 url: SiebelValues.item.url
             }).then(function(response) {
                 SiebelValues.isDeleted = true;
+                $scope.isLoading=false;
                 $location.path('/siebel');
             }, function(response) {
                 NREUM.noticeError('Failed to DELETE Siebel value: ' + response.statusText);

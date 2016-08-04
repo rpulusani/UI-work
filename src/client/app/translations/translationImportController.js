@@ -26,6 +26,9 @@ angular.module('mps.translation')
                     attachements: true
                 }
             },
+            button : {
+                       name : 'PORTAL_ADMIN.IMPORT_TRANSLATION_BTN'  
+            },
             attachments:{
                 maxItems:1
             }
@@ -39,11 +42,13 @@ angular.module('mps.translation')
         Translations.getLocales().then(function(res) {
             $scope.languages = res.data.locales;
         });
-
+        $scope.isLoading=false;
         $scope.importLanguage = function(formData) {
+            $scope.isLoading=true;
             if($scope.files[0] && $scope.files[0].complete) {
                 Translations.importFile($scope.importedFileLanguage, $scope.files[0]).then(function(res) {               
                     $location.path(Translations.route + '/');
+                    $scope.isLoading=false;
                 });
             }
         };

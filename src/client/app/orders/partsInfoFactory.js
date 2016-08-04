@@ -7,6 +7,7 @@ angular.module('mps.orders')
         		url: serviceUrl + 'orders/productModel',
         		columns: 'defaultSet',
                 hideBookmark: true,
+                preventPersonalization: true,
                 columnDefs: {
                     defaultSet: [
                         {'name':'Product Model', 'field':'productModel'},

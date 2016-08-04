@@ -30,7 +30,7 @@ angular.module('mps.translation')
             Translations.setItem(translation);
             var options = {
                 preventDefaultParams: true,
-                url: Translations.url + '/' + translation.subModule.subModuleName + '/' + translation.contentKey
+                url: Translations.url + '/' + translation.subModule.moduleName + '/' + translation.subModule.subModuleName + '/' + translation.contentKey
             };
             Translations.item.get(options).then(function(){
                 $location.path(Translations.route + '/review');

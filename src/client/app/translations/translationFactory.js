@@ -12,7 +12,7 @@ angular.module('mps.translation')
                     defaultSet: [
                         {'name': 'ID', 'field': 'contentKey', 'notSearchable': true,
                          'cellTemplate':'<div>' +
-                                        '{{row.entity.subModule.subModuleName}}.{{row.entity.contentKey}}</a>' +
+                                        '{{row.entity.subModule.moduleName}}.{{row.entity.subModule.subModuleName}}.{{row.entity.contentKey}}</a>' +
                                         '</div>'
                         },
                         {'name': $translate.instant('PORTAL_ADMIN.CATEGORY'), 'field': 'contentType', 'notSearchable': true},

@@ -6,6 +6,12 @@ angular.module('mps.siebel')
         $scope.siebelInfo = {};
         $scope.isEditting = false;
 
+        $scope.configure = {
+                   button : {
+                       name : 'PORTAL_ADMIN.SAVE_SIEBEL_NEW'  
+                   }       
+           }
+
         $scope.siebelOptions = [
             {key: 'SERVICE_STATUS', name:  'Service Status'},
             {key: 'ENTITLEMENT_SERVICE_DETAILS', name:  'Entitlement Service Detail'},
@@ -25,8 +31,9 @@ angular.module('mps.siebel')
             SiebelValues.addField('order', $scope.siebel.order);
             SiebelValues.addField('values', siebelValues);
         };
-
+        $scope.isLoading=false;
         $scope.save = function() {
+            $scope.isLoading=true;
             updateSiebelObjectForSubmit();
             SiebelValues.item.postURL = SiebelValues.url;
             var deferred = SiebelValues.post({
