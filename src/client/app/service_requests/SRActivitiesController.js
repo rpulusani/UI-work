@@ -70,8 +70,23 @@ angular.module('mps.serviceRequests')
     	
     	$scope.gridLoading = true;
     	$scope.activityGridOptions.newMessage();
+        $scope.sr.madcFlag = false;
+        switch($scope.sr.type){
+            case 'MADC_MOVE':
+            case 'DATA_ASSET_CHANGE':
+            case 'MADC_INSTALL':
+            case 'MADC_INSTALL_AND_DECOMMISSION':
+            case 'INSTALL_BAU':
+            case 'MADC_DECOMMISSION':
+            case 'DATA_ASSET_DEREGISTER':
+            case 'DATA_ASSET_REGISTER':
+            $scope.sr.madcFlag = true;
+            break;
+        }
+
     	$scope.activityGridOptions.get({
         	params:{
+                madcFlag:$scope.sr.madcFlag,
         		requestId:$scope.sr.id
         	}
         }).then(function(){
