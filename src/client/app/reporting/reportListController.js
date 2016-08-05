@@ -75,7 +75,7 @@ angular.module('mps.report')
                 }).then(function(res) {
                     $scope.gridLoading = false;
                     $scope.isLoading=false;
-                    $scope.configure.button : {
+                    $scope.configure.button = {
                             name : $translate.instant('REPORTING.RUN_REPORT')     
                     };
                     Reports.item.results.hideBookmark = true;
