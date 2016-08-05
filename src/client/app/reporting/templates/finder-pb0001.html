@@ -21,8 +21,11 @@
 
             <div class="row">
                 <div class="col-1">
-                    <button name="submit" class="btn btn--primary" ng-click="newReport.$valid && runReport(report)" type="submit"
-                        translate="REPORTING.RUN_REPORT"></button>
+                    <button name="submit" type="submit" class="Button Button--default btn btn--primary"
+                        v-busy="isLoading" v-busy-label="{{ 'COMMON.ACTIONS.BTN_LOADING' | translate}}" 
+                        ng-click="newReport.$valid && runReport(report)">
+                        <span translate="{{configure.button.name}}"></span>
+                    </button>
 
                     <input type="hidden" name="report.id" ng-value="report.id"/>
                 </div>

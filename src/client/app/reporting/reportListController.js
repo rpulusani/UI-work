@@ -6,7 +6,8 @@ angular.module('mps.report')
         function($scope, $location, GridService, Reports, $rootScope, Personalize, $filter, $translate) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
         var params = {};
-
+	
+        $scope.configure = {};
         if (Reports.item === null) {
             $location.path(Reports.route);
         } else {
@@ -35,11 +36,7 @@ angular.module('mps.report')
             }
             if (Reports.item.id === 'sd0101') {
                 $scope.print = false;
-            }
-            
-            
-            
-            
+            }          
             
 
             configureTemplates();
@@ -64,6 +61,7 @@ angular.module('mps.report')
 
             if($scope.report.id === "mp9058sp" || ($scope.report.id !== "mp9058sp" 
                 && Reports.isRun === true)) {
+                $scope.isLoading=true;
                 $scope.gridOptions.showLoader = true;
                 $scope.gridLoading = true;
                 Reports.isRun = false;
@@ -76,6 +74,10 @@ angular.module('mps.report')
                     params: params
                 }).then(function(res) {
                     $scope.gridLoading = false;
+                    $scope.isLoading=false;
+                    $scope.configure.button = {
+                            name : $translate.instant('REPORTING.RUN_REPORT')     
+                    };
                     Reports.item.results.hideBookmark = true;
                     if(res._embedded && res._embedded.reportData){
                         $scope.gridDataCnt = Reports.item.results.data.length;   
@@ -106,8 +108,11 @@ angular.module('mps.report')
                         h1: 'REPORTING.RUN_TITLE',
                         h1Values: {'report': $scope.report.name },
                         body: 'MESSAGE.LIPSUM',
-                    },
+                    }
                 },
+				button : {
+                       name : 'REPORTING.RUN_REPORT'  
+                   }
             };
         }
 
