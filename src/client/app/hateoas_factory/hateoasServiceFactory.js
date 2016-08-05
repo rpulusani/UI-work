@@ -812,6 +812,10 @@ angular.module('mps.hateoasFactory')
 
             if (options.params) {
                 optionsParams = options.params;
+                if(!options.params.search && self.params.search)
+                    delete self.params.search;
+                if(!options.params.searchOn && self.params.searchOn)
+                    delete self.params.searchOn;
                 options.params = angular.extend(self.params, options.params);
             } else {
                 options.params = self.params;
