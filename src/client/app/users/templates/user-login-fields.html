@@ -2,6 +2,11 @@
     <label translate="USER_MAN.COMMON.TXT_EMAIL_ADDRESS"></label>
     <input name="email" type="text" ng-model="user.email" value="" class="" required email-valid/>
 </div>
+<div ng-if="!addUser" class="form__field">
+    <label class="inlineBlock" translate="USER_MAN.COMMON.TXT_ADMIN_PASSWORD"></label>
+    <input name="password" type="password" ng-model="user.oldPassword" value="" class="" ng-required="user.password" />
+</div>
+
 <div class="form__field" ng-class="{'form__field--required':addUser}">
     <label class="inlineBlock" translate="USER_MAN.COMMON.TXT_PASSWORD"></label><span translate="USER_MAN.COMMON.TXT_MIN_PASSWORD_LENGTH"></span>
     <input password-length-check name="password" type="password" ng-model="user.password" value="" class="" ng-required="addUser" />

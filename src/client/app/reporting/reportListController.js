@@ -6,7 +6,8 @@ angular.module('mps.report')
         function($scope, $location, GridService, Reports, $rootScope, Personalize, $filter, $translate) {
         var personal = new Personalize($location.url(), $rootScope.idpUser.id);
         var params = {};
-
+	
+        $scope.configure = {};
         if (Reports.item === null) {
             $location.path(Reports.route);
         } else {
@@ -35,11 +36,7 @@ angular.module('mps.report')
             }
             if (Reports.item.id === 'sd0101') {
                 $scope.print = false;
-            }
-            
-            
-            
-            
+            }          
             
 
             configureTemplates();
@@ -64,6 +61,7 @@ angular.module('mps.report')
 
             if($scope.report.id === "mp9058sp" || ($scope.report.id !== "mp9058sp" 
                 && Reports.isRun === true)) {
+                $scope.isLoading=true;
                 $scope.gridOptions.showLoader = true;
                 $scope.gridLoading = true;
                 Reports.isRun = false;
@@ -76,6 +74,10 @@ angular.module('mps.report')
                     params: params
                 }).then(function(res) {
                     $scope.gridLoading = false;
+                    $scope.isLoading=false;
+                    $scope.configure.button = {
+                            name : $translate.instant('REPORTING.RUN_REPORT')     
+                    };
                     Reports.item.results.hideBookmark = true;
                     if(res._embedded && res._embedded.reportData){
                         $scope.gridDataCnt = Reports.item.results.data.length;   
@@ -106,8 +108,11 @@ angular.module('mps.report')
                         h1: 'REPORTING.RUN_TITLE',
                         h1Values: {'report': $scope.report.name },
                         body: 'MESSAGE.LIPSUM',
-                    },
+                    }
                 },
+				button : {
+                       name : 'REPORTING.RUN_REPORT'  
+                   }
             };
         }
 
@@ -116,6 +121,7 @@ angular.module('mps.report')
                 /* Asset Register */
                 case 'mp9058sp':
                     /* NO FILTER */
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.ASSET_REGISTER_MSG';
                     break;
                 /* MADC */
                 case 'mp9073':
@@ -124,6 +130,7 @@ angular.module('mps.report')
                         eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         eventDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.MADC_MSG';
                     break;
                 /* Missing Meter Reads */
                 case 'mp0075':
@@ -131,6 +138,7 @@ angular.module('mps.report')
                         meterSource: Reports.finder ? (Reports.finder.selectType !== 'All' ? Reports.finder.selectType : '') : '',
                         numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.MMR_MSG';
                     break;
                 /* Consumables Orders */
                 case 'mp0021':
@@ -139,6 +147,7 @@ angular.module('mps.report')
                         srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.CONSUMABLES_ORDER_MSG';
                     break;
                 /* Hardware Orders */
                 case 'hw0008':
@@ -146,6 +155,7 @@ angular.module('mps.report')
                         srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.HARDWARE_ORDER_MSG';
                     break;
                 /* Pages Billed */
                 case 'pb0001':
@@ -153,6 +163,7 @@ angular.module('mps.report')
                         dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.PAGES_BILLED_MSG';
                     break;
                 /* Hardware Installation Requests */
                 case 'hw0015':
@@ -160,6 +171,7 @@ angular.module('mps.report')
                         dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : '',
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.HW_INSTALATION_MSG';
                     break;
                 /* Service Detail Report */
                 case 'sd0101':
@@ -169,6 +181,7 @@ angular.module('mps.report')
                         dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : '',
                         withParts: Reports.finder ? Reports.finder.withParts : '',
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.SERVICE_DETAILS_MSG';
                     break;
                 default:
                     params = null;

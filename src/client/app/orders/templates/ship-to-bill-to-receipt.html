@@ -13,10 +13,12 @@
     <h4 translate="{{configure.order.shipTo.translate.instructions}}"></h4>
     <p ng-bind="formattedInstructions"></p>
     <ul class="info-list">
+    <!--
         <li class="info-list__item" ng-show="configure.order.shipTo.translate.deliveryDate">
             <div class="info-list__item-name" translate="{{configure.order.shipTo.translate.deliveryDate}}"></div>
             <div class="info-list__item-value" ng-bind="formattedDeliveryDate"></div>
         </li>
+        -->
         <li class="info-list__item" ng-show="configure.order.shipTo.translate.expedite 
         && (scratchSpace.catalogCart.agreement.allowExpediteSupply || scratchSpace.catalogCart.agreement.allowExpediteService)">
             <div class="info-list__item-name" translate="{{configure.order.shipTo.translate.expedite}}"></div>

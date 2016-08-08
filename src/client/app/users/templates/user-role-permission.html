@@ -18,6 +18,7 @@
                 name="{{role.roleId}}"
                 ng-model="role.selected"
                 ng-change="setPermissions(role)"
+                ng-class="{'busy':role.disabled}"
             />
             {{role.description}}
         </label>
