@@ -1,6 +1,7 @@
 
 angular.module('mps.user')
 .controller('ManageUserController', [
+    '$http',
     '$rootScope',
     '$scope',
     '$location',
@@ -17,6 +18,7 @@ angular.module('mps.user')
     'AllAccounts',
     '$translate',
     function(
+        $http,
         $rootScope,
         $scope,
         $location,
@@ -395,6 +397,9 @@ angular.module('mps.user')
 
         $scope.isLoading=false;
         $scope.update = function(status) {
+
+            $scope.error = true;
+            $scope.errorMessage = '';
             $scope.isLoading=true;
         	if(status == undefined){
         		// It will be undefined when update button is clicked...
@@ -415,7 +420,30 @@ angular.module('mps.user')
                 UserAdminstration.wasInvited = false;
                 UserAdminstration.wasSaved = false;
                 UserAdminstration.wasUpdated = true;
-                $location.path('/delegated_admin');
+                if($scope.user.oldPassword && $scope.user.password){
+                    $http({
+                        method: 'PUT',
+                        url: UserAdminstration.url + '/' + $scope.userInfo.userId+'/password',
+                        data: {
+                            password: $scope.user.oldPassword,
+                            newPassword: $scope.user.password
+                        }
+                    }).then(function(result){
+                        if(result.status === 200){                             
+                            $location.path('/delegated_admin');
+                        }
+                        else if(result.data.message === '403 Forbidden'){
+                            UserAdminstration.wasUpdated = false;
+                            $scope.error = true;
+                            $scope.errorMessage = $translate.instant('USER_MAN.COMMON.TXT_ERROR_WRONG_ADMIN_PASSWORD');
+                            angular.element('.site-content').scrollTop(200);
+                            $scope.isLoading=false;
+                        }
+                    });
+                }
+                else{
+                    $location.path('/delegated_admin');
+                }
             }, function(reason){
                 NREUM.noticeError('Failed to update user because: ' + reason);
             });

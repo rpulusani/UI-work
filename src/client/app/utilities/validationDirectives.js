@@ -199,7 +199,7 @@ angular.module('mps.utility')
         require: 'ngModel',
         link: function(scope, element, attr, passwordLengthCtrl) {
             function passwordLengthValidation(value) {
-                if (value.length >= 8) {
+                if (value.length >= 8 || value.length == 0) {
                     passwordLengthCtrl.$setValidity('passwordLength', true);
                 } else {
                     passwordLengthCtrl.$setValidity('passwordLength', false);
