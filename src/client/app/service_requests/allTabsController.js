@@ -28,7 +28,7 @@ angular.module('mps.serviceRequests')
             return passed;
         };
 
-        $scope.active('srDetailsAssociateRequestsTabl'); 
+        //$scope.active('srDetailsAssociateRequestsTabl'); 
         var tabId = $location.search().tab;
         if(tabId){
             $rootScope.currentSRTab = tabId;
