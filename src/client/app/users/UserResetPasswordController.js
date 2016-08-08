@@ -48,25 +48,25 @@ angular.module('mps.user')
             $scope.user = User.item;
         }
         $scope.showUserUpdatedMessage = false;
-        
+        $scope.reset={};
         $scope.saveUserInfo = function(){
-            $scope.user.password = $scope.new_Password;
             UserAdminstration.setItem($scope.user);
-            UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.user.userId;
-            var options = {
-                preventDefaultParams: true
-            }
-            var deferred = UserAdminstration.put({
-                item:  $scope.user
-            }, options);
-
-            deferred.then(function(result){
+            UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.user.userId + '/password';
+            
+              $http({
+                    method: 'PUT',
+                    url: UserAdminstration.item.postURL,
+                    data: {
+                        password: $scope.reset.password,
+                        newPassword: $scope.reset.newPassword
+                    }
+                }).then(function(result){
                 $scope.new_Password = $scope.confirm_Password = '';
                 $('form').removeClass('ng-submitted');
                 $scope.showUserUpdatedMessage = true;
                 $('.site-content').scrollTop(0,0);
             }, function(reason){
-                NREUM.noticeError('Failed to update user because: ' + reason);
+                NREUM.noticeError('Failed to reset password because: ' + reason);
             });
         }
         $scope.configure = {
