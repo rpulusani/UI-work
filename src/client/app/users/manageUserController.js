@@ -256,6 +256,11 @@ angular.module('mps.user')
         }); 
 
         $scope.setPermissions = function(role){
+            if(role.disabled){
+                role.selected = !role.selected;
+                return;
+            }
+            role.disabled = true;
             Roles.setItem(role);
             var options = {
                 params:{
@@ -283,6 +288,7 @@ angular.module('mps.user')
                         }
                     }
                 }
+                role.disabled = false;
             });
         };
 
