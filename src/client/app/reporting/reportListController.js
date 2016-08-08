@@ -121,6 +121,7 @@ angular.module('mps.report')
                 /* Asset Register */
                 case 'mp9058sp':
                     /* NO FILTER */
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.ASSET_REGISTER_MSG';
                     break;
                 /* MADC */
                 case 'mp9073':
@@ -129,6 +130,7 @@ angular.module('mps.report')
                         eventDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         eventDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.MADC_MSG';
                     break;
                 /* Missing Meter Reads */
                 case 'mp0075':
@@ -136,6 +138,7 @@ angular.module('mps.report')
                         meterSource: Reports.finder ? (Reports.finder.selectType !== 'All' ? Reports.finder.selectType : '') : '',
                         numberOfDays: Reports.finder ? Reports.finder.mmrDays : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.MMR_MSG';
                     break;
                 /* Consumables Orders */
                 case 'mp0021':
@@ -144,6 +147,7 @@ angular.module('mps.report')
                         srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.CONSUMABLES_ORDER_MSG';
                     break;
                 /* Hardware Orders */
                 case 'hw0008':
@@ -151,6 +155,7 @@ angular.module('mps.report')
                         srDateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         srDateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.HARDWARE_ORDER_MSG';
                     break;
                 /* Pages Billed */
                 case 'pb0001':
@@ -158,6 +163,7 @@ angular.module('mps.report')
                         dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : ''
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.PAGES_BILLED_MSG';
                     break;
                 /* Hardware Installation Requests */
                 case 'hw0015':
@@ -165,6 +171,7 @@ angular.module('mps.report')
                         dateFrom: Reports.finder ? $filter('date')(Reports.finder.dateFrom, 'yyyy-MM-dd') : '',
                         dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : '',
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.HW_INSTALATION_MSG';
                     break;
                 /* Service Detail Report */
                 case 'sd0101':
@@ -174,6 +181,7 @@ angular.module('mps.report')
                         dateTo: Reports.finder ? $filter('date')(Reports.finder.dateTo, 'yyyy-MM-dd') : '',
                         withParts: Reports.finder ? Reports.finder.withParts : '',
                     };
+                    $scope.configure.header.translate.body = 'REPORT_MAN.HEADER.SERVICE_DETAILS_MSG';
                     break;
                 default:
                     params = null;
