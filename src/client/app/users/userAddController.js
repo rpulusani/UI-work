@@ -180,6 +180,11 @@ angular.module('mps.user')
         });
 
         $scope.setPermissions = function(role){
+            if(role.disabled){
+                role.selected = !role.selected;
+                return;
+            }
+            role.disabled = true;
             Roles.setItem(role);
             var options = {
                 params:{
@@ -202,6 +207,7 @@ angular.module('mps.user')
                 } else if ($scope.user.selectedRoleList && $scope.user.selectedRoleList.indexOf(role) !== -1) {
                     $scope.user.selectedRoleList.splice($scope.user.selectedRoleList.indexOf(role), 1);
                 }
+                role.disabled = false;
             });
         };
 
