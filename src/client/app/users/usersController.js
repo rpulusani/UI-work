@@ -31,8 +31,14 @@ angular.module('mps.user')
             }
 
             if (UserAdminstration.wasInvited) {
-                $scope.noOfUsersInvited = UserAdminstration.noOfInvitation;
-                $scope.invited = true;
+                if(UserAdminstration.noOfInvitation > 0){
+                    $scope.noOfUsersInvited = UserAdminstration.noOfInvitation;
+                    $scope.invited = true;
+                }
+                if(UserAdminstration.errorInvitation.emails.length){
+                    $scope.duplicateEmails = UserAdminstration.errorInvitation.emails.join(', ');
+                    $scope.invitedDuplicate = true;
+                }
                 UserAdminstration.wasInvited = false;
             }
         }
