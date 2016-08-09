@@ -20,6 +20,34 @@ angular.module('mps.utility')
         }
     };
 })
+.directive('validateMultiEmail',function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, emailsCtrl) {
+            scope.$watch(attr.ngModel, function(value) {
+                emailsValidation(value);
+            });
+            function emailsValidation(value) {
+                var emailExpression = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                var emails = value.replace(/ /g,'').split(',');
+                var valid = true;
+                for(var i = 0; i < emails.length; i++){
+                    if(!emailExpression.test(emails[i])){ 
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    emailsCtrl.$setValidity('emailIds', true);
+                } else {
+                    emailsCtrl.$setValidity('emailIds', false);
+                }
+                return value;
+            }
+            emailsCtrl.$parsers.push(emailsValidation);
+        }
+    };
+})
 .directive('phoneValid',function(){
     return {
         require: 'ngModel',

@@ -106,6 +106,12 @@ angular.module('mps.user')
         controller: ['$scope', 'CountryService', function($scope, CountryService){
             CountryService.get().then(function(){
                 $scope.countries=CountryService.data;
+                if($scope.user && $scope.user.address && $scope.user.address.country){
+                    var item = $scope.countries.filter(function(item) {
+                        return item.code === $scope.user.address.country; 
+                    });                
+                    $scope.provinces = item[0].provinces;
+                }
             });
 
             $scope.countrySelected = function(country) {

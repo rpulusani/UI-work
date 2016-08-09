@@ -383,9 +383,18 @@ angular.module('mps.user')
             }
 
             $q.all(deferredList).then(function(result) {
+                var errorInvitation = {
+                    emails:[]
+                };
+                for (var i = 0; i < result.length; i++){
+                    if(result[i].status === 400 && result[i].data.message.indexOf('DUPLICATE_EMAIL') >= 0){
+                        errorInvitation.emails.push(result[i].data.message.split(':')[1].trim());
+                    }
+                }
                 UserAdminstration.wasSaved = false;
                 UserAdminstration.wasInvited = true;
-                UserAdminstration.noOfInvitation = $scope.user.noOfInvitation;
+                UserAdminstration.errorInvitation = errorInvitation;
+                UserAdminstration.noOfInvitation = $scope.user.noOfInvitation - errorInvitation.emails.length;
                 $location.path('/delegated_admin');
             }, function(reason){
                 NREUM.noticeError('Failed to create SR because: ' + reason);

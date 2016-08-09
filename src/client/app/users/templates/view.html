@@ -26,6 +26,9 @@
     <div ng-show="invited" class="alert">
        {{noOfUsersInvited}} <span translate="USER_MAN.INVITE_USERS.TXT_MSG_USER_INVITED"></span>
     </div>
+    <div ng-show="invitedDuplicate" class="alert">
+       {{duplicateEmails}} <span translate="USER_MAN.INVITE_USERS.TXT_MSG_FOUND_DUPLICATE"></span>
+    </div>
 
     <div class="btns">
         <button type="button" class="btn btn--default" ng-click="goToCreateUser()" translate="USER_MAN.MANAGE_USERS.BTN_CREATE_NEW_USER"></button>
