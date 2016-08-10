@@ -77,7 +77,8 @@ function(
                 preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                         status:  ['SUBMITTED', 'IN_PROCESS', 'SHIPPED'],
-                        'type': 'BREAK_FIX'
+                        'type': 'BREAK_FIX',
+                        'getCount': true
                 }
             }).then(function(res) {
                 $scope.srOpenCnt = ServiceRequests.page.totalElements;
@@ -90,7 +91,8 @@ function(
                 preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                         status:  ['COMPLETED'],
-                        'type': 'BREAK_FIX'
+                        'type': 'BREAK_FIX',
+                        'getCount': true
                 }
             }).then(function(res) {
                 $scope.srCompletedCnt = {total: ServiceRequests.page.totalElements};
@@ -101,7 +103,8 @@ function(
                 preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                     status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
-                    type: 'ORDERS_ALL'
+                    type: 'ORDERS_ALL',
+                    'getCount': true
                 }
             };
 
@@ -121,7 +124,8 @@ function(
                 preventDefaultParams: BlankCheck.isNull($rootScope.currentAccount)? true : false,
                 params: {
                         status:  ['COMPLETED'],
-                        type: 'ORDERS_ALL'
+                        type: 'ORDERS_ALL',
+                        'getCount': true
                 }
             };
             if ($rootScope.viewSupplyOrderAccess && !$rootScope.viewHardwareOrderAccess) {
@@ -141,7 +145,8 @@ function(
                     type: [
                         'MADC_ALL','DATA_ASSET_ALL'
                     ],
-                        status:  ['SHIPPED','IN_PROCESS','SUBMITTED']
+                        status:  ['SHIPPED','IN_PROCESS','SUBMITTED'],
+                        'getCount': true
                 }
             }).then(function(res) {
                 $scope.srMADCCnt = ServiceRequests.page.totalElements;
@@ -156,7 +161,8 @@ function(
                     type: [
                         'MADC_ALL','DATA_ASSET_ALL'
                     ],
-                    status:  ['COMPLETED']
+                    status:  ['COMPLETED'],
+                        'getCount': true
                 }
             }).then(function(res) {
                 $scope.srMADCCompletedCnt = {total: ServiceRequests.page.totalElements};
