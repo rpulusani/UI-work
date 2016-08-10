@@ -43,7 +43,7 @@ angular.module('mps.deviceManagement')
             };
 
             $scope.viewOrder = function(SR){
-              ServiceRequest.setItem(SR);
+                ServiceRequest.setItem(SR);
                 var options = {
                     params:{
                         embed:'primaryContact,requester,address,account,asset,sourceAddress,shipToAddress,billToAddress'
@@ -76,7 +76,9 @@ angular.module('mps.deviceManagement')
                         $scope.openOrderList[i].updatedStatusDate = FormatterService.formatDate($scope.openOrderList[i].statusDate);
                       }
 
-                      for (j; j<statusBarLevels.length; j++){
+                      for (j = 0; j<statusBarLevels.length; j++){
+                        console.info($scope.openOrderList[i].status.toLowerCase().replace(/_/g, ''));
+                        console.info(statusBarLevels[j]);
                         if ($scope.openOrderList[i].status && 
                           $scope.openOrderList[i].status.toLowerCase().replace(/_/g, '') === statusBarLevels[j].value.toLowerCase()) {
                           tempStatus = statusBarLevels[j].name;
@@ -125,14 +127,7 @@ angular.module('mps.deviceManagement')
               }
 
           });
-          $scope.getNotificationMessage = function(status){
-            if(status === "SUBMITTED"){
-              return "REQUEST_MAN.MANAGE_REQUESTS.TXT_SINGLE_SERVICE_REQUEST";
-            } else {
-              return "ORDER_MAN.MANAGE_ORDERS.TXT_SINGLE_SUPPLY_ORDER";
-            }
-          };
-          $scope.goto = function(tab){
+            $scope.goto = function(tab){
             $rootScope.currentDeviceTab = tab;
             $location.search('tab', tab);
           };
