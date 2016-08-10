@@ -2,7 +2,7 @@
 <h3 translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_DEVICE_IDENTIFICATION"></h3>
 
 <div><strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_LXK_DEVICE_QUERY"></strong></div>
-<div ng-init="device.lexmarkDeviceQuestion ? device.lexmarkDeviceQuestion=true : device.lexmarkDeviceQuestion " />
+<div ng-init="device.lexmarkDeviceQuestion ? device.lexmarkDeviceQuestion=true : device.lexmarkDeviceQuestion " >
     <div class="form__field form__field--no-margin">
         <input type="radio"
             id="lexmark-device-question-no"
@@ -133,7 +133,7 @@ ng-if="installDevice" >
 <div ng-if="device.address && device.address.id && device.deviceInstallQuestion">
     <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE"></strong>
 
-    <div ng-init="device.deviceDeInstallQuestion ? device.deviceDeInstallQuestion : device.deviceDeInstallQuestion=false " />
+    <div ng-init="device.deviceDeInstallQuestion ? device.deviceDeInstallQuestion : device.deviceDeInstallQuestion=false " >
         <div class="form__field form__field--no-margin">
             <input type="radio"
                 id="device-deinstall-question-no"
@@ -154,11 +154,48 @@ ng-if="installDevice" >
             <label for="device-deinstall-question-yes"><span></span> {{ 'LABEL.COMMON.YES' | translate }}</label>
         </div>
     </div>
-
     <p class="footnotes" translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_OTHER_LOCATION_REMOVE"></p>
 </div>
+<div ng-if="device.deviceDeInstallQuestion" class="form__field">
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_REMOVE_EXISTING_DEVICE_LEXMARK_OR_NON_LEXMARK"></strong>
 
-<div ng-show="device.deviceDeInstallQuestion === true">
+    <div>
+        <div class="form__field form__field--no-margin">
+            <input type="radio"
+                id="lexmark-device-deinstall-yes"
+                name="lexmark-device-deinstall-question"
+                ng-model="device.lexmarkDeviceDeInstallQuestion"
+                ng-value="true"
+            />
+            <label for="lexmark-device-deinstall"><span  translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_NON_LEXMARK_DEVICE_DEINSTALL"></span></label>
+        </div>
+        <div class="form__field form__field--no-margin">
+            <input type="radio"
+                id="non-lexmark-device-deinstall-no"
+                name="lexmark-device-deinstall-question"
+                ng-model="device.lexmarkDeviceDeInstallQuestion"
+                ng-value="false"
+            />
+            <label for="non-lexmark-device-deinstall"><span translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_NON_LEXMARK_DEVICE_DEINSTALL"></span></label>
+        </div>
+    </div>
+</div>
+<div ng-if="device.lexmarkDeviceDeInstallQuestion === false">
+    <strong translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_NON_LEXMARK_DEVICE_TO_BE_REMOVED"></strong>
+    <div class="form__field form__field--required">
+        <label translate="REPORTING.SERIAL_NUMBER"></label>
+        <input name="serialNumber" type="text" ng-model="device.deinstallAssetInfo.serialNumber" required />
+    </div>
+    <div class="form__field form__field--required">
+        <label translate="DEVICE_MAN.MANAGE_DEVICE.TXT_PRODUCT_MODEL">​</label>
+        <input name="productModel​" type="text" ng-model="device.deinstallAssetInfo.prodM" required />
+    </div>
+    <div class="form__field form__field--required">
+        <label translate="REPORTING.IP_ADDRESS">​</label>
+        <input name="ipAddress​" type="text" ng-model="device.deinstallAssetInfo.ipa" required ip-address-valid/>
+    </div>
+</div>
+<div ng-if="device.lexmarkDeviceDeInstallQuestion === true">
     <strong class="form__field--required"  translate="REQUEST_MAN.REQUEST_DEVICE_REGISTER.TXT_SELECT_REMOVE_DEVICE"></strong>
 
     <div ng-hide="device.isDeviceSelected">
