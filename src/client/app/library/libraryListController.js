@@ -61,8 +61,8 @@ angular.module('mps.library')
         $scope.isUnpublished = function(documentItem) {
             if (documentItem.endDate === undefined || documentItem.endDate === null) { return; }
 
-            var dateNow = formatter.getDisplayDate(new Date());
-            var docEndDate = formatter.getDisplayDate(new Date(documentItem.endDate));
+            var dateNow = new Date();
+            var docEndDate = new Date(documentItem.endDate);
 
             if (dateNow >= docEndDate) {
                 return '(' + $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_GRID_UNPUBLISHED') + ')';
