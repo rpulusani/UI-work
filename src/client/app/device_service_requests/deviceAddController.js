@@ -720,6 +720,16 @@ angular.module('mps.serviceRequestDevices')
 
                 if ($scope.device.deviceDeInstallQuestion === true) {
                     ServiceRequest.addField('type', 'MADC_INSTALL_AND_DECOMMISSION');
+                    if($scope.device.lexmarkDeviceDeInstallQuestion === false){
+                        ServiceRequest.addField('deinstallAssetInfo',{
+                            serialNumber: $scope.device.deinstallAssetInfo.serialNumber,
+                            productModel: $scope.device.deinstallAssetInfo.prodM,
+                            ipAddress: $scope.device.deinstallAssetInfo.ipa
+                        });
+                        if(ServiceRequest.asset){
+                            ServiceRequest.removeRelationship('asset');
+                        }
+                    }
                 } else if ($scope.device.deviceInstallQuestion === true) {
                     ServiceRequest.addField('type', 'MADC_INSTALL');
                 } else {
