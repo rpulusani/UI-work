@@ -42,7 +42,9 @@ angular.module('mps.user')
             redirect_to_preference();
         $scope.user = User.item;
         $scope.currentEmail = $scope.user.email;
+        $scope.isLoading = false;
         $scope.saveUserInfo = function(){
+            $scope.isLoading = true;
             $scope.user.email = $scope.newEmail;
             UserAdminstration.setItem($scope.user);
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.user.userId;
@@ -54,6 +56,7 @@ angular.module('mps.user')
             }, options);
 
             deferred.then(function(result){
+                $scope.isLoading = false;
                 $scope.showUserUpdatedMessage = true;
                 $('.site-content').scrollTop(0,0);
                 $rootScope.logout();

@@ -49,7 +49,9 @@ angular.module('mps.user')
         }
         $scope.showUserUpdatedMessage = false;
         $scope.reset={};
+        $scope.isLoading = false;
         $scope.saveUserInfo = function(){
+            $scope.isLoading = true;
             UserAdminstration.setItem($scope.user);
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.user.userId + '/password';
             
@@ -61,7 +63,8 @@ angular.module('mps.user')
                         newPassword: $scope.reset.newPassword
                     }
                 }).then(function(result){
-                $scope.new_Password = $scope.confirm_Password = '';
+                $scope.isLoading = false;
+                $scope.reset.password = $scope.reset.newPassword = $scope.reset.newPasswordConfirm = '';
                 $('form').removeClass('ng-submitted');
                 $scope.showUserUpdatedMessage = true;
                 $('.site-content').scrollTop(0,0);
