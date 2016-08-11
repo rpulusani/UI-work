@@ -546,8 +546,9 @@ angular.module('mps.user')
                 static: true
             });
         }
-
+        $scope.isLoading=false;
         $scope.update = function(status) {
+            $scope.isLoading=true;
             if(status == undefined){
                 // It will be undefined when update button is clicked...
                 updateAdminObjectForUpdate($scope.userActive == false? 'deactivate' : 'activate');  
@@ -562,7 +563,8 @@ angular.module('mps.user')
                 item:  $scope.userInfo
             }, options);
 
-            deferred.then(function(result){                
+            deferred.then(function(result){   
+                $scope.isLoading=false;             
                 if(status === undefined){
                     UserAdminstration.wasUpdated = true;
                     $location.path('/delegated_admin/lexmark_user');
@@ -584,6 +586,7 @@ angular.module('mps.user')
         };
 
         $scope.save = function(status) {
+            $scope.isLoading=true;
             if(status == undefined){
                 // It will be undefined when update button is clicked...
                 updateAdminObjectForSubmit($scope.userActive == false? 'deactivate' : 'activate');  
@@ -596,6 +599,7 @@ angular.module('mps.user')
             });
 
             deferred.then(function(result){
+                $scope.isLoading=false;
                 if(status === undefined){
                     UserAdminstration.wasUpdated = true;
                     $location.path('/delegated_admin/lexmark_user');
@@ -627,6 +631,7 @@ angular.module('mps.user')
         };
 
         $scope.deactivate = function() {
+            $scope.isLoading=true;
             if ($scope.isNewUser === true){
                 updateAdminObjectForSubmit('deactivate');
             }
@@ -642,6 +647,7 @@ angular.module('mps.user')
             }, options);
 
             deferred.then(function(result){
+                $scope.isLoading=false;
                 $scope.showUserUpdatedMessage = true;
                 $scope.userActive = false;
                 window.scrollTo(0,0);

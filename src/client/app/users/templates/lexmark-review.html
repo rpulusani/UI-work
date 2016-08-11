@@ -15,10 +15,20 @@
     </div>
 
 	<div class="btns">
-	    <button class="btn btn--default" ng-click="newUser.$valid && verifyDeactivateActivate('deactivate')" translate="USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER" ng-if="userActive">
-	    </button>
-	    <button class="btn btn--default" ng-click="newUser.$valid && verifyDeactivateActivate('activate')" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER" ng-if="!userActive">
-	    </button>
+		<button class="btn btn--primary" ng-click="newUser.$valid && verifyDeactivateActivate('deactivate')" ng-if="userActive">
+  			<span ng-show="!isLoading" translate="{{'USER_MAN.MANAGE_USERS.BTN_DEACTIVATE_USER' | translate}}"></span>
+   			<span ng-show="isLoading" >
+   				<span class="loadingIcon"></span>
+   				<span translate="COMMON.ACTIONS.BTN_LOADING"></span>
+   			</span>
+   		</button>
+	    <button class="btn btn--primary" ng-click="newUser.$valid && verifyDeactivateActivate('activate')" ng-if="!userActive">
+  			<span ng-show="!isLoading" translate="USER_MAN.MANAGE_USERS.BTN_ACTIVATE_USER"></span>
+   			<span ng-show="isLoading" >
+   				<span class="loadingIcon"></span>
+   				<span translate="COMMON.ACTIONS.BTN_LOADING"></span>
+   			</span>
+   		</button>
 	</div>
 
 	<div id="deactivate-confirm-popup" class="modal">
