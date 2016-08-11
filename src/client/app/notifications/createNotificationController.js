@@ -31,8 +31,9 @@ angular.module('mps.notifications')
             Notifications.addField('url', $scope.notification.url);
             Notifications.addField('values', notificationValue);
         };
-
+        $scope.isLoading=false;
         $scope.save = function() {
+            $scope.isLoading=true;
             $scope.checkNotificationDates();
             if(!$scope.isDateValidated) {
                 return false;
@@ -44,6 +45,7 @@ angular.module('mps.notifications')
             });
 
             deferred.then(function(result){
+                $scope.isLoading=false;
                 $location.path('/notifications');
             }, function(reason){
                 NREUM.noticeError('Failed to create Notification because: ' + reason);

@@ -46,8 +46,9 @@ angular.module('mps.notifications')
             Notifications.addField('url', $scope.notification.url);
             Notifications.addField('values', $scope.notification.values);
         };
-
+        $scope.isLoading=false;
         $scope.update = function() {
+            $scope.isLoading=true;
             $scope.checkNotificationDates();
             if(!$scope.isDateValidated) {
                 return false;
@@ -69,6 +70,7 @@ angular.module('mps.notifications')
         };
 
         $scope.delete = function() {
+            $scope.isLoading=true;
             $http({
                 method: 'DELETE',
                 url: Notifications.item.url

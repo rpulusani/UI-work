@@ -9,8 +9,9 @@ angular.module('mps.carrier')
         } else {
             $scope.carrier = {};
         }
-        
+        $scope.isLoading=false;
         $scope.save = function() {
+            $scope.isLoading=true;
             Carriers.data = $scope.carrier;
             $http({
                 method: 'POST',
@@ -24,6 +25,7 @@ angular.module('mps.carrier')
         };
 
         $scope.update = function() {
+            $scope.isLoading=true;
             Carriers.data = $scope.carrier;
             $http({
                 method: 'PUT',

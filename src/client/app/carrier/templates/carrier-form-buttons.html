@@ -6,10 +6,13 @@
         translate="ADMIN.CARRIER.BTN_ABANDON_CARRIER_UPDATE"
     ></button>
     
-    <button class="btn btn--primary"
-        ng-click="save()"
-        translate="ADMIN.CARRIER.BTN_ADD_CARRIER_LINK"
-    ></button>
+    <button class="btn btn--primary" ng-click="save()">
+            <span ng-show="!isLoading" translate="ADMIN.CARRIER.BTN_ADD_CARRIER_LINK"></span>
+            <span ng-show="isLoading" >
+                <span class="loadingIcon"></span>
+                <span translate="COMMON.ACTIONS.BTN_LOADING"></span>
+            </span>
+    </button>
 
     <div confirm-cancel
         title="ADMIN.CARRIER.TITLE_CARRIER_ABANDON_MODAL"
