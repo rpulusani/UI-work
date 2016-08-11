@@ -1,7 +1,13 @@
 
 <div class="col-1">
     <button class="btn btn--secondary" data-js="modalOpen" data-target="#cancel" translate="{{configure.actions.translate.abandonRequest}}"></button>
-    <button class="btn btn--primary" ng-click="userProfile.$valid && configure.actions.submit()" translate="{{configure.actions.translate.submit}}"></button>
+    <button class="btn btn--primary" ng-click="userProfile.$valid && configure.actions.submit()" >
+           <span ng-show="!isLoading" translate="{{configure.actions.translate.submit}}"></span>
+           <span ng-show="isLoading" >
+                   <span class="loadingIcon"></span>
+                   <span translate="COMMON.ACTIONS.BTN_LOADING"></span>
+           </span>
+   </button>
     
     <div confirm-cancel
         title="{{configure.modal.translate.abandonTitle}}"
