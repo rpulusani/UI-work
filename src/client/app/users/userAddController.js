@@ -303,8 +303,8 @@ angular.module('mps.user')
                     addressLine2: $scope.user.address.addressLine2,
                     city: $scope.user.address.city,
                     state: $scope.user.address.state,
-                    country: $scope.user.address.country,
-                    countryIsoCode: $scope.user.address.country,
+                    country: $scope.user.address.country.name,
+                    countryIsoCode: $scope.user.address.country.code,
                     postalCode: $scope.user.address.postalCode
                 };
                 UserAdminstration.addField('address', addressInfo);
@@ -340,6 +340,7 @@ angular.module('mps.user')
 
         $scope.save = function() {
             $scope.isLoading=true;
+            $scope.user.address.country = JSON.parse($scope.user.address.country);
             updateAdminObjectForSubmit();
             UserAdminstration.item.postURL = UserAdminstration.url;
             var deferred = UserAdminstration.post({
