@@ -48,7 +48,7 @@ angular.module('mps.orders')
     	Orders.backFrom = '';
     }
     
-    $scope.gridLoading = true;
+    $scope.gridLoadingOrderSupply = true;
     $scope.maxQuantity = 0;
     
     if(Devices.item){
@@ -115,7 +115,7 @@ angular.module('mps.orders')
                        $q.all(AssetParts.thumbnails).then(function(){
                        	Grid.display(AssetParts,$scope,personal, 92, function(){
                        		setTimeout(function(){
-                       			$scope.gridLoading = false;	
+                            	$scope.gridLoadingOrderSupply = false;	
                        		},0);                    	
                            });
                            
