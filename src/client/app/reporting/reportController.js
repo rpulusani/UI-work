@@ -1,8 +1,8 @@
 
 
 angular.module('mps.report')
-.controller('ReportController', ['$scope', '$location', '$translate', 'SecurityHelper', 'Reports', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory',
-    function($scope, $location, $translate, SecurityHelper, Reports, Documents, GridService, $rootScope, Personalize) {
+.controller('ReportController', ['$scope', '$location', '$translate', 'SecurityHelper', 'Reports', 'Documents', 'grid', '$rootScope', 'PersonalizationServiceFactory', '$filter',
+    function($scope, $location, $translate, SecurityHelper, Reports, Documents, GridService, $rootScope, Personalize, $filter) {
 
         if(!$rootScope.reportAccess){
             new SecurityHelper($rootScope).confirmPermissionCheck("reportAccess");    
@@ -127,17 +127,19 @@ angular.module('mps.report')
             $scope.chartObject.fleetAvailability.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
             $scope.chartObject.fleetAvailability.dataPoint = d.fleetAvailability;
 
+            $scope.fleetPeriod = data.stat[0].period;
+
             $scope.chartObject.fleetAvailability.data = {
                 "cols": [
                     {id: "t", label: "Fleet Availability", type: "string"},
-                    {id: "s", label: "Percent", type: "number" },
-                    {role: "style", type: "string"}
+                    {id: "s", label: $translate.instant("LABEL.COMMON.PERCENT"), type: "number" },
+                    {role: "style", type: "string"},
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.fleetAvailability) + ' (' + data.stat[0].period.replace(/ /g, '') + ')'},
+                        {v: ''},
                         {v: d.fleetAvailability },
-                        {v: "#00ad21" }
+                        {v: "#00ad21" },
                     ]}
                 ]};
         };
@@ -155,15 +157,17 @@ angular.module('mps.report')
             $scope.chartObject.responseTime.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
             $scope.chartObject.responseTime.dataPoint = d.responseTime;
 
+            $scope.responsePeriod = data.stat[0].period;
+
             $scope.chartObject.responseTime.data = {
                 "cols": [
                     {id: "t", label: "Response Time", type: "string"},
-                    {id: "s", label: "Percent", type: "number" },
+                    {id: "s", label: $translate.instant("LABEL.COMMON.PERCENT"), type: "number" },
                     {role: "style", type: "string"}
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.responseTime)  + ' (' + data.stat[0].period.replace(/ /g, '') + ')'},
+                        {v: ''},
                         {v: d.responseTime },
                         {v: "#1c64b4" }
                     ]}
@@ -183,15 +187,17 @@ angular.module('mps.report')
             $scope.chartObject.consumables.options.vAxis = { format: '#.#\'%\'', ticks: [0, 50, 100] };
             $scope.chartObject.consumables.dataPoint = d.consumables;
 
+            $scope.consumablesPeriod= data.stat[0].period;
+
             $scope.chartObject.consumables.data = {
                 "cols": [
                     {id: "t", label: "Fleet Availability", type: "string"},
-                    {id: "s", label: "Percent", type: "number" },
+                    {id: "s", label: $translate.instant("LABEL.COMMON.PERCENT"), type: "number" },
                     {role: "style", type: "string"}
                 ],
                 "rows": [
                     {c: [
-                        {v: $translate.instant($scope.configure.report.kpi.translate.consumables) + ' (' + data.stat[0].period.replace(/ /g, '') + ')'},
+                        {v: ''},
                         {v: d.consumables },
                         {v: "#faa519" }
                     ]}
@@ -630,5 +636,37 @@ angular.module('mps.report')
             return localized.join(', ');
         };
     }
-]);
+]).filter('dateRangeFormat',function(){
+    return function(text){
+        if (text) {
+            var splitArr = text.split('/');
+            var year = Number(splitArr[0].trim());
+            var month = Number(splitArr[1].trim());
+            var isLeapYear = (year%4 === 0)?true:false;
+            var dateRange = '';
+            var monthArr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            switch(month){
+                case 1:             
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    dateRange = ' 1 - 31 ';
+                    break;
+                case 2: 
+                    dateRange = (isLeapYear)?'1 - 29':'1 - 28';
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    dateRange = '1 - 30';
+                    break;
+            }
+            return monthArr[month-1] + ' ' + dateRange + ', ' + year;
+        }
+    }
+});
 
