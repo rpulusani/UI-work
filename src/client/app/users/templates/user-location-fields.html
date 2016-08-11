@@ -2,7 +2,7 @@
     <label translate="USER_MAN.COMMON.TXT_COUNTRY"></label>
  <select ng-model="user.address.country" name="country" required null-check ng-change=countrySelected(user.address.country)>
             <option value="" translate="LABEL.COMMON.SELECT"></option>
-            <option ng-repeat="country in countries" value="{{ country.code }}"  ng-selected="{{user.address.country === country.code}}">
+            <option ng-repeat="country in countries" value="{{ country }}"  ng-selected="{{(user.address.country === country.name) || (user.address.country === country.code)  }}">
             {{country.name}}
             </option>
     </select>

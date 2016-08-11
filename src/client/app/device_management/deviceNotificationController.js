@@ -58,7 +58,8 @@ angular.module('mps.deviceManagement')
                 'params':{
                   'type': 'SUPPLIES_ORDERS_ALL',
                   'assetId':Devices.item.id,
-                  'status': ['SUBMITTED', 'IN_PROCESS', 'SHIPPED']
+                  'status': ['SUBMITTED', 'IN_PROCESS', 'SHIPPED'],
+                  'getCount': false
                 }
             },
             statusBarLevels = [
@@ -97,7 +98,8 @@ angular.module('mps.deviceManagement')
                 'params':{
                   'type': 'BREAK_FIX',
                   'assetId':Devices.item.id,
-                  'status': ['SUBMITTED', 'IN_PROCESS', 'SHIPPED']
+                  'status': ['SUBMITTED', 'IN_PROCESS', 'SHIPPED'],
+                  'getCount': false
                 }
             };
           ServiceRequest.getPage(0, 100000, srOptions).then(function() {

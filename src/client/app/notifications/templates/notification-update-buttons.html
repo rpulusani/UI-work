@@ -6,10 +6,13 @@
         translate="PORTAL_ADMIN.ABANDON_NOTIFICATION_CHANGES"
     ></button>
     
-    <button class="btn btn--primary"
-        ng-click="manageNotification.$valid && update()"
-        translate="PORTAL_ADMIN.UPDATE_NOTIFICATION"
-    ></button>
+    <button class="btn btn--primary" ng-click="manageNotification.$valid && update()">
+        <span ng-show="!isLoading" translate="PORTAL_ADMIN.UPDATE_NOTIFICATION"></span>
+        <span ng-show="isLoading" >
+            <span class="loadingIcon"></span>
+            <span translate="COMMON.ACTIONS.BTN_LOADING"></span>
+        </span>
+    </button>
 
     <div confirm-cancel
         title="PORTAL_ADMIN.TITLE_NOTIFICATION_ABANDON_MODAL"

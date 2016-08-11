@@ -45,6 +45,7 @@ angular.module('mps.user')
             var contact12 =  $scope.user._links.contact.href;
         });
         $scope.userPreference = true;
+        $scope.isLoading = false;
         $scope.languageOptions = UserAdminstration.languageOptions($translate);
 
         $scope.updateEmail = function(){
@@ -54,16 +55,54 @@ angular.module('mps.user')
             $location.path('/user_reset_password');
         }
         $scope.saveUserInfo = function(){
+            $scope.isLoading = true;
+            $scope.user.postURL = UserAdminstration.url + '/' + $scope.user.userId;
             UserAdminstration.setItem($scope.user);
             UserAdminstration.item.postURL = UserAdminstration.url + '/' + $scope.user.userId;
             var options = {
                 preventDefaultParams: true
             }
+            if($scope.user.address.country.indexOf('\"') === -1){
+                var item = $scope.countries.filter(function(item) {
+                        return (item.code === $scope.user.address.country) || (item.name === $scope.user.address.country); 
+                    });  
+                $scope.user.address.country = item[0];        
+            }
+            if(typeof $scope.user.address.country === 'string')
+                $scope.user.address.country = JSON.parse($scope.user.address.country);
+            var addressInfo = {
+                    addressLine1: $scope.user.address.addressLine1,
+                    addressLine2: $scope.user.address.addressLine2,
+                    city: $scope.user.address.city,
+                    state: $scope.user.address.state,
+                    country: $scope.user.address.country.name,
+                    countryIsoCode: $scope.user.address.country.code,
+                    postalCode: $scope.user.address.postalCode
+                };
+                UserAdminstration.addField('address', addressInfo);
             var deferred = UserAdminstration.put({
-                item:  $scope.user
+                item:  {
+                    _links: $scope.user._links,
+                    postURL: $scope.user.postURL,
+                    ldapId: $scope.user.ldapId,
+                    contactId: $scope.user.contactId,
+                    idpId: $scope.user.idpId,
+                    type: $scope.user.type,
+                    active: $scope.user.active,
+                    firstName: $scope.user.firstName,
+                    lastName: $scope.user.lastName,
+                    password: $scope.user.password,
+                    email: $scope.user.email,
+                    userId: $scope.user.userId,
+                    workPhone: $scope.user.workPhone,
+                    address: addressInfo,
+                    preferredLanguage: $scope.user.preferredLanguage,
+                    resetPassword: $scope.user.resetPassword
+                }
             }, options);
 
             deferred.then(function(result){
+                $scope.isLoading = false;
                 $scope.showUserUpdatedMessage = true;
                 $translate.use(result.data.preferredLanguage);
                 $('.site-content').scrollTop(0,0);

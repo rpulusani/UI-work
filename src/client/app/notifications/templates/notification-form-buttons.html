@@ -5,11 +5,13 @@
         data-target="#cancel"
         translate="PORTAL_ADMIN.ABANDON_NOTIFICATION"
     ></button>
-    
-    <button class="btn btn--primary"
-        ng-click="newNotification.$valid && save()"
-        translate="PORTAL_ADMIN.SAVE_NOTIFICATION"
-    ></button>
+    <button name="submit" class="btn btn--primary" type="submit" value="submit" ng-click="newNotification.$valid && save()">
+        <span ng-show="!isLoading" translate="PORTAL_ADMIN.SAVE_NOTIFICATION"></span>
+        <span ng-show="isLoading" >
+            <span class="loadingIcon"></span>
+            <span translate="COMMON.ACTIONS.BTN_LOADING"></span>
+        </span>
+    </button>
 
     <div confirm-cancel
         title="PORTAL_ADMIN.TITLE_NOTIFICATION_ABANDON_MODAL"

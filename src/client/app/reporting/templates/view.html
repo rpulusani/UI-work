@@ -23,6 +23,7 @@
             </div>
             <div>
                 <div google-chart chart="{{ chartObject.fleetAvailability }}"></div>
+                <p class="text--align-center vertical-space--none text--small">{{fleetPeriod | dateRangeFormat}}</p>
                 <p class="text--align-center" ng-if="chartObject.fleetAvailability.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
             </div>
         </div>
@@ -33,6 +34,7 @@
             </div>
             <div>
                 <div google-chart chart="{{ chartObject.responseTime }}"></div>
+                <p class="text--align-center vertical-space--none text--small">{{responsePeriod | dateRangeFormat}}</p>
                 <p class="text--align-center" ng-if="chartObject.responseTime.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
             </div>
         </div>
@@ -42,6 +44,7 @@
             </div>
             <div>
                 <div google-chart chart="{{ chartObject.consumables }}"></div>
+                <p class="text--align-center vertical-space--none text--small">{{consumablesPeriod | dateRangeFormat}}</p>
                 <p class="text--align-center" ng-if="chartObject.consumables.dataPoint < 1" translate="{{ configure.report.charts.translate.noDataAvailable }}"></p>
             </div>
         </div>

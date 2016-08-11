@@ -117,8 +117,9 @@ angular.module('mps.library')
             $scope.gridLoading = false;
             Grid.display(Tags, $scope, personal);
         });
-
+        $scope.isLoading=false;
         $scope.goToCreateTag = function() {
+            $scope.isLoading=true;
             Tags.newMessage();
             Tags.addField("name", $scope.tagName);
             Tags.item.postURL = Tags.url;
@@ -129,6 +130,7 @@ angular.module('mps.library')
                 data: Tags.item
             }).then(function successCallback(response) {
                 Tags.item.createSuccess = true;
+                $scope.isLoading=false;
                 $route.reload();
             }, function errorCallback(response) {
                 $route.reload();
@@ -159,6 +161,7 @@ angular.module('mps.library')
         };
 
         $scope.goToEditTag = function() {
+            $scope.isLoading=true;
             var origParsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
             
             Tags.item.name = $scope.selectedEditTag;
@@ -209,6 +212,7 @@ angular.module('mps.library')
         };
 
         $scope.goToDeleteTag = function() {
+            $scope.isLoading=true;
             var parsedTagName = Documents.getTranslationKeyFromTag(Tags.item.name);
 
             $http({
