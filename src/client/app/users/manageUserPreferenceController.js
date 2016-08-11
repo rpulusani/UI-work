@@ -62,6 +62,24 @@ angular.module('mps.user')
             var options = {
                 preventDefaultParams: true
             }
+            if($scope.user.address.country.indexOf('\"') === -1){
+                var item = $scope.countries.filter(function(item) {
+                        return (item.code === $scope.user.address.country) || (item.name === $scope.user.address.country); 
+                    });  
+                $scope.user.address.country = item[0];        
+            }
+            if(typeof $scope.user.address.country === 'string')
+                $scope.user.address.country = JSON.parse($scope.user.address.country);
+            var addressInfo = {
+                    addressLine1: $scope.user.address.addressLine1,
+                    addressLine2: $scope.user.address.addressLine2,
+                    city: $scope.user.address.city,
+                    state: $scope.user.address.state,
+                    country: $scope.user.address.country.name,
+                    countryIsoCode: $scope.user.address.country.code,
+                    postalCode: $scope.user.address.postalCode
+                };
+                UserAdminstration.addField('address', addressInfo);
             var deferred = UserAdminstration.put({
                 item:  {
                     _links: $scope.user._links,
@@ -77,7 +95,7 @@ angular.module('mps.user')
                     email: $scope.user.email,
                     userId: $scope.user.userId,
                     workPhone: $scope.user.workPhone,
-                    address: $scope.user.address,
+                    address: addressInfo,
                     preferredLanguage: $scope.user.preferredLanguage,
                     resetPassword: $scope.user.resetPassword
                 }
