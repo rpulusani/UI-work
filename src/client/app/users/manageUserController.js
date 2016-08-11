@@ -362,7 +362,8 @@ angular.module('mps.user')
                 addressLine2: $scope.user.address.addressLine2,
                 city: $scope.user.address.city,
                 state: $scope.user.address.state,
-                country: $scope.user.address.country,
+                country: $scope.user.address.country.name,
+                countryIsoCode: $scope.user.address.country.code,
                 postalCode: $scope.user.address.postalCode
             };
             UserAdminstration.addField('address', addressInfo);
@@ -403,7 +404,14 @@ angular.module('mps.user')
 
         $scope.isLoading=false;
         $scope.update = function(status) {
-
+            if($scope.user.address.country.indexOf('\"') === -1){
+                var item = $scope.countries.filter(function(item) {
+                        return (item.code === $scope.user.address.country) || (item.name === $scope.user.address.country); 
+                    });  
+                $scope.user.address.country = item[0];        
+            }
+            if(typeof $scope.user.address.country === 'string')
+                $scope.user.address.country = JSON.parse($scope.user.address.country);
             $scope.error = true;
             $scope.errorMessage = '';
             $scope.isLoading=true;
