@@ -17,6 +17,7 @@ angular.module('mps.user')
     '$q',
     'AllAccounts',
     '$translate',
+    'CountryService',
     function(
         $http,
         $rootScope,
@@ -33,7 +34,8 @@ angular.module('mps.user')
         SecurityHelper,
         $q,
         AllAccounts,
-        $translate
+        $translate,
+        CountryService
         ) {
         var redirect_to_list = function() {
            $location.path(UserAdminstration.route + '/');
@@ -407,12 +409,19 @@ angular.module('mps.user')
         }
 
         $scope.isLoading=false;
+        CountryService.get().then(function(){
+            $scope.countries=CountryService.data;
+        });   
+
         $scope.update = function(status) {
+            
             if($scope.user.address.country.indexOf('\"') === -1){
+                
                 var item = $scope.countries.filter(function(item) {
-                        return (item.code === $scope.user.address.country) || (item.name === $scope.user.address.country); 
-                    });  
-                $scope.user.address.country = item[0];        
+                    return (item.code === $scope.user.address.country) || (item.name === $scope.user.address.country); 
+                });  
+                $scope.user.address.country = item[0]; 
+                  
             }
             if(typeof $scope.user.address.country === 'string')
                 $scope.user.address.country = JSON.parse($scope.user.address.country);
