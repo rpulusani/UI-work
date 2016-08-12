@@ -8,7 +8,7 @@
          <span translate="GRID.LOADING"></span>
     </div>
 </div>
-<div class="alert alert--info" ng-if="gridLoadingOrderSupply === false && !catalogOptions.data && !catalogOptions.data.length">
+<div class="alert alert--info" ng-if="gridLoadingOrderSupply === false &&  catalogOptions.data && catalogOptions.data.length === 0">
     <icon class="alert__icon icon icon--small icon--ui icon--info"></icon>
     <div class="alert__body">
          <span translate="GRID.EMPTY"></span>

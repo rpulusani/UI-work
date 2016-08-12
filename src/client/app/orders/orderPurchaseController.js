@@ -2,6 +2,7 @@
 
 angular.module('mps.orders')
 .controller('OrderPurchaseController', [
+    '$http',
     '$scope',
     '$location',
     '$filter',
@@ -23,8 +24,10 @@ angular.module('mps.orders')
     'ServiceRequestService',
     'OrderControllerHelperService',
     'TaxService',
+    'serviceUrl',
     '$q','$interval','tombstoneCheckCount',
     function(
+        $http,
         $scope,
         $location,
         $filter,
@@ -46,6 +49,7 @@ angular.module('mps.orders')
         ServiceReqeust,
         OrderControllerHelper,
         taxService,
+        serviceUrl,
         $q,$interval,tombstoneCheckCount) {
         if (Orders.item === null){
             $location.path(Orders.route).search({tab:'orderAllTab'});
@@ -64,7 +68,39 @@ angular.module('mps.orders')
         $scope.editable = false; //make order summary not actionable
         $scope.errorAddress = false;
         $scope.isLoading = false;
-        Orders.tempSpace.shipToAddress = (Devices.item._embedded.address === undefined)? Devices.item.address.item : Devices.item._embedded.address;
+        var orderPartsType = {
+            supply:{
+                occurence: false,
+            },
+            service:{
+                occurence: false,
+            }
+        };
+        var supplyPartsListArea = ['Consumables Supplies Request'];
+        var servicePartsListArea = ['Consumable SVC Parts Request'];
+        if(OrderItems && OrderItems.data){
+            for (var i=0; i < OrderItems.data.length; i++){
+                if(supplyPartsListArea.indexOf(OrderItems.data[i].partRequestArea)>=0){
+                    orderPartsType.supply.occurence = true;
+                }
+                if(servicePartsListArea.indexOf(OrderItems.data[i].partRequestArea)>=0){
+                    orderPartsType.service.occurence = true;
+                }
+            }
+        }
+        var addressTemplate = '';
+        if(orderPartsType.service.occurence){
+            addressTemplate = Orders.tempSpace.catalogCart.agreement.serviceAddressType;
+        }
+        else if(orderPartsType.supply.occurence){
+            addressTemplate = Orders.tempSpace.catalogCart.agreement.supplyAddressType;
+        }
+        if(addressTemplate === 'Installed Address'){
+            Orders.tempSpace.shipToAddress = (Devices.item._embedded.address === undefined)? Devices.item.address.item : Devices.item._embedded.address;
+        }
+        else if(addressTemplate === 'Pick Contact Address'){
+            Orders.tempSpace.shipToAddress = (Devices.item._embedded.contact.address === undefined)? Devices.item.contact.item.address : Devices.item._embedded.contact.address;
+        }
         taxService.addRelationship('shipToAddress', Devices.item, 'address');
         taxService.addRelationship('account', $scope.device, 'account');
         
@@ -153,7 +189,7 @@ angular.module('mps.orders')
         }
         function intitilize(){
             $scope.setupSR(Orders, configureSR);
-            Orders.addRelationship('shipToAddress', Devices.item, 'address');
+           // Orders.addRelationship('shipToAddress', Devices.item, 'address');
             $scope.sr.shipToAddressPhysicalLocation = {
             		physicalLocation1 : Devices.item.physicalLocation1,
             		physicalLocation2 : Devices.item.physicalLocation2,
@@ -432,14 +468,37 @@ angular.module('mps.orders')
 
                 }else{
                     $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+                    Orders.tempSpace.shipToAddress._links={
+                        address: {
+                            href: serviceUrl + 'addresses/' + Orders.tempSpace.shipToAddress.id
+                        }
+                    }
+                    Orders.addRelationship('shipToAddress', Orders.tempSpace.shipToAddress, 'address');
                 }    
                 
 
         }else if(Orders.item && BlankCheck.isNull(Orders.tempSpace.shipToAddress)){
+            if(addressTemplate === 'Pick Account Address' && !BlankCheck.isNull(Orders.tempSpace.catalogCart.agreement.accountAddressId)){
+                    var url = serviceUrl + 'addresses/' + Orders.tempSpace.catalogCart.agreement.accountAddressId;
+                    $http.get(url).then(function(processedResponse) {
+                        Orders.tempSpace.shipToAddress = processedResponse.data;
+                        $scope.formatedShipToAddress = FormatterService.formatAddress(Orders.tempSpace.shipToAddress);
+                        Orders.tempSpace.shipToAddress._links={
+                            address: {
+                                href: serviceUrl + 'addresses/' + Orders.tempSpace.shipToAddress.id
+                            }
+                        }
+                        Orders.addRelationship('shipToAddress', Orders.tempSpace.shipToAddress, 'address');
+
+                    });
+            }
+            else{
                 $scope.scratchSpace.shipToAddresssSelected = false;
-            $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);
-            }else{
-                $scope.scratchSpace.shipToAddresssSelected = false;
+                $scope.formatedShipToAddress = FormatterService.formatNoneIfEmpty(Orders.tempSpace.shipToAddress);   
+            }
+        }
+        else{
+            $scope.scratchSpace.shipToAddresssSelected = false;
         }
 
         if (Orders.item){
