@@ -60,9 +60,9 @@ angular.module('mps.orders')
         	   $rootScope.currentAccount.accountId = Devices.item._embedded.account.accountId; 
                $rootScope.currentAccount.accountLevel = 'siebel';
                Agreement.params = {
-               		assetFlag : true,
-               		assetId : Devices.item.id,
-               		type : 'SUPPLIES'
+                  assetFlag : true,
+                  assetId : Devices.item.id,
+                  type : 'SUPPLIES'
                };
                Devices.getAdditional(Devices.item,Agreement,'agreement').then(function(){
                	
@@ -73,6 +73,8 @@ angular.module('mps.orders')
                   
                    
                    Contracts.params.type =  Agreement.params.type;
+                   Contracts.params.assetFlag =  true;
+
                    Agreement.getAdditional(Agreement.item,Contracts,'contracts',true).then(function(){
                    	Orders.tempSpace.catalogCart.contract = Contracts.data[0];            	
                    });
@@ -83,8 +85,8 @@ angular.module('mps.orders')
                        		search : Devices.item.specialUsage,
                        		searchOn : 'specialUsage',
                        		supplyParam: false,
-                                serviceParam: false,
-				contractNumber: Devices.item.contractNumber
+                          	serviceParam: false,
+				            contractNumber: Devices.item.contractNumber
                        };
                  
                    	 if(BlankCheck.checkNotBlank(Orders.tempSpace.catalogCart.agreement.supplyCatalogType)
