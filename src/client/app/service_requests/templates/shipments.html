@@ -54,7 +54,8 @@
 			
 		<h4 class="vertical-space--none">
 			{{DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_ORDER_DELIVERED || translate}} {{shipment.deliveryDate}} via {{shipment.carrier}} | 
-			<a href="{{shipment.trackingLink}}" target="_blank">{{shipment.trackingNumber}}</a>
+			<a href="{{shipment.trackingLink}}" target="_blank" ng-show="shipment.trackingLink">{{shipment.trackingNumber}}</a>
+			<span ng-hide="shipment.trackingLink">{{shipment.trackingNumber}}</span>
 		</h4>
 		<div>
 			<a ng-click="$parent.showHideDetails(shipment)" href="#">{{shipment.showHideMessage}}</a>
