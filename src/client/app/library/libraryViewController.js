@@ -1,7 +1,7 @@
 'use strict';
 angular.module('mps.library')
-.controller('LibraryViewController', ['$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
-    function($scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {
+.controller('LibraryViewController', ['serviceUrl','$routeParams','$scope', '$location', '$translate', '$http', '$sce', 'Documents', '$rootScope', 'FormatterService',
+    function(serviceUrl, $routeParams, $scope, $location, $translate, $http, $sce, Documents, $rootScope, formatter) {
         $scope.$on("$routeChangeSuccess", function(event, next, current) {
             if(current.originalPath === "/reporting" && next.originalPath === "/library/:id/view"){
                 $scope.breadCrumbObject = {
@@ -14,13 +14,14 @@ angular.module('mps.library')
                     value:'DOCUMENT_LIBRARY.DOCUMENT_LISTING.TXT_LIBRARY'
                 };
             }
-
-            $scope.breadcrumbs = {
-                1:$scope.breadCrumbObject,
-                2:{
-                    value: $scope.documentItem.name
-                }
-            };
+            if (Documents.item) {
+                $scope.breadcrumbs = {
+                    1:$scope.breadCrumbObject,
+                    2:{
+                        value: $scope.documentItem.name
+                    }
+                };   
+            }
         });
         var setCsvDefinition = function() {
             var headers = [
@@ -77,27 +78,6 @@ angular.module('mps.library')
             };
         };
 
-        if (Documents.item === null) {
-            $location.path(Documents.route);
-        } else {
-            
-            $('.site-content').scrollTop(0,0);
-            $scope.documentItem = Documents.item;
-
-            if ($scope.documentItem.ext && $scope.documentItem.ext.toLowerCase() === 'pdf') {
-                $http({
-                    method: 'GET',
-                    url: $scope.documentItem.download.url,
-                    responseType:'arraybuffer'
-                }).then(function successCallback(response) {
-                    var file = new Blob([response.data], {type: 'application/pdf'});
-                    var fileURL = URL.createObjectURL(file);
-                    $scope.pdfSource = $sce.trustAsResourceUrl(fileURL);
-                }, function errorCallback(response) {
-                    NREUM.noticeError('Failed to LOAD existing document library file: ' + response.statusText);
-                });
-            }
-        }
 
         $scope.isDeleting = false;
 
@@ -217,13 +197,51 @@ angular.module('mps.library')
                 NREUM.noticeError('Failed to DOWNLOAD existing document library file: ' + response.statusText);
             });
         };
+        $scope.init = function(){
+            $('.site-content').scrollTop(0,0);
+            $scope.documentItem = Documents.item;
 
+            if ($scope.documentItem.ext && $scope.documentItem.ext.toLowerCase() === 'pdf') {
+                $http({
+                    method: 'GET',
+                    url: $scope.documentItem.download.url,
+                    responseType:'arraybuffer'
+                }).then(function successCallback(response) {
+                    var file = new Blob([response.data], {type: 'application/pdf'});
+                    var fileURL = URL.createObjectURL(file);
+                    $scope.pdfSource = $sce.trustAsResourceUrl(fileURL);
+                }, function errorCallback(response) {
+                    NREUM.noticeError('Failed to LOAD existing document library file: ' + response.statusText);
+                });
+            }
+            setCsvDefinition();
+            $scope.$broadcast('setupPrintAndExport', $scope);
+
+            $scope.titleString = $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_VIEWING_DOCUMENT') + ' ' + $scope.documentItem.name
+            
+            $scope.breadcrumbs = {
+                    1:$scope.breadCrumbObject,
+                    2:{
+                        value: $scope.documentItem.name
+                    }
+                }; 
+        }
         
+        if (Documents.item === null) {
+                var options = {
+                    preventDefaultParams: true,
+                    url: serviceUrl + '/documents/' + $routeParams.id
+                };
+                Documents.get(options).then(function(res) {
+                    Documents.setItem(res.data);
+                    $scope.init();
+                });
+            } else {
+            
+            $scope.init();
+        }
 
-        setCsvDefinition();
-        $scope.$broadcast('setupPrintAndExport', $scope);
-
-        $scope.titleString = $translate.instant('DOCUMENT_LIBRARY.DOCUMENT_VIEW.TXT_VIEWING_DOCUMENT') + ' ' + $scope.documentItem.name
+       
     }
 ]);
 
