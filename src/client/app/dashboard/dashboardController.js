@@ -16,6 +16,7 @@ angular.module('mps.dashboard')
 'Notifications',
 'FormatterService',
 'BlankCheck',
+'DTMUpdater',
 function(
     $scope,
     $location,
@@ -31,7 +32,8 @@ function(
     $translate,
     Notifications,
     FormatterService,
-    BlankCheck
+    BlankCheck,
+    DTMUpdater
 ) {
 	    $scope.isInternal = false;
         $rootScope.currentUser.deferred.promise.then(function() {
@@ -365,7 +367,9 @@ function(
                 }(report));
             }
         };
-
+        $scope.dtmUpdate = function(){
+            DTMUpdater.update();
+        };
         $scope.chartObject = {};
         $scope.chartOptions = {};
         $scope.chartOptions.pieChartOptions = {
