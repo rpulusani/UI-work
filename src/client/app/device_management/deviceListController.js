@@ -5,6 +5,7 @@ angular.module('mps.deviceManagement')
     '$location',
     'grid',
     'Devices',
+    'PageCountService',
     '$rootScope',
     'PersonalizationServiceFactory',
     'FilterSearchService',
@@ -20,6 +21,7 @@ angular.module('mps.deviceManagement')
         $location,
         GridService,
         Devices,
+        PageCount,
         $rootScope,
         Personalize,
         FilterSearchService,
@@ -78,7 +80,18 @@ angular.module('mps.deviceManagement')
         };
 
         $scope.goToPageCount = function() {
-            $location.path('/page_count');
+            PageCount.reset();
+            PageCount.item = {};
+            if($rootScope.currentAccount && $rootScope.currentAccount.accountLevel &&
+                $rootScope.currentAccount.accountLevel.toUpperCase() === 'SIEBEL'){  
+                $location.path('/page_count'); 
+            }
+            else{
+                $rootScope.accountReturnPath = '/page_count';
+                $rootScope.returnPickerObject = PageCount.item;
+                $location.path('/page_count/pick_account/PageCount'); 
+            }
+            
         };
         $scope.goToLBS = function(){
             $window.open(lbsURL);
