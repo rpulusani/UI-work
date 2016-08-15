@@ -637,15 +637,26 @@ angular.module('mps.utility')
                 }
             },
             onChangeItemsCount: function(option) {
-                var dataObj = personalize.data;
-                dataObj.itemsPerPage = option.items;
+                if(personalize.data){
+                    var dataObj = personalize.data;
+                    dataObj.itemsPerPage = option.items;
 
-                personalize.update($location.url(), dataObj);
-
+                    personalize.update($location.url(), dataObj);    
+                }
+                else{
+                    service.page.size = option.items;
+                }
                 this.gotoPage(0);
             },
             gotoPage: function(pageNumber, size) {
-                var pageSize = personalize.data.itemsPerPage,
+                var pageSize;
+                if(personalize.data && personalize.data.itemsPerPage){
+                    pageSize = personalize.data.itemsPerPage;
+                }
+                else{
+                    pageSize = service.page.size; 
+                }
+                
                 reloadService = function(cache) {
                     if (cache) {
                         service.gridCache = cache;
