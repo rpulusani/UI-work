@@ -10,7 +10,7 @@
 </div>
 
  <div ng-class="{'well': (!editable || editable === 'false')}" ng-if="orderSummaryGridOptions || (editable && editable === 'true')">
-     <div class="col-1" ng-if="(orderSummaryGridOptions && orderSummaryGridOptions.data) || showEmpty">
+     <div class="col-1" ng-if="(orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length > 0) || (orderSummaryGridOptions && orderSummaryGridOptions.data && orderSummaryGridOptions.data.length > 0 && showEmpty)"> 
                 <h3 ng-if="editable === 'true'">
                     <span translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_GRID_NEW_ORDER_SUMMARY"></span>
                     <span class="push" translate="DEVICE_MAN.MANAGE_DEVICE_SUPPLIES.TXT_HEADER_ITEMS_COUNT_SUMMARY"
@@ -81,5 +81,6 @@
                         </div>
                     </div>
                 </div>
+ 
     </div>
 </div>
